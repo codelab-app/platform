@@ -14,6 +14,11 @@ import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
 
 const driver = getDriver()
 
+export const elementResolvers: IResolvers = {
+  elementGraph: async (_source, args: QueryElementGraphArgs) => {
+    const ElementModel = await Element()
+    const session = driver.rxSession()
+    const { rootId } = args.input
 /**
  * find all possible components ids in element props data using ${uuidRegex}
  * eliminating already loaded components by main tree or ones referenced by parent props
@@ -88,6 +93,11 @@ const getElementGraph = (
           ? uniq(edges.flatMap((x) => [x.source, x.target]))
           : [rootId]
 
+    const ElementModel = await Element()
+    const vertices = await ElementModel.find({
+      where: { id_IN: elementIds },
+      selectionSet: elementSelectionSet,
+    })
         // load vertices
         const verticesPromise = Element().find({
           where: { id_IN: elementIds },

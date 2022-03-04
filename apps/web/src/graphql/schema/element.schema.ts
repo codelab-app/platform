@@ -40,7 +40,7 @@ export const elementSchema = gql`
   type Element {
     id: ID! @id
 
-    children: [Element!]
+    children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"
         properties: "ParentOfElement"
@@ -72,9 +72,9 @@ export const elementSchema = gql`
 
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
 
-    hooks: [Hook!] @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
+    hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
 
-    propMapBindings: [PropMapBinding!]
+    propMapBindings: [PropMapBinding!]!
       @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
   }
 
@@ -97,7 +97,7 @@ export const elementSchema = gql`
   type DeleteElementsInfo @exclude {
     nodesDeleted: Int!
     relationshipsDeleted: Int!
-    deletedIds: [String!]
+    deletedIds: [String!]!
   }
 
   type Mutation {

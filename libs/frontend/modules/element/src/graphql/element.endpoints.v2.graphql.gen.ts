@@ -1,18 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import {
-  ElementFragment,
-  PropFragment,
-  HookFragment,
-  PropMapBindingFragment,
-} from './Element.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import {
-  ElementFragmentDoc,
-  PropFragmentDoc,
-  HookFragmentDoc,
-  PropMapBindingFragmentDoc,
-} from './Element.fragment.v2.graphql.gen'
+import { ElementFragment } from './Element.fragment.v2.graphql.gen'
+import { gql } from '@apollo/client'
+import { ElementFragmentDoc } from './Element.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -31,10 +21,7 @@ export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
 }>
 
 export type DeleteElementsSubgraphMutation = {
-  deleteElementsSubgraph: {
-    nodesDeleted: number
-    deletedIds?: Array<string> | null | undefined
-  }
+  deleteElementsSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
 }
 
 export type UpdateElementsMutationVariables = Types.Exact<{
@@ -88,9 +75,6 @@ export const CreateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const DeleteElementsSubgraphGql = gql`
   mutation DeleteElementsSubgraph(
@@ -112,9 +96,6 @@ export const UpdateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const MoveElementsGql = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
@@ -125,9 +106,6 @@ export const MoveElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const ConvertElementsToComponentsGql = gql`
   mutation ConvertElementsToComponents(
@@ -141,9 +119,6 @@ export const ConvertElementsToComponentsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const DuplicateElementGql = gql`
   mutation DuplicateElement($input: DuplicateElementInput!) {
@@ -154,9 +129,6 @@ export const DuplicateElementGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const GetElementsGql = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
@@ -165,9 +137,6 @@ export const GetElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

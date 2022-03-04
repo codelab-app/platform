@@ -1,8 +1,10 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
+import { TypeStore } from '@codelab/frontend/modules/type'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { observer } from 'mobx-react-lite'
 import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
@@ -19,7 +21,8 @@ import { Renderer, useTypesByIdQuery } from './renderer'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
 import { builderSelectors } from './store'
 
-export type BuilderProps = {
+export interface BuilderProps {
+  typeStore: TypeStore
   tree: ElementTree
   elementTree?: ElementTree
   isComponentBuilder?: boolean
@@ -44,33 +47,37 @@ const StyledBuilderContainer = styled.div`
   }
 `
 
-const BuilderRenderer = ({
-  tree,
-  isComponentBuilder,
-}: {
-  tree: ElementTree
-  isComponentBuilder?: boolean
-}) => {
-  const { onRendered } = useOnRendered()
-  const extraElementProps = useSelector(builderSelectors.extraProps)
-  const voidClick = useCallback(() => void 0, [])
-  const { typesById } = useTypesByIdQuery()
+const BuilderRenderer = observer(
+  ({
+    tree,
+    typeStore,
+    isComponentBuilder,
+  }: {
+    typeStore: TypeStore
+    tree: ElementTree
+    isComponentBuilder?: boolean
+  }) => {
+    const { onRendered } = useOnRendered()
+    const extraElementProps = useSelector(builderSelectors.extraProps)
+    const voidClick = useCallback(() => void 0, [])
+    const { typesById } = useTypesByIdQuery(typeStore)
 
-  return (
-    <Renderer
-      context={{
-        onRendered,
-        extraElementProps,
-        extraProps: {
-          onClick: voidClick,
-        },
-      }}
-      isComponentRenderer={isComponentBuilder}
-      tree={tree}
-      typesById={typesById}
-    />
-  )
-}
+    return (
+      <Renderer
+        context={{
+          onRendered,
+          extraElementProps,
+          extraProps: {
+            onClick: voidClick,
+          },
+        }}
+        isComponentRenderer={isComponentBuilder}
+        tree={tree}
+        typesById={typesById}
+      />
+    )
+  },
+)
 
 // That's a separate component in order to not re-render the builder whenever
 // the dnd position is changed, it causes massive lag
@@ -94,66 +101,70 @@ const BuilderDropHandler = ({ root }: { root?: IElement }) => {
 /**
  * Wraps around {@link Renderer} to provide element-building functionality
  */
-export const Builder = ({
-  children,
-  tree,
-  elementTree = tree,
-  isComponentBuilder,
-}: React.PropsWithChildren<BuilderProps>) => {
-  const { selectElement, resetSelection } = useBuilderDispatch()
-  const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
+export const Builder = observer(
+  ({
+    typeStore,
+    children,
+    elementTree = tree,
+    tree,
+    isComponentBuilder,
+  }: React.PropsWithChildren<BuilderProps>) => {
+    const { selectElement, resetSelection } = useBuilderDispatch()
+    const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
 
-  const root = isComponentBuilder
-    ? tree.getRootComponent()
-    : tree.getRootElement()
+    const root = isComponentBuilder
+      ? tree.getRootComponent()
+      : tree.getRootElement()
 
-  const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
-    // be able to capture clicks on elements like disabled antd buttons and other ones that are designed not to emit clicks
+    const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
+      // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
+      // be able to capture clicks on elements like disabled antd buttons and other ones that are designed not to emit clicks
 
-    // Go up the dom tree to find a element with a node id
-    const visit = (element: HTMLElement) => {
-      const nodeId = element.dataset?.id
-      // Don't allow selection of elements withing a componentId
-      const componentId = element.dataset?.componentId
+      // Go up the dom tree to find a element with a node id
+      const visit = (element: HTMLElement) => {
+        const nodeId = element.dataset?.id
+        // Don't allow selection of elements withing a componentId
+        const componentId = element.dataset?.componentId
 
-      if (nodeId && !componentId) {
-        setSelectedElement(nodeId)
-        e.stopPropagation()
-      } else if (element.parentElement && element.id !== 'Builder') {
-        // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
-        visit(element.parentElement)
-      } else {
-        resetSelection()
+        if (nodeId && !componentId) {
+          setSelectedElement(nodeId)
+          e.stopPropagation()
+        } else if (element.parentElement && element.id !== 'Builder') {
+          // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
+          visit(element.parentElement)
+        } else {
+          resetSelection()
+        }
       }
+
+      visit(e.target as HTMLElement)
     }
 
-    visit(e.target as HTMLElement)
-  }
+    const setSelectedElement = (elementId?: string) => {
+      selectElement({ elementId })
+    }
 
-  const setSelectedElement = (elementId?: string) => {
-    selectElement({ elementId })
-  }
+    useBuilderHotkeys()
 
-  useBuilderHotkeys()
-
-  return (
-    <StyledBuilderContainer
-      css={tw`relative w-full h-full bg-white`}
-      id="Builder"
-      onClick={handleContainerClick}
-      onMouseLeave={handleMouseLeave}
-      onMouseOver={handleMouseOver}
-    >
-      <BuilderDropHandler root={root} />
-      <BuilderDropHandlers tree={tree} />
-      <BuilderRenderer
-        isComponentBuilder={isComponentBuilder}
-        tree={elementTree}
-      />
-      <BuilderHoverOverlay />
-      <BuilderClickOverlay />
-      {children}
-    </StyledBuilderContainer>
-  )
-}
+    return (
+      <StyledBuilderContainer
+        css={tw`relative w-full h-full bg-white`}
+        id="Builder"
+        onClick={handleContainerClick}
+        onMouseLeave={handleMouseLeave}
+        onMouseOver={handleMouseOver}
+      >
+        <BuilderDropHandler root={root} />
+        <BuilderDropHandlers tree={tree} />
+        <BuilderRenderer
+          isComponentBuilder={isComponentBuilder}
+          tree={elementTree}
+          typeStore={typeStore}
+        />
+        <BuilderHoverOverlay />
+        <BuilderClickOverlay />
+        {children}
+      </StyledBuilderContainer>
+    )
+  },
+)

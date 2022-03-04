@@ -3,7 +3,8 @@ import { Atom } from '../../model'
 import { MutationImportAtomsArgs } from '../../ogm-types.gen'
 
 export const atomResolvers: IResolvers = {
-  importAtoms: (_source, args: MutationImportAtomsArgs) => {
+  importAtoms: async (_source, args: MutationImportAtomsArgs) => {
+    const AtomModel = await Atom()
     const payload: Array<any> = JSON.parse(args.input.payload as any)
 
     const data = payload.map((atom: any) => {
@@ -31,6 +32,6 @@ export const atomResolvers: IResolvers = {
       }
     })
 
-    return Atom().create({ input: data })
+    return AtomModel.create({ input: data })
   },
 }

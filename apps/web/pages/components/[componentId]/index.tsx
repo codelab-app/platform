@@ -3,6 +3,7 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   Builder,
   BuilderDashboardTemplate,
@@ -18,11 +19,13 @@ import {
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
+const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
   const { elementTree } = useElementGraphContext()
 
   if (!elementTree) {
@@ -37,10 +40,14 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
         <title>{root?.component?.name} | Codelab</title>
       </Head>
 
-      <Builder isComponentBuilder tree={elementTree} />
+      <Builder
+        isComponentBuilder
+        tree={elementTree}
+        typeStore={store.typeStore}
+      />
     </>
   )
-}
+})
 
 const ComponentElementGraphProvider = ({
   children,
@@ -71,16 +78,20 @@ export default ComponentDetail
 
 export const getServerSideProps = withPageAuthRequired()
 
-ComponentDetail.Layout = (page) => {
+ComponentDetail.Layout = observer((page) => {
+  const store = useStore()
+
   return (
     <ComponentElementGraphProvider>
       <BuilderDashboardTemplate
         MainPane={() => <MainPaneBuilder isComponentBuilder />}
-        MetaPane={MetaPaneBuilderComponent}
+        MetaPane={observer(() => (
+          <MetaPaneBuilderComponent typeStore={store.typeStore} />
+        ))}
         SidebarNavigation={BuilderSidebarNavigation}
       >
         {page.children}
       </BuilderDashboardTemplate>
     </ComponentElementGraphProvider>
   )
-}
+})

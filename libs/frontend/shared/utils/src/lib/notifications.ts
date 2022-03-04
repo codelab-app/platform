@@ -81,10 +81,8 @@ export const useNotify = (
  * e.g.:
  *  .catch(getNotificationHandler({...options}))
  */
-export const createNotificationHandler = <TEvent>(
-  o: NotificationOptions<TEvent> = defaultOptions,
-) => {
-  return (e: Maybe<TEvent> = undefined) => {
+export const createNotificationHandler =
+  <TEvent>(o: NotificationOptions<TEvent> = defaultOptions) =>
+  (e: Maybe<TEvent> = undefined) => {
     notify(o, e)
   }
-}

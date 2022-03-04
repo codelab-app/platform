@@ -1,10 +1,5 @@
-import { CreateFieldInput as _CreateFieldInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-
-export type CreateFieldInput = Omit<
-  _CreateFieldInput,
-  'type' | 'interfaceId'
-> & { existingTypeId: string }
+import { CreateFieldInput } from '../../../store'
 
 export const createFieldSchema: JSONSchemaType<CreateFieldInput> = {
   title: 'Create Field Input',

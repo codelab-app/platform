@@ -12,7 +12,7 @@ export const generateOgmTypes = async () => {
   )
 
   await generate({
-    ogm: getOgm(),
+    ogm: await getOgm(),
     outFile,
   })
 

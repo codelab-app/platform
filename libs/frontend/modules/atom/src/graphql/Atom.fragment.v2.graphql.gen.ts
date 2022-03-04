@@ -1,12 +1,12 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 export type AtomFragment = {
   __typename: 'Atom'
   id: string
   name: string
   type: Types.AtomType
-  tags?: Array<{ id: string; name: string }> | null | undefined
+  tags: Array<{ id: string; name: string }>
   api: { id: string; name: string }
 }
 

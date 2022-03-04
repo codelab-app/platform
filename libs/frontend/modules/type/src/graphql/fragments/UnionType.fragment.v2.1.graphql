@@ -1,0 +1,15 @@
+fragment UnionTypeWithInnerTypes on UnionType {
+  ...UnionType
+  typesOfUnionType {
+    ... on TypeBase {
+      ...TypeBase
+    }
+  }
+}
+
+fragment UnionType on UnionType {
+  ...TypeBase
+  typesOfUnionType {
+    id
+  }
+}

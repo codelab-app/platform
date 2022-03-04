@@ -1,5 +1,6 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Neo4jGraphQL } from '@neo4j/graphql'
+import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
 import { Driver } from 'neo4j-driver'
 import { Config } from '../../env/env'
 import { resolvers } from '../resolvers'
@@ -17,16 +18,12 @@ export const getSchema = (driver: Driver) =>
     typeDefs,
     driver,
     resolvers,
-    config: {
-      jwt: {
-        /**
-         * Either jwks or secret
-         */
+    plugins: {
+      auth: new Neo4jGraphQLAuthJWKSPlugin({
         jwksEndpoint: new URL(
           '.well-known/jwks.json',
           Config.auth0.issuer_base_url,
         ).href,
-        // secret: Config.auth0.secret,
         /**
          * Use "dot path" since our roles path is nested
          *
@@ -35,10 +32,6 @@ export const getSchema = (driver: Driver) =>
          * Found out that we need to `Use \\. if you have a . in the key.`
          */
         rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
-        /**
-         * This way we could access GraphQL without a valid token
-         */
-        noVerify: true,
-      },
+      }),
     },
   })

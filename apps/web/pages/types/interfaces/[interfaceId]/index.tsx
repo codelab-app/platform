@@ -3,12 +3,14 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateFieldButton,
   CreateFieldModal,
   DeleteFieldModal,
   FieldsTable,
   UpdateFieldModal,
+  useCurrentInterfaceId,
   useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -16,53 +18,92 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { PageHeader } from 'antd'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { PageHeader, Spin } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
-  const { type, isLoading, interfaceId } = useGetCurrentInterfaceWithFields()
+const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
+  () => {
+    const store = useStore()
 
-  return (
-    <>
-      <Head>
-        <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
-      </Head>
+    const { type, isLoading } = useGetCurrentInterfaceWithFields(
+      store.typeStore,
+    )
 
-      <CreateFieldModal interfaceId={interfaceId} />
-      <UpdateFieldModal interfaceId={interfaceId} />
-      <DeleteFieldModal interfaceId={interfaceId} />
-      <ContentSection>
-        <FieldsTable interfaceType={type} isLoading={isLoading} />
-      </ContentSection>
-    </>
-  )
-}
+    return (
+      <>
+        <Head>
+          <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
+        </Head>
 
-const Header = () => {
-  const headerButtons = [<CreateFieldButton key={0} />]
+        {type && type.typeKind === TypeKind.InterfaceType && (
+          <>
+            <CreateFieldModal
+              interfaceType={type}
+              typeStore={store.typeStore}
+            />
+            <UpdateFieldModal
+              interfaceType={type}
+              typeStore={store.typeStore}
+            />
+            <DeleteFieldModal
+              interfaceType={type}
+              typeStore={store.typeStore}
+            />
+          </>
+        )}
+
+        <ContentSection>
+          {isLoading && <Spin />}
+          {!type ||
+            (type.typeKind === TypeKind.InterfaceType && (
+              <FieldsTable
+                interfaceType={type}
+                isLoading={isLoading}
+                typeStore={store.typeStore}
+              />
+            ))}
+        </ContentSection>
+      </>
+    )
+  },
+)
+
+const Header = observer(() => {
+  const store = useStore()
+  const interfaceId = useCurrentInterfaceId()
   const router = useRouter()
-  const { type } = useGetCurrentInterfaceWithFields()
+  const interfaceType = store.typeStore.type(interfaceId)
+
+  const headerButtons = [
+    <CreateFieldButton
+      interfaceId={interfaceId}
+      key={0}
+      typeStore={store.typeStore}
+    />,
+  ]
 
   return (
     <PageHeader
       extra={headerButtons}
       ghost={false}
       onBack={() => router.back()}
-      title={type?.name}
+      title={interfaceType?.name}
     />
   )
-}
+})
 
 export default InterfaceDetailPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-InterfaceDetailPage.Layout = (page) => {
+InterfaceDetailPage.Layout = observer((page) => {
   return (
     <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
       {page.children}
     </DashboardTemplate>
   )
-}
+})

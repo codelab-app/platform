@@ -17,10 +17,14 @@ export const elementSelectionSet = `{
     atom {
         id
         name
-        type    
+        type
         api {
             id
             name
+        }
+        tags {
+          id
+          name
         }
     }
     props {

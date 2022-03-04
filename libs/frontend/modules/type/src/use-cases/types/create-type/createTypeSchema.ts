@@ -46,7 +46,7 @@ export const mapCreateTypeSchemaToTypeInput = (
 ): AnyTypeCreateInput => {
   const common = {
     name: formData.name,
-    owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
+    owner: { connect: [{ where: { node: { auth0Id: currentUserId } } }] },
   }
 
   switch (formData.kind) {

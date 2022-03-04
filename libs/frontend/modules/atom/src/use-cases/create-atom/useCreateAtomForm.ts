@@ -42,7 +42,9 @@ export const useCreateAtomForm: UseUseCaseForm<
                   node: {
                     name: `${input.name} API`,
                     owner: user
-                      ? { connect: { where: { node: { auth0Id: user.sub } } } }
+                      ? {
+                          connect: [{ where: { node: { auth0Id: user.sub } } }],
+                        }
                       : undefined,
                   },
                 },

@@ -1,3 +1,5 @@
+import { TypeStore } from '../../../store'
+
 export type ExportTypesButtonProps = {
-  typeIds: Array<string>
+  typeStore: TypeStore
 }

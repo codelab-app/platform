@@ -1,7 +1,7 @@
-import { useLazyGetInterfaceTypeGraphsQuery } from '@codelab/frontend/modules/type'
+import { getTypeApi } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { IElement, ITypeGraph } from '@codelab/shared/abstract/core'
-import { ElementTree, TypeTree } from '@codelab/shared/core'
+import { IElement } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import React, { Ref, useEffect, useState } from 'react'
@@ -28,6 +28,9 @@ const filterSearch = (
       )
     : options
 
+/** *
+ * Provides autocompletion for the keys of the api of a target element
+ */
 const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
   // Get the targetElementId value from the other field
   const [{ value: targetElementId }] = useField(
@@ -44,8 +47,6 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     Array<{ value: string; label: string }>
   >([])
 
-  const [getType, { data }] = useLazyGetInterfaceTypeGraphsQuery()
-
   // Every time the targetElementId changes, fetch the targetElement's api
   useEffect(() => {
     const targetElement = targetElementId
@@ -55,28 +56,24 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     const api = targetElement?.atom?.api
 
     if (api) {
-      getType({ variables: { where: { id: api.id } } })
+      getTypeApi.GetInterfaceTypes({ where: { id: api.id } }).then((r) => {
+        if (!r.types?.length) {
+          setOptions([])
+
+          return
+        }
+
+        setOptions(
+          r.types[0].fieldsConnection.edges.map((e) => ({
+            label: e.key,
+            value: e.key,
+          })),
+        )
+      })
     } else {
       setOptions([])
     }
-  }, [getType, targetElementId, tree])
-
-  // Everytime we get an Api result, update the options
-  useEffect(() => {
-    if (!data?.types) {
-      setOptions([])
-    } else {
-      const typeGraph = (data?.types?.[0]?.graph || {
-        vertices: [],
-        edges: [],
-      }) as ITypeGraph
-
-      const typeTree = new TypeTree(typeGraph)
-      setOptions(
-        typeTree.getRootFields().map((f) => ({ label: f.key, value: f.key })),
-      )
-    }
-  }, [data])
+  }, [targetElementId, tree])
 
   // When the options change, or when the searchInput changes, update the options to filter them down using the search criteria
   const prevSearchValue = usePrevious(searchInput)

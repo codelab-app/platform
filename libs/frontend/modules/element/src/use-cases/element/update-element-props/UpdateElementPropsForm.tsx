@@ -1,17 +1,14 @@
-import {
-  InterfaceForm,
-  useGetInterfaceTypeGraphsQuery,
-  useTypeTree,
-} from '@codelab/frontend/modules/type'
+import { InterfaceForm, TypeStore } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
+import { useAsyncState } from '@codelab/frontend/shared/utils'
 import {
-  ConditionalView,
   SpinnerWrapper,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { IProp } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { useRef } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useEffect, useRef } from 'react'
 import { useGetElementById } from '../../../hooks'
 import { useUpdateElementsMutation } from '../../../store'
 
@@ -20,83 +17,92 @@ interface UpdateElementPropsFormInternalProps {
   interfaceId: string
   existingProps: Nullish<IProp>
   trackPromises?: UseTrackLoadingPromises
+  typeStore: TypeStore
 }
 
-export const UpdateElementPropsFormInternal = ({
-  interfaceId,
-  elementId,
-  existingProps,
-  trackPromises,
-}: UpdateElementPropsFormInternalProps) => {
-  const { trackPromise } = trackPromises ?? {}
+export const UpdateElementPropsFormInternal = observer(
+  ({
+    interfaceId,
+    elementId,
+    existingProps,
+    trackPromises,
+    typeStore,
+  }: UpdateElementPropsFormInternalProps) => {
+    const { trackPromise } = trackPromises ?? {}
+    const [mutate] = useUpdateElementsMutation()
+    const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
 
-  const { data: interfaceData, isLoading: interfaceLoading } =
-    useGetInterfaceTypeGraphsQuery({
-      variables: { where: { id: interfaceId } },
-    })
+    const [getInterfaceType, { data: interfaceType, isLoading }] =
+      useAsyncState((_id: string) =>
+        typeStore.getInterfaceAndDescendants({ id: _id }),
+      )
 
-  const [mutate] = useUpdateElementsMutation()
-  const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
-  const tree = useTypeTree(interfaceData?.types?.[0]?.graph)
+    useEffect(() => {
+      getInterfaceType(interfaceId)
+    }, [getInterfaceType, interfaceId])
 
-  const onSubmit = (data: any) => {
-    const createOrUpdate = existingProps ? 'update' : 'create'
+    const onSubmit = (data: any) => {
+      const createOrUpdate = existingProps ? 'update' : 'create'
 
-    const promise = mutate({
-      variables: {
-        where: { id: elementId },
-        update: {
-          props: { [createOrUpdate]: { node: { data: JSON.stringify(data) } } },
+      const promise = mutate({
+        variables: {
+          where: { id: elementId },
+          update: {
+            props: {
+              [createOrUpdate]: { node: { data: JSON.stringify(data) } },
+            },
+          },
         },
-      },
-    }).unwrap()
+      }).unwrap()
 
-    return trackPromise?.(promise) ?? promise
-  }
+      return trackPromise?.(promise) ?? promise
+    }
 
-  return (
-    <ConditionalView condition={Boolean(interfaceData)}>
-      <SpinnerWrapper isLoading={interfaceLoading}>
-        <InterfaceForm
-          autosave
-          interfaceTree={tree}
-          key={elementId}
-          model={initialPropsRef.current}
-          onSubmit={onSubmit}
-          submitRef={undefined}
-        />
+    return (
+      <SpinnerWrapper isLoading={isLoading}>
+        {interfaceType && (
+          <InterfaceForm
+            autosave
+            interfaceType={interfaceType}
+            key={elementId}
+            model={initialPropsRef.current}
+            onSubmit={onSubmit}
+            submitRef={undefined}
+          />
+        )}
       </SpinnerWrapper>
-    </ConditionalView>
-  )
-}
+    )
+  },
+)
 
 export interface UpdateElementPropsFormProps {
   elementId: string
   trackPromises?: UseTrackLoadingPromises
+  typeStore: TypeStore
 }
 
-export const UpdateElementPropsForm = ({
-  elementId,
-  trackPromises,
-}: UpdateElementPropsFormProps) => {
-  const element = useGetElementById(elementId)
+export const UpdateElementPropsForm = observer(
+  ({ elementId, trackPromises, typeStore }: UpdateElementPropsFormProps) => {
+    const element = useGetElementById(elementId)
 
-  if (!element) {
-    return null
-  }
+    if (!element) {
+      return null
+    }
 
-  if (!element.atom) {
-    return <>Add an atom to this element to update its props</>
-  }
+    if (!element.atom) {
+      return <>Add an atom to this element to update its props</>
+    }
 
-  return (
-    <ElementIdProvider elementId={element.id}>
-      <UpdateElementPropsFormInternal
-        elementId={element.id}
-        existingProps={element.props}
-        interfaceId={element.atom.api.id}
-        trackPromises={trackPromises}
-      />
-    </ElementIdProvider>
-  )
-}
+    return (
+      <ElementIdProvider elementId={element.id}>
+        <UpdateElementPropsFormInternal
+          elementId={element.id}
+          existingProps={element.props}
+          interfaceId={element.atom.api.id}
+          trackPromises={trackPromises}
+          typeStore={typeStore}
+        />
+      </ElementIdProvider>
+    )
+  },
+)

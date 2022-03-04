@@ -8,17 +8,15 @@ export const componentSchema = gql`
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
-  #  extend type Component
-  #    @auth(
-  #      rules: [
-  #        {
-  #          operations: [READ, UPDATE, DELETE]
-  #          where: { owner: { auth0Id: "$jwt.sub" } }
-  #        }
-  #        {
-  #          operations: [READ, UPDATE, DELETE]
-  #          bind: { owner: { auth0Id: "$jwt.sub" } }
-  #        }
-  #      ]
-  #    )
+  extend type Component
+    @auth(
+      rules: [
+        { operations: [CONNECT, DISCONNECT, READ], roles: ["Admin", "User"] }
+        {
+          operations: [READ, CREATE, UPDATE, DELETE]
+          where: { owner: { auth0Id: "$jwt.sub" } }
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )
 `

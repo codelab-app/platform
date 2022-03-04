@@ -21,8 +21,8 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader } from 'antd'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import { getSnapshot } from 'mobx-state-tree'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -42,7 +42,7 @@ const AppsPageHeader = observer(() => {
   const store = useStore()
 
   const pageHeaderButtons = [
-    <CreateAppButton apps={store.apps} key={0} />,
+    <CreateAppButton apps={store.appStore} key={0} />,
     <Dropdown key={1} overlay={menu} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
@@ -67,13 +67,13 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal apps={store.apps} />
-      <UpdateAppModal apps={store.apps} />
-      <DeleteAppModal apps={store.apps} />
+      <CreateAppModal apps={store.appStore} />
+      <UpdateAppModal apps={store.appStore} />
+      <DeleteAppModal apps={store.appStore} />
       {/* <ImportAppModal /> */}
 
       <ContentSection>
-        <GetAppsList apps={store.apps} />
+        <GetAppsList apps={store.appStore} />
       </ContentSection>
     </>
   )
@@ -88,7 +88,7 @@ export const getServerSideProps = withPageAuthRequired({
 
     const store = initializeStore()
 
-    await store.apps.getAll()
+    await store.appStore.getAll()
 
     return {
       props: { initialState: getSnapshot(store) },

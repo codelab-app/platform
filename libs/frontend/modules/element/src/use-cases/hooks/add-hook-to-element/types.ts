@@ -1,7 +1,7 @@
-import { TypeTree } from '@codelab/shared/core'
+import { InterfaceType, TypeStore } from '@codelab/frontend/modules/type'
 
 export interface InterfaceProps {
-  interfaceTree: TypeTree
+  interfaceType: InterfaceType | null
 }
 
 export type AddHookToElementMutationInput = {
@@ -10,4 +10,5 @@ export type AddHookToElementMutationInput = {
 
 export type AddHookToElementModalProps = {
   elementId: string
+  typeStore: TypeStore
 }

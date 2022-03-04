@@ -1,84 +1,37 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import { AppFragment } from './App.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 import { AppFragmentDoc } from './App.fragment.v2.1.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
 
-export type CreateAppsMutation = {
-  __typename?: 'Mutation'
-  createApps: {
-    __typename?: 'CreateAppsMutationResponse'
-    apps: Array<{
-      __typename?: 'App'
-      id: string
-      name: string
-      owner?:
-        | Array<{ __typename?: 'User'; id: string } | null | undefined>
-        | null
-        | undefined
-      pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
-      rootProviderElement: { __typename?: 'Element'; id: string }
-    }>
-  }
-}
+export type CreateAppsMutation = { createApps: { apps: Array<AppFragment> } }
 
 export type UpdateAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
   update: Types.AppUpdateInput
 }>
 
-export type UpdateAppsMutation = {
-  __typename?: 'Mutation'
-  updateApps: {
-    __typename?: 'UpdateAppsMutationResponse'
-    apps: Array<{
-      __typename?: 'App'
-      id: string
-      name: string
-      owner?:
-        | Array<{ __typename?: 'User'; id: string } | null | undefined>
-        | null
-        | undefined
-      pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
-      rootProviderElement: { __typename?: 'Element'; id: string }
-    }>
-  }
-}
+export type UpdateAppsMutation = { updateApps: { apps: Array<AppFragment> } }
 
 export type DeleteAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
 }>
 
-export type DeleteAppsMutation = {
-  __typename?: 'Mutation'
-  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
+export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
 
 export type GetAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export type GetAppsQuery = {
-  __typename?: 'Query'
-  apps: Array<{
-    __typename?: 'App'
-    id: string
-    name: string
-    owner?:
-      | Array<{ __typename?: 'User'; id: string } | null | undefined>
-      | null
-      | undefined
-    pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
-    rootProviderElement: { __typename?: 'Element'; id: string }
-  }>
-}
+export type GetAppsQuery = { apps: Array<AppFragment> }
 
-export const CreateAppsDocument = gql`
+export const CreateAppsGql = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
@@ -88,7 +41,7 @@ export const CreateAppsDocument = gql`
   }
   ${AppFragmentDoc}
 `
-export const UpdateAppsDocument = gql`
+export const UpdateAppsGql = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(where: $where, update: $update) {
       apps {
@@ -98,14 +51,14 @@ export const UpdateAppsDocument = gql`
   }
   ${AppFragmentDoc}
 `
-export const DeleteAppsDocument = gql`
+export const DeleteAppsGql = gql`
   mutation DeleteApps($where: AppWhere!) {
     deleteApps(where: $where) {
       nodesDeleted
     }
   }
 `
-export const GetAppsDocument = gql`
+export const GetAppsGql = gql`
   query GetApps($options: AppOptions, $where: AppWhere) {
     apps: apps(options: $options, where: $where) {
       ...App
@@ -117,9 +70,14 @@ export const GetAppsDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -132,11 +90,12 @@ export function getSdk(
     ): Promise<CreateAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateAppsMutation>(CreateAppsDocument, variables, {
+          client.request<CreateAppsMutation>(CreateAppsGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'CreateApps',
+        'mutation',
       )
     },
     UpdateApps(
@@ -145,11 +104,12 @@ export function getSdk(
     ): Promise<UpdateAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateAppsMutation>(UpdateAppsDocument, variables, {
+          client.request<UpdateAppsMutation>(UpdateAppsGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'UpdateApps',
+        'mutation',
       )
     },
     DeleteApps(
@@ -158,11 +118,12 @@ export function getSdk(
     ): Promise<DeleteAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteAppsMutation>(DeleteAppsDocument, variables, {
+          client.request<DeleteAppsMutation>(DeleteAppsGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'DeleteApps',
+        'mutation',
       )
     },
     GetApps(
@@ -171,11 +132,12 @@ export function getSdk(
     ): Promise<GetAppsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetAppsQuery>(GetAppsDocument, variables, {
+          client.request<GetAppsQuery>(GetAppsGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'GetApps',
+        'query',
       )
     },
   }

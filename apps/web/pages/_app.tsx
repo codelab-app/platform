@@ -15,10 +15,17 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { ConfigProvider } from 'antd'
 import { AppProps } from 'next/app'
 import React, { PropsWithChildren, useMemo } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { GlobalStyles } from 'twin.macro'
 import { reduxStoreWrapper } from '../src/store/reduxStoreWrapper'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
+
+/**
+ * Pass { initialState: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
+ */
+
+const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: AppProps<unknown>) => {
   const store = useMemo(
@@ -33,26 +40,28 @@ const App = ({ pageProps, Component }: AppProps<unknown>) => {
   return (
     <StoreProvider value={store}>
       <UserProvider>
-        <LocalizationProvider dateAdapter={DateFnsAdapter}>
-          <ConfigProvider>
-            <GlobalStyles />
-            <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                slickCssFix,
-                ...globalTailwindFix,
-              ]}
-            />
-            <Layout>
-              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              <Component {...pageProps} />
-            </Layout>
-          </ConfigProvider>
-        </LocalizationProvider>
+        <QueryClientProvider client={queryClient}>
+          <LocalizationProvider dateAdapter={DateFnsAdapter}>
+            <ConfigProvider>
+              <GlobalStyles />
+              <Global
+                styles={[
+                  css({
+                    '#__next': {
+                      height: '100%',
+                    },
+                  }),
+                  slickCssFix,
+                  ...globalTailwindFix,
+                ]}
+              />
+              <Layout>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <Component {...pageProps} />
+              </Layout>
+            </ConfigProvider>
+          </LocalizationProvider>
+        </QueryClientProvider>
       </UserProvider>
     </StoreProvider>
   )

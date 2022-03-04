@@ -15,13 +15,6 @@ import {
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
-import {
-  createTypeEndpoints,
-  deleteTypeEndpoints,
-  fieldSlice,
-  typeSlice,
-  updateTypeEndpoints,
-} from '@codelab/frontend/modules/type'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
@@ -38,9 +31,6 @@ export const makeStore = () => {
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
-      [deleteTypeEndpoints.reducerPath]: deleteTypeEndpoints.reducer,
-      [updateTypeEndpoints.reducerPath]: updateTypeEndpoints.reducer,
-      [createTypeEndpoints.reducerPath]: createTypeEndpoints.reducer,
       [componentEndpoints.reducerPath]: componentEndpoints.reducer,
 
       // Slices:
@@ -55,8 +45,6 @@ export const makeStore = () => {
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
       [tagSlice.name]: tagSlice.reducer,
       [userSlice.name]: userSlice.reducer,
-      [typeSlice.name]: typeSlice.reducer,
-      [fieldSlice.name]: fieldSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
@@ -67,9 +55,6 @@ export const makeStore = () => {
         propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,
         userEndpoints.middleware,
-        deleteTypeEndpoints.middleware,
-        updateTypeEndpoints.middleware,
-        createTypeEndpoints.middleware,
       ),
     devTools: process.env.NODE_ENV !== 'production',
   })

@@ -1,6 +1,7 @@
 import { DocumentNode, SelectionSetNode } from 'graphql'
 
 export type Maybe<T> = T | null
+export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
@@ -28,125 +29,80 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query'
-  exportAllTypesGraph?: Maybe<Scalars['JSONObject']>
-  exportGraph?: Maybe<Scalars['JSONObject']>
   elementGraph: ElementGraph
-  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-  resetDatabaseMutationResponsesCount: Scalars['Int']
-  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-  importDataMutationResponsesCount: Scalars['Int']
-  importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
   edges: Array<Edge>
-  edgesCount: Scalars['Int']
   edgesAggregate: EdgeAggregateSelection
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   users: Array<User>
-  usersCount: Scalars['Int']
   usersAggregate: UserAggregateSelection
   apps: Array<App>
-  appsCount: Scalars['Int']
   appsAggregate: AppAggregateSelection
   atoms: Array<Atom>
-  atomsCount: Scalars['Int']
   atomsAggregate: AtomAggregateSelection
   createInfos: Array<CreateInfo>
-  createInfosCount: Scalars['Int']
   createInfosAggregate: CreateInfoAggregateSelection
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
-  importAtomsMutationResponsesCount: Scalars['Int']
   importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
   pages: Array<Page>
-  pagesCount: Scalars['Int']
   pagesAggregate: PageAggregateSelection
   deleteFieldResponses: Array<DeleteFieldResponse>
-  deleteFieldResponsesCount: Scalars['Int']
   deleteFieldResponsesAggregate: DeleteFieldResponseAggregateSelection
   typeReferences: Array<TypeReference>
-  typeReferencesCount: Scalars['Int']
   typeReferencesAggregate: TypeReferenceAggregateSelection
   interfaceTypeEdges: Array<InterfaceTypeEdge>
-  interfaceTypeEdgesCount: Scalars['Int']
   interfaceTypeEdgesAggregate: InterfaceTypeEdgeAggregateSelection
-  typeGraphs: Array<TypeGraph>
-  typeGraphsCount: Scalars['Int']
-  typeGraphsAggregate: TypeGraphAggregateSelection
   primitiveTypes: Array<PrimitiveType>
-  primitiveTypesCount: Scalars['Int']
   primitiveTypesAggregate: PrimitiveTypeAggregateSelection
   arrayTypes: Array<ArrayType>
-  arrayTypesCount: Scalars['Int']
   arrayTypesAggregate: ArrayTypeAggregateSelection
   unionTypes: Array<UnionType>
-  unionTypesCount: Scalars['Int']
   unionTypesAggregate: UnionTypeAggregateSelection
   interfaceTypes: Array<InterfaceType>
-  interfaceTypesCount: Scalars['Int']
   interfaceTypesAggregate: InterfaceTypeAggregateSelection
   elementTypes: Array<ElementType>
-  elementTypesCount: Scalars['Int']
   elementTypesAggregate: ElementTypeAggregateSelection
   renderPropsTypes: Array<RenderPropsType>
-  renderPropsTypesCount: Scalars['Int']
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   reactNodeTypes: Array<ReactNodeType>
-  reactNodeTypesCount: Scalars['Int']
   reactNodeTypesAggregate: ReactNodeTypeAggregateSelection
   enumTypes: Array<EnumType>
-  enumTypesCount: Scalars['Int']
   enumTypesAggregate: EnumTypeAggregateSelection
   enumTypeValues: Array<EnumTypeValue>
-  enumTypeValuesCount: Scalars['Int']
   enumTypeValuesAggregate: EnumTypeValueAggregateSelection
   lambdaTypes: Array<LambdaType>
-  lambdaTypesCount: Scalars['Int']
   lambdaTypesAggregate: LambdaTypeAggregateSelection
   pageTypes: Array<PageType>
-  pageTypesCount: Scalars['Int']
   pageTypesAggregate: PageTypeAggregateSelection
   appTypes: Array<AppType>
-  appTypesCount: Scalars['Int']
   appTypesAggregate: AppTypeAggregateSelection
   monacoTypes: Array<MonacoType>
-  monacoTypesCount: Scalars['Int']
   monacoTypesAggregate: MonacoTypeAggregateSelection
   tags: Array<Tag>
-  tagsCount: Scalars['Int']
   tagsAggregate: TagAggregateSelection
   tagGraphOptions: Array<TagGraphOptions>
-  tagGraphOptionsCount: Scalars['Int']
   tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
   tagEdges: Array<TagEdge>
-  tagEdgesCount: Scalars['Int']
   tagEdgesAggregate: TagEdgeAggregateSelection
   tagGraphs?: Maybe<TagGraph>
-  tagGraphsCount: Scalars['Int']
   tagGraphsAggregate: TagGraphAggregateSelection
   elementEdges: Array<ElementEdge>
-  elementEdgesCount: Scalars['Int']
   elementEdgesAggregate: ElementEdgeAggregateSelection
   elementGraphs: Array<ElementGraph>
-  elementGraphsCount: Scalars['Int']
   elementGraphsAggregate: ElementGraphAggregateSelection
   props: Array<Prop>
-  propsCount: Scalars['Int']
   propsAggregate: PropAggregateSelection
   hooks: Array<Hook>
-  hooksCount: Scalars['Int']
   hooksAggregate: HookAggregateSelection
   propMapBindings: Array<PropMapBinding>
-  propMapBindingsCount: Scalars['Int']
   propMapBindingsAggregate: PropMapBindingAggregateSelection
   elements: Array<Element>
-  elementsCount: Scalars['Int']
   elementsAggregate: ElementAggregateSelection
   duplicateElementMutationResponses: Array<DuplicateElementMutationResponse>
-  duplicateElementMutationResponsesCount: Scalars['Int']
   duplicateElementMutationResponsesAggregate: DuplicateElementMutationResponseAggregateSelection
   deleteElementsInfos: Array<DeleteElementsInfo>
-  deleteElementsInfosCount: Scalars['Int']
   deleteElementsInfosAggregate: DeleteElementsInfoAggregateSelection
   components: Array<Component>
-  componentsCount: Scalars['Int']
   componentsAggregate: ComponentAggregateSelection
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
   isTypeDescendantOf?: Maybe<Scalars['Boolean']>
@@ -158,514 +114,336 @@ export type Query = {
   getTypeReferences?: Maybe<Array<TypeReference>>
 }
 
-export type QueryExportGraphArgs = {
-  typeId: Scalars['ID']
-}
-
 export type QueryElementGraphArgs = {
   input: ElementGraphInput
 }
 
-export type QueryResetDatabaseMutationResponsesArgs = {
-  where?: Maybe<ResetDatabaseMutationResponseWhere>
-  options?: Maybe<ResetDatabaseMutationResponseOptions>
-}
-
-export type QueryResetDatabaseMutationResponsesCountArgs = {
-  where?: Maybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type QueryResetDatabaseMutationResponsesAggregateArgs = {
-  where?: Maybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type QueryImportDataMutationResponsesArgs = {
-  where?: Maybe<ImportDataMutationResponseWhere>
-  options?: Maybe<ImportDataMutationResponseOptions>
-}
-
-export type QueryImportDataMutationResponsesCountArgs = {
-  where?: Maybe<ImportDataMutationResponseWhere>
-}
-
-export type QueryImportDataMutationResponsesAggregateArgs = {
-  where?: Maybe<ImportDataMutationResponseWhere>
-}
-
 export type QueryEdgesArgs = {
-  where?: Maybe<EdgeWhere>
-  options?: Maybe<EdgeOptions>
-}
-
-export type QueryEdgesCountArgs = {
-  where?: Maybe<EdgeWhere>
+  where?: InputMaybe<EdgeWhere>
+  options?: InputMaybe<EdgeOptions>
 }
 
 export type QueryEdgesAggregateArgs = {
-  where?: Maybe<EdgeWhere>
+  where?: InputMaybe<EdgeWhere>
+}
+
+export type QueryResetDatabaseMutationResponsesArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+  options?: InputMaybe<ResetDatabaseMutationResponseOptions>
+}
+
+export type QueryResetDatabaseMutationResponsesAggregateArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
 export type QueryUsersArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
-}
-
-export type QueryUsersCountArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
 }
 
 export type QueryUsersAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
 }
 
 export type QueryAppsArgs = {
-  where?: Maybe<AppWhere>
-  options?: Maybe<AppOptions>
-}
-
-export type QueryAppsCountArgs = {
-  where?: Maybe<AppWhere>
+  where?: InputMaybe<AppWhere>
+  options?: InputMaybe<AppOptions>
 }
 
 export type QueryAppsAggregateArgs = {
-  where?: Maybe<AppWhere>
+  where?: InputMaybe<AppWhere>
 }
 
 export type QueryAtomsArgs = {
-  where?: Maybe<AtomWhere>
-  options?: Maybe<AtomOptions>
-}
-
-export type QueryAtomsCountArgs = {
-  where?: Maybe<AtomWhere>
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
 }
 
 export type QueryAtomsAggregateArgs = {
-  where?: Maybe<AtomWhere>
+  where?: InputMaybe<AtomWhere>
 }
 
 export type QueryCreateInfosArgs = {
-  where?: Maybe<CreateInfoWhere>
-  options?: Maybe<CreateInfoOptions>
-}
-
-export type QueryCreateInfosCountArgs = {
-  where?: Maybe<CreateInfoWhere>
+  where?: InputMaybe<CreateInfoWhere>
+  options?: InputMaybe<CreateInfoOptions>
 }
 
 export type QueryCreateInfosAggregateArgs = {
-  where?: Maybe<CreateInfoWhere>
+  where?: InputMaybe<CreateInfoWhere>
 }
 
 export type QueryImportAtomsMutationResponsesArgs = {
-  where?: Maybe<ImportAtomsMutationResponseWhere>
-  options?: Maybe<ImportAtomsMutationResponseOptions>
-}
-
-export type QueryImportAtomsMutationResponsesCountArgs = {
-  where?: Maybe<ImportAtomsMutationResponseWhere>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+  options?: InputMaybe<ImportAtomsMutationResponseOptions>
 }
 
 export type QueryImportAtomsMutationResponsesAggregateArgs = {
-  where?: Maybe<ImportAtomsMutationResponseWhere>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type QueryPagesArgs = {
-  where?: Maybe<PageWhere>
-  options?: Maybe<PageOptions>
-}
-
-export type QueryPagesCountArgs = {
-  where?: Maybe<PageWhere>
+  where?: InputMaybe<PageWhere>
+  options?: InputMaybe<PageOptions>
 }
 
 export type QueryPagesAggregateArgs = {
-  where?: Maybe<PageWhere>
+  where?: InputMaybe<PageWhere>
 }
 
 export type QueryDeleteFieldResponsesArgs = {
-  where?: Maybe<DeleteFieldResponseWhere>
-  options?: Maybe<DeleteFieldResponseOptions>
-}
-
-export type QueryDeleteFieldResponsesCountArgs = {
-  where?: Maybe<DeleteFieldResponseWhere>
+  where?: InputMaybe<DeleteFieldResponseWhere>
+  options?: InputMaybe<DeleteFieldResponseOptions>
 }
 
 export type QueryDeleteFieldResponsesAggregateArgs = {
-  where?: Maybe<DeleteFieldResponseWhere>
+  where?: InputMaybe<DeleteFieldResponseWhere>
 }
 
 export type QueryTypeReferencesArgs = {
-  where?: Maybe<TypeReferenceWhere>
-  options?: Maybe<TypeReferenceOptions>
-}
-
-export type QueryTypeReferencesCountArgs = {
-  where?: Maybe<TypeReferenceWhere>
+  where?: InputMaybe<TypeReferenceWhere>
+  options?: InputMaybe<TypeReferenceOptions>
 }
 
 export type QueryTypeReferencesAggregateArgs = {
-  where?: Maybe<TypeReferenceWhere>
+  where?: InputMaybe<TypeReferenceWhere>
 }
 
 export type QueryInterfaceTypeEdgesArgs = {
-  where?: Maybe<InterfaceTypeEdgeWhere>
-  options?: Maybe<InterfaceTypeEdgeOptions>
-}
-
-export type QueryInterfaceTypeEdgesCountArgs = {
-  where?: Maybe<InterfaceTypeEdgeWhere>
+  where?: InputMaybe<InterfaceTypeEdgeWhere>
+  options?: InputMaybe<InterfaceTypeEdgeOptions>
 }
 
 export type QueryInterfaceTypeEdgesAggregateArgs = {
-  where?: Maybe<InterfaceTypeEdgeWhere>
-}
-
-export type QueryTypeGraphsArgs = {
-  where?: Maybe<TypeGraphWhere>
-  options?: Maybe<TypeGraphOptions>
-}
-
-export type QueryTypeGraphsCountArgs = {
-  where?: Maybe<TypeGraphWhere>
-}
-
-export type QueryTypeGraphsAggregateArgs = {
-  where?: Maybe<TypeGraphWhere>
+  where?: InputMaybe<InterfaceTypeEdgeWhere>
 }
 
 export type QueryPrimitiveTypesArgs = {
-  where?: Maybe<PrimitiveTypeWhere>
-  options?: Maybe<PrimitiveTypeOptions>
-}
-
-export type QueryPrimitiveTypesCountArgs = {
-  where?: Maybe<PrimitiveTypeWhere>
+  where?: InputMaybe<PrimitiveTypeWhere>
+  options?: InputMaybe<PrimitiveTypeOptions>
 }
 
 export type QueryPrimitiveTypesAggregateArgs = {
-  where?: Maybe<PrimitiveTypeWhere>
+  where?: InputMaybe<PrimitiveTypeWhere>
 }
 
 export type QueryArrayTypesArgs = {
-  where?: Maybe<ArrayTypeWhere>
-  options?: Maybe<ArrayTypeOptions>
-}
-
-export type QueryArrayTypesCountArgs = {
-  where?: Maybe<ArrayTypeWhere>
+  where?: InputMaybe<ArrayTypeWhere>
+  options?: InputMaybe<ArrayTypeOptions>
 }
 
 export type QueryArrayTypesAggregateArgs = {
-  where?: Maybe<ArrayTypeWhere>
+  where?: InputMaybe<ArrayTypeWhere>
 }
 
 export type QueryUnionTypesArgs = {
-  where?: Maybe<UnionTypeWhere>
-  options?: Maybe<UnionTypeOptions>
-}
-
-export type QueryUnionTypesCountArgs = {
-  where?: Maybe<UnionTypeWhere>
+  where?: InputMaybe<UnionTypeWhere>
+  options?: InputMaybe<UnionTypeOptions>
 }
 
 export type QueryUnionTypesAggregateArgs = {
-  where?: Maybe<UnionTypeWhere>
+  where?: InputMaybe<UnionTypeWhere>
 }
 
 export type QueryInterfaceTypesArgs = {
-  where?: Maybe<InterfaceTypeWhere>
-  options?: Maybe<InterfaceTypeOptions>
-}
-
-export type QueryInterfaceTypesCountArgs = {
-  where?: Maybe<InterfaceTypeWhere>
+  where?: InputMaybe<InterfaceTypeWhere>
+  options?: InputMaybe<InterfaceTypeOptions>
 }
 
 export type QueryInterfaceTypesAggregateArgs = {
-  where?: Maybe<InterfaceTypeWhere>
+  where?: InputMaybe<InterfaceTypeWhere>
 }
 
 export type QueryElementTypesArgs = {
-  where?: Maybe<ElementTypeWhere>
-  options?: Maybe<ElementTypeOptions>
-}
-
-export type QueryElementTypesCountArgs = {
-  where?: Maybe<ElementTypeWhere>
+  where?: InputMaybe<ElementTypeWhere>
+  options?: InputMaybe<ElementTypeOptions>
 }
 
 export type QueryElementTypesAggregateArgs = {
-  where?: Maybe<ElementTypeWhere>
+  where?: InputMaybe<ElementTypeWhere>
 }
 
 export type QueryRenderPropsTypesArgs = {
-  where?: Maybe<RenderPropsTypeWhere>
-  options?: Maybe<RenderPropsTypeOptions>
-}
-
-export type QueryRenderPropsTypesCountArgs = {
-  where?: Maybe<RenderPropsTypeWhere>
+  where?: InputMaybe<RenderPropsTypeWhere>
+  options?: InputMaybe<RenderPropsTypeOptions>
 }
 
 export type QueryRenderPropsTypesAggregateArgs = {
-  where?: Maybe<RenderPropsTypeWhere>
+  where?: InputMaybe<RenderPropsTypeWhere>
 }
 
 export type QueryReactNodeTypesArgs = {
-  where?: Maybe<ReactNodeTypeWhere>
-  options?: Maybe<ReactNodeTypeOptions>
-}
-
-export type QueryReactNodeTypesCountArgs = {
-  where?: Maybe<ReactNodeTypeWhere>
+  where?: InputMaybe<ReactNodeTypeWhere>
+  options?: InputMaybe<ReactNodeTypeOptions>
 }
 
 export type QueryReactNodeTypesAggregateArgs = {
-  where?: Maybe<ReactNodeTypeWhere>
+  where?: InputMaybe<ReactNodeTypeWhere>
 }
 
 export type QueryEnumTypesArgs = {
-  where?: Maybe<EnumTypeWhere>
-  options?: Maybe<EnumTypeOptions>
-}
-
-export type QueryEnumTypesCountArgs = {
-  where?: Maybe<EnumTypeWhere>
+  where?: InputMaybe<EnumTypeWhere>
+  options?: InputMaybe<EnumTypeOptions>
 }
 
 export type QueryEnumTypesAggregateArgs = {
-  where?: Maybe<EnumTypeWhere>
+  where?: InputMaybe<EnumTypeWhere>
 }
 
 export type QueryEnumTypeValuesArgs = {
-  where?: Maybe<EnumTypeValueWhere>
-  options?: Maybe<EnumTypeValueOptions>
-}
-
-export type QueryEnumTypeValuesCountArgs = {
-  where?: Maybe<EnumTypeValueWhere>
+  where?: InputMaybe<EnumTypeValueWhere>
+  options?: InputMaybe<EnumTypeValueOptions>
 }
 
 export type QueryEnumTypeValuesAggregateArgs = {
-  where?: Maybe<EnumTypeValueWhere>
+  where?: InputMaybe<EnumTypeValueWhere>
 }
 
 export type QueryLambdaTypesArgs = {
-  where?: Maybe<LambdaTypeWhere>
-  options?: Maybe<LambdaTypeOptions>
-}
-
-export type QueryLambdaTypesCountArgs = {
-  where?: Maybe<LambdaTypeWhere>
+  where?: InputMaybe<LambdaTypeWhere>
+  options?: InputMaybe<LambdaTypeOptions>
 }
 
 export type QueryLambdaTypesAggregateArgs = {
-  where?: Maybe<LambdaTypeWhere>
+  where?: InputMaybe<LambdaTypeWhere>
 }
 
 export type QueryPageTypesArgs = {
-  where?: Maybe<PageTypeWhere>
-  options?: Maybe<PageTypeOptions>
-}
-
-export type QueryPageTypesCountArgs = {
-  where?: Maybe<PageTypeWhere>
+  where?: InputMaybe<PageTypeWhere>
+  options?: InputMaybe<PageTypeOptions>
 }
 
 export type QueryPageTypesAggregateArgs = {
-  where?: Maybe<PageTypeWhere>
+  where?: InputMaybe<PageTypeWhere>
 }
 
 export type QueryAppTypesArgs = {
-  where?: Maybe<AppTypeWhere>
-  options?: Maybe<AppTypeOptions>
-}
-
-export type QueryAppTypesCountArgs = {
-  where?: Maybe<AppTypeWhere>
+  where?: InputMaybe<AppTypeWhere>
+  options?: InputMaybe<AppTypeOptions>
 }
 
 export type QueryAppTypesAggregateArgs = {
-  where?: Maybe<AppTypeWhere>
+  where?: InputMaybe<AppTypeWhere>
 }
 
 export type QueryMonacoTypesArgs = {
-  where?: Maybe<MonacoTypeWhere>
-  options?: Maybe<MonacoTypeOptions>
-}
-
-export type QueryMonacoTypesCountArgs = {
-  where?: Maybe<MonacoTypeWhere>
+  where?: InputMaybe<MonacoTypeWhere>
+  options?: InputMaybe<MonacoTypeOptions>
 }
 
 export type QueryMonacoTypesAggregateArgs = {
-  where?: Maybe<MonacoTypeWhere>
+  where?: InputMaybe<MonacoTypeWhere>
 }
 
 export type QueryTagsArgs = {
-  where?: Maybe<TagWhere>
-  options?: Maybe<TagOptions>
-}
-
-export type QueryTagsCountArgs = {
-  where?: Maybe<TagWhere>
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
 }
 
 export type QueryTagsAggregateArgs = {
-  where?: Maybe<TagWhere>
+  where?: InputMaybe<TagWhere>
 }
 
 export type QueryTagGraphOptionsArgs = {
-  where?: Maybe<TagGraphOptionsWhere>
-  options?: Maybe<TagGraphOptionsOptions>
-}
-
-export type QueryTagGraphOptionsCountArgs = {
-  where?: Maybe<TagGraphOptionsWhere>
+  where?: InputMaybe<TagGraphOptionsWhere>
+  options?: InputMaybe<TagGraphOptionsOptions>
 }
 
 export type QueryTagGraphOptionsAggregateArgs = {
-  where?: Maybe<TagGraphOptionsWhere>
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type QueryTagEdgesArgs = {
-  where?: Maybe<TagEdgeWhere>
-  options?: Maybe<TagEdgeOptions>
-}
-
-export type QueryTagEdgesCountArgs = {
-  where?: Maybe<TagEdgeWhere>
+  where?: InputMaybe<TagEdgeWhere>
+  options?: InputMaybe<TagEdgeOptions>
 }
 
 export type QueryTagEdgesAggregateArgs = {
-  where?: Maybe<TagEdgeWhere>
-}
-
-export type QueryTagGraphsCountArgs = {
-  where?: Maybe<TagGraphWhere>
+  where?: InputMaybe<TagEdgeWhere>
 }
 
 export type QueryTagGraphsAggregateArgs = {
-  where?: Maybe<TagGraphWhere>
+  where?: InputMaybe<TagGraphWhere>
 }
 
 export type QueryElementEdgesArgs = {
-  where?: Maybe<ElementEdgeWhere>
-  options?: Maybe<ElementEdgeOptions>
-}
-
-export type QueryElementEdgesCountArgs = {
-  where?: Maybe<ElementEdgeWhere>
+  where?: InputMaybe<ElementEdgeWhere>
+  options?: InputMaybe<ElementEdgeOptions>
 }
 
 export type QueryElementEdgesAggregateArgs = {
-  where?: Maybe<ElementEdgeWhere>
+  where?: InputMaybe<ElementEdgeWhere>
 }
 
 export type QueryElementGraphsArgs = {
-  where?: Maybe<ElementGraphWhere>
-  options?: Maybe<ElementGraphOptions>
-}
-
-export type QueryElementGraphsCountArgs = {
-  where?: Maybe<ElementGraphWhere>
+  where?: InputMaybe<ElementGraphWhere>
+  options?: InputMaybe<ElementGraphOptions>
 }
 
 export type QueryElementGraphsAggregateArgs = {
-  where?: Maybe<ElementGraphWhere>
+  where?: InputMaybe<ElementGraphWhere>
 }
 
 export type QueryPropsArgs = {
-  where?: Maybe<PropWhere>
-  options?: Maybe<PropOptions>
-}
-
-export type QueryPropsCountArgs = {
-  where?: Maybe<PropWhere>
+  where?: InputMaybe<PropWhere>
+  options?: InputMaybe<PropOptions>
 }
 
 export type QueryPropsAggregateArgs = {
-  where?: Maybe<PropWhere>
+  where?: InputMaybe<PropWhere>
 }
 
 export type QueryHooksArgs = {
-  where?: Maybe<HookWhere>
-  options?: Maybe<HookOptions>
-}
-
-export type QueryHooksCountArgs = {
-  where?: Maybe<HookWhere>
+  where?: InputMaybe<HookWhere>
+  options?: InputMaybe<HookOptions>
 }
 
 export type QueryHooksAggregateArgs = {
-  where?: Maybe<HookWhere>
+  where?: InputMaybe<HookWhere>
 }
 
 export type QueryPropMapBindingsArgs = {
-  where?: Maybe<PropMapBindingWhere>
-  options?: Maybe<PropMapBindingOptions>
-}
-
-export type QueryPropMapBindingsCountArgs = {
-  where?: Maybe<PropMapBindingWhere>
+  where?: InputMaybe<PropMapBindingWhere>
+  options?: InputMaybe<PropMapBindingOptions>
 }
 
 export type QueryPropMapBindingsAggregateArgs = {
-  where?: Maybe<PropMapBindingWhere>
+  where?: InputMaybe<PropMapBindingWhere>
 }
 
 export type QueryElementsArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
-}
-
-export type QueryElementsCountArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
 }
 
 export type QueryElementsAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
 }
 
 export type QueryDuplicateElementMutationResponsesArgs = {
-  where?: Maybe<DuplicateElementMutationResponseWhere>
-  options?: Maybe<DuplicateElementMutationResponseOptions>
-}
-
-export type QueryDuplicateElementMutationResponsesCountArgs = {
-  where?: Maybe<DuplicateElementMutationResponseWhere>
+  where?: InputMaybe<DuplicateElementMutationResponseWhere>
+  options?: InputMaybe<DuplicateElementMutationResponseOptions>
 }
 
 export type QueryDuplicateElementMutationResponsesAggregateArgs = {
-  where?: Maybe<DuplicateElementMutationResponseWhere>
+  where?: InputMaybe<DuplicateElementMutationResponseWhere>
 }
 
 export type QueryDeleteElementsInfosArgs = {
-  where?: Maybe<DeleteElementsInfoWhere>
-  options?: Maybe<DeleteElementsInfoOptions>
-}
-
-export type QueryDeleteElementsInfosCountArgs = {
-  where?: Maybe<DeleteElementsInfoWhere>
+  where?: InputMaybe<DeleteElementsInfoWhere>
+  options?: InputMaybe<DeleteElementsInfoOptions>
 }
 
 export type QueryDeleteElementsInfosAggregateArgs = {
-  where?: Maybe<DeleteElementsInfoWhere>
+  where?: InputMaybe<DeleteElementsInfoWhere>
 }
 
 export type QueryComponentsArgs = {
-  where?: Maybe<ComponentWhere>
-  options?: Maybe<ComponentOptions>
-}
-
-export type QueryComponentsCountArgs = {
-  where?: Maybe<ComponentWhere>
+  where?: InputMaybe<ComponentWhere>
+  options?: InputMaybe<ComponentOptions>
 }
 
 export type QueryComponentsAggregateArgs = {
-  where?: Maybe<ComponentWhere>
+  where?: InputMaybe<ComponentWhere>
 }
 
 export type QueryIsTypeDescendantOfArgs = {
@@ -685,22 +463,17 @@ export type QueryGetTypeReferencesArgs = {
 export type Mutation = {
   __typename?: 'Mutation'
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
-  importAdminData?: Maybe<ImportDataMutationResponse>
   importAtoms?: Maybe<ImportAtomsMutationResponse>
   upsertFieldEdge: InterfaceTypeEdge
   deleteFieldEdge: DeleteFieldResponse
-  importTypeGraph: TypeGraph
   duplicateElement: DuplicateElementMutationResponse
   deleteElementsSubgraph: DeleteElementsInfo
-  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
-  deleteResetDatabaseMutationResponses: DeleteInfo
-  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
-  createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
-  deleteImportDataMutationResponses: DeleteInfo
-  updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
   createEdges: CreateEdgesMutationResponse
   deleteEdges: DeleteInfo
   updateEdges: UpdateEdgesMutationResponse
+  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
+  deleteResetDatabaseMutationResponses: DeleteInfo
+  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   createUsers: CreateUsersMutationResponse
   deleteUsers: DeleteInfo
   updateUsers: UpdateUsersMutationResponse
@@ -728,9 +501,6 @@ export type Mutation = {
   createInterfaceTypeEdges: CreateInterfaceTypeEdgesMutationResponse
   deleteInterfaceTypeEdges: DeleteInfo
   updateInterfaceTypeEdges: UpdateInterfaceTypeEdgesMutationResponse
-  createTypeGraphs: CreateTypeGraphsMutationResponse
-  deleteTypeGraphs: DeleteInfo
-  updateTypeGraphs: UpdateTypeGraphsMutationResponse
   createPrimitiveTypes: CreatePrimitiveTypesMutationResponse
   deletePrimitiveTypes: DeleteInfo
   updatePrimitiveTypes: UpdatePrimitiveTypesMutationResponse
@@ -811,10 +581,6 @@ export type Mutation = {
   updateComponents: UpdateComponentsMutationResponse
 }
 
-export type MutationImportAdminDataArgs = {
-  input: ImportAdminDataInput
-}
-
 export type MutationImportAtomsArgs = {
   input: ImportAtomsInput
 }
@@ -828,43 +594,13 @@ export type MutationDeleteFieldEdgeArgs = {
   input: DeleteFieldInput
 }
 
-export type MutationImportTypeGraphArgs = {
-  payload: Scalars['JSONObject']
-}
-
 export type MutationDuplicateElementArgs = {
   input: DuplicateElementInput
 }
 
 export type MutationDeleteElementsSubgraphArgs = {
-  delete?: Maybe<ElementDeleteInput>
-  where?: Maybe<ElementWhere>
-}
-
-export type MutationCreateResetDatabaseMutationResponsesArgs = {
-  input: Array<ResetDatabaseMutationResponseCreateInput>
-}
-
-export type MutationDeleteResetDatabaseMutationResponsesArgs = {
-  where?: Maybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type MutationUpdateResetDatabaseMutationResponsesArgs = {
-  where?: Maybe<ResetDatabaseMutationResponseWhere>
-  update?: Maybe<ResetDatabaseMutationResponseUpdateInput>
-}
-
-export type MutationCreateImportDataMutationResponsesArgs = {
-  input: Array<ImportDataMutationResponseCreateInput>
-}
-
-export type MutationDeleteImportDataMutationResponsesArgs = {
-  where?: Maybe<ImportDataMutationResponseWhere>
-}
-
-export type MutationUpdateImportDataMutationResponsesArgs = {
-  where?: Maybe<ImportDataMutationResponseWhere>
-  update?: Maybe<ImportDataMutationResponseUpdateInput>
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<ElementWhere>
 }
 
 export type MutationCreateEdgesArgs = {
@@ -872,12 +608,25 @@ export type MutationCreateEdgesArgs = {
 }
 
 export type MutationDeleteEdgesArgs = {
-  where?: Maybe<EdgeWhere>
+  where?: InputMaybe<EdgeWhere>
 }
 
 export type MutationUpdateEdgesArgs = {
-  where?: Maybe<EdgeWhere>
-  update?: Maybe<EdgeUpdateInput>
+  where?: InputMaybe<EdgeWhere>
+  update?: InputMaybe<EdgeUpdateInput>
+}
+
+export type MutationCreateResetDatabaseMutationResponsesArgs = {
+  input: Array<ResetDatabaseMutationResponseCreateInput>
+}
+
+export type MutationDeleteResetDatabaseMutationResponsesArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationUpdateResetDatabaseMutationResponsesArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+  update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
 }
 
 export type MutationCreateUsersArgs = {
@@ -885,18 +634,18 @@ export type MutationCreateUsersArgs = {
 }
 
 export type MutationDeleteUsersArgs = {
-  where?: Maybe<UserWhere>
-  delete?: Maybe<UserDeleteInput>
+  where?: InputMaybe<UserWhere>
+  delete?: InputMaybe<UserDeleteInput>
 }
 
 export type MutationUpdateUsersArgs = {
-  where?: Maybe<UserWhere>
-  update?: Maybe<UserUpdateInput>
-  connect?: Maybe<UserConnectInput>
-  disconnect?: Maybe<UserDisconnectInput>
-  create?: Maybe<UserRelationInput>
-  delete?: Maybe<UserDeleteInput>
-  connectOrCreate?: Maybe<UserConnectOrCreateInput>
+  where?: InputMaybe<UserWhere>
+  update?: InputMaybe<UserUpdateInput>
+  connect?: InputMaybe<UserConnectInput>
+  disconnect?: InputMaybe<UserDisconnectInput>
+  create?: InputMaybe<UserRelationInput>
+  delete?: InputMaybe<UserDeleteInput>
+  connectOrCreate?: InputMaybe<UserConnectOrCreateInput>
 }
 
 export type MutationCreateAppsArgs = {
@@ -904,18 +653,18 @@ export type MutationCreateAppsArgs = {
 }
 
 export type MutationDeleteAppsArgs = {
-  where?: Maybe<AppWhere>
-  delete?: Maybe<AppDeleteInput>
+  where?: InputMaybe<AppWhere>
+  delete?: InputMaybe<AppDeleteInput>
 }
 
 export type MutationUpdateAppsArgs = {
-  where?: Maybe<AppWhere>
-  update?: Maybe<AppUpdateInput>
-  connect?: Maybe<AppConnectInput>
-  disconnect?: Maybe<AppDisconnectInput>
-  create?: Maybe<AppRelationInput>
-  delete?: Maybe<AppDeleteInput>
-  connectOrCreate?: Maybe<AppConnectOrCreateInput>
+  where?: InputMaybe<AppWhere>
+  update?: InputMaybe<AppUpdateInput>
+  connect?: InputMaybe<AppConnectInput>
+  disconnect?: InputMaybe<AppDisconnectInput>
+  create?: InputMaybe<AppRelationInput>
+  delete?: InputMaybe<AppDeleteInput>
+  connectOrCreate?: InputMaybe<AppConnectOrCreateInput>
 }
 
 export type MutationCreateAtomsArgs = {
@@ -923,18 +672,18 @@ export type MutationCreateAtomsArgs = {
 }
 
 export type MutationDeleteAtomsArgs = {
-  where?: Maybe<AtomWhere>
-  delete?: Maybe<AtomDeleteInput>
+  where?: InputMaybe<AtomWhere>
+  delete?: InputMaybe<AtomDeleteInput>
 }
 
 export type MutationUpdateAtomsArgs = {
-  where?: Maybe<AtomWhere>
-  update?: Maybe<AtomUpdateInput>
-  connect?: Maybe<AtomConnectInput>
-  disconnect?: Maybe<AtomDisconnectInput>
-  create?: Maybe<AtomRelationInput>
-  delete?: Maybe<AtomDeleteInput>
-  connectOrCreate?: Maybe<AtomConnectOrCreateInput>
+  where?: InputMaybe<AtomWhere>
+  update?: InputMaybe<AtomUpdateInput>
+  connect?: InputMaybe<AtomConnectInput>
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  create?: InputMaybe<AtomRelationInput>
+  delete?: InputMaybe<AtomDeleteInput>
+  connectOrCreate?: InputMaybe<AtomConnectOrCreateInput>
 }
 
 export type MutationCreateCreateInfosArgs = {
@@ -942,12 +691,12 @@ export type MutationCreateCreateInfosArgs = {
 }
 
 export type MutationDeleteCreateInfosArgs = {
-  where?: Maybe<CreateInfoWhere>
+  where?: InputMaybe<CreateInfoWhere>
 }
 
 export type MutationUpdateCreateInfosArgs = {
-  where?: Maybe<CreateInfoWhere>
-  update?: Maybe<CreateInfoUpdateInput>
+  where?: InputMaybe<CreateInfoWhere>
+  update?: InputMaybe<CreateInfoUpdateInput>
 }
 
 export type MutationCreateImportAtomsMutationResponsesArgs = {
@@ -955,12 +704,12 @@ export type MutationCreateImportAtomsMutationResponsesArgs = {
 }
 
 export type MutationDeleteImportAtomsMutationResponsesArgs = {
-  where?: Maybe<ImportAtomsMutationResponseWhere>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type MutationUpdateImportAtomsMutationResponsesArgs = {
-  where?: Maybe<ImportAtomsMutationResponseWhere>
-  update?: Maybe<ImportAtomsMutationResponseUpdateInput>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+  update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
 }
 
 export type MutationCreatePagesArgs = {
@@ -968,18 +717,18 @@ export type MutationCreatePagesArgs = {
 }
 
 export type MutationDeletePagesArgs = {
-  where?: Maybe<PageWhere>
-  delete?: Maybe<PageDeleteInput>
+  where?: InputMaybe<PageWhere>
+  delete?: InputMaybe<PageDeleteInput>
 }
 
 export type MutationUpdatePagesArgs = {
-  where?: Maybe<PageWhere>
-  update?: Maybe<PageUpdateInput>
-  connect?: Maybe<PageConnectInput>
-  disconnect?: Maybe<PageDisconnectInput>
-  create?: Maybe<PageRelationInput>
-  delete?: Maybe<PageDeleteInput>
-  connectOrCreate?: Maybe<PageConnectOrCreateInput>
+  where?: InputMaybe<PageWhere>
+  update?: InputMaybe<PageUpdateInput>
+  connect?: InputMaybe<PageConnectInput>
+  disconnect?: InputMaybe<PageDisconnectInput>
+  create?: InputMaybe<PageRelationInput>
+  delete?: InputMaybe<PageDeleteInput>
+  connectOrCreate?: InputMaybe<PageConnectOrCreateInput>
 }
 
 export type MutationCreateDeleteFieldResponsesArgs = {
@@ -987,12 +736,12 @@ export type MutationCreateDeleteFieldResponsesArgs = {
 }
 
 export type MutationDeleteDeleteFieldResponsesArgs = {
-  where?: Maybe<DeleteFieldResponseWhere>
+  where?: InputMaybe<DeleteFieldResponseWhere>
 }
 
 export type MutationUpdateDeleteFieldResponsesArgs = {
-  where?: Maybe<DeleteFieldResponseWhere>
-  update?: Maybe<DeleteFieldResponseUpdateInput>
+  where?: InputMaybe<DeleteFieldResponseWhere>
+  update?: InputMaybe<DeleteFieldResponseUpdateInput>
 }
 
 export type MutationCreateTypeReferencesArgs = {
@@ -1000,12 +749,12 @@ export type MutationCreateTypeReferencesArgs = {
 }
 
 export type MutationDeleteTypeReferencesArgs = {
-  where?: Maybe<TypeReferenceWhere>
+  where?: InputMaybe<TypeReferenceWhere>
 }
 
 export type MutationUpdateTypeReferencesArgs = {
-  where?: Maybe<TypeReferenceWhere>
-  update?: Maybe<TypeReferenceUpdateInput>
+  where?: InputMaybe<TypeReferenceWhere>
+  update?: InputMaybe<TypeReferenceUpdateInput>
 }
 
 export type MutationCreateInterfaceTypeEdgesArgs = {
@@ -1013,25 +762,12 @@ export type MutationCreateInterfaceTypeEdgesArgs = {
 }
 
 export type MutationDeleteInterfaceTypeEdgesArgs = {
-  where?: Maybe<InterfaceTypeEdgeWhere>
+  where?: InputMaybe<InterfaceTypeEdgeWhere>
 }
 
 export type MutationUpdateInterfaceTypeEdgesArgs = {
-  where?: Maybe<InterfaceTypeEdgeWhere>
-  update?: Maybe<InterfaceTypeEdgeUpdateInput>
-}
-
-export type MutationCreateTypeGraphsArgs = {
-  input: Array<TypeGraphCreateInput>
-}
-
-export type MutationDeleteTypeGraphsArgs = {
-  where?: Maybe<TypeGraphWhere>
-}
-
-export type MutationUpdateTypeGraphsArgs = {
-  where?: Maybe<TypeGraphWhere>
-  update?: Maybe<TypeGraphUpdateInput>
+  where?: InputMaybe<InterfaceTypeEdgeWhere>
+  update?: InputMaybe<InterfaceTypeEdgeUpdateInput>
 }
 
 export type MutationCreatePrimitiveTypesArgs = {
@@ -1039,18 +775,18 @@ export type MutationCreatePrimitiveTypesArgs = {
 }
 
 export type MutationDeletePrimitiveTypesArgs = {
-  where?: Maybe<PrimitiveTypeWhere>
-  delete?: Maybe<PrimitiveTypeDeleteInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
 }
 
 export type MutationUpdatePrimitiveTypesArgs = {
-  where?: Maybe<PrimitiveTypeWhere>
-  update?: Maybe<PrimitiveTypeUpdateInput>
-  connect?: Maybe<PrimitiveTypeConnectInput>
-  disconnect?: Maybe<PrimitiveTypeDisconnectInput>
-  create?: Maybe<PrimitiveTypeRelationInput>
-  delete?: Maybe<PrimitiveTypeDeleteInput>
-  connectOrCreate?: Maybe<PrimitiveTypeConnectOrCreateInput>
+  where?: InputMaybe<PrimitiveTypeWhere>
+  update?: InputMaybe<PrimitiveTypeUpdateInput>
+  connect?: InputMaybe<PrimitiveTypeConnectInput>
+  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>
+  create?: InputMaybe<PrimitiveTypeRelationInput>
+  delete?: InputMaybe<PrimitiveTypeDeleteInput>
+  connectOrCreate?: InputMaybe<PrimitiveTypeConnectOrCreateInput>
 }
 
 export type MutationCreateArrayTypesArgs = {
@@ -1058,18 +794,18 @@ export type MutationCreateArrayTypesArgs = {
 }
 
 export type MutationDeleteArrayTypesArgs = {
-  where?: Maybe<ArrayTypeWhere>
-  delete?: Maybe<ArrayTypeDeleteInput>
+  where?: InputMaybe<ArrayTypeWhere>
+  delete?: InputMaybe<ArrayTypeDeleteInput>
 }
 
 export type MutationUpdateArrayTypesArgs = {
-  where?: Maybe<ArrayTypeWhere>
-  update?: Maybe<ArrayTypeUpdateInput>
-  connect?: Maybe<ArrayTypeConnectInput>
-  disconnect?: Maybe<ArrayTypeDisconnectInput>
-  create?: Maybe<ArrayTypeRelationInput>
-  delete?: Maybe<ArrayTypeDeleteInput>
-  connectOrCreate?: Maybe<ArrayTypeConnectOrCreateInput>
+  where?: InputMaybe<ArrayTypeWhere>
+  update?: InputMaybe<ArrayTypeUpdateInput>
+  connect?: InputMaybe<ArrayTypeConnectInput>
+  disconnect?: InputMaybe<ArrayTypeDisconnectInput>
+  create?: InputMaybe<ArrayTypeRelationInput>
+  delete?: InputMaybe<ArrayTypeDeleteInput>
+  connectOrCreate?: InputMaybe<ArrayTypeConnectOrCreateInput>
 }
 
 export type MutationCreateUnionTypesArgs = {
@@ -1077,18 +813,18 @@ export type MutationCreateUnionTypesArgs = {
 }
 
 export type MutationDeleteUnionTypesArgs = {
-  where?: Maybe<UnionTypeWhere>
-  delete?: Maybe<UnionTypeDeleteInput>
+  where?: InputMaybe<UnionTypeWhere>
+  delete?: InputMaybe<UnionTypeDeleteInput>
 }
 
 export type MutationUpdateUnionTypesArgs = {
-  where?: Maybe<UnionTypeWhere>
-  update?: Maybe<UnionTypeUpdateInput>
-  connect?: Maybe<UnionTypeConnectInput>
-  disconnect?: Maybe<UnionTypeDisconnectInput>
-  create?: Maybe<UnionTypeRelationInput>
-  delete?: Maybe<UnionTypeDeleteInput>
-  connectOrCreate?: Maybe<UnionTypeConnectOrCreateInput>
+  where?: InputMaybe<UnionTypeWhere>
+  update?: InputMaybe<UnionTypeUpdateInput>
+  connect?: InputMaybe<UnionTypeConnectInput>
+  disconnect?: InputMaybe<UnionTypeDisconnectInput>
+  create?: InputMaybe<UnionTypeRelationInput>
+  delete?: InputMaybe<UnionTypeDeleteInput>
+  connectOrCreate?: InputMaybe<UnionTypeConnectOrCreateInput>
 }
 
 export type MutationCreateInterfaceTypesArgs = {
@@ -1096,18 +832,18 @@ export type MutationCreateInterfaceTypesArgs = {
 }
 
 export type MutationDeleteInterfaceTypesArgs = {
-  where?: Maybe<InterfaceTypeWhere>
-  delete?: Maybe<InterfaceTypeDeleteInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
 }
 
 export type MutationUpdateInterfaceTypesArgs = {
-  where?: Maybe<InterfaceTypeWhere>
-  update?: Maybe<InterfaceTypeUpdateInput>
-  connect?: Maybe<InterfaceTypeConnectInput>
-  disconnect?: Maybe<InterfaceTypeDisconnectInput>
-  create?: Maybe<InterfaceTypeRelationInput>
-  delete?: Maybe<InterfaceTypeDeleteInput>
-  connectOrCreate?: Maybe<InterfaceTypeConnectOrCreateInput>
+  where?: InputMaybe<InterfaceTypeWhere>
+  update?: InputMaybe<InterfaceTypeUpdateInput>
+  connect?: InputMaybe<InterfaceTypeConnectInput>
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
+  create?: InputMaybe<InterfaceTypeRelationInput>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  connectOrCreate?: InputMaybe<InterfaceTypeConnectOrCreateInput>
 }
 
 export type MutationCreateElementTypesArgs = {
@@ -1115,18 +851,18 @@ export type MutationCreateElementTypesArgs = {
 }
 
 export type MutationDeleteElementTypesArgs = {
-  where?: Maybe<ElementTypeWhere>
-  delete?: Maybe<ElementTypeDeleteInput>
+  where?: InputMaybe<ElementTypeWhere>
+  delete?: InputMaybe<ElementTypeDeleteInput>
 }
 
 export type MutationUpdateElementTypesArgs = {
-  where?: Maybe<ElementTypeWhere>
-  update?: Maybe<ElementTypeUpdateInput>
-  connect?: Maybe<ElementTypeConnectInput>
-  disconnect?: Maybe<ElementTypeDisconnectInput>
-  create?: Maybe<ElementTypeRelationInput>
-  delete?: Maybe<ElementTypeDeleteInput>
-  connectOrCreate?: Maybe<ElementTypeConnectOrCreateInput>
+  where?: InputMaybe<ElementTypeWhere>
+  update?: InputMaybe<ElementTypeUpdateInput>
+  connect?: InputMaybe<ElementTypeConnectInput>
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>
+  create?: InputMaybe<ElementTypeRelationInput>
+  delete?: InputMaybe<ElementTypeDeleteInput>
+  connectOrCreate?: InputMaybe<ElementTypeConnectOrCreateInput>
 }
 
 export type MutationCreateRenderPropsTypesArgs = {
@@ -1134,18 +870,18 @@ export type MutationCreateRenderPropsTypesArgs = {
 }
 
 export type MutationDeleteRenderPropsTypesArgs = {
-  where?: Maybe<RenderPropsTypeWhere>
-  delete?: Maybe<RenderPropsTypeDeleteInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
 }
 
 export type MutationUpdateRenderPropsTypesArgs = {
-  where?: Maybe<RenderPropsTypeWhere>
-  update?: Maybe<RenderPropsTypeUpdateInput>
-  connect?: Maybe<RenderPropsTypeConnectInput>
-  disconnect?: Maybe<RenderPropsTypeDisconnectInput>
-  create?: Maybe<RenderPropsTypeRelationInput>
-  delete?: Maybe<RenderPropsTypeDeleteInput>
-  connectOrCreate?: Maybe<RenderPropsTypeConnectOrCreateInput>
+  where?: InputMaybe<RenderPropsTypeWhere>
+  update?: InputMaybe<RenderPropsTypeUpdateInput>
+  connect?: InputMaybe<RenderPropsTypeConnectInput>
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
+  create?: InputMaybe<RenderPropsTypeRelationInput>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  connectOrCreate?: InputMaybe<RenderPropsTypeConnectOrCreateInput>
 }
 
 export type MutationCreateReactNodeTypesArgs = {
@@ -1153,18 +889,18 @@ export type MutationCreateReactNodeTypesArgs = {
 }
 
 export type MutationDeleteReactNodeTypesArgs = {
-  where?: Maybe<ReactNodeTypeWhere>
-  delete?: Maybe<ReactNodeTypeDeleteInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
 }
 
 export type MutationUpdateReactNodeTypesArgs = {
-  where?: Maybe<ReactNodeTypeWhere>
-  update?: Maybe<ReactNodeTypeUpdateInput>
-  connect?: Maybe<ReactNodeTypeConnectInput>
-  disconnect?: Maybe<ReactNodeTypeDisconnectInput>
-  create?: Maybe<ReactNodeTypeRelationInput>
-  delete?: Maybe<ReactNodeTypeDeleteInput>
-  connectOrCreate?: Maybe<ReactNodeTypeConnectOrCreateInput>
+  where?: InputMaybe<ReactNodeTypeWhere>
+  update?: InputMaybe<ReactNodeTypeUpdateInput>
+  connect?: InputMaybe<ReactNodeTypeConnectInput>
+  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>
+  create?: InputMaybe<ReactNodeTypeRelationInput>
+  delete?: InputMaybe<ReactNodeTypeDeleteInput>
+  connectOrCreate?: InputMaybe<ReactNodeTypeConnectOrCreateInput>
 }
 
 export type MutationCreateEnumTypesArgs = {
@@ -1172,18 +908,18 @@ export type MutationCreateEnumTypesArgs = {
 }
 
 export type MutationDeleteEnumTypesArgs = {
-  where?: Maybe<EnumTypeWhere>
-  delete?: Maybe<EnumTypeDeleteInput>
+  where?: InputMaybe<EnumTypeWhere>
+  delete?: InputMaybe<EnumTypeDeleteInput>
 }
 
 export type MutationUpdateEnumTypesArgs = {
-  where?: Maybe<EnumTypeWhere>
-  update?: Maybe<EnumTypeUpdateInput>
-  connect?: Maybe<EnumTypeConnectInput>
-  disconnect?: Maybe<EnumTypeDisconnectInput>
-  create?: Maybe<EnumTypeRelationInput>
-  delete?: Maybe<EnumTypeDeleteInput>
-  connectOrCreate?: Maybe<EnumTypeConnectOrCreateInput>
+  where?: InputMaybe<EnumTypeWhere>
+  update?: InputMaybe<EnumTypeUpdateInput>
+  connect?: InputMaybe<EnumTypeConnectInput>
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>
+  create?: InputMaybe<EnumTypeRelationInput>
+  delete?: InputMaybe<EnumTypeDeleteInput>
+  connectOrCreate?: InputMaybe<EnumTypeConnectOrCreateInput>
 }
 
 export type MutationCreateEnumTypeValuesArgs = {
@@ -1191,18 +927,18 @@ export type MutationCreateEnumTypeValuesArgs = {
 }
 
 export type MutationDeleteEnumTypeValuesArgs = {
-  where?: Maybe<EnumTypeValueWhere>
-  delete?: Maybe<EnumTypeValueDeleteInput>
+  where?: InputMaybe<EnumTypeValueWhere>
+  delete?: InputMaybe<EnumTypeValueDeleteInput>
 }
 
 export type MutationUpdateEnumTypeValuesArgs = {
-  where?: Maybe<EnumTypeValueWhere>
-  update?: Maybe<EnumTypeValueUpdateInput>
-  connect?: Maybe<EnumTypeValueConnectInput>
-  disconnect?: Maybe<EnumTypeValueDisconnectInput>
-  create?: Maybe<EnumTypeValueRelationInput>
-  delete?: Maybe<EnumTypeValueDeleteInput>
-  connectOrCreate?: Maybe<EnumTypeValueConnectOrCreateInput>
+  where?: InputMaybe<EnumTypeValueWhere>
+  update?: InputMaybe<EnumTypeValueUpdateInput>
+  connect?: InputMaybe<EnumTypeValueConnectInput>
+  disconnect?: InputMaybe<EnumTypeValueDisconnectInput>
+  create?: InputMaybe<EnumTypeValueRelationInput>
+  delete?: InputMaybe<EnumTypeValueDeleteInput>
+  connectOrCreate?: InputMaybe<EnumTypeValueConnectOrCreateInput>
 }
 
 export type MutationCreateLambdaTypesArgs = {
@@ -1210,18 +946,18 @@ export type MutationCreateLambdaTypesArgs = {
 }
 
 export type MutationDeleteLambdaTypesArgs = {
-  where?: Maybe<LambdaTypeWhere>
-  delete?: Maybe<LambdaTypeDeleteInput>
+  where?: InputMaybe<LambdaTypeWhere>
+  delete?: InputMaybe<LambdaTypeDeleteInput>
 }
 
 export type MutationUpdateLambdaTypesArgs = {
-  where?: Maybe<LambdaTypeWhere>
-  update?: Maybe<LambdaTypeUpdateInput>
-  connect?: Maybe<LambdaTypeConnectInput>
-  disconnect?: Maybe<LambdaTypeDisconnectInput>
-  create?: Maybe<LambdaTypeRelationInput>
-  delete?: Maybe<LambdaTypeDeleteInput>
-  connectOrCreate?: Maybe<LambdaTypeConnectOrCreateInput>
+  where?: InputMaybe<LambdaTypeWhere>
+  update?: InputMaybe<LambdaTypeUpdateInput>
+  connect?: InputMaybe<LambdaTypeConnectInput>
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
+  create?: InputMaybe<LambdaTypeRelationInput>
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+  connectOrCreate?: InputMaybe<LambdaTypeConnectOrCreateInput>
 }
 
 export type MutationCreatePageTypesArgs = {
@@ -1229,18 +965,18 @@ export type MutationCreatePageTypesArgs = {
 }
 
 export type MutationDeletePageTypesArgs = {
-  where?: Maybe<PageTypeWhere>
-  delete?: Maybe<PageTypeDeleteInput>
+  where?: InputMaybe<PageTypeWhere>
+  delete?: InputMaybe<PageTypeDeleteInput>
 }
 
 export type MutationUpdatePageTypesArgs = {
-  where?: Maybe<PageTypeWhere>
-  update?: Maybe<PageTypeUpdateInput>
-  connect?: Maybe<PageTypeConnectInput>
-  disconnect?: Maybe<PageTypeDisconnectInput>
-  create?: Maybe<PageTypeRelationInput>
-  delete?: Maybe<PageTypeDeleteInput>
-  connectOrCreate?: Maybe<PageTypeConnectOrCreateInput>
+  where?: InputMaybe<PageTypeWhere>
+  update?: InputMaybe<PageTypeUpdateInput>
+  connect?: InputMaybe<PageTypeConnectInput>
+  disconnect?: InputMaybe<PageTypeDisconnectInput>
+  create?: InputMaybe<PageTypeRelationInput>
+  delete?: InputMaybe<PageTypeDeleteInput>
+  connectOrCreate?: InputMaybe<PageTypeConnectOrCreateInput>
 }
 
 export type MutationCreateAppTypesArgs = {
@@ -1248,18 +984,18 @@ export type MutationCreateAppTypesArgs = {
 }
 
 export type MutationDeleteAppTypesArgs = {
-  where?: Maybe<AppTypeWhere>
-  delete?: Maybe<AppTypeDeleteInput>
+  where?: InputMaybe<AppTypeWhere>
+  delete?: InputMaybe<AppTypeDeleteInput>
 }
 
 export type MutationUpdateAppTypesArgs = {
-  where?: Maybe<AppTypeWhere>
-  update?: Maybe<AppTypeUpdateInput>
-  connect?: Maybe<AppTypeConnectInput>
-  disconnect?: Maybe<AppTypeDisconnectInput>
-  create?: Maybe<AppTypeRelationInput>
-  delete?: Maybe<AppTypeDeleteInput>
-  connectOrCreate?: Maybe<AppTypeConnectOrCreateInput>
+  where?: InputMaybe<AppTypeWhere>
+  update?: InputMaybe<AppTypeUpdateInput>
+  connect?: InputMaybe<AppTypeConnectInput>
+  disconnect?: InputMaybe<AppTypeDisconnectInput>
+  create?: InputMaybe<AppTypeRelationInput>
+  delete?: InputMaybe<AppTypeDeleteInput>
+  connectOrCreate?: InputMaybe<AppTypeConnectOrCreateInput>
 }
 
 export type MutationCreateMonacoTypesArgs = {
@@ -1267,18 +1003,18 @@ export type MutationCreateMonacoTypesArgs = {
 }
 
 export type MutationDeleteMonacoTypesArgs = {
-  where?: Maybe<MonacoTypeWhere>
-  delete?: Maybe<MonacoTypeDeleteInput>
+  where?: InputMaybe<MonacoTypeWhere>
+  delete?: InputMaybe<MonacoTypeDeleteInput>
 }
 
 export type MutationUpdateMonacoTypesArgs = {
-  where?: Maybe<MonacoTypeWhere>
-  update?: Maybe<MonacoTypeUpdateInput>
-  connect?: Maybe<MonacoTypeConnectInput>
-  disconnect?: Maybe<MonacoTypeDisconnectInput>
-  create?: Maybe<MonacoTypeRelationInput>
-  delete?: Maybe<MonacoTypeDeleteInput>
-  connectOrCreate?: Maybe<MonacoTypeConnectOrCreateInput>
+  where?: InputMaybe<MonacoTypeWhere>
+  update?: InputMaybe<MonacoTypeUpdateInput>
+  connect?: InputMaybe<MonacoTypeConnectInput>
+  disconnect?: InputMaybe<MonacoTypeDisconnectInput>
+  create?: InputMaybe<MonacoTypeRelationInput>
+  delete?: InputMaybe<MonacoTypeDeleteInput>
+  connectOrCreate?: InputMaybe<MonacoTypeConnectOrCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -1286,18 +1022,18 @@ export type MutationCreateTagsArgs = {
 }
 
 export type MutationDeleteTagsArgs = {
-  where?: Maybe<TagWhere>
-  delete?: Maybe<TagDeleteInput>
+  where?: InputMaybe<TagWhere>
+  delete?: InputMaybe<TagDeleteInput>
 }
 
 export type MutationUpdateTagsArgs = {
-  where?: Maybe<TagWhere>
-  update?: Maybe<TagUpdateInput>
-  connect?: Maybe<TagConnectInput>
-  disconnect?: Maybe<TagDisconnectInput>
-  create?: Maybe<TagRelationInput>
-  delete?: Maybe<TagDeleteInput>
-  connectOrCreate?: Maybe<TagConnectOrCreateInput>
+  where?: InputMaybe<TagWhere>
+  update?: InputMaybe<TagUpdateInput>
+  connect?: InputMaybe<TagConnectInput>
+  disconnect?: InputMaybe<TagDisconnectInput>
+  create?: InputMaybe<TagRelationInput>
+  delete?: InputMaybe<TagDeleteInput>
+  connectOrCreate?: InputMaybe<TagConnectOrCreateInput>
 }
 
 export type MutationCreateTagGraphOptionsArgs = {
@@ -1305,12 +1041,12 @@ export type MutationCreateTagGraphOptionsArgs = {
 }
 
 export type MutationDeleteTagGraphOptionsArgs = {
-  where?: Maybe<TagGraphOptionsWhere>
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationUpdateTagGraphOptionsArgs = {
-  where?: Maybe<TagGraphOptionsWhere>
-  update?: Maybe<TagGraphOptionsUpdateInput>
+  where?: InputMaybe<TagGraphOptionsWhere>
+  update?: InputMaybe<TagGraphOptionsUpdateInput>
 }
 
 export type MutationCreateTagEdgesArgs = {
@@ -1318,12 +1054,12 @@ export type MutationCreateTagEdgesArgs = {
 }
 
 export type MutationDeleteTagEdgesArgs = {
-  where?: Maybe<TagEdgeWhere>
+  where?: InputMaybe<TagEdgeWhere>
 }
 
 export type MutationUpdateTagEdgesArgs = {
-  where?: Maybe<TagEdgeWhere>
-  update?: Maybe<TagEdgeUpdateInput>
+  where?: InputMaybe<TagEdgeWhere>
+  update?: InputMaybe<TagEdgeUpdateInput>
 }
 
 export type MutationCreateTagGraphsArgs = {
@@ -1331,12 +1067,12 @@ export type MutationCreateTagGraphsArgs = {
 }
 
 export type MutationDeleteTagGraphsArgs = {
-  where?: Maybe<TagGraphWhere>
+  where?: InputMaybe<TagGraphWhere>
 }
 
 export type MutationUpdateTagGraphsArgs = {
-  where?: Maybe<TagGraphWhere>
-  update?: Maybe<TagGraphUpdateInput>
+  where?: InputMaybe<TagGraphWhere>
+  update?: InputMaybe<TagGraphUpdateInput>
 }
 
 export type MutationCreateElementEdgesArgs = {
@@ -1344,12 +1080,12 @@ export type MutationCreateElementEdgesArgs = {
 }
 
 export type MutationDeleteElementEdgesArgs = {
-  where?: Maybe<ElementEdgeWhere>
+  where?: InputMaybe<ElementEdgeWhere>
 }
 
 export type MutationUpdateElementEdgesArgs = {
-  where?: Maybe<ElementEdgeWhere>
-  update?: Maybe<ElementEdgeUpdateInput>
+  where?: InputMaybe<ElementEdgeWhere>
+  update?: InputMaybe<ElementEdgeUpdateInput>
 }
 
 export type MutationCreateElementGraphsArgs = {
@@ -1357,12 +1093,12 @@ export type MutationCreateElementGraphsArgs = {
 }
 
 export type MutationDeleteElementGraphsArgs = {
-  where?: Maybe<ElementGraphWhere>
+  where?: InputMaybe<ElementGraphWhere>
 }
 
 export type MutationUpdateElementGraphsArgs = {
-  where?: Maybe<ElementGraphWhere>
-  update?: Maybe<ElementGraphUpdateInput>
+  where?: InputMaybe<ElementGraphWhere>
+  update?: InputMaybe<ElementGraphUpdateInput>
 }
 
 export type MutationCreatePropsArgs = {
@@ -1370,12 +1106,12 @@ export type MutationCreatePropsArgs = {
 }
 
 export type MutationDeletePropsArgs = {
-  where?: Maybe<PropWhere>
+  where?: InputMaybe<PropWhere>
 }
 
 export type MutationUpdatePropsArgs = {
-  where?: Maybe<PropWhere>
-  update?: Maybe<PropUpdateInput>
+  where?: InputMaybe<PropWhere>
+  update?: InputMaybe<PropUpdateInput>
 }
 
 export type MutationCreateHooksArgs = {
@@ -1383,18 +1119,18 @@ export type MutationCreateHooksArgs = {
 }
 
 export type MutationDeleteHooksArgs = {
-  where?: Maybe<HookWhere>
-  delete?: Maybe<HookDeleteInput>
+  where?: InputMaybe<HookWhere>
+  delete?: InputMaybe<HookDeleteInput>
 }
 
 export type MutationUpdateHooksArgs = {
-  where?: Maybe<HookWhere>
-  update?: Maybe<HookUpdateInput>
-  connect?: Maybe<HookConnectInput>
-  disconnect?: Maybe<HookDisconnectInput>
-  create?: Maybe<HookRelationInput>
-  delete?: Maybe<HookDeleteInput>
-  connectOrCreate?: Maybe<HookConnectOrCreateInput>
+  where?: InputMaybe<HookWhere>
+  update?: InputMaybe<HookUpdateInput>
+  connect?: InputMaybe<HookConnectInput>
+  disconnect?: InputMaybe<HookDisconnectInput>
+  create?: InputMaybe<HookRelationInput>
+  delete?: InputMaybe<HookDeleteInput>
+  connectOrCreate?: InputMaybe<HookConnectOrCreateInput>
 }
 
 export type MutationCreatePropMapBindingsArgs = {
@@ -1402,18 +1138,18 @@ export type MutationCreatePropMapBindingsArgs = {
 }
 
 export type MutationDeletePropMapBindingsArgs = {
-  where?: Maybe<PropMapBindingWhere>
-  delete?: Maybe<PropMapBindingDeleteInput>
+  where?: InputMaybe<PropMapBindingWhere>
+  delete?: InputMaybe<PropMapBindingDeleteInput>
 }
 
 export type MutationUpdatePropMapBindingsArgs = {
-  where?: Maybe<PropMapBindingWhere>
-  update?: Maybe<PropMapBindingUpdateInput>
-  connect?: Maybe<PropMapBindingConnectInput>
-  disconnect?: Maybe<PropMapBindingDisconnectInput>
-  create?: Maybe<PropMapBindingRelationInput>
-  delete?: Maybe<PropMapBindingDeleteInput>
-  connectOrCreate?: Maybe<PropMapBindingConnectOrCreateInput>
+  where?: InputMaybe<PropMapBindingWhere>
+  update?: InputMaybe<PropMapBindingUpdateInput>
+  connect?: InputMaybe<PropMapBindingConnectInput>
+  disconnect?: InputMaybe<PropMapBindingDisconnectInput>
+  create?: InputMaybe<PropMapBindingRelationInput>
+  delete?: InputMaybe<PropMapBindingDeleteInput>
+  connectOrCreate?: InputMaybe<PropMapBindingConnectOrCreateInput>
 }
 
 export type MutationCreateElementsArgs = {
@@ -1421,18 +1157,18 @@ export type MutationCreateElementsArgs = {
 }
 
 export type MutationDeleteElementsArgs = {
-  where?: Maybe<ElementWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<ElementWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type MutationUpdateElementsArgs = {
-  where?: Maybe<ElementWhere>
-  update?: Maybe<ElementUpdateInput>
-  connect?: Maybe<ElementConnectInput>
-  disconnect?: Maybe<ElementDisconnectInput>
-  create?: Maybe<ElementRelationInput>
-  delete?: Maybe<ElementDeleteInput>
-  connectOrCreate?: Maybe<ElementConnectOrCreateInput>
+  where?: InputMaybe<ElementWhere>
+  update?: InputMaybe<ElementUpdateInput>
+  connect?: InputMaybe<ElementConnectInput>
+  disconnect?: InputMaybe<ElementDisconnectInput>
+  create?: InputMaybe<ElementRelationInput>
+  delete?: InputMaybe<ElementDeleteInput>
+  connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>
 }
 
 export type MutationCreateDuplicateElementMutationResponsesArgs = {
@@ -1440,12 +1176,12 @@ export type MutationCreateDuplicateElementMutationResponsesArgs = {
 }
 
 export type MutationDeleteDuplicateElementMutationResponsesArgs = {
-  where?: Maybe<DuplicateElementMutationResponseWhere>
+  where?: InputMaybe<DuplicateElementMutationResponseWhere>
 }
 
 export type MutationUpdateDuplicateElementMutationResponsesArgs = {
-  where?: Maybe<DuplicateElementMutationResponseWhere>
-  update?: Maybe<DuplicateElementMutationResponseUpdateInput>
+  where?: InputMaybe<DuplicateElementMutationResponseWhere>
+  update?: InputMaybe<DuplicateElementMutationResponseUpdateInput>
 }
 
 export type MutationCreateDeleteElementsInfosArgs = {
@@ -1453,12 +1189,12 @@ export type MutationCreateDeleteElementsInfosArgs = {
 }
 
 export type MutationDeleteDeleteElementsInfosArgs = {
-  where?: Maybe<DeleteElementsInfoWhere>
+  where?: InputMaybe<DeleteElementsInfoWhere>
 }
 
 export type MutationUpdateDeleteElementsInfosArgs = {
-  where?: Maybe<DeleteElementsInfoWhere>
-  update?: Maybe<DeleteElementsInfoUpdateInput>
+  where?: InputMaybe<DeleteElementsInfoWhere>
+  update?: InputMaybe<DeleteElementsInfoUpdateInput>
 }
 
 export type MutationCreateComponentsArgs = {
@@ -1466,18 +1202,18 @@ export type MutationCreateComponentsArgs = {
 }
 
 export type MutationDeleteComponentsArgs = {
-  where?: Maybe<ComponentWhere>
-  delete?: Maybe<ComponentDeleteInput>
+  where?: InputMaybe<ComponentWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
 }
 
 export type MutationUpdateComponentsArgs = {
-  where?: Maybe<ComponentWhere>
-  update?: Maybe<ComponentUpdateInput>
-  connect?: Maybe<ComponentConnectInput>
-  disconnect?: Maybe<ComponentDisconnectInput>
-  create?: Maybe<ComponentRelationInput>
-  delete?: Maybe<ComponentDeleteInput>
-  connectOrCreate?: Maybe<ComponentConnectOrCreateInput>
+  where?: InputMaybe<ComponentWhere>
+  update?: InputMaybe<ComponentUpdateInput>
+  connect?: InputMaybe<ComponentConnectInput>
+  disconnect?: InputMaybe<ComponentDisconnectInput>
+  create?: InputMaybe<ComponentRelationInput>
+  delete?: InputMaybe<ComponentDeleteInput>
+  connectOrCreate?: InputMaybe<ComponentConnectOrCreateInput>
 }
 
 export enum AtomType {
@@ -1882,36 +1618,10 @@ export enum SortDirection {
   Desc = 'DESC',
 }
 
-export type AnyType =
-  | ElementType
-  | ArrayType
-  | UnionType
-  | EnumType
-  | LambdaType
-  | PageType
-  | AppType
-  | MonacoType
-  | InterfaceType
-  | PrimitiveType
-  | RenderPropsType
-
-/**
- * Connection between two types in a TypeGraph.
- * Can be:
- * Array -> ArrayItem (Edge)
- * Interface -> Field type - (InterfaceTypeEdge)
- * Union -> Union member (Edge)
- */
-export type TypeEdge = Edge | InterfaceTypeEdge
-
 export type Field = {
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
-}
-
-export type IdProperty = {
-  id: Scalars['ID']
 }
 
 export type IEdge = {
@@ -1928,70 +1638,78 @@ export type TypeBase = {
   ownerConnection: TypeBaseOwnerConnection
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
 }
 
 export type TypeBaseOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TypeBaseOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type App = {
   __typename?: 'App'
   id: Scalars['ID']
   name: Scalars['String']
-  owner?: Maybe<Array<Maybe<User>>>
+  owner: Array<User>
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>
-  pages?: Maybe<Array<Page>>
+  pages: Array<Page>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   ownerConnection: AppOwnerConnection
   pagesConnection: AppPagesConnection
 }
 
 export type AppOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AppOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AppPagesArgs = {
-  where?: Maybe<PageWhere>
-  options?: Maybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+  options?: InputMaybe<PageOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AppPagesAggregateArgs = {
-  where?: Maybe<PageWhere>
+  where?: InputMaybe<PageWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AppOwnerConnectionArgs = {
-  where?: Maybe<AppOwnerConnectionWhere>
-  sort?: Maybe<Array<AppOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<AppOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<AppOwnerConnectionSort>>
 }
 
 export type AppPagesConnectionArgs = {
-  where?: Maybe<AppPagesConnectionWhere>
-  sort?: Maybe<Array<AppPagesConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<AppPagesConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<AppPagesConnectionSort>>
 }
 
 export type AppAggregateSelection = {
   __typename?: 'AppAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AppOwnerConnection = {
@@ -2015,8 +1733,8 @@ export type AppPagePagesAggregationSelection = {
 
 export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AppPagesConnection = {
@@ -2037,7 +1755,7 @@ export type AppType = TypeBase & {
   __typename?: 'AppType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
@@ -2045,28 +1763,31 @@ export type AppType = TypeBase & {
 
 /** Allows picking a app from the list of apps */
 export type AppTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a app from the list of apps */
 export type AppTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a app from the list of apps */
 export type AppTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type AppTypeAggregateSelection = {
   __typename?: 'AppTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AppTypeUserOwnerAggregationSelection = {
@@ -2077,9 +1798,9 @@ export type AppTypeUserOwnerAggregationSelection = {
 
 export type AppTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'AppTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type AppUserOwnerAggregationSelection = {
@@ -2090,9 +1811,9 @@ export type AppUserOwnerAggregationSelection = {
 
 export type AppUserOwnerNodeAggregateSelection = {
   __typename?: 'AppUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /**
@@ -2103,10 +1824,10 @@ export type ArrayType = TypeBase & {
   __typename?: 'ArrayType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
-  itemType?: Maybe<Array<TypeBase>>
+  itemType: Array<TypeBase>
   ownerConnection: TypeBaseOwnerConnection
   itemTypeConnection: ArrayTypeItemTypeConnection
 }
@@ -2116,8 +1837,9 @@ export type ArrayType = TypeBase & {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -2125,7 +1847,8 @@ export type ArrayTypeOwnerArgs = {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -2133,8 +1856,9 @@ export type ArrayTypeOwnerAggregateArgs = {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayTypeItemTypeArgs = {
-  options?: Maybe<QueryOptions>
-  where?: Maybe<TypeBaseWhere>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -2142,10 +1866,11 @@ export type ArrayTypeItemTypeArgs = {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 /**
@@ -2153,15 +1878,18 @@ export type ArrayTypeOwnerConnectionArgs = {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayTypeItemTypeConnectionArgs = {
-  where?: Maybe<ArrayTypeItemTypeConnectionWhere>
-  sort?: Maybe<Array<ArrayTypeItemTypeConnectionSort>>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ArrayTypeItemTypeConnectionSort>>
 }
 
 export type ArrayTypeAggregateSelection = {
   __typename?: 'ArrayTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ArrayTypeItemTypeConnection = {
@@ -2171,11 +1899,10 @@ export type ArrayTypeItemTypeConnection = {
   pageInfo: PageInfo
 }
 
-export type ArrayTypeItemTypeRelationship = IdProperty & {
+export type ArrayTypeItemTypeRelationship = {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
   node: TypeBase
-  id: Scalars['ID']
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
@@ -2186,9 +1913,9 @@ export type ArrayTypeUserOwnerAggregationSelection = {
 
 export type ArrayTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'ArrayTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type Atom = {
@@ -2196,7 +1923,7 @@ export type Atom = {
   id: Scalars['ID']
   name: Scalars['String']
   type: AtomType
-  tags?: Maybe<Array<Tag>>
+  tags: Array<Tag>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
@@ -2205,42 +1932,48 @@ export type Atom = {
 }
 
 export type AtomTagsArgs = {
-  where?: Maybe<TagWhere>
-  options?: Maybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AtomTagsAggregateArgs = {
-  where?: Maybe<TagWhere>
+  where?: InputMaybe<TagWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AtomApiArgs = {
-  where?: Maybe<InterfaceTypeWhere>
-  options?: Maybe<InterfaceTypeOptions>
+  where?: InputMaybe<InterfaceTypeWhere>
+  options?: InputMaybe<InterfaceTypeOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AtomApiAggregateArgs = {
-  where?: Maybe<InterfaceTypeWhere>
+  where?: InputMaybe<InterfaceTypeWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type AtomTagsConnectionArgs = {
-  where?: Maybe<AtomTagsConnectionWhere>
-  sort?: Maybe<Array<AtomTagsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<AtomTagsConnectionSort>>
 }
 
 export type AtomApiConnectionArgs = {
-  where?: Maybe<AtomApiConnectionWhere>
-  sort?: Maybe<Array<AtomApiConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<AtomApiConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<AtomApiConnectionSort>>
 }
 
 export type AtomAggregateSelection = {
   __typename?: 'AtomAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AtomApiConnection = {
@@ -2264,8 +1997,8 @@ export type AtomInterfaceTypeApiAggregationSelection = {
 
 export type AtomInterfaceTypeApiNodeAggregateSelection = {
   __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AtomTagsConnection = {
@@ -2289,8 +2022,8 @@ export type AtomTagTagsAggregationSelection = {
 
 export type AtomTagTagsNodeAggregateSelection = {
   __typename?: 'AtomTagTagsNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type Component = {
@@ -2306,42 +2039,48 @@ export type Component = {
 }
 
 export type ComponentRootElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ComponentRootElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ComponentOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ComponentOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ComponentRootElementConnectionArgs = {
-  where?: Maybe<ComponentRootElementConnectionWhere>
-  sort?: Maybe<Array<ComponentRootElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ComponentRootElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ComponentRootElementConnectionSort>>
 }
 
 export type ComponentOwnerConnectionArgs = {
-  where?: Maybe<ComponentOwnerConnectionWhere>
-  sort?: Maybe<Array<ComponentOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ComponentOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ComponentOwnerConnectionSort>>
 }
 
 export type ComponentAggregateSelection = {
   __typename?: 'ComponentAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ComponentElementRootElementAggregationSelection = {
@@ -2352,12 +2091,12 @@ export type ComponentElementRootElementAggregationSelection = {
 
 export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: 'ComponentElementRootElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type ComponentOwnerConnection = {
@@ -2394,9 +2133,9 @@ export type ComponentUserOwnerAggregationSelection = {
 
 export type ComponentUserOwnerNodeAggregateSelection = {
   __typename?: 'ComponentUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type CreateAppsMutationResponse = {
@@ -2507,12 +2246,6 @@ export type CreateImportAtomsMutationResponsesMutationResponse = {
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
 }
 
-export type CreateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
-  info: CreateInfo
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-}
-
 export type CreateInfo = {
   __typename?: 'CreateInfo'
   bookmark?: Maybe<Scalars['String']>
@@ -2523,9 +2256,9 @@ export type CreateInfo = {
 export type CreateInfoAggregateSelection = {
   __typename?: 'CreateInfoAggregateSelection'
   count: Scalars['Int']
-  bookmark: StringAggregateSelection
-  nodesCreated: IntAggregateSelection
-  relationshipsCreated: IntAggregateSelection
+  bookmark: StringAggregateSelectionNullable
+  nodesCreated: IntAggregateSelectionNonNullable
+  relationshipsCreated: IntAggregateSelectionNonNullable
 }
 
 export type CreateInterfaceTypeEdgesMutationResponse = {
@@ -2624,12 +2357,6 @@ export type CreateTagsMutationResponse = {
   tags: Array<Tag>
 }
 
-export type CreateTypeGraphsMutationResponse = {
-  __typename?: 'CreateTypeGraphsMutationResponse'
-  info: CreateInfo
-  typeGraphs: Array<TypeGraph>
-}
-
 export type CreateTypeReferencesMutationResponse = {
   __typename?: 'CreateTypeReferencesMutationResponse'
   info: CreateInfo
@@ -2652,14 +2379,14 @@ export type DeleteElementsInfo = {
   __typename?: 'DeleteElementsInfo'
   nodesDeleted: Scalars['Int']
   relationshipsDeleted: Scalars['Int']
-  deletedIds?: Maybe<Array<Scalars['String']>>
+  deletedIds: Array<Scalars['String']>
 }
 
 export type DeleteElementsInfoAggregateSelection = {
   __typename?: 'DeleteElementsInfoAggregateSelection'
   count: Scalars['Int']
-  nodesDeleted: IntAggregateSelection
-  relationshipsDeleted: IntAggregateSelection
+  nodesDeleted: IntAggregateSelectionNonNullable
+  relationshipsDeleted: IntAggregateSelectionNonNullable
 }
 
 export type DeleteFieldResponse = {
@@ -2670,7 +2397,7 @@ export type DeleteFieldResponse = {
 export type DeleteFieldResponseAggregateSelection = {
   __typename?: 'DeleteFieldResponseAggregateSelection'
   count: Scalars['Int']
-  deletedEdgesCount: IntAggregateSelection
+  deletedEdgesCount: IntAggregateSelectionNonNullable
 }
 
 export type DeleteInfo = {
@@ -2700,8 +2427,8 @@ export type Edge = IEdge & {
 export type EdgeAggregateSelection = {
   __typename?: 'EdgeAggregateSelection'
   count: Scalars['Int']
-  source: StringAggregateSelection
-  target: StringAggregateSelection
+  source: StringAggregateSelectionNonNullable
+  target: StringAggregateSelectionNonNullable
 }
 
 export type Element = {
@@ -2712,7 +2439,7 @@ export type Element = {
   propTransformationJs?: Maybe<Scalars['String']>
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfPropKey?: Maybe<Scalars['String']>
-  children?: Maybe<Array<Element>>
+  children: Array<Element>
   childrenAggregate?: Maybe<ElementElementChildrenAggregationSelection>
   props?: Maybe<Prop>
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
@@ -2724,9 +2451,9 @@ export type Element = {
   componentAggregate?: Maybe<ElementComponentComponentAggregationSelection>
   atom?: Maybe<Atom>
   atomAggregate?: Maybe<ElementAtomAtomAggregationSelection>
-  hooks?: Maybe<Array<Hook>>
+  hooks: Array<Hook>
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
-  propMapBindings?: Maybe<Array<PropMapBinding>>
+  propMapBindings: Array<PropMapBinding>
   propMapBindingsAggregate?: Maybe<ElementPropMapBindingPropMapBindingsAggregationSelection>
   childrenConnection: ElementChildrenConnection
   propsConnection: ElementPropsConnection
@@ -2739,142 +2466,166 @@ export type Element = {
 }
 
 export type ElementChildrenArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementChildrenAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementPropsArgs = {
-  where?: Maybe<PropWhere>
-  options?: Maybe<PropOptions>
+  where?: InputMaybe<PropWhere>
+  options?: InputMaybe<PropOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementPropsAggregateArgs = {
-  where?: Maybe<PropWhere>
+  where?: InputMaybe<PropWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementParentElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementParentElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementInstanceOfComponentArgs = {
-  where?: Maybe<ComponentWhere>
-  options?: Maybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+  options?: InputMaybe<ComponentOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementInstanceOfComponentAggregateArgs = {
-  where?: Maybe<ComponentWhere>
+  where?: InputMaybe<ComponentWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementComponentArgs = {
-  where?: Maybe<ComponentWhere>
-  options?: Maybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+  options?: InputMaybe<ComponentOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementComponentAggregateArgs = {
-  where?: Maybe<ComponentWhere>
+  where?: InputMaybe<ComponentWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementAtomArgs = {
-  where?: Maybe<AtomWhere>
-  options?: Maybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementAtomAggregateArgs = {
-  where?: Maybe<AtomWhere>
+  where?: InputMaybe<AtomWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementHooksArgs = {
-  where?: Maybe<HookWhere>
-  options?: Maybe<HookOptions>
+  where?: InputMaybe<HookWhere>
+  options?: InputMaybe<HookOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementHooksAggregateArgs = {
-  where?: Maybe<HookWhere>
+  where?: InputMaybe<HookWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementPropMapBindingsArgs = {
-  where?: Maybe<PropMapBindingWhere>
-  options?: Maybe<PropMapBindingOptions>
+  where?: InputMaybe<PropMapBindingWhere>
+  options?: InputMaybe<PropMapBindingOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementPropMapBindingsAggregateArgs = {
-  where?: Maybe<PropMapBindingWhere>
+  where?: InputMaybe<PropMapBindingWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ElementChildrenConnectionArgs = {
-  where?: Maybe<ElementChildrenConnectionWhere>
-  sort?: Maybe<Array<ElementChildrenConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementChildrenConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementChildrenConnectionSort>>
 }
 
 export type ElementPropsConnectionArgs = {
-  where?: Maybe<ElementPropsConnectionWhere>
-  sort?: Maybe<Array<ElementPropsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementPropsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementPropsConnectionSort>>
 }
 
 export type ElementParentElementConnectionArgs = {
-  where?: Maybe<ElementParentElementConnectionWhere>
-  sort?: Maybe<Array<ElementParentElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementParentElementConnectionSort>>
 }
 
 export type ElementInstanceOfComponentConnectionArgs = {
-  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  sort?: Maybe<Array<ElementInstanceOfComponentConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementInstanceOfComponentConnectionSort>>
 }
 
 export type ElementComponentConnectionArgs = {
-  where?: Maybe<ElementComponentConnectionWhere>
-  sort?: Maybe<Array<ElementComponentConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementComponentConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementComponentConnectionSort>>
 }
 
 export type ElementAtomConnectionArgs = {
-  where?: Maybe<ElementAtomConnectionWhere>
-  sort?: Maybe<Array<ElementAtomConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementAtomConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementAtomConnectionSort>>
 }
 
 export type ElementHooksConnectionArgs = {
-  where?: Maybe<ElementHooksConnectionWhere>
-  sort?: Maybe<Array<ElementHooksConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementHooksConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementHooksConnectionSort>>
 }
 
 export type ElementPropMapBindingsConnectionArgs = {
-  where?: Maybe<ElementPropMapBindingsConnectionWhere>
-  sort?: Maybe<Array<ElementPropMapBindingsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ElementPropMapBindingsConnectionSort>>
 }
 
 export type ElementAggregateSelection = {
   __typename?: 'ElementAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type ElementAtomAtomAggregationSelection = {
@@ -2885,8 +2636,8 @@ export type ElementAtomAtomAggregationSelection = {
 
 export type ElementAtomAtomNodeAggregateSelection = {
   __typename?: 'ElementAtomAtomNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementAtomConnection = {
@@ -2924,8 +2675,8 @@ export type ElementComponentComponentAggregationSelection = {
 
 export type ElementComponentComponentNodeAggregateSelection = {
   __typename?: 'ElementComponentComponentNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementComponentConnection = {
@@ -2943,8 +2694,8 @@ export type ElementComponentInstanceOfComponentAggregationSelection = {
 
 export type ElementComponentInstanceOfComponentNodeAggregateSelection = {
   __typename?: 'ElementComponentInstanceOfComponentNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementComponentRelationship = {
@@ -2963,9 +2714,9 @@ export type ElementEdge = {
 export type ElementEdgeAggregateSelection = {
   __typename?: 'ElementEdgeAggregateSelection'
   count: Scalars['Int']
-  source: StringAggregateSelection
-  target: StringAggregateSelection
-  order: IntAggregateSelection
+  source: StringAggregateSelectionNonNullable
+  target: StringAggregateSelectionNonNullable
+  order: IntAggregateSelectionNullable
 }
 
 export type ElementElementChildrenAggregationSelection = {
@@ -2977,17 +2728,17 @@ export type ElementElementChildrenAggregationSelection = {
 
 export type ElementElementChildrenEdgeAggregateSelection = {
   __typename?: 'ElementElementChildrenEdgeAggregateSelection'
-  order: IntAggregateSelection
+  order: IntAggregateSelectionNullable
 }
 
 export type ElementElementChildrenNodeAggregateSelection = {
   __typename?: 'ElementElementChildrenNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type ElementElementParentElementAggregationSelection = {
@@ -2999,17 +2750,17 @@ export type ElementElementParentElementAggregationSelection = {
 
 export type ElementElementParentElementEdgeAggregateSelection = {
   __typename?: 'ElementElementParentElementEdgeAggregateSelection'
-  order: IntAggregateSelection
+  order: IntAggregateSelectionNullable
 }
 
 export type ElementElementParentElementNodeAggregateSelection = {
   __typename?: 'ElementElementParentElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type ElementGraph = {
@@ -3022,7 +2773,7 @@ export type ElementGraph = {
 export type ElementGraphAggregateSelection = {
   __typename?: 'ElementGraphAggregateSelection'
   count: Scalars['Int']
-  rootId: StringAggregateSelection
+  rootId: StringAggregateSelectionNullable
 }
 
 export type ElementHookHooksAggregationSelection = {
@@ -3033,7 +2784,7 @@ export type ElementHookHooksAggregationSelection = {
 
 export type ElementHookHooksNodeAggregateSelection = {
   __typename?: 'ElementHookHooksNodeAggregateSelection'
-  id: IdAggregateSelection
+  id: IdAggregateSelectionNonNullable
 }
 
 export type ElementHooksConnection = {
@@ -3084,9 +2835,9 @@ export type ElementPropMapBindingPropMapBindingsAggregationSelection = {
 
 export type ElementPropMapBindingPropMapBindingsNodeAggregateSelection = {
   __typename?: 'ElementPropMapBindingPropMapBindingsNodeAggregateSelection'
-  id: IdAggregateSelection
-  sourceKey: StringAggregateSelection
-  targetKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  sourceKey: StringAggregateSelectionNonNullable
+  targetKey: StringAggregateSelectionNonNullable
 }
 
 export type ElementPropMapBindingsConnection = {
@@ -3110,8 +2861,8 @@ export type ElementPropPropsAggregationSelection = {
 
 export type ElementPropPropsNodeAggregateSelection = {
   __typename?: 'ElementPropPropsNodeAggregateSelection'
-  id: IdAggregateSelection
-  data: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  data: StringAggregateSelectionNonNullable
 }
 
 export type ElementPropsConnection = {
@@ -3141,7 +2892,7 @@ export type ElementType = TypeBase & {
   __typename?: 'ElementType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
   owner?: Maybe<User>
@@ -3160,8 +2911,9 @@ export type ElementType = TypeBase & {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ElementTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3175,7 +2927,8 @@ export type ElementTypeOwnerArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ElementTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3189,17 +2942,18 @@ export type ElementTypeOwnerAggregateArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ElementTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type ElementTypeAggregateSelection = {
   __typename?: 'ElementTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementTypeUserOwnerAggregationSelection = {
@@ -3210,9 +2964,9 @@ export type ElementTypeUserOwnerAggregationSelection = {
 
 export type ElementTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'ElementTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /**
@@ -3224,10 +2978,10 @@ export type EnumType = TypeBase & {
   __typename?: 'EnumType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<EnumTypeUserOwnerAggregationSelection>
-  allowedValues?: Maybe<Array<EnumTypeValue>>
+  allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
   allowedValuesConnection: EnumTypeAllowedValuesConnection
@@ -3239,8 +2993,9 @@ export type EnumType = TypeBase & {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3249,7 +3004,8 @@ export type EnumTypeOwnerArgs = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3258,8 +3014,9 @@ export type EnumTypeOwnerAggregateArgs = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeAllowedValuesArgs = {
-  where?: Maybe<EnumTypeValueWhere>
-  options?: Maybe<EnumTypeValueOptions>
+  where?: InputMaybe<EnumTypeValueWhere>
+  options?: InputMaybe<EnumTypeValueOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3268,7 +3025,8 @@ export type EnumTypeAllowedValuesArgs = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeAllowedValuesAggregateArgs = {
-  where?: Maybe<EnumTypeValueWhere>
+  where?: InputMaybe<EnumTypeValueWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -3277,10 +3035,11 @@ export type EnumTypeAllowedValuesAggregateArgs = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 /**
@@ -3289,17 +3048,18 @@ export type EnumTypeOwnerConnectionArgs = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumTypeAllowedValuesConnectionArgs = {
-  where?: Maybe<EnumTypeAllowedValuesConnectionWhere>
-  sort?: Maybe<Array<EnumTypeAllowedValuesConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<EnumTypeAllowedValuesConnectionSort>>
 }
 
 export type EnumTypeAggregateSelection = {
   __typename?: 'EnumTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeAllowedValuesConnection = {
@@ -3323,9 +3083,9 @@ export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
 
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  value: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  value: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeUserOwnerAggregationSelection = {
@@ -3336,9 +3096,9 @@ export type EnumTypeUserOwnerAggregationSelection = {
 
 export type EnumTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'EnumTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeValue = {
@@ -3352,27 +3112,30 @@ export type EnumTypeValue = {
 }
 
 export type EnumTypeValueEnumTypeArgs = {
-  where?: Maybe<EnumTypeWhere>
-  options?: Maybe<EnumTypeOptions>
+  where?: InputMaybe<EnumTypeWhere>
+  options?: InputMaybe<EnumTypeOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type EnumTypeValueEnumTypeAggregateArgs = {
-  where?: Maybe<EnumTypeWhere>
+  where?: InputMaybe<EnumTypeWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type EnumTypeValueEnumTypeConnectionArgs = {
-  where?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
-  sort?: Maybe<Array<EnumTypeValueEnumTypeConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<EnumTypeValueEnumTypeConnectionSort>>
 }
 
 export type EnumTypeValueAggregateSelection = {
   __typename?: 'EnumTypeValueAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  value: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  value: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeValueEnumTypeConnection = {
@@ -3390,8 +3153,8 @@ export type EnumTypeValueEnumTypeEnumTypeAggregationSelection = {
 
 export type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection = {
   __typename?: 'EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeValueEnumTypeRelationship = {
@@ -3413,41 +3176,47 @@ export type Hook = {
 }
 
 export type HookConfigArgs = {
-  where?: Maybe<PropWhere>
-  options?: Maybe<PropOptions>
+  where?: InputMaybe<PropWhere>
+  options?: InputMaybe<PropOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookConfigAggregateArgs = {
-  where?: Maybe<PropWhere>
+  where?: InputMaybe<PropWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookConfigConnectionArgs = {
-  where?: Maybe<HookConfigConnectionWhere>
-  sort?: Maybe<Array<HookConfigConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<HookConfigConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<HookConfigConnectionSort>>
 }
 
 export type HookElementConnectionArgs = {
-  where?: Maybe<HookElementConnectionWhere>
-  sort?: Maybe<Array<HookElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<HookElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<HookElementConnectionSort>>
 }
 
 export type HookAggregateSelection = {
   __typename?: 'HookAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
+  id: IdAggregateSelectionNonNullable
 }
 
 export type HookConfigConnection = {
@@ -3478,12 +3247,12 @@ export type HookElementElementAggregationSelection = {
 
 export type HookElementElementNodeAggregateSelection = {
   __typename?: 'HookElementElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type HookElementRelationship = {
@@ -3500,19 +3269,19 @@ export type HookPropConfigAggregationSelection = {
 
 export type HookPropConfigNodeAggregateSelection = {
   __typename?: 'HookPropConfigNodeAggregateSelection'
-  id: IdAggregateSelection
-  data: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  data: StringAggregateSelectionNonNullable
 }
 
-export type IdAggregateSelection = {
-  __typename?: 'IDAggregateSelection'
-  shortest?: Maybe<Scalars['ID']>
-  longest?: Maybe<Scalars['ID']>
+export type IdAggregateSelectionNonNullable = {
+  __typename?: 'IDAggregateSelectionNonNullable'
+  shortest: Scalars['ID']
+  longest: Scalars['ID']
 }
 
 export type ImportAtomsMutationResponse = {
   __typename?: 'ImportAtomsMutationResponse'
-  atoms?: Maybe<Array<Atom>>
+  atoms: Array<Atom>
 }
 
 export type ImportAtomsMutationResponseAggregateSelection = {
@@ -3520,18 +3289,16 @@ export type ImportAtomsMutationResponseAggregateSelection = {
   count: Scalars['Int']
 }
 
-export type ImportDataMutationResponse = {
-  __typename?: 'ImportDataMutationResponse'
-  result: Scalars['Boolean']
+export type IntAggregateSelectionNonNullable = {
+  __typename?: 'IntAggregateSelectionNonNullable'
+  max: Scalars['Int']
+  min: Scalars['Int']
+  average: Scalars['Float']
+  sum: Scalars['Int']
 }
 
-export type ImportDataMutationResponseAggregateSelection = {
-  __typename?: 'ImportDataMutationResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type IntAggregateSelection = {
-  __typename?: 'IntAggregateSelection'
+export type IntAggregateSelectionNullable = {
+  __typename?: 'IntAggregateSelectionNullable'
   max?: Maybe<Scalars['Int']>
   min?: Maybe<Scalars['Int']>
   average?: Maybe<Scalars['Float']>
@@ -3543,12 +3310,12 @@ export type InterfaceType = TypeBase & {
   __typename?: 'InterfaceType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
-  apiOfAtoms?: Maybe<Array<Atom>>
+  apiOfAtoms: Array<Atom>
   apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
-  fields?: Maybe<Array<TypeBase>>
+  fields: Array<TypeBase>
   ownerConnection: TypeBaseOwnerConnection
   apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
   fieldsConnection: InterfaceTypeFieldsConnection
@@ -3556,59 +3323,69 @@ export type InterfaceType = TypeBase & {
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeApiOfAtomsArgs = {
-  where?: Maybe<AtomWhere>
-  options?: Maybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+  options?: InputMaybe<AtomOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeApiOfAtomsAggregateArgs = {
-  where?: Maybe<AtomWhere>
+  where?: InputMaybe<AtomWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeFieldsArgs = {
-  options?: Maybe<QueryOptions>
-  where?: Maybe<TypeBaseWhere>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeApiOfAtomsConnectionArgs = {
-  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  sort?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionSort>>
 }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeFieldsConnectionArgs = {
-  where?: Maybe<InterfaceTypeFieldsConnectionWhere>
-  sort?: Maybe<Array<InterfaceTypeFieldsConnectionSort>>
+  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<InterfaceTypeFieldsConnectionSort>>
 }
 
 export type InterfaceTypeAggregateSelection = {
   __typename?: 'InterfaceTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type InterfaceTypeApiOfAtomsConnection = {
@@ -3632,8 +3409,8 @@ export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
 
 export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 /**
@@ -3653,11 +3430,11 @@ export type InterfaceTypeEdge = Field &
 export type InterfaceTypeEdgeAggregateSelection = {
   __typename?: 'InterfaceTypeEdgeAggregateSelection'
   count: Scalars['Int']
-  source: StringAggregateSelection
-  target: StringAggregateSelection
-  key: StringAggregateSelection
-  name: StringAggregateSelection
-  description: StringAggregateSelection
+  source: StringAggregateSelectionNonNullable
+  target: StringAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -3684,9 +3461,9 @@ export type InterfaceTypeUserOwnerAggregationSelection = {
 
 export type InterfaceTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'InterfaceTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /** Allows picking a lambda */
@@ -3694,7 +3471,7 @@ export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
@@ -3702,28 +3479,31 @@ export type LambdaType = TypeBase & {
 
 /** Allows picking a lambda */
 export type LambdaTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a lambda */
 export type LambdaTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a lambda */
 export type LambdaTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type LambdaTypeAggregateSelection = {
   __typename?: 'LambdaTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type LambdaTypeUserOwnerAggregationSelection = {
@@ -3734,9 +3514,9 @@ export type LambdaTypeUserOwnerAggregationSelection = {
 
 export type LambdaTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'LambdaTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /** Allows editing the value using a monaco editor */
@@ -3744,7 +3524,7 @@ export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   language: MonacoLanguage
   owner?: Maybe<User>
   ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>
@@ -3753,28 +3533,31 @@ export type MonacoType = TypeBase & {
 
 /** Allows editing the value using a monaco editor */
 export type MonacoTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows editing the value using a monaco editor */
 export type MonacoTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows editing the value using a monaco editor */
 export type MonacoTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type MonacoTypeAggregateSelection = {
   __typename?: 'MonacoTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type MonacoTypeUserOwnerAggregationSelection = {
@@ -3785,9 +3568,9 @@ export type MonacoTypeUserOwnerAggregationSelection = {
 
 export type MonacoTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'MonacoTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type Page = {
@@ -3803,42 +3586,48 @@ export type Page = {
 }
 
 export type PageRootElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PageRootElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PageAppArgs = {
-  where?: Maybe<AppWhere>
-  options?: Maybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+  options?: InputMaybe<AppOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PageAppAggregateArgs = {
-  where?: Maybe<AppWhere>
+  where?: InputMaybe<AppWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PageRootElementConnectionArgs = {
-  where?: Maybe<PageRootElementConnectionWhere>
-  sort?: Maybe<Array<PageRootElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PageRootElementConnectionSort>>
 }
 
 export type PageAppConnectionArgs = {
-  where?: Maybe<PageAppConnectionWhere>
-  sort?: Maybe<Array<PageAppConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<PageAppConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PageAppConnectionSort>>
 }
 
 export type PageAggregateSelection = {
   __typename?: 'PageAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PageAppAppAggregationSelection = {
@@ -3849,8 +3638,8 @@ export type PageAppAppAggregationSelection = {
 
 export type PageAppAppNodeAggregateSelection = {
   __typename?: 'PageAppAppNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PageAppConnection = {
@@ -3874,12 +3663,12 @@ export type PageElementRootElementAggregationSelection = {
 
 export type PageElementRootElementNodeAggregateSelection = {
   __typename?: 'PageElementRootElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 /** Pagination information (Relay) */
@@ -3909,7 +3698,7 @@ export type PageType = TypeBase & {
   __typename?: 'PageType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
@@ -3917,28 +3706,31 @@ export type PageType = TypeBase & {
 
 /** Allows picking a page from the list of pages */
 export type PageTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a page from the list of pages */
 export type PageTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking a page from the list of pages */
 export type PageTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type PageTypeAggregateSelection = {
   __typename?: 'PageTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PageTypeUserOwnerAggregationSelection = {
@@ -3949,9 +3741,9 @@ export type PageTypeUserOwnerAggregationSelection = {
 
 export type PageTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'PageTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
@@ -3959,7 +3751,7 @@ export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   primitiveKind: PrimitiveTypeKind
   owner?: Maybe<User>
   ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>
@@ -3968,28 +3760,31 @@ export type PrimitiveType = TypeBase & {
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type PrimitiveTypeAggregateSelection = {
   __typename?: 'PrimitiveTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PrimitiveTypeUserOwnerAggregationSelection = {
@@ -4000,9 +3795,9 @@ export type PrimitiveTypeUserOwnerAggregationSelection = {
 
 export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'PrimitiveTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type Prop = {
@@ -4014,8 +3809,8 @@ export type Prop = {
 export type PropAggregateSelection = {
   __typename?: 'PropAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  data: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  data: StringAggregateSelectionNonNullable
 }
 
 export type PropMapBinding = {
@@ -4032,43 +3827,49 @@ export type PropMapBinding = {
 }
 
 export type PropMapBindingElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PropMapBindingElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PropMapBindingTargetElementArgs = {
-  where?: Maybe<ElementWhere>
-  options?: Maybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+  options?: InputMaybe<ElementOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PropMapBindingTargetElementAggregateArgs = {
-  where?: Maybe<ElementWhere>
+  where?: InputMaybe<ElementWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type PropMapBindingElementConnectionArgs = {
-  where?: Maybe<PropMapBindingElementConnectionWhere>
-  sort?: Maybe<Array<PropMapBindingElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<PropMapBindingElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PropMapBindingElementConnectionSort>>
 }
 
 export type PropMapBindingTargetElementConnectionArgs = {
-  where?: Maybe<PropMapBindingTargetElementConnectionWhere>
-  sort?: Maybe<Array<PropMapBindingTargetElementConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<PropMapBindingTargetElementConnectionSort>>
 }
 
 export type PropMapBindingAggregateSelection = {
   __typename?: 'PropMapBindingAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  sourceKey: StringAggregateSelection
-  targetKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  sourceKey: StringAggregateSelectionNonNullable
+  targetKey: StringAggregateSelectionNonNullable
 }
 
 export type PropMapBindingElementConnection = {
@@ -4086,12 +3887,12 @@ export type PropMapBindingElementElementAggregationSelection = {
 
 export type PropMapBindingElementElementNodeAggregateSelection = {
   __typename?: 'PropMapBindingElementElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type PropMapBindingElementRelationship = {
@@ -4108,12 +3909,12 @@ export type PropMapBindingElementTargetElementAggregationSelection = {
 
 export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   __typename?: 'PropMapBindingElementTargetElementNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
-  css: StringAggregateSelection
-  propTransformationJs: StringAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfPropKey: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  css: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type PropMapBindingTargetElementConnection = {
@@ -4143,7 +3944,7 @@ export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
@@ -4160,8 +3961,9 @@ export type ReactNodeType = TypeBase & {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ReactNodeTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -4175,7 +3977,8 @@ export type ReactNodeTypeOwnerArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ReactNodeTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -4189,17 +3992,18 @@ export type ReactNodeTypeOwnerAggregateArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ReactNodeTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type ReactNodeTypeAggregateSelection = {
   __typename?: 'ReactNodeTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type ReactNodeTypeUserOwnerAggregationSelection = {
@@ -4210,9 +4014,9 @@ export type ReactNodeTypeUserOwnerAggregationSelection = {
 
 export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'ReactNodeTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 /**
@@ -4230,7 +4034,7 @@ export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
@@ -4248,8 +4052,9 @@ export type RenderPropsType = TypeBase & {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type RenderPropsTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -4264,7 +4069,8 @@ export type RenderPropsTypeOwnerArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type RenderPropsTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /**
@@ -4279,17 +4085,18 @@ export type RenderPropsTypeOwnerAggregateArgs = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type RenderPropsTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 export type RenderPropsTypeAggregateSelection = {
   __typename?: 'RenderPropsTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type RenderPropsTypeUserOwnerAggregationSelection = {
@@ -4300,9 +4107,9 @@ export type RenderPropsTypeUserOwnerAggregationSelection = {
 
 export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'RenderPropsTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type ResetDatabaseMutationResponse = {
@@ -4315,8 +4122,14 @@ export type ResetDatabaseMutationResponseAggregateSelection = {
   count: Scalars['Int']
 }
 
-export type StringAggregateSelection = {
-  __typename?: 'StringAggregateSelection'
+export type StringAggregateSelectionNonNullable = {
+  __typename?: 'StringAggregateSelectionNonNullable'
+  shortest: Scalars['String']
+  longest: Scalars['String']
+}
+
+export type StringAggregateSelectionNullable = {
+  __typename?: 'StringAggregateSelectionNullable'
   shortest?: Maybe<Scalars['String']>
   longest?: Maybe<Scalars['String']>
 }
@@ -4328,49 +4141,55 @@ export type Tag = {
   isRoot?: Maybe<Scalars['Boolean']>
   parent?: Maybe<Tag>
   parentAggregate?: Maybe<TagTagParentAggregationSelection>
-  children?: Maybe<Array<Tag>>
+  children: Array<Tag>
   childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
   parentConnection: TagParentConnection
   childrenConnection: TagChildrenConnection
 }
 
 export type TagParentArgs = {
-  where?: Maybe<TagWhere>
-  options?: Maybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagParentAggregateArgs = {
-  where?: Maybe<TagWhere>
+  where?: InputMaybe<TagWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagChildrenArgs = {
-  where?: Maybe<TagWhere>
-  options?: Maybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagChildrenAggregateArgs = {
-  where?: Maybe<TagWhere>
+  where?: InputMaybe<TagWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagParentConnectionArgs = {
-  where?: Maybe<TagParentConnectionWhere>
-  sort?: Maybe<Array<TagParentConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TagParentConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TagParentConnectionSort>>
 }
 
 export type TagChildrenConnectionArgs = {
-  where?: Maybe<TagChildrenConnectionWhere>
-  sort?: Maybe<Array<TagChildrenConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TagChildrenConnectionSort>>
 }
 
 export type TagAggregateSelection = {
   __typename?: 'TagAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type TagChildrenConnection = {
@@ -4395,8 +4214,8 @@ export type TagEdge = {
 export type TagEdgeAggregateSelection = {
   __typename?: 'TagEdgeAggregateSelection'
   count: Scalars['Int']
-  source: IdAggregateSelection
-  target: IdAggregateSelection
+  source: IdAggregateSelectionNonNullable
+  target: IdAggregateSelectionNonNullable
 }
 
 export type TagGraph = {
@@ -4421,8 +4240,8 @@ export type TagGraphOptions = {
 export type TagGraphOptionsAggregateSelection = {
   __typename?: 'TagGraphOptionsAggregateSelection'
   count: Scalars['Int']
-  sort: IntAggregateSelection
-  limit: IntAggregateSelection
+  sort: IntAggregateSelectionNullable
+  limit: IntAggregateSelectionNullable
 }
 
 export type TagParentConnection = {
@@ -4446,8 +4265,8 @@ export type TagTagChildrenAggregationSelection = {
 
 export type TagTagChildrenNodeAggregateSelection = {
   __typename?: 'TagTagChildrenNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type TagTagParentAggregationSelection = {
@@ -4458,8 +4277,8 @@ export type TagTagParentAggregationSelection = {
 
 export type TagTagParentNodeAggregateSelection = {
   __typename?: 'TagTagParentNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type TypeBaseOwnerConnection = {
@@ -4475,17 +4294,6 @@ export type TypeBaseOwnerRelationship = {
   node: User
 }
 
-export type TypeGraph = {
-  __typename?: 'TypeGraph'
-  vertices: Array<AnyType>
-  edges: Array<TypeEdge>
-}
-
-export type TypeGraphAggregateSelection = {
-  __typename?: 'TypeGraphAggregateSelection'
-  count: Scalars['Int']
-}
-
 export type TypeReference = {
   __typename?: 'TypeReference'
   /** The name of the resource referencing the type */
@@ -4497,8 +4305,8 @@ export type TypeReference = {
 export type TypeReferenceAggregateSelection = {
   __typename?: 'TypeReferenceAggregateSelection'
   count: Scalars['Int']
-  name: StringAggregateSelection
-  label: StringAggregateSelection
+  name: StringAggregateSelectionNonNullable
+  label: StringAggregateSelectionNonNullable
 }
 
 /** Allows picking one of a set of types */
@@ -4506,49 +4314,57 @@ export type UnionType = TypeBase & {
   __typename?: 'UnionType'
   id: Scalars['ID']
   name: Scalars['String']
-  graph: TypeGraph
+  descendantTypesIds: Array<Scalars['ID']>
   owner?: Maybe<User>
   ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
-  typesOfUnionType?: Maybe<Array<TypeBase>>
+  typesOfUnionType: Array<TypeBase>
   ownerConnection: TypeBaseOwnerConnection
   typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
 }
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
-  where?: Maybe<UserWhere>
-  options?: Maybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+  options?: InputMaybe<UserOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerAggregateArgs = {
-  where?: Maybe<UserWhere>
+  where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking one of a set of types */
 export type UnionTypeTypesOfUnionTypeArgs = {
-  options?: Maybe<QueryOptions>
-  where?: Maybe<TypeBaseWhere>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerConnectionArgs = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  sort?: Maybe<Array<TypeBaseOwnerConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
 }
 
 /** Allows picking one of a set of types */
 export type UnionTypeTypesOfUnionTypeConnectionArgs = {
-  where?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionSort>>
 }
 
 export type UnionTypeAggregateSelection = {
   __typename?: 'UnionTypeAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type UnionTypeTypesOfUnionTypeConnection = {
@@ -4572,9 +4388,9 @@ export type UnionTypeUserOwnerAggregationSelection = {
 
 export type UnionTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'UnionTypeUserOwnerNodeAggregateSelection'
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type UpdateAppsMutationResponse = {
@@ -4685,12 +4501,6 @@ export type UpdateImportAtomsMutationResponsesMutationResponse = {
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
 }
 
-export type UpdateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
-  info: UpdateInfo
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-}
-
 export type UpdateInfo = {
   __typename?: 'UpdateInfo'
   bookmark?: Maybe<Scalars['String']>
@@ -4796,12 +4606,6 @@ export type UpdateTagsMutationResponse = {
   tags: Array<Tag>
 }
 
-export type UpdateTypeGraphsMutationResponse = {
-  __typename?: 'UpdateTypeGraphsMutationResponse'
-  info: UpdateInfo
-  typeGraphs: Array<TypeGraph>
-}
-
 export type UpdateTypeReferencesMutationResponse = {
   __typename?: 'UpdateTypeReferencesMutationResponse'
   info: UpdateInfo
@@ -4825,52 +4629,58 @@ export type User = {
   id: Scalars['ID']
   auth0Id: Scalars['String']
   email: Scalars['String']
-  apps?: Maybe<Array<Maybe<App>>>
+  apps: Array<App>
   appsAggregate?: Maybe<UserAppAppsAggregationSelection>
-  components?: Maybe<Array<Maybe<Component>>>
+  components: Array<Component>
   componentsAggregate?: Maybe<UserComponentComponentsAggregationSelection>
   appsConnection: UserAppsConnection
   componentsConnection: UserComponentsConnection
 }
 
 export type UserAppsArgs = {
-  where?: Maybe<AppWhere>
-  options?: Maybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+  options?: InputMaybe<AppOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type UserAppsAggregateArgs = {
-  where?: Maybe<AppWhere>
+  where?: InputMaybe<AppWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type UserComponentsArgs = {
-  where?: Maybe<ComponentWhere>
-  options?: Maybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+  options?: InputMaybe<ComponentOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type UserComponentsAggregateArgs = {
-  where?: Maybe<ComponentWhere>
+  where?: InputMaybe<ComponentWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
 }
 
 export type UserAppsConnectionArgs = {
-  where?: Maybe<UserAppsConnectionWhere>
-  sort?: Maybe<Array<UserAppsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<UserAppsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<UserAppsConnectionSort>>
 }
 
 export type UserComponentsConnectionArgs = {
-  where?: Maybe<UserComponentsConnectionWhere>
-  sort?: Maybe<Array<UserComponentsConnectionSort>>
-  first?: Maybe<Scalars['Int']>
-  after?: Maybe<Scalars['String']>
+  where?: InputMaybe<UserComponentsConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<UserComponentsConnectionSort>>
 }
 
 export type UserAggregateSelection = {
   __typename?: 'UserAggregateSelection'
   count: Scalars['Int']
-  id: IdAggregateSelection
-  auth0Id: StringAggregateSelection
-  email: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
 }
 
 export type UserAppAppsAggregationSelection = {
@@ -4881,8 +4691,8 @@ export type UserAppAppsAggregationSelection = {
 
 export type UserAppAppsNodeAggregateSelection = {
   __typename?: 'UserAppAppsNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type UserAppsConnection = {
@@ -4906,8 +4716,8 @@ export type UserComponentComponentsAggregationSelection = {
 
 export type UserComponentComponentsNodeAggregateSelection = {
   __typename?: 'UserComponentComponentsNodeAggregateSelection'
-  id: IdAggregateSelection
-  name: StringAggregateSelection
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type UserComponentsConnection = {
@@ -4924,13 +4734,13 @@ export type UserComponentsRelationship = {
 }
 
 export type AppConnectInput = {
-  owner?: Maybe<Array<AppOwnerConnectFieldInput>>
-  pages?: Maybe<Array<AppPagesConnectFieldInput>>
+  owner?: InputMaybe<Array<AppOwnerConnectFieldInput>>
+  pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
 }
 
 export type AppConnectOrCreateInput = {
-  owner?: Maybe<Array<AppOwnerConnectOrCreateFieldInput>>
-  pages?: Maybe<Array<AppPagesConnectOrCreateFieldInput>>
+  owner?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
+  pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
 }
 
 export type AppConnectOrCreateWhere = {
@@ -4943,52 +4753,57 @@ export type AppConnectWhere = {
 
 export type AppCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<AppOwnerFieldInput>
-  pages?: Maybe<AppPagesFieldInput>
+  owner?: InputMaybe<AppOwnerFieldInput>
+  pages?: InputMaybe<AppPagesFieldInput>
 }
 
 export type AppDeleteInput = {
-  owner?: Maybe<Array<AppOwnerDeleteFieldInput>>
-  pages?: Maybe<Array<AppPagesDeleteFieldInput>>
+  owner?: InputMaybe<Array<AppOwnerDeleteFieldInput>>
+  pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
 }
 
 export type AppDisconnectInput = {
-  owner?: Maybe<Array<AppOwnerDisconnectFieldInput>>
-  pages?: Maybe<Array<AppPagesDisconnectFieldInput>>
+  owner?: InputMaybe<Array<AppOwnerDisconnectFieldInput>>
+  pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
+}
+
+export type AppOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type AppOptions = {
   /** Specify one or more AppSort objects to sort Apps by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<AppSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AppSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type AppOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<AppOwnerAggregateInput>>
-  OR?: Maybe<Array<AppOwnerAggregateInput>>
-  node?: Maybe<AppOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppOwnerAggregateInput>>
+  OR?: InputMaybe<Array<AppOwnerAggregateInput>>
+  node?: InputMaybe<AppOwnerNodeAggregationWhereInput>
 }
 
 export type AppOwnerConnectFieldInput = {
-  where?: Maybe<UserConnectWhere>
-  connect?: Maybe<Array<UserConnectInput>>
+  where?: InputMaybe<UserConnectWhere>
+  connect?: InputMaybe<Array<UserConnectInput>>
 }
 
 export type AppOwnerConnectionSort = {
-  node?: Maybe<UserSort>
+  node?: InputMaybe<UserSort>
 }
 
 export type AppOwnerConnectionWhere = {
-  AND?: Maybe<Array<AppOwnerConnectionWhere>>
-  OR?: Maybe<Array<AppOwnerConnectionWhere>>
-  node?: Maybe<UserWhere>
-  node_NOT?: Maybe<UserWhere>
+  AND?: InputMaybe<Array<AppOwnerConnectionWhere>>
+  OR?: InputMaybe<Array<AppOwnerConnectionWhere>>
+  node?: InputMaybe<UserWhere>
+  node_NOT?: InputMaybe<UserWhere>
 }
 
 export type AppOwnerConnectOrCreateFieldInput = {
@@ -4997,7 +4812,7 @@ export type AppOwnerConnectOrCreateFieldInput = {
 }
 
 export type AppOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserCreateInput
+  node: UserOnCreateInput
 }
 
 export type AppOwnerCreateFieldInput = {
@@ -5005,106 +4820,106 @@ export type AppOwnerCreateFieldInput = {
 }
 
 export type AppOwnerDeleteFieldInput = {
-  where?: Maybe<AppOwnerConnectionWhere>
-  delete?: Maybe<UserDeleteInput>
+  where?: InputMaybe<AppOwnerConnectionWhere>
+  delete?: InputMaybe<UserDeleteInput>
 }
 
 export type AppOwnerDisconnectFieldInput = {
-  where?: Maybe<AppOwnerConnectionWhere>
-  disconnect?: Maybe<UserDisconnectInput>
+  where?: InputMaybe<AppOwnerConnectionWhere>
+  disconnect?: InputMaybe<UserDisconnectInput>
 }
 
 export type AppOwnerFieldInput = {
-  create?: Maybe<Array<AppOwnerCreateFieldInput>>
-  connect?: Maybe<Array<AppOwnerConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<AppOwnerConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AppOwnerCreateFieldInput>>
+  connect?: InputMaybe<Array<AppOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
 }
 
 export type AppOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<AppOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<AppOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AppOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AppOwnerUpdateConnectionInput = {
-  node?: Maybe<UserUpdateInput>
+  node?: InputMaybe<UserUpdateInput>
 }
 
 export type AppOwnerUpdateFieldInput = {
-  where?: Maybe<AppOwnerConnectionWhere>
-  update?: Maybe<AppOwnerUpdateConnectionInput>
-  connect?: Maybe<Array<AppOwnerConnectFieldInput>>
-  disconnect?: Maybe<Array<AppOwnerDisconnectFieldInput>>
-  create?: Maybe<Array<AppOwnerCreateFieldInput>>
-  delete?: Maybe<Array<AppOwnerDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<AppOwnerConnectOrCreateFieldInput>>
+  where?: InputMaybe<AppOwnerConnectionWhere>
+  update?: InputMaybe<AppOwnerUpdateConnectionInput>
+  connect?: InputMaybe<Array<AppOwnerConnectFieldInput>>
+  disconnect?: InputMaybe<Array<AppOwnerDisconnectFieldInput>>
+  create?: InputMaybe<Array<AppOwnerCreateFieldInput>>
+  delete?: InputMaybe<Array<AppOwnerDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
 }
 
 export type AppPagesAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<AppPagesAggregateInput>>
-  OR?: Maybe<Array<AppPagesAggregateInput>>
-  node?: Maybe<AppPagesNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppPagesAggregateInput>>
+  OR?: InputMaybe<Array<AppPagesAggregateInput>>
+  node?: InputMaybe<AppPagesNodeAggregationWhereInput>
 }
 
 export type AppPagesConnectFieldInput = {
-  where?: Maybe<PageConnectWhere>
-  connect?: Maybe<Array<PageConnectInput>>
+  where?: InputMaybe<PageConnectWhere>
+  connect?: InputMaybe<Array<PageConnectInput>>
 }
 
 export type AppPagesConnectionSort = {
-  node?: Maybe<PageSort>
+  node?: InputMaybe<PageSort>
 }
 
 export type AppPagesConnectionWhere = {
-  AND?: Maybe<Array<AppPagesConnectionWhere>>
-  OR?: Maybe<Array<AppPagesConnectionWhere>>
-  node?: Maybe<PageWhere>
-  node_NOT?: Maybe<PageWhere>
+  AND?: InputMaybe<Array<AppPagesConnectionWhere>>
+  OR?: InputMaybe<Array<AppPagesConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+  node_NOT?: InputMaybe<PageWhere>
 }
 
 export type AppPagesConnectOrCreateFieldInput = {
@@ -5113,7 +4928,7 @@ export type AppPagesConnectOrCreateFieldInput = {
 }
 
 export type AppPagesConnectOrCreateFieldInputOnCreate = {
-  node: PageCreateInput
+  node: PageOnCreateInput
 }
 
 export type AppPagesCreateFieldInput = {
@@ -5121,463 +4936,486 @@ export type AppPagesCreateFieldInput = {
 }
 
 export type AppPagesDeleteFieldInput = {
-  where?: Maybe<AppPagesConnectionWhere>
-  delete?: Maybe<PageDeleteInput>
+  where?: InputMaybe<AppPagesConnectionWhere>
+  delete?: InputMaybe<PageDeleteInput>
 }
 
 export type AppPagesDisconnectFieldInput = {
-  where?: Maybe<AppPagesConnectionWhere>
-  disconnect?: Maybe<PageDisconnectInput>
+  where?: InputMaybe<AppPagesConnectionWhere>
+  disconnect?: InputMaybe<PageDisconnectInput>
 }
 
 export type AppPagesFieldInput = {
-  create?: Maybe<Array<AppPagesCreateFieldInput>>
-  connect?: Maybe<Array<AppPagesConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<AppPagesConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AppPagesCreateFieldInput>>
+  connect?: InputMaybe<Array<AppPagesConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
 }
 
 export type AppPagesNodeAggregationWhereInput = {
-  AND?: Maybe<Array<AppPagesNodeAggregationWhereInput>>
-  OR?: Maybe<Array<AppPagesNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppPagesNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AppPagesNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AppPagesUpdateConnectionInput = {
-  node?: Maybe<PageUpdateInput>
+  node?: InputMaybe<PageUpdateInput>
 }
 
 export type AppPagesUpdateFieldInput = {
-  where?: Maybe<AppPagesConnectionWhere>
-  update?: Maybe<AppPagesUpdateConnectionInput>
-  connect?: Maybe<Array<AppPagesConnectFieldInput>>
-  disconnect?: Maybe<Array<AppPagesDisconnectFieldInput>>
-  create?: Maybe<Array<AppPagesCreateFieldInput>>
-  delete?: Maybe<Array<AppPagesDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<AppPagesConnectOrCreateFieldInput>>
+  where?: InputMaybe<AppPagesConnectionWhere>
+  update?: InputMaybe<AppPagesUpdateConnectionInput>
+  connect?: InputMaybe<Array<AppPagesConnectFieldInput>>
+  disconnect?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
+  create?: InputMaybe<Array<AppPagesCreateFieldInput>>
+  delete?: InputMaybe<Array<AppPagesDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
 }
 
 export type AppRelationInput = {
-  owner?: Maybe<Array<AppOwnerCreateFieldInput>>
-  pages?: Maybe<Array<AppPagesCreateFieldInput>>
+  owner?: InputMaybe<Array<AppOwnerCreateFieldInput>>
+  pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
 }
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
 export type AppSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type AppTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type AppTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type AppTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type AppTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type AppTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type AppTypeOptions = {
   /** Specify one or more AppTypeSort objects to sort AppTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<AppTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AppTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type AppTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<AppTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<AppTypeOwnerAggregateInput>>
-  node?: Maybe<AppTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<AppTypeOwnerAggregateInput>>
+  node?: InputMaybe<AppTypeOwnerNodeAggregationWhereInput>
 }
 
 export type AppTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<AppTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<AppTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AppTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AppTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AppTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object. */
 export type AppTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type AppTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type AppTypeWhere = {
-  OR?: Maybe<Array<AppTypeWhere>>
-  AND?: Maybe<Array<AppTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<AppTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<AppTypeWhere>>
+  AND?: InputMaybe<Array<AppTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AppTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type AppUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type AppUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<Array<AppOwnerUpdateFieldInput>>
-  pages?: Maybe<Array<AppPagesUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<Array<AppOwnerUpdateFieldInput>>
+  pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
 }
 
 export type AppWhere = {
-  OR?: Maybe<Array<AppWhere>>
-  AND?: Maybe<Array<AppWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<AppOwnerAggregateInput>
-  pages?: Maybe<PageWhere>
-  pages_NOT?: Maybe<PageWhere>
-  pagesAggregate?: Maybe<AppPagesAggregateInput>
-  ownerConnection?: Maybe<AppOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<AppOwnerConnectionWhere>
-  pagesConnection?: Maybe<AppPagesConnectionWhere>
-  pagesConnection_NOT?: Maybe<AppPagesConnectionWhere>
+  OR?: InputMaybe<Array<AppWhere>>
+  AND?: InputMaybe<Array<AppWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
+  /** Return Apps where all of the related Users match this filter */
+  owner_ALL?: InputMaybe<UserWhere>
+  /** Return Apps where none of the related Users match this filter */
+  owner_NONE?: InputMaybe<UserWhere>
+  /** Return Apps where one of the related Users match this filter */
+  owner_SINGLE?: InputMaybe<UserWhere>
+  /** Return Apps where some of the related Users match this filter */
+  owner_SOME?: InputMaybe<UserWhere>
+  pages?: InputMaybe<PageWhere>
+  pages_NOT?: InputMaybe<PageWhere>
+  pagesAggregate?: InputMaybe<AppPagesAggregateInput>
+  /** Return Apps where all of the related Pages match this filter */
+  pages_ALL?: InputMaybe<PageWhere>
+  /** Return Apps where none of the related Pages match this filter */
+  pages_NONE?: InputMaybe<PageWhere>
+  /** Return Apps where one of the related Pages match this filter */
+  pages_SINGLE?: InputMaybe<PageWhere>
+  /** Return Apps where some of the related Pages match this filter */
+  pages_SOME?: InputMaybe<PageWhere>
+  ownerConnection?: InputMaybe<AppOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<AppOwnerConnectionWhere>
+  ownerConnection_ALL?: InputMaybe<AppOwnerConnectionWhere>
+  ownerConnection_NONE?: InputMaybe<AppOwnerConnectionWhere>
+  ownerConnection_SINGLE?: InputMaybe<AppOwnerConnectionWhere>
+  ownerConnection_SOME?: InputMaybe<AppOwnerConnectionWhere>
+  pagesConnection?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_NOT?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
 }
 
 export type ArrayTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  itemType?: Maybe<Array<ArrayTypeItemTypeConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  itemType?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
 }
 
 export type ArrayTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ArrayTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
-  itemType?: Maybe<ArrayTypeItemTypeFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
 }
 
 export type ArrayTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  itemType?: Maybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  itemType?: InputMaybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
 }
 
 export type ArrayTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  itemType?: Maybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  itemType?: InputMaybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
-  connect?: Maybe<TypeBaseConnectInput>
-  edge: IdPropertyCreateInput
-  where?: Maybe<TypeBaseConnectWhere>
+  connect?: InputMaybe<TypeBaseConnectInput>
+  where?: InputMaybe<TypeBaseConnectWhere>
 }
 
 export type ArrayTypeItemTypeConnectionSort = {
-  edge?: Maybe<IdPropertySort>
+  node?: InputMaybe<TypeBaseSort>
 }
 
 export type ArrayTypeItemTypeConnectionWhere = {
-  AND?: Maybe<Array<ArrayTypeItemTypeConnectionWhere>>
-  OR?: Maybe<Array<ArrayTypeItemTypeConnectionWhere>>
-  edge?: Maybe<IdPropertyWhere>
-  edge_NOT?: Maybe<IdPropertyWhere>
-  node?: Maybe<TypeBaseWhere>
-  node_NOT?: Maybe<TypeBaseWhere>
+  AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  node?: InputMaybe<TypeBaseWhere>
+  node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
   node: TypeBaseCreateInput
-  edge: IdPropertyCreateInput
 }
 
 export type ArrayTypeItemTypeDeleteFieldInput = {
-  delete?: Maybe<TypeBaseDeleteInput>
-  where?: Maybe<ArrayTypeItemTypeConnectionWhere>
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
 export type ArrayTypeItemTypeDisconnectFieldInput = {
-  disconnect?: Maybe<TypeBaseDisconnectInput>
-  where?: Maybe<ArrayTypeItemTypeConnectionWhere>
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
 export type ArrayTypeItemTypeFieldInput = {
-  create?: Maybe<Array<ArrayTypeItemTypeCreateFieldInput>>
-  connect?: Maybe<Array<ArrayTypeItemTypeConnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
+  connect?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
 }
 
 export type ArrayTypeItemTypeUpdateConnectionInput = {
-  edge?: Maybe<IdPropertyUpdateInput>
-  node?: Maybe<TypeBaseUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
 }
 
 export type ArrayTypeItemTypeUpdateFieldInput = {
-  connect?: Maybe<Array<ArrayTypeItemTypeConnectFieldInput>>
-  create?: Maybe<Array<ArrayTypeItemTypeCreateFieldInput>>
-  delete?: Maybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
-  disconnect?: Maybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
-  update?: Maybe<ArrayTypeItemTypeUpdateConnectionInput>
-  where?: Maybe<ArrayTypeItemTypeConnectionWhere>
+  connect?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
+  delete?: InputMaybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
+  update?: InputMaybe<ArrayTypeItemTypeUpdateConnectionInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
 export type ArrayTypeOptions = {
   /** Specify one or more ArrayTypeSort objects to sort ArrayTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ArrayTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ArrayTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ArrayTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ArrayTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<ArrayTypeOwnerAggregateInput>>
-  node?: Maybe<ArrayTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ArrayTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ArrayTypeOwnerAggregateInput>>
+  node?: InputMaybe<ArrayTypeOwnerNodeAggregationWhereInput>
 }
 
 export type ArrayTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ArrayTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ArrayTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ArrayTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ArrayTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ArrayTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
-  itemType?: Maybe<Array<ArrayTypeItemTypeCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  itemType?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
 }
 
 /** Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object. */
 export type ArrayTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type ArrayTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
-  itemType?: Maybe<Array<ArrayTypeItemTypeUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+  itemType?: InputMaybe<Array<ArrayTypeItemTypeUpdateFieldInput>>
 }
 
 export type ArrayTypeWhere = {
-  OR?: Maybe<Array<ArrayTypeWhere>>
-  AND?: Maybe<Array<ArrayTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<ArrayTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-  itemTypeConnection?: Maybe<ArrayTypeItemTypeConnectionWhere>
-  itemTypeConnection_NOT?: Maybe<ArrayTypeItemTypeConnectionWhere>
+  OR?: InputMaybe<Array<ArrayTypeWhere>>
+  AND?: InputMaybe<Array<ArrayTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_ALL?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_NONE?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_SINGLE?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_SOME?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
 export type AtomApiAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<AtomApiAggregateInput>>
-  OR?: Maybe<Array<AtomApiAggregateInput>>
-  node?: Maybe<AtomApiNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AtomApiAggregateInput>>
+  OR?: InputMaybe<Array<AtomApiAggregateInput>>
+  node?: InputMaybe<AtomApiNodeAggregationWhereInput>
 }
 
 export type AtomApiConnectFieldInput = {
-  where?: Maybe<InterfaceTypeConnectWhere>
-  connect?: Maybe<InterfaceTypeConnectInput>
+  where?: InputMaybe<InterfaceTypeConnectWhere>
+  connect?: InputMaybe<InterfaceTypeConnectInput>
 }
 
 export type AtomApiConnectionSort = {
-  node?: Maybe<InterfaceTypeSort>
+  node?: InputMaybe<InterfaceTypeSort>
 }
 
 export type AtomApiConnectionWhere = {
-  AND?: Maybe<Array<AtomApiConnectionWhere>>
-  OR?: Maybe<Array<AtomApiConnectionWhere>>
-  node?: Maybe<InterfaceTypeWhere>
-  node_NOT?: Maybe<InterfaceTypeWhere>
+  AND?: InputMaybe<Array<AtomApiConnectionWhere>>
+  OR?: InputMaybe<Array<AtomApiConnectionWhere>>
+  node?: InputMaybe<InterfaceTypeWhere>
+  node_NOT?: InputMaybe<InterfaceTypeWhere>
 }
 
 export type AtomApiConnectOrCreateFieldInput = {
@@ -5586,7 +5424,7 @@ export type AtomApiConnectOrCreateFieldInput = {
 }
 
 export type AtomApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeCreateInput
+  node: InterfaceTypeOnCreateInput
 }
 
 export type AtomApiCreateFieldInput = {
@@ -5594,69 +5432,69 @@ export type AtomApiCreateFieldInput = {
 }
 
 export type AtomApiDeleteFieldInput = {
-  where?: Maybe<AtomApiConnectionWhere>
-  delete?: Maybe<InterfaceTypeDeleteInput>
+  where?: InputMaybe<AtomApiConnectionWhere>
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
 }
 
 export type AtomApiDisconnectFieldInput = {
-  where?: Maybe<AtomApiConnectionWhere>
-  disconnect?: Maybe<InterfaceTypeDisconnectInput>
+  where?: InputMaybe<AtomApiConnectionWhere>
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
 }
 
 export type AtomApiFieldInput = {
-  create?: Maybe<AtomApiCreateFieldInput>
-  connect?: Maybe<AtomApiConnectFieldInput>
-  connectOrCreate?: Maybe<AtomApiConnectOrCreateFieldInput>
+  create?: InputMaybe<AtomApiCreateFieldInput>
+  connect?: InputMaybe<AtomApiConnectFieldInput>
+  connectOrCreate?: InputMaybe<AtomApiConnectOrCreateFieldInput>
 }
 
 export type AtomApiNodeAggregationWhereInput = {
-  AND?: Maybe<Array<AtomApiNodeAggregationWhereInput>>
-  OR?: Maybe<Array<AtomApiNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AtomApiNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AtomApiNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AtomApiUpdateConnectionInput = {
-  node?: Maybe<InterfaceTypeUpdateInput>
+  node?: InputMaybe<InterfaceTypeUpdateInput>
 }
 
 export type AtomApiUpdateFieldInput = {
-  where?: Maybe<AtomApiConnectionWhere>
-  update?: Maybe<AtomApiUpdateConnectionInput>
-  connect?: Maybe<AtomApiConnectFieldInput>
-  disconnect?: Maybe<AtomApiDisconnectFieldInput>
-  create?: Maybe<AtomApiCreateFieldInput>
-  delete?: Maybe<AtomApiDeleteFieldInput>
-  connectOrCreate?: Maybe<AtomApiConnectOrCreateFieldInput>
+  where?: InputMaybe<AtomApiConnectionWhere>
+  update?: InputMaybe<AtomApiUpdateConnectionInput>
+  connect?: InputMaybe<AtomApiConnectFieldInput>
+  disconnect?: InputMaybe<AtomApiDisconnectFieldInput>
+  create?: InputMaybe<AtomApiCreateFieldInput>
+  delete?: InputMaybe<AtomApiDeleteFieldInput>
+  connectOrCreate?: InputMaybe<AtomApiConnectOrCreateFieldInput>
 }
 
 export type AtomConnectInput = {
-  tags?: Maybe<Array<AtomTagsConnectFieldInput>>
-  api?: Maybe<AtomApiConnectFieldInput>
+  tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
+  api?: InputMaybe<AtomApiConnectFieldInput>
 }
 
 export type AtomConnectOrCreateInput = {
-  tags?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
-  api?: Maybe<AtomApiConnectOrCreateFieldInput>
+  tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
+  api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
 }
 
 export type AtomConnectOrCreateWhere = {
@@ -5670,64 +5508,69 @@ export type AtomConnectWhere = {
 export type AtomCreateInput = {
   name: Scalars['String']
   type: AtomType
-  tags?: Maybe<AtomTagsFieldInput>
-  api?: Maybe<AtomApiFieldInput>
+  tags?: InputMaybe<AtomTagsFieldInput>
+  api?: InputMaybe<AtomApiFieldInput>
 }
 
 export type AtomDeleteInput = {
-  tags?: Maybe<Array<AtomTagsDeleteFieldInput>>
-  api?: Maybe<AtomApiDeleteFieldInput>
+  tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
+  api?: InputMaybe<AtomApiDeleteFieldInput>
 }
 
 export type AtomDisconnectInput = {
-  tags?: Maybe<Array<AtomTagsDisconnectFieldInput>>
-  api?: Maybe<AtomApiDisconnectFieldInput>
+  tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
+  api?: InputMaybe<AtomApiDisconnectFieldInput>
+}
+
+export type AtomOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type AtomOptions = {
   /** Specify one or more AtomSort objects to sort Atoms by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<AtomSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AtomSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type AtomRelationInput = {
-  tags?: Maybe<Array<AtomTagsCreateFieldInput>>
-  api?: Maybe<AtomApiCreateFieldInput>
+  tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+  api?: InputMaybe<AtomApiCreateFieldInput>
 }
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
 export type AtomSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  type?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  type?: InputMaybe<SortDirection>
 }
 
 export type AtomTagsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<AtomTagsAggregateInput>>
-  OR?: Maybe<Array<AtomTagsAggregateInput>>
-  node?: Maybe<AtomTagsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AtomTagsAggregateInput>>
+  OR?: InputMaybe<Array<AtomTagsAggregateInput>>
+  node?: InputMaybe<AtomTagsNodeAggregationWhereInput>
 }
 
 export type AtomTagsConnectFieldInput = {
-  where?: Maybe<TagConnectWhere>
-  connect?: Maybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+  connect?: InputMaybe<Array<TagConnectInput>>
 }
 
 export type AtomTagsConnectionSort = {
-  node?: Maybe<TagSort>
+  node?: InputMaybe<TagSort>
 }
 
 export type AtomTagsConnectionWhere = {
-  AND?: Maybe<Array<AtomTagsConnectionWhere>>
-  OR?: Maybe<Array<AtomTagsConnectionWhere>>
-  node?: Maybe<TagWhere>
-  node_NOT?: Maybe<TagWhere>
+  AND?: InputMaybe<Array<AtomTagsConnectionWhere>>
+  OR?: InputMaybe<Array<AtomTagsConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
 }
 
 export type AtomTagsConnectOrCreateFieldInput = {
@@ -5736,7 +5579,7 @@ export type AtomTagsConnectOrCreateFieldInput = {
 }
 
 export type AtomTagsConnectOrCreateFieldInputOnCreate = {
-  node: TagCreateInput
+  node: TagOnCreateInput
 }
 
 export type AtomTagsCreateFieldInput = {
@@ -5744,120 +5587,132 @@ export type AtomTagsCreateFieldInput = {
 }
 
 export type AtomTagsDeleteFieldInput = {
-  where?: Maybe<AtomTagsConnectionWhere>
-  delete?: Maybe<TagDeleteInput>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+  delete?: InputMaybe<TagDeleteInput>
 }
 
 export type AtomTagsDisconnectFieldInput = {
-  where?: Maybe<AtomTagsConnectionWhere>
-  disconnect?: Maybe<TagDisconnectInput>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+  disconnect?: InputMaybe<TagDisconnectInput>
 }
 
 export type AtomTagsFieldInput = {
-  create?: Maybe<Array<AtomTagsCreateFieldInput>>
-  connect?: Maybe<Array<AtomTagsConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+  connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
 export type AtomTagsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<AtomTagsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<AtomTagsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AtomTagsUpdateConnectionInput = {
-  node?: Maybe<TagUpdateInput>
+  node?: InputMaybe<TagUpdateInput>
 }
 
 export type AtomTagsUpdateFieldInput = {
-  where?: Maybe<AtomTagsConnectionWhere>
-  update?: Maybe<AtomTagsUpdateConnectionInput>
-  connect?: Maybe<Array<AtomTagsConnectFieldInput>>
-  disconnect?: Maybe<Array<AtomTagsDisconnectFieldInput>>
-  create?: Maybe<Array<AtomTagsCreateFieldInput>>
-  delete?: Maybe<Array<AtomTagsDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+  update?: InputMaybe<AtomTagsUpdateConnectionInput>
+  connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
+  create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
 export type AtomUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type AtomUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  type?: Maybe<AtomType>
-  tags?: Maybe<Array<AtomTagsUpdateFieldInput>>
-  api?: Maybe<AtomApiUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<AtomType>
+  tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
+  api?: InputMaybe<AtomApiUpdateFieldInput>
 }
 
 export type AtomWhere = {
-  OR?: Maybe<Array<AtomWhere>>
-  AND?: Maybe<Array<AtomWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  type?: Maybe<AtomType>
-  type_NOT?: Maybe<AtomType>
-  type_IN?: Maybe<Array<Maybe<AtomType>>>
-  type_NOT_IN?: Maybe<Array<Maybe<AtomType>>>
-  tags?: Maybe<TagWhere>
-  tags_NOT?: Maybe<TagWhere>
-  tagsAggregate?: Maybe<AtomTagsAggregateInput>
-  api?: Maybe<InterfaceTypeWhere>
-  api_NOT?: Maybe<InterfaceTypeWhere>
-  apiAggregate?: Maybe<AtomApiAggregateInput>
-  tagsConnection?: Maybe<AtomTagsConnectionWhere>
-  tagsConnection_NOT?: Maybe<AtomTagsConnectionWhere>
-  apiConnection?: Maybe<AtomApiConnectionWhere>
-  apiConnection_NOT?: Maybe<AtomApiConnectionWhere>
+  OR?: InputMaybe<Array<AtomWhere>>
+  AND?: InputMaybe<Array<AtomWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<AtomType>
+  type_NOT?: InputMaybe<AtomType>
+  type_IN?: InputMaybe<Array<AtomType>>
+  type_NOT_IN?: InputMaybe<Array<AtomType>>
+  tags?: InputMaybe<TagWhere>
+  tags_NOT?: InputMaybe<TagWhere>
+  tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
+  /** Return Atoms where all of the related Tags match this filter */
+  tags_ALL?: InputMaybe<TagWhere>
+  /** Return Atoms where none of the related Tags match this filter */
+  tags_NONE?: InputMaybe<TagWhere>
+  /** Return Atoms where one of the related Tags match this filter */
+  tags_SINGLE?: InputMaybe<TagWhere>
+  /** Return Atoms where some of the related Tags match this filter */
+  tags_SOME?: InputMaybe<TagWhere>
+  api?: InputMaybe<InterfaceTypeWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
+  apiAggregate?: InputMaybe<AtomApiAggregateInput>
+  tagsConnection?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_NOT?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_SINGLE?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>
+  apiConnection?: InputMaybe<AtomApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
 }
 
 export type ComponentConnectInput = {
-  rootElement?: Maybe<ComponentRootElementConnectFieldInput>
-  owner?: Maybe<ComponentOwnerConnectFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
+  owner?: InputMaybe<ComponentOwnerConnectFieldInput>
 }
 
 export type ComponentConnectOrCreateInput = {
-  rootElement?: Maybe<ComponentRootElementConnectOrCreateFieldInput>
-  owner?: Maybe<ComponentOwnerConnectOrCreateFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
+  owner?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
 }
 
 export type ComponentConnectOrCreateWhere = {
@@ -5870,52 +5725,57 @@ export type ComponentConnectWhere = {
 
 export type ComponentCreateInput = {
   name: Scalars['String']
-  rootElement?: Maybe<ComponentRootElementFieldInput>
-  owner?: Maybe<ComponentOwnerFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementFieldInput>
+  owner?: InputMaybe<ComponentOwnerFieldInput>
 }
 
 export type ComponentDeleteInput = {
-  rootElement?: Maybe<ComponentRootElementDeleteFieldInput>
-  owner?: Maybe<ComponentOwnerDeleteFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
+  owner?: InputMaybe<ComponentOwnerDeleteFieldInput>
 }
 
 export type ComponentDisconnectInput = {
-  rootElement?: Maybe<ComponentRootElementDisconnectFieldInput>
-  owner?: Maybe<ComponentOwnerDisconnectFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementDisconnectFieldInput>
+  owner?: InputMaybe<ComponentOwnerDisconnectFieldInput>
+}
+
+export type ComponentOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type ComponentOptions = {
   /** Specify one or more ComponentSort objects to sort Components by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ComponentSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ComponentSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ComponentOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ComponentOwnerAggregateInput>>
-  OR?: Maybe<Array<ComponentOwnerAggregateInput>>
-  node?: Maybe<ComponentOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ComponentOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ComponentOwnerAggregateInput>>
+  node?: InputMaybe<ComponentOwnerNodeAggregationWhereInput>
 }
 
 export type ComponentOwnerConnectFieldInput = {
-  where?: Maybe<UserConnectWhere>
-  connect?: Maybe<UserConnectInput>
+  where?: InputMaybe<UserConnectWhere>
+  connect?: InputMaybe<UserConnectInput>
 }
 
 export type ComponentOwnerConnectionSort = {
-  node?: Maybe<UserSort>
+  node?: InputMaybe<UserSort>
 }
 
 export type ComponentOwnerConnectionWhere = {
-  AND?: Maybe<Array<ComponentOwnerConnectionWhere>>
-  OR?: Maybe<Array<ComponentOwnerConnectionWhere>>
-  node?: Maybe<UserWhere>
-  node_NOT?: Maybe<UserWhere>
+  AND?: InputMaybe<Array<ComponentOwnerConnectionWhere>>
+  OR?: InputMaybe<Array<ComponentOwnerConnectionWhere>>
+  node?: InputMaybe<UserWhere>
+  node_NOT?: InputMaybe<UserWhere>
 }
 
 export type ComponentOwnerConnectOrCreateFieldInput = {
@@ -5924,7 +5784,7 @@ export type ComponentOwnerConnectOrCreateFieldInput = {
 }
 
 export type ComponentOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserCreateInput
+  node: UserOnCreateInput
 }
 
 export type ComponentOwnerCreateFieldInput = {
@@ -5932,111 +5792,111 @@ export type ComponentOwnerCreateFieldInput = {
 }
 
 export type ComponentOwnerDeleteFieldInput = {
-  where?: Maybe<ComponentOwnerConnectionWhere>
-  delete?: Maybe<UserDeleteInput>
+  where?: InputMaybe<ComponentOwnerConnectionWhere>
+  delete?: InputMaybe<UserDeleteInput>
 }
 
 export type ComponentOwnerDisconnectFieldInput = {
-  where?: Maybe<ComponentOwnerConnectionWhere>
-  disconnect?: Maybe<UserDisconnectInput>
+  where?: InputMaybe<ComponentOwnerConnectionWhere>
+  disconnect?: InputMaybe<UserDisconnectInput>
 }
 
 export type ComponentOwnerFieldInput = {
-  create?: Maybe<ComponentOwnerCreateFieldInput>
-  connect?: Maybe<ComponentOwnerConnectFieldInput>
-  connectOrCreate?: Maybe<ComponentOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<ComponentOwnerCreateFieldInput>
+  connect?: InputMaybe<ComponentOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
 }
 
 export type ComponentOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ComponentOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ComponentOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ComponentOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ComponentOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ComponentOwnerUpdateConnectionInput = {
-  node?: Maybe<UserUpdateInput>
+  node?: InputMaybe<UserUpdateInput>
 }
 
 export type ComponentOwnerUpdateFieldInput = {
-  where?: Maybe<ComponentOwnerConnectionWhere>
-  update?: Maybe<ComponentOwnerUpdateConnectionInput>
-  connect?: Maybe<ComponentOwnerConnectFieldInput>
-  disconnect?: Maybe<ComponentOwnerDisconnectFieldInput>
-  create?: Maybe<ComponentOwnerCreateFieldInput>
-  delete?: Maybe<ComponentOwnerDeleteFieldInput>
-  connectOrCreate?: Maybe<ComponentOwnerConnectOrCreateFieldInput>
+  where?: InputMaybe<ComponentOwnerConnectionWhere>
+  update?: InputMaybe<ComponentOwnerUpdateConnectionInput>
+  connect?: InputMaybe<ComponentOwnerConnectFieldInput>
+  disconnect?: InputMaybe<ComponentOwnerDisconnectFieldInput>
+  create?: InputMaybe<ComponentOwnerCreateFieldInput>
+  delete?: InputMaybe<ComponentOwnerDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
 }
 
 export type ComponentRelationInput = {
-  rootElement?: Maybe<ComponentRootElementCreateFieldInput>
-  owner?: Maybe<ComponentOwnerCreateFieldInput>
+  rootElement?: InputMaybe<ComponentRootElementCreateFieldInput>
+  owner?: InputMaybe<ComponentOwnerCreateFieldInput>
 }
 
 export type ComponentRootElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ComponentRootElementAggregateInput>>
-  OR?: Maybe<Array<ComponentRootElementAggregateInput>>
-  node?: Maybe<ComponentRootElementNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ComponentRootElementAggregateInput>>
+  OR?: InputMaybe<Array<ComponentRootElementAggregateInput>>
+  node?: InputMaybe<ComponentRootElementNodeAggregationWhereInput>
 }
 
 export type ComponentRootElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
 }
 
 export type ComponentRootElementConnectionSort = {
-  node?: Maybe<ElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type ComponentRootElementConnectionWhere = {
-  AND?: Maybe<Array<ComponentRootElementConnectionWhere>>
-  OR?: Maybe<Array<ComponentRootElementConnectionWhere>>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<ComponentRootElementConnectionWhere>>
+  OR?: InputMaybe<Array<ComponentRootElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type ComponentRootElementConnectOrCreateFieldInput = {
@@ -6045,7 +5905,7 @@ export type ComponentRootElementConnectOrCreateFieldInput = {
 }
 
 export type ComponentRootElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
+  node: ElementOnCreateInput
 }
 
 export type ComponentRootElementCreateFieldInput = {
@@ -6053,297 +5913,297 @@ export type ComponentRootElementCreateFieldInput = {
 }
 
 export type ComponentRootElementDeleteFieldInput = {
-  where?: Maybe<ComponentRootElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<ComponentRootElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type ComponentRootElementDisconnectFieldInput = {
-  where?: Maybe<ComponentRootElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<ComponentRootElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type ComponentRootElementFieldInput = {
-  create?: Maybe<ComponentRootElementCreateFieldInput>
-  connect?: Maybe<ComponentRootElementConnectFieldInput>
-  connectOrCreate?: Maybe<ComponentRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<ComponentRootElementCreateFieldInput>
+  connect?: InputMaybe<ComponentRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
 }
 
 export type ComponentRootElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ComponentRootElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ComponentRootElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ComponentRootElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ComponentRootElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ComponentRootElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
 }
 
 export type ComponentRootElementUpdateFieldInput = {
-  where?: Maybe<ComponentRootElementConnectionWhere>
-  update?: Maybe<ComponentRootElementUpdateConnectionInput>
-  connect?: Maybe<ComponentRootElementConnectFieldInput>
-  disconnect?: Maybe<ComponentRootElementDisconnectFieldInput>
-  create?: Maybe<ComponentRootElementCreateFieldInput>
-  delete?: Maybe<ComponentRootElementDeleteFieldInput>
-  connectOrCreate?: Maybe<ComponentRootElementConnectOrCreateFieldInput>
+  where?: InputMaybe<ComponentRootElementConnectionWhere>
+  update?: InputMaybe<ComponentRootElementUpdateConnectionInput>
+  connect?: InputMaybe<ComponentRootElementConnectFieldInput>
+  disconnect?: InputMaybe<ComponentRootElementDisconnectFieldInput>
+  create?: InputMaybe<ComponentRootElementCreateFieldInput>
+  delete?: InputMaybe<ComponentRootElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
 }
 
 /** Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object. */
 export type ComponentSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type ComponentUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type ComponentUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  rootElement?: Maybe<ComponentRootElementUpdateFieldInput>
-  owner?: Maybe<ComponentOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
+  owner?: InputMaybe<ComponentOwnerUpdateFieldInput>
 }
 
 export type ComponentWhere = {
-  OR?: Maybe<Array<ComponentWhere>>
-  AND?: Maybe<Array<ComponentWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  rootElement?: Maybe<ElementWhere>
-  rootElement_NOT?: Maybe<ElementWhere>
-  rootElementAggregate?: Maybe<ComponentRootElementAggregateInput>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<ComponentOwnerAggregateInput>
-  rootElementConnection?: Maybe<ComponentRootElementConnectionWhere>
-  rootElementConnection_NOT?: Maybe<ComponentRootElementConnectionWhere>
-  ownerConnection?: Maybe<ComponentOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<ComponentOwnerConnectionWhere>
+  OR?: InputMaybe<Array<ComponentWhere>>
+  AND?: InputMaybe<Array<ComponentWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  rootElement?: InputMaybe<ElementWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
+  rootElementAggregate?: InputMaybe<ComponentRootElementAggregateInput>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
+  rootElementConnection?: InputMaybe<ComponentRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<ComponentRootElementConnectionWhere>
+  ownerConnection?: InputMaybe<ComponentOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<ComponentOwnerConnectionWhere>
 }
 
 export type CreateInfoCreateInput = {
-  bookmark?: Maybe<Scalars['String']>
+  bookmark?: InputMaybe<Scalars['String']>
   nodesCreated: Scalars['Int']
   relationshipsCreated: Scalars['Int']
 }
 
 export type CreateInfoOptions = {
   /** Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<CreateInfoSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<CreateInfoSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort CreateInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one CreateInfoSort object. */
 export type CreateInfoSort = {
-  bookmark?: Maybe<SortDirection>
-  nodesCreated?: Maybe<SortDirection>
-  relationshipsCreated?: Maybe<SortDirection>
+  bookmark?: InputMaybe<SortDirection>
+  nodesCreated?: InputMaybe<SortDirection>
+  relationshipsCreated?: InputMaybe<SortDirection>
 }
 
 export type CreateInfoUpdateInput = {
-  bookmark?: Maybe<Scalars['String']>
-  nodesCreated?: Maybe<Scalars['Int']>
-  relationshipsCreated?: Maybe<Scalars['Int']>
+  bookmark?: InputMaybe<Scalars['String']>
+  nodesCreated?: InputMaybe<Scalars['Int']>
+  relationshipsCreated?: InputMaybe<Scalars['Int']>
 }
 
 export type CreateInfoWhere = {
-  OR?: Maybe<Array<CreateInfoWhere>>
-  AND?: Maybe<Array<CreateInfoWhere>>
-  bookmark?: Maybe<Scalars['String']>
-  bookmark_NOT?: Maybe<Scalars['String']>
-  bookmark_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  bookmark_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  bookmark_CONTAINS?: Maybe<Scalars['String']>
-  bookmark_NOT_CONTAINS?: Maybe<Scalars['String']>
-  bookmark_STARTS_WITH?: Maybe<Scalars['String']>
-  bookmark_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  bookmark_ENDS_WITH?: Maybe<Scalars['String']>
-  bookmark_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  nodesCreated?: Maybe<Scalars['Int']>
-  nodesCreated_NOT?: Maybe<Scalars['Int']>
-  nodesCreated_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  nodesCreated_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  nodesCreated_LT?: Maybe<Scalars['Int']>
-  nodesCreated_LTE?: Maybe<Scalars['Int']>
-  nodesCreated_GT?: Maybe<Scalars['Int']>
-  nodesCreated_GTE?: Maybe<Scalars['Int']>
-  relationshipsCreated?: Maybe<Scalars['Int']>
-  relationshipsCreated_NOT?: Maybe<Scalars['Int']>
-  relationshipsCreated_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  relationshipsCreated_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  relationshipsCreated_LT?: Maybe<Scalars['Int']>
-  relationshipsCreated_LTE?: Maybe<Scalars['Int']>
-  relationshipsCreated_GT?: Maybe<Scalars['Int']>
-  relationshipsCreated_GTE?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<CreateInfoWhere>>
+  AND?: InputMaybe<Array<CreateInfoWhere>>
+  bookmark?: InputMaybe<Scalars['String']>
+  bookmark_NOT?: InputMaybe<Scalars['String']>
+  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  nodesCreated?: InputMaybe<Scalars['Int']>
+  nodesCreated_NOT?: InputMaybe<Scalars['Int']>
+  nodesCreated_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesCreated_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesCreated_LT?: InputMaybe<Scalars['Int']>
+  nodesCreated_LTE?: InputMaybe<Scalars['Int']>
+  nodesCreated_GT?: InputMaybe<Scalars['Int']>
+  nodesCreated_GTE?: InputMaybe<Scalars['Int']>
+  relationshipsCreated?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_NOT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsCreated_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsCreated_LT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_LTE?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_GT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type DeleteElementsInfoCreateInput = {
   nodesDeleted: Scalars['Int']
   relationshipsDeleted: Scalars['Int']
-  deletedIds?: Maybe<Array<Scalars['String']>>
+  deletedIds: Array<Scalars['String']>
 }
 
 export type DeleteElementsInfoOptions = {
   /** Specify one or more DeleteElementsInfoSort objects to sort DeleteElementsInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<DeleteElementsInfoSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<DeleteElementsInfoSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort DeleteElementsInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteElementsInfoSort object. */
 export type DeleteElementsInfoSort = {
-  nodesDeleted?: Maybe<SortDirection>
-  relationshipsDeleted?: Maybe<SortDirection>
+  nodesDeleted?: InputMaybe<SortDirection>
+  relationshipsDeleted?: InputMaybe<SortDirection>
 }
 
 export type DeleteElementsInfoUpdateInput = {
-  nodesDeleted?: Maybe<Scalars['Int']>
-  relationshipsDeleted?: Maybe<Scalars['Int']>
-  deletedIds?: Maybe<Array<Scalars['String']>>
+  nodesDeleted?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted?: InputMaybe<Scalars['Int']>
+  deletedIds?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type DeleteElementsInfoWhere = {
-  OR?: Maybe<Array<DeleteElementsInfoWhere>>
-  AND?: Maybe<Array<DeleteElementsInfoWhere>>
-  nodesDeleted?: Maybe<Scalars['Int']>
-  nodesDeleted_NOT?: Maybe<Scalars['Int']>
-  nodesDeleted_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  nodesDeleted_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  nodesDeleted_LT?: Maybe<Scalars['Int']>
-  nodesDeleted_LTE?: Maybe<Scalars['Int']>
-  nodesDeleted_GT?: Maybe<Scalars['Int']>
-  nodesDeleted_GTE?: Maybe<Scalars['Int']>
-  relationshipsDeleted?: Maybe<Scalars['Int']>
-  relationshipsDeleted_NOT?: Maybe<Scalars['Int']>
-  relationshipsDeleted_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  relationshipsDeleted_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  relationshipsDeleted_LT?: Maybe<Scalars['Int']>
-  relationshipsDeleted_LTE?: Maybe<Scalars['Int']>
-  relationshipsDeleted_GT?: Maybe<Scalars['Int']>
-  relationshipsDeleted_GTE?: Maybe<Scalars['Int']>
-  deletedIds?: Maybe<Array<Scalars['String']>>
-  deletedIds_NOT?: Maybe<Array<Scalars['String']>>
-  deletedIds_INCLUDES?: Maybe<Scalars['String']>
-  deletedIds_NOT_INCLUDES?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<DeleteElementsInfoWhere>>
+  AND?: InputMaybe<Array<DeleteElementsInfoWhere>>
+  nodesDeleted?: InputMaybe<Scalars['Int']>
+  nodesDeleted_NOT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesDeleted_LT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_LTE?: InputMaybe<Scalars['Int']>
+  nodesDeleted_GT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_GTE?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_NOT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsDeleted_LT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_LTE?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_GT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_GTE?: InputMaybe<Scalars['Int']>
+  deletedIds?: InputMaybe<Array<Scalars['String']>>
+  deletedIds_NOT?: InputMaybe<Array<Scalars['String']>>
+  deletedIds_INCLUDES?: InputMaybe<Scalars['String']>
+  deletedIds_NOT_INCLUDES?: InputMaybe<Scalars['String']>
 }
 
 export type DeleteFieldInput = {
@@ -6357,31 +6217,31 @@ export type DeleteFieldResponseCreateInput = {
 
 export type DeleteFieldResponseOptions = {
   /** Specify one or more DeleteFieldResponseSort objects to sort DeleteFieldResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<DeleteFieldResponseSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<DeleteFieldResponseSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort DeleteFieldResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteFieldResponseSort object. */
 export type DeleteFieldResponseSort = {
-  deletedEdgesCount?: Maybe<SortDirection>
+  deletedEdgesCount?: InputMaybe<SortDirection>
 }
 
 export type DeleteFieldResponseUpdateInput = {
-  deletedEdgesCount?: Maybe<Scalars['Int']>
+  deletedEdgesCount?: InputMaybe<Scalars['Int']>
 }
 
 export type DeleteFieldResponseWhere = {
-  OR?: Maybe<Array<DeleteFieldResponseWhere>>
-  AND?: Maybe<Array<DeleteFieldResponseWhere>>
-  deletedEdgesCount?: Maybe<Scalars['Int']>
-  deletedEdgesCount_NOT?: Maybe<Scalars['Int']>
-  deletedEdgesCount_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  deletedEdgesCount_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  deletedEdgesCount_LT?: Maybe<Scalars['Int']>
-  deletedEdgesCount_LTE?: Maybe<Scalars['Int']>
-  deletedEdgesCount_GT?: Maybe<Scalars['Int']>
-  deletedEdgesCount_GTE?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<DeleteFieldResponseWhere>>
+  AND?: InputMaybe<Array<DeleteFieldResponseWhere>>
+  deletedEdgesCount?: InputMaybe<Scalars['Int']>
+  deletedEdgesCount_NOT?: InputMaybe<Scalars['Int']>
+  deletedEdgesCount_IN?: InputMaybe<Array<Scalars['Int']>>
+  deletedEdgesCount_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  deletedEdgesCount_LT?: InputMaybe<Scalars['Int']>
+  deletedEdgesCount_LTE?: InputMaybe<Scalars['Int']>
+  deletedEdgesCount_GT?: InputMaybe<Scalars['Int']>
+  deletedEdgesCount_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type DuplicateElementInput = {
@@ -6390,22 +6250,22 @@ export type DuplicateElementInput = {
 
 export type DuplicateElementMutationResponseCreateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type DuplicateElementMutationResponseOptions = {
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type DuplicateElementMutationResponseUpdateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type DuplicateElementMutationResponseWhere = {
-  OR?: Maybe<Array<DuplicateElementMutationResponseWhere>>
-  AND?: Maybe<Array<DuplicateElementMutationResponseWhere>>
+  OR?: InputMaybe<Array<DuplicateElementMutationResponseWhere>>
+  AND?: InputMaybe<Array<DuplicateElementMutationResponseWhere>>
 }
 
 export type EdgeCreateInput = {
@@ -6415,72 +6275,72 @@ export type EdgeCreateInput = {
 
 export type EdgeOptions = {
   /** Specify one or more EdgeSort objects to sort Edges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<EdgeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<EdgeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort Edges by. The order in which sorts are applied is not guaranteed when specifying many fields in one EdgeSort object. */
 export type EdgeSort = {
-  source?: Maybe<SortDirection>
-  target?: Maybe<SortDirection>
+  source?: InputMaybe<SortDirection>
+  target?: InputMaybe<SortDirection>
 }
 
 export type EdgeUpdateInput = {
-  source?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
+  source?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
 }
 
 export type EdgeWhere = {
-  OR?: Maybe<Array<EdgeWhere>>
-  AND?: Maybe<Array<EdgeWhere>>
-  source?: Maybe<Scalars['String']>
-  source_NOT?: Maybe<Scalars['String']>
-  source_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_CONTAINS?: Maybe<Scalars['String']>
-  source_NOT_CONTAINS?: Maybe<Scalars['String']>
-  source_STARTS_WITH?: Maybe<Scalars['String']>
-  source_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  source_ENDS_WITH?: Maybe<Scalars['String']>
-  source_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
-  target_NOT?: Maybe<Scalars['String']>
-  target_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_CONTAINS?: Maybe<Scalars['String']>
-  target_NOT_CONTAINS?: Maybe<Scalars['String']>
-  target_STARTS_WITH?: Maybe<Scalars['String']>
-  target_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  target_ENDS_WITH?: Maybe<Scalars['String']>
-  target_NOT_ENDS_WITH?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<EdgeWhere>>
+  AND?: InputMaybe<Array<EdgeWhere>>
+  source?: InputMaybe<Scalars['String']>
+  source_NOT?: InputMaybe<Scalars['String']>
+  source_IN?: InputMaybe<Array<Scalars['String']>>
+  source_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  source_CONTAINS?: InputMaybe<Scalars['String']>
+  source_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  source_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_ENDS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
+  target_NOT?: InputMaybe<Scalars['String']>
+  target_IN?: InputMaybe<Array<Scalars['String']>>
+  target_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  target_CONTAINS?: InputMaybe<Scalars['String']>
+  target_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  target_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type ElementAtomAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementAtomAggregateInput>>
-  OR?: Maybe<Array<ElementAtomAggregateInput>>
-  node?: Maybe<ElementAtomNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementAtomAggregateInput>>
+  OR?: InputMaybe<Array<ElementAtomAggregateInput>>
+  node?: InputMaybe<ElementAtomNodeAggregationWhereInput>
 }
 
 export type ElementAtomConnectFieldInput = {
-  where?: Maybe<AtomConnectWhere>
-  connect?: Maybe<AtomConnectInput>
+  where?: InputMaybe<AtomConnectWhere>
+  connect?: InputMaybe<AtomConnectInput>
 }
 
 export type ElementAtomConnectionSort = {
-  node?: Maybe<AtomSort>
+  node?: InputMaybe<AtomSort>
 }
 
 export type ElementAtomConnectionWhere = {
-  AND?: Maybe<Array<ElementAtomConnectionWhere>>
-  OR?: Maybe<Array<ElementAtomConnectionWhere>>
-  node?: Maybe<AtomWhere>
-  node_NOT?: Maybe<AtomWhere>
+  AND?: InputMaybe<Array<ElementAtomConnectionWhere>>
+  OR?: InputMaybe<Array<ElementAtomConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+  node_NOT?: InputMaybe<AtomWhere>
 }
 
 export type ElementAtomConnectOrCreateFieldInput = {
@@ -6489,7 +6349,7 @@ export type ElementAtomConnectOrCreateFieldInput = {
 }
 
 export type ElementAtomConnectOrCreateFieldInputOnCreate = {
-  node: AtomCreateInput
+  node: AtomOnCreateInput
 }
 
 export type ElementAtomCreateFieldInput = {
@@ -6497,91 +6357,91 @@ export type ElementAtomCreateFieldInput = {
 }
 
 export type ElementAtomDeleteFieldInput = {
-  where?: Maybe<ElementAtomConnectionWhere>
-  delete?: Maybe<AtomDeleteInput>
+  where?: InputMaybe<ElementAtomConnectionWhere>
+  delete?: InputMaybe<AtomDeleteInput>
 }
 
 export type ElementAtomDisconnectFieldInput = {
-  where?: Maybe<ElementAtomConnectionWhere>
-  disconnect?: Maybe<AtomDisconnectInput>
+  where?: InputMaybe<ElementAtomConnectionWhere>
+  disconnect?: InputMaybe<AtomDisconnectInput>
 }
 
 export type ElementAtomFieldInput = {
-  create?: Maybe<ElementAtomCreateFieldInput>
-  connect?: Maybe<ElementAtomConnectFieldInput>
-  connectOrCreate?: Maybe<ElementAtomConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementAtomCreateFieldInput>
+  connect?: InputMaybe<ElementAtomConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementAtomConnectOrCreateFieldInput>
 }
 
 export type ElementAtomNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementAtomNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementAtomNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementAtomNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementAtomNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementAtomUpdateConnectionInput = {
-  node?: Maybe<AtomUpdateInput>
+  node?: InputMaybe<AtomUpdateInput>
 }
 
 export type ElementAtomUpdateFieldInput = {
-  where?: Maybe<ElementAtomConnectionWhere>
-  update?: Maybe<ElementAtomUpdateConnectionInput>
-  connect?: Maybe<ElementAtomConnectFieldInput>
-  disconnect?: Maybe<ElementAtomDisconnectFieldInput>
-  create?: Maybe<ElementAtomCreateFieldInput>
-  delete?: Maybe<ElementAtomDeleteFieldInput>
-  connectOrCreate?: Maybe<ElementAtomConnectOrCreateFieldInput>
+  where?: InputMaybe<ElementAtomConnectionWhere>
+  update?: InputMaybe<ElementAtomUpdateConnectionInput>
+  connect?: InputMaybe<ElementAtomConnectFieldInput>
+  disconnect?: InputMaybe<ElementAtomDisconnectFieldInput>
+  create?: InputMaybe<ElementAtomCreateFieldInput>
+  delete?: InputMaybe<ElementAtomDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ElementAtomConnectOrCreateFieldInput>
 }
 
 export type ElementChildrenAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementChildrenAggregateInput>>
-  OR?: Maybe<Array<ElementChildrenAggregateInput>>
-  node?: Maybe<ElementChildrenNodeAggregationWhereInput>
-  edge?: Maybe<ElementChildrenEdgeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementChildrenAggregateInput>>
+  OR?: InputMaybe<Array<ElementChildrenAggregateInput>>
+  node?: InputMaybe<ElementChildrenNodeAggregationWhereInput>
+  edge?: InputMaybe<ElementChildrenEdgeAggregationWhereInput>
 }
 
 export type ElementChildrenConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<Array<ElementConnectInput>>
-  edge?: Maybe<ParentOfElementCreateInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<Array<ElementConnectInput>>
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementChildrenConnectionSort = {
-  edge?: Maybe<ParentOfElementSort>
-  node?: Maybe<ElementSort>
+  edge?: InputMaybe<ParentOfElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type ElementChildrenConnectionWhere = {
-  AND?: Maybe<Array<ElementChildrenConnectionWhere>>
-  OR?: Maybe<Array<ElementChildrenConnectionWhere>>
-  edge?: Maybe<ParentOfElementWhere>
-  edge_NOT?: Maybe<ParentOfElementWhere>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<ElementChildrenConnectionWhere>>
+  OR?: InputMaybe<Array<ElementChildrenConnectionWhere>>
+  edge?: InputMaybe<ParentOfElementWhere>
+  edge_NOT?: InputMaybe<ParentOfElementWhere>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type ElementChildrenConnectOrCreateFieldInput = {
@@ -6590,207 +6450,207 @@ export type ElementChildrenConnectOrCreateFieldInput = {
 }
 
 export type ElementChildrenConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
-  edge?: Maybe<ParentOfElementCreateInput>
+  node: ElementOnCreateInput
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementChildrenCreateFieldInput = {
   node: ElementCreateInput
-  edge?: Maybe<ParentOfElementCreateInput>
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementChildrenDeleteFieldInput = {
-  where?: Maybe<ElementChildrenConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<ElementChildrenConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type ElementChildrenDisconnectFieldInput = {
-  where?: Maybe<ElementChildrenConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<ElementChildrenConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type ElementChildrenEdgeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementChildrenEdgeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementChildrenEdgeAggregationWhereInput>>
-  order_EQUAL?: Maybe<Scalars['Int']>
-  order_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  order_MIN_EQUAL?: Maybe<Scalars['Int']>
-  order_MAX_EQUAL?: Maybe<Scalars['Int']>
-  order_SUM_EQUAL?: Maybe<Scalars['Int']>
-  order_GT?: Maybe<Scalars['Int']>
-  order_AVERAGE_GT?: Maybe<Scalars['Float']>
-  order_MIN_GT?: Maybe<Scalars['Int']>
-  order_MAX_GT?: Maybe<Scalars['Int']>
-  order_SUM_GT?: Maybe<Scalars['Int']>
-  order_GTE?: Maybe<Scalars['Int']>
-  order_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  order_MIN_GTE?: Maybe<Scalars['Int']>
-  order_MAX_GTE?: Maybe<Scalars['Int']>
-  order_SUM_GTE?: Maybe<Scalars['Int']>
-  order_LT?: Maybe<Scalars['Int']>
-  order_AVERAGE_LT?: Maybe<Scalars['Float']>
-  order_MIN_LT?: Maybe<Scalars['Int']>
-  order_MAX_LT?: Maybe<Scalars['Int']>
-  order_SUM_LT?: Maybe<Scalars['Int']>
-  order_LTE?: Maybe<Scalars['Int']>
-  order_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  order_MIN_LTE?: Maybe<Scalars['Int']>
-  order_MAX_LTE?: Maybe<Scalars['Int']>
-  order_SUM_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementChildrenEdgeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementChildrenEdgeAggregationWhereInput>>
+  order_EQUAL?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  order_MIN_EQUAL?: InputMaybe<Scalars['Int']>
+  order_MAX_EQUAL?: InputMaybe<Scalars['Int']>
+  order_SUM_EQUAL?: InputMaybe<Scalars['Int']>
+  order_GT?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  order_MIN_GT?: InputMaybe<Scalars['Int']>
+  order_MAX_GT?: InputMaybe<Scalars['Int']>
+  order_SUM_GT?: InputMaybe<Scalars['Int']>
+  order_GTE?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  order_MIN_GTE?: InputMaybe<Scalars['Int']>
+  order_MAX_GTE?: InputMaybe<Scalars['Int']>
+  order_SUM_GTE?: InputMaybe<Scalars['Int']>
+  order_LT?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  order_MIN_LT?: InputMaybe<Scalars['Int']>
+  order_MAX_LT?: InputMaybe<Scalars['Int']>
+  order_SUM_LT?: InputMaybe<Scalars['Int']>
+  order_LTE?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  order_MIN_LTE?: InputMaybe<Scalars['Int']>
+  order_MAX_LTE?: InputMaybe<Scalars['Int']>
+  order_SUM_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementChildrenFieldInput = {
-  create?: Maybe<Array<ElementChildrenCreateFieldInput>>
-  connect?: Maybe<Array<ElementChildrenConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<ElementChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
+  connect?: InputMaybe<Array<ElementChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>
 }
 
 export type ElementChildrenNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementChildrenNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementChildrenNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementChildrenNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementChildrenNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementChildrenUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
-  edge?: Maybe<ParentOfElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
+  edge?: InputMaybe<ParentOfElementUpdateInput>
 }
 
 export type ElementChildrenUpdateFieldInput = {
-  where?: Maybe<ElementChildrenConnectionWhere>
-  update?: Maybe<ElementChildrenUpdateConnectionInput>
-  connect?: Maybe<Array<ElementChildrenConnectFieldInput>>
-  disconnect?: Maybe<Array<ElementChildrenDisconnectFieldInput>>
-  create?: Maybe<Array<ElementChildrenCreateFieldInput>>
-  delete?: Maybe<Array<ElementChildrenDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<ElementChildrenConnectOrCreateFieldInput>>
+  where?: InputMaybe<ElementChildrenConnectionWhere>
+  update?: InputMaybe<ElementChildrenUpdateConnectionInput>
+  connect?: InputMaybe<Array<ElementChildrenConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>
+  create?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>
 }
 
 export type ElementComponentAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementComponentAggregateInput>>
-  OR?: Maybe<Array<ElementComponentAggregateInput>>
-  node?: Maybe<ElementComponentNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementComponentAggregateInput>>
+  OR?: InputMaybe<Array<ElementComponentAggregateInput>>
+  node?: InputMaybe<ElementComponentNodeAggregationWhereInput>
 }
 
 export type ElementComponentConnectFieldInput = {
-  where?: Maybe<ComponentConnectWhere>
-  connect?: Maybe<ComponentConnectInput>
+  where?: InputMaybe<ComponentConnectWhere>
+  connect?: InputMaybe<ComponentConnectInput>
 }
 
 export type ElementComponentConnectionSort = {
-  node?: Maybe<ComponentSort>
+  node?: InputMaybe<ComponentSort>
 }
 
 export type ElementComponentConnectionWhere = {
-  AND?: Maybe<Array<ElementComponentConnectionWhere>>
-  OR?: Maybe<Array<ElementComponentConnectionWhere>>
-  node?: Maybe<ComponentWhere>
-  node_NOT?: Maybe<ComponentWhere>
+  AND?: InputMaybe<Array<ElementComponentConnectionWhere>>
+  OR?: InputMaybe<Array<ElementComponentConnectionWhere>>
+  node?: InputMaybe<ComponentWhere>
+  node_NOT?: InputMaybe<ComponentWhere>
 }
 
 export type ElementComponentConnectOrCreateFieldInput = {
@@ -6799,7 +6659,7 @@ export type ElementComponentConnectOrCreateFieldInput = {
 }
 
 export type ElementComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentCreateInput
+  node: ComponentOnCreateInput
 }
 
 export type ElementComponentCreateFieldInput = {
@@ -6807,81 +6667,81 @@ export type ElementComponentCreateFieldInput = {
 }
 
 export type ElementComponentDeleteFieldInput = {
-  where?: Maybe<ElementComponentConnectionWhere>
-  delete?: Maybe<ComponentDeleteInput>
+  where?: InputMaybe<ElementComponentConnectionWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
 }
 
 export type ElementComponentDisconnectFieldInput = {
-  where?: Maybe<ElementComponentConnectionWhere>
-  disconnect?: Maybe<ComponentDisconnectInput>
+  where?: InputMaybe<ElementComponentConnectionWhere>
+  disconnect?: InputMaybe<ComponentDisconnectInput>
 }
 
 export type ElementComponentFieldInput = {
-  create?: Maybe<ElementComponentCreateFieldInput>
-  connect?: Maybe<ElementComponentConnectFieldInput>
-  connectOrCreate?: Maybe<ElementComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementComponentCreateFieldInput>
+  connect?: InputMaybe<ElementComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementComponentConnectOrCreateFieldInput>
 }
 
 export type ElementComponentNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementComponentNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementComponentNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementComponentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementComponentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementComponentUpdateConnectionInput = {
-  node?: Maybe<ComponentUpdateInput>
+  node?: InputMaybe<ComponentUpdateInput>
 }
 
 export type ElementComponentUpdateFieldInput = {
-  where?: Maybe<ElementComponentConnectionWhere>
-  update?: Maybe<ElementComponentUpdateConnectionInput>
-  connect?: Maybe<ElementComponentConnectFieldInput>
-  disconnect?: Maybe<ElementComponentDisconnectFieldInput>
-  create?: Maybe<ElementComponentCreateFieldInput>
-  delete?: Maybe<ElementComponentDeleteFieldInput>
-  connectOrCreate?: Maybe<ElementComponentConnectOrCreateFieldInput>
+  where?: InputMaybe<ElementComponentConnectionWhere>
+  update?: InputMaybe<ElementComponentUpdateConnectionInput>
+  connect?: InputMaybe<ElementComponentConnectFieldInput>
+  disconnect?: InputMaybe<ElementComponentDisconnectFieldInput>
+  create?: InputMaybe<ElementComponentCreateFieldInput>
+  delete?: InputMaybe<ElementComponentDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ElementComponentConnectOrCreateFieldInput>
 }
 
 export type ElementConnectInput = {
-  children?: Maybe<Array<ElementChildrenConnectFieldInput>>
-  props?: Maybe<ElementPropsConnectFieldInput>
-  parentElement?: Maybe<ElementParentElementConnectFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentConnectFieldInput>
-  component?: Maybe<ElementComponentConnectFieldInput>
-  atom?: Maybe<ElementAtomConnectFieldInput>
-  hooks?: Maybe<Array<ElementHooksConnectFieldInput>>
-  propMapBindings?: Maybe<Array<ElementPropMapBindingsConnectFieldInput>>
+  children?: InputMaybe<Array<ElementChildrenConnectFieldInput>>
+  props?: InputMaybe<ElementPropsConnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
+  component?: InputMaybe<ElementComponentConnectFieldInput>
+  atom?: InputMaybe<ElementAtomConnectFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksConnectFieldInput>>
+  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
 }
 
 export type ElementConnectOrCreateInput = {
-  children?: Maybe<Array<ElementChildrenConnectOrCreateFieldInput>>
-  props?: Maybe<ElementPropsConnectOrCreateFieldInput>
-  parentElement?: Maybe<ElementParentElementConnectOrCreateFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
-  component?: Maybe<ElementComponentConnectOrCreateFieldInput>
-  atom?: Maybe<ElementAtomConnectOrCreateFieldInput>
-  hooks?: Maybe<Array<ElementHooksConnectOrCreateFieldInput>>
-  propMapBindings?: Maybe<
+  children?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>
+  props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+  component?: InputMaybe<ElementComponentConnectOrCreateFieldInput>
+  atom?: InputMaybe<ElementAtomConnectOrCreateFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
+  propMapBindings?: InputMaybe<
     Array<ElementPropMapBindingsConnectOrCreateFieldInput>
   >
 }
@@ -6895,104 +6755,106 @@ export type ElementConnectWhere = {
 }
 
 export type ElementCreateInput = {
-  name?: Maybe<Scalars['String']>
-  css?: Maybe<Scalars['String']>
-  propTransformationJs?: Maybe<Scalars['String']>
-  renderForEachPropKey?: Maybe<Scalars['String']>
-  renderIfPropKey?: Maybe<Scalars['String']>
-  children?: Maybe<ElementChildrenFieldInput>
-  props?: Maybe<ElementPropsFieldInput>
-  parentElement?: Maybe<ElementParentElementFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentFieldInput>
-  component?: Maybe<ElementComponentFieldInput>
-  atom?: Maybe<ElementAtomFieldInput>
-  hooks?: Maybe<ElementHooksFieldInput>
-  propMapBindings?: Maybe<ElementPropMapBindingsFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  css?: InputMaybe<Scalars['String']>
+  propTransformationJs?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: InputMaybe<Scalars['String']>
+  children?: InputMaybe<ElementChildrenFieldInput>
+  props?: InputMaybe<ElementPropsFieldInput>
+  parentElement?: InputMaybe<ElementParentElementFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentFieldInput>
+  component?: InputMaybe<ElementComponentFieldInput>
+  atom?: InputMaybe<ElementAtomFieldInput>
+  hooks?: InputMaybe<ElementHooksFieldInput>
+  propMapBindings?: InputMaybe<ElementPropMapBindingsFieldInput>
 }
 
 export type ElementDeleteInput = {
-  children?: Maybe<Array<ElementChildrenDeleteFieldInput>>
-  props?: Maybe<ElementPropsDeleteFieldInput>
-  parentElement?: Maybe<ElementParentElementDeleteFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentDeleteFieldInput>
-  component?: Maybe<ElementComponentDeleteFieldInput>
-  atom?: Maybe<ElementAtomDeleteFieldInput>
-  hooks?: Maybe<Array<ElementHooksDeleteFieldInput>>
-  propMapBindings?: Maybe<Array<ElementPropMapBindingsDeleteFieldInput>>
+  children?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>
+  props?: InputMaybe<ElementPropsDeleteFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDeleteFieldInput>
+  component?: InputMaybe<ElementComponentDeleteFieldInput>
+  atom?: InputMaybe<ElementAtomDeleteFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
+  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>
 }
 
 export type ElementDisconnectInput = {
-  children?: Maybe<Array<ElementChildrenDisconnectFieldInput>>
-  props?: Maybe<ElementPropsDisconnectFieldInput>
-  parentElement?: Maybe<ElementParentElementDisconnectFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentDisconnectFieldInput>
-  component?: Maybe<ElementComponentDisconnectFieldInput>
-  atom?: Maybe<ElementAtomDisconnectFieldInput>
-  hooks?: Maybe<Array<ElementHooksDisconnectFieldInput>>
-  propMapBindings?: Maybe<Array<ElementPropMapBindingsDisconnectFieldInput>>
+  children?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>
+  props?: InputMaybe<ElementPropsDisconnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDisconnectFieldInput>
+  component?: InputMaybe<ElementComponentDisconnectFieldInput>
+  atom?: InputMaybe<ElementAtomDisconnectFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
+  propMapBindings?: InputMaybe<
+    Array<ElementPropMapBindingsDisconnectFieldInput>
+  >
 }
 
 export type ElementEdgeCreateInput = {
   source: Scalars['String']
   target: Scalars['String']
-  order?: Maybe<Scalars['Int']>
+  order?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementEdgeOptions = {
   /** Specify one or more ElementEdgeSort objects to sort ElementEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ElementEdgeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ElementEdgeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort ElementEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementEdgeSort object. */
 export type ElementEdgeSort = {
-  source?: Maybe<SortDirection>
-  target?: Maybe<SortDirection>
-  order?: Maybe<SortDirection>
+  source?: InputMaybe<SortDirection>
+  target?: InputMaybe<SortDirection>
+  order?: InputMaybe<SortDirection>
 }
 
 export type ElementEdgeUpdateInput = {
-  source?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
-  order?: Maybe<Scalars['Int']>
+  source?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
+  order?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementEdgeWhere = {
-  OR?: Maybe<Array<ElementEdgeWhere>>
-  AND?: Maybe<Array<ElementEdgeWhere>>
-  source?: Maybe<Scalars['String']>
-  source_NOT?: Maybe<Scalars['String']>
-  source_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_CONTAINS?: Maybe<Scalars['String']>
-  source_NOT_CONTAINS?: Maybe<Scalars['String']>
-  source_STARTS_WITH?: Maybe<Scalars['String']>
-  source_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  source_ENDS_WITH?: Maybe<Scalars['String']>
-  source_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
-  target_NOT?: Maybe<Scalars['String']>
-  target_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_CONTAINS?: Maybe<Scalars['String']>
-  target_NOT_CONTAINS?: Maybe<Scalars['String']>
-  target_STARTS_WITH?: Maybe<Scalars['String']>
-  target_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  target_ENDS_WITH?: Maybe<Scalars['String']>
-  target_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  order?: Maybe<Scalars['Int']>
-  order_NOT?: Maybe<Scalars['Int']>
-  order_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  order_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  order_LT?: Maybe<Scalars['Int']>
-  order_LTE?: Maybe<Scalars['Int']>
-  order_GT?: Maybe<Scalars['Int']>
-  order_GTE?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<ElementEdgeWhere>>
+  AND?: InputMaybe<Array<ElementEdgeWhere>>
+  source?: InputMaybe<Scalars['String']>
+  source_NOT?: InputMaybe<Scalars['String']>
+  source_IN?: InputMaybe<Array<Scalars['String']>>
+  source_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  source_CONTAINS?: InputMaybe<Scalars['String']>
+  source_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  source_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_ENDS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
+  target_NOT?: InputMaybe<Scalars['String']>
+  target_IN?: InputMaybe<Array<Scalars['String']>>
+  target_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  target_CONTAINS?: InputMaybe<Scalars['String']>
+  target_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  target_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  order?: InputMaybe<Scalars['Int']>
+  order_NOT?: InputMaybe<Scalars['Int']>
+  order_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  order_LT?: InputMaybe<Scalars['Int']>
+  order_LTE?: InputMaybe<Scalars['Int']>
+  order_GT?: InputMaybe<Scalars['Int']>
+  order_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementGraphCreateInput = {
-  rootId?: Maybe<Scalars['String']>
+  rootId?: InputMaybe<Scalars['String']>
 }
 
 export type ElementGraphInput = {
@@ -7001,60 +6863,60 @@ export type ElementGraphInput = {
 
 export type ElementGraphOptions = {
   /** Specify one or more ElementGraphSort objects to sort ElementGraphs by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ElementGraphSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ElementGraphSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort ElementGraphs by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementGraphSort object. */
 export type ElementGraphSort = {
-  rootId?: Maybe<SortDirection>
+  rootId?: InputMaybe<SortDirection>
 }
 
 export type ElementGraphUpdateInput = {
-  rootId?: Maybe<Scalars['String']>
+  rootId?: InputMaybe<Scalars['String']>
 }
 
 export type ElementGraphWhere = {
-  OR?: Maybe<Array<ElementGraphWhere>>
-  AND?: Maybe<Array<ElementGraphWhere>>
-  rootId?: Maybe<Scalars['String']>
-  rootId_NOT?: Maybe<Scalars['String']>
-  rootId_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  rootId_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  rootId_CONTAINS?: Maybe<Scalars['String']>
-  rootId_NOT_CONTAINS?: Maybe<Scalars['String']>
-  rootId_STARTS_WITH?: Maybe<Scalars['String']>
-  rootId_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  rootId_ENDS_WITH?: Maybe<Scalars['String']>
-  rootId_NOT_ENDS_WITH?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<ElementGraphWhere>>
+  AND?: InputMaybe<Array<ElementGraphWhere>>
+  rootId?: InputMaybe<Scalars['String']>
+  rootId_NOT?: InputMaybe<Scalars['String']>
+  rootId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  rootId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  rootId_CONTAINS?: InputMaybe<Scalars['String']>
+  rootId_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  rootId_STARTS_WITH?: InputMaybe<Scalars['String']>
+  rootId_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  rootId_ENDS_WITH?: InputMaybe<Scalars['String']>
+  rootId_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type ElementHooksAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementHooksAggregateInput>>
-  OR?: Maybe<Array<ElementHooksAggregateInput>>
-  node?: Maybe<ElementHooksNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementHooksAggregateInput>>
+  OR?: InputMaybe<Array<ElementHooksAggregateInput>>
+  node?: InputMaybe<ElementHooksNodeAggregationWhereInput>
 }
 
 export type ElementHooksConnectFieldInput = {
-  where?: Maybe<HookConnectWhere>
-  connect?: Maybe<Array<HookConnectInput>>
+  where?: InputMaybe<HookConnectWhere>
+  connect?: InputMaybe<Array<HookConnectInput>>
 }
 
 export type ElementHooksConnectionSort = {
-  node?: Maybe<HookSort>
+  node?: InputMaybe<HookSort>
 }
 
 export type ElementHooksConnectionWhere = {
-  AND?: Maybe<Array<ElementHooksConnectionWhere>>
-  OR?: Maybe<Array<ElementHooksConnectionWhere>>
-  node?: Maybe<HookWhere>
-  node_NOT?: Maybe<HookWhere>
+  AND?: InputMaybe<Array<ElementHooksConnectionWhere>>
+  OR?: InputMaybe<Array<ElementHooksConnectionWhere>>
+  node?: InputMaybe<HookWhere>
+  node_NOT?: InputMaybe<HookWhere>
 }
 
 export type ElementHooksConnectOrCreateFieldInput = {
@@ -7063,7 +6925,7 @@ export type ElementHooksConnectOrCreateFieldInput = {
 }
 
 export type ElementHooksConnectOrCreateFieldInputOnCreate = {
-  node: HookCreateInput
+  node: HookOnCreateInput
 }
 
 export type ElementHooksCreateFieldInput = {
@@ -7071,66 +6933,66 @@ export type ElementHooksCreateFieldInput = {
 }
 
 export type ElementHooksDeleteFieldInput = {
-  where?: Maybe<ElementHooksConnectionWhere>
-  delete?: Maybe<HookDeleteInput>
+  where?: InputMaybe<ElementHooksConnectionWhere>
+  delete?: InputMaybe<HookDeleteInput>
 }
 
 export type ElementHooksDisconnectFieldInput = {
-  where?: Maybe<ElementHooksConnectionWhere>
-  disconnect?: Maybe<HookDisconnectInput>
+  where?: InputMaybe<ElementHooksConnectionWhere>
+  disconnect?: InputMaybe<HookDisconnectInput>
 }
 
 export type ElementHooksFieldInput = {
-  create?: Maybe<Array<ElementHooksCreateFieldInput>>
-  connect?: Maybe<Array<ElementHooksConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<ElementHooksConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
+  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
 }
 
 export type ElementHooksNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementHooksNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementHooksNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
+  AND?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementHooksNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
 }
 
 export type ElementHooksUpdateConnectionInput = {
-  node?: Maybe<HookUpdateInput>
+  node?: InputMaybe<HookUpdateInput>
 }
 
 export type ElementHooksUpdateFieldInput = {
-  where?: Maybe<ElementHooksConnectionWhere>
-  update?: Maybe<ElementHooksUpdateConnectionInput>
-  connect?: Maybe<Array<ElementHooksConnectFieldInput>>
-  disconnect?: Maybe<Array<ElementHooksDisconnectFieldInput>>
-  create?: Maybe<Array<ElementHooksCreateFieldInput>>
-  delete?: Maybe<Array<ElementHooksDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<ElementHooksConnectOrCreateFieldInput>>
+  where?: InputMaybe<ElementHooksConnectionWhere>
+  update?: InputMaybe<ElementHooksUpdateConnectionInput>
+  connect?: InputMaybe<Array<ElementHooksConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
+  create?: InputMaybe<Array<ElementHooksCreateFieldInput>>
+  delete?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
 }
 
 export type ElementInstanceOfComponentAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementInstanceOfComponentAggregateInput>>
-  OR?: Maybe<Array<ElementInstanceOfComponentAggregateInput>>
-  node?: Maybe<ElementInstanceOfComponentNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementInstanceOfComponentAggregateInput>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentAggregateInput>>
+  node?: InputMaybe<ElementInstanceOfComponentNodeAggregationWhereInput>
 }
 
 export type ElementInstanceOfComponentConnectFieldInput = {
-  where?: Maybe<ComponentConnectWhere>
-  connect?: Maybe<ComponentConnectInput>
+  where?: InputMaybe<ComponentConnectWhere>
+  connect?: InputMaybe<ComponentConnectInput>
 }
 
 export type ElementInstanceOfComponentConnectionSort = {
-  node?: Maybe<ComponentSort>
+  node?: InputMaybe<ComponentSort>
 }
 
 export type ElementInstanceOfComponentConnectionWhere = {
-  AND?: Maybe<Array<ElementInstanceOfComponentConnectionWhere>>
-  OR?: Maybe<Array<ElementInstanceOfComponentConnectionWhere>>
-  node?: Maybe<ComponentWhere>
-  node_NOT?: Maybe<ComponentWhere>
+  AND?: InputMaybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  node?: InputMaybe<ComponentWhere>
+  node_NOT?: InputMaybe<ComponentWhere>
 }
 
 export type ElementInstanceOfComponentConnectOrCreateFieldInput = {
@@ -7139,7 +7001,7 @@ export type ElementInstanceOfComponentConnectOrCreateFieldInput = {
 }
 
 export type ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentCreateInput
+  node: ComponentOnCreateInput
 }
 
 export type ElementInstanceOfComponentCreateFieldInput = {
@@ -7147,98 +7009,107 @@ export type ElementInstanceOfComponentCreateFieldInput = {
 }
 
 export type ElementInstanceOfComponentDeleteFieldInput = {
-  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  delete?: Maybe<ComponentDeleteInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
 }
 
 export type ElementInstanceOfComponentDisconnectFieldInput = {
-  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  disconnect?: Maybe<ComponentDisconnectInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  disconnect?: InputMaybe<ComponentDisconnectInput>
 }
 
 export type ElementInstanceOfComponentFieldInput = {
-  create?: Maybe<ElementInstanceOfComponentCreateFieldInput>
-  connect?: Maybe<ElementInstanceOfComponentConnectFieldInput>
-  connectOrCreate?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
+  connect?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
 }
 
 export type ElementInstanceOfComponentNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementInstanceOfComponentUpdateConnectionInput = {
-  node?: Maybe<ComponentUpdateInput>
+  node?: InputMaybe<ComponentUpdateInput>
 }
 
 export type ElementInstanceOfComponentUpdateFieldInput = {
-  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  update?: Maybe<ElementInstanceOfComponentUpdateConnectionInput>
-  connect?: Maybe<ElementInstanceOfComponentConnectFieldInput>
-  disconnect?: Maybe<ElementInstanceOfComponentDisconnectFieldInput>
-  create?: Maybe<ElementInstanceOfComponentCreateFieldInput>
-  delete?: Maybe<ElementInstanceOfComponentDeleteFieldInput>
-  connectOrCreate?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  update?: InputMaybe<ElementInstanceOfComponentUpdateConnectionInput>
+  connect?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
+  disconnect?: InputMaybe<ElementInstanceOfComponentDisconnectFieldInput>
+  create?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
+  delete?: InputMaybe<ElementInstanceOfComponentDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+}
+
+export type ElementOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  css?: InputMaybe<Scalars['String']>
+  propTransformationJs?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: InputMaybe<Scalars['String']>
 }
 
 export type ElementOptions = {
   /** Specify one or more ElementSort objects to sort Elements by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ElementSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ElementSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementParentElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementParentElementAggregateInput>>
-  OR?: Maybe<Array<ElementParentElementAggregateInput>>
-  node?: Maybe<ElementParentElementNodeAggregationWhereInput>
-  edge?: Maybe<ElementParentElementEdgeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  OR?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  node?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
+  edge?: InputMaybe<ElementParentElementEdgeAggregationWhereInput>
 }
 
 export type ElementParentElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
-  edge?: Maybe<ParentOfElementCreateInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementParentElementConnectionSort = {
-  edge?: Maybe<ParentOfElementSort>
-  node?: Maybe<ElementSort>
+  edge?: InputMaybe<ParentOfElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type ElementParentElementConnectionWhere = {
-  AND?: Maybe<Array<ElementParentElementConnectionWhere>>
-  OR?: Maybe<Array<ElementParentElementConnectionWhere>>
-  edge?: Maybe<ParentOfElementWhere>
-  edge_NOT?: Maybe<ParentOfElementWhere>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<ElementParentElementConnectionWhere>>
+  OR?: InputMaybe<Array<ElementParentElementConnectionWhere>>
+  edge?: InputMaybe<ParentOfElementWhere>
+  edge_NOT?: InputMaybe<ParentOfElementWhere>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type ElementParentElementConnectOrCreateFieldInput = {
@@ -7247,207 +7118,207 @@ export type ElementParentElementConnectOrCreateFieldInput = {
 }
 
 export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
-  edge?: Maybe<ParentOfElementCreateInput>
+  node: ElementOnCreateInput
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementParentElementCreateFieldInput = {
   node: ElementCreateInput
-  edge?: Maybe<ParentOfElementCreateInput>
+  edge?: InputMaybe<ParentOfElementCreateInput>
 }
 
 export type ElementParentElementDeleteFieldInput = {
-  where?: Maybe<ElementParentElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type ElementParentElementDisconnectFieldInput = {
-  where?: Maybe<ElementParentElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type ElementParentElementEdgeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementParentElementEdgeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementParentElementEdgeAggregationWhereInput>>
-  order_EQUAL?: Maybe<Scalars['Int']>
-  order_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  order_MIN_EQUAL?: Maybe<Scalars['Int']>
-  order_MAX_EQUAL?: Maybe<Scalars['Int']>
-  order_SUM_EQUAL?: Maybe<Scalars['Int']>
-  order_GT?: Maybe<Scalars['Int']>
-  order_AVERAGE_GT?: Maybe<Scalars['Float']>
-  order_MIN_GT?: Maybe<Scalars['Int']>
-  order_MAX_GT?: Maybe<Scalars['Int']>
-  order_SUM_GT?: Maybe<Scalars['Int']>
-  order_GTE?: Maybe<Scalars['Int']>
-  order_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  order_MIN_GTE?: Maybe<Scalars['Int']>
-  order_MAX_GTE?: Maybe<Scalars['Int']>
-  order_SUM_GTE?: Maybe<Scalars['Int']>
-  order_LT?: Maybe<Scalars['Int']>
-  order_AVERAGE_LT?: Maybe<Scalars['Float']>
-  order_MIN_LT?: Maybe<Scalars['Int']>
-  order_MAX_LT?: Maybe<Scalars['Int']>
-  order_SUM_LT?: Maybe<Scalars['Int']>
-  order_LTE?: Maybe<Scalars['Int']>
-  order_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  order_MIN_LTE?: Maybe<Scalars['Int']>
-  order_MAX_LTE?: Maybe<Scalars['Int']>
-  order_SUM_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementParentElementEdgeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementParentElementEdgeAggregationWhereInput>>
+  order_EQUAL?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  order_MIN_EQUAL?: InputMaybe<Scalars['Int']>
+  order_MAX_EQUAL?: InputMaybe<Scalars['Int']>
+  order_SUM_EQUAL?: InputMaybe<Scalars['Int']>
+  order_GT?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  order_MIN_GT?: InputMaybe<Scalars['Int']>
+  order_MAX_GT?: InputMaybe<Scalars['Int']>
+  order_SUM_GT?: InputMaybe<Scalars['Int']>
+  order_GTE?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  order_MIN_GTE?: InputMaybe<Scalars['Int']>
+  order_MAX_GTE?: InputMaybe<Scalars['Int']>
+  order_SUM_GTE?: InputMaybe<Scalars['Int']>
+  order_LT?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  order_MIN_LT?: InputMaybe<Scalars['Int']>
+  order_MAX_LT?: InputMaybe<Scalars['Int']>
+  order_SUM_LT?: InputMaybe<Scalars['Int']>
+  order_LTE?: InputMaybe<Scalars['Int']>
+  order_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  order_MIN_LTE?: InputMaybe<Scalars['Int']>
+  order_MAX_LTE?: InputMaybe<Scalars['Int']>
+  order_SUM_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementParentElementFieldInput = {
-  create?: Maybe<ElementParentElementCreateFieldInput>
-  connect?: Maybe<ElementParentElementConnectFieldInput>
-  connectOrCreate?: Maybe<ElementParentElementConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
 }
 
 export type ElementParentElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementParentElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementParentElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementParentElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
-  edge?: Maybe<ParentOfElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
+  edge?: InputMaybe<ParentOfElementUpdateInput>
 }
 
 export type ElementParentElementUpdateFieldInput = {
-  where?: Maybe<ElementParentElementConnectionWhere>
-  update?: Maybe<ElementParentElementUpdateConnectionInput>
-  connect?: Maybe<ElementParentElementConnectFieldInput>
-  disconnect?: Maybe<ElementParentElementDisconnectFieldInput>
-  create?: Maybe<ElementParentElementCreateFieldInput>
-  delete?: Maybe<ElementParentElementDeleteFieldInput>
-  connectOrCreate?: Maybe<ElementParentElementConnectOrCreateFieldInput>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
+  update?: InputMaybe<ElementParentElementUpdateConnectionInput>
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  disconnect?: InputMaybe<ElementParentElementDisconnectFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
+  delete?: InputMaybe<ElementParentElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
 }
 
 export type ElementPropMapBindingsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementPropMapBindingsAggregateInput>>
-  OR?: Maybe<Array<ElementPropMapBindingsAggregateInput>>
-  node?: Maybe<ElementPropMapBindingsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementPropMapBindingsAggregateInput>>
+  OR?: InputMaybe<Array<ElementPropMapBindingsAggregateInput>>
+  node?: InputMaybe<ElementPropMapBindingsNodeAggregationWhereInput>
 }
 
 export type ElementPropMapBindingsConnectFieldInput = {
-  where?: Maybe<PropMapBindingConnectWhere>
-  connect?: Maybe<Array<PropMapBindingConnectInput>>
+  where?: InputMaybe<PropMapBindingConnectWhere>
+  connect?: InputMaybe<Array<PropMapBindingConnectInput>>
 }
 
 export type ElementPropMapBindingsConnectionSort = {
-  node?: Maybe<PropMapBindingSort>
+  node?: InputMaybe<PropMapBindingSort>
 }
 
 export type ElementPropMapBindingsConnectionWhere = {
-  AND?: Maybe<Array<ElementPropMapBindingsConnectionWhere>>
-  OR?: Maybe<Array<ElementPropMapBindingsConnectionWhere>>
-  node?: Maybe<PropMapBindingWhere>
-  node_NOT?: Maybe<PropMapBindingWhere>
+  AND?: InputMaybe<Array<ElementPropMapBindingsConnectionWhere>>
+  OR?: InputMaybe<Array<ElementPropMapBindingsConnectionWhere>>
+  node?: InputMaybe<PropMapBindingWhere>
+  node_NOT?: InputMaybe<PropMapBindingWhere>
 }
 
 export type ElementPropMapBindingsConnectOrCreateFieldInput = {
@@ -7456,7 +7327,7 @@ export type ElementPropMapBindingsConnectOrCreateFieldInput = {
 }
 
 export type ElementPropMapBindingsConnectOrCreateFieldInputOnCreate = {
-  node: PropMapBindingCreateInput
+  node: PropMapBindingOnCreateInput
 }
 
 export type ElementPropMapBindingsCreateFieldInput = {
@@ -7464,109 +7335,109 @@ export type ElementPropMapBindingsCreateFieldInput = {
 }
 
 export type ElementPropMapBindingsDeleteFieldInput = {
-  where?: Maybe<ElementPropMapBindingsConnectionWhere>
-  delete?: Maybe<PropMapBindingDeleteInput>
+  where?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  delete?: InputMaybe<PropMapBindingDeleteInput>
 }
 
 export type ElementPropMapBindingsDisconnectFieldInput = {
-  where?: Maybe<ElementPropMapBindingsConnectionWhere>
-  disconnect?: Maybe<PropMapBindingDisconnectInput>
+  where?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  disconnect?: InputMaybe<PropMapBindingDisconnectInput>
 }
 
 export type ElementPropMapBindingsFieldInput = {
-  create?: Maybe<Array<ElementPropMapBindingsCreateFieldInput>>
-  connect?: Maybe<Array<ElementPropMapBindingsConnectFieldInput>>
-  connectOrCreate?: Maybe<
+  create?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
+  connect?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
     Array<ElementPropMapBindingsConnectOrCreateFieldInput>
   >
 }
 
 export type ElementPropMapBindingsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementPropMapBindingsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementPropMapBindingsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  sourceKey_EQUAL?: Maybe<Scalars['String']>
-  sourceKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  sourceKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  sourceKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  sourceKey_GT?: Maybe<Scalars['Int']>
-  sourceKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  sourceKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  sourceKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  sourceKey_GTE?: Maybe<Scalars['Int']>
-  sourceKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  sourceKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  sourceKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  sourceKey_LT?: Maybe<Scalars['Int']>
-  sourceKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  sourceKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  sourceKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  sourceKey_LTE?: Maybe<Scalars['Int']>
-  sourceKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  sourceKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  sourceKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  targetKey_EQUAL?: Maybe<Scalars['String']>
-  targetKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  targetKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  targetKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  targetKey_GT?: Maybe<Scalars['Int']>
-  targetKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  targetKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  targetKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  targetKey_GTE?: Maybe<Scalars['Int']>
-  targetKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  targetKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  targetKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  targetKey_LT?: Maybe<Scalars['Int']>
-  targetKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  targetKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  targetKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  targetKey_LTE?: Maybe<Scalars['Int']>
-  targetKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  targetKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  targetKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementPropMapBindingsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementPropMapBindingsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  sourceKey_EQUAL?: InputMaybe<Scalars['String']>
+  sourceKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  sourceKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  sourceKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  sourceKey_GT?: InputMaybe<Scalars['Int']>
+  sourceKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  sourceKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  sourceKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  sourceKey_GTE?: InputMaybe<Scalars['Int']>
+  sourceKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  sourceKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  sourceKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  sourceKey_LT?: InputMaybe<Scalars['Int']>
+  sourceKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  sourceKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  sourceKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  sourceKey_LTE?: InputMaybe<Scalars['Int']>
+  sourceKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  sourceKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  sourceKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  targetKey_EQUAL?: InputMaybe<Scalars['String']>
+  targetKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  targetKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  targetKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  targetKey_GT?: InputMaybe<Scalars['Int']>
+  targetKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  targetKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  targetKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  targetKey_GTE?: InputMaybe<Scalars['Int']>
+  targetKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  targetKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  targetKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  targetKey_LT?: InputMaybe<Scalars['Int']>
+  targetKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  targetKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  targetKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  targetKey_LTE?: InputMaybe<Scalars['Int']>
+  targetKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  targetKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  targetKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementPropMapBindingsUpdateConnectionInput = {
-  node?: Maybe<PropMapBindingUpdateInput>
+  node?: InputMaybe<PropMapBindingUpdateInput>
 }
 
 export type ElementPropMapBindingsUpdateFieldInput = {
-  where?: Maybe<ElementPropMapBindingsConnectionWhere>
-  update?: Maybe<ElementPropMapBindingsUpdateConnectionInput>
-  connect?: Maybe<Array<ElementPropMapBindingsConnectFieldInput>>
-  disconnect?: Maybe<Array<ElementPropMapBindingsDisconnectFieldInput>>
-  create?: Maybe<Array<ElementPropMapBindingsCreateFieldInput>>
-  delete?: Maybe<Array<ElementPropMapBindingsDeleteFieldInput>>
-  connectOrCreate?: Maybe<
+  where?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  update?: InputMaybe<ElementPropMapBindingsUpdateConnectionInput>
+  connect?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ElementPropMapBindingsDisconnectFieldInput>>
+  create?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
+  delete?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<
     Array<ElementPropMapBindingsConnectOrCreateFieldInput>
   >
 }
 
 export type ElementPropsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementPropsAggregateInput>>
-  OR?: Maybe<Array<ElementPropsAggregateInput>>
-  node?: Maybe<ElementPropsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementPropsAggregateInput>>
+  OR?: InputMaybe<Array<ElementPropsAggregateInput>>
+  node?: InputMaybe<ElementPropsNodeAggregationWhereInput>
 }
 
 export type ElementPropsConnectFieldInput = {
-  where?: Maybe<PropConnectWhere>
+  where?: InputMaybe<PropConnectWhere>
 }
 
 export type ElementPropsConnectionSort = {
-  node?: Maybe<PropSort>
+  node?: InputMaybe<PropSort>
 }
 
 export type ElementPropsConnectionWhere = {
-  AND?: Maybe<Array<ElementPropsConnectionWhere>>
-  OR?: Maybe<Array<ElementPropsConnectionWhere>>
-  node?: Maybe<PropWhere>
-  node_NOT?: Maybe<PropWhere>
+  AND?: InputMaybe<Array<ElementPropsConnectionWhere>>
+  OR?: InputMaybe<Array<ElementPropsConnectionWhere>>
+  node?: InputMaybe<PropWhere>
+  node_NOT?: InputMaybe<PropWhere>
 }
 
 export type ElementPropsConnectOrCreateFieldInput = {
@@ -7575,7 +7446,7 @@ export type ElementPropsConnectOrCreateFieldInput = {
 }
 
 export type ElementPropsConnectOrCreateFieldInputOnCreate = {
-  node: PropCreateInput
+  node: PropOnCreateInput
 }
 
 export type ElementPropsCreateFieldInput = {
@@ -7583,367 +7454,403 @@ export type ElementPropsCreateFieldInput = {
 }
 
 export type ElementPropsDeleteFieldInput = {
-  where?: Maybe<ElementPropsConnectionWhere>
+  where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
 export type ElementPropsDisconnectFieldInput = {
-  where?: Maybe<ElementPropsConnectionWhere>
+  where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
 export type ElementPropsFieldInput = {
-  create?: Maybe<ElementPropsCreateFieldInput>
-  connect?: Maybe<ElementPropsConnectFieldInput>
-  connectOrCreate?: Maybe<ElementPropsConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementPropsCreateFieldInput>
+  connect?: InputMaybe<ElementPropsConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
 }
 
 export type ElementPropsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementPropsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementPropsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  data_EQUAL?: Maybe<Scalars['String']>
-  data_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  data_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  data_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  data_GT?: Maybe<Scalars['Int']>
-  data_AVERAGE_GT?: Maybe<Scalars['Float']>
-  data_LONGEST_GT?: Maybe<Scalars['Int']>
-  data_SHORTEST_GT?: Maybe<Scalars['Int']>
-  data_GTE?: Maybe<Scalars['Int']>
-  data_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  data_LONGEST_GTE?: Maybe<Scalars['Int']>
-  data_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  data_LT?: Maybe<Scalars['Int']>
-  data_AVERAGE_LT?: Maybe<Scalars['Float']>
-  data_LONGEST_LT?: Maybe<Scalars['Int']>
-  data_SHORTEST_LT?: Maybe<Scalars['Int']>
-  data_LTE?: Maybe<Scalars['Int']>
-  data_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  data_LONGEST_LTE?: Maybe<Scalars['Int']>
-  data_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementPropsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementPropsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  data_EQUAL?: InputMaybe<Scalars['String']>
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  data_GT?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  data_GTE?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  data_LT?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  data_LTE?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementPropsUpdateConnectionInput = {
-  node?: Maybe<PropUpdateInput>
+  node?: InputMaybe<PropUpdateInput>
 }
 
 export type ElementPropsUpdateFieldInput = {
-  where?: Maybe<ElementPropsConnectionWhere>
-  update?: Maybe<ElementPropsUpdateConnectionInput>
-  connect?: Maybe<ElementPropsConnectFieldInput>
-  disconnect?: Maybe<ElementPropsDisconnectFieldInput>
-  create?: Maybe<ElementPropsCreateFieldInput>
-  delete?: Maybe<ElementPropsDeleteFieldInput>
-  connectOrCreate?: Maybe<ElementPropsConnectOrCreateFieldInput>
+  where?: InputMaybe<ElementPropsConnectionWhere>
+  update?: InputMaybe<ElementPropsUpdateConnectionInput>
+  connect?: InputMaybe<ElementPropsConnectFieldInput>
+  disconnect?: InputMaybe<ElementPropsDisconnectFieldInput>
+  create?: InputMaybe<ElementPropsCreateFieldInput>
+  delete?: InputMaybe<ElementPropsDeleteFieldInput>
+  connectOrCreate?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
 }
 
 export type ElementRelationInput = {
-  children?: Maybe<Array<ElementChildrenCreateFieldInput>>
-  props?: Maybe<ElementPropsCreateFieldInput>
-  parentElement?: Maybe<ElementParentElementCreateFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentCreateFieldInput>
-  component?: Maybe<ElementComponentCreateFieldInput>
-  atom?: Maybe<ElementAtomCreateFieldInput>
-  hooks?: Maybe<Array<ElementHooksCreateFieldInput>>
-  propMapBindings?: Maybe<Array<ElementPropMapBindingsCreateFieldInput>>
+  children?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
+  props?: InputMaybe<ElementPropsCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementCreateFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
+  component?: InputMaybe<ElementComponentCreateFieldInput>
+  atom?: InputMaybe<ElementAtomCreateFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksCreateFieldInput>>
+  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
 }
 
 /** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
 export type ElementSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  css?: Maybe<SortDirection>
-  propTransformationJs?: Maybe<SortDirection>
-  renderForEachPropKey?: Maybe<SortDirection>
-  renderIfPropKey?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  css?: InputMaybe<SortDirection>
+  propTransformationJs?: InputMaybe<SortDirection>
+  renderForEachPropKey?: InputMaybe<SortDirection>
+  renderIfPropKey?: InputMaybe<SortDirection>
 }
 
 export type ElementTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type ElementTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ElementTypeCreateInput = {
   name: Scalars['String']
   elementKind: ElementTypeKind
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type ElementTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ElementTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type ElementTypeOptions = {
   /** Specify one or more ElementTypeSort objects to sort ElementTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ElementTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ElementTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ElementTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<ElementTypeOwnerAggregateInput>>
-  node?: Maybe<ElementTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ElementTypeOwnerAggregateInput>>
+  node?: InputMaybe<ElementTypeOwnerNodeAggregationWhereInput>
 }
 
 export type ElementTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object. */
 export type ElementTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  elementKind?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  elementKind?: InputMaybe<SortDirection>
 }
 
 export type ElementTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  elementKind?: Maybe<ElementTypeKind>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  elementKind?: InputMaybe<ElementTypeKind>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type ElementTypeWhere = {
-  OR?: Maybe<Array<ElementTypeWhere>>
-  AND?: Maybe<Array<ElementTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  elementKind?: Maybe<ElementTypeKind>
-  elementKind_NOT?: Maybe<ElementTypeKind>
-  elementKind_IN?: Maybe<Array<Maybe<ElementTypeKind>>>
-  elementKind_NOT_IN?: Maybe<Array<Maybe<ElementTypeKind>>>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<ElementTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<ElementTypeWhere>>
+  AND?: InputMaybe<Array<ElementTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  elementKind?: InputMaybe<ElementTypeKind>
+  elementKind_NOT?: InputMaybe<ElementTypeKind>
+  elementKind_IN?: InputMaybe<Array<ElementTypeKind>>
+  elementKind_NOT_IN?: InputMaybe<Array<ElementTypeKind>>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type ElementUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type ElementUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  css?: Maybe<Scalars['String']>
-  propTransformationJs?: Maybe<Scalars['String']>
-  renderForEachPropKey?: Maybe<Scalars['String']>
-  renderIfPropKey?: Maybe<Scalars['String']>
-  children?: Maybe<Array<ElementChildrenUpdateFieldInput>>
-  props?: Maybe<ElementPropsUpdateFieldInput>
-  parentElement?: Maybe<ElementParentElementUpdateFieldInput>
-  instanceOfComponent?: Maybe<ElementInstanceOfComponentUpdateFieldInput>
-  component?: Maybe<ElementComponentUpdateFieldInput>
-  atom?: Maybe<ElementAtomUpdateFieldInput>
-  hooks?: Maybe<Array<ElementHooksUpdateFieldInput>>
-  propMapBindings?: Maybe<Array<ElementPropMapBindingsUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  css?: InputMaybe<Scalars['String']>
+  propTransformationJs?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: InputMaybe<Scalars['String']>
+  children?: InputMaybe<Array<ElementChildrenUpdateFieldInput>>
+  props?: InputMaybe<ElementPropsUpdateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentUpdateFieldInput>
+  component?: InputMaybe<ElementComponentUpdateFieldInput>
+  atom?: InputMaybe<ElementAtomUpdateFieldInput>
+  hooks?: InputMaybe<Array<ElementHooksUpdateFieldInput>>
+  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsUpdateFieldInput>>
 }
 
 export type ElementWhere = {
-  OR?: Maybe<Array<ElementWhere>>
-  AND?: Maybe<Array<ElementWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  css?: Maybe<Scalars['String']>
-  css_NOT?: Maybe<Scalars['String']>
-  css_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  css_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  css_CONTAINS?: Maybe<Scalars['String']>
-  css_NOT_CONTAINS?: Maybe<Scalars['String']>
-  css_STARTS_WITH?: Maybe<Scalars['String']>
-  css_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  css_ENDS_WITH?: Maybe<Scalars['String']>
-  css_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  propTransformationJs?: Maybe<Scalars['String']>
-  propTransformationJs_NOT?: Maybe<Scalars['String']>
-  propTransformationJs_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  propTransformationJs_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  propTransformationJs_CONTAINS?: Maybe<Scalars['String']>
-  propTransformationJs_NOT_CONTAINS?: Maybe<Scalars['String']>
-  propTransformationJs_STARTS_WITH?: Maybe<Scalars['String']>
-  propTransformationJs_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  propTransformationJs_ENDS_WITH?: Maybe<Scalars['String']>
-  propTransformationJs_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  renderForEachPropKey?: Maybe<Scalars['String']>
-  renderForEachPropKey_NOT?: Maybe<Scalars['String']>
-  renderForEachPropKey_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  renderForEachPropKey_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  renderForEachPropKey_CONTAINS?: Maybe<Scalars['String']>
-  renderForEachPropKey_NOT_CONTAINS?: Maybe<Scalars['String']>
-  renderForEachPropKey_STARTS_WITH?: Maybe<Scalars['String']>
-  renderForEachPropKey_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  renderForEachPropKey_ENDS_WITH?: Maybe<Scalars['String']>
-  renderForEachPropKey_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  renderIfPropKey?: Maybe<Scalars['String']>
-  renderIfPropKey_NOT?: Maybe<Scalars['String']>
-  renderIfPropKey_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  renderIfPropKey_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  renderIfPropKey_CONTAINS?: Maybe<Scalars['String']>
-  renderIfPropKey_NOT_CONTAINS?: Maybe<Scalars['String']>
-  renderIfPropKey_STARTS_WITH?: Maybe<Scalars['String']>
-  renderIfPropKey_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  renderIfPropKey_ENDS_WITH?: Maybe<Scalars['String']>
-  renderIfPropKey_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  children?: Maybe<ElementWhere>
-  children_NOT?: Maybe<ElementWhere>
-  childrenAggregate?: Maybe<ElementChildrenAggregateInput>
-  props?: Maybe<PropWhere>
-  props_NOT?: Maybe<PropWhere>
-  propsAggregate?: Maybe<ElementPropsAggregateInput>
-  parentElement?: Maybe<ElementWhere>
-  parentElement_NOT?: Maybe<ElementWhere>
-  parentElementAggregate?: Maybe<ElementParentElementAggregateInput>
-  instanceOfComponent?: Maybe<ComponentWhere>
-  instanceOfComponent_NOT?: Maybe<ComponentWhere>
-  instanceOfComponentAggregate?: Maybe<ElementInstanceOfComponentAggregateInput>
-  component?: Maybe<ComponentWhere>
-  component_NOT?: Maybe<ComponentWhere>
-  componentAggregate?: Maybe<ElementComponentAggregateInput>
-  atom?: Maybe<AtomWhere>
-  atom_NOT?: Maybe<AtomWhere>
-  atomAggregate?: Maybe<ElementAtomAggregateInput>
-  hooks?: Maybe<HookWhere>
-  hooks_NOT?: Maybe<HookWhere>
-  hooksAggregate?: Maybe<ElementHooksAggregateInput>
-  propMapBindings?: Maybe<PropMapBindingWhere>
-  propMapBindings_NOT?: Maybe<PropMapBindingWhere>
-  propMapBindingsAggregate?: Maybe<ElementPropMapBindingsAggregateInput>
-  childrenConnection?: Maybe<ElementChildrenConnectionWhere>
-  childrenConnection_NOT?: Maybe<ElementChildrenConnectionWhere>
-  propsConnection?: Maybe<ElementPropsConnectionWhere>
-  propsConnection_NOT?: Maybe<ElementPropsConnectionWhere>
-  parentElementConnection?: Maybe<ElementParentElementConnectionWhere>
-  parentElementConnection_NOT?: Maybe<ElementParentElementConnectionWhere>
-  instanceOfComponentConnection?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  instanceOfComponentConnection_NOT?: Maybe<ElementInstanceOfComponentConnectionWhere>
-  componentConnection?: Maybe<ElementComponentConnectionWhere>
-  componentConnection_NOT?: Maybe<ElementComponentConnectionWhere>
-  atomConnection?: Maybe<ElementAtomConnectionWhere>
-  atomConnection_NOT?: Maybe<ElementAtomConnectionWhere>
-  hooksConnection?: Maybe<ElementHooksConnectionWhere>
-  hooksConnection_NOT?: Maybe<ElementHooksConnectionWhere>
-  propMapBindingsConnection?: Maybe<ElementPropMapBindingsConnectionWhere>
-  propMapBindingsConnection_NOT?: Maybe<ElementPropMapBindingsConnectionWhere>
+  OR?: InputMaybe<Array<ElementWhere>>
+  AND?: InputMaybe<Array<ElementWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  css?: InputMaybe<Scalars['String']>
+  css_NOT?: InputMaybe<Scalars['String']>
+  css_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  css_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  css_CONTAINS?: InputMaybe<Scalars['String']>
+  css_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  css_STARTS_WITH?: InputMaybe<Scalars['String']>
+  css_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  css_ENDS_WITH?: InputMaybe<Scalars['String']>
+  css_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  propTransformationJs?: InputMaybe<Scalars['String']>
+  propTransformationJs_NOT?: InputMaybe<Scalars['String']>
+  propTransformationJs_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  propTransformationJs_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  propTransformationJs_CONTAINS?: InputMaybe<Scalars['String']>
+  propTransformationJs_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  propTransformationJs_STARTS_WITH?: InputMaybe<Scalars['String']>
+  propTransformationJs_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  propTransformationJs_ENDS_WITH?: InputMaybe<Scalars['String']>
+  propTransformationJs_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_NOT?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderForEachPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderForEachPropKey_CONTAINS?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey_NOT?: InputMaybe<Scalars['String']>
+  renderIfPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderIfPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  renderIfPropKey_CONTAINS?: InputMaybe<Scalars['String']>
+  renderIfPropKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  renderIfPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderIfPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  renderIfPropKey_ENDS_WITH?: InputMaybe<Scalars['String']>
+  renderIfPropKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  children?: InputMaybe<ElementWhere>
+  children_NOT?: InputMaybe<ElementWhere>
+  childrenAggregate?: InputMaybe<ElementChildrenAggregateInput>
+  /** Return Elements where all of the related Elements match this filter */
+  children_ALL?: InputMaybe<ElementWhere>
+  /** Return Elements where none of the related Elements match this filter */
+  children_NONE?: InputMaybe<ElementWhere>
+  /** Return Elements where one of the related Elements match this filter */
+  children_SINGLE?: InputMaybe<ElementWhere>
+  /** Return Elements where some of the related Elements match this filter */
+  children_SOME?: InputMaybe<ElementWhere>
+  props?: InputMaybe<PropWhere>
+  props_NOT?: InputMaybe<PropWhere>
+  propsAggregate?: InputMaybe<ElementPropsAggregateInput>
+  parentElement?: InputMaybe<ElementWhere>
+  parentElement_NOT?: InputMaybe<ElementWhere>
+  parentElementAggregate?: InputMaybe<ElementParentElementAggregateInput>
+  instanceOfComponent?: InputMaybe<ComponentWhere>
+  instanceOfComponent_NOT?: InputMaybe<ComponentWhere>
+  instanceOfComponentAggregate?: InputMaybe<ElementInstanceOfComponentAggregateInput>
+  component?: InputMaybe<ComponentWhere>
+  component_NOT?: InputMaybe<ComponentWhere>
+  componentAggregate?: InputMaybe<ElementComponentAggregateInput>
+  atom?: InputMaybe<AtomWhere>
+  atom_NOT?: InputMaybe<AtomWhere>
+  atomAggregate?: InputMaybe<ElementAtomAggregateInput>
+  hooks?: InputMaybe<HookWhere>
+  hooks_NOT?: InputMaybe<HookWhere>
+  hooksAggregate?: InputMaybe<ElementHooksAggregateInput>
+  /** Return Elements where all of the related Hooks match this filter */
+  hooks_ALL?: InputMaybe<HookWhere>
+  /** Return Elements where none of the related Hooks match this filter */
+  hooks_NONE?: InputMaybe<HookWhere>
+  /** Return Elements where one of the related Hooks match this filter */
+  hooks_SINGLE?: InputMaybe<HookWhere>
+  /** Return Elements where some of the related Hooks match this filter */
+  hooks_SOME?: InputMaybe<HookWhere>
+  propMapBindings?: InputMaybe<PropMapBindingWhere>
+  propMapBindings_NOT?: InputMaybe<PropMapBindingWhere>
+  propMapBindingsAggregate?: InputMaybe<ElementPropMapBindingsAggregateInput>
+  /** Return Elements where all of the related PropMapBindings match this filter */
+  propMapBindings_ALL?: InputMaybe<PropMapBindingWhere>
+  /** Return Elements where none of the related PropMapBindings match this filter */
+  propMapBindings_NONE?: InputMaybe<PropMapBindingWhere>
+  /** Return Elements where one of the related PropMapBindings match this filter */
+  propMapBindings_SINGLE?: InputMaybe<PropMapBindingWhere>
+  /** Return Elements where some of the related PropMapBindings match this filter */
+  propMapBindings_SOME?: InputMaybe<PropMapBindingWhere>
+  childrenConnection?: InputMaybe<ElementChildrenConnectionWhere>
+  childrenConnection_NOT?: InputMaybe<ElementChildrenConnectionWhere>
+  childrenConnection_ALL?: InputMaybe<ElementChildrenConnectionWhere>
+  childrenConnection_NONE?: InputMaybe<ElementChildrenConnectionWhere>
+  childrenConnection_SINGLE?: InputMaybe<ElementChildrenConnectionWhere>
+  childrenConnection_SOME?: InputMaybe<ElementChildrenConnectionWhere>
+  propsConnection?: InputMaybe<ElementPropsConnectionWhere>
+  propsConnection_NOT?: InputMaybe<ElementPropsConnectionWhere>
+  parentElementConnection?: InputMaybe<ElementParentElementConnectionWhere>
+  parentElementConnection_NOT?: InputMaybe<ElementParentElementConnectionWhere>
+  instanceOfComponentConnection?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  instanceOfComponentConnection_NOT?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  componentConnection?: InputMaybe<ElementComponentConnectionWhere>
+  componentConnection_NOT?: InputMaybe<ElementComponentConnectionWhere>
+  atomConnection?: InputMaybe<ElementAtomConnectionWhere>
+  atomConnection_NOT?: InputMaybe<ElementAtomConnectionWhere>
+  hooksConnection?: InputMaybe<ElementHooksConnectionWhere>
+  hooksConnection_NOT?: InputMaybe<ElementHooksConnectionWhere>
+  hooksConnection_ALL?: InputMaybe<ElementHooksConnectionWhere>
+  hooksConnection_NONE?: InputMaybe<ElementHooksConnectionWhere>
+  hooksConnection_SINGLE?: InputMaybe<ElementHooksConnectionWhere>
+  hooksConnection_SOME?: InputMaybe<ElementHooksConnectionWhere>
+  propMapBindingsConnection?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  propMapBindingsConnection_NOT?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  propMapBindingsConnection_ALL?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  propMapBindingsConnection_NONE?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  propMapBindingsConnection_SINGLE?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+  propMapBindingsConnection_SOME?: InputMaybe<ElementPropMapBindingsConnectionWhere>
 }
 
 export type EnumTypeAllowedValuesAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<EnumTypeAllowedValuesAggregateInput>>
-  OR?: Maybe<Array<EnumTypeAllowedValuesAggregateInput>>
-  node?: Maybe<EnumTypeAllowedValuesNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeAllowedValuesAggregateInput>>
+  OR?: InputMaybe<Array<EnumTypeAllowedValuesAggregateInput>>
+  node?: InputMaybe<EnumTypeAllowedValuesNodeAggregationWhereInput>
 }
 
 export type EnumTypeAllowedValuesConnectFieldInput = {
-  where?: Maybe<EnumTypeValueConnectWhere>
-  connect?: Maybe<Array<EnumTypeValueConnectInput>>
+  where?: InputMaybe<EnumTypeValueConnectWhere>
+  connect?: InputMaybe<Array<EnumTypeValueConnectInput>>
 }
 
 export type EnumTypeAllowedValuesConnectionSort = {
-  node?: Maybe<EnumTypeValueSort>
+  node?: InputMaybe<EnumTypeValueSort>
 }
 
 export type EnumTypeAllowedValuesConnectionWhere = {
-  AND?: Maybe<Array<EnumTypeAllowedValuesConnectionWhere>>
-  OR?: Maybe<Array<EnumTypeAllowedValuesConnectionWhere>>
-  node?: Maybe<EnumTypeValueWhere>
-  node_NOT?: Maybe<EnumTypeValueWhere>
+  AND?: InputMaybe<Array<EnumTypeAllowedValuesConnectionWhere>>
+  OR?: InputMaybe<Array<EnumTypeAllowedValuesConnectionWhere>>
+  node?: InputMaybe<EnumTypeValueWhere>
+  node_NOT?: InputMaybe<EnumTypeValueWhere>
 }
 
 export type EnumTypeAllowedValuesCreateFieldInput = {
@@ -7951,86 +7858,86 @@ export type EnumTypeAllowedValuesCreateFieldInput = {
 }
 
 export type EnumTypeAllowedValuesDeleteFieldInput = {
-  where?: Maybe<EnumTypeAllowedValuesConnectionWhere>
-  delete?: Maybe<EnumTypeValueDeleteInput>
+  where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  delete?: InputMaybe<EnumTypeValueDeleteInput>
 }
 
 export type EnumTypeAllowedValuesDisconnectFieldInput = {
-  where?: Maybe<EnumTypeAllowedValuesConnectionWhere>
-  disconnect?: Maybe<EnumTypeValueDisconnectInput>
+  where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  disconnect?: InputMaybe<EnumTypeValueDisconnectInput>
 }
 
 export type EnumTypeAllowedValuesFieldInput = {
-  create?: Maybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
-  connect?: Maybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
+  connect?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
 }
 
 export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
-  AND?: Maybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
-  OR?: Maybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  value_EQUAL?: Maybe<Scalars['String']>
-  value_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  value_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  value_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  value_GT?: Maybe<Scalars['Int']>
-  value_AVERAGE_GT?: Maybe<Scalars['Float']>
-  value_LONGEST_GT?: Maybe<Scalars['Int']>
-  value_SHORTEST_GT?: Maybe<Scalars['Int']>
-  value_GTE?: Maybe<Scalars['Int']>
-  value_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  value_LONGEST_GTE?: Maybe<Scalars['Int']>
-  value_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  value_LT?: Maybe<Scalars['Int']>
-  value_AVERAGE_LT?: Maybe<Scalars['Float']>
-  value_LONGEST_LT?: Maybe<Scalars['Int']>
-  value_SHORTEST_LT?: Maybe<Scalars['Int']>
-  value_LTE?: Maybe<Scalars['Int']>
-  value_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  value_LONGEST_LTE?: Maybe<Scalars['Int']>
-  value_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  value_EQUAL?: InputMaybe<Scalars['String']>
+  value_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  value_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  value_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  value_GT?: InputMaybe<Scalars['Int']>
+  value_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  value_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  value_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  value_GTE?: InputMaybe<Scalars['Int']>
+  value_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  value_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  value_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  value_LT?: InputMaybe<Scalars['Int']>
+  value_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  value_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  value_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  value_LTE?: InputMaybe<Scalars['Int']>
+  value_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  value_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  value_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type EnumTypeAllowedValuesUpdateConnectionInput = {
-  node?: Maybe<EnumTypeValueUpdateInput>
+  node?: InputMaybe<EnumTypeValueUpdateInput>
 }
 
 export type EnumTypeAllowedValuesUpdateFieldInput = {
-  where?: Maybe<EnumTypeAllowedValuesConnectionWhere>
-  update?: Maybe<EnumTypeAllowedValuesUpdateConnectionInput>
-  connect?: Maybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
-  disconnect?: Maybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
-  create?: Maybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
-  delete?: Maybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
+  where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  update?: InputMaybe<EnumTypeAllowedValuesUpdateConnectionInput>
+  connect?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
+  disconnect?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
+  delete?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
 }
 
 export type EnumTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  allowedValues?: Maybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
 }
 
 export type EnumTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type EnumTypeConnectOrCreateWhere = {
@@ -8043,111 +7950,116 @@ export type EnumTypeConnectWhere = {
 
 export type EnumTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
-  allowedValues?: Maybe<EnumTypeAllowedValuesFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+  allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
 }
 
 export type EnumTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  allowedValues?: Maybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
 }
 
 export type EnumTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  allowedValues?: Maybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
+}
+
+export type EnumTypeOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type EnumTypeOptions = {
   /** Specify one or more EnumTypeSort objects to sort EnumTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<EnumTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<EnumTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type EnumTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<EnumTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<EnumTypeOwnerAggregateInput>>
-  node?: Maybe<EnumTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<EnumTypeOwnerAggregateInput>>
+  node?: InputMaybe<EnumTypeOwnerNodeAggregationWhereInput>
 }
 
 export type EnumTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type EnumTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
-  allowedValues?: Maybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
 }
 
 /** Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object. */
 export type EnumTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type EnumTypeUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type EnumTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
-  allowedValues?: Maybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
 }
 
 export type EnumTypeValueConnectInput = {
-  enumType?: Maybe<EnumTypeValueEnumTypeConnectFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
 }
 
 export type EnumTypeValueConnectOrCreateInput = {
-  enumType?: Maybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
 }
 
 export type EnumTypeValueConnectWhere = {
@@ -8156,44 +8068,44 @@ export type EnumTypeValueConnectWhere = {
 
 export type EnumTypeValueCreateInput = {
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
   value: Scalars['String']
-  enumType?: Maybe<EnumTypeValueEnumTypeFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeFieldInput>
 }
 
 export type EnumTypeValueDeleteInput = {
-  enumType?: Maybe<EnumTypeValueEnumTypeDeleteFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeDeleteFieldInput>
 }
 
 export type EnumTypeValueDisconnectInput = {
-  enumType?: Maybe<EnumTypeValueEnumTypeDisconnectFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeDisconnectFieldInput>
 }
 
 export type EnumTypeValueEnumTypeAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<EnumTypeValueEnumTypeAggregateInput>>
-  OR?: Maybe<Array<EnumTypeValueEnumTypeAggregateInput>>
-  node?: Maybe<EnumTypeValueEnumTypeNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeValueEnumTypeAggregateInput>>
+  OR?: InputMaybe<Array<EnumTypeValueEnumTypeAggregateInput>>
+  node?: InputMaybe<EnumTypeValueEnumTypeNodeAggregationWhereInput>
 }
 
 export type EnumTypeValueEnumTypeConnectFieldInput = {
-  where?: Maybe<EnumTypeConnectWhere>
-  connect?: Maybe<EnumTypeConnectInput>
+  where?: InputMaybe<EnumTypeConnectWhere>
+  connect?: InputMaybe<EnumTypeConnectInput>
 }
 
 export type EnumTypeValueEnumTypeConnectionSort = {
-  node?: Maybe<EnumTypeSort>
+  node?: InputMaybe<EnumTypeSort>
 }
 
 export type EnumTypeValueEnumTypeConnectionWhere = {
-  AND?: Maybe<Array<EnumTypeValueEnumTypeConnectionWhere>>
-  OR?: Maybe<Array<EnumTypeValueEnumTypeConnectionWhere>>
-  node?: Maybe<EnumTypeWhere>
-  node_NOT?: Maybe<EnumTypeWhere>
+  AND?: InputMaybe<Array<EnumTypeValueEnumTypeConnectionWhere>>
+  OR?: InputMaybe<Array<EnumTypeValueEnumTypeConnectionWhere>>
+  node?: InputMaybe<EnumTypeWhere>
+  node_NOT?: InputMaybe<EnumTypeWhere>
 }
 
 export type EnumTypeValueEnumTypeConnectOrCreateFieldInput = {
@@ -8202,7 +8114,7 @@ export type EnumTypeValueEnumTypeConnectOrCreateFieldInput = {
 }
 
 export type EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate = {
-  node: EnumTypeCreateInput
+  node: EnumTypeOnCreateInput
 }
 
 export type EnumTypeValueEnumTypeCreateFieldInput = {
@@ -8210,238 +8122,250 @@ export type EnumTypeValueEnumTypeCreateFieldInput = {
 }
 
 export type EnumTypeValueEnumTypeDeleteFieldInput = {
-  where?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
-  delete?: Maybe<EnumTypeDeleteInput>
+  where?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  delete?: InputMaybe<EnumTypeDeleteInput>
 }
 
 export type EnumTypeValueEnumTypeDisconnectFieldInput = {
-  where?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
-  disconnect?: Maybe<EnumTypeDisconnectInput>
+  where?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  disconnect?: InputMaybe<EnumTypeDisconnectInput>
 }
 
 export type EnumTypeValueEnumTypeFieldInput = {
-  create?: Maybe<EnumTypeValueEnumTypeCreateFieldInput>
-  connect?: Maybe<EnumTypeValueEnumTypeConnectFieldInput>
-  connectOrCreate?: Maybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
+  create?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
+  connect?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
+  connectOrCreate?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
 }
 
 export type EnumTypeValueEnumTypeNodeAggregationWhereInput = {
-  AND?: Maybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
-  OR?: Maybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type EnumTypeValueEnumTypeUpdateConnectionInput = {
-  node?: Maybe<EnumTypeUpdateInput>
+  node?: InputMaybe<EnumTypeUpdateInput>
 }
 
 export type EnumTypeValueEnumTypeUpdateFieldInput = {
-  where?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
-  update?: Maybe<EnumTypeValueEnumTypeUpdateConnectionInput>
-  connect?: Maybe<EnumTypeValueEnumTypeConnectFieldInput>
-  disconnect?: Maybe<EnumTypeValueEnumTypeDisconnectFieldInput>
-  create?: Maybe<EnumTypeValueEnumTypeCreateFieldInput>
-  delete?: Maybe<EnumTypeValueEnumTypeDeleteFieldInput>
-  connectOrCreate?: Maybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
+  where?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  update?: InputMaybe<EnumTypeValueEnumTypeUpdateConnectionInput>
+  connect?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
+  disconnect?: InputMaybe<EnumTypeValueEnumTypeDisconnectFieldInput>
+  create?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
+  delete?: InputMaybe<EnumTypeValueEnumTypeDeleteFieldInput>
+  connectOrCreate?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
 }
 
 export type EnumTypeValueOptions = {
   /** Specify one or more EnumTypeValueSort objects to sort EnumTypeValues by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<EnumTypeValueSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<EnumTypeValueSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type EnumTypeValueRelationInput = {
-  enumType?: Maybe<EnumTypeValueEnumTypeCreateFieldInput>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
 }
 
 /** Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object. */
 export type EnumTypeValueSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  value?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  value?: InputMaybe<SortDirection>
 }
 
 export type EnumTypeValueUpdateInput = {
-  id?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  enumType?: Maybe<EnumTypeValueEnumTypeUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  value?: InputMaybe<Scalars['String']>
+  enumType?: InputMaybe<EnumTypeValueEnumTypeUpdateFieldInput>
 }
 
 export type EnumTypeValueWhere = {
-  OR?: Maybe<Array<EnumTypeValueWhere>>
-  AND?: Maybe<Array<EnumTypeValueWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  value_NOT?: Maybe<Scalars['String']>
-  value_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  value_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  value_CONTAINS?: Maybe<Scalars['String']>
-  value_NOT_CONTAINS?: Maybe<Scalars['String']>
-  value_STARTS_WITH?: Maybe<Scalars['String']>
-  value_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  value_ENDS_WITH?: Maybe<Scalars['String']>
-  value_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  enumType?: Maybe<EnumTypeWhere>
-  enumType_NOT?: Maybe<EnumTypeWhere>
-  enumTypeAggregate?: Maybe<EnumTypeValueEnumTypeAggregateInput>
-  enumTypeConnection?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
-  enumTypeConnection_NOT?: Maybe<EnumTypeValueEnumTypeConnectionWhere>
+  OR?: InputMaybe<Array<EnumTypeValueWhere>>
+  AND?: InputMaybe<Array<EnumTypeValueWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  value?: InputMaybe<Scalars['String']>
+  value_NOT?: InputMaybe<Scalars['String']>
+  value_IN?: InputMaybe<Array<Scalars['String']>>
+  value_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  value_CONTAINS?: InputMaybe<Scalars['String']>
+  value_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  value_STARTS_WITH?: InputMaybe<Scalars['String']>
+  value_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  value_ENDS_WITH?: InputMaybe<Scalars['String']>
+  value_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  enumType?: InputMaybe<EnumTypeWhere>
+  enumType_NOT?: InputMaybe<EnumTypeWhere>
+  enumTypeAggregate?: InputMaybe<EnumTypeValueEnumTypeAggregateInput>
+  enumTypeConnection?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
+  enumTypeConnection_NOT?: InputMaybe<EnumTypeValueEnumTypeConnectionWhere>
 }
 
 export type EnumTypeWhere = {
-  OR?: Maybe<Array<EnumTypeWhere>>
-  AND?: Maybe<Array<EnumTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<EnumTypeOwnerAggregateInput>
-  allowedValues?: Maybe<EnumTypeValueWhere>
-  allowedValues_NOT?: Maybe<EnumTypeValueWhere>
-  allowedValuesAggregate?: Maybe<EnumTypeAllowedValuesAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-  allowedValuesConnection?: Maybe<EnumTypeAllowedValuesConnectionWhere>
-  allowedValuesConnection_NOT?: Maybe<EnumTypeAllowedValuesConnectionWhere>
+  OR?: InputMaybe<Array<EnumTypeWhere>>
+  AND?: InputMaybe<Array<EnumTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
+  allowedValues?: InputMaybe<EnumTypeValueWhere>
+  allowedValues_NOT?: InputMaybe<EnumTypeValueWhere>
+  allowedValuesAggregate?: InputMaybe<EnumTypeAllowedValuesAggregateInput>
+  /** Return EnumTypes where all of the related EnumTypeValues match this filter */
+  allowedValues_ALL?: InputMaybe<EnumTypeValueWhere>
+  /** Return EnumTypes where none of the related EnumTypeValues match this filter */
+  allowedValues_NONE?: InputMaybe<EnumTypeValueWhere>
+  /** Return EnumTypes where one of the related EnumTypeValues match this filter */
+  allowedValues_SINGLE?: InputMaybe<EnumTypeValueWhere>
+  /** Return EnumTypes where some of the related EnumTypeValues match this filter */
+  allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  allowedValuesConnection?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  allowedValuesConnection_NOT?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  allowedValuesConnection_ALL?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  allowedValuesConnection_NONE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  allowedValuesConnection_SINGLE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+  allowedValuesConnection_SOME?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
 }
 
 export type FieldCreateInput = {
   key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
 }
 
 export type FieldSort = {
-  key?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  description?: Maybe<SortDirection>
+  key?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  description?: InputMaybe<SortDirection>
 }
 
 export type FieldUpdateInput = {
-  key?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
 }
 
 export type FieldWhere = {
-  OR?: Maybe<Array<FieldWhere>>
-  AND?: Maybe<Array<FieldWhere>>
-  key?: Maybe<Scalars['String']>
-  key_NOT?: Maybe<Scalars['String']>
-  key_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  key_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  key_CONTAINS?: Maybe<Scalars['String']>
-  key_NOT_CONTAINS?: Maybe<Scalars['String']>
-  key_STARTS_WITH?: Maybe<Scalars['String']>
-  key_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  key_ENDS_WITH?: Maybe<Scalars['String']>
-  key_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-  description_NOT?: Maybe<Scalars['String']>
-  description_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  description_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  description_CONTAINS?: Maybe<Scalars['String']>
-  description_NOT_CONTAINS?: Maybe<Scalars['String']>
-  description_STARTS_WITH?: Maybe<Scalars['String']>
-  description_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  description_ENDS_WITH?: Maybe<Scalars['String']>
-  description_NOT_ENDS_WITH?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<FieldWhere>>
+  AND?: InputMaybe<Array<FieldWhere>>
+  key?: InputMaybe<Scalars['String']>
+  key_NOT?: InputMaybe<Scalars['String']>
+  key_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_CONTAINS?: InputMaybe<Scalars['String']>
+  key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
+  description_NOT?: InputMaybe<Scalars['String']>
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  description_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  description_CONTAINS?: InputMaybe<Scalars['String']>
+  description_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  description_STARTS_WITH?: InputMaybe<Scalars['String']>
+  description_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  description_ENDS_WITH?: InputMaybe<Scalars['String']>
+  description_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type HookConfigAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<HookConfigAggregateInput>>
-  OR?: Maybe<Array<HookConfigAggregateInput>>
-  node?: Maybe<HookConfigNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<HookConfigAggregateInput>>
+  OR?: InputMaybe<Array<HookConfigAggregateInput>>
+  node?: InputMaybe<HookConfigNodeAggregationWhereInput>
 }
 
 export type HookConfigConnectFieldInput = {
-  where?: Maybe<PropConnectWhere>
+  where?: InputMaybe<PropConnectWhere>
 }
 
 export type HookConfigConnectionSort = {
-  node?: Maybe<PropSort>
+  node?: InputMaybe<PropSort>
 }
 
 export type HookConfigConnectionWhere = {
-  AND?: Maybe<Array<HookConfigConnectionWhere>>
-  OR?: Maybe<Array<HookConfigConnectionWhere>>
-  node?: Maybe<PropWhere>
-  node_NOT?: Maybe<PropWhere>
+  AND?: InputMaybe<Array<HookConfigConnectionWhere>>
+  OR?: InputMaybe<Array<HookConfigConnectionWhere>>
+  node?: InputMaybe<PropWhere>
+  node_NOT?: InputMaybe<PropWhere>
 }
 
 export type HookConfigConnectOrCreateFieldInput = {
@@ -8450,7 +8374,7 @@ export type HookConfigConnectOrCreateFieldInput = {
 }
 
 export type HookConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropCreateInput
+  node: PropOnCreateInput
 }
 
 export type HookConfigCreateFieldInput = {
@@ -8458,67 +8382,67 @@ export type HookConfigCreateFieldInput = {
 }
 
 export type HookConfigDeleteFieldInput = {
-  where?: Maybe<HookConfigConnectionWhere>
+  where?: InputMaybe<HookConfigConnectionWhere>
 }
 
 export type HookConfigDisconnectFieldInput = {
-  where?: Maybe<HookConfigConnectionWhere>
+  where?: InputMaybe<HookConfigConnectionWhere>
 }
 
 export type HookConfigFieldInput = {
-  create?: Maybe<HookConfigCreateFieldInput>
-  connect?: Maybe<HookConfigConnectFieldInput>
-  connectOrCreate?: Maybe<HookConfigConnectOrCreateFieldInput>
+  create?: InputMaybe<HookConfigCreateFieldInput>
+  connect?: InputMaybe<HookConfigConnectFieldInput>
+  connectOrCreate?: InputMaybe<HookConfigConnectOrCreateFieldInput>
 }
 
 export type HookConfigNodeAggregationWhereInput = {
-  AND?: Maybe<Array<HookConfigNodeAggregationWhereInput>>
-  OR?: Maybe<Array<HookConfigNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  data_EQUAL?: Maybe<Scalars['String']>
-  data_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  data_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  data_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  data_GT?: Maybe<Scalars['Int']>
-  data_AVERAGE_GT?: Maybe<Scalars['Float']>
-  data_LONGEST_GT?: Maybe<Scalars['Int']>
-  data_SHORTEST_GT?: Maybe<Scalars['Int']>
-  data_GTE?: Maybe<Scalars['Int']>
-  data_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  data_LONGEST_GTE?: Maybe<Scalars['Int']>
-  data_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  data_LT?: Maybe<Scalars['Int']>
-  data_AVERAGE_LT?: Maybe<Scalars['Float']>
-  data_LONGEST_LT?: Maybe<Scalars['Int']>
-  data_SHORTEST_LT?: Maybe<Scalars['Int']>
-  data_LTE?: Maybe<Scalars['Int']>
-  data_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  data_LONGEST_LTE?: Maybe<Scalars['Int']>
-  data_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<HookConfigNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<HookConfigNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  data_EQUAL?: InputMaybe<Scalars['String']>
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  data_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  data_GT?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  data_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  data_GTE?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  data_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  data_LT?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  data_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  data_LTE?: InputMaybe<Scalars['Int']>
+  data_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  data_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  data_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type HookConfigUpdateConnectionInput = {
-  node?: Maybe<PropUpdateInput>
+  node?: InputMaybe<PropUpdateInput>
 }
 
 export type HookConfigUpdateFieldInput = {
-  where?: Maybe<HookConfigConnectionWhere>
-  update?: Maybe<HookConfigUpdateConnectionInput>
-  connect?: Maybe<HookConfigConnectFieldInput>
-  disconnect?: Maybe<HookConfigDisconnectFieldInput>
-  create?: Maybe<HookConfigCreateFieldInput>
-  delete?: Maybe<HookConfigDeleteFieldInput>
-  connectOrCreate?: Maybe<HookConfigConnectOrCreateFieldInput>
+  where?: InputMaybe<HookConfigConnectionWhere>
+  update?: InputMaybe<HookConfigUpdateConnectionInput>
+  connect?: InputMaybe<HookConfigConnectFieldInput>
+  disconnect?: InputMaybe<HookConfigDisconnectFieldInput>
+  create?: InputMaybe<HookConfigCreateFieldInput>
+  delete?: InputMaybe<HookConfigDeleteFieldInput>
+  connectOrCreate?: InputMaybe<HookConfigConnectOrCreateFieldInput>
 }
 
 export type HookConnectInput = {
-  config?: Maybe<HookConfigConnectFieldInput>
-  element?: Maybe<HookElementConnectFieldInput>
+  config?: InputMaybe<HookConfigConnectFieldInput>
+  element?: InputMaybe<HookElementConnectFieldInput>
 }
 
 export type HookConnectOrCreateInput = {
-  config?: Maybe<HookConfigConnectOrCreateFieldInput>
-  element?: Maybe<HookElementConnectOrCreateFieldInput>
+  config?: InputMaybe<HookConfigConnectOrCreateFieldInput>
+  element?: InputMaybe<HookElementConnectOrCreateFieldInput>
 }
 
 export type HookConnectOrCreateWhere = {
@@ -8531,45 +8455,45 @@ export type HookConnectWhere = {
 
 export type HookCreateInput = {
   type: AtomType
-  config?: Maybe<HookConfigFieldInput>
-  element?: Maybe<HookElementFieldInput>
+  config?: InputMaybe<HookConfigFieldInput>
+  element?: InputMaybe<HookElementFieldInput>
 }
 
 export type HookDeleteInput = {
-  config?: Maybe<HookConfigDeleteFieldInput>
-  element?: Maybe<HookElementDeleteFieldInput>
+  config?: InputMaybe<HookConfigDeleteFieldInput>
+  element?: InputMaybe<HookElementDeleteFieldInput>
 }
 
 export type HookDisconnectInput = {
-  config?: Maybe<HookConfigDisconnectFieldInput>
-  element?: Maybe<HookElementDisconnectFieldInput>
+  config?: InputMaybe<HookConfigDisconnectFieldInput>
+  element?: InputMaybe<HookElementDisconnectFieldInput>
 }
 
 export type HookElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<HookElementAggregateInput>>
-  OR?: Maybe<Array<HookElementAggregateInput>>
-  node?: Maybe<HookElementNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<HookElementAggregateInput>>
+  OR?: InputMaybe<Array<HookElementAggregateInput>>
+  node?: InputMaybe<HookElementNodeAggregationWhereInput>
 }
 
 export type HookElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
 }
 
 export type HookElementConnectionSort = {
-  node?: Maybe<ElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type HookElementConnectionWhere = {
-  AND?: Maybe<Array<HookElementConnectionWhere>>
-  OR?: Maybe<Array<HookElementConnectionWhere>>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<HookElementConnectionWhere>>
+  OR?: InputMaybe<Array<HookElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type HookElementConnectOrCreateFieldInput = {
@@ -8578,7 +8502,7 @@ export type HookElementConnectOrCreateFieldInput = {
 }
 
 export type HookElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
+  node: ElementOnCreateInput
 }
 
 export type HookElementCreateFieldInput = {
@@ -8586,305 +8510,251 @@ export type HookElementCreateFieldInput = {
 }
 
 export type HookElementDeleteFieldInput = {
-  where?: Maybe<HookElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<HookElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type HookElementDisconnectFieldInput = {
-  where?: Maybe<HookElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<HookElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type HookElementFieldInput = {
-  create?: Maybe<HookElementCreateFieldInput>
-  connect?: Maybe<HookElementConnectFieldInput>
-  connectOrCreate?: Maybe<HookElementConnectOrCreateFieldInput>
+  create?: InputMaybe<HookElementCreateFieldInput>
+  connect?: InputMaybe<HookElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<HookElementConnectOrCreateFieldInput>
 }
 
 export type HookElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<HookElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<HookElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<HookElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<HookElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type HookElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
 }
 
 export type HookElementUpdateFieldInput = {
-  where?: Maybe<HookElementConnectionWhere>
-  update?: Maybe<HookElementUpdateConnectionInput>
-  connect?: Maybe<HookElementConnectFieldInput>
-  disconnect?: Maybe<HookElementDisconnectFieldInput>
-  create?: Maybe<HookElementCreateFieldInput>
-  delete?: Maybe<HookElementDeleteFieldInput>
-  connectOrCreate?: Maybe<HookElementConnectOrCreateFieldInput>
+  where?: InputMaybe<HookElementConnectionWhere>
+  update?: InputMaybe<HookElementUpdateConnectionInput>
+  connect?: InputMaybe<HookElementConnectFieldInput>
+  disconnect?: InputMaybe<HookElementDisconnectFieldInput>
+  create?: InputMaybe<HookElementCreateFieldInput>
+  delete?: InputMaybe<HookElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<HookElementConnectOrCreateFieldInput>
+}
+
+export type HookOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type HookOptions = {
   /** Specify one or more HookSort objects to sort Hooks by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<HookSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<HookSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type HookRelationInput = {
-  config?: Maybe<HookConfigCreateFieldInput>
-  element?: Maybe<HookElementCreateFieldInput>
+  config?: InputMaybe<HookConfigCreateFieldInput>
+  element?: InputMaybe<HookElementCreateFieldInput>
 }
 
 /** Fields to sort Hooks by. The order in which sorts are applied is not guaranteed when specifying many fields in one HookSort object. */
 export type HookSort = {
-  id?: Maybe<SortDirection>
-  type?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  type?: InputMaybe<SortDirection>
 }
 
 export type HookUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type HookUpdateInput = {
-  type?: Maybe<AtomType>
-  config?: Maybe<HookConfigUpdateFieldInput>
-  element?: Maybe<HookElementUpdateFieldInput>
+  type?: InputMaybe<AtomType>
+  config?: InputMaybe<HookConfigUpdateFieldInput>
+  element?: InputMaybe<HookElementUpdateFieldInput>
 }
 
 export type HookWhere = {
-  OR?: Maybe<Array<HookWhere>>
-  AND?: Maybe<Array<HookWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  type?: Maybe<AtomType>
-  type_NOT?: Maybe<AtomType>
-  type_IN?: Maybe<Array<Maybe<AtomType>>>
-  type_NOT_IN?: Maybe<Array<Maybe<AtomType>>>
-  config?: Maybe<PropWhere>
-  config_NOT?: Maybe<PropWhere>
-  configAggregate?: Maybe<HookConfigAggregateInput>
-  element?: Maybe<ElementWhere>
-  element_NOT?: Maybe<ElementWhere>
-  elementAggregate?: Maybe<HookElementAggregateInput>
-  configConnection?: Maybe<HookConfigConnectionWhere>
-  configConnection_NOT?: Maybe<HookConfigConnectionWhere>
-  elementConnection?: Maybe<HookElementConnectionWhere>
-  elementConnection_NOT?: Maybe<HookElementConnectionWhere>
-}
-
-export type IdPropertyCreateInput = {
-  id: Scalars['ID']
-}
-
-export type IdPropertySort = {
-  id?: Maybe<SortDirection>
-}
-
-export type IdPropertyUpdateInput = {
-  id?: Maybe<Scalars['ID']>
-}
-
-export type IdPropertyWhere = {
-  OR?: Maybe<Array<IdPropertyWhere>>
-  AND?: Maybe<Array<IdPropertyWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-}
-
-export type ImportAdminDataInput = {
-  payload?: Maybe<Array<Scalars['JSONObject']>>
+  OR?: InputMaybe<Array<HookWhere>>
+  AND?: InputMaybe<Array<HookWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  type?: InputMaybe<AtomType>
+  type_NOT?: InputMaybe<AtomType>
+  type_IN?: InputMaybe<Array<AtomType>>
+  type_NOT_IN?: InputMaybe<Array<AtomType>>
+  config?: InputMaybe<PropWhere>
+  config_NOT?: InputMaybe<PropWhere>
+  configAggregate?: InputMaybe<HookConfigAggregateInput>
+  element?: InputMaybe<ElementWhere>
+  element_NOT?: InputMaybe<ElementWhere>
+  elementAggregate?: InputMaybe<HookElementAggregateInput>
+  configConnection?: InputMaybe<HookConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<HookConfigConnectionWhere>
+  elementConnection?: InputMaybe<HookElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<HookElementConnectionWhere>
 }
 
 export type ImportAtomsInput = {
-  payload?: Maybe<Array<Scalars['JSONObject']>>
+  payload: Array<Scalars['JSONObject']>
 }
 
 export type ImportAtomsMutationResponseCreateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ImportAtomsMutationResponseOptions = {
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ImportAtomsMutationResponseUpdateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ImportAtomsMutationResponseWhere = {
-  OR?: Maybe<Array<ImportAtomsMutationResponseWhere>>
-  AND?: Maybe<Array<ImportAtomsMutationResponseWhere>>
-}
-
-export type ImportDataMutationResponseCreateInput = {
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseOptions = {
-  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ImportDataMutationResponseSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
-export type ImportDataMutationResponseSort = {
-  result?: Maybe<SortDirection>
-}
-
-export type ImportDataMutationResponseUpdateInput = {
-  result?: Maybe<Scalars['Boolean']>
-}
-
-export type ImportDataMutationResponseWhere = {
-  OR?: Maybe<Array<ImportDataMutationResponseWhere>>
-  AND?: Maybe<Array<ImportDataMutationResponseWhere>>
-  result?: Maybe<Scalars['Boolean']>
-  result_NOT?: Maybe<Scalars['Boolean']>
+  OR?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
+  AND?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
 }
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
-  OR?: Maybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
-  node?: Maybe<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
+  node?: InputMaybe<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>
 }
 
 export type InterfaceTypeApiOfAtomsConnectFieldInput = {
-  where?: Maybe<AtomConnectWhere>
-  connect?: Maybe<Array<AtomConnectInput>>
+  where?: InputMaybe<AtomConnectWhere>
+  connect?: InputMaybe<Array<AtomConnectInput>>
 }
 
 export type InterfaceTypeApiOfAtomsConnectionSort = {
-  node?: Maybe<AtomSort>
+  node?: InputMaybe<AtomSort>
 }
 
 export type InterfaceTypeApiOfAtomsConnectionWhere = {
-  AND?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
-  OR?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
-  node?: Maybe<AtomWhere>
-  node_NOT?: Maybe<AtomWhere>
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+  node_NOT?: InputMaybe<AtomWhere>
 }
 
 export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInput = {
@@ -8893,7 +8763,7 @@ export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInput = {
 }
 
 export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate = {
-  node: AtomCreateInput
+  node: AtomOnCreateInput
 }
 
 export type InterfaceTypeApiOfAtomsCreateFieldInput = {
@@ -8901,74 +8771,76 @@ export type InterfaceTypeApiOfAtomsCreateFieldInput = {
 }
 
 export type InterfaceTypeApiOfAtomsDeleteFieldInput = {
-  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  delete?: Maybe<AtomDeleteInput>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  delete?: InputMaybe<AtomDeleteInput>
 }
 
 export type InterfaceTypeApiOfAtomsDisconnectFieldInput = {
-  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  disconnect?: Maybe<AtomDisconnectInput>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  disconnect?: InputMaybe<AtomDisconnectInput>
 }
 
 export type InterfaceTypeApiOfAtomsFieldInput = {
-  create?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
-  connect?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  connectOrCreate?: Maybe<
+  create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
     Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
 }
 
 export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
-  node?: Maybe<AtomUpdateInput>
+  node?: InputMaybe<AtomUpdateInput>
 }
 
 export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
-  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  update?: Maybe<InterfaceTypeApiOfAtomsUpdateConnectionInput>
-  connect?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  disconnect?: Maybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
-  create?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
-  delete?: Maybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
-  connectOrCreate?: Maybe<
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  update?: InputMaybe<InterfaceTypeApiOfAtomsUpdateConnectionInput>
+  connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<
     Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
 }
 
 export type InterfaceTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  fields?: Maybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
 
 export type InterfaceTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  apiOfAtoms?: InputMaybe<
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
+  >
 }
 
 export type InterfaceTypeConnectOrCreateWhere = {
@@ -8981,127 +8853,128 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
-  apiOfAtoms?: Maybe<InterfaceTypeApiOfAtomsFieldInput>
-  fields?: Maybe<InterfaceTypeFieldsFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+  apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
+  fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
 }
 
 export type InterfaceTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
-  fields?: Maybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
 }
 
 export type InterfaceTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
-  fields?: Maybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
 }
 
 export type InterfaceTypeEdgeCreateInput = {
   source: Scalars['String']
   target: Scalars['String']
   key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
 }
 
 export type InterfaceTypeEdgeOptions = {
   /** Specify one or more InterfaceTypeEdgeSort objects to sort InterfaceTypeEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<InterfaceTypeEdgeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InterfaceTypeEdgeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort InterfaceTypeEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeEdgeSort object. */
 export type InterfaceTypeEdgeSort = {
-  source?: Maybe<SortDirection>
-  target?: Maybe<SortDirection>
-  key?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  description?: Maybe<SortDirection>
+  source?: InputMaybe<SortDirection>
+  target?: InputMaybe<SortDirection>
+  key?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  description?: InputMaybe<SortDirection>
 }
 
 export type InterfaceTypeEdgeUpdateInput = {
-  source?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
-  key?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
+  source?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
 }
 
 export type InterfaceTypeEdgeWhere = {
-  OR?: Maybe<Array<InterfaceTypeEdgeWhere>>
-  AND?: Maybe<Array<InterfaceTypeEdgeWhere>>
-  source?: Maybe<Scalars['String']>
-  source_NOT?: Maybe<Scalars['String']>
-  source_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  source_CONTAINS?: Maybe<Scalars['String']>
-  source_NOT_CONTAINS?: Maybe<Scalars['String']>
-  source_STARTS_WITH?: Maybe<Scalars['String']>
-  source_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  source_ENDS_WITH?: Maybe<Scalars['String']>
-  source_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  target?: Maybe<Scalars['String']>
-  target_NOT?: Maybe<Scalars['String']>
-  target_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  target_CONTAINS?: Maybe<Scalars['String']>
-  target_NOT_CONTAINS?: Maybe<Scalars['String']>
-  target_STARTS_WITH?: Maybe<Scalars['String']>
-  target_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  target_ENDS_WITH?: Maybe<Scalars['String']>
-  target_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  key?: Maybe<Scalars['String']>
-  key_NOT?: Maybe<Scalars['String']>
-  key_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  key_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  key_CONTAINS?: Maybe<Scalars['String']>
-  key_NOT_CONTAINS?: Maybe<Scalars['String']>
-  key_STARTS_WITH?: Maybe<Scalars['String']>
-  key_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  key_ENDS_WITH?: Maybe<Scalars['String']>
-  key_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-  description_NOT?: Maybe<Scalars['String']>
-  description_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  description_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  description_CONTAINS?: Maybe<Scalars['String']>
-  description_NOT_CONTAINS?: Maybe<Scalars['String']>
-  description_STARTS_WITH?: Maybe<Scalars['String']>
-  description_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  description_ENDS_WITH?: Maybe<Scalars['String']>
-  description_NOT_ENDS_WITH?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<InterfaceTypeEdgeWhere>>
+  AND?: InputMaybe<Array<InterfaceTypeEdgeWhere>>
+  source?: InputMaybe<Scalars['String']>
+  source_NOT?: InputMaybe<Scalars['String']>
+  source_IN?: InputMaybe<Array<Scalars['String']>>
+  source_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  source_CONTAINS?: InputMaybe<Scalars['String']>
+  source_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  source_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  source_ENDS_WITH?: InputMaybe<Scalars['String']>
+  source_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target?: InputMaybe<Scalars['String']>
+  target_NOT?: InputMaybe<Scalars['String']>
+  target_IN?: InputMaybe<Array<Scalars['String']>>
+  target_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  target_CONTAINS?: InputMaybe<Scalars['String']>
+  target_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  target_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  target_ENDS_WITH?: InputMaybe<Scalars['String']>
+  target_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key?: InputMaybe<Scalars['String']>
+  key_NOT?: InputMaybe<Scalars['String']>
+  key_IN?: InputMaybe<Array<Scalars['String']>>
+  key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  key_CONTAINS?: InputMaybe<Scalars['String']>
+  key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  key_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  key_ENDS_WITH?: InputMaybe<Scalars['String']>
+  key_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
+  description_NOT?: InputMaybe<Scalars['String']>
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  description_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  description_CONTAINS?: InputMaybe<Scalars['String']>
+  description_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  description_STARTS_WITH?: InputMaybe<Scalars['String']>
+  description_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  description_ENDS_WITH?: InputMaybe<Scalars['String']>
+  description_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type InterfaceTypeFieldsConnectFieldInput = {
-  connect?: Maybe<TypeBaseConnectInput>
+  connect?: InputMaybe<TypeBaseConnectInput>
   edge: FieldCreateInput
-  where?: Maybe<TypeBaseConnectWhere>
+  where?: InputMaybe<TypeBaseConnectWhere>
 }
 
 export type InterfaceTypeFieldsConnectionSort = {
-  edge?: Maybe<FieldSort>
+  edge?: InputMaybe<FieldSort>
+  node?: InputMaybe<TypeBaseSort>
 }
 
 export type InterfaceTypeFieldsConnectionWhere = {
-  AND?: Maybe<Array<InterfaceTypeFieldsConnectionWhere>>
-  OR?: Maybe<Array<InterfaceTypeFieldsConnectionWhere>>
-  edge?: Maybe<FieldWhere>
-  edge_NOT?: Maybe<FieldWhere>
-  node?: Maybe<TypeBaseWhere>
-  node_NOT?: Maybe<TypeBaseWhere>
+  AND?: InputMaybe<Array<InterfaceTypeFieldsConnectionWhere>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldsConnectionWhere>>
+  edge?: InputMaybe<FieldWhere>
+  edge_NOT?: InputMaybe<FieldWhere>
+  node?: InputMaybe<TypeBaseWhere>
+  node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type InterfaceTypeFieldsCreateFieldInput = {
@@ -9110,450 +8983,471 @@ export type InterfaceTypeFieldsCreateFieldInput = {
 }
 
 export type InterfaceTypeFieldsDeleteFieldInput = {
-  delete?: Maybe<TypeBaseDeleteInput>
-  where?: Maybe<InterfaceTypeFieldsConnectionWhere>
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
 export type InterfaceTypeFieldsDisconnectFieldInput = {
-  disconnect?: Maybe<TypeBaseDisconnectInput>
-  where?: Maybe<InterfaceTypeFieldsConnectionWhere>
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
 export type InterfaceTypeFieldsFieldInput = {
-  create?: Maybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-  connect?: Maybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
+  connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
 
 export type InterfaceTypeFieldsUpdateConnectionInput = {
-  edge?: Maybe<FieldUpdateInput>
-  node?: Maybe<TypeBaseUpdateInput>
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
 }
 
 export type InterfaceTypeFieldsUpdateFieldInput = {
-  connect?: Maybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  create?: Maybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-  delete?: Maybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
-  disconnect?: Maybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-  update?: Maybe<InterfaceTypeFieldsUpdateConnectionInput>
-  where?: Maybe<InterfaceTypeFieldsConnectionWhere>
+  connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
+  update?: InputMaybe<InterfaceTypeFieldsUpdateConnectionInput>
+  where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+}
+
+export type InterfaceTypeOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type InterfaceTypeOptions = {
   /** Specify one or more InterfaceTypeSort objects to sort InterfaceTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<InterfaceTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InterfaceTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<InterfaceTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<InterfaceTypeOwnerAggregateInput>>
-  node?: Maybe<InterfaceTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<InterfaceTypeOwnerAggregateInput>>
+  node?: InputMaybe<InterfaceTypeOwnerNodeAggregationWhereInput>
 }
 
 export type InterfaceTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<InterfaceTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<InterfaceTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<InterfaceTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
-  fields?: Maybe<Array<InterfaceTypeFieldsCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
 export type InterfaceTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type InterfaceTypeUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type InterfaceTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
-  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
-  fields?: Maybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
 }
 
 export type InterfaceTypeWhere = {
-  OR?: Maybe<Array<InterfaceTypeWhere>>
-  AND?: Maybe<Array<InterfaceTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<InterfaceTypeOwnerAggregateInput>
-  apiOfAtoms?: Maybe<AtomWhere>
-  apiOfAtoms_NOT?: Maybe<AtomWhere>
-  apiOfAtomsAggregate?: Maybe<InterfaceTypeApiOfAtomsAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-  apiOfAtomsConnection?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  apiOfAtomsConnection_NOT?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
-  fieldsConnection?: Maybe<InterfaceTypeFieldsConnectionWhere>
-  fieldsConnection_NOT?: Maybe<InterfaceTypeFieldsConnectionWhere>
+  OR?: InputMaybe<Array<InterfaceTypeWhere>>
+  AND?: InputMaybe<Array<InterfaceTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
+  apiOfAtoms?: InputMaybe<AtomWhere>
+  apiOfAtoms_NOT?: InputMaybe<AtomWhere>
+  apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>
+  /** Return InterfaceTypes where all of the related Atoms match this filter */
+  apiOfAtoms_ALL?: InputMaybe<AtomWhere>
+  /** Return InterfaceTypes where none of the related Atoms match this filter */
+  apiOfAtoms_NONE?: InputMaybe<AtomWhere>
+  /** Return InterfaceTypes where one of the related Atoms match this filter */
+  apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
+  /** Return InterfaceTypes where some of the related Atoms match this filter */
+  apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_NOT?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_ALL?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_NONE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_SINGLE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_SOME?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  fieldsConnection?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  fieldsConnection_NOT?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
 export type LambdaTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type LambdaTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type LambdaTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type LambdaTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type LambdaTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type LambdaTypeOptions = {
   /** Specify one or more LambdaTypeSort objects to sort LambdaTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<LambdaTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<LambdaTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type LambdaTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<LambdaTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<LambdaTypeOwnerAggregateInput>>
-  node?: Maybe<LambdaTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<LambdaTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<LambdaTypeOwnerAggregateInput>>
+  node?: InputMaybe<LambdaTypeOwnerNodeAggregationWhereInput>
 }
 
 export type LambdaTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<LambdaTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<LambdaTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<LambdaTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<LambdaTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type LambdaTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object. */
 export type LambdaTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type LambdaTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type LambdaTypeWhere = {
-  OR?: Maybe<Array<LambdaTypeWhere>>
-  AND?: Maybe<Array<LambdaTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<LambdaTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<LambdaTypeWhere>>
+  AND?: InputMaybe<Array<LambdaTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<LambdaTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type MonacoTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type MonacoTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type MonacoTypeCreateInput = {
   name: Scalars['String']
   language: MonacoLanguage
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type MonacoTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type MonacoTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type MonacoTypeOptions = {
   /** Specify one or more MonacoTypeSort objects to sort MonacoTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<MonacoTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<MonacoTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type MonacoTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<MonacoTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<MonacoTypeOwnerAggregateInput>>
-  node?: Maybe<MonacoTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<MonacoTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<MonacoTypeOwnerAggregateInput>>
+  node?: InputMaybe<MonacoTypeOwnerNodeAggregationWhereInput>
 }
 
 export type MonacoTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type MonacoTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object. */
 export type MonacoTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  language?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  language?: InputMaybe<SortDirection>
 }
 
 export type MonacoTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  language?: Maybe<MonacoLanguage>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  language?: InputMaybe<MonacoLanguage>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type MonacoTypeWhere = {
-  OR?: Maybe<Array<MonacoTypeWhere>>
-  AND?: Maybe<Array<MonacoTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  language?: Maybe<MonacoLanguage>
-  language_NOT?: Maybe<MonacoLanguage>
-  language_IN?: Maybe<Array<Maybe<MonacoLanguage>>>
-  language_NOT_IN?: Maybe<Array<Maybe<MonacoLanguage>>>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<MonacoTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<MonacoTypeWhere>>
+  AND?: InputMaybe<Array<MonacoTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  language?: InputMaybe<MonacoLanguage>
+  language_NOT?: InputMaybe<MonacoLanguage>
+  language_IN?: InputMaybe<Array<MonacoLanguage>>
+  language_NOT_IN?: InputMaybe<Array<MonacoLanguage>>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<MonacoTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type PageAppAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PageAppAggregateInput>>
-  OR?: Maybe<Array<PageAppAggregateInput>>
-  node?: Maybe<PageAppNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageAppAggregateInput>>
+  OR?: InputMaybe<Array<PageAppAggregateInput>>
+  node?: InputMaybe<PageAppNodeAggregationWhereInput>
 }
 
 export type PageAppConnectFieldInput = {
-  where?: Maybe<AppConnectWhere>
-  connect?: Maybe<AppConnectInput>
+  where?: InputMaybe<AppConnectWhere>
+  connect?: InputMaybe<AppConnectInput>
 }
 
 export type PageAppConnectionSort = {
-  node?: Maybe<AppSort>
+  node?: InputMaybe<AppSort>
 }
 
 export type PageAppConnectionWhere = {
-  AND?: Maybe<Array<PageAppConnectionWhere>>
-  OR?: Maybe<Array<PageAppConnectionWhere>>
-  node?: Maybe<AppWhere>
-  node_NOT?: Maybe<AppWhere>
+  AND?: InputMaybe<Array<PageAppConnectionWhere>>
+  OR?: InputMaybe<Array<PageAppConnectionWhere>>
+  node?: InputMaybe<AppWhere>
+  node_NOT?: InputMaybe<AppWhere>
 }
 
 export type PageAppConnectOrCreateFieldInput = {
@@ -9562,7 +9456,7 @@ export type PageAppConnectOrCreateFieldInput = {
 }
 
 export type PageAppConnectOrCreateFieldInputOnCreate = {
-  node: AppCreateInput
+  node: AppOnCreateInput
 }
 
 export type PageAppCreateFieldInput = {
@@ -9570,69 +9464,69 @@ export type PageAppCreateFieldInput = {
 }
 
 export type PageAppDeleteFieldInput = {
-  where?: Maybe<PageAppConnectionWhere>
-  delete?: Maybe<AppDeleteInput>
+  where?: InputMaybe<PageAppConnectionWhere>
+  delete?: InputMaybe<AppDeleteInput>
 }
 
 export type PageAppDisconnectFieldInput = {
-  where?: Maybe<PageAppConnectionWhere>
-  disconnect?: Maybe<AppDisconnectInput>
+  where?: InputMaybe<PageAppConnectionWhere>
+  disconnect?: InputMaybe<AppDisconnectInput>
 }
 
 export type PageAppFieldInput = {
-  create?: Maybe<PageAppCreateFieldInput>
-  connect?: Maybe<PageAppConnectFieldInput>
-  connectOrCreate?: Maybe<PageAppConnectOrCreateFieldInput>
+  create?: InputMaybe<PageAppCreateFieldInput>
+  connect?: InputMaybe<PageAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageAppConnectOrCreateFieldInput>
 }
 
 export type PageAppNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PageAppNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PageAppNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageAppNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PageAppNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PageAppUpdateConnectionInput = {
-  node?: Maybe<AppUpdateInput>
+  node?: InputMaybe<AppUpdateInput>
 }
 
 export type PageAppUpdateFieldInput = {
-  where?: Maybe<PageAppConnectionWhere>
-  update?: Maybe<PageAppUpdateConnectionInput>
-  connect?: Maybe<PageAppConnectFieldInput>
-  disconnect?: Maybe<PageAppDisconnectFieldInput>
-  create?: Maybe<PageAppCreateFieldInput>
-  delete?: Maybe<PageAppDeleteFieldInput>
-  connectOrCreate?: Maybe<PageAppConnectOrCreateFieldInput>
+  where?: InputMaybe<PageAppConnectionWhere>
+  update?: InputMaybe<PageAppUpdateConnectionInput>
+  connect?: InputMaybe<PageAppConnectFieldInput>
+  disconnect?: InputMaybe<PageAppDisconnectFieldInput>
+  create?: InputMaybe<PageAppCreateFieldInput>
+  delete?: InputMaybe<PageAppDeleteFieldInput>
+  connectOrCreate?: InputMaybe<PageAppConnectOrCreateFieldInput>
 }
 
 export type PageConnectInput = {
-  rootElement?: Maybe<PageRootElementConnectFieldInput>
-  app?: Maybe<PageAppConnectFieldInput>
+  rootElement?: InputMaybe<PageRootElementConnectFieldInput>
+  app?: InputMaybe<PageAppConnectFieldInput>
 }
 
 export type PageConnectOrCreateInput = {
-  rootElement?: Maybe<PageRootElementConnectOrCreateFieldInput>
-  app?: Maybe<PageAppConnectOrCreateFieldInput>
+  rootElement?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
+  app?: InputMaybe<PageAppConnectOrCreateFieldInput>
 }
 
 export type PageConnectOrCreateWhere = {
@@ -9645,57 +9539,62 @@ export type PageConnectWhere = {
 
 export type PageCreateInput = {
   name: Scalars['String']
-  rootElement?: Maybe<PageRootElementFieldInput>
-  app?: Maybe<PageAppFieldInput>
+  rootElement?: InputMaybe<PageRootElementFieldInput>
+  app?: InputMaybe<PageAppFieldInput>
 }
 
 export type PageDeleteInput = {
-  rootElement?: Maybe<PageRootElementDeleteFieldInput>
-  app?: Maybe<PageAppDeleteFieldInput>
+  rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
+  app?: InputMaybe<PageAppDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
-  rootElement?: Maybe<PageRootElementDisconnectFieldInput>
-  app?: Maybe<PageAppDisconnectFieldInput>
+  rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
+  app?: InputMaybe<PageAppDisconnectFieldInput>
+}
+
+export type PageOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type PageOptions = {
   /** Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<PageSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PageSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type PageRelationInput = {
-  rootElement?: Maybe<PageRootElementCreateFieldInput>
-  app?: Maybe<PageAppCreateFieldInput>
+  rootElement?: InputMaybe<PageRootElementCreateFieldInput>
+  app?: InputMaybe<PageAppCreateFieldInput>
 }
 
 export type PageRootElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PageRootElementAggregateInput>>
-  OR?: Maybe<Array<PageRootElementAggregateInput>>
-  node?: Maybe<PageRootElementNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageRootElementAggregateInput>>
+  OR?: InputMaybe<Array<PageRootElementAggregateInput>>
+  node?: InputMaybe<PageRootElementNodeAggregationWhereInput>
 }
 
 export type PageRootElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
 }
 
 export type PageRootElementConnectionSort = {
-  node?: Maybe<ElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type PageRootElementConnectionWhere = {
-  AND?: Maybe<Array<PageRootElementConnectionWhere>>
-  OR?: Maybe<Array<PageRootElementConnectionWhere>>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<PageRootElementConnectionWhere>>
+  OR?: InputMaybe<Array<PageRootElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type PageRootElementConnectOrCreateFieldInput = {
@@ -9704,7 +9603,7 @@ export type PageRootElementConnectOrCreateFieldInput = {
 }
 
 export type PageRootElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
+  node: ElementOnCreateInput
 }
 
 export type PageRootElementCreateFieldInput = {
@@ -9712,482 +9611,482 @@ export type PageRootElementCreateFieldInput = {
 }
 
 export type PageRootElementDeleteFieldInput = {
-  where?: Maybe<PageRootElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type PageRootElementDisconnectFieldInput = {
-  where?: Maybe<PageRootElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type PageRootElementFieldInput = {
-  create?: Maybe<PageRootElementCreateFieldInput>
-  connect?: Maybe<PageRootElementConnectFieldInput>
-  connectOrCreate?: Maybe<PageRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<PageRootElementCreateFieldInput>
+  connect?: InputMaybe<PageRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
 }
 
 export type PageRootElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PageRootElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PageRootElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageRootElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PageRootElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PageRootElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
 }
 
 export type PageRootElementUpdateFieldInput = {
-  where?: Maybe<PageRootElementConnectionWhere>
-  update?: Maybe<PageRootElementUpdateConnectionInput>
-  connect?: Maybe<PageRootElementConnectFieldInput>
-  disconnect?: Maybe<PageRootElementDisconnectFieldInput>
-  create?: Maybe<PageRootElementCreateFieldInput>
-  delete?: Maybe<PageRootElementDeleteFieldInput>
-  connectOrCreate?: Maybe<PageRootElementConnectOrCreateFieldInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+  update?: InputMaybe<PageRootElementUpdateConnectionInput>
+  connect?: InputMaybe<PageRootElementConnectFieldInput>
+  disconnect?: InputMaybe<PageRootElementDisconnectFieldInput>
+  create?: InputMaybe<PageRootElementCreateFieldInput>
+  delete?: InputMaybe<PageRootElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
 }
 
 /** Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object. */
 export type PageSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type PageTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type PageTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type PageTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type PageTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PageTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type PageTypeOptions = {
   /** Specify one or more PageTypeSort objects to sort PageTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<PageTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PageTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type PageTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PageTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<PageTypeOwnerAggregateInput>>
-  node?: Maybe<PageTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<PageTypeOwnerAggregateInput>>
+  node?: InputMaybe<PageTypeOwnerNodeAggregationWhereInput>
 }
 
 export type PageTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PageTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PageTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PageTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PageTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PageTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object. */
 export type PageTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type PageTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type PageTypeWhere = {
-  OR?: Maybe<Array<PageTypeWhere>>
-  AND?: Maybe<Array<PageTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<PageTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<PageTypeWhere>>
+  AND?: InputMaybe<Array<PageTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<PageTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type PageUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type PageUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  rootElement?: Maybe<PageRootElementUpdateFieldInput>
-  app?: Maybe<PageAppUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
+  app?: InputMaybe<PageAppUpdateFieldInput>
 }
 
 export type PageWhere = {
-  OR?: Maybe<Array<PageWhere>>
-  AND?: Maybe<Array<PageWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  rootElement?: Maybe<ElementWhere>
-  rootElement_NOT?: Maybe<ElementWhere>
-  rootElementAggregate?: Maybe<PageRootElementAggregateInput>
-  app?: Maybe<AppWhere>
-  app_NOT?: Maybe<AppWhere>
-  appAggregate?: Maybe<PageAppAggregateInput>
-  rootElementConnection?: Maybe<PageRootElementConnectionWhere>
-  rootElementConnection_NOT?: Maybe<PageRootElementConnectionWhere>
-  appConnection?: Maybe<PageAppConnectionWhere>
-  appConnection_NOT?: Maybe<PageAppConnectionWhere>
+  OR?: InputMaybe<Array<PageWhere>>
+  AND?: InputMaybe<Array<PageWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  rootElement?: InputMaybe<ElementWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
+  rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
+  app?: InputMaybe<AppWhere>
+  app_NOT?: InputMaybe<AppWhere>
+  appAggregate?: InputMaybe<PageAppAggregateInput>
+  rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
+  appConnection?: InputMaybe<PageAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<PageAppConnectionWhere>
 }
 
 export type ParentOfElementCreateInput = {
-  order?: Maybe<Scalars['Int']>
+  order?: InputMaybe<Scalars['Int']>
 }
 
 export type ParentOfElementSort = {
-  order?: Maybe<SortDirection>
+  order?: InputMaybe<SortDirection>
 }
 
 export type ParentOfElementUpdateInput = {
-  order?: Maybe<Scalars['Int']>
+  order?: InputMaybe<Scalars['Int']>
 }
 
 export type ParentOfElementWhere = {
-  OR?: Maybe<Array<ParentOfElementWhere>>
-  AND?: Maybe<Array<ParentOfElementWhere>>
-  order?: Maybe<Scalars['Int']>
-  order_NOT?: Maybe<Scalars['Int']>
-  order_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  order_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  order_LT?: Maybe<Scalars['Int']>
-  order_LTE?: Maybe<Scalars['Int']>
-  order_GT?: Maybe<Scalars['Int']>
-  order_GTE?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<ParentOfElementWhere>>
+  AND?: InputMaybe<Array<ParentOfElementWhere>>
+  order?: InputMaybe<Scalars['Int']>
+  order_NOT?: InputMaybe<Scalars['Int']>
+  order_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  order_LT?: InputMaybe<Scalars['Int']>
+  order_LTE?: InputMaybe<Scalars['Int']>
+  order_GT?: InputMaybe<Scalars['Int']>
+  order_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PrimitiveTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type PrimitiveTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type PrimitiveTypeCreateInput = {
   name: Scalars['String']
   primitiveKind: PrimitiveTypeKind
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type PrimitiveTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PrimitiveTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type PrimitiveTypeOptions = {
   /** Specify one or more PrimitiveTypeSort objects to sort PrimitiveTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<PrimitiveTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PrimitiveTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type PrimitiveTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PrimitiveTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<PrimitiveTypeOwnerAggregateInput>>
-  node?: Maybe<PrimitiveTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PrimitiveTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<PrimitiveTypeOwnerAggregateInput>>
+  node?: InputMaybe<PrimitiveTypeOwnerNodeAggregationWhereInput>
 }
 
 export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PrimitiveTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PrimitiveTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PrimitiveTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PrimitiveTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PrimitiveTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object. */
 export type PrimitiveTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  primitiveKind?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  primitiveKind?: InputMaybe<SortDirection>
 }
 
 export type PrimitiveTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  primitiveKind?: Maybe<PrimitiveTypeKind>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  primitiveKind?: InputMaybe<PrimitiveTypeKind>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type PrimitiveTypeWhere = {
-  OR?: Maybe<Array<PrimitiveTypeWhere>>
-  AND?: Maybe<Array<PrimitiveTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  primitiveKind?: Maybe<PrimitiveTypeKind>
-  primitiveKind_NOT?: Maybe<PrimitiveTypeKind>
-  primitiveKind_IN?: Maybe<Array<Maybe<PrimitiveTypeKind>>>
-  primitiveKind_NOT_IN?: Maybe<Array<Maybe<PrimitiveTypeKind>>>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<PrimitiveTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<PrimitiveTypeWhere>>
+  AND?: InputMaybe<Array<PrimitiveTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  primitiveKind?: InputMaybe<PrimitiveTypeKind>
+  primitiveKind_NOT?: InputMaybe<PrimitiveTypeKind>
+  primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
+  primitiveKind_NOT_IN?: InputMaybe<Array<PrimitiveTypeKind>>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<PrimitiveTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type PropConnectOrCreateWhere = {
@@ -10203,13 +10102,13 @@ export type PropCreateInput = {
 }
 
 export type PropMapBindingConnectInput = {
-  element?: Maybe<PropMapBindingElementConnectFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementConnectFieldInput>
+  element?: InputMaybe<PropMapBindingElementConnectFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementConnectFieldInput>
 }
 
 export type PropMapBindingConnectOrCreateInput = {
-  element?: Maybe<PropMapBindingElementConnectOrCreateFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
+  element?: InputMaybe<PropMapBindingElementConnectOrCreateFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
 }
 
 export type PropMapBindingConnectOrCreateWhere = {
@@ -10223,45 +10122,45 @@ export type PropMapBindingConnectWhere = {
 export type PropMapBindingCreateInput = {
   sourceKey: Scalars['String']
   targetKey: Scalars['String']
-  element?: Maybe<PropMapBindingElementFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementFieldInput>
+  element?: InputMaybe<PropMapBindingElementFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementFieldInput>
 }
 
 export type PropMapBindingDeleteInput = {
-  element?: Maybe<PropMapBindingElementDeleteFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementDeleteFieldInput>
+  element?: InputMaybe<PropMapBindingElementDeleteFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementDeleteFieldInput>
 }
 
 export type PropMapBindingDisconnectInput = {
-  element?: Maybe<PropMapBindingElementDisconnectFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementDisconnectFieldInput>
+  element?: InputMaybe<PropMapBindingElementDisconnectFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementDisconnectFieldInput>
 }
 
 export type PropMapBindingElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PropMapBindingElementAggregateInput>>
-  OR?: Maybe<Array<PropMapBindingElementAggregateInput>>
-  node?: Maybe<PropMapBindingElementNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PropMapBindingElementAggregateInput>>
+  OR?: InputMaybe<Array<PropMapBindingElementAggregateInput>>
+  node?: InputMaybe<PropMapBindingElementNodeAggregationWhereInput>
 }
 
 export type PropMapBindingElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
 }
 
 export type PropMapBindingElementConnectionSort = {
-  node?: Maybe<ElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type PropMapBindingElementConnectionWhere = {
-  AND?: Maybe<Array<PropMapBindingElementConnectionWhere>>
-  OR?: Maybe<Array<PropMapBindingElementConnectionWhere>>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<PropMapBindingElementConnectionWhere>>
+  OR?: InputMaybe<Array<PropMapBindingElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type PropMapBindingElementConnectOrCreateFieldInput = {
@@ -10270,7 +10169,7 @@ export type PropMapBindingElementConnectOrCreateFieldInput = {
 }
 
 export type PropMapBindingElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
+  node: ElementOnCreateInput
 }
 
 export type PropMapBindingElementCreateFieldInput = {
@@ -10278,185 +10177,191 @@ export type PropMapBindingElementCreateFieldInput = {
 }
 
 export type PropMapBindingElementDeleteFieldInput = {
-  where?: Maybe<PropMapBindingElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<PropMapBindingElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type PropMapBindingElementDisconnectFieldInput = {
-  where?: Maybe<PropMapBindingElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<PropMapBindingElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type PropMapBindingElementFieldInput = {
-  create?: Maybe<PropMapBindingElementCreateFieldInput>
-  connect?: Maybe<PropMapBindingElementConnectFieldInput>
-  connectOrCreate?: Maybe<PropMapBindingElementConnectOrCreateFieldInput>
+  create?: InputMaybe<PropMapBindingElementCreateFieldInput>
+  connect?: InputMaybe<PropMapBindingElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<PropMapBindingElementConnectOrCreateFieldInput>
 }
 
 export type PropMapBindingElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PropMapBindingElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PropMapBindingElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PropMapBindingElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PropMapBindingElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PropMapBindingElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
 }
 
 export type PropMapBindingElementUpdateFieldInput = {
-  where?: Maybe<PropMapBindingElementConnectionWhere>
-  update?: Maybe<PropMapBindingElementUpdateConnectionInput>
-  connect?: Maybe<PropMapBindingElementConnectFieldInput>
-  disconnect?: Maybe<PropMapBindingElementDisconnectFieldInput>
-  create?: Maybe<PropMapBindingElementCreateFieldInput>
-  delete?: Maybe<PropMapBindingElementDeleteFieldInput>
-  connectOrCreate?: Maybe<PropMapBindingElementConnectOrCreateFieldInput>
+  where?: InputMaybe<PropMapBindingElementConnectionWhere>
+  update?: InputMaybe<PropMapBindingElementUpdateConnectionInput>
+  connect?: InputMaybe<PropMapBindingElementConnectFieldInput>
+  disconnect?: InputMaybe<PropMapBindingElementDisconnectFieldInput>
+  create?: InputMaybe<PropMapBindingElementCreateFieldInput>
+  delete?: InputMaybe<PropMapBindingElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<PropMapBindingElementConnectOrCreateFieldInput>
+}
+
+export type PropMapBindingOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  sourceKey?: InputMaybe<Scalars['String']>
+  targetKey?: InputMaybe<Scalars['String']>
 }
 
 export type PropMapBindingOptions = {
   /** Specify one or more PropMapBindingSort objects to sort PropMapBindings by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<PropMapBindingSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PropMapBindingSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type PropMapBindingRelationInput = {
-  element?: Maybe<PropMapBindingElementCreateFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementCreateFieldInput>
+  element?: InputMaybe<PropMapBindingElementCreateFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementCreateFieldInput>
 }
 
 /** Fields to sort PropMapBindings by. The order in which sorts are applied is not guaranteed when specifying many fields in one PropMapBindingSort object. */
 export type PropMapBindingSort = {
-  id?: Maybe<SortDirection>
-  sourceKey?: Maybe<SortDirection>
-  targetKey?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  sourceKey?: InputMaybe<SortDirection>
+  targetKey?: InputMaybe<SortDirection>
 }
 
 export type PropMapBindingTargetElementAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<PropMapBindingTargetElementAggregateInput>>
-  OR?: Maybe<Array<PropMapBindingTargetElementAggregateInput>>
-  node?: Maybe<PropMapBindingTargetElementNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PropMapBindingTargetElementAggregateInput>>
+  OR?: InputMaybe<Array<PropMapBindingTargetElementAggregateInput>>
+  node?: InputMaybe<PropMapBindingTargetElementNodeAggregationWhereInput>
 }
 
 export type PropMapBindingTargetElementConnectFieldInput = {
-  where?: Maybe<ElementConnectWhere>
-  connect?: Maybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+  connect?: InputMaybe<ElementConnectInput>
 }
 
 export type PropMapBindingTargetElementConnectionSort = {
-  node?: Maybe<ElementSort>
+  node?: InputMaybe<ElementSort>
 }
 
 export type PropMapBindingTargetElementConnectionWhere = {
-  AND?: Maybe<Array<PropMapBindingTargetElementConnectionWhere>>
-  OR?: Maybe<Array<PropMapBindingTargetElementConnectionWhere>>
-  node?: Maybe<ElementWhere>
-  node_NOT?: Maybe<ElementWhere>
+  AND?: InputMaybe<Array<PropMapBindingTargetElementConnectionWhere>>
+  OR?: InputMaybe<Array<PropMapBindingTargetElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
 }
 
 export type PropMapBindingTargetElementConnectOrCreateFieldInput = {
@@ -10465,7 +10370,7 @@ export type PropMapBindingTargetElementConnectOrCreateFieldInput = {
 }
 
 export type PropMapBindingTargetElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementCreateInput
+  node: ElementOnCreateInput
 }
 
 export type PropMapBindingTargetElementCreateFieldInput = {
@@ -10473,560 +10378,560 @@ export type PropMapBindingTargetElementCreateFieldInput = {
 }
 
 export type PropMapBindingTargetElementDeleteFieldInput = {
-  where?: Maybe<PropMapBindingTargetElementConnectionWhere>
-  delete?: Maybe<ElementDeleteInput>
+  where?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+  delete?: InputMaybe<ElementDeleteInput>
 }
 
 export type PropMapBindingTargetElementDisconnectFieldInput = {
-  where?: Maybe<PropMapBindingTargetElementConnectionWhere>
-  disconnect?: Maybe<ElementDisconnectInput>
+  where?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+  disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
 export type PropMapBindingTargetElementFieldInput = {
-  create?: Maybe<PropMapBindingTargetElementCreateFieldInput>
-  connect?: Maybe<PropMapBindingTargetElementConnectFieldInput>
-  connectOrCreate?: Maybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
+  create?: InputMaybe<PropMapBindingTargetElementCreateFieldInput>
+  connect?: InputMaybe<PropMapBindingTargetElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
 }
 
 export type PropMapBindingTargetElementNodeAggregationWhereInput = {
-  AND?: Maybe<Array<PropMapBindingTargetElementNodeAggregationWhereInput>>
-  OR?: Maybe<Array<PropMapBindingTargetElementNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  css_EQUAL?: Maybe<Scalars['String']>
-  css_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  css_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  css_GT?: Maybe<Scalars['Int']>
-  css_AVERAGE_GT?: Maybe<Scalars['Float']>
-  css_LONGEST_GT?: Maybe<Scalars['Int']>
-  css_SHORTEST_GT?: Maybe<Scalars['Int']>
-  css_GTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  css_LONGEST_GTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  css_LT?: Maybe<Scalars['Int']>
-  css_AVERAGE_LT?: Maybe<Scalars['Float']>
-  css_LONGEST_LT?: Maybe<Scalars['Int']>
-  css_SHORTEST_LT?: Maybe<Scalars['Int']>
-  css_LTE?: Maybe<Scalars['Int']>
-  css_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  css_LONGEST_LTE?: Maybe<Scalars['Int']>
-  css_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_EQUAL?: Maybe<Scalars['String']>
-  propTransformationJs_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  propTransformationJs_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: Maybe<Scalars['Int']>
-  propTransformationJs_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  propTransformationJs_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LT?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: Maybe<Scalars['Int']>
-  propTransformationJs_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LTE?: Maybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderForEachPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderForEachPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_EQUAL?: Maybe<Scalars['String']>
-  renderIfPropKey_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  renderIfPropKey_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: Maybe<Scalars['Int']>
-  renderIfPropKey_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LT?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: Maybe<Scalars['Int']>
-  renderIfPropKey_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  renderIfPropKey_LONGEST_LTE?: Maybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<PropMapBindingTargetElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PropMapBindingTargetElementNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  css_EQUAL?: InputMaybe<Scalars['String']>
+  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  css_GT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  css_GTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  css_LT?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  css_LTE?: InputMaybe<Scalars['Int']>
+  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
+  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
+  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PropMapBindingTargetElementUpdateConnectionInput = {
-  node?: Maybe<ElementUpdateInput>
+  node?: InputMaybe<ElementUpdateInput>
 }
 
 export type PropMapBindingTargetElementUpdateFieldInput = {
-  where?: Maybe<PropMapBindingTargetElementConnectionWhere>
-  update?: Maybe<PropMapBindingTargetElementUpdateConnectionInput>
-  connect?: Maybe<PropMapBindingTargetElementConnectFieldInput>
-  disconnect?: Maybe<PropMapBindingTargetElementDisconnectFieldInput>
-  create?: Maybe<PropMapBindingTargetElementCreateFieldInput>
-  delete?: Maybe<PropMapBindingTargetElementDeleteFieldInput>
-  connectOrCreate?: Maybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
+  where?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+  update?: InputMaybe<PropMapBindingTargetElementUpdateConnectionInput>
+  connect?: InputMaybe<PropMapBindingTargetElementConnectFieldInput>
+  disconnect?: InputMaybe<PropMapBindingTargetElementDisconnectFieldInput>
+  create?: InputMaybe<PropMapBindingTargetElementCreateFieldInput>
+  delete?: InputMaybe<PropMapBindingTargetElementDeleteFieldInput>
+  connectOrCreate?: InputMaybe<PropMapBindingTargetElementConnectOrCreateFieldInput>
 }
 
 export type PropMapBindingUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type PropMapBindingUpdateInput = {
-  sourceKey?: Maybe<Scalars['String']>
-  targetKey?: Maybe<Scalars['String']>
-  element?: Maybe<PropMapBindingElementUpdateFieldInput>
-  targetElement?: Maybe<PropMapBindingTargetElementUpdateFieldInput>
+  sourceKey?: InputMaybe<Scalars['String']>
+  targetKey?: InputMaybe<Scalars['String']>
+  element?: InputMaybe<PropMapBindingElementUpdateFieldInput>
+  targetElement?: InputMaybe<PropMapBindingTargetElementUpdateFieldInput>
 }
 
 export type PropMapBindingWhere = {
-  OR?: Maybe<Array<PropMapBindingWhere>>
-  AND?: Maybe<Array<PropMapBindingWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  sourceKey?: Maybe<Scalars['String']>
-  sourceKey_NOT?: Maybe<Scalars['String']>
-  sourceKey_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  sourceKey_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  sourceKey_CONTAINS?: Maybe<Scalars['String']>
-  sourceKey_NOT_CONTAINS?: Maybe<Scalars['String']>
-  sourceKey_STARTS_WITH?: Maybe<Scalars['String']>
-  sourceKey_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  sourceKey_ENDS_WITH?: Maybe<Scalars['String']>
-  sourceKey_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  targetKey?: Maybe<Scalars['String']>
-  targetKey_NOT?: Maybe<Scalars['String']>
-  targetKey_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  targetKey_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  targetKey_CONTAINS?: Maybe<Scalars['String']>
-  targetKey_NOT_CONTAINS?: Maybe<Scalars['String']>
-  targetKey_STARTS_WITH?: Maybe<Scalars['String']>
-  targetKey_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  targetKey_ENDS_WITH?: Maybe<Scalars['String']>
-  targetKey_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  element?: Maybe<ElementWhere>
-  element_NOT?: Maybe<ElementWhere>
-  elementAggregate?: Maybe<PropMapBindingElementAggregateInput>
-  targetElement?: Maybe<ElementWhere>
-  targetElement_NOT?: Maybe<ElementWhere>
-  targetElementAggregate?: Maybe<PropMapBindingTargetElementAggregateInput>
-  elementConnection?: Maybe<PropMapBindingElementConnectionWhere>
-  elementConnection_NOT?: Maybe<PropMapBindingElementConnectionWhere>
-  targetElementConnection?: Maybe<PropMapBindingTargetElementConnectionWhere>
-  targetElementConnection_NOT?: Maybe<PropMapBindingTargetElementConnectionWhere>
+  OR?: InputMaybe<Array<PropMapBindingWhere>>
+  AND?: InputMaybe<Array<PropMapBindingWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  sourceKey?: InputMaybe<Scalars['String']>
+  sourceKey_NOT?: InputMaybe<Scalars['String']>
+  sourceKey_IN?: InputMaybe<Array<Scalars['String']>>
+  sourceKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  sourceKey_CONTAINS?: InputMaybe<Scalars['String']>
+  sourceKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  sourceKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  sourceKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  sourceKey_ENDS_WITH?: InputMaybe<Scalars['String']>
+  sourceKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  targetKey?: InputMaybe<Scalars['String']>
+  targetKey_NOT?: InputMaybe<Scalars['String']>
+  targetKey_IN?: InputMaybe<Array<Scalars['String']>>
+  targetKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  targetKey_CONTAINS?: InputMaybe<Scalars['String']>
+  targetKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  targetKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  targetKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  targetKey_ENDS_WITH?: InputMaybe<Scalars['String']>
+  targetKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  element?: InputMaybe<ElementWhere>
+  element_NOT?: InputMaybe<ElementWhere>
+  elementAggregate?: InputMaybe<PropMapBindingElementAggregateInput>
+  targetElement?: InputMaybe<ElementWhere>
+  targetElement_NOT?: InputMaybe<ElementWhere>
+  targetElementAggregate?: InputMaybe<PropMapBindingTargetElementAggregateInput>
+  elementConnection?: InputMaybe<PropMapBindingElementConnectionWhere>
+  elementConnection_NOT?: InputMaybe<PropMapBindingElementConnectionWhere>
+  targetElementConnection?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+  targetElementConnection_NOT?: InputMaybe<PropMapBindingTargetElementConnectionWhere>
+}
+
+export type PropOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  data?: InputMaybe<Scalars['String']>
 }
 
 export type PropOptions = {
   /** Specify one or more PropSort objects to sort Props by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<PropSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PropSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort Props by. The order in which sorts are applied is not guaranteed when specifying many fields in one PropSort object. */
 export type PropSort = {
-  id?: Maybe<SortDirection>
-  data?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  data?: InputMaybe<SortDirection>
 }
 
 export type PropUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type PropUpdateInput = {
-  data?: Maybe<Scalars['String']>
+  data?: InputMaybe<Scalars['String']>
 }
 
 export type PropWhere = {
-  OR?: Maybe<Array<PropWhere>>
-  AND?: Maybe<Array<PropWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  data?: Maybe<Scalars['String']>
-  data_NOT?: Maybe<Scalars['String']>
-  data_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  data_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  data_CONTAINS?: Maybe<Scalars['String']>
-  data_NOT_CONTAINS?: Maybe<Scalars['String']>
-  data_STARTS_WITH?: Maybe<Scalars['String']>
-  data_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  data_ENDS_WITH?: Maybe<Scalars['String']>
-  data_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-}
-
-export type QueryOptions = {
-  offset?: Maybe<Scalars['Int']>
-  limit?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<PropWhere>>
+  AND?: InputMaybe<Array<PropWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  data?: InputMaybe<Scalars['String']>
+  data_NOT?: InputMaybe<Scalars['String']>
+  data_IN?: InputMaybe<Array<Scalars['String']>>
+  data_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  data_CONTAINS?: InputMaybe<Scalars['String']>
+  data_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  data_STARTS_WITH?: InputMaybe<Scalars['String']>
+  data_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  data_ENDS_WITH?: InputMaybe<Scalars['String']>
+  data_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type ReactNodeTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type ReactNodeTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ReactNodeTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type ReactNodeTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ReactNodeTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type ReactNodeTypeOptions = {
   /** Specify one or more ReactNodeTypeSort objects to sort ReactNodeTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ReactNodeTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ReactNodeTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type ReactNodeTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<ReactNodeTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<ReactNodeTypeOwnerAggregateInput>>
-  node?: Maybe<ReactNodeTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ReactNodeTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ReactNodeTypeOwnerAggregateInput>>
+  node?: InputMaybe<ReactNodeTypeOwnerNodeAggregationWhereInput>
 }
 
 export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<ReactNodeTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<ReactNodeTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<ReactNodeTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ReactNodeTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ReactNodeTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object. */
 export type ReactNodeTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type ReactNodeTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type ReactNodeTypeWhere = {
-  OR?: Maybe<Array<ReactNodeTypeWhere>>
-  AND?: Maybe<Array<ReactNodeTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<ReactNodeTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<ReactNodeTypeWhere>>
+  AND?: InputMaybe<Array<ReactNodeTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ReactNodeTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type RenderPropsTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type RenderPropsTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type RenderPropsTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type RenderPropsTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type RenderPropsTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type RenderPropsTypeOptions = {
   /** Specify one or more RenderPropsTypeSort objects to sort RenderPropsTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<RenderPropsTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<RenderPropsTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type RenderPropsTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<RenderPropsTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<RenderPropsTypeOwnerAggregateInput>>
-  node?: Maybe<RenderPropsTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<RenderPropsTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<RenderPropsTypeOwnerAggregateInput>>
+  node?: InputMaybe<RenderPropsTypeOwnerNodeAggregationWhereInput>
 }
 
 export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type RenderPropsTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object. */
 export type RenderPropsTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type RenderPropsTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type RenderPropsTypeWhere = {
-  OR?: Maybe<Array<RenderPropsTypeWhere>>
-  AND?: Maybe<Array<RenderPropsTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<RenderPropsTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
+  OR?: InputMaybe<Array<RenderPropsTypeWhere>>
+  AND?: InputMaybe<Array<RenderPropsTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type ResetDatabaseMutationResponseCreateInput = {
-  success?: Maybe<Scalars['Boolean']>
+  success?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ResetDatabaseMutationResponseOptions = {
   /** Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ResetDatabaseMutationResponseSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ResetDatabaseMutationResponseSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object. */
 export type ResetDatabaseMutationResponseSort = {
-  success?: Maybe<SortDirection>
+  success?: InputMaybe<SortDirection>
 }
 
 export type ResetDatabaseMutationResponseUpdateInput = {
-  success?: Maybe<Scalars['Boolean']>
+  success?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ResetDatabaseMutationResponseWhere = {
-  OR?: Maybe<Array<ResetDatabaseMutationResponseWhere>>
-  AND?: Maybe<Array<ResetDatabaseMutationResponseWhere>>
-  success?: Maybe<Scalars['Boolean']>
-  success_NOT?: Maybe<Scalars['Boolean']>
+  OR?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
+  AND?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
+  success?: InputMaybe<Scalars['Boolean']>
+  success_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagChildrenAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<TagChildrenAggregateInput>>
-  OR?: Maybe<Array<TagChildrenAggregateInput>>
-  node?: Maybe<TagChildrenNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TagChildrenAggregateInput>>
+  OR?: InputMaybe<Array<TagChildrenAggregateInput>>
+  node?: InputMaybe<TagChildrenNodeAggregationWhereInput>
 }
 
 export type TagChildrenConnectFieldInput = {
-  where?: Maybe<TagConnectWhere>
-  connect?: Maybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+  connect?: InputMaybe<Array<TagConnectInput>>
 }
 
 export type TagChildrenConnectionSort = {
-  node?: Maybe<TagSort>
+  node?: InputMaybe<TagSort>
 }
 
 export type TagChildrenConnectionWhere = {
-  AND?: Maybe<Array<TagChildrenConnectionWhere>>
-  OR?: Maybe<Array<TagChildrenConnectionWhere>>
-  node?: Maybe<TagWhere>
-  node_NOT?: Maybe<TagWhere>
+  AND?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  OR?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
 }
 
 export type TagChildrenConnectOrCreateFieldInput = {
@@ -11035,7 +10940,7 @@ export type TagChildrenConnectOrCreateFieldInput = {
 }
 
 export type TagChildrenConnectOrCreateFieldInputOnCreate = {
-  node: TagCreateInput
+  node: TagOnCreateInput
 }
 
 export type TagChildrenCreateFieldInput = {
@@ -11043,69 +10948,69 @@ export type TagChildrenCreateFieldInput = {
 }
 
 export type TagChildrenDeleteFieldInput = {
-  where?: Maybe<TagChildrenConnectionWhere>
-  delete?: Maybe<TagDeleteInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+  delete?: InputMaybe<TagDeleteInput>
 }
 
 export type TagChildrenDisconnectFieldInput = {
-  where?: Maybe<TagChildrenConnectionWhere>
-  disconnect?: Maybe<TagDisconnectInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+  disconnect?: InputMaybe<TagDisconnectInput>
 }
 
 export type TagChildrenFieldInput = {
-  create?: Maybe<Array<TagChildrenCreateFieldInput>>
-  connect?: Maybe<Array<TagChildrenConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
 }
 
 export type TagChildrenNodeAggregationWhereInput = {
-  AND?: Maybe<Array<TagChildrenNodeAggregationWhereInput>>
-  OR?: Maybe<Array<TagChildrenNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TagChildrenUpdateConnectionInput = {
-  node?: Maybe<TagUpdateInput>
+  node?: InputMaybe<TagUpdateInput>
 }
 
 export type TagChildrenUpdateFieldInput = {
-  where?: Maybe<TagChildrenConnectionWhere>
-  update?: Maybe<TagChildrenUpdateConnectionInput>
-  connect?: Maybe<Array<TagChildrenConnectFieldInput>>
-  disconnect?: Maybe<Array<TagChildrenDisconnectFieldInput>>
-  create?: Maybe<Array<TagChildrenCreateFieldInput>>
-  delete?: Maybe<Array<TagChildrenDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+  update?: InputMaybe<TagChildrenUpdateConnectionInput>
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  disconnect?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
 }
 
 export type TagConnectInput = {
-  parent?: Maybe<TagParentConnectFieldInput>
-  children?: Maybe<Array<TagChildrenConnectFieldInput>>
+  parent?: InputMaybe<TagParentConnectFieldInput>
+  children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
 }
 
 export type TagConnectOrCreateInput = {
-  parent?: Maybe<TagParentConnectOrCreateFieldInput>
-  children?: Maybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  parent?: InputMaybe<TagParentConnectOrCreateFieldInput>
+  children?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
 }
 
 export type TagConnectOrCreateWhere = {
@@ -11118,19 +11023,19 @@ export type TagConnectWhere = {
 
 export type TagCreateInput = {
   name: Scalars['String']
-  isRoot?: Maybe<Scalars['Boolean']>
-  parent?: Maybe<TagParentFieldInput>
-  children?: Maybe<TagChildrenFieldInput>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  parent?: InputMaybe<TagParentFieldInput>
+  children?: InputMaybe<TagChildrenFieldInput>
 }
 
 export type TagDeleteInput = {
-  parent?: Maybe<TagParentDeleteFieldInput>
-  children?: Maybe<Array<TagChildrenDeleteFieldInput>>
+  parent?: InputMaybe<TagParentDeleteFieldInput>
+  children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
 }
 
 export type TagDisconnectInput = {
-  parent?: Maybe<TagParentDisconnectFieldInput>
-  children?: Maybe<Array<TagChildrenDisconnectFieldInput>>
+  parent?: InputMaybe<TagParentDisconnectFieldInput>
+  children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
 }
 
 export type TagEdgeCreateInput = {
@@ -11140,138 +11045,144 @@ export type TagEdgeCreateInput = {
 
 export type TagEdgeOptions = {
   /** Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<TagEdgeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagEdgeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object. */
 export type TagEdgeSort = {
-  source?: Maybe<SortDirection>
-  target?: Maybe<SortDirection>
+  source?: InputMaybe<SortDirection>
+  target?: InputMaybe<SortDirection>
 }
 
 export type TagEdgeUpdateInput = {
-  source?: Maybe<Scalars['ID']>
-  target?: Maybe<Scalars['ID']>
+  source?: InputMaybe<Scalars['ID']>
+  target?: InputMaybe<Scalars['ID']>
 }
 
 export type TagEdgeWhere = {
-  OR?: Maybe<Array<TagEdgeWhere>>
-  AND?: Maybe<Array<TagEdgeWhere>>
-  source?: Maybe<Scalars['ID']>
-  source_NOT?: Maybe<Scalars['ID']>
-  source_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  source_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  source_CONTAINS?: Maybe<Scalars['ID']>
-  source_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  source_STARTS_WITH?: Maybe<Scalars['ID']>
-  source_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  source_ENDS_WITH?: Maybe<Scalars['ID']>
-  source_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  target?: Maybe<Scalars['ID']>
-  target_NOT?: Maybe<Scalars['ID']>
-  target_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  target_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  target_CONTAINS?: Maybe<Scalars['ID']>
-  target_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  target_STARTS_WITH?: Maybe<Scalars['ID']>
-  target_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  target_ENDS_WITH?: Maybe<Scalars['ID']>
-  target_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
+  OR?: InputMaybe<Array<TagEdgeWhere>>
+  AND?: InputMaybe<Array<TagEdgeWhere>>
+  source?: InputMaybe<Scalars['ID']>
+  source_NOT?: InputMaybe<Scalars['ID']>
+  source_IN?: InputMaybe<Array<Scalars['ID']>>
+  source_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  source_CONTAINS?: InputMaybe<Scalars['ID']>
+  source_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  source_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  source_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  source_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  source_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  target?: InputMaybe<Scalars['ID']>
+  target_NOT?: InputMaybe<Scalars['ID']>
+  target_IN?: InputMaybe<Array<Scalars['ID']>>
+  target_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  target_CONTAINS?: InputMaybe<Scalars['ID']>
+  target_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  target_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  target_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  target_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  target_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
 }
 
 export type TagGraphCreateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagGraphOptionsCreateInput = {
-  sort?: Maybe<Scalars['Int']>
-  limit?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
 }
 
 export type TagGraphOptionsOptions = {
   /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<TagGraphOptionsSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagGraphOptionsSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
 export type TagGraphOptionsSort = {
-  sort?: Maybe<SortDirection>
-  limit?: Maybe<SortDirection>
+  sort?: InputMaybe<SortDirection>
+  limit?: InputMaybe<SortDirection>
 }
 
 export type TagGraphOptionsUpdateInput = {
-  sort?: Maybe<Scalars['Int']>
-  limit?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
 }
 
 export type TagGraphOptionsWhere = {
-  OR?: Maybe<Array<TagGraphOptionsWhere>>
-  AND?: Maybe<Array<TagGraphOptionsWhere>>
-  sort?: Maybe<Scalars['Int']>
-  sort_NOT?: Maybe<Scalars['Int']>
-  sort_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  sort_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  sort_LT?: Maybe<Scalars['Int']>
-  sort_LTE?: Maybe<Scalars['Int']>
-  sort_GT?: Maybe<Scalars['Int']>
-  sort_GTE?: Maybe<Scalars['Int']>
-  limit?: Maybe<Scalars['Int']>
-  limit_NOT?: Maybe<Scalars['Int']>
-  limit_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  limit_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
-  limit_LT?: Maybe<Scalars['Int']>
-  limit_LTE?: Maybe<Scalars['Int']>
-  limit_GT?: Maybe<Scalars['Int']>
-  limit_GTE?: Maybe<Scalars['Int']>
+  OR?: InputMaybe<Array<TagGraphOptionsWhere>>
+  AND?: InputMaybe<Array<TagGraphOptionsWhere>>
+  sort?: InputMaybe<Scalars['Int']>
+  sort_NOT?: InputMaybe<Scalars['Int']>
+  sort_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  sort_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  sort_LT?: InputMaybe<Scalars['Int']>
+  sort_LTE?: InputMaybe<Scalars['Int']>
+  sort_GT?: InputMaybe<Scalars['Int']>
+  sort_GTE?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  limit_NOT?: InputMaybe<Scalars['Int']>
+  limit_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  limit_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  limit_LT?: InputMaybe<Scalars['Int']>
+  limit_LTE?: InputMaybe<Scalars['Int']>
+  limit_GT?: InputMaybe<Scalars['Int']>
+  limit_GTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TagGraphUpdateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagGraphWhere = {
-  OR?: Maybe<Array<TagGraphWhere>>
-  AND?: Maybe<Array<TagGraphWhere>>
+  OR?: InputMaybe<Array<TagGraphWhere>>
+  AND?: InputMaybe<Array<TagGraphWhere>>
+}
+
+export type TagOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  isRoot?: InputMaybe<Scalars['Boolean']>
 }
 
 export type TagOptions = {
   /** Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<TagSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type TagParentAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<TagParentAggregateInput>>
-  OR?: Maybe<Array<TagParentAggregateInput>>
-  node?: Maybe<TagParentNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TagParentAggregateInput>>
+  OR?: InputMaybe<Array<TagParentAggregateInput>>
+  node?: InputMaybe<TagParentNodeAggregationWhereInput>
 }
 
 export type TagParentConnectFieldInput = {
-  where?: Maybe<TagConnectWhere>
-  connect?: Maybe<TagConnectInput>
+  where?: InputMaybe<TagConnectWhere>
+  connect?: InputMaybe<TagConnectInput>
 }
 
 export type TagParentConnectionSort = {
-  node?: Maybe<TagSort>
+  node?: InputMaybe<TagSort>
 }
 
 export type TagParentConnectionWhere = {
-  AND?: Maybe<Array<TagParentConnectionWhere>>
-  OR?: Maybe<Array<TagParentConnectionWhere>>
-  node?: Maybe<TagWhere>
-  node_NOT?: Maybe<TagWhere>
+  AND?: InputMaybe<Array<TagParentConnectionWhere>>
+  OR?: InputMaybe<Array<TagParentConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
 }
 
 export type TagParentConnectOrCreateFieldInput = {
@@ -11280,7 +11191,7 @@ export type TagParentConnectOrCreateFieldInput = {
 }
 
 export type TagParentConnectOrCreateFieldInputOnCreate = {
-  node: TagCreateInput
+  node: TagOnCreateInput
 }
 
 export type TagParentCreateFieldInput = {
@@ -11288,124 +11199,136 @@ export type TagParentCreateFieldInput = {
 }
 
 export type TagParentDeleteFieldInput = {
-  where?: Maybe<TagParentConnectionWhere>
-  delete?: Maybe<TagDeleteInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+  delete?: InputMaybe<TagDeleteInput>
 }
 
 export type TagParentDisconnectFieldInput = {
-  where?: Maybe<TagParentConnectionWhere>
-  disconnect?: Maybe<TagDisconnectInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+  disconnect?: InputMaybe<TagDisconnectInput>
 }
 
 export type TagParentFieldInput = {
-  create?: Maybe<TagParentCreateFieldInput>
-  connect?: Maybe<TagParentConnectFieldInput>
-  connectOrCreate?: Maybe<TagParentConnectOrCreateFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
 }
 
 export type TagParentNodeAggregationWhereInput = {
-  AND?: Maybe<Array<TagParentNodeAggregationWhereInput>>
-  OR?: Maybe<Array<TagParentNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TagParentUpdateConnectionInput = {
-  node?: Maybe<TagUpdateInput>
+  node?: InputMaybe<TagUpdateInput>
 }
 
 export type TagParentUpdateFieldInput = {
-  where?: Maybe<TagParentConnectionWhere>
-  update?: Maybe<TagParentUpdateConnectionInput>
-  connect?: Maybe<TagParentConnectFieldInput>
-  disconnect?: Maybe<TagParentDisconnectFieldInput>
-  create?: Maybe<TagParentCreateFieldInput>
-  delete?: Maybe<TagParentDeleteFieldInput>
-  connectOrCreate?: Maybe<TagParentConnectOrCreateFieldInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+  update?: InputMaybe<TagParentUpdateConnectionInput>
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  disconnect?: InputMaybe<TagParentDisconnectFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+  delete?: InputMaybe<TagParentDeleteFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
 }
 
 export type TagRelationInput = {
-  parent?: Maybe<TagParentCreateFieldInput>
-  children?: Maybe<Array<TagChildrenCreateFieldInput>>
+  parent?: InputMaybe<TagParentCreateFieldInput>
+  children?: InputMaybe<Array<TagChildrenCreateFieldInput>>
 }
 
 /** Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object. */
 export type TagSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
-  isRoot?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  isRoot?: InputMaybe<SortDirection>
 }
 
 export type TagUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type TagUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  isRoot?: Maybe<Scalars['Boolean']>
-  parent?: Maybe<TagParentUpdateFieldInput>
-  children?: Maybe<Array<TagChildrenUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  parent?: InputMaybe<TagParentUpdateFieldInput>
+  children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
 }
 
 export type TagWhere = {
-  OR?: Maybe<Array<TagWhere>>
-  AND?: Maybe<Array<TagWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  isRoot?: Maybe<Scalars['Boolean']>
-  isRoot_NOT?: Maybe<Scalars['Boolean']>
-  parent?: Maybe<TagWhere>
-  parent_NOT?: Maybe<TagWhere>
-  parentAggregate?: Maybe<TagParentAggregateInput>
-  children?: Maybe<TagWhere>
-  children_NOT?: Maybe<TagWhere>
-  childrenAggregate?: Maybe<TagChildrenAggregateInput>
-  parentConnection?: Maybe<TagParentConnectionWhere>
-  parentConnection_NOT?: Maybe<TagParentConnectionWhere>
-  childrenConnection?: Maybe<TagChildrenConnectionWhere>
-  childrenConnection_NOT?: Maybe<TagChildrenConnectionWhere>
+  OR?: InputMaybe<Array<TagWhere>>
+  AND?: InputMaybe<Array<TagWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  isRoot_NOT?: InputMaybe<Scalars['Boolean']>
+  parent?: InputMaybe<TagWhere>
+  parent_NOT?: InputMaybe<TagWhere>
+  parentAggregate?: InputMaybe<TagParentAggregateInput>
+  children?: InputMaybe<TagWhere>
+  children_NOT?: InputMaybe<TagWhere>
+  childrenAggregate?: InputMaybe<TagChildrenAggregateInput>
+  /** Return Tags where all of the related Tags match this filter */
+  children_ALL?: InputMaybe<TagWhere>
+  /** Return Tags where none of the related Tags match this filter */
+  children_NONE?: InputMaybe<TagWhere>
+  /** Return Tags where one of the related Tags match this filter */
+  children_SINGLE?: InputMaybe<TagWhere>
+  /** Return Tags where some of the related Tags match this filter */
+  children_SOME?: InputMaybe<TagWhere>
+  parentConnection?: InputMaybe<TagParentConnectionWhere>
+  parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>
+  childrenConnection?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_NOT?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_ALL?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_NONE?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_SINGLE?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_SOME?: InputMaybe<TagChildrenConnectionWhere>
 }
 
 export type TypeBaseConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  _on?: Maybe<TypeBaseImplementationsConnectInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  _on?: InputMaybe<TypeBaseImplementationsConnectInput>
 }
 
 export type TypeBaseConnectWhere = {
@@ -11413,130 +11336,137 @@ export type TypeBaseConnectWhere = {
 }
 
 export type TypeBaseCreateInput = {
-  PrimitiveType?: Maybe<PrimitiveTypeCreateInput>
-  ArrayType?: Maybe<ArrayTypeCreateInput>
-  UnionType?: Maybe<UnionTypeCreateInput>
-  InterfaceType?: Maybe<InterfaceTypeCreateInput>
-  ElementType?: Maybe<ElementTypeCreateInput>
-  RenderPropsType?: Maybe<RenderPropsTypeCreateInput>
-  ReactNodeType?: Maybe<ReactNodeTypeCreateInput>
-  EnumType?: Maybe<EnumTypeCreateInput>
-  LambdaType?: Maybe<LambdaTypeCreateInput>
-  PageType?: Maybe<PageTypeCreateInput>
-  AppType?: Maybe<AppTypeCreateInput>
-  MonacoType?: Maybe<MonacoTypeCreateInput>
+  PrimitiveType?: InputMaybe<PrimitiveTypeCreateInput>
+  ArrayType?: InputMaybe<ArrayTypeCreateInput>
+  UnionType?: InputMaybe<UnionTypeCreateInput>
+  InterfaceType?: InputMaybe<InterfaceTypeCreateInput>
+  ElementType?: InputMaybe<ElementTypeCreateInput>
+  RenderPropsType?: InputMaybe<RenderPropsTypeCreateInput>
+  ReactNodeType?: InputMaybe<ReactNodeTypeCreateInput>
+  EnumType?: InputMaybe<EnumTypeCreateInput>
+  LambdaType?: InputMaybe<LambdaTypeCreateInput>
+  PageType?: InputMaybe<PageTypeCreateInput>
+  AppType?: InputMaybe<AppTypeCreateInput>
+  MonacoType?: InputMaybe<MonacoTypeCreateInput>
 }
 
 export type TypeBaseDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  _on?: Maybe<TypeBaseImplementationsDeleteInput>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  _on?: InputMaybe<TypeBaseImplementationsDeleteInput>
 }
 
 export type TypeBaseDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  _on?: Maybe<TypeBaseImplementationsDisconnectInput>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  _on?: InputMaybe<TypeBaseImplementationsDisconnectInput>
 }
 
 export type TypeBaseImplementationsConnectInput = {
-  PrimitiveType?: Maybe<Array<PrimitiveTypeConnectInput>>
-  ArrayType?: Maybe<Array<ArrayTypeConnectInput>>
-  UnionType?: Maybe<Array<UnionTypeConnectInput>>
-  InterfaceType?: Maybe<Array<InterfaceTypeConnectInput>>
-  ElementType?: Maybe<Array<ElementTypeConnectInput>>
-  RenderPropsType?: Maybe<Array<RenderPropsTypeConnectInput>>
-  ReactNodeType?: Maybe<Array<ReactNodeTypeConnectInput>>
-  EnumType?: Maybe<Array<EnumTypeConnectInput>>
-  LambdaType?: Maybe<Array<LambdaTypeConnectInput>>
-  PageType?: Maybe<Array<PageTypeConnectInput>>
-  AppType?: Maybe<Array<AppTypeConnectInput>>
-  MonacoType?: Maybe<Array<MonacoTypeConnectInput>>
+  PrimitiveType?: InputMaybe<Array<PrimitiveTypeConnectInput>>
+  ArrayType?: InputMaybe<Array<ArrayTypeConnectInput>>
+  UnionType?: InputMaybe<Array<UnionTypeConnectInput>>
+  InterfaceType?: InputMaybe<Array<InterfaceTypeConnectInput>>
+  ElementType?: InputMaybe<Array<ElementTypeConnectInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeConnectInput>>
+  ReactNodeType?: InputMaybe<Array<ReactNodeTypeConnectInput>>
+  EnumType?: InputMaybe<Array<EnumTypeConnectInput>>
+  LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>
+  PageType?: InputMaybe<Array<PageTypeConnectInput>>
+  AppType?: InputMaybe<Array<AppTypeConnectInput>>
+  MonacoType?: InputMaybe<Array<MonacoTypeConnectInput>>
 }
 
 export type TypeBaseImplementationsDeleteInput = {
-  PrimitiveType?: Maybe<Array<PrimitiveTypeDeleteInput>>
-  ArrayType?: Maybe<Array<ArrayTypeDeleteInput>>
-  UnionType?: Maybe<Array<UnionTypeDeleteInput>>
-  InterfaceType?: Maybe<Array<InterfaceTypeDeleteInput>>
-  ElementType?: Maybe<Array<ElementTypeDeleteInput>>
-  RenderPropsType?: Maybe<Array<RenderPropsTypeDeleteInput>>
-  ReactNodeType?: Maybe<Array<ReactNodeTypeDeleteInput>>
-  EnumType?: Maybe<Array<EnumTypeDeleteInput>>
-  LambdaType?: Maybe<Array<LambdaTypeDeleteInput>>
-  PageType?: Maybe<Array<PageTypeDeleteInput>>
-  AppType?: Maybe<Array<AppTypeDeleteInput>>
-  MonacoType?: Maybe<Array<MonacoTypeDeleteInput>>
+  PrimitiveType?: InputMaybe<Array<PrimitiveTypeDeleteInput>>
+  ArrayType?: InputMaybe<Array<ArrayTypeDeleteInput>>
+  UnionType?: InputMaybe<Array<UnionTypeDeleteInput>>
+  InterfaceType?: InputMaybe<Array<InterfaceTypeDeleteInput>>
+  ElementType?: InputMaybe<Array<ElementTypeDeleteInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeDeleteInput>>
+  ReactNodeType?: InputMaybe<Array<ReactNodeTypeDeleteInput>>
+  EnumType?: InputMaybe<Array<EnumTypeDeleteInput>>
+  LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>
+  PageType?: InputMaybe<Array<PageTypeDeleteInput>>
+  AppType?: InputMaybe<Array<AppTypeDeleteInput>>
+  MonacoType?: InputMaybe<Array<MonacoTypeDeleteInput>>
 }
 
 export type TypeBaseImplementationsDisconnectInput = {
-  PrimitiveType?: Maybe<Array<PrimitiveTypeDisconnectInput>>
-  ArrayType?: Maybe<Array<ArrayTypeDisconnectInput>>
-  UnionType?: Maybe<Array<UnionTypeDisconnectInput>>
-  InterfaceType?: Maybe<Array<InterfaceTypeDisconnectInput>>
-  ElementType?: Maybe<Array<ElementTypeDisconnectInput>>
-  RenderPropsType?: Maybe<Array<RenderPropsTypeDisconnectInput>>
-  ReactNodeType?: Maybe<Array<ReactNodeTypeDisconnectInput>>
-  EnumType?: Maybe<Array<EnumTypeDisconnectInput>>
-  LambdaType?: Maybe<Array<LambdaTypeDisconnectInput>>
-  PageType?: Maybe<Array<PageTypeDisconnectInput>>
-  AppType?: Maybe<Array<AppTypeDisconnectInput>>
-  MonacoType?: Maybe<Array<MonacoTypeDisconnectInput>>
+  PrimitiveType?: InputMaybe<Array<PrimitiveTypeDisconnectInput>>
+  ArrayType?: InputMaybe<Array<ArrayTypeDisconnectInput>>
+  UnionType?: InputMaybe<Array<UnionTypeDisconnectInput>>
+  InterfaceType?: InputMaybe<Array<InterfaceTypeDisconnectInput>>
+  ElementType?: InputMaybe<Array<ElementTypeDisconnectInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeDisconnectInput>>
+  ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>
+  EnumType?: InputMaybe<Array<EnumTypeDisconnectInput>>
+  LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>
+  PageType?: InputMaybe<Array<PageTypeDisconnectInput>>
+  AppType?: InputMaybe<Array<AppTypeDisconnectInput>>
+  MonacoType?: InputMaybe<Array<MonacoTypeDisconnectInput>>
 }
 
 export type TypeBaseImplementationsUpdateInput = {
-  PrimitiveType?: Maybe<PrimitiveTypeUpdateInput>
-  ArrayType?: Maybe<ArrayTypeUpdateInput>
-  UnionType?: Maybe<UnionTypeUpdateInput>
-  InterfaceType?: Maybe<InterfaceTypeUpdateInput>
-  ElementType?: Maybe<ElementTypeUpdateInput>
-  RenderPropsType?: Maybe<RenderPropsTypeUpdateInput>
-  ReactNodeType?: Maybe<ReactNodeTypeUpdateInput>
-  EnumType?: Maybe<EnumTypeUpdateInput>
-  LambdaType?: Maybe<LambdaTypeUpdateInput>
-  PageType?: Maybe<PageTypeUpdateInput>
-  AppType?: Maybe<AppTypeUpdateInput>
-  MonacoType?: Maybe<MonacoTypeUpdateInput>
+  PrimitiveType?: InputMaybe<PrimitiveTypeUpdateInput>
+  ArrayType?: InputMaybe<ArrayTypeUpdateInput>
+  UnionType?: InputMaybe<UnionTypeUpdateInput>
+  InterfaceType?: InputMaybe<InterfaceTypeUpdateInput>
+  ElementType?: InputMaybe<ElementTypeUpdateInput>
+  RenderPropsType?: InputMaybe<RenderPropsTypeUpdateInput>
+  ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>
+  EnumType?: InputMaybe<EnumTypeUpdateInput>
+  LambdaType?: InputMaybe<LambdaTypeUpdateInput>
+  PageType?: InputMaybe<PageTypeUpdateInput>
+  AppType?: InputMaybe<AppTypeUpdateInput>
+  MonacoType?: InputMaybe<MonacoTypeUpdateInput>
 }
 
 export type TypeBaseImplementationsWhere = {
-  PrimitiveType?: Maybe<PrimitiveTypeWhere>
-  ArrayType?: Maybe<ArrayTypeWhere>
-  UnionType?: Maybe<UnionTypeWhere>
-  InterfaceType?: Maybe<InterfaceTypeWhere>
-  ElementType?: Maybe<ElementTypeWhere>
-  RenderPropsType?: Maybe<RenderPropsTypeWhere>
-  ReactNodeType?: Maybe<ReactNodeTypeWhere>
-  EnumType?: Maybe<EnumTypeWhere>
-  LambdaType?: Maybe<LambdaTypeWhere>
-  PageType?: Maybe<PageTypeWhere>
-  AppType?: Maybe<AppTypeWhere>
-  MonacoType?: Maybe<MonacoTypeWhere>
+  PrimitiveType?: InputMaybe<PrimitiveTypeWhere>
+  ArrayType?: InputMaybe<ArrayTypeWhere>
+  UnionType?: InputMaybe<UnionTypeWhere>
+  InterfaceType?: InputMaybe<InterfaceTypeWhere>
+  ElementType?: InputMaybe<ElementTypeWhere>
+  RenderPropsType?: InputMaybe<RenderPropsTypeWhere>
+  ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
+  EnumType?: InputMaybe<EnumTypeWhere>
+  LambdaType?: InputMaybe<LambdaTypeWhere>
+  PageType?: InputMaybe<PageTypeWhere>
+  AppType?: InputMaybe<AppTypeWhere>
+  MonacoType?: InputMaybe<MonacoTypeWhere>
+}
+
+export type TypeBaseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more TypeBaseSort objects to sort TypeBases by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<TypeBaseSort>>>
 }
 
 export type TypeBaseOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<TypeBaseOwnerAggregateInput>>
-  OR?: Maybe<Array<TypeBaseOwnerAggregateInput>>
-  node?: Maybe<TypeBaseOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TypeBaseOwnerAggregateInput>>
+  OR?: InputMaybe<Array<TypeBaseOwnerAggregateInput>>
+  node?: InputMaybe<TypeBaseOwnerNodeAggregationWhereInput>
 }
 
 export type TypeBaseOwnerConnectFieldInput = {
-  where?: Maybe<UserConnectWhere>
-  connect?: Maybe<UserConnectInput>
+  where?: InputMaybe<UserConnectWhere>
+  connect?: InputMaybe<UserConnectInput>
 }
 
 export type TypeBaseOwnerConnectionSort = {
-  node?: Maybe<UserSort>
+  node?: InputMaybe<UserSort>
 }
 
 export type TypeBaseOwnerConnectionWhere = {
-  AND?: Maybe<Array<TypeBaseOwnerConnectionWhere>>
-  OR?: Maybe<Array<TypeBaseOwnerConnectionWhere>>
-  node?: Maybe<UserWhere>
-  node_NOT?: Maybe<UserWhere>
+  AND?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>
+  OR?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>
+  node?: InputMaybe<UserWhere>
+  node_NOT?: InputMaybe<UserWhere>
 }
 
 export type TypeBaseOwnerConnectOrCreateFieldInput = {
@@ -11545,7 +11475,7 @@ export type TypeBaseOwnerConnectOrCreateFieldInput = {
 }
 
 export type TypeBaseOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserCreateInput
+  node: UserOnCreateInput
 }
 
 export type TypeBaseOwnerCreateFieldInput = {
@@ -11553,134 +11483,120 @@ export type TypeBaseOwnerCreateFieldInput = {
 }
 
 export type TypeBaseOwnerDeleteFieldInput = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  delete?: Maybe<UserDeleteInput>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  delete?: InputMaybe<UserDeleteInput>
 }
 
 export type TypeBaseOwnerDisconnectFieldInput = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  disconnect?: Maybe<UserDisconnectInput>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  disconnect?: InputMaybe<UserDisconnectInput>
 }
 
 export type TypeBaseOwnerFieldInput = {
-  create?: Maybe<TypeBaseOwnerCreateFieldInput>
-  connect?: Maybe<TypeBaseOwnerConnectFieldInput>
-  connectOrCreate?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type TypeBaseOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TypeBaseOwnerUpdateConnectionInput = {
-  node?: Maybe<UserUpdateInput>
+  node?: InputMaybe<UserUpdateInput>
 }
 
 export type TypeBaseOwnerUpdateFieldInput = {
-  where?: Maybe<TypeBaseOwnerConnectionWhere>
-  update?: Maybe<TypeBaseOwnerUpdateConnectionInput>
-  connect?: Maybe<TypeBaseOwnerConnectFieldInput>
-  disconnect?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  create?: Maybe<TypeBaseOwnerCreateFieldInput>
-  delete?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  connectOrCreate?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  update?: InputMaybe<TypeBaseOwnerUpdateConnectionInput>
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  disconnect?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  delete?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+}
+
+/** Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object. */
+export type TypeBaseSort = {
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type TypeBaseUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  _on?: Maybe<TypeBaseImplementationsUpdateInput>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+  _on?: InputMaybe<TypeBaseImplementationsUpdateInput>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type TypeBaseWhere = {
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  _on?: Maybe<TypeBaseImplementationsWhere>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<TypeBaseOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-}
-
-export type TypeGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
-}
-
-export type TypeGraphOptions = {
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type TypeGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: Maybe<Scalars['Boolean']>
-}
-
-export type TypeGraphWhere = {
-  OR?: Maybe<Array<TypeGraphWhere>>
-  AND?: Maybe<Array<TypeGraphWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  _on?: InputMaybe<TypeBaseImplementationsWhere>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<TypeBaseOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
 
 export type TypeReferenceCreateInput = {
@@ -11690,157 +11606,169 @@ export type TypeReferenceCreateInput = {
 
 export type TypeReferenceOptions = {
   /** Specify one or more TypeReferenceSort objects to sort TypeReferences by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<TypeReferenceSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeReferenceSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 /** Fields to sort TypeReferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeReferenceSort object. */
 export type TypeReferenceSort = {
-  name?: Maybe<SortDirection>
-  label?: Maybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  label?: InputMaybe<SortDirection>
 }
 
 export type TypeReferenceUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  label?: Maybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  label?: InputMaybe<Scalars['String']>
 }
 
 export type TypeReferenceWhere = {
-  OR?: Maybe<Array<TypeReferenceWhere>>
-  AND?: Maybe<Array<TypeReferenceWhere>>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  label?: Maybe<Scalars['String']>
-  label_NOT?: Maybe<Scalars['String']>
-  label_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  label_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  label_CONTAINS?: Maybe<Scalars['String']>
-  label_NOT_CONTAINS?: Maybe<Scalars['String']>
-  label_STARTS_WITH?: Maybe<Scalars['String']>
-  label_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  label_ENDS_WITH?: Maybe<Scalars['String']>
-  label_NOT_ENDS_WITH?: Maybe<Scalars['String']>
+  OR?: InputMaybe<Array<TypeReferenceWhere>>
+  AND?: InputMaybe<Array<TypeReferenceWhere>>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  label?: InputMaybe<Scalars['String']>
+  label_NOT?: InputMaybe<Scalars['String']>
+  label_IN?: InputMaybe<Array<Scalars['String']>>
+  label_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  label_CONTAINS?: InputMaybe<Scalars['String']>
+  label_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  label_STARTS_WITH?: InputMaybe<Scalars['String']>
+  label_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  label_ENDS_WITH?: InputMaybe<Scalars['String']>
+  label_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type UnionTypeConnectInput = {
-  owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  typesOfUnionType?: Maybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeConnectFieldInput>
+  >
 }
 
 export type UnionTypeConnectOrCreateInput = {
-  owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type UnionTypeCreateInput = {
   name: Scalars['String']
-  owner?: Maybe<TypeBaseOwnerFieldInput>
-  typesOfUnionType?: Maybe<UnionTypeTypesOfUnionTypeFieldInput>
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>
 }
 
 export type UnionTypeDeleteInput = {
-  owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  typesOfUnionType?: Maybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>
+  >
 }
 
 export type UnionTypeDisconnectInput = {
-  owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  typesOfUnionType?: Maybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>
+  >
 }
 
 export type UnionTypeOptions = {
   /** Specify one or more UnionTypeSort objects to sort UnionTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<UnionTypeSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<UnionTypeSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type UnionTypeOwnerAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<UnionTypeOwnerAggregateInput>>
-  OR?: Maybe<Array<UnionTypeOwnerAggregateInput>>
-  node?: Maybe<UnionTypeOwnerNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>
+  node?: InputMaybe<UnionTypeOwnerNodeAggregationWhereInput>
 }
 
 export type UnionTypeOwnerNodeAggregationWhereInput = {
-  AND?: Maybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>
-  OR?: Maybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  auth0Id_EQUAL?: Maybe<Scalars['String']>
-  auth0Id_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  auth0Id_GT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: Maybe<Scalars['Int']>
-  auth0Id_GTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  auth0Id_LT?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LT?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: Maybe<Scalars['Int']>
-  auth0Id_LTE?: Maybe<Scalars['Int']>
-  auth0Id_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  auth0Id_LONGEST_LTE?: Maybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: Maybe<Scalars['Int']>
-  email_EQUAL?: Maybe<Scalars['String']>
-  email_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  email_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  email_GT?: Maybe<Scalars['Int']>
-  email_AVERAGE_GT?: Maybe<Scalars['Float']>
-  email_LONGEST_GT?: Maybe<Scalars['Int']>
-  email_SHORTEST_GT?: Maybe<Scalars['Int']>
-  email_GTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  email_LONGEST_GTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  email_LT?: Maybe<Scalars['Int']>
-  email_AVERAGE_LT?: Maybe<Scalars['Float']>
-  email_LONGEST_LT?: Maybe<Scalars['Int']>
-  email_SHORTEST_LT?: Maybe<Scalars['Int']>
-  email_LTE?: Maybe<Scalars['Int']>
-  email_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  email_LONGEST_LTE?: Maybe<Scalars['Int']>
-  email_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UnionTypeRelationInput = {
-  owner?: Maybe<TypeBaseOwnerCreateFieldInput>
-  typesOfUnionType?: Maybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCreateFieldInput>
+  >
 }
 
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
 export type UnionTypeSort = {
-  id?: Maybe<SortDirection>
-  name?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
-  connect?: Maybe<TypeBaseConnectInput>
-  where?: Maybe<TypeBaseConnectWhere>
+  connect?: InputMaybe<TypeBaseConnectInput>
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeConnectionSort = {
+  node?: InputMaybe<TypeBaseSort>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
-  AND?: Maybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
-  OR?: Maybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
-  node?: Maybe<TypeBaseWhere>
-  node_NOT?: Maybe<TypeBaseWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
+  node?: InputMaybe<TypeBaseWhere>
+  node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
@@ -11848,104 +11776,110 @@ export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
 }
 
 export type UnionTypeTypesOfUnionTypeDeleteFieldInput = {
-  delete?: Maybe<TypeBaseDeleteInput>
-  where?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeDisconnectFieldInput = {
-  disconnect?: Maybe<TypeBaseDisconnectInput>
-  where?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeFieldInput = {
-  create?: Maybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
-  connect?: Maybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>
 }
 
 export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
-  node?: Maybe<TypeBaseUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
 }
 
 export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
-  connect?: Maybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>
-  create?: Maybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
-  delete?: Maybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>
-  disconnect?: Maybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>
-  update?: Maybe<UnionTypeTypesOfUnionTypeUpdateConnectionInput>
-  where?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateConnectionInput>
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
 export type UnionTypeUpdateInput = {
-  name?: Maybe<Scalars['String']>
-  owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
-  typesOfUnionType?: Maybe<Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>
+  >
 }
 
 export type UnionTypeWhere = {
-  OR?: Maybe<Array<UnionTypeWhere>>
-  AND?: Maybe<Array<UnionTypeWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  name_NOT?: Maybe<Scalars['String']>
-  name_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  name_CONTAINS?: Maybe<Scalars['String']>
-  name_NOT_CONTAINS?: Maybe<Scalars['String']>
-  name_STARTS_WITH?: Maybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  name_ENDS_WITH?: Maybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  owner?: Maybe<UserWhere>
-  owner_NOT?: Maybe<UserWhere>
-  ownerAggregate?: Maybe<UnionTypeOwnerAggregateInput>
-  ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-  typesOfUnionTypeConnection?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_NOT?: Maybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  OR?: InputMaybe<Array<UnionTypeWhere>>
+  AND?: InputMaybe<Array<UnionTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  typesOfUnionTypeConnection?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  typesOfUnionTypeConnection_NOT?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
+  typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
 }
 
 export type UpsertFieldInput = {
   interfaceTypeId: Scalars['ID']
   targetTypeId: Scalars['ID']
   key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  description?: InputMaybe<Scalars['String']>
 }
 
 export type UserAppsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<UserAppsAggregateInput>>
-  OR?: Maybe<Array<UserAppsAggregateInput>>
-  node?: Maybe<UserAppsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UserAppsAggregateInput>>
+  OR?: InputMaybe<Array<UserAppsAggregateInput>>
+  node?: InputMaybe<UserAppsNodeAggregationWhereInput>
 }
 
 export type UserAppsConnectFieldInput = {
-  where?: Maybe<AppConnectWhere>
-  connect?: Maybe<Array<AppConnectInput>>
+  where?: InputMaybe<AppConnectWhere>
+  connect?: InputMaybe<Array<AppConnectInput>>
 }
 
 export type UserAppsConnectionSort = {
-  node?: Maybe<AppSort>
+  node?: InputMaybe<AppSort>
 }
 
 export type UserAppsConnectionWhere = {
-  AND?: Maybe<Array<UserAppsConnectionWhere>>
-  OR?: Maybe<Array<UserAppsConnectionWhere>>
-  node?: Maybe<AppWhere>
-  node_NOT?: Maybe<AppWhere>
+  AND?: InputMaybe<Array<UserAppsConnectionWhere>>
+  OR?: InputMaybe<Array<UserAppsConnectionWhere>>
+  node?: InputMaybe<AppWhere>
+  node_NOT?: InputMaybe<AppWhere>
 }
 
 export type UserAppsConnectOrCreateFieldInput = {
@@ -11954,7 +11888,7 @@ export type UserAppsConnectOrCreateFieldInput = {
 }
 
 export type UserAppsConnectOrCreateFieldInputOnCreate = {
-  node: AppCreateInput
+  node: AppOnCreateInput
 }
 
 export type UserAppsCreateFieldInput = {
@@ -11962,86 +11896,86 @@ export type UserAppsCreateFieldInput = {
 }
 
 export type UserAppsDeleteFieldInput = {
-  where?: Maybe<UserAppsConnectionWhere>
-  delete?: Maybe<AppDeleteInput>
+  where?: InputMaybe<UserAppsConnectionWhere>
+  delete?: InputMaybe<AppDeleteInput>
 }
 
 export type UserAppsDisconnectFieldInput = {
-  where?: Maybe<UserAppsConnectionWhere>
-  disconnect?: Maybe<AppDisconnectInput>
+  where?: InputMaybe<UserAppsConnectionWhere>
+  disconnect?: InputMaybe<AppDisconnectInput>
 }
 
 export type UserAppsFieldInput = {
-  create?: Maybe<Array<UserAppsCreateFieldInput>>
-  connect?: Maybe<Array<UserAppsConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<UserAppsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserAppsCreateFieldInput>>
+  connect?: InputMaybe<Array<UserAppsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
 }
 
 export type UserAppsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<UserAppsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<UserAppsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserAppsUpdateConnectionInput = {
-  node?: Maybe<AppUpdateInput>
+  node?: InputMaybe<AppUpdateInput>
 }
 
 export type UserAppsUpdateFieldInput = {
-  where?: Maybe<UserAppsConnectionWhere>
-  update?: Maybe<UserAppsUpdateConnectionInput>
-  connect?: Maybe<Array<UserAppsConnectFieldInput>>
-  disconnect?: Maybe<Array<UserAppsDisconnectFieldInput>>
-  create?: Maybe<Array<UserAppsCreateFieldInput>>
-  delete?: Maybe<Array<UserAppsDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<UserAppsConnectOrCreateFieldInput>>
+  where?: InputMaybe<UserAppsConnectionWhere>
+  update?: InputMaybe<UserAppsUpdateConnectionInput>
+  connect?: InputMaybe<Array<UserAppsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
+  create?: InputMaybe<Array<UserAppsCreateFieldInput>>
+  delete?: InputMaybe<Array<UserAppsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
 }
 
 export type UserComponentsAggregateInput = {
-  count?: Maybe<Scalars['Int']>
-  count_LT?: Maybe<Scalars['Int']>
-  count_LTE?: Maybe<Scalars['Int']>
-  count_GT?: Maybe<Scalars['Int']>
-  count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<UserComponentsAggregateInput>>
-  OR?: Maybe<Array<UserComponentsAggregateInput>>
-  node?: Maybe<UserComponentsNodeAggregationWhereInput>
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UserComponentsAggregateInput>>
+  OR?: InputMaybe<Array<UserComponentsAggregateInput>>
+  node?: InputMaybe<UserComponentsNodeAggregationWhereInput>
 }
 
 export type UserComponentsConnectFieldInput = {
-  where?: Maybe<ComponentConnectWhere>
-  connect?: Maybe<Array<ComponentConnectInput>>
+  where?: InputMaybe<ComponentConnectWhere>
+  connect?: InputMaybe<Array<ComponentConnectInput>>
 }
 
 export type UserComponentsConnectionSort = {
-  node?: Maybe<ComponentSort>
+  node?: InputMaybe<ComponentSort>
 }
 
 export type UserComponentsConnectionWhere = {
-  AND?: Maybe<Array<UserComponentsConnectionWhere>>
-  OR?: Maybe<Array<UserComponentsConnectionWhere>>
-  node?: Maybe<ComponentWhere>
-  node_NOT?: Maybe<ComponentWhere>
+  AND?: InputMaybe<Array<UserComponentsConnectionWhere>>
+  OR?: InputMaybe<Array<UserComponentsConnectionWhere>>
+  node?: InputMaybe<ComponentWhere>
+  node_NOT?: InputMaybe<ComponentWhere>
 }
 
 export type UserComponentsConnectOrCreateFieldInput = {
@@ -12050,7 +11984,7 @@ export type UserComponentsConnectOrCreateFieldInput = {
 }
 
 export type UserComponentsConnectOrCreateFieldInputOnCreate = {
-  node: ComponentCreateInput
+  node: ComponentOnCreateInput
 }
 
 export type UserComponentsCreateFieldInput = {
@@ -12058,69 +11992,69 @@ export type UserComponentsCreateFieldInput = {
 }
 
 export type UserComponentsDeleteFieldInput = {
-  where?: Maybe<UserComponentsConnectionWhere>
-  delete?: Maybe<ComponentDeleteInput>
+  where?: InputMaybe<UserComponentsConnectionWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
 }
 
 export type UserComponentsDisconnectFieldInput = {
-  where?: Maybe<UserComponentsConnectionWhere>
-  disconnect?: Maybe<ComponentDisconnectInput>
+  where?: InputMaybe<UserComponentsConnectionWhere>
+  disconnect?: InputMaybe<ComponentDisconnectInput>
 }
 
 export type UserComponentsFieldInput = {
-  create?: Maybe<Array<UserComponentsCreateFieldInput>>
-  connect?: Maybe<Array<UserComponentsConnectFieldInput>>
-  connectOrCreate?: Maybe<Array<UserComponentsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserComponentsCreateFieldInput>>
+  connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
 }
 
 export type UserComponentsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<UserComponentsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<UserComponentsNodeAggregationWhereInput>>
-  id_EQUAL?: Maybe<Scalars['ID']>
-  name_EQUAL?: Maybe<Scalars['String']>
-  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
-  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
-  name_GT?: Maybe<Scalars['Int']>
-  name_AVERAGE_GT?: Maybe<Scalars['Float']>
-  name_LONGEST_GT?: Maybe<Scalars['Int']>
-  name_SHORTEST_GT?: Maybe<Scalars['Int']>
-  name_GTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
-  name_LONGEST_GTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
-  name_LT?: Maybe<Scalars['Int']>
-  name_AVERAGE_LT?: Maybe<Scalars['Float']>
-  name_LONGEST_LT?: Maybe<Scalars['Int']>
-  name_SHORTEST_LT?: Maybe<Scalars['Int']>
-  name_LTE?: Maybe<Scalars['Int']>
-  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
-  name_LONGEST_LTE?: Maybe<Scalars['Int']>
-  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+  AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserComponentsUpdateConnectionInput = {
-  node?: Maybe<ComponentUpdateInput>
+  node?: InputMaybe<ComponentUpdateInput>
 }
 
 export type UserComponentsUpdateFieldInput = {
-  where?: Maybe<UserComponentsConnectionWhere>
-  update?: Maybe<UserComponentsUpdateConnectionInput>
-  connect?: Maybe<Array<UserComponentsConnectFieldInput>>
-  disconnect?: Maybe<Array<UserComponentsDisconnectFieldInput>>
-  create?: Maybe<Array<UserComponentsCreateFieldInput>>
-  delete?: Maybe<Array<UserComponentsDeleteFieldInput>>
-  connectOrCreate?: Maybe<Array<UserComponentsConnectOrCreateFieldInput>>
+  where?: InputMaybe<UserComponentsConnectionWhere>
+  update?: InputMaybe<UserComponentsUpdateConnectionInput>
+  connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>
+  disconnect?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
+  create?: InputMaybe<Array<UserComponentsCreateFieldInput>>
+  delete?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
 }
 
 export type UserConnectInput = {
-  apps?: Maybe<Array<UserAppsConnectFieldInput>>
-  components?: Maybe<Array<UserComponentsConnectFieldInput>>
+  apps?: InputMaybe<Array<UserAppsConnectFieldInput>>
+  components?: InputMaybe<Array<UserComponentsConnectFieldInput>>
 }
 
 export type UserConnectOrCreateInput = {
-  apps?: Maybe<Array<UserAppsConnectOrCreateFieldInput>>
-  components?: Maybe<Array<UserComponentsConnectOrCreateFieldInput>>
+  apps?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
+  components?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
 }
 
 export type UserConnectOrCreateWhere = {
@@ -12134,209 +12068,133 @@ export type UserConnectWhere = {
 export type UserCreateInput = {
   auth0Id: Scalars['String']
   email: Scalars['String']
-  apps?: Maybe<UserAppsFieldInput>
-  components?: Maybe<UserComponentsFieldInput>
+  apps?: InputMaybe<UserAppsFieldInput>
+  components?: InputMaybe<UserComponentsFieldInput>
 }
 
 export type UserDeleteInput = {
-  apps?: Maybe<Array<UserAppsDeleteFieldInput>>
-  components?: Maybe<Array<UserComponentsDeleteFieldInput>>
+  apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>
+  components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
 }
 
 export type UserDisconnectInput = {
-  apps?: Maybe<Array<UserAppsDisconnectFieldInput>>
-  components?: Maybe<Array<UserComponentsDisconnectFieldInput>>
+  apps?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
+  components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
+}
+
+export type UserOnCreateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  auth0Id?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
 }
 
 export type UserOptions = {
   /** Specify one or more UserSort objects to sort Users by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<UserSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
+  sort?: InputMaybe<Array<UserSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
 }
 
 export type UserRelationInput = {
-  apps?: Maybe<Array<UserAppsCreateFieldInput>>
-  components?: Maybe<Array<UserComponentsCreateFieldInput>>
+  apps?: InputMaybe<Array<UserAppsCreateFieldInput>>
+  components?: InputMaybe<Array<UserComponentsCreateFieldInput>>
 }
 
 /** Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object. */
 export type UserSort = {
-  id?: Maybe<SortDirection>
-  auth0Id?: Maybe<SortDirection>
-  email?: Maybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  auth0Id?: InputMaybe<SortDirection>
+  email?: InputMaybe<SortDirection>
 }
 
 export type UserUniqueWhere = {
-  id?: Maybe<Scalars['ID']>
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type UserUpdateInput = {
-  auth0Id?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<UserAppsUpdateFieldInput>>
-  components?: Maybe<Array<UserComponentsUpdateFieldInput>>
+  auth0Id?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
+  apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>
+  components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
 }
 
 export type UserWhere = {
-  OR?: Maybe<Array<UserWhere>>
-  AND?: Maybe<Array<UserWhere>>
-  id?: Maybe<Scalars['ID']>
-  id_NOT?: Maybe<Scalars['ID']>
-  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
-  id_CONTAINS?: Maybe<Scalars['ID']>
-  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
-  id_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
-  id_ENDS_WITH?: Maybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
-  auth0Id?: Maybe<Scalars['String']>
-  auth0Id_NOT?: Maybe<Scalars['String']>
-  auth0Id_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  auth0Id_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  auth0Id_CONTAINS?: Maybe<Scalars['String']>
-  auth0Id_NOT_CONTAINS?: Maybe<Scalars['String']>
-  auth0Id_STARTS_WITH?: Maybe<Scalars['String']>
-  auth0Id_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  auth0Id_ENDS_WITH?: Maybe<Scalars['String']>
-  auth0Id_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-  email_NOT?: Maybe<Scalars['String']>
-  email_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  email_NOT_IN?: Maybe<Array<Maybe<Scalars['String']>>>
-  email_CONTAINS?: Maybe<Scalars['String']>
-  email_NOT_CONTAINS?: Maybe<Scalars['String']>
-  email_STARTS_WITH?: Maybe<Scalars['String']>
-  email_NOT_STARTS_WITH?: Maybe<Scalars['String']>
-  email_ENDS_WITH?: Maybe<Scalars['String']>
-  email_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  apps?: Maybe<AppWhere>
-  apps_NOT?: Maybe<AppWhere>
-  appsAggregate?: Maybe<UserAppsAggregateInput>
-  components?: Maybe<ComponentWhere>
-  components_NOT?: Maybe<ComponentWhere>
-  componentsAggregate?: Maybe<UserComponentsAggregateInput>
-  appsConnection?: Maybe<UserAppsConnectionWhere>
-  appsConnection_NOT?: Maybe<UserAppsConnectionWhere>
-  componentsConnection?: Maybe<UserComponentsConnectionWhere>
-  componentsConnection_NOT?: Maybe<UserComponentsConnectionWhere>
+  OR?: InputMaybe<Array<UserWhere>>
+  AND?: InputMaybe<Array<UserWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  auth0Id?: InputMaybe<Scalars['String']>
+  auth0Id_NOT?: InputMaybe<Scalars['String']>
+  auth0Id_IN?: InputMaybe<Array<Scalars['String']>>
+  auth0Id_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  auth0Id_CONTAINS?: InputMaybe<Scalars['String']>
+  auth0Id_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  auth0Id_STARTS_WITH?: InputMaybe<Scalars['String']>
+  auth0Id_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  auth0Id_ENDS_WITH?: InputMaybe<Scalars['String']>
+  auth0Id_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Scalars['String']>
+  email_NOT?: InputMaybe<Scalars['String']>
+  email_IN?: InputMaybe<Array<Scalars['String']>>
+  email_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  email_CONTAINS?: InputMaybe<Scalars['String']>
+  email_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  email_STARTS_WITH?: InputMaybe<Scalars['String']>
+  email_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  email_ENDS_WITH?: InputMaybe<Scalars['String']>
+  email_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  apps?: InputMaybe<AppWhere>
+  apps_NOT?: InputMaybe<AppWhere>
+  appsAggregate?: InputMaybe<UserAppsAggregateInput>
+  /** Return Users where all of the related Apps match this filter */
+  apps_ALL?: InputMaybe<AppWhere>
+  /** Return Users where none of the related Apps match this filter */
+  apps_NONE?: InputMaybe<AppWhere>
+  /** Return Users where one of the related Apps match this filter */
+  apps_SINGLE?: InputMaybe<AppWhere>
+  /** Return Users where some of the related Apps match this filter */
+  apps_SOME?: InputMaybe<AppWhere>
+  components?: InputMaybe<ComponentWhere>
+  components_NOT?: InputMaybe<ComponentWhere>
+  componentsAggregate?: InputMaybe<UserComponentsAggregateInput>
+  /** Return Users where all of the related Components match this filter */
+  components_ALL?: InputMaybe<ComponentWhere>
+  /** Return Users where none of the related Components match this filter */
+  components_NONE?: InputMaybe<ComponentWhere>
+  /** Return Users where one of the related Components match this filter */
+  components_SINGLE?: InputMaybe<ComponentWhere>
+  /** Return Users where some of the related Components match this filter */
+  components_SOME?: InputMaybe<ComponentWhere>
+  appsConnection?: InputMaybe<UserAppsConnectionWhere>
+  appsConnection_NOT?: InputMaybe<UserAppsConnectionWhere>
+  appsConnection_ALL?: InputMaybe<UserAppsConnectionWhere>
+  appsConnection_NONE?: InputMaybe<UserAppsConnectionWhere>
+  appsConnection_SINGLE?: InputMaybe<UserAppsConnectionWhere>
+  appsConnection_SOME?: InputMaybe<UserAppsConnectionWhere>
+  componentsConnection?: InputMaybe<UserComponentsConnectionWhere>
+  componentsConnection_NOT?: InputMaybe<UserComponentsConnectionWhere>
+  componentsConnection_ALL?: InputMaybe<UserComponentsConnectionWhere>
+  componentsConnection_NONE?: InputMaybe<UserComponentsConnectionWhere>
+  componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>
+  componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>
 }
 
-export interface ResetDatabaseMutationResponseAggregateInput {
-  count?: boolean
-}
-
-export declare class ResetDatabaseMutationResponseModel {
-  public find(args?: {
-    where?: ResetDatabaseMutationResponseWhere
-
-    options?: ResetDatabaseMutationResponseOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ResetDatabaseMutationResponse>>
-
-  public count(args?: {
-    where?: ResetDatabaseMutationResponseWhere
-  }): Promise<number>
-
-  public create(args: {
-    input: Array<ResetDatabaseMutationResponseCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>
-
-  public update(args: {
-    where?: ResetDatabaseMutationResponseWhere
-    update?: ResetDatabaseMutationResponseUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>
-
-  public delete(args: {
-    where?: ResetDatabaseMutationResponseWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: ResetDatabaseMutationResponseWhere
-
-    aggregate: ResetDatabaseMutationResponseAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<ResetDatabaseMutationResponseAggregateSelection>
-}
-
-export interface ImportDataMutationResponseAggregateInput {
-  count?: boolean
-}
-
-export declare class ImportDataMutationResponseModel {
-  public find(args?: {
-    where?: ImportDataMutationResponseWhere
-
-    options?: ImportDataMutationResponseOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ImportDataMutationResponse>>
-
-  public count(args?: {
-    where?: ImportDataMutationResponseWhere
-  }): Promise<number>
-
-  public create(args: {
-    input: Array<ImportDataMutationResponseCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateImportDataMutationResponsesMutationResponse>
-
-  public update(args: {
-    where?: ImportDataMutationResponseWhere
-    update?: ImportDataMutationResponseUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateImportDataMutationResponsesMutationResponse>
-
-  public delete(args: {
-    where?: ImportDataMutationResponseWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: ImportDataMutationResponseWhere
-
-    aggregate: ImportDataMutationResponseAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<ImportDataMutationResponseAggregateSelection>
-}
-
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface EdgeAggregateInput {
+export interface EdgeAggregateSelectionInput {
   count?: boolean
-  source?: StringAggregateInput
-  target?: StringAggregateInput
+  source?: StringAggregateInputNonNullable
+  target?: StringAggregateInputNonNullable
 }
 
 export declare class EdgeModel {
@@ -12349,8 +12207,6 @@ export declare class EdgeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Edge>>
-
-  public count(args?: { where?: EdgeWhere }): Promise<number>
 
   public create(args: {
     input: Array<EdgeCreateInput>
@@ -12380,25 +12236,78 @@ export declare class EdgeModel {
   public aggregate(args: {
     where?: EdgeWhere
 
-    aggregate: EdgeAggregateInput
+    aggregate: EdgeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<EdgeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface UserAggregateInput {
+export interface ResetDatabaseMutationResponseAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  auth0Id?: StringAggregateInput
-  email?: StringAggregateInput
+}
+
+export declare class ResetDatabaseMutationResponseModel {
+  public find(args?: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    options?: ResetDatabaseMutationResponseOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<ResetDatabaseMutationResponse>>
+
+  public create(args: {
+    input: Array<ResetDatabaseMutationResponseCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>
+
+  public update(args: {
+    where?: ResetDatabaseMutationResponseWhere
+    update?: ResetDatabaseMutationResponseUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>
+
+  public delete(args: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    aggregate: ResetDatabaseMutationResponseAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<ResetDatabaseMutationResponseAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface UserAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  auth0Id?: StringAggregateInputNonNullable
+  email?: StringAggregateInputNonNullable
 }
 
 export declare class UserModel {
@@ -12411,8 +12320,6 @@ export declare class UserModel {
     context?: any
     rootValue?: any
   }): Promise<Array<User>>
-
-  public count(args?: { where?: UserWhere }): Promise<number>
 
   public create(args: {
     input: Array<UserCreateInput>
@@ -12445,24 +12352,24 @@ export declare class UserModel {
   public aggregate(args: {
     where?: UserWhere
 
-    aggregate: UserAggregateInput
+    aggregate: UserAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<UserAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface AppAggregateInput {
+export interface AppAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class AppModel {
@@ -12475,8 +12382,6 @@ export declare class AppModel {
     context?: any
     rootValue?: any
   }): Promise<Array<App>>
-
-  public count(args?: { where?: AppWhere }): Promise<number>
 
   public create(args: {
     input: Array<AppCreateInput>
@@ -12509,24 +12414,24 @@ export declare class AppModel {
   public aggregate(args: {
     where?: AppWhere
 
-    aggregate: AppAggregateInput
+    aggregate: AppAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<AppAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface AtomAggregateInput {
+export interface AtomAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class AtomModel {
@@ -12539,8 +12444,6 @@ export declare class AtomModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Atom>>
-
-  public count(args?: { where?: AtomWhere }): Promise<number>
 
   public create(args: {
     input: Array<AtomCreateInput>
@@ -12573,31 +12476,35 @@ export declare class AtomModel {
   public aggregate(args: {
     where?: AtomWhere
 
-    aggregate: AtomAggregateInput
+    aggregate: AtomAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<AtomAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface CreateInfoAggregateInput {
+export interface CreateInfoAggregateSelectionInput {
   count?: boolean
-  bookmark?: StringAggregateInput
-  nodesCreated?: IntAggregateInput
-  relationshipsCreated?: IntAggregateInput
+  bookmark?: StringAggregateInputNullable
+  nodesCreated?: IntAggregateInputNonNullable
+  relationshipsCreated?: IntAggregateInputNonNullable
 }
 
 export declare class CreateInfoModel {
@@ -12610,8 +12517,6 @@ export declare class CreateInfoModel {
     context?: any
     rootValue?: any
   }): Promise<Array<CreateInfo>>
-
-  public count(args?: { where?: CreateInfoWhere }): Promise<number>
 
   public create(args: {
     input: Array<CreateInfoCreateInput>
@@ -12641,27 +12546,31 @@ export declare class CreateInfoModel {
   public aggregate(args: {
     where?: CreateInfoWhere
 
-    aggregate: CreateInfoAggregateInput
+    aggregate: CreateInfoAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<CreateInfoAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ImportAtomsMutationResponseAggregateInput {
+export interface ImportAtomsMutationResponseAggregateSelectionInput {
   count?: boolean
 }
 
@@ -12675,10 +12584,6 @@ export declare class ImportAtomsMutationResponseModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ImportAtomsMutationResponse>>
-
-  public count(args?: {
-    where?: ImportAtomsMutationResponseWhere
-  }): Promise<number>
 
   public create(args: {
     input: Array<ImportAtomsMutationResponseCreateInput>
@@ -12708,30 +12613,34 @@ export declare class ImportAtomsMutationResponseModel {
   public aggregate(args: {
     where?: ImportAtomsMutationResponseWhere
 
-    aggregate: ImportAtomsMutationResponseAggregateInput
+    aggregate: ImportAtomsMutationResponseAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ImportAtomsMutationResponseAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface PageAggregateInput {
+export interface PageAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class PageModel {
@@ -12744,8 +12653,6 @@ export declare class PageModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Page>>
-
-  public count(args?: { where?: PageWhere }): Promise<number>
 
   public create(args: {
     input: Array<PageCreateInput>
@@ -12778,29 +12685,33 @@ export declare class PageModel {
   public aggregate(args: {
     where?: PageWhere
 
-    aggregate: PageAggregateInput
+    aggregate: PageAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<PageAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface DeleteFieldResponseAggregateInput {
+export interface DeleteFieldResponseAggregateSelectionInput {
   count?: boolean
-  deletedEdgesCount?: IntAggregateInput
+  deletedEdgesCount?: IntAggregateInputNonNullable
 }
 
 export declare class DeleteFieldResponseModel {
@@ -12813,8 +12724,6 @@ export declare class DeleteFieldResponseModel {
     context?: any
     rootValue?: any
   }): Promise<Array<DeleteFieldResponse>>
-
-  public count(args?: { where?: DeleteFieldResponseWhere }): Promise<number>
 
   public create(args: {
     input: Array<DeleteFieldResponseCreateInput>
@@ -12844,30 +12753,34 @@ export declare class DeleteFieldResponseModel {
   public aggregate(args: {
     where?: DeleteFieldResponseWhere
 
-    aggregate: DeleteFieldResponseAggregateInput
+    aggregate: DeleteFieldResponseAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<DeleteFieldResponseAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TypeReferenceAggregateInput {
+export interface TypeReferenceAggregateSelectionInput {
   count?: boolean
-  name?: StringAggregateInput
-  label?: StringAggregateInput
+  name?: StringAggregateInputNonNullable
+  label?: StringAggregateInputNonNullable
 }
 
 export declare class TypeReferenceModel {
@@ -12880,8 +12793,6 @@ export declare class TypeReferenceModel {
     context?: any
     rootValue?: any
   }): Promise<Array<TypeReference>>
-
-  public count(args?: { where?: TypeReferenceWhere }): Promise<number>
 
   public create(args: {
     input: Array<TypeReferenceCreateInput>
@@ -12911,33 +12822,37 @@ export declare class TypeReferenceModel {
   public aggregate(args: {
     where?: TypeReferenceWhere
 
-    aggregate: TypeReferenceAggregateInput
+    aggregate: TypeReferenceAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<TypeReferenceAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface InterfaceTypeEdgeAggregateInput {
+export interface InterfaceTypeEdgeAggregateSelectionInput {
   count?: boolean
-  source?: StringAggregateInput
-  target?: StringAggregateInput
-  key?: StringAggregateInput
-  name?: StringAggregateInput
-  description?: StringAggregateInput
+  source?: StringAggregateInputNonNullable
+  target?: StringAggregateInputNonNullable
+  key?: StringAggregateInputNonNullable
+  name?: StringAggregateInputNullable
+  description?: StringAggregateInputNullable
 }
 
 export declare class InterfaceTypeEdgeModel {
@@ -12950,8 +12865,6 @@ export declare class InterfaceTypeEdgeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<InterfaceTypeEdge>>
-
-  public count(args?: { where?: InterfaceTypeEdgeWhere }): Promise<number>
 
   public create(args: {
     input: Array<InterfaceTypeEdgeCreateInput>
@@ -12981,95 +12894,34 @@ export declare class InterfaceTypeEdgeModel {
   public aggregate(args: {
     where?: InterfaceTypeEdgeWhere
 
-    aggregate: InterfaceTypeEdgeAggregateInput
+    aggregate: InterfaceTypeEdgeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<InterfaceTypeEdgeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TypeGraphAggregateInput {
+export interface PrimitiveTypeAggregateSelectionInput {
   count?: boolean
-}
-
-export declare class TypeGraphModel {
-  public find(args?: {
-    where?: TypeGraphWhere
-
-    options?: TypeGraphOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<TypeGraph>>
-
-  public count(args?: { where?: TypeGraphWhere }): Promise<number>
-
-  public create(args: {
-    input: Array<TypeGraphCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTypeGraphsMutationResponse>
-
-  public update(args: {
-    where?: TypeGraphWhere
-    update?: TypeGraphUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTypeGraphsMutationResponse>
-
-  public delete(args: {
-    where?: TypeGraphWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: TypeGraphWhere
-
-    aggregate: TypeGraphAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<TypeGraphAggregateSelection>
-}
-
-export interface StringAggregateInput {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IdAggregateInput {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInput {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
-}
-export interface PrimitiveTypeAggregateInput {
-  count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class PrimitiveTypeModel {
@@ -13082,8 +12934,6 @@ export declare class PrimitiveTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<PrimitiveType>>
-
-  public count(args?: { where?: PrimitiveTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<PrimitiveTypeCreateInput>
@@ -13116,30 +12966,34 @@ export declare class PrimitiveTypeModel {
   public aggregate(args: {
     where?: PrimitiveTypeWhere
 
-    aggregate: PrimitiveTypeAggregateInput
+    aggregate: PrimitiveTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<PrimitiveTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ArrayTypeAggregateInput {
+export interface ArrayTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class ArrayTypeModel {
@@ -13152,8 +13006,6 @@ export declare class ArrayTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ArrayType>>
-
-  public count(args?: { where?: ArrayTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<ArrayTypeCreateInput>
@@ -13186,30 +13038,34 @@ export declare class ArrayTypeModel {
   public aggregate(args: {
     where?: ArrayTypeWhere
 
-    aggregate: ArrayTypeAggregateInput
+    aggregate: ArrayTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ArrayTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface UnionTypeAggregateInput {
+export interface UnionTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class UnionTypeModel {
@@ -13222,8 +13078,6 @@ export declare class UnionTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<UnionType>>
-
-  public count(args?: { where?: UnionTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<UnionTypeCreateInput>
@@ -13256,30 +13110,34 @@ export declare class UnionTypeModel {
   public aggregate(args: {
     where?: UnionTypeWhere
 
-    aggregate: UnionTypeAggregateInput
+    aggregate: UnionTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<UnionTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface InterfaceTypeAggregateInput {
+export interface InterfaceTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class InterfaceTypeModel {
@@ -13292,8 +13150,6 @@ export declare class InterfaceTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<InterfaceType>>
-
-  public count(args?: { where?: InterfaceTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<InterfaceTypeCreateInput>
@@ -13326,30 +13182,34 @@ export declare class InterfaceTypeModel {
   public aggregate(args: {
     where?: InterfaceTypeWhere
 
-    aggregate: InterfaceTypeAggregateInput
+    aggregate: InterfaceTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<InterfaceTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ElementTypeAggregateInput {
+export interface ElementTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class ElementTypeModel {
@@ -13362,8 +13222,6 @@ export declare class ElementTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ElementType>>
-
-  public count(args?: { where?: ElementTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<ElementTypeCreateInput>
@@ -13396,30 +13254,34 @@ export declare class ElementTypeModel {
   public aggregate(args: {
     where?: ElementTypeWhere
 
-    aggregate: ElementTypeAggregateInput
+    aggregate: ElementTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ElementTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface RenderPropsTypeAggregateInput {
+export interface RenderPropsTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class RenderPropsTypeModel {
@@ -13432,8 +13294,6 @@ export declare class RenderPropsTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<RenderPropsType>>
-
-  public count(args?: { where?: RenderPropsTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<RenderPropsTypeCreateInput>
@@ -13466,30 +13326,34 @@ export declare class RenderPropsTypeModel {
   public aggregate(args: {
     where?: RenderPropsTypeWhere
 
-    aggregate: RenderPropsTypeAggregateInput
+    aggregate: RenderPropsTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<RenderPropsTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ReactNodeTypeAggregateInput {
+export interface ReactNodeTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class ReactNodeTypeModel {
@@ -13502,8 +13366,6 @@ export declare class ReactNodeTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ReactNodeType>>
-
-  public count(args?: { where?: ReactNodeTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<ReactNodeTypeCreateInput>
@@ -13536,30 +13398,34 @@ export declare class ReactNodeTypeModel {
   public aggregate(args: {
     where?: ReactNodeTypeWhere
 
-    aggregate: ReactNodeTypeAggregateInput
+    aggregate: ReactNodeTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ReactNodeTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface EnumTypeAggregateInput {
+export interface EnumTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class EnumTypeModel {
@@ -13572,8 +13438,6 @@ export declare class EnumTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<EnumType>>
-
-  public count(args?: { where?: EnumTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<EnumTypeCreateInput>
@@ -13606,31 +13470,35 @@ export declare class EnumTypeModel {
   public aggregate(args: {
     where?: EnumTypeWhere
 
-    aggregate: EnumTypeAggregateInput
+    aggregate: EnumTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<EnumTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface EnumTypeValueAggregateInput {
+export interface EnumTypeValueAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
-  value?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNullable
+  value?: StringAggregateInputNonNullable
 }
 
 export declare class EnumTypeValueModel {
@@ -13643,8 +13511,6 @@ export declare class EnumTypeValueModel {
     context?: any
     rootValue?: any
   }): Promise<Array<EnumTypeValue>>
-
-  public count(args?: { where?: EnumTypeValueWhere }): Promise<number>
 
   public create(args: {
     input: Array<EnumTypeValueCreateInput>
@@ -13677,30 +13543,34 @@ export declare class EnumTypeValueModel {
   public aggregate(args: {
     where?: EnumTypeValueWhere
 
-    aggregate: EnumTypeValueAggregateInput
+    aggregate: EnumTypeValueAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<EnumTypeValueAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface LambdaTypeAggregateInput {
+export interface LambdaTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class LambdaTypeModel {
@@ -13713,8 +13583,6 @@ export declare class LambdaTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<LambdaType>>
-
-  public count(args?: { where?: LambdaTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<LambdaTypeCreateInput>
@@ -13747,30 +13615,34 @@ export declare class LambdaTypeModel {
   public aggregate(args: {
     where?: LambdaTypeWhere
 
-    aggregate: LambdaTypeAggregateInput
+    aggregate: LambdaTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<LambdaTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface PageTypeAggregateInput {
+export interface PageTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class PageTypeModel {
@@ -13783,8 +13655,6 @@ export declare class PageTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<PageType>>
-
-  public count(args?: { where?: PageTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<PageTypeCreateInput>
@@ -13817,30 +13687,34 @@ export declare class PageTypeModel {
   public aggregate(args: {
     where?: PageTypeWhere
 
-    aggregate: PageTypeAggregateInput
+    aggregate: PageTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<PageTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface AppTypeAggregateInput {
+export interface AppTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class AppTypeModel {
@@ -13853,8 +13727,6 @@ export declare class AppTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<AppType>>
-
-  public count(args?: { where?: AppTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<AppTypeCreateInput>
@@ -13887,30 +13759,34 @@ export declare class AppTypeModel {
   public aggregate(args: {
     where?: AppTypeWhere
 
-    aggregate: AppTypeAggregateInput
+    aggregate: AppTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<AppTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface MonacoTypeAggregateInput {
+export interface MonacoTypeAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class MonacoTypeModel {
@@ -13923,8 +13799,6 @@ export declare class MonacoTypeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<MonacoType>>
-
-  public count(args?: { where?: MonacoTypeWhere }): Promise<number>
 
   public create(args: {
     input: Array<MonacoTypeCreateInput>
@@ -13957,30 +13831,34 @@ export declare class MonacoTypeModel {
   public aggregate(args: {
     where?: MonacoTypeWhere
 
-    aggregate: MonacoTypeAggregateInput
+    aggregate: MonacoTypeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<MonacoTypeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TagAggregateInput {
+export interface TagAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class TagModel {
@@ -13993,8 +13871,6 @@ export declare class TagModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Tag>>
-
-  public count(args?: { where?: TagWhere }): Promise<number>
 
   public create(args: {
     input: Array<TagCreateInput>
@@ -14027,30 +13903,40 @@ export declare class TagModel {
   public aggregate(args: {
     where?: TagWhere
 
-    aggregate: TagAggregateInput
+    aggregate: TagAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<TagAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TagGraphOptionsAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface TagGraphOptionsAggregateSelectionInput {
   count?: boolean
-  sort?: IntAggregateInput
-  limit?: IntAggregateInput
+  sort?: IntAggregateInputNullable
+  limit?: IntAggregateInputNullable
 }
 
 export declare class TagGraphOptionsModel {
@@ -14063,8 +13949,6 @@ export declare class TagGraphOptionsModel {
     context?: any
     rootValue?: any
   }): Promise<Array<TagGraphOptions>>
-
-  public count(args?: { where?: TagGraphOptionsWhere }): Promise<number>
 
   public create(args: {
     input: Array<TagGraphOptionsCreateInput>
@@ -14094,30 +13978,40 @@ export declare class TagGraphOptionsModel {
   public aggregate(args: {
     where?: TagGraphOptionsWhere
 
-    aggregate: TagGraphOptionsAggregateInput
+    aggregate: TagGraphOptionsAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<TagGraphOptionsAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TagEdgeAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface TagEdgeAggregateSelectionInput {
   count?: boolean
-  source?: IdAggregateInput
-  target?: IdAggregateInput
+  source?: IdAggregateInputNonNullable
+  target?: IdAggregateInputNonNullable
 }
 
 export declare class TagEdgeModel {
@@ -14130,8 +14024,6 @@ export declare class TagEdgeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<TagEdge>>
-
-  public count(args?: { where?: TagEdgeWhere }): Promise<number>
 
   public create(args: {
     input: Array<TagEdgeCreateInput>
@@ -14161,27 +14053,37 @@ export declare class TagEdgeModel {
   public aggregate(args: {
     where?: TagEdgeWhere
 
-    aggregate: TagEdgeAggregateInput
+    aggregate: TagEdgeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<TagEdgeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface TagGraphAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface TagGraphAggregateSelectionInput {
   count?: boolean
 }
 
@@ -14195,8 +14097,6 @@ export declare class TagGraphModel {
     context?: any
     rootValue?: any
   }): Promise<Array<TagGraph>>
-
-  public count(args?: { where?: TagGraphWhere }): Promise<number>
 
   public create(args: {
     input: Array<TagGraphCreateInput>
@@ -14226,31 +14126,41 @@ export declare class TagGraphModel {
   public aggregate(args: {
     where?: TagGraphWhere
 
-    aggregate: TagGraphAggregateInput
+    aggregate: TagGraphAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<TagGraphAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ElementEdgeAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface ElementEdgeAggregateSelectionInput {
   count?: boolean
-  source?: StringAggregateInput
-  target?: StringAggregateInput
-  order?: IntAggregateInput
+  source?: StringAggregateInputNonNullable
+  target?: StringAggregateInputNonNullable
+  order?: IntAggregateInputNullable
 }
 
 export declare class ElementEdgeModel {
@@ -14263,8 +14173,6 @@ export declare class ElementEdgeModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ElementEdge>>
-
-  public count(args?: { where?: ElementEdgeWhere }): Promise<number>
 
   public create(args: {
     input: Array<ElementEdgeCreateInput>
@@ -14294,29 +14202,39 @@ export declare class ElementEdgeModel {
   public aggregate(args: {
     where?: ElementEdgeWhere
 
-    aggregate: ElementEdgeAggregateInput
+    aggregate: ElementEdgeAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ElementEdgeAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ElementGraphAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface ElementGraphAggregateSelectionInput {
   count?: boolean
-  rootId?: StringAggregateInput
+  rootId?: StringAggregateInputNullable
 }
 
 export declare class ElementGraphModel {
@@ -14329,8 +14247,6 @@ export declare class ElementGraphModel {
     context?: any
     rootValue?: any
   }): Promise<Array<ElementGraph>>
-
-  public count(args?: { where?: ElementGraphWhere }): Promise<number>
 
   public create(args: {
     input: Array<ElementGraphCreateInput>
@@ -14360,30 +14276,40 @@ export declare class ElementGraphModel {
   public aggregate(args: {
     where?: ElementGraphWhere
 
-    aggregate: ElementGraphAggregateInput
+    aggregate: ElementGraphAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ElementGraphAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface PropAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface PropAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  data?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  data?: StringAggregateInputNonNullable
 }
 
 export declare class PropModel {
@@ -14396,8 +14322,6 @@ export declare class PropModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Prop>>
-
-  public count(args?: { where?: PropWhere }): Promise<number>
 
   public create(args: {
     input: Array<PropCreateInput>
@@ -14427,29 +14351,39 @@ export declare class PropModel {
   public aggregate(args: {
     where?: PropWhere
 
-    aggregate: PropAggregateInput
+    aggregate: PropAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<PropAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface HookAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface HookAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
+  id?: IdAggregateInputNonNullable
 }
 
 export declare class HookModel {
@@ -14462,8 +14396,6 @@ export declare class HookModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Hook>>
-
-  public count(args?: { where?: HookWhere }): Promise<number>
 
   public create(args: {
     input: Array<HookCreateInput>
@@ -14496,31 +14428,41 @@ export declare class HookModel {
   public aggregate(args: {
     where?: HookWhere
 
-    aggregate: HookAggregateInput
+    aggregate: HookAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<HookAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface PropMapBindingAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface PropMapBindingAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  sourceKey?: StringAggregateInput
-  targetKey?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  sourceKey?: StringAggregateInputNonNullable
+  targetKey?: StringAggregateInputNonNullable
 }
 
 export declare class PropMapBindingModel {
@@ -14533,8 +14475,6 @@ export declare class PropMapBindingModel {
     context?: any
     rootValue?: any
   }): Promise<Array<PropMapBinding>>
-
-  public count(args?: { where?: PropMapBindingWhere }): Promise<number>
 
   public create(args: {
     input: Array<PropMapBindingCreateInput>
@@ -14567,34 +14507,44 @@ export declare class PropMapBindingModel {
   public aggregate(args: {
     where?: PropMapBindingWhere
 
-    aggregate: PropMapBindingAggregateInput
+    aggregate: PropMapBindingAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<PropMapBindingAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ElementAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface ElementAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
-  css?: StringAggregateInput
-  propTransformationJs?: StringAggregateInput
-  renderForEachPropKey?: StringAggregateInput
-  renderIfPropKey?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNullable
+  css?: StringAggregateInputNullable
+  propTransformationJs?: StringAggregateInputNullable
+  renderForEachPropKey?: StringAggregateInputNullable
+  renderIfPropKey?: StringAggregateInputNullable
 }
 
 export declare class ElementModel {
@@ -14607,8 +14557,6 @@ export declare class ElementModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Element>>
-
-  public count(args?: { where?: ElementWhere }): Promise<number>
 
   public create(args: {
     input: Array<ElementCreateInput>
@@ -14641,27 +14589,37 @@ export declare class ElementModel {
   public aggregate(args: {
     where?: ElementWhere
 
-    aggregate: ElementAggregateInput
+    aggregate: ElementAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ElementAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface DuplicateElementMutationResponseAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface DuplicateElementMutationResponseAggregateSelectionInput {
   count?: boolean
 }
 
@@ -14675,10 +14633,6 @@ export declare class DuplicateElementMutationResponseModel {
     context?: any
     rootValue?: any
   }): Promise<Array<DuplicateElementMutationResponse>>
-
-  public count(args?: {
-    where?: DuplicateElementMutationResponseWhere
-  }): Promise<number>
 
   public create(args: {
     input: Array<DuplicateElementMutationResponseCreateInput>
@@ -14708,30 +14662,40 @@ export declare class DuplicateElementMutationResponseModel {
   public aggregate(args: {
     where?: DuplicateElementMutationResponseWhere
 
-    aggregate: DuplicateElementMutationResponseAggregateInput
+    aggregate: DuplicateElementMutationResponseAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<DuplicateElementMutationResponseAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface DeleteElementsInfoAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface DeleteElementsInfoAggregateSelectionInput {
   count?: boolean
-  nodesDeleted?: IntAggregateInput
-  relationshipsDeleted?: IntAggregateInput
+  nodesDeleted?: IntAggregateInputNonNullable
+  relationshipsDeleted?: IntAggregateInputNonNullable
 }
 
 export declare class DeleteElementsInfoModel {
@@ -14744,8 +14708,6 @@ export declare class DeleteElementsInfoModel {
     context?: any
     rootValue?: any
   }): Promise<Array<DeleteElementsInfo>>
-
-  public count(args?: { where?: DeleteElementsInfoWhere }): Promise<number>
 
   public create(args: {
     input: Array<DeleteElementsInfoCreateInput>
@@ -14775,30 +14737,40 @@ export declare class DeleteElementsInfoModel {
   public aggregate(args: {
     where?: DeleteElementsInfoWhere
 
-    aggregate: DeleteElementsInfoAggregateInput
+    aggregate: DeleteElementsInfoAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<DeleteElementsInfoAggregateSelection>
 }
 
-export interface StringAggregateInput {
+export interface StringAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IdAggregateInput {
+export interface IdAggregateInputNonNullable {
   shortest?: boolean
   longest?: boolean
 }
-export interface IntAggregateInput {
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
   max?: boolean
   min?: boolean
   average?: boolean
   sum?: boolean
 }
-export interface ComponentAggregateInput {
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface ComponentAggregateSelectionInput {
   count?: boolean
-  id?: IdAggregateInput
-  name?: StringAggregateInput
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
 }
 
 export declare class ComponentModel {
@@ -14811,8 +14783,6 @@ export declare class ComponentModel {
     context?: any
     rootValue?: any
   }): Promise<Array<Component>>
-
-  public count(args?: { where?: ComponentWhere }): Promise<number>
 
   public create(args: {
     input: Array<ComponentCreateInput>
@@ -14845,16 +14815,15 @@ export declare class ComponentModel {
   public aggregate(args: {
     where?: ComponentWhere
 
-    aggregate: ComponentAggregateInput
+    aggregate: ComponentAggregateSelectionInput
     context?: any
     rootValue?: any
   }): Promise<ComponentAggregateSelection>
 }
 
 export interface ModelMap {
-  ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
-  ImportDataMutationResponse: ImportDataMutationResponseModel
   Edge: EdgeModel
+  ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
   User: UserModel
   App: AppModel
   Atom: AtomModel
@@ -14864,7 +14833,6 @@ export interface ModelMap {
   DeleteFieldResponse: DeleteFieldResponseModel
   TypeReference: TypeReferenceModel
   InterfaceTypeEdge: InterfaceTypeEdgeModel
-  TypeGraph: TypeGraphModel
   PrimitiveType: PrimitiveTypeModel
   ArrayType: ArrayTypeModel
   UnionType: UnionTypeModel

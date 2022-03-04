@@ -1,10 +1,10 @@
 import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { InterfaceTypeFieldEdgeFragment } from '../graphql'
+import { SnapshotOutOfModel } from 'mobx-keystone'
+import { TypeModelAny } from '../store'
 
 export const getTypeName = (
-  // FIXME: Changed this to overcome build issue should check the correct typing
-  type: Nullish<InterfaceTypeFieldEdgeFragment['node']>,
+  type: Nullish<SnapshotOutOfModel<TypeModelAny>>,
 ): string => {
   if (!type) {
     return ''

@@ -70,7 +70,8 @@ export const getServerSideProps = withPageAuthRequired({
       async ({ req, res }: GetServerSidePropsContext) => {
         const session = await getSession(req, res)
         getGraphQLClient().setHeaders({ cookie: `${req.headers.cookie}` })
-        store.dispatch(componentEndpoints.endpoints.GetComponents.initiate())
+        // TODO investigate type issue
+        // store.dispatch(componentEndpoints.endpoints.GetComponents.initiate())
         store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
         await Promise.all(componentEndpoints.util.getRunningOperationPromises())
 

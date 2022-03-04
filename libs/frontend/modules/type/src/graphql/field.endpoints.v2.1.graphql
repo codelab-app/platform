@@ -1,0 +1,17 @@
+mutation CreateField($input: UpsertFieldInput!) {
+  upsertFieldEdge(input: $input, isCreating: true) {
+    ...InterfaceTypeEdge
+  }
+}
+
+mutation UpdateField($input: UpsertFieldInput!) {
+  upsertFieldEdge(input: $input, isCreating: false) {
+    ...InterfaceTypeEdge
+  }
+}
+
+mutation DeleteField($input: DeleteFieldInput!) {
+  deleteFieldEdge(input: $input) {
+    deletedEdgesCount
+  }
+}

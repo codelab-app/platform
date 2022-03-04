@@ -19,7 +19,7 @@ export const DeletePageModal = observer<DeletePageModalProps>(({ pages }) => {
   }
 
   const onSubmit = () => {
-    const promise = pages.deletePage(deletingPage.id)
+    const promise = pages.delete(deletingPage.id)
     closeModal()
 
     return promise

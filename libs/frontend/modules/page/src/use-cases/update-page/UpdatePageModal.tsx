@@ -30,7 +30,10 @@ export const UpdatePageModal = observer<UpdatePageModalProps>(({ pages }) => {
     title: 'Error while updating page',
   })
 
-  const model = { name: updatingPage.name, appId: updatingPage.appId }
+  const model = {
+    name: updatingPage.name,
+    appId: updatingPage.appId || undefined,
+  }
 
   return (
     <ModalForm.Modal

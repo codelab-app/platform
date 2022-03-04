@@ -12,12 +12,17 @@ export const atomSchema = gql`
     id: ID! @id
     type: AtomType! @unique
     name: String! @unique
-    tags: [Tag!] @relationship(type: "TAGS_WITH", direction: OUT)
+    tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
   }
 
   extend type Atom
-    @auth(rules: [{ operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }])
+    @auth(
+      rules: [
+        { operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }
+        { operations: [CONNECT, DISCONNECT, READ], roles: ["Admin", "User"] }
+      ]
+    )
 
   # Can't reuse from Neo4j schema
   type CreateInfo {
@@ -27,11 +32,11 @@ export const atomSchema = gql`
   }
 
   type ImportAtomsMutationResponse {
-    atoms: [Atom!]
+    atoms: [Atom!]!
   }
 
   input ImportAtomsInput {
-    payload: [JSONObject!]
+    payload: [JSONObject!]!
   }
 
   type Mutation {

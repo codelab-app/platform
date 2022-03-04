@@ -42,7 +42,7 @@ export const Form = <TData, TResponse = unknown>({
         return result
           .then((r) => {
             if (r) {
-              callbackWithParams(onSubmitSuccess, r)
+              callbackWithParams(onSubmitSuccess, r as any)
             }
           })
           .catch((err) => {

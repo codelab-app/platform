@@ -22,7 +22,9 @@ export const elementMutationsResolvers: IResolvers = {
       .toPromise()
       .finally(() => session.close())
 
-    const elements = Element().find({
+    const ElementModel = await Element()
+
+    const elements = ElementModel.find({
       where: { id_IN: ids },
       selectionSet: elementSelectionSet,
     })
@@ -31,12 +33,13 @@ export const elementMutationsResolvers: IResolvers = {
   },
   deleteElementsSubgraph: async (_source, args: MutationDeleteElementsArgs) => {
     const session = driver.rxSession()
+    const ElementModel = await Element()
 
     if (!args.where) {
       throw new Error('No argument provided for delete operation')
     }
 
-    const elements = await Element().find({ where: args.where })
+    const elements = await ElementModel.find({ where: args.where })
     const ids = elements.map((x) => x.id)
 
     return await session

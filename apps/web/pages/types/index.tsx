@@ -3,6 +3,7 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateTypeButton,
   CreateTypeModal,
@@ -11,7 +12,6 @@ import {
   GetTypesTable,
   ImportTypesUpload,
   UpdateTypeModal,
-  useTypeState,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -19,18 +19,19 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const Header = () => {
-  const { selectedIds } = useTypeState()
+const Header = observer(() => {
+  const store = useStore()
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <ExportTypesButton typeIds={selectedIds} />
+      <ExportTypesButton typeStore={store.typeStore} />
       <ImportTypesUpload />
-      <CreateTypeButton key={0} />
+      <CreateTypeButton key={0} typeStore={store.typeStore} />
     </div>,
   ]
 
@@ -42,33 +43,35 @@ const Header = () => {
       title="Types"
     />
   )
-}
+})
 
-const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
+const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
+
   return (
     <>
       <Head>
         <title>Types | Codelab</title>
       </Head>
 
-      <CreateTypeModal />
-      <DeleteTypeModal />
-      <UpdateTypeModal />
+      <CreateTypeModal typeStore={store.typeStore} />
+      <DeleteTypeModal typeStore={store.typeStore} />
+      <UpdateTypeModal typeStore={store.typeStore} />
       <ContentSection>
-        <GetTypesTable />
+        <GetTypesTable typeStore={store.typeStore} />
       </ContentSection>
     </>
   )
-}
+})
 
 export default TypesPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-TypesPage.Layout = (page) => {
+TypesPage.Layout = observer((page) => {
   return (
     <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
       {page.children}
     </DashboardTemplate>
   )
-}
+})

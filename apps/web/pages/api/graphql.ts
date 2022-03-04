@@ -10,28 +10,33 @@ import { getSchema } from '../../src/graphql/schema/neoSchema'
 const driver = getDriver()
 const neoSchema = getSchema(driver)
 const path = '/api/graphql'
-
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
-
-const apolloServer = new ApolloServer({
-  schema: neoSchema.schema,
-  context: ({ req }) => ({
-    req,
-  }),
-  formatError: (err) => {
-    console.error(util.inspect(err, false, null, true))
-
-    // Otherwise return the original error. The error can also
-    // be manipulated in other ways, as long as it's returned.
-    return err
-  },
-  // introspection: true,
-  // plugins: [ApolloServerPluginInlineTrace()],
-})
+let apolloServer: ApolloServer
 
 const startServer = neoSchema
-  .assertIndexesAndConstraints({ options: { create: true }, driver })
-  .then(() => apolloServer.start())
+  .getSchema()
+  .then((schema) => {
+    apolloServer = new ApolloServer({
+      schema,
+      context: ({ req }) => ({
+        req,
+      }),
+      formatError: (err) => {
+        console.error(util.inspect(err, false, null, true))
+
+        // Otherwise return the original error. The error can also
+        // be manipulated in other ways, as long as it's returned.
+        return err
+      },
+      // introspection: true,
+      // plugins: [ApolloServerPluginInlineTrace()],
+    })
+  })
+  .then(() =>
+    neoSchema
+      .assertIndexesAndConstraints({ options: { create: true }, driver })
+      .then(() => apolloServer.start()),
+  )
 
 /**
  * Allow local HTTPS with https://github.com/vercel/next.js/discussions/10935#discussioncomment-434842
@@ -81,8 +86,9 @@ const handler: NextApiHandler = async (req, res) => {
    */
   if (session?.user) {
     const user = session.user
+    const UserModel = await User()
 
-    const [existing] = await User().find({
+    const [existing] = await UserModel.find({
       where: {
         auth0Id: user.sub,
       },
@@ -91,7 +97,7 @@ const handler: NextApiHandler = async (req, res) => {
     if (existing) {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
-      const { users } = await User().create({
+      const { users } = await UserModel.create({
         input: [
           {
             auth0Id: user.sub,

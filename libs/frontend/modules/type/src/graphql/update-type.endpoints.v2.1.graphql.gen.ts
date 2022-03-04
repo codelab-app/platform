@@ -1,0 +1,913 @@
+import * as Types from '@codelab/shared/abstract/codegen-v2'
+
+import {
+  Type_AppType_Fragment,
+  Type_ArrayType_Fragment,
+  Type_ElementType_Fragment,
+  Type_EnumType_Fragment,
+  Type_InterfaceType_Fragment,
+  Type_LambdaType_Fragment,
+  Type_MonacoType_Fragment,
+  Type_PageType_Fragment,
+  Type_PrimitiveType_Fragment,
+  Type_ReactNodeType_Fragment,
+  Type_RenderPropsType_Fragment,
+  Type_UnionType_Fragment,
+} from './fragments/Type.fragment.v2.1.graphql.gen'
+import {
+  TypeBase_AppType_Fragment,
+  TypeBase_ArrayType_Fragment,
+  TypeBase_ElementType_Fragment,
+  TypeBase_EnumType_Fragment,
+  TypeBase_InterfaceType_Fragment,
+  TypeBase_LambdaType_Fragment,
+  TypeBase_MonacoType_Fragment,
+  TypeBase_PageType_Fragment,
+  TypeBase_PrimitiveType_Fragment,
+  TypeBase_ReactNodeType_Fragment,
+  TypeBase_RenderPropsType_Fragment,
+  TypeBase_UnionType_Fragment,
+} from './fragments/TypeBase.fragment.v2.1.graphql.gen'
+import {
+  ArrayTypeWithItemTypeFragment,
+  ArrayTypeFragment,
+} from './fragments/ArrayType.fragment.v2.1.graphql.gen'
+import { EnumTypeFragment } from './fragments/EnumType.fragment.v2.1.graphql.gen'
+import { EnumTypeValueFragment } from './fragments/EnumTypeValue.fragment.v2.1.graphql.gen'
+import {
+  InterfaceTypeFragment,
+  InterfaceTypeFieldEdgeFragment,
+} from './fragments/Interface.fragment.v2.1.graphql.gen'
+import { PrimitiveTypeFragment } from './fragments/PrimitiveType.fragment.v2.1.graphql.gen'
+import { ElementTypeFragment } from './fragments/ElementType.fragment.v2.1.graphql.gen'
+import { LambdaTypeFragment } from './fragments/LambdaType.fragment.v2.1.graphql.gen'
+import { RenderPropsTypeFragment } from './fragments/RenderProps.fragment.v2.1.graphql.gen'
+import {
+  UnionTypeWithInnerTypesFragment,
+  UnionTypeFragment,
+} from './fragments/UnionType.fragment.v2.1.graphql.gen'
+import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
+import { PageTypeFragment } from './fragments/PageType.fragment.v2.1.graphql.gen'
+import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-request'
+import { TypeFragmentDoc } from './fragments/Type.fragment.v2.1.graphql.gen'
+import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.1.graphql.gen'
+import {
+  ArrayTypeWithItemTypeFragmentDoc,
+  ArrayTypeFragmentDoc,
+} from './fragments/ArrayType.fragment.v2.1.graphql.gen'
+import { EnumTypeFragmentDoc } from './fragments/EnumType.fragment.v2.1.graphql.gen'
+import { EnumTypeValueFragmentDoc } from './fragments/EnumTypeValue.fragment.v2.1.graphql.gen'
+import {
+  InterfaceTypeFragmentDoc,
+  InterfaceTypeFieldEdgeFragmentDoc,
+} from './fragments/Interface.fragment.v2.1.graphql.gen'
+import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.1.graphql.gen'
+import { ElementTypeFragmentDoc } from './fragments/ElementType.fragment.v2.1.graphql.gen'
+import { LambdaTypeFragmentDoc } from './fragments/LambdaType.fragment.v2.1.graphql.gen'
+import { RenderPropsTypeFragmentDoc } from './fragments/RenderProps.fragment.v2.1.graphql.gen'
+import {
+  UnionTypeWithInnerTypesFragmentDoc,
+  UnionTypeFragmentDoc,
+} from './fragments/UnionType.fragment.v2.1.graphql.gen'
+import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
+import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.1.graphql.gen'
+import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.1.graphql.gen'
+export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
+  create?: Types.InputMaybe<Types.PrimitiveTypeRelationInput>
+  delete?: Types.InputMaybe<Types.PrimitiveTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.PrimitiveTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.PrimitiveTypeUpdateInput>
+  where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
+}>
+
+export type UpdatePrimitiveTypesMutation = {
+  types: { types: Array<Type_PrimitiveType_Fragment> }
+}
+
+export type UpdateArrayTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.ArrayTypeConnectInput>
+  create?: Types.InputMaybe<Types.ArrayTypeRelationInput>
+  delete?: Types.InputMaybe<Types.ArrayTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.ArrayTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.ArrayTypeUpdateInput>
+  where?: Types.InputMaybe<Types.ArrayTypeWhere>
+}>
+
+export type UpdateArrayTypesMutation = {
+  types: { types: Array<Type_ArrayType_Fragment> }
+}
+
+export type UpdateUnionTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.UnionTypeConnectInput>
+  create?: Types.InputMaybe<Types.UnionTypeRelationInput>
+  delete?: Types.InputMaybe<Types.UnionTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.UnionTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.UnionTypeUpdateInput>
+  where?: Types.InputMaybe<Types.UnionTypeWhere>
+}>
+
+export type UpdateUnionTypesMutation = {
+  types: { types: Array<Type_UnionType_Fragment> }
+}
+
+export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.InterfaceTypeConnectInput>
+  create?: Types.InputMaybe<Types.InterfaceTypeRelationInput>
+  delete?: Types.InputMaybe<Types.InterfaceTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.InterfaceTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.InterfaceTypeUpdateInput>
+  where?: Types.InputMaybe<Types.InterfaceTypeWhere>
+}>
+
+export type UpdateInterfaceTypesMutation = {
+  types: { types: Array<Type_InterfaceType_Fragment> }
+}
+
+export type UpdateReactNodeTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.ElementTypeConnectInput>
+  create?: Types.InputMaybe<Types.ElementTypeRelationInput>
+  delete?: Types.InputMaybe<Types.ElementTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.ElementTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.ElementTypeUpdateInput>
+  where?: Types.InputMaybe<Types.ElementTypeWhere>
+}>
+
+export type UpdateReactNodeTypesMutation = {
+  types: { types: Array<Type_ReactNodeType_Fragment> }
+}
+
+export type UpdateElementTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.ElementTypeConnectInput>
+  create?: Types.InputMaybe<Types.ElementTypeRelationInput>
+  delete?: Types.InputMaybe<Types.ElementTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.ElementTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.ElementTypeUpdateInput>
+  where?: Types.InputMaybe<Types.ElementTypeWhere>
+}>
+
+export type UpdateElementTypesMutation = {
+  types: { types: Array<Type_ElementType_Fragment> }
+}
+
+export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.RenderPropsTypeConnectInput>
+  create?: Types.InputMaybe<Types.RenderPropsTypeRelationInput>
+  delete?: Types.InputMaybe<Types.RenderPropsTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.RenderPropsTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.RenderPropsTypeUpdateInput>
+  where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
+}>
+
+export type UpdateRenderPropsTypesMutation = {
+  types: { types: Array<Type_RenderPropsType_Fragment> }
+}
+
+export type UpdateEnumTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.EnumTypeConnectInput>
+  create?: Types.InputMaybe<Types.EnumTypeRelationInput>
+  delete?: Types.InputMaybe<Types.EnumTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.EnumTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.EnumTypeUpdateInput>
+  where?: Types.InputMaybe<Types.EnumTypeWhere>
+}>
+
+export type UpdateEnumTypesMutation = {
+  types: { types: Array<Type_EnumType_Fragment> }
+}
+
+export type UpdateLambdaTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.LambdaTypeConnectInput>
+  create?: Types.InputMaybe<Types.LambdaTypeRelationInput>
+  delete?: Types.InputMaybe<Types.LambdaTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.LambdaTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.LambdaTypeUpdateInput>
+  where?: Types.InputMaybe<Types.LambdaTypeWhere>
+}>
+
+export type UpdateLambdaTypesMutation = {
+  types: { types: Array<Type_LambdaType_Fragment> }
+}
+
+export type UpdatePageTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.PageTypeConnectInput>
+  create?: Types.InputMaybe<Types.PageTypeRelationInput>
+  delete?: Types.InputMaybe<Types.PageTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.PageTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.PageTypeUpdateInput>
+  where?: Types.InputMaybe<Types.PageTypeWhere>
+}>
+
+export type UpdatePageTypesMutation = {
+  types: { types: Array<Type_PageType_Fragment> }
+}
+
+export type UpdateAppTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.AppTypeConnectInput>
+  create?: Types.InputMaybe<Types.AppTypeRelationInput>
+  delete?: Types.InputMaybe<Types.AppTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.AppTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.AppTypeUpdateInput>
+  where?: Types.InputMaybe<Types.AppTypeWhere>
+}>
+
+export type UpdateAppTypesMutation = {
+  types: { types: Array<Type_AppType_Fragment> }
+}
+
+export type UpdateMonacoTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.MonacoTypeConnectInput>
+  create?: Types.InputMaybe<Types.MonacoTypeRelationInput>
+  delete?: Types.InputMaybe<Types.MonacoTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.MonacoTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.MonacoTypeUpdateInput>
+  where?: Types.InputMaybe<Types.MonacoTypeWhere>
+}>
+
+export type UpdateMonacoTypesMutation = {
+  types: { types: Array<Type_MonacoType_Fragment> }
+}
+
+export const UpdatePrimitiveTypesGql = gql`
+  mutation UpdatePrimitiveTypes(
+    $connect: PrimitiveTypeConnectInput
+    $create: PrimitiveTypeRelationInput
+    $delete: PrimitiveTypeDeleteInput
+    $disconnect: PrimitiveTypeDisconnectInput
+    $update: PrimitiveTypeUpdateInput
+    $where: PrimitiveTypeWhere
+  ) {
+    types: updatePrimitiveTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: primitiveTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateArrayTypesGql = gql`
+  mutation UpdateArrayTypes(
+    $connect: ArrayTypeConnectInput
+    $create: ArrayTypeRelationInput
+    $delete: ArrayTypeDeleteInput
+    $disconnect: ArrayTypeDisconnectInput
+    $update: ArrayTypeUpdateInput
+    $where: ArrayTypeWhere
+  ) {
+    types: updateArrayTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: arrayTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateUnionTypesGql = gql`
+  mutation UpdateUnionTypes(
+    $connect: UnionTypeConnectInput
+    $create: UnionTypeRelationInput
+    $delete: UnionTypeDeleteInput
+    $disconnect: UnionTypeDisconnectInput
+    $update: UnionTypeUpdateInput
+    $where: UnionTypeWhere
+  ) {
+    types: updateUnionTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: unionTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateInterfaceTypesGql = gql`
+  mutation UpdateInterfaceTypes(
+    $connect: InterfaceTypeConnectInput
+    $create: InterfaceTypeRelationInput
+    $delete: InterfaceTypeDeleteInput
+    $disconnect: InterfaceTypeDisconnectInput
+    $update: InterfaceTypeUpdateInput
+    $where: InterfaceTypeWhere
+  ) {
+    types: updateInterfaceTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: interfaceTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateReactNodeTypesGql = gql`
+  mutation UpdateReactNodeTypes(
+    $connect: ElementTypeConnectInput
+    $create: ElementTypeRelationInput
+    $delete: ElementTypeDeleteInput
+    $disconnect: ElementTypeDisconnectInput
+    $update: ElementTypeUpdateInput
+    $where: ElementTypeWhere
+  ) {
+    types: updateReactNodeTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: reactNodeTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateElementTypesGql = gql`
+  mutation UpdateElementTypes(
+    $connect: ElementTypeConnectInput
+    $create: ElementTypeRelationInput
+    $delete: ElementTypeDeleteInput
+    $disconnect: ElementTypeDisconnectInput
+    $update: ElementTypeUpdateInput
+    $where: ElementTypeWhere
+  ) {
+    types: updateElementTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: elementTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateRenderPropsTypesGql = gql`
+  mutation UpdateRenderPropsTypes(
+    $connect: RenderPropsTypeConnectInput
+    $create: RenderPropsTypeRelationInput
+    $delete: RenderPropsTypeDeleteInput
+    $disconnect: RenderPropsTypeDisconnectInput
+    $update: RenderPropsTypeUpdateInput
+    $where: RenderPropsTypeWhere
+  ) {
+    types: updateRenderPropsTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: renderPropsTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateEnumTypesGql = gql`
+  mutation UpdateEnumTypes(
+    $connect: EnumTypeConnectInput
+    $create: EnumTypeRelationInput
+    $delete: EnumTypeDeleteInput
+    $disconnect: EnumTypeDisconnectInput
+    $update: EnumTypeUpdateInput
+    $where: EnumTypeWhere
+  ) {
+    types: updateEnumTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: enumTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateLambdaTypesGql = gql`
+  mutation UpdateLambdaTypes(
+    $connect: LambdaTypeConnectInput
+    $create: LambdaTypeRelationInput
+    $delete: LambdaTypeDeleteInput
+    $disconnect: LambdaTypeDisconnectInput
+    $update: LambdaTypeUpdateInput
+    $where: LambdaTypeWhere
+  ) {
+    types: updateLambdaTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: lambdaTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdatePageTypesGql = gql`
+  mutation UpdatePageTypes(
+    $connect: PageTypeConnectInput
+    $create: PageTypeRelationInput
+    $delete: PageTypeDeleteInput
+    $disconnect: PageTypeDisconnectInput
+    $update: PageTypeUpdateInput
+    $where: PageTypeWhere
+  ) {
+    types: updatePageTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: pageTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateAppTypesGql = gql`
+  mutation UpdateAppTypes(
+    $connect: AppTypeConnectInput
+    $create: AppTypeRelationInput
+    $delete: AppTypeDeleteInput
+    $disconnect: AppTypeDisconnectInput
+    $update: AppTypeUpdateInput
+    $where: AppTypeWhere
+  ) {
+    types: updateAppTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: appTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+export const UpdateMonacoTypesGql = gql`
+  mutation UpdateMonacoTypes(
+    $connect: MonacoTypeConnectInput
+    $create: MonacoTypeRelationInput
+    $delete: MonacoTypeDeleteInput
+    $disconnect: MonacoTypeDisconnectInput
+    $update: MonacoTypeUpdateInput
+    $where: MonacoTypeWhere
+  ) {
+    types: updateMonacoTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: monacoTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
+`
+
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string,
+) => Promise<T>
+
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
+
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper,
+) {
+  return {
+    UpdatePrimitiveTypes(
+      variables?: UpdatePrimitiveTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdatePrimitiveTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdatePrimitiveTypesMutation>(
+            UpdatePrimitiveTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdatePrimitiveTypes',
+        'mutation',
+      )
+    },
+    UpdateArrayTypes(
+      variables?: UpdateArrayTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateArrayTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateArrayTypesMutation>(
+            UpdateArrayTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateArrayTypes',
+        'mutation',
+      )
+    },
+    UpdateUnionTypes(
+      variables?: UpdateUnionTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateUnionTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateUnionTypesMutation>(
+            UpdateUnionTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateUnionTypes',
+        'mutation',
+      )
+    },
+    UpdateInterfaceTypes(
+      variables?: UpdateInterfaceTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateInterfaceTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateInterfaceTypesMutation>(
+            UpdateInterfaceTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateInterfaceTypes',
+        'mutation',
+      )
+    },
+    UpdateReactNodeTypes(
+      variables?: UpdateReactNodeTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateReactNodeTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateReactNodeTypesMutation>(
+            UpdateReactNodeTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateReactNodeTypes',
+        'mutation',
+      )
+    },
+    UpdateElementTypes(
+      variables?: UpdateElementTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateElementTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateElementTypesMutation>(
+            UpdateElementTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateElementTypes',
+        'mutation',
+      )
+    },
+    UpdateRenderPropsTypes(
+      variables?: UpdateRenderPropsTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateRenderPropsTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateRenderPropsTypesMutation>(
+            UpdateRenderPropsTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateRenderPropsTypes',
+        'mutation',
+      )
+    },
+    UpdateEnumTypes(
+      variables?: UpdateEnumTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateEnumTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateEnumTypesMutation>(
+            UpdateEnumTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateEnumTypes',
+        'mutation',
+      )
+    },
+    UpdateLambdaTypes(
+      variables?: UpdateLambdaTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateLambdaTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateLambdaTypesMutation>(
+            UpdateLambdaTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateLambdaTypes',
+        'mutation',
+      )
+    },
+    UpdatePageTypes(
+      variables?: UpdatePageTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdatePageTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdatePageTypesMutation>(
+            UpdatePageTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdatePageTypes',
+        'mutation',
+      )
+    },
+    UpdateAppTypes(
+      variables?: UpdateAppTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateAppTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateAppTypesMutation>(UpdateAppTypesGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'UpdateAppTypes',
+        'mutation',
+      )
+    },
+    UpdateMonacoTypes(
+      variables?: UpdateMonacoTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateMonacoTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateMonacoTypesMutation>(
+            UpdateMonacoTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateMonacoTypes',
+        'mutation',
+      )
+    },
+  }
+}
+export type Sdk = ReturnType<typeof getSdk>

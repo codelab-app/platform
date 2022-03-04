@@ -1,31 +1,46 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useQuery } from 'react-query'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-// import { useGetPagesForSelectQuery } from '../../../store/typeEndpoints'
+import { interfaceFormApi } from '../../../store'
 
 export type SelectPageProps = HTMLFieldProps<string, SelectFieldProps>
 
-export const SelectPage = ({ name }: SelectPageProps) => {
+export const SelectPage = ({ name, error }: SelectPageProps) => {
   const router = useRouter()
+  const appId = router.query.appId
 
-  // const { data, isLoading } = useGetPagesForSelectQuery({
-  //   variables: { input: { byApp: { appId: String(router.query.appId) } } },
-  // })
-  //
-  // const pageOptions =
-  //   data?.pages.map((page) => ({
-  //     label: page.name,
-  //     value: page.id,
-  //   })) ?? []
+  const {
+    data,
+    isLoading,
+    error: queryError,
+  } = useQuery('interface-form/select-page', () =>
+    interfaceFormApi.InterfaceForm_GetPages({
+      where: { app: { id: appId as string } },
+    }),
+  )
+
+  if (!appId) {
+    console.warn('SelectPage: appId is not defined')
+
+    return null
+  }
+
+  const pageOptions =
+    data?.pages.map((page) => ({
+      label: page.name,
+      value: page.id,
+    })) ?? []
 
   return (
     <SelectField
+      error={error || queryError}
       label="Page"
-      // loading={isLoading}
+      loading={isLoading}
       name={name}
       optionFilterProp="label"
-      // options={pageOptions}
+      options={pageOptions}
       showSearch={true}
     />
   )

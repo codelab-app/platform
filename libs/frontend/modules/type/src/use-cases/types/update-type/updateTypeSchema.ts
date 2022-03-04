@@ -4,11 +4,12 @@ import { Nullish } from '@codelab/shared/abstract/types'
 import { groupItemsByArrayDiff } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { v4 } from 'uuid'
-import { TypeFragment } from '../../../graphql'
+import { getSnapshot } from 'mobx-keystone'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
 } from '../../../shared'
+import { TypeModelAny, UpdateTypeInput } from '../../../store'
 
 export type UpdateTypeSchema = BaseTypeMutationSchema
 
@@ -21,30 +22,23 @@ export const updateTypeSchema: JSONSchemaType<UpdateTypeSchema> = {
   required: ['name'],
 }
 
-type AnyTypeUpdateInput =
-  | cg.AppTypeUpdateInput
-  | cg.ArrayTypeUpdateInput
-  | cg.ElementTypeUpdateInput
-  | cg.EnumTypeUpdateInput
-  | cg.InterfaceTypeUpdateInput
-  | cg.LambdaTypeUpdateInput
-  | cg.MonacoTypeUpdateInput
-  | cg.PageTypeUpdateInput
-  | cg.PrimitiveTypeUpdateInput
-  | cg.ReactNodeTypeUpdateInput
-  | cg.RenderPropsTypeUpdateInput
-  | cg.UnionTypeUpdateInput
-
 // This is similar to the one for create, but has a couple of important differences (we don't assign uuids, we diff the old and new enum values, etc.),
 // so it's not a good candidate for a generic function.
 export const mapUpdateTypeSchemaToTypeInput = (
   formData: UpdateTypeSchema,
-  originalType: TypeFragment,
+  originalType: TypeModelAny,
   currentUserId: Nullish<string>,
-): AnyTypeUpdateInput => {
-  const common = {
+): UpdateTypeInput => {
+  const common: Partial<UpdateTypeInput> = {
     name: formData.name,
-    owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
+    owner: [
+      {
+        connect: currentUserId
+          ? [{ where: { node: { auth0Id: currentUserId } } }]
+          : [],
+        disconnect: currentUserId ? [] : [{ where: {} }],
+      },
+    ],
   }
 
   const kind = originalType.typeKind
@@ -78,7 +72,7 @@ export const mapUpdateTypeSchemaToTypeInput = (
 
       const { toUpdate, toDelete, toCreate } = groupItemsByArrayDiff(
         formData.allowedValues ?? [],
-        originalType.allowedValues ?? [],
+        getSnapshot(originalType.allowedValues) ?? [],
       )
 
       // Create all new values, update existing ones and delete old ones

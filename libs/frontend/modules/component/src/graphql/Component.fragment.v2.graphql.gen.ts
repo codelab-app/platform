@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 export type ComponentFragment = {
   id: string
   name: string
-  rootElement: { id: string; name?: string | null | undefined }
+  rootElement: { id: string; name?: string | null }
   owner: { id: string; auth0Id: string }
 }
 

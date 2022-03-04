@@ -16,7 +16,7 @@ export const CreatePageModal = observer(({ pages }: CreatePageModalProps) => {
   const currentAppId = useCurrentAppId()
   const isOpen = pages.createModal.isOpen
   const model = { appId: currentAppId }
-  const onSubmit = (input: CreatePageInput) => pages.createPage(input)
+  const onSubmit = (input: CreatePageInput) => pages.create(input)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating page',

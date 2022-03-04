@@ -1,0 +1,95 @@
+mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
+  types: createPrimitiveTypes(input: $input) {
+    types: primitiveTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
+  types: createArrayTypes(input: $input) {
+    types: arrayTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
+  types: createUnionTypes(input: $input) {
+    types: unionTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
+  types: createInterfaceTypes(input: $input) {
+    types: interfaceTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
+  types: createElementTypes(input: $input) {
+    types: elementTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
+  types: createRenderPropsTypes(input: $input) {
+    types: renderPropsTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
+  types: createReactNodeTypes(input: $input) {
+    types: reactNodeTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
+  types: createEnumTypes(input: $input) {
+    types: enumTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
+  types: createLambdaTypes(input: $input) {
+    types: lambdaTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
+  types: createPageTypes(input: $input) {
+    types: pageTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
+  types: createAppTypes(input: $input) {
+    types: appTypes {
+      ...Type
+    }
+  }
+}
+
+mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
+  types: createMonacoTypes(input: $input) {
+    types: monacoTypes {
+      ...Type
+    }
+  }
+}

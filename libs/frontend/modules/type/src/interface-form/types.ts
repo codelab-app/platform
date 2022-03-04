@@ -1,13 +1,13 @@
 import { FormProps } from '@codelab/frontend/abstract/types'
 import { IType } from '@codelab/shared/abstract/core'
-import { TypeTree } from '@codelab/shared/core'
 import { Assign } from 'utility-types'
+import { InterfaceType } from '../store'
 
 export type InterfaceFormProps<TData> = Assign<
-  FormProps<TData>,
+  Omit<FormProps<TData>, 'schema'>,
   {
-    interfaceTree: TypeTree
-    schema?: any
+    interfaceType: InterfaceType
+    initialSchema?: any
   }
 >
 

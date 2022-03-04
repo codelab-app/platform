@@ -10,12 +10,13 @@ const driver = getDriver()
 export const pageMutationResolvers: IResolvers = {
   deletePages: async (_source, args: MutationDeletePagesArgs) => {
     const session = driver.rxSession()
+    const PageModel = await Page()
 
     if (!args.where) {
       throw new Error('No argument provided for delete operation')
     }
 
-    const pages = await Page().find({
+    const pages = await PageModel.find({
       where: args.where,
       selectionSet: pageSelectionSet,
     })
@@ -29,7 +30,7 @@ export const pageMutationResolvers: IResolvers = {
       .toPromise()
       .finally(() => session.close())
 
-    return Page().delete({
+    return PageModel.delete({
       where: args.where as PageWhere,
       rootValue: '',
     })

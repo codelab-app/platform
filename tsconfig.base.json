@@ -9,6 +9,7 @@
     "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": true,
     "resolveJsonModule": true,
     "importHelpers": true,
     "target": "es2015",

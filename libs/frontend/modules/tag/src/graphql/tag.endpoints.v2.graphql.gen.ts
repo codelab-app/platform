@@ -1,16 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { TagFragment } from './Tag.fragment.v2.graphql.gen'
-import {
-  TagGraphFragment,
-  TagEdgeFragment,
-} from './TagGraph.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { TagGraphFragment } from './TagGraph.fragment.v2.graphql.gen'
+import { gql } from '@apollo/client'
 import { TagFragmentDoc } from './Tag.fragment.v2.graphql.gen'
-import {
-  TagGraphFragmentDoc,
-  TagEdgeFragmentDoc,
-} from './TagGraph.fragment.v2.graphql.gen'
+import { TagGraphFragmentDoc } from './TagGraph.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -43,9 +37,7 @@ export type GetTagsQuery = { tags: Array<TagFragment> }
 
 export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type GetTagGraphsQuery = {
-  tagGraphs?: TagGraphFragment | null | undefined
-}
+export type GetTagGraphsQuery = { tagGraphs?: TagGraphFragment | null }
 
 export const CreateTagsGql = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {
@@ -89,8 +81,6 @@ export const GetTagGraphsGql = gql`
     }
   }
   ${TagGraphFragmentDoc}
-  ${TagFragmentDoc}
-  ${TagEdgeFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({
