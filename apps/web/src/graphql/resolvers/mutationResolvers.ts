@@ -1,12 +1,12 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { adminImportResolvers } from './atom/adminImportResolvers'
+import { adminResolvers } from './admin/admin.resolvers'
 import { atomMutationResolvers } from './atom/mutations'
 import typeMutationResolvers from './type/mutations'
 
 export const mutationResolvers: IResolvers = {
+  ...adminResolvers,
   ...atomMutationResolvers,
   ...typeMutationResolvers,
-  ...adminImportResolvers,
 }
 
 export default mutationResolvers

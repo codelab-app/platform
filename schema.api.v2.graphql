@@ -4687,6 +4687,10 @@ input EnumTypeWhere {
   owner_NOT: UserWhere
 }
 
+input ExportAllTypesGraphInput {
+  typeIds: [String!]
+}
+
 interface Field {
   description: String
   key: String!
@@ -6212,6 +6216,7 @@ type Mutation {
   ): DuplicateElementMutationResponse!
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
@@ -7963,6 +7968,8 @@ type Query {
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
   enumTypesCount(where: EnumTypeWhere): Int!
+  exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject!
+  exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 
   """

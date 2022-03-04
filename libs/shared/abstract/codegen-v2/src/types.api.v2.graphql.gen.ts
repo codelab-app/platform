@@ -5058,6 +5058,10 @@ export type EnumTypeWhere = {
   owner_NOT?: InputMaybe<UserWhere>
 }
 
+export type ExportAllTypesGraphInput = {
+  typeIds?: InputMaybe<Array<Scalars['String']>>
+}
+
 export type Field = {
   description?: Maybe<Scalars['String']>
   key: Scalars['String']
@@ -6578,6 +6582,7 @@ export type Mutation = {
   duplicateElement: DuplicateElementMutationResponse
   importAdminData?: Maybe<ImportDataMutationResponse>
   importAtoms?: Maybe<ImportAtomsMutationResponse>
+  importTypeGraph: TypeGraph
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateAppTypes: UpdateAppTypesMutationResponse
   updateApps: UpdateAppsMutationResponse
@@ -6897,6 +6902,10 @@ export type MutationImportAdminDataArgs = {
 
 export type MutationImportAtomsArgs = {
   input: ImportAtomsInput
+}
+
+export type MutationImportTypeGraphArgs = {
+  payload: Scalars['JSONObject']
 }
 
 export type MutationUpdateAppTypesArgs = {
@@ -8729,6 +8738,8 @@ export type Query = {
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
   enumTypesCount: Scalars['Int']
+  exportAllTypesGraph: Scalars['JSONObject']
+  exportGraph?: Maybe<Scalars['JSONObject']>
   getField: InterfaceTypeEdge
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
@@ -8955,6 +8966,14 @@ export type QueryEnumTypesAggregateArgs = {
 
 export type QueryEnumTypesCountArgs = {
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type QueryExportAllTypesGraphArgs = {
+  input: ExportAllTypesGraphInput
+}
+
+export type QueryExportGraphArgs = {
+  typeId: Scalars['ID']
 }
 
 export type QueryGetFieldArgs = {

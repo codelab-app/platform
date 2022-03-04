@@ -20,4 +20,12 @@ export const adminSchema = gql`
   type Mutation {
     importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   }
+
+  input ExportAllTypesGraphInput {
+    typeIds: [String!]
+  }
+
+  type Query {
+    exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject!
+  }
 `

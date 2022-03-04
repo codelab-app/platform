@@ -1,83 +1,72 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { TreeService } from '@codelab/shared/core'
-import { IResolvers } from '@graphql-tools/utils'
-import _ from 'lodash'
+import { ImportAdminDataInput } from '../../ogm-types.gen'
 import {
-  AppType,
-  Atom,
-  ElementType,
-  EnumType,
-  InterfaceType,
-  LambdaType,
-  MonacoType,
-  PageType,
-  PrimitiveType,
-  ReactNodeType,
-  RenderPropsType,
-  Tag,
-} from '../../model'
-import { MutationImportAdminDataArgs } from '../../ogm-types.gen'
+  IRxTxnResolver,
+  withRxTransaction,
+} from '../abstract/withRxTransaction'
 
-export const adminImportResolvers: IResolvers = {
-  importAdminData: async (
-    _source,
-    args: MutationImportAdminDataArgs,
-    req: any,
-  ) => {
-    const currentUserId = req.jwt?.sub
-    const payload: any = JSON.parse(args.input.payload as any)
-    // 1. Import tags.
-    const tags: Array<any> = []
-    const tagTree = new TreeService(payload.tags)
-    const rootTagId = tagTree.getRootVertex()?.id
+// export const adminImportResolvers: IResolvers = {
+//   importAdminData: async (
+//     _source,
+//     args: MutationImportAdminDataArgs,
+//     req: any,
+//   ) => {
+// const currentUserId = req.jwt?.sub
+// const payload: any = JSON.parse(args.input.payload as any)
+// // 1. Import tags.
+// const tags: Array<any> = []
+// const tagTree = new TreeService(payload.tags)
+// const rootTagId = tagTree.getRootVertex()?.id
 
-    if (rootTagId) {
-      tagTree.bfsVisit((v) => {
-        const parent = v.parent(v.data().id)[0]
-        tags.push({
-          id: v.data().id,
-          name: v.data().name,
-          isRoot: v.data().isRoot,
-          parent: parent
-            ? {
-                id: parent.data().id,
-                name: parent.data().name,
-                isRoot: parent.data().isRoot,
-              }
-            : undefined,
-        })
-      }, rootTagId)
-    }
+// if (rootTagId) {
+//   tagTree.bfsVisit((v) => {
+//     const parent = v.parent(v.data().id)[0]
+//     tags.push({
+//       id: v.data().id,
+//       name: v.data().name,
+//       isRoot: v.data().isRoot,
+//       parent: parent
+//         ? {
+//             id: parent.data().id,
+//             name: parent.data().name,
+//             isRoot: parent.data().isRoot,
+//           }
+//         : undefined,
+//     })
+//   }, rootTagId)
+// }
 
-    const tagImportOperations: Array<any> = []
-    tags.map((tag: any) => {
-      tagImportOperations.push(async (createdTagsMap: Map<string, any>) => {
-        const tagFound = createdTagsMap.get(tag.name)
+// const tagImportOperations: Array<any> = []
+// tags.map((tag: any) => {
+//   tagImportOperations.push(async (createdTagsMap: Map<string, any>) => {
+//     const tagFound = createdTagsMap.get(tag.name)
 
-        if (!tagFound) {
-          let common: any = { name: tag.name, isRoot: tag.isRoot }
+//     if (!tagFound) {
+//       let common: any = { name: tag.name, isRoot: tag.isRoot }
 
-          if (tag.parent) {
-            common = {
-              ...common,
-              parent: {
-                connect: { where: { node: { name: tag.parent.name } } },
-              },
-            }
-          }
+//       if (tag.parent) {
+//         common = {
+//           ...common,
+//           parent: {
+//             connect: { where: { node: { name: tag.parent.name } } },
+//           },
+//         }
+//       }
 
-          const tagCreated = await Tag().create({ input: [common] })
-          createdTagsMap.set(tag.name, tagCreated.tags[0])
-        }
+//       const tagCreated = await Tag().create({ input: [common] })
+//       createdTagsMap.set(tag.name, tagCreated.tags[0])
+//     }
 
-        return createdTagsMap
-      })
-    })
+//     return createdTagsMap
+//   })
+// })
 
-    await tagImportOperations.reduce(async (createdTagsMap, operation) => {
-      return await operation(await createdTagsMap)
-    }, Promise.resolve(new Map<string, any>()))
+// await tagImportOperations.reduce(async (createdTagsMap, operation) => {
+//   return await operation(await createdTagsMap)
+// }, Promise.resolve(new Map<string, any>()))
 
+// typeRepository.createTypes
+
+/*
     // 2. Import types......
     const createdTypesMap: Map<string, any> = new Map<string, any>()
     const interfaceTypes = payload.interfaceTypes
@@ -90,7 +79,7 @@ export const adminImportResolvers: IResolvers = {
           owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
         }
 
-        /* eslint-disable no-case-declarations */
+        // eslint-disable no-case-declarations 
         switch (typeInput.typeKind) {
           case TypeKind.UnionType:
             // for now, ignore this type
@@ -262,6 +251,40 @@ export const adminImportResolvers: IResolvers = {
       Promise.resolve(new Map<string, any>()),
     )
 
-    return Promise.resolve({ result: true })
-  },
-}
+    */
+//   return Promise.resolve({ result: true })
+// },
+// }
+
+const importAdminDataPayload: IRxTxnResolver<ImportAdminDataInput, string> =
+  ({ input: { payload } }) =>
+  (txn) => {
+    console.log('.... payload,........', txn, payload)
+    // return typeRepository
+    //   .getTypeGraph(
+    //     txn,
+    //     payload
+    //   )
+    // .pipe(
+    //   switchMap((existingGraph) => {
+    //     // console.log('.......... ......... existing graph........',)
+    //     // const graphDiff = diffTypeGraph(
+    //     //   importedGraph,
+    //     //   existingGraph ?? emptyGraph,
+    //     // )
+
+    //     // const observables: Array<Observable<any>> = []
+
+    //     // // imported non-existing vertices
+    //     // for (const leftOnlyVertex of graphDiff.vertices.leftOnly) {
+    //     //   // The promises will not be executed until the observables are subscribed to
+
+    //     //   observables.push(from())
+    //     // }
+    //   }),
+    // )
+  }
+
+export const importAdminData = withRxTransaction<any, any>(
+  importAdminDataPayload,
+)

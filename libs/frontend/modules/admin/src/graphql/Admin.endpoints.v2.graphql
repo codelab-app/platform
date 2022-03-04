@@ -9,3 +9,7 @@ mutation importAdminData($input: ImportAdminDataInput!) {
     result
   }
 }
+
+query ExportAllTypesGraph($input: ExportAllTypesGraphInput!) {
+  exportAllTypesGraph(input: $input)
+}

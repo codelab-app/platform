@@ -21,6 +21,14 @@ export type ImportAdminDataMutation = {
   importAdminData?: { result: boolean } | null | undefined
 }
 
+export type ExportAllTypesGraphQueryVariables = Types.Exact<{
+  input: Types.ExportAllTypesGraphInput
+}>
+
+export type ExportAllTypesGraphQuery = {
+  exportAllTypesGraph: Record<string, any>
+}
+
 export const ResetDatabaseGql = gql`
   mutation ResetDatabase {
     resetDatabase {
@@ -33,6 +41,11 @@ export const ImportAdminDataGql = gql`
     importAdminData(input: $input) {
       result
     }
+  }
+`
+export const ExportAllTypesGraphGql = gql`
+  query ExportAllTypesGraph($input: ExportAllTypesGraphInput!) {
+    exportAllTypesGraph(input: $input)
   }
 `
 
@@ -56,8 +69,21 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    ExportAllTypesGraph: build.query<
+      ExportAllTypesGraphQuery,
+      GraphqlOperationOptions<ExportAllTypesGraphQueryVariables>
+    >({
+      query: (options) => ({
+        document: ExportAllTypesGraphGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
-export const { useResetDatabaseMutation, useImportAdminDataMutation } =
-  injectedRtkApi
+export const {
+  useResetDatabaseMutation,
+  useImportAdminDataMutation,
+  useExportAllTypesGraphQuery,
+  useLazyExportAllTypesGraphQuery,
+} = injectedRtkApi
