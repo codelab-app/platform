@@ -29,7 +29,7 @@ export const useUpdateAtomForm: UseUseCaseForm<
       const connects = makeTagConnectData(difference(data.tags, existingTagIds))
 
       const disconnects = makeTagConnectData(
-        difference(existingTagIds, data.tags),
+        difference(existingTagIds, data.tags || []),
       )
 
       return mutate({
