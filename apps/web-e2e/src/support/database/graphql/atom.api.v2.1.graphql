@@ -6,12 +6,6 @@ mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
   }
 }
 
-query E2eGetAtoms($where: AtomWhere, $options: AtomOptions) {
-  atoms(where: $where, options: $options) {
-    ...E2eAtom
-  }
-}
-
 fragment E2eAtom on Atom {
   __typename
   id

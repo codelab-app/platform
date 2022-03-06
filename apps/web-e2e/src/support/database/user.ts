@@ -3,5 +3,3 @@ export const getCurrentUserId = () => {
     return r.body.sub
   })
 }
-
-Cypress.Commands.add('getCurrentUserId', getCurrentUserId)

@@ -16,15 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import 'cypress-nextjs-auth0'
 import './commands'
-import './atom'
-import './page'
-import './element'
-import './app'
-import './component'
-import './type'
-import './field'
-import './admin'
-import './user'
 
 Cypress.on('uncaught:exception', (err) => {
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/

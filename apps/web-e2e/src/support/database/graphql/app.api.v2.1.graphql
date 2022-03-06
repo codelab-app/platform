@@ -6,12 +6,6 @@ mutation E2eCreateApp($input: [AppCreateInput!]!) {
   }
 }
 
-mutation E2eDeleteApp($where: AppWhere!) {
-  deleteApps(where: $where) {
-    nodesDeleted
-  }
-}
-
 fragment E2eApp on App {
   id
   owner {

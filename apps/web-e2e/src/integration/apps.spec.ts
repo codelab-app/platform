@@ -1,3 +1,5 @@
+import { domClasses } from '../support/selectors/domClassess'
+
 const appName = 'new app'
 const updatedAppName = 'updated app'
 
@@ -30,8 +32,13 @@ describe('Apps CRUD', () => {
 
   describe('update', () => {
     it('should be able to update app name', () => {
-      cy.findSettingsButtonByAppName(appName).click()
-      cy.getOpenedDropdownMenu().findByText('Edit').click()
+      cy.findButtonByItemText(
+        appName,
+        domClasses.buttons.settings,
+        domClasses.card,
+      ).click()
+
+      cy.getOptionItem('Edit').click()
 
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAppName)
       cy.getSpinner().should('not.exist')
@@ -47,8 +54,13 @@ describe('Apps CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete app', () => {
-      cy.findSettingsButtonByAppName(updatedAppName).click()
-      cy.getOpenedDropdownMenu().findByText('Delete').click()
+      cy.findButtonByItemText(
+        updatedAppName,
+        domClasses.buttons.settings,
+        domClasses.card,
+      ).click()
+
+      cy.getOptionItem('Delete').click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

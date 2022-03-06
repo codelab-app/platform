@@ -36,15 +36,6 @@ export type E2eCreateAppMutation = {
   }
 }
 
-export type E2eDeleteAppMutationVariables = Types.Exact<{
-  where: Types.AppWhere
-}>
-
-export type E2eDeleteAppMutation = {
-  __typename?: 'Mutation'
-  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
-
 export type E2eAppFragment = {
   __typename?: 'App'
   id: string
@@ -95,13 +86,6 @@ export const E2eCreateAppDocument = gql`
   }
   ${E2eAppFragmentDoc}
 `
-export const E2eDeleteAppDocument = gql`
-  mutation E2eDeleteApp($where: AppWhere!) {
-    deleteApps(where: $where) {
-      nodesDeleted
-    }
-  }
-`
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -127,20 +111,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateApp',
-      )
-    },
-    E2eDeleteApp(
-      variables: E2eDeleteAppMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<E2eDeleteAppMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<E2eDeleteAppMutation>(
-            E2eDeleteAppDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'E2eDeleteApp',
       )
     },
   }

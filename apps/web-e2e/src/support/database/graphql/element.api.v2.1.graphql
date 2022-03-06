@@ -14,12 +14,6 @@ mutation E2eUpdateElement($input: [ElementUpdateInput!]!) {
   }
 }
 
-query E2eGetElementGraph($input: ElementGraphInput!) {
-  elementGraph(input: $input) {
-    ...E2eElementGraph
-  }
-}
-
 fragment E2eElement on Element {
   __typename
   id
@@ -61,22 +55,6 @@ fragment E2eElement on Element {
       order
     }
   }
-}
-
-fragment E2eElementEdge on ElementEdge {
-  source
-  target
-  order
-}
-
-fragment E2eElementGraph on ElementGraph {
-  edges {
-    ...E2eElementEdge
-  }
-  vertices {
-    ...E2eElement
-  }
-  rootId
 }
 
 fragment E2eProp on Prop {

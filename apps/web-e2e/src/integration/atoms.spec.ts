@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
+import { domClasses } from '../support/selectors/domClassess'
 
 const atomName = 'Row'
 const atomType = AtomType.AntDesignButton
@@ -25,7 +26,8 @@ describe('Atoms CRUD', () => {
 
       cy.getOpenedModal().findByLabelText('Name').type(atomName)
       cy.getOpenedModal().findByLabelText('Type').type(atomType)
-      cy.getSelectOptionItemByValue(atomType).first().click()
+      cy.getOptionItem(atomType).click()
+
       cy.getOpenedModal()
         .findByButtonText(/Create Atom/)
         .click()
@@ -37,7 +39,11 @@ describe('Atoms CRUD', () => {
 
   describe('update', () => {
     it('should be able to update atom name', () => {
-      cy.findEditButtonByAtomName(atomName).click()
+      cy.findButtonByItemText(
+        atomName,
+        domClasses.buttons.edit,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAtomName)
@@ -54,7 +60,11 @@ describe('Atoms CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      cy.findDeleteButtonByAtomName(updatedAtomName).click()
+      cy.findButtonByItemText(
+        updatedAtomName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

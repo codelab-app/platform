@@ -1,3 +1,5 @@
+import { domClasses } from '../support/selectors/domClassess'
+
 const componentName = 'Test Component'
 const updatedComponentName = 'Test Component updated'
 
@@ -31,7 +33,11 @@ describe('Components', () => {
 
   describe('update', () => {
     it('should be able to update component name', () => {
-      cy.findEditButtonByComponentName(componentName).click()
+      cy.findButtonByItemText(
+        componentName,
+        domClasses.buttons.edit,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
@@ -51,7 +57,11 @@ describe('Components', () => {
 
   describe('delete', () => {
     it('should be able to delete an component', () => {
-      cy.findDeleteButtonByComponentName(updatedComponentName).click()
+      cy.findButtonByItemText(
+        updatedComponentName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

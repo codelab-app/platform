@@ -1,4 +1,4 @@
-import { TIMEOUT } from '../support/timeout'
+import { domClasses } from '../support/selectors/domClassess'
 
 describe('Pages', () => {
   let appId: string
@@ -21,9 +21,7 @@ describe('Pages', () => {
     })
 
     it('should be able to create page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
-        'not.exist',
-      )
+      cy.findAllByText(pageName).should('not.exist')
 
       cy.findByRole('button', { name: /plus/ }).click()
 
@@ -39,7 +37,11 @@ describe('Pages', () => {
 
   describe('update', () => {
     it('should be able to update page name', () => {
-      cy.findEditButtonByPageName(pageName).click()
+      cy.findButtonByItemText(
+        pageName,
+        domClasses.buttons.edit,
+        domClasses.listItem,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedPageName)
@@ -56,7 +58,11 @@ describe('Pages', () => {
 
   describe('delete', () => {
     it('should be able to delete page', () => {
-      cy.findDeleteButtonByPageName(updatedPageName).click()
+      cy.findButtonByItemText(
+        updatedPageName,
+        domClasses.buttons.delete,
+        domClasses.listItem,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

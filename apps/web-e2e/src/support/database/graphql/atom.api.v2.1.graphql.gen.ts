@@ -25,26 +25,6 @@ export type E2eCreateAtomMutation = {
   }
 }
 
-export type E2eGetAtomsQueryVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.AtomWhere>
-  options?: Types.InputMaybe<Types.AtomOptions>
-}>
-
-export type E2eGetAtomsQuery = {
-  __typename?: 'Query'
-  atoms: Array<{
-    __typename: 'Atom'
-    id: string
-    name: string
-    type: Types.AtomType
-    tags?:
-      | Array<{ __typename?: 'Tag'; id: string; name: string }>
-      | null
-      | undefined
-    api: { __typename?: 'InterfaceType'; id: string; name: string }
-  }>
-}
-
 export type E2eAtomFragment = {
   __typename: 'Atom'
   id: string
@@ -83,14 +63,6 @@ export const E2eCreateAtomDocument = gql`
   }
   ${E2eAtomFragmentDoc}
 `
-export const E2eGetAtomsDocument = gql`
-  query E2eGetAtoms($where: AtomWhere, $options: AtomOptions) {
-    atoms(where: $where, options: $options) {
-      ...E2eAtom
-    }
-  }
-  ${E2eAtomFragmentDoc}
-`
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -116,19 +88,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateAtom',
-      )
-    },
-    E2eGetAtoms(
-      variables?: E2eGetAtomsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<E2eGetAtomsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<E2eGetAtomsQuery>(E2eGetAtomsDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'E2eGetAtoms',
       )
     },
   }

@@ -208,115 +208,6 @@ export type E2eUpdateElementMutation = {
   }
 }
 
-export type E2eGetElementGraphQueryVariables = Types.Exact<{
-  input: Types.ElementGraphInput
-}>
-
-export type E2eGetElementGraphQuery = {
-  __typename?: 'Query'
-  elementGraph: {
-    __typename?: 'ElementGraph'
-    rootId?: string | null | undefined
-    edges: Array<{
-      __typename?: 'ElementEdge'
-      source: string
-      target: string
-      order?: number | null | undefined
-    }>
-    vertices: Array<{
-      __typename: 'Element'
-      id: string
-      name?: string | null | undefined
-      css?: string | null | undefined
-      renderForEachPropKey?: string | null | undefined
-      renderIfPropKey?: string | null | undefined
-      propTransformationJs?: string | null | undefined
-      component?:
-        | { __typename?: 'Component'; id: string; name: string }
-        | null
-        | undefined
-      instanceOfComponent?:
-        | { __typename?: 'Component'; id: string; name: string }
-        | null
-        | undefined
-      parentElement?:
-        | {
-            __typename?: 'Element'
-            id: string
-            name?: string | null | undefined
-          }
-        | null
-        | undefined
-      atom?:
-        | {
-            __typename: 'Atom'
-            id: string
-            name: string
-            type: Types.AtomType
-            tags?:
-              | Array<{ __typename?: 'Tag'; id: string; name: string }>
-              | null
-              | undefined
-            api: { __typename?: 'InterfaceType'; id: string; name: string }
-          }
-        | null
-        | undefined
-      props?:
-        | { __typename?: 'Prop'; id: string; data: string }
-        | null
-        | undefined
-      hooks?:
-        | Array<{
-            __typename?: 'Hook'
-            id: string
-            type: Types.AtomType
-            config: { __typename?: 'Prop'; id: string; data: string }
-            element: {
-              __typename?: 'Element'
-              id: string
-              name?: string | null | undefined
-            }
-          }>
-        | null
-        | undefined
-      propMapBindings?:
-        | Array<{
-            __typename?: 'PropMapBinding'
-            id: string
-            sourceKey: string
-            targetKey: string
-            element: {
-              __typename?: 'Element'
-              id: string
-              name?: string | null | undefined
-            }
-            targetElement?:
-              | {
-                  __typename?: 'Element'
-                  id: string
-                  name?: string | null | undefined
-                }
-              | null
-              | undefined
-          }>
-        | null
-        | undefined
-      parentElementConnection: {
-        __typename?: 'ElementParentElementConnection'
-        edges: Array<{
-          __typename?: 'ElementParentElementRelationship'
-          order?: number | null | undefined
-          node: {
-            __typename?: 'Element'
-            id: string
-            name?: string | null | undefined
-          }
-        }>
-      }
-    }>
-  }
-}
-
 export type E2eElementFragment = {
   __typename: 'Element'
   id: string
@@ -402,108 +293,6 @@ export type E2eElementFragment = {
   }
 }
 
-export type E2eElementEdgeFragment = {
-  __typename?: 'ElementEdge'
-  source: string
-  target: string
-  order?: number | null | undefined
-}
-
-export type E2eElementGraphFragment = {
-  __typename?: 'ElementGraph'
-  rootId?: string | null | undefined
-  edges: Array<{
-    __typename?: 'ElementEdge'
-    source: string
-    target: string
-    order?: number | null | undefined
-  }>
-  vertices: Array<{
-    __typename: 'Element'
-    id: string
-    name?: string | null | undefined
-    css?: string | null | undefined
-    renderForEachPropKey?: string | null | undefined
-    renderIfPropKey?: string | null | undefined
-    propTransformationJs?: string | null | undefined
-    component?:
-      | { __typename?: 'Component'; id: string; name: string }
-      | null
-      | undefined
-    instanceOfComponent?:
-      | { __typename?: 'Component'; id: string; name: string }
-      | null
-      | undefined
-    parentElement?:
-      | { __typename?: 'Element'; id: string; name?: string | null | undefined }
-      | null
-      | undefined
-    atom?:
-      | {
-          __typename: 'Atom'
-          id: string
-          name: string
-          type: Types.AtomType
-          tags?:
-            | Array<{ __typename?: 'Tag'; id: string; name: string }>
-            | null
-            | undefined
-          api: { __typename?: 'InterfaceType'; id: string; name: string }
-        }
-      | null
-      | undefined
-    props?: { __typename?: 'Prop'; id: string; data: string } | null | undefined
-    hooks?:
-      | Array<{
-          __typename?: 'Hook'
-          id: string
-          type: Types.AtomType
-          config: { __typename?: 'Prop'; id: string; data: string }
-          element: {
-            __typename?: 'Element'
-            id: string
-            name?: string | null | undefined
-          }
-        }>
-      | null
-      | undefined
-    propMapBindings?:
-      | Array<{
-          __typename?: 'PropMapBinding'
-          id: string
-          sourceKey: string
-          targetKey: string
-          element: {
-            __typename?: 'Element'
-            id: string
-            name?: string | null | undefined
-          }
-          targetElement?:
-            | {
-                __typename?: 'Element'
-                id: string
-                name?: string | null | undefined
-              }
-            | null
-            | undefined
-        }>
-      | null
-      | undefined
-    parentElementConnection: {
-      __typename?: 'ElementParentElementConnection'
-      edges: Array<{
-        __typename?: 'ElementParentElementRelationship'
-        order?: number | null | undefined
-        node: {
-          __typename?: 'Element'
-          id: string
-          name?: string | null | undefined
-        }
-      }>
-    }
-  }>
-}
-
 export type E2ePropFragment = { __typename?: 'Prop'; id: string; data: string }
 
 export type E2eHookFragment = {
@@ -534,13 +323,6 @@ export type E2ePropMapBindingFragment = {
     | undefined
 }
 
-export const E2eElementEdgeFragmentDoc = gql`
-  fragment E2eElementEdge on ElementEdge {
-    source
-    target
-    order
-  }
-`
 export const E2ePropFragmentDoc = gql`
   fragment E2eProp on Prop {
     id
@@ -624,19 +406,6 @@ export const E2eElementFragmentDoc = gql`
   ${E2eHookFragmentDoc}
   ${E2ePropMapBindingFragmentDoc}
 `
-export const E2eElementGraphFragmentDoc = gql`
-  fragment E2eElementGraph on ElementGraph {
-    edges {
-      ...E2eElementEdge
-    }
-    vertices {
-      ...E2eElement
-    }
-    rootId
-  }
-  ${E2eElementEdgeFragmentDoc}
-  ${E2eElementFragmentDoc}
-`
 export const E2eCreateElementDocument = gql`
   mutation E2eCreateElement($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
@@ -656,14 +425,6 @@ export const E2eUpdateElementDocument = gql`
     }
   }
   ${E2eElementFragmentDoc}
-`
-export const E2eGetElementGraphDocument = gql`
-  query E2eGetElementGraph($input: ElementGraphInput!) {
-    elementGraph(input: $input) {
-      ...E2eElementGraph
-    }
-  }
-  ${E2eElementGraphFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -704,20 +465,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eUpdateElement',
-      )
-    },
-    E2eGetElementGraph(
-      variables: E2eGetElementGraphQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<E2eGetElementGraphQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<E2eGetElementGraphQuery>(
-            E2eGetElementGraphDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'E2eGetElementGraph',
       )
     },
   }

@@ -25,30 +25,29 @@ describe('Elements CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login().then(() => {
-        cy.createApp().then((apps) => {
-          cy.createPage().then((pages) => {
-            cy.getCurrentUserId().then((userId) => {
-              const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
-                name: atom.name,
-                type: atom.type,
-                api: {
-                  create: {
-                    node: {
-                      name: `${atom.name} API`,
-                      owner: userId
-                        ? { connect: { where: { node: { auth0Id: userId } } } }
-                        : undefined,
-                    },
+        cy.jumpToBuilder().then((data: any) => {
+          cy.getCurrentUserId().then((userId) => {
+            const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
+              name: atom.name,
+              type: atom.type,
+              api: {
+                create: {
+                  node: {
+                    name: `${atom.name} API`,
+                    owner: userId
+                      ? { connect: { where: { node: { auth0Id: userId } } } }
+                      : undefined,
                   },
                 },
-              }))
+              },
+            }))
 
-              cy.createAtom(atomsInput).then((createdAtoms) => {
-                cy.visit(`/apps/${apps[0].id}/pages/${pages[0].id}/builder`)
-                // select root now so we can update its child later
-                // there is an issue with tree interaction
-                cy.findByText(ROOT_ELEMENT_NAME).click()
-              })
+            cy.createAtom(atomsInput).then(() => {
+              cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
+
+              // select root now so we can update its child later
+              // there is an issue with tree interaction
+              cy.findByText(ROOT_ELEMENT_NAME).click()
             })
           })
         })
