@@ -7,7 +7,7 @@ export const resetDatabase = () => {
       query: print(E2eResetDatabaseDocument),
       variables: {},
     })
-    .then((r) => r.body.data?.success)
+    .then((r) => r.body.data?.success as boolean)
 }
 
 Cypress.Commands.add('resetDatabase', resetDatabase)

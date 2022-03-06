@@ -4,21 +4,7 @@ const atomName = 'Row'
 const atomType = AtomType.AntDesignButton
 const updatedAtomName = 'Row updated'
 
-describe('Atoms', () => {
-  const findEditButtonByAtomName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-edit')
-      .closest('button')
-
-  const findDeleteButtonByAtomName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-delete')
-      .closest('button')
-
+describe('Atoms CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login()
@@ -51,7 +37,7 @@ describe('Atoms', () => {
 
   describe('update', () => {
     it('should be able to update atom name', () => {
-      findEditButtonByAtomName(atomName).click()
+      cy.findEditButtonByAtomName(atomName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAtomName)
@@ -68,7 +54,7 @@ describe('Atoms', () => {
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      findDeleteButtonByAtomName(updatedAtomName).click()
+      cy.findDeleteButtonByAtomName(updatedAtomName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

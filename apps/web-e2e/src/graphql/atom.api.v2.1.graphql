@@ -1,4 +1,4 @@
-mutation E2eCreateAtom($input: AtomCreateInput!) {
+mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
   createAtoms(input: $input) {
     atoms {
       ...E2eAtom

@@ -130,6 +130,24 @@ declare global {
        * @see https://docs.cypress.io/api/cypress-api/cookies#Preserve-Once
        */
       preserveAuth0Cookies(): Chainable<Element>
+
+      findEditButtonByComponentName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
+      findDeleteButtonByComponentName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
+
+      findEditButtonByAtomName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
+      findDeleteButtonByAtomName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
     }
   }
 }
@@ -337,6 +355,78 @@ Cypress.Commands.add(
     prevSubject: 'optional',
   },
   findEditButtonByPageName,
+)
+
+export const findEditButtonByComponentName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0 })
+    .closest('.ant-table-row')
+    .find('.anticon-edit')
+    .closest('button')
+}
+
+Cypress.Commands.add(
+  'findEditButtonByComponentName',
+  { prevSubject: 'optional' },
+  findEditButtonByComponentName,
+)
+
+export const findDeleteButtonByComponentName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0 })
+    .closest('.ant-table-row')
+    .find('.anticon-delete')
+    .closest('button')
+}
+
+Cypress.Commands.add(
+  'findDeleteButtonByComponentName',
+  { prevSubject: 'optional' },
+  findDeleteButtonByComponentName,
+)
+
+export const findEditButtonByAtomName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0 })
+    .closest('.ant-table-row')
+    .find('.anticon-edit')
+    .closest('button')
+}
+
+Cypress.Commands.add(
+  'findEditButtonByAtomName',
+  { prevSubject: 'optional' },
+  findEditButtonByAtomName,
+)
+
+export const findDeleteButtonByAtomName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0 })
+    .closest('.ant-table-row')
+    .find('.anticon-delete')
+    .closest('button')
+}
+
+Cypress.Commands.add(
+  'findDeleteButtonByAtomName',
+  { prevSubject: 'optional' },
+  findDeleteButtonByAtomName,
 )
 
 export const findDeleteButtonByPageName = (

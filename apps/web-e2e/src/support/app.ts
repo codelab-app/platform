@@ -19,7 +19,7 @@ export const createApp = (input: AppCreateInput = defaultCreateAppInput) => {
       query: print(E2eCreateAppDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.createApps.apps[0] as IApp)
+    .then((r) => r.body.data?.createApps.apps as Array<IApp>)
 }
 
 Cypress.Commands.add('createApp', createApp)

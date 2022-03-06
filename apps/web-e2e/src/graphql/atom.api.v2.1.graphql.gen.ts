@@ -4,7 +4,7 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
 export type E2eCreateAtomMutationVariables = Types.Exact<{
-  input: Types.AtomCreateInput
+  input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
 
 export type E2eCreateAtomMutation = {
@@ -74,7 +74,7 @@ export const E2eAtomFragmentDoc = gql`
   }
 `
 export const E2eCreateAtomDocument = gql`
-  mutation E2eCreateAtom($input: AtomCreateInput!) {
+  mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
     createAtoms(input: $input) {
       atoms {
         ...E2eAtom

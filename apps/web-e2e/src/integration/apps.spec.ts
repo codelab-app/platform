@@ -1,3 +1,6 @@
+const appName = 'new app'
+const updatedAppName = 'updated app'
+
 describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
@@ -7,9 +10,6 @@ describe('Apps CRUD', () => {
       })
     })
   })
-
-  const appName = 'new app'
-  const updatedAppName = 'updated app'
 
   describe('create', () => {
     it('should be able to create app', () => {

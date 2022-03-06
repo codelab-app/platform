@@ -58,60 +58,71 @@ export const MainPaneBuilderTreeTab = (props: MainPaneBuilderTreeTabProps) => {
 
 MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'
 
-const TreeItemTitle = ({
-  node,
-  tree,
-}: {
+type TreeItemTitleProps = {
   node: DataNode
   tree: ElementTree
-}) => {
+}
+
+type TreeItemDropDownOverplayProps = {
+  setContextMenuNodeId: (id: Nullable<string>) => void
+  node: IElement
+}
+
+const TreeItemDropDownOverplay = ({
+  setContextMenuNodeId,
+  node,
+}: TreeItemDropDownOverplayProps) => {
+  const closeMenu = () => setContextMenuNodeId(null)
+
+  const onClick = (e: React.MouseEvent) => {
+    closeMenu()
+    e.stopPropagation()
+  }
+
+  return (
+    <>
+      <div css={tw`inset-0`} onClick={onClick} />
+      <ElementContextMenu element={node as any} onClick={closeMenu} />
+    </>
+  )
+}
+
+const TreeItemTitle = ({ node, tree }: TreeItemTitleProps) => {
   const [contextMenuItemId, setContextMenuNodeId] =
     useState<Nullable<string>>(null)
 
-  const element = node as any as IElement
+  const element = node as unknown as IElement
   const { name, id: nodeId, atom } = element
   const atomName = atom?.name || atom?.type
-  const isComponentInstance = !!element.instanceOfComponent
-
-  const contextMenu = (
-    <ElementContextMenu
-      element={node as any}
-      onClick={() => setContextMenuNodeId(null)}
-    />
-  )
 
   const componentInstanceName = element.instanceOfComponent
     ? tree.getComponentById(element.instanceOfComponent.id)?.name
     : undefined
+
+  const isComponentInstance = !!element.instanceOfComponent
+
+  const componentMeta = componentInstanceName
+    ? `(instance of ${componentInstanceName || 'a Component'})`
+    : undefined
+
+  const atomMeta = atomName ? `(${atomName})` : undefined
+  const meta = componentMeta || atomMeta || ''
 
   return (
     <div>
       <Dropdown
         onVisibleChange={() => setContextMenuNodeId(nodeId)}
         overlay={
-          <>
-            <div
-              css={tw`fixed inset-0`}
-              onClick={(e) => {
-                setContextMenuNodeId(null)
-                e.stopPropagation()
-              }}
-            />
-            {contextMenu}
-          </>
+          <TreeItemDropDownOverplay
+            node={element}
+            setContextMenuNodeId={setContextMenuNodeId}
+          />
         }
         trigger={['contextMenu']}
         visible={contextMenuItemId === nodeId}
       >
         <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
-          {name}{' '}
-          <span css={tw` text-xs`}>
-            {isComponentInstance
-              ? `(instance of ${componentInstanceName ?? 'a Component'})`
-              : atomName
-              ? `(${atomName})`
-              : ''}
-          </span>
+          {name} <span css={tw`text-xs`}>{meta}</span>
         </div>
       </Dropdown>
     </div>

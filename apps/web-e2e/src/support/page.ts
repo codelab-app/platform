@@ -29,7 +29,7 @@ export const createPage = (
       query: print(E2eCreatePageDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.pages[0] as IPage)
+    .then((r) => r.body.data?.createPages.pages as Array<IPage>)
 }
 
 // should be use with createPageFromScratch
