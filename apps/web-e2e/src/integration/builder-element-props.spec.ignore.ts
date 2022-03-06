@@ -1,10 +1,5 @@
-//
-// Ignored because of seeder
-//
-
+// ignore because we need to seed Button.csv first
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-
-const pageName = 'Home Page'
 
 const buttonComponent = {
   name: 'AntDesignButton',
@@ -20,19 +15,6 @@ const formTextInputs = [
   { text: 'Target', input: '_blank' },
   { text: 'Type', input: 'primary' },
 ]
-
-const selectApp = () => {
-  return cy.get('@appId').then((appId) => {
-    cy.visit(`/apps/${appId}/pages`)
-
-    cy.getSpinner().should('not.exist')
-  })
-}
-
-const selectPage = () => {
-  cy.findByText(pageName).click()
-  cy.contains(/Root element/)
-}
 
 const selectPropsTab = () => {
   cy.get('.ant-dropdown-trigger')
@@ -52,30 +34,16 @@ const selectPropsTab = () => {
 before(() => {
   cy.resetDatabase().then(() => {
     cy.login().then(() => {
-      cy.createApp().then((app: any) => {
-        cy.wrap(app.id).as('appId')
-        cy.createPage({
-          app: { connect: { where: { node: { id: app.id } } } },
-          rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
-          name: pageName,
-        }).then(() => {
-          selectApp()
-          selectPage()
-
-          // Add Button component
-          cy.findByRole('button', { name: /plus/ }).click()
-
-          cy.getOpenedModal().then((modal: JQuery) => {
-            cy.wrap(modal).findByLabelText('Name').type(buttonComponent.name)
-            cy.wrap(modal).findByLabelText('Atom').type(buttonComponent.atom)
-            cy.getOptionItem(buttonComponent.atom).first().click()
-
-            cy.wrap(modal)
-              .findByButtonText(/Create/)
-              .click()
-
-            cy.getOpenedModal().should('not.exist')
-          })
+      cy.jumpToBuilder().then((data: any) => {
+        // create Button element
+        cy.createElement({
+          name: buttonComponent.name,
+          atom: {
+            connect: { where: { node: { name: buttonComponent.atom } } },
+          },
+          parentElement: {
+            connect: { where: { node: { id: data.rootElementIdt } } },
+          },
         })
       })
     })

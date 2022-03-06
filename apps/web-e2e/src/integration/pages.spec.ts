@@ -1,6 +1,6 @@
-import { domClasses } from '../support/selectors/domClassess'
+import { domClasses } from '../support/selectors/domClasses'
 
-describe('Pages', () => {
+describe('Pages CRUD', () => {
   let appId: string
   const pageName = 'new useful page'
   const updatedPageName = 'updated page'

@@ -1,4 +1,4 @@
-import { domClasses } from './domClassess'
+import { domClasses } from './domClasses'
 import { CypressElement } from './types'
 import { wrapSubject } from './utils'
 

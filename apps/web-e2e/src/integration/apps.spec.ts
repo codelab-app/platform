@@ -1,4 +1,4 @@
-import { domClasses } from '../support/selectors/domClassess'
+import { domClasses } from '../support/selectors/domClasses'
 
 const appName = 'new app'
 const updatedAppName = 'updated app'

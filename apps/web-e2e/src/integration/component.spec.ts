@@ -1,9 +1,9 @@
-import { domClasses } from '../support/selectors/domClassess'
+import { domClasses } from '../support/selectors/domClasses'
 
 const componentName = 'Test Component'
 const updatedComponentName = 'Test Component updated'
 
-describe('Components', () => {
+describe('Components CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login()

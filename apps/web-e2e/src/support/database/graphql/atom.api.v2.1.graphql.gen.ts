@@ -25,6 +25,21 @@ export type E2eCreateAtomMutation = {
   }
 }
 
+export type E2eImportAtomsMutationVariables = Types.Exact<{
+  input: Types.ImportAtomsInput
+}>
+
+export type E2eImportAtomsMutation = {
+  __typename?: 'Mutation'
+  importAtoms?:
+    | {
+        __typename?: 'ImportAtomsMutationResponse'
+        atoms?: Array<{ __typename?: 'Atom'; id: string }> | null | undefined
+      }
+    | null
+    | undefined
+}
+
 export type E2eAtomFragment = {
   __typename: 'Atom'
   id: string
@@ -63,6 +78,15 @@ export const E2eCreateAtomDocument = gql`
   }
   ${E2eAtomFragmentDoc}
 `
+export const E2eImportAtomsDocument = gql`
+  mutation E2eImportAtoms($input: ImportAtomsInput!) {
+    importAtoms(input: $input) {
+      atoms {
+        id
+      }
+    }
+  }
+`
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -88,6 +112,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateAtom',
+      )
+    },
+    E2eImportAtoms(
+      variables: E2eImportAtomsMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<E2eImportAtomsMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<E2eImportAtomsMutation>(
+            E2eImportAtomsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'E2eImportAtoms',
       )
     },
   }

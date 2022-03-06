@@ -1,6 +1,6 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { domClasses } from '../support/selectors/domClassess'
+import { domClasses } from '../support/selectors/domClasses'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -24,7 +24,7 @@ const updatedArrayTypeName = 'Updated TextArray'
 const interfaceTypeName = 'New Interface'
 const interfaceTypeKind = TypeKind.InterfaceType
 
-describe('Types', () => {
+describe('Types CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login().then(() => {

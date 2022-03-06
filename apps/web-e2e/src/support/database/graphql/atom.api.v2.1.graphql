@@ -6,6 +6,14 @@ mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
   }
 }
 
+mutation E2eImportAtoms($input: ImportAtomsInput!) {
+  importAtoms(input: $input) {
+    atoms {
+      id
+    }
+  }
+}
+
 fragment E2eAtom on Atom {
   __typename
   id

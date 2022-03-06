@@ -1,5 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
-import { domClasses } from '../support/selectors/domClassess'
+import { domClasses } from '../support/selectors/domClasses'
 
 const atomName = 'Row'
 const atomType = AtomType.AntDesignButton

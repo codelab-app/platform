@@ -5,5 +5,6 @@ export const jumpToBuilder = () =>
     }).then((page) => ({
       appId: apps[0]?.id,
       pageId: page[0]?.id,
+      rootElementId: page[0].rootElement.id,
     }))
   })
