@@ -33,7 +33,11 @@ export const UpdatePageModal = observer<UpdatePageModalProps>(({ pages }) => {
   const model = { name: updatingPage.name, appId: updatingPage.appId }
 
   return (
-    <ModalForm.Modal okText="Update" onCancel={closeModal} visible={isOpen}>
+    <ModalForm.Modal
+      okText="Update Page"
+      onCancel={closeModal}
+      visible={isOpen}
+    >
       <ModalForm.Form<UpdatePageInput>
         model={model}
         onSubmit={onSubmit}
