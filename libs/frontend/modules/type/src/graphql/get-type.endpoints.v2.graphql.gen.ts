@@ -21,7 +21,7 @@ import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.graphql.g
 import { PageTypeFragment } from './fragments/PageType.fragment.v2.graphql.gen'
 import { AppTypeFragment } from './fragments/AppType.fragment.v2.graphql.gen'
 import { InterfaceTypeWithGraphFragment } from './fragments/InterfaceWithGraph.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
 import {
   ArrayTypeWithItemTypeFragmentDoc,

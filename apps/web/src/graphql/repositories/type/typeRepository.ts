@@ -108,26 +108,35 @@ export const typeRepository = {
       })
       .records()
       .pipe(
-        first(() => true, undefined),
+        // first(() => true, undefined),
         map((r) => r?.get('graph') as Maybe<ITypeGraph>),
       ),
 
   // The cypher here must be dynamic because we can't have the label as parameter
   // https://community.neo4j.com/t/having-a-label-as-a-parameter-in-a-cypher-query-efficiently/26555/4
-  createTypes: (txn: RxTransaction, types: Array<IType>) => {
+  createTypes: (
+    txn: RxTransaction,
+    types: Array<IType & { auth0Id?: string }>,
+  ) => {
     if (types.length === 0) {
       return of([])
     }
 
     const params: Record<string, any> = {}
-    let n = 1
+    let n = 0
     const nodeKeys: Array<string> = []
+    console.log('types----------', types)
 
     let cypher = types.reduce((cypherAgg, type) => {
-      n++
-
+      const auth0Id = type.auth0Id
       const paramKey = `props${n}`
-      params[paramKey] = omit(type, ['typeKind', 'id', 'owner', 'ownerId']) // assign the type array to a parameter we will pass later to the query
+      params[paramKey] = omit(type, [
+        'typeKind',
+        'owner',
+        'ownerId',
+        'auth0Id',
+        '__resolveType',
+      ]) // assign the type array to a parameter we will pass later to the query
 
       // sanitize labels, since they can be passed in from the user
       if (!allowedLabels.has(type.typeKind as TypeKind)) {
@@ -139,19 +148,19 @@ export const typeRepository = {
       const nodeKey = `node${n}` // assign a specific node variable key so we can extract them all at the end and return them
       nodeKeys.push(nodeKey)
 
-      const ownerCy = type.owner?.id
-        ? `CREATE (${nodeKey})-[r:OWNS_TYPE]->(b:User {id: '${type.owner.id}'})`
-        : ''
+      const ownerCy = ` MATCH (${nodeKey}), (u:User) where u.auth0Id='${auth0Id}' CREATE (${nodeKey})<-[r:OWNS_TYPE]-(u)`
+
+      n++
 
       return `${cypherAgg}
-      CREATE (${nodeKey}:${type.typeKind} $${paramKey})
+      CREATE (${nodeKey}:${type.typeKind} $${paramKey}) with ${nodeKey}
       ${ownerCy}`
     }, '')
 
-    cypher += `RETURN [${nodeKeys.join(',')}] as nodes`
+    cypher += ` RETURN [${nodeKeys.join(',')}] as nodes`
 
     return txn
-      .run(`cypher`)
+      .run(`${cypher}`, params)
       .records()
       .pipe(map((r) => r?.get('nodes') as Array<IType>))
   },

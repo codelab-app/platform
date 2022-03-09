@@ -61,7 +61,7 @@ generates:
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
-      gqlImport: 'graphql-request#gql'
+      gqlImport: '@apollo/client#gql'
       skipTypename: true
       strictScalars: true
       defaultScalarType: unknown

@@ -1,14 +1,20 @@
-import { useUser } from '@auth0/nextjs-auth0'
+import {
+  ATOMS_CACHE_TAG,
+  TAG_CACHE_TAG,
+  TYPE_CACHE_TAG,
+} from '@codelab/frontend/model/infra/redux'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { ImportUpload } from '@codelab/frontend/view/components'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useImportAdminDataMutation } from '../../graphql/Admin.endpoints.v2.graphql.gen'
+import {
+  api,
+  useImportAdminDataMutation,
+} from '../../graphql/Admin.endpoints.v2.graphql.gen'
 
 export const ImportButton = () => {
   const [importAdminData] = useImportAdminDataMutation()
   const dispatch = useDispatch()
-  const { user } = useUser()
 
   const { onSuccess, onError } = useNotify(
     { title: 'Admin data successfully imported' },
@@ -17,7 +23,9 @@ export const ImportButton = () => {
 
   const onRequestSuccess = () => {
     onSuccess()
-    // dispatch(api.util.invalidateTags([ATOMS_CACHE_TAG, TAG_CACHE_TAG, TYPE_CACHE_TAG]))
+    dispatch(
+      api.util.invalidateTags([ATOMS_CACHE_TAG, TAG_CACHE_TAG, TYPE_CACHE_TAG]),
+    )
   }
 
   const fetchFn = (data: any) => {

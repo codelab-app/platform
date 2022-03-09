@@ -32,7 +32,7 @@ import {
 import { MonacoTypeFragment } from './MonacoType.fragment.v2.graphql.gen'
 import { PageTypeFragment } from './PageType.fragment.v2.graphql.gen'
 import { AppTypeFragment } from './AppType.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 import {
   ArrayTypeWithItemTypeFragmentDoc,

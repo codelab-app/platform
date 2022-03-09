@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { HookFragment } from './Element.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import { HookFragmentDoc } from './Element.fragment.v2.graphql.gen'
 import {
   api,

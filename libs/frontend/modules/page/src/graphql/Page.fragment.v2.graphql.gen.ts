@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 export type PageFragment = {
   id: string
   name: string

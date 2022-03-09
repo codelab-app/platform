@@ -1,8 +1,12 @@
-import { ImportAdminDataInput } from '../../ogm-types.gen'
+import { from } from 'rxjs'
+import { first, map, switchMap } from 'rxjs/operators'
+import { MutationImportAdminDataArgs, TypeGraph } from '../../ogm-types.gen'
+import { typeRepository } from '../../repositories'
 import {
   IRxTxnResolver,
   withRxTransaction,
 } from '../abstract/withRxTransaction'
+import { diffTypeGraph } from '../type/type/importTypeGraphResolver'
 
 // export const adminImportResolvers: IResolvers = {
 //   importAdminData: async (
@@ -256,35 +260,62 @@ import {
 // },
 // }
 
-const importAdminDataPayload: IRxTxnResolver<ImportAdminDataInput, string> =
-  ({ input: { payload } }) =>
+const importAdminDataPayload: IRxTxnResolver<
+  MutationImportAdminDataArgs,
+  any
+> =
+  ({ input: { payload } }, req) =>
   (txn) => {
-    console.log('.... payload,........', txn, payload)
-    // return typeRepository
-    //   .getTypeGraph(
-    //     txn,
-    //     payload
-    //   )
-    // .pipe(
-    //   switchMap((existingGraph) => {
-    //     // console.log('.......... ......... existing graph........',)
-    //     // const graphDiff = diffTypeGraph(
-    //     //   importedGraph,
-    //     //   existingGraph ?? emptyGraph,
-    //     // )
+    const auth0Id = req.jwt?.sub
+    const importedGraph = JSON.parse(payload)?.typesGraph as Array<TypeGraph>
 
-    //     // const observables: Array<Observable<any>> = []
+    const emptyGraph: TypeGraph = {
+      __typename: 'TypeGraph',
+      edges: [],
+      vertices: [],
+    }
 
-    //     // // imported non-existing vertices
-    //     // for (const leftOnlyVertex of graphDiff.vertices.leftOnly) {
-    //     //   // The promises will not be executed until the observables are subscribed to
+    return typeRepository
+      .getTypeGraph(
+        txn,
+        importedGraph.vertices.map((v) => v.id),
+      )
+      .pipe(
+        first(() => true, undefined),
+        switchMap((existingGraph) => {
+          const graphDiff = diffTypeGraph(
+            importedGraph,
+            existingGraph ?? emptyGraph,
+          )
 
-    //     //   observables.push(from())
-    //     // }
-    //   }),
-    // )
+          console.log('imported....', importedGraph, graphDiff)
+
+          const types: Array<any> = []
+
+          // imported non-existing vertices
+          for (const leftOnlyVertex of graphDiff.vertices.leftOnly) {
+            // The promises will not be executed until the observables are subscribed to
+            const type = { ...leftOnlyVertex, auth0Id }
+            types.push(type)
+          }
+
+          console.log('not existing types.....', types)
+
+          // create type nodes
+          const result = from(types).pipe(
+            switchMap((type) =>
+              typeRepository
+                .createTypes(txn, [type])
+                .pipe(map((createdType) => ({ result: !!createdType }))),
+            ),
+          )
+
+          return result
+        }),
+      )
   }
 
-export const importAdminData = withRxTransaction<any, any>(
-  importAdminDataPayload,
-)
+export const importAdminData = withRxTransaction<
+  MutationImportAdminDataArgs,
+  any
+>(importAdminDataPayload)

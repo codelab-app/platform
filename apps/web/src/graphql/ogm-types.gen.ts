@@ -28,7 +28,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query'
-  exportAllTypesGraph: Scalars['JSONObject']
+  exportAllTypesGraph?: Maybe<Scalars['JSONObject']>
   exportGraph?: Maybe<Scalars['JSONObject']>
   elementGraph: ElementGraph
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
@@ -8355,7 +8355,7 @@ export type EnumTypeWhere = {
 }
 
 export type ExportAllTypesGraphInput = {
-  typeIds?: Maybe<Array<Scalars['String']>>
+  typeIds: Array<Scalars['String']>
 }
 
 export type FieldCreateInput = {

@@ -5059,7 +5059,7 @@ export type EnumTypeWhere = {
 }
 
 export type ExportAllTypesGraphInput = {
-  typeIds?: InputMaybe<Array<Scalars['String']>>
+  typeIds: Array<Scalars['String']>
 }
 
 export type Field = {
@@ -8738,7 +8738,7 @@ export type Query = {
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
   enumTypesCount: Scalars['Int']
-  exportAllTypesGraph: Scalars['JSONObject']
+  exportAllTypesGraph?: Maybe<Scalars['JSONObject']>
   exportGraph?: Maybe<Scalars['JSONObject']>
   getField: InterfaceTypeEdge
   /**

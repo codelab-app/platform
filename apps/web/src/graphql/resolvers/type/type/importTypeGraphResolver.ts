@@ -23,7 +23,7 @@ const emptyGraph: TypeGraph = {
   vertices: [],
 }
 
-const diffTypeGraph = (a: TypeGraph, b: TypeGraph) => {
+export const diffTypeGraph = (a: TypeGraph, b: TypeGraph) => {
   const aVertexMap = entityMapById(a.vertices)
   const bVertexMap = entityMapById(b.vertices)
   const aEdgesMap = new Map(a.edges.map((e) => [makeEdgeKey(e), e]))

@@ -18,7 +18,7 @@ import {
   TypeNonRecursive_RenderPropsType_Fragment,
   TypeNonRecursive_UnionType_Fragment,
 } from './Type.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import { FieldFragmentDoc } from './Field.fragment.v2.graphql.gen'
 import { TypeNonRecursiveFragmentDoc } from './Type.fragment.v2.graphql.gen'
 export type TypeEdge_Edge_Fragment = { source: string; target: string }

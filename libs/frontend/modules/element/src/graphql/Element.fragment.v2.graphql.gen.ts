@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'

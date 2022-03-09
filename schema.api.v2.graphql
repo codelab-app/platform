@@ -4688,7 +4688,7 @@ input EnumTypeWhere {
 }
 
 input ExportAllTypesGraphInput {
-  typeIds: [String!]
+  typeIds: [String!]!
 }
 
 interface Field {
@@ -7968,7 +7968,7 @@ type Query {
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
   enumTypesCount(where: EnumTypeWhere): Int!
-  exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject!
+  exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject
   exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 

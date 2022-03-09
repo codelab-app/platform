@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 export type Field_InterfaceTypeEdge_Fragment = {
   key: string
   name?: string | null | undefined

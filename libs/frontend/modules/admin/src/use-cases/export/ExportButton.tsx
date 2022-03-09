@@ -1,8 +1,7 @@
 import { useGetAllTypesQuery } from '@codelab/frontend/modules/type'
 import { Button } from 'antd'
-import fileDownload from 'js-file-download'
-import React from 'react'
-import sanitizeFilename from 'sanitize-filename'
+import React, { useMemo } from 'react'
+import { ActionButton } from './ActionButton'
 
 export const ExportButton = () => {
   // Tags data
@@ -10,17 +9,20 @@ export const ExportButton = () => {
   // const tags = tagsData?.tagGraphs ?? { vertices: [], edges: [] }
 
   // // All Types Data
-  const { data: allData } = useGetAllTypesQuery()
+  const { data: allData, isLoading } = useGetAllTypesQuery()
   const allTypes = allData?.types ?? []
 
-  // const typeIds = allTypes.map(el=>el.id)
-  // const typesGraph = useExportAllTypesGraphQuery({variables: {input: {typeIds}}}, {
+  const typeIds = useMemo(() => {
+    return allTypes.map((el) => el.id)
+  }, [isLoading])
+
+  // const {data: typeGraphRes} = useExportAllTypesGraphQuery({variables: {input: {typeIds}}}, {
   //   selectFromResult: (r) => ({
-  //     type: r
+  //     data: r
   //   }),
   // })
+  // const typesGraph = typeGraphRes.data?.exportAllTypesGraph
 
-  // console.log(typesGraph)
   // // InterfaceTypesWithFields....
   // const { data: typesData } = useGetInterfaceTypesWithFieldsQuery()
   // const interfaceTypes = typesData?.types ?? []
@@ -31,19 +33,9 @@ export const ExportButton = () => {
   // const { data: atomsData } = useGetAtomsQuery()
   // const atoms = atomsData?.atoms ?? []
 
-  const exportData: any = {
-    // tags,
-    allTypes,
-    // interfaceTypes,
-    // atoms,
-  }
-
-  const onClickExport = () => {
-    fileDownload(
-      JSON.stringify(exportData),
-      sanitizeFilename(`data.codelab.json`),
-    )
-  }
-
-  return <Button onClick={onClickExport}>Export</Button>
+  return !isLoading ? (
+    <ActionButton typeIds={typeIds} />
+  ) : (
+    <Button disabled={true}>Export</Button>
+  )
 }

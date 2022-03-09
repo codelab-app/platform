@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
+import { gql } from '@apollo/client'
 import {
   api,
   GraphqlOperationOptions,
@@ -26,7 +26,7 @@ export type ExportAllTypesGraphQueryVariables = Types.Exact<{
 }>
 
 export type ExportAllTypesGraphQuery = {
-  exportAllTypesGraph: Record<string, any>
+  exportAllTypesGraph?: Record<string, any> | null | undefined
 }
 
 export const ResetDatabaseGql = gql`

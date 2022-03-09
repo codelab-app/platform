@@ -22,10 +22,10 @@ export const adminSchema = gql`
   }
 
   input ExportAllTypesGraphInput {
-    typeIds: [String!]
+    typeIds: [String!]!
   }
 
   type Query {
-    exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject!
+    exportAllTypesGraph(input: ExportAllTypesGraphInput!): JSONObject
   }
 `

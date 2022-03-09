@@ -1,6 +1,6 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { mutationResolvers } from './mutationResolvers'
-import { queryResolvers } from './query'
+import { queryResolvers } from './queryResolvers'
 import Root from './rootResolvers'
 
 export const resolvers: IResolvers = {

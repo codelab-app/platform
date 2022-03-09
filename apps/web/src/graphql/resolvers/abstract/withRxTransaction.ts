@@ -7,6 +7,7 @@ const driver = getDriver()
 
 export type IRxTxnResolver<TIn, TOut> = (
   input: TIn,
+  req?: any,
 ) => (txn: RxTransaction) => Observable<TOut>
 
 export const withRxTransaction = <TIn, TOut>(
@@ -14,11 +15,11 @@ export const withRxTransaction = <TIn, TOut>(
 ) => {
   const name = innerResolver.name || ''
 
-  const resolver: IFieldResolver<any, any, TIn> = (_, input) => {
+  const resolver: IFieldResolver<any, any, TIn> = (_, input, req) => {
     const session = driver.rxSession()
 
     return session
-      .writeTransaction(innerResolver(input))
+      .writeTransaction(innerResolver(input, req))
       .toPromise()
       .catch((error) => {
         console.error(`${name ? name + ':' : ''}`, error)
