@@ -30,6 +30,7 @@ export type AnyType =
   | MonacoType
   | PageType
   | PrimitiveType
+  | ReactNodeType
   | RenderPropsType
   | UnionType
 

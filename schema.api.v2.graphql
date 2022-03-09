@@ -8,6 +8,7 @@ union AnyType =
   | MonacoType
   | PageType
   | PrimitiveType
+  | ReactNodeType
   | RenderPropsType
   | UnionType
 

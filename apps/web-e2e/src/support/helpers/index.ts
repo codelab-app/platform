@@ -1,13 +1,13 @@
 import { CypressCommand } from '../types'
+import { createPageFromScratch } from './createPageFromScratch'
 import { graphqlRequest } from './graphqlRequest'
-import { jumpToBuilder } from './jumpToBuilder'
 
 export interface CypressHelpersCommands {
   graphqlRequest: typeof graphqlRequest
-  jumpToBuilder: typeof jumpToBuilder
+  createPageFromScratch: typeof createPageFromScratch
 }
 
 export const helpersCommands: Array<CypressCommand> = [
-  { name: 'jumpToBuilder', fn: jumpToBuilder },
+  { name: 'createPageFromScratch', fn: createPageFromScratch },
   { name: 'graphqlRequest', fn: graphqlRequest },
 ]

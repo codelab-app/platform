@@ -34,7 +34,7 @@ const selectPropsTab = () => {
 before(() => {
   cy.resetDatabase().then(() => {
     cy.login().then(() => {
-      cy.jumpToBuilder().then((data: any) => {
+      cy.createPageFromScratch().then((data: any) => {
         // create Button element
         cy.createElement({
           name: buttonComponent.name,

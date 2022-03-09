@@ -25,7 +25,7 @@ describe('Elements CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login().then(() => {
-        cy.jumpToBuilder().then((data: any) => {
+        cy.createPageFromScratch().then((data: any) => {
           cy.getCurrentUserId().then((userId) => {
             const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
               name: atom.name,

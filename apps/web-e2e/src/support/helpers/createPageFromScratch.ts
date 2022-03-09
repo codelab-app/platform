@@ -1,4 +1,4 @@
-export const jumpToBuilder = () =>
+export const createPageFromScratch = () =>
   cy.createApp().then((apps) => {
     cy.createPage({
       app: { connect: { where: { node: { id: apps[0]?.id } } } },
