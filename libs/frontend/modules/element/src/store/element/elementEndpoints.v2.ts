@@ -5,12 +5,18 @@ import {
   invalidatesAll,
   providesAll,
 } from '@codelab/frontend/model/infra/redux'
+import { AtomFragmentDoc } from '@codelab/frontend/modules/atom'
 import { Maybe } from '@codelab/shared/abstract/codegen-v2'
 import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
 import { api as generatedApi } from '../../graphql/element.endpoints.v2.graphql.gen'
 import {
+  ElementEdgeFragmentDoc,
+  ElementFragmentDoc,
   ElementGraphFragment,
   ElementGraphFragmentDoc,
+  HookFragmentDoc,
+  PropFragmentDoc,
+  PropMapBindingFragmentDoc,
 } from '../../graphql/Element.fragment.v2.graphql.gen'
 import {
   getGraphEntry,
@@ -34,6 +40,12 @@ export const GetElementsGraphGql = gql`
     }
   }
   ${ElementGraphFragmentDoc}
+  ${ElementEdgeFragmentDoc}
+  ${ElementFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
+  ${AtomFragmentDoc}
 `
 
 const elementInjectedApi = generatedApi.injectEndpoints({

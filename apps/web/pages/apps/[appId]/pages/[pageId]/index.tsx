@@ -5,11 +5,11 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
-import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageDetailHeader,
   PageProvider,
   usePage,
+  usePageRenderElementTree,
 } from '@codelab/frontend/modules/page'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
@@ -22,10 +22,10 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, store.pages)
-  const { elementTree } = useElementGraphContext()
   const { typesById } = useTypesByIdQuery()
+  const { renderElementTree } = usePageRenderElementTree(store.pages)
 
-  if (!page || !elementTree) {
+  if (!page || !renderElementTree) {
     return <Empty />
   }
 
@@ -35,7 +35,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>{page.name}</title>
       </Head>
 
-      <Renderer tree={elementTree} typesById={typesById} />
+      <Renderer tree={renderElementTree} typesById={typesById} />
     </>
   )
 })

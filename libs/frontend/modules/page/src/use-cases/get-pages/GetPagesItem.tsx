@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { PageModel, PageStore } from '../../store'
+import { providerTreePageName } from '.'
 
 export type GetPagesItemProps = {
   page: PageModel
@@ -17,11 +18,14 @@ export type GetPagesItemProps = {
 
 export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
   const router = useRouter()
+  const isProviderTreePage = page.name === providerTreePageName
 
-  const href = {
-    pathname: PageType.PageBuilder,
-    query: { ...router.query, pageId: page.id },
-  }
+  const href = isProviderTreePage
+    ? { pathname: PageType.AppProviderDetail, query: router.query }
+    : {
+        pathname: PageType.PageBuilder,
+        query: { ...router.query, pageId: page.id },
+      }
 
   const onClickDelete = () => pages.deleteModal.open(page.id)
   const onClickEdit = () => pages.updateModal.open(page.id)
@@ -34,10 +38,12 @@ export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
           <a>{page.name}</a>
         </Link>
       </Space>
-      <Space>
-        <ListItemEditButton onClick={onClickEdit} />
-        <ListItemDeleteButton onClick={onClickDelete} />
-      </Space>
+      {!isProviderTreePage && (
+        <Space>
+          <ListItemEditButton onClick={onClickEdit} />
+          <ListItemDeleteButton onClick={onClickDelete} />
+        </Space>
+      )}
     </List.Item>
   )
 })

@@ -1,8 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { InterfaceTypeEdgeFragment } from './fragments/Field.fragment.v2.graphql.gen'
+import {
+  InterfaceTypeEdgeFragment,
+  Field_InterfaceTypeEdge_Fragment,
+  Field_InterfaceTypeFieldsRelationship_Fragment,
+} from './fragments/Field.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
-import { InterfaceTypeEdgeFragmentDoc } from './fragments/Field.fragment.v2.graphql.gen'
+import {
+  InterfaceTypeEdgeFragmentDoc,
+  FieldFragmentDoc,
+} from './fragments/Field.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -51,6 +58,7 @@ export const CreateFieldGql = gql`
     }
   }
   ${InterfaceTypeEdgeFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const UpdateFieldGql = gql`
   mutation UpdateField($input: UpsertFieldInput!) {
@@ -59,6 +67,7 @@ export const UpdateFieldGql = gql`
     }
   }
   ${InterfaceTypeEdgeFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const DeleteFieldGql = gql`
   mutation DeleteField($input: DeleteFieldInput!) {

@@ -35,5 +35,4 @@ export const InterfaceTypeEdgeFragmentDoc = gql`
     target
     source
   }
-  ${FieldFragmentDoc}
 `

@@ -15,6 +15,7 @@ import {
   PageDetailHeader,
   PageProvider,
   usePage,
+  usePageRenderElementTree,
 } from '@codelab/frontend/modules/page'
 import { userSlice } from '@codelab/frontend/modules/user'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
@@ -30,6 +31,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, store.pages)
   const { elementTree } = useElementGraphContext()
+  const { renderElementTree } = usePageRenderElementTree(store.pages)
 
   if (!page || !elementTree) {
     return <Empty />
@@ -40,7 +42,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       <Head>
         <title>{page.name} | Builder | Codelab</title>
       </Head>
-      <Builder tree={elementTree} />
+      <Builder renderTree={renderElementTree} tree={elementTree} />
     </>
   )
 })

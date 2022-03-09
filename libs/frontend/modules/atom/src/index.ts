@@ -1,3 +1,4 @@
+export * from './graphql/Atom.fragment.v2.graphql.gen'
 export * from './hooks'
 export * from './store'
 export * from './types'

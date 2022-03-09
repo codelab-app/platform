@@ -17,9 +17,11 @@ import {
   ArrayTypeFragment,
 } from './ArrayType.fragment.v2.graphql.gen'
 import { EnumTypeFragment } from './EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragment } from './EnumTypeValue.fragment.v2.graphql.gen'
 import {
   InterfaceTypeWithFieldsFragment,
   InterfaceTypeFragment,
+  InterfaceTypeFieldEdgeFragment,
 } from './Interface.fragment.v2.graphql.gen'
 import { PrimitiveTypeFragment } from './PrimitiveType.fragment.v2.graphql.gen'
 import { ElementTypeFragment } from './ElementType.fragment.v2.graphql.gen'
@@ -39,9 +41,11 @@ import {
   ArrayTypeFragmentDoc,
 } from './ArrayType.fragment.v2.graphql.gen'
 import { EnumTypeFragmentDoc } from './EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragmentDoc } from './EnumTypeValue.fragment.v2.graphql.gen'
 import {
   InterfaceTypeWithFieldsFragmentDoc,
   InterfaceTypeFragmentDoc,
+  InterfaceTypeFieldEdgeFragmentDoc,
 } from './Interface.fragment.v2.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.v2.graphql.gen'
 import { ElementTypeFragmentDoc } from './ElementType.fragment.v2.graphql.gen'
@@ -167,18 +171,6 @@ export const TypeFragmentDoc = gql`
     ...PageType
     ...AppType
   }
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${InterfaceTypeWithFieldsFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const TypeNonRecursiveFragmentDoc = gql`
   fragment TypeNonRecursive on TypeBase {
@@ -195,16 +187,4 @@ export const TypeNonRecursiveFragmentDoc = gql`
     ...PageType
     ...AppType
   }
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `

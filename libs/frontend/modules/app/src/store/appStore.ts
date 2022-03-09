@@ -13,11 +13,18 @@ import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
 import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
 import { appApi } from './appApi'
 
+console.log({ ModalStore })
+
 export const AppModel = types
   .model({
     id: types.identifier,
     ownerId: types.optional(types.maybeNull(types.string), null),
     name: types.string,
+    rootProviderElement: types.maybeNull(
+      types.model({
+        id: types.string,
+      }),
+    ),
   })
   .actions((self) => {
     // This middleware rolls back if a synchronous or asynchronous action process fails.
@@ -133,6 +140,13 @@ export const AppStore = types
             ...input,
             owner: {
               connect: [{ where: { node: { auth0Id: ownerId } } }],
+            },
+            rootProviderElement: {
+              create: {
+                node: {
+                  name: 'Provider Root Element',
+                },
+              },
             },
           },
         }),

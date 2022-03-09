@@ -21,6 +21,7 @@ export type CreateAppsMutation = {
         | null
         | undefined
       pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
+      rootProviderElement: { __typename?: 'Element'; id: string }
     }>
   }
 }
@@ -43,6 +44,7 @@ export type UpdateAppsMutation = {
         | null
         | undefined
       pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
+      rootProviderElement: { __typename?: 'Element'; id: string }
     }>
   }
 }
@@ -72,6 +74,7 @@ export type GetAppsQuery = {
       | null
       | undefined
     pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
+    rootProviderElement: { __typename?: 'Element'; id: string }
   }>
 }
 

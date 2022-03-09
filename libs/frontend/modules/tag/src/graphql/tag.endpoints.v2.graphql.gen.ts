@@ -1,10 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { TagFragment } from './Tag.fragment.v2.graphql.gen'
-import { TagGraphFragment } from './TagGraph.fragment.v2.graphql.gen'
+import {
+  TagGraphFragment,
+  TagEdgeFragment,
+} from './TagGraph.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
 import { TagFragmentDoc } from './Tag.fragment.v2.graphql.gen'
-import { TagGraphFragmentDoc } from './TagGraph.fragment.v2.graphql.gen'
+import {
+  TagGraphFragmentDoc,
+  TagEdgeFragmentDoc,
+} from './TagGraph.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -83,6 +89,8 @@ export const GetTagGraphsGql = gql`
     }
   }
   ${TagGraphFragmentDoc}
+  ${TagFragmentDoc}
+  ${TagEdgeFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

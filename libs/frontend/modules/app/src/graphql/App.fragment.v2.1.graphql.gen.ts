@@ -12,6 +12,7 @@ export type AppFragment = {
     | null
     | undefined
   pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
+  rootProviderElement: { __typename?: 'Element'; id: string }
 }
 
 export const AppFragmentDoc = gql`
@@ -22,6 +23,9 @@ export const AppFragmentDoc = gql`
     }
     name
     pages {
+      id
+    }
+    rootProviderElement {
       id
     }
   }

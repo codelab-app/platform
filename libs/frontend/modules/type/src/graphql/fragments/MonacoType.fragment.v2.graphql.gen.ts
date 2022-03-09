@@ -25,5 +25,4 @@ export const MonacoTypeFragmentDoc = gql`
     ...TypeBase
     language
   }
-  ${TypeBaseFragmentDoc}
 `

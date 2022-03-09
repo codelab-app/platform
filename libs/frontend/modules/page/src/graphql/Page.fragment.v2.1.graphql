@@ -4,6 +4,11 @@ fragment Page on Page {
   app {
     id
   }
+  app {
+    rootProviderElement {
+      id
+    }
+  }
   rootElement {
     id
     name

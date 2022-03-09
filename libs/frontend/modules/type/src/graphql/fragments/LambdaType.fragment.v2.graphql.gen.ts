@@ -20,5 +20,4 @@ export const LambdaTypeFragmentDoc = gql`
   fragment LambdaType on LambdaType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `

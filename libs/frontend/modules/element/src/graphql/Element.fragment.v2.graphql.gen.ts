@@ -86,7 +86,6 @@ export const HookFragmentDoc = gql`
       name
     }
   }
-  ${PropFragmentDoc}
 `
 export const PropMapBindingFragmentDoc = gql`
   fragment PropMapBinding on PropMapBinding {
@@ -146,10 +145,6 @@ export const ElementFragmentDoc = gql`
       }
     }
   }
-  ${AtomFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
@@ -161,6 +156,4 @@ export const ElementGraphFragmentDoc = gql`
     }
     rootId
   }
-  ${ElementEdgeFragmentDoc}
-  ${ElementFragmentDoc}
 `

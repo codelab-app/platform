@@ -16,6 +16,7 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { ArrayTypeFragment } from './ArrayType.fragment.v2.graphql.gen'
 import { EnumTypeFragment } from './EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragment } from './EnumTypeValue.fragment.v2.graphql.gen'
 import { PrimitiveTypeFragment } from './PrimitiveType.fragment.v2.graphql.gen'
 import { ElementTypeFragment } from './ElementType.fragment.v2.graphql.gen'
 import { LambdaTypeFragment } from './LambdaType.fragment.v2.graphql.gen'
@@ -31,6 +32,7 @@ import { gql } from 'graphql-request'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 import { ArrayTypeFragmentDoc } from './ArrayType.fragment.v2.graphql.gen'
 import { EnumTypeFragmentDoc } from './EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragmentDoc } from './EnumTypeValue.fragment.v2.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.v2.graphql.gen'
 import { ElementTypeFragmentDoc } from './ElementType.fragment.v2.graphql.gen'
 import { LambdaTypeFragmentDoc } from './LambdaType.fragment.v2.graphql.gen'
@@ -75,7 +77,6 @@ export const InterfaceTypeFragmentDoc = gql`
   fragment InterfaceType on InterfaceType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `
 export const InterfaceTypeFieldEdgeFragmentDoc = gql`
   fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
@@ -97,17 +98,6 @@ export const InterfaceTypeFieldEdgeFragmentDoc = gql`
       ...AppType
     }
   }
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const InterfaceTypeWithFieldsFragmentDoc = gql`
   fragment InterfaceTypeWithFields on InterfaceType {
@@ -119,6 +109,4 @@ export const InterfaceTypeWithFieldsFragmentDoc = gql`
       totalCount
     }
   }
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
 `

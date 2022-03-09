@@ -29,6 +29,4 @@ export const EnumTypeFragmentDoc = gql`
       ...EnumTypeValue
     }
   }
-  ${TypeBaseFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
 `

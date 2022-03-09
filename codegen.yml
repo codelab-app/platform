@@ -34,7 +34,7 @@ generates:
 
   ./libs/:
     documents:
-      - '**/*.{endpoints,fragment}.v2.1.graphql'
+      - '**/*.{endpoints,api,fragment}.v2.1.graphql'
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
@@ -66,3 +66,4 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
+      dedupeFragments: true # remove duplicated fragments such TypeBase

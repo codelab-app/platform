@@ -19,6 +19,7 @@ export const PageModel = types
     appId: types.string,
     name: types.string,
     rootElementId: types.string,
+    providerElementId: types.string,
   })
   .actions((self) => {
     // This middleware rolls back if a synchronous or asynchronous action process fails.
@@ -105,6 +106,7 @@ export const PageStore = types
             appId: page.app.id,
             name: page.name,
             rootElementId: page.rootElement.id,
+            providerElementId: page.app.rootProviderElement.id,
           }),
         )
 
@@ -153,6 +155,7 @@ export const PageStore = types
         appId: page.app.id,
         name: page.name,
         rootElementId: page.rootElement.id,
+        providerElementId: page.app.rootProviderElement.id,
       })
 
       self.pages.put(pageModel)
