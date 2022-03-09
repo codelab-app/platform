@@ -44,7 +44,6 @@ export default AppProviderBuilder
 export const getServerSideProps = withPageAuthRequired()
 
 AppProviderBuilder.Layout = observer((page) => {
-  /* eslint-disable */
   const store = useStore()
   const { app } = useCurrentApp(store.apps)
 

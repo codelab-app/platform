@@ -8,8 +8,8 @@ import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
 import {
   PageDetailHeader,
   PageProvider,
+  useAppElementTree,
   usePage,
-  usePageRenderElementTree,
 } from '@codelab/frontend/modules/page'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
@@ -23,9 +23,9 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, store.pages)
   const { typesById } = useTypesByIdQuery()
-  const { renderElementTree } = usePageRenderElementTree(store.pages)
+  const { appElementTree } = useAppElementTree(store.pages)
 
-  if (!page || !renderElementTree) {
+  if (!page || !appElementTree) {
     return <Empty />
   }
 
@@ -35,7 +35,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>{page.name}</title>
       </Head>
 
-      <Renderer tree={renderElementTree} typesById={typesById} />
+      <Renderer tree={appElementTree} typesById={typesById} />
     </>
   )
 })

@@ -8,7 +8,7 @@ import { useMemo } from 'react'
 import { PageStore } from '..'
 import { usePage } from '.'
 
-export const usePageRenderElementTree = (pages: PageStore) => {
+export const useAppElementTree = (pages: PageStore) => {
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, pages)
 
@@ -59,9 +59,9 @@ export const usePageRenderElementTree = (pages: PageStore) => {
     return resultElementGraph
   }, [pageElementGraph, providerElementGraph])
 
-  const renderElementTree = useElementTree(pageRenderElementGraph)
+  const appElementTree = useElementTree(pageRenderElementGraph)
 
   return {
-    renderElementTree,
+    appElementTree,
   }
 }
