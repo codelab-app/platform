@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
-    "module": "esnext",
+    "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,

@@ -29,10 +29,8 @@ executor-config: &executor-config
     SLACK_ASSIM: <@U02GJN72TKR>
     GITHUB_NGHIA: phmngocnghia
     SLACK_NGHIA: <@U02DX6U7YGP>
-    GITHUB_HARRY: harryjin
-    SLACK_HARRY: <@U02TVECJA8Z>
-    GITHUB_MING: rihnoo
-    SLACK_MING: <@U02TU52M0HZ>
+    GITHUB_HAN: railway17
+    SLACK_HAN: <@U032DCE59SB>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -114,11 +112,8 @@ commands:
             elif [ $CIRCLE_USERNAME == $GITHUB_NGHIA ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_NGHIA}' >> $BASH_ENV
 
-            elif [ $CIRCLE_USERNAME == $GITHUB_HARRY ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_HARRY}' >> $BASH_ENV
-
-            elif [ $CIRCLE_USERNAME == $GITHUB_MING ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_MING}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_HAN ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_HAN}' >> $BASH_ENV
 
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
@@ -147,16 +142,6 @@ commands:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
           template: basic_fail_1
-
-  setup-dgraph:
-    description: 'Setup Dgraph'
-    steps:
-      - run:
-          name: 'Update Dgraph Schema'
-          command: yarn cli dgraph update-schema --env ci
-      - run:
-          name: 'Reset Dgraph Data'
-          command: yarn cli dgraph reset-data --env ci
 
   build-push-docker-image:
     description: 'Build docker image'
@@ -188,17 +173,11 @@ jobs:
       - setup-workspace
       - package-install-dev
       - run:
-          name: 'NX_BASE'
-          command: echo $NX_BASE
-      - run:
-          name: 'NX_HEAD'
-          command: echo $NX_HEAD
-      - run:
           name: 'Clear Cache'
           command: |
             rm -rf ~/project/node_modules/nx/.cache
+            npx jest --clearCache
           # npx cypress cache path
-          # npx jest --clearCache
       - run:
           name: 'Build CI'
           command: npx nx run-many --target=build --projects=web,cli,tools-rtk-query --configuration=ci --verbose
@@ -226,9 +205,9 @@ jobs:
       - setup-workspace
       - run: yarn cli tasks eslint --env ci
       # Check to see if codegen works, all files should be committed locally
-      - run:
-          name: 'GraphQL Codegen'
-          command: yarn codegen
+      # - run:
+      #     name: 'GraphQL Codegen'
+      #     command: yarn codegen
       - run:
           name: 'Circular Dependencies Check'
           command: yarn cli tasks circular-lint --env ci
@@ -249,10 +228,9 @@ jobs:
     steps:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
-      - run: |
-          echo 'export CODELAB_DG_ENDPOINT=$CODELAB_INT_DG_ENDPOINT' >> $BASH_ENV
-          echo 'export DG_ADMIN_API_KEY=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
-      - setup-dgraph
+      # - run: |
+      #     echo 'export CODELAB_DG_ENDPOINT=$CODELAB_INT_DG_ENDPOINT' >> $BASH_ENV
+      #     echo 'export DG_ADMIN_API_KEY=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
       - run: yarn cli tasks int --env ci
       - notify-failure
 
@@ -261,10 +239,9 @@ jobs:
     steps:
       - setup-workspace
       - browser-tools/install-firefox
-      - run: |
-          echo 'export CODELAB_DG_ENDPOINT=$CODELAB_E2E_DG_ENDPOINT' >> $BASH_ENV
-          echo 'export DG_ADMIN_API_KEY=$CODELAB_E2E_DG_ADMIN_API_KEY' >> $BASH_ENV
-      - setup-dgraph
+      # - run: |
+      #     echo 'export CODELAB_DG_ENDPOINT=$CODELAB_E2E_DG_ENDPOINT' >> $BASH_ENV
+      #     echo 'export DG_ADMIN_API_KEY=$CODELAB_E2E_DG_ADMIN_API_KEY' >> $BASH_ENV
       - run: npx cypress install
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci
