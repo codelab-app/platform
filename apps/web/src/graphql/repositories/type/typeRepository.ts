@@ -5,11 +5,12 @@ import { throwIfNullish } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable, of } from 'rxjs'
-import { first, map, tap } from 'rxjs/operators'
+import { first, map, switchMap, tap } from 'rxjs/operators'
 import connectFieldCypher from './connectField.cypher'
 import disconnectFieldCypher from './disconnectField.cypher'
 import getFieldCypher from './getField.cypher'
 import getTypeByIdCypher from './getTypeById.cypher'
+import getTypeByIdsCypher from './getTypeByIds.cypher'
 import getTypeGraphCypher from './getTypeGraph.cypher'
 import isTypeDescendantOfCypher from './isTypeDescendantOf.cypher'
 
@@ -35,6 +36,15 @@ export const typeRepository = {
         first(() => true, undefined),
         map((r) => r?.get('type') as Maybe<GetTypeByIdResponse>),
       ),
+
+  getTypeByIds: (
+    txn: RxTransaction,
+    typeIds: Array<string>,
+  ): Observable<Maybe<GetTypeByIdResponse>> =>
+    txn
+      .run(getTypeByIdsCypher, { typeIds })
+      .records()
+      .pipe(map((r) => r?.get('types') as Maybe<GetTypeByIdResponse>)),
 
   connectField: (
     txn: RxTransaction,
@@ -109,7 +119,7 @@ export const typeRepository = {
       .records()
       .pipe(
         // first(() => true, undefined),
-        map((r) => r?.get('graph') as Maybe<ITypeGraph>),
+        switchMap((r) => of(r?.get('graph') as Maybe<ITypeGraph>)),
       ),
 
   // The cypher here must be dynamic because we can't have the label as parameter
@@ -125,9 +135,8 @@ export const typeRepository = {
     const params: Record<string, any> = {}
     let n = 0
     const nodeKeys: Array<string> = []
-    console.log('types----------', types)
 
-    let cypher = types.reduce((cypherAgg, type) => {
+    const cypher = types.reduce((cypherAgg, type) => {
       const auth0Id = type.auth0Id
       const paramKey = `props${n}`
       params[paramKey] = omit(type, [
@@ -149,15 +158,18 @@ export const typeRepository = {
       nodeKeys.push(nodeKey)
 
       const ownerCy = ` MATCH (${nodeKey}), (u:User) where u.auth0Id='${auth0Id}' CREATE (${nodeKey})<-[r:OWNS_TYPE]-(u)`
+      const unionAll = n > 0 && n < types.length ? ' UNION ALL ' : ''
 
       n++
 
-      return `${cypherAgg}
+      return `${cypherAgg}${unionAll}
       CREATE (${nodeKey}:${type.typeKind} $${paramKey}) with ${nodeKey}
-      ${ownerCy}`
+      ${ownerCy} return ${nodeKey} as nodes`
     }, '')
 
-    cypher += ` RETURN [${nodeKeys.join(',')}] as nodes`
+    // cypher += ` RETURN [${nodeKeys.join(',')}] as nodes`
+
+    console.log('query = ', cypher)
 
     return txn
       .run(`${cypher}`, params)

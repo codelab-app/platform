@@ -1,11 +1,19 @@
-import { from } from 'rxjs'
-import { first, map, switchMap } from 'rxjs/operators'
+import { from, of } from 'rxjs'
+import {
+  concatMap,
+  filter,
+  first,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators'
 import { MutationImportAdminDataArgs, TypeGraph } from '../../ogm-types.gen'
 import { typeRepository } from '../../repositories'
 import {
   IRxTxnResolver,
   withRxTransaction,
 } from '../abstract/withRxTransaction'
+import { upsertFieldEdge } from '../type/field/upsertFieldEdge/upsertFieldEdgeResolver'
 import { diffTypeGraph } from '../type/type/importTypeGraphResolver'
 
 // export const adminImportResolvers: IResolvers = {
@@ -267,7 +275,8 @@ const importAdminDataPayload: IRxTxnResolver<
   ({ input: { payload } }, req) =>
   (txn) => {
     const auth0Id = req.jwt?.sub
-    const importedGraph = JSON.parse(payload)?.typesGraph as Array<TypeGraph>
+    const importedGraphs = JSON.parse(payload)?.typesGraph as Array<TypeGraph>
+    console.log('graphs... length...', importedGraphs.length)
 
     const emptyGraph: TypeGraph = {
       __typename: 'TypeGraph',
@@ -275,44 +284,93 @@ const importAdminDataPayload: IRxTxnResolver<
       vertices: [],
     }
 
-    return typeRepository
-      .getTypeGraph(
-        txn,
-        importedGraph.vertices.map((v) => v.id),
-      )
-      .pipe(
-        first(() => true, undefined),
-        switchMap((existingGraph) => {
-          const graphDiff = diffTypeGraph(
-            importedGraph,
-            existingGraph ?? emptyGraph,
-          )
+    const diffVertexIds: Array<string> = []
+    const existingVertexIds: Array<string> = []
+    const createdVertexIds: Array<string> = []
 
-          console.log('imported....', importedGraph, graphDiff)
+    return from(importedGraphs).pipe(
+      mergeMap((importedGraph, n) => {
+        const rootIds = importedGraph.vertices.map((v) => v.id)
 
-          const types: Array<any> = []
+        return typeRepository.getTypeGraph(txn, rootIds).pipe(
+          first(() => true, undefined),
+          switchMap((existingGraph, i) => {
+            const graphDiff = diffTypeGraph(
+              importedGraph,
+              existingGraph ?? emptyGraph,
+            )
 
-          // imported non-existing vertices
-          for (const leftOnlyVertex of graphDiff.vertices.leftOnly) {
-            // The promises will not be executed until the observables are subscribed to
-            const type = { ...leftOnlyVertex, auth0Id }
-            types.push(type)
+            const vertices: Array<any> = []
+
+            // imported non-existing vertices
+            for (const leftOnlyVertex of graphDiff.vertices.leftOnly) {
+              // The promises will not be executed until the observables are subscribed to
+              if (diffVertexIds.indexOf(leftOnlyVertex.id) == -1) {
+                const type = { ...leftOnlyVertex, auth0Id }
+                vertices.push(type)
+                diffVertexIds.push(leftOnlyVertex.id)
+              }
+            }
+
+            for (const rightOnlyVertex of graphDiff.vertices.rightOnly) {
+              if (existingVertexIds.indexOf(rightOnlyVertex.id) == -1) {
+                existingVertexIds.push(rightOnlyVertex.id)
+              }
+            }
+
+            return typeRepository.createTypes(txn, vertices).pipe(
+              switchMap((createdTypes) =>
+                of({
+                  createdTypes,
+                  graphDiff,
+                }),
+              ),
+            )
+          }),
+        )
+      }),
+      filter((res: any) => !!res.createdTypes.properties?.id),
+      mergeMap((res: any) => {
+        const graphDiff = res.graphDiff
+        console.log('node is created...', res.createdTypes.properties?.id)
+        createdVertexIds.push(res.createdTypes.properties.id)
+
+        const availableIds = [...existingVertexIds, ...createdVertexIds]
+        const inputs: Array<any> = []
+
+        // imported non-existing edges
+        for (const leftOnlyEdge of graphDiff.edges.leftOnly) {
+          if (
+            leftOnlyEdge.__resolveType == 'InterfaceTypeEdge' &&
+            availableIds.indexOf(leftOnlyEdge.source) != -1 &&
+            availableIds.indexOf(leftOnlyEdge.target) != -1
+          ) {
+            const input = {
+              ...leftOnlyEdge,
+              interfaceTypeId: leftOnlyEdge.source,
+              targetTypeId: leftOnlyEdge.target,
+            }
+
+            inputs.push(input)
           }
+        }
 
-          console.log('not existing types.....', types)
-
-          // create type nodes
-          const result = from(types).pipe(
-            switchMap((type) =>
-              typeRepository
-                .createTypes(txn, [type])
-                .pipe(map((createdType) => ({ result: !!createdType }))),
-            ),
+        return of(inputs)
+      }),
+      filter((edgeInputs) => !!edgeInputs.length),
+      concatMap((edgeInputs) => {
+        for (const input of edgeInputs) {
+          // return upsertFieldEdgeWihoutOGM({input, isCreating: true})(txn).pipe(
+          return upsertFieldEdge({ input, isCreating: true })(txn).pipe(
+            map((fieldEdge) => {
+              return { result: !!fieldEdge.key }
+            }),
           )
+        }
 
-          return result
-        }),
-      )
+        return of({ result: !!edgeInputs })
+      }),
+    )
   }
 
 export const importAdminData = withRxTransaction<
