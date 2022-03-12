@@ -39,7 +39,7 @@ const componentsInputs = (
   createTextReactNodeComponentInput(userId, textAtomId),
 ]
 
-describe('render props', () => {
+describe('Render props', () => {
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login().then(async () => {
