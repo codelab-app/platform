@@ -82,7 +82,7 @@
               "forwardAllArgs": false
             },
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         }
