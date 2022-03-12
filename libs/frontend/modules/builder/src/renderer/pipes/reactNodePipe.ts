@@ -16,6 +16,8 @@ export const reactNodePipe: RenderPipeFactory =
       context.typesById,
     )
 
+    console.log(reactNodeProps)
+
     const transformedProps = transformPropsToComponentFn(
       reactNodeProps,
       context,

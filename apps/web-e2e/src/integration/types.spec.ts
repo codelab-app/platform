@@ -42,13 +42,13 @@ describe('Types CRUD', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(primitiveTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(primitiveTypeKind).first().click()
-      cy.getOpenedModal().findByLabelText('Primitive kind').click()
-      cy.getOpenedModal()
-        .getOptionItem(primitiveTypePrimitiveKind)
-        .first()
-        .click()
+
+      cy.getOpenedModal().selectOptionItem('Kind', primitiveTypeKind)
+
+      cy.getOpenedModal().selectOptionItem(
+        'Primitive kind',
+        primitiveTypePrimitiveKind,
+      )
 
       cy.getOpenedModal()
         .findByButtonText(/Create/)
@@ -66,8 +66,7 @@ describe('Types CRUD', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(enumTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(enumTypeKind).click()
+      cy.getOpenedModal().selectOptionItem('Kind', enumTypeKind)
 
       enumTypeAllowedValues.map((enumItem) => {
         cy.findByRole('button', { name: /plus-square/ }).click()
@@ -91,17 +90,11 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to create array', () => {
-      cy.findAllByText(arrayTypeName, { exact: true, timeout: 0 }).should(
-        'not.exist',
-      )
-
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(arrayTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(arrayTypeKind).first().click()
-      cy.getOpenedModal().findByLabelText('Array item type').click()
-      cy.getOpenedModal().getOptionItem(arrayItemType).first().click()
+      cy.getOpenedModal().selectOptionItem('Kind', arrayTypeKind)
+      cy.getOpenedModal().selectOptionItem('Array item type', arrayItemType)
 
       cy.getOpenedModal()
         .findByButtonText(/Create/)
@@ -119,8 +112,8 @@ describe('Types CRUD', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(interfaceTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOptionItem(interfaceTypeKind).first().click()
+      cy.getOpenedModal().selectOptionItem('Kind', interfaceTypeKind)
+
       cy.getOpenedModal()
         .findByButtonText(/Create/)
         .click()

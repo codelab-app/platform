@@ -25,8 +25,7 @@ describe('Atoms CRUD', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(atomName)
-      cy.getOpenedModal().findByLabelText('Type').type(atomType)
-      cy.getOptionItem(atomType).click()
+      cy.selectOptionItem('Type', atomType)
 
       cy.getOpenedModal()
         .findByButtonText(/Create Atom/)

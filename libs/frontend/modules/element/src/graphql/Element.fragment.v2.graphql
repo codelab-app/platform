@@ -64,7 +64,6 @@ fragment ElementGraph on ElementGraph {
   vertices {
     ...Element
   }
-  rootId
 }
 
 fragment Prop on Prop {

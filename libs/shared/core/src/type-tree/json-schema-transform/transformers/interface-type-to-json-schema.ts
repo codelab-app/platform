@@ -19,11 +19,14 @@ export const addPropertyToInterfaceSchema: AddTypeToSchemaFn = (
   childSchema,
   { edge },
 ) => {
-  console.log({ edge })
-
   const field = FieldSchema.parse(edge)
 
-  // this is mutating the original schema on purpose. That way we can use the label in other places, like union types
-  childSchema.label = getFieldLabel(field)
+  if (childSchema?.properties?.type && childSchema?.properties?.value) {
+    // workaround for not producing correct label/input combo for typed values
+    childSchema.properties.value.label = getFieldLabel(field)
+  } else {
+    childSchema.label = getFieldLabel(field)
+  }
+
   parentSchema.properties[field.key] = childSchema
 }

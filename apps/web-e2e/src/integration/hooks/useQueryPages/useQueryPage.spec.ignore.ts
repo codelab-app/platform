@@ -23,12 +23,12 @@ describe('useQueryPageHook', () => {
 
     // assert item names on the list
     for (const seedPageName of seedPageNames) {
-      cy.getOptionItem(seedPageName).should('exist')
+      cy.selectOptionItem(seedPageName).should('exist')
     }
 
     // choose item {pageName} and create
 
-    cy.getOptionItem(pageName).click()
+    cy.selectOptionItem(pageName).click()
     cy.getOpenedModal().findByText('Add hook').click()
     // // Assert the mapper value
     cy.get('#Builder').findByText('root').should('exist')

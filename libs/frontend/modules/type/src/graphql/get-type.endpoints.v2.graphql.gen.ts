@@ -60,6 +60,7 @@ import {
   TypeNonRecursive_RenderPropsType_Fragment,
   TypeNonRecursive_UnionType_Fragment,
 } from './fragments/Type.fragment.v2.graphql.gen'
+import { ReactNodeTypeFragment } from './fragments/ReactNode.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
 import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
 import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.graphql.gen'
@@ -91,6 +92,7 @@ import {
 } from './fragments/TypeGraph.fragment.v2.graphql.gen'
 import { FieldFragmentDoc } from './fragments/Field.fragment.v2.graphql.gen'
 import { TypeNonRecursiveFragmentDoc } from './fragments/Type.fragment.v2.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from './fragments/ReactNode.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -154,6 +156,13 @@ export type GetRenderPropsTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetRenderPropsTypesQuery = { types: Array<RenderPropsTypeFragment> }
+
+export type GetReactNodeTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ReactNodeTypeOptions>
+  where?: Types.InputMaybe<Types.ReactNodeTypeWhere>
+}>
+
+export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
 export type GetEnumTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.EnumTypeOptions>
@@ -310,6 +319,18 @@ export const GetRenderPropsTypesGql = gql`
   ${RenderPropsTypeFragmentDoc}
   ${TypeBaseFragmentDoc}
 `
+export const GetReactNodeTypesGql = gql`
+  query GetReactNodeTypes(
+    $options: ReactNodeTypeOptions
+    $where: ReactNodeTypeWhere
+  ) {
+    types: reactNodeTypes(where: $where, options: $options) {
+      ...ReactNodeType
+    }
+  }
+  ${ReactNodeTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+`
 export const GetEnumTypesGql = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
     types: enumTypes(where: $where, options: $options) {
@@ -441,6 +462,17 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    GetReactNodeTypes: build.query<
+      GetReactNodeTypesQuery,
+      | GraphqlOperationOptions<GetReactNodeTypesQueryVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: GetReactNodeTypesGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
     GetEnumTypes: build.query<
       GetEnumTypesQuery,
       GraphqlOperationOptions<GetEnumTypesQueryVariables> | void | undefined
@@ -506,6 +538,8 @@ export const {
   useLazyGetElementTypesQuery,
   useGetRenderPropsTypesQuery,
   useLazyGetRenderPropsTypesQuery,
+  useGetReactNodeTypesQuery,
+  useLazyGetReactNodeTypesQuery,
   useGetEnumTypesQuery,
   useLazyGetEnumTypesQuery,
   useGetLambdaTypesQuery,

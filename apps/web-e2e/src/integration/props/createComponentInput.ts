@@ -125,6 +125,22 @@ export const createComponentInput = (
     create: {
       node: {
         name: ROOT_ELEMENT_NAME,
+        propMapBindings: {
+          create: [
+            {
+              node: {
+                sourceKey: 'value',
+                targetKey: 'text',
+                element: {
+                  connect: { where: { node: { name: ROOT_ELEMENT_NAME } } },
+                },
+                targetElement: {
+                  connect: { where: { node: { name: 'List Item Text' } } },
+                },
+              },
+            },
+          ],
+        },
         children: {
           create: [
             {
@@ -135,7 +151,7 @@ export const createComponentInput = (
                   create: [
                     {
                       node: {
-                        name: 'Text',
+                        name: 'List Item Text',
                         atom: {
                           connect: { where: { node: { id: textAtomId } } },
                         },
@@ -186,6 +202,7 @@ export const createTextReactNodeComponentInput = (
           create: [
             {
               node: {
+                name: `React Node Text`,
                 atom: { connect: { where: { node: { id: textAtomId } } } },
                 props: {
                   create: { node: { data: JSON.stringify(reactNodeTextProp) } },

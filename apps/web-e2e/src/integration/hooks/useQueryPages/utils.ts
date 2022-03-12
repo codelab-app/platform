@@ -49,7 +49,7 @@ export const selectHook = ({ hook, childElementName }: selectHookParams) => {
   cy.getOpenedModal().findByLabelText(/Type/).click()
 
   // select item 'Query Page'
-  cy.getOptionItem(hook).first().click()
+  cy.selectOptionItem(hook).first().click()
 }
 
 export const beforeHook = ({

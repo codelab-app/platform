@@ -206,7 +206,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     return reduceToNested<TVertex, TEdge, TOut>(this.cy)(input)
   }
 
-  getAntdTree(): Array<DataNode> {
+  getAntdTrees(): Array<DataNode> {
     const nodeMapper = (node: TVertex) => this.antdNodeMapper(node)
 
     const addChildToNode = (parent: DataNode, child: DataNode) =>

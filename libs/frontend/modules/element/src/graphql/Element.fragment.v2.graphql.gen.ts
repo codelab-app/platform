@@ -43,7 +43,6 @@ export type ElementEdgeFragment = {
 }
 
 export type ElementGraphFragment = {
-  rootId?: string | null | undefined
   edges: Array<ElementEdgeFragment>
   vertices: Array<ElementFragment>
 }
@@ -171,6 +170,5 @@ export const ElementGraphFragmentDoc = gql`
     vertices {
       ...Element
     }
-    rootId
   }
 `

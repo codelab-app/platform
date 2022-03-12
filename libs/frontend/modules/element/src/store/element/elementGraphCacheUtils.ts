@@ -1,3 +1,4 @@
+import { IElementGraph } from '@codelab/shared/abstract/core'
 import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState'
 import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
 import { mapValues, merge, pickBy } from 'lodash'
@@ -105,9 +106,18 @@ export const onDeletedHooks =
   }
 
 export const onUpdate =
-  (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (
+    updated: Array<ElementFragment>,
+    componentGraph: IElementGraph,
+  ): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
-    draft.vertices = merge(draft.vertices, normalizeVertices(updated))
+    console.log(componentGraph)
+    draft.vertices = merge(
+      draft.vertices,
+      normalizeVertices(updated),
+      componentGraph.vertices,
+    )
+    draft.edges = draft.edges.concat(draft.edges)
   }
 
 export const onMove =

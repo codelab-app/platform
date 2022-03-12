@@ -65,16 +65,10 @@ describe('Elements CRUD', () => {
           cy.getOpenedModal().findByLabelText('Name').type(name)
 
           if (atom) {
-            cy.getOpenedModal().findByLabelText('Atom').type(atom)
-            cy.getOpenedModal().getOptionItem(atom).first().click()
+            cy.getOpenedModal().selectOptionItem('Atom', atom)
           }
 
-          cy.getOpenedModal()
-            .findByLabelText('Parent element')
-            .click({ force: true })
-            .type(parentElement, { force: true })
-
-          cy.getOpenedModal().getOptionItem(parentElement).first().click()
+          cy.getOpenedModal().selectOptionItem('Parent element', parentElement)
 
           cy.getOpenedModal()
             .findByButtonText(/Create/)

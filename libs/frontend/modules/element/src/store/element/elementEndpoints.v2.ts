@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import {
   ELEMENT_CACHE_TAG,
+  ELEMENT_GRAPH_CACHE_TAG,
   GraphqlOperationOptions,
   invalidatesAll,
   providesAll,
@@ -25,7 +26,6 @@ import {
   onCreate,
   onDelete,
   onMove,
-  onUpdate,
   runGuards,
 } from './elementGraphCacheUtils'
 import {
@@ -58,6 +58,7 @@ const elementInjectedApi = generatedApi.injectEndpoints({
         document: GetElementsGraphGql,
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
+      providesTags: [ELEMENT_GRAPH_CACHE_TAG],
       transformResponse: (response: { elementGraph: ElementGraphFragment }) => {
         /**
          * reshape graph from @type ElementGraphFragment
@@ -110,15 +111,11 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     UpdateElements: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const updatedElements = data.updateElements.elements
-          dispatch(updateGraphCache(rootId, onUpdate(updatedElements)))
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     ConvertElementsToComponents: {
       invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),

@@ -22,6 +22,7 @@ export const createTypeApi = generatedApi.enhanceEndpoints({
     GetPageTypes: { providesTags: providesTagsFactory((r) => r?.types) },
     GetPrimitiveTypes: { providesTags: providesTagsFactory((r) => r?.types) },
     GetRenderPropsTypes: { providesTags: providesTagsFactory((r) => r?.types) },
+    GetReactNodeTypes: { providesTags: providesTagsFactory((r) => r?.types) },
     GetUnionTypes: { providesTags: providesTagsFactory((r) => r?.types) },
     GetInterfaceTypeGraphs: {
       providesTags: providesTagsFactory((r) => r?.types),
@@ -41,6 +42,7 @@ export const {
   useGetInterfaceTypesQuery,
   useGetElementTypesQuery,
   useGetRenderPropsTypesQuery,
+  useGetReactNodeTypesQuery,
   useGetEnumTypesQuery,
   useGetLambdaTypesQuery,
   useGetPageTypesQuery,

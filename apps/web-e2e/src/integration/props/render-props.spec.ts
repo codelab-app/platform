@@ -13,6 +13,7 @@ import {
   listItemComponentName,
   reactNodeTextComponentName,
   reactNodeTextProp,
+  renderItemFieldName,
 } from './createComponentInput'
 
 const atomsInputs = (userId: string): Array<AtomCreateInput> => [
@@ -98,15 +99,11 @@ describe('render props', () => {
 
       cy.findByText(listElementName).should('be.visible').click({ force: true })
 
-      // Click on select renderItem which is render props type
-      cy.findByLabelText('value').should('be.visible').click({ force: true })
-
-      cy.getOptionItem(listItemComponentName).click()
+      cy.selectOptionItem(renderItemFieldName, listItemComponentName)
     })
 
     it('bind react node prop correctly', () => {
-      cy.findByLabelText(headerFieldName).click()
-      cy.getOptionItem(reactNodeTextComponentName).first().click()
+      cy.selectOptionItem(headerFieldName, reactNodeTextComponentName)
       cy.findByText('Submit').click()
     })
 

@@ -23,7 +23,7 @@ export const useAtomTable = () => {
   const { setSelectedIds } = useAtomDispatch()
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTree()
+  const tagTreeData = tagTree.getAntdTrees()
   const filterTreeData = makeFilterData(tagTreeData)
 
   const columns: Array<TableColumnProps<AtomFragment>> = [

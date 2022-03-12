@@ -1,4 +1,5 @@
 import { IEdge, IVertex } from '@codelab/shared/abstract/core'
+import { Predicate } from './treePredicate'
 
 export type NodeMapperFn<TVertex = IVertex, TOut = any> = (
   inNode: TVertex,
@@ -9,6 +10,8 @@ export interface BfsReduceInput<TVertex = IVertex, TEdge = IEdge, TOut = any> {
   nodeMapper: NodeMapperFn<TVertex, TOut>
   /** A function that adds the child to the new node */
   addChildToNode: AddChildToNodeFn<TVertex, TEdge, TOut>
+
+  predicate?: Predicate<TVertex>
 }
 
 export type AddChildToNodeFn<TVertex, TEdge, TOut> = (

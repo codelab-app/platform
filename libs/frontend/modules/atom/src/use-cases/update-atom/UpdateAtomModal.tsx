@@ -22,7 +22,7 @@ export const UpdateAtomModal = () => {
   const tagModel = model.tags as Array<string>
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTree()
+  const tagTreeData = tagTree.getAntdTrees()
 
   return (
     <FormModal

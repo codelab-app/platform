@@ -3295,7 +3295,6 @@ type ElementElementParentElementNodeAggregateSelection {
 
 type ElementGraph {
   edges: [ElementEdge!]!
-  rootId: String
   vertices: [Element!]!
 }
 

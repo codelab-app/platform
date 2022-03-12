@@ -9,8 +9,8 @@ type ComponentMap = {
   [key: string]: IElement
 }
 
-const getComponent = (value: any, tree: ElementTree) => {
-  const { id } = value
+const getComponent = (payload: any, tree: ElementTree) => {
+  const { value: id } = payload
   const component = id ? tree.getComponentById(id) : undefined
 
   if (!component) {

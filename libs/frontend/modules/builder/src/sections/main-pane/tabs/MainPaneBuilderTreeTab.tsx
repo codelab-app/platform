@@ -14,12 +14,19 @@ import {
 } from '../../../hooks'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-type MainPaneBuilderTreeTabProps = { isComponentBuilder?: boolean }
+type MainPaneBuilderTreeTabProps = {
+  isComponentBuilder?: boolean
+  rootId: string
+}
 
-export const MainPaneBuilderTreeTab = (props: MainPaneBuilderTreeTabProps) => {
+export const MainPaneBuilderTreeTab = ({
+  rootId,
+}: MainPaneBuilderTreeTabProps) => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-  const [antdTree] = elementTree.getAntdTree()
+  // we have main tree and components trees.
+  // so we need the root to find the correct one
+  const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
   const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()
