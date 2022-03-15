@@ -22,5 +22,8 @@
   },
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///Users/Webber/Sites/Codelab/web/.github/workflows/.workflows.yml"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

@@ -239,6 +239,8 @@ jobs:
 
   unit:
     <<: *executor-params
+    environment:
+      NODE_ENV: test
     steps:
       - setup-workspace
       - run: yarn cli tasks unit --env ci
@@ -367,39 +369,39 @@ workflows:
           <<: *filters-pr
           e: docker-node
           context: CI
-      - lint:
-          <<: *filters-pr
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
+      # - lint:
+      #     <<: *filters-pr
+      #     e: docker-node
+      #     context: CI
+      #     requires:
+      #       - install-and-build-workspace
       - unit:
           <<: *filters-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
-      - integration:
-          <<: *filters-pr
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - e2e:
-          <<: *filters-pr
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
+      # - integration:
+      #     <<: *filters-pr
+      #     e: docker-node
+      #     context: CI
+      #     requires:
+      #       - install-and-build-workspace
+      # - e2e:
+      #     <<: *filters-pr
+      #     e: docker-node
+      #     context: CI
+      #     requires:
+      #       - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
           context: CI
           e: docker-node
           requires:
-            - lint
+            # - lint
             - unit
-            - integration
-            - e2e
+            # - integration
+            # - e2e
 
   app-master:
     jobs:
