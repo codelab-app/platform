@@ -219,6 +219,8 @@ jobs:
 
   unit:
     <<: *executor-params
+    environment:
+      NODE_ENV: test
     steps:
       - setup-workspace
       - run: yarn cli tasks unit --env ci
