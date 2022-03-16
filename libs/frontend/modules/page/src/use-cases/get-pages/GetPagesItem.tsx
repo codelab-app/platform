@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { PageModel, pageRef, PageStore } from '../../store'
+import { providerTreePageName } from './consts'
 
 export type GetPagesItemProps = {
   page: PageModel

@@ -6,7 +6,7 @@ import { gql } from 'graphql-request'
 export type PageFragment = {
   id: string
   name: string
-  app: { id: string }
+  app: { id: string; rootProviderElement: { id: string } }
   rootElement: { id: string; name?: string | null }
 }
 
@@ -18,6 +18,11 @@ export const PageFragmentDoc = gql`
     name
     app {
       id
+    }
+    app {
+      rootProviderElement {
+        id
+      }
     }
     rootElement {
       id

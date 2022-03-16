@@ -1,8 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
-import { gql } from '@apollo/client'
-import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
+import { gql } from 'graphql-request'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -14,7 +12,13 @@ export type ElementFragment = {
   component?: { id: string; name: string } | null
   instanceOfComponent?: { id: string; name: string } | null
   parentElement?: { id: string; name?: string | null } | null
-  atom?: AtomFragment | null
+  atom?: {
+    id: string
+    type: Types.AtomType
+    name: string
+    tags: Array<{ id: string; name: string }>
+    api: { id: string; name: string }
+  } | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
@@ -33,7 +37,6 @@ export type ElementEdgeFragment = {
 }
 
 export type ElementGraphFragment = {
-  rootId?: string | null
   edges: Array<ElementEdgeFragment>
   vertices: Array<ElementFragment>
 }
@@ -116,7 +119,17 @@ export const ElementFragmentDoc = gql`
       name
     }
     atom {
-      ...Atom
+      id
+      type
+      name
+      tags {
+        id
+        name
+      }
+      api {
+        id
+        name
+      }
     }
     props {
       ...Prop
@@ -140,7 +153,6 @@ export const ElementFragmentDoc = gql`
       }
     }
   }
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -153,7 +165,6 @@ export const ElementGraphFragmentDoc = gql`
     vertices {
       ...Element
     }
-    rootId
   }
   ${ElementEdgeFragmentDoc}
   ${ElementFragmentDoc}

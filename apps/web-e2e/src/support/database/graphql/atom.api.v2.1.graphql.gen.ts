@@ -2,27 +2,13 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eCreateAtomMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
 
 export type E2eCreateAtomMutation = {
-  __typename?: 'Mutation'
-  createAtoms: {
-    __typename?: 'CreateAtomsMutationResponse'
-    atoms: Array<{
-      __typename: 'Atom'
-      id: string
-      name: string
-      type: Types.AtomType
-      tags?:
-        | Array<{ __typename?: 'Tag'; id: string; name: string }>
-        | null
-        | undefined
-      api: { __typename?: 'InterfaceType'; id: string; name: string }
-    }>
-  }
+  createAtoms: { atoms: Array<E2eAtomFragment> }
 }
 
 export type E2eImportAtomsMutationVariables = Types.Exact<{
@@ -30,14 +16,7 @@ export type E2eImportAtomsMutationVariables = Types.Exact<{
 }>
 
 export type E2eImportAtomsMutation = {
-  __typename?: 'Mutation'
-  importAtoms?:
-    | {
-        __typename?: 'ImportAtomsMutationResponse'
-        atoms?: Array<{ __typename?: 'Atom'; id: string }> | null | undefined
-      }
-    | null
-    | undefined
+  importAtoms?: { atoms: Array<{ id: string }> } | null
 }
 
 export type E2eAtomFragment = {
@@ -45,11 +24,8 @@ export type E2eAtomFragment = {
   id: string
   name: string
   type: Types.AtomType
-  tags?:
-    | Array<{ __typename?: 'Tag'; id: string; name: string }>
-    | null
-    | undefined
-  api: { __typename?: 'InterfaceType'; id: string; name: string }
+  tags: Array<{ id: string; name: string }>
+  api: { id: string; name: string }
 }
 
 export const E2eAtomFragmentDoc = gql`
@@ -68,7 +44,7 @@ export const E2eAtomFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateAtomDocument = gql`
+export const E2eCreateAtomGql = gql`
   mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
     createAtoms(input: $input) {
       atoms {
@@ -78,7 +54,7 @@ export const E2eCreateAtomDocument = gql`
   }
   ${E2eAtomFragmentDoc}
 `
-export const E2eImportAtomsDocument = gql`
+export const E2eImportAtomsGql = gql`
   mutation E2eImportAtoms($input: ImportAtomsInput!) {
     importAtoms(input: $input) {
       atoms {
@@ -91,9 +67,14 @@ export const E2eImportAtomsDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -106,12 +87,12 @@ export function getSdk(
     ): Promise<E2eCreateAtomMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateAtomMutation>(
-            E2eCreateAtomDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+          client.request<E2eCreateAtomMutation>(E2eCreateAtomGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
         'E2eCreateAtom',
+        'mutation',
       )
     },
     E2eImportAtoms(
@@ -120,12 +101,12 @@ export function getSdk(
     ): Promise<E2eImportAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eImportAtomsMutation>(
-            E2eImportAtomsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+          client.request<E2eImportAtomsMutation>(E2eImportAtomsGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
         'E2eImportAtoms',
+        'mutation',
       )
     },
   }

@@ -13,7 +13,9 @@ export const atomMutationResolvers: IResolvers = {
       type: atom.type,
     }))
 
-    const results = await Atom().create({ input: data })
+    const results = await Atom().then((AtomModel) =>
+      AtomModel.create({ input: data }),
+    )
 
     return Promise.resolve({ atoms: results.atoms })
   },

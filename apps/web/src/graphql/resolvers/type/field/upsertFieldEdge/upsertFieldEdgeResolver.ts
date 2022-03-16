@@ -3,15 +3,23 @@ import {
   UpsertFieldInput,
 } from '@codelab/shared/abstract/codegen-v2'
 import { throwIfNullish, throwIfTruthy } from '@codelab/shared/utils'
-import { InterfaceType } from 'apps/web/src/graphql/ogm-types.gen'
 import { RxTransaction } from 'neo4j-driver'
 import { forkJoin, from, Observable, of } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
-import { GetTypeByIdResponse, typeRepository } from '../../../../cypher'
+import { map, switchMap, toArray } from 'rxjs/operators'
 import { getDriver } from '../../../../infra/driver'
 import { InterfaceType as InterfaceTypeInit } from '../../../../model'
 import { InterfaceType } from '../../../../ogm-types.gen'
-import { deleteFieldEdge } from '../deleteFieldEdge'
+import {
+  ExtraEdgeCreateArgs,
+  ExtraEdgeCreateResult,
+  GetTypeByIdResponse,
+  typeRepository,
+} from '../../../../repositories'
+import {
+  IRxTxnResolver,
+  withRxTransaction,
+} from '../../../abstract/withRxTransaction'
+import { deleteFieldEdge } from '../deleteFieldEdgeResolver'
 import {
   duplicatedKeyErrorFactory,
   interfaceNotExistingErrorFactory,
@@ -146,21 +154,19 @@ export const createExtraEdgeConnection = (
 ) => typeRepository.connectExtraEdge(txn, input)
 
 // Main upsert pipeline
-export const upsertFieldEdge =
-  (input: UpsertFieldInput, isCreating: boolean) => (txn: RxTransaction) => {
-    if (!isCreating && !input.targetKey) {
-      throw new Error('targetKey is required when updating a field')
-    }
-
 export const upsertFieldEdge: IRxTxnResolver<
   UpsertFieldResolverArgs,
   InterfaceTypeEdge
 > =
   ({ input, isCreating }) =>
   (txn) => {
+    if (!isCreating && !input.targetKey) {
+      throw new Error('targetKey is required when updating a field')
+    }
+
     const deleteInput = {
       input: {
-        key: input.targetKey,
+        key: input.targetKey as string,
         interfaceId: input.interfaceTypeId,
       },
     }
@@ -202,14 +208,19 @@ export const upsertFieldEdgeWihoutOGM: IRxTxnResolver<
 > =
   ({ input, isCreating }) =>
   (txn) => {
+    if (!isCreating && !input.targetKey) {
+      throw new Error('targetKey is required when updating a field')
+    }
+
     const deleteInput = {
       input: {
-        key: input.targetKey,
+        key: input.targetKey as string,
         interfaceId: input.interfaceTypeId,
       },
     }
 
     const validateExist$ = validateInterfaceAndTargetExistByCypher(txn, input)
+
     // if we're updating - delete old fields if they exist so that we don't deal with duplication issues and we can safely overwrite them
     // Delete type is a no-op if there is no edge, so that's not a problem. If the validation fails - the transaction will be rolled back, so we can safely do it first before checking for duplicated key
     const deleteExisting$: Observable<any> = isCreating

@@ -21,11 +21,9 @@ export const overrideComponentPropsPipe: RenderPipeFactory =
     }
 
     const extraElementProps = { [componentInstance.id]: props }
-
     // We override the component props with the element instance props
-    const updateContext = merge(context, {
-      extraElementProps,
-    })
+    const updateContext = merge(context, { extraElementProps })
+    console.log(updateContext.extraElementProps)
 
     return updateContext.render(componentInstance, updateContext, props)
   }

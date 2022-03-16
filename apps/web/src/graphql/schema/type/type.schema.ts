@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-micro'
 import getFieldCypher from '../../repositories/type/getField.cypher'
-import getTypeGraphCypher from '../../repositories/type/getTypeGraph.cypher'
+import getTypeDescendantIds from '../../repositories/type/getTypeDescendantIds.cypher'
 import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.cypher'
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
@@ -39,7 +39,7 @@ export const typeSchema = gql`
   type Mutation {
     upsertFieldEdge(input: UpsertFieldInput!, isCreating: Boolean!): InterfaceTypeEdge!
     deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
-    importTypeGraph(payload: JSONObject!): TypeGraph!
+    importTypeGraph(payload: JSONObject!): String!
   }
 
   type Query {

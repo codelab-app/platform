@@ -105,8 +105,8 @@ export const Builder = observer(
   ({
     typeStore,
     children,
-    elementTree = tree,
     tree,
+    elementTree = tree,
     isComponentBuilder,
   }: React.PropsWithChildren<BuilderProps>) => {
     const { selectElement, resetSelection } = useBuilderDispatch()
@@ -122,9 +122,9 @@ export const Builder = observer(
 
       // Go up the dom tree to find a element with a node id
       const visit = (element: HTMLElement) => {
-        const nodeId = element.dataset?.id
+        const nodeId = element.dataset?.['id']
         // Don't allow selection of elements withing a componentId
-        const componentId = element.dataset?.componentId
+        const componentId = element.dataset?.['componentId']
 
         if (nodeId && !componentId) {
           setSelectedElement(nodeId)

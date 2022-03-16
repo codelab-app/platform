@@ -1,3 +1,5 @@
+import * as Types from '@codelab/shared/abstract/codegen-v2'
+
 import {
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
@@ -11,13 +13,14 @@ import {
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
-} from './TypeBase.fragment.v2.graphql.gen'
+} from './v2/TypeBase.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
+import { TypeBaseFragmentDoc } from './v2/TypeBase.fragment.v2.graphql.gen'
 export type ReactNodeTypeFragment = TypeBase_ReactNodeType_Fragment
 
 export const ReactNodeTypeFragmentDoc = gql`
   fragment ReactNodeType on ReactNodeType {
     ...TypeBase
   }
+  ${TypeBaseFragmentDoc}
 `

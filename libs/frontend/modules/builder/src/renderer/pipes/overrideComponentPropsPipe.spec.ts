@@ -1,5 +1,11 @@
 import { overrideComponentPropsPipe } from './overrideComponentPropsPipe'
-import { elementToRender03, endPipe, EndPipeOutput, treeToRender } from './test'
+import {
+  componentToRender,
+  elementToRender03,
+  endPipe,
+  EndPipeOutput,
+  treeToRender,
+} from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {
@@ -19,8 +25,8 @@ describe('OverrideComponentPropsPipe', () => {
       initialProps,
     ) as EndPipeOutput
 
-    const componentId = elementToRender03.instanceOfComponent?.id as string
-    const passedProps = extraElementProps?.[componentId]
+    const rootElementId = componentToRender.rootElement.id
+    const passedProps = extraElementProps?.[rootElementId]
 
     expect(passedProps).toStrictEqual(initialProps)
   })

@@ -30,7 +30,7 @@ export class PageModel extends Model({
   appId: prop<Nullish<string>>(),
   name: prop<string>(),
   rootElementId: prop<string>(),
-  providerElementId: prop<string>()
+  providerElementId: prop<string>(),
 }) {
   @modelFlow
   @transaction

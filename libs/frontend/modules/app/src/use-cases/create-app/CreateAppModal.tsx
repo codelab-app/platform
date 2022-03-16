@@ -19,7 +19,7 @@ export const CreateAppModal = observer(({ apps }: CreateAppModalProps) => {
   })
 
   const onSubmit = async (input: CreateAppInput) =>
-    apps.create({ ...input }, user?.sub)
+    apps.createApp({ ...input }, user?.sub)
 
   const closeModal = () => apps.createModal.close()
 

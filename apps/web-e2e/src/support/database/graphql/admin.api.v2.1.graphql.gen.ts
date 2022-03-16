@@ -2,23 +2,16 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eResetDatabaseMutationVariables = Types.Exact<{
   [key: string]: never
 }>
 
 export type E2eResetDatabaseMutation = {
-  __typename?: 'Mutation'
-  resetDatabase?:
-    | {
-        __typename?: 'ResetDatabaseMutationResponse'
-        success?: boolean | null | undefined
-      }
-    | null
-    | undefined
+  resetDatabase?: { success?: boolean | null } | null
 }
 
-export const E2eResetDatabaseDocument = gql`
+export const E2eResetDatabaseGql = gql`
   mutation E2eResetDatabase {
     resetDatabase {
       success
@@ -29,9 +22,14 @@ export const E2eResetDatabaseDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -45,11 +43,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eResetDatabaseMutation>(
-            E2eResetDatabaseDocument,
+            E2eResetDatabaseGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eResetDatabase',
+        'mutation',
       )
     },
   }

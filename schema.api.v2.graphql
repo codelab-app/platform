@@ -33,6 +33,22 @@ type App {
     sort: [AppPagesConnectionSort!]
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
+  rootProviderElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
+  rootProviderElementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): AppElementRootProviderElementAggregationSelection
+  rootProviderElementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AppRootProviderElementConnectionSort!]
+    where: AppRootProviderElementConnectionWhere
+  ): AppRootProviderElementConnection!
 }
 
 type AppAggregateSelection {
@@ -44,11 +60,13 @@ type AppAggregateSelection {
 input AppConnectInput {
   owner: [AppOwnerConnectFieldInput!]
   pages: [AppPagesConnectFieldInput!]
+  rootProviderElement: AppRootProviderElementConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
   owner: [AppOwnerConnectOrCreateFieldInput!]
   pages: [AppPagesConnectOrCreateFieldInput!]
+  rootProviderElement: AppRootProviderElementConnectOrCreateFieldInput
 }
 
 input AppConnectOrCreateWhere {
@@ -63,16 +81,33 @@ input AppCreateInput {
   name: String!
   owner: AppOwnerFieldInput
   pages: AppPagesFieldInput
+  rootProviderElement: AppRootProviderElementFieldInput
 }
 
 input AppDeleteInput {
   owner: [AppOwnerDeleteFieldInput!]
   pages: [AppPagesDeleteFieldInput!]
+  rootProviderElement: AppRootProviderElementDeleteFieldInput
 }
 
 input AppDisconnectInput {
   owner: [AppOwnerDisconnectFieldInput!]
   pages: [AppPagesDisconnectFieldInput!]
+  rootProviderElement: AppRootProviderElementDisconnectFieldInput
+}
+
+type AppElementRootProviderElementAggregationSelection {
+  count: Int!
+  node: AppElementRootProviderElementNodeAggregateSelection
+}
+
+type AppElementRootProviderElementNodeAggregateSelection {
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input AppOnCreateInput {
@@ -337,6 +372,194 @@ input AppPagesUpdateFieldInput {
 input AppRelationInput {
   owner: [AppOwnerCreateFieldInput!]
   pages: [AppPagesCreateFieldInput!]
+  rootProviderElement: AppRootProviderElementCreateFieldInput
+}
+
+input AppRootProviderElementAggregateInput {
+  AND: [AppRootProviderElementAggregateInput!]
+  OR: [AppRootProviderElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppRootProviderElementNodeAggregationWhereInput
+}
+
+input AppRootProviderElementConnectFieldInput {
+  connect: ElementConnectInput
+  where: ElementConnectWhere
+}
+
+input AppRootProviderElementConnectOrCreateFieldInput {
+  onCreate: AppRootProviderElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input AppRootProviderElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type AppRootProviderElementConnection {
+  edges: [AppRootProviderElementRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AppRootProviderElementConnectionSort {
+  node: ElementSort
+}
+
+input AppRootProviderElementConnectionWhere {
+  AND: [AppRootProviderElementConnectionWhere!]
+  OR: [AppRootProviderElementConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input AppRootProviderElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input AppRootProviderElementDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: AppRootProviderElementConnectionWhere
+}
+
+input AppRootProviderElementDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: AppRootProviderElementConnectionWhere
+}
+
+input AppRootProviderElementFieldInput {
+  connect: AppRootProviderElementConnectFieldInput
+  connectOrCreate: AppRootProviderElementConnectOrCreateFieldInput
+  create: AppRootProviderElementCreateFieldInput
+}
+
+input AppRootProviderElementNodeAggregationWhereInput {
+  AND: [AppRootProviderElementNodeAggregationWhereInput!]
+  OR: [AppRootProviderElementNodeAggregationWhereInput!]
+  css_AVERAGE_EQUAL: Float
+  css_AVERAGE_GT: Float
+  css_AVERAGE_GTE: Float
+  css_AVERAGE_LT: Float
+  css_AVERAGE_LTE: Float
+  css_EQUAL: String
+  css_GT: Int
+  css_GTE: Int
+  css_LONGEST_EQUAL: Int
+  css_LONGEST_GT: Int
+  css_LONGEST_GTE: Int
+  css_LONGEST_LT: Int
+  css_LONGEST_LTE: Int
+  css_LT: Int
+  css_LTE: Int
+  css_SHORTEST_EQUAL: Int
+  css_SHORTEST_GT: Int
+  css_SHORTEST_GTE: Int
+  css_SHORTEST_LT: Int
+  css_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  propTransformationJs_AVERAGE_EQUAL: Float
+  propTransformationJs_AVERAGE_GT: Float
+  propTransformationJs_AVERAGE_GTE: Float
+  propTransformationJs_AVERAGE_LT: Float
+  propTransformationJs_AVERAGE_LTE: Float
+  propTransformationJs_EQUAL: String
+  propTransformationJs_GT: Int
+  propTransformationJs_GTE: Int
+  propTransformationJs_LONGEST_EQUAL: Int
+  propTransformationJs_LONGEST_GT: Int
+  propTransformationJs_LONGEST_GTE: Int
+  propTransformationJs_LONGEST_LT: Int
+  propTransformationJs_LONGEST_LTE: Int
+  propTransformationJs_LT: Int
+  propTransformationJs_LTE: Int
+  propTransformationJs_SHORTEST_EQUAL: Int
+  propTransformationJs_SHORTEST_GT: Int
+  propTransformationJs_SHORTEST_GTE: Int
+  propTransformationJs_SHORTEST_LT: Int
+  propTransformationJs_SHORTEST_LTE: Int
+  renderForEachPropKey_AVERAGE_EQUAL: Float
+  renderForEachPropKey_AVERAGE_GT: Float
+  renderForEachPropKey_AVERAGE_GTE: Float
+  renderForEachPropKey_AVERAGE_LT: Float
+  renderForEachPropKey_AVERAGE_LTE: Float
+  renderForEachPropKey_EQUAL: String
+  renderForEachPropKey_GT: Int
+  renderForEachPropKey_GTE: Int
+  renderForEachPropKey_LONGEST_EQUAL: Int
+  renderForEachPropKey_LONGEST_GT: Int
+  renderForEachPropKey_LONGEST_GTE: Int
+  renderForEachPropKey_LONGEST_LT: Int
+  renderForEachPropKey_LONGEST_LTE: Int
+  renderForEachPropKey_LT: Int
+  renderForEachPropKey_LTE: Int
+  renderForEachPropKey_SHORTEST_EQUAL: Int
+  renderForEachPropKey_SHORTEST_GT: Int
+  renderForEachPropKey_SHORTEST_GTE: Int
+  renderForEachPropKey_SHORTEST_LT: Int
+  renderForEachPropKey_SHORTEST_LTE: Int
+  renderIfPropKey_AVERAGE_EQUAL: Float
+  renderIfPropKey_AVERAGE_GT: Float
+  renderIfPropKey_AVERAGE_GTE: Float
+  renderIfPropKey_AVERAGE_LT: Float
+  renderIfPropKey_AVERAGE_LTE: Float
+  renderIfPropKey_EQUAL: String
+  renderIfPropKey_GT: Int
+  renderIfPropKey_GTE: Int
+  renderIfPropKey_LONGEST_EQUAL: Int
+  renderIfPropKey_LONGEST_GT: Int
+  renderIfPropKey_LONGEST_GTE: Int
+  renderIfPropKey_LONGEST_LT: Int
+  renderIfPropKey_LONGEST_LTE: Int
+  renderIfPropKey_LT: Int
+  renderIfPropKey_LTE: Int
+  renderIfPropKey_SHORTEST_EQUAL: Int
+  renderIfPropKey_SHORTEST_GT: Int
+  renderIfPropKey_SHORTEST_GTE: Int
+  renderIfPropKey_SHORTEST_LT: Int
+  renderIfPropKey_SHORTEST_LTE: Int
+}
+
+type AppRootProviderElementRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input AppRootProviderElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input AppRootProviderElementUpdateFieldInput {
+  connect: AppRootProviderElementConnectFieldInput
+  connectOrCreate: AppRootProviderElementConnectOrCreateFieldInput
+  create: AppRootProviderElementCreateFieldInput
+  delete: AppRootProviderElementDeleteFieldInput
+  disconnect: AppRootProviderElementDisconnectFieldInput
+  update: AppRootProviderElementUpdateConnectionInput
+  where: AppRootProviderElementConnectionWhere
 }
 
 """
@@ -552,6 +775,7 @@ input AppUpdateInput {
   name: String
   owner: [AppOwnerUpdateFieldInput!]
   pages: [AppPagesUpdateFieldInput!]
+  rootProviderElement: AppRootProviderElementUpdateFieldInput
 }
 
 type AppUserOwnerAggregationSelection {
@@ -638,6 +862,11 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
+  rootProviderElement: ElementWhere
+  rootProviderElementAggregate: AppRootProviderElementAggregateInput
+  rootProviderElementConnection: AppRootProviderElementConnectionWhere
+  rootProviderElementConnection_NOT: AppRootProviderElementConnectionWhere
+  rootProviderElement_NOT: ElementWhere
 }
 
 """
@@ -2251,6 +2480,11 @@ type CreateImportAtomsMutationResponsesMutationResponse {
   info: CreateInfo!
 }
 
+type CreateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
+  info: CreateInfo!
+}
+
 type CreateInfo {
   bookmark: String
   nodesCreated: Int!
@@ -3263,7 +3497,6 @@ type ElementElementParentElementNodeAggregateSelection {
 
 type ElementGraph {
   edges: [ElementEdge!]!
-  rootId: String
   vertices: [Element!]!
 }
 
@@ -4474,11 +4707,13 @@ input EnumTypeAllowedValuesAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
+  edge: EnumTypeAllowedValuesEdgeAggregationWhereInput
   node: EnumTypeAllowedValuesNodeAggregationWhereInput
 }
 
 input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
+  edge: IdPropertyCreateInput!
   where: EnumTypeValueConnectWhere
 }
 
@@ -4489,17 +4724,21 @@ type EnumTypeAllowedValuesConnection {
 }
 
 input EnumTypeAllowedValuesConnectionSort {
+  edge: IdPropertySort
   node: EnumTypeValueSort
 }
 
 input EnumTypeAllowedValuesConnectionWhere {
   AND: [EnumTypeAllowedValuesConnectionWhere!]
   OR: [EnumTypeAllowedValuesConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: EnumTypeValueWhere
   node_NOT: EnumTypeValueWhere
 }
 
 input EnumTypeAllowedValuesCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: EnumTypeValueCreateInput!
 }
 
@@ -4511,6 +4750,12 @@ input EnumTypeAllowedValuesDeleteFieldInput {
 input EnumTypeAllowedValuesDisconnectFieldInput {
   disconnect: EnumTypeValueDisconnectInput
   where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeAllowedValuesEdgeAggregationWhereInput {
+  AND: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  OR: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  id_EQUAL: ID
 }
 
 input EnumTypeAllowedValuesFieldInput {
@@ -4564,12 +4809,14 @@ input EnumTypeAllowedValuesNodeAggregationWhereInput {
   value_SHORTEST_LTE: Int
 }
 
-type EnumTypeAllowedValuesRelationship {
+type EnumTypeAllowedValuesRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: EnumTypeValue!
 }
 
 input EnumTypeAllowedValuesUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: EnumTypeValueUpdateInput
 }
 
@@ -4617,7 +4864,12 @@ input EnumTypeDisconnectInput {
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
   count: Int!
+  edge: EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection
   node: EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection
+}
+
+type EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
 }
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
@@ -5576,6 +5828,41 @@ interface IEdge {
   target: String!
 }
 
+interface IdProperty {
+  id: ID!
+}
+
+input IdPropertyCreateInput {
+  id: ID!
+}
+
+input IdPropertySort {
+  id: SortDirection
+}
+
+input IdPropertyUpdateInput {
+  id: ID
+}
+
+input IdPropertyWhere {
+  AND: [IdPropertyWhere!]
+  OR: [IdPropertyWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+}
+
+input ImportAdminDataInput {
+  payload: [JSONObject!]
+}
+
 input ImportAtomsInput {
   payload: [JSONObject!]!
 }
@@ -5610,6 +5897,46 @@ input ImportAtomsMutationResponseUpdateInput {
 input ImportAtomsMutationResponseWhere {
   AND: [ImportAtomsMutationResponseWhere!]
   OR: [ImportAtomsMutationResponseWhere!]
+}
+
+type ImportDataMutationResponse {
+  result: Boolean!
+}
+
+type ImportDataMutationResponseAggregateSelection {
+  count: Int!
+}
+
+input ImportDataMutationResponseCreateInput {
+  result: Boolean!
+}
+
+input ImportDataMutationResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ImportDataMutationResponseSort!]
+}
+
+"""
+Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object.
+"""
+input ImportDataMutationResponseSort {
+  result: SortDirection
+}
+
+input ImportDataMutationResponseUpdateInput {
+  result: Boolean
+}
+
+input ImportDataMutationResponseWhere {
+  AND: [ImportDataMutationResponseWhere!]
+  OR: [ImportDataMutationResponseWhere!]
+  result: Boolean
+  result_NOT: Boolean
 }
 
 type IntAggregateSelectionNonNullable {
@@ -6554,6 +6881,9 @@ type Mutation {
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
+  createImportDataMutationResponses(
+    input: [ImportDataMutationResponseCreateInput!]!
+  ): CreateImportDataMutationResponsesMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
   ): CreateInterfaceTypesMutationResponse!
@@ -6627,6 +6957,9 @@ type Mutation {
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
+  deleteImportDataMutationResponses(
+    where: ImportDataMutationResponseWhere
+  ): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
     where: InterfaceTypeWhere
@@ -6675,7 +7008,9 @@ type Mutation {
   duplicateElement(
     input: DuplicateElementInput!
   ): DuplicateElementMutationResponse!
+  importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  importTypeGraph(payload: JSONObject!): String!
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
@@ -6783,6 +7118,10 @@ type Mutation {
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
+  updateImportDataMutationResponses(
+    update: ImportDataMutationResponseUpdateInput
+    where: ImportDataMutationResponseWhere
+  ): UpdateImportDataMutationResponsesMutationResponse!
   updateInterfaceTypes(
     connect: InterfaceTypeConnectInput
     connectOrCreate: InterfaceTypeConnectOrCreateInput
@@ -8505,6 +8844,8 @@ type Query {
   ): EnumTypeValueAggregateSelection!
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
+  exportAllTypesGraph: JSONObject
+  exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 
   """
@@ -8521,6 +8862,13 @@ type Query {
   importAtomsMutationResponsesAggregate(
     where: ImportAtomsMutationResponseWhere
   ): ImportAtomsMutationResponseAggregateSelection!
+  importDataMutationResponses(
+    options: ImportDataMutationResponseOptions
+    where: ImportDataMutationResponseWhere
+  ): [ImportDataMutationResponse!]!
+  importDataMutationResponsesAggregate(
+    where: ImportDataMutationResponseWhere
+  ): ImportDataMutationResponseAggregateSelection!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -10299,6 +10647,11 @@ type UpdateHooksMutationResponse {
 
 type UpdateImportAtomsMutationResponsesMutationResponse {
   importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+  info: UpdateInfo!
+}
+
+type UpdateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: UpdateInfo!
 }
 

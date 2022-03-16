@@ -22,7 +22,7 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   /**
    * Overrides the mapper for ant tree
    */
-  protected antdNodeMapper(element: any) {
+  protected override antdNodeMapper(element: any) {
     return {
       ...element,
       key: element.id,
@@ -36,7 +36,7 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   /**
    * Overrides the add child to node for ant tree
    */
-  protected antdChildToNode(parent: DataNode, child: DataNode) {
+  protected override antdChildToNode(parent: DataNode, child: DataNode) {
     if ((child as any)?.component) {
       return
     }

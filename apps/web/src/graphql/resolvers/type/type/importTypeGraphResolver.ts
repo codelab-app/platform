@@ -1,4 +1,3 @@
-import { TypeEdge, TypeGraph } from '@codelab/shared/abstract/codegen-v2'
 import { entityMapById } from '@codelab/shared/utils'
 import { from } from 'rxjs'
 import {
@@ -10,33 +9,33 @@ export interface ImportTypeGraphArgs {
   payload: string
 }
 
-const makeEdgeKey = (e: TypeEdge) =>
+const makeEdgeKey = (e: any) =>
   `${e.source}-${e.target}-${e.__typename}-${
     e.__typename === 'InterfaceTypeEdge' ? e.key : ''
   }`
 
-const emptyGraph: TypeGraph = {
+const emptyGraph: any = {
   __typename: 'TypeGraph',
   edges: [],
   vertices: [],
 }
 
-export const diffTypeGraph = (a: TypeGraph, b: TypeGraph) => {
+export const diffTypeGraph = (a: any, b: any) => {
   const aVertexMap = entityMapById(a.vertices)
   const bVertexMap = entityMapById(b.vertices)
-  const aEdgesMap = new Map(a.edges.map((e) => [makeEdgeKey(e), e]))
-  const bEdgesMap = new Map(b.edges.map((e) => [makeEdgeKey(e), e]))
+  const aEdgesMap = new Map(a.edges.map((e: any) => [makeEdgeKey(e), e]))
+  const bEdgesMap = new Map(b.edges.map((e: any) => [makeEdgeKey(e), e]))
 
   return {
     vertices: {
-      leftOnly: a.vertices.filter((v) => !bVertexMap.has(v.id)),
-      rightOnly: b.vertices.filter((v) => !aVertexMap.has(v.id)),
-      common: a.vertices.filter((v) => bVertexMap.has(v.id)),
+      leftOnly: a.vertices.filter((v: any) => !bVertexMap.has(v.id)),
+      rightOnly: b.vertices.filter((v: any) => !aVertexMap.has(v.id)),
+      common: a.vertices.filter((v: any) => bVertexMap.has(v.id)),
     },
     edges: {
-      leftOnly: a.edges.filter((e) => !bEdgesMap.has(makeEdgeKey(e))),
-      rightOnly: b.edges.filter((e) => !aEdgesMap.has(makeEdgeKey(e))),
-      common: a.edges.filter((e) => bEdgesMap.has(makeEdgeKey(e))),
+      leftOnly: a.edges.filter((e: any) => !bEdgesMap.has(makeEdgeKey(e))),
+      rightOnly: b.edges.filter((e: any) => !aEdgesMap.has(makeEdgeKey(e))),
+      common: a.edges.filter((e: any) => bEdgesMap.has(makeEdgeKey(e))),
     },
   }
 }
@@ -69,9 +68,9 @@ const importTypeGraph: IRxTxnResolver<ImportTypeGraphArgs, string> =
 
     // This must be the same shape as the result of the exportTypeGraph resolver
     // check typeRepository.exportTypeGraph for how that's formed
-    const importedGraph = JSON.parse(payload) as TypeGraph & {
-      rootId: string
-    }
+    // const importedGraph = JSON.parse(payload) as TypeGraph & {
+    //   rootId: string
+    // }
 
     return from([])
     // return typeRepository

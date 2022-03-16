@@ -1,23 +1,24 @@
 import { getOgm } from './infra/ogm'
 import {
+  AppTypeModel,
+  ArrayTypeModel,
   AtomModel,
   ComponentModel,
   ElementModel,
-  PageModel,
-  UserModel,
-  TagModel,
-  InterfaceTypeModel,
-  PrimitiveTypeModel,
-  UnionTypeModel, ArrayTypeModel,
-  EnumTypeModel,
-  LambdaTypeModel,
-  AppTypeModel,
-  RenderPropsTypeModel,
-  ReactNodeTypeModel,
-  PageTypeModel,
-  MonacoTypeModel,
   ElementTypeModel,
-  EnumTypeValueModel
+  EnumTypeModel,
+  EnumTypeValueModel,
+  InterfaceTypeModel,
+  LambdaTypeModel,
+  MonacoTypeModel,
+  PageModel,
+  PageTypeModel,
+  PrimitiveTypeModel,
+  ReactNodeTypeModel,
+  RenderPropsTypeModel,
+  TagModel,
+  UnionTypeModel,
+  UserModel,
 } from './ogm-types.gen'
 
 let userInst: UserModel
@@ -49,8 +50,7 @@ export const InterfaceType = async () =>
 
 let tagInst: TagModel
 
-export const Tag = async () =>
-  (tagInst ??= (await getOgm()).model('Tag'))
+export const Tag = async () => (tagInst ??= (await getOgm()).model('Tag'))
 
 let primitiveInst: PrimitiveTypeModel
 
@@ -62,54 +62,52 @@ let unionInst: UnionTypeModel
 export const UnionType = async () =>
   (unionInst ??= (await getOgm()).model('UnionType'))
 
-
 let arrayInst: ArrayTypeModel
 
 export const ArrayType = async () =>
-  (arrayInst ??= await getOgm().model('ArrayType'))
-
+  (arrayInst ??= (await getOgm()).model('ArrayType'))
 
 let enumInst: EnumTypeModel
 
 export const EnumType = async () =>
-  (enumInst ??= await getOgm().model('EnumType'))
+  (enumInst ??= (await getOgm()).model('EnumType'))
 
 let LambdaInst: LambdaTypeModel
 
 export const LambdaType = async () =>
-  (LambdaInst ??= await getOgm().model('LambdaType'))
+  (LambdaInst ??= (await getOgm()).model('LambdaType'))
 
 let appInst: AppTypeModel
 
 export const AppType = async () =>
-  (appInst ??= await getOgm().model('AppType'))
+  (appInst ??= (await getOgm()).model('AppType'))
 
 let renderPropsInst: RenderPropsTypeModel
 
 export const RenderPropsType = async () =>
-  (renderPropsInst ??= await getOgm().model('RenderPropsType'))
+  (renderPropsInst ??= (await getOgm()).model('RenderPropsType'))
 
 let reactNodeInst: ReactNodeTypeModel
 
 export const ReactNodeType = async () =>
-  (reactNodeInst ??= await getOgm().model('ReactNodeType'))
+  (reactNodeInst ??= (await getOgm()).model('ReactNodeType'))
 
 let pageTypeInst: PageTypeModel
 
 export const PageType = async () =>
-  (pageTypeInst ??= await getOgm().model('PageType'))
+  (pageTypeInst ??= (await getOgm()).model('PageType'))
 
 let monacoInst: MonacoTypeModel
 
 export const MonacoType = async () =>
-  (monacoInst ??= await getOgm().model('MonacoType'))
+  (monacoInst ??= (await getOgm()).model('MonacoType'))
 
 let elementTypeInst: ElementTypeModel
 
 export const ElementType = async () =>
-  (elementTypeInst ??= await getOgm().model('ElementType'))
+  (elementTypeInst ??= (await getOgm()).model('ElementType'))
 
 let enumTypeValuesInst: EnumTypeValueModel
 
 export const EnumTypeValue = async () =>
-  (enumTypeValuesInst ??= await getOgm().model('EnumTypeValue'))
+  (enumTypeValuesInst ??= (await getOgm()).model('EnumTypeValue'))

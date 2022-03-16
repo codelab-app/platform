@@ -2,27 +2,13 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eCreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
 
 export type E2eCreatePrimitiveTypesMutation = {
-  __typename?: 'Mutation'
-  createPrimitiveTypes: {
-    __typename?: 'CreatePrimitiveTypesMutationResponse'
-    primitiveTypes: Array<{
-      __typename?: 'PrimitiveType'
-      primitiveKind: Types.PrimitiveTypeKind
-      id: string
-      name: string
-      typeKind: 'PrimitiveType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createPrimitiveTypes: { primitiveTypes: Array<E2ePrimitiveTypeFragment> }
 }
 
 export type E2eCreateArrayTypesMutationVariables = Types.Exact<{
@@ -30,20 +16,7 @@ export type E2eCreateArrayTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateArrayTypesMutation = {
-  __typename?: 'Mutation'
-  createArrayTypes: {
-    __typename?: 'CreateArrayTypesMutationResponse'
-    arrayTypes: Array<{
-      __typename?: 'ArrayType'
-      id: string
-      name: string
-      typeKind: 'ArrayType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createArrayTypes: { arrayTypes: Array<E2eArrayTypeFragment> }
 }
 
 export type E2eCreateUnionTypesMutationVariables = Types.Exact<{
@@ -51,20 +24,7 @@ export type E2eCreateUnionTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateUnionTypesMutation = {
-  __typename?: 'Mutation'
-  createUnionTypes: {
-    __typename?: 'CreateUnionTypesMutationResponse'
-    unionTypes: Array<{
-      __typename?: 'UnionType'
-      id: string
-      name: string
-      typeKind: 'UnionType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createUnionTypes: { unionTypes: Array<E2eUnionTypeFragment> }
 }
 
 export type E2eCreateInterfaceTypesMutationVariables = Types.Exact<{
@@ -72,11 +32,7 @@ export type E2eCreateInterfaceTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateInterfaceTypesMutation = {
-  __typename?: 'Mutation'
-  createInterfaceTypes: {
-    __typename?: 'CreateInterfaceTypesMutationResponse'
-    interfaceTypes: Array<{ __typename?: 'InterfaceType' }>
-  }
+  createInterfaceTypes: { interfaceTypes: Array<{}> }
 }
 
 export type E2eCreateElementTypesMutationVariables = Types.Exact<{
@@ -84,21 +40,7 @@ export type E2eCreateElementTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateElementTypesMutation = {
-  __typename?: 'Mutation'
-  createElementTypes: {
-    __typename?: 'CreateElementTypesMutationResponse'
-    elementTypes: Array<{
-      __typename?: 'ElementType'
-      elementKind: Types.ElementTypeKind
-      id: string
-      name: string
-      typeKind: 'ElementType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createElementTypes: { elementTypes: Array<E2eElementTypeFragment> }
 }
 
 export type E2eCreateRenderPropsTypesMutationVariables = Types.Exact<{
@@ -108,19 +50,8 @@ export type E2eCreateRenderPropsTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateRenderPropsTypesMutation = {
-  __typename?: 'Mutation'
   createRenderPropsTypes: {
-    __typename?: 'CreateRenderPropsTypesMutationResponse'
-    renderPropsTypes: Array<{
-      __typename?: 'RenderPropsType'
-      id: string
-      name: string
-      typeKind: 'RenderPropsType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
+    renderPropsTypes: Array<E2eRenderPropsTypeFragment>
   }
 }
 
@@ -129,20 +60,7 @@ export type E2eCreateEnumTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateEnumTypesMutation = {
-  __typename?: 'Mutation'
-  createEnumTypes: {
-    __typename?: 'CreateEnumTypesMutationResponse'
-    enumTypes: Array<{
-      __typename?: 'EnumType'
-      id: string
-      name: string
-      typeKind: 'EnumType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createEnumTypes: { enumTypes: Array<E2eEnumTypeFragment> }
 }
 
 export type E2eCreateLambdaTypesMutationVariables = Types.Exact<{
@@ -150,20 +68,7 @@ export type E2eCreateLambdaTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateLambdaTypesMutation = {
-  __typename?: 'Mutation'
-  createLambdaTypes: {
-    __typename?: 'CreateLambdaTypesMutationResponse'
-    lambdaTypes: Array<{
-      __typename?: 'LambdaType'
-      id: string
-      name: string
-      typeKind: 'LambdaType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createLambdaTypes: { lambdaTypes: Array<E2eLambdaTypeFragment> }
 }
 
 export type E2eCreatePageTypesMutationVariables = Types.Exact<{
@@ -171,20 +76,7 @@ export type E2eCreatePageTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreatePageTypesMutation = {
-  __typename?: 'Mutation'
-  createPageTypes: {
-    __typename?: 'CreatePageTypesMutationResponse'
-    pageTypes: Array<{
-      __typename?: 'PageType'
-      id: string
-      name: string
-      typeKind: 'PageType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createPageTypes: { pageTypes: Array<E2ePageTypeFragment> }
 }
 
 export type E2eCreateAppTypesMutationVariables = Types.Exact<{
@@ -192,20 +84,7 @@ export type E2eCreateAppTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateAppTypesMutation = {
-  __typename?: 'Mutation'
-  createAppTypes: {
-    __typename?: 'CreateAppTypesMutationResponse'
-    appTypes: Array<{
-      __typename?: 'AppType'
-      id: string
-      name: string
-      typeKind: 'AppType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createAppTypes: { appTypes: Array<E2eAppTypeFragment> }
 }
 
 export type E2eCreateMonacoTypesMutationVariables = Types.Exact<{
@@ -213,21 +92,7 @@ export type E2eCreateMonacoTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateMonacoTypesMutation = {
-  __typename?: 'Mutation'
-  createMonacoTypes: {
-    __typename?: 'CreateMonacoTypesMutationResponse'
-    monacoTypes: Array<{
-      __typename?: 'MonacoType'
-      language: Types.MonacoLanguage
-      id: string
-      name: string
-      typeKind: 'MonacoType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createMonacoTypes: { monacoTypes: Array<E2eMonacoTypeFragment> }
 }
 
 export type E2eCreateReactNodeTypesMutationVariables = Types.Exact<{
@@ -235,152 +100,91 @@ export type E2eCreateReactNodeTypesMutationVariables = Types.Exact<{
 }>
 
 export type E2eCreateReactNodeTypesMutation = {
-  __typename?: 'Mutation'
-  createReactNodeTypes: {
-    __typename?: 'CreateReactNodeTypesMutationResponse'
-    reactNodeTypes: Array<{
-      __typename?: 'ReactNodeType'
-      id: string
-      name: string
-      typeKind: 'ReactNodeType'
-      owner?:
-        | { __typename?: 'User'; id: string; auth0Id: string }
-        | null
-        | undefined
-    }>
-  }
+  createReactNodeTypes: { reactNodeTypes: Array<E2eReactNodeFragment> }
 }
 
 export type E2eTypeBase_AppType_Fragment = {
-  __typename?: 'AppType'
   id: string
   name: string
   typeKind: 'AppType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_ArrayType_Fragment = {
-  __typename?: 'ArrayType'
   id: string
   name: string
   typeKind: 'ArrayType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_ElementType_Fragment = {
-  __typename?: 'ElementType'
   id: string
   name: string
   typeKind: 'ElementType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_EnumType_Fragment = {
-  __typename?: 'EnumType'
   id: string
   name: string
   typeKind: 'EnumType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_InterfaceType_Fragment = {
-  __typename?: 'InterfaceType'
   id: string
   name: string
   typeKind: 'InterfaceType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_LambdaType_Fragment = {
-  __typename?: 'LambdaType'
   id: string
   name: string
   typeKind: 'LambdaType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_MonacoType_Fragment = {
-  __typename?: 'MonacoType'
   id: string
   name: string
   typeKind: 'MonacoType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_PageType_Fragment = {
-  __typename?: 'PageType'
   id: string
   name: string
   typeKind: 'PageType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_PrimitiveType_Fragment = {
-  __typename?: 'PrimitiveType'
   id: string
   name: string
   typeKind: 'PrimitiveType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_ReactNodeType_Fragment = {
-  __typename?: 'ReactNodeType'
   id: string
   name: string
   typeKind: 'ReactNodeType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_RenderPropsType_Fragment = {
-  __typename?: 'RenderPropsType'
   id: string
   name: string
   typeKind: 'RenderPropsType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBase_UnionType_Fragment = {
-  __typename?: 'UnionType'
   id: string
   name: string
   typeKind: 'UnionType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
+  owner: Array<{ id: string; auth0Id: string }>
 }
 
 export type E2eTypeBaseFragment =
@@ -398,150 +202,36 @@ export type E2eTypeBaseFragment =
   | E2eTypeBase_UnionType_Fragment
 
 export type E2ePrimitiveTypeFragment = {
-  __typename?: 'PrimitiveType'
   primitiveKind: Types.PrimitiveTypeKind
-  id: string
-  name: string
-  typeKind: 'PrimitiveType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+} & E2eTypeBase_PrimitiveType_Fragment
 
-export type E2eArrayTypeFragment = {
-  __typename?: 'ArrayType'
-  id: string
-  name: string
-  typeKind: 'ArrayType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eArrayTypeFragment = E2eTypeBase_ArrayType_Fragment
 
-export type E2eUnionTypeFragment = {
-  __typename?: 'UnionType'
-  id: string
-  name: string
-  typeKind: 'UnionType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eUnionTypeFragment = E2eTypeBase_UnionType_Fragment
 
-export type E2eInterfaceTypeFragment = {
-  __typename?: 'UnionType'
-  id: string
-  name: string
-  typeKind: 'UnionType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eInterfaceTypeFragment = E2eTypeBase_UnionType_Fragment
 
 export type E2eElementTypeFragment = {
-  __typename?: 'ElementType'
   elementKind: Types.ElementTypeKind
-  id: string
-  name: string
-  typeKind: 'ElementType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+} & E2eTypeBase_ElementType_Fragment
 
-export type E2eRenderPropsTypeFragment = {
-  __typename?: 'RenderPropsType'
-  id: string
-  name: string
-  typeKind: 'RenderPropsType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eRenderPropsTypeFragment = E2eTypeBase_RenderPropsType_Fragment
 
-export type E2eEnumTypeFragment = {
-  __typename?: 'EnumType'
-  id: string
-  name: string
-  typeKind: 'EnumType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eEnumTypeFragment = E2eTypeBase_EnumType_Fragment
 
-export type E2eEnumTypeFragment = {
-  __typename?: 'EnumType'
-  id: string
-  name: string
-  typeKind: 'EnumType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eEnumTypeFragment = E2eTypeBase_EnumType_Fragment
 
-export type E2eLambdaTypeFragment = {
-  __typename?: 'LambdaType'
-  id: string
-  name: string
-  typeKind: 'LambdaType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eLambdaTypeFragment = E2eTypeBase_LambdaType_Fragment
 
-export type E2ePageTypeFragment = {
-  __typename?: 'PageType'
-  id: string
-  name: string
-  typeKind: 'PageType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2ePageTypeFragment = E2eTypeBase_PageType_Fragment
 
-export type E2eAppTypeFragment = {
-  __typename?: 'AppType'
-  id: string
-  name: string
-  typeKind: 'AppType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eAppTypeFragment = E2eTypeBase_AppType_Fragment
 
 export type E2eMonacoTypeFragment = {
-  __typename?: 'MonacoType'
   language: Types.MonacoLanguage
-  id: string
-  name: string
-  typeKind: 'MonacoType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+} & E2eTypeBase_MonacoType_Fragment
 
-export type E2eReactNodeFragment = {
-  __typename?: 'ReactNodeType'
-  id: string
-  name: string
-  typeKind: 'ReactNodeType'
-  owner?:
-    | { __typename?: 'User'; id: string; auth0Id: string }
-    | null
-    | undefined
-}
+export type E2eReactNodeFragment = E2eTypeBase_ReactNodeType_Fragment
 
 export const E2eTypeBaseFragmentDoc = gql`
   fragment E2eTypeBase on TypeBase {
@@ -559,77 +249,65 @@ export const E2ePrimitiveTypeFragmentDoc = gql`
     ...E2eTypeBase
     primitiveKind
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eArrayTypeFragmentDoc = gql`
   fragment E2eArrayType on ArrayType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eUnionTypeFragmentDoc = gql`
   fragment E2eUnionType on UnionType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eInterfaceTypeFragmentDoc = gql`
   fragment E2eInterfaceType on UnionType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eElementTypeFragmentDoc = gql`
   fragment E2eElementType on ElementType {
     ...E2eTypeBase
     elementKind
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eRenderPropsTypeFragmentDoc = gql`
   fragment E2eRenderPropsType on RenderPropsType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eEnumTypeFragmentDoc = gql`
   fragment E2eEnumType on EnumType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eLambdaTypeFragmentDoc = gql`
   fragment E2eLambdaType on LambdaType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2ePageTypeFragmentDoc = gql`
   fragment E2ePageType on PageType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eAppTypeFragmentDoc = gql`
   fragment E2eAppType on AppType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eMonacoTypeFragmentDoc = gql`
   fragment E2eMonacoType on MonacoType {
     ...E2eTypeBase
     language
   }
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eReactNodeFragmentDoc = gql`
   fragment E2eReactNode on ReactNodeType {
     ...E2eTypeBase
   }
-  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreatePrimitiveTypesDocument = gql`
+export const E2eCreatePrimitiveTypesGql = gql`
   mutation E2eCreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
     createPrimitiveTypes(input: $input) {
       primitiveTypes {
@@ -638,8 +316,9 @@ export const E2eCreatePrimitiveTypesDocument = gql`
     }
   }
   ${E2ePrimitiveTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateArrayTypesDocument = gql`
+export const E2eCreateArrayTypesGql = gql`
   mutation E2eCreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
     createArrayTypes(input: $input) {
       arrayTypes {
@@ -648,8 +327,9 @@ export const E2eCreateArrayTypesDocument = gql`
     }
   }
   ${E2eArrayTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateUnionTypesDocument = gql`
+export const E2eCreateUnionTypesGql = gql`
   mutation E2eCreateUnionTypes($input: [UnionTypeCreateInput!]!) {
     createUnionTypes(input: $input) {
       unionTypes {
@@ -658,8 +338,9 @@ export const E2eCreateUnionTypesDocument = gql`
     }
   }
   ${E2eUnionTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateInterfaceTypesDocument = gql`
+export const E2eCreateInterfaceTypesGql = gql`
   mutation E2eCreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
     createInterfaceTypes(input: $input) {
       interfaceTypes {
@@ -668,8 +349,9 @@ export const E2eCreateInterfaceTypesDocument = gql`
     }
   }
   ${E2eInterfaceTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateElementTypesDocument = gql`
+export const E2eCreateElementTypesGql = gql`
   mutation E2eCreateElementTypes($input: [ElementTypeCreateInput!]!) {
     createElementTypes(input: $input) {
       elementTypes {
@@ -678,8 +360,9 @@ export const E2eCreateElementTypesDocument = gql`
     }
   }
   ${E2eElementTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateRenderPropsTypesDocument = gql`
+export const E2eCreateRenderPropsTypesGql = gql`
   mutation E2eCreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
     createRenderPropsTypes(input: $input) {
       renderPropsTypes {
@@ -688,8 +371,9 @@ export const E2eCreateRenderPropsTypesDocument = gql`
     }
   }
   ${E2eRenderPropsTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateEnumTypesDocument = gql`
+export const E2eCreateEnumTypesGql = gql`
   mutation E2eCreateEnumTypes($input: [EnumTypeCreateInput!]!) {
     createEnumTypes(input: $input) {
       enumTypes {
@@ -698,8 +382,9 @@ export const E2eCreateEnumTypesDocument = gql`
     }
   }
   ${E2eEnumTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateLambdaTypesDocument = gql`
+export const E2eCreateLambdaTypesGql = gql`
   mutation E2eCreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
     createLambdaTypes(input: $input) {
       lambdaTypes {
@@ -708,8 +393,9 @@ export const E2eCreateLambdaTypesDocument = gql`
     }
   }
   ${E2eLambdaTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreatePageTypesDocument = gql`
+export const E2eCreatePageTypesGql = gql`
   mutation E2eCreatePageTypes($input: [PageTypeCreateInput!]!) {
     createPageTypes(input: $input) {
       pageTypes {
@@ -718,8 +404,9 @@ export const E2eCreatePageTypesDocument = gql`
     }
   }
   ${E2ePageTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateAppTypesDocument = gql`
+export const E2eCreateAppTypesGql = gql`
   mutation E2eCreateAppTypes($input: [AppTypeCreateInput!]!) {
     createAppTypes(input: $input) {
       appTypes {
@@ -728,8 +415,9 @@ export const E2eCreateAppTypesDocument = gql`
     }
   }
   ${E2eAppTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateMonacoTypesDocument = gql`
+export const E2eCreateMonacoTypesGql = gql`
   mutation E2eCreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
     createMonacoTypes(input: $input) {
       monacoTypes {
@@ -738,8 +426,9 @@ export const E2eCreateMonacoTypesDocument = gql`
     }
   }
   ${E2eMonacoTypeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateReactNodeTypesDocument = gql`
+export const E2eCreateReactNodeTypesGql = gql`
   mutation E2eCreateReactNodeTypes($input: [ReactNodeCreateInput!]!) {
     createReactNodeTypes(input: $input) {
       reactNodeTypes {
@@ -748,14 +437,20 @@ export const E2eCreateReactNodeTypesDocument = gql`
     }
   }
   ${E2eReactNodeFragmentDoc}
+  ${E2eTypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -769,11 +464,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreatePrimitiveTypesMutation>(
-            E2eCreatePrimitiveTypesDocument,
+            E2eCreatePrimitiveTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreatePrimitiveTypes',
+        'mutation',
       )
     },
     E2eCreateArrayTypes(
@@ -783,11 +479,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateArrayTypesMutation>(
-            E2eCreateArrayTypesDocument,
+            E2eCreateArrayTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateArrayTypes',
+        'mutation',
       )
     },
     E2eCreateUnionTypes(
@@ -797,11 +494,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateUnionTypesMutation>(
-            E2eCreateUnionTypesDocument,
+            E2eCreateUnionTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateUnionTypes',
+        'mutation',
       )
     },
     E2eCreateInterfaceTypes(
@@ -811,11 +509,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateInterfaceTypesMutation>(
-            E2eCreateInterfaceTypesDocument,
+            E2eCreateInterfaceTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateInterfaceTypes',
+        'mutation',
       )
     },
     E2eCreateElementTypes(
@@ -825,11 +524,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateElementTypesMutation>(
-            E2eCreateElementTypesDocument,
+            E2eCreateElementTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateElementTypes',
+        'mutation',
       )
     },
     E2eCreateRenderPropsTypes(
@@ -839,11 +539,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateRenderPropsTypesMutation>(
-            E2eCreateRenderPropsTypesDocument,
+            E2eCreateRenderPropsTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateRenderPropsTypes',
+        'mutation',
       )
     },
     E2eCreateEnumTypes(
@@ -853,11 +554,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateEnumTypesMutation>(
-            E2eCreateEnumTypesDocument,
+            E2eCreateEnumTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateEnumTypes',
+        'mutation',
       )
     },
     E2eCreateLambdaTypes(
@@ -867,11 +569,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateLambdaTypesMutation>(
-            E2eCreateLambdaTypesDocument,
+            E2eCreateLambdaTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateLambdaTypes',
+        'mutation',
       )
     },
     E2eCreatePageTypes(
@@ -881,11 +584,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreatePageTypesMutation>(
-            E2eCreatePageTypesDocument,
+            E2eCreatePageTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreatePageTypes',
+        'mutation',
       )
     },
     E2eCreateAppTypes(
@@ -895,11 +599,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateAppTypesMutation>(
-            E2eCreateAppTypesDocument,
+            E2eCreateAppTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateAppTypes',
+        'mutation',
       )
     },
     E2eCreateMonacoTypes(
@@ -909,11 +614,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateMonacoTypesMutation>(
-            E2eCreateMonacoTypesDocument,
+            E2eCreateMonacoTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateMonacoTypes',
+        'mutation',
       )
     },
     E2eCreateReactNodeTypes(
@@ -923,11 +629,12 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateReactNodeTypesMutation>(
-            E2eCreateReactNodeTypesDocument,
+            E2eCreateReactNodeTypesGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'E2eCreateReactNodeTypes',
+        'mutation',
       )
     },
   }

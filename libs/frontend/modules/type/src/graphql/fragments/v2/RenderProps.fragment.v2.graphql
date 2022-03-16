@@ -1,0 +1,3 @@
+fragment RenderPropsType on RenderPropsType {
+  ...TypeBase
+}

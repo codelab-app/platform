@@ -2,55 +2,25 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eGetPageQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
 
-export type E2eGetPageQuery = {
-  __typename?: 'Query'
-  pages: Array<{
-    __typename?: 'Page'
-    id: string
-    name: string
-    rootElement: {
-      __typename?: 'Element'
-      id: string
-      name?: string | null | undefined
-    }
-  }>
-}
+export type E2eGetPageQuery = { pages: Array<E2ePageFragment> }
 
 export type E2eCreatePageMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
 
 export type E2eCreatePageMutation = {
-  __typename?: 'Mutation'
-  createPages: {
-    __typename?: 'CreatePagesMutationResponse'
-    pages: Array<{
-      __typename?: 'Page'
-      id: string
-      name: string
-      rootElement: {
-        __typename?: 'Element'
-        id: string
-        name?: string | null | undefined
-      }
-    }>
-  }
+  createPages: { pages: Array<E2ePageFragment> }
 }
 
 export type E2ePageFragment = {
-  __typename?: 'Page'
   id: string
   name: string
-  rootElement: {
-    __typename?: 'Element'
-    id: string
-    name?: string | null | undefined
-  }
+  rootElement: { id: string; name?: string | null }
 }
 
 export const E2ePageFragmentDoc = gql`
@@ -63,7 +33,7 @@ export const E2ePageFragmentDoc = gql`
     }
   }
 `
-export const E2eGetPageDocument = gql`
+export const E2eGetPageGql = gql`
   query E2eGetPage($where: PageWhere) {
     pages(where: $where) {
       ...E2ePage
@@ -71,7 +41,7 @@ export const E2eGetPageDocument = gql`
   }
   ${E2ePageFragmentDoc}
 `
-export const E2eCreatePageDocument = gql`
+export const E2eCreatePageGql = gql`
   mutation E2eCreatePage($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
@@ -85,9 +55,14 @@ export const E2eCreatePageDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -100,11 +75,12 @@ export function getSdk(
     ): Promise<E2eGetPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eGetPageQuery>(E2eGetPageDocument, variables, {
+          client.request<E2eGetPageQuery>(E2eGetPageGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'E2eGetPage',
+        'query',
       )
     },
     E2eCreatePage(
@@ -113,12 +89,12 @@ export function getSdk(
     ): Promise<E2eCreatePageMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreatePageMutation>(
-            E2eCreatePageDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+          client.request<E2eCreatePageMutation>(E2eCreatePageGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
         'E2eCreatePage',
+        'mutation',
       )
     },
   }

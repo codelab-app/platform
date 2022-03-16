@@ -1,0 +1,5 @@
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  name
+  value
+}

@@ -3,8 +3,8 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { groupItemsByArrayDiff } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
-import { v4 } from 'uuid'
 import { getSnapshot } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,

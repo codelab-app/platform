@@ -49,6 +49,7 @@ import {
 import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
 import { PageTypeFragment } from './fragments/PageType.fragment.v2.1.graphql.gen'
 import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
+import { ReactNodeTypeFragment } from './fragments/ReactNodeType.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-request'
@@ -75,6 +76,7 @@ import {
 import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
 import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.1.graphql.gen'
 import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.1.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from './fragments/ReactNodeType.fragment.v2.1.graphql.gen'
 export type GetTypesQueryVariables = Types.Exact<{
   ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
@@ -140,6 +142,13 @@ export type GetRenderPropsTypesQueryVariables = Types.Exact<{
 export type GetRenderPropsTypesQuery = {
   types: Array<Type_RenderPropsType_Fragment>
 }
+
+export type GetReactNodeTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ReactNodeTypeOptions>
+  where?: Types.InputMaybe<Types.ReactNodeTypeWhere>
+}>
+
+export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> }
 
 export type GetEnumTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.EnumTypeOptions>
@@ -386,6 +395,18 @@ export const GetRenderPropsTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
+export const GetReactNodeTypesGql = gql`
+  query GetReactNodeTypes(
+    $options: ReactNodeTypeOptions
+    $where: ReactNodeTypeWhere
+  ) {
+    types: reactNodeTypes(where: $where, options: $options) {
+      ...ReactNodeType
+    }
+  }
+  ${ReactNodeTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+`
 export const GetEnumTypesGql = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
     types: enumTypes(where: $where, options: $options) {
@@ -622,6 +643,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetRenderPropsTypes',
+        'query',
+      )
+    },
+    GetReactNodeTypes(
+      variables?: GetReactNodeTypesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetReactNodeTypesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetReactNodeTypesQuery>(
+            GetReactNodeTypesGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetReactNodeTypes',
         'query',
       )
     },

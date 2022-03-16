@@ -29,7 +29,7 @@ export class AppModel extends Model({
   id: idProp,
   ownerId: prop<Nullish<string>>(),
   name: prop<string>(),
-  rootProviderElement: prop<Nullish<{id: string}>>()
+  rootProviderElement: prop<Nullish<{ id: string }>>(),
 }) {
   @modelFlow
   @transaction

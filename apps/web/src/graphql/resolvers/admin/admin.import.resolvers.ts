@@ -1,9 +1,9 @@
+import { TypeGraph } from '@codelab/shared/abstract/codegen'
 import { IGraph } from '@codelab/shared/abstract/core'
 import { TreeService } from '@codelab/shared/core'
 import { forkJoin, from, Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { Atom, Tag } from '../../model'
-import { TypeGraph } from '../../ogm-types.gen'
 import { typeRepository } from '../../repositories'
 import {
   IRxTxnResolver,
@@ -41,24 +41,26 @@ export const createTagsOGM = (tags: IGraph<any, any>): Observable<any> => {
     }, rootTagId)
   }
 
-  const allTagPromises = Promise.all(
-    tagsInput.map((tag) => {
-      let common: any = { name: tag.name, isRoot: tag.isRoot }
+  return of(
+    Tag().then((TagModel) =>
+      Promise.all(
+        tagsInput.map((tag) => {
+          let common: any = { name: tag.name, isRoot: tag.isRoot }
 
-      if (tag.parent) {
-        common = {
-          ...common,
-          parent: {
-            connect: { where: { node: { name: tag.parent.name } } },
-          },
-        }
-      }
+          if (tag.parent) {
+            common = {
+              ...common,
+              parent: {
+                connect: { where: { node: { name: tag.parent.name } } },
+              },
+            }
+          }
 
-      return Tag().create({ input: [common] })
-    }),
+          return TagModel.create({ input: [common] })
+        }),
+      ),
+    ),
   )
-
-  return of(allTagPromises)
 }
 
 export const creatAtomsOGM = (atoms: Array<any>): Observable<any> => {
@@ -87,7 +89,9 @@ export const creatAtomsOGM = (atoms: Array<any>): Observable<any> => {
         },
       }
 
-      return Atom().create({ input: [atomCreateInput] })
+      return Atom().then((AtomModel) =>
+        AtomModel.create({ input: [atomCreateInput] }),
+      )
     }),
   )
 

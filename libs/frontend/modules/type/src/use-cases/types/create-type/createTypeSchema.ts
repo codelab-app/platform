@@ -77,7 +77,6 @@ export const mapCreateTypeSchemaToTypeInput = (
           connect: [
             {
               where: { node: { id: formData.arrayItemTypeId } },
-              edge: { id: v4() },
             },
           ],
         },
