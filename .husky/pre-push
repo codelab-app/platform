@@ -3,9 +3,6 @@
 
 # yarn codegen
 
-# We update dgraph schema once only here
-# yarn cli dgraph update-schema --env test
-
 yarn cli tasks build --env test
 yarn cli tasks unit --env test
 yarn cli tasks int --env test

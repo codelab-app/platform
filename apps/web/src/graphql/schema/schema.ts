@@ -1,44 +1,76 @@
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Neo4jGraphQL } from '@neo4j/graphql'
-import { Driver } from 'neo4j-driver'
-import { Config } from '../../env/env'
-import { resolvers } from '../resolvers'
-import typeDefs from './typeDefs'
+import { gql } from 'apollo-server-micro'
+import { print } from 'graphql'
+import { appSchema } from './app.schema'
+import { atomSchema } from './atom.schema'
+import { commonSchema } from './common.schema'
+import { pageSchema } from './page.schema'
+import { tagSchema } from './tag.schema'
+import { typeSchema } from './type'
+import { userSchema } from './user.schema'
 
-/**
- * `.` -> `\\.`
- */
-const escapeDotPathKeys = (key: string) => {
-  return key.replace(/\./g, '\\.')
-}
+export default print(gql`
+  ${commonSchema}
 
-export const getSchema = (driver: Driver) =>
-  new Neo4jGraphQL({
-    typeDefs,
-    driver,
-    resolvers,
-    config: {
-      jwt: {
-        /**
-         * Either jwks or secret
-         */
-        jwksEndpoint: new URL(
-          '.well-known/jwks.json',
-          Config.auth0.issuer_base_url,
-        ).href,
-        // secret: Config.auth0.secret,
-        /**
-         * Use "dot path" since our roles path is nested
-         *
-         * https://githubmemory.com/repo/neo4j/graphql/issues/241
-         *
-         * Found out that we need to `Use \\. if you have a . in the key.`
-         */
-        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
-        /**
-         * This way we could access GraphQL without a valid token
-         */
-        noVerify: true,
-      },
-    },
-  })
+  ${userSchema}
+
+  ${appSchema}
+
+  ${atomSchema}
+
+  ${pageSchema}
+
+  ${typeSchema}
+
+  ${tagSchema}
+
+  type Query {
+    tagGraphs: TagGraph
+      @cypher(
+        statement: """
+        MATCH (t:Tag)
+        OPTIONAL MATCH path = (:Tag)<-[:Children]-(:Tag)
+        WITH
+        properties(t) as vertices,
+        [relation in relationships(path) |
+        {
+        source: properties(startNode(relation)).id,
+        target: properties(endNode(relation)).id
+        }
+        ] as edges
+        WITH
+        collect(DISTINCT vertices) as groupedVerticesArrays,
+        collect(DISTINCT edges) as groupedEdgesArrays
+        WITH
+        apoc.coll.toSet(reduce(accumulator = [], v IN groupedVerticesArrays | accumulator + v)) as mergedVertices,
+        apoc.coll.toSet(reduce(accumulator = [], e IN groupedEdgesArrays | accumulator + e)) as mergedEdges
+        RETURN {vertices:mergedVertices, edges:mergedEdges}
+        """
+      )
+  }
+
+  interface IElementGraph {
+    root: Element
+    vertices: [Element!]
+  }
+
+  type Element {
+    id: ID! @id
+    createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
+    updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
+
+    name: String!
+    ownerId: String!
+    parent: Element @relationship(type: "PARENT", direction: IN)
+    children: [Element!] @relationship(type: "PARENT", direction: OUT)
+
+    # Experimental, does not work
+    graph: IElementGraph!
+      @cypher(
+        statement: """
+        MATCH p = (this)-[r:PARENT 0..]->(x)
+        WITH collect(DISTINCT id(x)) as vertices, [r in collect(distinct last(r)) | [id(startNode(r)),id(endNode(r))]] as edges
+        RETURN vertices, edges
+        """
+      )
+  }
+`)

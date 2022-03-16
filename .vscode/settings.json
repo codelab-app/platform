@@ -8,6 +8,7 @@
    * Formatter
    */
   "eslint.format.enable": true,
+  "eslint.nodePath": "D:\\workspace\\codelab\\web\\node_modules",
   "[typescript][typescriptreact][javascript][javascriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },

@@ -1,9 +1,9 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { uniq } from 'lodash'
-import { elementRepository } from '../../cypher/element/elementRepository'
 import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import { QueryElementGraphArgs } from '../../ogm-types.gen'
+import { elementRepository } from '../../repositories'
 import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
 
 const driver = getDriver()

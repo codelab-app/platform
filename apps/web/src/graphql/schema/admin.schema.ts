@@ -8,4 +8,20 @@ export const adminSchema = gql`
   type Mutation {
     resetDatabase: ResetDatabaseMutationResponse
   }
+
+  type ImportDataMutationResponse {
+    result: Boolean!
+  }
+
+  input ImportAdminDataInput {
+    payload: [JSONObject!]
+  }
+
+  type Mutation {
+    importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
+  }
+
+  type Query {
+    exportAllTypesGraph: JSONObject
+  }
 `
