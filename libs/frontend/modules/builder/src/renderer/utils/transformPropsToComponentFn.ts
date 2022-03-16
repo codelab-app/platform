@@ -10,8 +10,11 @@ type ComponentMap = {
 }
 
 const getComponent = (payload: any, tree: ElementTree) => {
-  const { value: id } = payload
-  const component = id ? tree.getComponentById(id) : undefined
+  const id = payload.id || payload.value
+
+  const component = id
+    ? tree.getComponentById(id) || tree.getVertex(id)
+    : undefined
 
   if (!component) {
     console.warn('transformPropsToComponent', `Can't find component id : ${id}`)

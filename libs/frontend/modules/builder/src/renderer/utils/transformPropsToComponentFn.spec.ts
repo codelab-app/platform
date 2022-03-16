@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/extend-expect'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import React from 'react'
@@ -27,6 +28,8 @@ describe('TransformPropsToComponentFn', () => {
       defaultContext,
       initialProps,
     )
+
+    console.log({ renderText })
 
     const RenderFn = renderText as React.ComponentType<any>
     const { findByText } = render(React.createElement(RenderFn, {}))
