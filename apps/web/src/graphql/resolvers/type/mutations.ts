@@ -8,5 +8,3 @@ export const typeMutationResolvers: IResolvers = {
   deleteFieldEdge,
   upsertFieldEdge,
 }
-
-export default typeMutationResolvers

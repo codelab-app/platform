@@ -1,12 +1,12 @@
 import { IResolvers } from '@graphql-tools/utils'
+import { componentMutationsResolvers } from '../component/mutations'
+import { elementMutationsResolvers } from '../element/mutation'
+import { pageMutationResolvers } from '../page/mutation'
 import { atomResolvers } from './atom.resolvers'
-import { componentResolvers } from './component.resolvers'
-import { elementResolvers } from './element.resolvers'
-import { pageResolvers } from './page.resolvers'
 
 export const mutationResolvers: IResolvers = {
   ...atomResolvers,
-  ...elementResolvers,
-  ...pageResolvers,
-  ...componentResolvers,
+  ...elementMutationsResolvers,
+  ...pageMutationResolvers,
+  ...componentMutationsResolvers,
 }

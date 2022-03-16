@@ -1,5 +1,4 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { importAdminData } from './admin.import.resolvers'
 
 export const adminResolvers: IResolvers = {
   /*  
@@ -7,4 +6,5 @@ export const adminResolvers: IResolvers = {
     console.log('reset database')
   },
   importAdminData,
+*/
 }

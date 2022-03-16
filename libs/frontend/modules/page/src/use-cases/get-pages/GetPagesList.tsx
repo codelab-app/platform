@@ -2,10 +2,8 @@ import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { List } from 'antd'
-import { cloneDeep } from 'lodash'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { PageStore } from '../../store'
 import { GetPagesItem } from './GetPagesItem'
 
@@ -28,20 +26,12 @@ export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const pageListWithProviderTree = useMemo(() => {
-    const results = cloneDeep(toJS(pagesList)) || []
-
-    results.push({
-      name: providerTreePageName,
-    } as any)
-
-    return results
-  }, [pagesList])
+  const results = pagesList.concat([{ name: providerTreePageName }] as any)
 
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <List
-        dataSource={pageListWithProviderTree}
+        dataSource={results}
         renderItem={(page) => (
           <GetPagesItem key={page.id} page={page} pages={pages} />
         )}
