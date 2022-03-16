@@ -1,3 +1,4 @@
+import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -144,7 +145,7 @@ export const AppStore = types
             rootProviderElement: {
               create: {
                 node: {
-                  name: 'Provider Root Element',
+                  name: PROVIDER_ROOT_ELEMENT_NAME,
                 },
               },
             },

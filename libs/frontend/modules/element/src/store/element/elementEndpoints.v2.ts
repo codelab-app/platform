@@ -3,7 +3,6 @@ import {
   ELEMENT_CACHE_TAG,
   ELEMENT_GRAPH_CACHE_TAG,
   GraphqlOperationOptions,
-  invalidatesAll,
   providesAll,
 } from '@codelab/frontend/model/infra/redux'
 import { Maybe } from '@codelab/shared/abstract/codegen-v2'
@@ -18,15 +17,7 @@ import {
   PropFragmentDoc,
   PropMapBindingFragmentDoc,
 } from '../../graphql/Element.fragment.v2.graphql.gen'
-import {
-  getGraphEntry,
-  normalizeGraph,
-  onConvertToComponent,
-  onCreate,
-  onDelete,
-  onMove,
-  runGuards,
-} from './elementGraphCacheUtils'
+import { getGraphEntry, normalizeGraph } from './elementGraphCacheUtils'
 import {
   GetElementsGraphQueryVariables,
   NormalizedGetElementsGraphQuery,
@@ -87,26 +78,18 @@ export const updateGraphCache = (
 export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
   endpoints: {
     CreateElements: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const createdElements = data.createElements.elements
-          dispatch(updateGraphCache(rootId, onCreate(createdElements)))
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     DuplicateElement: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const duplicatedElements = data.duplicateElement.elements
-          dispatch(updateGraphCache(rootId, onCreate(duplicatedElements)))
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     UpdateElements: {
       /**
@@ -116,39 +99,25 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     ConvertElementsToComponents: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const updatedElements = data.updateElements.elements
-          dispatch(
-            updateGraphCache(rootId, onConvertToComponent(updatedElements)),
-          )
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     MoveElements: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const updatedElements = data.updateElements.elements
-          dispatch(updateGraphCache(rootId, onMove(updatedElements)))
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     DeleteElementsSubgraph: {
-      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
-      async onQueryStarted(input, api) {
-        const { dispatch, queryFulfilled, getState, requestId } = api
-        const { data } = await queryFulfilled
-        runGuards(requestId, getState, async (rootId) => {
-          const deletedIds = data.deleteElementsSubgraph.deletedIds || []
-          dispatch(updateGraphCache(rootId, onDelete(deletedIds)))
-        })
-      },
+      /**
+       * The idea of updating graph cache was banded since we are migrating
+       * from redux to Mobx
+       */
+      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     GetElements: {
       providesTags: (result) =>
