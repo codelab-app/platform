@@ -1,26 +1,29 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { getDriver } from '../../infra/driver'
-import { Page } from '../../model'
-import { MutationDeletePagesArgs, PageWhere } from '../../ogm-types.gen'
+import { Component } from '../../model'
+import {
+  ComponentWhere,
+  MutationDeleteComponentsArgs,
+} from '../../ogm-types.gen'
 import { elementRepository } from '../../repositories'
-import { pageSelectionSet } from '../selectionSets/pageSelectionSet'
+import { componentSelectionSet } from '../selectionSets/componentSelectionSet'
 
 const driver = getDriver()
 
-export const pageResolvers: IResolvers = {
-  deletePages: async (_source, args: MutationDeletePagesArgs) => {
+export const componentMutationsResolvers: IResolvers = {
+  deleteComponents: async (_source, args: MutationDeleteComponentsArgs) => {
     const session = driver.rxSession()
 
     if (!args.where) {
       throw new Error('No argument provided for delete operation')
     }
 
-    const pages = await Page().find({
+    const components = await Component().find({
       where: args.where,
-      selectionSet: pageSelectionSet,
+      selectionSet: componentSelectionSet,
     })
 
-    const rootElementIds = pages.map((x) => x.rootElement.id)
+    const rootElementIds = components.map((x) => x.rootElement.id)
 
     await session
       .writeTransaction((txn) =>
@@ -29,8 +32,8 @@ export const pageResolvers: IResolvers = {
       .toPromise()
       .finally(() => session.close())
 
-    return Page().delete({
-      where: args.where as PageWhere,
+    return Component().delete({
+      where: args.where as ComponentWhere,
       rootValue: '',
     })
   },

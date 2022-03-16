@@ -1,12 +1,10 @@
 import { IElement, IElementGraph } from '@codelab/shared/abstract/core'
 import { uuidRegex } from '@codelab/shared/utils'
 import { IResolvers } from '@graphql-tools/utils'
-import { uniq } from 'lodash'
 import { difference, uniq } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { combineLatest, from, Observable, of, zip } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
-import { elementRepository } from '../../cypher/element/elementRepository'
 import { getDriver } from '../../infra/driver'
 import { Component, Element } from '../../model'
 import { QueryElementGraphArgs } from '../../ogm-types.gen'
@@ -121,7 +119,7 @@ const getElementGraph = (
       }),
     )
 
-export const elementResolvers: IResolvers = {
+export const elementQueryResolvers: IResolvers = {
   elementGraph: async (_source, args: QueryElementGraphArgs) => {
     const session = driver.rxSession()
 
@@ -132,3 +130,5 @@ export const elementResolvers: IResolvers = {
     return await $elementGraph.toPromise()
   },
 }
+
+export default elementQueryResolvers

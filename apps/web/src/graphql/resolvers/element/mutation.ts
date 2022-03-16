@@ -10,7 +10,7 @@ import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
 
 const driver = getDriver()
 
-export const elementResolvers: IResolvers = {
+export const elementMutationsResolvers: IResolvers = {
   duplicateElement: async (_source, args: MutationDuplicateElementArgs) => {
     const session = driver.rxSession()
     const { elementId } = args.input
