@@ -235,7 +235,12 @@
         "import/first": "error",
         "import/no-cycle": "error",
         "import/no-duplicates": "error",
-        "prettier/prettier": "error",
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ],
         "func-style": "error",
         "@nrwl/nx/enforce-module-boundaries": [
           "error",

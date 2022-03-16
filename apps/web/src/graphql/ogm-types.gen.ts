@@ -28,7 +28,15 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query'
+  exportAllTypesGraph?: Maybe<Scalars['JSONObject']>
+  exportGraph?: Maybe<Scalars['JSONObject']>
   elementGraph: ElementGraph
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+  resetDatabaseMutationResponsesCount: Scalars['Int']
+  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+  importDataMutationResponsesCount: Scalars['Int']
+  importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
   edges: Array<Edge>
   edgesCount: Scalars['Int']
   edgesAggregate: EdgeAggregateSelection
@@ -150,8 +158,38 @@ export type Query = {
   getTypeReferences?: Maybe<Array<TypeReference>>
 }
 
+export type QueryExportGraphArgs = {
+  typeId: Scalars['ID']
+}
+
 export type QueryElementGraphArgs = {
   input: ElementGraphInput
+}
+
+export type QueryResetDatabaseMutationResponsesArgs = {
+  where?: Maybe<ResetDatabaseMutationResponseWhere>
+  options?: Maybe<ResetDatabaseMutationResponseOptions>
+}
+
+export type QueryResetDatabaseMutationResponsesCountArgs = {
+  where?: Maybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryResetDatabaseMutationResponsesAggregateArgs = {
+  where?: Maybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryImportDataMutationResponsesArgs = {
+  where?: Maybe<ImportDataMutationResponseWhere>
+  options?: Maybe<ImportDataMutationResponseOptions>
+}
+
+export type QueryImportDataMutationResponsesCountArgs = {
+  where?: Maybe<ImportDataMutationResponseWhere>
+}
+
+export type QueryImportDataMutationResponsesAggregateArgs = {
+  where?: Maybe<ImportDataMutationResponseWhere>
 }
 
 export type QueryEdgesArgs = {
@@ -646,11 +684,20 @@ export type QueryGetTypeReferencesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  resetDatabase?: Maybe<ResetDatabaseMutationResponse>
+  importAdminData?: Maybe<ImportDataMutationResponse>
   importAtoms?: Maybe<ImportAtomsMutationResponse>
   upsertFieldEdge: InterfaceTypeEdge
   deleteFieldEdge: DeleteFieldResponse
+  importTypeGraph: TypeGraph
   duplicateElement: DuplicateElementMutationResponse
   deleteElementsSubgraph: DeleteElementsInfo
+  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
+  deleteResetDatabaseMutationResponses: DeleteInfo
+  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
+  createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
+  deleteImportDataMutationResponses: DeleteInfo
+  updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
   createEdges: CreateEdgesMutationResponse
   deleteEdges: DeleteInfo
   updateEdges: UpdateEdgesMutationResponse
@@ -764,6 +811,10 @@ export type Mutation = {
   updateComponents: UpdateComponentsMutationResponse
 }
 
+export type MutationImportAdminDataArgs = {
+  input: ImportAdminDataInput
+}
+
 export type MutationImportAtomsArgs = {
   input: ImportAtomsInput
 }
@@ -777,6 +828,10 @@ export type MutationDeleteFieldEdgeArgs = {
   input: DeleteFieldInput
 }
 
+export type MutationImportTypeGraphArgs = {
+  payload: Scalars['JSONObject']
+}
+
 export type MutationDuplicateElementArgs = {
   input: DuplicateElementInput
 }
@@ -784,6 +839,32 @@ export type MutationDuplicateElementArgs = {
 export type MutationDeleteElementsSubgraphArgs = {
   delete?: Maybe<ElementDeleteInput>
   where?: Maybe<ElementWhere>
+}
+
+export type MutationCreateResetDatabaseMutationResponsesArgs = {
+  input: Array<ResetDatabaseMutationResponseCreateInput>
+}
+
+export type MutationDeleteResetDatabaseMutationResponsesArgs = {
+  where?: Maybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationUpdateResetDatabaseMutationResponsesArgs = {
+  where?: Maybe<ResetDatabaseMutationResponseWhere>
+  update?: Maybe<ResetDatabaseMutationResponseUpdateInput>
+}
+
+export type MutationCreateImportDataMutationResponsesArgs = {
+  input: Array<ImportDataMutationResponseCreateInput>
+}
+
+export type MutationDeleteImportDataMutationResponsesArgs = {
+  where?: Maybe<ImportDataMutationResponseWhere>
+}
+
+export type MutationUpdateImportDataMutationResponsesArgs = {
+  where?: Maybe<ImportDataMutationResponseWhere>
+  update?: Maybe<ImportDataMutationResponseUpdateInput>
 }
 
 export type MutationCreateEdgesArgs = {
@@ -1774,6 +1855,8 @@ export enum ElementTypeKind {
   DescendantsOnly = 'DescendantsOnly',
   /** Pick any element from the children of the current element */
   ChildrenOnly = 'ChildrenOnly',
+  /** Pick parents and siblings of parents of elements (used to move element) */
+  ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 
 export enum MonacoLanguage {
@@ -1825,6 +1908,10 @@ export type Field = {
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
+}
+
+export type IdProperty = {
+  id: Scalars['ID']
 }
 
 export type IEdge = {
@@ -2067,6 +2154,7 @@ export type ArrayTypeOwnerConnectionArgs = {
  */
 export type ArrayTypeItemTypeConnectionArgs = {
   where?: Maybe<ArrayTypeItemTypeConnectionWhere>
+  sort?: Maybe<Array<ArrayTypeItemTypeConnectionSort>>
 }
 
 export type ArrayTypeAggregateSelection = {
@@ -2083,10 +2171,11 @@ export type ArrayTypeItemTypeConnection = {
   pageInfo: PageInfo
 }
 
-export type ArrayTypeItemTypeRelationship = {
+export type ArrayTypeItemTypeRelationship = IdProperty & {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
   node: TypeBase
+  id: Scalars['ID']
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
@@ -2418,6 +2507,12 @@ export type CreateImportAtomsMutationResponsesMutationResponse = {
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
 }
 
+export type CreateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
+  info: CreateInfo
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+}
+
 export type CreateInfo = {
   __typename?: 'CreateInfo'
   bookmark?: Maybe<Scalars['String']>
@@ -2497,6 +2592,12 @@ export type CreateRenderPropsTypesMutationResponse = {
   __typename?: 'CreateRenderPropsTypesMutationResponse'
   info: CreateInfo
   renderPropsTypes: Array<RenderPropsType>
+}
+
+export type CreateResetDatabaseMutationResponsesMutationResponse = {
+  __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
+  info: CreateInfo
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
 export type CreateTagEdgesMutationResponse = {
@@ -3419,6 +3520,16 @@ export type ImportAtomsMutationResponseAggregateSelection = {
   count: Scalars['Int']
 }
 
+export type ImportDataMutationResponse = {
+  __typename?: 'ImportDataMutationResponse'
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseAggregateSelection = {
+  __typename?: 'ImportDataMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
 export type IntAggregateSelection = {
   __typename?: 'IntAggregateSelection'
   max?: Maybe<Scalars['Int']>
@@ -4194,6 +4305,16 @@ export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
   email: StringAggregateSelection
 }
 
+export type ResetDatabaseMutationResponse = {
+  __typename?: 'ResetDatabaseMutationResponse'
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseAggregateSelection = {
+  __typename?: 'ResetDatabaseMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
 export type StringAggregateSelection = {
   __typename?: 'StringAggregateSelection'
   shortest?: Maybe<Scalars['String']>
@@ -4564,6 +4685,12 @@ export type UpdateImportAtomsMutationResponsesMutationResponse = {
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
 }
 
+export type UpdateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
+  info: UpdateInfo
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+}
+
 export type UpdateInfo = {
   __typename?: 'UpdateInfo'
   bookmark?: Maybe<Scalars['String']>
@@ -4637,6 +4764,12 @@ export type UpdateRenderPropsTypesMutationResponse = {
   __typename?: 'UpdateRenderPropsTypesMutationResponse'
   info: UpdateInfo
   renderPropsTypes: Array<RenderPropsType>
+}
+
+export type UpdateResetDatabaseMutationResponsesMutationResponse = {
+  __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
+  info: UpdateInfo
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
 export type UpdateTagEdgesMutationResponse = {
@@ -5256,18 +5389,26 @@ export type ArrayTypeDisconnectInput = {
 
 export type ArrayTypeItemTypeConnectFieldInput = {
   connect?: Maybe<TypeBaseConnectInput>
+  edge: IdPropertyCreateInput
   where?: Maybe<TypeBaseConnectWhere>
+}
+
+export type ArrayTypeItemTypeConnectionSort = {
+  edge?: Maybe<IdPropertySort>
 }
 
 export type ArrayTypeItemTypeConnectionWhere = {
   AND?: Maybe<Array<ArrayTypeItemTypeConnectionWhere>>
   OR?: Maybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  edge?: Maybe<IdPropertyWhere>
+  edge_NOT?: Maybe<IdPropertyWhere>
   node?: Maybe<TypeBaseWhere>
   node_NOT?: Maybe<TypeBaseWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
   node: TypeBaseCreateInput
+  edge: IdPropertyCreateInput
 }
 
 export type ArrayTypeItemTypeDeleteFieldInput = {
@@ -5286,6 +5427,7 @@ export type ArrayTypeItemTypeFieldInput = {
 }
 
 export type ArrayTypeItemTypeUpdateConnectionInput = {
+  edge?: Maybe<IdPropertyUpdateInput>
   node?: Maybe<TypeBaseUpdateInput>
 }
 
@@ -8636,6 +8778,37 @@ export type HookWhere = {
   elementConnection_NOT?: Maybe<HookElementConnectionWhere>
 }
 
+export type IdPropertyCreateInput = {
+  id: Scalars['ID']
+}
+
+export type IdPropertySort = {
+  id?: Maybe<SortDirection>
+}
+
+export type IdPropertyUpdateInput = {
+  id?: Maybe<Scalars['ID']>
+}
+
+export type IdPropertyWhere = {
+  OR?: Maybe<Array<IdPropertyWhere>>
+  AND?: Maybe<Array<IdPropertyWhere>>
+  id?: Maybe<Scalars['ID']>
+  id_NOT?: Maybe<Scalars['ID']>
+  id_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
+  id_NOT_IN?: Maybe<Array<Maybe<Scalars['ID']>>>
+  id_CONTAINS?: Maybe<Scalars['ID']>
+  id_NOT_CONTAINS?: Maybe<Scalars['ID']>
+  id_STARTS_WITH?: Maybe<Scalars['ID']>
+  id_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
+  id_ENDS_WITH?: Maybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
+}
+
+export type ImportAdminDataInput = {
+  payload?: Maybe<Array<Scalars['JSONObject']>>
+}
+
 export type ImportAtomsInput = {
   payload?: Maybe<Array<Scalars['JSONObject']>>
 }
@@ -8658,6 +8831,33 @@ export type ImportAtomsMutationResponseUpdateInput = {
 export type ImportAtomsMutationResponseWhere = {
   OR?: Maybe<Array<ImportAtomsMutationResponseWhere>>
   AND?: Maybe<Array<ImportAtomsMutationResponseWhere>>
+}
+
+export type ImportDataMutationResponseCreateInput = {
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseOptions = {
+  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: Maybe<Array<Maybe<ImportDataMutationResponseSort>>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
+export type ImportDataMutationResponseSort = {
+  result?: Maybe<SortDirection>
+}
+
+export type ImportDataMutationResponseUpdateInput = {
+  result?: Maybe<Scalars['Boolean']>
+}
+
+export type ImportDataMutationResponseWhere = {
+  OR?: Maybe<Array<ImportDataMutationResponseWhere>>
+  AND?: Maybe<Array<ImportDataMutationResponseWhere>>
+  result?: Maybe<Scalars['Boolean']>
+  result_NOT?: Maybe<Scalars['Boolean']>
 }
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {
@@ -10775,6 +10975,33 @@ export type RenderPropsTypeWhere = {
   ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
 }
 
+export type ResetDatabaseMutationResponseCreateInput = {
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseOptions = {
+  /** Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: Maybe<Array<Maybe<ResetDatabaseMutationResponseSort>>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+/** Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object. */
+export type ResetDatabaseMutationResponseSort = {
+  success?: Maybe<SortDirection>
+}
+
+export type ResetDatabaseMutationResponseUpdateInput = {
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseWhere = {
+  OR?: Maybe<Array<ResetDatabaseMutationResponseWhere>>
+  AND?: Maybe<Array<ResetDatabaseMutationResponseWhere>>
+  success?: Maybe<Scalars['Boolean']>
+  success_NOT?: Maybe<Scalars['Boolean']>
+}
+
 export type TagChildrenAggregateInput = {
   count?: Maybe<Scalars['Int']>
   count_LT?: Maybe<Scalars['Int']>
@@ -11994,6 +12221,112 @@ export type UserWhere = {
   appsConnection_NOT?: Maybe<UserAppsConnectionWhere>
   componentsConnection?: Maybe<UserComponentsConnectionWhere>
   componentsConnection_NOT?: Maybe<UserComponentsConnectionWhere>
+}
+
+export interface ResetDatabaseMutationResponseAggregateInput {
+  count?: boolean
+}
+
+export declare class ResetDatabaseMutationResponseModel {
+  public find(args?: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    options?: ResetDatabaseMutationResponseOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<ResetDatabaseMutationResponse>>
+
+  public count(args?: {
+    where?: ResetDatabaseMutationResponseWhere
+  }): Promise<number>
+
+  public create(args: {
+    input: Array<ResetDatabaseMutationResponseCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>
+
+  public update(args: {
+    where?: ResetDatabaseMutationResponseWhere
+    update?: ResetDatabaseMutationResponseUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>
+
+  public delete(args: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ResetDatabaseMutationResponseWhere
+
+    aggregate: ResetDatabaseMutationResponseAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<ResetDatabaseMutationResponseAggregateSelection>
+}
+
+export interface ImportDataMutationResponseAggregateInput {
+  count?: boolean
+}
+
+export declare class ImportDataMutationResponseModel {
+  public find(args?: {
+    where?: ImportDataMutationResponseWhere
+
+    options?: ImportDataMutationResponseOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<ImportDataMutationResponse>>
+
+  public count(args?: {
+    where?: ImportDataMutationResponseWhere
+  }): Promise<number>
+
+  public create(args: {
+    input: Array<ImportDataMutationResponseCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateImportDataMutationResponsesMutationResponse>
+
+  public update(args: {
+    where?: ImportDataMutationResponseWhere
+    update?: ImportDataMutationResponseUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateImportDataMutationResponsesMutationResponse>
+
+  public delete(args: {
+    where?: ImportDataMutationResponseWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ImportDataMutationResponseWhere
+
+    aggregate: ImportDataMutationResponseAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<ImportDataMutationResponseAggregateSelection>
 }
 
 export interface StringAggregateInput {
@@ -14519,6 +14852,8 @@ export declare class ComponentModel {
 }
 
 export interface ModelMap {
+  ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
+  ImportDataMutationResponse: ImportDataMutationResponseModel
   Edge: EdgeModel
   User: UserModel
   App: AppModel

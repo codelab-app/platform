@@ -62,6 +62,7 @@ export const mapCreateTypeSchemaToTypeInput = (
         typesOfUnionType: {
           connect: formData.typeIdsOfUnionType.map((id) => ({
             where: { node: { id } },
+            edge: { id: v4() },
           })),
         },
       } as cg.UnionTypeCreateInput
@@ -73,7 +74,12 @@ export const mapCreateTypeSchemaToTypeInput = (
       return {
         ...common,
         itemType: {
-          connect: [{ where: { node: { id: formData.arrayItemTypeId } } }],
+          connect: [
+            {
+              where: { node: { id: formData.arrayItemTypeId } },
+              edge: { id: v4() },
+            },
+          ],
         },
       }
     case TypeKind.InterfaceType:
@@ -88,6 +94,7 @@ export const mapCreateTypeSchemaToTypeInput = (
         allowedValues: {
           create: formData.allowedValues?.map((v) => ({
             node: { id: v4(), name: v.name, value: v.value },
+            edge: { id: v4() },
           })),
         },
       }

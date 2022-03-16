@@ -3,6 +3,7 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { groupItemsByArrayDiff } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
+import { v4 } from 'uuid'
 import { TypeFragment } from '../../../graphql'
 import {
   BaseTypeMutationSchema,
@@ -84,7 +85,9 @@ export const mapUpdateTypeSchemaToTypeInput = (
       return {
         ...common,
         allowedValues: [
-          ...toCreate.map((v) => ({ create: [{ node: v }] })),
+          ...toCreate.map((v) => ({
+            create: [{ node: v, edge: { id: v4() } }],
+          })),
           ...toUpdate.map(([newV, oldV]) => ({
             update: { node: { id: newV.id } },
           })),

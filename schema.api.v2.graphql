@@ -796,6 +796,7 @@ type ArrayType implements TypeBase {
   id: ID!
   itemType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
   itemTypeConnection(
+    sort: [ArrayTypeItemTypeConnectionSort!]
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
   name: String!
@@ -842,6 +843,7 @@ input ArrayTypeDisconnectInput {
 
 input ArrayTypeItemTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -851,14 +853,21 @@ type ArrayTypeItemTypeConnection {
   totalCount: Int!
 }
 
+input ArrayTypeItemTypeConnectionSort {
+  edge: IdPropertySort
+}
+
 input ArrayTypeItemTypeConnectionWhere {
   AND: [ArrayTypeItemTypeConnectionWhere!]
   OR: [ArrayTypeItemTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input ArrayTypeItemTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -877,12 +886,14 @@ input ArrayTypeItemTypeFieldInput {
   create: [ArrayTypeItemTypeCreateFieldInput!]
 }
 
-type ArrayTypeItemTypeRelationship {
+type ArrayTypeItemTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input ArrayTypeItemTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -2303,6 +2314,11 @@ type CreateHooksMutationResponse {
 
 type CreateImportAtomsMutationResponsesMutationResponse {
   importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+  info: CreateInfo!
+}
+
+type CreateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: CreateInfo!
 }
 
@@ -4380,11 +4396,13 @@ input EnumTypeAllowedValuesAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
+  edge: EnumTypeAllowedValuesEdgeAggregationWhereInput
   node: EnumTypeAllowedValuesNodeAggregationWhereInput
 }
 
 input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
+  edge: IdPropertyCreateInput!
   where: EnumTypeValueConnectWhere
 }
 
@@ -4395,17 +4413,21 @@ type EnumTypeAllowedValuesConnection {
 }
 
 input EnumTypeAllowedValuesConnectionSort {
+  edge: IdPropertySort
   node: EnumTypeValueSort
 }
 
 input EnumTypeAllowedValuesConnectionWhere {
   AND: [EnumTypeAllowedValuesConnectionWhere!]
   OR: [EnumTypeAllowedValuesConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: EnumTypeValueWhere
   node_NOT: EnumTypeValueWhere
 }
 
 input EnumTypeAllowedValuesCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: EnumTypeValueCreateInput!
 }
 
@@ -4417,6 +4439,12 @@ input EnumTypeAllowedValuesDeleteFieldInput {
 input EnumTypeAllowedValuesDisconnectFieldInput {
   disconnect: EnumTypeValueDisconnectInput
   where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeAllowedValuesEdgeAggregationWhereInput {
+  AND: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  OR: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  id_EQUAL: ID
 }
 
 input EnumTypeAllowedValuesFieldInput {
@@ -4470,12 +4498,14 @@ input EnumTypeAllowedValuesNodeAggregationWhereInput {
   value_SHORTEST_LTE: Int
 }
 
-type EnumTypeAllowedValuesRelationship {
+type EnumTypeAllowedValuesRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: EnumTypeValue!
 }
 
 input EnumTypeAllowedValuesUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: EnumTypeValueUpdateInput
 }
 
@@ -4523,7 +4553,12 @@ input EnumTypeDisconnectInput {
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
   count: Int!
+  edge: EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection
   node: EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection
+}
+
+type EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection {
+  id: IDAggregateSelection!
 }
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
@@ -5411,6 +5446,41 @@ interface IEdge {
   target: String!
 }
 
+interface IdProperty {
+  id: ID!
+}
+
+input IdPropertyCreateInput {
+  id: ID!
+}
+
+input IdPropertySort {
+  id: SortDirection
+}
+
+input IdPropertyUpdateInput {
+  id: ID
+}
+
+input IdPropertyWhere {
+  AND: [IdPropertyWhere!]
+  OR: [IdPropertyWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+}
+
+input ImportAdminDataInput {
+  payload: [JSONObject!]
+}
+
 input ImportAtomsInput {
   payload: [JSONObject!]
 }
@@ -5445,6 +5515,46 @@ input ImportAtomsMutationResponseUpdateInput {
 input ImportAtomsMutationResponseWhere {
   AND: [ImportAtomsMutationResponseWhere!]
   OR: [ImportAtomsMutationResponseWhere!]
+}
+
+type ImportDataMutationResponse {
+  result: Boolean!
+}
+
+type ImportDataMutationResponseAggregateSelection {
+  count: Int!
+}
+
+input ImportDataMutationResponseCreateInput {
+  result: Boolean!
+}
+
+input ImportDataMutationResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ImportDataMutationResponseSort]
+}
+
+"""
+Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object.
+"""
+input ImportDataMutationResponseSort {
+  result: SortDirection
+}
+
+input ImportDataMutationResponseUpdateInput {
+  result: Boolean
+}
+
+input ImportDataMutationResponseWhere {
+  AND: [ImportDataMutationResponseWhere!]
+  OR: [ImportDataMutationResponseWhere!]
+  result: Boolean
+  result_NOT: Boolean
 }
 
 type IntAggregateSelection {
@@ -6257,6 +6367,9 @@ type Mutation {
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
+  createImportDataMutationResponses(
+    input: [ImportDataMutationResponseCreateInput!]!
+  ): CreateImportDataMutationResponsesMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
   ): CreateInterfaceTypesMutationResponse!
@@ -6330,6 +6443,9 @@ type Mutation {
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
+  deleteImportDataMutationResponses(
+    where: ImportDataMutationResponseWhere
+  ): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
     where: InterfaceTypeWhere
@@ -6378,7 +6494,9 @@ type Mutation {
   duplicateElement(
     input: DuplicateElementInput!
   ): DuplicateElementMutationResponse!
+  importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
@@ -6486,6 +6604,10 @@ type Mutation {
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
+  updateImportDataMutationResponses(
+    update: ImportDataMutationResponseUpdateInput
+    where: ImportDataMutationResponseWhere
+  ): UpdateImportDataMutationResponsesMutationResponse!
   updateInterfaceTypes(
     connect: InterfaceTypeConnectInput
     connectOrCreate: InterfaceTypeConnectOrCreateInput
@@ -8126,6 +8248,8 @@ type Query {
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
   enumTypesCount(where: EnumTypeWhere): Int!
+  exportAllTypesGraph: JSONObject
+  exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 
   """
@@ -8146,6 +8270,14 @@ type Query {
   importAtomsMutationResponsesCount(
     where: ImportAtomsMutationResponseWhere
   ): Int!
+  importDataMutationResponses(
+    options: ImportDataMutationResponseOptions
+    where: ImportDataMutationResponseWhere
+  ): [ImportDataMutationResponse!]!
+  importDataMutationResponsesAggregate(
+    where: ImportDataMutationResponseWhere
+  ): ImportDataMutationResponseAggregateSelection!
+  importDataMutationResponsesCount(where: ImportDataMutationResponseWhere): Int!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -9491,6 +9623,7 @@ type UnionType implements TypeBase {
   ): TypeBaseOwnerConnection!
   typesOfUnionType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
   typesOfUnionTypeConnection(
+    sort: [UnionTypeTypesOfUnionTypeConnectionSort!]
     where: UnionTypeTypesOfUnionTypeConnectionWhere
   ): UnionTypeTypesOfUnionTypeConnection!
 }
@@ -9608,6 +9741,7 @@ input UnionTypeSort {
 
 input UnionTypeTypesOfUnionTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -9617,14 +9751,21 @@ type UnionTypeTypesOfUnionTypeConnection {
   totalCount: Int!
 }
 
+input UnionTypeTypesOfUnionTypeConnectionSort {
+  edge: IdPropertySort
+}
+
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeConnectionWhere!]
   OR: [UnionTypeTypesOfUnionTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -9643,12 +9784,14 @@ input UnionTypeTypesOfUnionTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
-type UnionTypeTypesOfUnionTypeRelationship {
+type UnionTypeTypesOfUnionTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input UnionTypeTypesOfUnionTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -9777,6 +9920,11 @@ type UpdateHooksMutationResponse {
 
 type UpdateImportAtomsMutationResponsesMutationResponse {
   importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+  info: UpdateInfo!
+}
+
+type UpdateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: UpdateInfo!
 }
 
