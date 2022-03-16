@@ -64,6 +64,7 @@ export const useGetAllTypesQuery = ({
     getTypeEndpoints.useGetInterfaceTypesWithFieldsQuery(input),
     getTypeEndpoints.useGetPrimitiveTypesQuery(input),
     getTypeEndpoints.useGetRenderPropsTypesQuery(input),
+    getTypeEndpoints.useGetReactNodeTypesQuery(input),
   ]
 
   const allTypes = flatMap(allResults, (r) => r.data?.types ?? [])

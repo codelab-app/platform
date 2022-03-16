@@ -1,0 +1,5 @@
+mutation E2eResetDatabase {
+  resetDatabase {
+    success
+  }
+}

@@ -81,7 +81,10 @@ export const MainPaneBuilder = ({
         expectedValue={BuilderTab.Tree}
         value={builderTab}
       >
-        <MainPaneBuilderTreeTab isComponentBuilder={isComponentBuilder} />
+        <MainPaneBuilderTreeTab
+          isComponentBuilder={isComponentBuilder}
+          rootId={root?.id as string}
+        />
       </EqualityConditionalView>
 
       <EqualityConditionalView

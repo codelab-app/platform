@@ -97,6 +97,7 @@ export type TypeGraphFragment = {
     | TypeNonRecursive_MonacoType_Fragment
     | TypeNonRecursive_PageType_Fragment
     | TypeNonRecursive_PrimitiveType_Fragment
+    | TypeNonRecursive_ReactNodeType_Fragment
     | TypeNonRecursive_RenderPropsType_Fragment
     | TypeNonRecursive_UnionType_Fragment
   >

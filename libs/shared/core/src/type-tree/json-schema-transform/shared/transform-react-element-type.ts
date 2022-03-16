@@ -25,6 +25,7 @@ export const transformReactElementType: TypeTransformFn<ReactElementType> = (
     {
       type: 'string',
       ...extra,
+      label: '',
     },
     '',
   )

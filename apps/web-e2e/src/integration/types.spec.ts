@@ -1,4 +1,6 @@
-import { PrimitiveTypeKind, TypeKind } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { domClasses } from '../support/selectors/domClasses'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -6,7 +8,7 @@ const primitiveTypeKind = TypeKind.PrimitiveType
 const primitiveTypePrimitiveKind = PrimitiveTypeKind.String
 // Enum Type use case
 const enumTypeName = 'COLORS'
-const enumTypeKind = 'Enum'
+const enumTypeKind = 'EnumType'
 
 const enumTypeAllowedValues = [
   { name: 'BLACK', value: '0' },
@@ -22,31 +24,13 @@ const updatedArrayTypeName = 'Updated TextArray'
 const interfaceTypeName = 'New Interface'
 const interfaceTypeKind = TypeKind.InterfaceType
 
-const findEditButtonByTypeName = (text: string) =>
-  cy
-    .findByText(text, { exact: true, timeout: 3000 })
-    .closest('.ant-table-row')
-    .find('.anticon-edit')
-    .closest('button')
-
-const findDeleteButtonByTypeName = (text: string) =>
-  cy
-    .findByText(text, { exact: true, timeout: 3000 })
-    .closest('.ant-table-row')
-    .find('.anticon-delete')
-    .closest('button')
-
-describe('Types', () => {
+describe('Types CRUD', () => {
   before(() => {
-    cy.resetDgraphData().then(() => {
+    cy.resetDatabase().then(() => {
       cy.login().then(() => {
         cy.visit(`/types`)
       })
     })
-  })
-
-  beforeEach(() => {
-    cy.get('.ant-table-cell', { timeout: 5000 })
   })
 
   describe('create type', () => {
@@ -58,13 +42,13 @@ describe('Types', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(primitiveTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(primitiveTypeKind).first().click()
-      cy.getOpenedModal().findByLabelText('Primitive kind').click()
-      cy.getOpenedModal()
-        .getOptionItem(primitiveTypePrimitiveKind)
-        .first()
-        .click()
+
+      cy.getOpenedModal().selectOptionItem('Kind', primitiveTypeKind)
+
+      cy.getOpenedModal().selectOptionItem(
+        'Primitive kind',
+        primitiveTypePrimitiveKind,
+      )
 
       cy.getOpenedModal()
         .findByButtonText(/Create/)
@@ -82,8 +66,7 @@ describe('Types', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(enumTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(enumTypeKind).first().click()
+      cy.getOpenedModal().selectOptionItem('Kind', enumTypeKind)
 
       enumTypeAllowedValues.map((enumItem) => {
         cy.findByRole('button', { name: /plus-square/ }).click()
@@ -107,17 +90,11 @@ describe('Types', () => {
     })
 
     it('should be able to create array', () => {
-      cy.findAllByText(arrayTypeName, { exact: true, timeout: 0 }).should(
-        'not.exist',
-      )
-
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(arrayTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(arrayTypeKind).first().click()
-      cy.getOpenedModal().findByLabelText('Array item type').click()
-      cy.getOpenedModal().getOptionItem(arrayItemType).first().click()
+      cy.getOpenedModal().selectOptionItem('Kind', arrayTypeKind)
+      cy.getOpenedModal().selectOptionItem('Array item type', arrayItemType)
 
       cy.getOpenedModal()
         .findByButtonText(/Create/)
@@ -135,8 +112,8 @@ describe('Types', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(interfaceTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getSelectOptionItemByValue(interfaceTypeKind).first().click()
+      cy.getOpenedModal().selectOptionItem('Kind', interfaceTypeKind)
+
       cy.getOpenedModal()
         .findByButtonText(/Create/)
         .click()
@@ -152,7 +129,11 @@ describe('Types', () => {
         'exist',
       )
 
-      findEditButtonByTypeName(arrayTypeName).click()
+      cy.findButtonByItemText(
+        arrayTypeName,
+        domClasses.buttons.edit,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
@@ -172,7 +153,11 @@ describe('Types', () => {
 
   describe('delete type', () => {
     it('should be able to delete interface', () => {
-      findDeleteButtonByTypeName(interfaceTypeName).click()
+      cy.findButtonByItemText(
+        interfaceTypeName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
@@ -183,7 +168,11 @@ describe('Types', () => {
     })
 
     it('should be able to delete array', () => {
-      findDeleteButtonByTypeName(updatedArrayTypeName).click()
+      cy.findButtonByItemText(
+        updatedArrayTypeName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
@@ -194,7 +183,11 @@ describe('Types', () => {
     })
 
     it('should be able to delete enum', () => {
-      findDeleteButtonByTypeName(enumTypeName).click()
+      cy.findButtonByItemText(
+        enumTypeName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
@@ -205,7 +198,11 @@ describe('Types', () => {
     })
 
     it('should be able to delete primitive', () => {
-      findDeleteButtonByTypeName(primitiveTypeName).click()
+      cy.findButtonByItemText(
+        primitiveTypeName,
+        domClasses.buttons.delete,
+        domClasses.tableRow,
+      ).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()

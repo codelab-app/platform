@@ -57,7 +57,6 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
 
   return (
     <SelectField
-      disabled={elementOptions.length === 1 || !elementOptions.length}
       name={name}
       optionFilterProp="label"
       options={elementOptions}

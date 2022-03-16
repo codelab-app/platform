@@ -1,6 +1,4 @@
-import { TIMEOUT } from '../support/timeout'
-
-describe('UserUseCase', () => {
+describe('User', () => {
   before(() => {
     cy.visit('/')
     cy.logout()
@@ -23,10 +21,7 @@ describe('UserUseCase', () => {
         }
 
         cy.findByLabelText('user').click() // the icon has a user label
-        cy.findElementByText(email, 'li', {
-          exact: false,
-          timeout: TIMEOUT,
-        }).should('exist')
+        cy.findElementByText(email, 'li', { exact: false }).should('exist')
 
         cy.findElementByText('Sign Out', 'a').click()
         cy.findElementByText('Login', 'a').should('exist')

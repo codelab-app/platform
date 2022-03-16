@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import { getEdgeOrder } from '../../cytoscape/edge'
 import { getCyElementData } from '../../cytoscape/element'
 import { breadthFirstTraversal } from '../breadthFirstTraversal'
+import { filterPredicate } from '../treePredicate'
 import { BfsReduceInput, NodeMapperFn } from '../types'
 
 type Cy = cytoscape.Core
@@ -67,11 +68,12 @@ const getAllProcessedChildPairs =
 export const reduceToNested =
   <TV extends IVertex, TE extends IEdge, TOut>(cy: Cy) =>
   (input: BfsReduceInput<TV, TE, TOut>) => {
-    const { nodeMapper, addChildToNode } = input
+    const { nodeMapper, addChildToNode, predicate } = input
 
     const roots = cy
       .elements()
       .roots()
+      .filter(filterPredicate(predicate ?? (() => true)))
       .map(getCyElementData)
       .filter((v): v is TV => !!v)
 

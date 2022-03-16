@@ -1,4 +1,5 @@
 import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen-v2'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { merge, partition } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs/internal/Observable'
@@ -11,7 +12,7 @@ import getElementGraphCypher from './getElementGraph.cypher'
 type RawGraphEdge = {
   source: string
   target: string
-  order: number
+  order?: Nullish<number>
   type: string // could be one of there PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>|COMPONENT_ROOT>
 }
 
@@ -80,7 +81,7 @@ export const elementRepository = {
             source: x.source,
             target: componentRootsMap[x.target], // Element2.id
             order: 0,
-          }))
+          })) as Array<RawGraphEdge>
 
           return { edges: elementComponentEdges.concat(parentOfElementEdges) }
         }),

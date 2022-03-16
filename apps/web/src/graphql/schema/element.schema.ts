@@ -10,7 +10,6 @@ export const elementSchema = gql`
   type ElementGraph @exclude {
     edges: [ElementEdge!]!
     vertices: [Element!]!
-    rootId: String
   }
 
   type Prop {

@@ -8,6 +8,7 @@ union AnyType =
   | MonacoType
   | PageType
   | PrimitiveType
+  | ReactNodeType
   | RenderPropsType
   | UnionType
 
@@ -3294,7 +3295,6 @@ type ElementElementParentElementNodeAggregateSelection {
 
 type ElementGraph {
   edges: [ElementEdge!]!
-  rootId: String
   vertices: [Element!]!
 }
 

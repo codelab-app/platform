@@ -1,0 +1,17 @@
+mutation E2eCreateField($input: UpsertFieldInput!) {
+  upsertFieldEdge(input: $input, isCreating: true) {
+    ...E2eInterfaceTypeEdge
+  }
+}
+
+fragment E2eField on Field {
+  key
+  name
+  description
+}
+
+fragment E2eInterfaceTypeEdge on InterfaceTypeEdge {
+  ...E2eField
+  target
+  source
+}

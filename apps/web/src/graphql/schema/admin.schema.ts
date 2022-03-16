@@ -7,6 +7,11 @@ export const adminSchema = gql`
 
   type Mutation {
     resetDatabase: ResetDatabaseMutationResponse
+      @cypher(
+        statement: """
+        MATCH (n) DETACH DELETE n RETURN { success:true }
+        """
+      )
   }
 
   type ImportDataMutationResponse {

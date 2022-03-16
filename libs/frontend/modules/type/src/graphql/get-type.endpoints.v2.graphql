@@ -61,6 +61,15 @@ query GetRenderPropsTypes(
   }
 }
 
+query GetReactNodeTypes(
+  $options: ReactNodeTypeOptions
+  $where: ReactNodeTypeWhere
+) {
+  types: reactNodeTypes(where: $where, options: $options) {
+    ...ReactNodeType
+  }
+}
+
 query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
   types: enumTypes(where: $where, options: $options) {
     ...EnumType

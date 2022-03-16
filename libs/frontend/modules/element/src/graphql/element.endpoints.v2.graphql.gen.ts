@@ -6,7 +6,6 @@ import {
   HookFragment,
   PropMapBindingFragment,
 } from './Element.fragment.v2.graphql.gen'
-import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
 import {
   ElementFragmentDoc,
@@ -14,7 +13,6 @@ import {
   HookFragmentDoc,
   PropMapBindingFragmentDoc,
 } from './Element.fragment.v2.graphql.gen'
-import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -90,7 +88,6 @@ export const CreateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -115,7 +112,6 @@ export const UpdateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -129,7 +125,6 @@ export const MoveElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -146,7 +141,6 @@ export const ConvertElementsToComponentsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -160,7 +154,6 @@ export const DuplicateElementGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
@@ -172,7 +165,6 @@ export const GetElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}

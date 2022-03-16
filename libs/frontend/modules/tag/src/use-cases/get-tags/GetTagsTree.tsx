@@ -24,7 +24,7 @@ export const GetTagsTree = () => {
     return null
   }
 
-  const tagTreesData = tagTree.getAntdTree()
+  const tagTreesData = tagTree.getAntdTrees()
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     setSelectedTag({ key: selectedKeys[0] })

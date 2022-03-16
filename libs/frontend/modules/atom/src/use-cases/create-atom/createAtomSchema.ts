@@ -1,11 +1,12 @@
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import { TreeSelectField } from '../components'
 
 export type CreateAtomInputSchema = {
   name: string
   type: AtomType
-  tags: Array<string>
+  tags: Nullish<Array<string>>
 }
 
 export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
@@ -22,6 +23,7 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
         enum: Object.keys(AtomType).filter(
           filterNotHookType,
         ) as Array<AtomType>,
+        showSearch: true,
       },
       tags: {
         type: 'array',
@@ -31,6 +33,7 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
         uniforms: {
           component: TreeSelectField,
         },
+        showSearch: true,
         nullable: true,
       },
     } as any),

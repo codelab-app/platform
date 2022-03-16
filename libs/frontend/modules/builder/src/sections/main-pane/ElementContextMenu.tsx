@@ -99,6 +99,8 @@ export const ElementContextMenu = ({
   }
 
   const onConvert = () => {
+    onClick?.()
+
     const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
       create: {
         node: {

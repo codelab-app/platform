@@ -33,4 +33,6 @@ export default print(gql`
   ${elementSchema}
 
   ${componentSchema}
+
+  ${adminSchema}
 `)

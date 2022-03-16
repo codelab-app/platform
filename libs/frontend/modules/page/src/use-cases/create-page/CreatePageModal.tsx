@@ -25,7 +25,11 @@ export const CreatePageModal = observer(({ pages }: CreatePageModalProps) => {
   const closeModal = () => pages.createModal.close()
 
   return (
-    <ModalForm.Modal okText="Create" onCancel={closeModal} visible={isOpen}>
+    <ModalForm.Modal
+      okText="Create Page"
+      onCancel={closeModal}
+      visible={isOpen}
+    >
       <ModalForm.Form
         model={model}
         onSubmit={onSubmit}

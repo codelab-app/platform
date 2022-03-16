@@ -1,11 +1,2 @@
-export const makeTagConnectData = (ids: Array<string>) => {
-  return ids.map((id) => {
-    return {
-      where: {
-        node: {
-          id,
-        },
-      },
-    }
-  })
-}
+export const makeTagConnectData = (ids: Array<string>) =>
+  ids.map((id) => ({ where: { node: { id } } }))

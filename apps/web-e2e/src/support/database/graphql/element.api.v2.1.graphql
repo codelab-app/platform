@@ -1,0 +1,89 @@
+mutation E2eCreateElement($input: [ElementCreateInput!]!) {
+  createElements(input: $input) {
+    elements {
+      ...E2eElement
+    }
+  }
+}
+
+mutation E2eUpdateElement($input: [ElementUpdateInput!]!) {
+  updateElements(input: $input) {
+    elements {
+      ...E2eElement
+    }
+  }
+}
+
+fragment E2eElement on Element {
+  __typename
+  id
+  name
+  css
+  component {
+    id
+    name
+  }
+  instanceOfComponent {
+    id
+    name
+  }
+  parentElement {
+    id
+    name
+  }
+  atom {
+    ...E2eAtom
+  }
+  props {
+    ...E2eProp
+  }
+  hooks {
+    ...E2eHook
+  }
+  renderForEachPropKey
+  renderIfPropKey
+  propMapBindings {
+    ...E2ePropMapBinding
+  }
+  propTransformationJs
+  parentElementConnection {
+    edges {
+      node {
+        id
+        name
+      }
+      order
+    }
+  }
+}
+
+fragment E2eProp on Prop {
+  id
+  data
+}
+
+fragment E2eHook on Hook {
+  id
+  type
+  config {
+    ...E2eProp
+  }
+  element {
+    id
+    name
+  }
+}
+
+fragment E2ePropMapBinding on PropMapBinding {
+  id
+  sourceKey
+  element {
+    id
+    name
+  }
+  targetElement {
+    id
+    name
+  }
+  targetKey
+}

@@ -1,4 +1,3 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { basePropsPipe } from './basePropsPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'

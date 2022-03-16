@@ -1,0 +1,20 @@
+mutation E2eCreateComponent($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      ...E2eComponent
+    }
+  }
+}
+
+fragment E2eComponent on Component {
+  id
+  name
+  rootElement {
+    id
+    name
+  }
+  owner {
+    id
+    auth0Id
+  }
+}

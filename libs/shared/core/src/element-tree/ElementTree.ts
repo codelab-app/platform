@@ -80,8 +80,13 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   getComponentById(componentId: string): Maybe<IElement> {
     return this.cy
       .nodes()
-      .filter(filterPredicate(ElementTree.isComponent))
-      .getElementById(componentId)
+      .filter(
+        filterPredicate(
+          (item: IElement) =>
+            ElementTree.isComponent(item) &&
+            item?.component?.id === componentId,
+        ),
+      )
       .first()
       .map<Maybe<IElement>>(getCyElementData)[0]
   }

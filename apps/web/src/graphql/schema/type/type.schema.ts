@@ -90,6 +90,7 @@ export const typeSchema = gql`
     | InterfaceType
     | PrimitiveType
     | RenderPropsType
+    | ReactNodeType
 
   # TypeEdge and TypeGraphs are not actual entity nodes in the db, so we @exclude them
   # Their purpose is to serve as return types for the custom cypher query for BaseType.graph

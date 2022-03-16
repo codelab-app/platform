@@ -7,7 +7,7 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/web-e2e/cypress.json",
-        "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
+        "tsConfig": "./tsconfig.base.json",
         "baseUrl": "http://127.0.0.1:3001",
         "browser": "firefox"
       },
@@ -59,10 +59,6 @@
         "ci": {
           "commands": [
             {
-              "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
-              "forwardAllArgs": false
-            },
-            {
               "command": "npx next start dist/apps/web --port 3001",
               "forwardAllArgs": false
             },
@@ -71,16 +67,12 @@
               "forwardAllArgs": false
             },
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         },
         "test": {
           "commands": [
-            {
-              "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
-              "forwardAllArgs": false
-            },
             {
               "command": "next start dist/apps/web-test --port 3001",
               "forwardAllArgs": false
@@ -90,7 +82,7 @@
               "forwardAllArgs": false
             },
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         }

@@ -26,7 +26,7 @@ export const useDeleteTypeForm: UseEntityUseCaseForm<
 
     // Make sure this type is not referenced anywhere else or the data may become corrupt
     const typeRefs = await getTypeReferences({
-      variables: { typeId: entity.id },
+      variables: { typeId: deleteIds[0] },
     })
 
     if (typeRefs.data?.getTypeReferences?.length) {

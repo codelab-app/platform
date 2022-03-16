@@ -27,7 +27,7 @@ export const CreateAtomModal = () => {
 
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTree()
+  const tagTreeData = tagTree.getAntdTrees()
 
   return (
     <FormModal

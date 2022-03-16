@@ -30,6 +30,7 @@ export type AnyType =
   | MonacoType
   | PageType
   | PrimitiveType
+  | ReactNodeType
   | RenderPropsType
   | UnionType
 
@@ -3576,7 +3577,6 @@ export type ElementElementParentElementNodeAggregateSelection = {
 export type ElementGraph = {
   __typename?: 'ElementGraph'
   edges: Array<ElementEdge>
-  rootId?: Maybe<Scalars['String']>
   vertices: Array<Element>
 }
 
