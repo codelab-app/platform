@@ -1,3 +1,4 @@
+//
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */

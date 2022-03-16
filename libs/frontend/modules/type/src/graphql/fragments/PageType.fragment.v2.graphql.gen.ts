@@ -20,5 +20,4 @@ export const PageTypeFragmentDoc = gql`
   fragment PageType on PageType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `

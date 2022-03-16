@@ -17,7 +17,7 @@ export const PageProvider = ({
   const { page } = usePage(pageId, pages)
 
   return page?.rootElementId ? (
-    <ElementGraphProvider elementId={page.rootElementId}>
+    <ElementGraphProvider elementId={page?.rootElementId}>
       {children}
     </ElementGraphProvider>
   ) : null

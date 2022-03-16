@@ -25,5 +25,4 @@ export const PrimitiveTypeFragmentDoc = gql`
     ...TypeBase
     primitiveKind
   }
-  ${TypeBaseFragmentDoc}
 `

@@ -1,8 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { HookFragment } from './Element.fragment.v2.graphql.gen'
+import { HookFragment, PropFragment } from './Element.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
-import { HookFragmentDoc } from './Element.fragment.v2.graphql.gen'
+import {
+  HookFragmentDoc,
+  PropFragmentDoc,
+} from './Element.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -30,6 +33,7 @@ export const CreateHooksGql = gql`
     }
   }
   ${HookFragmentDoc}
+  ${PropFragmentDoc}
 `
 export const DeleteHooksGql = gql`
   mutation DeleteHooks($where: HookWhere!) {

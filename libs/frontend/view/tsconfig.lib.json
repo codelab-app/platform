@@ -11,7 +11,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext"
+    "module": "commonjs"
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",

@@ -8,7 +8,7 @@ import { useElementTree } from '../tree'
 
 export interface IElementGraphContext {
   elementGraph?: IElementGraph
-  elementId: string
+  elementId?: string
   elementTree: ElementTree
 }
 
@@ -24,15 +24,20 @@ const ElementGraphContext = React.createContext(initialContext)
 export const useElementGraphContext = () =>
   React.useContext(ElementGraphContext)
 
-type ElementGraphProviderProps = React.PropsWithChildren<{ elementId: string }>
+type ElementGraphProviderProps = React.PropsWithChildren<{ elementId?: string }>
 
 export const ElementGraphProvider = ({
   elementId,
   children,
 }: ElementGraphProviderProps) => {
-  const { data } = useGetElementsGraphQuery({
-    variables: { input: { rootId: elementId } },
-  })
+  const { data, isLoading } = useGetElementsGraphQuery(
+    {
+      variables: { input: { rootId: String(elementId) } },
+    },
+    {
+      skip: !elementId,
+    },
+  )
 
   const { setCurrentGraphRoot } = useElementDispatch()
 
@@ -44,6 +49,10 @@ export const ElementGraphProvider = ({
   const vertices = data?.vertices ? values(data?.vertices) : []
   const elementGraph = { edges, vertices }
   const elementTree = useElementTree(elementGraph)
+
+  if (isLoading) {
+    return null
+  }
 
   return (
     <ElementGraphContext.Provider

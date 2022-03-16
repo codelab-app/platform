@@ -42,7 +42,6 @@ export const UnionTypeFragmentDoc = gql`
   fragment UnionType on UnionType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `
 export const UnionTypeWithInnerTypesFragmentDoc = gql`
   fragment UnionTypeWithInnerTypes on UnionType {
@@ -53,6 +52,4 @@ export const UnionTypeWithInnerTypesFragmentDoc = gql`
       }
     }
   }
-  ${UnionTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
 `

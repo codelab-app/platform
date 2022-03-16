@@ -21,6 +21,7 @@ import { builderSelectors } from './store'
 
 export type BuilderProps = {
   tree: ElementTree
+  elementTree?: ElementTree
   isComponentBuilder?: boolean
 }
 
@@ -96,6 +97,7 @@ const BuilderDropHandler = ({ root }: { root?: IElement }) => {
 export const Builder = ({
   children,
   tree,
+  elementTree = tree,
   isComponentBuilder,
 }: React.PropsWithChildren<BuilderProps>) => {
   const { selectElement, resetSelection } = useBuilderDispatch()
@@ -145,7 +147,10 @@ export const Builder = ({
     >
       <BuilderDropHandler root={root} />
       <BuilderDropHandlers tree={tree} />
-      <BuilderRenderer isComponentBuilder={isComponentBuilder} tree={tree} />
+      <BuilderRenderer
+        isComponentBuilder={isComponentBuilder}
+        tree={elementTree}
+      />
       <BuilderHoverOverlay />
       <BuilderClickOverlay />
       {children}

@@ -20,5 +20,4 @@ export const RenderPropsTypeFragmentDoc = gql`
   fragment RenderPropsType on RenderPropsType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `

@@ -25,5 +25,4 @@ export const ElementTypeFragmentDoc = gql`
     ...TypeBase
     elementKind
   }
-  ${TypeBaseFragmentDoc}
 `

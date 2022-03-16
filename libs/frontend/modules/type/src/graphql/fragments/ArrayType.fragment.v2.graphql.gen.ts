@@ -42,7 +42,6 @@ export const ArrayTypeFragmentDoc = gql`
   fragment ArrayType on ArrayType {
     ...TypeBase
   }
-  ${TypeBaseFragmentDoc}
 `
 export const ArrayTypeWithItemTypeFragmentDoc = gql`
   fragment ArrayTypeWithItemType on ArrayType {
@@ -53,6 +52,4 @@ export const ArrayTypeWithItemTypeFragmentDoc = gql`
       }
     }
   }
-  ${ArrayTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
 `

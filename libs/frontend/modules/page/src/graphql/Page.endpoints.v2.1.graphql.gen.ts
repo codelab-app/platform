@@ -16,7 +16,11 @@ export type CreatePagesMutation = {
       __typename?: 'Page'
       id: string
       name: string
-      app: { __typename?: 'App'; id: string }
+      app: {
+        __typename?: 'App'
+        id: string
+        rootProviderElement: { __typename?: 'Element'; id: string }
+      }
       rootElement: {
         __typename?: 'Element'
         id: string
@@ -49,7 +53,11 @@ export type UpdatePagesMutation = {
       __typename?: 'Page'
       id: string
       name: string
-      app: { __typename?: 'App'; id: string }
+      app: {
+        __typename?: 'App'
+        id: string
+        rootProviderElement: { __typename?: 'Element'; id: string }
+      }
       rootElement: {
         __typename?: 'Element'
         id: string
@@ -70,7 +78,11 @@ export type GetPagesQuery = {
     __typename?: 'Page'
     id: string
     name: string
-    app: { __typename?: 'App'; id: string }
+    app: {
+      __typename?: 'App'
+      id: string
+      rootProviderElement: { __typename?: 'Element'; id: string }
+    }
     rootElement: {
       __typename?: 'Element'
       id: string

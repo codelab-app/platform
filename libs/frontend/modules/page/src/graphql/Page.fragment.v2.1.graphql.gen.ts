@@ -7,7 +7,11 @@ export type PageFragment = {
   __typename?: 'Page'
   id: string
   name: string
-  app: { __typename?: 'App'; id: string }
+  app: {
+    __typename?: 'App'
+    id: string
+    rootProviderElement: { __typename?: 'Element'; id: string }
+  }
   rootElement: {
     __typename?: 'Element'
     id: string
@@ -19,7 +23,11 @@ export type PageFullFragment = {
   __typename?: 'Page'
   id: string
   name: string
-  app: { __typename?: 'App'; id: string }
+  app: {
+    __typename?: 'App'
+    id: string
+    rootProviderElement: { __typename?: 'Element'; id: string }
+  }
   rootElement: {
     __typename?: 'Element'
     id: string
@@ -33,6 +41,11 @@ export const PageFragmentDoc = gql`
     name
     app {
       id
+    }
+    app {
+      rootProviderElement {
+        id
+      }
     }
     rootElement {
       id

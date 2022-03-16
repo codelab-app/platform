@@ -2,19 +2,35 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "13.8.1",
-      "description": "Angular doesn't attach styles.js to index.html with type=module in dev mode, meaning an error is written to the console. Cypress falls over on this error. Add logic to Cypress e2e projects to ignore this error.",
-      "factory": "./src/migrations/update-13-8-1/add-cypress-mfe-workaround",
+      "version": "13.8.4",
+      "description": "Karma coverage is broken since Angular 13 upgarde and the karma config is severely out of date. Bring it up to date fixing the coverage issue.",
+      "factory": "./src/migrations/update-13-8-4/migrate-karma-conf",
       "package": "@nrwl/angular",
-      "name": "add-cypress-mfe-workaround"
+      "name": "migrate-karma-config"
     },
     {
       "cli": "nx",
-      "version": "13.8.0-beta.1",
-      "description": "Add a postcss config option to apps to load a single config file for all libs",
-      "factory": "./src/migrations/update-13-8-0/add-postcss-config-option",
-      "package": "@nrwl/web",
-      "name": "add-postcss-config-option"
+      "version": "13.8.5-beta.1",
+      "description": "Renames @nrwl/node:build to @nrwl/node:webpack",
+      "factory": "./src/migrations/update-13-8-5/rename-build-to-webpack",
+      "package": "@nrwl/node",
+      "name": "rename-build-to-webpack"
+    },
+    {
+      "cli": "nx",
+      "version": "13.8.5-beta.1",
+      "description": "Renames @nrwl/node:execute to @nrwl/node:node",
+      "factory": "./src/migrations/update-13-8-5/rename-execute-to-node",
+      "package": "@nrwl/node",
+      "name": "rename-execute-to-node"
+    },
+    {
+      "cli": "nx",
+      "version": "13.8.5-beta.1",
+      "description": "Renames @nrwl/node:package to @nrwl/js:tsc",
+      "factory": "./src/migrations/update-13-8-5/update-package-to-tsc",
+      "package": "@nrwl/node",
+      "name": "update-package-to-tsc"
     }
   ]
 }

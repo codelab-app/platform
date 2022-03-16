@@ -131,6 +131,28 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     return this.cy.elements().bfs({ root, visit })
   }
 
+  dfs(visit: SearchVisitFunction, rootId?: string) {
+    const root = rootId
+      ? this.cy.getElementById(rootId)
+      : this.cy.elements().roots().filter(filterPredicate(this.predicate))[0]
+
+    if (!root) {
+      throw new Error('No root element or component found')
+    }
+
+    return this.cy.elements().dfs({ root, visit })
+  }
+
+  findFirstDeepestNode() {
+    const { found: deepestNode } = this.dfs((node) => {
+      if (node.children().empty()) {
+        return true
+      }
+    })
+
+    return deepestNode
+  }
+
   /**
    * Wrapper around bfs visit function that parses the node data and adds ability to execute promises
    *

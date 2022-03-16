@@ -1,8 +1,20 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { ElementFragment } from './Element.fragment.v2.graphql.gen'
+import {
+  ElementFragment,
+  PropFragment,
+  HookFragment,
+  PropMapBindingFragment,
+} from './Element.fragment.v2.graphql.gen'
+import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
-import { ElementFragmentDoc } from './Element.fragment.v2.graphql.gen'
+import {
+  ElementFragmentDoc,
+  PropFragmentDoc,
+  HookFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from './Element.fragment.v2.graphql.gen'
+import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -78,6 +90,10 @@ export const CreateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const DeleteElementsSubgraphGql = gql`
   mutation DeleteElementsSubgraph(
@@ -99,6 +115,10 @@ export const UpdateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const MoveElementsGql = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
@@ -109,6 +129,10 @@ export const MoveElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const ConvertElementsToComponentsGql = gql`
   mutation ConvertElementsToComponents(
@@ -122,6 +146,10 @@ export const ConvertElementsToComponentsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const DuplicateElementGql = gql`
   mutation DuplicateElement($input: DuplicateElementInput!) {
@@ -132,6 +160,10 @@ export const DuplicateElementGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const GetElementsGql = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
@@ -140,6 +172,10 @@ export const GetElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

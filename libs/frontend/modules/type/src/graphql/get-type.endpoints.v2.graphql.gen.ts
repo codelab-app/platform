@@ -2,6 +2,20 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { PrimitiveTypeFragment } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
 import {
+  TypeBase_AppType_Fragment,
+  TypeBase_ArrayType_Fragment,
+  TypeBase_ElementType_Fragment,
+  TypeBase_EnumType_Fragment,
+  TypeBase_InterfaceType_Fragment,
+  TypeBase_LambdaType_Fragment,
+  TypeBase_MonacoType_Fragment,
+  TypeBase_PageType_Fragment,
+  TypeBase_PrimitiveType_Fragment,
+  TypeBase_ReactNodeType_Fragment,
+  TypeBase_RenderPropsType_Fragment,
+  TypeBase_UnionType_Fragment,
+} from './fragments/TypeBase.fragment.v2.graphql.gen'
+import {
   ArrayTypeWithItemTypeFragment,
   ArrayTypeFragment,
 } from './fragments/ArrayType.fragment.v2.graphql.gen'
@@ -12,8 +26,10 @@ import {
 import {
   InterfaceTypeFragment,
   InterfaceTypeWithFieldsFragment,
+  InterfaceTypeFieldEdgeFragment,
 } from './fragments/Interface.fragment.v2.graphql.gen'
 import { EnumTypeFragment } from './fragments/EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragment } from './fragments/EnumTypeValue.fragment.v2.graphql.gen'
 import { ElementTypeFragment } from './fragments/ElementType.fragment.v2.graphql.gen'
 import { LambdaTypeFragment } from './fragments/LambdaType.fragment.v2.graphql.gen'
 import { RenderPropsTypeFragment } from './fragments/RenderProps.fragment.v2.graphql.gen'
@@ -21,8 +37,32 @@ import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.graphql.g
 import { PageTypeFragment } from './fragments/PageType.fragment.v2.graphql.gen'
 import { AppTypeFragment } from './fragments/AppType.fragment.v2.graphql.gen'
 import { InterfaceTypeWithGraphFragment } from './fragments/InterfaceWithGraph.fragment.v2.graphql.gen'
+import {
+  TypeGraphFragment,
+  TypeEdge_Edge_Fragment,
+  TypeEdge_InterfaceTypeEdge_Fragment,
+} from './fragments/TypeGraph.fragment.v2.graphql.gen'
+import {
+  Field_InterfaceTypeEdge_Fragment,
+  Field_InterfaceTypeFieldsRelationship_Fragment,
+} from './fragments/Field.fragment.v2.graphql.gen'
+import {
+  TypeNonRecursive_AppType_Fragment,
+  TypeNonRecursive_ArrayType_Fragment,
+  TypeNonRecursive_ElementType_Fragment,
+  TypeNonRecursive_EnumType_Fragment,
+  TypeNonRecursive_InterfaceType_Fragment,
+  TypeNonRecursive_LambdaType_Fragment,
+  TypeNonRecursive_MonacoType_Fragment,
+  TypeNonRecursive_PageType_Fragment,
+  TypeNonRecursive_PrimitiveType_Fragment,
+  TypeNonRecursive_ReactNodeType_Fragment,
+  TypeNonRecursive_RenderPropsType_Fragment,
+  TypeNonRecursive_UnionType_Fragment,
+} from './fragments/Type.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
 import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
+import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.graphql.gen'
 import {
   ArrayTypeWithItemTypeFragmentDoc,
   ArrayTypeFragmentDoc,
@@ -34,8 +74,10 @@ import {
 import {
   InterfaceTypeFragmentDoc,
   InterfaceTypeWithFieldsFragmentDoc,
+  InterfaceTypeFieldEdgeFragmentDoc,
 } from './fragments/Interface.fragment.v2.graphql.gen'
 import { EnumTypeFragmentDoc } from './fragments/EnumType.fragment.v2.graphql.gen'
+import { EnumTypeValueFragmentDoc } from './fragments/EnumTypeValue.fragment.v2.graphql.gen'
 import { ElementTypeFragmentDoc } from './fragments/ElementType.fragment.v2.graphql.gen'
 import { LambdaTypeFragmentDoc } from './fragments/LambdaType.fragment.v2.graphql.gen'
 import { RenderPropsTypeFragmentDoc } from './fragments/RenderProps.fragment.v2.graphql.gen'
@@ -43,6 +85,12 @@ import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.graphq
 import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.graphql.gen'
 import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.graphql.gen'
 import { InterfaceTypeWithGraphFragmentDoc } from './fragments/InterfaceWithGraph.fragment.v2.graphql.gen'
+import {
+  TypeGraphFragmentDoc,
+  TypeEdgeFragmentDoc,
+} from './fragments/TypeGraph.fragment.v2.graphql.gen'
+import { FieldFragmentDoc } from './fragments/Field.fragment.v2.graphql.gen'
+import { TypeNonRecursiveFragmentDoc } from './fragments/Type.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -152,6 +200,7 @@ export const GetPrimitiveTypesGql = gql`
     }
   }
   ${PrimitiveTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetArrayTypesGql = gql`
   query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
@@ -160,6 +209,8 @@ export const GetArrayTypesGql = gql`
     }
   }
   ${ArrayTypeWithItemTypeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetUnionTypesGql = gql`
   query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
@@ -168,6 +219,7 @@ export const GetUnionTypesGql = gql`
     }
   }
   ${UnionTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetInterfaceTypesGql = gql`
   query GetInterfaceTypes(
@@ -179,6 +231,7 @@ export const GetInterfaceTypesGql = gql`
     }
   }
   ${InterfaceTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetInterfaceTypesWithFieldsGql = gql`
   query GetInterfaceTypesWithFields(
@@ -190,6 +243,20 @@ export const GetInterfaceTypesWithFieldsGql = gql`
     }
   }
   ${InterfaceTypeWithFieldsFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
 `
 export const GetInterfaceTypeGraphsGql = gql`
   query GetInterfaceTypeGraphs(
@@ -201,6 +268,23 @@ export const GetInterfaceTypeGraphsGql = gql`
     }
   }
   ${InterfaceTypeWithGraphFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${TypeGraphFragmentDoc}
+  ${TypeEdgeFragmentDoc}
+  ${FieldFragmentDoc}
+  ${TypeNonRecursiveFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
 `
 export const GetElementTypesGql = gql`
   query GetElementTypes(
@@ -212,6 +296,7 @@ export const GetElementTypesGql = gql`
     }
   }
   ${ElementTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetRenderPropsTypesGql = gql`
   query GetRenderPropsTypes(
@@ -223,6 +308,7 @@ export const GetRenderPropsTypesGql = gql`
     }
   }
   ${RenderPropsTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetEnumTypesGql = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
@@ -231,6 +317,8 @@ export const GetEnumTypesGql = gql`
     }
   }
   ${EnumTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
 `
 export const GetLambdaTypesGql = gql`
   query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
@@ -239,6 +327,7 @@ export const GetLambdaTypesGql = gql`
     }
   }
   ${LambdaTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetPageTypesGql = gql`
   query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
@@ -247,6 +336,7 @@ export const GetPageTypesGql = gql`
     }
   }
   ${PageTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetAppTypesGql = gql`
   query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
@@ -255,6 +345,7 @@ export const GetAppTypesGql = gql`
     }
   }
   ${AppTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 export const GetMonacoTypesGql = gql`
   query GetMonacoTypes($options: MonacoTypeOptions, $where: MonacoTypeWhere) {
@@ -263,6 +354,7 @@ export const GetMonacoTypesGql = gql`
     }
   }
   ${MonacoTypeFragmentDoc}
+  ${TypeBaseFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({
