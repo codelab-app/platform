@@ -5,5 +5,4 @@ export const adminResolvers: IResolvers = {
     console.log('reset database')
   },
   importAdminData,
-*/
 }
