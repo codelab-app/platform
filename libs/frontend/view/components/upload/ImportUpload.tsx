@@ -11,6 +11,7 @@ export interface ImportUploadProps {
 export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
   const [defaultFileList, setDefaultFileList] = useState([])
   const [progress, setProgress] = useState<UploadProgressEvent>()
+  const [isLoading, setIsLoading] = useState(false)
 
   const props: UploadProps = {
     accept: '.json',
@@ -19,6 +20,8 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
       // file = { ...file, content: stringToBase64(text) }
     },
     customRequest: async (options) => {
+      setIsLoading(true)
+
       const { onSuccess, onError, file, onProgress } = options
       const text = await (file as RcFile).text()
 
@@ -29,6 +32,9 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
           }
         })
         .catch()
+        .finally(() => {
+          setIsLoading(false)
+        })
     },
     onChange({ file, fileList }) {
       console.log(file.status)
@@ -43,7 +49,9 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
 
   return (
     <Upload {...props}>
-      <Button icon={<UploadOutlined />}>Import</Button>
+      <Button icon={<UploadOutlined />} loading={isLoading}>
+        Import
+      </Button>
     </Upload>
   )
 }

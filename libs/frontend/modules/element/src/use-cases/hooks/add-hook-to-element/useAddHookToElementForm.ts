@@ -1,6 +1,6 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import { TypeStore } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { assertIsDefined } from '@codelab/shared/utils'
-import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useCreateHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
 import { useHookDispatch, useHookState } from '../../../hooks'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
@@ -16,23 +16,23 @@ import { AddHookToElementMutationInput, InterfaceProps } from './types'
 type UseAddHookToElementForm = (
   elementId: string,
   typeStore: TypeStore,
+  atomStore: AtomStore,
 ) => ReturnType<UseUseCaseForm<any, CRUDActionType, unknown, string>> &
   InterfaceProps
 
 export const useAddHookToElementForm: UseAddHookToElementForm = (
   elementId,
   typeStore,
+  atomStore,
 ) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   const { selectedType, actionType } = useHookState()
+  const [getAtoms] = useAsyncState(() => atomStore.getAll())
 
-  const { data: atomsData } = useGetAtomsQuery({
-    variables: { where: { name_CONTAINS: 'Hook' } },
-  })
-
-  const atoms = atomsData?.atoms || []
-  const { query } = useRouter()
-  const appId = query.appId as string
+  useEffect(() => {
+    getAtoms()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   assertIsDefined(elementId)
 
@@ -53,7 +53,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     submitData: AddHookToElementMutationInput,
   ) => {
     const { typeId, ...configObj } = submitData
-    const type = atoms.find((x) => x.id === typeId)?.type
+    const type = atomStore.atom(typeId)?.type
     const config = JSON.stringify(configObj)
 
     return type ? { elementId, type, config } : undefined

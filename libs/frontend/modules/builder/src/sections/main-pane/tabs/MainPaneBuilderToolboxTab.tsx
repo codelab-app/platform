@@ -1,13 +1,15 @@
 import { DragOutlined } from '@ant-design/icons'
-import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
+import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { IAtom, IComponent } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
-import React from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
@@ -47,49 +49,59 @@ const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
 
 export interface MainPaneBuilderToolboxTabProps {
   searchQuery?: string
+  atomStore: AtomStore
 }
 
-export const MainPaneBuilderToolboxTab = ({
-  searchQuery,
-}: MainPaneBuilderToolboxTabProps) => {
-  const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
+export const MainPaneBuilderToolboxTab = observer(
+  ({ searchQuery, atomStore }: MainPaneBuilderToolboxTabProps) => {
+    const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
 
-  const search = searchQuery
-    ? { variables: { where: { name_CONTAINS: searchQuery } } }
-    : {}
+    const [getAtoms, { isLoading: isLoadingAtoms }] = useAsyncState(() =>
+      atomStore.getAll(),
+    )
 
-  const atomsResponse = useGetAtomsQuery(search)
-  const atoms = atomsResponse.data?.atoms || []
-  const componentsResponse = useGetComponentsQuery(search)
-  const components = componentsResponse.data?.components || []
+    const atomsList = atomStore.atomsList
 
-  const toolboxItems: Array<ToolboxItem> = [
-    ...atoms.map(atomToolboxItemFactory),
-    ...components.map(componentToolboxItemFactory),
-  ]
+    useEffect(() => {
+      getAtoms()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  return (
-    <div
-      css={css`
-        max-height: 100%;
-        height: 100%;
-        overflow-y: hidden;
-        display: grid;
-        grid-auto-rows: auto;
-        gap: 0.25rem;
-      `}
-      ref={setNodeRef}
-    >
-      <SpinnerWrapper
-        isLoading={atomsResponse.isLoading || componentsResponse.isLoading}
+    const search = searchQuery
+      ? { variables: { where: { name_CONTAINS: searchQuery } } }
+      : {}
+
+    const componentsResponse = useGetComponentsQuery(search)
+    const components = componentsResponse.data?.components || []
+
+    const toolboxItems: Array<ToolboxItem> = [
+      ...atomsList.map(atomToolboxItemFactory),
+      ...components.map(componentToolboxItemFactory),
+    ]
+
+    return (
+      <div
+        css={css`
+          max-height: 100%;
+          height: 100%;
+          overflow-y: hidden;
+          display: grid;
+          grid-auto-rows: auto;
+          gap: 0.25rem;
+        `}
+        ref={setNodeRef}
       >
-        {toolboxItems.map((item) => (
-          <ToolboxItemView key={item.id} toolboxItem={item} />
-        ))}
-      </SpinnerWrapper>
-    </div>
-  )
-}
+        <SpinnerWrapper
+          isLoading={isLoadingAtoms || componentsResponse.isLoading}
+        >
+          {toolboxItems.map((item) => (
+            <ToolboxItemView key={item.id} toolboxItem={item} />
+          ))}
+        </SpinnerWrapper>
+      </div>
+    )
+  },
+)
 
 const ToolboxItemView = ({ toolboxItem }: { toolboxItem: ToolboxItem }) => {
   const { attributes, listeners, setNodeRef } = useCreateElementDraggable(

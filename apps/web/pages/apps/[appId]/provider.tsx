@@ -52,8 +52,15 @@ AppProviderBuilder.Layout = observer((page) => {
       <ElementGraphProvider elementId={app?.rootProviderElement?.id}>
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageStore} />}
-          MainPane={MainPaneBuilder}
-          MetaPane={MetaPaneBuilderPage}
+          MainPane={observer(() => (
+            <MainPaneBuilder atomStore={store.atomStore} />
+          ))}
+          MetaPane={observer(() => (
+            <MetaPaneBuilderPage
+              atomStore={store.atomStore}
+              typeStore={store.typeStore}
+            />
+          ))}
           SidebarNavigation={BuilderSidebarNavigation}
           headerHeight={38}
         >

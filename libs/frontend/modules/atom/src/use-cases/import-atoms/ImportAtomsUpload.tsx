@@ -1,40 +1,32 @@
+import { useNotify } from '@codelab/frontend/shared/utils'
+import { ImportUpload } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import { AtomStore } from '../../store'
+import { atomApi, AtomStore } from '../../store'
 
 export interface ImportAtomsUploadProps {
   atomStore: AtomStore
 }
 
-// TODO atom import export
 export const ImportAtomsUpload = observer<ImportAtomsUploadProps>(
   ({ atomStore }) => {
-    // const [importAtoms] = useImportAtomsMutation()
-    // const dispatch = useDispatch()
-    //
-    // const { onSuccess, onError } = useNotify(
-    //   { title: 'Atoms successfully imported' },
-    //   { title: 'Error while importing atoms' },
-    // )
-    //
-    // const onRequestSuccess = () => {
-    //   onSuccess()
-    //   dispatch(api.util.invalidateTags([ATOMS_CACHE_TAG]))
-    // }
-    //
-    // const fetchFn = (data: any) => {
-    //   return importAtoms({
-    //     variables: {
-    //       input: {
-    //         payload: data,
-    //       },
-    //     },
-    //   })
-    //     .unwrap()
-    //     .then(onRequestSuccess)
-    //     .catch(onError)
-    // }
-    //
-    // return <ImportUpload fetchFn={fetchFn} />
-    return null
+    const { onSuccess, onError } = useNotify(
+      { title: 'Atoms successfully imported' },
+      { title: 'Error while importing atoms' },
+    )
+
+    const onRequestSuccess = () => {
+      onSuccess()
+
+      // invalidate local data
+      return atomStore.getAll()
+    }
+
+    const fetchFn = (data: any) =>
+      atomApi
+        .ImportAtoms({ input: { payload: data } })
+        .then(onRequestSuccess)
+        .catch(onError)
+
+    return <ImportUpload fetchFn={fetchFn} />
   },
 )

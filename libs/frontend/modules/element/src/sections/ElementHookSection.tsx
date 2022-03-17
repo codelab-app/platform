@@ -1,3 +1,4 @@
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import { TypeStore } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -13,10 +14,11 @@ import {
 export interface ElementHookSectionProps {
   elementId: string
   typeStore: TypeStore
+  atomStore: AtomStore
 }
 
 export const ElementHookSection = observer(
-  ({ elementId, typeStore }: ElementHookSectionProps) => {
+  ({ elementId, typeStore, atomStore }: ElementHookSectionProps) => {
     const element = useGetElementById(elementId)
 
     if (!element) {
@@ -29,7 +31,11 @@ export const ElementHookSection = observer(
         <div css={tw`text-center m-2`}>
           <AddHookToElementButton />
         </div>
-        <AddHookToElementModal elementId={element.id} typeStore={typeStore} />
+        <AddHookToElementModal
+          atomStore={atomStore}
+          elementId={element.id}
+          typeStore={typeStore}
+        />
         <RemoveHookFromElementModal elementId={element.id} />
       </>
     )

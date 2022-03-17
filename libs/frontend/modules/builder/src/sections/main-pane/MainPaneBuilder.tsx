@@ -1,3 +1,4 @@
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import {
   CreateElementButton,
   CreateElementModal,
@@ -10,6 +11,7 @@ import { IElement } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { debounce } from 'lodash'
+import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import { useBuilderSelectedElement, useBuilderTab } from '../../hooks'
 import { BuilderTab } from '../../store'
@@ -48,54 +50,58 @@ const headerFactory = (
 
 export interface MainPaneBuilderProps {
   isComponentBuilder?: boolean
+  atomStore: AtomStore
 }
 
 /** Requires ElementGraphContext */
-export const MainPaneBuilder = ({
-  isComponentBuilder,
-}: MainPaneBuilderProps) => {
-  const { builderTab } = useBuilderTab()
-  const { elementTree } = useElementGraphContext()
-  const { selectedElement, resetSelection } = useBuilderSelectedElement()
+export const MainPaneBuilder = observer(
+  ({ isComponentBuilder, atomStore }: MainPaneBuilderProps) => {
+    const { builderTab } = useBuilderTab()
+    const { elementTree } = useElementGraphContext()
+    const { selectedElement, resetSelection } = useBuilderSelectedElement()
 
-  const root = isComponentBuilder
-    ? elementTree.getRootComponent()
-    : elementTree.getRootElement()
+    const root = isComponentBuilder
+      ? elementTree.getRootComponent()
+      : elementTree.getRootElement()
 
-  const [searchValue, setSearchValue] = useState('')
+    const [searchValue, setSearchValue] = useState('')
 
-  const debouncedSearch = useCallback(
-    (_v: string) =>
-      debounce((nextValue: string) => setSearchValue(nextValue), 200)(_v),
-    [],
-  )
+    const debouncedSearch = useCallback(
+      (_v: string) =>
+        debounce((nextValue: string) => setSearchValue(nextValue), 200)(_v),
+      [],
+    )
 
-  return (
-    <MainPaneTemplate
-      containerProps={{ onClick: () => resetSelection() }}
-      header={headerFactory(builderTab, root, debouncedSearch)}
-      key={root?.id ?? 'main-pane-builder'}
-      title={paneTitles[builderTab]}
-    >
-      <EqualityConditionalView
-        expectedValue={BuilderTab.Tree}
-        value={builderTab}
+    return (
+      <MainPaneTemplate
+        containerProps={{ onClick: () => resetSelection() }}
+        header={headerFactory(builderTab, root, debouncedSearch)}
+        key={root?.id ?? 'main-pane-builder'}
+        title={paneTitles[builderTab]}
       >
-        <MainPaneBuilderTreeTab
-          isComponentBuilder={isComponentBuilder}
-          rootId={root?.id as string}
-        />
-      </EqualityConditionalView>
+        <EqualityConditionalView
+          expectedValue={BuilderTab.Tree}
+          value={builderTab}
+        >
+          <MainPaneBuilderTreeTab
+            isComponentBuilder={isComponentBuilder}
+            rootId={root?.id as string}
+          />
+        </EqualityConditionalView>
 
-      <EqualityConditionalView
-        expectedValue={BuilderTab.Toolbox}
-        value={builderTab}
-      >
-        <MainPaneBuilderToolboxTab searchQuery={searchValue} />
-      </EqualityConditionalView>
+        <EqualityConditionalView
+          expectedValue={BuilderTab.Toolbox}
+          value={builderTab}
+        >
+          <MainPaneBuilderToolboxTab
+            atomStore={atomStore}
+            searchQuery={searchValue}
+          />
+        </EqualityConditionalView>
 
-      <CreateElementModal parentElementId={selectedElement?.id} />
-      <DeleteElementModal />
-    </MainPaneTemplate>
-  )
-}
+        <CreateElementModal parentElementId={selectedElement?.id} />
+        <DeleteElementModal />
+      </MainPaneTemplate>
+    )
+  },
+)

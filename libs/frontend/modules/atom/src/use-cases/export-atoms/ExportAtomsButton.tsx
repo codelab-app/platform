@@ -1,47 +1,42 @@
 import { DownloadOutlined } from '@ant-design/icons'
-// import { notify } from '@codelab/frontend/shared/utils'
+import {
+  extractErrorMessage,
+  notify,
+  useAsyncState,
+} from '@codelab/frontend/shared/utils'
 import { Button, Tooltip } from 'antd'
+import fileDownload from 'js-file-download'
 import { observer } from 'mobx-react-lite'
-// import fileDownload from 'js-file-download'
 import React from 'react'
+import { atomApi } from '../../store'
 import { ExportAtomsButtonProps } from './types'
 
-/*
- * Not functional right now, need to figure out a import strategy for neo4j
- */
 export const ExportAtomsButton = observer(
-  ({ atomIds, atomStore }: ExportAtomsButtonProps) => {
-    // const [getExportAtoms, { isLoading }] = useLazyGetAtomsQuery()
+  ({ atomStore }: ExportAtomsButtonProps) => {
+    const [exportAtoms, { isLoading }] = useAsyncState(async () => {
+      try {
+        const { atoms } = await atomApi.GetAtoms({
+          where: { id_IN: atomStore.selectedAtoms.map((a) => a.id) },
+        })
 
-    const onClick = async () => {
-      alert(
-        'Not functional right now, need to figure out a import strategy for neo4j',
-      )
-      // const { data, error } = await getExportAtoms({
-      //   variables: {
-      //     where: {
-      //       id_IN: atomIds,
-      //     },
-      //   },
-      // })
-      //
-      // if (data) {
-      //   const content = JSON.stringify(data.atoms)
-      //   fileDownload(content, 'atoms.json')
-      // }
-      //
-      // if (error) {
-      //   notify({ title: 'Error while exporting atoms', type: 'error' })
-      // }
-    }
+        const content = JSON.stringify(atoms)
+        fileDownload(content, 'atoms.json')
+      } catch (e: any) {
+        notify({
+          title: 'Error while exporting atoms',
+          type: 'error',
+          content: extractErrorMessage(e),
+        })
+      }
+    })
 
     return (
       <Tooltip arrowPointAtCenter title="Export atoms">
         <Button
-          disabled={atomIds.length === 0}
+          disabled={atomStore.selectedAtoms.length === 0}
           icon={<DownloadOutlined />}
-          // loading={isLoading}
-          onClick={onClick}
+          loading={isLoading}
+          onClick={exportAtoms}
         >
           Export
         </Button>

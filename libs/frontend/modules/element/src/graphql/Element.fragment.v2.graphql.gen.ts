@@ -43,10 +43,12 @@ export type ElementGraphFragment = {
 
 export type PropFragment = { id: string; data: string }
 
+export type HookPropFragment = { id: string; data: string }
+
 export type HookFragment = {
   id: string
   type: Types.AtomType
-  config: PropFragment
+  config: HookPropFragment
   element: { id: string; name?: string | null }
 }
 
@@ -71,19 +73,25 @@ export const PropFragmentDoc = gql`
     data
   }
 `
+export const HookPropFragmentDoc = gql`
+  fragment HookProp on Prop {
+    id
+    data
+  }
+`
 export const HookFragmentDoc = gql`
   fragment Hook on Hook {
     id
     type
     config {
-      ...Prop
+      ...HookProp
     }
     element {
       id
       name
     }
   }
-  ${PropFragmentDoc}
+  ${HookPropFragmentDoc}
 `
 export const PropMapBindingFragmentDoc = gql`
   fragment PropMapBinding on PropMapBinding {

@@ -1,3 +1,4 @@
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import {
   DeleteElementButton,
   MoveElementForm,
@@ -17,10 +18,11 @@ import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export interface MetaPaneBuilderComponentProps {
   typeStore: TypeStore
+  atomStore: AtomStore
 }
 
 export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
-  ({ typeStore }) => {
+  ({ typeStore, atomStore }) => {
     const { elementTree } = useElementGraphContext()
     const { providePropCompletion } = usePropCompletion()
 
@@ -31,6 +33,7 @@ export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
     return (
       <SelectElementProvider tree={elementTree}>
         <MetaPaneBuilder
+          atomStore={atomStore}
           renderUpdateElementContent={(element, trackPromises) => (
             <>
               <UpdateElementForm

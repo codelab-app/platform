@@ -1,5 +1,4 @@
 import { adminEndpoints, adminSlice } from '@codelab/frontend/modules/admin'
-import { atomEndpoints } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
@@ -51,7 +50,6 @@ export const makeStore = () => {
         componentEndpoints.middleware,
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,
-        atomEndpoints.middleware,
         userEndpoints.middleware,
       ),
     devTools: process.env.NODE_ENV !== 'production',

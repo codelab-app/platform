@@ -2,7 +2,6 @@ import { AtomFragment } from '../../graphql/Atom.fragment.v2.graphql.gen'
 import { AtomStore } from '../../store'
 
 export type ExportAtomsButtonProps = {
-  atomIds: Array<string>
   atomStore: AtomStore
 }
 

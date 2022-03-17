@@ -9,7 +9,7 @@ export class RootStore extends Model({
   appStore: prop(() => new AppStore({})),
   pageStore: prop(() => new PageStore({})),
   typeStore: prop(() => new TypeStore({})),
-  atoms: prop(() => new AtomStore({})),
+  atomStore: prop(() => new AtomStore({})),
 }) {}
 
 let _store: RootStore | null = null
