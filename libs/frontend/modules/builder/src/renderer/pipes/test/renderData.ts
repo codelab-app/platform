@@ -142,7 +142,7 @@ export const elementToRender03: IElement = {
   name: '01',
   css: null,
   instanceOfComponent: {
-    id: '0x3a981',
+    id: '0x5bf5f',
     name: '01',
   },
   atom: {

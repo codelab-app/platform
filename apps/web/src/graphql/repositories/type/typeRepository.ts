@@ -137,7 +137,7 @@ export const typeRepository = {
           ON MATCH
               SET
                   r.id=$param.relId
-      
+
       RETURN {source: sourceType.id, target: targetType.id} as edge`
 
     return txn
@@ -316,7 +316,7 @@ export const typeRepository = {
       n++
 
       return `${cypherAgg}${unionAll}
-        MERGE (${nodeKey}:${type.typeKind} {id: '${type.id}'}) 
+        MERGE (${nodeKey}:${type.typeKind} {id: '${type.id}'})
           ON CREATE
             SET
               ${parameters.join(', ')}

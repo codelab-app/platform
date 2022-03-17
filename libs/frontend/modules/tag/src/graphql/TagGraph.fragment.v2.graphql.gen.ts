@@ -25,4 +25,6 @@ export const TagGraphFragmentDoc = gql`
       ...TagEdge
     }
   }
+  ${TagFragmentDoc}
+  ${TagEdgeFragmentDoc}
 `

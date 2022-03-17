@@ -1,6 +1,0 @@
-fragment InterfaceTypeWithGraph on InterfaceType {
-  ...InterfaceType
-  graph {
-    ...TypeGraph
-  }
-}

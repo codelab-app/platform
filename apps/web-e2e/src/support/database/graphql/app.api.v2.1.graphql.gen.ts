@@ -2,61 +2,24 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eCreateAppMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
 
 export type E2eCreateAppMutation = {
-  __typename?: 'Mutation'
-  createApps: {
-    __typename?: 'CreateAppsMutationResponse'
-    apps: Array<{
-      __typename?: 'App'
-      id: string
-      name: string
-      owner?:
-        | Array<{ __typename?: 'User'; id: string } | null | undefined>
-        | null
-        | undefined
-      pages?:
-        | Array<{
-            __typename?: 'Page'
-            id: string
-            name: string
-            rootElement: {
-              __typename?: 'Element'
-              id: string
-              name?: string | null | undefined
-            }
-          }>
-        | null
-        | undefined
-    }>
-  }
+  createApps: { apps: Array<E2eAppFragment> }
 }
 
 export type E2eAppFragment = {
-  __typename?: 'App'
   id: string
   name: string
-  owner?:
-    | Array<{ __typename?: 'User'; id: string } | null | undefined>
-    | null
-    | undefined
-  pages?:
-    | Array<{
-        __typename?: 'Page'
-        id: string
-        name: string
-        rootElement: {
-          __typename?: 'Element'
-          id: string
-          name?: string | null | undefined
-        }
-      }>
-    | null
-    | undefined
+  owner: Array<{ id: string }>
+  pages: Array<{
+    id: string
+    name: string
+    rootElement: { id: string; name?: string | null }
+  }>
 }
 
 export const E2eAppFragmentDoc = gql`
@@ -76,7 +39,7 @@ export const E2eAppFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateAppDocument = gql`
+export const E2eCreateAppGql = gql`
   mutation E2eCreateApp($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
@@ -90,9 +53,14 @@ export const E2eCreateAppDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -105,12 +73,12 @@ export function getSdk(
     ): Promise<E2eCreateAppMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateAppMutation>(
-            E2eCreateAppDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+          client.request<E2eCreateAppMutation>(E2eCreateAppGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
         'E2eCreateApp',
+        'mutation',
       )
     },
   }

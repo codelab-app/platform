@@ -10,7 +10,7 @@ export type ResetDatabaseMutationVariables = Types.Exact<{
 }>
 
 export type ResetDatabaseMutation = {
-  resetDatabase?: { success?: boolean | null | undefined } | null | undefined
+  resetDatabase?: { success?: boolean | null } | null
 }
 
 export type ImportAdminDataMutationVariables = Types.Exact<{
@@ -18,7 +18,7 @@ export type ImportAdminDataMutationVariables = Types.Exact<{
 }>
 
 export type ImportAdminDataMutation = {
-  importAdminData?: { result: boolean } | null | undefined
+  importAdminData?: { result: boolean } | null
 }
 
 export type ExportAllTypesGraphQueryVariables = Types.Exact<{
@@ -26,7 +26,7 @@ export type ExportAllTypesGraphQueryVariables = Types.Exact<{
 }>
 
 export type ExportAllTypesGraphQuery = {
-  exportAllTypesGraph?: Record<string, any> | null | undefined
+  exportAllTypesGraph?: Record<string, any> | null
 }
 
 export const ResetDatabaseGql = gql`

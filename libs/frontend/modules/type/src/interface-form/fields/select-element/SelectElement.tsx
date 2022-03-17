@@ -12,7 +12,7 @@ export type SelectElementProps = HTMLFieldProps<string, SelectFieldProps> & {
   kind: ElementTypeKind
 }
 
-export const SelectElement = ({ name, kind }: SelectElementProps) => {
+export const SelectElement = ({ name, kind, ...props }: SelectElementProps) => {
   const context = useSelectElementContext()
   const tree = context?.tree
 
@@ -61,6 +61,9 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
       optionFilterProp="label"
       options={elementOptions}
       showSearch={true}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...(props as any)}
+      disabled={elementOptions.length === 1 || !elementOptions.length}
     />
   )
 }

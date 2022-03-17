@@ -21,9 +21,9 @@ import React from 'react'
 const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
-  const { page } = usePage(currentPageId, store.pages)
-  const { typesById } = useTypesByIdQuery()
-  const { appElementTree } = useAppElementTree(store.pages)
+  const { page } = usePage(currentPageId, store.pageStore)
+  const { typesById } = useTypesByIdQuery(store.typeStore)
+  const { appElementTree } = useAppElementTree(store.pageStore)
 
   if (!page || !appElementTree) {
     return <Empty />
@@ -48,9 +48,9 @@ PageRenderer.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <PageProvider pages={store.pages}>
+    <PageProvider pages={store.pageStore}>
       <DashboardTemplate
-        Header={() => <PageDetailHeader pages={store.pages} />}
+        Header={() => <PageDetailHeader pages={store.pageStore} />}
         headerHeight={38}
       >
         {page.children}

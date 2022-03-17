@@ -1,0 +1,31 @@
+query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {
+  apps(options: $options, where: $where) {
+    id
+    name
+  }
+}
+
+query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
+  atoms(options: $options, where: $where) {
+    id
+    name
+    type
+  }
+}
+
+query InterfaceForm_GetComponents(
+  $options: ComponentOptions
+  $where: ComponentWhere
+) {
+  components(options: $options, where: $where) {
+    id
+    name
+  }
+}
+
+query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {
+  pages(options: $options, where: $where) {
+    id
+    name
+  }
+}

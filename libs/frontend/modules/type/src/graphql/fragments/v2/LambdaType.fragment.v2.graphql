@@ -1,0 +1,3 @@
+fragment LambdaType on LambdaType {
+  ...TypeBase
+}

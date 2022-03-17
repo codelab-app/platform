@@ -1,33 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import { PageFragment } from './Page.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 import { PageFragmentDoc } from './Page.fragment.v2.1.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
 
 export type CreatePagesMutation = {
-  __typename?: 'Mutation'
-  createPages: {
-    __typename?: 'CreatePagesMutationResponse'
-    pages: Array<{
-      __typename?: 'Page'
-      id: string
-      name: string
-      app: {
-        __typename?: 'App'
-        id: string
-        rootProviderElement: { __typename?: 'Element'; id: string }
-      }
-      rootElement: {
-        __typename?: 'Element'
-        id: string
-        name?: string | null | undefined
-      }
-    }>
-  }
+  createPages: { pages: Array<PageFragment> }
 }
 
 export type DeletePagesMutationVariables = Types.Exact<{
@@ -35,10 +18,7 @@ export type DeletePagesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.PageDeleteInput>
 }>
 
-export type DeletePagesMutation = {
-  __typename?: 'Mutation'
-  deletePages: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
+export type DeletePagesMutation = { deletePages: { nodesDeleted: number } }
 
 export type UpdatePagesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
@@ -46,25 +26,7 @@ export type UpdatePagesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePagesMutation = {
-  __typename?: 'Mutation'
-  updatePages: {
-    __typename?: 'UpdatePagesMutationResponse'
-    pages: Array<{
-      __typename?: 'Page'
-      id: string
-      name: string
-      app: {
-        __typename?: 'App'
-        id: string
-        rootProviderElement: { __typename?: 'Element'; id: string }
-      }
-      rootElement: {
-        __typename?: 'Element'
-        id: string
-        name?: string | null | undefined
-      }
-    }>
-  }
+  updatePages: { pages: Array<PageFragment> }
 }
 
 export type GetPagesQueryVariables = Types.Exact<{
@@ -72,26 +34,9 @@ export type GetPagesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
 
-export type GetPagesQuery = {
-  __typename?: 'Query'
-  pages: Array<{
-    __typename?: 'Page'
-    id: string
-    name: string
-    app: {
-      __typename?: 'App'
-      id: string
-      rootProviderElement: { __typename?: 'Element'; id: string }
-    }
-    rootElement: {
-      __typename?: 'Element'
-      id: string
-      name?: string | null | undefined
-    }
-  }>
-}
+export type GetPagesQuery = { pages: Array<PageFragment> }
 
-export const CreatePagesDocument = gql`
+export const CreatePagesGql = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
@@ -101,14 +46,14 @@ export const CreatePagesDocument = gql`
   }
   ${PageFragmentDoc}
 `
-export const DeletePagesDocument = gql`
+export const DeletePagesGql = gql`
   mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
     deletePages(where: $where, delete: $delete) {
       nodesDeleted
     }
   }
 `
-export const UpdatePagesDocument = gql`
+export const UpdatePagesGql = gql`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
     updatePages(where: $where, update: $update) {
       pages {
@@ -118,7 +63,7 @@ export const UpdatePagesDocument = gql`
   }
   ${PageFragmentDoc}
 `
-export const GetPagesDocument = gql`
+export const GetPagesGql = gql`
   query GetPages($options: PageOptions, $where: PageWhere) {
     pages(options: $options, where: $where) {
       ...Page
@@ -130,9 +75,14 @@ export const GetPagesDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -145,11 +95,12 @@ export function getSdk(
     ): Promise<CreatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreatePagesMutation>(CreatePagesDocument, variables, {
+          client.request<CreatePagesMutation>(CreatePagesGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'CreatePages',
+        'mutation',
       )
     },
     DeletePages(
@@ -158,11 +109,12 @@ export function getSdk(
     ): Promise<DeletePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeletePagesMutation>(DeletePagesDocument, variables, {
+          client.request<DeletePagesMutation>(DeletePagesGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'DeletePages',
+        'mutation',
       )
     },
     UpdatePages(
@@ -171,11 +123,12 @@ export function getSdk(
     ): Promise<UpdatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdatePagesMutation>(UpdatePagesDocument, variables, {
+          client.request<UpdatePagesMutation>(UpdatePagesGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'UpdatePages',
+        'mutation',
       )
     },
     GetPages(
@@ -184,11 +137,12 @@ export function getSdk(
     ): Promise<GetPagesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetPagesQuery>(GetPagesDocument, variables, {
+          client.request<GetPagesQuery>(GetPagesGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
         'GetPages',
+        'query',
       )
     },
   }

@@ -5,13 +5,12 @@ import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { PageStore } from '../../store'
+import { providerTreePageName } from './consts'
 import { GetPagesItem } from './GetPagesItem'
 
 export interface GetPagesListProps {
   pages: PageStore
 }
-
-export const providerTreePageName = 'Provider Tree'
 
 export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
   const appId = useCurrentAppId()

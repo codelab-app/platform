@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { TypeBaseFragment } from '@codelab/frontend/modules/type'
+import { TypeModelAny } from '@codelab/frontend/modules/type'
 import {
   IHook,
   PropsData,
@@ -39,7 +39,7 @@ export interface RenderContext {
   /** Set to true to log rendering information */
   inspect?: boolean
 
-  typesById: Record<string, TypeBaseFragment>
+  typesById: Record<string, TypeModelAny>
 }
 
 export type RenderTypes = (

@@ -8,8 +8,8 @@ import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { PageModel, PageStore } from '../../store'
-import { providerTreePageName } from '.'
+import { PageModel, pageRef, PageStore } from '../../store'
+import { providerTreePageName } from './consts'
 
 export type GetPagesItemProps = {
   page: PageModel
@@ -27,8 +27,8 @@ export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
         query: { ...router.query, pageId: page.id },
       }
 
-  const onClickDelete = () => pages.deleteModal.open(page.id)
-  const onClickEdit = () => pages.updateModal.open(page.id)
+  const onClickDelete = () => pages.deleteModal.open(pageRef(page))
+  const onClickEdit = () => pages.updateModal.open(pageRef(page))
 
   return (
     <List.Item style={{ paddingLeft: 0 }}>

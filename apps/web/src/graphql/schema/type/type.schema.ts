@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-micro'
 import getFieldCypher from '../../repositories/type/getField.cypher'
-import getTypeGraphCypher from '../../repositories/type/getTypeGraph.cypher'
+import getTypeDescendantIds from '../../repositories/type/getTypeDescendantIds.cypher'
 import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.cypher'
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
@@ -8,6 +8,9 @@ export const typeSchema = gql`
   input UpsertFieldInput {
     interfaceTypeId: ID!,
     targetTypeId: ID!,
+    # This is the original key of the field you want to update. Applicable only for update.
+    targetKey: String,
+    # This is the new, updated key
     key: String!
     name: String
     description: String
@@ -36,7 +39,7 @@ export const typeSchema = gql`
   type Mutation {
     upsertFieldEdge(input: UpsertFieldInput!, isCreating: Boolean!): InterfaceTypeEdge!
     deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
-    importTypeGraph(payload: JSONObject!): TypeGraph!
+    importTypeGraph(payload: JSONObject!): String!
   }
 
   type Query {
@@ -54,9 +57,10 @@ export const typeSchema = gql`
     This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
     """
     getTypeReferences(typeId: ID!): [TypeReference!]
-    @cypher(statement: """${getTypeReferencesCypher}""")
+      @cypher(statement: """${getTypeReferencesCypher}""")
 
     exportGraph(typeId: ID!): JSONObject
+
   }
 
   interface TypeBase
@@ -72,37 +76,10 @@ export const typeSchema = gql`
   {
     id: ID! @id
     name: String!
-    owner: User @relationship(type: "OWNS_TYPE", direction: IN)
-    graph: TypeGraph! @cypher(statement: """${getTypeGraphCypher}""")
+    owner: [User!]! @relationship(type: "OWNED_BY", direction: OUT)
+    descendantTypesIds: [ID!]! @cypher(statement: """${getTypeDescendantIds}""")
   }
 
-  # A union is needed as a reference point for the type graph
-  # For some reason the custom cypher query for the graph doesn't work well if they reference TypeBase - it throws an error saying that it can't resolve the concrete type
-  union AnyType =
-    | ElementType
-    | ArrayType
-    | UnionType
-    | EnumType
-    | LambdaType
-    | PageType
-    | AppType
-    | MonacoType
-    | InterfaceType
-    | PrimitiveType
-    | RenderPropsType
-    | ReactNodeType
-
-  # TypeEdge and TypeGraphs are not actual entity nodes in the db, so we @exclude them
-  # Their purpose is to serve as return types for the custom cypher query for BaseType.graph
-
-  """
-  Connection between two types in a TypeGraph.
-  Can be:
-  Array -> ArrayItem (Edge)
-  Interface -> Field type - (InterfaceTypeEdge)
-  Union -> Union member (Edge)
-  """
-  union TypeEdge = Edge | InterfaceTypeEdge
 
   """
   Connection between an Interface Type and its fields types.
@@ -116,10 +93,6 @@ export const typeSchema = gql`
     description: String
   }
 
-  type TypeGraph @exclude {
-    vertices: [AnyType!]!
-    edges: [TypeEdge!]!
-  }
 
 
   """
@@ -135,9 +108,8 @@ export const typeSchema = gql`
   type PrimitiveType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
@@ -157,15 +129,15 @@ export const typeSchema = gql`
   type ArrayType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
 
 
     # The reason this is an array is that there is a bug with neo4j graphql that appears
     # when referencing a single interface relationship
     # https://github.com/neo4j/graphql/pull/701/files after this is merged we can replace it with a single value
-    itemType: [TypeBase!] @relationship(type: "ARRAY_ITEM_TYPE", direction: OUT, properties: "IdProperty")
+    itemType: [TypeBase!]! @relationship(type: "ARRAY_ITEM_TYPE", direction: OUT)
   }
 
   """
@@ -174,12 +146,11 @@ export const typeSchema = gql`
   type UnionType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
-
-    typesOfUnionType: [TypeBase!]
-    @relationship(type: "UNION_TYPE_CHILD", direction: OUT, properties: "IdProperty")
+    typesOfUnionType: [TypeBase!]!
+    @relationship(type: "UNION_TYPE_CHILD", direction: OUT)
   }
 
   """
@@ -188,16 +159,15 @@ export const typeSchema = gql`
   type InterfaceType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
     # List of atoms that have this interface as their api type
-    apiOfAtoms: [Atom!] @relationship(type: "ATOM_API", direction: IN)
+    apiOfAtoms: [Atom!]! @relationship(type: "ATOM_API", direction: IN)
 
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
-    fields: [TypeBase!]
+    fields: [TypeBase!]!
     @relationship(
       type: "INTERFACE_FIELD"
       direction: OUT
@@ -224,8 +194,8 @@ export const typeSchema = gql`
   type ElementType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
 
     """
@@ -248,9 +218,8 @@ export const typeSchema = gql`
   type RenderPropsType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
   }
 
   """
@@ -266,9 +235,8 @@ export const typeSchema = gql`
   type ReactNodeType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
   }
 
   enum ElementTypeKind {
@@ -285,7 +253,7 @@ export const typeSchema = gql`
     """
     ChildrenOnly
     """
-    Pick parents and siblings of parents of elements (used to move element) 
+    Pick parents and siblings of parents of elements (used to move element)
     """
     ExcludeDescendantsElements
   }
@@ -298,11 +266,10 @@ export const typeSchema = gql`
   type EnumType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
 
-
-    allowedValues: [EnumTypeValue!]
+    allowedValues: [EnumTypeValue!]!
     @relationship(type: "ALLOWED_VALUE", direction: OUT, properties: "IdProperty")
   }
 
@@ -320,9 +287,8 @@ export const typeSchema = gql`
   type LambdaType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
   }
 
   """
@@ -331,9 +297,8 @@ export const typeSchema = gql`
   type PageType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
   }
 
   """
@@ -342,9 +307,8 @@ export const typeSchema = gql`
   type AppType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
   }
 
   """
@@ -353,9 +317,8 @@ export const typeSchema = gql`
   type MonacoType implements TypeBase {
     id: ID!
     name: String!
-    owner: User
-    graph: TypeGraph!
-
+    owner: [User!]!
+    descendantTypesIds: [ID!]!
     language: MonacoLanguage!
   }
 

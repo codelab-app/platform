@@ -1,5 +1,6 @@
 import {
-  TypeBaseFragment,
+  TypeModelAny,
+  TypeStore,
   useGetAllTypesQuery,
 } from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
@@ -7,17 +8,17 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { entityRecordById } from '@codelab/shared/utils'
 import { useEffect, useMemo } from 'react'
 
-export type TypeKindsById = Record<string, TypeBaseFragment>
+export type TypeKindsById = Record<string, TypeModelAny>
 
-export const useTypesByIdQuery = () => {
-  const typeKindsQuery = useGetAllTypesQuery()
+export const useTypesByIdQuery = (typeStore: TypeStore) => {
+  const typeKindsQuery = useGetAllTypesQuery(undefined, typeStore)
 
   const typesById = useMemo<Maybe<TypeKindsById>>(() => {
     if (!typeKindsQuery.data) {
       return undefined
     }
 
-    return entityRecordById(typeKindsQuery.data.types)
+    return entityRecordById(typeKindsQuery.data)
   }, [typeKindsQuery])
 
   useEffect(() => {

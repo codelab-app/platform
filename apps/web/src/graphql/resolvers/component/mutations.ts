@@ -13,12 +13,13 @@ const driver = getDriver()
 export const componentMutationsResolvers: IResolvers = {
   deleteComponents: async (_source, args: MutationDeleteComponentsArgs) => {
     const session = driver.rxSession()
+    const ComponentModel = await Component()
 
     if (!args.where) {
       throw new Error('No argument provided for delete operation')
     }
 
-    const components = await Component().find({
+    const components = await ComponentModel.find({
       where: args.where,
       selectionSet: componentSelectionSet,
     })
@@ -32,7 +33,7 @@ export const componentMutationsResolvers: IResolvers = {
       .toPromise()
       .finally(() => session.close())
 
-    return Component().delete({
+    return ComponentModel.delete({
       where: args.where as ComponentWhere,
       rootValue: '',
     })

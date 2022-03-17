@@ -1,57 +1,67 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
-  Form,
-  FormModal,
+  ModalForm,
 } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useDeleteFieldForm } from './useDeleteFieldForm'
+import { InterfaceType, TypeStore } from '../../../store'
 
-type DeleteFieldModalProps = {
-  interfaceId: string
+interface DeleteFieldModalProps {
+  interfaceType: InterfaceType
+  typeStore: TypeStore
 }
 
-export const DeleteFieldModal = ({ interfaceId }: DeleteFieldModalProps) => {
-  const {
-    isLoading,
-    actionType,
-    onSubmit,
-    entity,
-    onSubmitSuccess,
-    onSubmitError,
-    reset,
-  } = useDeleteFieldForm(interfaceId)
+export const DeleteFieldModal = observer<DeleteFieldModalProps>(
+  ({ interfaceType, typeStore }) => {
+    const closeModal = () => typeStore.fieldDeleteModal.close()
 
-  return (
-    <FormModal
-      className="delete-field-modal"
-      okButtonProps={{
-        loading: isLoading,
-        danger: true,
-      }}
-      okText="Delete"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Delete field</span>}
-      visible={actionType === CRUDActionType.Delete}
-    >
-      {({ submitRef }) => (
-        <Form<EmptyJsonSchemaType>
+    if (!typeStore.fieldDeleteModal.field) {
+      return null
+    }
+
+    return (
+      <ModalForm.Modal
+        className="delete-field-modal"
+        okButtonProps={{ danger: true }}
+        okText="Delete"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Delete field</span>}
+        visible={typeStore.fieldDeleteModal.isOpen}
+      >
+        <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmit={(input) => {
+            if (!typeStore.fieldDeleteModal.field) {
+              throw new Error(
+                'fieldDeleteModal.field is not defined, set it when opening the modal',
+              )
+            }
+
+            return typeStore.deleteField(
+              interfaceType,
+              typeStore.fieldDeleteModal.field.key,
+            )
+          }}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while deleting field',
+            type: 'error',
+          })}
+          onSubmitSuccess={closeModal}
           schema={emptyJsonSchema}
-          submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete field "{entity?.name}"?</h4>
+          <h4>
+            Are you sure you want to delete field "
+            {typeStore.fieldDeleteModal.field?.name}"?
+          </h4>
           <AutoFields />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)
 
 DeleteFieldModal.displayName = 'DeleteFieldModal'

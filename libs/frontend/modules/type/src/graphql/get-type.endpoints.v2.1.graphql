@@ -1,0 +1,119 @@
+query GetTypes($ids: [ID!]) {
+  primitiveTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  arrayTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  unionTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  interfaceTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  elementTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  renderPropsTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  enumTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  lambdaTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  pageTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  appTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  monacoTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+}
+
+query GetPrimitiveTypes(
+  $options: PrimitiveTypeOptions
+  $where: PrimitiveTypeWhere
+) {
+  types: primitiveTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
+  types: arrayTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
+  types: unionTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetInterfaceTypes(
+  $options: InterfaceTypeOptions
+  $where: InterfaceTypeWhere
+) {
+  types: interfaceTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetElementTypes($options: ElementTypeOptions, $where: ElementTypeWhere) {
+  types: elementTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetRenderPropsTypes(
+  $options: RenderPropsTypeOptions
+  $where: RenderPropsTypeWhere
+) {
+  types: renderPropsTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetReactNodeTypes(
+  $options: ReactNodeTypeOptions
+  $where: ReactNodeTypeWhere
+) {
+  types: reactNodeTypes(where: $where, options: $options) {
+    ...ReactNodeType
+  }
+}
+
+query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
+  types: enumTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
+  types: lambdaTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
+  types: pageTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
+  types: appTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetMonacoTypes($options: MonacoTypeOptions, $where: MonacoTypeWhere) {
+  types: monacoTypes(where: $where, options: $options) {
+    ...Type
+  }
+}

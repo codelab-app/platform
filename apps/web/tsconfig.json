@@ -16,7 +16,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "module": "esnext"
+    "module": "esnext",
+    "useDefineForClassFields": true
   },
   "include": [
     "**/*.ts",

@@ -16,12 +16,12 @@ import React from 'react'
 
 const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
-  const { app } = useCurrentApp(store.apps)
+  const { app } = useCurrentApp(store.appStore)
 
   return (
     <>
       <Head>
-        <title>Pages | {app?.name} | Codelab</title>
+        <title>{app?.name ? `${app.name} | ` : ''} Pages | Codelab</title>
       </Head>
     </>
   )
@@ -36,7 +36,7 @@ Pages.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      MainPane={() => <PageMainPane pages={store.pages} />}
+      MainPane={() => <PageMainPane pages={store.pageStore} />}
       SidebarNavigation={SidebarNavigation}
     >
       {page.children}

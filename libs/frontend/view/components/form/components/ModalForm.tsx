@@ -1,5 +1,4 @@
 import { FormProps, SubmitController } from '@codelab/frontend/abstract/types'
-import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import AntdModal, { ModalProps } from 'antd/lib/modal'
 import React, {
@@ -12,9 +11,10 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { Bridge } from 'uniforms'
+import { Bridge, DeepPartial } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
+import { handleAsyncFormSubmit, handleSubmitRefModalOk } from './utils'
 
 interface ModalFormContext {
   isLoading: boolean
@@ -63,32 +63,12 @@ const Form = <TData, TResponse = unknown>({
       model={model}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={(formData) => {
-        setIsLoading(true)
-
-        const result = onSubmit(formData as TData)
-
-        if (!result) {
-          setIsLoading(false)
-
-          return result
-        }
-
-        return result
-          .then((r) => {
-            if (r) {
-              callbackWithParams(onSubmitSuccess, r)
-            }
-          })
-          .catch((err) => {
-            console.error(err)
-
-            callbackWithParams(onSubmitError, err)
-          })
-          .finally(() => {
-            setIsLoading(false)
-          })
-      }}
+      onSubmit={handleAsyncFormSubmit<DeepPartial<TData>>(
+        onSubmit as any,
+        setIsLoading,
+        onSubmitSuccess as any,
+        onSubmitError as any,
+      )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
     >
@@ -123,19 +103,7 @@ const Modal = ({
           disabled: isLoading,
           loading: isLoading,
         }}
-        onOk={(e) => {
-          if (!submitRef.current) {
-            throw new Error('Submit controller ref not initialized')
-          }
-
-          // Submits the form
-          submitRef.current.submit()
-
-          // Call the callback from the modalProps prop, if defined
-          if (onOk) {
-            onOk(e)
-          }
-        }}
+        onOk={handleSubmitRefModalOk(submitRef, onOk)}
         {...props}
       >
         {children}

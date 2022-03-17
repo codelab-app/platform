@@ -8,6 +8,7 @@ hooks:
 # but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
 # schema: schema.api.v2.graphql
 schema: http://127.0.0.1:3000/api/graphql
+
 config:
   scalars:
     uuid: string
@@ -31,6 +32,7 @@ generates:
     config:
       namingConvention:
         enumValues: keep
+        dedupeFragments: true
 
   ./libs/:
     documents:
@@ -42,6 +44,15 @@ generates:
     plugins:
       - typescript-operations
       - typescript-graphql-request
+    config:
+      inlineFragmentTypes: combine
+      documentVariableSuffix: Gql
+      gqlImport: 'graphql-request#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true
+      dedupeFragments: true
 
   ./libs/frontend/:
     documents:
@@ -66,4 +77,4 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
-      dedupeFragments: true # remove duplicated fragments such TypeBase
+      dedupeFragments: false

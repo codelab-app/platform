@@ -1,49 +1,48 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { CreateFieldInput, createFieldSchema } from './createFieldSchema'
-import {
-  useCreateFieldForm,
-  UseCreateFieldFormInput,
-} from './useCreateFieldForm'
+import { CreateFieldInput, InterfaceType, TypeStore } from '../../../store'
+import { createFieldSchema } from './createFieldSchema'
 
-export const CreateFieldModal = (props: UseCreateFieldFormInput) => {
-  const {
-    isLoading,
-    actionType,
-    onSubmitSuccess,
-    reset,
-    onSubmitError,
-    onSubmit,
-  } = useCreateFieldForm(props)
+export interface CreateFieldModalProps {
+  interfaceType: InterfaceType
+  typeStore: TypeStore
+}
 
-  return (
-    <FormModal
-      className="create-field-modal"
-      okButtonProps={{
-        loading: isLoading,
-      }}
-      okText="Create"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Create field</span>}
-      visible={actionType === CRUDActionType.Create}
-    >
-      {({ submitRef }) => (
-        <Form<CreateFieldInput>
+export const CreateFieldModal = observer<CreateFieldModalProps>(
+  ({ interfaceType, typeStore }) => {
+    const closeModal = () => typeStore.fieldCreateModal.close()
+
+    return (
+      <ModalForm.Modal
+        className="create-field-modal"
+        okText="Create"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Create field</span>}
+        visible={typeStore.fieldCreateModal.isOpen}
+      >
+        <ModalForm.Form<CreateFieldInput>
           model={{}}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmit={(input) => typeStore.addField(interfaceType, input)}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while creating field',
+            type: 'error',
+          })}
+          onSubmitSuccess={closeModal}
           schema={createFieldSchema}
-          submitRef={submitRef}
         >
           <AutoFields omitFields={['existingTypeId', 'interfaceId']} />
-          <TypeSelect label="Type" name="existingTypeId" />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+          <TypeSelect
+            label="Type"
+            name="existingTypeId"
+            typeStore={typeStore}
+          />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

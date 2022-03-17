@@ -6,7 +6,7 @@ import {
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
-import { AppModel, AppStore } from '../../store'
+import { AppModel, appRef, AppStore } from '../../store'
 
 export type ItemMenuProps = {
   apps: AppStore
@@ -27,11 +27,11 @@ const menuItemIconStyle: CSSProperties = {
 
 export const ItemDropdown = observer(({ app, apps }: ItemMenuProps) => {
   const onEditClick = () => {
-    apps.updateModal.open(app.id)
+    apps.updateModal.open(appRef(app))
   }
 
   const onDeleteClick = () => {
-    apps.deleteModal.open(app.id)
+    apps.deleteModal.open(appRef(app))
   }
 
   const actionsMenu = (

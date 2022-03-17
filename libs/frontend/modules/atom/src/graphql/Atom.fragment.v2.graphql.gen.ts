@@ -6,7 +6,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: Types.AtomType
-  tags?: Array<{ id: string; name: string }> | null | undefined
+  tags: Array<{ id: string; name: string }>
   api: { id: string; name: string }
 }
 

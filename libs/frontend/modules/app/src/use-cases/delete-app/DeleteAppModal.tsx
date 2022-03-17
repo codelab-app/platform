@@ -23,7 +23,7 @@ export const DeleteAppModal = observer<DeleteAppModalProps>(({ apps }) => {
       return Promise.reject('App not defined in DeleteAppModal')
     }
 
-    const promise = apps.deleteApp(app.id)
+    const promise = apps.delete(app.id)
     closeModal()
 
     return promise

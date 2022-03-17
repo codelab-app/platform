@@ -1,11 +1,12 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+import { TypeStore } from '@codelab/frontend/modules/type'
 import {
-  useLazyGetInterfaceTypeGraphsQuery,
-  useTypeTree,
-} from '@codelab/frontend/modules/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+  createNotificationHandler,
+  useAsyncState,
+} from '@codelab/frontend/shared/utils'
+import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useCreateHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
@@ -14,10 +15,14 @@ import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
 type UseAddHookToElementForm = (
   elementId: string,
+  typeStore: TypeStore,
 ) => ReturnType<UseUseCaseForm<any, CRUDActionType, unknown, string>> &
   InterfaceProps
 
-export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
+export const useAddHookToElementForm: UseAddHookToElementForm = (
+  elementId,
+  typeStore,
+) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   const { selectedType, actionType } = useHookState()
 
@@ -31,12 +36,10 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
 
   assertIsDefined(elementId)
 
-  const [getTypeGraph, { data: interfaceData, isLoading: interfaceLoading }] =
-    useLazyGetInterfaceTypeGraphsQuery()
-
-  // create empty tree in case no type is selected
-  // this is work around for cleaning interfaceData on reset
-  const interfaceTree = useTypeTree(interfaceData?.types[0]?.graph)
+  const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
+    useAsyncState((where: InterfaceTypeWhere) =>
+      typeStore.getInterfaceAndDescendants(where),
+    )
 
   const [mutate, { isLoading }] = useCreateHooksMutation({
     selectFromResult: (r) => ({
@@ -85,14 +88,10 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
     onChange: (key: string, value: any) => {
       if (key === 'typeId') {
         setSelectedType({ selectedType: value })
-        getTypeGraph({
-          variables: {
-            where: { apiOfAtoms: { id: value } },
-          },
-        })
+        fetchInterface({ apiOfAtoms_SOME: { id: value } })
       }
     },
-    interfaceTree,
+    interfaceType,
     reset,
     onSubmit,
     onSubmitSuccess: [() => resetModal()],

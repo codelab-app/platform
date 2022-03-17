@@ -38,10 +38,7 @@ export type ImportAtomsMutationVariables = Types.Exact<{
 }>
 
 export type ImportAtomsMutation = {
-  importAtoms?:
-    | { atoms?: Array<{ id: string }> | null | undefined }
-    | null
-    | undefined
+  importAtoms?: { atoms: Array<{ id: string }> } | null
 }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{

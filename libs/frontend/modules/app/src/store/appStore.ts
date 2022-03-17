@@ -2,187 +2,191 @@ import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import {
-  addMiddleware,
-  flow,
-  Instance,
-  toGenerator,
-  types,
-} from 'mobx-state-tree'
-import { atomic } from 'mst-middlewares'
+  _async,
+  _await,
+  detach,
+  ExtendedModel,
+  idProp,
+  Model,
+  model,
+  modelClass,
+  modelFlow,
+  objectMap,
+  prop,
+  Ref,
+  rootRef,
+  transaction,
+} from 'mobx-keystone'
+import { AppFragment } from '../graphql/App.fragment.v2.1.graphql.gen'
 import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
 import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
 import { appApi } from './appApi'
 
-console.log({ ModalStore })
+@model('codelab/App')
+export class AppModel extends Model({
+  id: idProp,
+  ownerId: prop<Nullish<string>>(),
+  name: prop<string>(),
+  rootProviderElement: prop<Nullish<{ id: string }>>(),
+}) {
+  @modelFlow
+  @transaction
+  update = _async(function* (this: AppModel, { name }: UpdateAppInput) {
+    this.name = name
 
-export const AppModel = types
-  .model({
-    id: types.identifier,
-    ownerId: types.optional(types.maybeNull(types.string), null),
-    name: types.string,
-    rootProviderElement: types.maybeNull(
-      types.model({
-        id: types.string,
+    const { updateApps } = yield* _await(
+      appApi.UpdateApps({
+        update: { name },
+        where: { id: this.id },
       }),
-    ),
-  })
-  .actions((self) => {
-    // This middleware rolls back if a synchronous or asynchronous action process fails.
-    addMiddleware(self, atomic)
+    )
 
-    return {
-      update: flow(function* ({ name }: UpdateAppInput) {
-        self.name = name
+    const app = updateApps?.apps[0]
 
-        const { updateApps } = yield* toGenerator(
-          appApi.UpdateApps({
-            update: { name },
-            where: { id: self.id },
-          }),
-        )
-
-        const app = updateApps?.apps[0]
-
-        if (!app) {
-          throw new Error('Failed to update app')
-        }
-
-        self.name = app.name
-
-        return app
-      }),
+    if (!app) {
+      throw new Error('Failed to update app')
     }
+
+    this.name = app.name
+
+    return app
   })
 
-export type AppModel = Instance<typeof AppModel>
+  getRefId() {
+    // when `getId` is not specified in the custom reference it will use this as id
+    return this.id
+  }
 
-const AppModalStore = ModalStore.named('AppModal')
-  .props({
-    app: types.optional(types.maybeNull(types.safeReference(AppModel)), null),
-  })
-  .actions((self) => {
-    const superOpen = self.open
-    const superClose = self.close
+  static fromFragment(app: AppFragment) {
+    return new AppModel({
+      id: app.id,
+      name: app.name,
+      ownerId: app.owner?.[0]?.id,
+    })
+  }
+}
 
-    return {
-      open: (appId: string) => {
-        superOpen()
-        self.app = appId as any
-      },
-      close: () => {
-        superClose()
-        self.app = null
-      },
+export const appRef = rootRef<AppModel>('AppRef', {
+  onResolvedValueChange(ref, newApp, oldApp) {
+    if (oldApp && !newApp) {
+      detach(ref)
     }
-  })
+  },
+})
 
-export const AppStore = types
-  .model({
-    apps: types.map(AppModel),
+@model('codelab/AppModalStore')
+class AppModalStore extends ExtendedModel(() => ({
+  baseModel: modelClass<ModalStore<Ref<AppModel>>>(ModalStore),
+  props: {},
+})) {
+  @computed
+  get app() {
+    return this.metadata?.current ?? null
+  }
+}
 
-    deleteModal: AppModalStore,
-    updateModal: AppModalStore,
-    createModal: ModalStore,
-  })
-  .views((self) => ({
-    get appsList() {
-      return [...self.apps.values()]
-    },
+@model('codelab/AppStore')
+export class AppStore extends Model({
+  apps: prop(() => objectMap<AppModel>()),
+  createModal: prop(() => new ModalStore({})),
+  updateModal: prop(() => new AppModalStore({})),
+  deleteModal: prop(() => new AppModalStore({})),
+}) {
+  @computed
+  get appsList() {
+    return [...this.apps.values()]
+  }
 
-    app(id: string) {
-      return self.apps.get(id)
-    },
-  }))
-  .actions((self) => {
-    addMiddleware(self, atomic)
+  app(id: string) {
+    return this.apps.get(id)
+  }
 
-    return {
-      getAll: flow(function* (where?: AppWhere) {
-        const { apps } = yield* toGenerator(appApi.GetApps({ where }))
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: AppStore, where?: AppWhere) {
+    const { apps } = yield* _await(appApi.GetApps({ where }))
 
-        const appModels = apps.map((app) =>
-          AppModel.create({
-            ...app,
-            ownerId: app.owner?.[0]?.id,
-          }),
-        )
+    return apps.map((app) => {
+      if (this.apps.get(app.id)) {
+        return this.apps.get(app.id)
+      } else {
+        const appModel = AppModel.fromFragment(app)
+        this.apps.set(app.id, appModel)
 
-        for (const app of appModels) {
-          self.apps.put(app)
-        }
-
-        return appModels
-      }),
-    }
-  })
-  .actions((self) => ({
-    getOne: flow(function* (id: string) {
-      if (self.apps.has(id)) {
-        return self.apps.get(id)
+        return appModel
       }
+    })
+  })
 
-      const all = yield* toGenerator(self.getAll({ id }))
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: AppStore, id: string) {
+    if (this.apps.has(id)) {
+      return this.apps.get(id)
+    }
 
-      return all[0]
-    }),
-  }))
-  .actions((self) => ({
-    createApp: flow(function* (
-      input: CreateAppInput,
-      ownerId: Nullish<string>,
-    ) {
-      // Store it in the database
-      const {
-        createApps: { apps },
-      } = yield* toGenerator(
-        appApi.CreateApps({
-          input: {
-            ...input,
-            owner: {
-              connect: [{ where: { node: { auth0Id: ownerId } } }],
-            },
-            rootProviderElement: {
-              create: {
-                node: {
-                  name: PROVIDER_ROOT_ELEMENT_NAME,
-                },
+    const all = yield* _await(this.getAll({ id }))
+
+    return all[0]
+  })
+
+  @modelFlow
+  @transaction
+  createApp = _async(function* (
+    this: AppStore,
+    input: CreateAppInput,
+    ownerId: Nullish<string>,
+  ) {
+    const {
+      createApps: { apps },
+    } = yield* _await(
+      appApi.CreateApps({
+        input: {
+          ...input,
+          owner: {
+            connect: [{ where: { node: { auth0Id: ownerId } } }],
+          },
+          rootProviderElement: {
+            create: {
+              node: {
+                name: PROVIDER_ROOT_ELEMENT_NAME,
               },
             },
           },
-        }),
-      )
+        },
+      }),
+    )
 
-      const app = apps[0]
+    const app = apps[0]
 
-      if (!app) {
-        // Throw an error so that the atomic middleware rolls back the changes
-        throw new Error('App was not created')
-      }
+    if (!app) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('App was not created')
+    }
 
-      const appModel = AppModel.create(app)
+    const appModel = AppModel.fromFragment(app)
 
-      self.apps.put(appModel)
+    this.apps.set(appModel.id, appModel)
 
-      return appModel
-    }),
+    return appModel
+  })
 
-    deleteApp: flow(function* (id: string) {
-      if (self.apps.has(id)) {
-        self.apps.delete(id)
-      }
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: AppStore, id: string) {
+    if (this.apps.has(id)) {
+      this.apps.delete(id)
+    }
 
-      const { deleteApps } = yield* toGenerator(
-        appApi.DeleteApps({ where: { id } }),
-      )
+    const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
 
-      if (deleteApps.nodesDeleted === 0) {
-        // throw error so that the atomic middleware rolls back the changes
-        throw new Error('App was not deleted')
-      }
+    if (deleteApps.nodesDeleted === 0) {
+      // throw error so that the atomic middleware rolls back the changes
+      throw new Error('App was not deleted')
+    }
 
-      return deleteApps
-    }),
-  }))
-
-export type AppStore = Instance<typeof AppStore>
+    return deleteApps
+  })
+}

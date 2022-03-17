@@ -1,9 +1,7 @@
+import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { useRouter } from 'next/router'
-import {
-  useGetInterfaceTypeGraphsQuery,
-  useGetInterfaceTypesQuery,
-  useGetInterfaceTypesWithFieldsQuery,
-} from '../../../store/getType.endpoints'
+import { useEffect } from 'react'
+import { InterfaceType, TypeStore } from '../../../store'
 
 export const useCurrentInterfaceId = () => {
   const { query } = useRouter()
@@ -18,44 +16,26 @@ export const useCurrentInterfaceId = () => {
   return interfaceId
 }
 
-const interfaceWhereId = (id: string) => ({ variables: { where: { id } } })
-
-/** Grabs the [interfaceId] from the query params and fetches it */
-export const useGetCurrentInterface = () => {
-  const interfaceId = useCurrentInterfaceId()
-
-  return useGetInterfaceTypesQuery(interfaceWhereId(interfaceId), {
-    skip: !interfaceId,
-    selectFromResult: (r) => ({
-      type: r.data?.types?.[0],
-      isLoading: r?.isLoading,
-      interfaceId,
-    }),
-  })
-}
-
 /** Grabs the [interfaceId] from the query params and fetches it, along with its fields */
-export const useGetCurrentInterfaceWithFields = () => {
+export const useGetCurrentInterfaceWithFields = (typeStore: TypeStore) => {
   const interfaceId = useCurrentInterfaceId()
 
-  return useGetInterfaceTypesWithFieldsQuery(interfaceWhereId(interfaceId), {
-    skip: !interfaceId,
-    selectFromResult: (r) => {
-      return { type: r.data?.types?.[0], isLoading: r?.isLoading, interfaceId }
-    },
-  })
-}
+  const [getOne, { isLoading, error }] = useAsyncState((_id: string) =>
+    // We need the whole graph, not just the interface, because we need to reference all the field types
+    typeStore.getInterfaceAndDescendants({ id: _id }),
+  )
 
-/** Grabs the [interfaceId] from the query params and fetches it, along with its fields */
-export const useGetCurrentInterfaceGraph = () => {
-  const interfaceId = useCurrentInterfaceId()
+  useEffect(() => {
+    if (interfaceId) {
+      getOne(interfaceId)
+    }
+  }, [interfaceId, getOne])
 
-  return useGetInterfaceTypeGraphsQuery(interfaceWhereId(interfaceId), {
-    skip: !interfaceId,
-    selectFromResult: (r) => ({
-      type: r.data?.types?.[0],
-      isLoading: r?.isLoading,
-      interfaceId,
-    }),
-  })
+  return {
+    isLoading,
+    error,
+    type: interfaceId
+      ? (typeStore.type(interfaceId) as InterfaceType | undefined)
+      : undefined,
+  }
 }

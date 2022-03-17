@@ -9,7 +9,7 @@ export type FormProps<TData, TResponse = unknown> = {
   /**
    * Called after a successful submit
    */
-  onSubmitSuccess?: ArrayOrSingle<Callback<TResponse, void>>
+  onSubmitSuccess?: ArrayOrSingle<Callback<Awaited<TResponse>, void>>
 
   /**
    * Called after a failed submit

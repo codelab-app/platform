@@ -1,42 +1,50 @@
-union AnyType =
-    AppType
-  | ArrayType
-  | ElementType
-  | EnumType
-  | InterfaceType
-  | LambdaType
-  | MonacoType
-  | PageType
-  | PrimitiveType
-  | ReactNodeType
-  | RenderPropsType
-  | UnionType
-
 type App {
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): [User]
-  ownerAggregate(where: UserWhere): AppUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): AppUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [AppOwnerConnectionSort!]
     where: AppOwnerConnectionWhere
   ): AppOwnerConnection!
-  pages(options: PageOptions, where: PageWhere): [Page!]
-  pagesAggregate(where: PageWhere): AppPagePagesAggregationSelection
+  pages(
+    directed: Boolean = true
+    options: PageOptions
+    where: PageWhere
+  ): [Page!]!
+  pagesAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): AppPagePagesAggregationSelection
   pagesConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [AppPagesConnectionSort!]
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
-  rootProviderElement(options: ElementOptions, where: ElementWhere): Element!
+  rootProviderElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
   rootProviderElementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): AppElementRootProviderElementAggregationSelection
   rootProviderElementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [AppRootProviderElementConnectionSort!]
     where: AppRootProviderElementConnectionWhere
@@ -45,8 +53,8 @@ type App {
 
 type AppAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AppConnectInput {
@@ -94,12 +102,17 @@ type AppElementRootProviderElementAggregationSelection {
 }
 
 type AppElementRootProviderElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+input AppOnCreateInput {
+  id: ID
+  name: String
 }
 
 input AppOptions {
@@ -109,7 +122,7 @@ input AppOptions {
   """
   Specify one or more AppSort objects to sort Apps by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [AppSort]
+  sort: [AppSort!]
 }
 
 input AppOwnerAggregateInput {
@@ -134,7 +147,7 @@ input AppOwnerConnectOrCreateFieldInput {
 }
 
 input AppOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserCreateInput!
+  node: UserOnCreateInput!
 }
 
 type AppOwnerConnection {
@@ -245,8 +258,8 @@ type AppPagePagesAggregationSelection {
 }
 
 type AppPagePagesNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AppPagesAggregateInput {
@@ -271,7 +284,7 @@ input AppPagesConnectOrCreateFieldInput {
 }
 
 input AppPagesConnectOrCreateFieldInputOnCreate {
-  node: PageCreateInput!
+  node: PageOnCreateInput!
 }
 
 type AppPagesConnection {
@@ -384,7 +397,7 @@ input AppRootProviderElementConnectOrCreateFieldInput {
 }
 
 input AppRootProviderElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type AppRootProviderElementConnection {
@@ -561,13 +574,21 @@ input AppSort {
 Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): AppTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): AppTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -576,16 +597,16 @@ type AppType implements TypeBase {
 
 type AppTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AppTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input AppTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input AppTypeCreateInput {
@@ -594,11 +615,11 @@ input AppTypeCreateInput {
 }
 
 input AppTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input AppTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input AppTypeOptions {
@@ -608,7 +629,7 @@ input AppTypeOptions {
   """
   Specify one or more AppTypeSort objects to sort AppTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [AppTypeSort]
+  sort: [AppTypeSort!]
 }
 
 input AppTypeOwnerAggregateInput {
@@ -669,7 +690,7 @@ input AppTypeOwnerNodeAggregationWhereInput {
 }
 
 input AppTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -682,7 +703,7 @@ input AppTypeSort {
 
 input AppTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type AppTypeUserOwnerAggregationSelection {
@@ -691,9 +712,9 @@ type AppTypeUserOwnerAggregationSelection {
 }
 
 type AppTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input AppTypeWhere {
@@ -702,28 +723,48 @@ input AppTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: AppTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return AppTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return AppTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return AppTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return AppTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 input AppUniqueWhere {
@@ -743,9 +784,9 @@ type AppUserOwnerAggregationSelection {
 }
 
 type AppUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input AppWhere {
@@ -754,33 +795,73 @@ input AppWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: AppOwnerAggregateInput
-  ownerConnection: AppOwnerConnectionWhere
-  ownerConnection_NOT: AppOwnerConnectionWhere
-  owner_NOT: UserWhere
-  pages: PageWhere
+  ownerConnection_ALL: AppOwnerConnectionWhere
+  ownerConnection_NONE: AppOwnerConnectionWhere
+  ownerConnection_SINGLE: AppOwnerConnectionWhere
+  ownerConnection_SOME: AppOwnerConnectionWhere
+
+  """
+  Return Apps where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return Apps where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return Apps where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return Apps where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
   pagesAggregate: AppPagesAggregateInput
-  pagesConnection: AppPagesConnectionWhere
-  pagesConnection_NOT: AppPagesConnectionWhere
-  pages_NOT: PageWhere
+  pagesConnection_ALL: AppPagesConnectionWhere
+  pagesConnection_NONE: AppPagesConnectionWhere
+  pagesConnection_SINGLE: AppPagesConnectionWhere
+  pagesConnection_SOME: AppPagesConnectionWhere
+
+  """
+  Return Apps where all of the related Pages match this filter
+  """
+  pages_ALL: PageWhere
+
+  """
+  Return Apps where none of the related Pages match this filter
+  """
+  pages_NONE: PageWhere
+
+  """
+  Return Apps where one of the related Pages match this filter
+  """
+  pages_SINGLE: PageWhere
+
+  """
+  Return Apps where some of the related Pages match this filter
+  """
+  pages_SOME: PageWhere
   rootProviderElement: ElementWhere
   rootProviderElementAggregate: AppRootProviderElementAggregateInput
   rootProviderElementConnection: AppRootProviderElementConnectionWhere
@@ -793,18 +874,33 @@ ArrayType Allows defining a variable number of items of a given type.
 Contains a reference to another type which is the array item type.
 """
 type ArrayType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
-  itemType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  itemType(
+    directed: Boolean = true
+    options: TypeBaseOptions
+    where: TypeBaseWhere
+  ): [TypeBase!]!
   itemTypeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
     sort: [ArrayTypeItemTypeConnectionSort!]
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): ArrayTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ArrayTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -813,17 +909,17 @@ type ArrayType implements TypeBase {
 
 type ArrayTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ArrayTypeConnectInput {
   itemType: [ArrayTypeItemTypeConnectFieldInput!]
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input ArrayTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input ArrayTypeCreateInput {
@@ -834,17 +930,16 @@ input ArrayTypeCreateInput {
 
 input ArrayTypeDeleteInput {
   itemType: [ArrayTypeItemTypeDeleteFieldInput!]
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input ArrayTypeDisconnectInput {
   itemType: [ArrayTypeItemTypeDisconnectFieldInput!]
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input ArrayTypeItemTypeConnectFieldInput {
   connect: TypeBaseConnectInput
-  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -855,20 +950,17 @@ type ArrayTypeItemTypeConnection {
 }
 
 input ArrayTypeItemTypeConnectionSort {
-  edge: IdPropertySort
+  node: TypeBaseSort
 }
 
 input ArrayTypeItemTypeConnectionWhere {
   AND: [ArrayTypeItemTypeConnectionWhere!]
   OR: [ArrayTypeItemTypeConnectionWhere!]
-  edge: IdPropertyWhere
-  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input ArrayTypeItemTypeCreateFieldInput {
-  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -887,14 +979,12 @@ input ArrayTypeItemTypeFieldInput {
   create: [ArrayTypeItemTypeCreateFieldInput!]
 }
 
-type ArrayTypeItemTypeRelationship implements IdProperty {
+type ArrayTypeItemTypeRelationship {
   cursor: String!
-  id: ID!
   node: TypeBase!
 }
 
 input ArrayTypeItemTypeUpdateConnectionInput {
-  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -914,7 +1004,7 @@ input ArrayTypeOptions {
   """
   Specify one or more ArrayTypeSort objects to sort ArrayTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ArrayTypeSort]
+  sort: [ArrayTypeSort!]
 }
 
 input ArrayTypeOwnerAggregateInput {
@@ -976,7 +1066,7 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 
 input ArrayTypeRelationInput {
   itemType: [ArrayTypeItemTypeCreateFieldInput!]
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -990,7 +1080,7 @@ input ArrayTypeSort {
 input ArrayTypeUpdateInput {
   itemType: [ArrayTypeItemTypeUpdateFieldInput!]
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type ArrayTypeUserOwnerAggregationSelection {
@@ -999,9 +1089,9 @@ type ArrayTypeUserOwnerAggregationSelection {
 }
 
 type ArrayTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ArrayTypeWhere {
@@ -1010,49 +1100,81 @@ input ArrayTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  itemTypeConnection: ArrayTypeItemTypeConnectionWhere
-  itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_ALL: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_NONE: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_SINGLE: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_SOME: ArrayTypeItemTypeConnectionWhere
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: ArrayTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return ArrayTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return ArrayTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return ArrayTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return ArrayTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 type Atom {
-  api(options: InterfaceTypeOptions, where: InterfaceTypeWhere): InterfaceType!
+  api(
+    directed: Boolean = true
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
   apiAggregate(
+    directed: Boolean = true
     where: InterfaceTypeWhere
   ): AtomInterfaceTypeApiAggregationSelection
   apiConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [AtomApiConnectionSort!]
     where: AtomApiConnectionWhere
   ): AtomApiConnection!
   id: ID!
   name: String!
-  tags(options: TagOptions, where: TagWhere): [Tag!]
-  tagsAggregate(where: TagWhere): AtomTagTagsAggregationSelection
+  tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
+  tagsAggregate(
+    directed: Boolean = true
+    where: TagWhere
+  ): AtomTagTagsAggregationSelection
   tagsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [AtomTagsConnectionSort!]
     where: AtomTagsConnectionWhere
@@ -1062,8 +1184,8 @@ type Atom {
 
 type AtomAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AtomApiAggregateInput {
@@ -1088,7 +1210,7 @@ input AtomApiConnectOrCreateFieldInput {
 }
 
 input AtomApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeCreateInput!
+  node: InterfaceTypeOnCreateInput!
 }
 
 type AtomApiConnection {
@@ -1214,8 +1336,13 @@ type AtomInterfaceTypeApiAggregationSelection {
 }
 
 type AtomInterfaceTypeApiNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input AtomOnCreateInput {
+  id: ID
+  name: String
 }
 
 input AtomOptions {
@@ -1225,7 +1352,7 @@ input AtomOptions {
   """
   Specify one or more AtomSort objects to sort Atoms by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [AtomSort]
+  sort: [AtomSort!]
 }
 
 input AtomRelationInput {
@@ -1248,8 +1375,8 @@ type AtomTagTagsAggregationSelection {
 }
 
 type AtomTagTagsNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AtomTagsAggregateInput {
@@ -1274,7 +1401,7 @@ input AtomTagsConnectOrCreateFieldInput {
 }
 
 input AtomTagsConnectOrCreateFieldInputOnCreate {
-  node: TagCreateInput!
+  node: TagOnCreateInput!
 }
 
 type AtomTagsConnection {
@@ -1750,51 +1877,81 @@ input AtomWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  tags: TagWhere
   tagsAggregate: AtomTagsAggregateInput
-  tagsConnection: AtomTagsConnectionWhere
-  tagsConnection_NOT: AtomTagsConnectionWhere
-  tags_NOT: TagWhere
+  tagsConnection_ALL: AtomTagsConnectionWhere
+  tagsConnection_NONE: AtomTagsConnectionWhere
+  tagsConnection_SINGLE: AtomTagsConnectionWhere
+  tagsConnection_SOME: AtomTagsConnectionWhere
+
+  """
+  Return Atoms where all of the related Tags match this filter
+  """
+  tags_ALL: TagWhere
+
+  """
+  Return Atoms where none of the related Tags match this filter
+  """
+  tags_NONE: TagWhere
+
+  """
+  Return Atoms where one of the related Tags match this filter
+  """
+  tags_SINGLE: TagWhere
+
+  """
+  Return Atoms where some of the related Tags match this filter
+  """
+  tags_SOME: TagWhere
   type: AtomType
-  type_IN: [AtomType]
+  type_IN: [AtomType!]
   type_NOT: AtomType
-  type_NOT_IN: [AtomType]
+  type_NOT_IN: [AtomType!]
 }
 
 type Component {
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User!
-  ownerAggregate(where: UserWhere): ComponentUserOwnerAggregationSelection
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ComponentUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ComponentOwnerConnectionSort!]
     where: ComponentOwnerConnectionWhere
   ): ComponentOwnerConnection!
-  rootElement(options: ElementOptions, where: ElementWhere): Element!
+  rootElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
   rootElementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): ComponentElementRootElementAggregationSelection
   rootElementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ComponentRootElementConnectionSort!]
     where: ComponentRootElementConnectionWhere
@@ -1803,8 +1960,8 @@ type Component {
 
 type ComponentAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ComponentConnectInput {
@@ -1847,12 +2004,17 @@ type ComponentElementRootElementAggregationSelection {
 }
 
 type ComponentElementRootElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+input ComponentOnCreateInput {
+  id: ID
+  name: String
 }
 
 input ComponentOptions {
@@ -1862,7 +2024,7 @@ input ComponentOptions {
   """
   Specify one or more ComponentSort objects to sort Components by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ComponentSort]
+  sort: [ComponentSort!]
 }
 
 input ComponentOwnerAggregateInput {
@@ -1887,7 +2049,7 @@ input ComponentOwnerConnectOrCreateFieldInput {
 }
 
 input ComponentOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserCreateInput!
+  node: UserOnCreateInput!
 }
 
 type ComponentOwnerConnection {
@@ -2019,7 +2181,7 @@ input ComponentRootElementConnectOrCreateFieldInput {
 }
 
 input ComponentRootElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type ComponentRootElementConnection {
@@ -2208,9 +2370,9 @@ type ComponentUserOwnerAggregationSelection {
 }
 
 type ComponentUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ComponentWhere {
@@ -2219,21 +2381,21 @@ input ComponentWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
   owner: UserWhere
@@ -2330,10 +2492,10 @@ type CreateInfo {
 }
 
 type CreateInfoAggregateSelection {
-  bookmark: StringAggregateSelection!
+  bookmark: StringAggregateSelectionNullable!
   count: Int!
-  nodesCreated: IntAggregateSelection!
-  relationshipsCreated: IntAggregateSelection!
+  nodesCreated: IntAggregateSelectionNonNullable!
+  relationshipsCreated: IntAggregateSelectionNonNullable!
 }
 
 input CreateInfoCreateInput {
@@ -2349,7 +2511,7 @@ input CreateInfoOptions {
   """
   Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [CreateInfoSort]
+  sort: [CreateInfoSort!]
 }
 
 """
@@ -2383,19 +2545,19 @@ input CreateInfoWhere {
   nodesCreated: Int
   nodesCreated_GT: Int
   nodesCreated_GTE: Int
-  nodesCreated_IN: [Int]
+  nodesCreated_IN: [Int!]
   nodesCreated_LT: Int
   nodesCreated_LTE: Int
   nodesCreated_NOT: Int
-  nodesCreated_NOT_IN: [Int]
+  nodesCreated_NOT_IN: [Int!]
   relationshipsCreated: Int
   relationshipsCreated_GT: Int
   relationshipsCreated_GTE: Int
-  relationshipsCreated_IN: [Int]
+  relationshipsCreated_IN: [Int!]
   relationshipsCreated_LT: Int
   relationshipsCreated_LTE: Int
   relationshipsCreated_NOT: Int
-  relationshipsCreated_NOT_IN: [Int]
+  relationshipsCreated_NOT_IN: [Int!]
 }
 
 type CreateInterfaceTypesMutationResponse {
@@ -2474,7 +2636,7 @@ type CreateUnionTypesMutationResponse {
 }
 
 type DeleteElementsInfo {
-  deletedIds: [String!]
+  deletedIds: [String!]!
   nodesDeleted: Int!
   relationshipsDeleted: Int!
 }
@@ -2490,7 +2652,7 @@ type DeleteFieldResponse {
 
 type DeleteFieldResponseAggregateSelection {
   count: Int!
-  deletedEdgesCount: IntAggregateSelection!
+  deletedEdgesCount: IntAggregateSelectionNonNullable!
 }
 
 input DeleteFieldResponseCreateInput {
@@ -2504,7 +2666,7 @@ input DeleteFieldResponseOptions {
   """
   Specify one or more DeleteFieldResponseSort objects to sort DeleteFieldResponses by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [DeleteFieldResponseSort]
+  sort: [DeleteFieldResponseSort!]
 }
 
 """
@@ -2524,11 +2686,11 @@ input DeleteFieldResponseWhere {
   deletedEdgesCount: Int
   deletedEdgesCount_GT: Int
   deletedEdgesCount_GTE: Int
-  deletedEdgesCount_IN: [Int]
+  deletedEdgesCount_IN: [Int!]
   deletedEdgesCount_LT: Int
   deletedEdgesCount_LTE: Int
   deletedEdgesCount_NOT: Int
-  deletedEdgesCount_NOT_IN: [Int]
+  deletedEdgesCount_NOT_IN: [Int!]
 }
 
 type DeleteInfo {
@@ -2555,8 +2717,8 @@ type Edge implements IEdge {
 
 type EdgeAggregateSelection {
   count: Int!
-  source: StringAggregateSelection!
-  target: StringAggregateSelection!
+  source: StringAggregateSelectionNonNullable!
+  target: StringAggregateSelectionNonNullable!
 }
 
 input EdgeCreateInput {
@@ -2571,7 +2733,7 @@ input EdgeOptions {
   """
   Specify one or more EdgeSort objects to sort Edges by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [EdgeSort]
+  sort: [EdgeSort!]
 }
 
 """
@@ -2593,106 +2755,146 @@ input EdgeWhere {
   source: String
   source_CONTAINS: String
   source_ENDS_WITH: String
-  source_IN: [String]
+  source_IN: [String!]
   source_NOT: String
   source_NOT_CONTAINS: String
   source_NOT_ENDS_WITH: String
-  source_NOT_IN: [String]
+  source_NOT_IN: [String!]
   source_NOT_STARTS_WITH: String
   source_STARTS_WITH: String
   target: String
   target_CONTAINS: String
   target_ENDS_WITH: String
-  target_IN: [String]
+  target_IN: [String!]
   target_NOT: String
   target_NOT_CONTAINS: String
   target_NOT_ENDS_WITH: String
-  target_NOT_IN: [String]
+  target_NOT_IN: [String!]
   target_NOT_STARTS_WITH: String
   target_STARTS_WITH: String
 }
 
 type Element {
-  atom(options: AtomOptions, where: AtomWhere): Atom
-  atomAggregate(where: AtomWhere): ElementAtomAtomAggregationSelection
+  atom(directed: Boolean = true, options: AtomOptions, where: AtomWhere): Atom
+  atomAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): ElementAtomAtomAggregationSelection
   atomConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementAtomConnectionSort!]
     where: ElementAtomConnectionWhere
   ): ElementAtomConnection!
-  children(options: ElementOptions, where: ElementWhere): [Element!]
+  children(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): [Element!]!
   childrenAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): ElementElementChildrenAggregationSelection
   childrenConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementChildrenConnectionSort!]
     where: ElementChildrenConnectionWhere
   ): ElementChildrenConnection!
-  component(options: ComponentOptions, where: ComponentWhere): Component
+  component(
+    directed: Boolean = true
+    options: ComponentOptions
+    where: ComponentWhere
+  ): Component
   componentAggregate(
+    directed: Boolean = true
     where: ComponentWhere
   ): ElementComponentComponentAggregationSelection
   componentConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementComponentConnectionSort!]
     where: ElementComponentConnectionWhere
   ): ElementComponentConnection!
   css: String
-  hooks(options: HookOptions, where: HookWhere): [Hook!]
-  hooksAggregate(where: HookWhere): ElementHookHooksAggregationSelection
+  hooks(
+    directed: Boolean = true
+    options: HookOptions
+    where: HookWhere
+  ): [Hook!]!
+  hooksAggregate(
+    directed: Boolean = true
+    where: HookWhere
+  ): ElementHookHooksAggregationSelection
   hooksConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementHooksConnectionSort!]
     where: ElementHooksConnectionWhere
   ): ElementHooksConnection!
   id: ID!
   instanceOfComponent(
+    directed: Boolean = true
     options: ComponentOptions
     where: ComponentWhere
   ): Component
   instanceOfComponentAggregate(
+    directed: Boolean = true
     where: ComponentWhere
   ): ElementComponentInstanceOfComponentAggregationSelection
   instanceOfComponentConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementInstanceOfComponentConnectionSort!]
     where: ElementInstanceOfComponentConnectionWhere
   ): ElementInstanceOfComponentConnection!
   name: String
-  parentElement(options: ElementOptions, where: ElementWhere): Element
+  parentElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
   parentElementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): ElementElementParentElementAggregationSelection
   parentElementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementParentElementConnectionSort!]
     where: ElementParentElementConnectionWhere
   ): ElementParentElementConnection!
   propMapBindings(
+    directed: Boolean = true
     options: PropMapBindingOptions
     where: PropMapBindingWhere
-  ): [PropMapBinding!]
+  ): [PropMapBinding!]!
   propMapBindingsAggregate(
+    directed: Boolean = true
     where: PropMapBindingWhere
   ): ElementPropMapBindingPropMapBindingsAggregationSelection
   propMapBindingsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementPropMapBindingsConnectionSort!]
     where: ElementPropMapBindingsConnectionWhere
   ): ElementPropMapBindingsConnection!
   propTransformationJs: String
-  props(options: PropOptions, where: PropWhere): Prop
-  propsAggregate(where: PropWhere): ElementPropPropsAggregationSelection
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  propsAggregate(
+    directed: Boolean = true
+    where: PropWhere
+  ): ElementPropPropsAggregationSelection
   propsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [ElementPropsConnectionSort!]
     where: ElementPropsConnectionWhere
@@ -2703,12 +2905,12 @@ type Element {
 
 type ElementAggregateSelection {
   count: Int!
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input ElementAtomAggregateInput {
@@ -2728,8 +2930,8 @@ type ElementAtomAtomAggregationSelection {
 }
 
 type ElementAtomAtomNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementAtomConnectFieldInput {
@@ -2743,7 +2945,7 @@ input ElementAtomConnectOrCreateFieldInput {
 }
 
 input ElementAtomConnectOrCreateFieldInputOnCreate {
-  node: AtomCreateInput!
+  node: AtomOnCreateInput!
 }
 
 type ElementAtomConnection {
@@ -2853,7 +3055,7 @@ input ElementChildrenConnectOrCreateFieldInput {
 
 input ElementChildrenConnectOrCreateFieldInputOnCreate {
   edge: ParentOfElementCreateInput
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type ElementChildrenConnection {
@@ -3071,8 +3273,8 @@ type ElementComponentComponentAggregationSelection {
 }
 
 type ElementComponentComponentNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementComponentConnectFieldInput {
@@ -3086,7 +3288,7 @@ input ElementComponentConnectOrCreateFieldInput {
 }
 
 input ElementComponentConnectOrCreateFieldInputOnCreate {
-  node: ComponentCreateInput!
+  node: ComponentOnCreateInput!
 }
 
 type ElementComponentConnection {
@@ -3132,8 +3334,8 @@ type ElementComponentInstanceOfComponentAggregationSelection {
 }
 
 type ElementComponentInstanceOfComponentNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementComponentNodeAggregationWhereInput {
@@ -3262,16 +3464,16 @@ type ElementElementChildrenAggregationSelection {
 }
 
 type ElementElementChildrenEdgeAggregateSelection {
-  order: IntAggregateSelection!
+  order: IntAggregateSelectionNullable!
 }
 
 type ElementElementChildrenNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 type ElementElementParentElementAggregationSelection {
@@ -3281,16 +3483,16 @@ type ElementElementParentElementAggregationSelection {
 }
 
 type ElementElementParentElementEdgeAggregateSelection {
-  order: IntAggregateSelection!
+  order: IntAggregateSelectionNullable!
 }
 
 type ElementElementParentElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 type ElementGraph {
@@ -3308,7 +3510,7 @@ type ElementHookHooksAggregationSelection {
 }
 
 type ElementHookHooksNodeAggregateSelection {
-  id: IDAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ElementHooksAggregateInput {
@@ -3333,7 +3535,7 @@ input ElementHooksConnectOrCreateFieldInput {
 }
 
 input ElementHooksConnectOrCreateFieldInputOnCreate {
-  node: HookCreateInput!
+  node: HookOnCreateInput!
 }
 
 type ElementHooksConnection {
@@ -3420,7 +3622,7 @@ input ElementInstanceOfComponentConnectOrCreateFieldInput {
 }
 
 input ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate {
-  node: ComponentCreateInput!
+  node: ComponentOnCreateInput!
 }
 
 type ElementInstanceOfComponentConnection {
@@ -3505,6 +3707,15 @@ input ElementInstanceOfComponentUpdateFieldInput {
   where: ElementInstanceOfComponentConnectionWhere
 }
 
+input ElementOnCreateInput {
+  css: String
+  id: ID
+  name: String
+  propTransformationJs: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+}
+
 input ElementOptions {
   limit: Int
   offset: Int
@@ -3512,7 +3723,7 @@ input ElementOptions {
   """
   Specify one or more ElementSort objects to sort Elements by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ElementSort]
+  sort: [ElementSort!]
 }
 
 input ElementParentElementAggregateInput {
@@ -3540,7 +3751,7 @@ input ElementParentElementConnectOrCreateFieldInput {
 
 input ElementParentElementConnectOrCreateFieldInputOnCreate {
   edge: ParentOfElementCreateInput
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type ElementParentElementConnection {
@@ -3747,9 +3958,9 @@ type ElementPropMapBindingPropMapBindingsAggregationSelection {
 }
 
 type ElementPropMapBindingPropMapBindingsNodeAggregateSelection {
-  id: IDAggregateSelection!
-  sourceKey: StringAggregateSelection!
-  targetKey: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  sourceKey: StringAggregateSelectionNonNullable!
+  targetKey: StringAggregateSelectionNonNullable!
 }
 
 input ElementPropMapBindingsAggregateInput {
@@ -3774,7 +3985,7 @@ input ElementPropMapBindingsConnectOrCreateFieldInput {
 }
 
 input ElementPropMapBindingsConnectOrCreateFieldInputOnCreate {
-  node: PropMapBindingCreateInput!
+  node: PropMapBindingOnCreateInput!
 }
 
 type ElementPropMapBindingsConnection {
@@ -3885,8 +4096,8 @@ type ElementPropPropsAggregationSelection {
 }
 
 type ElementPropPropsNodeAggregateSelection {
-  data: StringAggregateSelection!
-  id: IDAggregateSelection!
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ElementPropsAggregateInput {
@@ -3910,7 +4121,7 @@ input ElementPropsConnectOrCreateFieldInput {
 }
 
 input ElementPropsConnectOrCreateFieldInputOnCreate {
-  node: PropCreateInput!
+  node: PropOnCreateInput!
 }
 
 type ElementPropsConnection {
@@ -4027,17 +4238,26 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ElementType implements TypeBase {
+  descendantTypesIds: [ID!]!
+
   """
   Allows scoping the type of element to only descendants, children or all elements
   """
   elementKind: ElementTypeKind!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): ElementTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ElementTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -4046,16 +4266,16 @@ type ElementType implements TypeBase {
 
 type ElementTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input ElementTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input ElementTypeCreateInput {
@@ -4065,11 +4285,11 @@ input ElementTypeCreateInput {
 }
 
 input ElementTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input ElementTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 enum ElementTypeKind {
@@ -4101,7 +4321,7 @@ input ElementTypeOptions {
   """
   Specify one or more ElementTypeSort objects to sort ElementTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ElementTypeSort]
+  sort: [ElementTypeSort!]
 }
 
 input ElementTypeOwnerAggregateInput {
@@ -4162,7 +4382,7 @@ input ElementTypeOwnerNodeAggregationWhereInput {
 }
 
 input ElementTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -4177,7 +4397,7 @@ input ElementTypeSort {
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type ElementTypeUserOwnerAggregationSelection {
@@ -4186,43 +4406,63 @@ type ElementTypeUserOwnerAggregationSelection {
 }
 
 type ElementTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ElementTypeWhere {
   AND: [ElementTypeWhere!]
   OR: [ElementTypeWhere!]
   elementKind: ElementTypeKind
-  elementKind_IN: [ElementTypeKind]
+  elementKind_IN: [ElementTypeKind!]
   elementKind_NOT: ElementTypeKind
-  elementKind_NOT_IN: [ElementTypeKind]
+  elementKind_NOT_IN: [ElementTypeKind!]
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: ElementTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return ElementTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return ElementTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return ElementTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return ElementTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 input ElementUniqueWhere {
@@ -4253,11 +4493,31 @@ input ElementWhere {
   atomConnection: ElementAtomConnectionWhere
   atomConnection_NOT: ElementAtomConnectionWhere
   atom_NOT: AtomWhere
-  children: ElementWhere
   childrenAggregate: ElementChildrenAggregateInput
-  childrenConnection: ElementChildrenConnectionWhere
-  childrenConnection_NOT: ElementChildrenConnectionWhere
-  children_NOT: ElementWhere
+  childrenConnection_ALL: ElementChildrenConnectionWhere
+  childrenConnection_NONE: ElementChildrenConnectionWhere
+  childrenConnection_SINGLE: ElementChildrenConnectionWhere
+  childrenConnection_SOME: ElementChildrenConnectionWhere
+
+  """
+  Return Elements where all of the related Elements match this filter
+  """
+  children_ALL: ElementWhere
+
+  """
+  Return Elements where none of the related Elements match this filter
+  """
+  children_NONE: ElementWhere
+
+  """
+  Return Elements where one of the related Elements match this filter
+  """
+  children_SINGLE: ElementWhere
+
+  """
+  Return Elements where some of the related Elements match this filter
+  """
+  children_SOME: ElementWhere
   component: ComponentWhere
   componentAggregate: ElementComponentAggregateInput
   componentConnection: ElementComponentConnectionWhere
@@ -4273,19 +4533,39 @@ input ElementWhere {
   css_NOT_IN: [String]
   css_NOT_STARTS_WITH: String
   css_STARTS_WITH: String
-  hooks: HookWhere
   hooksAggregate: ElementHooksAggregateInput
-  hooksConnection: ElementHooksConnectionWhere
-  hooksConnection_NOT: ElementHooksConnectionWhere
-  hooks_NOT: HookWhere
+  hooksConnection_ALL: ElementHooksConnectionWhere
+  hooksConnection_NONE: ElementHooksConnectionWhere
+  hooksConnection_SINGLE: ElementHooksConnectionWhere
+  hooksConnection_SOME: ElementHooksConnectionWhere
+
+  """
+  Return Elements where all of the related Hooks match this filter
+  """
+  hooks_ALL: HookWhere
+
+  """
+  Return Elements where none of the related Hooks match this filter
+  """
+  hooks_NONE: HookWhere
+
+  """
+  Return Elements where one of the related Hooks match this filter
+  """
+  hooks_SINGLE: HookWhere
+
+  """
+  Return Elements where some of the related Hooks match this filter
+  """
+  hooks_SOME: HookWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   instanceOfComponent: ComponentWhere
@@ -4308,11 +4588,31 @@ input ElementWhere {
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
-  propMapBindings: PropMapBindingWhere
   propMapBindingsAggregate: ElementPropMapBindingsAggregateInput
-  propMapBindingsConnection: ElementPropMapBindingsConnectionWhere
-  propMapBindingsConnection_NOT: ElementPropMapBindingsConnectionWhere
-  propMapBindings_NOT: PropMapBindingWhere
+  propMapBindingsConnection_ALL: ElementPropMapBindingsConnectionWhere
+  propMapBindingsConnection_NONE: ElementPropMapBindingsConnectionWhere
+  propMapBindingsConnection_SINGLE: ElementPropMapBindingsConnectionWhere
+  propMapBindingsConnection_SOME: ElementPropMapBindingsConnectionWhere
+
+  """
+  Return Elements where all of the related PropMapBindings match this filter
+  """
+  propMapBindings_ALL: PropMapBindingWhere
+
+  """
+  Return Elements where none of the related PropMapBindings match this filter
+  """
+  propMapBindings_NONE: PropMapBindingWhere
+
+  """
+  Return Elements where one of the related PropMapBindings match this filter
+  """
+  propMapBindings_SINGLE: PropMapBindingWhere
+
+  """
+  Return Elements where some of the related PropMapBindings match this filter
+  """
+  propMapBindings_SOME: PropMapBindingWhere
   propTransformationJs: String
   propTransformationJs_CONTAINS: String
   propTransformationJs_ENDS_WITH: String
@@ -4357,25 +4657,36 @@ The actual value must be de-referenced by the id.
 """
 type EnumType implements TypeBase {
   allowedValues(
+    directed: Boolean = true
     options: EnumTypeValueOptions
     where: EnumTypeValueWhere
-  ): [EnumTypeValue!]
+  ): [EnumTypeValue!]!
   allowedValuesAggregate(
+    directed: Boolean = true
     where: EnumTypeValueWhere
   ): EnumTypeEnumTypeValueAllowedValuesAggregationSelection
   allowedValuesConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [EnumTypeAllowedValuesConnectionSort!]
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): EnumTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): EnumTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -4384,8 +4695,8 @@ type EnumType implements TypeBase {
 
 type EnumTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input EnumTypeAllowedValuesAggregateInput {
@@ -4520,11 +4831,11 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input EnumTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input EnumTypeConnectOrCreateWhere {
@@ -4543,12 +4854,12 @@ input EnumTypeCreateInput {
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
@@ -4558,13 +4869,18 @@ type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
 }
 
 type EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection {
-  id: IDAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
 }
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  value: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  value: StringAggregateSelectionNonNullable!
+}
+
+input EnumTypeOnCreateInput {
+  id: ID
+  name: String
 }
 
 input EnumTypeOptions {
@@ -4574,7 +4890,7 @@ input EnumTypeOptions {
   """
   Specify one or more EnumTypeSort objects to sort EnumTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [EnumTypeSort]
+  sort: [EnumTypeSort!]
 }
 
 input EnumTypeOwnerAggregateInput {
@@ -4636,7 +4952,7 @@ input EnumTypeOwnerNodeAggregationWhereInput {
 
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -4654,7 +4970,7 @@ input EnumTypeUniqueWhere {
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type EnumTypeUserOwnerAggregationSelection {
@@ -4663,18 +4979,24 @@ type EnumTypeUserOwnerAggregationSelection {
 }
 
 type EnumTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 type EnumTypeValue {
-  enumType(options: EnumTypeOptions, where: EnumTypeWhere): EnumType
+  enumType(
+    directed: Boolean = true
+    options: EnumTypeOptions
+    where: EnumTypeWhere
+  ): EnumType
   enumTypeAggregate(
+    directed: Boolean = true
     where: EnumTypeWhere
   ): EnumTypeValueEnumTypeEnumTypeAggregationSelection
   enumTypeConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [EnumTypeValueEnumTypeConnectionSort!]
     where: EnumTypeValueEnumTypeConnectionWhere
@@ -4686,9 +5008,9 @@ type EnumTypeValue {
 
 type EnumTypeValueAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  value: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  value: StringAggregateSelectionNonNullable!
 }
 
 input EnumTypeValueConnectInput {
@@ -4740,7 +5062,7 @@ input EnumTypeValueEnumTypeConnectOrCreateFieldInput {
 }
 
 input EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeCreateInput!
+  node: EnumTypeOnCreateInput!
 }
 
 type EnumTypeValueEnumTypeConnection {
@@ -4780,8 +5102,8 @@ type EnumTypeValueEnumTypeEnumTypeAggregationSelection {
 }
 
 type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input EnumTypeValueEnumTypeFieldInput {
@@ -4842,7 +5164,7 @@ input EnumTypeValueOptions {
   """
   Specify one or more EnumTypeValueSort objects to sort EnumTypeValues by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [EnumTypeValueSort]
+  sort: [EnumTypeValueSort!]
 }
 
 input EnumTypeValueRelationInput {
@@ -4876,11 +5198,11 @@ input EnumTypeValueWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
@@ -4896,11 +5218,11 @@ input EnumTypeValueWhere {
   value: String
   value_CONTAINS: String
   value_ENDS_WITH: String
-  value_IN: [String]
+  value_IN: [String!]
   value_NOT: String
   value_NOT_CONTAINS: String
   value_NOT_ENDS_WITH: String
-  value_NOT_IN: [String]
+  value_NOT_IN: [String!]
   value_NOT_STARTS_WITH: String
   value_STARTS_WITH: String
 }
@@ -4908,36 +5230,76 @@ input EnumTypeValueWhere {
 input EnumTypeWhere {
   AND: [EnumTypeWhere!]
   OR: [EnumTypeWhere!]
-  allowedValues: EnumTypeValueWhere
   allowedValuesAggregate: EnumTypeAllowedValuesAggregateInput
-  allowedValuesConnection: EnumTypeAllowedValuesConnectionWhere
-  allowedValuesConnection_NOT: EnumTypeAllowedValuesConnectionWhere
-  allowedValues_NOT: EnumTypeValueWhere
+  allowedValuesConnection_ALL: EnumTypeAllowedValuesConnectionWhere
+  allowedValuesConnection_NONE: EnumTypeAllowedValuesConnectionWhere
+  allowedValuesConnection_SINGLE: EnumTypeAllowedValuesConnectionWhere
+  allowedValuesConnection_SOME: EnumTypeAllowedValuesConnectionWhere
+
+  """
+  Return EnumTypes where all of the related EnumTypeValues match this filter
+  """
+  allowedValues_ALL: EnumTypeValueWhere
+
+  """
+  Return EnumTypes where none of the related EnumTypeValues match this filter
+  """
+  allowedValues_NONE: EnumTypeValueWhere
+
+  """
+  Return EnumTypes where one of the related EnumTypeValues match this filter
+  """
+  allowedValues_SINGLE: EnumTypeValueWhere
+
+  """
+  Return EnumTypes where some of the related EnumTypeValues match this filter
+  """
+  allowedValues_SOME: EnumTypeValueWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: EnumTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return EnumTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return EnumTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return EnumTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return EnumTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 interface Field {
@@ -4980,11 +5342,11 @@ input FieldWhere {
   key: String
   key_CONTAINS: String
   key_ENDS_WITH: String
-  key_IN: [String]
+  key_IN: [String!]
   key_NOT: String
   key_NOT_CONTAINS: String
   key_NOT_ENDS_WITH: String
-  key_NOT_IN: [String]
+  key_NOT_IN: [String!]
   key_NOT_STARTS_WITH: String
   key_STARTS_WITH: String
   name: String
@@ -5000,18 +5362,34 @@ input FieldWhere {
 }
 
 type Hook {
-  config(options: PropOptions, where: PropWhere): Prop!
-  configAggregate(where: PropWhere): HookPropConfigAggregationSelection
+  config(
+    directed: Boolean = true
+    options: PropOptions
+    where: PropWhere
+  ): Prop!
+  configAggregate(
+    directed: Boolean = true
+    where: PropWhere
+  ): HookPropConfigAggregationSelection
   configConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [HookConfigConnectionSort!]
     where: HookConfigConnectionWhere
   ): HookConfigConnection!
-  element(options: ElementOptions, where: ElementWhere): Element!
-  elementAggregate(where: ElementWhere): HookElementElementAggregationSelection
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
+  elementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): HookElementElementAggregationSelection
   elementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [HookElementConnectionSort!]
     where: HookElementConnectionWhere
@@ -5022,7 +5400,7 @@ type Hook {
 
 type HookAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input HookConfigAggregateInput {
@@ -5046,7 +5424,7 @@ input HookConfigConnectOrCreateFieldInput {
 }
 
 input HookConfigConnectOrCreateFieldInputOnCreate {
-  node: PropCreateInput!
+  node: PropOnCreateInput!
 }
 
 type HookConfigConnection {
@@ -5185,7 +5563,7 @@ input HookElementConnectOrCreateFieldInput {
 }
 
 input HookElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type HookElementConnection {
@@ -5225,12 +5603,12 @@ type HookElementElementAggregationSelection {
 }
 
 type HookElementElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input HookElementFieldInput {
@@ -5364,6 +5742,10 @@ input HookElementUpdateFieldInput {
   where: HookElementConnectionWhere
 }
 
+input HookOnCreateInput {
+  id: ID
+}
+
 input HookOptions {
   limit: Int
   offset: Int
@@ -5371,7 +5753,7 @@ input HookOptions {
   """
   Specify one or more HookSort objects to sort Hooks by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [HookSort]
+  sort: [HookSort!]
 }
 
 type HookPropConfigAggregationSelection {
@@ -5380,8 +5762,8 @@ type HookPropConfigAggregationSelection {
 }
 
 type HookPropConfigNodeAggregateSelection {
-  data: StringAggregateSelection!
-  id: IDAggregateSelection!
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input HookRelationInput {
@@ -5423,22 +5805,22 @@ input HookWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   type: AtomType
-  type_IN: [AtomType]
+  type_IN: [AtomType!]
   type_NOT: AtomType
-  type_NOT_IN: [AtomType]
+  type_NOT_IN: [AtomType!]
 }
 
-type IDAggregateSelection {
-  longest: ID
-  shortest: ID
+type IDAggregateSelectionNonNullable {
+  longest: ID!
+  shortest: ID!
 }
 
 interface IEdge {
@@ -5468,11 +5850,11 @@ input IdPropertyWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
 }
@@ -5482,11 +5864,11 @@ input ImportAdminDataInput {
 }
 
 input ImportAtomsInput {
-  payload: [JSONObject!]
+  payload: [JSONObject!]!
 }
 
 type ImportAtomsMutationResponse {
-  atoms: [Atom!]
+  atoms: [Atom!]!
 }
 
 type ImportAtomsMutationResponseAggregateSelection {
@@ -5536,7 +5918,7 @@ input ImportDataMutationResponseOptions {
   """
   Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ImportDataMutationResponseSort]
+  sort: [ImportDataMutationResponseSort!]
 }
 
 """
@@ -5557,7 +5939,14 @@ input ImportDataMutationResponseWhere {
   result_NOT: Boolean
 }
 
-type IntAggregateSelection {
+type IntAggregateSelectionNonNullable {
+  average: Float!
+  max: Int!
+  min: Int!
+  sum: Int!
+}
+
+type IntAggregateSelectionNullable {
   average: Float
   max: Int
   min: Int
@@ -5568,28 +5957,49 @@ type IntAggregateSelection {
 Represents an object type with multiple fields
 """
 type InterfaceType implements TypeBase {
-  apiOfAtoms(options: AtomOptions, where: AtomWhere): [Atom!]
+  apiOfAtoms(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): [Atom!]!
   apiOfAtomsAggregate(
+    directed: Boolean = true
     where: AtomWhere
   ): InterfaceTypeAtomApiOfAtomsAggregationSelection
   apiOfAtomsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [InterfaceTypeApiOfAtomsConnectionSort!]
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
-  fields(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  descendantTypesIds: [ID!]!
+  fields(
+    directed: Boolean = true
+    options: TypeBaseOptions
+    where: TypeBaseWhere
+  ): [TypeBase!]!
   fieldsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
     sort: [InterfaceTypeFieldsConnectionSort!]
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): InterfaceTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): InterfaceTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -5598,8 +6008,8 @@ type InterfaceType implements TypeBase {
 
 type InterfaceTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input InterfaceTypeApiOfAtomsAggregateInput {
@@ -5624,7 +6034,7 @@ input InterfaceTypeApiOfAtomsConnectOrCreateFieldInput {
 }
 
 input InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate {
-  node: AtomCreateInput!
+  node: AtomOnCreateInput!
 }
 
 type InterfaceTypeApiOfAtomsConnection {
@@ -5715,19 +6125,19 @@ type InterfaceTypeAtomApiOfAtomsAggregationSelection {
 }
 
 type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input InterfaceTypeConnectOrCreateWhere {
@@ -5748,13 +6158,13 @@ input InterfaceTypeCreateInput {
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 """
@@ -5783,6 +6193,7 @@ type InterfaceTypeFieldsConnection {
 
 input InterfaceTypeFieldsConnectionSort {
   edge: FieldSort
+  node: TypeBaseSort
 }
 
 input InterfaceTypeFieldsConnectionWhere {
@@ -5836,6 +6247,11 @@ input InterfaceTypeFieldsUpdateFieldInput {
   where: InterfaceTypeFieldsConnectionWhere
 }
 
+input InterfaceTypeOnCreateInput {
+  id: ID
+  name: String
+}
+
 input InterfaceTypeOptions {
   limit: Int
   offset: Int
@@ -5843,7 +6259,7 @@ input InterfaceTypeOptions {
   """
   Specify one or more InterfaceTypeSort objects to sort InterfaceTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [InterfaceTypeSort]
+  sort: [InterfaceTypeSort!]
 }
 
 input InterfaceTypeOwnerAggregateInput {
@@ -5906,7 +6322,7 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -5925,7 +6341,7 @@ input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type InterfaceTypeUserOwnerAggregationSelection {
@@ -5934,46 +6350,88 @@ type InterfaceTypeUserOwnerAggregationSelection {
 }
 
 type InterfaceTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input InterfaceTypeWhere {
   AND: [InterfaceTypeWhere!]
   OR: [InterfaceTypeWhere!]
-  apiOfAtoms: AtomWhere
   apiOfAtomsAggregate: InterfaceTypeApiOfAtomsAggregateInput
-  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnectionWhere
-  apiOfAtomsConnection_NOT: InterfaceTypeApiOfAtomsConnectionWhere
-  apiOfAtoms_NOT: AtomWhere
-  fieldsConnection: InterfaceTypeFieldsConnectionWhere
-  fieldsConnection_NOT: InterfaceTypeFieldsConnectionWhere
+  apiOfAtomsConnection_ALL: InterfaceTypeApiOfAtomsConnectionWhere
+  apiOfAtomsConnection_NONE: InterfaceTypeApiOfAtomsConnectionWhere
+  apiOfAtomsConnection_SINGLE: InterfaceTypeApiOfAtomsConnectionWhere
+  apiOfAtomsConnection_SOME: InterfaceTypeApiOfAtomsConnectionWhere
+
+  """
+  Return InterfaceTypes where all of the related Atoms match this filter
+  """
+  apiOfAtoms_ALL: AtomWhere
+
+  """
+  Return InterfaceTypes where none of the related Atoms match this filter
+  """
+  apiOfAtoms_NONE: AtomWhere
+
+  """
+  Return InterfaceTypes where one of the related Atoms match this filter
+  """
+  apiOfAtoms_SINGLE: AtomWhere
+
+  """
+  Return InterfaceTypes where some of the related Atoms match this filter
+  """
+  apiOfAtoms_SOME: AtomWhere
+  fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
+  fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
+  fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
+  fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: InterfaceTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return InterfaceTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return InterfaceTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return InterfaceTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return InterfaceTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 """
@@ -5985,13 +6443,21 @@ scalar JSONObject
 Allows picking a lambda
 """
 type LambdaType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): LambdaTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): LambdaTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -6000,16 +6466,16 @@ type LambdaType implements TypeBase {
 
 type LambdaTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input LambdaTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input LambdaTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input LambdaTypeCreateInput {
@@ -6018,11 +6484,11 @@ input LambdaTypeCreateInput {
 }
 
 input LambdaTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input LambdaTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input LambdaTypeOptions {
@@ -6032,7 +6498,7 @@ input LambdaTypeOptions {
   """
   Specify one or more LambdaTypeSort objects to sort LambdaTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [LambdaTypeSort]
+  sort: [LambdaTypeSort!]
 }
 
 input LambdaTypeOwnerAggregateInput {
@@ -6093,7 +6559,7 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
 }
 
 input LambdaTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -6106,7 +6572,7 @@ input LambdaTypeSort {
 
 input LambdaTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type LambdaTypeUserOwnerAggregationSelection {
@@ -6115,9 +6581,9 @@ type LambdaTypeUserOwnerAggregationSelection {
 }
 
 type LambdaTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input LambdaTypeWhere {
@@ -6126,28 +6592,48 @@ input LambdaTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: LambdaTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return LambdaTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return LambdaTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return LambdaTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return LambdaTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 enum MonacoLanguage {
@@ -6163,14 +6649,22 @@ enum MonacoLanguage {
 Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   language: MonacoLanguage!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): MonacoTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): MonacoTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -6179,16 +6673,16 @@ type MonacoType implements TypeBase {
 
 type MonacoTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input MonacoTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input MonacoTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input MonacoTypeCreateInput {
@@ -6198,11 +6692,11 @@ input MonacoTypeCreateInput {
 }
 
 input MonacoTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input MonacoTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input MonacoTypeOptions {
@@ -6212,7 +6706,7 @@ input MonacoTypeOptions {
   """
   Specify one or more MonacoTypeSort objects to sort MonacoTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [MonacoTypeSort]
+  sort: [MonacoTypeSort!]
 }
 
 input MonacoTypeOwnerAggregateInput {
@@ -6273,7 +6767,7 @@ input MonacoTypeOwnerNodeAggregationWhereInput {
 }
 
 input MonacoTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -6288,7 +6782,7 @@ input MonacoTypeSort {
 input MonacoTypeUpdateInput {
   language: MonacoLanguage
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type MonacoTypeUserOwnerAggregationSelection {
@@ -6297,9 +6791,9 @@ type MonacoTypeUserOwnerAggregationSelection {
 }
 
 type MonacoTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input MonacoTypeWhere {
@@ -6308,32 +6802,52 @@ input MonacoTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   language: MonacoLanguage
-  language_IN: [MonacoLanguage]
+  language_IN: [MonacoLanguage!]
   language_NOT: MonacoLanguage
-  language_NOT_IN: [MonacoLanguage]
+  language_NOT_IN: [MonacoLanguage!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: MonacoTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return MonacoTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return MonacoTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return MonacoTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return MonacoTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 type Mutation {
@@ -6496,7 +7010,7 @@ type Mutation {
   ): DuplicateElementMutationResponse!
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
-  importTypeGraph(payload: JSONObject!): TypeGraph!
+  importTypeGraph(payload: JSONObject!): String!
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
@@ -6730,22 +7244,32 @@ type Mutation {
 }
 
 type Page {
-  app(options: AppOptions, where: AppWhere): App!
-  appAggregate(where: AppWhere): PageAppAppAggregationSelection
+  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
+  appAggregate(
+    directed: Boolean = true
+    where: AppWhere
+  ): PageAppAppAggregationSelection
   appConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [PageAppConnectionSort!]
     where: PageAppConnectionWhere
   ): PageAppConnection!
   id: ID!
   name: String!
-  rootElement(options: ElementOptions, where: ElementWhere): Element!
+  rootElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
   rootElementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): PageElementRootElementAggregationSelection
   rootElementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [PageRootElementConnectionSort!]
     where: PageRootElementConnectionWhere
@@ -6754,8 +7278,8 @@ type Page {
 
 type PageAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input PageAppAggregateInput {
@@ -6775,8 +7299,8 @@ type PageAppAppAggregationSelection {
 }
 
 type PageAppAppNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input PageAppConnectFieldInput {
@@ -6790,7 +7314,7 @@ input PageAppConnectOrCreateFieldInput {
 }
 
 input PageAppConnectOrCreateFieldInputOnCreate {
-  node: AppCreateInput!
+  node: AppOnCreateInput!
 }
 
 type PageAppConnection {
@@ -6915,12 +7439,12 @@ type PageElementRootElementAggregationSelection {
 }
 
 type PageElementRootElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 """
@@ -6933,6 +7457,11 @@ type PageInfo {
   startCursor: String
 }
 
+input PageOnCreateInput {
+  id: ID
+  name: String
+}
+
 input PageOptions {
   limit: Int
   offset: Int
@@ -6940,7 +7469,7 @@ input PageOptions {
   """
   Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [PageSort]
+  sort: [PageSort!]
 }
 
 input PageRelationInput {
@@ -6970,7 +7499,7 @@ input PageRootElementConnectOrCreateFieldInput {
 }
 
 input PageRootElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type PageRootElementConnection {
@@ -7147,13 +7676,21 @@ input PageSort {
 Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): PageTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): PageTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -7162,16 +7699,16 @@ type PageType implements TypeBase {
 
 type PageTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input PageTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input PageTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input PageTypeCreateInput {
@@ -7180,11 +7717,11 @@ input PageTypeCreateInput {
 }
 
 input PageTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input PageTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input PageTypeOptions {
@@ -7194,7 +7731,7 @@ input PageTypeOptions {
   """
   Specify one or more PageTypeSort objects to sort PageTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [PageTypeSort]
+  sort: [PageTypeSort!]
 }
 
 input PageTypeOwnerAggregateInput {
@@ -7255,7 +7792,7 @@ input PageTypeOwnerNodeAggregationWhereInput {
 }
 
 input PageTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -7268,7 +7805,7 @@ input PageTypeSort {
 
 input PageTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type PageTypeUserOwnerAggregationSelection {
@@ -7277,9 +7814,9 @@ type PageTypeUserOwnerAggregationSelection {
 }
 
 type PageTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input PageTypeWhere {
@@ -7288,28 +7825,48 @@ input PageTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: PageTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return PageTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return PageTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return PageTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return PageTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 input PageUniqueWhere {
@@ -7333,21 +7890,21 @@ input PageWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
   rootElement: ElementWhere
@@ -7390,13 +7947,21 @@ input ParentOfElementWhere {
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
 type PrimitiveType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): PrimitiveTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): PrimitiveTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -7406,16 +7971,16 @@ type PrimitiveType implements TypeBase {
 
 type PrimitiveTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input PrimitiveTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input PrimitiveTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input PrimitiveTypeCreateInput {
@@ -7425,11 +7990,11 @@ input PrimitiveTypeCreateInput {
 }
 
 input PrimitiveTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input PrimitiveTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 enum PrimitiveTypeKind {
@@ -7446,7 +8011,7 @@ input PrimitiveTypeOptions {
   """
   Specify one or more PrimitiveTypeSort objects to sort PrimitiveTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [PrimitiveTypeSort]
+  sort: [PrimitiveTypeSort!]
 }
 
 input PrimitiveTypeOwnerAggregateInput {
@@ -7507,7 +8072,7 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
 }
 
 input PrimitiveTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -7521,7 +8086,7 @@ input PrimitiveTypeSort {
 
 input PrimitiveTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
   primitiveKind: PrimitiveTypeKind
 }
 
@@ -7531,9 +8096,9 @@ type PrimitiveTypeUserOwnerAggregationSelection {
 }
 
 type PrimitiveTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input PrimitiveTypeWhere {
@@ -7542,32 +8107,52 @@ input PrimitiveTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: PrimitiveTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return PrimitiveTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return PrimitiveTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return PrimitiveTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return PrimitiveTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
   primitiveKind: PrimitiveTypeKind
-  primitiveKind_IN: [PrimitiveTypeKind]
+  primitiveKind_IN: [PrimitiveTypeKind!]
   primitiveKind_NOT: PrimitiveTypeKind
-  primitiveKind_NOT_IN: [PrimitiveTypeKind]
+  primitiveKind_NOT_IN: [PrimitiveTypeKind!]
 }
 
 type Prop {
@@ -7577,8 +8162,8 @@ type Prop {
 
 type PropAggregateSelection {
   count: Int!
-  data: StringAggregateSelection!
-  id: IDAggregateSelection!
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input PropConnectOrCreateWhere {
@@ -7594,24 +8179,36 @@ input PropCreateInput {
 }
 
 type PropMapBinding {
-  element(options: ElementOptions, where: ElementWhere): Element!
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element!
   elementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): PropMapBindingElementElementAggregationSelection
   elementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [PropMapBindingElementConnectionSort!]
     where: PropMapBindingElementConnectionWhere
   ): PropMapBindingElementConnection!
   id: ID!
   sourceKey: String!
-  targetElement(options: ElementOptions, where: ElementWhere): Element
+  targetElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
   targetElementAggregate(
+    directed: Boolean = true
     where: ElementWhere
   ): PropMapBindingElementTargetElementAggregationSelection
   targetElementConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [PropMapBindingTargetElementConnectionSort!]
     where: PropMapBindingTargetElementConnectionWhere
@@ -7621,9 +8218,9 @@ type PropMapBinding {
 
 type PropMapBindingAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  sourceKey: StringAggregateSelection!
-  targetKey: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  sourceKey: StringAggregateSelectionNonNullable!
+  targetKey: StringAggregateSelectionNonNullable!
 }
 
 input PropMapBindingConnectInput {
@@ -7683,7 +8280,7 @@ input PropMapBindingElementConnectOrCreateFieldInput {
 }
 
 input PropMapBindingElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type PropMapBindingElementConnection {
@@ -7723,12 +8320,12 @@ type PropMapBindingElementElementAggregationSelection {
 }
 
 type PropMapBindingElementElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input PropMapBindingElementFieldInput {
@@ -7854,12 +8451,12 @@ type PropMapBindingElementTargetElementAggregationSelection {
 }
 
 type PropMapBindingElementTargetElementNodeAggregateSelection {
-  css: StringAggregateSelection!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
-  propTransformationJs: StringAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfPropKey: StringAggregateSelection!
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input PropMapBindingElementUpdateConnectionInput {
@@ -7876,6 +8473,12 @@ input PropMapBindingElementUpdateFieldInput {
   where: PropMapBindingElementConnectionWhere
 }
 
+input PropMapBindingOnCreateInput {
+  id: ID
+  sourceKey: String
+  targetKey: String
+}
+
 input PropMapBindingOptions {
   limit: Int
   offset: Int
@@ -7883,7 +8486,7 @@ input PropMapBindingOptions {
   """
   Specify one or more PropMapBindingSort objects to sort PropMapBindings by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [PropMapBindingSort]
+  sort: [PropMapBindingSort!]
 }
 
 input PropMapBindingRelationInput {
@@ -7922,7 +8525,7 @@ input PropMapBindingTargetElementConnectOrCreateFieldInput {
 }
 
 input PropMapBindingTargetElementConnectOrCreateFieldInputOnCreate {
-  node: ElementCreateInput!
+  node: ElementOnCreateInput!
 }
 
 type PropMapBindingTargetElementConnection {
@@ -8109,21 +8712,21 @@ input PropMapBindingWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   sourceKey: String
   sourceKey_CONTAINS: String
   sourceKey_ENDS_WITH: String
-  sourceKey_IN: [String]
+  sourceKey_IN: [String!]
   sourceKey_NOT: String
   sourceKey_NOT_CONTAINS: String
   sourceKey_NOT_ENDS_WITH: String
-  sourceKey_NOT_IN: [String]
+  sourceKey_NOT_IN: [String!]
   sourceKey_NOT_STARTS_WITH: String
   sourceKey_STARTS_WITH: String
   targetElement: ElementWhere
@@ -8134,13 +8737,18 @@ input PropMapBindingWhere {
   targetKey: String
   targetKey_CONTAINS: String
   targetKey_ENDS_WITH: String
-  targetKey_IN: [String]
+  targetKey_IN: [String!]
   targetKey_NOT: String
   targetKey_NOT_CONTAINS: String
   targetKey_NOT_ENDS_WITH: String
-  targetKey_NOT_IN: [String]
+  targetKey_NOT_IN: [String!]
   targetKey_NOT_STARTS_WITH: String
   targetKey_STARTS_WITH: String
+}
+
+input PropOnCreateInput {
+  data: String = "{}"
+  id: ID
 }
 
 input PropOptions {
@@ -8150,7 +8758,7 @@ input PropOptions {
   """
   Specify one or more PropSort objects to sort Props by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [PropSort]
+  sort: [PropSort!]
 }
 
 """
@@ -8175,21 +8783,21 @@ input PropWhere {
   data: String
   data_CONTAINS: String
   data_ENDS_WITH: String
-  data_IN: [String]
+  data_IN: [String!]
   data_NOT: String
   data_NOT_CONTAINS: String
   data_NOT_ENDS_WITH: String
-  data_NOT_IN: [String]
+  data_NOT_IN: [String!]
   data_NOT_STARTS_WITH: String
   data_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
 }
@@ -8197,25 +8805,19 @@ input PropWhere {
 type Query {
   appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
   appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
-  appTypesCount(where: AppTypeWhere): Int!
   apps(options: AppOptions, where: AppWhere): [App!]!
   appsAggregate(where: AppWhere): AppAggregateSelection!
-  appsCount(where: AppWhere): Int!
   arrayTypes(options: ArrayTypeOptions, where: ArrayTypeWhere): [ArrayType!]!
   arrayTypesAggregate(where: ArrayTypeWhere): ArrayTypeAggregateSelection!
-  arrayTypesCount(where: ArrayTypeWhere): Int!
   atoms(options: AtomOptions, where: AtomWhere): [Atom!]!
   atomsAggregate(where: AtomWhere): AtomAggregateSelection!
-  atomsCount(where: AtomWhere): Int!
   components(options: ComponentOptions, where: ComponentWhere): [Component!]!
   componentsAggregate(where: ComponentWhere): ComponentAggregateSelection!
-  componentsCount(where: ComponentWhere): Int!
   createInfos(
     options: CreateInfoOptions
     where: CreateInfoWhere
   ): [CreateInfo!]!
   createInfosAggregate(where: CreateInfoWhere): CreateInfoAggregateSelection!
-  createInfosCount(where: CreateInfoWhere): Int!
   deleteFieldResponses(
     options: DeleteFieldResponseOptions
     where: DeleteFieldResponseWhere
@@ -8223,20 +8825,16 @@ type Query {
   deleteFieldResponsesAggregate(
     where: DeleteFieldResponseWhere
   ): DeleteFieldResponseAggregateSelection!
-  deleteFieldResponsesCount(where: DeleteFieldResponseWhere): Int!
   edges(options: EdgeOptions, where: EdgeWhere): [Edge!]!
   edgesAggregate(where: EdgeWhere): EdgeAggregateSelection!
-  edgesCount(where: EdgeWhere): Int!
   elementGraph(input: ElementGraphInput!): ElementGraph!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere
   ): [ElementType!]!
   elementTypesAggregate(where: ElementTypeWhere): ElementTypeAggregateSelection!
-  elementTypesCount(where: ElementTypeWhere): Int!
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
-  elementsCount(where: ElementWhere): Int!
   enumTypeValues(
     options: EnumTypeValueOptions
     where: EnumTypeValueWhere
@@ -8244,10 +8842,8 @@ type Query {
   enumTypeValuesAggregate(
     where: EnumTypeValueWhere
   ): EnumTypeValueAggregateSelection!
-  enumTypeValuesCount(where: EnumTypeValueWhere): Int!
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
-  enumTypesCount(where: EnumTypeWhere): Int!
   exportAllTypesGraph: JSONObject
   exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
@@ -8259,7 +8855,6 @@ type Query {
   getTypeReferences(typeId: ID!): [TypeReference!]
   hooks(options: HookOptions, where: HookWhere): [Hook!]!
   hooksAggregate(where: HookWhere): HookAggregateSelection!
-  hooksCount(where: HookWhere): Int!
   importAtomsMutationResponses(
     options: ImportAtomsMutationResponseOptions
     where: ImportAtomsMutationResponseWhere
@@ -8267,9 +8862,6 @@ type Query {
   importAtomsMutationResponsesAggregate(
     where: ImportAtomsMutationResponseWhere
   ): ImportAtomsMutationResponseAggregateSelection!
-  importAtomsMutationResponsesCount(
-    where: ImportAtomsMutationResponseWhere
-  ): Int!
   importDataMutationResponses(
     options: ImportDataMutationResponseOptions
     where: ImportDataMutationResponseWhere
@@ -8277,7 +8869,6 @@ type Query {
   importDataMutationResponsesAggregate(
     where: ImportDataMutationResponseWhere
   ): ImportDataMutationResponseAggregateSelection!
-  importDataMutationResponsesCount(where: ImportDataMutationResponseWhere): Int!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -8285,7 +8876,6 @@ type Query {
   interfaceTypesAggregate(
     where: InterfaceTypeWhere
   ): InterfaceTypeAggregateSelection!
-  interfaceTypesCount(where: InterfaceTypeWhere): Int!
 
   """
   Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
@@ -8296,19 +8886,15 @@ type Query {
     where: LambdaTypeWhere
   ): [LambdaType!]!
   lambdaTypesAggregate(where: LambdaTypeWhere): LambdaTypeAggregateSelection!
-  lambdaTypesCount(where: LambdaTypeWhere): Int!
   monacoTypes(
     options: MonacoTypeOptions
     where: MonacoTypeWhere
   ): [MonacoType!]!
   monacoTypesAggregate(where: MonacoTypeWhere): MonacoTypeAggregateSelection!
-  monacoTypesCount(where: MonacoTypeWhere): Int!
   pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
   pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
-  pageTypesCount(where: PageTypeWhere): Int!
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
-  pagesCount(where: PageWhere): Int!
   primitiveTypes(
     options: PrimitiveTypeOptions
     where: PrimitiveTypeWhere
@@ -8316,7 +8902,6 @@ type Query {
   primitiveTypesAggregate(
     where: PrimitiveTypeWhere
   ): PrimitiveTypeAggregateSelection!
-  primitiveTypesCount(where: PrimitiveTypeWhere): Int!
   propMapBindings(
     options: PropMapBindingOptions
     where: PropMapBindingWhere
@@ -8324,10 +8909,8 @@ type Query {
   propMapBindingsAggregate(
     where: PropMapBindingWhere
   ): PropMapBindingAggregateSelection!
-  propMapBindingsCount(where: PropMapBindingWhere): Int!
   props(options: PropOptions, where: PropWhere): [Prop!]!
   propsAggregate(where: PropWhere): PropAggregateSelection!
-  propsCount(where: PropWhere): Int!
   reactNodeTypes(
     options: ReactNodeTypeOptions
     where: ReactNodeTypeWhere
@@ -8335,7 +8918,6 @@ type Query {
   reactNodeTypesAggregate(
     where: ReactNodeTypeWhere
   ): ReactNodeTypeAggregateSelection!
-  reactNodeTypesCount(where: ReactNodeTypeWhere): Int!
   renderPropsTypes(
     options: RenderPropsTypeOptions
     where: RenderPropsTypeWhere
@@ -8343,7 +8925,6 @@ type Query {
   renderPropsTypesAggregate(
     where: RenderPropsTypeWhere
   ): RenderPropsTypeAggregateSelection!
-  renderPropsTypesCount(where: RenderPropsTypeWhere): Int!
   resetDatabaseMutationResponses(
     options: ResetDatabaseMutationResponseOptions
     where: ResetDatabaseMutationResponseWhere
@@ -8351,16 +8932,11 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
-  resetDatabaseMutationResponsesCount(
-    where: ResetDatabaseMutationResponseWhere
-  ): Int!
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagEdgesCount(where: TagEdgeWhere): Int!
   tagGraphs: TagGraph
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
-  tagsCount(where: TagWhere): Int!
   typeReferences(
     options: TypeReferenceOptions
     where: TypeReferenceWhere
@@ -8368,18 +8944,10 @@ type Query {
   typeReferencesAggregate(
     where: TypeReferenceWhere
   ): TypeReferenceAggregateSelection!
-  typeReferencesCount(where: TypeReferenceWhere): Int!
   unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
-  unionTypesCount(where: UnionTypeWhere): Int!
   users(options: UserOptions, where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
-  usersCount(where: UserWhere): Int!
-}
-
-input QueryOptions {
-  limit: Int
-  offset: Int
 }
 
 """
@@ -8393,13 +8961,21 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ReactNodeType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): ReactNodeTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ReactNodeTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -8408,16 +8984,16 @@ type ReactNodeType implements TypeBase {
 
 type ReactNodeTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ReactNodeTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input ReactNodeTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input ReactNodeTypeCreateInput {
@@ -8426,11 +9002,11 @@ input ReactNodeTypeCreateInput {
 }
 
 input ReactNodeTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input ReactNodeTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input ReactNodeTypeOptions {
@@ -8440,7 +9016,7 @@ input ReactNodeTypeOptions {
   """
   Specify one or more ReactNodeTypeSort objects to sort ReactNodeTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ReactNodeTypeSort]
+  sort: [ReactNodeTypeSort!]
 }
 
 input ReactNodeTypeOwnerAggregateInput {
@@ -8501,7 +9077,7 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
 }
 
 input ReactNodeTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -8514,7 +9090,7 @@ input ReactNodeTypeSort {
 
 input ReactNodeTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type ReactNodeTypeUserOwnerAggregationSelection {
@@ -8523,9 +9099,9 @@ type ReactNodeTypeUserOwnerAggregationSelection {
 }
 
 type ReactNodeTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ReactNodeTypeWhere {
@@ -8534,28 +9110,48 @@ input ReactNodeTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: ReactNodeTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return ReactNodeTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return ReactNodeTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return ReactNodeTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return ReactNodeTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 """
@@ -8570,13 +9166,21 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type RenderPropsType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): RenderPropsTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): RenderPropsTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -8585,16 +9189,16 @@ type RenderPropsType implements TypeBase {
 
 type RenderPropsTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input RenderPropsTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input RenderPropsTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input RenderPropsTypeCreateInput {
@@ -8603,11 +9207,11 @@ input RenderPropsTypeCreateInput {
 }
 
 input RenderPropsTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input RenderPropsTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input RenderPropsTypeOptions {
@@ -8617,7 +9221,7 @@ input RenderPropsTypeOptions {
   """
   Specify one or more RenderPropsTypeSort objects to sort RenderPropsTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [RenderPropsTypeSort]
+  sort: [RenderPropsTypeSort!]
 }
 
 input RenderPropsTypeOwnerAggregateInput {
@@ -8678,7 +9282,7 @@ input RenderPropsTypeOwnerNodeAggregationWhereInput {
 }
 
 input RenderPropsTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
 }
 
 """
@@ -8691,7 +9295,7 @@ input RenderPropsTypeSort {
 
 input RenderPropsTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 type RenderPropsTypeUserOwnerAggregationSelection {
@@ -8700,9 +9304,9 @@ type RenderPropsTypeUserOwnerAggregationSelection {
 }
 
 type RenderPropsTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input RenderPropsTypeWhere {
@@ -8711,28 +9315,48 @@ input RenderPropsTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: RenderPropsTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return RenderPropsTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return RenderPropsTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return RenderPropsTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return RenderPropsTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 type ResetDatabaseMutationResponse {
@@ -8754,7 +9378,7 @@ input ResetDatabaseMutationResponseOptions {
   """
   Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [ResetDatabaseMutationResponseSort]
+  sort: [ResetDatabaseMutationResponseSort!]
 }
 
 """
@@ -8787,16 +9411,29 @@ enum SortDirection {
   DESC
 }
 
-type StringAggregateSelection {
+type StringAggregateSelectionNonNullable {
+  longest: String!
+  shortest: String!
+}
+
+type StringAggregateSelectionNullable {
   longest: String
   shortest: String
 }
 
 type Tag {
-  children(options: TagOptions, where: TagWhere): [Tag!]
-  childrenAggregate(where: TagWhere): TagTagChildrenAggregationSelection
+  children(
+    directed: Boolean = true
+    options: TagOptions
+    where: TagWhere
+  ): [Tag!]!
+  childrenAggregate(
+    directed: Boolean = true
+    where: TagWhere
+  ): TagTagChildrenAggregationSelection
   childrenConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TagChildrenConnectionSort!]
     where: TagChildrenConnectionWhere
@@ -8804,10 +9441,14 @@ type Tag {
   id: ID!
   isRoot: Boolean
   name: String!
-  parent(options: TagOptions, where: TagWhere): Tag
-  parentAggregate(where: TagWhere): TagTagParentAggregationSelection
+  parent(directed: Boolean = true, options: TagOptions, where: TagWhere): Tag
+  parentAggregate(
+    directed: Boolean = true
+    where: TagWhere
+  ): TagTagParentAggregationSelection
   parentConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TagParentConnectionSort!]
     where: TagParentConnectionWhere
@@ -8816,8 +9457,8 @@ type Tag {
 
 type TagAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input TagChildrenAggregateInput {
@@ -8842,7 +9483,7 @@ input TagChildrenConnectOrCreateFieldInput {
 }
 
 input TagChildrenConnectOrCreateFieldInputOnCreate {
-  node: TagCreateInput!
+  node: TagOnCreateInput!
 }
 
 type TagChildrenConnection {
@@ -8969,8 +9610,8 @@ type TagEdge {
 
 type TagEdgeAggregateSelection {
   count: Int!
-  source: IDAggregateSelection!
-  target: IDAggregateSelection!
+  source: IDAggregateSelectionNonNullable!
+  target: IDAggregateSelectionNonNullable!
 }
 
 input TagEdgeCreateInput {
@@ -8985,7 +9626,7 @@ input TagEdgeOptions {
   """
   Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [TagEdgeSort]
+  sort: [TagEdgeSort!]
 }
 
 """
@@ -9007,21 +9648,21 @@ input TagEdgeWhere {
   source: ID
   source_CONTAINS: ID
   source_ENDS_WITH: ID
-  source_IN: [ID]
+  source_IN: [ID!]
   source_NOT: ID
   source_NOT_CONTAINS: ID
   source_NOT_ENDS_WITH: ID
-  source_NOT_IN: [ID]
+  source_NOT_IN: [ID!]
   source_NOT_STARTS_WITH: ID
   source_STARTS_WITH: ID
   target: ID
   target_CONTAINS: ID
   target_ENDS_WITH: ID
-  target_IN: [ID]
+  target_IN: [ID!]
   target_NOT: ID
   target_NOT_CONTAINS: ID
   target_NOT_ENDS_WITH: ID
-  target_NOT_IN: [ID]
+  target_NOT_IN: [ID!]
   target_NOT_STARTS_WITH: ID
   target_STARTS_WITH: ID
 }
@@ -9038,6 +9679,12 @@ type TagGraph {
   vertices: [Tag!]!
 }
 
+input TagOnCreateInput {
+  id: ID
+  isRoot: Boolean
+  name: String
+}
+
 input TagOptions {
   limit: Int
   offset: Int
@@ -9045,7 +9692,7 @@ input TagOptions {
   """
   Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [TagSort]
+  sort: [TagSort!]
 }
 
 input TagParentAggregateInput {
@@ -9070,7 +9717,7 @@ input TagParentConnectOrCreateFieldInput {
 }
 
 input TagParentConnectOrCreateFieldInputOnCreate {
-  node: TagCreateInput!
+  node: TagOnCreateInput!
 }
 
 type TagParentConnection {
@@ -9175,8 +9822,8 @@ type TagTagChildrenAggregationSelection {
 }
 
 type TagTagChildrenNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 type TagTagParentAggregationSelection {
@@ -9185,8 +9832,8 @@ type TagTagParentAggregationSelection {
 }
 
 type TagTagParentNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input TagUniqueWhere {
@@ -9203,19 +9850,39 @@ input TagUpdateInput {
 input TagWhere {
   AND: [TagWhere!]
   OR: [TagWhere!]
-  children: TagWhere
   childrenAggregate: TagChildrenAggregateInput
-  childrenConnection: TagChildrenConnectionWhere
-  childrenConnection_NOT: TagChildrenConnectionWhere
-  children_NOT: TagWhere
+  childrenConnection_ALL: TagChildrenConnectionWhere
+  childrenConnection_NONE: TagChildrenConnectionWhere
+  childrenConnection_SINGLE: TagChildrenConnectionWhere
+  childrenConnection_SOME: TagChildrenConnectionWhere
+
+  """
+  Return Tags where all of the related Tags match this filter
+  """
+  children_ALL: TagWhere
+
+  """
+  Return Tags where none of the related Tags match this filter
+  """
+  children_NONE: TagWhere
+
+  """
+  Return Tags where one of the related Tags match this filter
+  """
+  children_SINGLE: TagWhere
+
+  """
+  Return Tags where some of the related Tags match this filter
+  """
+  children_SOME: TagWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   isRoot: Boolean
@@ -9223,11 +9890,11 @@ input TagWhere {
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
   parent: TagWhere
@@ -9238,12 +9905,17 @@ input TagWhere {
 }
 
 interface TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
@@ -9252,7 +9924,7 @@ interface TypeBase {
 
 input TypeBaseConnectInput {
   _on: TypeBaseImplementationsConnectInput
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
 }
 
 input TypeBaseConnectWhere {
@@ -9276,12 +9948,12 @@ input TypeBaseCreateInput {
 
 input TypeBaseDeleteInput {
   _on: TypeBaseImplementationsDeleteInput
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
 }
 
 input TypeBaseDisconnectInput {
   _on: TypeBaseImplementationsDisconnectInput
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
 }
 
 input TypeBaseImplementationsConnectInput {
@@ -9359,6 +10031,16 @@ input TypeBaseImplementationsWhere {
   UnionType: UnionTypeWhere
 }
 
+input TypeBaseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more TypeBaseSort objects to sort TypeBases by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [TypeBaseSort]
+}
+
 input TypeBaseOwnerAggregateInput {
   AND: [TypeBaseOwnerAggregateInput!]
   OR: [TypeBaseOwnerAggregateInput!]
@@ -9371,7 +10053,7 @@ input TypeBaseOwnerAggregateInput {
 }
 
 input TypeBaseOwnerConnectFieldInput {
-  connect: UserConnectInput
+  connect: [UserConnectInput!]
   where: UserConnectWhere
 }
 
@@ -9381,7 +10063,7 @@ input TypeBaseOwnerConnectOrCreateFieldInput {
 }
 
 input TypeBaseOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserCreateInput!
+  node: UserOnCreateInput!
 }
 
 type TypeBaseOwnerConnection {
@@ -9416,9 +10098,9 @@ input TypeBaseOwnerDisconnectFieldInput {
 }
 
 input TypeBaseOwnerFieldInput {
-  connect: TypeBaseOwnerConnectFieldInput
-  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
-  create: TypeBaseOwnerCreateFieldInput
+  connect: [TypeBaseOwnerConnectFieldInput!]
+  connectOrCreate: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  create: [TypeBaseOwnerCreateFieldInput!]
 }
 
 input TypeBaseOwnerNodeAggregationWhereInput {
@@ -9477,19 +10159,27 @@ input TypeBaseOwnerUpdateConnectionInput {
 }
 
 input TypeBaseOwnerUpdateFieldInput {
-  connect: TypeBaseOwnerConnectFieldInput
-  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
-  create: TypeBaseOwnerCreateFieldInput
-  delete: TypeBaseOwnerDeleteFieldInput
-  disconnect: TypeBaseOwnerDisconnectFieldInput
+  connect: [TypeBaseOwnerConnectFieldInput!]
+  connectOrCreate: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  create: [TypeBaseOwnerCreateFieldInput!]
+  delete: [TypeBaseOwnerDeleteFieldInput!]
+  disconnect: [TypeBaseOwnerDisconnectFieldInput!]
   update: TypeBaseOwnerUpdateConnectionInput
   where: TypeBaseOwnerConnectionWhere
+}
+
+"""
+Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object.
+"""
+input TypeBaseSort {
+  id: SortDirection
+  name: SortDirection
 }
 
 input TypeBaseUpdateInput {
   _on: TypeBaseImplementationsUpdateInput
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
 }
 
 input TypeBaseWhere {
@@ -9497,42 +10187,48 @@ input TypeBaseWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: TypeBaseOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
 
-"""
-Connection between two types in a TypeGraph.
-Can be:
-Array -> ArrayItem (Edge)
-Interface -> Field type - (InterfaceTypeEdge)
-Union -> Union member (Edge)
-"""
-union TypeEdge = Edge | InterfaceTypeEdge
+  """
+  Return TypeBases where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
 
-type TypeGraph {
-  edges: [TypeEdge!]!
-  vertices: [AnyType!]!
+  """
+  Return TypeBases where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return TypeBases where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return TypeBases where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
 }
 
 type TypeReference {
@@ -9549,8 +10245,8 @@ type TypeReference {
 
 type TypeReferenceAggregateSelection {
   count: Int!
-  label: StringAggregateSelection!
-  name: StringAggregateSelection!
+  label: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input TypeReferenceCreateInput {
@@ -9565,7 +10261,7 @@ input TypeReferenceOptions {
   """
   Specify one or more TypeReferenceSort objects to sort TypeReferences by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [TypeReferenceSort]
+  sort: [TypeReferenceSort!]
 }
 
 """
@@ -9587,21 +10283,21 @@ input TypeReferenceWhere {
   label: String
   label_CONTAINS: String
   label_ENDS_WITH: String
-  label_IN: [String]
+  label_IN: [String!]
   label_NOT: String
   label_NOT_CONTAINS: String
   label_NOT_ENDS_WITH: String
-  label_NOT_IN: [String]
+  label_NOT_IN: [String!]
   label_NOT_STARTS_WITH: String
   label_STARTS_WITH: String
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
 }
@@ -9610,19 +10306,34 @@ input TypeReferenceWhere {
 Allows picking one of a set of types
 """
 type UnionType implements TypeBase {
-  graph: TypeGraph!
+  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
-  owner(options: UserOptions, where: UserWhere): User
-  ownerAggregate(where: UserWhere): UnionTypeUserOwnerAggregationSelection
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): UnionTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
   ): TypeBaseOwnerConnection!
-  typesOfUnionType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  typesOfUnionType(
+    directed: Boolean = true
+    options: TypeBaseOptions
+    where: TypeBaseWhere
+  ): [TypeBase!]!
   typesOfUnionTypeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
     sort: [UnionTypeTypesOfUnionTypeConnectionSort!]
     where: UnionTypeTypesOfUnionTypeConnectionWhere
   ): UnionTypeTypesOfUnionTypeConnection!
@@ -9630,17 +10341,17 @@ type UnionType implements TypeBase {
 
 type UnionTypeAggregateSelection {
   count: Int!
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input UnionTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
+  owner: [TypeBaseOwnerConnectFieldInput!]
   typesOfUnionType: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
 }
 
 input UnionTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
+  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
 }
 
 input UnionTypeCreateInput {
@@ -9650,12 +10361,12 @@ input UnionTypeCreateInput {
 }
 
 input UnionTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
+  owner: [TypeBaseOwnerDeleteFieldInput!]
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDeleteFieldInput!]
 }
 
 input UnionTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
+  owner: [TypeBaseOwnerDisconnectFieldInput!]
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
 }
 
@@ -9666,7 +10377,7 @@ input UnionTypeOptions {
   """
   Specify one or more UnionTypeSort objects to sort UnionTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [UnionTypeSort]
+  sort: [UnionTypeSort!]
 }
 
 input UnionTypeOwnerAggregateInput {
@@ -9727,7 +10438,7 @@ input UnionTypeOwnerNodeAggregationWhereInput {
 }
 
 input UnionTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
+  owner: [TypeBaseOwnerCreateFieldInput!]
   typesOfUnionType: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
@@ -9741,7 +10452,6 @@ input UnionTypeSort {
 
 input UnionTypeTypesOfUnionTypeConnectFieldInput {
   connect: TypeBaseConnectInput
-  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -9752,20 +10462,17 @@ type UnionTypeTypesOfUnionTypeConnection {
 }
 
 input UnionTypeTypesOfUnionTypeConnectionSort {
-  edge: IdPropertySort
+  node: TypeBaseSort
 }
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeConnectionWhere!]
   OR: [UnionTypeTypesOfUnionTypeConnectionWhere!]
-  edge: IdPropertyWhere
-  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
-  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -9784,14 +10491,12 @@ input UnionTypeTypesOfUnionTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
-type UnionTypeTypesOfUnionTypeRelationship implements IdProperty {
+type UnionTypeTypesOfUnionTypeRelationship {
   cursor: String!
-  id: ID!
   node: TypeBase!
 }
 
 input UnionTypeTypesOfUnionTypeUpdateConnectionInput {
-  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -9806,7 +10511,7 @@ input UnionTypeTypesOfUnionTypeUpdateFieldInput {
 
 input UnionTypeUpdateInput {
   name: String
-  owner: TypeBaseOwnerUpdateFieldInput
+  owner: [TypeBaseOwnerUpdateFieldInput!]
   typesOfUnionType: [UnionTypeTypesOfUnionTypeUpdateFieldInput!]
 }
 
@@ -9816,9 +10521,9 @@ type UnionTypeUserOwnerAggregationSelection {
 }
 
 type UnionTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input UnionTypeWhere {
@@ -9827,30 +10532,52 @@ input UnionTypeWhere {
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
-  name_IN: [String]
+  name_IN: [String!]
   name_NOT: String
   name_NOT_CONTAINS: String
   name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String]
+  name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
   ownerAggregate: UnionTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-  typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnectionWhere
-  typesOfUnionTypeConnection_NOT: UnionTypeTypesOfUnionTypeConnectionWhere
+  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
+  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
+  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
+
+  """
+  Return UnionTypes where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return UnionTypes where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return UnionTypes where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return UnionTypes where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
+  typesOfUnionTypeConnection_ALL: UnionTypeTypesOfUnionTypeConnectionWhere
+  typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
+  typesOfUnionTypeConnection_SINGLE: UnionTypeTypesOfUnionTypeConnectionWhere
+  typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
 }
 
 type UpdateAppTypesMutationResponse {
@@ -10016,38 +10743,61 @@ input UpsertFieldInput {
   interfaceTypeId: ID!
   key: String!
   name: String
+  targetKey: String
   targetTypeId: ID!
 }
 
 type User {
-  apps(options: AppOptions, where: AppWhere): [App]
-  appsAggregate(where: AppWhere): UserAppAppsAggregationSelection
+  apps(directed: Boolean = true, options: AppOptions, where: AppWhere): [App!]!
+  appsAggregate(
+    directed: Boolean = true
+    where: AppWhere
+  ): UserAppAppsAggregationSelection
   appsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [UserAppsConnectionSort!]
     where: UserAppsConnectionWhere
   ): UserAppsConnection!
   auth0Id: String!
-  components(options: ComponentOptions, where: ComponentWhere): [Component]
+  components(
+    directed: Boolean = true
+    options: ComponentOptions
+    where: ComponentWhere
+  ): [Component!]!
   componentsAggregate(
+    directed: Boolean = true
     where: ComponentWhere
   ): UserComponentComponentsAggregationSelection
   componentsConnection(
     after: String
+    directed: Boolean = true
     first: Int
     sort: [UserComponentsConnectionSort!]
     where: UserComponentsConnectionWhere
   ): UserComponentsConnection!
   email: String!
   id: ID!
+  types(
+    directed: Boolean = true
+    options: TypeBaseOptions
+    where: TypeBaseWhere
+  ): [TypeBase!]!
+  typesConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [UserTypesConnectionSort!]
+    where: UserTypesConnectionWhere
+  ): UserTypesConnection!
 }
 
 type UserAggregateSelection {
-  auth0Id: StringAggregateSelection!
+  auth0Id: StringAggregateSelectionNonNullable!
   count: Int!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 type UserAppAppsAggregationSelection {
@@ -10056,8 +10806,8 @@ type UserAppAppsAggregationSelection {
 }
 
 type UserAppAppsNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input UserAppsAggregateInput {
@@ -10082,7 +10832,7 @@ input UserAppsConnectOrCreateFieldInput {
 }
 
 input UserAppsConnectOrCreateFieldInputOnCreate {
-  node: AppCreateInput!
+  node: AppOnCreateInput!
 }
 
 type UserAppsConnection {
@@ -10173,8 +10923,8 @@ type UserComponentComponentsAggregationSelection {
 }
 
 type UserComponentComponentsNodeAggregateSelection {
-  id: IDAggregateSelection!
-  name: StringAggregateSelection!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input UserComponentsAggregateInput {
@@ -10199,7 +10949,7 @@ input UserComponentsConnectOrCreateFieldInput {
 }
 
 input UserComponentsConnectOrCreateFieldInputOnCreate {
-  node: ComponentCreateInput!
+  node: ComponentOnCreateInput!
 }
 
 type UserComponentsConnection {
@@ -10287,6 +11037,7 @@ input UserComponentsUpdateFieldInput {
 input UserConnectInput {
   apps: [UserAppsConnectFieldInput!]
   components: [UserComponentsConnectFieldInput!]
+  types: [UserTypesConnectFieldInput!]
 }
 
 input UserConnectOrCreateWhere {
@@ -10302,16 +11053,25 @@ input UserCreateInput {
   auth0Id: String!
   components: UserComponentsFieldInput
   email: String!
+  types: UserTypesFieldInput
 }
 
 input UserDeleteInput {
   apps: [UserAppsDeleteFieldInput!]
   components: [UserComponentsDeleteFieldInput!]
+  types: [UserTypesDeleteFieldInput!]
 }
 
 input UserDisconnectInput {
   apps: [UserAppsDisconnectFieldInput!]
   components: [UserComponentsDisconnectFieldInput!]
+  types: [UserTypesDisconnectFieldInput!]
+}
+
+input UserOnCreateInput {
+  auth0Id: String
+  email: String
+  id: ID
 }
 
 input UserOptions {
@@ -10321,7 +11081,7 @@ input UserOptions {
   """
   Specify one or more UserSort objects to sort Users by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [UserSort]
+  sort: [UserSort!]
 }
 
 """
@@ -10333,6 +11093,65 @@ input UserSort {
   id: SortDirection
 }
 
+input UserTypesConnectFieldInput {
+  connect: TypeBaseConnectInput
+  where: TypeBaseConnectWhere
+}
+
+type UserTypesConnection {
+  edges: [UserTypesRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UserTypesConnectionSort {
+  node: TypeBaseSort
+}
+
+input UserTypesConnectionWhere {
+  AND: [UserTypesConnectionWhere!]
+  OR: [UserTypesConnectionWhere!]
+  node: TypeBaseWhere
+  node_NOT: TypeBaseWhere
+}
+
+input UserTypesCreateFieldInput {
+  node: TypeBaseCreateInput!
+}
+
+input UserTypesDeleteFieldInput {
+  delete: TypeBaseDeleteInput
+  where: UserTypesConnectionWhere
+}
+
+input UserTypesDisconnectFieldInput {
+  disconnect: TypeBaseDisconnectInput
+  where: UserTypesConnectionWhere
+}
+
+input UserTypesFieldInput {
+  connect: [UserTypesConnectFieldInput!]
+  create: [UserTypesCreateFieldInput!]
+}
+
+type UserTypesRelationship {
+  cursor: String!
+  node: TypeBase!
+}
+
+input UserTypesUpdateConnectionInput {
+  node: TypeBaseUpdateInput
+}
+
+input UserTypesUpdateFieldInput {
+  connect: [UserTypesConnectFieldInput!]
+  create: [UserTypesCreateFieldInput!]
+  delete: [UserTypesDeleteFieldInput!]
+  disconnect: [UserTypesDisconnectFieldInput!]
+  update: UserTypesUpdateConnectionInput
+  where: UserTypesConnectionWhere
+}
+
 input UserUniqueWhere {
   id: ID
 }
@@ -10342,49 +11161,94 @@ input UserUpdateInput {
   auth0Id: String
   components: [UserComponentsUpdateFieldInput!]
   email: String
+  types: [UserTypesUpdateFieldInput!]
 }
 
 input UserWhere {
   AND: [UserWhere!]
   OR: [UserWhere!]
-  apps: AppWhere
   appsAggregate: UserAppsAggregateInput
-  appsConnection: UserAppsConnectionWhere
-  appsConnection_NOT: UserAppsConnectionWhere
-  apps_NOT: AppWhere
+  appsConnection_ALL: UserAppsConnectionWhere
+  appsConnection_NONE: UserAppsConnectionWhere
+  appsConnection_SINGLE: UserAppsConnectionWhere
+  appsConnection_SOME: UserAppsConnectionWhere
+
+  """
+  Return Users where all of the related Apps match this filter
+  """
+  apps_ALL: AppWhere
+
+  """
+  Return Users where none of the related Apps match this filter
+  """
+  apps_NONE: AppWhere
+
+  """
+  Return Users where one of the related Apps match this filter
+  """
+  apps_SINGLE: AppWhere
+
+  """
+  Return Users where some of the related Apps match this filter
+  """
+  apps_SOME: AppWhere
   auth0Id: String
   auth0Id_CONTAINS: String
   auth0Id_ENDS_WITH: String
-  auth0Id_IN: [String]
+  auth0Id_IN: [String!]
   auth0Id_NOT: String
   auth0Id_NOT_CONTAINS: String
   auth0Id_NOT_ENDS_WITH: String
-  auth0Id_NOT_IN: [String]
+  auth0Id_NOT_IN: [String!]
   auth0Id_NOT_STARTS_WITH: String
   auth0Id_STARTS_WITH: String
-  components: ComponentWhere
   componentsAggregate: UserComponentsAggregateInput
-  componentsConnection: UserComponentsConnectionWhere
-  componentsConnection_NOT: UserComponentsConnectionWhere
-  components_NOT: ComponentWhere
+  componentsConnection_ALL: UserComponentsConnectionWhere
+  componentsConnection_NONE: UserComponentsConnectionWhere
+  componentsConnection_SINGLE: UserComponentsConnectionWhere
+  componentsConnection_SOME: UserComponentsConnectionWhere
+
+  """
+  Return Users where all of the related Components match this filter
+  """
+  components_ALL: ComponentWhere
+
+  """
+  Return Users where none of the related Components match this filter
+  """
+  components_NONE: ComponentWhere
+
+  """
+  Return Users where one of the related Components match this filter
+  """
+  components_SINGLE: ComponentWhere
+
+  """
+  Return Users where some of the related Components match this filter
+  """
+  components_SOME: ComponentWhere
   email: String
   email_CONTAINS: String
   email_ENDS_WITH: String
-  email_IN: [String]
+  email_IN: [String!]
   email_NOT: String
   email_NOT_CONTAINS: String
   email_NOT_ENDS_WITH: String
-  email_NOT_IN: [String]
+  email_NOT_IN: [String!]
   email_NOT_STARTS_WITH: String
   email_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
-  id_IN: [ID]
+  id_IN: [ID!]
   id_NOT: ID
   id_NOT_CONTAINS: ID
   id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID]
+  id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  typesConnection_ALL: UserTypesConnectionWhere
+  typesConnection_NONE: UserTypesConnectionWhere
+  typesConnection_SINGLE: UserTypesConnectionWhere
+  typesConnection_SOME: UserTypesConnectionWhere
 }

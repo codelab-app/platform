@@ -2,35 +2,25 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import gql from 'graphql-tag'
+import { gql } from 'graphql-request'
 export type E2eCreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
 
 export type E2eCreateFieldMutation = {
-  __typename?: 'Mutation'
-  upsertFieldEdge: {
-    __typename?: 'InterfaceTypeEdge'
-    target: string
-    source: string
-    key: string
-    name?: string | null | undefined
-    description?: string | null | undefined
-  }
+  upsertFieldEdge: E2eInterfaceTypeEdgeFragment
 }
 
 export type E2eField_InterfaceTypeEdge_Fragment = {
-  __typename?: 'InterfaceTypeEdge'
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type E2eField_InterfaceTypeFieldsRelationship_Fragment = {
-  __typename?: 'InterfaceTypeFieldsRelationship'
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type E2eFieldFragment =
@@ -38,13 +28,9 @@ export type E2eFieldFragment =
   | E2eField_InterfaceTypeFieldsRelationship_Fragment
 
 export type E2eInterfaceTypeEdgeFragment = {
-  __typename?: 'InterfaceTypeEdge'
   target: string
   source: string
-  key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
-}
+} & E2eField_InterfaceTypeEdge_Fragment
 
 export const E2eFieldFragmentDoc = gql`
   fragment E2eField on Field {
@@ -59,23 +45,28 @@ export const E2eInterfaceTypeEdgeFragmentDoc = gql`
     target
     source
   }
-  ${E2eFieldFragmentDoc}
 `
-export const E2eCreateFieldDocument = gql`
+export const E2eCreateFieldGql = gql`
   mutation E2eCreateField($input: UpsertFieldInput!) {
     upsertFieldEdge(input: $input, isCreating: true) {
       ...E2eInterfaceTypeEdge
     }
   }
   ${E2eInterfaceTypeEdgeFragmentDoc}
+  ${E2eFieldFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
+  operationType?: string,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
 
 export function getSdk(
   client: GraphQLClient,
@@ -88,12 +79,12 @@ export function getSdk(
     ): Promise<E2eCreateFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateFieldMutation>(
-            E2eCreateFieldDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+          client.request<E2eCreateFieldMutation>(E2eCreateFieldGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
         'E2eCreateField',
+        'mutation',
       )
     },
   }

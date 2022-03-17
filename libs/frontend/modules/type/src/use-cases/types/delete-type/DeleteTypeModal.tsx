@@ -1,48 +1,68 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
-  Form,
-  FormModal,
+  ModalForm,
 } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { useDeleteTypeForm } from './useDeleteTypeForm'
+import { typeApi, TypeStore } from '../../../store'
 
-export const DeleteTypeModal = () => {
-  const {
-    onSubmit,
-    entity,
-    onSubmitSuccess,
-    onSubmitError,
-    reset,
-    model,
-    isLoading,
-    actionType,
-  } = useDeleteTypeForm()
-
-  return (
-    <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
-      okText="Delete"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Delete type</span>}
-      visible={actionType === CRUDActionType.Delete}
-    >
-      {({ submitRef }) => (
-        <Form<EmptyJsonSchemaType>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={emptyJsonSchema}
-          submitRef={submitRef}
-        >
-          <h4>Are you sure you want to delete type "{entity?.name}"?</h4>
-        </Form>
-      )}
-    </FormModal>
-  )
+export interface DeleteTypeModalProps {
+  typeStore: TypeStore
 }
+
+export const DeleteTypeModal = observer<DeleteTypeModalProps>(
+  ({ typeStore }) => {
+    const closeModal = () => typeStore.deleteModal.close()
+    const deletedType = typeStore.deleteModal.type
+
+    return (
+      <ModalForm.Modal
+        okText="Delete"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Delete type</span>}
+        visible={typeStore.deleteModal.isOpen}
+      >
+        <ModalForm.Form<EmptyJsonSchemaType>
+          model={{}}
+          onSubmit={async () => {
+            const kind = deletedType?.typeKind
+
+            if (!kind) {
+              throw new Error('useDeleteTypeForm: TypeKind is not defined')
+            }
+
+            // Make sure this type is not referenced anywhere else or the data may become corrupt
+            const { getTypeReferences } = await typeApi.GetTypeReferences({
+              typeId: deletedType.id,
+            })
+
+            if (getTypeReferences?.length) {
+              const allRefs = getTypeReferences.map(
+                (r) => `${r.name} (${r.label})`,
+              )
+
+              const label = Array.from(new Set(allRefs)).join(', ')
+
+              throw new Error(
+                `Can't delete typed since it's referenced in ${label}`,
+              )
+            }
+
+            return typeStore.delete(deletedType.id)
+          }}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while deleting type',
+            type: 'error',
+          })}
+          onSubmitSuccess={closeModal}
+          schema={emptyJsonSchema}
+        >
+          <h4>Are you sure you want to delete type "{deletedType?.name}"?</h4>
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

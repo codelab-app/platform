@@ -5,8 +5,9 @@ export const userSchema = gql`
     id: ID! @id
     auth0Id: String!
     email: String!
-    apps: [App] @relationship(type: "OWNED_BY", direction: IN)
-    components: [Component] @relationship(type: "OWNED_BY", direction: IN)
+    types: [TypeBase!]! @relationship(type: "OWNED_BY", direction: IN)
+    apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
+    components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
   }
 
   extend type User

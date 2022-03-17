@@ -22,7 +22,7 @@ import React from 'react'
 
 const AppProviderBuilder: CodelabPage<any> = observer(() => {
   const store = useStore()
-  const { app } = useCurrentApp(store.apps)
+  const { app } = useCurrentApp(store.appStore)
   const { elementTree } = useElementGraphContext()
 
   if (!app || !elementTree) {
@@ -34,7 +34,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
       <Head>
         <title>{app?.name} | Provider Builder | Codelab</title>
       </Head>
-      <Builder tree={elementTree} />
+      <Builder tree={elementTree} typeStore={store.typeStore} />
     </>
   )
 })
@@ -45,13 +45,13 @@ export const getServerSideProps = withPageAuthRequired()
 
 AppProviderBuilder.Layout = observer((page) => {
   const store = useStore()
-  const { app } = useCurrentApp(store.apps)
+  const { app } = useCurrentApp(store.appStore)
 
   return (
     <BuilderContext>
       <ElementGraphProvider elementId={app?.rootProviderElement?.id}>
         <BuilderDashboardTemplate
-          Header={() => <PageDetailHeader pages={store.pages} />}
+          Header={() => <PageDetailHeader pages={store.pageStore} />}
           MainPane={MainPaneBuilder}
           MetaPane={MetaPaneBuilderPage}
           SidebarNavigation={BuilderSidebarNavigation}

@@ -3,11 +3,12 @@ import {
   UpsertFieldInput,
 } from '@codelab/shared/abstract/codegen-v2'
 import { throwIfNullish, throwIfTruthy } from '@codelab/shared/utils'
-import { InterfaceType } from 'apps/web/src/graphql/ogm-types.gen'
 import { RxTransaction } from 'neo4j-driver'
-import { forkJoin, from, Observable } from 'rxjs'
+import { forkJoin, from, Observable, of } from 'rxjs'
 import { map, switchMap, toArray } from 'rxjs/operators'
-import { InterfaceType as InterfaceTypeModel } from '../../../../model'
+import { getDriver } from '../../../../infra/driver'
+import { InterfaceType as InterfaceTypeInit } from '../../../../model'
+import { InterfaceType } from '../../../../ogm-types.gen'
 import {
   ExtraEdgeCreateArgs,
   ExtraEdgeCreateResult,
@@ -26,10 +27,14 @@ import {
   targetTypeNotExistingErrorFactory,
 } from './errorFactories'
 
+const driver = getDriver()
+
 const validateInterfaceExists = (input: UpsertFieldInput) => {
-  const promise = InterfaceTypeModel().find({
-    where: { id: input.interfaceTypeId },
-  })
+  const promise = InterfaceTypeInit().then((Model) =>
+    Model.find({
+      where: { id: input.interfaceTypeId },
+    }),
+  )
 
   const errorFactory = interfaceNotExistingErrorFactory(input.interfaceTypeId)
 
@@ -155,35 +160,41 @@ export const upsertFieldEdge: IRxTxnResolver<
 > =
   ({ input, isCreating }) =>
   (txn) => {
+    if (!isCreating && !input.targetKey) {
+      throw new Error('targetKey is required when updating a field')
+    }
+
     const deleteInput = {
       input: {
-        key: input.key,
+        key: input.targetKey as string,
         interfaceId: input.interfaceTypeId,
       },
     }
 
     const validateExist$ = validateInterfaceAndTargetExist(txn, input)
-    const deleteExisting$ = deleteFieldEdge(deleteInput)(txn)
-    const validateNonDuplicate$ = validateNonDuplicateKey(txn, input)
 
-    // 1.
-    // If we're creating - validate we don't have duplicate keys
     // if we're updating - delete old fields if they exist so that we don't deal with duplication issues and we can safely overwrite them
     // Delete type is a no-op if there is no edge, so that's not a problem. If the validation fails - the transaction will be rolled back, so we can safely do it first before checking for duplicated key
-    const initial$: Observable<any> = isCreating
-      ? validateNonDuplicate$
-      : deleteExisting$
+    const deleteExisting$: Observable<any> = isCreating
+      ? of({})
+      : deleteFieldEdge(deleteInput)(txn)
 
-    return initial$.pipe(
+    const validateNonDuplicate$ = validateNonDuplicateKey(txn, input)
+
+    return deleteExisting$.pipe(
       switchMap(() =>
-        // 2. Validate that the types exist.
-        validateExist$.pipe(
-          switchMap((existRes) =>
-            // 3. Check if we are not creating a recursive type and throw
-            // Not doing that earlier with the other checks since that way we can throw a descriptive error with the names of the types
-            validateWillNotFormRecursiveRel(txn, input, existRes).pipe(
-              // 4. All good, create the field connection
-              switchMap(() => createEdgeConnection(txn, input, existRes)),
+        validateNonDuplicate$.pipe(
+          switchMap(() =>
+            // 2. Validate that the types exist.
+            validateExist$.pipe(
+              switchMap((existRes) =>
+                // 3. Check if we are not creating a recursive type and throw
+                // Not doing that earlier with the other checks since that way we can throw a descriptive error with the names of the types
+                validateWillNotFormRecursiveRel(txn, input, existRes).pipe(
+                  // 4. All good, create the field connection
+                  switchMap(() => createEdgeConnection(txn, input, existRes)),
+                ),
+              ),
             ),
           ),
         ),
@@ -197,41 +208,45 @@ export const upsertFieldEdgeWihoutOGM: IRxTxnResolver<
 > =
   ({ input, isCreating }) =>
   (txn) => {
+    if (!isCreating && !input.targetKey) {
+      throw new Error('targetKey is required when updating a field')
+    }
+
     const deleteInput = {
       input: {
-        key: input.key,
+        key: input.targetKey as string,
         interfaceId: input.interfaceTypeId,
       },
     }
 
     const validateExist$ = validateInterfaceAndTargetExistByCypher(txn, input)
-    const deleteExisting$ = deleteFieldEdge(deleteInput)(txn)
-    const validateNonDuplicate$ = validateNonDuplicateKey(txn, input)
 
-    // 1.
-    // If we're creating - validate we don't have duplicate keys
     // if we're updating - delete old fields if they exist so that we don't deal with duplication issues and we can safely overwrite them
     // Delete type is a no-op if there is no edge, so that's not a problem. If the validation fails - the transaction will be rolled back, so we can safely do it first before checking for duplicated key
-    const initial$: Observable<any> = isCreating
-      ? validateNonDuplicate$
-      : deleteExisting$
+    const deleteExisting$: Observable<any> = isCreating
+      ? of({})
+      : deleteFieldEdge(deleteInput)(txn)
 
-    return initial$.pipe(
-      switchMap(() => {
-        // 2. Validate that the types exist.
-        return validateExist$.pipe(
-          switchMap((existRes) => {
-            // 3. Check if we are not creating a recursive type and throw
-            // Not doing that earlier with the other checks since that way we can throw a descriptive error with the names of the types
-            return validateWillNotFormRecursiveRel(txn, input, existRes).pipe(
-              // 4. All good, create the field connection
-              switchMap(() => {
-                return createEdgeConnection(txn, input, existRes)
-              }),
-            )
-          }),
-        )
-      }),
+    const validateNonDuplicate$ = validateNonDuplicateKey(txn, input)
+
+    return deleteExisting$.pipe(
+      switchMap(() =>
+        validateNonDuplicate$.pipe(
+          switchMap(() =>
+            // 2. Validate that the types exist.
+            validateExist$.pipe(
+              switchMap((existRes) =>
+                // 3. Check if we are not creating a recursive type and throw
+                // Not doing that earlier with the other checks since that way we can throw a descriptive error with the names of the types
+                validateWillNotFormRecursiveRel(txn, input, existRes).pipe(
+                  // 4. All good, create the field connection
+                  switchMap(() => createEdgeConnection(txn, input, existRes)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     )
   }
 

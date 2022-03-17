@@ -6,19 +6,29 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { Space, Table } from 'antd'
 import { ColumnsType, TableRowSelection } from 'antd/lib/table/interface'
+import { arraySet } from 'mobx-keystone'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import React from 'react'
-import { TypeBaseFragment } from '../../../graphql'
-import { useTypeDispatch } from '../../../hooks'
-import { useGetAllTypesQuery } from '../../../hooks/useGetAllTypes'
+import { useGetAllTypesQuery } from '../../../hooks'
+import { typeRef, TypeStore } from '../../../store'
 
-export const GetTypesTable = () => {
-  const { data, isLoading } = useGetAllTypesQuery()
-  const { openDeleteModal, openUpdateModal, setSelectedIds } = useTypeDispatch()
+export interface GetTypesTableProps {
+  typeStore: TypeStore
+}
 
-  const columns: ColumnsType<TypeBaseFragment> = [
+interface CellData {
+  name: string
+  typeKind: TypeKind
+  id: string
+}
+
+export const GetTypesTable = observer<GetTypesTableProps>(({ typeStore }) => {
+  const { data, isLoading } = useGetAllTypesQuery(undefined, typeStore)
+
+  const columns: ColumnsType<CellData> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -40,7 +50,7 @@ export const GetTypesTable = () => {
       width: 100,
       render: (text, record) => (
         <Space size="middle">
-          {(record as any).typeKind === 'InterfaceType' ? (
+          {record.typeKind === 'InterfaceType' ? (
             <Link
               href={PageType.InterfaceDetail.replace(
                 '[interfaceId]',
@@ -51,36 +61,38 @@ export const GetTypesTable = () => {
             </Link>
           ) : (
             <ListItemEditButton
-              onClick={() =>
-                openUpdateModal({
-                  updateId: record.id,
-                  entity: record,
-                })
-              }
+              onClick={() => typeStore.updateModal.open(typeRef(record.id))}
             />
           )}
 
           <ListItemDeleteButton
-            onClick={() =>
-              openDeleteModal({ deleteIds: [record.id], entity: record })
-            }
+            onClick={() => typeStore.deleteModal.open(typeRef(record.id))}
           />
         </Space>
       ),
     },
   ]
 
-  const rowSelection: TableRowSelection<TypeBaseFragment> = {
+  const rowSelection: TableRowSelection<CellData> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<TypeBaseFragment>) => {
-      setSelectedIds({ selectedIds: selectedRows.map(({ id }) => id) })
+    onChange: (_: Array<React.Key>, selectedRows: Array<CellData>) => {
+      typeStore.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
     },
   }
 
+  // Manually build the data for the table because Table is not reactive and
+  // this way we ensure it will get re-rendered properly on updates
+  const dataSource: Array<CellData> =
+    data?.map((t) => ({
+      id: t.id,
+      name: t.name,
+      typeKind: t.typeKind,
+    })) ?? []
+
   return (
-    <Table<TypeBaseFragment>
+    <Table<CellData>
       columns={columns}
-      dataSource={data?.types ?? []}
+      dataSource={dataSource}
       loading={isLoading}
       pagination={{ position: ['bottomCenter'] }}
       rowKey={(type) => type.id}
@@ -88,4 +100,4 @@ export const GetTypesTable = () => {
       size="small"
     />
   )
-}
+})

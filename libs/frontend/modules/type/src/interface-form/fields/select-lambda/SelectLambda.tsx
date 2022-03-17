@@ -5,7 +5,6 @@ import { SelectField, SelectFieldProps } from 'uniforms-antd'
 
 export type SelectLambdaProps = HTMLFieldProps<string, SelectFieldProps>
 
-// TODO fix all SelectX components after implementing the appropriate module
 export const SelectLambda = ({ name }: SelectLambdaProps) => {
   // const { data: lambdas, isLoading } = useGetLambdasForSelectQuery()
   //
