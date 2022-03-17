@@ -85,7 +85,8 @@ export const typeRepository = {
 
     const parameters = keys.reduce(
       (allMergeParams: Array<string>, key: string) => {
-        const p = ` r.${key}='${fieldInput[key]}' `
+        const value = fieldInput[key]
+        const p = value ? ` r.${key}='${fieldInput[key]}' ` : ` r.${key}=null `
         allMergeParams.push(p)
 
         return allMergeParams
