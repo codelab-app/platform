@@ -1,28 +1,33 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAtomDispatch } from '../../hooks'
+import { atomRef, AtomStore } from '../../store'
 
-export const UpdateAtomButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useAtomDispatch()
+export interface UpdateAtomButtonProps extends UpdateButtonProps {
+  atomStore: AtomStore
+}
 
-  const onClick = () => {
-    if (!id) {
-      throw new Error('Atom ID is not valid')
+export const UpdateAtomButton = observer(
+  ({ id, disabled, atomStore }: UpdateAtomButtonProps) => {
+    const onClick = () => {
+      if (!id) {
+        throw new Error('Atom ID is not valid')
+      }
+
+      atomStore.updateModal.open(atomRef(id))
     }
 
-    openUpdateModal({ updateId: id })
-  }
-
-  return (
-    <Button
-      disabled={disabled}
-      ghost
-      icon={<EditOutlined />}
-      onClick={onClick}
-      size="small"
-      type="primary"
-    />
-  )
-}
+    return (
+      <Button
+        disabled={disabled}
+        ghost
+        icon={<EditOutlined />}
+        onClick={onClick}
+        size="small"
+        type="primary"
+      />
+    )
+  },
+)

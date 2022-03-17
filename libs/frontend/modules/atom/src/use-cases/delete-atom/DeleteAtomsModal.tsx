@@ -1,45 +1,47 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { deleteAtomSchema } from './deleteAtomSchema'
-import { useDeleteAtomForm } from './useDeleteAtomForm'
+import { AtomStore } from '../../store'
 
-export const DeleteAtomsModal = () => {
-  const {
-    onSubmit,
-    actionType,
-    onSubmitError,
-    onSubmitSuccess,
-    reset,
-    isLoading,
-    entity,
-    model,
-  } = useDeleteAtomForm()
+export interface DeleteAtomsModalProps {
+  atomStore: AtomStore
+}
 
-  return (
-    <FormModal
-      className="delete-atoms-modal"
-      okButtonProps={{ loading: isLoading }}
-      okText="Delete Atom"
-      onCancel={reset}
-      title="Delete Confirmation"
-      visible={actionType === CRUDActionType.Delete}
-    >
-      {({ submitRef }) => (
-        <Form<DeleteAtomInput>
-          model={model}
+export const DeleteAtomsModal = observer<DeleteAtomsModalProps>(
+  ({ atomStore }) => {
+    const closeModal = () => atomStore.deleteModal.close()
+
+    const onSubmit = () =>
+      atomStore.delete(atomStore.deleteModal.atoms?.map((a) => a.id) ?? [])
+
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while deleting atom',
+    })
+
+    return (
+      <ModalForm.Modal
+        className="delete-atoms-modal"
+        okText="Delete Atom"
+        onCancel={closeModal}
+        title="Delete Confirmation"
+        visible={atomStore.deleteModal.isOpen}
+      >
+        <ModalForm.Form
+          model={{}}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={deleteAtomSchema}
-          submitRef={submitRef}
+          onSubmitSuccess={closeModal}
+          schema={emptyJsonSchema}
         >
-          <h4>Are you sure you want to delete atom "{entity?.name}"?</h4>
-          <AutoFields omitFields={['atomId']} />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+          <h4>
+            Are you sure you want to delete atoms "
+            {atomStore.deleteModal.atoms?.map((a) => a.name).join(', ')}"?
+          </h4>
+          <AutoFields />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

@@ -6,27 +6,25 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { AtomFragment } from '../../graphql/Atom.fragment.v2.graphql.gen'
-import { useAtomDispatch, useAtomState } from '../../hooks'
+import { atomRef, AtomStore } from '../../store'
 import { makeFilterData } from '../helper'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
+import { AtomCellData } from './columns/types'
 
-const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
+const onLibraryFilter = (value: any, atom: AtomCellData): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
 
   return list.some((x) => x.startsWith(search))
 }
 
-export const useAtomTable = () => {
-  const { selectedIds } = useAtomState()
-  const { setSelectedIds } = useAtomDispatch()
+export const useAtomTable = (atomStore: AtomStore) => {
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
   const tagTreeData = tagTree.getAntdTrees()
   const filterTreeData = makeFilterData(tagTreeData)
 
-  const columns: Array<TableColumnProps<AtomFragment>> = [
+  const columns: Array<TableColumnProps<AtomCellData>> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -49,10 +47,8 @@ export const useAtomTable = () => {
       filters: filterTreeData,
       filterMode: 'tree',
       filterSearch: true,
-      onFilter: (value: string | number | boolean, atom: AtomFragment) => {
-        const tagIds = atom.tags?.map((tag) => tag.id)
-
-        return !!tagIds?.includes(value.toString())
+      onFilter: (value: string | number | boolean, atom: AtomCellData) => {
+        return !!atom.tagIds?.includes(value.toString())
       },
       onHeaderCell: headerCellProps,
       render: (tags) => <TagsColumn tags={tags} />,
@@ -70,14 +66,16 @@ export const useAtomTable = () => {
       key: 'action',
       onHeaderCell: headerCellProps,
       width: 100,
-      render: (text, atom) => <ActionColumn atom={atom} />,
+      render: (text, atom) => (
+        <ActionColumn atom={atom} atomStore={atomStore} />
+      ),
     },
   ]
 
-  const rowSelection: TableRowSelection<AtomFragment> = {
+  const rowSelection: TableRowSelection<AtomCellData> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<AtomFragment>) => {
-      setSelectedIds({ selectedIds: selectedRows.map(({ id }) => id) })
+    onChange: (_: Array<React.Key>, selectedRows: Array<AtomCellData>) => {
+      atomStore.setSelectedAtoms(selectedRows.map((a) => atomRef(a.id)))
     },
   }
 
@@ -86,5 +84,5 @@ export const useAtomTable = () => {
     defaultPageSize: 25,
   }
 
-  return { columns, rowSelection, pagination, selectedIds }
+  return { columns, rowSelection, pagination }
 }

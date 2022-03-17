@@ -3,6 +3,7 @@ import { ModalStore } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -22,6 +23,7 @@ import {
 } from 'mobx-keystone'
 import { AtomFragment } from '../graphql/Atom.fragment.v2.1.graphql.gen'
 import type { CreateAtomInputSchema } from '../use-cases/create-atom/createAtomSchema'
+import { makeTagConnectData } from '../use-cases/helper'
 import type { UpdateAtomInputSchema } from '../use-cases/update-atom/updateAtomSchema'
 import { atomApi } from './atomApi'
 
@@ -30,6 +32,7 @@ export class Atom extends Model({
   id: idProp,
   type: prop<AtomType>(),
   name: prop<string>(),
+  tagIds: prop<Array<string>>(),
   // TODO add tags to atom after refactoring tag module to mobx. 1. in props, 2. in Atom.update() 3. in AtomStore.createAtom()
   // tags: prop<Tag[]>(),
   api: prop<Ref<InterfaceType>>(),
@@ -42,10 +45,22 @@ export class Atom extends Model({
   ) {
     this.name = name
     this.type = type
+    this.tagIds = tags ?? []
+
+    const existingTagIds = this.tagIds
+    const connects = makeTagConnectData(difference(tags, existingTagIds))
+
+    const disconnects = makeTagConnectData(
+      difference(existingTagIds, tags || []),
+    )
 
     const { updateAtoms } = yield* _await(
       atomApi.UpdateAtoms({
-        update: { name, type },
+        update: {
+          name,
+          type,
+          tags: [{ connect: connects, disconnect: disconnects }],
+        },
         where: { id: this.id },
       }),
     )
@@ -68,6 +83,7 @@ export class Atom extends Model({
       name: atom.name,
       type: atom.type,
       api: typeRef(atom.api.id) as Ref<InterfaceType>,
+      tagIds: atom.tags.map((tag) => tag.id),
     })
   }
 }
@@ -91,12 +107,24 @@ class AtomModalStore extends ExtendedModel(() => ({
   }
 }
 
+@model('codelab/AtomsModalStore')
+class AtomsModalStore extends ExtendedModel(() => ({
+  baseModel: modelClass<ModalStore<Array<Ref<Atom>>>>(ModalStore),
+  props: {},
+})) {
+  @computed
+  get atoms() {
+    return this.metadata?.map((a) => a.current) ?? null
+  }
+}
+
 @model('codelab/AtomStore')
 export class AtomStore extends Model({
   atoms: prop(() => objectMap<Atom>()),
   createModal: prop(() => new ModalStore({})),
   updateModal: prop(() => new AtomModalStore({})),
-  deleteModal: prop(() => new AtomModalStore({})),
+  deleteModal: prop(() => new AtomsModalStore({})),
+  selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
 }) {
   @computed
   get atomsList() {
@@ -182,13 +210,15 @@ export class AtomStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AtomStore, id: string) {
-    if (this.atoms.has(id)) {
-      this.atoms.delete(id)
+  delete = _async(function* (this: AtomStore, ids: Array<string>) {
+    for (const id of ids) {
+      if (this.atoms.has(id)) {
+        this.atoms.delete(id)
+      }
     }
 
     const { deleteAtoms } = yield* _await(
-      atomApi.DeleteAtoms({ where: { id } }),
+      atomApi.DeleteAtoms({ where: { id_IN: ids } }),
     )
 
     if (deleteAtoms.nodesDeleted === 0) {

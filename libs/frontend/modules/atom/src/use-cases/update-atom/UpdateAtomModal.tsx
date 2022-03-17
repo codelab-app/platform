@@ -1,44 +1,56 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { AtomStore } from '../../store'
 import { TreeSelectField } from '../components'
-import { CreateAtomInputSchema } from '../create-atom'
-import { updateAtomSchema } from './updateAtomSchema'
-import { useUpdateAtomForm } from './useUpdateAtomForm'
+import { UpdateAtomInputSchema, updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomModal = () => {
-  const {
-    onSubmit,
-    actionType,
-    onSubmitSuccess,
-    onSubmitError,
-    model,
-    isLoading,
-    reset,
-  } = useUpdateAtomForm()
+export interface UpdateAtomModalProps {
+  atomStore: AtomStore
+}
 
-  const tagModel = model.tags as Array<string>
-  const { data } = useGetTagGraphsQuery()
-  const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTrees()
+export const UpdateAtomModal = observer<UpdateAtomModalProps>(
+  ({ atomStore }) => {
+    const closeModal = () => atomStore.updateModal.close()
 
-  return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
-      okText="Update Atom"
-      onCancel={reset}
-      visible={actionType === CRUDActionType.Update}
-    >
-      {({ submitRef }) => (
-        <Form<CreateAtomInputSchema>
+    const onSubmit = (data: UpdateAtomInputSchema) => {
+      if (!atomStore.updateModal.atom) {
+        throw new Error('Updated atom is not set')
+      }
+
+      return atomStore.updateModal.atom.update(data)
+    }
+
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while updating atom',
+    })
+
+    const model = {
+      name: atomStore.updateModal.atom?.name,
+      type: atomStore.updateModal.atom?.type,
+      tags: atomStore.updateModal.atom?.tagIds,
+    }
+
+    const tagModel = model.tags as Array<string>
+    const { data } = useGetTagGraphsQuery()
+    const tagTree = useTagTree(data?.tagGraphs)
+    const tagTreeData = tagTree.getAntdTrees()
+
+    return (
+      <ModalForm.Modal
+        okText="Update Atom"
+        onCancel={closeModal}
+        visible={atomStore.updateModal.isOpen}
+      >
+        <ModalForm.Form<UpdateAtomInputSchema>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmitSuccess={closeModal}
           schema={updateAtomSchema}
-          submitRef={submitRef}
         >
           <AutoFields omitFields={['tags']} />
           <TreeSelectField
@@ -47,8 +59,8 @@ export const UpdateAtomModal = () => {
             treeData={tagTreeData}
             value={tagModel}
           />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

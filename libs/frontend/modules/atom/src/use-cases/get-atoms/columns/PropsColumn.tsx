@@ -10,7 +10,7 @@ export const PropsColumn = ({ atom }: PropsColumnProps) => {
     <Link
       href={{
         pathname: PageType.InterfaceDetail,
-        query: { interfaceId: atom.api.id },
+        query: { interfaceId: atom.apiId },
       }}
     >
       <BlueLink>View API</BlueLink>
