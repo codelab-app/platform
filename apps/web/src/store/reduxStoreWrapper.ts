@@ -1,5 +1,4 @@
 import { adminEndpoints, adminSlice } from '@codelab/frontend/modules/admin'
-import { atomEndpoints, atomSlice } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
@@ -27,7 +26,6 @@ export const makeStore = () => {
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [hookEndpoints.reducerPath]: hookEndpoints.reducer,
       [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
-      [atomEndpoints.reducerPath]: atomEndpoints.reducer,
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
@@ -35,7 +33,6 @@ export const makeStore = () => {
 
       // Slices:
       [adminSlice.name]: adminSlice.reducer,
-      [atomSlice.name]: atomSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
       [builderSlice.name]: builderSlice.reducer,
       [componentSlice.name]: componentSlice.reducer,
@@ -53,7 +50,6 @@ export const makeStore = () => {
         componentEndpoints.middleware,
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,
-        atomEndpoints.middleware,
         userEndpoints.middleware,
       ),
     devTools: process.env.NODE_ENV !== 'production',

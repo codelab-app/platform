@@ -59,7 +59,7 @@ export const notify = <TEvent>(
 
 type UseNotifyReturnType = {
   onSuccess: () => void
-  onError: () => void
+  onError: (e: any) => void
 }
 
 export const useNotify = (
@@ -67,7 +67,13 @@ export const useNotify = (
   error: Omit<NotificationOptions, 'type'>,
 ): UseNotifyReturnType => {
   const onSuccess = () => notify({ ...success, type: 'success' })
-  const onError = () => notify({ ...error, type: 'error' })
+
+  const onError = (e: any) =>
+    notify({
+      ...error,
+      type: 'error',
+      content: error.content || extractErrorMessage(e),
+    })
 
   return { onSuccess, onError }
 }

@@ -1,4 +1,4 @@
-import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+// import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import { useGetTagGraphsQuery } from '@codelab/frontend/modules/tag'
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
@@ -13,9 +13,9 @@ export const ExportButton = () => {
   // // All Types Data
   const { data, isLoading } = useExportAllTypesGraphQuery()
   const typesGraph = data?.exportAllTypesGraph
-  // // Atoms Data
-  const { data: atomsData } = useGetAtomsQuery()
-  const atoms = atomsData?.atoms ?? []
+  // // Atoms Data TODO
+  // const { data: atomsData } = useGetAtomsQuery()
+  const atoms: Array<any> = [] // atomsData?.atoms ?? []
 
   const onClickExport = () => {
     const exportData: any = {

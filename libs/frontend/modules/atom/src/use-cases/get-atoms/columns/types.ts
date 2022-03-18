@@ -1,15 +1,25 @@
-import { AtomFragment } from '../../../graphql/Atom.fragment.v2.graphql.gen'
+import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomStore } from '../../../store'
+
+export interface AtomCellData {
+  id: string
+  name: string
+  type: AtomType
+  tagIds: Array<string>
+  apiId: string
+}
 
 export type LibraryColumnProps = {
   library: string
 }
 
 export type PropsColumnProps = {
-  atom: AtomFragment
+  atom: AtomCellData
 }
 
 export type ActionColumnProps = {
-  atom: AtomFragment
+  atom: AtomCellData
+  atomStore: AtomStore
 }
 
 export type TagsColumnProps = {

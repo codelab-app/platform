@@ -1,0 +1,14 @@
+fragment Atom on Atom {
+  __typename
+  id
+  name
+  type
+  tags {
+    id
+    name
+  }
+  api {
+    id
+    name
+  }
+}

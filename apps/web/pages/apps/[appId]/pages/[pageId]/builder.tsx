@@ -78,9 +78,14 @@ PageBuilder.Layout = observer((page) => {
       <PageProvider pages={store.pageStore}>
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageStore} />}
-          MainPane={MainPaneBuilder}
+          MainPane={observer(() => (
+            <MainPaneBuilder atomStore={store.atomStore} />
+          ))}
           MetaPane={observer(() => (
-            <MetaPaneBuilderPage typeStore={store.typeStore} />
+            <MetaPaneBuilderPage
+              atomStore={store.atomStore}
+              typeStore={store.typeStore}
+            />
           ))}
           SidebarNavigation={BuilderSidebarNavigation}
           headerHeight={38}

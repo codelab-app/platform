@@ -3,28 +3,20 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
 import { Space } from 'antd'
-import { useAtomDispatch } from '../../../hooks'
+import { observer } from 'mobx-react-lite'
+import { atomRef } from '../../../store'
 import { ActionColumnProps } from './types'
 
-export const ActionColumn = ({ atom }: ActionColumnProps) => {
-  const { openUpdateModal, openDeleteModal } = useAtomDispatch()
+export const ActionColumn = observer(
+  ({ atom, atomStore }: ActionColumnProps) => {
+    const onClickEdit = () => atomStore.updateModal.open(atomRef(atom.id))
+    const onClickDelete = () => atomStore.deleteModal.open([atomRef(atom.id)])
 
-  const onClickEdit = () =>
-    openUpdateModal({
-      updateId: atom.id,
-      entity: atom,
-    })
-
-  const onClickDelete = () =>
-    openDeleteModal({
-      deleteIds: [atom.id],
-      entity: atom,
-    })
-
-  return (
-    <Space size="middle">
-      <ListItemEditButton onClick={onClickEdit} />
-      <ListItemDeleteButton onClick={onClickDelete} />
-    </Space>
-  )
-}
+    return (
+      <Space size="middle">
+        <ListItemEditButton onClick={onClickEdit} />
+        <ListItemDeleteButton onClick={onClickDelete} />
+      </Space>
+    )
+  },
+)

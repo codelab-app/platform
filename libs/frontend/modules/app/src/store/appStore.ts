@@ -64,6 +64,7 @@ export class AppModel extends Model({
       id: app.id,
       name: app.name,
       ownerId: app.owner?.[0]?.id,
+      rootProviderElement: { id: app.rootProviderElement.id },
     })
   }
 }

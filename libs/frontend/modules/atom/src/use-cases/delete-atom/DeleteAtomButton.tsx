@@ -1,20 +1,24 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAtomDispatch } from '../../hooks'
+import { atomRef, AtomStore } from '../../store'
 
-export const DeleteAtomButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useAtomDispatch()
-  const onClick = () => openDeleteModal({ deleteIds: ids })
-
-  return (
-    <Button
-      danger
-      disabled={disabled}
-      icon={<DeleteOutlined />}
-      onClick={onClick}
-      size="small"
-    />
-  )
+export interface DeleteAtomButton extends DeleteButtonProps {
+  atomStore: AtomStore
 }
+
+export const DeleteAtomButton = observer(
+  ({ disabled, ids, atomStore }: DeleteAtomButton) => {
+    return (
+      <Button
+        danger
+        disabled={disabled}
+        icon={<DeleteOutlined />}
+        onClick={() => atomStore.deleteModal.open(ids.map((id) => atomRef(id)))}
+        size="small"
+      />
+    )
+  },
+)

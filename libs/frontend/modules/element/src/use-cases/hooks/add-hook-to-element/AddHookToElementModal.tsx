@@ -10,7 +10,7 @@ import { AddHookToElementModalProps } from './types'
 import { useAddHookToElementForm } from './useAddHookToElementForm'
 
 export const AddHookToElementModal = observer(
-  ({ elementId, typeStore }: AddHookToElementModalProps) => {
+  ({ elementId, typeStore, atomStore }: AddHookToElementModalProps) => {
     const {
       onSubmitSuccess,
       onSubmit,
@@ -21,7 +21,7 @@ export const AddHookToElementModal = observer(
       isLoading,
       onChange,
       model,
-    } = useAddHookToElementForm(elementId, typeStore)
+    } = useAddHookToElementForm(elementId, typeStore, atomStore)
 
     return (
       <ModalForm.Modal

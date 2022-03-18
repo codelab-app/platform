@@ -1,3 +1,4 @@
+import { AtomStore } from '@codelab/frontend/modules/atom'
 import {
   ElementCssEditor,
   ElementHookSection,
@@ -68,6 +69,7 @@ export interface MetaPaneBuilderProps {
   ) => React.ReactNode
   tree: ElementTree
   typeStore: TypeStore
+  atomStore: AtomStore
 }
 
 /**
@@ -78,7 +80,12 @@ export interface MetaPaneBuilderProps {
  * and passing the tree to the InterfaceForm
  */
 export const MetaPaneBuilder = observer(
-  ({ renderUpdateElementContent, tree, typeStore }: MetaPaneBuilderProps) => {
+  ({
+    renderUpdateElementContent,
+    tree,
+    typeStore,
+    atomStore,
+  }: MetaPaneBuilderProps) => {
     const { selectedElement } = useBuilderSelectedElement()
     const { providePropCompletion } = usePropCompletion()
     const trackPromises = useTrackLoadingPromises()
@@ -148,6 +155,7 @@ export const MetaPaneBuilder = observer(
             tab="Hooks"
           >
             <ElementHookSection
+              atomStore={atomStore}
               elementId={selectedElement.id}
               key={selectedElement.id}
               typeStore={typeStore}
