@@ -462,6 +462,42 @@ export type QueryComponentsAggregateArgs = {
   where?: InputMaybe<ComponentWhere>;
 };
 
+export type QueryStateFieldsArgs = {
+  where?: InputMaybe<StateFieldWhere>
+  options?: InputMaybe<StateFieldOptions>
+}
+
+export type QueryStateFieldsAggregateArgs = {
+  where?: InputMaybe<StateFieldWhere>
+}
+
+export type QueryStoresArgs = {
+  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<StoreOptions>
+}
+
+export type QueryStoresAggregateArgs = {
+  where?: InputMaybe<StoreWhere>
+}
+
+export type QueryStoreEdgesArgs = {
+  where?: InputMaybe<StoreEdgeWhere>
+  options?: InputMaybe<StoreEdgeOptions>
+}
+
+export type QueryStoreEdgesAggregateArgs = {
+  where?: InputMaybe<StoreEdgeWhere>
+}
+
+export type QueryStoreGraphsArgs = {
+  where?: InputMaybe<StoreGraphWhere>
+  options?: InputMaybe<StoreGraphOptions>
+}
+
+export type QueryStoreGraphsAggregateArgs = {
+  where?: InputMaybe<StoreGraphWhere>
+}
+
 export type QueryIsTypeDescendantOfArgs = {
   parentTypeId: Scalars["ID"];
   descendantTypeId: Scalars["ID"];
@@ -1253,6 +1289,64 @@ export type MutationUpdateComponentsArgs = {
   connectOrCreate?: InputMaybe<ComponentConnectOrCreateInput>;
 };
 
+export type MutationCreateStateFieldsArgs = {
+  input: Array<StateFieldCreateInput>
+}
+
+export type MutationDeleteStateFieldsArgs = {
+  where?: InputMaybe<StateFieldWhere>
+}
+
+export type MutationUpdateStateFieldsArgs = {
+  where?: InputMaybe<StateFieldWhere>
+  update?: InputMaybe<StateFieldUpdateInput>
+}
+
+export type MutationCreateStoresArgs = {
+  input: Array<StoreCreateInput>
+}
+
+export type MutationDeleteStoresArgs = {
+  where?: InputMaybe<StoreWhere>
+  delete?: InputMaybe<StoreDeleteInput>
+}
+
+export type MutationUpdateStoresArgs = {
+  where?: InputMaybe<StoreWhere>
+  update?: InputMaybe<StoreUpdateInput>
+  connect?: InputMaybe<StoreConnectInput>
+  disconnect?: InputMaybe<StoreDisconnectInput>
+  create?: InputMaybe<StoreRelationInput>
+  delete?: InputMaybe<StoreDeleteInput>
+  connectOrCreate?: InputMaybe<StoreConnectOrCreateInput>
+}
+
+export type MutationCreateStoreEdgesArgs = {
+  input: Array<StoreEdgeCreateInput>
+}
+
+export type MutationDeleteStoreEdgesArgs = {
+  where?: InputMaybe<StoreEdgeWhere>
+}
+
+export type MutationUpdateStoreEdgesArgs = {
+  where?: InputMaybe<StoreEdgeWhere>
+  update?: InputMaybe<StoreEdgeUpdateInput>
+}
+
+export type MutationCreateStoreGraphsArgs = {
+  input: Array<StoreGraphCreateInput>
+}
+
+export type MutationDeleteStoreGraphsArgs = {
+  where?: InputMaybe<StoreGraphWhere>
+}
+
+export type MutationUpdateStoreGraphsArgs = {
+  where?: InputMaybe<StoreGraphWhere>
+  update?: InputMaybe<StoreGraphUpdateInput>
+}
+
 export enum AtomType {
   HookQueryLambda = "HookQueryLambda",
   HookQueryConfig = "HookQueryConfig",
@@ -1684,6 +1778,10 @@ export type Field = {
   description?: Maybe<Scalars["String"]>;
 };
 
+export type IdProperty = {
+  id: Scalars['ID']
+}
+
 export type IEdge = {
   source: Scalars["String"];
   target: Scalars["String"];
@@ -1692,6 +1790,10 @@ export type IEdge = {
 export type ParentOfElement = {
   order?: Maybe<Scalars["Int"]>;
 };
+
+export type ParentOfStore = {
+  storeKey: Scalars['String']
+}
 
 export type TypeBase = {
   owner: Array<User>;
@@ -2368,6 +2470,12 @@ export type CreateImportDataMutationResponsesMutationResponse = {
   importDataMutationResponses: Array<ImportDataMutationResponse>;
 };
 
+export type CreateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
+  info: CreateInfo
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+}
+
 export type CreateInfo = {
   __typename?: "CreateInfo";
   bookmark?: Maybe<Scalars["String"]>;
@@ -2455,8 +2563,32 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
 };
 
-export type CreateTagGraphOptionsMutationResponse = {
-  __typename?: "CreateTagGraphOptionsMutationResponse";
+export type CreateStateFieldsMutationResponse = {
+  __typename?: 'CreateStateFieldsMutationResponse'
+  info: CreateInfo
+  stateFields: Array<StateField>
+}
+
+export type CreateStoreEdgesMutationResponse = {
+  __typename?: 'CreateStoreEdgesMutationResponse'
+  info: CreateInfo
+  storeEdges: Array<StoreEdge>
+}
+
+export type CreateStoreGraphsMutationResponse = {
+  __typename?: 'CreateStoreGraphsMutationResponse'
+  info: CreateInfo
+  storeGraphs: Array<StoreGraph>
+}
+
+export type CreateStoresMutationResponse = {
+  __typename?: 'CreateStoresMutationResponse'
+  info: CreateInfo
+  stores: Array<Store>
+}
+
+export type CreateTagEdgesMutationResponse = {
+  __typename?: "CreateTagEdgesMutationResponse";
   info: CreateInfo;
   tagGraphOptions: Array<TagGraphOptions>;
 };
@@ -3418,6 +3550,16 @@ export type ImportDataMutationResponseAggregateSelection = {
   __typename?: "ImportDataMutationResponseAggregateSelection";
   count: Scalars["Int"];
 };
+
+export type ImportDataMutationResponse = {
+  __typename?: 'ImportDataMutationResponse'
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseAggregateSelection = {
+  __typename?: 'ImportDataMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
 
 export type IntAggregateSelectionNonNullable = {
   __typename?: "IntAggregateSelectionNonNullable";
@@ -4640,6 +4782,12 @@ export type UpdateImportDataMutationResponsesMutationResponse = {
   importDataMutationResponses: Array<ImportDataMutationResponse>;
 };
 
+export type UpdateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
+  info: UpdateInfo
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+}
+
 export type UpdateInfo = {
   __typename?: "UpdateInfo";
   bookmark?: Maybe<Scalars["String"]>;
@@ -4721,8 +4869,32 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
 };
 
-export type UpdateTagGraphOptionsMutationResponse = {
-  __typename?: "UpdateTagGraphOptionsMutationResponse";
+export type UpdateStateFieldsMutationResponse = {
+  __typename?: 'UpdateStateFieldsMutationResponse'
+  info: UpdateInfo
+  stateFields: Array<StateField>
+}
+
+export type UpdateStoreEdgesMutationResponse = {
+  __typename?: 'UpdateStoreEdgesMutationResponse'
+  info: UpdateInfo
+  storeEdges: Array<StoreEdge>
+}
+
+export type UpdateStoreGraphsMutationResponse = {
+  __typename?: 'UpdateStoreGraphsMutationResponse'
+  info: UpdateInfo
+  storeGraphs: Array<StoreGraph>
+}
+
+export type UpdateStoresMutationResponse = {
+  __typename?: 'UpdateStoresMutationResponse'
+  info: UpdateInfo
+  stores: Array<Store>
+}
+
+export type UpdateTagEdgesMutationResponse = {
+  __typename?: "UpdateTagEdgesMutationResponse";
   info: UpdateInfo;
   tagGraphOptions: Array<TagGraphOptions>;
 };
@@ -8248,6 +8420,12 @@ export type EnumTypeAllowedValuesDisconnectFieldInput = {
   disconnect?: InputMaybe<EnumTypeValueDisconnectInput>;
 };
 
+export type EnumTypeAllowedValuesEdgeAggregationWhereInput = {
+  AND?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
+  OR?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+}
+
 export type EnumTypeAllowedValuesFieldInput = {
   create?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>;
   connect?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>;
@@ -9155,6 +9333,33 @@ export type ImportDataMutationResponseWhere = {
   result?: InputMaybe<Scalars["Boolean"]>;
   result_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
+
+export type ImportDataMutationResponseCreateInput = {
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseOptions = {
+  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ImportDataMutationResponseSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
+export type ImportDataMutationResponseSort = {
+  result?: InputMaybe<SortDirection>
+}
+
+export type ImportDataMutationResponseUpdateInput = {
+  result?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ImportDataMutationResponseWhere = {
+  OR?: InputMaybe<Array<ImportDataMutationResponseWhere>>
+  AND?: InputMaybe<Array<ImportDataMutationResponseWhere>>
+  result?: InputMaybe<Scalars['Boolean']>
+  result_NOT?: InputMaybe<Scalars['Boolean']>
+}
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -15281,6 +15486,308 @@ export declare class ComponentModel {
     context?: any;
     rootValue?: any;
   }): Promise<ComponentAggregateSelection>;
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface StateFieldAggregateSelectionInput {
+  count?: boolean
+  name?: StringAggregateInputNonNullable
+  type?: StringAggregateInputNonNullable
+  defaultValue?: StringAggregateInputNonNullable
+}
+
+export declare class StateFieldModel {
+  public find(args?: {
+    where?: StateFieldWhere
+
+    options?: StateFieldOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<StateField>>
+
+  public create(args: {
+    input: Array<StateFieldCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateStateFieldsMutationResponse>
+
+  public update(args: {
+    where?: StateFieldWhere
+    update?: StateFieldUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateStateFieldsMutationResponse>
+
+  public delete(args: {
+    where?: StateFieldWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: StateFieldWhere
+
+    aggregate: StateFieldAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<StateFieldAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface StoreAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
+}
+
+export declare class StoreModel {
+  public find(args?: {
+    where?: StoreWhere
+
+    options?: StoreOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<Store>>
+
+  public create(args: {
+    input: Array<StoreCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateStoresMutationResponse>
+
+  public update(args: {
+    where?: StoreWhere
+    update?: StoreUpdateInput
+    connect?: StoreConnectInput
+    disconnect?: StoreDisconnectInput
+    create?: StoreCreateInput
+    connectOrCreate?: StoreConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateStoresMutationResponse>
+
+  public delete(args: {
+    where?: StoreWhere
+    delete?: StoreDeleteInput
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: StoreWhere
+
+    aggregate: StoreAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<StoreAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface StoreEdgeAggregateSelectionInput {
+  count?: boolean
+  source?: IdAggregateInputNonNullable
+  target?: IdAggregateInputNonNullable
+}
+
+export declare class StoreEdgeModel {
+  public find(args?: {
+    where?: StoreEdgeWhere
+
+    options?: StoreEdgeOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<StoreEdge>>
+
+  public create(args: {
+    input: Array<StoreEdgeCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateStoreEdgesMutationResponse>
+
+  public update(args: {
+    where?: StoreEdgeWhere
+    update?: StoreEdgeUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateStoreEdgesMutationResponse>
+
+  public delete(args: {
+    where?: StoreEdgeWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: StoreEdgeWhere
+
+    aggregate: StoreEdgeAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<StoreEdgeAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface StoreGraphAggregateSelectionInput {
+  count?: boolean
+}
+
+export declare class StoreGraphModel {
+  public find(args?: {
+    where?: StoreGraphWhere
+
+    options?: StoreGraphOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<StoreGraph>>
+
+  public create(args: {
+    input: Array<StoreGraphCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateStoreGraphsMutationResponse>
+
+  public update(args: {
+    where?: StoreGraphWhere
+    update?: StoreGraphUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateStoreGraphsMutationResponse>
+
+  public delete(args: {
+    where?: StoreGraphWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: StoreGraphWhere
+
+    aggregate: StoreGraphAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<StoreGraphAggregateSelection>
 }
 
 export interface ModelMap {

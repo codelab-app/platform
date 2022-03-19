@@ -2,6 +2,7 @@ import {
   ApiOutlined,
   AppstoreOutlined,
   BuildOutlined,
+  ClusterOutlined,
   DeploymentUnitOutlined,
   FunctionOutlined,
   TagOutlined,
@@ -54,5 +55,8 @@ export const commonSidebarItems = [
     key={PageType.ComponentList}
   >
     <Link href={PageType.ComponentList}>Components</Link>
+  </Menu.Item>,
+  <Menu.Item icon={<ClusterOutlined title="Stores" />} key={PageType.Store}>
+    <Link href={PageType.Store}>Stores</Link>
   </Menu.Item>,
 ]

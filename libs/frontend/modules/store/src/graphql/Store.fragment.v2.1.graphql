@@ -1,0 +1,11 @@
+fragment Store on Store {
+  __typename
+  id
+  name
+  state {
+    name
+    type
+    defaultValue
+  }
+  actions
+}

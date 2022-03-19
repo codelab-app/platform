@@ -1,0 +1,32 @@
+mutation CreateStores($input: [StoreCreateInput!]!) {
+  createStores(input: $input) {
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+    stores {
+      ...Store
+    }
+  }
+}
+
+mutation DeleteStores($where: StoreWhere!) {
+  deleteStores(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+
+query GetStores($where: StoreWhere, $options: StoreOptions) {
+  stores(where: $where, options: $options) {
+    ...Store
+  }
+}
+
+mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
+  updateStores(update: $update, where: $where) {
+    stores {
+      ...Store
+    }
+  }
+}
