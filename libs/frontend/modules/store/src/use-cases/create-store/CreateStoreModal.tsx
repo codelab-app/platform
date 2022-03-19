@@ -3,9 +3,10 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { StateStore } from '../../store'
 import { CreateStoreInput, createStoreSchema } from './createStoreSchema'
+import { DisplayIfParent } from './DisplayIfParent'
 
 export interface CreateStoreModalProps {
   stateStore: StateStore
@@ -36,7 +37,11 @@ export const CreateStoreModal = observer<CreateStoreModalProps>(
           onSubmitSuccess={closeModal}
           schema={createStoreSchema}
         >
-          <AutoFields />
+          <AutoFields omitFields={['parentStore']} />
+          <AutoField name="parentStore.id" />
+          <DisplayIfParent>
+            <AutoField name="parentStore.key" />
+          </DisplayIfParent>
         </ModalForm.Form>
       </ModalForm.Modal>
     )

@@ -8,4 +8,28 @@ fragment Store on Store {
     defaultValue
   }
   actions
+  parentStore {
+    id
+    name
+  }
+  parentStoreConnection {
+    edges {
+      storeKey
+    }
+  }
+}
+
+fragment StoreEdge on StoreEdge {
+  source
+  target
+  storeKey
+}
+
+fragment StoreGraph on StoreGraph {
+  edges {
+    ...StoreEdge
+  }
+  vertices {
+    ...Store
+  }
 }

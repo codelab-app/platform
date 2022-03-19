@@ -2,8 +2,9 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { StateStore } from '../../store'
+import { DisplayIfParent } from '../create-store/DisplayIfParent'
 import { UpdateStoreInput, updateStoreSchema } from './updateStoreSchema'
 
 export interface UpdateStoreModalProps {
@@ -27,8 +28,14 @@ export const UpdateStoreModal = observer<UpdateStoreModalProps>(
       title: 'Error while updating store',
     })
 
+    const selectedStore = stateStore.updateModal.store
+
     const model = {
-      name: stateStore.updateModal.store?.name,
+      name: selectedStore?.name,
+      parentStore: {
+        id: selectedStore?.parentStore?.id,
+        key: selectedStore?.parentStoreKey,
+      },
     }
 
     return (
@@ -44,7 +51,11 @@ export const UpdateStoreModal = observer<UpdateStoreModalProps>(
           onSubmitSuccess={closeModal}
           schema={updateStoreSchema}
         >
-          <AutoFields />
+          <AutoFields omitFields={['parentStore']} />
+          <AutoField name="parentStore.id" />
+          <DisplayIfParent>
+            <AutoField name="parentStore.key" />
+          </DisplayIfParent>
         </ModalForm.Form>
       </ModalForm.Modal>
     )

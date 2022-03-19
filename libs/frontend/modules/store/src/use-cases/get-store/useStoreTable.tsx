@@ -5,14 +5,15 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { StateStore, StoreModel, storeRef } from '../../store'
-import { ActionColumn, StoreCellData } from './columns'
+import { DataNode } from 'antd/lib/tree'
+import { StateStore, storeRef } from '../../store'
+import { ActionColumn } from './columns'
 
 export const useStoreTable = (stateStore: StateStore) => {
-  const columns: Array<TableColumnProps<StoreModel>> = [
+  const columns: Array<TableColumnProps<DataNode>> = [
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'title',
       key: 'name',
       onHeaderCell: headerCellProps,
       ...useColumnSearchProps('name'),
@@ -28,10 +29,12 @@ export const useStoreTable = (stateStore: StateStore) => {
     },
   ]
 
-  const rowSelection: TableRowSelection<StoreCellData> = {
+  const rowSelection: TableRowSelection<DataNode> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<StoreCellData>) => {
-      stateStore.setSelectedStores(selectedRows.map((a) => storeRef(a.id)))
+    onChange: (_: Array<React.Key>, selectedRows: Array<DataNode>) => {
+      stateStore.setSelectedStores(
+        selectedRows.map((a) => storeRef(a.key as string)),
+      )
     },
   }
 

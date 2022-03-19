@@ -1,6 +1,6 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { storeGraph } from './storeGraph'
+import { storesGraphs } from './storesGraphs'
 
 export const storeQueryResolvers: IResolvers = {
-  storeGraph,
+  storesGraphs,
 }

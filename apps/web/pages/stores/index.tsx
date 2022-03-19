@@ -49,7 +49,7 @@ const Header = observer(() => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <CreateStoreButton key="create" storeStore={store.stateStore} />
+      <CreateStoreButton key="create" stateStore={store.stateStore} />
     </div>,
   ]
 

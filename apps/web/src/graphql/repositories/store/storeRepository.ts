@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/internal/Observable'
 import { map } from 'rxjs/operators'
 import { StoreEdge } from '../../ogm-types.gen'
 import deleteStoresSubGraphCypher from './deleteStoresSubGraph.cypher'
-import getStoreGraphCypher from './getStoreGraph.cypher'
+import getStoresGraphsCypher from './getStoresGraphs.cypher'
 
-export type GetStoreGraphResponse = {
+export type GetStoresGraphsResponse = {
   edges: Array<StoreEdge>
 }
 
@@ -17,12 +17,11 @@ export type DeleteStoresResponse = {
 }
 
 export const storeRepository = {
-  getStoreGraphEdges: (
+  getStoresGraphsEdges: (
     txn: RxTransaction,
-    rootId: string,
-  ): Observable<GetStoreGraphResponse> =>
+  ): Observable<GetStoresGraphsResponse> =>
     txn
-      .run(getStoreGraphCypher, { rootId })
+      .run(getStoresGraphsCypher)
       .records()
       .pipe(
         map((response) => ({

@@ -498,6 +498,15 @@ export type QueryStoreGraphsAggregateArgs = {
   where?: InputMaybe<StoreGraphWhere>
 }
 
+export type QueryDeleteInfosArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
+  options?: InputMaybe<DeleteInfoOptions>
+}
+
+export type QueryDeleteInfosAggregateArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
+}
+
 export type QueryIsTypeDescendantOfArgs = {
   parentTypeId: Scalars["ID"];
   descendantTypeId: Scalars["ID"];
@@ -662,6 +671,11 @@ export type MutationDeleteElementsSubgraphArgs = {
   delete?: InputMaybe<ElementDeleteInput>;
   where?: InputMaybe<ElementWhere>;
 };
+
+export type MutationDeleteStoresSubgraphArgs = {
+  delete?: InputMaybe<StoreDeleteInput>
+  where?: InputMaybe<StoreWhere>
+}
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>;
@@ -1345,6 +1359,19 @@ export type MutationDeleteStoreGraphsArgs = {
 export type MutationUpdateStoreGraphsArgs = {
   where?: InputMaybe<StoreGraphWhere>
   update?: InputMaybe<StoreGraphUpdateInput>
+}
+
+export type MutationCreateDeleteInfosArgs = {
+  input: Array<DeleteInfoCreateInput>
+}
+
+export type MutationDeleteDeleteInfosArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
+}
+
+export type MutationUpdateDeleteInfosArgs = {
+  where?: InputMaybe<DeleteInfoWhere>
+  update?: InputMaybe<DeleteInfoUpdateInput>
 }
 
 export enum AtomType {
@@ -2404,6 +2431,12 @@ export type CreateDeleteFieldResponsesMutationResponse = {
   deleteFieldResponses: Array<DeleteFieldResponse>;
 };
 
+export type CreateDeleteInfosMutationResponse = {
+  __typename?: 'CreateDeleteInfosMutationResponse'
+  info: CreateInfo
+  deleteInfos: Array<DeleteInfo>
+}
+
 export type CreateDuplicateElementMutationResponsesMutationResponse = {
   __typename?: "CreateDuplicateElementMutationResponsesMutationResponse";
   info: CreateInfo;
@@ -2660,6 +2693,14 @@ export type DeleteInfo = {
   nodesDeleted: Scalars["Int"];
   relationshipsDeleted: Scalars["Int"];
 };
+
+export type DeleteInfoAggregateSelection = {
+  __typename?: 'DeleteInfoAggregateSelection'
+  count: Scalars['Int']
+  bookmark: StringAggregateSelectionNullable
+  nodesDeleted: IntAggregateSelectionNonNullable
+  relationshipsDeleted: IntAggregateSelectionNonNullable
+}
 
 export type DuplicateElementMutationResponse = {
   __typename?: "DuplicateElementMutationResponse";
@@ -4715,6 +4756,12 @@ export type UpdateDeleteFieldResponsesMutationResponse = {
   info: UpdateInfo;
   deleteFieldResponses: Array<DeleteFieldResponse>;
 };
+
+export type UpdateDeleteInfosMutationResponse = {
+  __typename?: 'UpdateDeleteInfosMutationResponse'
+  info: UpdateInfo
+  deleteInfos: Array<DeleteInfo>
+}
 
 export type UpdateDuplicateElementMutationResponsesMutationResponse = {
   __typename?: "UpdateDuplicateElementMutationResponsesMutationResponse";
@@ -6795,6 +6842,63 @@ export type DeleteFieldResponseWhere = {
   deletedEdgesCount_GT?: InputMaybe<Scalars["Int"]>;
   deletedEdgesCount_GTE?: InputMaybe<Scalars["Int"]>;
 };
+
+export type DeleteInfoCreateInput = {
+  bookmark?: InputMaybe<Scalars['String']>
+  nodesDeleted: Scalars['Int']
+  relationshipsDeleted: Scalars['Int']
+}
+
+export type DeleteInfoOptions = {
+  /** Specify one or more DeleteInfoSort objects to sort DeleteInfos by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<DeleteInfoSort>>
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+/** Fields to sort DeleteInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteInfoSort object. */
+export type DeleteInfoSort = {
+  bookmark?: InputMaybe<SortDirection>
+  nodesDeleted?: InputMaybe<SortDirection>
+  relationshipsDeleted?: InputMaybe<SortDirection>
+}
+
+export type DeleteInfoUpdateInput = {
+  bookmark?: InputMaybe<Scalars['String']>
+  nodesDeleted?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted?: InputMaybe<Scalars['Int']>
+}
+
+export type DeleteInfoWhere = {
+  OR?: InputMaybe<Array<DeleteInfoWhere>>
+  AND?: InputMaybe<Array<DeleteInfoWhere>>
+  bookmark?: InputMaybe<Scalars['String']>
+  bookmark_NOT?: InputMaybe<Scalars['String']>
+  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  nodesDeleted?: InputMaybe<Scalars['Int']>
+  nodesDeleted_NOT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  nodesDeleted_LT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_LTE?: InputMaybe<Scalars['Int']>
+  nodesDeleted_GT?: InputMaybe<Scalars['Int']>
+  nodesDeleted_GTE?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_NOT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
+  relationshipsDeleted_LT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_LTE?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_GT?: InputMaybe<Scalars['Int']>
+  relationshipsDeleted_GTE?: InputMaybe<Scalars['Int']>
+}
 
 export type DuplicateElementInput = {
   elementId: Scalars["String"];
@@ -15670,6 +15774,7 @@ export interface StoreEdgeAggregateSelectionInput {
   count?: boolean
   source?: IdAggregateInputNonNullable
   target?: IdAggregateInputNonNullable
+  storeKey?: StringAggregateInputNonNullable
 }
 
 export declare class StoreEdgeModel {
@@ -15788,6 +15893,82 @@ export declare class StoreGraphModel {
     context?: any
     rootValue?: any
   }): Promise<StoreGraphAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface DeleteInfoAggregateSelectionInput {
+  count?: boolean
+  bookmark?: StringAggregateInputNullable
+  nodesDeleted?: IntAggregateInputNonNullable
+  relationshipsDeleted?: IntAggregateInputNonNullable
+}
+
+export declare class DeleteInfoModel {
+  public find(args?: {
+    where?: DeleteInfoWhere
+
+    options?: DeleteInfoOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<DeleteInfo>>
+
+  public create(args: {
+    input: Array<DeleteInfoCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateDeleteInfosMutationResponse>
+
+  public update(args: {
+    where?: DeleteInfoWhere
+    update?: DeleteInfoUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateDeleteInfosMutationResponse>
+
+  public delete(args: {
+    where?: DeleteInfoWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: DeleteInfoWhere
+
+    aggregate: DeleteInfoAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<DeleteInfoAggregateSelection>
 }
 
 export interface ModelMap {

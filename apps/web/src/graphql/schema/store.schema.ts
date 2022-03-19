@@ -13,7 +13,7 @@ export const storeSchema = gql`
     state: [StateField!]! @relationship(type: "FIELD_OF_STORE", direction: OUT)
     actions: [String!]
 
-    parent: Store
+    parentStore: Store
       @relationship(
         type: "PARENT_OF_STORE"
         properties: "ParentOfStore"
@@ -35,6 +35,7 @@ export const storeSchema = gql`
   type StoreEdge {
     source: ID!
     target: ID!
+    storeKey: String!
   }
 
   type StoreGraph @exclude {
@@ -42,11 +43,20 @@ export const storeSchema = gql`
     edges: [StoreEdge!]!
   }
 
-  input StoreGraphInput {
-    rootId: String!
+  type Query {
+    storesGraphs: StoreGraph!
   }
 
-  type Query {
-    storeGraph(input: StoreGraphInput!): StoreGraph!
+  type DeleteInfo @exclude {
+    bookmark: String
+    nodesDeleted: Int!
+    relationshipsDeleted: Int!
+  }
+
+  type Mutation {
+    deleteStoresSubgraph(
+      delete: StoreDeleteInput
+      where: StoreWhere
+    ): DeleteInfo!
   }
 `

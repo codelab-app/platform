@@ -9,8 +9,28 @@ export type StoreFragment = {
   name: string
   actions?: Array<string> | null
   state: Array<{ name: string; type: string; defaultValue: string }>
+  parentStore?: { id: string; name: string } | null
+  parentStoreConnection: { edges: Array<{ storeKey: string }> }
 }
 
+export type StoreEdgeFragment = {
+  source: string
+  target: string
+  storeKey: string
+}
+
+export type StoreGraphFragment = {
+  edges: Array<StoreEdgeFragment>
+  vertices: Array<StoreFragment>
+}
+
+export const StoreEdgeFragmentDoc = gql`
+  fragment StoreEdge on StoreEdge {
+    source
+    target
+    storeKey
+  }
+`
 export const StoreFragmentDoc = gql`
   fragment Store on Store {
     __typename
@@ -22,6 +42,25 @@ export const StoreFragmentDoc = gql`
       defaultValue
     }
     actions
+    parentStore {
+      id
+      name
+    }
+    parentStoreConnection {
+      edges {
+        storeKey
+      }
+    }
+  }
+`
+export const StoreGraphFragmentDoc = gql`
+  fragment StoreGraph on StoreGraph {
+    edges {
+      ...StoreEdge
+    }
+    vertices {
+      ...Store
+    }
   }
 `
 

@@ -37,6 +37,7 @@ export const withRxTransaction = <
     info,
   ) => {
     const session = driver.rxSession()
+    const transaction = innerResolver(input, req)
 
     return session
       .writeTransaction(rxTxnResolver(parent, args, context, info))
