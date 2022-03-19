@@ -14,6 +14,7 @@ import {
   objectMap,
   prop,
   Ref,
+  rootRef,
   transaction,
 } from 'mobx-keystone'
 import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
