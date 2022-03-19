@@ -1,23 +1,25 @@
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import tw from 'twin.macro'
-import { WithComponentService } from '../../store'
+import { ComponentStore } from '../../store/ComponentStore'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { ComponentColumnData } from './columns/types'
 
-export type GetComponentsTableProps = WithComponentService
+export interface GetComponentsTableProps {
+  componentStore: ComponentStore
+}
 
 export const GetComponentsTable = observer<GetComponentsTableProps>(
-  ({ componentService }) => {
-    const [getComponents, { isLoading }] = useLoadingState(() =>
-      componentService.getAll(),
+  ({ componentStore }) => {
+    const [getComponents, { isLoading }] = useAsyncState(() =>
+      componentStore.getAll(),
     )
 
-    const components = componentService.componentsList
+    const components = componentStore.componentsList
     useEffect(() => {
       getComponents()
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,10 +45,7 @@ export const GetComponentsTable = observer<GetComponentsTableProps>(
         onHeaderCell: headerCellProps,
         width: 100,
         render: (_, component) => (
-          <ActionColumn
-            component={component}
-            componentStore={componentService}
-          />
+          <ActionColumn component={component} componentStore={componentStore} />
         ),
       },
     ]

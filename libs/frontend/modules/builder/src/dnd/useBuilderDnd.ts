@@ -1,4 +1,4 @@
-import { elementRef, ElementService } from '@codelab/frontend/modules/element'
+import { ElementStore } from '@codelab/frontend/modules/element'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
@@ -12,10 +12,11 @@ export interface UseBuilderDnd {
   onDragEnd: (data: DragEndEvent) => void
 }
 
-export const useBuilderDnd = (
-  builderService: BuilderService,
-  elementService: ElementService,
-): UseBuilderDnd => {
+export const useBuilderDnd = (elementStore: ElementStore): UseBuilderDnd => {
+  const { setCurrentlyDragging } = useBuilderDispatch()
+  const state = useSelector((s) => s.builder.currentlyDragging)
+  const { setSelectedElement } = useBuilderSelectedElement()
+
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
@@ -45,11 +46,12 @@ export const useBuilderDnd = (
           ...(overData?.createElementInput ?? {}),
         }
 
-        const el = await elementService.createElement(createElementInput)
-        builderService.setSelectedElement(elementRef(el))
+        elementStore.createElement(createElementInput).then((el: any) => {
+          setSelectedElement(el.data?.createElement.id)
+        })
       }
     },
-    [builderService, elementService],
+    [elementStore, setCurrentlyDragging, setSelectedElement],
   )
 
   return { onDragStart, onDragEnd }

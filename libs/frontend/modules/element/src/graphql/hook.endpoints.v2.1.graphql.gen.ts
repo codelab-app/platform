@@ -6,7 +6,7 @@ import {
 } from './Element.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
+import { gql } from 'graphql-request'
 import {
   HookFragmentDoc,
   HookPropFragmentDoc,
@@ -25,7 +25,7 @@ export type DeleteHooksMutationVariables = Types.Exact<{
 
 export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } }
 
-export const CreateHooksDocument = gql`
+export const CreateHooksGql = gql`
   mutation CreateHooks($input: [HookCreateInput!]!) {
     createHooks(input: $input) {
       hooks {
@@ -36,7 +36,7 @@ export const CreateHooksDocument = gql`
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
 `
-export const DeleteHooksDocument = gql`
+export const DeleteHooksGql = gql`
   mutation DeleteHooks($where: HookWhere!) {
     deleteHooks(where: $where) {
       nodesDeleted
@@ -67,7 +67,7 @@ export function getSdk(
     ): Promise<CreateHooksMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateHooksMutation>(CreateHooksDocument, variables, {
+          client.request<CreateHooksMutation>(CreateHooksGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -81,7 +81,7 @@ export function getSdk(
     ): Promise<DeleteHooksMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteHooksMutation>(DeleteHooksDocument, variables, {
+          client.request<DeleteHooksMutation>(DeleteHooksGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

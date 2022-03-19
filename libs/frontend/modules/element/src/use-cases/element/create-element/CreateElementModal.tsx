@@ -4,43 +4,45 @@ import {
   SelectComponent,
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
+import { Form, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithElementService } from '../../../store'
+import { ElementStore } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { CreateElementInput, createElementSchema } from './createElementSchema'
 
-export type CreateElementModalProps = WithElementService
+export interface CreateElementModalProps {
+  elementStore: ElementStore
+}
 
 export const CreateElementModal = observer(
-  ({ elementService }: CreateElementModalProps) => {
+  ({ elementStore }: CreateElementModalProps) => {
     const onSubmit = (submitData: CreateElementInput) =>
-      elementService.createElement(submitData)
+      elementStore.createElement(submitData)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating element',
     })
 
-    const parentElement = elementService.createModal.parentElement
+    const parentElement = elementStore.createModal.parentElement
 
     const model = {
       parentElementId: parentElement?.id || undefined,
-      order: parentElement ? parentElement?.current.lastChildOrder + 1 : 1,
+      order: parentElement ? parentElement.lastChildOrder + 1 : 1,
     }
 
-    const closeModal = () => elementService.createModal.close()
+    const closeModal = () => elementStore.createModal.close()
 
     return (
       <ModalForm.Modal
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create element</span>}
-        visible={elementService.createModal.isOpen}
+        visible={elementStore.createModal.isOpen}
       >
-        <ModalForm.Form<CreateElementInput>
+        <Form<CreateElementInput>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -62,9 +64,9 @@ export const CreateElementModal = observer(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={elementService.elementTree.elementsList
-                  .filter((e) => !e.instanceOfComponent && !e.component)
-                  .map(mapElementOption)}
+                allElementOptions={elementStore.elementTree.elementsList.map(
+                  mapElementOption,
+                )}
               />
             ))}
             name="parentElementId"
@@ -72,7 +74,7 @@ export const CreateElementModal = observer(
           <AutoField name="order" />
           <AutoField component={SelectAtom} name="atomId" />
           <AutoField component={SelectComponent} name="instanceOfComponentId" />
-        </ModalForm.Form>
+        </Form>
       </ModalForm.Modal>
     )
   },

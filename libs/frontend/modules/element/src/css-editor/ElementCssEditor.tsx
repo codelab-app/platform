@@ -6,19 +6,16 @@ import {
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Element, WithElementService } from '../store'
+import { ElementModel, ElementStore } from '../store'
 
-export interface ElementCssEditorInternalProps extends WithElementService {
-  element: Element
+export interface ElementCssEditorInternalProps {
+  element: ElementModel
+  elementStore: ElementStore
   trackPromises?: UseTrackLoadingPromises
 }
 
 export const ElementCssEditor = observer(
-  ({
-    element,
-    trackPromises,
-    elementService,
-  }: ElementCssEditorInternalProps) => {
+  ({ element, trackPromises, elementStore }: ElementCssEditorInternalProps) => {
     const { trackPromise } = trackPromises ?? {}
     const [cssString, setCssString] = useState(element.css || '')
     // Keep the css string value in a ref so we can access it when unmounting the component
@@ -27,11 +24,11 @@ export const ElementCssEditor = observer(
 
     const updateCss = useCallback(
       (newCss: string) => {
-        const promise = elementService.updateElementCss(element, newCss)
+        const promise = elementStore.updateElementCss(element, newCss)
 
         return trackPromise?.(promise) ?? promise
       },
-      [element, elementService, trackPromise],
+      [element, elementStore, trackPromise],
     )
 
     useEffect(() => {

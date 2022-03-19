@@ -1,7 +1,7 @@
-import { Element } from '../store/Element'
+import { ElementModel } from '../store/ElementModel'
 
-export const mapElementOption = (e: Element) => ({
+export const mapElementOption = (e: ElementModel) => ({
   value: e.id,
-  childrenIds: e.childrenSorted.map((c) => c.id),
+  childrenIds: e.children.map((c) => c.id),
   label: e.label,
 })

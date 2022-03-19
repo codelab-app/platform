@@ -5,17 +5,20 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { WithElementService } from '../../../store'
+import { ElementModel, ElementStore } from '../../../store'
 import { deleteElementSchema } from './deleteElementSchema'
 
-export type DeleteElementModalProps = WithElementService
+export interface DeleteElementModalProps {
+  element: ElementModel
+  elementStore: ElementStore
+}
 
 export const DeleteElementModal = observer<DeleteElementModalProps>(
-  ({ elementService }) => {
-    const closeModal = () => elementService.deleteModal.close()
+  ({ element, elementStore }) => {
+    const closeModal = () => elementStore.deleteModal.close()
 
     const onSubmit = async ({ elementId }: DeleteElementInput) => {
-      await elementService.deleteElementsSubgraph(elementId)
+      await elementStore.deleteElementsSubgraph(elementId)
       closeModal()
     }
 
@@ -23,19 +26,19 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
       title: 'Error while deleting element',
     })
 
-    if (!elementService.deleteModal.element) {
+    if (!elementStore.deleteModal.element) {
       return null
     }
 
-    const model = { elementId: elementService.deleteModal.element.id }
-    const deletedElement = elementService.deleteModal.element
+    const model = { elementId: elementStore.deleteModal.element.id }
+    const deletedElement = elementStore.deleteModal.element
 
     return (
       <ModalForm.Modal
         okText="Delete"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Delete element</span>}
-        visible={elementService.deleteModal.isOpen}
+        visible={elementStore.deleteModal.isOpen}
       >
         <ModalForm.Form<DeleteElementInput>
           model={model}

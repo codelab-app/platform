@@ -1,3 +1,4 @@
+import { builderSlice } from '@codelab/frontend/modules/builder'
 import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
@@ -11,6 +12,7 @@ export const makeStore = () => {
       [userEndpoints.reducerPath]: userEndpoints.reducer,
 
       // Slices:
+      [builderSlice.name]: builderSlice.reducer,
       [lambdaSlice.name]: lambdaSlice.reducer,
       [userSlice.name]: userSlice.reducer,
     }),

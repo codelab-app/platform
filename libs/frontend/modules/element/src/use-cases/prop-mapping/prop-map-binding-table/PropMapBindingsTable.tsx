@@ -7,70 +7,64 @@ import { headerCellProps } from '@codelab/frontend/view/style'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
-import { propMapBindingRef } from '../../../store/propMapBindingRef'
 
 export interface PropMapBindingsTableProps extends WithElementService {
   element: Element
 }
 
-interface CellData {
-  sourceKey: string
-  targetElementName: string
-  targetKey: string
-  id: string
-}
+export const PropMapBindingsTable = ({
+  tree,
+  element,
+}: PropMapBindingsTableProps) => {
+  const columns: Array<TableColumnProps<IPropMapBinding>> = [
+    {
+      title: 'Source key',
+      dataIndex: 'sourceKey',
+      key: 'sourceKey',
+      onHeaderCell: headerCellProps,
+      ...useColumnSearchProps('sourceKey'),
+    },
+    {
+      title: 'Target Element',
+      dataIndex: 'targetElement',
+      key: 'targetElement',
+      onHeaderCell: headerCellProps,
+      render: (value) => (value?.id ? tree.getVertex(value?.id)?.name : ''),
+    },
+    {
+      title: 'Target key',
+      dataIndex: 'targetKey',
+      key: 'targetKey',
+      onHeaderCell: headerCellProps,
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      onHeaderCell: headerCellProps,
+      width: 100,
+      render: (text, record) => (
+        <Space size="middle">
+          <ListItemEditButton
+          // onClick={() =>
+          //   openUpdateModal({
+          //     updateId: record.id,
+          //     entity: record,
+          //   })
+          // }
+          />
 
-export const PropMapBindingsTable = observer(
-  ({ element, elementService }: PropMapBindingsTableProps) => {
-    const columns: Array<TableColumnProps<CellData>> = [
-      {
-        title: 'Source key',
-        dataIndex: 'sourceKey',
-        key: 'sourceKey',
-        onHeaderCell: headerCellProps,
-        ...useColumnSearchProps('sourceKey'),
-      },
-      {
-        title: 'Target Element',
-        dataIndex: 'targetElementName',
-        key: 'targetElementName',
-        onHeaderCell: headerCellProps,
-      },
-      {
-        title: 'Target key',
-        dataIndex: 'targetKey',
-        key: 'targetKey',
-        onHeaderCell: headerCellProps,
-      },
-      {
-        title: 'Action',
-        key: 'action',
-        onHeaderCell: headerCellProps,
-        width: 100,
-        render: (text, record) => (
-          <Space size="middle">
-            <ListItemEditButton
-              onClick={() =>
-                elementService.updatePropMapBindingModal.open({
-                  element: elementRef(element),
-                  propMapBinding: propMapBindingRef(record.id),
-                })
-              }
-            />
-
-            <ListItemDeleteButton
-              onClick={() =>
-                elementService.deletePropMapBindingModal.open({
-                  element: elementRef(element),
-                  propMapBinding: propMapBindingRef(record.id),
-                })
-              }
-            />
-          </Space>
-        ),
-      },
-    ]
+          <ListItemDeleteButton
+          // onClick={() =>
+          //   openDeleteModal({
+          //     deleteIds: [record.id],
+          //     entity: record,
+          //   })
+          // }
+          />
+        </Space>
+      ),
+    },
+  ]
 
     const dataSource: Array<CellData> = Array.from(
       element.propMapBindings.values(),

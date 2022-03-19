@@ -2,10 +2,19 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
 
-export interface CreatePropMapBindingButtonProps extends WithElementService {
-  element: Element
+export const CreatePropMapBindingButton = () => {
+  // const { openCreateModal } = usePropMapBindingDispatch()
+
+  return (
+    <Button
+      icon={<PlusOutlined />}
+      // onClick={() => openCreateModal()}
+      type="primary"
+    >
+      Add Map Binding
+    </Button>
+  )
 }
 
 export const CreatePropMapBindingButton =

@@ -3,15 +3,17 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { WithComponentService } from '../../store'
+import { ComponentStore } from '../../store/ComponentStore'
 import { updateComponentSchema } from './createComponentSchema'
 import { UpdateComponentInput } from './types'
 
-export type UpdateComponentModalProps = WithComponentService
+export interface UpdateComponentModalProps {
+  componentStore: ComponentStore
+}
 
 export const UpdateComponentModal = observer<UpdateComponentModalProps>(
-  ({ componentService }) => {
-    const updatedComponent = componentService.updateModal.component
+  ({ componentStore }) => {
+    const updatedComponent = componentStore.updateModal.component
 
     if (!updatedComponent) {
       return null
@@ -22,18 +24,18 @@ export const UpdateComponentModal = observer<UpdateComponentModalProps>(
         throw new Error('componentStore.updateModal.component is null')
       }
 
-      return componentService.update(updatedComponent, input)
+      return componentStore.update(updatedComponent, input)
     }
 
     const model = { name: updatedComponent.name }
-    const closeModal = () => componentService.updateModal.close()
+    const closeModal = () => componentStore.updateModal.close()
 
     return (
       <ModalForm.Modal
         okText="Update Component"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Update component</span>}
-        visible={componentService.updateModal.isOpen}
+        visible={componentStore.updateModal.isOpen}
       >
         <ModalForm.Form<UpdateComponentInput>
           model={model}

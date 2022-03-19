@@ -1,15 +1,16 @@
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
+import { ElementModel, elementRef, ElementStore } from '../../../store'
 
-interface DeleteElementProps extends WithElementService {
-  element: Element
+interface DeleteElementProps {
+  element: ElementModel
+  elementStore: ElementStore
 }
 
 export const DeleteElementButton = observer(
-  ({ elementService, element }: DeleteElementProps) => {
-    const onClick = () => elementService.deleteModal.open(elementRef(element))
+  ({ elementStore, element }: DeleteElementProps) => {
+    const onClick = () => elementStore.deleteModal.open(elementRef(element))
 
     return (
       <Button danger onClick={onClick}>

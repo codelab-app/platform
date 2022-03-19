@@ -20,11 +20,7 @@ export const RemoveHookFromElementButton = ({
   // const onClick = () => openDeleteModal({ deleteIds: [hookId], entity })
 
   return (
-    <ListItemDeleteButton
-      onClick={() => {
-        //
-      }}
-    >
+    <ListItemDeleteButton>
       {children || icon ? '' : 'Delete'}
     </ListItemDeleteButton>
   )

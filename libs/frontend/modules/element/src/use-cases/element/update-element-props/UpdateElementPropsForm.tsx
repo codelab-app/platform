@@ -7,24 +7,23 @@ import {
 import { PropsData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { Element, WithElementService } from '../../../store'
+import { ElementModel, ElementStore } from '../../../store'
 
-export interface UpdateElementPropsFormProps
-  extends WithTypeService,
-    WithElementService {
-  element: Element
+export interface UpdateElementPropsFormProps extends WithTypeService {
+  element: ElementModel
+  elementStore: ElementStore
   trackPromises?: UseTrackLoadingPromises
 }
 
 export const UpdateElementPropsForm = observer(
   ({
-    elementService,
+    elementStore,
     element,
     trackPromises,
     typeService,
   }: UpdateElementPropsFormProps) => {
     const { trackPromise } = trackPromises ?? {}
-    const initialPropsRef = useRef(element?.props?.propsData ?? {}) // cache it to not confuse the user when auto-saving
+    const initialPropsRef = useRef(element?.props?.data ?? {}) // cache it to not confuse the user when auto-saving
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
       useLoadingState((_id: string) =>
@@ -40,7 +39,7 @@ export const UpdateElementPropsForm = observer(
     }, [getInterfaceType, apiId])
 
     const onSubmit = (data: PropsData) => {
-      const promise = elementService.updateElementProps(element, data)
+      const promise = elementStore.updateElementProps(element, data)
 
       return trackPromise?.(promise) ?? promise
     }

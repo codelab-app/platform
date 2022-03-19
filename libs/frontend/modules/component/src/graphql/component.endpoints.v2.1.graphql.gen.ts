@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { ComponentFragment } from './Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
+import { gql } from 'graphql-request'
 import { ComponentFragmentDoc } from './Component.fragment.v2.1.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
@@ -38,7 +38,7 @@ export type GetComponentsQueryVariables = Types.Exact<{
 
 export type GetComponentsQuery = { components: Array<ComponentFragment> }
 
-export const CreateComponentsDocument = gql`
+export const CreateComponentsGql = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
       components {
@@ -48,7 +48,7 @@ export const CreateComponentsDocument = gql`
   }
   ${ComponentFragmentDoc}
 `
-export const DeleteComponentsDocument = gql`
+export const DeleteComponentsGql = gql`
   mutation DeleteComponents(
     $where: ComponentWhere
     $delete: ComponentDeleteInput
@@ -58,7 +58,7 @@ export const DeleteComponentsDocument = gql`
     }
   }
 `
-export const UpdateComponentsDocument = gql`
+export const UpdateComponentsGql = gql`
   mutation UpdateComponents(
     $where: ComponentWhere
     $update: ComponentUpdateInput
@@ -71,7 +71,7 @@ export const UpdateComponentsDocument = gql`
   }
   ${ComponentFragmentDoc}
 `
-export const GetComponentsDocument = gql`
+export const GetComponentsGql = gql`
   query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
     components(options: $options, where: $where) {
       ...Component
@@ -104,7 +104,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateComponentsMutation>(
-            CreateComponentsDocument,
+            CreateComponentsGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -119,7 +119,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteComponentsMutation>(
-            DeleteComponentsDocument,
+            DeleteComponentsGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -134,7 +134,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateComponentsMutation>(
-            UpdateComponentsDocument,
+            UpdateComponentsGql,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -148,7 +148,7 @@ export function getSdk(
     ): Promise<GetComponentsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetComponentsQuery>(GetComponentsDocument, variables, {
+          client.request<GetComponentsQuery>(GetComponentsGql, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

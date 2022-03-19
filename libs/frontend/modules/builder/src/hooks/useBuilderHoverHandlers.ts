@@ -1,5 +1,4 @@
-import { elementRef, ElementTree } from '@codelab/frontend/modules/element'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { ElementStore } from '@codelab/frontend/modules/element'
 import { MouseEvent, useCallback } from 'react'
 import { BuilderService } from '../store'
 
@@ -7,10 +6,10 @@ import { BuilderService } from '../store'
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
  * them to the builder state for hovering elements
  */
-export const useBuilderHoverHandlers = (
-  builderService: BuilderService,
-  elementTree: Nullable<ElementTree>,
-) => {
+export const useBuilderHoverHandlers = (store: ElementStore) => {
+  const { hoverElement } = useBuilderDispatch()
+  const { currentlyDragging } = useBuilderDnd(store)
+
   const handleMouseOver = useCallback(
     (e: MouseEvent) => {
       if (builderService.currentDragData) {
@@ -37,13 +36,15 @@ export const useBuilderHoverHandlers = (
         return
       }
 
-      if (elementId) {
-        builderService.setHoveredElement(elementRef(elementId))
+      const element = store.elementTree.element(elementId)
+
+      if (element) {
+        hoverElement({ elementId })
       } else {
         builderService.setHoveredElement(null)
       }
     },
-    [builderService],
+    [currentlyDragging, hoverElement, store.elementTree],
   )
 
   const handleMouseLeave = useCallback(() => {

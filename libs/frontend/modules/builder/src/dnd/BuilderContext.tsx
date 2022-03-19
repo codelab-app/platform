@@ -1,5 +1,5 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { WithElementService } from '@codelab/frontend/modules/element'
+import { ElementStore } from '@codelab/frontend/modules/element'
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
@@ -9,23 +9,13 @@ import { WithBuilderService } from '../store/BuilderService'
 import { builderCollisionDetection } from './builderCollisionDetection'
 import { useBuilderDnd } from './useBuilderDnd'
 
-export interface BuilderContextProps
-  extends WithElementService,
-    WithBuilderService {}
-
-/**
- * Provides the DnD context for the builder
- */
+export interface BuilderContextProps {
+  elementStore: ElementStore
+}
 export const BuilderContext = observer(
-  ({
-    children,
-    elementService,
-    builderService,
-  }: PropsWithChildren<BuilderContextProps>) => {
-    const { onDragEnd, onDragStart } = useBuilderDnd(
-      builderService,
-      elementService,
-    )
+  ({ children, elementStore }: PropsWithChildren<BuilderContextProps>) => {
+    const { onDragEnd, onDragStart, currentlyDragging } =
+      useBuilderDnd(elementStore)
 
     return (
       <DndContext
@@ -47,9 +37,9 @@ export const BuilderContext = observer(
         {children}
 
         <DragOverlay dropAnimation={null}>
-          {builderService.currentDragData ? (
+          {currentlyDragging ? (
             <div css={tw`p-2 text-sm border-gray-200 border w-24`}>
-              {builderService.currentDragData.data.createElementInput.name}
+              {currentlyDragging.createElementInput.name}
             </div>
           ) : null}
         </DragOverlay>

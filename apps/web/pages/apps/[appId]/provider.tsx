@@ -87,40 +87,25 @@ AppProviderBuilder.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <BuilderContext
-      builderService={store.builderService}
-      elementService={store.providerElementService}
-    >
-      <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pages={store.pageService} />}
-        MainPane={observer(() => (
-          <MainPaneBuilder
-            atomService={store.atomService}
-            builderService={store.builderService}
-            componentService={store.componentService}
-            elementService={store.providerElementService}
-          />
-        ))}
-        MetaPane={observer(() => (
-          <MetaPaneBuilderPage
-            atomService={store.atomService}
-            builderService={store.builderService}
-            elementService={store.providerElementService}
-            typeService={store.typeService}
-          />
-        ))}
-        SidebarNavigation={observer((props) => (
-          <BuilderSidebarNavigation
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-            builderService={store.builderService}
-          />
-        ))}
-        builderService={store.builderService}
-        headerHeight={38}
-      >
-        {page.children}
-      </BuilderDashboardTemplate>
+    <BuilderContext elementStore={store.elementStore}>
+      <ElementGraphProvider elementId={app?.rootProviderElement?.id}>
+        <BuilderDashboardTemplate
+          Header={() => <PageDetailHeader pages={store.pageService} />}
+          MainPane={observer(() => (
+            <MainPaneBuilder atomService={store.atomService} />
+          ))}
+          MetaPane={observer(() => (
+            <MetaPaneBuilderPage
+              atomService={store.atomService}
+              typeService={store.typeService}
+            />
+          ))}
+          SidebarNavigation={BuilderSidebarNavigation}
+          headerHeight={38}
+        >
+          {page.children}
+        </BuilderDashboardTemplate>
+      </ElementGraphProvider>
     </BuilderContext>
   )
 })

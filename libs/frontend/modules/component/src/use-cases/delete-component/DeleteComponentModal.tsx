@@ -3,30 +3,32 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithComponentService } from '../../store'
+import { ComponentStore } from '../../store/ComponentStore'
 import { deleteComponentSchema } from './deleteComponentSchema'
 import { DeleteComponentInput } from './types'
 
-export type DeleteComponentModal = WithComponentService
+export interface DeleteComponentModal {
+  componentStore: ComponentStore
+}
 
 export const DeleteComponentModal = observer<DeleteComponentModal>(
-  ({ componentService }) => {
-    const closeModal = () => componentService.deleteModal.close()
+  ({ componentStore }) => {
+    const closeModal = () => componentStore.deleteModal.close()
 
     const onSubmit = ({ componentId }: DeleteComponentInput) =>
-      componentService.delete(componentId)
+      componentStore.delete(componentId)
 
-    if (!componentService.deleteModal.component) {
+    if (!componentStore.deleteModal.component) {
       return null
     }
 
-    const model = { componentId: componentService.deleteModal.component.id }
+    const model = { componentId: componentStore.deleteModal.component.id }
 
     return (
       <ModalForm.Modal
         okText="Delete Component"
         onCancel={closeModal}
-        visible={componentService.deleteModal.isOpen}
+        visible={componentStore.deleteModal.isOpen}
       >
         <ModalForm.Form<DeleteComponentInput>
           model={model}
@@ -39,7 +41,7 @@ export const DeleteComponentModal = observer<DeleteComponentModal>(
         >
           <h4>
             Are you sure you want to delete component "
-            {componentService.deleteModal.component.name}"?
+            {componentStore.deleteModal.component.name}"?
           </h4>
           <AutoFields omitFields={['componentId']} />
         </ModalForm.Form>
