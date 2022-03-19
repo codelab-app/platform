@@ -69,6 +69,5 @@ AppProviderBuilder.Layout = observer((page) => {
       >
         {page.children}
       </BuilderDashboardTemplate>
-    </BuilderContext>
   )
 })

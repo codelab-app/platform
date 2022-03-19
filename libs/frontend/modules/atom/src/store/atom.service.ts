@@ -84,6 +84,11 @@ export class AtomService extends Model({
     this.atoms.set(atom.id, atom)
   }
 
+  @modelAction
+  addAtom(atom: Atom) {
+    this.atoms.set(atom.id, atom)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
