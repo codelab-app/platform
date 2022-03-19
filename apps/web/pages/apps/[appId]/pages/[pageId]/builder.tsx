@@ -9,7 +9,6 @@ import {
   MainPaneBuilder,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
-import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageDetailHeader,
   PageProvider,
@@ -67,7 +66,7 @@ PageBuilder.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <BuilderContext>
+    <BuilderContext elementStore={store.elementStore}>
       <PageProvider pages={store.pageService}>
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageService} />}

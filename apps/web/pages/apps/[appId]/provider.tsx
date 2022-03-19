@@ -48,7 +48,7 @@ AppProviderBuilder.Layout = observer((page) => {
   const { app } = useCurrentApp(store.appService)
 
   return (
-    <BuilderContext>
+    <BuilderContext elementStore={store.elementStore}>
       <ElementGraphProvider elementId={app?.rootProviderElement?.id}>
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageService} />}

@@ -1,5 +1,13 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
-import { UpdateElementInput } from './types'
+
+export type UpdateElementInput = {
+  name: Nullable<string>
+  instanceOfComponentId: Nullable<string>
+  atomId: Nullable<string>
+  renderForEachPropKey: Nullable<string>
+  renderIfPropKey: Nullable<string>
+}
 
 export const updateElementSchema: JSONSchemaType<UpdateElementInput> = {
   title: 'Update Element Input',

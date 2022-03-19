@@ -5,11 +5,6 @@ import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
-import {
-  usePropMapBindingDispatch,
-  usePropMapBindingState,
-} from '../../../hooks'
-import { useDeletePropMapBindingsMutation } from '../../../store'
 
 export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
@@ -18,22 +13,23 @@ export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   unknown,
   string
 > = (elementId) => {
-  const { deleteIds, entity, actionType } = usePropMapBindingState()
-  const { resetModal } = usePropMapBindingDispatch()
+  // const { deleteIds, entity, actionType } = usePropMapBindingState()
+  // const { resetModal } = usePropMapBindingDispatch()
 
   assertIsDefined(elementId)
 
-  const [mutate, { isLoading }] = useDeletePropMapBindingsMutation({
-    selectFromResult: (r) => ({
-      hook: r.data?.deletePropMapBindings,
-      isLoading: r.isLoading,
-      error: r.error,
-    }),
-  })
+  // const [mutate, { isLoading }] = useDeletePropMapBindingsMutation({
+  //   selectFromResult: (r) => ({
+  //     hook: r.data?.deletePropMapBindings,
+  //     isLoading: r.isLoading,
+  //     error: r.error,
+  //   }),
+  // })
 
   const handleSubmit = useCallback(() => {
-    return mutate({ variables: { where: { id_IN: deleteIds } } }).unwrap()
-  }, [mutate, deleteIds])
+    return Promise.reject('Not implemented')
+    // return mutate({ variables: { where: { id_IN: deleteIds } } }).unwrap()
+  }, [])
 
   return {
     onSubmit: handleSubmit,
@@ -43,10 +39,14 @@ export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
       }),
     ],
     model: {},
-    onSubmitSuccess: [() => resetModal()],
-    isLoading,
-    entity,
-    reset: resetModal,
-    actionType,
+    onSubmitSuccess: () => {
+      //
+    }, // [() => resetModal()],
+    isLoading: false,
+    entity: {} as any,
+    reset: () => {
+      //
+    }, // resetModal,
+    actionType: CRUDActionType.Delete,
   }
 }

@@ -1,19 +1,17 @@
-import { IElement } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   MonacoEditor,
   MonacoEditorProps,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
 import { isString } from 'lodash'
+import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetElementById } from '../../../hooks'
-import { useUpdateElementsMutation } from '../../../store'
+import { ElementModel, ElementStore } from '../../../store'
 
-interface InternalProps {
-  tree: ElementTree
-  element: IElement
+export interface UpdateElementPropTransformationFormProp {
+  elementStore: ElementStore
+  element: ElementModel
   trackPromises?: UseTrackLoadingPromises
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
 }
@@ -25,105 +23,76 @@ function transform(props){
   }
 }`
 
-const InternalForm = ({
-  element,
-  tree,
-  trackPromises,
-  monacoProps,
-}: InternalProps) => {
-  const { trackPromise } = trackPromises ?? {}
-  const [mutate] = useUpdateElementsMutation()
-  const [value, setValue] = useState(element.propTransformationJs || defaultFn)
-  // Keep the value string value in a ref so we can access it when unmounting the component
-  const valueRef = useRef(value)
-  valueRef.current = value
+export const UpdateElementPropTransformationForm = observer(
+  ({
+    element,
+    elementStore,
+    trackPromises,
+    monacoProps,
+  }: UpdateElementPropTransformationFormProp) => {
+    const { trackPromise } = trackPromises ?? {}
 
-  // const componentId = tree.getComponentOfElement(element.id)?.id
+    const [value, setValue] = useState(
+      element.propTransformationJs || defaultFn,
+    )
 
-  const updateValue = useCallback(
-    (newValue: string) => {
-      if (newValue === defaultFn) {
-        return
+    // Keep the value string value in a ref so we can access it when unmounting the component
+    const valueRef = useRef(value)
+    valueRef.current = value
+
+    const updateValue = useCallback(
+      (newValue: string) => {
+        if (newValue === defaultFn) {
+          return
+        }
+
+        const promise = elementStore.updateElementsPropTransformationJs(
+          element,
+          newValue,
+        )
+
+        return trackPromise?.(promise) ?? promise
+      },
+      [element, elementStore, trackPromise],
+    )
+
+    useEffect(() => {
+      // Make sure the new string is saved when unmounting the component
+      // because if the panel is closed too quickly, the autosave won't catch the latest changes
+      return () => {
+        updateValue(valueRef.current)
       }
+    }, [updateValue])
 
-      const promise = mutate({
-        variables: {
-          where: { id: element.id },
-          update: { propTransformationJs: newValue },
-        },
-      })
+    // Debounce autosave
+    const [valueDebounced, setValueDebounced] = useDebouncedState(500, value)
 
-      return trackPromise?.(promise) ?? promise
-    },
-    [element, mutate, trackPromise],
-  )
+    useEffect(() => {
+      setValueDebounced(value)
+    }, [value, setValueDebounced])
 
-  useEffect(() => {
-    // Make sure the new string is saved when unmounting the component
-    // because if the panel is closed too quickly, the autosave won't catch the latest changes
-    return () => {
-      updateValue(valueRef.current)
-    }
-  }, [updateValue])
+    useEffect(() => {
+      if (isString(valueDebounced)) {
+        updateValue(valueDebounced)
+      }
+    }, [valueDebounced, updateValue])
 
-  // Debounce the autosaving, otherwise it will be too quick
-  // Getting a dgraph  error if this is too fast, like 500ms
-  const [valueDebounced, setValueDebounced] = useDebouncedState(1000, value)
-
-  useEffect(() => {
-    setValueDebounced(value)
-  }, [value, setValueDebounced])
-
-  useEffect(() => {
-    if (isString(valueDebounced)) {
-      updateValue(valueDebounced)
-    }
-  }, [valueDebounced, updateValue])
-
-  return (
-    <MonacoEditor
-      containerProps={{
-        style: { height: '100%' },
-        ...(monacoProps?.containerProps || {}),
-      }}
-      editorOptions={{
-        language: 'javascript',
-        lineNumbers: 'off',
-        ...(monacoProps?.editorOptions || {}),
-      }}
-      onChange={(v) => setValue(v || '')}
-      value={value}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...monacoProps}
-    />
-  )
-}
-
-export type UpdateElementPropTransformationFormProp = Omit<
-  InternalProps,
-  'element'
-> & {
-  elementId: string
-}
-
-export const UpdateElementPropTransformationForm = ({
-  elementId,
-  trackPromises,
-  monacoProps,
-  tree,
-}: UpdateElementPropTransformationFormProp) => {
-  const element = useGetElementById(elementId)
-
-  if (!element) {
-    return null
-  }
-
-  return (
-    <InternalForm
-      element={element}
-      monacoProps={monacoProps}
-      trackPromises={trackPromises}
-      tree={tree}
-    />
-  )
-}
+    return (
+      <MonacoEditor
+        containerProps={{
+          style: { height: '100%' },
+          ...(monacoProps?.containerProps || {}),
+        }}
+        editorOptions={{
+          language: 'javascript',
+          lineNumbers: 'off',
+          ...(monacoProps?.editorOptions || {}),
+        }}
+        onChange={(v) => setValue(v || '')}
+        value={value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...monacoProps}
+      />
+    )
+  },
+)

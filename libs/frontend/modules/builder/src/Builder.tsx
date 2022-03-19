@@ -23,8 +23,6 @@ import { builderSelectors } from './store'
 
 export interface BuilderProps {
   typeService: TypeService
-  tree: ElementTree
-  elementTree?: ElementTree
   isComponentBuilder?: boolean
 }
 
@@ -105,12 +103,12 @@ export const Builder = observer(
   ({
     typeService,
     children,
-    tree,
-    elementTree = tree,
     isComponentBuilder,
   }: React.PropsWithChildren<BuilderProps>) => {
     const { selectElement, resetSelection } = useBuilderDispatch()
-    const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
+
+    const { handleMouseOver, handleMouseLeave } =
+      useBuilderHoverHandlers(elementStore)
 
     const root = isComponentBuilder
       ? tree.getRootComponent()

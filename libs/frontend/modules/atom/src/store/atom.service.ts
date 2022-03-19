@@ -6,12 +6,15 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  detach,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
   Ref,
+  rootRef,
   transaction,
 } from 'mobx-keystone'
 import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
@@ -23,6 +26,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 export type WithAtomService = {
   atomService: AtomService
 }
+
 @model('codelab/AtomService')
 export class AtomService extends Model({
   atoms: prop(() => objectMap<Atom>()),
@@ -77,6 +81,11 @@ export class AtomService extends Model({
 
     return atomModel
   })
+
+  @modelAction
+  addAtom(atom: Atom) {
+    this.atoms.set(atom.id, atom)
+  }
 
   @modelFlow
   @transaction
@@ -177,3 +186,11 @@ export class AtomService extends Model({
     return deleteAtoms
   })
 }
+
+export const atomStoreRef = rootRef<AtomService>('AtomServiceRef', {
+  onResolvedValueChange(ref, newAtom, oldAtom) {
+    if (oldAtom && !newAtom) {
+      detach(ref)
+    }
+  },
+})

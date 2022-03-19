@@ -9,7 +9,6 @@ import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
-import { usePropMapBindingDispatch } from '../../../hooks'
 
 export interface PropMapBindingsTableProps {
   element: IElement
@@ -20,8 +19,6 @@ export const PropMapBindingsTable = ({
   tree,
   element,
 }: PropMapBindingsTableProps) => {
-  const { openUpdateModal, openDeleteModal } = usePropMapBindingDispatch()
-
   const columns: Array<TableColumnProps<IPropMapBinding>> = [
     {
       title: 'Source key',
@@ -51,21 +48,21 @@ export const PropMapBindingsTable = ({
       render: (text, record) => (
         <Space size="middle">
           <ListItemEditButton
-            onClick={() =>
-              openUpdateModal({
-                updateId: record.id,
-                entity: record,
-              })
-            }
+          // onClick={() =>
+          //   openUpdateModal({
+          //     updateId: record.id,
+          //     entity: record,
+          //   })
+          // }
           />
 
           <ListItemDeleteButton
-            onClick={() =>
-              openDeleteModal({
-                deleteIds: [record.id],
-                entity: record,
-              })
-            }
+          // onClick={() =>
+          //   openDeleteModal({
+          //     deleteIds: [record.id],
+          //     entity: record,
+          //   })
+          // }
           />
         </Space>
       ),

@@ -1,4 +1,4 @@
-import { useCreateElementsMutation } from '@codelab/frontend/modules/element'
+import { ElementStore } from '@codelab/frontend/modules/element'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { useCallback } from 'react'
@@ -13,10 +13,9 @@ export interface UseBuilderDnd {
   onDragEnd: (data: DragEndEvent) => void
 }
 
-export const useBuilderDnd = (): UseBuilderDnd => {
+export const useBuilderDnd = (elementStore: ElementStore): UseBuilderDnd => {
   const { setCurrentlyDragging } = useBuilderDispatch()
   const state = useSelector((s) => s.builder.currentlyDragging)
-  const [createElement] = useCreateElementsMutation()
   const { setSelectedElement } = useBuilderSelectedElement()
 
   const onDragStart = useCallback(
@@ -46,42 +45,14 @@ export const useBuilderDnd = (): UseBuilderDnd => {
           ...(overData?.createElementInput ?? {}),
         }
 
-        const {
-          parentElementId,
-          order,
-          atomId,
-          css,
-          instanceOfComponentId,
-          name,
-          propsData,
-        } = createElementInput
-
-        createElement({
-          variables: {
-            input: {
-              parentElement: {
-                connect: {
-                  where: { node: { id: parentElementId } },
-                  edge: { order },
-                },
-              },
-              atom: { connect: { where: { node: { id: atomId } } } },
-              css,
-              instanceOfComponent: {
-                connect: { where: { node: { id: instanceOfComponentId } } },
-              },
-              name,
-              props: { create: { node: { data: propsData || '{}' } } },
-            },
-          },
-        }).then((el: any) => {
+        elementStore.createElement(createElementInput).then((el: any) => {
           setSelectedElement(el.data?.createElement.id)
         })
       }
 
       setCurrentlyDragging(undefined)
     },
-    [createElement, setCurrentlyDragging, setSelectedElement],
+    [elementStore, setCurrentlyDragging, setSelectedElement],
   )
 
   return {

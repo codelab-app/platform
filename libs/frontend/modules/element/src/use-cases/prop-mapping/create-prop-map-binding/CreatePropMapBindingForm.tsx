@@ -1,6 +1,5 @@
 import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectDescendantElement } from '@codelab/frontend/modules/type'
-import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
 import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
@@ -63,9 +62,9 @@ export const CreatePropMapBindingForm = ({
         options={propCompleteOptions}
       />
 
-      <ElementIdProvider elementId={initialElementId}>
-        <AutoField component={SelectDescendantElement} name="targetElementId" />
-      </ElementIdProvider>
+      {/* <ElementIdProvider elementId={initialElementId}>*/}
+      <AutoField component={SelectDescendantElement} name="targetElementId" />
+      {/* </ElementIdProvider>*/}
 
       <TargetKeyField name="targetKey" tree={tree} />
     </Form>

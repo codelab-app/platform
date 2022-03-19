@@ -1,4 +1,4 @@
-import { ElementTree } from '@codelab/shared/core'
+import { ElementStore } from '@codelab/frontend/modules/element'
 import { MouseEvent, useCallback } from 'react'
 import { useBuilderDnd } from '../dnd'
 import { useBuilderDispatch } from './useBuilderDispatch'
@@ -7,9 +7,9 @@ import { useBuilderDispatch } from './useBuilderDispatch'
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
  * them to the builder redux state for hovering elements
  */
-export const useBuilderHoverHandlers = (tree: ElementTree) => {
+export const useBuilderHoverHandlers = (store: ElementStore) => {
   const { hoverElement } = useBuilderDispatch()
-  const { currentlyDragging } = useBuilderDnd()
+  const { currentlyDragging } = useBuilderDnd(store)
 
   const handleMouseOver = useCallback(
     (e: MouseEvent) => {
@@ -25,8 +25,8 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
         return
       }
 
-      const elementId = target.dataset.id
-      const componentId = target.dataset.componentId
+      const elementId = target.dataset['id']
+      const componentId = target.dataset['componentId']
 
       if (!elementId) {
         return
@@ -37,15 +37,15 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
         return
       }
 
-      const element = tree.getVertex(elementId, ElementTree.isElement)
+      const element = store.elementTree.element(elementId)
 
-      if (element && ElementTree.isElement(element)) {
+      if (element) {
         hoverElement({ elementId })
       } else {
         hoverElement({ elementId: undefined })
       }
     },
-    [currentlyDragging, hoverElement, tree],
+    [currentlyDragging, hoverElement, store.elementTree],
   )
 
   const handleMouseLeave = useCallback(() => {

@@ -1,23 +1,19 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import {
-  usePropMapBindingDispatch,
-  usePropMapBindingState,
-} from '../../../hooks'
-import { useCreatePropMapBindingsMutation } from '../../../store'
 
 export const useCreatePropMapBindingForm = () => {
-  const [mutate, { isLoading }] = useCreatePropMapBindingsMutation({
-    selectFromResult: (r) => ({
-      hook: r.data?.createPropMapBindings,
-      isLoading: r.isLoading,
-      error: r.error,
-    }),
-  })
-
-  const { actionType } = usePropMapBindingState()
-  const { resetModal } = usePropMapBindingDispatch()
+  // const [mutate, { isLoading }] = useCreatePropMapBindingsMutation({
+  //   selectFromResult: (r) => ({
+  //     hook: r.data?.createPropMapBindings,
+  //     isLoading: r.isLoading,
+  //     error: r.error,
+  //   }),
+  // })
+  //
+  // const { actionType } = usePropMapBindingState()
+  // const { resetModal } = usePropMapBindingDispatch()
 
   const handleSubmit = useCallback(
     ({
@@ -26,23 +22,25 @@ export const useCreatePropMapBindingForm = () => {
       targetElementId,
       elementId,
     }: CreatePropMapBindingInput) => {
-      return mutate({
-        variables: {
-          input: {
-            sourceKey: sourceKey.trim(),
-            targetKey: targetKey.trim(),
-            element: {
-              connect: { where: { node: { id: elementId } } },
-            },
+      return Promise.reject('Not implemented')
 
-            targetElement: targetElementId
-              ? { connect: { where: { node: { id: targetElementId } } } }
-              : undefined,
-          },
-        },
-      }).unwrap()
+      // return mutate({
+      //   variables: {
+      //     input: {
+      //       sourceKey: sourceKey.trim(),
+      //       targetKey: targetKey.trim(),
+      //       element: {
+      //         connect: { where: { node: { id: elementId } } },
+      //       },
+      //
+      //       targetElement: targetElementId
+      //         ? { connect: { where: { node: { id: targetElementId } } } }
+      //         : undefined,
+      //     },
+      //   },
+      // }).unwrap()
     },
-    [mutate],
+    [],
   )
 
   return {
@@ -52,9 +50,13 @@ export const useCreatePropMapBindingForm = () => {
         title: 'Error while creating prop binding',
       }),
     ],
-    onSubmitSuccess: [() => resetModal()],
-    isLoading,
-    reset: resetModal,
-    actionType,
+    onSubmitSuccess: () => {
+      //
+    }, // [() => resetModal()],
+    isLoading: false,
+    reset: () => {
+      //
+    }, // resetModal,
+    actionType: CRUDActionType.Create,
   }
 }
