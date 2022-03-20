@@ -6,7 +6,7 @@ import {
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { DataNode } from 'antd/lib/tree'
-import { StateStore, storeRef } from '../../store'
+import { StateStore, storeRef } from '../../../store'
 import { ActionColumn, StoreActionsColumn } from './columns'
 
 export const useStoreTable = (stateStore: StateStore) => {

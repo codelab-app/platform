@@ -2,7 +2,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
 import tw from 'twin.macro'
-import { StateStore } from '../../../store'
+import { StateStore } from '../../../../store'
 
 const BlueLink = tw.a`text-blue-700`
 

@@ -15,5 +15,13 @@ export const storeSelectionSet = `{
           storeKey
       }
     }
-    actions
+    actions {
+      id
+      name
+      body
+      store {
+        id
+        name
+      }
+    }
 }`

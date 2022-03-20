@@ -3,7 +3,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { StateStore } from '../../store'
+import { StateStore } from '../../../store'
 import { DisplayIfParent } from '../create-store/DisplayIfParent'
 import { UpdateStoreInput, updateStoreSchema } from './updateStoreSchema'
 

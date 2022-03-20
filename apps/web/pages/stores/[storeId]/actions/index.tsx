@@ -4,7 +4,15 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
-import { useGetCurrentStore } from '@codelab/frontend/modules/store'
+import {
+  CreateActionButton,
+  CreateActionModal,
+  DeleteActionsModal,
+  GetActionsTable,
+  UpdateActionModal,
+  useGetCurrentStore,
+} from '@codelab/frontend/modules/store'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -14,48 +22,63 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
+import tw from 'twin.macro'
 
 const useCurrentStore = () => {
-  const { stateStore } = useStore()
+  const rootStore = useStore()
   const { query } = useRouter()
   const currentStoreId = query.storeId as string
-  const { store } = useGetCurrentStore(currentStoreId, stateStore)
+  const { store } = useGetCurrentStore(currentStoreId, rootStore.stateStore)
 
   return store
 }
 
-const StoreActionsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+const ActionsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useCurrentStore()
+  const rootStore = useStore()
+
+  if (!store) {
+    return null
+  }
 
   return (
     <>
       <Head>
         <title>{`${store?.name} | `}Codelab</title>
       </Head>
+
+      <CreateActionModal actionStore={rootStore.actionStore} store={store} />
+      <UpdateActionModal actionStore={rootStore.actionStore} />
+      <DeleteActionsModal actionStore={rootStore.actionStore} />
+      <ContentSection>
+        <GetActionsTable actionStore={rootStore.actionStore} store={store} />
+      </ContentSection>
     </>
   )
 })
 
 const Header = observer(() => {
-  const store = useCurrentStore()
-  const router = useRouter()
-  const headerButtons = [] as any
+  const rootStore = useStore()
+
+  const pageHeaderButtons = [
+    <div
+      css={tw`flex flex-row items-center justify-center gap-2`}
+      key="export_import"
+    >
+      <CreateActionButton actionStore={rootStore.actionStore} key="create" />
+    </div>,
+  ]
 
   return (
-    <PageHeader
-      extra={headerButtons}
-      ghost={false}
-      onBack={() => router.back()}
-      title={store?.name}
-    />
+    <PageHeader extra={pageHeaderButtons} ghost={false} title="Store Actions" />
   )
 })
 
-export default StoreActionsPage
+export default ActionsPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-StoreActionsPage.Layout = observer((page) => {
+ActionsPage.Layout = observer((page) => {
   return (
     <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
       {page.children}

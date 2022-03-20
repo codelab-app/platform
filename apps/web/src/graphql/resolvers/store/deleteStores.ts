@@ -10,7 +10,7 @@ import {
   withRxTransaction,
 } from '../abstract'
 
-const deleteStoresSubgraphResolver: IRxTxnResolver<
+const deleteStoresResolver: IRxTxnResolver<
   MutationDeleteStoresArgs,
   DeleteInfo
 > =
@@ -34,7 +34,7 @@ const deleteStoresSubgraphResolver: IRxTxnResolver<
     )
   }
 
-export const deleteStoresSubgraph = withRxTransaction(
-  deleteStoresSubgraphResolver,
+export const deleteStores = withRxTransaction(
+  deleteStoresResolver,
   RxTransactionType.WRITE,
 )

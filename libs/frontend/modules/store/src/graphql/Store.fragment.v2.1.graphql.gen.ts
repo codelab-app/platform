@@ -1,14 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-request'
+import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type StoreFragment = {
   __typename: 'Store'
   id: string
   name: string
-  actions?: Array<string> | null
   state: Array<{ name: string; type: string; defaultValue: string }>
+  actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
 }
@@ -41,7 +43,9 @@ export const StoreFragmentDoc = gql`
       type
       defaultValue
     }
-    actions
+    actions {
+      ...Action
+    }
     parentStore {
       id
       name

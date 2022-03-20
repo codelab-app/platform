@@ -1,4 +1,3 @@
-import { IMonacoType } from '..'
 import { IAppType } from '../types/app-type/app-type.interface'
 import { IArrayType } from '../types/array-type/array-type.interface'
 import { IBaseType } from '../types/base-type/base-type.interface'
@@ -6,6 +5,7 @@ import { IElementType } from '../types/element-type/element-type.interface'
 import { IEnumTypeValue } from '../types/enum-type/enum-type.interface'
 import { IInterfaceType } from '../types/interface-type/interface-type.interface'
 import { ILambdaType } from '../types/lambda-type/lambda-type.interface'
+import { IMonacoType } from '../types/monaco-type/monaco-type.interface'
 import { IPageType } from '../types/page-type/page-type.interface'
 import { IPrimitiveType } from '../types/primitive-type/primitive-type.interface'
 

@@ -27,7 +27,7 @@ import {
 import type { CreateStoreInput, UpdateStoreInput } from '../use-cases/stores'
 import { storeApi } from './storeApi'
 
-@model('codelab/Store')
+@model('codelab/StoreModel')
 export class StoreModel extends Model({
   id: idProp,
   name: prop<string>(),
@@ -113,13 +113,13 @@ class StoreEdgeModel extends Model({
   }
 }
 
-@model('codelab/StoresGraphsStore')
-class StoresGraphsStore extends Model({
+@model('codelab/StoresGraphsModel')
+class StoresGraphsModel extends Model({
   vertices: prop(() => objectMap<StoreModel>()),
   edges: prop(() => Array<StoreEdgeModel>()),
 }) {
   static fromFragment({ edges, vertices }: StoreGraphFragment) {
-    return new StoresGraphsStore({
+    return new StoresGraphsModel({
       edges: edges.map(StoreEdgeModel.fromFragment),
       vertices: new ObjectMap({
         items: vertices.map(StoreModel.fromFragment),
@@ -130,7 +130,7 @@ class StoresGraphsStore extends Model({
 
 @model('codelab/StateStore')
 export class StateStore extends Model({
-  storesGraphs: prop(() => new StoresGraphsStore({})),
+  storesGraphs: prop(() => new StoresGraphsModel({})),
   createModal: prop(() => new ModalStore({})),
   updateModal: prop(() => new StoreModalStore({})),
   deleteModal: prop(() => new StoresModalStore({})),
@@ -144,7 +144,7 @@ export class StateStore extends Model({
   @transaction
   getStoresGraphs = _async(function* (this: StateStore) {
     const { storesGraphs } = yield* _await(storeApi.GetStoresGraphs())
-    this.storesGraphs = StoresGraphsStore.fromFragment(storesGraphs)
+    this.storesGraphs = StoresGraphsModel.fromFragment(storesGraphs)
 
     return this.storesGraphs
   })
@@ -159,6 +159,7 @@ export class StateStore extends Model({
 
     const input: StoreCreateInput = {
       name: name,
+      actions: { create: [] },
       parentStore: parentStore
         ? {
             connect: {
@@ -208,7 +209,11 @@ export class StateStore extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: StateStore, ids: Array<string>) {
-    ids.forEach(this.storesGraphs.vertices.delete)
+    for (const id of ids) {
+      if (this.storesGraphs.vertices.has(id)) {
+        this.storesGraphs.vertices.delete(id)
+      }
+    }
 
     const { deleteStores } = yield* _await(
       storeApi.DeleteStores({ where: { id_IN: ids } }),

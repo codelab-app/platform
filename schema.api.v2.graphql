@@ -2425,6 +2425,11 @@ input ComponentWhere {
   rootElement_NOT: ElementWhere
 }
 
+type CreateActionsMutationResponse {
+  actions: [Action!]!
+  info: CreateInfo!
+}
+
 type CreateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: CreateInfo!
@@ -6826,6 +6831,7 @@ input MonacoTypeWhere {
 }
 
 type Mutation {
+  createActions(input: [ActionCreateInput!]!): CreateActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createArrayTypes(
@@ -6903,6 +6909,7 @@ type Mutation {
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
+  deleteActions(delete: ActionDeleteInput, where: ActionWhere): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteArrayTypes(
@@ -6994,6 +7001,15 @@ type Mutation {
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
+  updateActions(
+    connect: ActionConnectInput
+    connectOrCreate: ActionConnectOrCreateInput
+    create: ActionRelationInput
+    delete: ActionDeleteInput
+    disconnect: ActionDisconnectInput
+    update: ActionUpdateInput
+    where: ActionWhere
+  ): UpdateActionsMutationResponse!
   updateAppTypes(
     connect: AppTypeConnectInput
     connectOrCreate: AppTypeConnectOrCreateInput
@@ -8833,6 +8849,8 @@ input PropWhere {
 }
 
 type Query {
+  actions(options: ActionOptions, where: ActionWhere): [Action!]!
+  actionsAggregate(where: ActionWhere): ActionAggregateSelection!
   appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
   appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
   apps(options: AppOptions, where: AppWhere): [App!]!
@@ -9535,7 +9553,22 @@ input StateFieldWhere {
 }
 
 type Store {
-  actions: [String!]
+  actions(
+    directed: Boolean = true
+    options: ActionOptions
+    where: ActionWhere
+  ): [Action!]!
+  actionsAggregate(
+    directed: Boolean = true
+    where: ActionWhere
+  ): StoreActionActionsAggregationSelection
+  actionsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreActionsConnectionSort!]
+    where: StoreActionsConnectionWhere
+  ): StoreActionsConnection!
   children(
     directed: Boolean = true
     options: StoreOptions
@@ -9586,6 +9619,144 @@ type Store {
     sort: [StoreStateConnectionSort!]
     where: StoreStateConnectionWhere
   ): StoreStateConnection!
+}
+
+type StoreActionActionsAggregationSelection {
+  count: Int!
+  node: StoreActionActionsNodeAggregateSelection
+}
+
+type StoreActionActionsNodeAggregateSelection {
+  body: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreActionsAggregateInput {
+  AND: [StoreActionsAggregateInput!]
+  OR: [StoreActionsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreActionsNodeAggregationWhereInput
+}
+
+input StoreActionsConnectFieldInput {
+  connect: [ActionConnectInput!]
+  where: ActionConnectWhere
+}
+
+input StoreActionsConnectOrCreateFieldInput {
+  onCreate: StoreActionsConnectOrCreateFieldInputOnCreate!
+  where: ActionConnectOrCreateWhere!
+}
+
+input StoreActionsConnectOrCreateFieldInputOnCreate {
+  node: ActionOnCreateInput!
+}
+
+type StoreActionsConnection {
+  edges: [StoreActionsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreActionsConnectionSort {
+  node: ActionSort
+}
+
+input StoreActionsConnectionWhere {
+  AND: [StoreActionsConnectionWhere!]
+  OR: [StoreActionsConnectionWhere!]
+  node: ActionWhere
+  node_NOT: ActionWhere
+}
+
+input StoreActionsCreateFieldInput {
+  node: ActionCreateInput!
+}
+
+input StoreActionsDeleteFieldInput {
+  delete: ActionDeleteInput
+  where: StoreActionsConnectionWhere
+}
+
+input StoreActionsDisconnectFieldInput {
+  disconnect: ActionDisconnectInput
+  where: StoreActionsConnectionWhere
+}
+
+input StoreActionsFieldInput {
+  connect: [StoreActionsConnectFieldInput!]
+  connectOrCreate: [StoreActionsConnectOrCreateFieldInput!]
+  create: [StoreActionsCreateFieldInput!]
+}
+
+input StoreActionsNodeAggregationWhereInput {
+  AND: [StoreActionsNodeAggregationWhereInput!]
+  OR: [StoreActionsNodeAggregationWhereInput!]
+  body_AVERAGE_EQUAL: Float
+  body_AVERAGE_GT: Float
+  body_AVERAGE_GTE: Float
+  body_AVERAGE_LT: Float
+  body_AVERAGE_LTE: Float
+  body_EQUAL: String
+  body_GT: Int
+  body_GTE: Int
+  body_LONGEST_EQUAL: Int
+  body_LONGEST_GT: Int
+  body_LONGEST_GTE: Int
+  body_LONGEST_LT: Int
+  body_LONGEST_LTE: Int
+  body_LT: Int
+  body_LTE: Int
+  body_SHORTEST_EQUAL: Int
+  body_SHORTEST_GT: Int
+  body_SHORTEST_GTE: Int
+  body_SHORTEST_LT: Int
+  body_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreActionsRelationship {
+  cursor: String!
+  node: Action!
+}
+
+input StoreActionsUpdateConnectionInput {
+  node: ActionUpdateInput
+}
+
+input StoreActionsUpdateFieldInput {
+  connect: [StoreActionsConnectFieldInput!]
+  connectOrCreate: [StoreActionsConnectOrCreateFieldInput!]
+  create: [StoreActionsCreateFieldInput!]
+  delete: [StoreActionsDeleteFieldInput!]
+  disconnect: [StoreActionsDisconnectFieldInput!]
+  update: StoreActionsUpdateConnectionInput
+  where: StoreActionsConnectionWhere
 }
 
 type StoreAggregateSelection {
@@ -9736,12 +9907,14 @@ input StoreChildrenUpdateFieldInput {
 }
 
 input StoreConnectInput {
+  actions: [StoreActionsConnectFieldInput!]
   children: [StoreChildrenConnectFieldInput!]
   parentStore: StoreParentStoreConnectFieldInput
   state: [StoreStateConnectFieldInput!]
 }
 
 input StoreConnectOrCreateInput {
+  actions: [StoreActionsConnectOrCreateFieldInput!]
   children: [StoreChildrenConnectOrCreateFieldInput!]
   parentStore: StoreParentStoreConnectOrCreateFieldInput
 }
@@ -9755,7 +9928,7 @@ input StoreConnectWhere {
 }
 
 input StoreCreateInput {
-  actions: [String!]
+  actions: StoreActionsFieldInput
   children: StoreChildrenFieldInput
   name: String!
   parentStore: StoreParentStoreFieldInput
@@ -9763,12 +9936,14 @@ input StoreCreateInput {
 }
 
 input StoreDeleteInput {
+  actions: [StoreActionsDeleteFieldInput!]
   children: [StoreChildrenDeleteFieldInput!]
   parentStore: StoreParentStoreDeleteFieldInput
   state: [StoreStateDeleteFieldInput!]
 }
 
 input StoreDisconnectInput {
+  actions: [StoreActionsDisconnectFieldInput!]
   children: [StoreChildrenDisconnectFieldInput!]
   parentStore: StoreParentStoreDisconnectFieldInput
   state: [StoreStateDisconnectFieldInput!]
@@ -9859,7 +10034,6 @@ type StoreGraph {
 }
 
 input StoreOnCreateInput {
-  actions: String
   id: ID
   name: String
 }
@@ -10016,6 +10190,7 @@ input StoreParentStoreUpdateFieldInput {
 }
 
 input StoreRelationInput {
+  actions: [StoreActionsCreateFieldInput!]
   children: [StoreChildrenCreateFieldInput!]
   parentStore: StoreParentStoreCreateFieldInput
   state: [StoreStateCreateFieldInput!]
@@ -10207,7 +10382,7 @@ input StoreUniqueWhere {
 }
 
 input StoreUpdateInput {
-  actions: [String!]
+  actions: [StoreActionsUpdateFieldInput!]
   children: [StoreChildrenUpdateFieldInput!]
   name: String
   parentStore: StoreParentStoreUpdateFieldInput
@@ -10217,10 +10392,31 @@ input StoreUpdateInput {
 input StoreWhere {
   AND: [StoreWhere!]
   OR: [StoreWhere!]
-  actions: [String!]
-  actions_INCLUDES: String
-  actions_NOT: [String!]
-  actions_NOT_INCLUDES: String
+  actionsAggregate: StoreActionsAggregateInput
+  actionsConnection_ALL: StoreActionsConnectionWhere
+  actionsConnection_NONE: StoreActionsConnectionWhere
+  actionsConnection_SINGLE: StoreActionsConnectionWhere
+  actionsConnection_SOME: StoreActionsConnectionWhere
+
+  """
+  Return Stores where all of the related Actions match this filter
+  """
+  actions_ALL: ActionWhere
+
+  """
+  Return Stores where none of the related Actions match this filter
+  """
+  actions_NONE: ActionWhere
+
+  """
+  Return Stores where one of the related Actions match this filter
+  """
+  actions_SINGLE: ActionWhere
+
+  """
+  Return Stores where some of the related Actions match this filter
+  """
+  actions_SOME: ActionWhere
   childrenAggregate: StoreChildrenAggregateInput
   childrenConnection_ALL: StoreChildrenConnectionWhere
   childrenConnection_NONE: StoreChildrenConnectionWhere
@@ -11470,6 +11666,11 @@ input UnionTypeWhere {
   typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_SINGLE: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+type UpdateActionsMutationResponse {
+  actions: [Action!]!
+  info: UpdateInfo!
 }
 
 type UpdateAppTypesMutationResponse {

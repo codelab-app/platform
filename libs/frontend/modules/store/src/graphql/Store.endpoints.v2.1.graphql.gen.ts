@@ -5,6 +5,7 @@ import {
   StoreGraphFragment,
   StoreEdgeFragment,
 } from './Store.fragment.v2.1.graphql.gen'
+import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-request'
@@ -13,6 +14,7 @@ import {
   StoreGraphFragmentDoc,
   StoreEdgeFragmentDoc,
 } from './Store.fragment.v2.1.graphql.gen'
+import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
@@ -67,6 +69,7 @@ export const CreateStoresGql = gql`
     }
   }
   ${StoreFragmentDoc}
+  ${ActionFragmentDoc}
 `
 export const DeleteStoresGql = gql`
   mutation DeleteStores($where: StoreWhere!) {
@@ -83,6 +86,7 @@ export const GetStoresGql = gql`
     }
   }
   ${StoreFragmentDoc}
+  ${ActionFragmentDoc}
 `
 export const GetStoresGraphsGql = gql`
   query GetStoresGraphs {
@@ -93,6 +97,7 @@ export const GetStoresGraphsGql = gql`
   ${StoreGraphFragmentDoc}
   ${StoreEdgeFragmentDoc}
   ${StoreFragmentDoc}
+  ${ActionFragmentDoc}
 `
 export const UpdateStoresGql = gql`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
@@ -103,6 +108,7 @@ export const UpdateStoresGql = gql`
     }
   }
   ${StoreFragmentDoc}
+  ${ActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -7,11 +7,18 @@ export const storeSchema = gql`
     defaultValue: String!
   }
 
+  type Action {
+    id: ID! @id
+    name: String!
+    body: String!
+    store: Store! @relationship(type: "ACTION_OF_STORE", direction: IN)
+  }
+
   type Store {
     id: ID! @id
     name: String!
     state: [StateField!]! @relationship(type: "FIELD_OF_STORE", direction: OUT)
-    actions: [String!]
+    actions: [Action!]! @relationship(type: "ACTION_OF_STORE", direction: OUT)
 
     parentStore: Store
       @relationship(

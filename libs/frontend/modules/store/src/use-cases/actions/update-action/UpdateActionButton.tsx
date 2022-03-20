@@ -3,20 +3,20 @@ import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { StateStore, storeRef } from '../../../store'
+import { actionRef, ActionStore } from '../../../store'
 
-export interface UpdateStoreButtonProps extends UpdateButtonProps {
-  stateStore: StateStore
+export interface UpdateActionButtonProps extends UpdateButtonProps {
+  actionStore: ActionStore
 }
 
-export const UpdateStoreButton = observer(
-  ({ id, disabled, stateStore }: UpdateStoreButtonProps) => {
+export const UpdateActionButton = observer(
+  ({ id, disabled, actionStore }: UpdateActionButtonProps) => {
     const onClick = () => {
       if (!id) {
-        throw new Error('Store ID is not valid')
+        throw new Error('Action ID is not valid')
       }
 
-      stateStore.updateModal.open(storeRef(id))
+      actionStore.updateModal.open(actionRef(id))
     }
 
     return (

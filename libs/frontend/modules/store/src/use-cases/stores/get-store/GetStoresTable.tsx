@@ -3,7 +3,7 @@ import { TreeService } from '@codelab/shared/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { StateStore } from '../../store'
+import { StateStore } from '../../../store'
 import { useStoreTable } from './useStoreTable'
 
 export interface GetStoresTableProps {
@@ -36,6 +36,7 @@ export const GetStoresTable = observer<GetStoresTableProps>(
         dataSource={storesTrees}
         loading={isLoading}
         pagination={pagination}
+        rowKey={(store) => store.key}
         rowSelection={rowSelection}
       />
     )
