@@ -1,6 +1,6 @@
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { StoreCreateInput } from '@codelab/shared/abstract/codegen-v2'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -24,7 +24,7 @@ import {
   StoreFragment,
   StoreGraphFragment,
 } from '../graphql/Store.fragment.v2.1.graphql.gen'
-import type { CreateStoreInput, UpdateStoreInput } from '../use-cases'
+import type { CreateStoreInput, UpdateStoreInput } from '../use-cases/stores'
 import { storeApi } from './storeApi'
 
 @model('codelab/Store')
@@ -154,7 +154,6 @@ export class StateStore extends Model({
   createStore = _async(function* (
     this: StateStore,
     formInput: CreateStoreInput,
-    ownerId: Nullish<string>,
   ) {
     const { name, parentStore } = formInput
 
@@ -187,12 +186,29 @@ export class StateStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: StateStore, ids: Array<string>) {
-    for (const id of ids) {
-      if (this.storesGraphs.vertices.has(id)) {
-        this.storesGraphs.vertices.delete(id)
-      }
+  getOne = _async(function* (this: StateStore, id: string) {
+    if (this.storesGraphs.vertices.has(id)) {
+      return this.storesGraphs.vertices.get(id)
     }
+
+    const { stores } = yield* _await(storeApi.GetStores({ where: { id } }))
+
+    if (!stores[0]) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('Store was not found')
+    }
+
+    const store = StoreModel.fromFragment(stores[0])
+
+    this.storesGraphs.vertices.set(store.id, store)
+
+    return store
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: StateStore, ids: Array<string>) {
+    ids.forEach(this.storesGraphs.vertices.delete)
 
     const { deleteStores } = yield* _await(
       storeApi.DeleteStores({ where: { id_IN: ids } }),

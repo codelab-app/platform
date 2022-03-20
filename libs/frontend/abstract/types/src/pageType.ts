@@ -23,4 +23,5 @@ export enum PageType {
   Tag = '/tags',
   PropsInterface = '/apps/[appId]/props',
   Store = '/stores',
+  StoreActions = '/stores/[storeId]/actions',
 }

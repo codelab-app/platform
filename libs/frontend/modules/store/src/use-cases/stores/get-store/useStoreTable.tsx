@@ -7,7 +7,7 @@ import {
 } from 'antd/lib/table/interface'
 import { DataNode } from 'antd/lib/tree'
 import { StateStore, storeRef } from '../../store'
-import { ActionColumn } from './columns'
+import { ActionColumn, StoreActionsColumn } from './columns'
 
 export const useStoreTable = (stateStore: StateStore) => {
   const columns: Array<TableColumnProps<DataNode>> = [
@@ -17,6 +17,22 @@ export const useStoreTable = (stateStore: StateStore) => {
       key: 'name',
       onHeaderCell: headerCellProps,
       ...useColumnSearchProps('name'),
+    },
+    {
+      title: 'Store Actions',
+      key: 'actions',
+      onHeaderCell: headerCellProps,
+      render: (text, store) => (
+        <StoreActionsColumn stateStore={stateStore} store={store} />
+      ),
+    },
+    {
+      title: 'State',
+      key: 'state',
+      onHeaderCell: headerCellProps,
+      render: (text, store) => (
+        <ActionColumn stateStore={stateStore} store={store} />
+      ),
     },
     {
       title: 'Action',
