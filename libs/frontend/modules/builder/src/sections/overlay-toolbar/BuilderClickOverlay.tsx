@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
 import { useBuilderSelectedElement } from '../../hooks'
-import { queryRenderedElementById } from '../../renderer'
+import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
 
 const StyledOverlayContainer = styled.div`
   display: flex;

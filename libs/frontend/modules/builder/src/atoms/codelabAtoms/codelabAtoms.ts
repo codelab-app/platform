@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { AtomsRecord } from '../types'
 
 // Custom atom components
+// Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: AtomsRecord = {
   [AtomType.Query]: dynamic(
     () =>

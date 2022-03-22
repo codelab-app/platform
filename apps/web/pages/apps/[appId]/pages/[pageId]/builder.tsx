@@ -2,7 +2,6 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  Builder,
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
@@ -16,34 +15,34 @@ import {
   usePage,
 } from '@codelab/frontend/modules/page'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
-import { Empty } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Head from 'next/head'
 import React from 'react'
 
 const PageBuilder: CodelabPage<any> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
-  const { page } = usePage(currentPageId, store.pageService)
-  const { elementTree } = useElementGraphContext()
-  const { appElementTree } = useAppElementTree(store.pageService)
+  const { page } = usePage(currentPageId, store.pageStore)
+  // const { elementTree } = useElementGraphContext() // page.tree
+  const { appElementTree } = useAppElementTree(store.pageStore) // app.tree
 
-  if (!page || !elementTree) {
-    return <Empty />
-  }
+  // if (!page || !elementTree) {
+  //   return <Empty />
+  // }
 
-  return (
-    <>
-      <Head>
-        <title>{page.name} | Builder | Codelab</title>
-      </Head>
-      <Builder
-        elementTree={appElementTree}
-        tree={elementTree}
-        typeService={store.typeService}
-      />
-    </>
-  )
+  return null
+
+  // return (
+  //   <>
+  //     <Head>
+  //       <title>{page.name} | Builder | Codelab</title>
+  //     </Head>
+  //     <Builder
+  //       elementTree={appElementTree}
+  //       tree={elementTree}
+  //       typeStore={store.typeStore}
+  //     />
+  //   </>
+  // )
 })
 
 export default PageBuilder

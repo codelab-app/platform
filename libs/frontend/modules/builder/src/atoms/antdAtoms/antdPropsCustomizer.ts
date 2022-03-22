@@ -1,6 +1,5 @@
 import {
   DATA_GRID,
-  DATA_ID,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
 import { AtomType } from '@codelab/shared/abstract/core'
@@ -13,7 +12,6 @@ const antDesignRglItemFn: PropsCustomizerFn = ({ node, props }) => ({
   // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
   ...props,
   key: props[DATA_GRID] ? JSON.stringify(props[DATA_GRID]) : node.id,
-  [DATA_ID]: node.id,
 })
 
 const antDesignRglResponsiveContainerFn: PropsCustomizerFn = ({ props }) => ({

@@ -1,6 +1,5 @@
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen-v2'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -28,13 +27,15 @@ import { componentApi } from './componentApi'
 export class Component extends Model({
   id: idProp,
   name: prop<string>().withSetter(),
-  rootElementId: prop<Nullish<string>>(),
+  rootElementId: prop<string>().withSetter(), // this isn't a Ref, because it will cause a circular dep.
+  ownerId: prop<string>(),
 }) {
   static fromFragment(component: ComponentFragment) {
     return new Component({
       id: component.id,
       name: component.name,
       rootElementId: component.rootElement.id,
+      ownerId: component.owner?.id,
     })
   }
 }

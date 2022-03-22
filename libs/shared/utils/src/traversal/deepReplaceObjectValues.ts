@@ -7,11 +7,7 @@ export const deepReplaceObjectValues = <
   obj: TIn,
   fn: (value: any, key: string, innerObj: Record<string, any>) => any,
 ): TIn => {
-  if (!obj) {
-    return undefined as TIn
-  }
-
-  if (typeof obj !== 'object') {
+  if (!obj || typeof obj !== 'object') {
     return undefined as TIn
   }
 

@@ -2,7 +2,7 @@ import { HoverOverlay } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
-import { queryRenderedElementById } from '../renderer'
+import { queryRenderedElementById } from '../renderer/utils/queryRenderedElementById'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
 export interface BuilderDropHandlersProps {

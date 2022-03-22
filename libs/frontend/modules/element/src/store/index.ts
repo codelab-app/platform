@@ -1,4 +1,6 @@
 export * from './apis'
 export * from './ElementModel'
+export * from './ElementProps'
+export * from './elementRef'
 export * from './ElementStore'
 export * from './ElementTree'

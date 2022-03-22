@@ -6,8 +6,12 @@ import {
   _async,
   _await,
   arraySet,
+  createContext,
+  ExtendedModel,
   Model,
   model,
+  modelAction,
+  modelClass,
   modelFlow,
   objectMap,
   prop,
@@ -41,6 +45,19 @@ export type WithTypeService = {
   typeService: TypeService
 }
 
+// This can be used to access the type store from anywhere inside the mobx-keystone tree
+export const typeStoreContext = createContext<TypeService>()
+
+export const getTypeStoreFromContext = (thisModel: object) => {
+  const typeStore = typeStoreContext.get(thisModel)
+
+  if (!typeStore) {
+    throw new Error('TypeStore is not defined')
+  }
+
+  return typeStore
+}
+
 @model('codelab/TypeService')
 export class TypeService extends Model({
   types: prop(() => objectMap<AnyType>()),
@@ -62,6 +79,11 @@ export class TypeService extends Model({
 
   type(id: string) {
     return this.types.get(id)
+  }
+
+  @modelAction
+  addTypeLocal(type: AnyType) {
+    this.types.set(type.id, type)
   }
 
   @modelFlow

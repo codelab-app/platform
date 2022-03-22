@@ -3,7 +3,10 @@ import { mergeProps } from '@codelab/shared/utils'
 import { merge } from 'lodash'
 import { RenderPipeFactory } from './types'
 
-/** If the element is a component add ${DATA_COMPONENT_ID} to the extra props */
+/**
+ * If the element is a component add ${DATA_COMPONENT_ID} to the extra props
+ * This can be used to identify the component in the DOM
+ * */
 export const componentPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const isComponent = !!element.component

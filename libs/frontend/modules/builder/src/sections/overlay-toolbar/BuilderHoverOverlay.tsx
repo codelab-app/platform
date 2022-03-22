@@ -1,7 +1,7 @@
 import { HoverOverlay } from '@codelab/frontend/view/components'
 import React from 'react'
 import { useBuilderHoveringElement } from '../../hooks'
-import { queryRenderedElementById } from '../../renderer'
+import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
 
 export const BuilderHoverOverlay = () => {
   const { hoveringElement } = useBuilderHoveringElement()

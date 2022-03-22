@@ -14511,6 +14511,7 @@ __metadata:
     mobx: ^6.5.0
     mobx-keystone: ^0.67.2
     mobx-react-lite: ^3.3.0
+    mobx-utils: ^6.0.4
     monaco-editor: 0.30.1
     monaco-graphql: 0.5.1
     morphext: ^2.4.7
@@ -25560,10 +25561,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "mobx@npm:^6.5.0":
   version: 6.5.0
   resolution: "mobx@npm:6.5.0"
   checksum: 1210fb0b1c515b5f0ec2916296c32ca19b733e03b34f180af382d44b90668a15b4143c69bb06ca8785ebc3da3e761c6c60d0e72c945c199efc823088af1941ab
+=======
+"mobx-utils@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "mobx-utils@npm:6.0.4"
+  peerDependencies:
+    mobx: ^6.0.0
+  checksum: f8a1b20b0668bb2ea64f32271f237bc8885d182d7a3ca73acc0976d6cfbf930ed380a31c5201a7a60a83b4bdf948ccf1d69ba7a1b906fe3b001c5bdd4bafbd47
+  languageName: node
+  linkType: hard
+
+"mobx@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "mobx@npm:6.4.2"
+  checksum: 2cdb0b81ab7fa6209d29a57af0c8c1c4635756f4b93a872be8686d58abcc562a4172f3bd8551c3432322f02cc5a6434daced10e5665d73a533e4099416dd3435
+>>>>>>> 950c7f31b (wip: mobx element, component, renderer)
   languageName: node
   linkType: hard
 

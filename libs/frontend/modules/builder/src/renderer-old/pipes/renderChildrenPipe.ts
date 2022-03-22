@@ -10,8 +10,8 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
 
   if (!childVertices || childVertices?.length === 0) {
     // Allow for a 'children' prop, but only if we have no regular children
-    if (isString(props.children) && childVertices?.length === 0) {
-      return props.children
+    if (isString(props['children']) && childVertices?.length === 0) {
+      return props['children']
     }
 
     // It's important to be undefined if we have no children to display,

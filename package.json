@@ -112,6 +112,7 @@
     "mobx": "^6.5.0",
     "mobx-keystone": "^0.67.2",
     "mobx-react-lite": "^3.3.0",
+    "mobx-utils": "^6.0.4",
     "monaco-editor": "0.30.1",
     "monaco-graphql": "0.5.1",
     "morphext": "^2.4.7",

@@ -8,17 +8,10 @@ import { observer } from 'mobx-react-lite'
 import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
 import { BuilderDropId } from './dnd/BuilderDropId'
 import { useCreateElementDroppable } from './dnd/useCreateElementDroppable'
-import {
-  useBuilderDispatch,
-  useBuilderHotkeys,
-  useBuilderHoverHandlers,
-  useOnRendered,
-} from './hooks'
-import { Renderer, useTypesByIdQuery } from './renderer'
-import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
+import { useBuilderDispatch, useBuilderHotkeys, useOnRendered } from './hooks'
+// import { Renderer, useTypesByIdQuery } from './renderer-old'
 import { builderSelectors } from './store'
 
 export interface BuilderProps {
@@ -58,6 +51,7 @@ const BuilderRenderer = observer(
     const { onRendered } = useOnRendered()
     const extraElementProps = useSelector(builderSelectors.extraProps)
     const voidClick = useCallback(() => void 0, [])
+<<<<<<< HEAD
     const { typesById } = useTypesByIdQuery(typeService)
 
     return (
@@ -74,6 +68,25 @@ const BuilderRenderer = observer(
         typesById={typesById}
       />
     )
+=======
+    // const { typesById } = useTypesByIdQuery(typeStore)
+
+    return null
+    // return (
+    //   <Renderer
+    //     context={{
+    //       onRendered,
+    //       extraElementProps,
+    //       extraProps: {
+    //         onClick: voidClick,
+    //       },
+    //     }}
+    //     isComponentRenderer={isComponentBuilder}
+    //     tree={tree}
+    //     typesById={typesById}
+    //   />
+    // )
+>>>>>>> 950c7f31b (wip: mobx element, component, renderer)
   },
 )
 
@@ -107,12 +120,12 @@ export const Builder = observer(
   }: React.PropsWithChildren<BuilderProps>) => {
     const { selectElement, resetSelection } = useBuilderDispatch()
 
-    const { handleMouseOver, handleMouseLeave } =
-      useBuilderHoverHandlers(elementStore)
+    // const { handleMouseOver, handleMouseLeave } =
+    //   useBuilderHoverHandlers(elementStore)
 
-    const root = isComponentBuilder
-      ? tree.getRootComponent()
-      : tree.getRootElement()
+    // const root = isComponentBuilder
+    //   ? tree.getRootComponent()
+    //   : tree.getRootElement()
 
     const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
       // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -144,6 +157,7 @@ export const Builder = observer(
 
     useBuilderHotkeys()
 
+<<<<<<< HEAD
     return (
       <StyledBuilderContainer
         css={tw`relative w-full h-full bg-white`}
@@ -164,5 +178,28 @@ export const Builder = observer(
         {children}
       </StyledBuilderContainer>
     )
+=======
+    return null
+    // return (
+    //   <StyledBuilderContainer
+    //     css={tw`relative w-full h-full bg-white`}
+    //     id="Builder"
+    //     onClick={handleContainerClick}
+    //     onMouseLeave={handleMouseLeave}
+    //     onMouseOver={handleMouseOver}
+    //   >
+    //     <BuilderDropHandler root={root} />
+    //     <BuilderDropHandlers tree={tree} />
+    //     <BuilderRenderer
+    //       isComponentBuilder={isComponentBuilder}
+    //       tree={elementTree}
+    //       typeStore={typeStore}
+    //     />
+    //     <BuilderHoverOverlay />
+    //     <BuilderClickOverlay />
+    //     {children}
+    //   </StyledBuilderContainer>
+    // )
+>>>>>>> 950c7f31b (wip: mobx element, component, renderer)
   },
 )

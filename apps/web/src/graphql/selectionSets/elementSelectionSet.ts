@@ -1,14 +1,25 @@
+const componentSelectionSet = `{
+  id
+  name
+  rootElement {
+    id
+    name
+  }
+  owner {
+    id
+    auth0Id
+  }
+}`
+
 export const elementSelectionSet = `{
     id
     name
     css
     component {
-        id
-        name
+        ${componentSelectionSet}
     }
     instanceOfComponent {
-        id
-        name
+        ${componentSelectionSet}
     }
     parentElement {
         id

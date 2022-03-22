@@ -1,13 +1,16 @@
 import { PropsData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
-import { attempt } from 'lodash'
-import { isError } from 'react-query'
+import { attempt, isError } from 'lodash'
 import { RenderPipeFactory } from './types'
 
 type TransformFn = (props: PropsData) => PropsData
 
 const getTransformFn = (transformationJs: string): Maybe<TransformFn> => {
+  if (!transformationJs) {
+    return undefined
+  }
+
   // eslint-disable-next-line no-eval
   const result = attempt(eval, `(${transformationJs})`) // the parentheses allow us to return a function from eval
 
@@ -18,7 +21,7 @@ const getTransformFn = (transformationJs: string): Maybe<TransformFn> => {
   }
 
   if (typeof result != 'function') {
-    console.warn('Invalid transformation function')
+    console.warn('Invalid Element props transformation function')
 
     return undefined
   }

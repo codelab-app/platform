@@ -1,3 +1,4 @@
+import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { RenderPipeFactory } from './types'
 
@@ -6,11 +7,7 @@ import { RenderPipeFactory } from './types'
  */
 export const basePropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const baseProps = {
-      nodeid: element.id,
-      __node: element,
-      key: element.id,
-    }
+    const baseProps = { [DATA_ID]: element.id, key: element.id }
 
     return next(element, context, mergeProps(props, baseProps))
   }

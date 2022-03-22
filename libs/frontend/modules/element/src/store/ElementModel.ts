@@ -1,18 +1,26 @@
+import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Component, componentRef } from '@codelab/frontend/modules/component'
+import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { mergeProps } from '@codelab/shared/utils'
+import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
-  detach,
   idProp,
   Model,
   model,
   modelAction,
+  objectMap,
   prop,
   Ref,
-  rootRef,
 } from 'mobx-keystone'
 import { ElementFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
 import { ElementProps } from './ElementProps'
+import { elementRef } from './elementRef'
+import { PropMapBinding } from './PropMapBinding'
+
+type TransformFn = (props: PropsData) => PropsData
 
 // Renamed from 'Element' because ts doesn't pick it up, because of the native Element type
 // and auto-import doesn't work
@@ -26,10 +34,23 @@ export class ElementModel extends Model({
   atom: prop<Nullish<Ref<Atom>>>(() => null),
   children: prop<Array<Ref<ElementModel>>>(() => []),
   props: prop<Nullish<ElementProps>>(),
-  propTransformationJs: prop<Nullish<string>>(),
-  renderIfPropKey: prop<Nullish<string>>(),
-  renderForEachPropKey: prop<Nullish<string>>(),
+  propTransformationJs: prop<Nullish<string>>().withSetter(),
+  renderIfPropKey: prop<Nullish<string>>().withSetter(),
+  renderForEachPropKey: prop<Nullish<string>>().withSetter(),
+  propMapBindings: prop(() => objectMap<PropMapBinding>()),
+
+  // component which has this element as rootElement
+  component: prop<Nullish<Ref<Component>>>(),
+
+  // Marks the element as an instance of a specific component
+  instanceOfComponent: prop<Nullish<Ref<Component>>>(),
 }) {
+  protected onAttachedToRootStore(): void {
+    for (const child of this.children) {
+      child.current.setParentElement(elementRef(this))
+    }
+  }
+
   @modelAction
   addChild(child: ElementModel, order?: number) {
     order = order ?? this.lastChildOrder + 1
@@ -60,6 +81,11 @@ export class ElementModel extends Model({
     return list.length ? list[list.length - 1].order : 1
   }
 
+  @computed
+  get baseProps() {
+    return { [DATA_ID]: this.id, key: this.id }
+  }
+
   @modelAction
   removeChild(id: string) {
     const child = this.children.find((c) => c.id === id)
@@ -67,6 +93,84 @@ export class ElementModel extends Model({
     if (child) {
       this.children.splice(this.children.indexOf(child), 1)
     }
+  }
+
+  /**
+   * Parses the prop map bindings with the given source props as input
+   * and separates them into two categories:
+   * - those that are bound this element
+   * - those that are bound to other elements
+   */
+  applyPropMapBindings(sourceProps: PropsData) {
+    // those are the props that are bound to the element
+    let selfBoundProps = { ...sourceProps }
+    // Those are the props that are bound to the element's descendants
+    const descendantBoundProps: PropsDataByElementId = {}
+
+    for (const pmb of this.propMapBindings.values()) {
+      const appliedProps = pmb.applyBindings(selfBoundProps)
+
+      if (pmb.targetElement && pmb.targetElement.id !== this.id) {
+        descendantBoundProps[pmb.targetElement.id] = mergeProps(
+          descendantBoundProps[pmb.targetElement.id],
+          appliedProps,
+        )
+      } else {
+        selfBoundProps = mergeProps(selfBoundProps, selfBoundProps)
+      }
+    }
+
+    return { selfBoundProps, descendantBoundProps }
+  }
+
+  /**
+   * Parses and materializes the propTransformationJs
+   */
+  @computed
+  get transformFn(): Maybe<TransformFn> {
+    if (!this.propTransformationJs) {
+      return undefined
+    }
+
+    // eslint-disable-next-line no-eval
+    const result = attempt(eval, `(${this.propTransformationJs})`) // the parentheses allow us to return a function from eval
+
+    if (isError(result)) {
+      console.warn('Error while evaluating prop transformation', result)
+
+      return undefined
+    }
+
+    if (typeof result != 'function') {
+      console.warn('Invalid transformation function')
+
+      return undefined
+    }
+
+    return result
+  }
+
+  /**
+   * Executes the prop transformation function
+   * If successful, merges the result with the original props and returns it
+   * If failed, returns the original props
+   */
+  executePropTransformJs(props: PropsData): PropsData {
+    const transformFn = this.transformFn
+
+    if (!transformFn) {
+      return props
+    }
+
+    const result = attempt(transformFn, props)
+
+    if (isError(result)) {
+      console.warn('Unable to transform props')
+
+      return props
+    }
+
+    return mergeProps(props, result)
   }
 
   @modelAction
@@ -117,6 +221,19 @@ export class ElementModel extends Model({
     } else {
       this.parentElement = null
     }
+
+    for (const pmb of propMapBindings) {
+      if (this.propMapBindings.has(pmb.id)) {
+        this.propMapBindings.get(pmb.id)?.updateFromFragment(pmb)
+      } else {
+        this.propMapBindings.set(pmb.id, PropMapBinding.fromFragment(pmb))
+      }
+    }
+
+    this.component = component ? componentRef(component.id) : null
+    this.instanceOfComponent = instanceOfComponent
+      ? componentRef(instanceOfComponent.id)
+      : null
   }
 
   /**
@@ -128,10 +245,10 @@ export class ElementModel extends Model({
     css,
     atom,
 
-    component, // TODO Element - component references, instance of component
+    component,
     instanceOfComponent,
 
-    hooks, // TODO Integrate hooks and prop map bindings if their usage is not made obsolete by the mobx platform
+    hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
     propMapBindings,
 
     props,
@@ -151,14 +268,15 @@ export class ElementModel extends Model({
       renderForEachPropKey,
       parentElement: null,
       order: parentElementConnection.edges[0]?.order ?? 1,
+      component: component ? componentRef(component.id) : null,
+      instanceOfComponent: instanceOfComponent
+        ? componentRef(instanceOfComponent.id)
+        : null,
+      propMapBindings: objectMap(
+        propMapBindings
+          ? propMapBindings.map((b) => [b.id, PropMapBinding.fromFragment(b)])
+          : [],
+      ),
     })
   }
 }
-
-export const elementRef = rootRef<ElementModel>('ElementRef', {
-  onResolvedValueChange(ref, newApp, oldApp) {
-    if (oldApp && !newApp) {
-      detach(ref)
-    }
-  },
-})
