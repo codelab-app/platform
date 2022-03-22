@@ -1,5 +1,6 @@
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { ActionWhere } from '@codelab/shared/abstract/codegen-v2'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -142,7 +143,7 @@ export class ActionStore extends Model({
   createAction = _async(function* (
     this: ActionStore,
     input: CreateActionInput,
-    storeId: string,
+    storeId: Nullish<string>,
   ) {
     const { createActions } = yield* _await(
       actionApi.CreateActions({

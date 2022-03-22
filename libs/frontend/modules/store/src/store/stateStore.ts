@@ -1,5 +1,8 @@
 import { ModalStore } from '@codelab/frontend/shared/utils'
-import { StoreCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import {
+  StoreCreateInput,
+  StoreWhere,
+} from '@codelab/shared/abstract/codegen-v2'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -130,14 +133,20 @@ class StoresGraphsModel extends Model({
 
 @model('codelab/StateStore')
 export class StateStore extends Model({
+  stores: prop(() => objectMap<StoreModel>()),
   storesGraphs: prop(() => new StoresGraphsModel({})),
   createModal: prop(() => new ModalStore({})),
   updateModal: prop(() => new StoreModalStore({})),
   deleteModal: prop(() => new StoresModalStore({})),
   selectedStores: prop(() => Array<Ref<StoreModel>>()).withSetter(),
 }) {
+  @computed
+  get atomsList() {
+    return [...this.stores.values()]
+  }
+
   store(id: string) {
-    return this.storesGraphs.vertices.get(id)
+    return this.stores.get(id) || this.storesGraphs.vertices.get(id)
   }
 
   @modelFlow
@@ -187,23 +196,31 @@ export class StateStore extends Model({
 
   @modelFlow
   @transaction
+  getAll = _async(function* (this: StateStore, where?: StoreWhere) {
+    const { stores } = yield* _await(storeApi.GetStores({ where }))
+
+    return stores.map((store) => {
+      if (this.stores.get(store.id)) {
+        return this.stores.get(store.id)
+      } else {
+        const storeModel = StoreModel.fromFragment(store)
+        this.stores.set(store.id, storeModel)
+
+        return storeModel
+      }
+    })
+  })
+
+  @modelFlow
+  @transaction
   getOne = _async(function* (this: StateStore, id: string) {
-    if (this.storesGraphs.vertices.has(id)) {
-      return this.storesGraphs.vertices.get(id)
+    if (this.stores.has(id)) {
+      return this.stores.get(id)
     }
 
-    const { stores } = yield* _await(storeApi.GetStores({ where: { id } }))
+    const all = yield* _await(this.getAll({ id }))
 
-    if (!stores[0]) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Store was not found')
-    }
-
-    const store = StoreModel.fromFragment(stores[0])
-
-    this.storesGraphs.vertices.set(store.id, store)
-
-    return store
+    return all[0]
   })
 
   @modelFlow

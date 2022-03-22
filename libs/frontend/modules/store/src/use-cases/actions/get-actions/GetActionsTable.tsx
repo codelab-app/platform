@@ -2,21 +2,22 @@ import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { ActionStore, StoreModel } from '../../../store'
+import { useCurrentStoreId } from '../../../hooks'
+import { ActionStore } from '../../../store'
 import { ActionCellData } from './columns'
 import { useActionTable } from './useActionTable'
 
 export interface GetActionsTableProps {
   actionStore: ActionStore
-  store: StoreModel
 }
 
 export const GetActionsTable = observer<GetActionsTableProps>(
-  ({ actionStore, store }) => {
+  ({ actionStore }) => {
     const { columns, rowSelection, pagination } = useActionTable(actionStore)
+    const storeId = useCurrentStoreId()
 
     const [getActions, { isLoading }] = useAsyncState(() =>
-      actionStore.getAll({ store: { id: store.id } }),
+      actionStore.getAll({ store: { id: storeId } }),
     )
 
     useEffect(() => {

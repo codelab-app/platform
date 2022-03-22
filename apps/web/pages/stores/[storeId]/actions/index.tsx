@@ -10,6 +10,7 @@ import {
   DeleteActionsModal,
   GetActionsTable,
   UpdateActionModal,
+  useCurrentStoreId,
   useGetCurrentStore,
 } from '@codelab/frontend/modules/store'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -20,26 +21,13 @@ import {
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
-const useCurrentStore = () => {
-  const rootStore = useStore()
-  const { query } = useRouter()
-  const currentStoreId = query.storeId as string
-  const { store } = useGetCurrentStore(currentStoreId, rootStore.stateStore)
-
-  return store
-}
-
 const ActionsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useCurrentStore()
   const rootStore = useStore()
-
-  if (!store) {
-    return null
-  }
+  const storeId = useCurrentStoreId()
+  const { store } = useGetCurrentStore(storeId, rootStore.stateStore)
 
   return (
     <>
@@ -47,11 +35,11 @@ const ActionsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>{`${store?.name} | `}Codelab</title>
       </Head>
 
-      <CreateActionModal actionStore={rootStore.actionStore} store={store} />
+      <CreateActionModal actionStore={rootStore.actionStore} />
       <UpdateActionModal actionStore={rootStore.actionStore} />
       <DeleteActionsModal actionStore={rootStore.actionStore} />
       <ContentSection>
-        <GetActionsTable actionStore={rootStore.actionStore} store={store} />
+        <GetActionsTable actionStore={rootStore.actionStore} />
       </ContentSection>
     </>
   )
