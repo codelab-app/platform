@@ -1,42 +1,27 @@
-import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { ElementModel } from '@codelab/frontend/modules/element'
+import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
-import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderServiceContext'
+import { RenderOutput } from '../RenderOutput'
 
 @model('@codelab/LoopingRenderPipe')
 export class LoopingRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
-    if (!element.renderForEachPropKey) {
-      return this.next.render(element, props)
-    }
-
+  render(
+    element: ElementModel,
+    props: PropsData,
+    extraElementProps?: PropsDataByElementId,
+  ): Nullable<ArrayOrSingle<RenderOutput>> {
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
-    const renderer = getRenderContext(this)
 
     if (!Array.isArray(value)) {
-      if (renderer.debugMode) {
-        console.log(
-          'LoopingRenderPipe: the specified prop value is not array',
-          { element: element.name, value },
-        )
-      }
-
-      return this.next.render(element, props)
-    }
-
-    if (renderer.debugMode) {
-      console.log(
-        `LoopingRenderPipe: mapping the element ${value.length} times`,
-        { element: element.name, value },
-      )
+      return this.next.render(element, props, extraElementProps)
     }
 
     return value
@@ -45,12 +30,15 @@ export class LoopingRenderPipe
           key: `${props['key'] || element.id}-${index}`,
         })
 
-        return this.next.render(element, itemProps)
+        return this.next.render(element, itemProps, extraElementProps)
       })
       .filter((ro): ro is RenderOutput => !!ro)
   }
 
-  private static evaluateRenderForEach(element: Element, props: PropsData) {
+  private static evaluateRenderForEach(
+    element: ElementModel,
+    props: PropsData,
+  ) {
     if (!element.renderForEachPropKey) {
       return null
     }

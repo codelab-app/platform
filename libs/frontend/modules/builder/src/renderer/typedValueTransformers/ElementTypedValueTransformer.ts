@@ -1,7 +1,7 @@
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderContext } from '../renderServiceContext'
+import { getRenderContext } from '../renderContext'
 
 /**
  * Transforms props from the following format:
@@ -30,7 +30,7 @@ export class ElementTypedValueTransformer
     const renderer = getRenderContext(this)
 
     return (
-      typeof value.value === 'string' && !!renderer.tree?.element(value.value)
+      typeof value.value === 'string' && !!renderer.tree.element(value.value)
     )
   }
 
@@ -42,7 +42,7 @@ export class ElementTypedValueTransformer
       return props
     }
 
-    const element = renderer.tree?.element(elementId)
+    const element = renderer.tree.element(elementId)
 
     if (!element) {
       // this shouldn't happen, we check in canHandleValue

@@ -1,11 +1,15 @@
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
-import { Element, ElementProps } from '@codelab/frontend/modules/element'
+import {
+  ElementModel,
+  ElementProps,
+  elementRef,
+} from '@codelab/frontend/modules/element'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { action, makeObservable, observable } from 'mobx'
-import { frozen, objectMap } from 'mobx-keystone'
+import { frozen } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
@@ -36,9 +40,10 @@ const textAtom = new Atom({
   tagIds: [],
 })
 
-const textDec = new Element({
+const textDec = new ElementModel({
   id: v4(),
   atom: atomRef(textAtom),
+  order: 1,
   name: 'Decrement text',
   props: new ElementProps({
     id: v4(),
@@ -46,9 +51,10 @@ const textDec = new Element({
   }),
 })
 
-const textInc = new Element({
+const textInc = new ElementModel({
   id: v4(),
   atom: atomRef(textAtom),
+  order: 1,
   name: 'Increment text',
   props: new ElementProps({
     id: v4(),
@@ -56,36 +62,39 @@ const textInc = new Element({
   }),
 })
 
-const buttonDec = new Element({
+const buttonDec = new ElementModel({
   id: v4(),
   name: 'Button Decrement',
   atom: atomRef(buttonAtom),
+  order: 1,
   props: new ElementProps({
     id: v4(),
     data: frozen({
       onClick: '{{root.decrement}}',
     }),
   }),
-  children: objectMap([[textDec.id, textDec]]),
+  children: [elementRef(textDec)],
 })
 
-const buttonInc = new Element({
+const buttonInc = new ElementModel({
   id: v4(),
   name: 'Button Increment',
   atom: atomRef(buttonAtom),
+  order: 2,
   props: new ElementProps({
     id: v4(),
     data: frozen({
       onClick: '{{root.increment}}',
     }),
   }),
-  children: objectMap([[textInc.id, textInc]]),
+  children: [elementRef(textInc)],
 })
 
-const counterText = new Element({
+const counterText = new ElementModel({
   id: v4(),
   name: 'Counter text',
   atom: atomRef(textAtom),
+  order: 2,
   props: new ElementProps({
     id: v4(),
     data: frozen({
@@ -94,32 +103,39 @@ const counterText = new Element({
   }),
 })
 
-const container = new Element({
+const container = new ElementModel({
   id: v4(),
   name: 'Container',
   atom: atomRef(divAtom),
-  children: objectMap([
-    [buttonDec.id, buttonDec],
-    [counterText.id, counterText],
-    [buttonInc.id, buttonInc],
-  ]),
+  order: 1,
+  children: [
+    elementRef(buttonDec),
+    elementRef(counterText),
+    elementRef(buttonInc),
+  ],
 })
 
-const root = new Element({
+const root = new ElementModel({
   id: v4(),
   name: 'Root element',
-  children: objectMap([[container.id, container]]),
+  order: 1,
+  children: [elementRef(container)],
 })
 
 const demoStore = initializeStore()
 
-demoStore.typeService.addTypeLocal(emptyApi)
+demoStore.typeStore.addTypeLocal(emptyApi)
+demoStore.atomStore.addAtomLocal(divAtom)
+demoStore.atomStore.addAtomLocal(buttonAtom)
+demoStore.atomStore.addAtomLocal(textAtom)
 
-demoStore.atomService.addAtom(divAtom)
-demoStore.atomService.addAtom(buttonAtom)
-demoStore.atomService.addAtom(textAtom)
-
-demoStore.elementService.elementTree.setRoot(root)
+demoStore.elementStore.elementTree.addElement(counterText)
+demoStore.elementStore.elementTree.addElement(textDec)
+demoStore.elementStore.elementTree.addElement(textInc)
+demoStore.elementStore.elementTree.addElement(buttonInc)
+demoStore.elementStore.elementTree.addElement(buttonDec)
+demoStore.elementStore.elementTree.addElement(container)
+demoStore.elementStore.elementTree.addElement(root)
 
 class PlatformState {
   counter = 0
@@ -141,20 +157,19 @@ class PlatformState {
   }
 }
 
-demoStore.renderService.init(
-  demoStore.elementService.elementTree,
-  undefined,
+demoStore.renderer.init(
+  demoStore.elementStore.elementTree,
   new PlatformState() as any,
 )
 
 export const DemoRendererMobx = observer(() => {
-  if (!demoStore.renderService.isInitialized) {
+  if (!demoStore.renderer.isInitialized) {
     return null
   }
 
   return (
     <>
-      <Renderer renderService={demoStore.renderService} />
+      <Renderer renderModel={demoStore.renderer} />
       <div>Props:</div>
     </>
   )

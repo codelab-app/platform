@@ -1,13 +1,13 @@
-import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { ElementModel } from '@codelab/frontend/modules/element'
+import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../../atoms'
 import { IRenderPipe } from '../abstract/IRenderPipe'
-import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderServiceContext'
+import { RenderOutput } from '../RenderOutput'
 import { evalCss } from '../utils/evalCss'
 
 @model('@codelab/AtomRenderPipe')
@@ -15,15 +15,13 @@ export class AtomRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
-    const renderer = getRenderContext(this)
-
+  render(
+    element: ElementModel,
+    props: PropsData,
+    extraElementProps?: PropsDataByElementId,
+  ): Nullable<ArrayOrSingle<RenderOutput>> {
     if (!element.atom?.current) {
-      if (renderer.debugMode) {
-        console.log(`AtomRenderPipe: No atom found`, { element: element.name })
-      }
-
-      return this.next.render(element, props)
+      return this.next.render(element, props, extraElementProps)
     }
 
     const [ReactComponent, atomProps] = atomFactory({
@@ -32,27 +30,17 @@ export class AtomRenderPipe
     })
 
     if (!ReactComponent) {
-      console.warn(
-        `AtomRenderPipe: No RootComponent found for atom type ${element.atom.current.type}`,
-      )
-
-      return this.next.render(element, props)
+      return this.next.render(element, props, extraElementProps)
     }
 
     const mergedProps = mergeProps(atomProps, props)
     const elCss = element.css ? css(evalCss(element.css)) : undefined
 
-    if (renderer.debugMode) {
-      console.log(
-        `AtomRenderPipe: Rendering atom ${element.atom.current.type}`,
-        { element: element.name },
-      )
-    }
-
-    return RenderOutput.withAtom({
+    return {
       elementId: element.id,
       atomType: element.atom.current.type,
       props: { ...mergedProps, css: elCss },
-    })
+      descendantPropBindings: extraElementProps,
+    }
   }
 }

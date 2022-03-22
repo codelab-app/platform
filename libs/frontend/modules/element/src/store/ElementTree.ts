@@ -1,12 +1,26 @@
-import { Nullable } from '@codelab/shared/abstract/types'
+import {
+  Component,
+  ComponentFragment,
+} from '@codelab/frontend/modules/component'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
+import {
+  detach,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+  rootRef,
+} from 'mobx-keystone'
 import {
   ElementEdgeFragment,
   ElementGraphFragment,
 } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import { ElementModel, elementRef } from './ElementModel'
+import { ElementModel } from './ElementModel'
+import { elementRef } from './elementRef'
 
 const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
   // Then by the edge order, so that we can get a consistent ordering in the children array
@@ -25,12 +39,25 @@ const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
  */
 @model('@codelab,ElementTree')
 export class ElementTree extends Model({
+  id: idProp,
+
   elements: prop(() => objectMap<ElementModel>()),
-  root: prop<Nullable<Ref<ElementModel>>>(() => null),
+  components: prop(() => objectMap<Component>()),
 }) {
   @computed
   get elementsList() {
     return [...this.elements.values()]
+  }
+
+  @computed
+  get root() {
+    for (const element of this.elements.values()) {
+      if (!element.parentElement?.current) {
+        return element
+      }
+    }
+
+    return null
   }
 
   element(id: string) {
@@ -42,6 +69,23 @@ export class ElementTree extends Model({
     this.elements.set(element.id, element)
 
     return element
+  }
+
+  @modelAction
+  addComponent(component: Component) {
+    this.components.set(component.id, component)
+
+    return component
+  }
+
+  getRootElementOfComponent(component: Component) {
+    const rootElement = this.element(component.rootElementId)
+
+    if (!rootElement) {
+      console.warn(`Could not find root element for component ${component.id}`)
+    }
+
+    return rootElement
   }
 
   /**
@@ -126,14 +170,32 @@ export class ElementTree extends Model({
       throw new Error('No root element found')
     }
 
+    const getOrCreateComponent = (
+      data: Nullish<ComponentFragment>,
+    ): Component | null => {
+      if (!data) {
+        return null
+      }
+
+      if (this.components.has(data.id)) {
+        return this.components.get(data.id) as Component
+      }
+
+      const component = Component.fromFragment(data)
+
+      this.components.set(data.id, component)
+
+      return component
+    }
+
     // Map each element fragment to an element model and put it in the tree
     for (const v of vertices) {
+      // Make sure we have the components first because we reference them in the element
+      getOrCreateComponent(v.component)
+      getOrCreateComponent(v.instanceOfComponent)
+
       const element = ElementModel.fromFragment(v)
       this.addElement(element)
-
-      if (element.id === root.id) {
-        this.root = elementRef(element)
-      }
     }
 
     // Attach the children. Sort the edges to match the children order to the db edge order
@@ -157,3 +219,11 @@ export class ElementTree extends Model({
     return new ElementTree({}).updateFromFragment(fragment)
   }
 }
+
+export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {
+  onResolvedValueChange(ref, newType, oldType) {
+    if (oldType && !newType) {
+      detach(ref)
+    }
+  },
+})

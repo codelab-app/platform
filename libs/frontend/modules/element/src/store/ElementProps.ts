@@ -6,8 +6,14 @@ import { PropFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
 @model('@codelab/ElementProps')
 export class ElementProps extends Model({
   id: idProp,
-  data: prop<Frozen<PropsData>>().withSetter(), // freeze the data object to make it immutable
+  // freeze the data object to make it immutable.
+  // The actual data is in data.data, because the Frozen class keeps the data in its own data property
+  data: prop<Frozen<PropsData>>().withSetter(),
 }) {
+  get propsData() {
+    return this.data.data
+  }
+
   @modelAction
   updateFromFragment({ id, data }: PropFragment) {
     this.id = id

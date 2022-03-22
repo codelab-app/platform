@@ -4,13 +4,13 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { PropMapBindingFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import type { Element } from './Element'
+import type { ElementModel } from './ElementModel'
 import { elementRef } from './elementRef'
 
 @model('@codelab/PropMapBinding')
 export class PropMapBinding extends Model({
   id: idProp,
-  targetElement: prop<Nullable<Ref<Element>>>(), // if null -> target is current element
+  targetElement: prop<Nullable<Ref<ElementModel>>>(), // if null -> target is current element
   sourceKey: prop<string>(), // '*' binds all incoming props
   targetKey: prop<string>(), // '*' spreads all props
 }) {

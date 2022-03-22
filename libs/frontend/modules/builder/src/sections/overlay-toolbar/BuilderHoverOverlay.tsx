@@ -1,8 +1,8 @@
 import { HoverOverlay } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useBuilderHoveringElement } from '../../hooks'
 import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
-import { WithBuilderService } from '../../store/BuilderService'
 
 export type BuilderHoverOverlayProps = WithBuilderService
 

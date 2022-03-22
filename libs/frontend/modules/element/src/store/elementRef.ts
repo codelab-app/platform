@@ -1,7 +1,7 @@
 import { detach, rootRef } from 'mobx-keystone'
-import type { Element } from './Element'
+import type { ElementModel } from './ElementModel'
 
-export const elementRef = rootRef<Element>('ElementRef', {
+export const elementRef = rootRef<ElementModel>('ElementRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)

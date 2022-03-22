@@ -4,12 +4,10 @@ fragment Element on Element {
   name
   css
   component {
-    id
-    name
+    ...Component
   }
   instanceOfComponent {
-    id
-    name
+    ...Component
   }
   parentElement {
     id

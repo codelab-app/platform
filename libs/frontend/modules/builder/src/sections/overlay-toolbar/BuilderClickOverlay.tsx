@@ -8,8 +8,8 @@ import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useBuilderSelectedElement } from '../../hooks'
 import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
-import { WithBuilderService } from '../../store/BuilderService'
 
 const StyledOverlayContainer = styled.div`
   display: flex;

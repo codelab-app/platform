@@ -23,7 +23,7 @@ export const UpdateElementPropsForm = observer(
     typeService,
   }: UpdateElementPropsFormProps) => {
     const { trackPromise } = trackPromises ?? {}
-    const initialPropsRef = useRef(element?.props?.data ?? {}) // cache it to not confuse the user when auto-saving
+    const initialPropsRef = useRef(element?.props?.propsData ?? {}) // cache it to not confuse the user when auto-saving
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
       useLoadingState((_id: string) =>

@@ -1,30 +1,30 @@
-import { Element } from '@codelab/frontend/modules/element'
-import { AtomType, PropsData } from '@codelab/shared/abstract/core'
+import { ElementModel } from '@codelab/frontend/modules/element'
+import {
+  AtomType,
+  PropsData,
+  PropsDataByElementId,
+} from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Model, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
-import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderServiceContext'
+import { RenderOutput } from '../RenderOutput'
 
 /**
- * Render pipe that renders whatever you give it - useful for unit testing
+ * Render pipe that's useful for unit testing - renders whatever you give it
  */
 @model('@codelab/PassThroughRenderPipe')
 export class PassThroughRenderPipe extends Model({}) implements IRenderPipe {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
-    const renderer = getRenderContext(this)
-
-    if (renderer.debugMode) {
-      console.log(`PassThroughRenderPipe: rendering input`, {
-        element,
-        props,
-      })
-    }
-
-    return RenderOutput.withAtom({
+  render(
+    element: ElementModel,
+    props: PropsData,
+    extraElementProps?: PropsDataByElementId,
+  ): Nullable<ArrayOrSingle<RenderOutput>> {
+    return {
       props: props,
+      descendantPropBindings: extraElementProps,
       atomType: element.atom?.current.type || AtomType.ReactFragment,
       elementId: element.id,
-    })
+    }
   }
 }

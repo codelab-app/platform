@@ -9,6 +9,7 @@ import {
   HookPropFragment,
   PropMapBindingFragment,
 } from './Element.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-request'
@@ -21,6 +22,7 @@ import {
   HookPropFragmentDoc,
   PropMapBindingFragmentDoc,
 } from './Element.fragment.v2.1.graphql.gen'
+import { ComponentFragmentDoc } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 export type GetElementsGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>
@@ -95,6 +97,7 @@ export const GetElementsGraphGql = gql`
   ${ElementGraphFragmentDoc}
   ${ElementEdgeFragmentDoc}
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -109,6 +112,7 @@ export const CreateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -134,6 +138,7 @@ export const UpdateElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -148,6 +153,7 @@ export const MoveElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -165,6 +171,7 @@ export const ConvertElementsToComponentsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -179,6 +186,7 @@ export const DuplicateElementGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}
@@ -191,6 +199,7 @@ export const GetElementsGql = gql`
     }
   }
   ${ElementFragmentDoc}
+  ${ComponentFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${HookPropFragmentDoc}

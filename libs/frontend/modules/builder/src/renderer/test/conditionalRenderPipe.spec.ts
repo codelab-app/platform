@@ -1,46 +1,23 @@
-import { DATA_ID } from '@codelab/frontend/abstract/core'
+import { clone } from 'mobx-keystone'
+import { RenderOutput } from '../RenderOutput'
 import { ConditionalRenderPipe } from '../renderPipes/ConditionalRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { PassThroughRenderPipe } from '../renderPipes/PassThroughRenderPipe'
+import { elementToRender } from './testData/renderData'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestRenderData(
-    (next) => new ConditionalRenderPipe({ next }),
-  )
-
-  beforeEach(() => {
-    data.elementToRender.setRenderIfPropKey('shouldRender')
+  const pipe = new ConditionalRenderPipe({
+    next: new PassThroughRenderPipe({}),
   })
 
-  it('should render normally if no key is found', async () => {
-    data.elementToRender.setRenderIfPropKey(null)
+  const element = clone(elementToRender)
+  element.setRenderIfPropKey('shouldRender')
 
-    const output = data.renderService.renderElementIntermediate(
-      data.elementToRender,
-      {
-        shouldRender: false,
-      },
-    )
-
-    expect(output).toEqual({
-      elementId: data.elementToRender.id,
-      atomType: data.elementToRender.atom?.current.type,
-      props: expect.objectContaining({
-        [DATA_ID]: data.elementToRender.id,
-      }),
+  it('should stop rendering by returning null', async () => {
+    const output = pipe.render(elementToRender, {
+      shouldRender: false,
     })
-  })
 
-  it('should stop rendering by returning an empty output', async () => {
-    const output = data.renderService.renderElementIntermediate(
-      data.elementToRender,
-      {
-        shouldRender: false,
-      },
-    )
-
-    expect(output).toMatchObject({
-      elementId: data.elementToRender.id,
-    })
+    expect(output).toBeNull()
   })
 
   it('should continue rendering', async () => {
@@ -49,17 +26,9 @@ describe('ConditionalRenderPipe', () => {
       prop01: 'prop01',
     }
 
-    const output = data.renderService.renderElementIntermediate(
-      data.elementToRender,
-      initialProps,
-    )
+    const output = pipe.render(element, initialProps)
+    console.log(output)
 
-    expect(output).toEqual({
-      elementId: data.elementToRender.id,
-      atomType: data.elementToRender.atom?.current.type,
-      props: expect.objectContaining({
-        [DATA_ID]: data.elementToRender.id,
-      }),
-    })
+    expect((output as RenderOutput).props).toStrictEqual(initialProps)
   })
 })

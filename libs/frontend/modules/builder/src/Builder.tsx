@@ -2,12 +2,14 @@ import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { WithElementService } from '@codelab/frontend/modules/element'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
-import { BuilderDropHandler } from './dnd/BuilderDropHandler'
-import { ElementDropHandlers } from './dnd/ElementDropHandlers'
-import { useBuilderHotkeys, useBuilderHoverHandlers } from './hooks'
-import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
-import { Renderer } from './renderer'
-import { WithBuilderService } from './store/BuilderService'
+import React, { MouseEventHandler, useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import tw from 'twin.macro'
+import { BuilderDropId } from './dnd/BuilderDropId'
+import { useCreateElementDroppable } from './dnd/useCreateElementDroppable'
+import { useBuilderDispatch, useBuilderHotkeys, useOnRendered } from './hooks'
+// import { Renderer, useTypesByIdQuery } from './renderer-old'
+import { builderSelectors } from './store'
 
 export interface BuilderProps {
   typeService: TypeService
@@ -49,22 +51,23 @@ const BuilderRenderer = observer(
     const { onRendered } = useOnRendered()
     const extraElementProps = useSelector(builderSelectors.extraProps)
     const voidClick = useCallback(() => void 0, [])
-    const { typesById } = useTypesByIdQuery(typeService)
+    // const { typesById } = useTypesByIdQuery(typeStore)
 
-    return (
-      <Renderer
-        context={{
-          onRendered,
-          extraElementProps,
-          extraProps: {
-            onClick: voidClick,
-          },
-        }}
-        isComponentRenderer={isComponentBuilder}
-        tree={tree}
-        typesById={typesById}
-      />
-    )
+    return null
+    // return (
+    //   <Renderer
+    //     context={{
+    //       onRendered,
+    //       extraElementProps,
+    //       extraProps: {
+    //         onClick: voidClick,
+    //       },
+    //     }}
+    //     isComponentRenderer={isComponentBuilder}
+    //     tree={tree}
+    //     typesById={typesById}
+    //   />
+    // )
   },
 )
 
@@ -98,12 +101,12 @@ export const Builder = observer(
   }: React.PropsWithChildren<BuilderProps>) => {
     const { selectElement, resetSelection } = useBuilderDispatch()
 
-    const { handleMouseOver, handleMouseLeave } =
-      useBuilderHoverHandlers(elementStore)
+    // const { handleMouseOver, handleMouseLeave } =
+    //   useBuilderHoverHandlers(elementStore)
 
-    const root = isComponentBuilder
-      ? tree.getRootComponent()
-      : tree.getRootElement()
+    // const root = isComponentBuilder
+    //   ? tree.getRootComponent()
+    //   : tree.getRootElement()
 
     const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
       // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -135,25 +138,26 @@ export const Builder = observer(
 
     useBuilderHotkeys()
 
-    return (
-      <StyledBuilderContainer
-        css={tw`relative w-full h-full bg-white`}
-        id="Builder"
-        onClick={handleContainerClick}
-        onMouseLeave={handleMouseLeave}
-        onMouseOver={handleMouseOver}
-      >
-        <BuilderDropHandler root={root} />
-        <BuilderDropHandlers tree={tree} />
-        <BuilderRenderer
-          isComponentBuilder={isComponentBuilder}
-          tree={elementTree}
-          typeService={typeService}
-        />
-        <BuilderHoverOverlay />
-        <BuilderClickOverlay />
-        {children}
-      </StyledBuilderContainer>
-    )
+    return null
+    // return (
+    //   <StyledBuilderContainer
+    //     css={tw`relative w-full h-full bg-white`}
+    //     id="Builder"
+    //     onClick={handleContainerClick}
+    //     onMouseLeave={handleMouseLeave}
+    //     onMouseOver={handleMouseOver}
+    //   >
+    //     <BuilderDropHandler root={root} />
+    //     <BuilderDropHandlers tree={tree} />
+    //     <BuilderRenderer
+    //       isComponentBuilder={isComponentBuilder}
+    //       tree={elementTree}
+    //       typeStore={typeStore}
+    //     />
+    //     <BuilderHoverOverlay />
+    //     <BuilderClickOverlay />
+    //     {children}
+    //   </StyledBuilderContainer>
+    // )
   },
 )

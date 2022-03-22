@@ -1,9 +1,12 @@
-import { RenderOutput } from '../abstract/RenderOutput'
-import { LoopingRenderPipe } from '../renderPipes/LoopingRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { ReactElement } from 'react'
+import { loopingRenderPipe } from './loopRenderingPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
+
+const defaultContext = {} as RenderContext
 
 const initialProps = {
-  data: [
+  [elementToRender.renderForEachPropKey as string]: [
     { prop01: 'prop01Value' },
     { prop02: 'prop02Value' },
     { prop03: 'prop03Value' },
@@ -12,38 +15,33 @@ const initialProps = {
 }
 
 describe('LoopingRenderPipe', () => {
-  const data = setupTestRenderData((next) => new LoopingRenderPipe({ next }))
-
-  beforeEach(() => {
-    data.elementToRender.setRenderForEachPropKey('data')
-  })
-
   it('should add renderForEachPropKey props', () => {
-    const output = data.renderService.renderElementIntermediate(
-      data.elementToRender,
+    const output = loopingRenderPipe(endPipe)(
+      elementToRender,
+      defaultContext,
       initialProps,
-    ) as Array<RenderOutput>
+    ) as ReactElement
 
-    const props = output.map((x) => x.props)
+    const props = output.props.children.map((x: EndPipeOutput) => x.props)
 
-    expect(props).toMatchObject([
+    expect(props).toStrictEqual([
       {
-        key: `${data.elementToRender.id}-0`,
+        key: `${elementToRender.id}-0`,
         prop01: 'prop01Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-1`,
+        key: `${elementToRender.id}-1`,
         prop02: 'prop02Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-2`,
+        key: `${elementToRender.id}-2`,
         prop03: 'prop03Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-3`,
+        key: `${elementToRender.id}-3`,
         prop04: 'prop04Value',
         ...initialProps,
       },

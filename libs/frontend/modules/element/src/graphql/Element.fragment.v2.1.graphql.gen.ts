@@ -1,8 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import { ComponentFragment } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-request'
+import { ComponentFragmentDoc } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -11,8 +13,8 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfPropKey?: string | null
   propTransformationJs?: string | null
-  component?: { id: string; name: string } | null
-  instanceOfComponent?: { id: string; name: string } | null
+  component?: ComponentFragment | null
+  instanceOfComponent?: ComponentFragment | null
   parentElement?: { id: string; name?: string | null } | null
   atom?: {
     id: string
@@ -116,12 +118,10 @@ export const ElementFragmentDoc = gql`
     name
     css
     component {
-      id
-      name
+      ...Component
     }
     instanceOfComponent {
-      id
-      name
+      ...Component
     }
     parentElement {
       id

@@ -1,10 +1,11 @@
 import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
-import { AtomService, atomStoreRef } from '@codelab/frontend/modules/atom'
+import { AtomService, atomStoreContext } from '@codelab/frontend/modules/atom'
+import { renderContext, RendererModel } from '@codelab/frontend/modules/builder'
 import { ElementStore } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
 import { TagService } from '@codelab/frontend/modules/tag'
-import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
+import { TypeService, typeStoreContext } from '@codelab/frontend/modules/type'
 import {
   fromSnapshot,
   Model,
@@ -26,10 +27,15 @@ export class RootStore extends Model({
   atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
-  elementStore: prop(
-    () => new ElementStore({ atomStore: atomStoreRef(atomStoreId) }),
-  ),
-}) {}
+  elementService: prop(() => new ElementStore({})),
+  renderer: prop(() => new RendererModel({})),
+}) {
+  protected onInit(): void {
+    typeStoreContext.set(this, this.typeService)
+    atomStoreContext.set(this, this.atomService)
+    renderContext.set(this, this.renderer)
+  }
+}
 
 let _store: RootStore | null = null
 

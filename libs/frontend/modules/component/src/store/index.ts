@@ -1,2 +1,1 @@
-export { Component } from './component'
-export * from './component.service'
+export * from './ComponentStore'
