@@ -5,14 +5,13 @@
     "@nrwl/nx",
     "import",
     "unused-imports",
-    "react",
-    "react-hooks",
+    // "react",
+    // "react-hooks",
     "graphql",
     "@emotion",
     "prettier",
     "jest-formatting",
-    "simple-import-sort",
-    "deprecate-import"
+    "simple-import-sort"
     // "@graphql-eslint",
     // "eslint-plugin-graphql"
   ],

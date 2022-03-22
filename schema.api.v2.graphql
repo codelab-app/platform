@@ -1,3 +1,17 @@
+union AnyType =
+    AppType
+  | ArrayType
+  | ElementType
+  | EnumType
+  | InterfaceType
+  | LambdaType
+  | MonacoType
+  | PageType
+  | PrimitiveType
+  | ReactNodeType
+  | RenderPropsType
+  | UnionType
+
 type App {
   id: ID!
   name: String!
@@ -574,7 +588,7 @@ input AppSort {
 Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -873,8 +887,9 @@ input AppWhere {
 ArrayType Allows defining a variable number of items of a given type.
 Contains a reference to another type which is the array item type.
 """
-type ArrayType implements TypeBase {
+type ArrayType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   itemType(
     directed: Boolean = true
@@ -940,6 +955,7 @@ input ArrayTypeDisconnectInput {
 
 input ArrayTypeItemTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -950,17 +966,21 @@ type ArrayTypeItemTypeConnection {
 }
 
 input ArrayTypeItemTypeConnectionSort {
+  edge: IdPropertySort
   node: TypeBaseSort
 }
 
 input ArrayTypeItemTypeConnectionWhere {
   AND: [ArrayTypeItemTypeConnectionWhere!]
   OR: [ArrayTypeItemTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input ArrayTypeItemTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -979,12 +999,14 @@ input ArrayTypeItemTypeFieldInput {
   create: [ArrayTypeItemTypeCreateFieldInput!]
 }
 
-type ArrayTypeItemTypeRelationship {
+type ArrayTypeItemTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input ArrayTypeItemTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -2470,13 +2492,13 @@ type CreateEnumTypesMutationResponse {
   info: CreateInfo!
 }
 
-type CreateHooksMutationResponse {
-  hooks: [Hook!]!
+type CreateExportAdminDataResponsesMutationResponse {
+  exportAdminDataResponses: [ExportAdminDataResponse!]!
   info: CreateInfo!
 }
 
-type CreateImportAtomsMutationResponsesMutationResponse {
-  importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+type CreateHooksMutationResponse {
+  hooks: [Hook!]!
   info: CreateInfo!
 }
 
@@ -4238,12 +4260,11 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ElementType implements TypeBase {
-  descendantTypesIds: [ID!]!
-
   """
   Allows scoping the type of element to only descendants, children or all elements
   """
   elementKind: ElementTypeKind!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -4672,7 +4693,7 @@ type EnumType implements TypeBase {
     sort: [EnumTypeAllowedValuesConnectionSort!]
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -5302,6 +5323,45 @@ input EnumTypeWhere {
   owner_SOME: UserWhere
 }
 
+type ExportAdminDataResponse {
+  result: JSONObject!
+}
+
+type ExportAdminDataResponseAggregateSelection {
+  count: Int!
+}
+
+input ExportAdminDataResponseCreateInput {
+  result: JSONObject!
+}
+
+input ExportAdminDataResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ExportAdminDataResponseSort objects to sort ExportAdminDataResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ExportAdminDataResponseSort!]
+}
+
+"""
+Fields to sort ExportAdminDataResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExportAdminDataResponseSort object.
+"""
+input ExportAdminDataResponseSort {
+  result: SortDirection
+}
+
+input ExportAdminDataResponseUpdateInput {
+  result: JSONObject
+}
+
+input ExportAdminDataResponseWhere {
+  AND: [ExportAdminDataResponseWhere!]
+  OR: [ExportAdminDataResponseWhere!]
+  result: JSONObject
+}
+
 interface Field {
   description: String
   key: String!
@@ -5860,43 +5920,7 @@ input IdPropertyWhere {
 }
 
 input ImportAdminDataInput {
-  payload: [JSONObject!]
-}
-
-input ImportAtomsInput {
-  payload: [JSONObject!]!
-}
-
-type ImportAtomsMutationResponse {
-  atoms: [Atom!]!
-}
-
-type ImportAtomsMutationResponseAggregateSelection {
-  count: Int!
-}
-
-input ImportAtomsMutationResponseCreateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input ImportAtomsMutationResponseOptions {
-  limit: Int
-  offset: Int
-}
-
-input ImportAtomsMutationResponseUpdateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input ImportAtomsMutationResponseWhere {
-  AND: [ImportAtomsMutationResponseWhere!]
-  OR: [ImportAtomsMutationResponseWhere!]
+  payload: JSONObject!
 }
 
 type ImportDataMutationResponse {
@@ -5986,6 +6010,7 @@ type InterfaceType implements TypeBase {
     sort: [InterfaceTypeFieldsConnectionSort!]
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -6150,6 +6175,7 @@ input InterfaceTypeConnectWhere {
 
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
+  descendantTypesIds: [ID!]!
   fields: InterfaceTypeFieldsFieldInput
   name: String!
   owner: TypeBaseOwnerFieldInput
@@ -6248,6 +6274,7 @@ input InterfaceTypeFieldsUpdateFieldInput {
 }
 
 input InterfaceTypeOnCreateInput {
+  descendantTypesIds: ID
   id: ID
   name: String
 }
@@ -6339,6 +6366,7 @@ input InterfaceTypeUniqueWhere {
 
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
+  descendantTypesIds: [ID!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   name: String
   owner: [TypeBaseOwnerUpdateFieldInput!]
@@ -6383,6 +6411,10 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
+  descendantTypesIds: [ID!]
+  descendantTypesIds_INCLUDES: ID
+  descendantTypesIds_NOT: [ID!]
+  descendantTypesIds_NOT_INCLUDES: ID
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
@@ -6443,7 +6475,7 @@ scalar JSONObject
 Allows picking a lambda
 """
 type LambdaType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -6649,7 +6681,7 @@ enum MonacoLanguage {
 Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   language: MonacoLanguage!
   name: String!
@@ -6877,10 +6909,10 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
+  createExportAdminDataResponses(
+    input: [ExportAdminDataResponseCreateInput!]!
+  ): CreateExportAdminDataResponsesMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
-  createImportAtomsMutationResponses(
-    input: [ImportAtomsMutationResponseCreateInput!]!
-  ): CreateImportAtomsMutationResponsesMutationResponse!
   createImportDataMutationResponses(
     input: [ImportDataMutationResponseCreateInput!]!
   ): CreateImportDataMutationResponsesMutationResponse!
@@ -6952,11 +6984,11 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
+  deleteExportAdminDataResponses(
+    where: ExportAdminDataResponseWhere
+  ): DeleteInfo!
   deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
-  deleteImportAtomsMutationResponses(
-    where: ImportAtomsMutationResponseWhere
-  ): DeleteInfo!
   deleteImportDataMutationResponses(
     where: ImportDataMutationResponseWhere
   ): DeleteInfo!
@@ -7009,8 +7041,7 @@ type Mutation {
     input: DuplicateElementInput!
   ): DuplicateElementMutationResponse!
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
-  importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
-  importTypeGraph(payload: JSONObject!): String!
+  importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
@@ -7105,6 +7136,10 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
+  updateExportAdminDataResponses(
+    update: ExportAdminDataResponseUpdateInput
+    where: ExportAdminDataResponseWhere
+  ): UpdateExportAdminDataResponsesMutationResponse!
   updateHooks(
     connect: HookConnectInput
     connectOrCreate: HookConnectOrCreateInput
@@ -7114,10 +7149,6 @@ type Mutation {
     update: HookUpdateInput
     where: HookWhere
   ): UpdateHooksMutationResponse!
-  updateImportAtomsMutationResponses(
-    update: ImportAtomsMutationResponseUpdateInput
-    where: ImportAtomsMutationResponseWhere
-  ): UpdateImportAtomsMutationResponsesMutationResponse!
   updateImportDataMutationResponses(
     update: ImportDataMutationResponseUpdateInput
     where: ImportDataMutationResponseWhere
@@ -7676,7 +7707,7 @@ input PageSort {
 Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -7947,7 +7978,7 @@ input ParentOfElementWhere {
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
 type PrimitiveType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -8844,7 +8875,14 @@ type Query {
   ): EnumTypeValueAggregateSelection!
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
-  exportAllTypesGraph: JSONObject
+  exportAdminData: ExportAdminDataResponse!
+  exportAdminDataResponses(
+    options: ExportAdminDataResponseOptions
+    where: ExportAdminDataResponseWhere
+  ): [ExportAdminDataResponse!]!
+  exportAdminDataResponsesAggregate(
+    where: ExportAdminDataResponseWhere
+  ): ExportAdminDataResponseAggregateSelection!
   exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 
@@ -8855,13 +8893,6 @@ type Query {
   getTypeReferences(typeId: ID!): [TypeReference!]
   hooks(options: HookOptions, where: HookWhere): [Hook!]!
   hooksAggregate(where: HookWhere): HookAggregateSelection!
-  importAtomsMutationResponses(
-    options: ImportAtomsMutationResponseOptions
-    where: ImportAtomsMutationResponseWhere
-  ): [ImportAtomsMutationResponse!]!
-  importAtomsMutationResponsesAggregate(
-    where: ImportAtomsMutationResponseWhere
-  ): ImportAtomsMutationResponseAggregateSelection!
   importDataMutationResponses(
     options: ImportDataMutationResponseOptions
     where: ImportDataMutationResponseWhere
@@ -8934,7 +8965,7 @@ type Query {
   ): ResetDatabaseMutationResponseAggregateSelection!
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagGraphs: TagGraph
+  tagGraphs: TagGraph!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   typeReferences(
@@ -8961,7 +8992,7 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ReactNodeType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -9166,7 +9197,7 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type RenderPropsType implements TypeBase {
-  descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -9838,6 +9869,7 @@ type TagTagParentNodeAggregateSelection {
 
 input TagUniqueWhere {
   id: ID
+  name: String
 }
 
 input TagUpdateInput {
@@ -9905,7 +9937,6 @@ input TagWhere {
 }
 
 interface TypeBase {
-  descendantTypesIds: [ID!]!
   id: ID!
   name: String!
   owner(
@@ -10231,6 +10262,20 @@ input TypeBaseWhere {
   owner_SOME: UserWhere
 }
 
+"""
+Connection between two types in a TypeGraph.
+Can be:
+Array -> ArrayItem (Edge)
+Interface -> Field type - (InterfaceTypeEdge)
+Union -> Union member (Edge)
+"""
+union TypeEdge = Edge | InterfaceTypeEdge
+
+type TypeGraph {
+  edges: [TypeEdge!]!
+  vertices: [AnyType!]!
+}
+
 type TypeReference {
   """
   The type of resource - Atom, InterfaceType, etc.
@@ -10305,8 +10350,9 @@ input TypeReferenceWhere {
 """
 Allows picking one of a set of types
 """
-type UnionType implements TypeBase {
+type UnionType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
+  graph: TypeGraph!
   id: ID!
   name: String!
   owner(
@@ -10452,6 +10498,7 @@ input UnionTypeSort {
 
 input UnionTypeTypesOfUnionTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -10462,17 +10509,21 @@ type UnionTypeTypesOfUnionTypeConnection {
 }
 
 input UnionTypeTypesOfUnionTypeConnectionSort {
+  edge: IdPropertySort
   node: TypeBaseSort
 }
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeConnectionWhere!]
   OR: [UnionTypeTypesOfUnionTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -10491,12 +10542,14 @@ input UnionTypeTypesOfUnionTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
-type UnionTypeTypesOfUnionTypeRelationship {
+type UnionTypeTypesOfUnionTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input UnionTypeTypesOfUnionTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -10640,13 +10693,13 @@ type UpdateEnumTypesMutationResponse {
   info: UpdateInfo!
 }
 
-type UpdateHooksMutationResponse {
-  hooks: [Hook!]!
+type UpdateExportAdminDataResponsesMutationResponse {
+  exportAdminDataResponses: [ExportAdminDataResponse!]!
   info: UpdateInfo!
 }
 
-type UpdateImportAtomsMutationResponsesMutationResponse {
-  importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+type UpdateHooksMutationResponse {
+  hooks: [Hook!]!
   info: UpdateInfo!
 }
 
@@ -11251,4 +11304,8 @@ input UserWhere {
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere
   typesConnection_SOME: UserTypesConnectionWhere
+}
+
+interface WithDescendants {
+  descendantTypesIds: [ID!]!
 }

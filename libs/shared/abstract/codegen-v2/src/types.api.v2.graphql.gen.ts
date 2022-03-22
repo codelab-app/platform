@@ -20,6 +20,20 @@ export type Scalars = {
   JSONObject: Record<string, any>
 }
 
+export type AnyType =
+  | AppType
+  | ArrayType
+  | ElementType
+  | EnumType
+  | InterfaceType
+  | LambdaType
+  | MonacoType
+  | PageType
+  | PrimitiveType
+  | ReactNodeType
+  | RenderPropsType
+  | UnionType
+
 export type App = {
   __typename?: 'App'
   id: Scalars['ID']
@@ -620,7 +634,7 @@ export type AppSort = {
 /** Allows picking a app from the list of apps */
 export type AppType = TypeBase & {
   __typename?: 'AppType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -892,17 +906,19 @@ export type AppWhere = {
  * ArrayType Allows defining a variable number of items of a given type.
  * Contains a reference to another type which is the array item type.
  */
-export type ArrayType = TypeBase & {
-  __typename?: 'ArrayType'
-  descendantTypesIds: Array<Scalars['ID']>
-  id: Scalars['ID']
-  itemType: Array<TypeBase>
-  itemTypeConnection: ArrayTypeItemTypeConnection
-  name: Scalars['String']
-  owner: Array<User>
-  ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
+export type ArrayType = TypeBase &
+  WithDescendants & {
+    __typename?: 'ArrayType'
+    descendantTypesIds: Array<Scalars['ID']>
+    graph: TypeGraph
+    id: Scalars['ID']
+    itemType: Array<TypeBase>
+    itemTypeConnection: ArrayTypeItemTypeConnection
+    name: Scalars['String']
+    owner: Array<User>
+    ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
+    ownerConnection: TypeBaseOwnerConnection
+  }
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -991,6 +1007,7 @@ export type ArrayTypeDisconnectInput = {
 
 export type ArrayTypeItemTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
+  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
@@ -1002,17 +1019,21 @@ export type ArrayTypeItemTypeConnection = {
 }
 
 export type ArrayTypeItemTypeConnectionSort = {
+  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type ArrayTypeItemTypeConnectionWhere = {
   AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
   OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  edge?: InputMaybe<IdPropertyWhere>
+  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
+  edge: IdPropertyCreateInput
   node: TypeBaseCreateInput
 }
 
@@ -1031,13 +1052,15 @@ export type ArrayTypeItemTypeFieldInput = {
   create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
 }
 
-export type ArrayTypeItemTypeRelationship = {
+export type ArrayTypeItemTypeRelationship = IdProperty & {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
+  id: Scalars['ID']
   node: TypeBase
 }
 
 export type ArrayTypeItemTypeUpdateConnectionInput = {
+  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 
@@ -2550,15 +2573,15 @@ export type CreateEnumTypesMutationResponse = {
   info: CreateInfo
 }
 
-export type CreateHooksMutationResponse = {
-  __typename?: 'CreateHooksMutationResponse'
-  hooks: Array<Hook>
+export type CreateExportAdminDataResponsesMutationResponse = {
+  __typename?: 'CreateExportAdminDataResponsesMutationResponse'
+  exportAdminDataResponses: Array<ExportAdminDataResponse>
   info: CreateInfo
 }
 
-export type CreateImportAtomsMutationResponsesMutationResponse = {
-  __typename?: 'CreateImportAtomsMutationResponsesMutationResponse'
-  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
+export type CreateHooksMutationResponse = {
+  __typename?: 'CreateHooksMutationResponse'
+  hooks: Array<Hook>
   info: CreateInfo
 }
 
@@ -4426,9 +4449,9 @@ export type ElementSort = {
  */
 export type ElementType = TypeBase & {
   __typename?: 'ElementType'
-  descendantTypesIds: Array<Scalars['ID']>
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -4820,7 +4843,7 @@ export type EnumType = TypeBase & {
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -5491,6 +5514,42 @@ export type EnumTypeWhere = {
   owner_SOME?: InputMaybe<UserWhere>
 }
 
+export type ExportAdminDataResponse = {
+  __typename?: 'ExportAdminDataResponse'
+  result: Scalars['JSONObject']
+}
+
+export type ExportAdminDataResponseAggregateSelection = {
+  __typename?: 'ExportAdminDataResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
+export type ExportAdminDataResponseCreateInput = {
+  result: Scalars['JSONObject']
+}
+
+export type ExportAdminDataResponseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ExportAdminDataResponseSort objects to sort ExportAdminDataResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ExportAdminDataResponseSort>>
+}
+
+/** Fields to sort ExportAdminDataResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExportAdminDataResponseSort object. */
+export type ExportAdminDataResponseSort = {
+  result?: InputMaybe<SortDirection>
+}
+
+export type ExportAdminDataResponseUpdateInput = {
+  result?: InputMaybe<Scalars['JSONObject']>
+}
+
+export type ExportAdminDataResponseWhere = {
+  AND?: InputMaybe<Array<ExportAdminDataResponseWhere>>
+  OR?: InputMaybe<Array<ExportAdminDataResponseWhere>>
+  result?: InputMaybe<Scalars['JSONObject']>
+}
+
 export type Field = {
   description?: Maybe<Scalars['String']>
   key: Scalars['String']
@@ -6067,41 +6126,7 @@ export type IdPropertyWhere = {
 }
 
 export type ImportAdminDataInput = {
-  payload?: InputMaybe<Array<Scalars['JSONObject']>>
-}
-
-export type ImportAtomsInput = {
-  payload: Array<Scalars['JSONObject']>
-}
-
-export type ImportAtomsMutationResponse = {
-  __typename?: 'ImportAtomsMutationResponse'
-  atoms: Array<Atom>
-}
-
-export type ImportAtomsMutationResponseAggregateSelection = {
-  __typename?: 'ImportAtomsMutationResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type ImportAtomsMutationResponseCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ImportAtomsMutationResponseOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-}
-
-export type ImportAtomsMutationResponseUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ImportAtomsMutationResponseWhere = {
-  AND?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
-  OR?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
+  payload: Scalars['JSONObject']
 }
 
 export type ImportDataMutationResponse = {
@@ -6166,6 +6191,7 @@ export type InterfaceType = TypeBase & {
   descendantTypesIds: Array<Scalars['ID']>
   fields: Array<TypeBase>
   fieldsConnection: InterfaceTypeFieldsConnection
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -6388,6 +6414,7 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
+  descendantTypesIds: Array<Scalars['ID']>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
@@ -6490,6 +6517,7 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 }
 
 export type InterfaceTypeOnCreateInput = {
+  descendantTypesIds?: InputMaybe<Scalars['ID']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
 }
@@ -6576,6 +6604,7 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
+  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
@@ -6610,6 +6639,10 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
+  descendantTypesIds_INCLUDES?: InputMaybe<Scalars['ID']>
+  descendantTypesIds_NOT?: InputMaybe<Array<Scalars['ID']>>
+  descendantTypesIds_NOT_INCLUDES?: InputMaybe<Scalars['ID']>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
@@ -6652,7 +6685,7 @@ export type InterfaceTypeWhere = {
 /** Allows picking a lambda */
 export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -6852,7 +6885,7 @@ export enum MonacoLanguage {
 /** Allows editing the value using a monaco editor */
 export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   language: MonacoLanguage
   name: Scalars['String']
@@ -7062,8 +7095,8 @@ export type Mutation = {
   createElements: CreateElementsMutationResponse
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
+  createExportAdminDataResponses: CreateExportAdminDataResponsesMutationResponse
   createHooks: CreateHooksMutationResponse
-  createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
   createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
@@ -7093,9 +7126,9 @@ export type Mutation = {
   deleteElementsSubgraph: DeleteElementsInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
+  deleteExportAdminDataResponses: DeleteInfo
   deleteFieldEdge: DeleteFieldResponse
   deleteHooks: DeleteInfo
-  deleteImportAtomsMutationResponses: DeleteInfo
   deleteImportDataMutationResponses: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
@@ -7115,8 +7148,7 @@ export type Mutation = {
   deleteUsers: DeleteInfo
   duplicateElement: DuplicateElementMutationResponse
   importAdminData?: Maybe<ImportDataMutationResponse>
-  importAtoms?: Maybe<ImportAtomsMutationResponse>
-  importTypeGraph: Scalars['String']
+  importTypeGraph: TypeGraph
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateAppTypes: UpdateAppTypesMutationResponse
   updateApps: UpdateAppsMutationResponse
@@ -7130,8 +7162,8 @@ export type Mutation = {
   updateElements: UpdateElementsMutationResponse
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
+  updateExportAdminDataResponses: UpdateExportAdminDataResponsesMutationResponse
   updateHooks: UpdateHooksMutationResponse
-  updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
   updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
@@ -7199,12 +7231,12 @@ export type MutationCreateEnumTypesArgs = {
   input: Array<EnumTypeCreateInput>
 }
 
-export type MutationCreateHooksArgs = {
-  input: Array<HookCreateInput>
+export type MutationCreateExportAdminDataResponsesArgs = {
+  input: Array<ExportAdminDataResponseCreateInput>
 }
 
-export type MutationCreateImportAtomsMutationResponsesArgs = {
-  input: Array<ImportAtomsMutationResponseCreateInput>
+export type MutationCreateHooksArgs = {
+  input: Array<HookCreateInput>
 }
 
 export type MutationCreateImportDataMutationResponsesArgs = {
@@ -7333,6 +7365,10 @@ export type MutationDeleteEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
+export type MutationDeleteExportAdminDataResponsesArgs = {
+  where?: InputMaybe<ExportAdminDataResponseWhere>
+}
+
 export type MutationDeleteFieldEdgeArgs = {
   input: DeleteFieldInput
 }
@@ -7340,10 +7376,6 @@ export type MutationDeleteFieldEdgeArgs = {
 export type MutationDeleteHooksArgs = {
   delete?: InputMaybe<HookDeleteInput>
   where?: InputMaybe<HookWhere>
-}
-
-export type MutationDeleteImportAtomsMutationResponsesArgs = {
-  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type MutationDeleteImportDataMutationResponsesArgs = {
@@ -7432,10 +7464,6 @@ export type MutationDuplicateElementArgs = {
 
 export type MutationImportAdminDataArgs = {
   input: ImportAdminDataInput
-}
-
-export type MutationImportAtomsArgs = {
-  input: ImportAtomsInput
 }
 
 export type MutationImportTypeGraphArgs = {
@@ -7547,6 +7575,11 @@ export type MutationUpdateEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
+export type MutationUpdateExportAdminDataResponsesArgs = {
+  update?: InputMaybe<ExportAdminDataResponseUpdateInput>
+  where?: InputMaybe<ExportAdminDataResponseWhere>
+}
+
 export type MutationUpdateHooksArgs = {
   connect?: InputMaybe<HookConnectInput>
   connectOrCreate?: InputMaybe<HookConnectOrCreateInput>
@@ -7555,11 +7588,6 @@ export type MutationUpdateHooksArgs = {
   disconnect?: InputMaybe<HookDisconnectInput>
   update?: InputMaybe<HookUpdateInput>
   where?: InputMaybe<HookWhere>
-}
-
-export type MutationUpdateImportAtomsMutationResponsesArgs = {
-  update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
-  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type MutationUpdateImportDataMutationResponsesArgs = {
@@ -8154,7 +8182,7 @@ export type PageSort = {
 /** Allows picking a page from the list of pages */
 export type PageType = TypeBase & {
   __typename?: 'PageType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -8419,7 +8447,7 @@ export type ParentOfElementWhere = {
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -9310,7 +9338,9 @@ export type Query = {
   enumTypeValuesAggregate: EnumTypeValueAggregateSelection
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
-  exportAllTypesGraph?: Maybe<Scalars['JSONObject']>
+  exportAdminData: ExportAdminDataResponse
+  exportAdminDataResponses: Array<ExportAdminDataResponse>
+  exportAdminDataResponsesAggregate: ExportAdminDataResponseAggregateSelection
   exportGraph?: Maybe<Scalars['JSONObject']>
   getField: InterfaceTypeEdge
   /**
@@ -9320,8 +9350,6 @@ export type Query = {
   getTypeReferences?: Maybe<Array<TypeReference>>
   hooks: Array<Hook>
   hooksAggregate: HookAggregateSelection
-  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
-  importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
   importDataMutationResponses: Array<ImportDataMutationResponse>
   importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
   interfaceTypes: Array<InterfaceType>
@@ -9350,7 +9378,7 @@ export type Query = {
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   tagEdges: Array<TagEdge>
   tagEdgesAggregate: TagEdgeAggregateSelection
-  tagGraphs?: Maybe<TagGraph>
+  tagGraphs: TagGraph
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   typeReferences: Array<TypeReference>
@@ -9473,6 +9501,15 @@ export type QueryEnumTypesAggregateArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
+export type QueryExportAdminDataResponsesArgs = {
+  options?: InputMaybe<ExportAdminDataResponseOptions>
+  where?: InputMaybe<ExportAdminDataResponseWhere>
+}
+
+export type QueryExportAdminDataResponsesAggregateArgs = {
+  where?: InputMaybe<ExportAdminDataResponseWhere>
+}
+
 export type QueryExportGraphArgs = {
   typeId: Scalars['ID']
 }
@@ -9493,15 +9530,6 @@ export type QueryHooksArgs = {
 
 export type QueryHooksAggregateArgs = {
   where?: InputMaybe<HookWhere>
-}
-
-export type QueryImportAtomsMutationResponsesArgs = {
-  options?: InputMaybe<ImportAtomsMutationResponseOptions>
-  where?: InputMaybe<ImportAtomsMutationResponseWhere>
-}
-
-export type QueryImportAtomsMutationResponsesAggregateArgs = {
-  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type QueryImportDataMutationResponsesArgs = {
@@ -9674,7 +9702,7 @@ export type QueryUsersAggregateArgs = {
  */
 export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -9902,7 +9930,7 @@ export type ReactNodeTypeWhere = {
  */
 export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -10607,6 +10635,7 @@ export type TagTagParentNodeAggregateSelection = {
 
 export type TagUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type TagUpdateInput = {
@@ -10662,7 +10691,6 @@ export type TagWhere = {
 }
 
 export type TypeBase = {
-  descendantTypesIds: Array<Scalars['ID']>
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -10977,6 +11005,21 @@ export type TypeBaseWhere = {
   owner_SOME?: InputMaybe<UserWhere>
 }
 
+/**
+ * Connection between two types in a TypeGraph.
+ * Can be:
+ * Array -> ArrayItem (Edge)
+ * Interface -> Field type - (InterfaceTypeEdge)
+ * Union -> Union member (Edge)
+ */
+export type TypeEdge = Edge | InterfaceTypeEdge
+
+export type TypeGraph = {
+  __typename?: 'TypeGraph'
+  edges: Array<TypeEdge>
+  vertices: Array<AnyType>
+}
+
 export type TypeReference = {
   __typename?: 'TypeReference'
   /** The type of resource - Atom, InterfaceType, etc. */
@@ -11041,17 +11084,19 @@ export type TypeReferenceWhere = {
 }
 
 /** Allows picking one of a set of types */
-export type UnionType = TypeBase & {
-  __typename?: 'UnionType'
-  descendantTypesIds: Array<Scalars['ID']>
-  id: Scalars['ID']
-  name: Scalars['String']
-  owner: Array<User>
-  ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-  typesOfUnionType: Array<TypeBase>
-  typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
-}
+export type UnionType = TypeBase &
+  WithDescendants & {
+    __typename?: 'UnionType'
+    descendantTypesIds: Array<Scalars['ID']>
+    graph: TypeGraph
+    id: Scalars['ID']
+    name: Scalars['String']
+    owner: Array<User>
+    ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
+    ownerConnection: TypeBaseOwnerConnection
+    typesOfUnionType: Array<TypeBase>
+    typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
+  }
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
@@ -11208,6 +11253,7 @@ export type UnionTypeSort = {
 
 export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
+  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
@@ -11219,17 +11265,21 @@ export type UnionTypeTypesOfUnionTypeConnection = {
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionSort = {
+  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
   OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
+  edge?: InputMaybe<IdPropertyWhere>
+  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
+  edge: IdPropertyCreateInput
   node: TypeBaseCreateInput
 }
 
@@ -11248,13 +11298,15 @@ export type UnionTypeTypesOfUnionTypeFieldInput = {
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
 }
 
-export type UnionTypeTypesOfUnionTypeRelationship = {
+export type UnionTypeTypesOfUnionTypeRelationship = IdProperty & {
   __typename?: 'UnionTypeTypesOfUnionTypeRelationship'
   cursor: Scalars['String']
+  id: Scalars['ID']
   node: TypeBase
 }
 
 export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
+  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 
@@ -11402,15 +11454,15 @@ export type UpdateEnumTypesMutationResponse = {
   info: UpdateInfo
 }
 
-export type UpdateHooksMutationResponse = {
-  __typename?: 'UpdateHooksMutationResponse'
-  hooks: Array<Hook>
+export type UpdateExportAdminDataResponsesMutationResponse = {
+  __typename?: 'UpdateExportAdminDataResponsesMutationResponse'
+  exportAdminDataResponses: Array<ExportAdminDataResponse>
   info: UpdateInfo
 }
 
-export type UpdateImportAtomsMutationResponsesMutationResponse = {
-  __typename?: 'UpdateImportAtomsMutationResponsesMutationResponse'
-  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
+export type UpdateHooksMutationResponse = {
+  __typename?: 'UpdateHooksMutationResponse'
+  hooks: Array<Hook>
   info: UpdateInfo
 }
 
@@ -12035,4 +12087,8 @@ export type UserWhere = {
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>
+}
+
+export type WithDescendants = {
+  descendantTypesIds: Array<Scalars['ID']>
 }

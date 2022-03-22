@@ -30,16 +30,4 @@ export const atomSchema = gql`
     nodesCreated: Int!
     relationshipsCreated: Int!
   }
-
-  type ImportAtomsMutationResponse {
-    atoms: [Atom!]!
-  }
-
-  input ImportAtomsInput {
-    payload: [JSONObject!]!
-  }
-
-  type Mutation {
-    importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
-  }
 `

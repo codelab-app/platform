@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React from 'react'
-import { useAdminDispatch } from '../../hooks'
+// import { useAdminDispatch } from '../../hooks'
 
 export const ExecuteCommandButton = () => {
   // const { openExecuteCommandModal } = useAdminDispatch()

@@ -10,7 +10,7 @@ export type ResetDatabaseMutationVariables = Types.Exact<{
 }>
 
 export type ResetDatabaseMutation = {
-  resetDatabase?: { success?: boolean | null } | null
+  resetDatabase?: { success?: boolean | null | undefined } | null | undefined
 }
 
 export type ImportAdminDataMutationVariables = Types.Exact<{
@@ -18,15 +18,15 @@ export type ImportAdminDataMutationVariables = Types.Exact<{
 }>
 
 export type ImportAdminDataMutation = {
-  importAdminData?: { result: boolean } | null
+  importAdminData?: { result: boolean } | null | undefined
 }
 
-export type ExportAllTypesGraphQueryVariables = Types.Exact<{
+export type ExportAdminDataQueryVariables = Types.Exact<{
   [key: string]: never
 }>
 
-export type ExportAllTypesGraphQuery = {
-  exportAllTypesGraph?: Record<string, any> | null
+export type ExportAdminDataQuery = {
+  exportAdminData: { result: Record<string, any> }
 }
 
 export const ResetDatabaseGql = gql`
@@ -43,9 +43,11 @@ export const ImportAdminDataGql = gql`
     }
   }
 `
-export const ExportAllTypesGraphGql = gql`
-  query ExportAllTypesGraph {
-    exportAllTypesGraph
+export const ExportAdminDataGql = gql`
+  query exportAdminData {
+    exportAdminData {
+      result
+    }
   }
 `
 
@@ -69,14 +71,12 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
-    ExportAllTypesGraph: build.query<
-      ExportAllTypesGraphQuery,
-      | GraphqlOperationOptions<ExportAllTypesGraphQueryVariables>
-      | void
-      | undefined
+    exportAdminData: build.query<
+      ExportAdminDataQuery,
+      GraphqlOperationOptions<ExportAdminDataQueryVariables> | void | undefined
     >({
       query: (options) => ({
-        document: ExportAllTypesGraphGql,
+        document: ExportAdminDataGql,
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
@@ -86,6 +86,6 @@ export { injectedRtkApi as api }
 export const {
   useResetDatabaseMutation,
   useImportAdminDataMutation,
-  useExportAllTypesGraphQuery,
-  useLazyExportAllTypesGraphQuery,
+  useExportAdminDataQuery,
+  useLazyExportAdminDataQuery,
 } = injectedRtkApi

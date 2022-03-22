@@ -1,37 +1,10 @@
-import { IResolvers } from '@graphql-tools/utils'
-import { Atom } from '../../model'
-import { MutationImportAtomsArgs } from '../../ogm-types.gen'
+import { AtomFragment } from '@codelab/frontend/modules/atom'
+import { map } from 'rxjs/operators'
+import { atomRepository } from '../../repositories/atom'
+import {
+  IRxTxnResolver,
+  withRxTransaction,
+} from '../abstract/withRxTransaction'
 
-export const atomResolvers: IResolvers = {
-  importAtoms: async (_source, args: MutationImportAtomsArgs) => {
-    const AtomModel = await Atom()
-    const payload: Array<any> = JSON.parse(args.input.payload as any)
-
-    const data = payload.map((atom: any) => {
-      const tagIds = atom?.tags?.map((tag: any) => tag.id) || []
-
-      const tagConnects = tagIds.map((id: string) => {
-        return { where: { node: { id } } }
-      })
-
-      return {
-        name: atom.name,
-        type: atom.type,
-        tags: {
-          connect: tagConnects,
-        },
-        api: {
-          connect: {
-            where: {
-              node: {
-                id: atom.api?.id,
-              },
-            },
-          },
-        },
-      }
-    })
-
-    return AtomModel.create({ input: data })
-  },
-}
+export const exportAtom: IRxTxnResolver = () => (txn) =>
+  atomRepository.exportAtom(txn).pipe(map((r) => r))

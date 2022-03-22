@@ -10,6 +10,8 @@ mutation importAdminData($input: ImportAdminDataInput!) {
   }
 }
 
-query ExportAllTypesGraph {
-  exportAllTypesGraph
+query exportAdminData {
+  exportAdminData {
+    result
+  }
 }

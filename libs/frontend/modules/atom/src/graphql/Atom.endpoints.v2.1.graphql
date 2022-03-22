@@ -23,14 +23,6 @@ query GetAtoms($where: AtomWhere, $options: AtomOptions) {
   }
 }
 
-mutation ImportAtoms($input: ImportAtomsInput!) {
-  importAtoms(input: $input) {
-    atoms {
-      id
-    }
-  }
-}
-
 mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
   updateAtoms(update: $update, where: $where) {
     atoms {

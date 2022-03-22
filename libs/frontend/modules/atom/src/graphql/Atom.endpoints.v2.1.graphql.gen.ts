@@ -31,14 +31,6 @@ export type GetAtomsQueryVariables = Types.Exact<{
 
 export type GetAtomsQuery = { atoms: Array<AtomFragment> }
 
-export type ImportAtomsMutationVariables = Types.Exact<{
-  input: Types.ImportAtomsInput
-}>
-
-export type ImportAtomsMutation = {
-  importAtoms?: { atoms: Array<{ id: string }> } | null
-}
-
 export type UpdateAtomsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AtomWhere>
   update?: Types.InputMaybe<Types.AtomUpdateInput>
@@ -77,15 +69,6 @@ export const GetAtomsGql = gql`
     }
   }
   ${AtomFragmentDoc}
-`
-export const ImportAtomsGql = gql`
-  mutation ImportAtoms($input: ImportAtomsInput!) {
-    importAtoms(input: $input) {
-      atoms {
-        id
-      }
-    }
-  }
 `
 export const UpdateAtomsGql = gql`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
@@ -155,20 +138,6 @@ export function getSdk(
           }),
         'GetAtoms',
         'query',
-      )
-    },
-    ImportAtoms(
-      variables: ImportAtomsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<ImportAtomsMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ImportAtomsMutation>(ImportAtomsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'ImportAtoms',
-        'mutation',
       )
     },
     UpdateAtoms(
