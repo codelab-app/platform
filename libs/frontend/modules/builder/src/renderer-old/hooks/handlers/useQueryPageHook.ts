@@ -1,0 +1,16 @@
+// import { useGetPageQuery } from '@codelab/frontend/modules/page'
+import { IQueryPageHookConfig } from '@codelab/shared/abstract/core'
+import { HookHandler } from '../HookHandler'
+
+export const useQueryPageHook: HookHandler = (config: IQueryPageHookConfig) => {
+  const output = null
+  // const output = useGetPageQuery({
+  //   variables: {
+  //     input: {
+  //       pageId: config.pageId,
+  //     },
+  //   },
+  // })
+
+  return { queryPageHook: output }
+}

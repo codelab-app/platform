@@ -2,7 +2,6 @@ import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  Builder,
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
@@ -20,7 +19,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Head from 'next/head'
+import { GetServerSidePropsContext } from 'next'
 import React from 'react'
 
 const PageBuilder: CodelabPage<any> = observer(() => {

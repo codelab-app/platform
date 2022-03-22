@@ -1,4 +1,4 @@
-import { Atom, AtomStore } from '@codelab/frontend/modules/atom'
+import { Atom, atomStoreContext } from '@codelab/frontend/modules/atom'
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
@@ -38,9 +38,6 @@ export class ElementStore extends Model({
   createModal: prop(() => new CreateElementModalStore({})),
   updateModal: prop(() => new ElementModalStore({})),
   deleteModal: prop(() => new ElementModalStore({})),
-
-  // We need a reference to the atom store to get/set atoms
-  atomStore: prop<Ref<AtomStore>>(),
 }) {
   @modelFlow
   @transaction
@@ -55,12 +52,18 @@ export class ElementStore extends Model({
         continue
       }
 
-      const existing = this.atomStore.current.atom(vertex.atom.id)
+      const atomStore = atomStoreContext.get(this)
+
+      if (!atomStore) {
+        throw new Error('atomStoreContext is not defined')
+      }
+
+      const existing = atomStore.atom(vertex.atom.id)
 
       if (existing) {
         existing.updateFromFragment(vertex.atom)
       } else {
-        this.atomStore.current.addAtom(Atom.fromFragment(vertex.atom))
+        atomStore.addAtomLocal(Atom.fromFragment(vertex.atom))
       }
     }
 
@@ -75,8 +78,7 @@ export class ElementStore extends Model({
   ) {
     input = {
       ...input,
-      parentElementId:
-        input.parentElementId || this.elementTree.root?.current.id, // default to the root element if not parent is set
+      parentElementId: input.parentElementId || this.elementTree.root?.id, // default to the root element if not parent is set
     }
 
     const createInput: ElementCreateInput = makeCreateInput(input)
