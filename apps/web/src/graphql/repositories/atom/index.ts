@@ -1,1 +1,1 @@
-export * from './atomRepository'
+export * from './atom.repository'

@@ -1,6 +1,5 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
-// import { generateOgmTypes } from 'apps/web/src/graphql/generate-ogm-types'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
@@ -122,7 +121,7 @@ const handler: NextApiHandler = async (req, res) => {
   /**
    * Uncomment this if you want to run codegen, codegen will run the exit the whole process. Server won't run successfully unless this is commented
    */
-  // await generateOgmTypes()
+  await generateOgmTypes()
 }
 
 export default handler

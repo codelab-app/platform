@@ -25,9 +25,9 @@ export type InterfaceTypeFragment = {
 
 export type InterfaceTypeFieldEdgeFragment = {
   key: string
-  description?: string | null
+  description?: string | null | undefined
   cursor: string
-  name?: string | null
+  name?: string | null | undefined
   node:
     | { id: string }
     | { id: string }

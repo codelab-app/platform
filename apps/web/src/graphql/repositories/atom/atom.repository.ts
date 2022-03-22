@@ -27,7 +27,7 @@ export const atomRepository = {
   ): Promise<Array<CreateAtomsMutationResponse>> => {
     const allAtomPromises: Array<CreateAtomsMutationResponse> =
       await Promise.all(
-        atoms.map((atom) => {
+        atoms.map(async (atom) => {
           const tagNames: Array<string> =
             atom?.tags?.map((tag: Tag) => tag.name) || []
 
@@ -54,7 +54,7 @@ export const atomRepository = {
             },
           }
 
-          return Atom().create({ input: [atomCreateInput] })
+          return (await Atom()).create({ input: [atomCreateInput] })
         }),
       )
 

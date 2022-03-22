@@ -20,7 +20,7 @@ export type E2eCreatePageMutation = {
 export type E2ePageFragment = {
   id: string
   name: string
-  rootElement: { id: string; name?: string | null }
+  rootElement: { id: string; name?: string | null | undefined }
 }
 
 export const E2ePageFragmentDoc = gql`

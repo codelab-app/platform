@@ -1,4 +1,4 @@
-import { TypeGraph } from '@codelab/shared/abstract/codegen-v2'
+import { TypeGraph } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'

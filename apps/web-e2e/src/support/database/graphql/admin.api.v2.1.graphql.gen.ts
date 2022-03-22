@@ -8,7 +8,7 @@ export type E2eResetDatabaseMutationVariables = Types.Exact<{
 }>
 
 export type E2eResetDatabaseMutation = {
-  resetDatabase?: { success?: boolean | null } | null
+  resetDatabase?: { success?: boolean | null | undefined } | null | undefined
 }
 
 export const E2eResetDatabaseGql = gql`

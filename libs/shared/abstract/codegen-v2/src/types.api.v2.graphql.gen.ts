@@ -20,6 +20,20 @@ export type Scalars = {
   JSONObject: Record<string, any>
 }
 
+export type AnyType =
+  | AppType
+  | ArrayType
+  | ElementType
+  | EnumType
+  | InterfaceType
+  | LambdaType
+  | MonacoType
+  | PageType
+  | PrimitiveType
+  | ReactNodeType
+  | RenderPropsType
+  | UnionType
+
 export type App = {
   __typename?: 'App'
   id: Scalars['ID']
@@ -620,7 +634,7 @@ export type AppSort = {
 /** Allows picking a app from the list of apps */
 export type AppType = TypeBase & {
   __typename?: 'AppType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -892,17 +906,19 @@ export type AppWhere = {
  * ArrayType Allows defining a variable number of items of a given type.
  * Contains a reference to another type which is the array item type.
  */
-export type ArrayType = TypeBase & {
-  __typename?: 'ArrayType'
-  descendantTypesIds: Array<Scalars['ID']>
-  id: Scalars['ID']
-  itemType: Array<TypeBase>
-  itemTypeConnection: ArrayTypeItemTypeConnection
-  name: Scalars['String']
-  owner: Array<User>
-  ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
+export type ArrayType = TypeBase &
+  WithDescendants & {
+    __typename?: 'ArrayType'
+    descendantTypesIds: Array<Scalars['ID']>
+    graph: TypeGraph
+    id: Scalars['ID']
+    itemType: Array<TypeBase>
+    itemTypeConnection: ArrayTypeItemTypeConnection
+    name: Scalars['String']
+    owner: Array<User>
+    ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
+    ownerConnection: TypeBaseOwnerConnection
+  }
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -991,6 +1007,7 @@ export type ArrayTypeDisconnectInput = {
 
 export type ArrayTypeItemTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
+  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
@@ -1002,17 +1019,21 @@ export type ArrayTypeItemTypeConnection = {
 }
 
 export type ArrayTypeItemTypeConnectionSort = {
+  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type ArrayTypeItemTypeConnectionWhere = {
   AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
   OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  edge?: InputMaybe<IdPropertyWhere>
+  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
+  edge: IdPropertyCreateInput
   node: TypeBaseCreateInput
 }
 
@@ -1031,13 +1052,15 @@ export type ArrayTypeItemTypeFieldInput = {
   create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
 }
 
-export type ArrayTypeItemTypeRelationship = {
+export type ArrayTypeItemTypeRelationship = IdProperty & {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
+  id: Scalars['ID']
   node: TypeBase
 }
 
 export type ArrayTypeItemTypeUpdateConnectionInput = {
+  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 
@@ -4426,9 +4449,9 @@ export type ElementSort = {
  */
 export type ElementType = TypeBase & {
   __typename?: 'ElementType'
-  descendantTypesIds: Array<Scalars['ID']>
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -4820,7 +4843,7 @@ export type EnumType = TypeBase & {
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -5509,7 +5532,7 @@ export type ExportAdminDataResponseOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more ExportAdminDataResponseSort objects to sort ExportAdminDataResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<InputMaybe<ExportAdminDataResponseSort>>>
+  sort?: InputMaybe<Array<ExportAdminDataResponseSort>>
 }
 
 /** Fields to sort ExportAdminDataResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExportAdminDataResponseSort object. */
@@ -6103,7 +6126,7 @@ export type IdPropertyWhere = {
 }
 
 export type ImportAdminDataInput = {
-  payload?: InputMaybe<Array<Scalars['JSONObject']>>
+  payload: Scalars['JSONObject']
 }
 
 export type ImportDataMutationResponse = {
@@ -6168,6 +6191,7 @@ export type InterfaceType = TypeBase & {
   descendantTypesIds: Array<Scalars['ID']>
   fields: Array<TypeBase>
   fieldsConnection: InterfaceTypeFieldsConnection
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -6390,6 +6414,7 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
+  descendantTypesIds: Array<Scalars['ID']>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
@@ -6492,6 +6517,7 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 }
 
 export type InterfaceTypeOnCreateInput = {
+  descendantTypesIds?: InputMaybe<Scalars['ID']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
 }
@@ -6578,6 +6604,7 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
+  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
@@ -6612,6 +6639,10 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
+  descendantTypesIds_INCLUDES?: InputMaybe<Scalars['ID']>
+  descendantTypesIds_NOT?: InputMaybe<Array<Scalars['ID']>>
+  descendantTypesIds_NOT_INCLUDES?: InputMaybe<Scalars['ID']>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
@@ -6654,7 +6685,7 @@ export type InterfaceTypeWhere = {
 /** Allows picking a lambda */
 export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -6854,7 +6885,7 @@ export enum MonacoLanguage {
 /** Allows editing the value using a monaco editor */
 export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   language: MonacoLanguage
   name: Scalars['String']
@@ -8151,7 +8182,7 @@ export type PageSort = {
 /** Allows picking a page from the list of pages */
 export type PageType = TypeBase & {
   __typename?: 'PageType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -8416,7 +8447,7 @@ export type ParentOfElementWhere = {
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -9307,11 +9338,9 @@ export type Query = {
   enumTypeValuesAggregate: EnumTypeValueAggregateSelection
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
-  enumTypesCount: Scalars['Int']
   exportAdminData: ExportAdminDataResponse
   exportAdminDataResponses: Array<ExportAdminDataResponse>
   exportAdminDataResponsesAggregate: ExportAdminDataResponseAggregateSelection
-  exportAdminDataResponsesCount: Scalars['Int']
   exportGraph?: Maybe<Scalars['JSONObject']>
   getField: InterfaceTypeEdge
   /**
@@ -9321,7 +9350,6 @@ export type Query = {
   getTypeReferences?: Maybe<Array<TypeReference>>
   hooks: Array<Hook>
   hooksAggregate: HookAggregateSelection
-  hooksCount: Scalars['Int']
   importDataMutationResponses: Array<ImportDataMutationResponse>
   importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
   interfaceTypes: Array<InterfaceType>
@@ -9350,7 +9378,6 @@ export type Query = {
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   tagEdges: Array<TagEdge>
   tagEdgesAggregate: TagEdgeAggregateSelection
-  tagEdgesCount: Scalars['Int']
   tagGraphs: TagGraph
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
@@ -9474,20 +9501,12 @@ export type QueryEnumTypesAggregateArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
-export type QueryEnumTypesCountArgs = {
-  where?: InputMaybe<EnumTypeWhere>
-}
-
 export type QueryExportAdminDataResponsesArgs = {
   options?: InputMaybe<ExportAdminDataResponseOptions>
   where?: InputMaybe<ExportAdminDataResponseWhere>
 }
 
 export type QueryExportAdminDataResponsesAggregateArgs = {
-  where?: InputMaybe<ExportAdminDataResponseWhere>
-}
-
-export type QueryExportAdminDataResponsesCountArgs = {
   where?: InputMaybe<ExportAdminDataResponseWhere>
 }
 
@@ -9510,10 +9529,6 @@ export type QueryHooksArgs = {
 }
 
 export type QueryHooksAggregateArgs = {
-  where?: InputMaybe<HookWhere>
-}
-
-export type QueryHooksCountArgs = {
   where?: InputMaybe<HookWhere>
 }
 
@@ -9687,7 +9702,7 @@ export type QueryUsersAggregateArgs = {
  */
 export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -9915,7 +9930,7 @@ export type ReactNodeTypeWhere = {
  */
 export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
-  descendantTypesIds: Array<Scalars['ID']>
+  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -10676,7 +10691,6 @@ export type TagWhere = {
 }
 
 export type TypeBase = {
-  descendantTypesIds: Array<Scalars['ID']>
   id: Scalars['ID']
   name: Scalars['String']
   owner: Array<User>
@@ -10991,6 +11005,21 @@ export type TypeBaseWhere = {
   owner_SOME?: InputMaybe<UserWhere>
 }
 
+/**
+ * Connection between two types in a TypeGraph.
+ * Can be:
+ * Array -> ArrayItem (Edge)
+ * Interface -> Field type - (InterfaceTypeEdge)
+ * Union -> Union member (Edge)
+ */
+export type TypeEdge = Edge | InterfaceTypeEdge
+
+export type TypeGraph = {
+  __typename?: 'TypeGraph'
+  edges: Array<TypeEdge>
+  vertices: Array<AnyType>
+}
+
 export type TypeReference = {
   __typename?: 'TypeReference'
   /** The type of resource - Atom, InterfaceType, etc. */
@@ -11055,17 +11084,19 @@ export type TypeReferenceWhere = {
 }
 
 /** Allows picking one of a set of types */
-export type UnionType = TypeBase & {
-  __typename?: 'UnionType'
-  descendantTypesIds: Array<Scalars['ID']>
-  id: Scalars['ID']
-  name: Scalars['String']
-  owner: Array<User>
-  ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-  typesOfUnionType: Array<TypeBase>
-  typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
-}
+export type UnionType = TypeBase &
+  WithDescendants & {
+    __typename?: 'UnionType'
+    descendantTypesIds: Array<Scalars['ID']>
+    graph: TypeGraph
+    id: Scalars['ID']
+    name: Scalars['String']
+    owner: Array<User>
+    ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
+    ownerConnection: TypeBaseOwnerConnection
+    typesOfUnionType: Array<TypeBase>
+    typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
+  }
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
@@ -11222,6 +11253,7 @@ export type UnionTypeSort = {
 
 export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
+  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
@@ -11233,17 +11265,21 @@ export type UnionTypeTypesOfUnionTypeConnection = {
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionSort = {
+  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
   OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
+  edge?: InputMaybe<IdPropertyWhere>
+  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
+  edge: IdPropertyCreateInput
   node: TypeBaseCreateInput
 }
 
@@ -11262,13 +11298,15 @@ export type UnionTypeTypesOfUnionTypeFieldInput = {
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>
 }
 
-export type UnionTypeTypesOfUnionTypeRelationship = {
+export type UnionTypeTypesOfUnionTypeRelationship = IdProperty & {
   __typename?: 'UnionTypeTypesOfUnionTypeRelationship'
   cursor: Scalars['String']
+  id: Scalars['ID']
   node: TypeBase
 }
 
 export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
+  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 
@@ -12049,4 +12087,8 @@ export type UserWhere = {
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>
+}
+
+export type WithDescendants = {
+  descendantTypesIds: Array<Scalars['ID']>
 }

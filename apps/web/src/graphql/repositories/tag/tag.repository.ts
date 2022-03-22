@@ -70,7 +70,9 @@ export const tagRepository = {
             }
           }
 
-          const tagCreated: CreateTagsMutationResponse = await Tag().create({
+          const tagCreated: CreateTagsMutationResponse = await (
+            await Tag()
+          ).create({
             input: [tagInput],
           })
 

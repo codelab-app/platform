@@ -156,10 +156,12 @@ export const elementRepository = {
             : [rootId]
 
           // load vertices
-          const verticesPromise = Element().find({
-            where: { id_IN: elementIds },
-            selectionSet: elementSelectionSet,
-          })
+          const verticesPromise = Element().then((ElementModel) =>
+            ElementModel.find({
+              where: { id_IN: elementIds },
+              selectionSet: elementSelectionSet,
+            }),
+          )
 
           return combineLatest([of(edges), from(verticesPromise)])
         }),
@@ -198,10 +200,12 @@ export const elementRepository = {
     graph: IElementGraph,
   ): Observable<IElementGraph> =>
     from(
-      Component().find({
-        where: { id_IN: componentIds },
-        selectionSet: componentSelectionSet,
-      }),
+      Component().then((ComponentModel) =>
+        ComponentModel.find({
+          where: { id_IN: componentIds },
+          selectionSet: componentSelectionSet,
+        }),
+      ),
     ).pipe(
       mergeMap((components) => {
         const componentsRootsIds = components.map((ids) => ids.rootElement.id)
