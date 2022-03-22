@@ -1,10 +1,10 @@
-import { ExecuteCommandActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import { ExecuteCommandInput } from '@codelab/shared/abstract/codegen'
-import { AutoFields } from 'uniforms-antd'
-import { executeCommandSchema } from './executeCommandSchema'
-import { ExecuteCommandResponse } from './types'
-import { useExecuteCommandForm } from './useExecuteCommandForm'
+// import { ExecuteCommandActionType } from '@codelab/frontend/abstract/core'
+// import { Form, FormModal } from '@codelab/frontend/view/components'
+// import { ExecuteCommandInput } from '@codelab/shared/abstract/codegen'
+// import { AutoFields } from 'uniforms-antd'
+// import { executeCommandSchema } from './executeCommandSchema'
+// import { ExecuteCommandResponse } from './types'
+// import { useExecuteCommandForm } from './useExecuteCommandForm'
 
 /**
  * Allows any string commands to be executed

@@ -1,13 +1,13 @@
+import { mergeResolvers } from '@graphql-tools/merge'
 import { IResolvers } from '@graphql-tools/utils'
-import { mutationResolvers } from './mutationResolvers'
-import { queryResolvers } from './queryResolvers'
-import Root from './rootResolvers'
+import { adminResolver } from './admin'
+import { elementResolver } from './element'
+import { tagResolver } from './tag'
+import { typeResolver } from './type'
 
-export const resolvers: IResolvers = {
-  ...Root,
-  Mutation: mutationResolvers,
-  Query: queryResolvers,
-  // https://github.com/taion/graphql-type-json
-  // JSON: GraphQLJSON,
-  // JSONObject: GraphQLJSONObject,
-}
+export const resolvers: IResolvers = mergeResolvers([
+  adminResolver,
+  typeResolver,
+  elementResolver,
+  tagResolver,
+])

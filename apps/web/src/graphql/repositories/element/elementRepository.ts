@@ -1,9 +1,14 @@
 import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen-v2'
+import { IElement, IElementGraph } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { merge, partition } from 'lodash'
+import { uuidRegex } from '@codelab/shared/utils'
+import { IResolvers } from '@graphql-tools/utils'
+import { difference, merge, partition, uniq } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
-import { Observable } from 'rxjs/internal/Observable'
-import { map } from 'rxjs/operators'
+import { combineLatest, from, Observable, of, zip } from 'rxjs'
+import { map, mergeMap } from 'rxjs/operators'
+import { Component, Element } from '../../model'
+import { componentSelectionSet, elementSelectionSet } from '../../selectionSets'
 import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
 import duplicateElementCypher from './duplicateElement.cypher'
 import getElementGraphCypher from './getElementGraph.cypher'
@@ -110,4 +115,114 @@ export const elementRepository = {
           deletedIds: response.get('deletedIds'),
         })),
       ),
+
+  /**
+   * find all possible components ids in element props data using ${uuidRegex}
+   * eliminating already loaded components by main tree or ones referenced by parent props
+   *
+   * @param vertices
+   * @param existingComponentsIds
+   * @returns
+   */
+  getMissingComponentIds: (
+    vertices: Array<IElement>,
+    existingComponentsIds: Array<string>,
+  ) => {
+    // match all uuid by regex
+    const ids = vertices
+      .filter((x) => x.props?.data)
+      .flatMap((element) =>
+        Array.from(
+          (element.props?.data as string).matchAll(uuidRegex),
+          (x) => x[0], // return only the uuid (for other values reference
+        ),
+      )
+
+    return difference(uniq(ids), existingComponentsIds) // exclude ${existingComponentsIds}
+  },
+
+  getElementGraph: (
+    txn: RxTransaction,
+    rootId: string,
+    existingComponentsIds: Array<string> = [],
+  ) =>
+    elementRepository
+      .getElementGraphEdges(txn, rootId)
+      .pipe(
+        mergeMap(({ edges }) => {
+          // get root element if not edge is found
+          const elementIds = edges.length
+            ? uniq(edges.flatMap((x) => [x.source, x.target]))
+            : [rootId]
+
+          // load vertices
+          const verticesPromise = Element().find({
+            where: { id_IN: elementIds },
+            selectionSet: elementSelectionSet,
+          })
+
+          return combineLatest([of(edges), from(verticesPromise)])
+        }),
+      )
+      .pipe(
+        mergeMap(([edges, vertices]) => {
+          existingComponentsIds = existingComponentsIds.concat(
+            // already loaded components by this root element
+            vertices
+              .filter((x) => x.component?.id)
+              .map((x) => x.component?.id as string),
+          )
+
+          const componentIds = elementRepository.getMissingComponentIds(
+            vertices,
+            existingComponentsIds,
+          )
+
+          const graph = { vertices, edges } as IElementGraph
+
+          return componentIds.length
+            ? elementRepository.graphWithComponents(
+                txn,
+                componentIds,
+                existingComponentsIds,
+                graph,
+              )
+            : of(graph)
+        }),
+      ),
+
+  graphWithComponents: (
+    txn: RxTransaction,
+    componentIds: Array<string>,
+    existingComponentsIds: Array<string> = [],
+    graph: IElementGraph,
+  ): Observable<IElementGraph> =>
+    from(
+      Component().find({
+        where: { id_IN: componentIds },
+        selectionSet: componentSelectionSet,
+      }),
+    ).pipe(
+      mergeMap((components) => {
+        const componentsRootsIds = components.map((ids) => ids.rootElement.id)
+
+        const $elementGraphs = componentsRootsIds.map((x) =>
+          elementRepository.getElementGraph(txn, x, existingComponentsIds),
+        )
+
+        // getElementGraph accepts componentId as root too
+        return zip(...$elementGraphs).pipe(
+          map(
+            (componentGraphs) =>
+              [...componentGraphs, graph].reduce(
+                (all, current) => ({
+                  vertices: all.vertices.concat(current.vertices),
+                  edges: all.edges.concat(current.edges),
+                }),
+                { edges: [], vertices: [] },
+              ) as IElementGraph,
+          ),
+        )
+      }),
+    ),
 }

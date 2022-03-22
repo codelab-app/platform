@@ -37,7 +37,7 @@ export type GetTagsQuery = { tags: Array<TagFragment> }
 
 export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type GetTagGraphsQuery = { tagGraphs?: TagGraphFragment | null }
+export type GetTagGraphsQuery = { tagGraphs: TagGraphFragment }
 
 export const CreateTagsGql = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {

@@ -8,9 +8,7 @@ import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
-  ExportAtomsButton,
   GetAtomsTable,
-  ImportAtomsUpload,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -51,8 +49,6 @@ const Header = observer(() => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <ExportAtomsButton atomStore={store.atomStore} />
-      <ImportAtomsUpload atomStore={store.atomStore} />
       <CreateAtomButton atomStore={store.atomStore} key="create" />
     </div>,
   ]

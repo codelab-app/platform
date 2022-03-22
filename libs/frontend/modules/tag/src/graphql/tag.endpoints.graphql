@@ -10,12 +10,6 @@ mutation DeleteTags($input: DeleteTagsInput!) {
   }
 }
 
-query ExportTags($input: GetTagGraphsInput) {
-  getTagGraphs(input: $input) {
-    ...TagGraph
-  }
-}
-
 query GetTagGraph {
   getTagGraph {
     ...TagGraph
@@ -32,10 +26,6 @@ query GetTags {
   getTags {
     ...Tag
   }
-}
-
-mutation ImportTags($input: ImportTagsInput!) {
-  importTags(input: $input)
 }
 
 mutation UpdateTag($input: UpdateTagInput!) {

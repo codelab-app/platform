@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-micro'
 // import { generateOgmTypes } from 'apps/web/src/graphql/generate-ogm-types'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
+import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
 import { getDriver } from '../../src/graphql/infra/driver'
 import { User } from '../../src/graphql/model'
 import { getSchema } from '../../src/graphql/schema/neoSchema'
@@ -119,12 +120,9 @@ const handler: NextApiHandler = async (req, res) => {
   await apolloServer.createHandler({ path })(req, res)
 
   /**
-   * Uncomment this if you want to run codegen, but turn it off for performance
+   * Uncomment this if you want to run codegen, codegen will run the exit the whole process. Server won't run successfully unless this is commented
    */
-  // if (process.env.NODE_ENV === 'development') {
-  //   console.log('Starting codegen...')
-  //   await generateOgmTypes()
-  // }
+  // await generateOgmTypes()
 }
 
 export default handler
