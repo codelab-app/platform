@@ -6,7 +6,7 @@ import { AutoFields } from 'uniforms-antd'
 import { AppService, WithAppService } from '../../store'
 
 export const DeleteAppModal = observer<WithAppService>(({ appService }) => {
-  const app = appService.selectedRef?.current
+  const app = appService.selectedApp?.current
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while deleting app',

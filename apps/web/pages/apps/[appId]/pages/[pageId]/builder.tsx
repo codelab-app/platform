@@ -79,11 +79,11 @@ PageBuilder.Layout = observer((page) => {
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageStore} />}
           MainPane={observer(() => (
-            <MainPaneBuilder atomStore={store.atomStore} />
+            <MainPaneBuilder atomStore={store.atomService} />
           ))}
           MetaPane={observer(() => (
             <MetaPaneBuilderPage
-              atomStore={store.atomStore}
+              atomStore={store.atomService}
               typeStore={store.typeStore}
             />
           ))}

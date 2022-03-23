@@ -1,4 +1,4 @@
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import {
   DeleteElementButton,
   MoveElementForm,
@@ -16,7 +16,7 @@ import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export interface MetaPaneBuilderPageProps {
   typeStore: TypeStore
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 export const MetaPaneBuilderPage = observer<MetaPaneBuilderPageProps>(

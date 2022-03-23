@@ -1,5 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
-import { AtomStore } from '../../../store'
+import { AtomService, WithAtomService } from '../../../store'
 
 export interface AtomCellData {
   id: string
@@ -19,8 +19,7 @@ export type PropsColumnProps = {
 
 export type ActionColumnProps = {
   atom: AtomCellData
-  atomStore: AtomStore
-}
+} & WithAtomService
 
 export type TagsColumnProps = {
   tags: [object]

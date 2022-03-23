@@ -85,11 +85,11 @@ ComponentDetail.Layout = observer((page) => {
     <ComponentElementGraphProvider>
       <BuilderDashboardTemplate
         MainPane={observer(() => (
-          <MainPaneBuilder atomStore={store.atomStore} isComponentBuilder />
+          <MainPaneBuilder atomStore={store.atomService} isComponentBuilder />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderComponent
-            atomStore={store.atomStore}
+            atomStore={store.atomService}
             typeStore={store.typeStore}
           />
         ))}

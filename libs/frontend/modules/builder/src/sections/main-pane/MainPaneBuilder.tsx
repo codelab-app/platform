@@ -1,4 +1,4 @@
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import {
   CreateElementButton,
   CreateElementModal,
@@ -50,7 +50,7 @@ const headerFactory = (
 
 export interface MainPaneBuilderProps {
   isComponentBuilder?: boolean
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 /** Requires ElementGraphContext */

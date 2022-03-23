@@ -3,20 +3,21 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef, AtomStore } from '../../store'
+import { atomRef, AtomService, WithAtomService } from '../../store'
 
-export interface DeleteAtomButton extends DeleteButtonProps {
-  atomStore: AtomStore
-}
+export type DeleteAtomButton = DeleteButtonProps & WithAtomService
 
-export const DeleteAtomButton = observer(
-  ({ disabled, ids, atomStore }: DeleteAtomButton) => {
+export const DeleteAtomButton = observer<DeleteAtomButton>(
+  ({ disabled, ids, atomService }) => {
     return (
       <Button
         danger
         disabled={disabled}
         icon={<DeleteOutlined />}
-        onClick={() => atomStore.deleteModal.open(ids.map((id) => atomRef(id)))}
+        onClick={() => {
+          atomService.setSelectedAtoms(ids.map((id) => atomRef(id)))
+          atomService.deleteModal.open()
+        }}
         size="small"
       />
     )

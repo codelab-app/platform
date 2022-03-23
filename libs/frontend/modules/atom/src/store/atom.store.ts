@@ -13,6 +13,7 @@ import {
   idProp,
   Model,
   model,
+  modelAction,
   modelClass,
   modelFlow,
   objectMap,
@@ -25,7 +26,7 @@ import { AtomFragment } from '../graphql/Atom.fragment.v2.1.graphql.gen'
 import type { CreateAtomInputSchema } from '../use-cases/create-atom/createAtomSchema'
 import { makeTagConnectData } from '../use-cases/helper'
 import type { UpdateAtomInputSchema } from '../use-cases/update-atom/updateAtomSchema'
-import { atomApi } from './atomApi'
+import { atomApi } from './atom.api'
 
 @model('codelab/Atom')
 export class Atom extends Model({
@@ -37,46 +38,6 @@ export class Atom extends Model({
   // tags: prop<Tag[]>(),
   api: prop<Ref<InterfaceType>>(),
 }) {
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: Atom,
-    { name, type, tags }: UpdateAtomInputSchema,
-  ) {
-    this.name = name
-    this.type = type
-    this.tagIds = tags ?? []
-
-    const existingTagIds = this.tagIds
-    const connects = makeTagConnectData(difference(tags, existingTagIds))
-
-    const disconnects = makeTagConnectData(
-      difference(existingTagIds, tags || []),
-    )
-
-    const { updateAtoms } = yield* _await(
-      atomApi.UpdateAtoms({
-        update: {
-          name,
-          type,
-          tags: [{ connect: connects, disconnect: disconnects }],
-        },
-        where: { id: this.id },
-      }),
-    )
-
-    const atom = updateAtoms?.atoms[0]
-
-    if (!atom) {
-      throw new Error('Failed to update atom')
-    }
-
-    this.name = atom.name
-    this.type = atom.type
-
-    return atom
-  })
-
   static fromFragment(atom: AtomFragment) {
     return new Atom({
       id: atom.id,
@@ -96,34 +57,16 @@ export const atomRef = rootRef<Atom>('AtomRef', {
   },
 })
 
-@model('codelab/AtomModalStore')
-class AtomModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Ref<Atom>>>(ModalStore),
-  props: {},
-})) {
-  @computed
-  get atom() {
-    return this.metadata?.current ?? null
-  }
+export type WithAtomService = {
+  atomService: AtomService
 }
 
-@model('codelab/AtomsModalStore')
-class AtomsModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Array<Ref<Atom>>>>(ModalStore),
-  props: {},
-})) {
-  @computed
-  get atoms() {
-    return this.metadata?.map((a) => a.current) ?? null
-  }
-}
-
-@model('codelab/AtomStore')
-export class AtomStore extends Model({
+@model('codelab/AtomService')
+export class AtomService extends Model({
   atoms: prop(() => objectMap<Atom>()),
   createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new AtomModalStore({})),
-  deleteModal: prop(() => new AtomsModalStore({})),
+  updateModal: prop(() => new ModalStore({})),
+  deleteModal: prop(() => new ModalStore({})),
   selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
 }) {
   @computed
@@ -137,7 +80,45 @@ export class AtomStore extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: AtomStore, where?: AtomWhere) {
+  update = _async(function* (
+    this: AtomService,
+    atom: Atom,
+    { name, type, tags }: UpdateAtomInputSchema,
+  ) {
+    const existingTagIds = atom.tagIds
+    const connect = makeTagConnectData(difference(tags, existingTagIds))
+
+    const disconnect = makeTagConnectData(
+      difference(existingTagIds, tags || []),
+    )
+
+    const { updateAtoms } = yield* _await(
+      atomApi.UpdateAtoms({
+        update: {
+          name,
+          type,
+          tags: [{ connect, disconnect }],
+        },
+        where: { id: atom.id },
+      }),
+    )
+
+    const updatedAtom = updateAtoms?.atoms[0]
+
+    if (!atom) {
+      throw new Error('Failed to update atom')
+    }
+
+    const atomModel = Atom.fromFragment(updatedAtom)
+
+    this.atoms.set(atom.id, atomModel)
+
+    return atomModel
+  })
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
     return atoms.map((atom) => {
@@ -154,7 +135,7 @@ export class AtomStore extends Model({
 
   @modelFlow
   @transaction
-  getOne = _async(function* (this: AtomStore, id: string) {
+  getOne = _async(function* (this: AtomService, id: string) {
     if (this.atoms.has(id)) {
       return this.atoms.get(id)
     }
@@ -167,7 +148,7 @@ export class AtomStore extends Model({
   @modelFlow
   @transaction
   createAtom = _async(function* (
-    this: AtomStore,
+    this: AtomService,
     input: CreateAtomInputSchema,
     ownerId: Nullish<string>,
   ) {
@@ -175,7 +156,11 @@ export class AtomStore extends Model({
       ? { connect: [{ where: { node: { auth0Id: ownerId } } }] }
       : undefined
 
-    const apiNode = { name: `${input.name} API`, owner: apiOwner }
+    const apiNode = {
+      name: `${input.name} API`,
+      owner: apiOwner,
+      descendantTypesIds: [],
+    }
 
     const tagsConnect = input.tags?.map((tag) => ({
       where: { node: { id: tag } },
@@ -210,7 +195,7 @@ export class AtomStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AtomStore, ids: Array<string>) {
+  delete = _async(function* (this: AtomService, ids: Array<string>) {
     for (const id of ids) {
       if (this.atoms.has(id)) {
         this.atoms.delete(id)

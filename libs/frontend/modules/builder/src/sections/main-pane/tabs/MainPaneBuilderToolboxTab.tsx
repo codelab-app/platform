@@ -1,5 +1,5 @@
 import { DragOutlined } from '@ant-design/icons'
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useAsyncState } from '@codelab/frontend/shared/utils'
@@ -49,7 +49,7 @@ const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
 
 export interface MainPaneBuilderToolboxTabProps {
   searchQuery?: string
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 export const MainPaneBuilderToolboxTab = observer(

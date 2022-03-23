@@ -1,4 +1,4 @@
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import { InterfaceType, TypeStore } from '@codelab/frontend/modules/type'
 
 export interface InterfaceProps {
@@ -12,5 +12,5 @@ export type AddHookToElementMutationInput = {
 export type AddHookToElementModalProps = {
   elementId: string
   typeStore: TypeStore
-  atomStore: AtomStore
+  atomStore: AtomService
 }

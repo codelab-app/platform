@@ -7,14 +7,14 @@ import { AppService, WithAppService } from '../../store'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
-  const app = appService.selectedRef
+  const app = appService.selectedApp?.current
 
   const onSubmit = (input: UpdateAppInput) => {
     if (!app) {
       throw new Error('Updated app is not set')
     }
 
-    return appService.update(app.id, input)
+    return appService.update(app, input)
   }
 
   const onSubmitError = createNotificationHandler({
@@ -31,7 +31,7 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
     >
       <ModalForm.Form
         model={{
-          name: app?.current.name,
+          name: app?.name,
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

@@ -1,4 +1,4 @@
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import {
   ElementCssEditor,
   ElementHookSection,
@@ -69,7 +69,7 @@ export interface MetaPaneBuilderProps {
   ) => React.ReactNode
   tree: ElementTree
   typeStore: TypeStore
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 /**

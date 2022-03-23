@@ -26,7 +26,7 @@ import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
 import { appApi } from './app.api'
 
 @model('codelab/App')
-export class AppModel extends Model({
+export class App extends Model({
   id: idProp,
   ownerId: prop<Nullish<string>>(),
   name: prop<string>(),
@@ -38,7 +38,7 @@ export class AppModel extends Model({
   }
 
   static fromFragment(app: AppFragment) {
-    return new AppModel({
+    return new App({
       id: app.id,
       name: app.name,
       ownerId: app.owner?.[0]?.id,
@@ -47,7 +47,7 @@ export class AppModel extends Model({
   }
 }
 
-export const appRef = rootRef<AppModel>('AppRef', {
+export const appRef = rootRef<App>('AppRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)
@@ -61,8 +61,8 @@ export type WithAppService = {
 
 @model('codelab/AppService')
 export class AppService extends Model({
-  apps: prop(() => objectMap<AppModel>()),
-  selectedRef: prop<Nullish<Ref<AppModel>>>(null),
+  apps: prop(() => objectMap<App>()),
+  selectedApp: prop<Nullish<Ref<App>>>(null).withSetter(),
   createModal: prop(() => new ModalStore({})),
   updateModal: prop(() => new ModalStore({})),
   deleteModal: prop(() => new ModalStore({})),
@@ -70,20 +70,6 @@ export class AppService extends Model({
   @computed
   get appsList() {
     return [...this.apps.values()]
-  }
-
-  @modelAction
-  setSelectedApp(app: AppModel | null) {
-    if (app && !this.apps.has(app.id)) {
-      throw new Error('Unknown app')
-    }
-
-    this.selectedRef = app ? appRef(app) : null
-  }
-
-  @computed
-  get selectedApp() {
-    return this.selectedRef ? this.selectedRef.current : undefined
   }
 
   app(id: string) {
@@ -99,7 +85,7 @@ export class AppService extends Model({
       if (this.apps.get(app.id)) {
         return this.apps.get(app.id)
       } else {
-        const appModel = AppModel.fromFragment(app)
+        const appModel = App.fromFragment(app)
         this.apps.set(app.id, appModel)
 
         return appModel
@@ -111,7 +97,7 @@ export class AppService extends Model({
   @transaction
   update = _async(function* (
     this: AppService,
-    id: string,
+    app: App,
     { name }: UpdateAppInput,
   ) {
     const {
@@ -119,19 +105,19 @@ export class AppService extends Model({
     } = yield* _await(
       appApi.UpdateApps({
         update: { name },
-        where: { id },
+        where: { id: app.id },
       }),
     )
 
-    const app = apps[0]
+    const updatedApp = apps[0]
 
     if (!app) {
       throw new Error('Failed to update app')
     }
 
-    const appModel = AppModel.fromFragment(app)
+    const appModel = App.fromFragment(updatedApp)
 
-    this.apps.set(id, appModel)
+    this.apps.set(app.id, appModel)
 
     return appModel
   })
@@ -182,7 +168,7 @@ export class AppService extends Model({
       throw new Error('App was not created')
     }
 
-    const appModel = AppModel.fromFragment(app)
+    const appModel = App.fromFragment(app)
 
     this.apps.set(appModel.id, appModel)
 

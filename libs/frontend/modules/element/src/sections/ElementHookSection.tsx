@@ -1,4 +1,4 @@
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import { TypeStore } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -14,7 +14,7 @@ import {
 export interface ElementHookSectionProps {
   elementId: string
   typeStore: TypeStore
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 export const ElementHookSection = observer(

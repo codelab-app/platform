@@ -2,18 +2,14 @@ import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { AtomStore } from '../../store'
+import { AtomService, WithAtomService } from '../../store'
 import { AtomCellData } from './columns/types'
 import { useAtomTable } from './useAtomTable'
 
-export interface GetAtomsTableProps {
-  atomStore: AtomStore
-}
-
-export const GetAtomsTable = observer<GetAtomsTableProps>(({ atomStore }) => {
-  const { columns, rowSelection, pagination } = useAtomTable(atomStore)
-  const [getAtoms, { isLoading }] = useAsyncState(() => atomStore.getAll())
-  const atomsList = atomStore.atomsList
+export const GetAtomsTable = observer<WithAtomService>(({ atomService }) => {
+  const { columns, rowSelection, pagination } = useAtomTable(atomService)
+  const [getAtoms, { isLoading }] = useAsyncState(() => atomService.getAll())
+  const atomsList = atomService.atomsList
 
   const atomsData: Array<AtomCellData> = atomsList.map((a) => ({
     id: a.id,

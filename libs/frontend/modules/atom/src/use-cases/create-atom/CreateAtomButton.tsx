@@ -3,10 +3,10 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { AtomStore } from '../../store'
+import { AtomService } from '../../store'
 
 export interface CreateAtomButtonProps {
-  atomStore: AtomStore
+  atomStore: AtomService
 }
 
 export const CreateAtomButton = observer<CreateAtomButtonProps>(

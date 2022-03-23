@@ -1,6 +1,6 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { AtomStore } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import { TypeStore } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
@@ -16,7 +16,7 @@ import { AddHookToElementMutationInput, InterfaceProps } from './types'
 type UseAddHookToElementForm = (
   elementId: string,
   typeStore: TypeStore,
-  atomStore: AtomStore,
+  atomStore: AtomService,
 ) => ReturnType<UseUseCaseForm<any, CRUDActionType, unknown, string>> &
   InterfaceProps
 

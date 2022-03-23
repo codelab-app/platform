@@ -6,7 +6,7 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { atomRef, AtomStore } from '../../store'
+import { atomRef, AtomService } from '../../store'
 import { makeFilterData } from '../helper'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AtomCellData } from './columns/types'
@@ -18,7 +18,7 @@ const onLibraryFilter = (value: any, atom: AtomCellData): boolean => {
   return list.some((x) => x.startsWith(search))
 }
 
-export const useAtomTable = (atomStore: AtomStore) => {
+export const useAtomTable = (atomService: AtomService) => {
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
   const tagTreeData = tagTree.getAntdTrees()
@@ -67,7 +67,7 @@ export const useAtomTable = (atomStore: AtomStore) => {
       onHeaderCell: headerCellProps,
       width: 100,
       render: (text, atom) => (
-        <ActionColumn atom={atom} atomStore={atomStore} />
+        <ActionColumn atom={atom} atomService={atomService} />
       ),
     },
   ]
@@ -75,7 +75,7 @@ export const useAtomTable = (atomStore: AtomStore) => {
   const rowSelection: TableRowSelection<AtomCellData> = {
     type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<AtomCellData>) => {
-      atomStore.setSelectedAtoms(selectedRows.map((a) => atomRef(a.id)))
+      atomService.setSelectedAtoms(selectedRows.map((a) => atomRef(a.id)))
     },
   }
 

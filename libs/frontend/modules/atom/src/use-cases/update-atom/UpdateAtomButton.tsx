@@ -3,20 +3,17 @@ import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef, AtomStore } from '../../store'
+import { atomRef, AtomService, WithAtomService } from '../../store'
 
-export interface UpdateAtomButtonProps extends UpdateButtonProps {
-  atomStore: AtomStore
-}
+export type UpdateAtomButtonProps = UpdateButtonProps & WithAtomService
 
-export const UpdateAtomButton = observer(
-  ({ id, disabled, atomStore }: UpdateAtomButtonProps) => {
+export const UpdateAtomButton = observer<UpdateAtomButtonProps>(
+  ({ id, disabled, atomService }) => {
     const onClick = () => {
-      if (!id) {
-        throw new Error('Atom ID is not valid')
-      }
-
-      atomStore.updateModal.open(atomRef(id))
+      console.log('update')
+      console.log(id)
+      atomService.setSelectedAtom(id)
+      atomService.updateModal.open()
     }
 
     return (

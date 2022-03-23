@@ -1,2 +1,2 @@
-export * from './atomApi'
-export * from './atomStore'
+export * from './atom.api'
+export * from './atom.store'
