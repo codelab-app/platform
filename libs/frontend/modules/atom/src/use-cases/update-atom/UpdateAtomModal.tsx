@@ -9,8 +9,8 @@ import { TreeSelectField } from '../components'
 import { UpdateAtomInputSchema, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomModal = observer<WithAtomService>(({ atomService }) => {
+  const atom = atomService.updateModal.atom
   const closeModal = () => atomService.updateModal.close()
-  const atom = atomService.selectedAtoms[0]?.current
 
   const onSubmit = (data: UpdateAtomInputSchema) => {
     if (!atom) {

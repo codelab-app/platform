@@ -1,4 +1,4 @@
-import { ModalStore } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -33,25 +33,15 @@ import {
   UpdateFieldInput,
 } from './models'
 import { typeFactory } from './type.factory'
+import { TypeModalService } from './type-modal.service'
 
 export type WithTypeService = {
   typeService: TypeService
 }
 
-@model('codelab/TypeModalStore')
-class TypeModalStore extends ExtendedModel(
-  modelClass<ModalStore<Ref<AnyType>>>(ModalStore),
-  {},
-) {
-  @computed
-  get type() {
-    return this.metadata?.current ?? null
-  }
-}
-
 @model('codelab/InterfaceTypeModalStore')
 class InterfaceTypeModalStore extends ExtendedModel(
-  modelClass<ModalStore<Ref<InterfaceType>>>(ModalStore),
+  modelClass<ModalService<Ref<InterfaceType>>>(ModalService),
   {},
 ) {
   @computed
@@ -60,14 +50,13 @@ class InterfaceTypeModalStore extends ExtendedModel(
   }
 }
 
-@model('codelab/TypeStore')
+@model('codelab/TypeService')
 export class TypeService extends Model({
   types: prop(() => objectMap<AnyType>()),
 
-  createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new ModalStore({})),
-  deleteModal: prop(() => new ModalStore({})),
-  selectedType: prop<Nullish<Ref<AnyType>>>(),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new TypeModalService({})),
+  deleteModal: prop(() => new TypeModalService({})),
 
   selectedIds: prop(() => arraySet<string>()).withSetter(),
 

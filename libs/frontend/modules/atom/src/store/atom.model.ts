@@ -1,15 +1,7 @@
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  prop,
-  Ref,
-  rootRef
-} from "mobx-keystone";
-import { AtomType } from "@codelab/shared/abstract/core";
-import { InterfaceType, typeRef } from "@codelab/frontend/modules/type";
-import { AtomFragment } from "../graphql/Atom.fragment.v2.1.graphql.gen";
+import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
+import { AtomType } from '@codelab/shared/abstract/core'
+import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
+import { AtomFragment } from '../graphql/Atom.fragment.v2.1.graphql.gen'
 
 @model('codelab/Atom')
 export class Atom extends Model({
@@ -28,14 +20,14 @@ export class Atom extends Model({
       type: atom.type,
       api: typeRef(atom.api.id) as Ref<InterfaceType>,
       tagIds: atom.tags.map((tag) => tag.id),
-    });
+    })
   }
 }
 
 export const atomRef = rootRef<Atom>('AtomRef', {
   onResolvedValueChange(ref, newAtom, oldAtom) {
     if (oldAtom && !newAtom) {
-      detach(ref);
+      detach(ref)
     }
   },
-});
+})

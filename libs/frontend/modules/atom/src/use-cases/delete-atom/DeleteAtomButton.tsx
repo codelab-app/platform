@@ -14,10 +14,9 @@ export const DeleteAtomButton = observer<DeleteAtomButton>(
         danger
         disabled={disabled}
         icon={<DeleteOutlined />}
-        onClick={() => {
-          atomService.setSelectedAtoms(ids.map((id) => atomRef(id)))
-          atomService.deleteModal.open()
-        }}
+        onClick={() =>
+          atomService.deleteModal.open(ids.map((id) => atomRef(id)))
+        }
         size="small"
       />
     )

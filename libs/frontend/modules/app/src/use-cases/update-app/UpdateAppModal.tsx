@@ -7,7 +7,7 @@ import { AppService, WithAppService } from '../../store'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
-  const app = appService.selectedApp?.current
+  const app = appService.updateModal.app
 
   const onSubmit = (input: UpdateAppInput) => {
     if (!app) {

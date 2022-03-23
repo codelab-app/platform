@@ -58,17 +58,13 @@ export const GetTypesTable = observer<WithTypeService>(({ typeService }) => {
           ) : (
             <ListItemEditButton
               onClick={() => {
-                // typeService.updateModal.open(typeRef(record.id))
-                // typeService.
-                typeService.updateModal.open()
+                typeService.updateModal.open(typeRef(record.id))
               }}
             />
           )}
 
           <ListItemDeleteButton
-            onClick={() => {
-              // typeService.deleteModal.open(typeRef(record.id))
-            }}
+            onClick={() => typeService.deleteModal.open(typeRef(record.id))}
           />
         </Space>
       ),

@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ModalStore } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -89,7 +89,7 @@ export const pageRef = rootRef<PageModel>('PageRef', {
 
 @model('codelab/PageModalStore')
 class PageModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Ref<PageModel>>>(ModalStore),
+  baseModel: modelClass<ModalService<Ref<PageModel>>>(ModalService),
   props: {},
 })) {
   @computed
@@ -101,7 +101,7 @@ class PageModalStore extends ExtendedModel(() => ({
 @model('codelab/PageStore')
 export class PageStore extends Model({
   pages: prop(() => objectMap<PageModel>()),
-  createModal: prop(() => new ModalStore({})),
+  createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new PageModalStore({})),
   deleteModal: prop(() => new PageModalStore({})),
 }) {

@@ -17,41 +17,41 @@ import { validateNonRecursive } from './validateNonRecursive'
 export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
   const { user } = useUser()
   const closeModal = () => typeService.updateModal.close()
-  const updatedType = typeService.updateModal.type
+  const typeToUpdate = typeService.updateModal.type
 
   const handleSubmit = async (submitData: UpdateTypeSchema) => {
-    if (!updatedType) {
+    if (!typeToUpdate) {
       throw new Error('Type not set for typeStore.updateModal.')
     }
 
-    await validateNonRecursive(updatedType.id, submitData)
+    await validateNonRecursive(typeToUpdate.id, submitData)
 
     const input = mapUpdateTypeSchemaToTypeInput(
       submitData,
-      updatedType,
+      typeToUpdate,
       user?.sub,
     )
 
-    return updatedType.update(input)
+    return typeToUpdate.update(input)
   }
 
   const model = {
-    name: updatedType?.name,
+    name: typeToUpdate?.name,
     primitiveKind:
-      updatedType?.typeKind === TypeKind.PrimitiveType
-        ? updatedType?.primitiveKind
+      typeToUpdate?.typeKind === TypeKind.PrimitiveType
+        ? typeToUpdate?.primitiveKind
         : undefined,
     allowedValues:
-      updatedType?.typeKind === TypeKind.EnumType
-        ? updatedType?.allowedValues ?? undefined
+      typeToUpdate?.typeKind === TypeKind.EnumType
+        ? typeToUpdate?.allowedValues ?? undefined
         : undefined,
     typeIdsOfUnionType:
-      updatedType?.typeKind === TypeKind.UnionType
-        ? updatedType?.typesOfUnionType?.map((t) => t.id) ?? []
+      typeToUpdate?.typeKind === TypeKind.UnionType
+        ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
         : undefined,
   }
 
-  if (!updatedType) {
+  if (!typeToUpdate) {
     return null
   }
 
@@ -74,13 +74,13 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
         schema={updateTypeSchema}
       >
         <AutoFields fields={['name']} />
-        {updatedType.typeKind === TypeKind.UnionType && (
+        {typeToUpdate.typeKind === TypeKind.UnionType && (
           <AutoField name="typeIdsOfUnionType" />
         )}
-        {updatedType.typeKind === TypeKind.PrimitiveType && (
+        {typeToUpdate.typeKind === TypeKind.PrimitiveType && (
           <AutoField name="primitiveKind" />
         )}
-        {updatedType.typeKind === TypeKind.EnumType && (
+        {typeToUpdate.typeKind === TypeKind.EnumType && (
           <AutoField name="allowedValues" />
         )}
       </ModalForm.Form>

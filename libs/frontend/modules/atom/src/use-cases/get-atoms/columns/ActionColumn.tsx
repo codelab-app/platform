@@ -10,19 +10,8 @@ import { ActionColumnProps } from './types'
 
 export const ActionColumn = observer<ActionColumnProps>(
   ({ atom, atomService }) => {
-    const onClickEdit = () => {
-      atomService.setSelectedAtoms([atomRef(atom.id)])
-      atomService.updateModal.open()
-    }
-
-    const onClickDelete = () => {
-      const atomRefs = Array.from(atomService.atoms.keys()).map((id) =>
-        atomRef(id),
-      )
-
-      atomService.setSelectedAtoms(atomRefs)
-      atomService.deleteModal.open()
-    }
+    const onClickEdit = () => atomService.updateModal.open(atomRef(atom.id))
+    const onClickDelete = () => atomService.deleteModal.open([atomRef(atom.id)])
 
     return (
       <Space size="middle">

@@ -11,7 +11,7 @@ import { typeApi, TypeService, WithTypeService } from '../../../store'
 
 export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.deleteModal.close()
-  const deletedType = typeService.deleteModal.type
+  const typeToDelete = typeService.deleteModal.type
 
   return (
     <ModalForm.Modal
@@ -23,7 +23,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={async () => {
-          const kind = deletedType?.typeKind
+          const kind = typeToDelete?.typeKind
 
           if (!kind) {
             throw new Error('useDeleteTypeForm: TypeKind is not defined')
@@ -31,7 +31,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
 
           // Make sure this type is not referenced anywhere else or the data may become corrupt
           const { getTypeReferences } = await typeApi.GetTypeReferences({
-            typeId: deletedType.id,
+            typeId: typeToDelete.id,
           })
 
           if (getTypeReferences?.length) {
@@ -46,7 +46,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
             )
           }
 
-          return typeService.delete(deletedType.id)
+          return typeService.delete(typeToDelete.id)
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while deleting type',
@@ -55,7 +55,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >
-        <h4>Are you sure you want to delete type "{deletedType?.name}"?</h4>
+        <h4>Are you sure you want to delete type "{typeToDelete?.name}"?</h4>
       </ModalForm.Form>
     </ModalForm.Modal>
   )

@@ -1,37 +1,36 @@
-import { ModalStore } from '@codelab/frontend/shared/utils';
-import { AtomWhere } from '@codelab/shared/abstract/codegen-v2';
-import { Nullish } from '@codelab/shared/abstract/types';
-import { difference } from 'lodash';
-import { computed } from 'mobx';
+import { ModalService } from '@codelab/frontend/shared/utils'
+import { AtomWhere } from '@codelab/shared/abstract/codegen-v2'
+import { Nullish } from '@codelab/shared/abstract/types'
+import { difference } from 'lodash'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
+  ExtendedModel,
   Model,
   model,
+  modelClass,
   modelFlow,
   objectMap,
   prop,
   Ref,
   transaction,
-} from 'mobx-keystone';
-import type {
-  CreateAtomInputSchema,
-  UpdateAtomInputSchema
-} from '../use-cases';
-import { makeTagConnectData } from '../use-cases/helper';
-import { atomApi } from './atom.api';
-import { Atom } from "./atom.model";
+} from 'mobx-keystone'
+import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
+import { makeTagConnectData } from '../use-cases/helper'
+import { atomApi } from './atom.api'
+import { Atom } from './atom.model'
+import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 export type WithAtomService = {
   atomService: AtomService
 }
-
 @model('codelab/AtomService')
 export class AtomService extends Model({
   atoms: prop(() => objectMap<Atom>()),
-  createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new ModalStore({})),
-  deleteModal: prop(() => new ModalStore({})),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new AtomModalService({})),
+  deleteModal: prop(() => new AtomsModalService({})),
   selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
 }) {
   @computed
@@ -160,7 +159,9 @@ export class AtomService extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AtomService, ids: Array<string>) {
+  delete = _async(function* (this: AtomService, atoms: Array<Atom>) {
+    const ids = atoms.map((atom) => atom.id)
+
     for (const id of ids) {
       if (this.atoms.has(id)) {
         this.atoms.delete(id)

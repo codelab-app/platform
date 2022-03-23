@@ -1,7 +1,7 @@
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
-@model('codelab/ModelStore')
-export class ModalStore<TMetadata = never> extends Model(<
+@model('codelab/ModelService')
+export class ModalService<TMetadata = never> extends Model(<
   // eslint-disable-next-line @typescript-eslint/no-shadow
   TMetadata,
 >() => ({

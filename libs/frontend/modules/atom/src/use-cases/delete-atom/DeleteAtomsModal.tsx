@@ -7,9 +7,8 @@ import { AtomService, WithAtomService } from '../../store'
 
 export const DeleteAtomsModal = observer<WithAtomService>(({ atomService }) => {
   const closeModal = () => atomService.deleteModal.close()
-
-  const onSubmit = () =>
-    atomService.delete(atomService.selectedAtoms?.map((a) => a.id) ?? [])
+  const atoms = atomService.deleteModal.atoms
+  const onSubmit = () => atomService.delete(atoms)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while deleting atom',
@@ -32,7 +31,7 @@ export const DeleteAtomsModal = observer<WithAtomService>(({ atomService }) => {
       >
         <h4>
           Are you sure you want to delete atoms "
-          {atomService.selectedAtoms?.map((a) => a.current.name).join(', ')}"?
+          {atoms?.map((atom) => atom.name).join(', ')}"?
         </h4>
         <AutoFields />
       </ModalForm.Form>

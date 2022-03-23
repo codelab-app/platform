@@ -1,8 +1,8 @@
-import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core';
-import { ModalStore } from '@codelab/frontend/shared/utils';
-import { AppWhere } from '@codelab/shared/abstract/codegen-v2';
-import { Nullish } from '@codelab/shared/abstract/types';
-import { computed } from 'mobx';
+import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/shared/utils'
+import { AppWhere } from '@codelab/shared/abstract/codegen-v2'
+import { Nullish } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -13,11 +13,12 @@ import {
   prop,
   Ref,
   transaction,
-} from 'mobx-keystone';
-import type { CreateAppInput } from '../use-cases/create-app/createAppSchema';
-import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema';
-import { appApi } from './app.api';
-import { App } from "./app.model";
+} from 'mobx-keystone'
+import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
+import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
+import { appApi } from './app.api'
+import { App } from './app.model'
+import { AppModalService } from './app-modal.service'
 
 export type WithAppService = {
   appService: AppService
@@ -26,10 +27,9 @@ export type WithAppService = {
 @model('codelab/AppService')
 export class AppService extends Model({
   apps: prop(() => objectMap<App>()),
-  selectedApp: prop<Nullish<Ref<App>>>(null).withSetter(),
-  createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new ModalStore({})),
-  deleteModal: prop(() => new ModalStore({})),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new AppModalService({})),
+  deleteModal: prop(() => new AppModalService({})),
 }) {
   @computed
   get appsList() {

@@ -25,15 +25,8 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
-  const onEditClick = () => {
-    appService.setSelectedApp(appRef(app))
-    appService.updateModal.open()
-  }
-
-  const onDeleteClick = () => {
-    appService.setSelectedApp(appRef(app))
-    appService.deleteModal.open()
-  }
+  const onEditClick = () => appService.updateModal.open(appRef(app))
+  const onDeleteClick = () => appService.deleteModal.open(appRef(app))
 
   const actionsMenu = (
     <Menu>
