@@ -27,44 +27,47 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 
 const queryClient = new QueryClient()
 
-const App = ({ pageProps, Component, ...props }: AppProps<unknown>) => {
+const App = ({ pageProps, Component }: AppProps<unknown>) => {
+  /**
+   * mobx-key-stone
+   */
   const store = useMemo(
-    () => initializeStore(pageProps.snapshot),
-    [pageProps.initialState],
+    () => initializeStore(pageProps.initialState),
+    [],
   )
+
+
 
   const {
     Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
   } = Component as CodelabPage<unknown>
 
+
   return (
     <StoreProvider value={store}>
       <UserProvider>
-        <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={DateFnsAdapter}>
-            <ConfigProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  slickCssFix,
-                  ...globalTailwindFix,
-                ]}
-              />
-              <Layout>
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
-              </Layout>
-            </ConfigProvider>
-          </LocalizationProvider>
-        </QueryClientProvider>
+        <LocalizationProvider dateAdapter={DateFnsAdapter}>
+          <ConfigProvider>
+            <GlobalStyles />
+            <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                slickCssFix,
+                ...globalTailwindFix,
+              ]}
+            />
+            <Layout>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
+            </Layout>
+          </ConfigProvider>
+        </LocalizationProvider>
       </UserProvider>
+
     </StoreProvider>
   )
 }

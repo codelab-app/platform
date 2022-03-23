@@ -7,7 +7,7 @@ export type PageFragment = {
   id: string
   name: string
   app: { id: string; rootProviderElement: { id: string } }
-  rootElement: { id: string; name?: string | null | undefined }
+  rootElement: { id: string; name?: string | null }
 }
 
 export type PageFullFragment = PageFragment

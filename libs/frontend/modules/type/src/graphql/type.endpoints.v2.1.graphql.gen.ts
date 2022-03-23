@@ -8,16 +8,14 @@ export type IsTypeDescendantOfQueryVariables = Types.Exact<{
   parentTypeId: Types.Scalars['ID']
 }>
 
-export type IsTypeDescendantOfQuery = {
-  isTypeDescendantOf?: boolean | null | undefined
-}
+export type IsTypeDescendantOfQuery = { isTypeDescendantOf?: boolean | null }
 
 export type GetTypeReferencesQueryVariables = Types.Exact<{
   typeId: Types.Scalars['ID']
 }>
 
 export type GetTypeReferencesQuery = {
-  getTypeReferences?: Array<{ name: string; label: string }> | null | undefined
+  getTypeReferences?: Array<{ name: string; label: string }> | null
 }
 
 export const IsTypeDescendantOfDocument = gql`

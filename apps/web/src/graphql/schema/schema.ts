@@ -7,6 +7,7 @@ import { pageSchema } from './page.schema'
 import { tagSchema } from './tag.schema'
 import { typeSchema } from './type'
 import { userSchema } from './user.schema'
+import { resourceSchema } from './resource.schema'
 
 export default print(gql`
   ${commonSchema}
@@ -22,6 +23,8 @@ export default print(gql`
   ${typeSchema}
 
   ${tagSchema}
+
+  ${resourceSchema}
 
   interface IElementGraph {
     root: Element

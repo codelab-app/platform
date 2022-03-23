@@ -8,7 +8,7 @@ export type E2eResetDatabaseMutationVariables = Types.Exact<{
 }>
 
 export type E2eResetDatabaseMutation = {
-  resetDatabase?: { success?: boolean | null | undefined } | null | undefined
+  resetDatabase?: { success?: boolean | null } | null
 }
 
 export type E2eImportAdminDataMutationVariables = Types.Exact<{

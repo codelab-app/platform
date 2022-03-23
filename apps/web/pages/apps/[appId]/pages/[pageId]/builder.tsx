@@ -1,6 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
+import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
 import {
   Builder,
   BuilderContext,
@@ -18,6 +19,8 @@ import {
 } from '@codelab/frontend/modules/page'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
+import { reduxStoreWrapper } from 'apps/web/src/store/reduxStoreWrapper'
+import { useStore } from 'libs/frontend/model/infra/mobx/src/mst'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'

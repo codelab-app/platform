@@ -5,14 +5,14 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type Field_InterfaceTypeEdge_Fragment = {
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type Field_InterfaceTypeFieldsRelationship_Fragment = {
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type FieldFragment =

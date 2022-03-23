@@ -13,14 +13,14 @@ export type E2eCreateFieldMutation = {
 
 export type E2eField_InterfaceTypeEdge_Fragment = {
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type E2eField_InterfaceTypeFieldsRelationship_Fragment = {
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: string | null
+  description?: string | null
 }
 
 export type E2eFieldFragment =

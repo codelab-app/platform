@@ -8,6 +8,7 @@ import { fromSnapshot, Model, model, prop, SnapshotOutOf } from 'mobx-keystone'
 export type Snapshot<T = any> = {
   snapshot: SnapshotOutOf<T>
 }
+import { ResourceService } from '@codelab/frontend/modules/resource'
 
 @model('codelab/RootStore')
 export class RootStore extends Model({
@@ -16,6 +17,7 @@ export class RootStore extends Model({
   typeService: prop(() => new TypeService({})),
   atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
+  resourceService: prop(() => new ResourceService({})),
 }) {}
 
 let _store: RootStore | null = null
