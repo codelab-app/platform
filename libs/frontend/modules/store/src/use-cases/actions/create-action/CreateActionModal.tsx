@@ -3,18 +3,16 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useCurrentStoreId } from '../../../hooks'
 import { ActionStore } from '../../../store'
 import { CreateActionInput, createActionSchema } from './createActionSchema'
 
 export interface CreateActionModalProps {
+  selectedStoreId: string
   actionStore: ActionStore
 }
 
 export const CreateActionModal = observer<CreateActionModalProps>(
-  ({ actionStore }) => {
-    const storeId = useCurrentStoreId()
-
+  ({ actionStore, selectedStoreId: storeId }) => {
     const closeModal = () => {
       actionStore.createModal.close()
     }

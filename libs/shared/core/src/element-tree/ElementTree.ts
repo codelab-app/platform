@@ -45,20 +45,6 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     return super.antdChildToNode(parent, child)
   }
 
-  /**
-   * Overrides the mapper for ant tree
-   */
-  protected(element: any) {
-    return {
-      ...element,
-      key: element.id,
-      name:
-        element.name ||
-        (element as IElement)?.atom?.type ||
-        (element as IElement)?.component?.name,
-    }
-  }
-
   getRootElement(): Maybe<IElement> {
     return this.getRootVertex(ElementTree.isElement)
   }

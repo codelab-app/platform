@@ -20,6 +20,9 @@ export const CreateStoreModal = observer<CreateStoreModalProps>(
       title: 'Error while creating store',
     })
 
+    const parentStore = stateStore.createModal?.metadata?.current
+    const model = { parentStore } || {}
+
     return (
       <ModalForm.Modal
         okText="Create Store"
@@ -27,7 +30,7 @@ export const CreateStoreModal = observer<CreateStoreModalProps>(
         visible={stateStore.createModal.isOpen}
       >
         <ModalForm.Form<CreateStoreInput>
-          model={{}}
+          model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}

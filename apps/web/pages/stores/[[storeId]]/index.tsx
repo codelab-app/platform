@@ -5,13 +5,11 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  CreateActionButton,
-  CreateActionModal,
-  DeleteActionsModal,
-  GetActionsTable,
-  UpdateActionModal,
-  useCurrentStoreId,
-  useGetCurrentStore,
+  CreateStoreButton,
+  CreateStoreModal,
+  DeleteStoresModal,
+  GetStoresTree,
+  UpdateStoreModal,
 } from '@codelab/frontend/modules/store'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -24,52 +22,48 @@ import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const ActionsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const rootStore = useStore()
-  const storeId = useCurrentStoreId()
-  const { store } = useGetCurrentStore(storeId, rootStore.stateStore)
+const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
 
   return (
     <>
       <Head>
-        <title>{`${store?.name} | `}Codelab</title>
+        <title>Stores | Codelab</title>
       </Head>
 
-      <CreateActionModal actionStore={rootStore.actionStore} />
-      <UpdateActionModal actionStore={rootStore.actionStore} />
-      <DeleteActionsModal actionStore={rootStore.actionStore} />
+      <CreateStoreModal stateStore={store.stateStore} />
+      <UpdateStoreModal stateStore={store.stateStore} />
+      <DeleteStoresModal stateStore={store.stateStore} />
       <ContentSection>
-        <GetActionsTable actionStore={rootStore.actionStore} />
+        <GetStoresTree stateStore={store.stateStore} />
       </ContentSection>
     </>
   )
 })
 
 const Header = observer(() => {
-  const rootStore = useStore()
+  const store = useStore()
 
   const pageHeaderButtons = [
     <div
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <CreateActionButton actionStore={rootStore.actionStore} key="create" />
+      <CreateStoreButton key="create" stateStore={store.stateStore} />
     </div>,
   ]
 
-  return (
-    <PageHeader extra={pageHeaderButtons} ghost={false} title="Store Actions" />
-  )
+  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Store" />
 })
 
-export default ActionsPage
+export default StoresPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-ActionsPage.Layout = observer((page) => {
+StoresPage.Layout = (page) => {
   return (
     <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
       {page.children}
     </DashboardTemplate>
   )
-})
+}

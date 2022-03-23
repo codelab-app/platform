@@ -1,1 +1,1 @@
-export * from './GetStoresTable'
+export * from './GetStoresTree'

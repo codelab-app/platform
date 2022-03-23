@@ -135,7 +135,7 @@ class StoresGraphsModel extends Model({
 export class StateStore extends Model({
   stores: prop(() => objectMap<StoreModel>()),
   storesGraphs: prop(() => new StoresGraphsModel({})),
-  createModal: prop(() => new ModalStore({})),
+  createModal: prop(() => new StoreModalStore({})),
   updateModal: prop(() => new StoreModalStore({})),
   deleteModal: prop(() => new StoresModalStore({})),
   selectedStores: prop(() => Array<Ref<StoreModel>>()).withSetter(),
