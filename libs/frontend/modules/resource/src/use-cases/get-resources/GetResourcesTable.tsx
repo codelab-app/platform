@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Table } from 'antd'
@@ -6,13 +7,12 @@ import { WithResourceService } from '../..'
 import { columns } from './columns'
 
 
-export const GetResourcesTable = ({ resourceService }: WithResourceService) => {
+export const GetResourcesTable = observer(({ resourceService }: WithResourceService) => {
   const [getResources, { isLoading }] = useLoadingState(() =>
     resourceService.getAll(),
   )
 
   useEffect(() => { getResources() }, [])
-
 
   return (
     <SpinnerWrapper isLoading={isLoading}>
@@ -20,4 +20,4 @@ export const GetResourcesTable = ({ resourceService }: WithResourceService) => {
         rowKey={(component) => component.id} />
     </SpinnerWrapper>
   )
-}
+})

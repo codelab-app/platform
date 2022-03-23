@@ -34,7 +34,6 @@ export const ActionColumn = ({ component }: ActionColumnProps) => {
 
   return (
     <Space size="middle">
-      <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
       <ListItemEditButton onClick={onEdit} />
       <ListItemDeleteButton onClick={onDelete} />
     </Space>

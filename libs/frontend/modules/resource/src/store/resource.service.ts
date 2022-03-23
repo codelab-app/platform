@@ -25,12 +25,7 @@ export class ResourceService extends Model({
   getAll = _async(function* (this: ResourceService, options: ResourceOptions = {}, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where, options }))
 
-    const formattedResources = resources.map(r => new Resource({
-      id: r.id,
-      name: r.name,
-      type: r.atom.type
-    }))
-
+    const formattedResources = resources.map(r => Resource.fromFragment(r))
 
     formattedResources.forEach(r => {
       this.resourceMap.set(r.id, r)
@@ -47,7 +42,7 @@ export class ResourceService extends Model({
     } } = yield* _await(resourceApi.CreateResources({
       input: {
         name: input.name,
-        atom: { connectOrCreate: { onCreate: { node: { name: input.type } }, where: { node: { name: input.type } } } }
+        atom: { connect: { where: { node: { type: input.type } } } }
       },
     }))
 
@@ -57,9 +52,15 @@ export class ResourceService extends Model({
       throw new Error('Atom was not created')
     }
 
-    const atomModel = Atom.fromFragment(atom)
+    const resourceModel = Resource.fromFragment(resource)
+    console.log({ resourceModel });
 
-    this.atoms.set(atomModel.id, atomModel)
+
+    this.resourceMap.set(resourceModel.id, resourceModel)
+    console.log({
+      resourceMap: this.resourceMap
+    });
+
 
     return resources
   })
