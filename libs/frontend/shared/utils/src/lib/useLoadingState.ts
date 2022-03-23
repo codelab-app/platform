@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { extractErrorMessage } from './extractErrorMessage'
 import { NotificationOptions, notify } from './notifications'
 
-export interface AsyncState<T> {
+export interface LoadingState<T> {
   isLoading: boolean
   error: string | null
   data: T | null
@@ -14,11 +14,11 @@ const defaultNotifyFactory = (error: any): NotificationOptions => ({
   content: extractErrorMessage(error),
 })
 
-export const useAsyncState = <TArgs extends Array<any>, TOut>(
+export const useLoadingState = <TArgs extends Array<any>, TOut>(
   executor: (...args: TArgs) => Promise<TOut>,
   notifyFactory: typeof defaultNotifyFactory | null = defaultNotifyFactory,
 ) => {
-  const [state, setState] = useState<AsyncState<TOut>>({
+  const [state, setState] = useState<LoadingState<TOut>>({
     isLoading: false,
     error: null,
     data: null,

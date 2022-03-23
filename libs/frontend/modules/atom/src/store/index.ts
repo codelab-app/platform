@@ -1,2 +1,4 @@
 export * from './atom.api'
-export * from './atom.store'
+export * from './atom.model'
+export * from './atom.model'
+export * from './atom.service'

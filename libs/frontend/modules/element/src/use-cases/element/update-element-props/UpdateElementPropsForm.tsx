@@ -4,7 +4,7 @@ import {
   WithTypeService,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   SpinnerWrapper,
   UseTrackLoadingPromises,
@@ -31,7 +31,7 @@ export const UpdateElementPropsFormInternal =
       const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
 
       const [getInterfaceType, { data: interfaceType, isLoading }] =
-        useAsyncState((_id: string) =>
+        useLoadingState((_id: string) =>
           typeService.getInterfaceAndDescendants({ id: _id }),
         )
 

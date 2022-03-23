@@ -1,1 +1,3 @@
-export * from './app.store'
+export * from './app.model'
+export * from './app.model'
+export * from './app.service'

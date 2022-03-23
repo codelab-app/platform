@@ -9,7 +9,7 @@ import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
 } from '../../../shared'
-import { TypeModelAny, UpdateTypeInput } from '../../../store'
+import { AnyType, UpdateTypeInput } from '../../../store'
 
 export type UpdateTypeSchema = BaseTypeMutationSchema
 
@@ -26,7 +26,7 @@ export const updateTypeSchema: JSONSchemaType<UpdateTypeSchema> = {
 // so it's not a good candidate for a generic function.
 export const mapUpdateTypeSchemaToTypeInput = (
   formData: UpdateTypeSchema,
-  originalType: TypeModelAny,
+  originalType: AnyType,
   currentUserId: Nullish<string>,
 ): UpdateTypeInput => {
   const common: Partial<UpdateTypeInput> = {

@@ -4,7 +4,7 @@ import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Menu, Spin } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import { observer } from 'mobx-react-lite'
@@ -22,7 +22,7 @@ export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const [getPages, { isLoading }] = useAsyncState(() =>
+  const [getPages, { isLoading }] = useLoadingState(() =>
     pages.getAll({ app: { id: appId } }),
   )
 

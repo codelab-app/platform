@@ -2,7 +2,7 @@ import { DragOutlined } from '@ant-design/icons'
 import { AtomService } from '@codelab/frontend/modules/atom'
 import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { IAtom, IComponent } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
@@ -56,7 +56,7 @@ export const MainPaneBuilderToolboxTab = observer(
   ({ searchQuery, atomStore }: MainPaneBuilderToolboxTabProps) => {
     const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
 
-    const [getAtoms, { isLoading: isLoadingAtoms }] = useAsyncState(() =>
+    const [getAtoms, { isLoading: isLoadingAtoms }] = useLoadingState(() =>
       atomStore.getAll(),
     )
 

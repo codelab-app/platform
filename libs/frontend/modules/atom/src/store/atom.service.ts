@@ -1,61 +1,26 @@
-import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { ModalStore } from '@codelab/frontend/shared/utils'
-import { AtomWhere } from '@codelab/shared/abstract/codegen-v2'
-import { AtomType } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { difference } from 'lodash'
-import { computed } from 'mobx'
+import { ModalStore } from '@codelab/frontend/shared/utils';
+import { AtomWhere } from '@codelab/shared/abstract/codegen-v2';
+import { Nullish } from '@codelab/shared/abstract/types';
+import { difference } from 'lodash';
+import { computed } from 'mobx';
 import {
   _async,
   _await,
-  detach,
-  ExtendedModel,
-  idProp,
   Model,
   model,
-  modelAction,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
   Ref,
-  rootRef,
   transaction,
-} from 'mobx-keystone'
-import { AtomFragment } from '../graphql/Atom.fragment.v2.1.graphql.gen'
-import type { CreateAtomInputSchema } from '../use-cases/create-atom/createAtomSchema'
-import { makeTagConnectData } from '../use-cases/helper'
-import type { UpdateAtomInputSchema } from '../use-cases/update-atom/updateAtomSchema'
-import { atomApi } from './atom.api'
-
-@model('codelab/Atom')
-export class Atom extends Model({
-  id: idProp,
-  type: prop<AtomType>(),
-  name: prop<string>(),
-  tagIds: prop<Array<string>>(),
-  // TODO add tags to atom after refactoring tag module to mobx. 1. in props, 2. in Atom.update() 3. in AtomStore.createAtom()
-  // tags: prop<Tag[]>(),
-  api: prop<Ref<InterfaceType>>(),
-}) {
-  static fromFragment(atom: AtomFragment) {
-    return new Atom({
-      id: atom.id,
-      name: atom.name,
-      type: atom.type,
-      api: typeRef(atom.api.id) as Ref<InterfaceType>,
-      tagIds: atom.tags.map((tag) => tag.id),
-    })
-  }
-}
-
-export const atomRef = rootRef<Atom>('AtomRef', {
-  onResolvedValueChange(ref, newAtom, oldAtom) {
-    if (oldAtom && !newAtom) {
-      detach(ref)
-    }
-  },
-})
+} from 'mobx-keystone';
+import type {
+  CreateAtomInputSchema,
+  UpdateAtomInputSchema
+} from '../use-cases';
+import { makeTagConnectData } from '../use-cases/helper';
+import { atomApi } from './atom.api';
+import { Atom } from "./atom.model";
 
 export type WithAtomService = {
   atomService: AtomService

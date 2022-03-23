@@ -1,6 +1,7 @@
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -16,22 +17,22 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { fieldApi } from './apis/fieldApi'
+import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
   CreateTypeInput,
   deleteTypeApi,
   getAllTypes,
   getTypeApi,
-} from './apis/typeApi'
+} from './apis/type.api'
+import { FieldModalStore } from './field.service'
 import {
+  AnyType,
   CreateFieldInput,
-  Field,
   InterfaceType,
-  TypeModelAny,
   UpdateFieldInput,
 } from './models'
-import { typeModelFactory } from './typeModelFactory'
+import { typeFactory } from './type.factory'
 
 export type WithTypeService = {
   typeService: TypeService
@@ -39,7 +40,7 @@ export type WithTypeService = {
 
 @model('codelab/TypeModalStore')
 class TypeModalStore extends ExtendedModel(
-  modelClass<ModalStore<Ref<TypeModelAny>>>(ModalStore),
+  modelClass<ModalStore<Ref<AnyType>>>(ModalStore),
   {},
 ) {
   @computed
@@ -59,34 +60,15 @@ class InterfaceTypeModalStore extends ExtendedModel(
   }
 }
 
-@model('codelab/FieldModalStoreMetadata')
-export class FieldModalStoreMetadata extends Model({
-  field: prop<Ref<Field>>(),
-  interface: prop<Ref<InterfaceType>>(),
-}) {}
-
-@model('codelab/FieldModalStore')
-class FieldModalStore extends ExtendedModel(
-  modelClass<ModalStore<FieldModalStoreMetadata>>(ModalStore),
-  {},
-) {
-  @computed
-  get interface() {
-    return this.metadata?.interface?.current ?? null
-  }
-
-  @computed
-  get field() {
-    return this.metadata?.field?.current ?? null
-  }
-}
-
 @model('codelab/TypeStore')
 export class TypeService extends Model({
-  types: prop(() => objectMap<TypeModelAny>()),
+  types: prop(() => objectMap<AnyType>()),
+
   createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new TypeModalStore({})),
-  deleteModal: prop(() => new TypeModalStore({})),
+  updateModal: prop(() => new ModalStore({})),
+  deleteModal: prop(() => new ModalStore({})),
+  selectedType: prop<Nullish<Ref<AnyType>>>(),
+
   selectedIds: prop(() => arraySet<string>()).withSetter(),
 
   fieldCreateModal: prop(() => new InterfaceTypeModalStore({})),
@@ -112,7 +94,7 @@ export class TypeService extends Model({
         return this.types.get(type.id)
       }
 
-      const typeModel = typeModelFactory(type)
+      const typeModel = typeFactory(type)
       this.types.set(type.id, typeModel)
 
       return typeModel
@@ -180,7 +162,7 @@ export class TypeService extends Model({
       throw new Error('Type was not created')
     }
 
-    const typeModel = typeModelFactory(type)
+    const typeModel = typeFactory(type)
 
     this.types.set(type.id, typeModel)
 

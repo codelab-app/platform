@@ -15,7 +15,7 @@ import {
   UnionType,
 } from './models'
 
-export const typeModelFactory = (type: TypeNonRecursiveFragment) => {
+export const typeFactory = (type: TypeNonRecursiveFragment) => {
   switch (type.typeKind) {
     case TypeKind.AppType:
       return AppType.fromFragment(type)

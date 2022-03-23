@@ -1,10 +1,10 @@
 import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { SnapshotOutOfModel } from 'mobx-keystone'
-import { TypeModelAny } from '../store'
+import { AnyType } from '../store'
 
 export const getTypeName = (
-  type: Nullish<SnapshotOutOfModel<TypeModelAny>>,
+  type: Nullish<SnapshotOutOfModel<AnyType>>,
 ): string => {
   if (!type) {
     return ''

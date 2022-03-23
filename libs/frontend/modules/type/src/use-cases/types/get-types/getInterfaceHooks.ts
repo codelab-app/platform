@@ -1,4 +1,4 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { InterfaceType, TypeService } from '../../../store'
@@ -20,7 +20,7 @@ export const useCurrentInterfaceId = () => {
 export const useGetCurrentInterfaceWithFields = (typeStore: TypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
-  const [getOne, { isLoading, error }] = useAsyncState((_id: string) =>
+  const [getOne, { isLoading, error }] = useLoadingState((_id: string) =>
     // We need the whole graph, not just the interface, because we need to reference all the field types
     typeStore.getInterfaceAndDescendants({ id: _id }),
   )

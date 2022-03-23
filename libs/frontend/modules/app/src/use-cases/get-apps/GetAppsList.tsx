@@ -1,4 +1,4 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   ConditionalView,
   SpinnerWrapper,
@@ -16,7 +16,10 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetAppsList = observer<WithAppService>(({ appService }) => {
-  const [load, { isLoading, error }] = useAsyncState(() => appService.getAll())
+  const [load, { isLoading, error }] = useLoadingState(() =>
+    appService.getAll(),
+  )
+
   useEffect(() => {
     load()
   }, [load])

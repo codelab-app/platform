@@ -22,7 +22,7 @@ import {
   PrimitiveType,
   ReactNodeType,
   RenderPropsType,
-  TypeModelAny,
+  AnyType,
   UnionType,
 } from './models'
 
@@ -47,7 +47,7 @@ const primitives = {
 export class JsonSchemaTransformer {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: TypeModelAny) {
+  transform(type: AnyType) {
     switch (type.typeKind) {
       case TypeKind.AppType:
         return this.fromAppType(type)
@@ -195,7 +195,7 @@ export class JsonSchemaTransformer {
    * Handles the reference types without any extra properties
    * Produces a 'string' type
    */
-  private simpleReferenceType(type: TypeModelAny): JsonSchema {
+  private simpleReferenceType(type: AnyType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
     return { type: 'string', ...extra } as const

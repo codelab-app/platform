@@ -1,59 +1,23 @@
-import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ModalStore } from '@codelab/frontend/shared/utils'
-import { AppWhere } from '@codelab/shared/abstract/codegen-v2'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
+import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core';
+import { ModalStore } from '@codelab/frontend/shared/utils';
+import { AppWhere } from '@codelab/shared/abstract/codegen-v2';
+import { Nullish } from '@codelab/shared/abstract/types';
+import { computed } from 'mobx';
 import {
   _async,
   _await,
-  detach,
-  ExtendedModel,
-  idProp,
   Model,
   model,
-  modelAction,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
   Ref,
-  rootRef,
   transaction,
-} from 'mobx-keystone'
-import { AppFragment } from '../graphql/App.fragment.v2.1.graphql.gen'
-import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
-import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
-import { appApi } from './app.api'
-
-@model('codelab/App')
-export class App extends Model({
-  id: idProp,
-  ownerId: prop<Nullish<string>>(),
-  name: prop<string>(),
-  rootProviderElement: prop<Nullish<{ id: string }>>(),
-}) {
-  getRefId() {
-    // when `getId` is not specified in the custom reference it will use this as id
-    return this.id
-  }
-
-  static fromFragment(app: AppFragment) {
-    return new App({
-      id: app.id,
-      name: app.name,
-      ownerId: app.owner?.[0]?.id,
-      rootProviderElement: { id: app.rootProviderElement.id },
-    })
-  }
-}
-
-export const appRef = rootRef<App>('AppRef', {
-  onResolvedValueChange(ref, newApp, oldApp) {
-    if (oldApp && !newApp) {
-      detach(ref)
-    }
-  },
-})
+} from 'mobx-keystone';
+import type { CreateAppInput } from '../use-cases/create-app/createAppSchema';
+import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema';
+import { appApi } from './app.api';
+import { App } from "./app.model";
 
 export type WithAppService = {
   appService: AppService

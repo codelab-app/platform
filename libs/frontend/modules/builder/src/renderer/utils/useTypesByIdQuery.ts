@@ -1,5 +1,5 @@
 import {
-  TypeModelAny,
+  AnyType,
   TypeService,
   useGetAllTypesQuery,
 } from '@codelab/frontend/modules/type'
@@ -8,7 +8,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { entityRecordById } from '@codelab/shared/utils'
 import { useEffect, useMemo } from 'react'
 
-export type TypeKindsById = Record<string, TypeModelAny>
+export type TypeKindsById = Record<string, AnyType>
 
 export const useTypesByIdQuery = (typeStore: TypeService) => {
   const typeKindsQuery = useGetAllTypesQuery(undefined, typeStore)

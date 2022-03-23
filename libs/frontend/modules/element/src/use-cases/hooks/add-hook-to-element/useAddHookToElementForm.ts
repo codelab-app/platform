@@ -4,7 +4,7 @@ import { AtomService } from '@codelab/frontend/modules/atom'
 import { TypeService } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
-  useAsyncState,
+  useLoadingState,
 } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { assertIsDefined } from '@codelab/shared/utils'
@@ -27,7 +27,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
 ) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   const { selectedType, actionType } = useHookState()
-  const [getAtoms] = useAsyncState(() => atomStore.getAll())
+  const [getAtoms] = useLoadingState(() => atomStore.getAll())
 
   useEffect(() => {
     getAtoms()
@@ -37,7 +37,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   assertIsDefined(elementId)
 
   const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
-    useAsyncState((where: InterfaceTypeWhere) =>
+    useLoadingState((where: InterfaceTypeWhere) =>
       typeStore.getInterfaceAndDescendants(where),
     )
 

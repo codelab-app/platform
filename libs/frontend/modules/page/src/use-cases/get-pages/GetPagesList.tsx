@@ -1,5 +1,5 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -15,7 +15,7 @@ export interface GetPagesListProps {
 export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
   const appId = useCurrentAppId()
 
-  const [getPages, { isLoading }] = useAsyncState(() =>
+  const [getPages, { isLoading }] = useLoadingState(() =>
     pages.getAll({ app: { id: appId } }),
   )
 

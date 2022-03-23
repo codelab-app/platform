@@ -1,6 +1,6 @@
 import Ajv from 'ajv'
 import { objectMap } from 'mobx-keystone'
-import { JsonSchemaTransformer } from '../JsonSchemaTransformer'
+import { JsonSchemaTransformer } from '../jsonSchemaTransformer'
 import { TypeModelAny } from '../models'
 import { TypeStore } from '../typeStore'
 import {
