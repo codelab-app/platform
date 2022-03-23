@@ -1,4 +1,4 @@
-import { ModalStore } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen-v2'
 import { computed } from 'mobx'
 import {
@@ -48,9 +48,9 @@ export const componentRef = rootRef<Component>('ComponentRef', {
   },
 })
 
-@model('codelab/ComponentModalStore')
-class ComponentModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Ref<Component>>>(ModalStore),
+@model('codelab/ComponentModalService')
+class ComponentModalService extends ExtendedModel(() => ({
+  baseModel: modelClass<ModalService<Ref<Component>>>(ModalService),
   props: {},
 })) {
   @computed
@@ -62,9 +62,9 @@ class ComponentModalStore extends ExtendedModel(() => ({
 @model('codelab/ComponentStore')
 export class ComponentStore extends Model({
   components: prop(() => objectMap<Component>()),
-  createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new ComponentModalStore({})),
-  deleteModal: prop(() => new ComponentModalStore({})),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new ComponentModalService({})),
+  deleteModal: prop(() => new ComponentModalService({})),
 }) {
   @computed
   get componentsList() {

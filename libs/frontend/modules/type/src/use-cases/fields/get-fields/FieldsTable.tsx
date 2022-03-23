@@ -5,7 +5,7 @@ import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import {
-  FieldModalMetadata,
+  FieldModalServiceMetadata,
   fieldRef,
   InterfaceType,
   typeRef,
@@ -71,7 +71,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                     }
 
                     typeService.fieldUpdateModal.open(
-                      new FieldModalMetadata({
+                      new FieldModalServiceMetadata({
                         field: fieldRef(record.id),
                         interface: typeRef(interfaceType),
                       }),
@@ -89,7 +89,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                     }
 
                     typeService.fieldDeleteModal.open(
-                      new FieldModalMetadata({
+                      new FieldModalServiceMetadata({
                         field: fieldRef(record.id),
                         interface: typeRef(interfaceType),
                       }),

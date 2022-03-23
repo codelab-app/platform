@@ -1,4 +1,3 @@
-import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import {

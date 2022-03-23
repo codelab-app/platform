@@ -22,9 +22,9 @@ const headerFactory = (
   elementService: ElementService,
   builderService: BuilderService,
 ) => {
-  if (tab === BuilderTab.Tree && root) {
-    return <CreateElementButton key={0} parentElementId={root.id} />
-  }
+  // if (tab === BuilderTab.Tree && root) {
+  //   return <CreateElementButton key={0} parentElementId={root.id} />
+  // }
 
   if (tab === BuilderTab.Toolbox) {
     return (

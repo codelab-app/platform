@@ -10,15 +10,15 @@ import {
 } from 'mobx-keystone'
 import { Field, InterfaceType } from './models'
 
-@model('codelab/FieldModalMetadata')
-export class FieldModalMetadata extends Model({
+@model('codelab/FieldModalServiceMetadata')
+export class FieldModalServiceMetadata extends Model({
   field: prop<Ref<Field>>(),
   interface: prop<Ref<InterfaceType>>(),
 }) {}
 
 @model('codelab/FieldModalService')
 export class FieldModalService extends ExtendedModel(
-  modelClass<ModalService<FieldModalMetadata>>(ModalService),
+  modelClass<ModalService<FieldModalServiceMetadata>>(ModalService),
   {},
 ) {
   @computed
