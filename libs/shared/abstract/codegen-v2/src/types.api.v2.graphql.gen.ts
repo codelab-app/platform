@@ -6125,21 +6125,22 @@ export type IntAggregateSelectionNullable = {
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceType = TypeBase & {
-  __typename?: 'InterfaceType'
-  apiOfAtoms: Array<Atom>
-  apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
-  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
-  descendantTypesIds: Array<Scalars['ID']>
-  fields: Array<TypeBase>
-  fieldsConnection: InterfaceTypeFieldsConnection
-  graph: TypeGraph
-  id: Scalars['ID']
-  name: Scalars['String']
-  owner: Array<User>
-  ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
+export type InterfaceType = TypeBase &
+  WithDescendants & {
+    __typename?: 'InterfaceType'
+    apiOfAtoms: Array<Atom>
+    apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
+    apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
+    descendantTypesIds: Array<Scalars['ID']>
+    fields: Array<TypeBase>
+    fieldsConnection: InterfaceTypeFieldsConnection
+    graph: TypeGraph
+    id: Scalars['ID']
+    name: Scalars['String']
+    owner: Array<User>
+    ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
+    ownerConnection: TypeBaseOwnerConnection
+  }
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeApiOfAtomsArgs = {
@@ -6356,7 +6357,6 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
-  descendantTypesIds: Array<Scalars['ID']>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
@@ -6459,7 +6459,6 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 }
 
 export type InterfaceTypeOnCreateInput = {
-  descendantTypesIds?: InputMaybe<Scalars['ID']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
 }
@@ -6546,7 +6545,6 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
-  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
@@ -6581,10 +6579,6 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
-  descendantTypesIds?: InputMaybe<Array<Scalars['ID']>>
-  descendantTypesIds_INCLUDES?: InputMaybe<Scalars['ID']>
-  descendantTypesIds_NOT?: InputMaybe<Array<Scalars['ID']>>
-  descendantTypesIds_NOT_INCLUDES?: InputMaybe<Scalars['ID']>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>

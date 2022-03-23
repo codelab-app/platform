@@ -2,7 +2,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import React, { useRouter } from 'next/router'
-import { PageStore } from '../store'
+import { PageService, WithPageService } from '../store'
 import {
   CreatePageButton,
   CreatePageModal,
@@ -11,11 +11,7 @@ import {
   UpdatePageModal,
 } from '../use-cases'
 
-export interface PageMainPaneProps {
-  pages: PageStore
-}
-
-export const PageMainPane = observer<PageMainPaneProps>(({ pages }) => {
+export const PageMainPane = observer<WithPageService>(({ pageService }) => {
   const router = useRouter()
 
   const headerProps = {
@@ -24,14 +20,14 @@ export const PageMainPane = observer<PageMainPaneProps>(({ pages }) => {
 
   return (
     <MainPaneTemplate
-      header={<CreatePageButton key={0} pages={pages} />}
+      header={<CreatePageButton key={0} pageService={pageService} />}
       headerProps={headerProps}
       title="Pages"
     >
-      <GetPagesList pages={pages} />
-      <CreatePageModal pages={pages} />
-      <UpdatePageModal pages={pages} />
-      <DeletePageModal pages={pages} />
+      <GetPagesList pageService={pageService} />
+      <CreatePageModal pageService={pageService} />
+      <UpdatePageModal pageService={pageService} />
+      <DeletePageModal pageService={pageService} />
     </MainPaneTemplate>
   )
 })

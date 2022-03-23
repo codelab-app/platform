@@ -2,10 +2,10 @@ import { ElementGraphProvider } from '@codelab/frontend/modules/element'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { usePage } from '../hooks'
-import { PageStore } from '../store'
+import { PageService } from '../store'
 
 export interface PageProviderProps {
-  pages: PageStore
+  pages: PageService
 }
 
 export const PageProvider = ({

@@ -29,9 +29,9 @@ import React from 'react'
 const PageBuilder: CodelabPage<any> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
-  const { page } = usePage(currentPageId, store.pageStore)
+  const { page } = usePage(currentPageId, store.pageService)
   const { elementTree } = useElementGraphContext()
-  const { appElementTree } = useAppElementTree(store.pageStore)
+  const { appElementTree } = useAppElementTree(store.pageService)
 
   if (!page || !elementTree) {
     return <Empty />
@@ -75,9 +75,9 @@ PageBuilder.Layout = observer((page) => {
 
   return (
     <BuilderContext>
-      <PageProvider pages={store.pageStore}>
+      <PageProvider pages={store.pageService}>
         <BuilderDashboardTemplate
-          Header={() => <PageDetailHeader pages={store.pageStore} />}
+          Header={() => <PageDetailHeader pages={store.pageService} />}
           MainPane={observer(() => (
             <MainPaneBuilder atomService={store.atomService} />
           ))}

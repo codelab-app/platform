@@ -3,27 +3,18 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PageStore } from '../../store'
+import { PageService, WithPageService } from '../../store'
 
-export interface DeletePageModalProps {
-  pages: PageStore
-}
-
-export const DeletePageModal = observer<DeletePageModalProps>(({ pages }) => {
-  const deletingPage = pages.deleteModal.page
-  const isOpen = pages.deleteModal.isOpen
-  const closeModal = () => pages.deleteModal.close()
+export const DeletePageModal = observer<WithPageService>(({ pageService }) => {
+  const deletingPage = pageService.deleteModal.page
+  const isOpen = pageService.deleteModal.isOpen
+  const closeModal = () => pageService.deleteModal.close()
 
   if (!deletingPage) {
     return null
   }
 
-  const onSubmit = () => {
-    const promise = pages.delete(deletingPage.id)
-    closeModal()
-
-    return promise
-  }
+  const onSubmit = () => pageService.delete(deletingPage.id)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while deleting page',

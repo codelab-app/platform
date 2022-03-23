@@ -36,7 +36,7 @@ Pages.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      MainPane={() => <PageMainPane pages={store.pageStore} />}
+      MainPane={() => <PageMainPane pageService={store.pageService} />}
       SidebarNavigation={SidebarNavigation}
     >
       {page.children}

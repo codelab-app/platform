@@ -3,10 +3,10 @@ import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { pageRef, PageStore } from '../../store'
+import { pageRef, PageService } from '../../store'
 
 export interface UpdatePageButtonProps extends UpdateButtonProps {
-  pages: PageStore
+  pages: PageService
 }
 
 export const UpdatePageButton = observer(

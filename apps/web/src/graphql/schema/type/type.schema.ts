@@ -48,17 +48,17 @@ export const typeSchema = gql`
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
     """
     isTypeDescendantOf(parentTypeId: ID!, descendantTypeId: ID!): Boolean
-    @cypher(statement: """${isTypeDescendantOfCypher}""")
+      @cypher(statement: """${isTypeDescendantOfCypher}""")
 
     getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
-    @cypher(statement: """${getFieldCypher}""")
+      @cypher(statement: """${getFieldCypher}""")
 
     """
     Returns a list of all Type and Atom entities that reference the type with the given id
     This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
     """
     getTypeReferences(typeId: ID!): [TypeReference!]
-    @cypher(statement: """${getTypeReferencesCypher}""")
+      @cypher(statement: """${getTypeReferencesCypher}""")
 
     exportGraph(typeId: ID!): JSONObject
   }
@@ -192,7 +192,7 @@ export const typeSchema = gql`
   """
   Represents an object type with multiple fields
   """
-  type InterfaceType implements TypeBase {
+  type InterfaceType implements TypeBase & WithDescendants {
     id: ID!
     name: String!
     owner: [User!]!

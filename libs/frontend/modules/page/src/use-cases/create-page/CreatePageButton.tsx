@@ -2,16 +2,10 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { PageStore } from '../../store'
+import { PageService, WithPageService } from '../../store'
 
-export interface CreatePageButtonProps {
-  pages: PageStore
-}
-
-export const CreatePageButton = observer<CreatePageButtonProps>(({ pages }) => {
-  const onClick = () => {
-    pages.createModal.open()
-  }
+export const CreatePageButton = observer<WithPageService>(({ pageService }) => {
+  const onClick = () => pageService.createModal.open()
 
   return (
     <Button

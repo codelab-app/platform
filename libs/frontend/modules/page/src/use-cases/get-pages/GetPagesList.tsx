@@ -4,22 +4,20 @@ import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { PageStore } from '../../store'
+import { PageService, WithPageService } from '../../store'
 import { providerTreePageName } from './consts'
 import { GetPagesItem } from './GetPagesItem'
 
-export interface GetPagesListProps {
-  pages: PageStore
-}
 
-export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
+
+export const GetPagesList = observer<WithPageService>(({ pageService }) => {
   const appId = useCurrentAppId()
 
   const [getPages, { isLoading }] = useLoadingState(() =>
-    pages.getAll({ app: { id: appId } }),
+    pageService.getAll({ app: { id: appId } }),
   )
 
-  const pagesList = pages.pagesList
+  const pagesList = pageService.pagesList
   useEffect(() => {
     getPages()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +30,7 @@ export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
       <List
         dataSource={results}
         renderItem={(page) => (
-          <GetPagesItem key={page.id} page={page} pages={pages} />
+          <GetPagesItem key={page.id} page={page} pages={pageService} />
         )}
         size="small"
       />

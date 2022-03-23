@@ -5,24 +5,22 @@ import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PageStore } from '../../store'
+import { PageService, WithPageService } from '../../store'
 import { createPageSchema } from './createPageSchema'
 
-export interface CreatePageModalProps {
-  pages: PageStore
-}
 
-export const CreatePageModal = observer(({ pages }: CreatePageModalProps) => {
+
+export const CreatePageModal = observer<WithPageService>(({ pageService }) => {
   const currentAppId = useCurrentAppId()
-  const isOpen = pages.createModal.isOpen
+  const isOpen = pageService.createModal.isOpen
   const model = { appId: currentAppId }
-  const onSubmit = (input: CreatePageInput) => pages.create(input)
+  const onSubmit = (input: CreatePageInput) => pageService.create(input)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating page',
   })
 
-  const closeModal = () => pages.createModal.close()
+  const closeModal = () => pageService.createModal.close()
 
   return (
     <ModalForm.Modal

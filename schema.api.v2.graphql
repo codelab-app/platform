@@ -5923,7 +5923,7 @@ type IntAggregateSelectionNullable {
 """
 Represents an object type with multiple fields
 """
-type InterfaceType implements TypeBase {
+type InterfaceType implements TypeBase & WithDescendants {
   apiOfAtoms(
     directed: Boolean = true
     options: AtomOptions
@@ -6118,7 +6118,6 @@ input InterfaceTypeConnectWhere {
 
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
-  descendantTypesIds: [ID!]!
   fields: InterfaceTypeFieldsFieldInput
   name: String!
   owner: TypeBaseOwnerFieldInput
@@ -6217,7 +6216,6 @@ input InterfaceTypeFieldsUpdateFieldInput {
 }
 
 input InterfaceTypeOnCreateInput {
-  descendantTypesIds: ID
   id: ID
   name: String
 }
@@ -6309,7 +6307,6 @@ input InterfaceTypeUniqueWhere {
 
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
-  descendantTypesIds: [ID!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   name: String
   owner: [TypeBaseOwnerUpdateFieldInput!]
@@ -6354,10 +6351,6 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
-  descendantTypesIds: [ID!]
-  descendantTypesIds_INCLUDES: ID
-  descendantTypesIds_NOT: [ID!]
-  descendantTypesIds_NOT_INCLUDES: ID
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere

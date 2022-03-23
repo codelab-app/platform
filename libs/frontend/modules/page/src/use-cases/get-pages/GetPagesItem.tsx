@@ -8,12 +8,12 @@ import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { PageModel, pageRef, PageStore } from '../../store'
+import { Page, pageRef, PageService } from '../../store'
 import { providerTreePageName } from './consts'
 
 export type GetPagesItemProps = {
-  page: PageModel
-  pages: PageStore
+  page: Page
+  pages: PageService
 }
 
 export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {

@@ -11,10 +11,10 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { PageModel, PageStore } from '../store'
+import { Page, PageService } from '../store'
 
 export interface PageDetailHeaderProps {
-  pages: PageStore
+  pages: PageService
 }
 
 export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
@@ -69,7 +69,7 @@ export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
 })
 
 interface PageListItemProps {
-  page: PageModel
+  page: Page
 }
 
 const PageListItem = observer<PageListItemProps>(({ page }) => {

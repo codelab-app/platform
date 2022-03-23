@@ -1,8 +1,8 @@
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { useEffect } from 'react'
-import { PageStore } from '../store'
+import { PageService } from '../store'
 
-export const usePage = (pageId: string, pages: PageStore) => {
+export const usePage = (pageId: string, pages: PageService) => {
   const [getPage, { isLoading, error }] = useLoadingState((id: string) =>
     pages.getOne(id),
   )

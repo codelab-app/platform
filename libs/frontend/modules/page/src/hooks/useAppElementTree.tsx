@@ -5,10 +5,10 @@ import {
 } from '@codelab/frontend/modules/element'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { useMemo } from 'react'
-import { PageStore } from '..'
+import { PageService } from '..'
 import { usePage } from '.'
 
-export const useAppElementTree = (pages: PageStore) => {
+export const useAppElementTree = (pages: PageService) => {
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, pages)
 

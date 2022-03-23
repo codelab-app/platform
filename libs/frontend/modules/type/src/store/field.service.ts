@@ -1,3 +1,5 @@
+import { ModalService } from '@codelab/frontend/shared/utils'
+import { computed } from 'mobx'
 import {
   ExtendedModel,
   Model,
@@ -7,8 +9,6 @@ import {
   Ref,
 } from 'mobx-keystone'
 import { Field, InterfaceType } from './models'
-import { ModalService } from '@codelab/frontend/shared/utils'
-import { computed } from 'mobx'
 
 @model('codelab/FieldModalStoreMetadata')
 export class FieldModalStoreMetadata extends Model({
@@ -16,8 +16,8 @@ export class FieldModalStoreMetadata extends Model({
   interface: prop<Ref<InterfaceType>>(),
 }) {}
 
-@model('codelab/FieldModalStore')
-export class FieldModalStore extends ExtendedModel(
+@model('codelab/FieldModalService')
+export class FieldModalService extends ExtendedModel(
   modelClass<ModalService<FieldModalStoreMetadata>>(ModalService),
   {},
 ) {

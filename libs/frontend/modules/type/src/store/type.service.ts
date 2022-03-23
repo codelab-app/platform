@@ -25,7 +25,7 @@ import {
   getAllTypes,
   getTypeApi,
 } from './apis/type.api'
-import { FieldModalStore } from './field.service'
+import { FieldModalService } from './field.service'
 import {
   AnyType,
   CreateFieldInput,
@@ -33,21 +33,13 @@ import {
   UpdateFieldInput,
 } from './models'
 import { typeFactory } from './type.factory'
-import { TypeModalService } from './type-modal.service'
+import {
+  InterfaceTypeModalService,
+  TypeModalService,
+} from './type-modal.service'
 
 export type WithTypeService = {
   typeService: TypeService
-}
-
-@model('codelab/InterfaceTypeModalStore')
-class InterfaceTypeModalStore extends ExtendedModel(
-  modelClass<ModalService<Ref<InterfaceType>>>(ModalService),
-  {},
-) {
-  @computed
-  get interface() {
-    return this.metadata?.current ?? null
-  }
 }
 
 @model('codelab/TypeService')
@@ -60,9 +52,9 @@ export class TypeService extends Model({
 
   selectedIds: prop(() => arraySet<string>()).withSetter(),
 
-  fieldCreateModal: prop(() => new InterfaceTypeModalStore({})),
-  fieldUpdateModal: prop(() => new FieldModalStore({})),
-  fieldDeleteModal: prop(() => new FieldModalStore({})),
+  fieldCreateModal: prop(() => new InterfaceTypeModalService({})),
+  fieldUpdateModal: prop(() => new FieldModalService({})),
+  fieldDeleteModal: prop(() => new FieldModalService({})),
 }) {
   @computed
   get typesList() {
