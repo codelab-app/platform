@@ -9,6 +9,7 @@ import { elementSchema } from './element.schema'
 import { hookSchema } from './hook.schema'
 import { pageSchema } from './page.schema'
 import { propSchema } from './prop.schema'
+import { resourceSchema } from './resource.schema'
 import { storeSchema } from './store.schema'
 import { tagSchema } from './tag.schema'
 import { fieldSchema, typeSchema } from './type'
@@ -31,4 +32,5 @@ export default print(gql`
   ${componentSchema}
   ${adminSchema}
   ${storeSchema}
+  ${resourceSchema}
 `)

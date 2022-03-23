@@ -1,0 +1,25 @@
+{
+  "root": "libs/frontend/modules/resource",
+  "sourceRoot": "libs/frontend/modules/resource/src",
+  "projectType": "library",
+  "tags": ["layer:domain:frontend", "scope:frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/modules/resource/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/modules/resource"],
+      "options": {
+        "jestConfig": "libs/frontend/modules/resource/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

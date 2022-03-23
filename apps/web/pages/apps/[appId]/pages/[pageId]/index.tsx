@@ -12,7 +12,7 @@ import {
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { Alert, Spin } from 'antd'
+import { Alert, Empty, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'

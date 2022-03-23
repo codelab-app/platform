@@ -2,6 +2,7 @@ import {
   ApiOutlined,
   AppstoreOutlined,
   BuildOutlined,
+  CloudServerOutlined,
   ClusterOutlined,
   DeploymentUnitOutlined,
   FunctionOutlined,
@@ -39,6 +40,17 @@ export const commonSidebarItems = [
     key={PageType.Atom}
   >
     <Link href={PageType.Atom}>Atoms</Link>
+  </Menu.Item>,
+  <Menu.Item
+    icon={
+      <CloudServerOutlined
+        data-testid="resource-tab-trigger"
+        title="Resources"
+      />
+    }
+    key={PageType.Resource}
+  >
+    <Link href={PageType.Resource}>Resources</Link>
   </Menu.Item>,
   <Menu.Item
     icon={<FunctionOutlined title="Lambdas" />}

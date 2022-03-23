@@ -1,0 +1,40 @@
+query GetResources($options: ResourceOptions, $where: ResourceWhere) {
+  resources(options: $options, where: $where) {
+    ...Resource
+  }
+}
+
+mutation CreateResources(
+  $input: [ResourceCreateInput!]!
+) {
+  createResources(
+    input: $input
+  ) {
+    resources {
+      ...Resource
+    }
+  }
+}
+
+mutation UpdateResource(
+  $update: ResourceUpdateInput,
+  $where: ResourceWhere
+) {
+  updateResources(update: $update, where: $where) {
+    resources {
+      ...Resource
+    }
+  }
+}
+
+mutation DeleteResources(
+  $delete: ResourceDeleteInput
+  $where: ResourceWhere
+) {
+  deleteResources(
+    delete: $delete,
+    where: $where
+  ) {
+    nodesDeleted
+  }
+}

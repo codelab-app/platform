@@ -39,30 +39,26 @@ const App = ({ pageProps, Component }: IAppProps) => {
   return (
     <StoreProvider value={store}>
       <UserProvider>
-        <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={DateFnsAdapter}>
-            <ConfigProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  slickCssFix,
-                  ...globalTailwindFix,
-                ]}
-              />
-              <Layout>
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
-              </Layout>
-            </ConfigProvider>
-          </LocalizationProvider>
-        </QueryClientProvider>
+        <LocalizationProvider dateAdapter={DateFnsAdapter}>
+          <ConfigProvider>
+            <GlobalStyles />
+            <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                slickCssFix,
+                ...globalTailwindFix,
+              ]}
+            />
+            <Layout>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
+            </Layout>
+          </ConfigProvider>
+        </LocalizationProvider>
       </UserProvider>
     </StoreProvider>
   )

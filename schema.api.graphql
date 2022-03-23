@@ -2282,6 +2282,8 @@ enum AtomType {
   MuiZoom
   Query
   ReactFragment
+  ResourceGraphQL
+  ResourceREST
   State
   Text
   TextList
@@ -3070,6 +3072,16 @@ type CreateStoresMutationResponse {
 type CreateTagGraphOptionsMutationResponse {
   info: CreateInfo!
   tagGraphOptions: [TagGraphOptions!]!
+}
+
+type CreateResourcesMutationResponse {
+  info: CreateInfo!
+  resources: [Resource!]!
+}
+
+type CreateTagEdgesMutationResponse {
+  info: CreateInfo!
+  tagEdges: [TagEdge!]!
 }
 
 type CreateTagsMutationResponse {
@@ -7100,6 +7112,10 @@ type Mutation {
   createTagGraphOptions(
     input: [TagGraphOptionsCreateInput!]!
   ): CreateTagGraphOptionsMutationResponse!
+  createResources(
+    input: [ResourceCreateInput!]!
+  ): CreateResourcesMutationResponse!
+  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -7178,6 +7194,11 @@ type Mutation {
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
+  deleteResources(
+    delete: ResourceDeleteInput
+    where: ResourceWhere
+  ): DeleteInfo!
+  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -7391,6 +7412,19 @@ type Mutation {
     update: TagGraphOptionsUpdateInput
     where: TagGraphOptionsWhere
   ): UpdateTagGraphOptionsMutationResponse!
+  updateResources(
+    connect: ResourceConnectInput
+    connectOrCreate: ResourceConnectOrCreateInput
+    create: ResourceRelationInput
+    delete: ResourceDeleteInput
+    disconnect: ResourceDisconnectInput
+    update: ResourceUpdateInput
+    where: ResourceWhere
+  ): UpdateResourcesMutationResponse!
+  updateTagEdges(
+    update: TagEdgeUpdateInput
+    where: TagEdgeWhere
+  ): UpdateTagEdgesMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -9291,6 +9325,11 @@ type Query {
     where: TagGraphOptionsWhere
   ): TagGraphOptionsConnection!
   tagGraphs: [TagGraph!]!
+  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
+  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
+  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
+  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
+  tagGraphs: TagGraph!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   tagsConnection(
@@ -11991,6 +12030,16 @@ type UpdateStoresMutationResponse {
 type UpdateTagGraphOptionsMutationResponse {
   info: UpdateInfo!
   tagGraphOptions: [TagGraphOptions!]!
+}
+
+type UpdateResourcesMutationResponse {
+  info: UpdateInfo!
+  resources: [Resource!]!
+}
+
+type UpdateTagEdgesMutationResponse {
+  info: UpdateInfo!
+  tagEdges: [TagEdge!]!
 }
 
 type UpdateTagsMutationResponse {
