@@ -28,9 +28,11 @@ export const typeValidator = {
   },
 
   validateInterfaceExists: (input: UpsertFieldInput) => {
-    const promise = InterfaceTypeModel().find({
-      where: { id: input.interfaceTypeId },
-    })
+    const promise = InterfaceTypeModel().then((Model) =>
+      Model.find({
+        where: { id: input.interfaceTypeId },
+      }),
+    )
 
     const errorFactory = interfaceNotExistingErrorFactory(input.interfaceTypeId)
 

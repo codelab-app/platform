@@ -10,14 +10,14 @@ import {
   fieldRef,
   InterfaceType,
   typeRef,
-  TypeStore,
+  TypeService,
+  WithTypeService,
 } from '../../../store'
 
-export interface FieldsTableProps {
+export type FieldsTableProps = {
   interfaceType?: InterfaceType
-  typeStore: TypeStore
   isLoading: boolean
-}
+} & WithTypeService
 
 interface CellData {
   id: string
@@ -30,7 +30,7 @@ interface CellData {
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
-  ({ interfaceType, isLoading, typeStore }) => {
+  ({ interfaceType, isLoading, typeService }) => {
     const columns: Array<TableColumnProps<CellData>> = [
       {
         title: 'Field Name',
@@ -72,7 +72,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeStore.fieldUpdateModal.open(
+                    typeService.fieldUpdateModal.open(
                       new FieldModalStoreMetadata({
                         field: fieldRef(record.id),
                         interface: typeRef(interfaceType),
@@ -90,7 +90,7 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeStore.fieldDeleteModal.open(
+                    typeService.fieldDeleteModal.open(
                       new FieldModalStoreMetadata({
                         field: fieldRef(record.id),
                         interface: typeRef(interfaceType),

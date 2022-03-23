@@ -1,16 +1,25 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { InterfaceForm } from '@codelab/frontend/modules/type'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
+import {
+  InterfaceForm,
+  TypeService,
+  WithTypeService,
+} from '@codelab/frontend/modules/type'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { addHookToElementSchema } from './addHookToElementSchema'
-import { AddHookToElementModalProps } from './types'
 import { useAddHookToElementForm } from './useAddHookToElementForm'
 
-export const AddHookToElementModal = observer(
-  ({ elementId, typeStore, atomStore }: AddHookToElementModalProps) => {
+export type AddHookToElementModalProps = {
+  elementId: string
+} & WithTypeService &
+  WithAtomService
+
+export const AddHookToElementModal = observer<AddHookToElementModalProps>(
+  ({ elementId, typeService, atomService }) => {
     const {
       onSubmitSuccess,
       onSubmit,
@@ -21,7 +30,7 @@ export const AddHookToElementModal = observer(
       isLoading,
       onChange,
       model,
-    } = useAddHookToElementForm(elementId, typeStore, atomStore)
+    } = useAddHookToElementForm(elementId, typeService, atomService)
 
     return (
       <ModalForm.Modal

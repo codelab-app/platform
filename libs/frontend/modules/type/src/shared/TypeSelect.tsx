@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import { useGetAllTypesQuery } from '../hooks'
-import { TypeStore } from '../store'
+import { TypeService, WithTypeService } from '../store'
 
 export type CreateTypeSelectOptions = (
   getTypesResult?: ReturnType<typeof useGetAllTypesQuery>,
@@ -11,9 +11,8 @@ export type CreateTypeSelectOptions = (
 export type TypeSelectProps = {
   name: string
   label: string
-  typeStore: TypeStore
   createTypeOptions?: CreateTypeSelectOptions
-}
+} & WithTypeService
 
 const defaultCreateTypeOptions: CreateTypeSelectOptions = (getTypesResult) =>
   getTypesResult?.data?.map((i: any) => ({
@@ -21,9 +20,9 @@ const defaultCreateTypeOptions: CreateTypeSelectOptions = (getTypesResult) =>
     value: i.id,
   })) || []
 
-export const TypeSelect = observer(
-  ({ name, label, createTypeOptions, typeStore }: TypeSelectProps) => {
-    const types = useGetAllTypesQuery(undefined, typeStore)
+export const TypeSelect = observer<TypeSelectProps>(
+  ({ name, label, createTypeOptions, typeService }) => {
+    const types = useGetAllTypesQuery(undefined, typeService)
 
     const typeOptions = createTypeOptions
       ? createTypeOptions(types)

@@ -45,7 +45,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       <Builder
         elementTree={appElementTree}
         tree={elementTree}
-        typeStore={store.typeStore}
+        typeService={store.typeService}
       />
     </>
   )
@@ -79,12 +79,12 @@ PageBuilder.Layout = observer((page) => {
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageStore} />}
           MainPane={observer(() => (
-            <MainPaneBuilder atomStore={store.atomService} />
+            <MainPaneBuilder atomService={store.atomService} />
           ))}
           MetaPane={observer(() => (
             <MetaPaneBuilderPage
-              atomStore={store.atomService}
-              typeStore={store.typeStore}
+              atomService={store.atomService}
+              typeService={store.typeService}
             />
           ))}
           SidebarNavigation={BuilderSidebarNavigation}

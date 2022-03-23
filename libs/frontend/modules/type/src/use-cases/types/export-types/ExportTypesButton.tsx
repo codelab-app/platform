@@ -2,10 +2,10 @@ import { DownloadOutlined } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ExportTypesButtonProps } from './types'
+import { WithTypeService } from '../../../store'
 
-export const ExportTypesButton = observer(
-  ({ typeStore }: ExportTypesButtonProps) => {
+export const ExportTypesButton = observer<WithTypeService>(
+  ({ typeService }) => {
     // const [getExportTypes, { isLoading }] = useLazyExportTypesQuery()
     //
     // const onClick = async () => {
@@ -28,7 +28,7 @@ export const ExportTypesButton = observer(
     return (
       <Tooltip arrowPointAtCenter title="Export types">
         <Button
-          disabled={typeStore.selectedIds.size === 0}
+          disabled={typeService.selectedIds.size === 0}
           icon={<DownloadOutlined />}
           // loading={isLoading}
           // onClick={onClick}

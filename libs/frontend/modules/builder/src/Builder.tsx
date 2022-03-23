@@ -1,5 +1,5 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
-import { TypeStore } from '@codelab/frontend/modules/type'
+import { TypeService } from '@codelab/frontend/modules/type'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
@@ -22,7 +22,7 @@ import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
 import { builderSelectors } from './store'
 
 export interface BuilderProps {
-  typeStore: TypeStore
+  typeService: TypeService
   tree: ElementTree
   elementTree?: ElementTree
   isComponentBuilder?: boolean
@@ -50,17 +50,17 @@ const StyledBuilderContainer = styled.div`
 const BuilderRenderer = observer(
   ({
     tree,
-    typeStore,
+    typeService,
     isComponentBuilder,
   }: {
-    typeStore: TypeStore
+    typeService: TypeService
     tree: ElementTree
     isComponentBuilder?: boolean
   }) => {
     const { onRendered } = useOnRendered()
     const extraElementProps = useSelector(builderSelectors.extraProps)
     const voidClick = useCallback(() => void 0, [])
-    const { typesById } = useTypesByIdQuery(typeStore)
+    const { typesById } = useTypesByIdQuery(typeService)
 
     return (
       <Renderer
@@ -103,7 +103,7 @@ const BuilderDropHandler = ({ root }: { root?: IElement }) => {
  */
 export const Builder = observer(
   ({
-    typeStore,
+    typeService,
     children,
     tree,
     elementTree = tree,
@@ -159,7 +159,7 @@ export const Builder = observer(
         <BuilderRenderer
           isComponentBuilder={isComponentBuilder}
           tree={elementTree}
-          typeStore={typeStore}
+          typeService={typeService}
         />
         <BuilderHoverOverlay />
         <BuilderClickOverlay />

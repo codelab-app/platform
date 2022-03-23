@@ -22,7 +22,9 @@ export const deleteComponents: IFieldResolver<
     throw new Error('No argument provided for delete operation')
   }
 
-  const components = await Component().find({
+  const components = await (
+    await Component()
+  ).find({
     where: args.where,
     selectionSet: componentSelectionSet,
   })
@@ -36,7 +38,7 @@ export const deleteComponents: IFieldResolver<
     .toPromise()
     .finally(() => session.close())
 
-  return Component().delete({
+  return (await Component()).delete({
     where: args.where as ComponentWhere,
     rootValue: '',
   })

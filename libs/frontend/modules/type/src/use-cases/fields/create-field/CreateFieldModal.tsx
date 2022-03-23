@@ -5,17 +5,21 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { CreateFieldInput, InterfaceType, TypeStore } from '../../../store'
+import {
+  CreateFieldInput,
+  InterfaceType,
+  TypeService,
+  WithTypeService,
+} from '../../../store'
 import { createFieldSchema } from './createFieldSchema'
 
-export interface CreateFieldModalProps {
+export type CreateFieldModalProps = {
   interfaceType: InterfaceType
-  typeStore: TypeStore
-}
+} & WithTypeService
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
-  ({ interfaceType, typeStore }) => {
-    const closeModal = () => typeStore.fieldCreateModal.close()
+  ({ interfaceType, typeService }) => {
+    const closeModal = () => typeService.fieldCreateModal.close()
 
     return (
       <ModalForm.Modal
@@ -23,11 +27,11 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create field</span>}
-        visible={typeStore.fieldCreateModal.isOpen}
+        visible={typeService.fieldCreateModal.isOpen}
       >
         <ModalForm.Form<CreateFieldInput>
           model={{}}
-          onSubmit={(input) => typeStore.addField(interfaceType, input)}
+          onSubmit={(input) => typeService.addField(interfaceType, input)}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',
@@ -39,7 +43,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           <TypeSelect
             label="Type"
             name="existingTypeId"
-            typeStore={typeStore}
+            typeService={typeService}
           />
         </ModalForm.Form>
       </ModalForm.Modal>

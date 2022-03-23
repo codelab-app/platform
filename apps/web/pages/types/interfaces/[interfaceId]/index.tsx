@@ -30,7 +30,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
     const store = useStore()
 
     const { type, isLoading } = useGetCurrentInterfaceWithFields(
-      store.typeStore,
+      store.typeService,
     )
 
     return (
@@ -43,15 +43,15 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
           <>
             <CreateFieldModal
               interfaceType={type}
-              typeStore={store.typeStore}
+              typeService={store.typeService}
             />
             <UpdateFieldModal
               interfaceType={type}
-              typeStore={store.typeStore}
+              typeService={store.typeService}
             />
             <DeleteFieldModal
               interfaceType={type}
-              typeStore={store.typeStore}
+              typeService={store.typeService}
             />
           </>
         )}
@@ -63,7 +63,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
               <FieldsTable
                 interfaceType={type}
                 isLoading={isLoading}
-                typeStore={store.typeStore}
+                typeService={store.typeService}
               />
             ))}
         </ContentSection>
@@ -76,13 +76,13 @@ const Header = observer(() => {
   const store = useStore()
   const interfaceId = useCurrentInterfaceId()
   const router = useRouter()
-  const interfaceType = store.typeStore.type(interfaceId)
+  const interfaceType = store.typeService.type(interfaceId)
 
   const headerButtons = [
     <CreateFieldButton
       interfaceId={interfaceId}
       key={0}
-      typeStore={store.typeStore}
+      typeService={store.typeService}
     />,
   ]
 

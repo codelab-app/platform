@@ -1,4 +1,4 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
 import {
   DeleteElementButton,
   MoveElementForm,
@@ -7,7 +7,8 @@ import {
 } from '@codelab/frontend/modules/element'
 import {
   SelectElementProvider,
-  TypeStore,
+  TypeService,
+  WithTypeService,
 } from '@codelab/frontend/modules/type'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -16,13 +17,10 @@ import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
-export interface MetaPaneBuilderComponentProps {
-  typeStore: TypeStore
-  atomStore: AtomService
-}
+export type MetaPaneBuilderComponentProps = WithTypeService & WithAtomService
 
 export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
-  ({ typeStore, atomStore }) => {
+  ({ typeService, atomService }) => {
     const { elementTree } = useElementGraphContext()
     const { providePropCompletion } = usePropCompletion()
 
@@ -33,7 +31,7 @@ export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
     return (
       <SelectElementProvider tree={elementTree}>
         <MetaPaneBuilder
-          atomStore={atomStore}
+          atomService={atomService}
           renderUpdateElementContent={(element, trackPromises) => (
             <>
               <UpdateElementForm
@@ -68,7 +66,7 @@ export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
             </>
           )}
           tree={elementTree}
-          typeStore={typeStore}
+          typeService={typeService}
         />
       </SelectElementProvider>
     )

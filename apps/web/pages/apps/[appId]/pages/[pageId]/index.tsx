@@ -22,7 +22,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, store.pageStore)
-  const { typesById } = useTypesByIdQuery(store.typeStore)
+  const { typesById } = useTypesByIdQuery(store.typeService)
   const { appElementTree } = useAppElementTree(store.pageStore)
 
   if (!page || !appElementTree) {

@@ -29,9 +29,9 @@ const Header = observer(() => {
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <ExportTypesButton typeStore={store.typeStore} />
+      <ExportTypesButton typeService={store.typeService} />
       <ImportTypesUpload />
-      <CreateTypeButton key={0} typeStore={store.typeStore} />
+      <CreateTypeButton key={0} typeService={store.typeService} />
     </div>,
   ]
 
@@ -54,11 +54,11 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Types | Codelab</title>
       </Head>
 
-      <CreateTypeModal typeStore={store.typeStore} />
-      <DeleteTypeModal typeStore={store.typeStore} />
-      <UpdateTypeModal typeStore={store.typeStore} />
+      <CreateTypeModal typeService={store.typeService} />
+      <DeleteTypeModal typeService={store.typeService} />
+      <UpdateTypeModal typeService={store.typeService} />
       <ContentSection>
-        <GetTypesTable typeStore={store.typeStore} />
+        <GetTypesTable typeService={store.typeService} />
       </ContentSection>
     </>
   )

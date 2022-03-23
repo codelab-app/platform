@@ -8,18 +8,17 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceType, TypeStore } from '../../../store'
+import { InterfaceType, TypeService, WithTypeService } from '../../../store'
 
-interface DeleteFieldModalProps {
+type DeleteFieldModalProps = {
   interfaceType: InterfaceType
-  typeStore: TypeStore
-}
+} & WithTypeService
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
-  ({ interfaceType, typeStore }) => {
-    const closeModal = () => typeStore.fieldDeleteModal.close()
+  ({ interfaceType, typeService }) => {
+    const closeModal = () => typeService.fieldDeleteModal.close()
 
-    if (!typeStore.fieldDeleteModal.field) {
+    if (!typeService.fieldDeleteModal.field) {
       return null
     }
 
@@ -30,20 +29,20 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         okText="Delete"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Delete field</span>}
-        visible={typeStore.fieldDeleteModal.isOpen}
+        visible={typeService.fieldDeleteModal.isOpen}
       >
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={(input) => {
-            if (!typeStore.fieldDeleteModal.field) {
+            if (!typeService.fieldDeleteModal.field) {
               throw new Error(
                 'fieldDeleteModal.field is not defined, set it when opening the modal',
               )
             }
 
-            return typeStore.deleteField(
+            return typeService.deleteField(
               interfaceType,
-              typeStore.fieldDeleteModal.field.key,
+              typeService.fieldDeleteModal.field.key,
             )
           }}
           onSubmitError={createNotificationHandler({
@@ -55,7 +54,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         >
           <h4>
             Are you sure you want to delete field "
-            {typeStore.fieldDeleteModal.field?.name}"?
+            {typeService.fieldDeleteModal.field?.name}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

@@ -119,7 +119,9 @@ const handler: NextApiHandler = async (req, res) => {
   await apolloServer.createHandler({ path })(req, res)
 
   /**
-   * Uncomment this if you want to run codegen, codegen will run the exit the whole process. Server won't run successfully unless this is commented
+   * Uncomment this if you want to run codegen, codegen will run then exit the whole process. Server won't run successfully unless this is commented
+   *
+   * Keep in mind you'll need to access a web page that loads this api graphql route, otherwise this won't be triggered
    */
   // await generateOgmTypes()
 }

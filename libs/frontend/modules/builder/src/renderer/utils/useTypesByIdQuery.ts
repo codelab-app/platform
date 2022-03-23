@@ -1,6 +1,6 @@
 import {
   TypeModelAny,
-  TypeStore,
+  TypeService,
   useGetAllTypesQuery,
 } from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
@@ -10,7 +10,7 @@ import { useEffect, useMemo } from 'react'
 
 export type TypeKindsById = Record<string, TypeModelAny>
 
-export const useTypesByIdQuery = (typeStore: TypeStore) => {
+export const useTypesByIdQuery = (typeStore: TypeService) => {
   const typeKindsQuery = useGetAllTypesQuery(undefined, typeStore)
 
   const typesById = useMemo<Maybe<TypeKindsById>>(() => {

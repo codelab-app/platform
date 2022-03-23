@@ -5,18 +5,22 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType, TypeStore, UpdateFieldInput } from '../../../store'
+import {
+  InterfaceType,
+  TypeService,
+  UpdateFieldInput,
+  WithTypeService,
+} from '../../../store'
 import { createFieldSchema } from '../create-field'
 
 export type UpdateFieldModalProps = {
   interfaceType: InterfaceType
-  typeStore: TypeStore
-}
+} & WithTypeService
 
 export const UpdateFieldModal = observer<UpdateFieldModalProps>(
-  ({ interfaceType, typeStore }) => {
-    const closeModal = () => typeStore.fieldUpdateModal.close()
-    const field = typeStore.fieldUpdateModal.field
+  ({ interfaceType, typeService }) => {
+    const closeModal = () => typeService.fieldUpdateModal.close()
+    const field = typeService.fieldUpdateModal.field
 
     if (!field) {
       return null
@@ -35,12 +39,12 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
         okText="Update"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Update field</span>}
-        visible={typeStore.fieldUpdateModal.isOpen}
+        visible={typeService.fieldUpdateModal.isOpen}
       >
         <ModalForm.Form<UpdateFieldInput>
           model={model}
           onSubmit={(input) =>
-            typeStore.updateField(interfaceType, field.key, input)
+            typeService.updateField(interfaceType, field.key, input)
           }
           onSubmitError={createNotificationHandler({
             title: 'Error while updating field',
@@ -53,7 +57,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
           <TypeSelect
             label="Type"
             name="existingTypeId"
-            typeStore={typeStore}
+            typeService={typeService}
           />
         </ModalForm.Form>
       </ModalForm.Modal>

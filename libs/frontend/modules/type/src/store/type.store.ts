@@ -33,6 +33,10 @@ import {
 } from './models'
 import { typeModelFactory } from './typeModelFactory'
 
+export type WithTypeService = {
+  typeService: TypeService
+}
+
 @model('codelab/TypeModalStore')
 class TypeModalStore extends ExtendedModel(
   modelClass<ModalStore<Ref<TypeModelAny>>>(ModalStore),
@@ -78,7 +82,7 @@ class FieldModalStore extends ExtendedModel(
 }
 
 @model('codelab/TypeStore')
-export class TypeStore extends Model({
+export class TypeService extends Model({
   types: prop(() => objectMap<TypeModelAny>()),
   createModal: prop(() => new ModalStore({})),
   updateModal: prop(() => new TypeModalStore({})),
@@ -100,7 +104,7 @@ export class TypeStore extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeStore, ids?: Array<string>) {
+  getAll = _async(function* (this: TypeService, ids?: Array<string>) {
     const types = yield* _await(getAllTypes(ids))
 
     return types.map((type) => {
@@ -117,7 +121,7 @@ export class TypeStore extends Model({
 
   @modelFlow
   @transaction
-  getOne = _async(function* (this: TypeStore, id: string) {
+  getOne = _async(function* (this: TypeService, id: string) {
     if (this.types.has(id)) {
       return this.types.get(id)
     }
@@ -130,7 +134,7 @@ export class TypeStore extends Model({
   @modelFlow
   @transaction
   getInterfaceAndDescendants = _async(function* (
-    this: TypeStore,
+    this: TypeService,
     where: InterfaceTypeWhere,
   ) {
     const {
@@ -165,7 +169,7 @@ export class TypeStore extends Model({
   @modelFlow
   @transaction
   create = _async(function* (
-    this: TypeStore,
+    this: TypeService,
     typeKind: TypeKind,
     input: CreateTypeInput,
   ) {
@@ -185,7 +189,7 @@ export class TypeStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeStore, id: string) {
+  delete = _async(function* (this: TypeService, id: string) {
     const type = this.types.get(id)
 
     this.types.delete(id)
@@ -214,7 +218,7 @@ export class TypeStore extends Model({
   @modelFlow
   @transaction
   addField = _async(function* (
-    this: TypeStore,
+    this: TypeService,
     interfaceType: InterfaceType,
     input: CreateFieldInput,
   ) {
@@ -239,7 +243,7 @@ export class TypeStore extends Model({
   @modelFlow
   @transaction
   updateField = _async(function* (
-    this: TypeStore,
+    this: TypeService,
     interfaceType: InterfaceType,
     targetKey: string,
     { key, name, existingTypeId, description }: UpdateFieldInput,
@@ -285,7 +289,7 @@ export class TypeStore extends Model({
   @modelFlow
   @transaction
   deleteField = _async(function* (
-    this: TypeStore,
+    this: TypeService,
     interfaceType: InterfaceType,
     fieldKey: string,
   ) {

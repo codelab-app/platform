@@ -13,11 +13,7 @@ import { arraySet } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useGetAllTypesQuery } from '../../../hooks'
-import { typeRef, TypeStore } from '../../../store'
-
-export interface GetTypesTableProps {
-  typeStore: TypeStore
-}
+import { typeRef, TypeService, WithTypeService } from '../../../store'
 
 interface CellData {
   name: string
@@ -25,8 +21,8 @@ interface CellData {
   id: string
 }
 
-export const GetTypesTable = observer<GetTypesTableProps>(({ typeStore }) => {
-  const { data, isLoading } = useGetAllTypesQuery(undefined, typeStore)
+export const GetTypesTable = observer<WithTypeService>(({ typeService }) => {
+  const { data, isLoading } = useGetAllTypesQuery(undefined, typeService)
 
   const columns: ColumnsType<CellData> = [
     {
@@ -61,12 +57,12 @@ export const GetTypesTable = observer<GetTypesTableProps>(({ typeStore }) => {
             </Link>
           ) : (
             <ListItemEditButton
-              onClick={() => typeStore.updateModal.open(typeRef(record.id))}
+              onClick={() => typeService.updateModal.open(typeRef(record.id))}
             />
           )}
 
           <ListItemDeleteButton
-            onClick={() => typeStore.deleteModal.open(typeRef(record.id))}
+            onClick={() => typeService.deleteModal.open(typeRef(record.id))}
           />
         </Space>
       ),
@@ -76,7 +72,7 @@ export const GetTypesTable = observer<GetTypesTableProps>(({ typeStore }) => {
   const rowSelection: TableRowSelection<CellData> = {
     type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<CellData>) => {
-      typeStore.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
+      typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
     },
   }
 

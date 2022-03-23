@@ -10,7 +10,7 @@ import {
   createNonUnionTypeOptionsForTypeSelect,
   TypeSelect,
 } from '../../../shared'
-import { TypeStore } from '../../../store'
+import { TypeService, WithTypeService } from '../../../store'
 import {
   CreateTypeSchema,
   createTypeSchema,
@@ -18,70 +18,64 @@ import {
 } from './createTypeSchema'
 import { DisplayIfKind } from './DisplayIfKind'
 
-export interface CreateTypeModalProps {
-  typeStore: TypeStore
-}
+export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
+  const closeModal = () => typeService.createModal.close()
+  const user = useUser()
 
-export const CreateTypeModal = observer<CreateTypeModalProps>(
-  ({ typeStore }) => {
-    const closeModal = () => typeStore.createModal.close()
-    const user = useUser()
+  return (
+    <ModalForm.Modal
+      className="create-type-modal"
+      okText="Create"
+      onCancel={closeModal}
+      title={<span css={tw`font-semibold`}>Create type</span>}
+      visible={typeService.createModal.isOpen}
+    >
+      <ModalForm.Form<CreateTypeSchema>
+        model={{}}
+        onSubmit={(data) => {
+          const input = mapCreateTypeSchemaToTypeInput(
+            data,
+            user.user?.sub,
+          ) as any
 
-    return (
-      <ModalForm.Modal
-        className="create-type-modal"
-        okText="Create"
-        onCancel={closeModal}
-        title={<span css={tw`font-semibold`}>Create type</span>}
-        visible={typeStore.createModal.isOpen}
+          return typeService.create(data.kind, input)
+        }}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating type',
+          type: 'error',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={createTypeSchema}
       >
-        <ModalForm.Form<CreateTypeSchema>
-          model={{}}
-          onSubmit={(data) => {
-            const input = mapCreateTypeSchemaToTypeInput(
-              data,
-              user.user?.sub,
-            ) as any
-
-            return typeStore.create(data.kind, input)
-          }}
-          onSubmitError={createNotificationHandler({
-            title: 'Error while creating type',
-            type: 'error',
-          })}
-          onSubmitSuccess={closeModal}
-          schema={createTypeSchema}
-        >
-          <AutoFields fields={['name', 'kind']} />
-          <DisplayIfKind kind={TypeKind.PrimitiveType}>
-            <AutoField name="primitiveKind" />
-          </DisplayIfKind>
-          <DisplayIfKind kind={TypeKind.UnionType}>
-            <AutoField
-              createTypeOptions={createNonUnionTypeOptionsForTypeSelect}
-              name="typeIdsOfUnionType"
-              typeStore={typeStore}
-            />
-          </DisplayIfKind>
-          {/* <ListField name="unionTypes" />; */}
-          <DisplayIfKind kind={TypeKind.EnumType}>
-            <AutoField name="allowedValues" />
-          </DisplayIfKind>
-          <DisplayIfKind kind={TypeKind.ArrayType}>
-            <TypeSelect
-              label="Array item type"
-              name="arrayItemTypeId"
-              typeStore={typeStore}
-            />
-          </DisplayIfKind>
-          <DisplayIfKind kind={TypeKind.ElementType}>
-            <AutoField label="Element kind" name="elementKind" />
-          </DisplayIfKind>
-          <DisplayIfKind kind={TypeKind.MonacoType}>
-            <AutoField label="Language" name="language" />
-          </DisplayIfKind>
-        </ModalForm.Form>
-      </ModalForm.Modal>
-    )
-  },
-)
+        <AutoFields fields={['name', 'kind']} />
+        <DisplayIfKind kind={TypeKind.PrimitiveType}>
+          <AutoField name="primitiveKind" />
+        </DisplayIfKind>
+        <DisplayIfKind kind={TypeKind.UnionType}>
+          <AutoField
+            createTypeOptions={createNonUnionTypeOptionsForTypeSelect}
+            name="typeIdsOfUnionType"
+            typeService={typeService}
+          />
+        </DisplayIfKind>
+        {/* <ListField name="unionTypes" />; */}
+        <DisplayIfKind kind={TypeKind.EnumType}>
+          <AutoField name="allowedValues" />
+        </DisplayIfKind>
+        <DisplayIfKind kind={TypeKind.ArrayType}>
+          <TypeSelect
+            label="Array item type"
+            name="arrayItemTypeId"
+            typeService={typeService}
+          />
+        </DisplayIfKind>
+        <DisplayIfKind kind={TypeKind.ElementType}>
+          <AutoField label="Element kind" name="elementKind" />
+        </DisplayIfKind>
+        <DisplayIfKind kind={TypeKind.MonacoType}>
+          <AutoField label="Language" name="language" />
+        </DisplayIfKind>
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})

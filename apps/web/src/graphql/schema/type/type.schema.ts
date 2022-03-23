@@ -135,13 +135,6 @@ export const typeSchema = gql`
 
 
   """
-  Define id properties for type relations
-  """
-  interface IdProperty @relationshipProperties {
-    id: ID!
-  }
-
-  """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
   type PrimitiveType implements TypeBase {
@@ -177,7 +170,6 @@ export const typeSchema = gql`
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,
-        properties: "IdProperty"
       )
   }
 
@@ -194,7 +186,6 @@ export const typeSchema = gql`
       @relationship(
         type: "UNION_TYPE_CHILD",
         direction: OUT,
-        properties: "IdProperty"
       )
   }
 
@@ -318,7 +309,6 @@ export const typeSchema = gql`
       @relationship(
         type: "ALLOWED_VALUE",
         direction: OUT,
-        properties: "IdProperty"
       )
   }
 

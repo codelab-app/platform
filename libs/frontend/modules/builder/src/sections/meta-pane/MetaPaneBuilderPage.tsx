@@ -1,4 +1,4 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
 import {
   DeleteElementButton,
   MoveElementForm,
@@ -7,20 +7,18 @@ import {
 } from '@codelab/frontend/modules/element'
 import {
   SelectElementProvider,
-  TypeStore,
+  TypeService,
+  WithTypeService,
 } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { usePropCompletion } from '../../hooks'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
-export interface MetaPaneBuilderPageProps {
-  typeStore: TypeStore
-  atomStore: AtomService
-}
+export type MetaPaneBuilderPageProps = WithAtomService & WithTypeService
 
 export const MetaPaneBuilderPage = observer<MetaPaneBuilderPageProps>(
-  ({ typeStore, atomStore }) => {
+  ({ typeService, atomService }) => {
     const { providePropCompletion } = usePropCompletion()
     const { elementTree } = useElementGraphContext()
 
@@ -31,7 +29,7 @@ export const MetaPaneBuilderPage = observer<MetaPaneBuilderPageProps>(
     return (
       <SelectElementProvider tree={elementTree}>
         <MetaPaneBuilder
-          atomStore={atomStore}
+          atomService={atomService}
           renderUpdateElementContent={(element, trackPromises) => (
             <>
               <UpdateElementForm
@@ -59,7 +57,7 @@ export const MetaPaneBuilderPage = observer<MetaPaneBuilderPageProps>(
             </>
           )}
           tree={elementTree}
-          typeStore={typeStore}
+          typeService={typeService}
         />
       </SelectElementProvider>
     )

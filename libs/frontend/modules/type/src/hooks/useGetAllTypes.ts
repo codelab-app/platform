@@ -1,10 +1,10 @@
 import { useAsyncState } from '@codelab/frontend/shared/utils'
 import useDeepCompareEffect from 'use-deep-compare-effect'
-import { TypeStore } from '../store'
+import { TypeService } from '../store'
 
 export const useGetAllTypesQuery = (
   ids: Array<string> | undefined,
-  types: TypeStore,
+  types: TypeService,
 ) => {
   const [getTypes, { data, isLoading, error }] = useAsyncState(
     (_ids: Array<string> | undefined) => types.getAll(_ids),

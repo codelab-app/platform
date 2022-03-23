@@ -1,5 +1,5 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
-import { TypeStore } from '@codelab/frontend/modules/type'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
+import { TypeService, WithTypeService } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -11,14 +11,13 @@ import {
   RemoveHookFromElementModal,
 } from '../use-cases'
 
-export interface ElementHookSectionProps {
+export type ElementHookSectionProps = {
   elementId: string
-  typeStore: TypeStore
-  atomStore: AtomService
-}
+} & WithTypeService &
+  WithAtomService
 
-export const ElementHookSection = observer(
-  ({ elementId, typeStore, atomStore }: ElementHookSectionProps) => {
+export const ElementHookSection = observer<ElementHookSectionProps>(
+  ({ elementId, typeService, atomService }) => {
     const element = useGetElementById(elementId)
 
     if (!element) {
@@ -32,9 +31,9 @@ export const ElementHookSection = observer(
           <AddHookToElementButton />
         </div>
         <AddHookToElementModal
-          atomStore={atomStore}
+          atomService={atomService}
           elementId={element.id}
-          typeStore={typeStore}
+          typeService={typeService}
         />
         <RemoveHookFromElementModal elementId={element.id} />
       </>

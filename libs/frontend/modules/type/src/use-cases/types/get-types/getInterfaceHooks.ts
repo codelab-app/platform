@@ -1,7 +1,7 @@
 import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { InterfaceType, TypeStore } from '../../../store'
+import { InterfaceType, TypeService } from '../../../store'
 
 export const useCurrentInterfaceId = () => {
   const { query } = useRouter()
@@ -17,7 +17,7 @@ export const useCurrentInterfaceId = () => {
 }
 
 /** Grabs the [interfaceId] from the query params and fetches it, along with its fields */
-export const useGetCurrentInterfaceWithFields = (typeStore: TypeStore) => {
+export const useGetCurrentInterfaceWithFields = (typeStore: TypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
   const [getOne, { isLoading, error }] = useAsyncState((_id: string) =>

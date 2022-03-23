@@ -1,4 +1,4 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
 import {
   CreateElementButton,
   CreateElementModal,
@@ -48,14 +48,13 @@ const headerFactory = (
   return undefined
 }
 
-export interface MainPaneBuilderProps {
+export type MainPaneBuilderProps = {
   isComponentBuilder?: boolean
-  atomStore: AtomService
-}
+} & WithAtomService
 
 /** Requires ElementGraphContext */
-export const MainPaneBuilder = observer(
-  ({ isComponentBuilder, atomStore }: MainPaneBuilderProps) => {
+export const MainPaneBuilder = observer<MainPaneBuilderProps>(
+  ({ isComponentBuilder, atomService }) => {
     const { builderTab } = useBuilderTab()
     const { elementTree } = useElementGraphContext()
     const { selectedElement, resetSelection } = useBuilderSelectedElement()
@@ -94,7 +93,7 @@ export const MainPaneBuilder = observer(
           value={builderTab}
         >
           <MainPaneBuilderToolboxTab
-            atomStore={atomStore}
+            atomStore={atomService}
             searchQuery={searchValue}
           />
         </EqualityConditionalView>

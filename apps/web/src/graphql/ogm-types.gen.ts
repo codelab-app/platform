@@ -1690,10 +1690,6 @@ export type Field = {
   description?: Maybe<Scalars['String']>
 }
 
-export type IdProperty = {
-  id: Scalars['ID']
-}
-
 export type IEdge = {
   source: Scalars['String']
   target: Scalars['String']
@@ -2025,11 +2021,10 @@ export type ArrayTypeItemTypeConnection = {
   pageInfo: PageInfo
 }
 
-export type ArrayTypeItemTypeRelationship = IdProperty & {
+export type ArrayTypeItemTypeRelationship = {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
   node: TypeBase
-  id: Scalars['ID']
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
@@ -3200,23 +3195,16 @@ export type EnumTypeAllowedValuesConnection = {
   pageInfo: PageInfo
 }
 
-export type EnumTypeAllowedValuesRelationship = IdProperty & {
+export type EnumTypeAllowedValuesRelationship = {
   __typename?: 'EnumTypeAllowedValuesRelationship'
   cursor: Scalars['String']
   node: EnumTypeValue
-  id: Scalars['ID']
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
   __typename?: 'EnumTypeEnumTypeValueAllowedValuesAggregationSelection'
   count: Scalars['Int']
   node?: Maybe<EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection>
-  edge?: Maybe<EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection>
-}
-
-export type EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection = {
-  __typename?: 'EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
@@ -4523,11 +4511,10 @@ export type UnionTypeTypesOfUnionTypeConnection = {
   pageInfo: PageInfo
 }
 
-export type UnionTypeTypesOfUnionTypeRelationship = IdProperty & {
+export type UnionTypeTypesOfUnionTypeRelationship = {
   __typename?: 'UnionTypeTypesOfUnionTypeRelationship'
   cursor: Scalars['String']
   node: TypeBase
-  id: Scalars['ID']
 }
 
 export type UnionTypeUserOwnerAggregationSelection = {
@@ -5613,27 +5600,22 @@ export type ArrayTypeDisconnectInput = {
 
 export type ArrayTypeItemTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
-  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
 export type ArrayTypeItemTypeConnectionSort = {
-  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type ArrayTypeItemTypeConnectionWhere = {
   AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
   OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
-  edge?: InputMaybe<IdPropertyWhere>
-  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
   node: TypeBaseCreateInput
-  edge: IdPropertyCreateInput
 }
 
 export type ArrayTypeItemTypeDeleteFieldInput = {
@@ -5652,7 +5634,6 @@ export type ArrayTypeItemTypeFieldInput = {
 }
 
 export type ArrayTypeItemTypeUpdateConnectionInput = {
-  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 
@@ -8235,32 +8216,26 @@ export type EnumTypeAllowedValuesAggregateInput = {
   AND?: InputMaybe<Array<EnumTypeAllowedValuesAggregateInput>>
   OR?: InputMaybe<Array<EnumTypeAllowedValuesAggregateInput>>
   node?: InputMaybe<EnumTypeAllowedValuesNodeAggregationWhereInput>
-  edge?: InputMaybe<EnumTypeAllowedValuesEdgeAggregationWhereInput>
 }
 
 export type EnumTypeAllowedValuesConnectFieldInput = {
   where?: InputMaybe<EnumTypeValueConnectWhere>
   connect?: InputMaybe<Array<EnumTypeValueConnectInput>>
-  edge: IdPropertyCreateInput
 }
 
 export type EnumTypeAllowedValuesConnectionSort = {
-  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<EnumTypeValueSort>
 }
 
 export type EnumTypeAllowedValuesConnectionWhere = {
   AND?: InputMaybe<Array<EnumTypeAllowedValuesConnectionWhere>>
   OR?: InputMaybe<Array<EnumTypeAllowedValuesConnectionWhere>>
-  edge?: InputMaybe<IdPropertyWhere>
-  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<EnumTypeValueWhere>
   node_NOT?: InputMaybe<EnumTypeValueWhere>
 }
 
 export type EnumTypeAllowedValuesCreateFieldInput = {
   node: EnumTypeValueCreateInput
-  edge: IdPropertyCreateInput
 }
 
 export type EnumTypeAllowedValuesDeleteFieldInput = {
@@ -8271,12 +8246,6 @@ export type EnumTypeAllowedValuesDeleteFieldInput = {
 export type EnumTypeAllowedValuesDisconnectFieldInput = {
   where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
   disconnect?: InputMaybe<EnumTypeValueDisconnectInput>
-}
-
-export type EnumTypeAllowedValuesEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
 }
 
 export type EnumTypeAllowedValuesFieldInput = {
@@ -8332,7 +8301,6 @@ export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
 
 export type EnumTypeAllowedValuesUpdateConnectionInput = {
   node?: InputMaybe<EnumTypeValueUpdateInput>
-  edge?: InputMaybe<IdPropertyUpdateInput>
 }
 
 export type EnumTypeAllowedValuesUpdateFieldInput = {
@@ -9155,33 +9123,6 @@ export type HookWhere = {
   configConnection_NOT?: InputMaybe<HookConfigConnectionWhere>
   elementConnection?: InputMaybe<HookElementConnectionWhere>
   elementConnection_NOT?: InputMaybe<HookElementConnectionWhere>
-}
-
-export type IdPropertyCreateInput = {
-  id: Scalars['ID']
-}
-
-export type IdPropertySort = {
-  id?: InputMaybe<SortDirection>
-}
-
-export type IdPropertyUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-}
-
-export type IdPropertyWhere = {
-  OR?: InputMaybe<Array<IdPropertyWhere>>
-  AND?: InputMaybe<Array<IdPropertyWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
 }
 
 export type ImportAdminDataInput = {
@@ -12327,27 +12268,22 @@ export type UnionTypeSort = {
 
 export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>
-  edge: IdPropertyCreateInput
   where?: InputMaybe<TypeBaseConnectWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionSort = {
-  edge?: InputMaybe<IdPropertySort>
   node?: InputMaybe<TypeBaseSort>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
   OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>
-  edge?: InputMaybe<IdPropertyWhere>
-  edge_NOT?: InputMaybe<IdPropertyWhere>
   node?: InputMaybe<TypeBaseWhere>
   node_NOT?: InputMaybe<TypeBaseWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
   node: TypeBaseCreateInput
-  edge: IdPropertyCreateInput
 }
 
 export type UnionTypeTypesOfUnionTypeDeleteFieldInput = {
@@ -12366,7 +12302,6 @@ export type UnionTypeTypesOfUnionTypeFieldInput = {
 }
 
 export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
-  edge?: InputMaybe<IdPropertyUpdateInput>
   node?: InputMaybe<TypeBaseUpdateInput>
 }
 

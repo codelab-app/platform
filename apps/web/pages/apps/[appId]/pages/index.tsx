@@ -16,7 +16,7 @@ import React from 'react'
 
 const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
-  const { app } = useCurrentApp(store.appStore)
+  const { app } = useCurrentApp(store.appService)
 
   return (
     <>

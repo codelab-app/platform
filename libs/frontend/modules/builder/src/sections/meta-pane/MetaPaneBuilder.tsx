@@ -1,4 +1,4 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
+import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
 import {
   ElementCssEditor,
   ElementHookSection,
@@ -6,7 +6,7 @@ import {
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/modules/element'
-import { TypeStore } from '@codelab/frontend/modules/type'
+import { TypeService, WithTypeService } from '@codelab/frontend/modules/type'
 import {
   LoadingIndicator,
   UseTrackLoadingPromises,
@@ -62,15 +62,14 @@ const TabContainer = styled.div`
   }
 `
 
-export interface MetaPaneBuilderProps {
+export type MetaPaneBuilderProps = {
   renderUpdateElementContent: (
     element: IElement,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
   tree: ElementTree
-  typeStore: TypeStore
-  atomStore: AtomService
-}
+} & WithTypeService &
+  WithAtomService
 
 /**
  *  the props form,
@@ -83,8 +82,8 @@ export const MetaPaneBuilder = observer(
   ({
     renderUpdateElementContent,
     tree,
-    typeStore,
-    atomStore,
+    typeService,
+    atomService,
   }: MetaPaneBuilderProps) => {
     const { selectedElement } = useBuilderSelectedElement()
     const { providePropCompletion } = usePropCompletion()
@@ -126,7 +125,7 @@ export const MetaPaneBuilder = observer(
                 elementId={selectedElement.id}
                 key={selectedElement.id}
                 trackPromises={trackPromises}
-                typeStore={typeStore}
+                typeService={typeService}
               />
             ) : (
               `Add an atom to this element to edit its props`
@@ -155,10 +154,10 @@ export const MetaPaneBuilder = observer(
             tab="Hooks"
           >
             <ElementHookSection
-              atomStore={atomStore}
+              atomService={atomService}
               elementId={selectedElement.id}
               key={selectedElement.id}
-              typeStore={typeStore}
+              typeService={typeService}
             />
           </Tabs.TabPane>
 

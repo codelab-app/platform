@@ -40,7 +40,7 @@ export const duplicateElement: IFieldResolver<
     .toPromise()
     .finally(() => session.close())
 
-  const elements = Element().find({
+  const elements = (await Element()).find({
     where: { id_IN: ids },
     selectionSet: elementSelectionSet,
   })
@@ -59,7 +59,7 @@ export const deleteElementsSubgraph: IFieldResolver<
     throw new Error('No argument provided for delete operation')
   }
 
-  const elements = await Element().find({ where: args.where })
+  const elements = await (await Element()).find({ where: args.where })
   const ids = elements.map((x) => x.id)
 
   return await session

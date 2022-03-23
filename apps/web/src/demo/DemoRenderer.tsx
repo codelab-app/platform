@@ -8,7 +8,7 @@ import { mapperPageElements } from './Mapper.data'
 export const DemoRenderer = observer(() => {
   const tree = new ElementTree(mapperPageElements)
   const store = useStore()
-  const { typesById } = useTypesByIdQuery(store.typeStore)
+  const { typesById } = useTypesByIdQuery(store.typeService)
 
   return <Renderer tree={tree} typesById={typesById} />
 })

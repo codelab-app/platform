@@ -43,7 +43,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Builder
         isComponentBuilder
         tree={elementTree}
-        typeStore={store.typeStore}
+        typeService={store.typeService}
       />
     </>
   )
@@ -85,12 +85,12 @@ ComponentDetail.Layout = observer((page) => {
     <ComponentElementGraphProvider>
       <BuilderDashboardTemplate
         MainPane={observer(() => (
-          <MainPaneBuilder atomStore={store.atomService} isComponentBuilder />
+          <MainPaneBuilder atomService={store.atomService} isComponentBuilder />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderComponent
-            atomStore={store.atomService}
-            typeStore={store.typeStore}
+            atomService={store.atomService}
+            typeService={store.typeService}
           />
         ))}
         SidebarNavigation={BuilderSidebarNavigation}

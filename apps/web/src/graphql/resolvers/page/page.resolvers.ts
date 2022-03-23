@@ -18,7 +18,9 @@ export const deletePages: IFieldResolver<any, any> = async (
     throw new Error('No argument provided for delete operation')
   }
 
-  const pages = await Page().find({
+  const pages = await (
+    await Page()
+  ).find({
     where: args.where,
     selectionSet: pageSelectionSet,
   })
@@ -32,7 +34,7 @@ export const deletePages: IFieldResolver<any, any> = async (
     .toPromise()
     .finally(() => session.close())
 
-  return Page().delete({
+  return (await Page()).delete({
     where: args.where as PageWhere,
     rootValue: '',
   })
