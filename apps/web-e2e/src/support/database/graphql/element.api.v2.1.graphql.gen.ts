@@ -24,25 +24,22 @@ export type E2eUpdateElementMutation = {
 export type E2eElementFragment = {
   __typename: 'Element'
   id: string
-  name?: string | null | undefined
-  css?: string | null | undefined
-  renderForEachPropKey?: string | null | undefined
-  renderIfPropKey?: string | null | undefined
-  propTransformationJs?: string | null | undefined
-  component?: { id: string; name: string } | null | undefined
-  instanceOfComponent?: { id: string; name: string } | null | undefined
-  parentElement?:
-    | { id: string; name?: string | null | undefined }
-    | null
-    | undefined
-  atom?: E2eAtomFragment | null | undefined
-  props?: E2ePropFragment | null | undefined
+  name?: string | null
+  css?: string | null
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
+  propTransformationJs?: string | null
+  component?: { id: string; name: string } | null
+  instanceOfComponent?: { id: string; name: string } | null
+  parentElement?: { id: string; name?: string | null } | null
+  atom?: E2eAtomFragment | null
+  props?: E2ePropFragment | null
   hooks: Array<E2eHookFragment>
   propMapBindings: Array<E2ePropMapBindingFragment>
   parentElementConnection: {
     edges: Array<{
-      order?: number | null | undefined
-      node: { id: string; name?: string | null | undefined }
+      order?: number | null
+      node: { id: string; name?: string | null }
     }>
   }
 }
@@ -53,18 +50,15 @@ export type E2eHookFragment = {
   id: string
   type: Types.AtomType
   config: E2ePropFragment
-  element: { id: string; name?: string | null | undefined }
+  element: { id: string; name?: string | null }
 }
 
 export type E2ePropMapBindingFragment = {
   id: string
   sourceKey: string
   targetKey: string
-  element: { id: string; name?: string | null | undefined }
-  targetElement?:
-    | { id: string; name?: string | null | undefined }
-    | null
-    | undefined
+  element: { id: string; name?: string | null }
+  targetElement?: { id: string; name?: string | null } | null
 }
 
 export const E2ePropFragmentDoc = gql`

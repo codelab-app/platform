@@ -8,7 +8,9 @@ import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
+  ExportAtomsButton,
   GetAtomsTable,
+  ImportAtomsUpload,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { ContentSection } from '@codelab/frontend/view/sections'

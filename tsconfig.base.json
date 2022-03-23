@@ -67,6 +67,9 @@
       "@codelab/frontend/modules/props": [
         "libs/frontend/modules/prop/src/index.ts"
       ],
+      "@codelab/frontend/modules/resource": [
+        "libs/frontend/modules/resource/src/index.ts"
+      ],
       "@codelab/frontend/modules/style": [
         "libs/frontend/modules/style/src/index.ts"
       ],

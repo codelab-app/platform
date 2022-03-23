@@ -18,7 +18,7 @@ export type E2eAppFragment = {
   pages: Array<{
     id: string
     name: string
-    rootElement: { id: string; name?: string | null | undefined }
+    rootElement: { id: string; name?: string | null }
   }>
 }
 

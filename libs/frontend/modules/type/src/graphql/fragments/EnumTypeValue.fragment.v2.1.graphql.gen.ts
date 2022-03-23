@@ -5,7 +5,7 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type EnumTypeValueFragment = {
   id: string
-  name?: string | null | undefined
+  name?: string | null
   value: string
 }
 

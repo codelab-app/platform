@@ -4,7 +4,7 @@ import { gql } from 'graphql-request'
 export type ComponentFragment = {
   id: string
   name: string
-  rootElement: { id: string; name?: string | null | undefined }
+  rootElement: { id: string; name?: string | null }
   owner: { id: string; auth0Id: string }
 }
 

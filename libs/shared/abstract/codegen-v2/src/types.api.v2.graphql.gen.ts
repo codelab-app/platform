@@ -1924,6 +1924,8 @@ export enum AtomType {
   MuiZoom = 'MuiZoom',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
+  ResourceGraphQL = 'ResourceGraphQL',
+  ResourceREST = 'ResourceREST',
   State = 'State',
   Text = 'Text',
   TextList = 'TextList',
@@ -2720,6 +2722,12 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
   info: CreateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
+export type CreateResourcesMutationResponse = {
+  __typename?: 'CreateResourcesMutationResponse'
+  info: CreateInfo
+  resources: Array<Resource>
 }
 
 export type CreateTagEdgesMutationResponse = {
@@ -7045,6 +7053,7 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
+  createResources: CreateResourcesMutationResponse
   createTagEdges: CreateTagEdgesMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
@@ -7077,6 +7086,7 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
+  deleteResources: DeleteInfo
   deleteTagEdges: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
@@ -7112,6 +7122,7 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
+  updateResources: UpdateResourcesMutationResponse
   updateTagEdges: UpdateTagEdgesMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
@@ -7221,6 +7232,10 @@ export type MutationCreateRenderPropsTypesArgs = {
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
+}
+
+export type MutationCreateResourcesArgs = {
+  input: Array<ResourceCreateInput>
 }
 
 export type MutationCreateTagEdgesArgs = {
@@ -7369,6 +7384,11 @@ export type MutationDeleteRenderPropsTypesArgs = {
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationDeleteResourcesArgs = {
+  delete?: InputMaybe<ResourceDeleteInput>
+  where?: InputMaybe<ResourceWhere>
 }
 
 export type MutationDeleteTagEdgesArgs = {
@@ -7629,6 +7649,16 @@ export type MutationUpdateRenderPropsTypesArgs = {
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationUpdateResourcesArgs = {
+  connect?: InputMaybe<ResourceConnectInput>
+  connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
+  create?: InputMaybe<ResourceRelationInput>
+  delete?: InputMaybe<ResourceDeleteInput>
+  disconnect?: InputMaybe<ResourceDisconnectInput>
+  update?: InputMaybe<ResourceUpdateInput>
+  where?: InputMaybe<ResourceWhere>
 }
 
 export type MutationUpdateTagEdgesArgs = {
@@ -9312,6 +9342,8 @@ export type Query = {
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
+  resources: Array<Resource>
+  resourcesAggregate: ResourceAggregateSelection
   tagEdges: Array<TagEdge>
   tagEdgesAggregate: TagEdgeAggregateSelection
   tagGraphs: TagGraph
@@ -9579,6 +9611,15 @@ export type QueryResetDatabaseMutationResponsesArgs = {
 
 export type QueryResetDatabaseMutationResponsesAggregateArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryResourcesArgs = {
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}
+
+export type QueryResourcesAggregateArgs = {
+  where?: InputMaybe<ResourceWhere>
 }
 
 export type QueryTagEdgesArgs = {
@@ -10119,6 +10160,235 @@ export type ResetDatabaseMutationResponseWhere = {
   OR?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
   success?: InputMaybe<Scalars['Boolean']>
   success_NOT?: InputMaybe<Scalars['Boolean']>
+}
+
+export type Resource = {
+  __typename?: 'Resource'
+  atom: Atom
+  atomAggregate?: Maybe<ResourceAtomAtomAggregationSelection>
+  atomConnection: ResourceAtomConnection
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type ResourceAtomArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type ResourceAtomAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type ResourceAtomConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ResourceAtomConnectionSort>>
+  where?: InputMaybe<ResourceAtomConnectionWhere>
+}
+
+export type ResourceAggregateSelection = {
+  __typename?: 'ResourceAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type ResourceAtomAggregateInput = {
+  AND?: InputMaybe<Array<ResourceAtomAggregateInput>>
+  OR?: InputMaybe<Array<ResourceAtomAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ResourceAtomNodeAggregationWhereInput>
+}
+
+export type ResourceAtomAtomAggregationSelection = {
+  __typename?: 'ResourceAtomAtomAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ResourceAtomAtomNodeAggregateSelection>
+}
+
+export type ResourceAtomAtomNodeAggregateSelection = {
+  __typename?: 'ResourceAtomAtomNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type ResourceAtomConnectFieldInput = {
+  connect?: InputMaybe<AtomConnectInput>
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type ResourceAtomConnectOrCreateFieldInput = {
+  onCreate: ResourceAtomConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type ResourceAtomConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type ResourceAtomConnection = {
+  __typename?: 'ResourceAtomConnection'
+  edges: Array<ResourceAtomRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ResourceAtomConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type ResourceAtomConnectionWhere = {
+  AND?: InputMaybe<Array<ResourceAtomConnectionWhere>>
+  OR?: InputMaybe<Array<ResourceAtomConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+  node_NOT?: InputMaybe<AtomWhere>
+}
+
+export type ResourceAtomCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type ResourceAtomDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<ResourceAtomConnectionWhere>
+}
+
+export type ResourceAtomDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<ResourceAtomConnectionWhere>
+}
+
+export type ResourceAtomFieldInput = {
+  connect?: InputMaybe<ResourceAtomConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceAtomConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceAtomCreateFieldInput>
+}
+
+export type ResourceAtomNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ResourceAtomNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ResourceAtomNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ResourceAtomRelationship = {
+  __typename?: 'ResourceAtomRelationship'
+  cursor: Scalars['String']
+  node: Atom
+}
+
+export type ResourceAtomUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type ResourceAtomUpdateFieldInput = {
+  connect?: InputMaybe<ResourceAtomConnectFieldInput>
+  connectOrCreate?: InputMaybe<ResourceAtomConnectOrCreateFieldInput>
+  create?: InputMaybe<ResourceAtomCreateFieldInput>
+  delete?: InputMaybe<ResourceAtomDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceAtomDisconnectFieldInput>
+  update?: InputMaybe<ResourceAtomUpdateConnectionInput>
+  where?: InputMaybe<ResourceAtomConnectionWhere>
+}
+
+export type ResourceConnectInput = {
+  atom?: InputMaybe<ResourceAtomConnectFieldInput>
+}
+
+export type ResourceConnectOrCreateInput = {
+  atom?: InputMaybe<ResourceAtomConnectOrCreateFieldInput>
+}
+
+export type ResourceCreateInput = {
+  atom?: InputMaybe<ResourceAtomFieldInput>
+  name: Scalars['String']
+}
+
+export type ResourceDeleteInput = {
+  atom?: InputMaybe<ResourceAtomDeleteFieldInput>
+}
+
+export type ResourceDisconnectInput = {
+  atom?: InputMaybe<ResourceAtomDisconnectFieldInput>
+}
+
+export type ResourceOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ResourceSort objects to sort Resources by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ResourceSort>>
+}
+
+export type ResourceRelationInput = {
+  atom?: InputMaybe<ResourceAtomCreateFieldInput>
+}
+
+/** Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object. */
+export type ResourceSort = {
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type ResourceUpdateInput = {
+  atom?: InputMaybe<ResourceAtomUpdateFieldInput>
+  name?: InputMaybe<Scalars['String']>
+}
+
+export type ResourceWhere = {
+  AND?: InputMaybe<Array<ResourceWhere>>
+  OR?: InputMaybe<Array<ResourceWhere>>
+  atom?: InputMaybe<AtomWhere>
+  atomAggregate?: InputMaybe<ResourceAtomAggregateInput>
+  atomConnection?: InputMaybe<ResourceAtomConnectionWhere>
+  atomConnection_NOT?: InputMaybe<ResourceAtomConnectionWhere>
+  atom_NOT?: InputMaybe<AtomWhere>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export enum SortDirection {
@@ -11474,6 +11744,12 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
+export type UpdateResourcesMutationResponse = {
+  __typename?: 'UpdateResourcesMutationResponse'
+  info: UpdateInfo
+  resources: Array<Resource>
 }
 
 export type UpdateTagEdgesMutationResponse = {

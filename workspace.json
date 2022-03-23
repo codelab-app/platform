@@ -16,6 +16,7 @@
     "frontend-modules-element": "libs/frontend/modules/element",
     "frontend-modules-lambda": "libs/frontend/modules/lambda",
     "frontend-modules-page": "libs/frontend/modules/page",
+    "frontend-modules-resource": "libs/frontend/modules/resource",
     "frontend-modules-style": "libs/frontend/modules/style",
     "frontend-modules-tag": "libs/frontend/modules/tag",
     "frontend-modules-type": "libs/frontend/modules/type",

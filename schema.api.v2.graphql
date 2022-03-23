@@ -1864,6 +1864,8 @@ enum AtomType {
   MuiZoom
   Query
   ReactFragment
+  ResourceGraphQL
+  ResourceREST
   State
   Text
   TextList
@@ -2628,6 +2630,11 @@ type CreateRenderPropsTypesMutationResponse {
 type CreateResetDatabaseMutationResponsesMutationResponse {
   info: CreateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
+type CreateResourcesMutationResponse {
+  info: CreateInfo!
+  resources: [Resource!]!
 }
 
 type CreateTagEdgesMutationResponse {
@@ -6881,6 +6888,9 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
+  createResources(
+    input: [ResourceCreateInput!]!
+  ): CreateResourcesMutationResponse!
   createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
@@ -6964,6 +6974,10 @@ type Mutation {
   ): DeleteInfo!
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
+  ): DeleteInfo!
+  deleteResources(
+    delete: ResourceDeleteInput
+    where: ResourceWhere
   ): DeleteInfo!
   deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
@@ -7178,6 +7192,15 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
+  updateResources(
+    connect: ResourceConnectInput
+    connectOrCreate: ResourceConnectOrCreateInput
+    create: ResourceRelationInput
+    delete: ResourceDeleteInput
+    disconnect: ResourceDisconnectInput
+    update: ResourceUpdateInput
+    where: ResourceWhere
+  ): UpdateResourcesMutationResponse!
   updateTagEdges(
     update: TagEdgeUpdateInput
     where: TagEdgeWhere
@@ -8899,6 +8922,8 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
+  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
+  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
   tagGraphs: TagGraph!
@@ -9364,6 +9389,224 @@ input ResetDatabaseMutationResponseWhere {
   OR: [ResetDatabaseMutationResponseWhere!]
   success: Boolean
   success_NOT: Boolean
+}
+
+type Resource {
+  atom(directed: Boolean = true, options: AtomOptions, where: AtomWhere): Atom!
+  atomAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): ResourceAtomAtomAggregationSelection
+  atomConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ResourceAtomConnectionSort!]
+    where: ResourceAtomConnectionWhere
+  ): ResourceAtomConnection!
+  id: ID!
+  name: String!
+}
+
+type ResourceAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ResourceAtomAggregateInput {
+  AND: [ResourceAtomAggregateInput!]
+  OR: [ResourceAtomAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ResourceAtomNodeAggregationWhereInput
+}
+
+type ResourceAtomAtomAggregationSelection {
+  count: Int!
+  node: ResourceAtomAtomNodeAggregateSelection
+}
+
+type ResourceAtomAtomNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ResourceAtomConnectFieldInput {
+  connect: AtomConnectInput
+  where: AtomConnectWhere
+}
+
+input ResourceAtomConnectOrCreateFieldInput {
+  onCreate: ResourceAtomConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input ResourceAtomConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+type ResourceAtomConnection {
+  edges: [ResourceAtomRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ResourceAtomConnectionSort {
+  node: AtomSort
+}
+
+input ResourceAtomConnectionWhere {
+  AND: [ResourceAtomConnectionWhere!]
+  OR: [ResourceAtomConnectionWhere!]
+  node: AtomWhere
+  node_NOT: AtomWhere
+}
+
+input ResourceAtomCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input ResourceAtomDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: ResourceAtomConnectionWhere
+}
+
+input ResourceAtomDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: ResourceAtomConnectionWhere
+}
+
+input ResourceAtomFieldInput {
+  connect: ResourceAtomConnectFieldInput
+  connectOrCreate: ResourceAtomConnectOrCreateFieldInput
+  create: ResourceAtomCreateFieldInput
+}
+
+input ResourceAtomNodeAggregationWhereInput {
+  AND: [ResourceAtomNodeAggregationWhereInput!]
+  OR: [ResourceAtomNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ResourceAtomRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input ResourceAtomUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input ResourceAtomUpdateFieldInput {
+  connect: ResourceAtomConnectFieldInput
+  connectOrCreate: ResourceAtomConnectOrCreateFieldInput
+  create: ResourceAtomCreateFieldInput
+  delete: ResourceAtomDeleteFieldInput
+  disconnect: ResourceAtomDisconnectFieldInput
+  update: ResourceAtomUpdateConnectionInput
+  where: ResourceAtomConnectionWhere
+}
+
+input ResourceConnectInput {
+  atom: ResourceAtomConnectFieldInput
+}
+
+input ResourceConnectOrCreateInput {
+  atom: ResourceAtomConnectOrCreateFieldInput
+}
+
+input ResourceCreateInput {
+  atom: ResourceAtomFieldInput
+  name: String!
+}
+
+input ResourceDeleteInput {
+  atom: ResourceAtomDeleteFieldInput
+}
+
+input ResourceDisconnectInput {
+  atom: ResourceAtomDisconnectFieldInput
+}
+
+input ResourceOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ResourceSort objects to sort Resources by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ResourceSort!]
+}
+
+input ResourceRelationInput {
+  atom: ResourceAtomCreateFieldInput
+}
+
+"""
+Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object.
+"""
+input ResourceSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input ResourceUpdateInput {
+  atom: ResourceAtomUpdateFieldInput
+  name: String
+}
+
+input ResourceWhere {
+  AND: [ResourceWhere!]
+  OR: [ResourceWhere!]
+  atom: AtomWhere
+  atomAggregate: ResourceAtomAggregateInput
+  atomConnection: ResourceAtomConnectionWhere
+  atomConnection_NOT: ResourceAtomConnectionWhere
+  atom_NOT: AtomWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
 }
 
 enum SortDirection {
@@ -10698,6 +10941,11 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
+type UpdateResourcesMutationResponse {
+  info: UpdateInfo!
+  resources: [Resource!]!
 }
 
 type UpdateTagEdgesMutationResponse {

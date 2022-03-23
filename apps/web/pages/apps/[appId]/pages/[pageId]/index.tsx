@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
 import {
   PageDetailHeader,
@@ -14,6 +13,7 @@ import {
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
+import { useStore } from 'libs/frontend/model/infra/mobx/src/mst'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
