@@ -5,17 +5,8 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
-import {
-  componentEndpoints,
-  CreateComponentModal,
-  DeleteComponentModal,
-  GetComponentsTable,
-  UpdateComponentModal,
-  useComponentDispatch,
-} from '@codelab/frontend/modules/component'
 import { userSlice } from '@codelab/frontend/modules/user'
 // import { UpdateTagModal } from '@codelab/frontend/modules/tag'
-import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -33,18 +24,18 @@ const Components: CodelabPage<DashboardTemplateProps> = () => {
         <title>Components | Codelab</title>
       </Head>
 
-      <CreateComponentModal />
-      <UpdateComponentModal />
-      <DeleteComponentModal />
-      <ContentSection>
-        <GetComponentsTable />
-      </ContentSection>
+      {/* <CreateComponentModal />*/}
+      {/* <UpdateComponentModal />*/}
+      {/* <DeleteComponentModal />*/}
+      {/* <ContentSection>*/}
+      {/*  <GetComponentsTable />*/}
+      {/* </ContentSection>*/}
     </>
   )
 }
 
 const Header = () => {
-  const { openCreateModal } = useComponentDispatch()
+  // const { openCreateModal } = useComponentDispatch()
 
   return (
     <PageHeader
@@ -52,7 +43,7 @@ const Header = () => {
         <Button
           icon={<PlusOutlined />}
           key={0}
-          onClick={() => openCreateModal()}
+          // onClick={() => openCreateModal()}
           size="small"
         />,
       ]}
@@ -73,7 +64,7 @@ export const getServerSideProps = withPageAuthRequired({
         // TODO investigate type issue
         // store.dispatch(componentEndpoints.endpoints.GetComponents.initiate())
         store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
-        await Promise.all(componentEndpoints.util.getRunningOperationPromises())
+        // await Promise.all(componentEndpoints.util.getRunningOperationPromises())
 
         return { props: {} }
       },

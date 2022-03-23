@@ -11,14 +11,6 @@ import {
   MainPaneBuilder,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
-import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
-import {
-  ElementGraphProvider,
-  useElementGraphContext,
-} from '@codelab/frontend/modules/element'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
-import { Empty } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -26,23 +18,21 @@ import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
-  const { elementTree } = useElementGraphContext()
+  // const { elementTree } = useElementGraphContext()
 
-  if (!elementTree) {
-    return <Empty />
-  }
-
-  const root = elementTree.getRootVertex(ElementTree.isComponent)
+  // if (!elementTree) {
+  //   return <Empty />
+  // }
+  //
+  // const root = elementTree.getRootVertex(ElementTree.isComponent)
 
   return (
     <>
-      <Head>
-        <title>{root?.component?.name} | Codelab</title>
-      </Head>
+      <Head>{/* <title>{root?.component?.name} | Codelab</title>*/}</Head>
 
       <Builder
         isComponentBuilder
-        tree={elementTree}
+        // tree={elementTree}
         typeService={store.typeService}
       />
     </>
@@ -55,23 +45,24 @@ const ComponentElementGraphProvider = ({
   const { query } = useRouter()
   const componentId = query.componentId as string
 
-  const { data, isLoading } = useGetComponentsQuery({
-    variables: { where: { id: componentId } },
-  })
+  // const { data, isLoading } = useGetComponentsQuery({
+  //   variables: { where: { id: componentId } },
+  // })
 
-  const rootElementId = data?.components[0]?.rootElement.id
+  // const rootElementId = data?.components[0]?.rootElement.id
 
-  if (!rootElementId) {
-    return null
-  }
+  // if (!rootElementId) {
+  //   return null
+  // }
 
-  return (
-    <SpinnerWrapper isLoading={isLoading}>
-      <ElementGraphProvider elementId={rootElementId}>
-        {children}
-      </ElementGraphProvider>
-    </SpinnerWrapper>
-  )
+  return null
+  // return (
+  // <SpinnerWrapper isLoading={isLoading}>
+  // <ElementGraphProvider elementId={rootElementId}>
+  // {children}
+  // </ElementGraphProvider>*
+  // </SpinnerWrapper>
+  // )
 }
 
 export default ComponentDetail

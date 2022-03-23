@@ -3,7 +3,7 @@ import {
   ElementTree,
   elementTreeRef,
 } from '@codelab/frontend/modules/element'
-import { getTypeStoreFromContext } from '@codelab/frontend/modules/type'
+import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
 import {
   PropsData,
   PropsDataByElementId,
@@ -53,8 +53,8 @@ import { getTemplateFn } from './utils/platformState'
  * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
-@model('@codelab/RendererModel')
-export class RendererModel extends Model({
+@model('@codelab/RenderService')
+export class RenderService extends Model({
   /** The tree that's being rendered */
   treeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
 
@@ -75,7 +75,7 @@ export class RendererModel extends Model({
 
   @modelFlow
   init = _async(function* (
-    this: RendererModel,
+    this: RenderService,
     tree: ElementTree,
     platformState: any, // pass in a observable
   ) {
@@ -89,7 +89,7 @@ export class RendererModel extends Model({
     // Make sure all types are fetched first, because we need
     // them when transforming the rendered props. We could cache
     // the common types in the browser later on
-    const typeStore = getTypeStoreFromContext(this)
+    const typeStore = getTypeServiceFromContext(this)
 
     if (typeStore?.types.size <= 1) {
       yield* _await(typeStore.getAll())
@@ -209,14 +209,17 @@ export class RendererModel extends Model({
   }
 
   private getTypeKindById(typeId: string): TypeKind | undefined {
-    return getTypeStoreFromContext(this).type(typeId)?.typeKind
+    return getTypeServiceFromContext(this).type(typeId)?.typeKind
   }
 }
 
-export const rendererRef = rootRef<RendererModel>('codelab/RendererRef', {
-  onResolvedValueChange(ref, newType, oldType) {
-    if (oldType && !newType) {
-      detach(ref)
-    }
+export const renderServiceRef = rootRef<RenderService>(
+  'codelab/RenderServiceRef',
+  {
+    onResolvedValueChange(ref, newType, oldType) {
+      if (oldType && !newType) {
+        detach(ref)
+      }
+    },
   },
-})
+)

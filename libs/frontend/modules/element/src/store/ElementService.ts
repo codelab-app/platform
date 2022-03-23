@@ -1,5 +1,5 @@
-import { Atom, atomStoreContext } from '@codelab/frontend/modules/atom'
-import { ModalStore } from '@codelab/frontend/shared/utils'
+import { Atom, atomServiceContext } from '@codelab/frontend/modules/atom'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -31,17 +31,17 @@ import { ElementTree } from './ElementTree'
  * Element stores a tree of elements locally using an ElementTree
  * and handles the communication with the server.
  */
-@model('@codelab/ElementStore')
-export class ElementStore extends Model({
+@model('@codelab/ElementService')
+export class ElementService extends Model({
   elementTree: prop(() => new ElementTree({})),
 
-  createModal: prop(() => new CreateElementModalStore({})),
-  updateModal: prop(() => new ElementModalStore({})),
-  deleteModal: prop(() => new ElementModalStore({})),
+  createModal: prop(() => new CreateElementModalService({})),
+  updateModal: prop(() => new ElementModalService({})),
+  deleteModal: prop(() => new ElementModalService({})),
 }) {
   @modelFlow
   @transaction
-  getTree = _async(function* (this: ElementStore, rootId: string) {
+  getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementsGraph({ input: { rootId } }),
     )
@@ -52,10 +52,10 @@ export class ElementStore extends Model({
         continue
       }
 
-      const atomStore = atomStoreContext.get(this)
+      const atomStore = atomServiceContext.get(this)
 
       if (!atomStore) {
-        throw new Error('atomStoreContext is not defined')
+        throw new Error('atomServiceContext is not defined')
       }
 
       const existing = atomStore.atom(vertex.atom.id)
@@ -63,7 +63,7 @@ export class ElementStore extends Model({
       if (existing) {
         existing.updateFromFragment(vertex.atom)
       } else {
-        atomStore.addAtomLocal(Atom.fromFragment(vertex.atom))
+        atomStore.addAtom(Atom.fromFragment(vertex.atom))
       }
     }
 
@@ -73,7 +73,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   createElement = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     input: CreateElementInput,
   ) {
     input = {
@@ -100,7 +100,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   updateElement = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     element: ElementModel,
     input: UpdateElementInput,
   ) {
@@ -112,7 +112,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   updateElementsPropTransformationJs = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     element: ElementModel,
     newPropTransformJs: string,
   ) {
@@ -126,7 +126,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   updateElementCss = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     element: ElementModel,
     newCss: string,
   ) {
@@ -138,7 +138,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   moveElement = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     targetElementId: string,
     { parentElementId, order }: MoveData,
   ) {
@@ -171,7 +171,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   updateElementProps = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     element: ElementModel,
     data: PropsData,
   ) {
@@ -192,7 +192,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   private patchElement = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     element: ElementModel,
     input: ElementUpdateInput,
   ) {
@@ -219,7 +219,7 @@ export class ElementStore extends Model({
   @modelFlow
   @transaction
   deleteElementsSubgraph = _async(function* (
-    this: ElementStore,
+    this: ElementService,
     rootId: string,
   ) {
     const root = this.elementTree.element(rootId)
@@ -244,9 +244,9 @@ export class ElementStore extends Model({
   })
 }
 
-@model('codelab/ElementModalStore')
-class ElementModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Ref<ElementModel>>>(ModalStore),
+@model('codelab/ElementModalService')
+class ElementModalService extends ExtendedModel(() => ({
+  baseModel: modelClass<ModalService<Ref<ElementModel>>>(ModalService),
   props: {},
 })) {
   @computed
@@ -255,10 +255,12 @@ class ElementModalStore extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/CreateElementModalStore')
-class CreateElementModalStore extends ExtendedModel(() => ({
+@model('codelab/CreateElementModalService')
+class CreateElementModalService extends ExtendedModel(() => ({
   baseModel:
-    modelClass<ModalStore<{ parentElement?: Ref<ElementModel> }>>(ModalStore),
+    modelClass<ModalService<{ parentElement?: Ref<ElementModel> }>>(
+      ModalService,
+    ),
   props: {},
 })) {
   @computed

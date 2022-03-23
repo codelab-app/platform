@@ -7,10 +7,10 @@ import {
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ElementModel, ElementStore } from '../../../store'
+import { ElementModel, ElementService } from '../../../store'
 
 export interface UpdateElementPropTransformationFormProp {
-  elementStore: ElementStore
+  elementService: ElementService
   element: ElementModel
   trackPromises?: UseTrackLoadingPromises
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
@@ -26,7 +26,7 @@ function transform(props){
 export const UpdateElementPropTransformationForm = observer(
   ({
     element,
-    elementStore,
+    elementService,
     trackPromises,
     monacoProps,
   }: UpdateElementPropTransformationFormProp) => {
@@ -46,14 +46,14 @@ export const UpdateElementPropTransformationForm = observer(
           return
         }
 
-        const promise = elementStore.updateElementsPropTransformationJs(
+        const promise = elementService.updateElementsPropTransformationJs(
           element,
           newValue,
         )
 
         return trackPromise?.(promise) ?? promise
       },
-      [element, elementStore, trackPromise],
+      [element, elementService, trackPromise],
     )
 
     useEffect(() => {

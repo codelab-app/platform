@@ -8,12 +8,7 @@ import {
   MainPaneBuilder,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
-import {
-  PageDetailHeader,
-  PageProvider,
-  useAppElementTree,
-  usePage,
-} from '@codelab/frontend/modules/page'
+import { PageDetailHeader, PageProvider } from '@codelab/frontend/modules/page'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -21,9 +16,9 @@ import React from 'react'
 const PageBuilder: CodelabPage<any> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
-  const { page } = usePage(currentPageId, store.pageStore)
+  // const { page } = usePage(currentPageId, store.pageService)
   // const { elementTree } = useElementGraphContext() // page.tree
-  const { appElementTree } = useAppElementTree(store.pageStore) // app.tree
+  // const { appElementTree } = useAppElementTree(store.pageService) // app.tree
 
   // if (!page || !elementTree) {
   //   return <Empty />
@@ -65,7 +60,7 @@ PageBuilder.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <BuilderContext elementStore={store.elementStore}>
+    <BuilderContext elementService={store.elementService}>
       <PageProvider pages={store.pageService}>
         <BuilderDashboardTemplate
           Header={() => <PageDetailHeader pages={store.pageService} />}

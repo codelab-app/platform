@@ -1,6 +1,6 @@
 import { DragOutlined } from '@ant-design/icons'
 import { AtomService } from '@codelab/frontend/modules/atom'
-import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
+// import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
@@ -71,12 +71,12 @@ export const MainPaneBuilderToolboxTab = observer(
       ? { variables: { where: { name_CONTAINS: searchQuery } } }
       : {}
 
-    const componentsResponse = useGetComponentsQuery(search)
-    const components = componentsResponse.data?.components || []
+    // const componentsResponse = useGetComponentsQuery(search)
+    // const components = componentsResponse.data?.components || []
 
     const toolboxItems: Array<ToolboxItem> = [
       ...atomsList.map(atomToolboxItemFactory),
-      ...components.map(componentToolboxItemFactory),
+      // ...components.map(componentToolboxItemFactory),
     ]
 
     return (
@@ -92,7 +92,8 @@ export const MainPaneBuilderToolboxTab = observer(
         ref={setNodeRef}
       >
         <SpinnerWrapper
-          isLoading={isLoadingAtoms || componentsResponse.isLoading}
+          isLoading={false}
+          // isLoading={isLoadingAtoms || componentsResponse.isLoading}
         >
           {toolboxItems.map((item) => (
             <ToolboxItemView key={item.id} toolboxItem={item} />

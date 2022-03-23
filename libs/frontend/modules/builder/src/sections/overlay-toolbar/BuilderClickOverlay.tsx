@@ -1,5 +1,4 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { useElementDispatch } from '@codelab/frontend/modules/element'
 import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
@@ -32,7 +31,7 @@ const StyledOverlayButtonGroup = styled.div`
 
 export const BuilderClickOverlay = () => {
   const { selectedElement } = useBuilderSelectedElement()
-  const { openDeleteModal, openCreateModal } = useElementDispatch()
+  // const { openDeleteModal, openCreateModal } = useElementDispatch()
 
   if (!selectedElement) {
     return null
@@ -50,7 +49,7 @@ export const BuilderClickOverlay = () => {
           onClick={(e) => {
             e.stopPropagation()
 
-            return openCreateModal({ parentElementId: selectedElement.id })
+            // return openCreateModal({ parentElementId: selectedElement.id })
           }}
           size="small"
           type="text"
@@ -62,10 +61,10 @@ export const BuilderClickOverlay = () => {
           onClick={(e) => {
             e.stopPropagation()
 
-            return openDeleteModal({
-              deleteIds: [selectedElement.id],
-              entity: selectedElement,
-            })
+            // return openDeleteModal({
+            //   deleteIds: [selectedElement.id],
+            //   entity: selectedElement,
+            // })
           }}
           size="small"
           type="text"

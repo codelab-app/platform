@@ -9,14 +9,14 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementModel, ElementStore } from '../../../store'
+import { ElementModel, ElementService } from '../../../store'
 import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps = Omit<
   UseCaseFormWithRef<UpdateElementInput>,
   'onSubmit'
 > & {
-  elementStore: ElementStore
+  elementService: ElementService
   element: ElementModel
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
@@ -25,7 +25,7 @@ export type UpdateElementFormProps = Omit<
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer(
   ({
-    elementStore,
+    elementService,
     element,
     trackPromises,
     providePropCompletion,
@@ -44,7 +44,7 @@ export const UpdateElementForm = observer(
     }) // Cache the initial element model, because when it updates it will interfere with what the user is typing
 
     const onSubmit = (input: UpdateElementInput) => {
-      const promise = elementStore.updateElement(element, input)
+      const promise = elementService.updateElement(element, input)
 
       if (trackPromise) {
         trackPromise(promise)

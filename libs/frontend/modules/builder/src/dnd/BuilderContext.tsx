@@ -1,5 +1,5 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { ElementStore } from '@codelab/frontend/modules/element'
+import { ElementService } from '@codelab/frontend/modules/element'
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
@@ -9,12 +9,12 @@ import { builderCollisionDetection } from './builderCollisionDetection'
 import { useBuilderDnd } from './useBuilderDnd'
 
 export interface BuilderContextProps {
-  elementStore: ElementStore
+  elementService: ElementService
 }
 export const BuilderContext = observer(
-  ({ children, elementStore }: PropsWithChildren<BuilderContextProps>) => {
+  ({ children, elementService }: PropsWithChildren<BuilderContextProps>) => {
     const { onDragEnd, onDragStart, currentlyDragging } =
-      useBuilderDnd(elementStore)
+      useBuilderDnd(elementService)
 
     return (
       <DndContext

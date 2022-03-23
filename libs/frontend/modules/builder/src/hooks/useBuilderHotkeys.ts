@@ -1,4 +1,3 @@
-import { useElementDispatch } from '@codelab/frontend/modules/element'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useBuilderDispatch } from './useBuilderDispatch'
 import { useBuilderSelectedElement } from './useBuilderSelectedElement'
@@ -9,7 +8,7 @@ import { useBuilderSelectedElement } from './useBuilderSelectedElement'
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = () => {
-  const { openDeleteModal } = useElementDispatch()
+  // const { openDeleteModal } = useElementDispatch()
   const { selectElement } = useBuilderDispatch()
   const { selectedElement, selectedElementId } = useBuilderSelectedElement()
 
@@ -17,10 +16,10 @@ export const useBuilderHotkeys = () => {
     'del,backspace',
     () => {
       if (selectedElement) {
-        openDeleteModal({
-          deleteIds: [selectedElement.id],
-          entity: selectedElement,
-        })
+        // openDeleteModal({
+        //   deleteIds: [selectedElement.id],
+        //   entity: selectedElement,
+        // })
       }
     },
     { enabled: !!selectedElement },

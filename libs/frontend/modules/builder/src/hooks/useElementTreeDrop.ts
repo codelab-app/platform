@@ -1,4 +1,3 @@
-import { useMoveElementsMutation } from '@codelab/frontend/modules/element'
 import { ElementTree } from '@codelab/shared/core'
 import { TreeProps } from 'antd/lib/tree'
 
@@ -8,7 +7,7 @@ import { TreeProps } from 'antd/lib/tree'
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
 export const useElementTreeDrop = (tree: ElementTree) => {
-  const [moveElement, { isLoading }] = useMoveElementsMutation()
+  // const [moveElement, { isLoading }] = useMoveElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
     const dragNodeId = (e.dragNode as any).id
@@ -28,41 +27,40 @@ export const useElementTreeDrop = (tree: ElementTree) => {
 
         console.log(order)
 
-        moveElement({
-          variables: {
-            where: { id: dragNodeId },
-            update: {
-              parentElement: {
-                disconnect: { where: {} },
-                connect: {
-                  edge: { order },
-                  where: { node: { id: dropNodeParentId } },
-                },
-              },
-            },
-          },
-        }).catch(console.error)
+        // moveElement({
+        //   variables: {
+        //     where: { id: dragNodeId },
+        //     update: {
+        //       parentElement: {
+        //         disconnect: { where: {} },
+        //         connect: {
+        //           edge: { order },
+        //           where: { node: { id: dropNodeParentId } },
+        //         },
+        //       },
+        //     },
+        //   },
+        // }).catch(console.error)
       }
     } else {
       // FIXME
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
-
-      return moveElement({
-        variables: {
-          where: { id: dragNodeId },
-          update: {
-            parentElement: {
-              disconnect: { where: {} },
-              connect: {
-                edge: { order: e.dropPosition },
-                where: { node: { id: dropNodeId } },
-              },
-            },
-          },
-        },
-      })
+      // return moveElement({
+      //   variables: {
+      //     where: { id: dragNodeId },
+      //     update: {
+      //       parentElement: {
+      //         disconnect: { where: {} },
+      //         connect: {
+      //           edge: { order: e.dropPosition },
+      //           where: { node: { id: dropNodeId } },
+      //         },
+      //       },
+      //     },
+      //   },
+      // })
     }
 
     return void 0
@@ -70,6 +68,6 @@ export const useElementTreeDrop = (tree: ElementTree) => {
 
   return {
     handleDrop,
-    isMoving: isLoading,
+    isMoving: false, // isLoading,
   }
 }

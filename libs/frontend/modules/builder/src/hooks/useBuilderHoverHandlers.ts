@@ -1,4 +1,4 @@
-import { ElementStore } from '@codelab/frontend/modules/element'
+import { ElementService } from '@codelab/frontend/modules/element'
 import { MouseEvent, useCallback } from 'react'
 import { useBuilderDnd } from '../dnd'
 import { useBuilderDispatch } from './useBuilderDispatch'
@@ -7,7 +7,7 @@ import { useBuilderDispatch } from './useBuilderDispatch'
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
  * them to the builder redux state for hovering elements
  */
-export const useBuilderHoverHandlers = (store: ElementStore) => {
+export const useBuilderHoverHandlers = (store: ElementService) => {
   const { hoverElement } = useBuilderDispatch()
   const { currentlyDragging } = useBuilderDnd(store)
 

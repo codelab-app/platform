@@ -1,4 +1,3 @@
-import { ElementGraphProvider } from '@codelab/frontend/modules/element'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { usePage } from '../hooks'
@@ -16,9 +15,10 @@ export const PageProvider = ({
   const pageId = query.pageId as string
   const { page } = usePage(pageId, pages)
 
-  return page?.rootElementId ? (
-    <ElementGraphProvider elementId={page?.rootElementId}>
-      {children}
-    </ElementGraphProvider>
-  ) : null
+  return <>{children}</>
+  // return page?.rootElementId ? (
+  //   <ElementGraphProvider elementId={page?.rootElementId}>
+  //     {children}
+  //   </ElementGraphProvider>
+  // ) : null
 }

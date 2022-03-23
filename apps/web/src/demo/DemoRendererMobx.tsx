@@ -124,18 +124,19 @@ const root = new ElementModel({
 
 const demoStore = initializeStore()
 
-demoStore.typeStore.addTypeLocal(emptyApi)
-demoStore.atomStore.addAtomLocal(divAtom)
-demoStore.atomStore.addAtomLocal(buttonAtom)
-demoStore.atomStore.addAtomLocal(textAtom)
+demoStore.typeService.addTypeLocal(emptyApi)
 
-demoStore.elementStore.elementTree.addElement(counterText)
-demoStore.elementStore.elementTree.addElement(textDec)
-demoStore.elementStore.elementTree.addElement(textInc)
-demoStore.elementStore.elementTree.addElement(buttonInc)
-demoStore.elementStore.elementTree.addElement(buttonDec)
-demoStore.elementStore.elementTree.addElement(container)
-demoStore.elementStore.elementTree.addElement(root)
+demoStore.atomService.addAtom(divAtom)
+demoStore.atomService.addAtom(buttonAtom)
+demoStore.atomService.addAtom(textAtom)
+
+demoStore.elementService.elementTree.addElement(counterText)
+demoStore.elementService.elementTree.addElement(textDec)
+demoStore.elementService.elementTree.addElement(textInc)
+demoStore.elementService.elementTree.addElement(buttonInc)
+demoStore.elementService.elementTree.addElement(buttonDec)
+demoStore.elementService.elementTree.addElement(container)
+demoStore.elementService.elementTree.addElement(root)
 
 class PlatformState {
   counter = 0
@@ -157,19 +158,19 @@ class PlatformState {
   }
 }
 
-demoStore.renderer.init(
-  demoStore.elementStore.elementTree,
+demoStore.renderService.init(
+  demoStore.elementService.elementTree,
   new PlatformState() as any,
 )
 
 export const DemoRendererMobx = observer(() => {
-  if (!demoStore.renderer.isInitialized) {
+  if (!demoStore.renderService.isInitialized) {
     return null
   }
 
   return (
     <>
-      <Renderer renderModel={demoStore.renderer} />
+      <Renderer renderModel={demoStore.renderService} />
       <div>Props:</div>
     </>
   )

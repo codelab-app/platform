@@ -9,38 +9,38 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementStore } from '../../../store'
+import { ElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { CreateElementInput, createElementSchema } from './createElementSchema'
 
 export interface CreateElementModalProps {
-  elementStore: ElementStore
+  elementService: ElementService
 }
 
 export const CreateElementModal = observer(
-  ({ elementStore }: CreateElementModalProps) => {
+  ({ elementService }: CreateElementModalProps) => {
     const onSubmit = (submitData: CreateElementInput) =>
-      elementStore.createElement(submitData)
+      elementService.createElement(submitData)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating element',
     })
 
-    const parentElement = elementStore.createModal.parentElement
+    const parentElement = elementService.createModal.parentElement
 
     const model = {
       parentElementId: parentElement?.id || undefined,
       order: parentElement ? parentElement.lastChildOrder + 1 : 1,
     }
 
-    const closeModal = () => elementStore.createModal.close()
+    const closeModal = () => elementService.createModal.close()
 
     return (
       <ModalForm.Modal
         okText="Create"
         onCancel={closeModal}
         title={<span css={tw`font-semibold`}>Create element</span>}
-        visible={elementStore.createModal.isOpen}
+        visible={elementService.createModal.isOpen}
       >
         <Form<CreateElementInput>
           model={model}
@@ -64,7 +64,7 @@ export const CreateElementModal = observer(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={elementStore.elementTree.elementsList.map(
+                allElementOptions={elementService.elementTree.elementsList.map(
                   mapElementOption,
                 )}
               />

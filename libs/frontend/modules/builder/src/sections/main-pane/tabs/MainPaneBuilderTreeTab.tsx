@@ -1,16 +1,13 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
-import { Dropdown, Tree as AntdTree } from 'antd'
+import { Dropdown } from 'antd'
 import { DataNode } from 'rc-tree/lib/interface'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import {
   useBuilderHoveringElement,
   useBuilderSelectedElement,
-  useElementTreeDrop,
-  useExpandedNodes,
 } from '../../../hooks'
 import { ElementContextMenu } from '../ElementContextMenu'
 
@@ -22,45 +19,46 @@ type MainPaneBuilderTreeTabProps = {
 export const MainPaneBuilderTreeTab = ({
   rootId,
 }: MainPaneBuilderTreeTabProps) => {
-  const { elementTree } = useElementGraphContext()
-  const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
+  // const { elementTree } = useElementGraphContext()
+  // const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
   // we have main tree and components trees.
   // so we need the root to find the correct one
-  const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
-  const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
+  // const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
+  // const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()
 
-  if (!elementTree) {
-    return null
-  }
+  // if (!elementTree) {
+  //   return null
+  // }
+  return null
 
-  return (
-    <AntdTree
-      blockNode
-      className="draggable-tree"
-      disabled={isMoving}
-      draggable
-      expandedKeys={expandedNodeIds}
-      onClick={(e) => e.stopPropagation()}
-      onDrop={handleDrop}
-      onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
-      onMouseEnter={({ node }: any) => {
-        setHoveringElement(node.id)
-      }}
-      onMouseLeave={() => setHoveringElement(undefined)}
-      onSelect={([id], { nativeEvent, node }) => {
-        nativeEvent.stopPropagation()
-
-        if (id) {
-          setSelectedElement(id.toString())
-        }
-      }}
-      selectedKeys={selectedElement ? [selectedElement.id] : []}
-      titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
-      treeData={antdTree ? [antdTree] : []}
-    />
-  )
+  // return (
+  //   <AntdTree
+  //     blockNode
+  //     className="draggable-tree"
+  //     disabled={isMoving}
+  //     draggable
+  //     expandedKeys={expandedNodeIds}
+  //     onClick={(e) => e.stopPropagation()}
+  //     onDrop={handleDrop}
+  //     onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+  //     onMouseEnter={({ node }: any) => {
+  //       setHoveringElement(node.id)
+  //     }}
+  //     onMouseLeave={() => setHoveringElement(undefined)}
+  //     onSelect={([id], { nativeEvent, node }) => {
+  //       nativeEvent.stopPropagation()
+  //
+  //       if (id) {
+  //         setSelectedElement(id.toString())
+  //       }
+  //     }}
+  //     selectedKeys={selectedElement ? [selectedElement.id] : []}
+  //     titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
+  //     treeData={antdTree ? [antdTree] : []}
+  //   />
+  // )
 }
 
 MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'

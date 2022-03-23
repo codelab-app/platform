@@ -1,4 +1,4 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -15,7 +15,7 @@ export interface GetComponentsTableProps {
 
 export const GetComponentsTable = observer<GetComponentsTableProps>(
   ({ componentStore }) => {
-    const [getComponents, { isLoading }] = useAsyncState(() =>
+    const [getComponents, { isLoading }] = useLoadingState(() =>
       componentStore.getAll(),
     )
 

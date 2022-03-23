@@ -1,7 +1,3 @@
-import {
-  useGetElementById,
-  useUpdateElementsMutation,
-} from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -14,8 +10,8 @@ import { useBuilderDispatch } from './useBuilderDispatch'
 export const usePropsInspector = (elementId: string) => {
   const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
   const { setExtraPropsForElement } = useBuilderDispatch()
-  const [mutate, { isLoading }] = useUpdateElementsMutation()
-  const element = useGetElementById(elementId)
+  // const [mutate, { isLoading }] = useUpdateElementsMutation()
+  // const element = useGetElementById(elementId)
 
   const lastRenderedProps = useSelector((s) =>
     builderSelectors.lastRenderedPropsForElement(s, elementId),
@@ -34,35 +30,35 @@ export const usePropsInspector = (elementId: string) => {
     }
 
     try {
-      const createOrUpdate = element?.props ? 'update' : 'create'
-      await mutate({
-        variables: {
-          where: { id: elementId },
-          update: {
-            props: {
-              [createOrUpdate]: {
-                node: { data: JSON.stringify(JSON.parse(persistedProps)) },
-              },
-            },
-          },
-        },
-      }).unwrap()
+      // const createOrUpdate = element?.props ? 'update' : 'create'
+      // await mutate({
+      //   variables: {
+      //     where: { id: elementId },
+      //     update: {
+      //       props: {
+      //         [createOrUpdate]: {
+      //           node: { data: JSON.stringify(JSON.parse(persistedProps)) },
+      //         },
+      //       },
+      //     },
+      //   },
+      // }).unwrap()
     } catch (e) {
       notify({ title: 'Invalid json', type: 'warning' })
     }
   }
 
-  useEffect(() => {
-    if (element?.props) {
-      try {
-        setPersistedProps(
-          JSON.stringify(JSON.parse(element?.props.data), null, 4),
-        )
-      } catch (e) {
-        console.warn("Couldn't parse element props", element?.props)
-      }
-    }
-  }, [element?.props])
+  // useEffect(() => {
+  //   if (element?.props) {
+  //     try {
+  //       setPersistedProps(
+  //         JSON.stringify(JSON.parse(element?.props.data), null, 4),
+  //       )
+  //     } catch (e) {
+  //       console.warn("Couldn't parse element props", element?.props)
+  //     }
+  //   }
+  // }, [element?.props])
 
   useEffect(() => {
     return () => {
@@ -75,7 +71,7 @@ export const usePropsInspector = (elementId: string) => {
   return {
     lastRenderedPropsString,
     save,
-    isLoading,
+    isLoading: false,
     persistedProps,
     setPersistedProps,
     setExtraPropsForElement: setExtraProps,

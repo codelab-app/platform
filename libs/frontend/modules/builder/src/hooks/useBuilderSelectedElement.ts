@@ -1,4 +1,3 @@
-import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import { IElement } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
@@ -15,7 +14,7 @@ export interface UseBuilderSelectedElement {
 
 export const useBuilderSelectedElement = (): UseBuilderSelectedElement => {
   const selectedElementId = useSelector(builderSelectors.selectedElementId)
-  const { elementTree } = useElementGraphContext()
+  // const { elementTree } = useElementGraphContext()
   const { selectElement, resetSelection } = useBuilderDispatch()
 
   const setSelectedElement = useCallback(
@@ -24,9 +23,10 @@ export const useBuilderSelectedElement = (): UseBuilderSelectedElement => {
   )
 
   return {
-    selectedElement: selectedElementId
-      ? elementTree.getVertex(selectedElementId)
-      : undefined,
+    selectedElement: undefined,
+    // selectedElementId
+    //   ? elementTree.getVertex(selectedElementId)
+    //   : undefined,
     selectedElementId,
     setSelectedElement,
     resetSelection,

@@ -1,4 +1,3 @@
-import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import { IElement } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
@@ -16,7 +15,7 @@ export interface UseBuilderHoveringElement {
 export const useBuilderHoveringElement = (): UseBuilderHoveringElement => {
   const hoveringElementId = useSelector(builderSelectors.hoveringElementId)
   const { hoverElement, resetSelection } = useBuilderDispatch()
-  const { elementTree } = useElementGraphContext()
+  // const { elementTree } = useElementGraphContext()
 
   const setHoveringElement = useCallback(
     (elementId?: string) => hoverElement({ elementId }),
@@ -24,9 +23,10 @@ export const useBuilderHoveringElement = (): UseBuilderHoveringElement => {
   )
 
   return {
-    hoveringElement: hoveringElementId
-      ? elementTree.getVertex(hoveringElementId)
-      : undefined,
+    hoveringElement: undefined,
+    // hoveringElement: hoveringElementId
+    //   ? elementTree.getVertex(hoveringElementId)
+    //   : undefined,
     hoveringElementId,
     resetSelection,
     setHoveringElement,

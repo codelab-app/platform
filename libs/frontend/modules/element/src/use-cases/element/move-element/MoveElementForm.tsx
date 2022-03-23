@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementModel, ElementStore } from '../../../store'
+import { ElementModel, ElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
@@ -18,13 +18,13 @@ export type MoveElementFormProps = Omit<
   'onSubmit'
 > & {
   element: ElementModel
-  elementStore: ElementStore
+  elementService: ElementService
   trackPromises?: UseTrackLoadingPromises
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer(
-  ({ element, elementStore, trackPromises }: MoveElementFormProps) => {
+  ({ element, elementService, trackPromises }: MoveElementFormProps) => {
     const { trackPromise } = trackPromises ?? {}
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
@@ -34,7 +34,7 @@ export const MoveElementForm = observer(
     })
 
     const onSubmit = (data: MoveData) => {
-      const promise = elementStore.moveElement(element.id, data)
+      const promise = elementService.moveElement(element.id, data)
 
       if (trackPromise) {
         trackPromise(promise)
@@ -44,7 +44,7 @@ export const MoveElementForm = observer(
     }
 
     const elementOptions =
-      elementStore.elementTree.elementsList.map(mapElementOption)
+      elementService.elementTree.elementsList.map(mapElementOption)
 
     return (
       <Form<MoveData>

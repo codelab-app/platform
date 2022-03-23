@@ -4,7 +4,6 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
-import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
 import {
   PageDetailHeader,
   PageProvider,
@@ -22,7 +21,6 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
   const currentPageId = useCurrentPageId()
   const { page } = usePage(currentPageId, store.pageService)
-  const { typesById } = useTypesByIdQuery(store.typeService)
   const { appElementTree } = useAppElementTree(store.pageService)
 
   if (!page || !appElementTree) {
@@ -35,7 +33,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>{page.name}</title>
       </Head>
 
-      <Renderer tree={appElementTree} typesById={typesById} />
+      {/* <Renderer tree={appElementTree} typesById={typesById} />*/}
     </>
   )
 })

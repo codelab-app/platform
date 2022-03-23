@@ -1,22 +1,9 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  useConvertElementsToComponentsMutation,
-  useDuplicateElementMutation,
-  useElementDispatch,
-  useElementGraphContext,
-} from '@codelab/frontend/modules/element'
-import { useUserState } from '@codelab/frontend/modules/user'
-import { Key } from '@codelab/frontend/view/components'
-import {
-  ComponentCreateInput,
-  ElementCreateInput,
-} from '@codelab/shared/abstract/codegen-v2'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { EntityLike, Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Menu } from 'antd'
-import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -72,65 +59,65 @@ export const ElementContextMenu = ({
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
-  const [convertToComponent] = useConvertElementsToComponentsMutation()
-  const [createElement] = useDuplicateElementMutation()
-  const { push } = useRouter()
-  const { elementTree } = useElementGraphContext()
-  const { user } = useUserState()
-  const { openCreateModal, openDeleteModal } = useElementDispatch()
+  // const [convertToComponent] = useConvertElementsToComponentsMutation()
+  // const [createElement] = useDuplicateElementMutation()
+  // const { push } = useRouter()
+  // const { elementTree } = useElementGraphContext()
+  // const { user } = useUserState()
+  // const { openCreateModal, openDeleteModal } = useElementDispatch()
   const isComponentInstance = !!element.instanceOfComponent
-  const hideForRoot = elementTree?.getRootVertex()?.id === element.id
+  // const hideForRoot = elementTree?.getRootVertex()?.id === element.id
 
   const onAddChild = () => {
-    openCreateModal({ parentElementId: element.id })
+    // openCreateModal({ parentElementId: element.id })
   }
 
   const onDelete = () => {
-    openDeleteModal({
-      deleteIds: [element.id],
-      entity: element,
-    })
+    // openDeleteModal({
+    //   deleteIds: [element.id],
+    //   entity: element,
+    // })
   }
 
   const onDuplicate = () => {
-    createElement({
-      variables: { input: { elementId: element.id } },
-    })
+    // createElement({
+    //   variables: { input: { elementId: element.id } },
+    // })
   }
 
   const onConvert = () => {
     onClick?.()
 
-    const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
-      create: {
-        node: {
-          owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
-          name: element.name || element.atom?.name || element.id,
-          rootElement: getElementCreationInput(element, elementTree),
-        },
-      },
-    }
-
-    return convertToComponent({
-      variables: {
-        where: { id: element.id },
-        update: {
-          instanceOfComponent,
-          children: [{ disconnect: [{ where: {} }] }],
-          hooks: [{ disconnect: [{ where: {} }] }],
-          propMapBindings: [{ disconnect: [{ where: {} }] }],
-          atom: { disconnect: { where: {} } },
-          props: { disconnect: { where: {} } },
-        },
-      },
-    })
+    // const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
+    //   create: {
+    //     node: {
+    //       owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
+    //       name: element.name || element.atom?.name || element.id,
+    //       rootElement: getElementCreationInput(element, elementTree),
+    //     },
+    //   },
+    // }
+    //
+    // return convertToComponent({
+    //   variables: {
+    //     where: { id: element.id },
+    //     update: {
+    //       instanceOfComponent,
+    //       children: [{ disconnect: [{ where: {} }] }],
+    //       hooks: [{ disconnect: [{ where: {} }] }],
+    //       propMapBindings: [{ disconnect: [{ where: {} }] }],
+    //       atom: { disconnect: { where: {} } },
+    //       props: { disconnect: { where: {} } },
+    //     },
+    //   },
+    // })
   }
 
   const onEditComponent = () => {
-    push({
-      pathname: PageType.ComponentDetail,
-      query: { componentId: element.instanceOfComponent?.id },
-    })
+    // push({
+    //   pathname: PageType.ComponentDetail,
+    //   query: { componentId: element.instanceOfComponent?.id },
+    // })
   }
 
   return (
@@ -143,13 +130,13 @@ export const ElementContextMenu = ({
         Add child
       </Menu.Item>
 
-      <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>
-        Duplicate
-      </Menu.Item>
+      {/* <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>*/}
+      {/*  Duplicate*/}
+      {/* </Menu.Item>*/}
 
       {isComponentInstance ? (
         <Menu.Item
-          hidden={hideForRoot}
+          // hidden={hideForRoot}
           key="edit-component"
           onClick={onEditComponent}
         >
@@ -157,7 +144,7 @@ export const ElementContextMenu = ({
         </Menu.Item>
       ) : (
         <Menu.Item
-          hidden={hideForRoot}
+          // hidden={hideForRoot}
           key="convert-component"
           onClick={onConvert}
         >
@@ -165,12 +152,12 @@ export const ElementContextMenu = ({
         </Menu.Item>
       )}
 
-      <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>
-        <span>Delete `{element.name}` </span>{' '}
-        <span>
-          <Key>del</Key> <Key>{'\u232B'}</Key>
-        </span>
-      </Menu.Item>
+      {/* <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>*/}
+      {/*  <span>Delete `{element.name}` </span>{' '}*/}
+      {/*  <span>*/}
+      {/*    <Key>del</Key> <Key>{'\u232B'}</Key>*/}
+      {/*  </span>*/}
+      {/* </Menu.Item>*/}
     </Menu>
   )
 }

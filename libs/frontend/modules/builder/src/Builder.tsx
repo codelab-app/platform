@@ -51,24 +51,6 @@ const BuilderRenderer = observer(
     const { onRendered } = useOnRendered()
     const extraElementProps = useSelector(builderSelectors.extraProps)
     const voidClick = useCallback(() => void 0, [])
-<<<<<<< HEAD
-    const { typesById } = useTypesByIdQuery(typeService)
-
-    return (
-      <Renderer
-        context={{
-          onRendered,
-          extraElementProps,
-          extraProps: {
-            onClick: voidClick,
-          },
-        }}
-        isComponentRenderer={isComponentBuilder}
-        tree={tree}
-        typesById={typesById}
-      />
-    )
-=======
     // const { typesById } = useTypesByIdQuery(typeStore)
 
     return null
@@ -86,7 +68,6 @@ const BuilderRenderer = observer(
     //     typesById={typesById}
     //   />
     // )
->>>>>>> 950c7f31b (wip: mobx element, component, renderer)
   },
 )
 
@@ -121,7 +102,7 @@ export const Builder = observer(
     const { selectElement, resetSelection } = useBuilderDispatch()
 
     // const { handleMouseOver, handleMouseLeave } =
-    //   useBuilderHoverHandlers(elementStore)
+    //   useBuilderHoverHandlers(elementService)
 
     // const root = isComponentBuilder
     //   ? tree.getRootComponent()
@@ -157,28 +138,6 @@ export const Builder = observer(
 
     useBuilderHotkeys()
 
-<<<<<<< HEAD
-    return (
-      <StyledBuilderContainer
-        css={tw`relative w-full h-full bg-white`}
-        id="Builder"
-        onClick={handleContainerClick}
-        onMouseLeave={handleMouseLeave}
-        onMouseOver={handleMouseOver}
-      >
-        <BuilderDropHandler root={root} />
-        <BuilderDropHandlers tree={tree} />
-        <BuilderRenderer
-          isComponentBuilder={isComponentBuilder}
-          tree={elementTree}
-          typeService={typeService}
-        />
-        <BuilderHoverOverlay />
-        <BuilderClickOverlay />
-        {children}
-      </StyledBuilderContainer>
-    )
-=======
     return null
     // return (
     //   <StyledBuilderContainer
@@ -200,6 +159,5 @@ export const Builder = observer(
     //     {children}
     //   </StyledBuilderContainer>
     // )
->>>>>>> 950c7f31b (wip: mobx element, component, renderer)
   },
 )
