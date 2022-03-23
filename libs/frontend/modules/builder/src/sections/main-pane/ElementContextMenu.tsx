@@ -1,14 +1,9 @@
-import { useUser } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  Element,
-  elementRef,
-  ElementService,
-} from '@codelab/frontend/modules/element'
-import { Key } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/frontend/abstract/core'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { EntityLike, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { ElementTree } from '@codelab/shared/core'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Menu } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -22,89 +17,107 @@ export interface ElementContextMenuProps {
 /**
  * The right-click menu in the element tree
  */
-export const ElementContextMenu = observer(
-  ({ element, onClick, onBlur, elementService }: ElementContextMenuProps) => {
-    const { push } = useRouter()
-    const { user } = useUser()
-    const isComponentInstance = !!element.instanceOfComponent
-    const hideForRoot = elementService.elementTree.root?.id === element.id
+export const ElementContextMenu = ({
+  element,
+  onClick,
+  onBlur,
+}: ElementContextMenuProps) => {
+  // const [convertToComponent] = useConvertElementsToComponentsMutation()
+  // const [createElement] = useDuplicateElementMutation()
+  // const { push } = useRouter()
+  // const { elementTree } = useElementGraphContext()
+  // const { user } = useUserState()
+  // const { openCreateModal, openDeleteModal } = useElementDispatch()
+  const isComponentInstance = !!element.instanceOfComponent
+  // const hideForRoot = elementTree?.getRootVertex()?.id === element.id
 
-    const onAddChild = () => {
-      return elementService.createModal.open({
-        parentElement: elementRef(element),
-      })
-    }
+  const onAddChild = () => {
+    // openCreateModal({ parentElementId: element.id })
+  }
 
-    const onDelete = () => {
-      return elementService.deleteModal.open(elementRef(element))
-    }
+  const onDelete = () => {
+    // openDeleteModal({
+    //   deleteIds: [element.id],
+    //   entity: element,
+    // })
+  }
+
+  const onDuplicate = () => {
+    // createElement({
+    //   variables: { input: { elementId: element.id } },
+    // })
+  }
 
     const onDuplicate = () => {
       if (!user?.sub) {
         return
       }
 
-      return elementService.duplicateElement(element, user.sub)
-    }
+    // const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
+    //   create: {
+    //     node: {
+    //       owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
+    //       name: element.name || element.atom?.name || element.id,
+    //       rootElement: getElementCreationInput(element, elementTree),
+    //     },
+    //   },
+    // }
+    //
+    // return convertToComponent({
+    //   variables: {
+    //     where: { id: element.id },
+    //     update: {
+    //       instanceOfComponent,
+    //       children: [{ disconnect: [{ where: {} }] }],
+    //       hooks: [{ disconnect: [{ where: {} }] }],
+    //       propMapBindings: [{ disconnect: [{ where: {} }] }],
+    //       atom: { disconnect: { where: {} } },
+    //       props: { disconnect: { where: {} } },
+    //     },
+    //   },
+    // })
+  }
 
-    const onConvert = () => {
-      if (!user?.sub) {
-        return
-      }
+  const onEditComponent = () => {
+    // push({
+    //   pathname: PageType.ComponentDetail,
+    //   query: { componentId: element.instanceOfComponent?.id },
+    // })
+  }
 
       return elementService.convertElementToComponent(element, user.sub)
     }
 
-    const onEditComponent = () => {
-      push({
-        pathname: PageType.ComponentDetail,
-        query: { componentId: element.instanceOfComponent?.id },
-      })
-    }
+      {/* <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>*/}
+      {/*  Duplicate*/}
+      {/* </Menu.Item>*/}
 
-    return (
-      <Menu
-        css={tw`border border-gray-200 shadow-xl`}
-        onBlur={onBlur}
-        onClick={() => onClick?.()}
-      >
-        {!isComponentInstance && (
-          <Menu.Item key="add-child" onClick={onAddChild}>
-            Add child
-          </Menu.Item>
-        )}
-
-        <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>
-          Duplicate
+      {isComponentInstance ? (
+        <Menu.Item
+          // hidden={hideForRoot}
+          key="edit-component"
+          onClick={onEditComponent}
+        >
+          Edit Component
         </Menu.Item>
-
-        {isComponentInstance ? (
-          <Menu.Item
-            // hidden={hideForRoot}
-            key="edit-component"
-            onClick={onEditComponent}
-          >
-            Edit Component
-          </Menu.Item>
-        ) : (
-          <Menu.Item
-            hidden={hideForRoot}
-            key="convert-component"
-            onClick={onConvert}
-          >
-            Convert To Component
-          </Menu.Item>
-        )}
-
-        <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>
-          <span>Delete `{element.name}` </span>{' '}
-          <span>
-            <Key>del</Key> <Key>{'\u232B'}</Key>
-          </span>
+      ) : (
+        <Menu.Item
+          // hidden={hideForRoot}
+          key="convert-component"
+          onClick={onConvert}
+        >
+          Convert To Component
         </Menu.Item>
-      </Menu>
-    )
-  },
-)
+      )}
+
+      {/* <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>*/}
+      {/*  <span>Delete `{element.name}` </span>{' '}*/}
+      {/*  <span>*/}
+      {/*    <Key>del</Key> <Key>{'\u232B'}</Key>*/}
+      {/*  </span>*/}
+      {/* </Menu.Item>*/}
+    </Menu>
+  )
+}
 
 ElementContextMenu.displayName = 'ElementContextMenu'

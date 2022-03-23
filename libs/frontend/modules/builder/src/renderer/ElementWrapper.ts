@@ -4,11 +4,11 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { atoms } from '../atoms/atoms'
-import { RendererModel } from './RendererModel'
 import { RenderOutput } from './RenderOutput'
+import { RenderService } from './RenderService'
 
 export interface ElementWrapperProps {
-  renderModel: RendererModel
+  renderModel: RenderService
   element: ElementModel
   extraElementProps?: PropsDataByElementId
 }

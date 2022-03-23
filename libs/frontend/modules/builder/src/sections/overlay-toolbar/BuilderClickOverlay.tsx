@@ -1,8 +1,4 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import {
-  elementRef,
-  WithElementService,
-} from '@codelab/frontend/modules/element'
 import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
@@ -34,9 +30,9 @@ const StyledOverlayButtonGroup = styled.div`
   }
 `
 
-export interface BuilderClickOverlayProps
-  extends WithElementService,
-    WithBuilderService {}
+export const BuilderClickOverlay = () => {
+  const { selectedElement } = useBuilderSelectedElement()
+  // const { openDeleteModal, openCreateModal } = useElementDispatch()
 
 export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
   ({ builderService, elementService }) => {
@@ -60,15 +56,11 @@ export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
             onClick={(e) => {
               e.stopPropagation()
 
-              elementService.createModal.open({
-                parentElement: selectedElement?.instanceOfComponent
-                  ? undefined
-                  : elementRef(selectedElement),
-              })
-            }}
-            size="small"
-            type="text"
-          />
+            // return openCreateModal({ parentElementId: selectedElement.id })
+          }}
+          size="small"
+          type="text"
+        />
 
           <Button
             danger
@@ -76,14 +68,17 @@ export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
             onClick={(e) => {
               e.stopPropagation()
 
-              elementService.deleteModal.open(elementRef(selectedElement))
-            }}
-            size="small"
-            type="text"
-          />
-        </StyledOverlayButtonGroup>
-      </StyledOverlayContainer>
-    )
+            // return openDeleteModal({
+            //   deleteIds: [selectedElement.id],
+            //   entity: selectedElement,
+            // })
+          }}
+          size="small"
+          type="text"
+        />
+      </StyledOverlayButtonGroup>
+    </StyledOverlayContainer>
+  )
 
     return (
       <ClickOverlay

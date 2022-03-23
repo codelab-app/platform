@@ -1,8 +1,5 @@
+import { Atom, atomServiceContext } from '@codelab/frontend/modules/atom'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import {
-  CreatePropMapBindingInput,
-  UpdatePropMapBindingData,
-} from '@codelab/shared/abstract/codegen'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -13,6 +10,7 @@ import {
   _async,
   _await,
   ExtendedModel,
+  frozen,
   Model,
   model,
   modelClass,
@@ -24,19 +22,10 @@ import {
 import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
 import { MoveData } from '../use-cases/element/move-element/types'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
-import { elementApi, propMapBindingApi } from './apis'
-import {
-  makeCreateInput,
-  makeDuplicateInput,
-  makeUpdateInput,
-} from './apiUtils'
-import { Element } from './Element'
+import { elementApi } from './apis'
+import { makeCreateInput, makeUpdateInput } from './apiUtils'
+import { ElementModel } from './ElementModel'
 import { ElementTree } from './ElementTree'
-import { PropMapBinding } from './PropMapBinding'
-
-export type WithElementService = {
-  elementService: ElementService
-}
 
 /**
  * Element stores a tree of elements locally using an ElementTree
@@ -49,20 +38,36 @@ export class ElementService extends Model({
   createModal: prop(() => new CreateElementModalService({})),
   updateModal: prop(() => new ElementModalService({})),
   deleteModal: prop(() => new ElementModalService({})),
-
-  createPropMapBindingModal: prop(() => new ElementModalService({})),
-  updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
-  deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 }) {
   @modelFlow
+  @transaction
   getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementsGraph({ input: { rootId } }),
     )
 
-    this.elementTree.updateFromFragment(elementGraph, rootId)
+    // Add all non-existing atoms to the AtomStore, so we can reference them safely in Element
+    for (const vertex of elementGraph.vertices) {
+      if (!vertex.atom) {
+        continue
+      }
 
-    return this.elementTree
+      const atomStore = atomServiceContext.get(this)
+
+      if (!atomStore) {
+        throw new Error('atomServiceContext is not defined')
+      }
+
+      const existing = atomStore.atom(vertex.atom.id)
+
+      if (existing) {
+        existing.updateFromFragment(vertex.atom)
+      } else {
+        atomStore.addAtom(Atom.fromFragment(vertex.atom))
+      }
+    }
+
+    this.elementTree.updateFromFragment(elementGraph)
   })
 
   @modelFlow
@@ -88,21 +93,18 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const [element] = this.elementTree.addOrUpdateAll([createdElement])
-
-    return element
+    const element = ElementModel.fromFragment(createdElement)
+    this.elementTree.addElement(element)
   })
 
   @modelFlow
   @transaction
   updateElement = _async(function* (
     this: ElementService,
-    element: Element,
+    element: ElementModel,
     input: UpdateElementInput,
   ) {
     const updateInput = makeUpdateInput(input)
-
-    element.setName(input.name)
 
     return yield* _await(this.patchElement(element, updateInput))
   })
@@ -111,7 +113,7 @@ export class ElementService extends Model({
   @transaction
   updateElementsPropTransformationJs = _async(function* (
     this: ElementService,
-    element: Element,
+    element: ElementModel,
     newPropTransformJs: string,
   ) {
     const input: ElementUpdateInput = {
@@ -125,7 +127,7 @@ export class ElementService extends Model({
   @transaction
   updateElementCss = _async(function* (
     this: ElementService,
-    element: Element,
+    element: ElementModel,
     newCss: string,
   ) {
     const input: ElementUpdateInput = { css: newCss }
@@ -148,6 +150,14 @@ export class ElementService extends Model({
       order,
     )
 
+    if (
+      targetElement.parentElement?.id === targetElementId &&
+      targetElement.order === order
+    ) {
+      // everything is the same, no need to call the server
+      return
+    }
+
     const input: ElementUpdateInput = {
       parentElement: {
         disconnect: { where: {} },
@@ -162,10 +172,12 @@ export class ElementService extends Model({
   @transaction
   updateElementProps = _async(function* (
     this: ElementService,
-    element: Element,
+    element: ElementModel,
     data: PropsData,
   ) {
     const createOrUpdate = element.props ? 'update' : 'create'
+
+    element.props?.setData(frozen(data))
 
     const input: ElementUpdateInput = {
       props: { [createOrUpdate]: { node: { data: JSON.stringify(data) } } },
@@ -181,7 +193,7 @@ export class ElementService extends Model({
   @transaction
   private patchElement = _async(function* (
     this: ElementService,
-    element: Element,
+    element: ElementModel,
     input: ElementUpdateInput,
   ) {
     const {
@@ -210,13 +222,13 @@ export class ElementService extends Model({
     this: ElementService,
     rootId: string,
   ) {
-    const deletedRoot = this.elementTree.element(rootId)
+    const root = this.elementTree.element(rootId)
 
-    if (!deletedRoot) {
+    if (!root) {
       throw new Error('Deleted element not found')
     }
 
-    this.elementTree.removeElementAndDescendants(deletedRoot)
+    this.elementTree.removeElementAndDescendants(root)
 
     const {
       deleteElementsSubgraph: { nodesDeleted },
@@ -228,237 +240,13 @@ export class ElementService extends Model({
       throw new Error('No elements deleted')
     }
 
-    return deletedRoot
-  })
-
-  @modelFlow
-  @transaction
-  duplicateElement = _async(function* (
-    this: ElementService,
-    targetElement: Element,
-    userId: string,
-  ) {
-    if (!targetElement.parentElement) {
-      throw new Error("Can't duplicate root element")
-    }
-
-    const oldToNewIdMap = new Map<string, string>()
-
-    const recursiveDuplicate = async (element: Element, parentId: string) => {
-      const createInput: ElementCreateInput = makeDuplicateInput(
-        element,
-        parentId,
-        userId,
-      )
-
-      const {
-        createElements: {
-          elements: [createdElement],
-        },
-      } = await elementApi.CreateElements({ input: createInput })
-
-      if (!createdElement) {
-        throw new Error('No elements created')
-      }
-
-      const [elementModel] = this.elementTree.addOrUpdateAll([createdElement])
-
-      oldToNewIdMap.set(element.id, elementModel.id)
-
-      for (const child of element.childrenSorted) {
-        await recursiveDuplicate(child, elementModel.id)
-      }
-
-      return elementModel
-    }
-
-    yield* _await(
-      recursiveDuplicate(targetElement, targetElement.parentElement.id),
-    )
-
-    // re-attach the prop map bindings now that we have the new ids
-    const allInputs = [targetElement, ...targetElement.descendants]
-
-    for (const inputElement of allInputs) {
-      const newId = oldToNewIdMap.get(inputElement.id)
-
-      if (!newId) {
-        throw new Error(`Could not find new id for ${inputElement.id}`)
-      }
-
-      const duplicated = this.elementTree.element(newId)
-
-      if (!duplicated) {
-        throw new Error(`Could not find duplicated element ${newId}`)
-      }
-
-      for (const propMapBinding of inputElement.propMapBindings.values()) {
-        yield* _await(
-          this.createPropMapBinding(duplicated, {
-            elementId: newId,
-            targetElementId: propMapBinding.targetElement
-              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
-              : undefined,
-            targetKey: propMapBinding.targetKey,
-            sourceKey: propMapBinding.sourceKey,
-          }),
-        )
-      }
-    }
-  })
-
-  @modelFlow
-  @transaction
-  convertElementToComponent = _async(function* (
-    this: ElementService,
-    element: Element,
-    userId: string,
-  ) {
-    if (!element.parentElement) {
-      throw new Error("Can't convert root element")
-    }
-
-    // 1. Attach a Component to the Element and detach it from the parent
-    const parentId = element.parentElement.id
-
-    const order =
-      element.orderInParent ?? element.parentElement.lastChildOrder + 1
-
-    element.parentElement.removeChild(element)
-
-    yield* _await(
-      this.patchElement(element, {
-        parentElement: { disconnect: { where: {} } },
-        component: {
-          create: {
-            node: {
-              name: element.label,
-              owner: { connect: { where: { node: { auth0Id: userId } } } },
-            },
-          },
-        },
-      }),
-    )
-
-    if (!element.component) {
-      throw new Error('Could not find component')
-    }
-
-    // 2. Make an intermediate element with instance of the Component
-    yield* _await(
-      this.createElement({
-        name: element.label,
-        instanceOfComponentId: element.component.id,
-        parentElementId: parentId,
-        order,
-      }),
-    )
-  })
-
-  @modelFlow
-  @transaction
-  createPropMapBinding = _async(function* (
-    this: ElementService,
-    element: Element,
-    createInput: CreatePropMapBindingInput,
-  ) {
-    const {
-      createPropMapBindings: {
-        propMapBindings: [createdPropMapBinding],
-      },
-    } = yield* _await(
-      propMapBindingApi.CreatePropMapBindings({
-        input: {
-          sourceKey: createInput.sourceKey.trim(),
-          targetKey: createInput.targetKey.trim(),
-          element: {
-            connect: { where: { node: { id: element.id } } },
-          },
-          targetElement: createInput.targetElementId
-            ? {
-                connect: {
-                  where: { node: { id: createInput.targetElementId } },
-                },
-              }
-            : undefined,
-        },
-      }),
-    )
-
-    if (!createdPropMapBinding) {
-      throw new Error('No prop map bindings created')
-    }
-
-    const propMapBinding = PropMapBinding.fromFragment(createdPropMapBinding)
-
-    element.addPropMapBinding(propMapBinding)
-
-    return propMapBinding
-  })
-
-  @modelFlow
-  @transaction
-  updatePropMapBinding = _async(function* (
-    this: ElementService,
-    element: Element,
-    propMapBinding: PropMapBinding,
-    updateData: UpdatePropMapBindingData,
-  ) {
-    const {
-      updatePropMapBindings: {
-        propMapBindings: [updatedPropMapBinding],
-      },
-    } = yield* _await(
-      propMapBindingApi.UpdatePropMapBindings({
-        where: { id: propMapBinding.id },
-        update: {
-          sourceKey: updateData.sourceKey,
-          targetKey: updateData.targetKey,
-          targetElement: {
-            connect: { where: { node: { id: updateData.targetElementId } } },
-            disconnect: { where: {} },
-          },
-        },
-      }),
-    )
-
-    if (!updatedPropMapBinding) {
-      throw new Error('No prop map bindings updated')
-    }
-
-    propMapBinding.updateFromFragment(updatedPropMapBinding)
-
-    return propMapBinding
-  })
-
-  @modelFlow
-  @transaction
-  deletePropMapBinding = _async(function* (
-    this: ElementService,
-    element: Element,
-    propMapBinding: PropMapBinding,
-  ) {
-    const {
-      deletePropMapBindings: { nodesDeleted },
-    } = yield* _await(
-      propMapBindingApi.DeletePropMapBindings({
-        where: { id: propMapBinding.id },
-      }),
-    )
-
-    if (nodesDeleted === 0) {
-      throw new Error('No prop map bindings deleted')
-    }
-
-    element.removePropMapBinding(propMapBinding)
-
-    return propMapBinding
+    return root
   })
 }
 
 @model('codelab/ElementModalService')
 class ElementModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalService<Ref<Element>>>(ModalService),
+  baseModel: modelClass<ModalService<Ref<ElementModel>>>(ModalService),
   props: {},
 })) {
   @computed
@@ -470,32 +258,13 @@ class ElementModalService extends ExtendedModel(() => ({
 @model('codelab/CreateElementModalService')
 class CreateElementModalService extends ExtendedModel(() => ({
   baseModel:
-    modelClass<ModalService<{ parentElement?: Ref<Element> }>>(ModalService),
+    modelClass<ModalService<{ parentElement?: Ref<ElementModel> }>>(
+      ModalService,
+    ),
   props: {},
 })) {
   @computed
   get parentElement() {
-    return this.metadata?.parentElement ?? null
-  }
-}
-
-@model('codelab/PropMapBindingModalService')
-class PropMapBindingModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<
-    ModalService<{
-      propMapBinding: Ref<PropMapBinding>
-      element: Ref<Element>
-    }>
-  >(ModalService),
-  props: {},
-})) {
-  @computed
-  get propMapBinding() {
-    return this.metadata?.propMapBinding.current ?? null
-  }
-
-  @computed
-  get element() {
-    return this.metadata?.element.current ?? null
+    return this.metadata?.parentElement?.current ?? null
   }
 }

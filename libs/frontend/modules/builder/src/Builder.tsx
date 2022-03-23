@@ -102,7 +102,7 @@ export const Builder = observer(
     const { selectElement, resetSelection } = useBuilderDispatch()
 
     // const { handleMouseOver, handleMouseLeave } =
-    //   useBuilderHoverHandlers(elementStore)
+    //   useBuilderHoverHandlers(elementService)
 
     // const root = isComponentBuilder
     //   ? tree.getRootComponent()

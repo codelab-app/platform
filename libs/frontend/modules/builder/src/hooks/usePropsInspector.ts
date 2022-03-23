@@ -1,4 +1,3 @@
-import { Element, ElementService } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -7,12 +6,11 @@ import { autorun } from 'mobx'
 import { useCallback, useEffect, useState } from 'react'
 import { BuilderService } from '../store/BuilderService'
 
-export const usePropsInspector = (
-  element: Element,
-  builderService: BuilderService,
-  elementService: ElementService,
-) => {
-  const [isLoading, setIsLoading] = useState(false)
+export const usePropsInspector = (elementId: string) => {
+  const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
+  const { setExtraPropsForElement } = useBuilderDispatch()
+  // const [mutate, { isLoading }] = useUpdateElementsMutation()
+  // const element = useGetElementById(elementId)
 
   const [persistedProps, setPersistedProps] = useState<Maybe<string>>(
     element.props?.jsonString ?? '{}',
@@ -43,11 +41,19 @@ export const usePropsInspector = (
     }
 
     try {
-      setIsLoading(true)
-      await elementService.updateElementProps(
-        element,
-        JSON.parse(persistedProps),
-      )
+      // const createOrUpdate = element?.props ? 'update' : 'create'
+      // await mutate({
+      //   variables: {
+      //     where: { id: elementId },
+      //     update: {
+      //       props: {
+      //         [createOrUpdate]: {
+      //           node: { data: JSON.stringify(JSON.parse(persistedProps)) },
+      //         },
+      //       },
+      //     },
+      //   },
+      // }).unwrap()
     } catch (e) {
       console.error(e)
       notify({ title: 'Invalid json', type: 'warning' })
@@ -56,13 +62,17 @@ export const usePropsInspector = (
     }
   }
 
-  useEffect(
-    () =>
-      autorun(() => {
-        setPersistedProps(element.props?.jsonString ?? '{}')
-      }),
-    [element.props],
-  )
+  // useEffect(() => {
+  //   if (element?.props) {
+  //     try {
+  //       setPersistedProps(
+  //         JSON.stringify(JSON.parse(element?.props.data), null, 4),
+  //       )
+  //     } catch (e) {
+  //       console.warn("Couldn't parse element props", element?.props)
+  //     }
+  //   }
+  // }, [element?.props])
 
   useEffect(() => {
     return () => {
@@ -75,7 +85,7 @@ export const usePropsInspector = (
   return {
     lastRenderedPropsString,
     save,
-    isLoading,
+    isLoading: false,
     persistedProps,
     setPersistedProps,
     setExtraPropsForElement: setExtraProps,

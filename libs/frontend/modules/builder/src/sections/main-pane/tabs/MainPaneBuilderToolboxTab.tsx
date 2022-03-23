@@ -1,9 +1,6 @@
 import { DragOutlined } from '@ant-design/icons'
-import { Atom, AtomService } from '@codelab/frontend/modules/atom'
-import {
-  Component,
-  ComponentService,
-} from '@codelab/frontend/modules/component'
+import { AtomService } from '@codelab/frontend/modules/atom'
+// import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
@@ -78,25 +75,21 @@ export const MainPaneBuilderToolboxTab = observer(
     )
 
     useEffect(() => {
-      return autorun(() => {
-        const componentsList = componentService.componentsList
-        const atomsList = atomService.atomsList
+      getAtoms()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-        const toolboxItems: Array<ToolboxItem> = [
-          ...atomsList.map(atomToolboxItemFactory),
-          ...componentsList.map(componentToolboxItemFactory),
-        ]
+    const search = searchQuery
+      ? { variables: { where: { name_CONTAINS: searchQuery } } }
+      : {}
 
-        fuseRef.current.setCollection(toolboxItems)
+    // const componentsResponse = useGetComponentsQuery(search)
+    // const components = componentsResponse.data?.components || []
 
-        if (searchQuery) {
-          const results = fuseRef.current.search(searchQuery)
-          setFilteredItems(results.map((r) => r.item))
-        } else {
-          setFilteredItems(toolboxItems)
-        }
-      })
-    }, [searchQuery])
+    const toolboxItems: Array<ToolboxItem> = [
+      ...atomsList.map(atomToolboxItemFactory),
+      // ...components.map(componentToolboxItemFactory),
+    ]
 
     return (
       <div
@@ -110,8 +103,11 @@ export const MainPaneBuilderToolboxTab = observer(
         `}
         ref={setNodeRef}
       >
-        <SpinnerWrapper isLoading={isLoadingAtoms || isLoadingComponents}>
-          {filteredItems.map((item) => (
+        <SpinnerWrapper
+          isLoading={false}
+          // isLoading={isLoadingAtoms || componentsResponse.isLoading}
+        >
+          {toolboxItems.map((item) => (
             <ToolboxItemView key={item.id} toolboxItem={item} />
           ))}
         </SpinnerWrapper>

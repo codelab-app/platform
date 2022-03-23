@@ -7,17 +7,17 @@ import {
 import { PropsData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { ElementModel, ElementStore } from '../../../store'
+import { ElementModel, ElementService } from '../../../store'
 
 export interface UpdateElementPropsFormProps extends WithTypeService {
   element: ElementModel
-  elementStore: ElementStore
+  elementService: ElementService
   trackPromises?: UseTrackLoadingPromises
 }
 
 export const UpdateElementPropsForm = observer(
   ({
-    elementStore,
+    elementService,
     element,
     trackPromises,
     typeService,
@@ -39,7 +39,7 @@ export const UpdateElementPropsForm = observer(
     }, [getInterfaceType, apiId])
 
     const onSubmit = (data: PropsData) => {
-      const promise = elementStore.updateElementProps(element, data)
+      const promise = elementService.updateElementProps(element, data)
 
       return trackPromise?.(promise) ?? promise
     }

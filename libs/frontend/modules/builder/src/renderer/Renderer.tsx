@@ -3,10 +3,10 @@ import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ElementWrapper } from './ElementWrapper'
-import { RendererModel } from './RendererModel'
+import { RenderService } from './RenderService'
 
 export interface RendererProps {
-  renderModel: RendererModel
+  renderModel: RenderService
 }
 
 /**
@@ -19,7 +19,7 @@ export const Renderer = observer(({ renderModel }: RendererProps) => {
   const root = renderModel.tree.root
 
   if (!root) {
-    console.warn('RendererModel: No root element found')
+    console.warn('RenderService: No root element found')
 
     return null
   }

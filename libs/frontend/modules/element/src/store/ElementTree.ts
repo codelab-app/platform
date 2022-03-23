@@ -35,7 +35,7 @@ const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
 /**
  * ElementTree is a mobx store that holds the tree of elements.
  * It is used as a local observable store for a tree of elements.
- * It doesn't handle remote data, use elementStore for that
+ * It doesn't handle remote data, use elementService for that
  */
 @model('@codelab,ElementTree')
 export class ElementTree extends Model({

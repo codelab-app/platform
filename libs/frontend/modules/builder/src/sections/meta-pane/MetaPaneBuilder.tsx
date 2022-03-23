@@ -1,12 +1,7 @@
 import { WithAtomService } from '@codelab/frontend/modules/atom'
 import {
-  Element,
-  ElementCssEditor,
   ElementHookSection,
   PropMapBindingSection,
-  UpdateElementPropsForm,
-  UpdateElementPropTransformationForm,
-  WithElementService,
 } from '@codelab/frontend/modules/element'
 import { WithTypeService } from '@codelab/frontend/modules/type'
 import {
@@ -115,17 +110,16 @@ export const MetaPaneBuilder = observer(
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Props" // needed to update props if we change them in the prop inspector tab
           >
-            {selectedElement.atom ? (
-              <UpdateElementPropsForm
-                element={selectedElement}
-                elementService={elementService}
-                key={selectedElement.id}
-                trackPromises={trackPromises}
-                typeService={typeService}
-              />
-            ) : (
-              `Add an atom to this element to edit its props`
-            )}
+            {/* {selectedElement.atom ? (*/}
+            {/*  <UpdateElementPropsForm*/}
+            {/*    elementId={selectedElement.id}*/}
+            {/*    key={selectedElement.id}*/}
+            {/*    trackPromises={trackPromises}*/}
+            {/*    typeService={typeService}*/}
+            {/*  />*/}
+            {/* ) : (*/}
+            {/*  `Add an atom to this element to edit its props`*/}
+            {/* )}*/}
           </Tabs.TabPane>
 
           <Tabs.TabPane
@@ -133,16 +127,15 @@ export const MetaPaneBuilder = observer(
             style={{ overflow: 'visible' }}
             tab="CSS"
           >
-            {selectedElement.atom ? (
-              <ElementCssEditor
-                element={selectedElement}
-                elementService={elementService}
-                key={selectedElement.id}
-                trackPromises={trackPromises}
-              />
-            ) : (
-              `Add an atom to this page element to edit its CSS`
-            )}
+            {/* {selectedElement.atom ? (*/}
+            {/*  <ElementCssEditor*/}
+            {/*    elementId={selectedElement.id}*/}
+            {/*    key={selectedElement.id}*/}
+            {/*    trackPromises={trackPromises}*/}
+            {/*  />*/}
+            {/* ) : (*/}
+            {/*  `Add an atom to this page element to edit its CSS`*/}
+            {/* )}*/}
           </Tabs.TabPane>
 
           <Tabs.TabPane
@@ -193,12 +186,12 @@ export const MetaPaneBuilder = observer(
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Prop transformation"
           >
-            <UpdateElementPropTransformationForm
-              element={selectedElement}
-              elementService={elementService}
-              key={selectedElement.id}
-              trackPromises={trackPromises}
-            />
+            {/* <UpdateElementPropTransformationForm*/}
+            {/*  elementId={selectedElement.id}*/}
+            {/*  key={selectedElement.id}*/}
+            {/*  trackPromises={trackPromises}*/}
+            {/*  tree={tree}*/}
+            {/*/ >*/}
           </Tabs.TabPane>
         </Tabs>
       </TabContainer>

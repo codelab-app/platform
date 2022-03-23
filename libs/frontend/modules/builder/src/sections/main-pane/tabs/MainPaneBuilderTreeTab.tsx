@@ -1,62 +1,65 @@
-import {
-  Element,
-  elementRef,
-  WithElementService,
-} from '@codelab/frontend/modules/element'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { Dropdown, Tree as AntdTree } from 'antd'
-import { observer } from 'mobx-react-lite'
+import { ElementTree } from '@codelab/shared/core'
+import { Dropdown } from 'antd'
 import { DataNode } from 'rc-tree/lib/interface'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
-import { WithBuilderService } from '../../../store/BuilderService'
+import {
+  useBuilderHoveringElement,
+  useBuilderSelectedElement,
+} from '../../../hooks'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-type MainPaneBuilderTreeTabProps = WithBuilderService & WithElementService
+type MainPaneBuilderTreeTabProps = {
+  isComponentBuilder?: boolean
+  rootId: string
+}
 
-export const MainPaneBuilderTreeTab = observer<MainPaneBuilderTreeTabProps>(
-  ({ builderService, elementService }) => {
-    const { setExpandedNodeIds, expandedNodeIds } =
-      useExpandedNodes(builderService)
+export const MainPaneBuilderTreeTab = ({
+  rootId,
+}: MainPaneBuilderTreeTabProps) => {
+  // const { elementTree } = useElementGraphContext()
+  // const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
+  // we have main tree and components trees.
+  // so we need the root to find the correct one
+  // const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
+  // const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
+  const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
+  const { setHoveringElement } = useBuilderHoveringElement()
 
-    const { isMoving, handleDrop } = useElementTreeDrop(elementService)
-    const antdTree = elementService.elementTree.root?.antdNode
+  // if (!elementTree) {
+  //   return null
+  // }
+  return null
 
-    return (
-      <AntdTree
-        blockNode
-        className="draggable-tree"
-        disabled={isMoving}
-        draggable
-        expandedKeys={expandedNodeIds}
-        onClick={(e) => e.stopPropagation()}
-        onDrop={handleDrop}
-        onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
-        onMouseEnter={({ node }) => {
-          builderService.setHoveredElement(elementRef(node.key.toString()))
-        }}
-        onMouseLeave={() => builderService.setHoveredElement(null)}
-        onSelect={([id], { nativeEvent, node }) => {
-          nativeEvent.stopPropagation()
-
-          if (id) {
-            builderService.setSelectedElement(elementRef(node.key.toString()))
-          }
-        }}
-        selectedKeys={
-          builderService.selectedElement
-            ? [builderService.selectedElement.id]
-            : []
-        }
-        titleRender={(node) => (
-          <TreeItemTitle elementService={elementService} node={node} />
-        )}
-        treeData={antdTree ? [antdTree] : []}
-      />
-    )
-  },
-)
+  // return (
+  //   <AntdTree
+  //     blockNode
+  //     className="draggable-tree"
+  //     disabled={isMoving}
+  //     draggable
+  //     expandedKeys={expandedNodeIds}
+  //     onClick={(e) => e.stopPropagation()}
+  //     onDrop={handleDrop}
+  //     onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+  //     onMouseEnter={({ node }: any) => {
+  //       setHoveringElement(node.id)
+  //     }}
+  //     onMouseLeave={() => setHoveringElement(undefined)}
+  //     onSelect={([id], { nativeEvent, node }) => {
+  //       nativeEvent.stopPropagation()
+  //
+  //       if (id) {
+  //         setSelectedElement(id.toString())
+  //       }
+  //     }}
+  //     selectedKeys={selectedElement ? [selectedElement.id] : []}
+  //     titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
+  //     treeData={antdTree ? [antdTree] : []}
+  //   />
+  // )
+}
 
 MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'
 

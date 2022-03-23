@@ -1,4 +1,3 @@
-import { elementRef, ElementService } from '@codelab/frontend/modules/element'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { BuilderService } from '../store/BuilderService'
 
@@ -7,17 +6,19 @@ import { BuilderService } from '../store/BuilderService'
  * - Del,backspace -> opens delete selected element modal
  * - Esc -> de-selects element
  */
-export const useBuilderHotkeys = (
-  builderService: BuilderService,
-  elementService: ElementService,
-) => {
+export const useBuilderHotkeys = () => {
+  // const { openDeleteModal } = useElementDispatch()
+  const { selectElement } = useBuilderDispatch()
+  const { selectedElement, selectedElementId } = useBuilderSelectedElement()
+
   useHotkeys(
     'del,backspace',
     () => {
-      if (builderService.selectedElement?.maybeCurrent) {
-        elementService.deleteModal.open(
-          elementRef(builderService.selectedElement.current),
-        )
+      if (selectedElement) {
+        // openDeleteModal({
+        //   deleteIds: [selectedElement.id],
+        //   entity: selectedElement,
+        // })
       }
     },
     { enabled: !!builderService.selectedElement },

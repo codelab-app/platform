@@ -37,11 +37,25 @@ export class Atom extends Model({
   api: prop<Ref<InterfaceType>>(),
 }) {
   @modelAction
-  updateFromFragment(atom: AtomFromFragmentInput) {
+  updateFromFragment(
+    atom: Omit<AtomFragment, 'api' | '__typename'> & { api: { id: string } },
+  ) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tagIds = atom.tags.map((tag) => tag.id)
+  }
+
+  static fromFragment(
+    atom: Omit<AtomFragment, 'api' | '__typename'> & { api: { id: string } },
+  ) {
+    return new Atom({
+      id: atom.id,
+      name: atom.name,
+      type: atom.type,
+      api: typeRef(atom.api.id) as Ref<InterfaceType>,
+      tagIds: atom.tags.map((tag) => tag.id),
+    })
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

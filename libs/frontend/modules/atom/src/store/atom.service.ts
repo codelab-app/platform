@@ -6,7 +6,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  detach,
+  createContext,
   Model,
   model,
   modelAction,
@@ -14,7 +14,6 @@ import {
   objectMap,
   prop,
   Ref,
-  rootRef,
   transaction,
 } from 'mobx-keystone'
 import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
@@ -185,10 +184,5 @@ export class AtomService extends Model({
   })
 }
 
-export const atomStoreRef = rootRef<AtomService>('AtomServiceRef', {
-  onResolvedValueChange(ref, newAtom, oldAtom) {
-    if (oldAtom && !newAtom) {
-      detach(ref)
-    }
-  },
-})
+// This can be used to access the type store from anywhere inside the mobx-keystone tree
+export const atomServiceContext = createContext<AtomService>()

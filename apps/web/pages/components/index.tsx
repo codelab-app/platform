@@ -4,15 +4,9 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
-import {
-  CreateComponentModal,
-  DeleteComponentModal,
-  GetComponentsTable,
-  UpdateComponentModal,
-} from '@codelab/frontend/modules/component'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
+import { userSlice } from '@codelab/frontend/modules/user'
+// import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -36,21 +30,18 @@ const Components: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Components | Codelab</title>
       </Head>
 
-      <CreateComponentModal componentService={store.componentService} />
-      <UpdateComponentModal componentService={store.componentService} />
-      <DeleteComponentModal componentService={store.componentService} />
-      <ContentSection>
-        {isLoading && <Spin />}
-        {!isLoading && (
-          <GetComponentsTable componentService={store.componentService} />
-        )}
-      </ContentSection>
+      {/* <CreateComponentModal />*/}
+      {/* <UpdateComponentModal />*/}
+      {/* <DeleteComponentModal />*/}
+      {/* <ContentSection>*/}
+      {/*  <GetComponentsTable />*/}
+      {/* </ContentSection>*/}
     </>
   )
 })
 
-const Header = observer(() => {
-  const store = useStore()
+const Header = () => {
+  // const { openCreateModal } = useComponentDispatch()
 
   return (
     <PageHeader
@@ -58,7 +49,7 @@ const Header = observer(() => {
         <Button
           icon={<PlusOutlined />}
           key={0}
-          onClick={() => store.componentService.createModal.open()}
+          // onClick={() => openCreateModal()}
           size="small"
         />,
       ]}
@@ -66,6 +57,24 @@ const Header = observer(() => {
       title="Components"
     />
   )
+}
+
+export default Components
+
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: reduxStoreWrapper.getServerSideProps(
+    (store) =>
+      async ({ req, res }: GetServerSidePropsContext) => {
+        const session = await getSession(req, res)
+        getGraphQLClient().setHeaders({ cookie: `${req.headers.cookie}` })
+        // TODO investigate type issue
+        // store.dispatch(componentEndpoints.endpoints.GetComponents.initiate())
+        store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
+        // await Promise.all(componentEndpoints.util.getRunningOperationPromises())
+
+        return { props: {} }
+      },
+  ),
 })
 
 export const getServerSideProps = withPageAuthRequired({})

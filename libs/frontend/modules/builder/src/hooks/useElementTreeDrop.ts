@@ -1,4 +1,4 @@
-import { ElementService } from '@codelab/frontend/modules/element'
+import { ElementTree } from '@codelab/shared/core'
 import { TreeProps } from 'antd/lib/tree'
 
 /**
@@ -6,7 +6,7 @@ import { TreeProps } from 'antd/lib/tree'
  * This can be optimized to be handled in the API
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
-export const useElementTreeDrop = (elementService: ElementService) => {
+export const useElementTreeDrop = (tree: ElementTree) => {
   // const [moveElement, { isLoading }] = useMoveElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
@@ -27,20 +27,42 @@ export const useElementTreeDrop = (elementService: ElementService) => {
             ? dropElementOrder + 1
             : dropElementOrder
 
-        return elementService.moveElement(dragNodeId, {
-          parentElementId: dropNodeParentId,
-          order,
-        })
+        console.log(order)
+
+        // moveElement({
+        //   variables: {
+        //     where: { id: dragNodeId },
+        //     update: {
+        //       parentElement: {
+        //         disconnect: { where: {} },
+        //         connect: {
+        //           edge: { order },
+        //           where: { node: { id: dropNodeParentId } },
+        //         },
+        //       },
+        //     },
+        //   },
+        // }).catch(console.error)
       }
     } else {
       // FIXME
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
-      return elementService.moveElement(dragNodeId, {
-        parentElementId: dropNodeId,
-        order: e.dropPosition,
-      })
+      // return moveElement({
+      //   variables: {
+      //     where: { id: dragNodeId },
+      //     update: {
+      //       parentElement: {
+      //         disconnect: { where: {} },
+      //         connect: {
+      //           edge: { order: e.dropPosition },
+      //           where: { node: { id: dropNodeId } },
+      //         },
+      //       },
+      //     },
+      //   },
+      // })
     }
 
     return void 0

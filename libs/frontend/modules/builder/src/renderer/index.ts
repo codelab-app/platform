@@ -1,3 +1,3 @@
 export * from './renderContext'
 export * from './Renderer'
-export * from './RendererModel'
+export * from './RenderService'
