@@ -123,7 +123,7 @@ export class AtomService extends Model({
     const apiNode = {
       name: `${input.name} API`,
       owner: apiOwner,
-      descendantTypesIds: [],
+      // descendantTypesIds: [],
     }
 
     const tagsConnect = input.tags?.map((tag) => ({

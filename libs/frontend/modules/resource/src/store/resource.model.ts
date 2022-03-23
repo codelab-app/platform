@@ -9,5 +9,13 @@ export class Resource extends Model({
   name: tProp(types.string),
   type: tProp(types.enum(AtomType))
 }) {
+  static fromFragment(resource: ResourceFragment) {
+    return new Resource({
+      id: resource.id,
+      name: resource.name,
+      type: resource.atom.type,
+      // api: typeRef(resource.atom.api.id) as Ref<InterfaceType>,
+    })
+  }
 
 }

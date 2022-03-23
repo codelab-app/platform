@@ -19,7 +19,6 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.1.graphql.gen'
 export type InterfaceTypeFragment = {
-  descendantTypesIds: Array<string>
   fieldsConnection: { edges: Array<InterfaceTypeFieldEdgeFragment> }
 } & TypeBase_InterfaceType_Fragment
 
@@ -62,7 +61,6 @@ export const InterfaceTypeFragmentDoc = gql`
         ...InterfaceTypeFieldEdge
       }
     }
-    descendantTypesIds
   }
 `
 
