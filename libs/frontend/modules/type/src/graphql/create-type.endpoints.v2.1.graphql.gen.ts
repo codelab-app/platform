@@ -51,7 +51,7 @@ import { PageTypeFragment } from './fragments/PageType.fragment.v2.1.graphql.gen
 import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from './fragments/Type.fragment.v2.1.graphql.gen'
 import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.1.graphql.gen'
 import {
@@ -173,7 +173,7 @@ export type CreateMonacoTypesMutation = {
   types: { types: Array<Type_MonacoType_Fragment> }
 }
 
-export const CreatePrimitiveTypesGql = gql`
+export const CreatePrimitiveTypesDocument = gql`
   mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
     types: createPrimitiveTypes(input: $input) {
       types: primitiveTypes {
@@ -199,7 +199,7 @@ export const CreatePrimitiveTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateArrayTypesGql = gql`
+export const CreateArrayTypesDocument = gql`
   mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
     types: createArrayTypes(input: $input) {
       types: arrayTypes {
@@ -225,7 +225,7 @@ export const CreateArrayTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateUnionTypesGql = gql`
+export const CreateUnionTypesDocument = gql`
   mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
     types: createUnionTypes(input: $input) {
       types: unionTypes {
@@ -251,7 +251,7 @@ export const CreateUnionTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateInterfaceTypesGql = gql`
+export const CreateInterfaceTypesDocument = gql`
   mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
     types: createInterfaceTypes(input: $input) {
       types: interfaceTypes {
@@ -277,7 +277,7 @@ export const CreateInterfaceTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateElementTypesGql = gql`
+export const CreateElementTypesDocument = gql`
   mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
     types: createElementTypes(input: $input) {
       types: elementTypes {
@@ -303,7 +303,7 @@ export const CreateElementTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateRenderPropsTypesGql = gql`
+export const CreateRenderPropsTypesDocument = gql`
   mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
     types: createRenderPropsTypes(input: $input) {
       types: renderPropsTypes {
@@ -329,7 +329,7 @@ export const CreateRenderPropsTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateReactNodeTypesGql = gql`
+export const CreateReactNodeTypesDocument = gql`
   mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
     types: createReactNodeTypes(input: $input) {
       types: reactNodeTypes {
@@ -355,7 +355,7 @@ export const CreateReactNodeTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateEnumTypesGql = gql`
+export const CreateEnumTypesDocument = gql`
   mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
     types: createEnumTypes(input: $input) {
       types: enumTypes {
@@ -381,7 +381,7 @@ export const CreateEnumTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateLambdaTypesGql = gql`
+export const CreateLambdaTypesDocument = gql`
   mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
     types: createLambdaTypes(input: $input) {
       types: lambdaTypes {
@@ -407,7 +407,7 @@ export const CreateLambdaTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreatePageTypesGql = gql`
+export const CreatePageTypesDocument = gql`
   mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
     types: createPageTypes(input: $input) {
       types: pageTypes {
@@ -433,7 +433,7 @@ export const CreatePageTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateAppTypesGql = gql`
+export const CreateAppTypesDocument = gql`
   mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
     types: createAppTypes(input: $input) {
       types: appTypes {
@@ -459,7 +459,7 @@ export const CreateAppTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const CreateMonacoTypesGql = gql`
+export const CreateMonacoTypesDocument = gql`
   mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
     types: createMonacoTypes(input: $input) {
       types: monacoTypes {
@@ -510,7 +510,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreatePrimitiveTypesMutation>(
-            CreatePrimitiveTypesGql,
+            CreatePrimitiveTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -525,7 +525,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateArrayTypesMutation>(
-            CreateArrayTypesGql,
+            CreateArrayTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -540,7 +540,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateUnionTypesMutation>(
-            CreateUnionTypesGql,
+            CreateUnionTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -555,7 +555,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateInterfaceTypesMutation>(
-            CreateInterfaceTypesGql,
+            CreateInterfaceTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -570,7 +570,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateElementTypesMutation>(
-            CreateElementTypesGql,
+            CreateElementTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -585,7 +585,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateRenderPropsTypesMutation>(
-            CreateRenderPropsTypesGql,
+            CreateRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -600,7 +600,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateReactNodeTypesMutation>(
-            CreateReactNodeTypesGql,
+            CreateReactNodeTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -615,7 +615,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateEnumTypesMutation>(
-            CreateEnumTypesGql,
+            CreateEnumTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -630,7 +630,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateLambdaTypesMutation>(
-            CreateLambdaTypesGql,
+            CreateLambdaTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -645,7 +645,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreatePageTypesMutation>(
-            CreatePageTypesGql,
+            CreatePageTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -659,10 +659,11 @@ export function getSdk(
     ): Promise<CreateAppTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateAppTypesMutation>(CreateAppTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<CreateAppTypesMutation>(
+            CreateAppTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'CreateAppTypes',
         'mutation',
       )
@@ -674,7 +675,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreateMonacoTypesMutation>(
-            CreateMonacoTypesGql,
+            CreateMonacoTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

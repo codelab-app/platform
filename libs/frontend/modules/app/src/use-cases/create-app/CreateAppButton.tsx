@@ -3,10 +3,10 @@ import { ButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AppStore } from '../../store'
+import { AppService } from '../../store'
 
 export interface CreateAppButtonProps extends ButtonProps {
-  apps: AppStore
+  apps: AppService
 }
 
 export const CreateAppButton = observer(

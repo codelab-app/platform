@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { E2eAtomFragment } from './atom.api.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { E2eAtomFragmentDoc } from './atom.api.v2.1.graphql.gen'
 export type E2eCreateElementMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
@@ -145,7 +145,7 @@ export const E2eElementFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateElementGql = gql`
+export const E2eCreateElementDocument = gql`
   mutation E2eCreateElement($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
       elements {
@@ -159,7 +159,7 @@ export const E2eCreateElementGql = gql`
   ${E2eHookFragmentDoc}
   ${E2ePropMapBindingFragmentDoc}
 `
-export const E2eUpdateElementGql = gql`
+export const E2eUpdateElementDocument = gql`
   mutation E2eUpdateElement($input: [ElementUpdateInput!]!) {
     updateElements(input: $input) {
       elements {
@@ -198,7 +198,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateElementMutation>(
-            E2eCreateElementGql,
+            E2eCreateElementDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -213,7 +213,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eUpdateElementMutation>(
-            E2eUpdateElementGql,
+            E2eUpdateElementDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

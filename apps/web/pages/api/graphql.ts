@@ -121,7 +121,7 @@ const handler: NextApiHandler = async (req, res) => {
   /**
    * Uncomment this if you want to run codegen, codegen will run the exit the whole process. Server won't run successfully unless this is commented
    */
-  await generateOgmTypes()
+  // await generateOgmTypes()
 }
 
 export default handler

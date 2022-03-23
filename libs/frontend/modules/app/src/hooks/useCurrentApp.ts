@@ -1,9 +1,9 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { useEffect } from 'react'
-import { AppStore } from '../store'
+import { AppService } from '../store'
 
-export const useCurrentApp = (apps: AppStore) => {
+export const useCurrentApp = (apps: AppService) => {
   const appId = useCurrentAppId()
 
   const [getApp, { isLoading, error }] = useAsyncState((id: string) =>

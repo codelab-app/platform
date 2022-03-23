@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { PageFragment } from './Page.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from './Page.fragment.v2.1.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
@@ -36,7 +36,7 @@ export type GetPagesQueryVariables = Types.Exact<{
 
 export type GetPagesQuery = { pages: Array<PageFragment> }
 
-export const CreatePagesGql = gql`
+export const CreatePagesDocument = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
@@ -46,14 +46,14 @@ export const CreatePagesGql = gql`
   }
   ${PageFragmentDoc}
 `
-export const DeletePagesGql = gql`
+export const DeletePagesDocument = gql`
   mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
     deletePages(where: $where, delete: $delete) {
       nodesDeleted
     }
   }
 `
-export const UpdatePagesGql = gql`
+export const UpdatePagesDocument = gql`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
     updatePages(where: $where, update: $update) {
       pages {
@@ -63,7 +63,7 @@ export const UpdatePagesGql = gql`
   }
   ${PageFragmentDoc}
 `
-export const GetPagesGql = gql`
+export const GetPagesDocument = gql`
   query GetPages($options: PageOptions, $where: PageWhere) {
     pages(options: $options, where: $where) {
       ...Page
@@ -95,7 +95,7 @@ export function getSdk(
     ): Promise<CreatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreatePagesMutation>(CreatePagesGql, variables, {
+          client.request<CreatePagesMutation>(CreatePagesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -109,7 +109,7 @@ export function getSdk(
     ): Promise<DeletePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeletePagesMutation>(DeletePagesGql, variables, {
+          client.request<DeletePagesMutation>(DeletePagesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -123,7 +123,7 @@ export function getSdk(
     ): Promise<UpdatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdatePagesMutation>(UpdatePagesGql, variables, {
+          client.request<UpdatePagesMutation>(UpdatePagesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -137,7 +137,7 @@ export function getSdk(
     ): Promise<GetPagesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetPagesQuery>(GetPagesGql, variables, {
+          client.request<GetPagesQuery>(GetPagesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

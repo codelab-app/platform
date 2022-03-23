@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eCreateAppMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
@@ -39,7 +39,7 @@ export const E2eAppFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateAppGql = gql`
+export const E2eCreateAppDocument = gql`
   mutation E2eCreateApp($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
@@ -73,10 +73,11 @@ export function getSdk(
     ): Promise<E2eCreateAppMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateAppMutation>(E2eCreateAppGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<E2eCreateAppMutation>(
+            E2eCreateAppDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'E2eCreateApp',
         'mutation',
       )

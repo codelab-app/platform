@@ -51,7 +51,7 @@ import { PageTypeFragment } from './fragments/PageType.fragment.v2.1.graphql.gen
 import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from './fragments/Type.fragment.v2.1.graphql.gen'
 import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.1.graphql.gen'
 import {
@@ -231,7 +231,7 @@ export type UpdateMonacoTypesMutation = {
   types: { types: Array<Type_MonacoType_Fragment> }
 }
 
-export const UpdatePrimitiveTypesGql = gql`
+export const UpdatePrimitiveTypesDocument = gql`
   mutation UpdatePrimitiveTypes(
     $connect: PrimitiveTypeConnectInput
     $create: PrimitiveTypeRelationInput
@@ -271,7 +271,7 @@ export const UpdatePrimitiveTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateArrayTypesGql = gql`
+export const UpdateArrayTypesDocument = gql`
   mutation UpdateArrayTypes(
     $connect: ArrayTypeConnectInput
     $create: ArrayTypeRelationInput
@@ -311,7 +311,7 @@ export const UpdateArrayTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateUnionTypesGql = gql`
+export const UpdateUnionTypesDocument = gql`
   mutation UpdateUnionTypes(
     $connect: UnionTypeConnectInput
     $create: UnionTypeRelationInput
@@ -351,7 +351,7 @@ export const UpdateUnionTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateInterfaceTypesGql = gql`
+export const UpdateInterfaceTypesDocument = gql`
   mutation UpdateInterfaceTypes(
     $connect: InterfaceTypeConnectInput
     $create: InterfaceTypeRelationInput
@@ -391,7 +391,7 @@ export const UpdateInterfaceTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateReactNodeTypesGql = gql`
+export const UpdateReactNodeTypesDocument = gql`
   mutation UpdateReactNodeTypes(
     $connect: ElementTypeConnectInput
     $create: ElementTypeRelationInput
@@ -431,7 +431,7 @@ export const UpdateReactNodeTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateElementTypesGql = gql`
+export const UpdateElementTypesDocument = gql`
   mutation UpdateElementTypes(
     $connect: ElementTypeConnectInput
     $create: ElementTypeRelationInput
@@ -471,7 +471,7 @@ export const UpdateElementTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateRenderPropsTypesGql = gql`
+export const UpdateRenderPropsTypesDocument = gql`
   mutation UpdateRenderPropsTypes(
     $connect: RenderPropsTypeConnectInput
     $create: RenderPropsTypeRelationInput
@@ -511,7 +511,7 @@ export const UpdateRenderPropsTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateEnumTypesGql = gql`
+export const UpdateEnumTypesDocument = gql`
   mutation UpdateEnumTypes(
     $connect: EnumTypeConnectInput
     $create: EnumTypeRelationInput
@@ -551,7 +551,7 @@ export const UpdateEnumTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateLambdaTypesGql = gql`
+export const UpdateLambdaTypesDocument = gql`
   mutation UpdateLambdaTypes(
     $connect: LambdaTypeConnectInput
     $create: LambdaTypeRelationInput
@@ -591,7 +591,7 @@ export const UpdateLambdaTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdatePageTypesGql = gql`
+export const UpdatePageTypesDocument = gql`
   mutation UpdatePageTypes(
     $connect: PageTypeConnectInput
     $create: PageTypeRelationInput
@@ -631,7 +631,7 @@ export const UpdatePageTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateAppTypesGql = gql`
+export const UpdateAppTypesDocument = gql`
   mutation UpdateAppTypes(
     $connect: AppTypeConnectInput
     $create: AppTypeRelationInput
@@ -671,7 +671,7 @@ export const UpdateAppTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const UpdateMonacoTypesGql = gql`
+export const UpdateMonacoTypesDocument = gql`
   mutation UpdateMonacoTypes(
     $connect: MonacoTypeConnectInput
     $create: MonacoTypeRelationInput
@@ -736,7 +736,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdatePrimitiveTypesMutation>(
-            UpdatePrimitiveTypesGql,
+            UpdatePrimitiveTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -751,7 +751,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateArrayTypesMutation>(
-            UpdateArrayTypesGql,
+            UpdateArrayTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -766,7 +766,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateUnionTypesMutation>(
-            UpdateUnionTypesGql,
+            UpdateUnionTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -781,7 +781,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateInterfaceTypesMutation>(
-            UpdateInterfaceTypesGql,
+            UpdateInterfaceTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -796,7 +796,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateReactNodeTypesMutation>(
-            UpdateReactNodeTypesGql,
+            UpdateReactNodeTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -811,7 +811,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateElementTypesMutation>(
-            UpdateElementTypesGql,
+            UpdateElementTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -826,7 +826,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateRenderPropsTypesMutation>(
-            UpdateRenderPropsTypesGql,
+            UpdateRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -841,7 +841,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateEnumTypesMutation>(
-            UpdateEnumTypesGql,
+            UpdateEnumTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -856,7 +856,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateLambdaTypesMutation>(
-            UpdateLambdaTypesGql,
+            UpdateLambdaTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -871,7 +871,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdatePageTypesMutation>(
-            UpdatePageTypesGql,
+            UpdatePageTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -885,10 +885,11 @@ export function getSdk(
     ): Promise<UpdateAppTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateAppTypesMutation>(UpdateAppTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<UpdateAppTypesMutation>(
+            UpdateAppTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'UpdateAppTypes',
         'mutation',
       )
@@ -900,7 +901,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdateMonacoTypesMutation>(
-            UpdateMonacoTypesGql,
+            UpdateMonacoTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

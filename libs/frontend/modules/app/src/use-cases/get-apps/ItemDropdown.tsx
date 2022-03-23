@@ -6,12 +6,11 @@ import {
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
-import { AppModel, appRef, AppStore } from '../../store'
+import { AppModel, appRef, AppService, WithAppService } from '../../store'
 
 export type ItemMenuProps = {
-  apps: AppStore
   app: AppModel
-}
+} & WithAppService
 
 const menuItemStyle: CSSProperties = {
   display: 'flex',
@@ -25,13 +24,15 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const ItemDropdown = observer(({ app, apps }: ItemMenuProps) => {
+export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
   const onEditClick = () => {
-    apps.updateModal.open(appRef(app))
+    appService.setSelectedApp(app)
+    appService.updateModal.open()
   }
 
   const onDeleteClick = () => {
-    apps.deleteModal.open(appRef(app))
+    appService.setSelectedApp(app)
+    appService.deleteModal.open()
   }
 
   const actionsMenu = (

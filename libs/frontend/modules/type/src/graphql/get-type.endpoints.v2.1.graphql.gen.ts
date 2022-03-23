@@ -52,7 +52,7 @@ import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
 import { ReactNodeTypeFragment } from './fragments/ReactNodeType.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from './fragments/Type.fragment.v2.1.graphql.gen'
 import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.1.graphql.gen'
 import {
@@ -185,7 +185,7 @@ export type GetMonacoTypesQueryVariables = Types.Exact<{
 
 export type GetMonacoTypesQuery = { types: Array<Type_MonacoType_Fragment> }
 
-export const GetTypesGql = gql`
+export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
     primitiveTypes(where: { id_IN: $ids }) {
       ...Type
@@ -239,7 +239,7 @@ export const GetTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetPrimitiveTypesGql = gql`
+export const GetPrimitiveTypesDocument = gql`
   query GetPrimitiveTypes(
     $options: PrimitiveTypeOptions
     $where: PrimitiveTypeWhere
@@ -266,7 +266,7 @@ export const GetPrimitiveTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetArrayTypesGql = gql`
+export const GetArrayTypesDocument = gql`
   query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
     types: arrayTypes(where: $where, options: $options) {
       ...Type
@@ -290,7 +290,7 @@ export const GetArrayTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetUnionTypesGql = gql`
+export const GetUnionTypesDocument = gql`
   query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
     types: unionTypes(where: $where, options: $options) {
       ...Type
@@ -314,7 +314,7 @@ export const GetUnionTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetInterfaceTypesGql = gql`
+export const GetInterfaceTypesDocument = gql`
   query GetInterfaceTypes(
     $options: InterfaceTypeOptions
     $where: InterfaceTypeWhere
@@ -341,7 +341,7 @@ export const GetInterfaceTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetElementTypesGql = gql`
+export const GetElementTypesDocument = gql`
   query GetElementTypes(
     $options: ElementTypeOptions
     $where: ElementTypeWhere
@@ -368,7 +368,7 @@ export const GetElementTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetRenderPropsTypesGql = gql`
+export const GetRenderPropsTypesDocument = gql`
   query GetRenderPropsTypes(
     $options: RenderPropsTypeOptions
     $where: RenderPropsTypeWhere
@@ -395,7 +395,7 @@ export const GetRenderPropsTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetReactNodeTypesGql = gql`
+export const GetReactNodeTypesDocument = gql`
   query GetReactNodeTypes(
     $options: ReactNodeTypeOptions
     $where: ReactNodeTypeWhere
@@ -407,7 +407,7 @@ export const GetReactNodeTypesGql = gql`
   ${ReactNodeTypeFragmentDoc}
   ${TypeBaseFragmentDoc}
 `
-export const GetEnumTypesGql = gql`
+export const GetEnumTypesDocument = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
     types: enumTypes(where: $where, options: $options) {
       ...Type
@@ -431,7 +431,7 @@ export const GetEnumTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetLambdaTypesGql = gql`
+export const GetLambdaTypesDocument = gql`
   query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
     types: lambdaTypes(where: $where, options: $options) {
       ...Type
@@ -455,7 +455,7 @@ export const GetLambdaTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetPageTypesGql = gql`
+export const GetPageTypesDocument = gql`
   query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
     types: pageTypes(where: $where, options: $options) {
       ...Type
@@ -479,7 +479,7 @@ export const GetPageTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetAppTypesGql = gql`
+export const GetAppTypesDocument = gql`
   query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
     types: appTypes(where: $where, options: $options) {
       ...Type
@@ -503,7 +503,7 @@ export const GetAppTypesGql = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
 `
-export const GetMonacoTypesGql = gql`
+export const GetMonacoTypesDocument = gql`
   query GetMonacoTypes($options: MonacoTypeOptions, $where: MonacoTypeWhere) {
     types: monacoTypes(where: $where, options: $options) {
       ...Type
@@ -551,7 +551,7 @@ export function getSdk(
     ): Promise<GetTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetTypesQuery>(GetTypesGql, variables, {
+          client.request<GetTypesQuery>(GetTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -566,7 +566,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetPrimitiveTypesQuery>(
-            GetPrimitiveTypesGql,
+            GetPrimitiveTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -580,7 +580,7 @@ export function getSdk(
     ): Promise<GetArrayTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetArrayTypesQuery>(GetArrayTypesGql, variables, {
+          client.request<GetArrayTypesQuery>(GetArrayTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -594,7 +594,7 @@ export function getSdk(
     ): Promise<GetUnionTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetUnionTypesQuery>(GetUnionTypesGql, variables, {
+          client.request<GetUnionTypesQuery>(GetUnionTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -609,7 +609,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetInterfaceTypesQuery>(
-            GetInterfaceTypesGql,
+            GetInterfaceTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -623,10 +623,11 @@ export function getSdk(
     ): Promise<GetElementTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetElementTypesQuery>(GetElementTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetElementTypesQuery>(
+            GetElementTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'GetElementTypes',
         'query',
       )
@@ -638,7 +639,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetRenderPropsTypesQuery>(
-            GetRenderPropsTypesGql,
+            GetRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -653,7 +654,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetReactNodeTypesQuery>(
-            GetReactNodeTypesGql,
+            GetReactNodeTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -667,7 +668,7 @@ export function getSdk(
     ): Promise<GetEnumTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetEnumTypesQuery>(GetEnumTypesGql, variables, {
+          client.request<GetEnumTypesQuery>(GetEnumTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -681,10 +682,11 @@ export function getSdk(
     ): Promise<GetLambdaTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetLambdaTypesQuery>(GetLambdaTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetLambdaTypesQuery>(
+            GetLambdaTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'GetLambdaTypes',
         'query',
       )
@@ -695,7 +697,7 @@ export function getSdk(
     ): Promise<GetPageTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetPageTypesQuery>(GetPageTypesGql, variables, {
+          client.request<GetPageTypesQuery>(GetPageTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -709,7 +711,7 @@ export function getSdk(
     ): Promise<GetAppTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetAppTypesQuery>(GetAppTypesGql, variables, {
+          client.request<GetAppTypesQuery>(GetAppTypesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -723,10 +725,11 @@ export function getSdk(
     ): Promise<GetMonacoTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetMonacoTypesQuery>(GetMonacoTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetMonacoTypesQuery>(
+            GetMonacoTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'GetMonacoTypes',
         'query',
       )

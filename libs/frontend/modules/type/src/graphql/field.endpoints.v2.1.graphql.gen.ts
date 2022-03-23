@@ -7,7 +7,7 @@ import {
 } from './fragments/Field.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import {
   InterfaceTypeEdgeFragmentDoc,
   FieldFragmentDoc,
@@ -32,7 +32,7 @@ export type DeleteFieldMutation = {
   deleteFieldEdge: { deletedEdgesCount: number }
 }
 
-export const CreateFieldGql = gql`
+export const CreateFieldDocument = gql`
   mutation CreateField($input: UpsertFieldInput!) {
     upsertFieldEdge(input: $input, isCreating: true) {
       ...InterfaceTypeEdge
@@ -41,7 +41,7 @@ export const CreateFieldGql = gql`
   ${InterfaceTypeEdgeFragmentDoc}
   ${FieldFragmentDoc}
 `
-export const UpdateFieldGql = gql`
+export const UpdateFieldDocument = gql`
   mutation UpdateField($input: UpsertFieldInput!) {
     upsertFieldEdge(input: $input, isCreating: false) {
       ...InterfaceTypeEdge
@@ -50,7 +50,7 @@ export const UpdateFieldGql = gql`
   ${InterfaceTypeEdgeFragmentDoc}
   ${FieldFragmentDoc}
 `
-export const DeleteFieldGql = gql`
+export const DeleteFieldDocument = gql`
   mutation DeleteField($input: DeleteFieldInput!) {
     deleteFieldEdge(input: $input) {
       deletedEdgesCount
@@ -81,7 +81,7 @@ export function getSdk(
     ): Promise<CreateFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateFieldMutation>(CreateFieldGql, variables, {
+          client.request<CreateFieldMutation>(CreateFieldDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -95,7 +95,7 @@ export function getSdk(
     ): Promise<UpdateFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateFieldMutation>(UpdateFieldGql, variables, {
+          client.request<UpdateFieldMutation>(UpdateFieldDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -109,7 +109,7 @@ export function getSdk(
     ): Promise<DeleteFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteFieldMutation>(DeleteFieldGql, variables, {
+          client.request<DeleteFieldMutation>(DeleteFieldDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

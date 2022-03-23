@@ -5,7 +5,7 @@
     "@nrwl/nx",
     "import",
     "unused-imports",
-    // "react",
+    "react",
     // "react-hooks",
     "graphql",
     "@emotion",

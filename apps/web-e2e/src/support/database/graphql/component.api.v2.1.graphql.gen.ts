@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eCreateComponentMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
@@ -32,7 +32,7 @@ export const E2eComponentFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateComponentGql = gql`
+export const E2eCreateComponentDocument = gql`
   mutation E2eCreateComponent($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
       components {
@@ -67,7 +67,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateComponentMutation>(
-            E2eCreateComponentGql,
+            E2eCreateComponentDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

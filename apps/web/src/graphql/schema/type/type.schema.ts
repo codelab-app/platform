@@ -149,7 +149,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -171,7 +170,6 @@ export const typeSchema = gql`
     owner: [User!]!
     descendantTypesIds: [ID!]!
     graph: TypeGraph!
-
     # The reason this is an array is that there is a bug with neo4j graphql that appears
     # when referencing a single interface relationship
     # https://github.com/neo4j/graphql/pull/701/files after this is merged we can replace it with a single value
@@ -192,7 +190,6 @@ export const typeSchema = gql`
     owner: [User!]!
     descendantTypesIds: [ID!]!
     graph: TypeGraph!
-
     typesOfUnionType: [TypeBase!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
@@ -210,14 +207,12 @@ export const typeSchema = gql`
     owner: [User!]!
     descendantTypesIds: [ID!]!
     graph: TypeGraph!
-
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
         type: "ATOM_API",
         direction: IN
       )
-
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
     fields: [TypeBase!]!
@@ -249,8 +244,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
-
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -290,7 +283,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
   }
 
   enum ElementTypeKind {
@@ -322,8 +314,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
-
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
@@ -334,7 +324,6 @@ export const typeSchema = gql`
 
   type EnumTypeValue {
     enumType: EnumType @relationship(type: "ALLOWED_VALUE", direction: IN)
-
     id: ID!
     name: String
     value: String!
@@ -359,7 +348,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
   }
 
   """
@@ -370,7 +358,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
   }
 
   """
@@ -381,7 +368,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     graph: TypeGraph!
-
     language: MonacoLanguage!
   }
 

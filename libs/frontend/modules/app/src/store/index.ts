@@ -1,1 +1,1 @@
-export * from './appStore'
+export * from './app.store'
