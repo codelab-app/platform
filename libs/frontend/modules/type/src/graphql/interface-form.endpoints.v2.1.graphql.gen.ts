@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type InterfaceForm_GetAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>
@@ -39,7 +39,7 @@ export type InterfaceForm_GetPagesQuery = {
   pages: Array<{ id: string; name: string }>
 }
 
-export const InterfaceForm_GetAppsGql = gql`
+export const InterfaceForm_GetAppsDocument = gql`
   query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {
     apps(options: $options, where: $where) {
       id
@@ -47,7 +47,7 @@ export const InterfaceForm_GetAppsGql = gql`
     }
   }
 `
-export const InterfaceForm_GetAtomsGql = gql`
+export const InterfaceForm_GetAtomsDocument = gql`
   query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
     atoms(options: $options, where: $where) {
       id
@@ -56,7 +56,7 @@ export const InterfaceForm_GetAtomsGql = gql`
     }
   }
 `
-export const InterfaceForm_GetComponentsGql = gql`
+export const InterfaceForm_GetComponentsDocument = gql`
   query InterfaceForm_GetComponents(
     $options: ComponentOptions
     $where: ComponentWhere
@@ -67,7 +67,7 @@ export const InterfaceForm_GetComponentsGql = gql`
     }
   }
 `
-export const InterfaceForm_GetPagesGql = gql`
+export const InterfaceForm_GetPagesDocument = gql`
   query InterfaceForm_GetPages($options: PageOptions, $where: PageWhere) {
     pages(options: $options, where: $where) {
       id
@@ -100,7 +100,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<InterfaceForm_GetAppsQuery>(
-            InterfaceForm_GetAppsGql,
+            InterfaceForm_GetAppsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -115,7 +115,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<InterfaceForm_GetAtomsQuery>(
-            InterfaceForm_GetAtomsGql,
+            InterfaceForm_GetAtomsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -130,7 +130,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<InterfaceForm_GetComponentsQuery>(
-            InterfaceForm_GetComponentsGql,
+            InterfaceForm_GetComponentsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -145,7 +145,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<InterfaceForm_GetPagesQuery>(
-            InterfaceForm_GetPagesGql,
+            InterfaceForm_GetPagesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

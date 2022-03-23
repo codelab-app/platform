@@ -2,15 +2,14 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import { AppModel, AppStore } from '../../store'
+import { AppModel, AppService, WithAppService } from '../../store'
 import { ItemDropdown } from './ItemDropdown'
 
-export interface GetAppsItemProps {
+export type GetAppsItemProps = {
   app: AppModel
-  apps: AppStore
-}
+} & WithAppService
 
-export const GetAppsItem = observer(({ app, apps }: GetAppsItemProps) => {
+export const GetAppsItem = observer<GetAppsItemProps>(({ app, appService }) => {
   const href = { pathname: PageType.PageList, query: { appId: app.id } }
 
   const Title = (
@@ -19,5 +18,10 @@ export const GetAppsItem = observer(({ app, apps }: GetAppsItemProps) => {
     </Link>
   )
 
-  return <Card extra={<ItemDropdown app={app} apps={apps} />} title={Title} />
+  return (
+    <Card
+      extra={<ItemDropdown app={app} appService={appService} />}
+      title={Title}
+    />
+  )
 })

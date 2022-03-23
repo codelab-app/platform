@@ -37,7 +37,7 @@ import { PageTypeFragment } from './PageType.fragment.v2.1.graphql.gen'
 import { AppTypeFragment } from './AppType.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.1.graphql.gen'
 import {
   ArrayTypeWithItemTypeFragmentDoc,

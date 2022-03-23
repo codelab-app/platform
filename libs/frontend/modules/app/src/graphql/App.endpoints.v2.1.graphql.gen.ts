@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { AppFragment } from './App.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { AppFragmentDoc } from './App.fragment.v2.1.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
@@ -31,7 +31,7 @@ export type GetAppsQueryVariables = Types.Exact<{
 
 export type GetAppsQuery = { apps: Array<AppFragment> }
 
-export const CreateAppsGql = gql`
+export const CreateAppsDocument = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
@@ -41,7 +41,7 @@ export const CreateAppsGql = gql`
   }
   ${AppFragmentDoc}
 `
-export const UpdateAppsGql = gql`
+export const UpdateAppsDocument = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(where: $where, update: $update) {
       apps {
@@ -51,14 +51,14 @@ export const UpdateAppsGql = gql`
   }
   ${AppFragmentDoc}
 `
-export const DeleteAppsGql = gql`
+export const DeleteAppsDocument = gql`
   mutation DeleteApps($where: AppWhere!) {
     deleteApps(where: $where) {
       nodesDeleted
     }
   }
 `
-export const GetAppsGql = gql`
+export const GetAppsDocument = gql`
   query GetApps($options: AppOptions, $where: AppWhere) {
     apps: apps(options: $options, where: $where) {
       ...App
@@ -90,7 +90,7 @@ export function getSdk(
     ): Promise<CreateAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateAppsMutation>(CreateAppsGql, variables, {
+          client.request<CreateAppsMutation>(CreateAppsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -104,7 +104,7 @@ export function getSdk(
     ): Promise<UpdateAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateAppsMutation>(UpdateAppsGql, variables, {
+          client.request<UpdateAppsMutation>(UpdateAppsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -118,7 +118,7 @@ export function getSdk(
     ): Promise<DeleteAppsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteAppsMutation>(DeleteAppsGql, variables, {
+          client.request<DeleteAppsMutation>(DeleteAppsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -132,7 +132,7 @@ export function getSdk(
     ): Promise<GetAppsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetAppsQuery>(GetAppsGql, variables, {
+          client.request<GetAppsQuery>(GetAppsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

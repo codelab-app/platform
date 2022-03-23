@@ -1,7 +1,7 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ModalStore } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen-v2'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -11,6 +11,7 @@ import {
   idProp,
   Model,
   model,
+  modelAction,
   modelClass,
   modelFlow,
   objectMap,
@@ -22,7 +23,7 @@ import {
 import { AppFragment } from '../graphql/App.fragment.v2.1.graphql.gen'
 import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
 import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
-import { appApi } from './appApi'
+import { appApi } from './app.api'
 
 @model('codelab/App')
 export class AppModel extends Model({
@@ -31,29 +32,6 @@ export class AppModel extends Model({
   name: prop<string>(),
   rootProviderElement: prop<Nullish<{ id: string }>>(),
 }) {
-  @modelFlow
-  @transaction
-  update = _async(function* (this: AppModel, { name }: UpdateAppInput) {
-    this.name = name
-
-    const { updateApps } = yield* _await(
-      appApi.UpdateApps({
-        update: { name },
-        where: { id: this.id },
-      }),
-    )
-
-    const app = updateApps?.apps[0]
-
-    if (!app) {
-      throw new Error('Failed to update app')
-    }
-
-    this.name = app.name
-
-    return app
-  })
-
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id
@@ -77,27 +55,35 @@ export const appRef = rootRef<AppModel>('AppRef', {
   },
 })
 
-@model('codelab/AppModalStore')
-class AppModalStore extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalStore<Ref<AppModel>>>(ModalStore),
-  props: {},
-})) {
-  @computed
-  get app() {
-    return this.metadata?.current ?? null
-  }
+export type WithAppService = {
+  appService: AppService
 }
 
-@model('codelab/AppStore')
-export class AppStore extends Model({
+@model('codelab/AppService')
+export class AppService extends Model({
   apps: prop(() => objectMap<AppModel>()),
+  selectedRef: prop<Nullish<Ref<AppModel>>>(null),
   createModal: prop(() => new ModalStore({})),
-  updateModal: prop(() => new AppModalStore({})),
-  deleteModal: prop(() => new AppModalStore({})),
+  updateModal: prop(() => new ModalStore({})),
+  deleteModal: prop(() => new ModalStore({})),
 }) {
   @computed
   get appsList() {
     return [...this.apps.values()]
+  }
+
+  @modelAction
+  setSelectedApp(app: AppModel | null) {
+    if (app && !this.apps.has(app.id)) {
+      throw new Error('Unknown app')
+    }
+
+    this.selectedRef = app ? appRef(app) : null
+  }
+
+  @computed
+  get selectedApp() {
+    return this.selectedRef ? this.selectedRef.current : undefined
   }
 
   app(id: string) {
@@ -106,7 +92,7 @@ export class AppStore extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: AppStore, where?: AppWhere) {
+  getAll = _async(function* (this: AppService, where?: AppWhere) {
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
     return apps.map((app) => {
@@ -123,7 +109,36 @@ export class AppStore extends Model({
 
   @modelFlow
   @transaction
-  getOne = _async(function* (this: AppStore, id: string) {
+  update = _async(function* (
+    this: AppService,
+    id: string,
+    { name }: UpdateAppInput,
+  ) {
+    const {
+      updateApps: { apps },
+    } = yield* _await(
+      appApi.UpdateApps({
+        update: { name },
+        where: { id },
+      }),
+    )
+
+    const app = apps[0]
+
+    if (!app) {
+      throw new Error('Failed to update app')
+    }
+
+    const appModel = AppModel.fromFragment(app)
+
+    this.apps.set(id, appModel)
+
+    return appModel
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: AppService, id: string) {
     if (this.apps.has(id)) {
       return this.apps.get(id)
     }
@@ -136,7 +151,7 @@ export class AppStore extends Model({
   @modelFlow
   @transaction
   createApp = _async(function* (
-    this: AppStore,
+    this: AppService,
     input: CreateAppInput,
     ownerId: Nullish<string>,
   ) {
@@ -176,7 +191,7 @@ export class AppStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppStore, id: string) {
+  delete = _async(function* (this: AppService, id: string) {
     if (this.apps.has(id)) {
       this.apps.delete(id)
     }

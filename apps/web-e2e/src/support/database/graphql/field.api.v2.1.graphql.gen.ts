@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eCreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
@@ -46,7 +46,7 @@ export const E2eInterfaceTypeEdgeFragmentDoc = gql`
     source
   }
 `
-export const E2eCreateFieldGql = gql`
+export const E2eCreateFieldDocument = gql`
   mutation E2eCreateField($input: UpsertFieldInput!) {
     upsertFieldEdge(input: $input, isCreating: true) {
       ...E2eInterfaceTypeEdge
@@ -79,10 +79,11 @@ export function getSdk(
     ): Promise<E2eCreateFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateFieldMutation>(E2eCreateFieldGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<E2eCreateFieldMutation>(
+            E2eCreateFieldDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'E2eCreateField',
         'mutation',
       )

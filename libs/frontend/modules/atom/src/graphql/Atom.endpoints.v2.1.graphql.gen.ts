@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { AtomFragment } from './Atom.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { AtomFragmentDoc } from './Atom.fragment.v2.1.graphql.gen'
 export type CreateAtomsMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
@@ -40,7 +40,7 @@ export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<AtomFragment> }
 }
 
-export const CreateAtomsGql = gql`
+export const CreateAtomsDocument = gql`
   mutation CreateAtoms($input: [AtomCreateInput!]!) {
     createAtoms(input: $input) {
       info {
@@ -54,7 +54,7 @@ export const CreateAtomsGql = gql`
   }
   ${AtomFragmentDoc}
 `
-export const DeleteAtomsGql = gql`
+export const DeleteAtomsDocument = gql`
   mutation DeleteAtoms($where: AtomWhere!) {
     deleteAtoms(where: $where) {
       nodesDeleted
@@ -62,7 +62,7 @@ export const DeleteAtomsGql = gql`
     }
   }
 `
-export const GetAtomsGql = gql`
+export const GetAtomsDocument = gql`
   query GetAtoms($where: AtomWhere, $options: AtomOptions) {
     atoms(where: $where, options: $options) {
       ...Atom
@@ -70,7 +70,7 @@ export const GetAtomsGql = gql`
   }
   ${AtomFragmentDoc}
 `
-export const UpdateAtomsGql = gql`
+export const UpdateAtomsDocument = gql`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
     updateAtoms(update: $update, where: $where) {
       atoms {
@@ -104,7 +104,7 @@ export function getSdk(
     ): Promise<CreateAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateAtomsMutation>(CreateAtomsGql, variables, {
+          client.request<CreateAtomsMutation>(CreateAtomsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -118,7 +118,7 @@ export function getSdk(
     ): Promise<DeleteAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteAtomsMutation>(DeleteAtomsGql, variables, {
+          client.request<DeleteAtomsMutation>(DeleteAtomsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -132,7 +132,7 @@ export function getSdk(
     ): Promise<GetAtomsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetAtomsQuery>(GetAtomsGql, variables, {
+          client.request<GetAtomsQuery>(GetAtomsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -146,7 +146,7 @@ export function getSdk(
     ): Promise<UpdateAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateAtomsMutation>(UpdateAtomsGql, variables, {
+          client.request<UpdateAtomsMutation>(UpdateAtomsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

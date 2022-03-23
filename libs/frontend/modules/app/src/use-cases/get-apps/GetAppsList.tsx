@@ -7,7 +7,7 @@ import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Alert, Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { AppStore } from '../../store'
+import { AppService, WithAppService } from '../../store'
 import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
 
@@ -15,17 +15,13 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export interface GetAppsListProps {
-  apps: AppStore
-}
-
-export const GetAppsList = observer<GetAppsListProps>(({ apps }) => {
-  const [load, { isLoading, error }] = useAsyncState(() => apps.getAll())
+export const GetAppsList = observer<WithAppService>(({ appService }) => {
+  const [load, { isLoading, error }] = useAsyncState(() => appService.getAll())
   useEffect(() => {
     load()
   }, [load])
 
-  const appList = apps.appsList
+  const appList = appService.appsList
 
   return (
     <SpinnerWrapper isLoading={isLoading}>
@@ -35,7 +31,7 @@ export const GetAppsList = observer<GetAppsListProps>(({ apps }) => {
 
       <ConditionalView condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
-          <CreateAppButton apps={apps} text="Create Now" />
+          <CreateAppButton apps={appService} text="Create Now" />
         </Empty>
       </ConditionalView>
 
@@ -43,7 +39,7 @@ export const GetAppsList = observer<GetAppsListProps>(({ apps }) => {
         {appList?.map((app) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={app.id} {...threeGridCol}>
-            <GetAppsItem app={app} apps={apps} />
+            <GetAppsItem app={app} appService={appService} />
           </Col>
         ))}
       </Row>

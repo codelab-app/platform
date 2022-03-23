@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eCreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
@@ -307,7 +307,7 @@ export const E2eReactNodeFragmentDoc = gql`
     ...E2eTypeBase
   }
 `
-export const E2eCreatePrimitiveTypesGql = gql`
+export const E2eCreatePrimitiveTypesDocument = gql`
   mutation E2eCreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
     createPrimitiveTypes(input: $input) {
       primitiveTypes {
@@ -318,7 +318,7 @@ export const E2eCreatePrimitiveTypesGql = gql`
   ${E2ePrimitiveTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateArrayTypesGql = gql`
+export const E2eCreateArrayTypesDocument = gql`
   mutation E2eCreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
     createArrayTypes(input: $input) {
       arrayTypes {
@@ -329,7 +329,7 @@ export const E2eCreateArrayTypesGql = gql`
   ${E2eArrayTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateUnionTypesGql = gql`
+export const E2eCreateUnionTypesDocument = gql`
   mutation E2eCreateUnionTypes($input: [UnionTypeCreateInput!]!) {
     createUnionTypes(input: $input) {
       unionTypes {
@@ -340,7 +340,7 @@ export const E2eCreateUnionTypesGql = gql`
   ${E2eUnionTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateInterfaceTypesGql = gql`
+export const E2eCreateInterfaceTypesDocument = gql`
   mutation E2eCreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
     createInterfaceTypes(input: $input) {
       interfaceTypes {
@@ -351,7 +351,7 @@ export const E2eCreateInterfaceTypesGql = gql`
   ${E2eInterfaceTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateElementTypesGql = gql`
+export const E2eCreateElementTypesDocument = gql`
   mutation E2eCreateElementTypes($input: [ElementTypeCreateInput!]!) {
     createElementTypes(input: $input) {
       elementTypes {
@@ -362,7 +362,7 @@ export const E2eCreateElementTypesGql = gql`
   ${E2eElementTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateRenderPropsTypesGql = gql`
+export const E2eCreateRenderPropsTypesDocument = gql`
   mutation E2eCreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
     createRenderPropsTypes(input: $input) {
       renderPropsTypes {
@@ -373,7 +373,7 @@ export const E2eCreateRenderPropsTypesGql = gql`
   ${E2eRenderPropsTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateEnumTypesGql = gql`
+export const E2eCreateEnumTypesDocument = gql`
   mutation E2eCreateEnumTypes($input: [EnumTypeCreateInput!]!) {
     createEnumTypes(input: $input) {
       enumTypes {
@@ -384,7 +384,7 @@ export const E2eCreateEnumTypesGql = gql`
   ${E2eEnumTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateLambdaTypesGql = gql`
+export const E2eCreateLambdaTypesDocument = gql`
   mutation E2eCreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
     createLambdaTypes(input: $input) {
       lambdaTypes {
@@ -395,7 +395,7 @@ export const E2eCreateLambdaTypesGql = gql`
   ${E2eLambdaTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreatePageTypesGql = gql`
+export const E2eCreatePageTypesDocument = gql`
   mutation E2eCreatePageTypes($input: [PageTypeCreateInput!]!) {
     createPageTypes(input: $input) {
       pageTypes {
@@ -406,7 +406,7 @@ export const E2eCreatePageTypesGql = gql`
   ${E2ePageTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateAppTypesGql = gql`
+export const E2eCreateAppTypesDocument = gql`
   mutation E2eCreateAppTypes($input: [AppTypeCreateInput!]!) {
     createAppTypes(input: $input) {
       appTypes {
@@ -417,7 +417,7 @@ export const E2eCreateAppTypesGql = gql`
   ${E2eAppTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateMonacoTypesGql = gql`
+export const E2eCreateMonacoTypesDocument = gql`
   mutation E2eCreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
     createMonacoTypes(input: $input) {
       monacoTypes {
@@ -428,7 +428,7 @@ export const E2eCreateMonacoTypesGql = gql`
   ${E2eMonacoTypeFragmentDoc}
   ${E2eTypeBaseFragmentDoc}
 `
-export const E2eCreateReactNodeTypesGql = gql`
+export const E2eCreateReactNodeTypesDocument = gql`
   mutation E2eCreateReactNodeTypes($input: [ReactNodeCreateInput!]!) {
     createReactNodeTypes(input: $input) {
       reactNodeTypes {
@@ -464,7 +464,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreatePrimitiveTypesMutation>(
-            E2eCreatePrimitiveTypesGql,
+            E2eCreatePrimitiveTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -479,7 +479,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateArrayTypesMutation>(
-            E2eCreateArrayTypesGql,
+            E2eCreateArrayTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -494,7 +494,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateUnionTypesMutation>(
-            E2eCreateUnionTypesGql,
+            E2eCreateUnionTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -509,7 +509,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateInterfaceTypesMutation>(
-            E2eCreateInterfaceTypesGql,
+            E2eCreateInterfaceTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -524,7 +524,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateElementTypesMutation>(
-            E2eCreateElementTypesGql,
+            E2eCreateElementTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -539,7 +539,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateRenderPropsTypesMutation>(
-            E2eCreateRenderPropsTypesGql,
+            E2eCreateRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -554,7 +554,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateEnumTypesMutation>(
-            E2eCreateEnumTypesGql,
+            E2eCreateEnumTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -569,7 +569,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateLambdaTypesMutation>(
-            E2eCreateLambdaTypesGql,
+            E2eCreateLambdaTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -584,7 +584,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreatePageTypesMutation>(
-            E2eCreatePageTypesGql,
+            E2eCreatePageTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -599,7 +599,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateAppTypesMutation>(
-            E2eCreateAppTypesGql,
+            E2eCreateAppTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -614,7 +614,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateMonacoTypesMutation>(
-            E2eCreateMonacoTypesGql,
+            E2eCreateMonacoTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -629,7 +629,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<E2eCreateReactNodeTypesMutation>(
-            E2eCreateReactNodeTypesGql,
+            E2eCreateReactNodeTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

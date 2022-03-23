@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eGetPageQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
@@ -33,7 +33,7 @@ export const E2ePageFragmentDoc = gql`
     }
   }
 `
-export const E2eGetPageGql = gql`
+export const E2eGetPageDocument = gql`
   query E2eGetPage($where: PageWhere) {
     pages(where: $where) {
       ...E2ePage
@@ -41,7 +41,7 @@ export const E2eGetPageGql = gql`
   }
   ${E2ePageFragmentDoc}
 `
-export const E2eCreatePageGql = gql`
+export const E2eCreatePageDocument = gql`
   mutation E2eCreatePage($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
@@ -75,7 +75,7 @@ export function getSdk(
     ): Promise<E2eGetPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eGetPageQuery>(E2eGetPageGql, variables, {
+          client.request<E2eGetPageQuery>(E2eGetPageDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -89,10 +89,11 @@ export function getSdk(
     ): Promise<E2eCreatePageMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreatePageMutation>(E2eCreatePageGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<E2eCreatePageMutation>(
+            E2eCreatePageDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'E2eCreatePage',
         'mutation',
       )

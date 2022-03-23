@@ -3,41 +3,36 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AppStore } from '../../store'
+import { AppService, WithAppService } from '../../store'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
-export interface UpdateAppModalProps {
-  apps: AppStore
-}
-
-export const UpdateAppModal = observer(({ apps }: UpdateAppModalProps) => {
-  const app = apps.updateModal.app
+export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
+  const app = appService.selectedRef
 
   const onSubmit = (input: UpdateAppInput) => {
-    const promise = app?.update(input) ?? Promise.reject()
-    closeModal()
+    if (!app) {
+      throw new Error('Updated app is not set')
+    }
 
-    return promise
+    return appService.update(app.id, input)
   }
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while updating app',
   })
 
-  const closeModal = () => apps.updateModal.close()
-
-  const model = {
-    name: app?.name,
-  }
+  const closeModal = () => appService.updateModal.close()
 
   return (
     <ModalForm.Modal
       okText="Update App"
       onCancel={closeModal}
-      visible={apps.updateModal.isOpen}
+      visible={appService.updateModal.isOpen}
     >
       <ModalForm.Form
-        model={model}
+        model={{
+          name: app?.current.name,
+        }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}

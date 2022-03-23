@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type DeletePrimitiveTypesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.PrimitiveTypeDeleteInput>
   where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
@@ -112,7 +112,7 @@ export type DeleteMonacoTypesMutation = {
   deleteMonacoTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
-export const DeletePrimitiveTypesGql = gql`
+export const DeletePrimitiveTypesDocument = gql`
   mutation DeletePrimitiveTypes(
     $delete: PrimitiveTypeDeleteInput
     $where: PrimitiveTypeWhere
@@ -123,7 +123,7 @@ export const DeletePrimitiveTypesGql = gql`
     }
   }
 `
-export const DeleteArrayTypesGql = gql`
+export const DeleteArrayTypesDocument = gql`
   mutation DeleteArrayTypes(
     $delete: ArrayTypeDeleteInput
     $where: ArrayTypeWhere
@@ -134,7 +134,7 @@ export const DeleteArrayTypesGql = gql`
     }
   }
 `
-export const DeleteReactNodeTypesGql = gql`
+export const DeleteReactNodeTypesDocument = gql`
   mutation DeleteReactNodeTypes(
     $delete: ReactNodeTypeDeleteInput
     $where: ReactNodeTypeWhere
@@ -145,7 +145,7 @@ export const DeleteReactNodeTypesGql = gql`
     }
   }
 `
-export const DeleteUnionTypesGql = gql`
+export const DeleteUnionTypesDocument = gql`
   mutation DeleteUnionTypes(
     $delete: UnionTypeDeleteInput
     $where: UnionTypeWhere
@@ -156,7 +156,7 @@ export const DeleteUnionTypesGql = gql`
     }
   }
 `
-export const DeleteInterfaceTypesGql = gql`
+export const DeleteInterfaceTypesDocument = gql`
   mutation DeleteInterfaceTypes(
     $delete: InterfaceTypeDeleteInput
     $where: InterfaceTypeWhere
@@ -167,7 +167,7 @@ export const DeleteInterfaceTypesGql = gql`
     }
   }
 `
-export const DeleteElementTypesGql = gql`
+export const DeleteElementTypesDocument = gql`
   mutation DeleteElementTypes(
     $delete: ElementTypeDeleteInput
     $where: ElementTypeWhere
@@ -178,7 +178,7 @@ export const DeleteElementTypesGql = gql`
     }
   }
 `
-export const DeleteRenderPropsTypesGql = gql`
+export const DeleteRenderPropsTypesDocument = gql`
   mutation DeleteRenderPropsTypes(
     $delete: RenderPropsTypeDeleteInput
     $where: RenderPropsTypeWhere
@@ -189,7 +189,7 @@ export const DeleteRenderPropsTypesGql = gql`
     }
   }
 `
-export const DeleteEnumTypesGql = gql`
+export const DeleteEnumTypesDocument = gql`
   mutation DeleteEnumTypes(
     $delete: EnumTypeDeleteInput
     $where: EnumTypeWhere
@@ -203,7 +203,7 @@ export const DeleteEnumTypesGql = gql`
     }
   }
 `
-export const DeleteLambdaTypesGql = gql`
+export const DeleteLambdaTypesDocument = gql`
   mutation DeleteLambdaTypes(
     $delete: LambdaTypeDeleteInput
     $where: LambdaTypeWhere
@@ -214,7 +214,7 @@ export const DeleteLambdaTypesGql = gql`
     }
   }
 `
-export const DeletePageTypesGql = gql`
+export const DeletePageTypesDocument = gql`
   mutation DeletePageTypes(
     $delete: PageTypeDeleteInput
     $where: PageTypeWhere
@@ -225,7 +225,7 @@ export const DeletePageTypesGql = gql`
     }
   }
 `
-export const DeleteAppTypesGql = gql`
+export const DeleteAppTypesDocument = gql`
   mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {
     deleteAppTypes(delete: $delete, where: $where) {
       relationshipsDeleted
@@ -233,7 +233,7 @@ export const DeleteAppTypesGql = gql`
     }
   }
 `
-export const DeleteMonacoTypesGql = gql`
+export const DeleteMonacoTypesDocument = gql`
   mutation DeleteMonacoTypes(
     $delete: MonacoTypeDeleteInput
     $where: MonacoTypeWhere
@@ -269,7 +269,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeletePrimitiveTypesMutation>(
-            DeletePrimitiveTypesGql,
+            DeletePrimitiveTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -284,7 +284,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteArrayTypesMutation>(
-            DeleteArrayTypesGql,
+            DeleteArrayTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -299,7 +299,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteReactNodeTypesMutation>(
-            DeleteReactNodeTypesGql,
+            DeleteReactNodeTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -314,7 +314,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteUnionTypesMutation>(
-            DeleteUnionTypesGql,
+            DeleteUnionTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -329,7 +329,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteInterfaceTypesMutation>(
-            DeleteInterfaceTypesGql,
+            DeleteInterfaceTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -344,7 +344,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteElementTypesMutation>(
-            DeleteElementTypesGql,
+            DeleteElementTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -359,7 +359,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteRenderPropsTypesMutation>(
-            DeleteRenderPropsTypesGql,
+            DeleteRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -374,7 +374,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteEnumTypesMutation>(
-            DeleteEnumTypesGql,
+            DeleteEnumTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -389,7 +389,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteLambdaTypesMutation>(
-            DeleteLambdaTypesGql,
+            DeleteLambdaTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -404,7 +404,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeletePageTypesMutation>(
-            DeletePageTypesGql,
+            DeletePageTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -418,10 +418,11 @@ export function getSdk(
     ): Promise<DeleteAppTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteAppTypesMutation>(DeleteAppTypesGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<DeleteAppTypesMutation>(
+            DeleteAppTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'DeleteAppTypes',
         'mutation',
       )
@@ -433,7 +434,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteMonacoTypesMutation>(
-            DeleteMonacoTypesGql,
+            DeleteMonacoTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

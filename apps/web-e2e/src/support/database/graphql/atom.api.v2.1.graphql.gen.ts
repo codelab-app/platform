@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type E2eCreateAtomMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
@@ -36,7 +36,7 @@ export const E2eAtomFragmentDoc = gql`
     }
   }
 `
-export const E2eCreateAtomGql = gql`
+export const E2eCreateAtomDocument = gql`
   mutation E2eCreateAtom($input: [AtomCreateInput!]!) {
     createAtoms(input: $input) {
       atoms {
@@ -70,10 +70,11 @@ export function getSdk(
     ): Promise<E2eCreateAtomMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<E2eCreateAtomMutation>(E2eCreateAtomGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<E2eCreateAtomMutation>(
+            E2eCreateAtomDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'E2eCreateAtom',
         'mutation',
       )

@@ -34,7 +34,8 @@ generates:
         enumValues: keep
         dedupeFragments: true
 
-  ./libs/:
+  # This somehow generates for web-e2e as well, even if ./libs
+  ./:
     documents:
       - '**/*.{endpoints,api,fragment}.v2.1.graphql'
     preset: near-operation-file
@@ -46,8 +47,10 @@ generates:
       - typescript-graphql-request
     config:
       inlineFragmentTypes: combine
-      documentVariableSuffix: Gql
-      gqlImport: 'graphql-request#gql'
+      # documentVariableSuffix: Gql
+      # We want to parse to ASTNode
+      gqlImport: 'graphql-tag#gql'
+      # gqlImport: 'graphql-request#gql'
       skipTypename: true
       strictScalars: true
       defaultScalarType: unknown

@@ -1,7 +1,7 @@
 import { CypressCommand } from '../types'
 import { resetDatabase } from './admin'
 import { createApp } from './app'
-import { createAtom, importAtoms } from './atom'
+import { createAtom } from './atom'
 import { createComponent } from './component'
 import { createElement, updateElement } from './element'
 import { createField } from './field'
@@ -29,7 +29,6 @@ export interface CypressDatabaseCommands {
 
   /** element model */
   createAtom: typeof createAtom
-  importAtoms: typeof importAtoms
 
   /** type model */
   createField: typeof createField
@@ -51,5 +50,4 @@ export const databaseCommands: Array<CypressCommand> = [
   { name: 'createField', fn: createField },
   { name: 'createType', fn: createType },
   { name: 'getCurrentUserId', fn: getCurrentUserId },
-  { name: 'importAtoms', fn: importAtoms },
 ]

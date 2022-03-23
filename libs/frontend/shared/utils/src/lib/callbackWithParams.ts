@@ -7,6 +7,7 @@ export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
   param: T,
 ) => {
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
+
   callbacksArray.forEach((cb) => {
     if (isFunction(cb) && isObjectLike(param)) {
       cb(param)

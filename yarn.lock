@@ -14441,8 +14441,8 @@ __metadata:
     material-ui-colors: ^1.0.0
     micro: ^9.3.4
     micro-cors: ^0.1.1
-    mobx: ^6.4.2
-    mobx-keystone: ^0.67.0
+    mobx: ^6.5.0
+    mobx-keystone: ^0.67.2
     mobx-react-lite: ^3.3.0
     monaco-editor: 0.30.1
     monaco-graphql: 0.5.1
@@ -25516,9 +25516,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-keystone@npm:^0.67.0":
-  version: 0.67.0
-  resolution: "mobx-keystone@npm:0.67.0"
+"mobx-keystone@npm:^0.67.2":
+  version: 0.67.2
+  resolution: "mobx-keystone@npm:0.67.2"
   dependencies:
     fast-deep-equal: ^3.1.3
     nanoid: ^3.3.1
@@ -25526,7 +25526,7 @@ __metadata:
     tslib: ^2.3.1
   peerDependencies:
     mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
-  checksum: e5f72df37b6cf4cd0a811c1f47b53392e7038106b55c12d31566579347c7310a4d64004528cc8535e192e18f0dcc9adb524fb2f65268b1c2fc33535fc93aaa99
+  checksum: 880d0272c3ff14616e8461964c8a959502c7f84a235c4f81503ae0a60046391dbed4683c57f2ea300fc6dde6b16636b1c5e53020eb87db1927159e1719882877
   languageName: node
   linkType: hard
 
@@ -25545,7 +25545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:^6.4.2":
+"mobx@npm:^6.5.0":
   version: 6.5.0
   resolution: "mobx@npm:6.5.0"
   checksum: 1210fb0b1c515b5f0ec2916296c32ca19b733e03b34f180af382d44b90668a15b4143c69bb06ca8785ebc3da3e761c6c60d0e72c945c199efc823088af1941ab

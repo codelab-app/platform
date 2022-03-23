@@ -3,37 +3,30 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AppStore } from '../../store'
+import { AppService, WithAppService } from '../../store'
 
-export interface DeleteAppModalProps {
-  apps: AppStore
-}
-
-export const DeleteAppModal = observer<DeleteAppModalProps>(({ apps }) => {
-  const app = apps.deleteModal.app
+export const DeleteAppModal = observer<WithAppService>(({ appService }) => {
+  const app = appService.selectedRef?.current
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while deleting app',
   })
 
-  const closeModal = () => apps.deleteModal.close()
+  const closeModal = () => appService.deleteModal.close()
 
   const onSubmit = () => {
     if (!app) {
       return Promise.reject('App not defined in DeleteAppModal')
     }
 
-    const promise = apps.delete(app.id)
-    closeModal()
-
-    return promise
+    return appService.delete(app.id)
   }
 
   return (
     <ModalForm.Modal
       okText="Delete App"
       onCancel={closeModal}
-      visible={apps.deleteModal.isOpen}
+      visible={appService.deleteModal.isOpen}
     >
       <ModalForm.Form
         model={{}}
@@ -42,7 +35,6 @@ export const DeleteAppModal = observer<DeleteAppModalProps>(({ apps }) => {
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >
-        {' '}
         <h4>Are you sure you want to delete app "{app?.name}"?</h4>
         <AutoFields omitFields={['appId']} />
       </ModalForm.Form>

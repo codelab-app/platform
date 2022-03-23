@@ -42,7 +42,7 @@ const AppsPageHeader = observer(() => {
   const store = useStore()
 
   const pageHeaderButtons = [
-    <CreateAppButton apps={store.appStore} key={0} />,
+    <CreateAppButton apps={store.appService} key={0} />,
     <Dropdown key={1} overlay={menu} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
@@ -67,13 +67,12 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal apps={store.appStore} />
-      <UpdateAppModal apps={store.appStore} />
-      <DeleteAppModal apps={store.appStore} />
-      {/* <ImportAppModal /> */}
+      <CreateAppModal appService={store.appService} />
+      <UpdateAppModal appService={store.appService} />
+      <DeleteAppModal appService={store.appService} />
 
       <ContentSection>
-        <GetAppsList apps={store.appStore} />
+        <GetAppsList appService={store.appService} />
       </ContentSection>
     </>
   )
@@ -88,7 +87,7 @@ export const getServerSideProps = withPageAuthRequired({
 
     const store = initializeStore()
 
-    await store.appStore.getAll()
+    await store.appService.getAll()
 
     return {
       props: { initialState: getSnapshot(store) },
