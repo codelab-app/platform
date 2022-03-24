@@ -14,8 +14,7 @@ export const columns: Array<TableColumnProps<IComponent>> = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    onHeaderCell: headerCellProps,
-    render: (_, component) => <NameColumn component={component} />,
+    onHeaderCell: headerCellProps
   },
   {
     title: 'Type',
@@ -29,6 +28,6 @@ export const columns: Array<TableColumnProps<IComponent>> = [
     key: 'action',
     onHeaderCell: headerCellProps,
     width: 100,
-    render: (_, component) => <ActionColumn component={component} />,
+    render: (_, resource) => <ActionColumn resource={resource} />,
   },
 ]

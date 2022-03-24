@@ -8,6 +8,7 @@ import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateResourceButton,
   CreateResourceModal,
+  DeleteResourceModal,
   GetResourcesTable,
 } from '@codelab/frontend/modules/resource'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -34,6 +35,8 @@ export const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(
         </Head>
 
         <CreateResourceModal resourceService={store.resourceService} />
+        <DeleteResourceModal resourceService={store.resourceService} />
+
         <ContentSection>
           <GetResourcesTable resourceService={store.resourceService} />
         </ContentSection>
