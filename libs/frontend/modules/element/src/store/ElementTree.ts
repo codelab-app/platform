@@ -19,7 +19,7 @@ import {
   ElementEdgeFragment,
   ElementGraphFragment,
 } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import { ElementModel } from './ElementModel'
+import { Element } from './Element'
 import { elementRef } from './elementRef'
 
 const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
@@ -41,7 +41,7 @@ const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
 export class ElementTree extends Model({
   id: idProp,
 
-  elements: prop(() => objectMap<ElementModel>()),
+  elements: prop(() => objectMap<Element>()),
   components: prop(() => objectMap<Component>()),
 }) {
   @computed
@@ -52,7 +52,7 @@ export class ElementTree extends Model({
   @computed
   get root() {
     for (const element of this.elements.values()) {
-      if (!element.parentElement?.current) {
+      if (element.isRoot) {
         return element
       }
     }
@@ -65,7 +65,7 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  addElement(element: ElementModel) {
+  addElement(element: Element) {
     this.elements.set(element.id, element)
 
     return element
@@ -91,7 +91,7 @@ export class ElementTree extends Model({
   /**
    * Returns the element with the given id and all of its descendant elements
    */
-  getElementAndDescendants(id: string): Array<ElementModel> {
+  getElementAndDescendants(id: string): Array<Element> {
     const element = this.element(id)
 
     if (!element) {
@@ -100,7 +100,7 @@ export class ElementTree extends Model({
 
     const cache = new Set<string>()
 
-    const getDescendants = (_e: ElementModel): Array<ElementModel> => {
+    const getDescendants = (_e: Element): Array<Element> => {
       if (cache.has(_e.id)) {
         return []
       }
@@ -118,7 +118,7 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  removeElementAndDescendants(element: ElementModel) {
+  removeElementAndDescendants(element: Element) {
     for (const item of this.getElementAndDescendants(element.id)) {
       this.elements.delete(item.id)
     }
@@ -132,7 +132,7 @@ export class ElementTree extends Model({
     elementId: string,
     newParentId: string,
     newOrder?: number,
-  ): ElementModel {
+  ): Element {
     const element = this.element(elementId)
 
     if (!element) {
@@ -194,12 +194,12 @@ export class ElementTree extends Model({
       getOrCreateComponent(v.component)
       getOrCreateComponent(v.instanceOfComponent)
 
-      const element = ElementModel.fromFragment(v)
+      const element = Element.fromFragment(v)
       this.addElement(element)
     }
 
     // Attach the children. Sort the edges to match the children order to the db edge order
-    edges.sort(sortEdges).forEach((edge, index) => {
+    edges.sort(sortEdges).forEach((edge) => {
       const source = this.element(edge.source)
       const target = this.element(edge.target)
 
@@ -209,7 +209,6 @@ export class ElementTree extends Model({
 
       source.addChild(target)
       target.setParentElement(elementRef(source.id))
-      target.setOrder(edge.order || index)
     })
 
     return this

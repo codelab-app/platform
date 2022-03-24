@@ -1,19 +1,27 @@
-import { clone } from 'mobx-keystone'
-import { RenderOutput } from '../RenderOutput'
 import { ConditionalRenderPipe } from '../renderPipes/ConditionalRenderPipe'
-import { PassThroughRenderPipe } from '../renderPipes/PassThroughRenderPipe'
-import { elementToRender } from './testData/renderData'
+import { setupTestRenderData } from './testData/renderData'
 
 describe('ConditionalRenderPipe', () => {
-  const pipe = new ConditionalRenderPipe({
-    next: new PassThroughRenderPipe({}),
+  const data = setupTestRenderData(
+    (next) => new ConditionalRenderPipe({ next }),
+  )
+
+  beforeEach(() => {
+    data.elementToRender.setRenderIfPropKey('shouldRender')
   })
 
-  const element = clone(elementToRender)
-  element.setRenderIfPropKey('shouldRender')
+  it('should render normally if no key is found', async () => {
+    data.elementToRender.setRenderIfPropKey(null)
+
+    const output = data.renderService.renderElement(data.elementToRender, {
+      shouldRender: false,
+    })
+
+    expect(output).toBeTruthy()
+  })
 
   it('should stop rendering by returning null', async () => {
-    const output = pipe.render(elementToRender, {
+    const output = data.renderService.renderElement(data.elementToRender, {
       shouldRender: false,
     })
 
@@ -26,9 +34,11 @@ describe('ConditionalRenderPipe', () => {
       prop01: 'prop01',
     }
 
-    const output = pipe.render(element, initialProps)
-    console.log(output)
+    const output = data.renderService.renderElement(
+      data.elementToRender,
+      initialProps,
+    )
 
-    expect((output as RenderOutput).props).toStrictEqual(initialProps)
+    expect(output).toBeTruthy()
   })
 })

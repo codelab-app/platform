@@ -2,14 +2,12 @@ import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Component, componentRef } from '@codelab/frontend/modules/component'
 import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
-import { DataNode } from 'antd/lib/tree'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { mergeProps } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
-  detach,
-  getParent,
+  frozen,
   idProp,
   Model,
   model,
@@ -20,63 +18,22 @@ import {
 } from 'mobx-keystone'
 import { ElementFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
 import { ElementProps } from './ElementProps'
+import { elementRef } from './elementRef'
 import { PropMapBinding } from './PropMapBinding'
 
 type TransformFn = (props: PropsData) => PropsData
 
-/**
- * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
- */
-export const elementFromFragment = ({
-  id,
-  name,
-  css,
-  atom,
-
-  component,
-  instanceOfComponent,
-
-  hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
-  propMapBindings,
-
-  props,
-  propTransformationJs,
-  renderIfPropKey,
-  renderForEachPropKey,
-  parentElementConnection,
-}: Omit<ElementFragment, '__typename'>) =>
-  new Element({
-    id,
-    name,
-    css,
-    atom: atom ? atomRef(atom.id) : null,
-    props: props ? ElementProps.fromFragment(props) : null,
-    propTransformationJs,
-    renderIfPropKey,
-    renderForEachPropKey,
-    orderInParent: parentElementConnection?.edges?.[0]?.order ?? null,
-    component: component ? componentRef(component.id) : null,
-    instanceOfComponent: instanceOfComponent
-      ? componentRef(instanceOfComponent.id)
-      : null,
-    propMapBindings: objectMap(
-      propMapBindings
-        ? propMapBindings.map((b) => [b.id, PropMapBinding.fromFragment(b)])
-        : [],
-    ),
-  })
-
+// Renamed from 'Element' because ts doesn't pick it up, because of the native Element type
+// and auto-import doesn't work
 @model('@codelab/Element')
 export class Element extends Model({
   id: idProp.withSetter(),
-
-  children: prop(() => objectMap<Element>()),
-  orderInParent: prop<Nullable<number>>(null).withSetter(),
-
+  parentElement: prop<Nullish<Ref<Element>>>(() => null).withSetter(),
   name: prop<Nullish<string>>(() => null).withSetter(),
   css: prop<Nullish<string>>(() => null).withSetter(),
   atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
-  props: prop<Nullish<ElementProps>>(() => null),
+  children: prop<Array<Ref<Element>>>(() => []),
+  props: prop<ElementProps>(() => new ElementProps({})),
   propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
   renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
   renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
@@ -88,14 +45,17 @@ export class Element extends Model({
   // Marks the element as an instance of a specific component
   instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
 }) {
-  @computed
-  get childrenSorted(): Array<Element> {
-    return [...this.children.values()].sort(compareOrder)
+  protected onAttachedToRootStore(): void {
+    for (const child of this.children) {
+      child.current.setParentElement(elementRef(this))
+    }
   }
 
   @modelAction
-  addChild(child: Element) {
-    this.children.set(child.id, child)
+  addChild(child: Element, order?: number) {
+    order = order ?? this.lastChildOrder + 1
+    child.setParentElement(elementRef(this))
+    this.children.splice(order - 1, 0, elementRef(child))
   }
 
   @modelAction
@@ -104,91 +64,32 @@ export class Element extends Model({
   }
 
   @computed
-  get descendants(): Array<Element> {
-    const descendants: Array<Element> = []
-
-    for (const child of this.childrenSorted) {
-      descendants.push(child)
-      descendants.push(...child.descendants)
-    }
-
-    return descendants
-  }
-
-  /** All descendants that are the first child of their parent */
-  @computed
-  get leftHandDescendants(): Array<Element> {
-    const firstChild = this.childrenSorted[0]
-
-    if (!firstChild) {
-      return []
-    }
-
-    return [firstChild, ...firstChild.leftHandDescendants]
-  }
-
-  @computed
-  get deepestDescendant(): Element | null {
-    let deepest: Element | null = null
-    let deepestDepth = 0
-
-    const visitChildren = (child: Element, depth: number): void => {
-      if (child.children.size) {
-        for (const subChild of child.childrenSorted) {
-          visitChildren(subChild, depth + 1)
-        }
-      } else {
-        if (depth > deepestDepth) {
-          deepest = child
-          deepestDepth = depth
-        }
-      }
-    }
-
-    visitChildren(this, 0)
-
-    return deepest
-  }
-
-  @computed
   get label() {
-    return (
-      this.name ||
-      this.atom?.current.name ||
-      (this.atom?.current
-        ? pascalCaseToWords(this.atom.current.type)
-        : undefined) ||
-      this.component?.current?.name ||
-      this.instanceOfComponent?.current?.name ||
-      ''
-    )
+    return this.name || this.atom?.current.name || '' // TODO add this.component?.name and this.componentInstance.name to Element.label
   }
 
   @computed
-  get parentElement(): Maybe<Element> {
-    let parent: any = getParent(this)
+  get isRoot() {
+    return !this.parentElement && !this.component
+  }
 
-    if (parent?.$modelType === '@codelab/ElementTree') {
-      return undefined // This is the root of the tree
-    }
+  @computed
+  get isRootOfComponent() {
+    return !this.parentElement && !!this.component
+  }
 
-    // usually the first parent will be the 'children' objectMap. To get to the parent element, we need to get the parent of the objectMap
-    // For some reason it's two levels deep
-    parent = getParent(parent)
-    parent = getParent(parent)
+  @computed
+  get childrenList() {
+    return this.children.map((c) => c.current)
+  }
 
-    if (parent?.$modelType === '@codelab/Element') {
-      return parent
-    }
-
-    return undefined
+  hasChild(id: string) {
+    return !!this.children.find((c) => c.id === id)
   }
 
   @computed
   get lastChildOrder() {
-    const childrenSorted = this.childrenSorted
-
-    return childrenSorted[childrenSorted.length - 1]?.orderInParent ?? 0
+    return this.childrenList.length
   }
 
   @computed
@@ -196,38 +97,13 @@ export class Element extends Model({
     return { [DATA_ID]: this.id, key: this.id }
   }
 
-  @computed
-  get antdNode(): DataNode {
-    return {
-      key: this.id,
-      title: this.label,
-      children: this.childrenSorted.map((child) => child.antdNode),
-    }
-  }
-
-  findDescendant(id: string): Maybe<Element> {
-    if (this.id === id) {
-      return this
-    }
-
-    if (this.children.has(id)) {
-      return this.children.get(id)
-    }
-
-    for (const child of this.childrenSorted) {
-      const descendant = child.findDescendant(id)
-
-      if (descendant) {
-        return descendant
-      }
-    }
-
-    return undefined
-  }
-
   @modelAction
-  removeChild(element: Element) {
-    detach(element)
+  removeChild(id: string) {
+    const child = this.children.find((c) => c.id === id)
+
+    if (child) {
+      this.children.splice(this.children.indexOf(child), 1)
+    }
   }
 
   /**
@@ -236,7 +112,7 @@ export class Element extends Model({
    * - those that are bound this element
    * - those that are bound to other elements
    */
-  applyPropMapBindings = (sourceProps: PropsData) => {
+  applyPropMapBindings(sourceProps: PropsData) {
     // those are the props that are bound to the element
     let selfBoundProps = { ...sourceProps }
     // Those are the props that are bound to the element's descendants
@@ -290,7 +166,7 @@ export class Element extends Model({
    * If successful, merges the result with the original props and returns it
    * If failed, returns the original props
    */
-  executePropTransformJs = (props: PropsData): PropsData => {
+  executePropTransformJs(props: PropsData): PropsData {
     const transformFn = this.transformFn
 
     if (!transformFn) {
@@ -309,20 +185,18 @@ export class Element extends Model({
   }
 
   @modelAction
-  removePropMapBinding(propMapBinding: PropMapBinding): void {
-    this.propMapBindings.delete(propMapBinding.id)
-  }
-
-  @modelAction
   updateFromFragment({
     id,
     name,
     css,
     atom,
+
     component,
     instanceOfComponent,
+
     hooks,
     propMapBindings,
+
     props,
     propTransformationJs,
     renderIfPropKey,
@@ -337,13 +211,26 @@ export class Element extends Model({
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
     this.atom = atom ? atomRef(atom.id) : null
-    this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
-    this.props = props ? new ElementProps({ id: props.id }) : null
 
     if (props) {
-      this.props?.updateFromFragment(props)
+      this.props.updateFromFragment(props)
     } else {
-      this.props = null
+      this.props.clear()
+    }
+
+    if (parentElement) {
+      if (this.parentElement?.id !== parentElement.id) {
+        this.parentElement?.current?.removeChild(this.id)
+        this.parentElement = elementRef(parentElement.id)
+
+        // This sets the order too
+        this.parentElement.current?.addChild(
+          this,
+          parentElementConnection.edges[0]?.order ?? undefined,
+        )
+      }
+    } else {
+      this.parentElement = null
     }
 
     for (const pmb of propMapBindings) {
@@ -360,9 +247,48 @@ export class Element extends Model({
       : null
   }
 
-  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static fromFragment = elementFromFragment
-}
+  /**
+   * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
+   */
+  public static fromFragment({
+    id,
+    name,
+    css,
+    atom,
 
-export const compareOrder = (a: Element, b: Element) =>
-  (a.orderInParent ?? 0) - (b.orderInParent ?? 0)
+    component,
+    instanceOfComponent,
+
+    hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
+    propMapBindings,
+
+    props,
+    propTransformationJs,
+    renderIfPropKey,
+    renderForEachPropKey,
+    parentElementConnection,
+  }: Omit<ElementFragment, '__typename'>) {
+    return new Element({
+      id,
+      name,
+      css,
+      atom: atom ? atomRef(atom.id) : null,
+      props: props
+        ? ElementProps.fromFragment(props)
+        : new ElementProps({ data: frozen({}) }),
+      propTransformationJs,
+      renderIfPropKey,
+      renderForEachPropKey,
+      parentElement: null,
+      component: component ? componentRef(component.id) : null,
+      instanceOfComponent: instanceOfComponent
+        ? componentRef(instanceOfComponent.id)
+        : null,
+      propMapBindings: objectMap(
+        propMapBindings
+          ? propMapBindings.map((b) => [b.id, PropMapBinding.fromFragment(b)])
+          : [],
+      ),
+    })
+  }
+}

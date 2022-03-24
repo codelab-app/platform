@@ -1,45 +1,91 @@
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
-import { ElementModel } from '@codelab/frontend/modules/element'
-import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Component } from '@codelab/frontend/modules/component'
+import { Element } from '@codelab/frontend/modules/element'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
+import { RenderOutput } from '../abstract/RenderOutput'
 import { getRenderContext } from '../renderContext'
-import { RenderOutput } from '../RenderOutput'
+import type { RenderService } from '../RenderService'
+import { mapOutput } from '../utils/renderOutputUtils'
 
-@model('@codelab/AtomRenderPipe')
+@model('@codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(
-    element: ElementModel,
-    props: PropsData,
-    extraElementProps?: PropsDataByElementId,
-  ): Nullable<ArrayOrSingle<RenderOutput>> {
-    const renderer = getRenderContext(this)
-    const componentInstance = element.instanceOfComponent?.current
+  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+    const component = element.instanceOfComponent?.current
 
-    if (!componentInstance) {
-      return this.next.render(element, props, extraElementProps)
+    if (!component) {
+      return this.next.render(element, props)
     }
 
-    const componentProp = { [DATA_COMPONENT_ID]: element.id }
-
-    const rootElement =
-      renderer.tree.getRootElementOfComponent(componentInstance)
+    const renderer = getRenderContext(this)
+    const rootElement = renderer.tree.getRootElementOfComponent(component)
 
     if (!rootElement) {
-      return this.next.render(element, props, extraElementProps)
+      ComponentRenderPipe.logRootElementNotFound(renderer, element)
+
+      return this.next.render(element, props)
     }
 
+    ComponentRenderPipe.logRendering(renderer, rootElement, element)
+
     // Start the pipe again with the root element
-    return renderer.renderElement(
-      rootElement,
-      mergeProps(componentProp, props),
-      extraElementProps,
+    const output = renderer.renderElementIntermediate(rootElement)
+
+    const overrideProps = ComponentRenderPipe.makeOverrideProps(
+      props,
+      component,
     )
+
+    return mapOutput(output, (o) => ({
+      ...o,
+      // replace the root element id with the instance id
+      elementId: element.id,
+      // Override the component props with the instance props
+      props: mergeProps(o.props, overrideProps),
+    }))
+  }
+
+  private static makeOverrideProps(props: PropsData, component: Component) {
+    const {
+      key,
+      [DATA_COMPONENT_ID]: cid,
+      ...overrideProps
+    } = { ...props } as any
+
+    return {
+      [DATA_COMPONENT_ID]: component.id,
+      ...overrideProps,
+    }
+  }
+
+  private static logRootElementNotFound(
+    renderer: RenderService,
+    element: Element,
+  ) {
+    if (renderer.debugMode) {
+      console.log(
+        'ComponentRenderPipe: No root element found for the component',
+        { element: element.name },
+      )
+    }
+  }
+
+  private static logRendering(
+    renderer: RenderService,
+    rootElement: Element,
+    element: Element,
+  ) {
+    if (renderer.debugMode) {
+      console.log(
+        `ComponentRenderPipe: rendering component with root element ${rootElement.name}`,
+        { element: element.name },
+      )
+    }
   }
 }

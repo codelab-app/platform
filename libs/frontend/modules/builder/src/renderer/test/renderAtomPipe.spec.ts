@@ -1,30 +1,24 @@
-import { PropsData } from '@codelab/shared/abstract/core'
+import { atomRef } from '@codelab/frontend/modules/atom'
 import { render } from '@testing-library/react'
-import { ReactElement } from 'react'
-import { renderAtomPipe } from './renderAtomPipe'
-import { renderPipeline } from './renderPipeline'
-import { elementToRender03, endPipe, treeToRender } from './test'
-import { RenderContext } from './types'
-
-const defaultContext = {
-  tree: treeToRender,
-  render: renderPipeline,
-} as RenderContext
-
-const initialProps: PropsData = {
-  text: 'a text to render',
-}
+import { RenderOutput } from '../abstract/RenderOutput'
+import { react } from '../ElementWrapper'
+import { AtomRenderPipe } from '../renderPipes/AtomRenderPipe'
+import { setupTestRenderData } from './testData/renderData'
 
 describe('RenderAtomPipe', () => {
+  const data = setupTestRenderData((next) => new AtomRenderPipe({ next }))
+
   it('should render element atom ', async () => {
-    const output = renderAtomPipe(endPipe)(
-      elementToRender03,
-      defaultContext,
-      initialProps,
-    ) as ReactElement
+    const text = 'a text to render'
+    data.elementToRender.setAtom(atomRef(data.textAtom))
+    data.elementToRender.props.set('text', text)
 
-    const { findByText } = render(output)
+    const output = data.renderService.renderElement(
+      data.elementToRender,
+    ) as RenderOutput
 
-    expect(await findByText(initialProps.text)).toBeInTheDocument()
+    const { findByText } = render(react(output))
+
+    expect(await findByText(text)).toBeInTheDocument()
   })
 })

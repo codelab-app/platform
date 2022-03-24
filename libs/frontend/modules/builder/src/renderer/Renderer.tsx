@@ -2,11 +2,10 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementWrapper } from './ElementWrapper'
 import { RenderService } from './RenderService'
 
 export interface RendererProps {
-  renderModel: RenderService
+  renderService: RenderService
 }
 
 /**
@@ -15,11 +14,11 @@ export interface RendererProps {
  * Hooks and prop map bindings are currently not implemented, since they might be
  * replaced by platform-level mobx.
  */
-export const Renderer = observer(({ renderModel }: RendererProps) => {
-  const root = renderModel.tree.root
+export const Renderer = observer(({ renderService }: RendererProps) => {
+  const root = renderService.tree.root
 
   if (!root) {
-    console.warn('RenderService: No root element found')
+    console.warn('Renderer: No root element found')
 
     return null
   }
@@ -27,7 +26,7 @@ export const Renderer = observer(({ renderModel }: RendererProps) => {
   return (
     <ErrorBoundary>
       <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
-        <ElementWrapper element={root} renderModel={renderModel} />
+        {renderService.renderElement(root)}
       </div>
     </ErrorBoundary>
   )

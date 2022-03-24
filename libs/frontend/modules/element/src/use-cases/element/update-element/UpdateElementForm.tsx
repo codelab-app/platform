@@ -9,7 +9,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementModel, ElementService } from '../../../store'
+import { Element, ElementService } from '../../../store'
 import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps = Omit<
@@ -17,7 +17,7 @@ export type UpdateElementFormProps = Omit<
   'onSubmit'
 > & {
   elementService: ElementService
-  element: ElementModel
+  element: Element
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
 }

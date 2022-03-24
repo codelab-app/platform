@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementModel, ElementService } from '../../../store'
+import { Element, ElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
@@ -17,7 +17,7 @@ export type MoveElementFormProps = Omit<
   UseCaseFormWithRef<MoveData>,
   'onSubmit'
 > & {
-  element: ElementModel
+  element: Element
   elementService: ElementService
   trackPromises?: UseTrackLoadingPromises
 }

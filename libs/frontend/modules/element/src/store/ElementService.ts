@@ -24,7 +24,7 @@ import { MoveData } from '../use-cases/element/move-element/types'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
 import { elementApi } from './apis'
 import { makeCreateInput, makeUpdateInput } from './apiUtils'
-import { ElementModel } from './ElementModel'
+import { Element } from './Element'
 import { ElementTree } from './ElementTree'
 
 /**
@@ -93,7 +93,14 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const element = ElementModel.fromFragment(createdElement)
+    const element = Element.fromFragment(createdElement)
+
+    if (input.parentElementId) {
+      this.elementTree
+        .element(input.parentElementId)
+        ?.addChild(element, input.order)
+    }
+
     this.elementTree.addElement(element)
   })
 
@@ -101,7 +108,7 @@ export class ElementService extends Model({
   @transaction
   updateElement = _async(function* (
     this: ElementService,
-    element: ElementModel,
+    element: Element,
     input: UpdateElementInput,
   ) {
     const updateInput = makeUpdateInput(input)
@@ -113,7 +120,7 @@ export class ElementService extends Model({
   @transaction
   updateElementsPropTransformationJs = _async(function* (
     this: ElementService,
-    element: ElementModel,
+    element: Element,
     newPropTransformJs: string,
   ) {
     const input: ElementUpdateInput = {
@@ -127,7 +134,7 @@ export class ElementService extends Model({
   @transaction
   updateElementCss = _async(function* (
     this: ElementService,
-    element: ElementModel,
+    element: Element,
     newCss: string,
   ) {
     const input: ElementUpdateInput = { css: newCss }
@@ -150,14 +157,6 @@ export class ElementService extends Model({
       order,
     )
 
-    if (
-      targetElement.parentElement?.id === targetElementId &&
-      targetElement.order === order
-    ) {
-      // everything is the same, no need to call the server
-      return
-    }
-
     const input: ElementUpdateInput = {
       parentElement: {
         disconnect: { where: {} },
@@ -172,7 +171,7 @@ export class ElementService extends Model({
   @transaction
   updateElementProps = _async(function* (
     this: ElementService,
-    element: ElementModel,
+    element: Element,
     data: PropsData,
   ) {
     const createOrUpdate = element.props ? 'update' : 'create'
@@ -193,7 +192,7 @@ export class ElementService extends Model({
   @transaction
   private patchElement = _async(function* (
     this: ElementService,
-    element: ElementModel,
+    element: Element,
     input: ElementUpdateInput,
   ) {
     const {
@@ -246,7 +245,7 @@ export class ElementService extends Model({
 
 @model('codelab/ElementModalService')
 class ElementModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalService<Ref<ElementModel>>>(ModalService),
+  baseModel: modelClass<ModalService<Ref<Element>>>(ModalService),
   props: {},
 })) {
   @computed
@@ -258,9 +257,7 @@ class ElementModalService extends ExtendedModel(() => ({
 @model('codelab/CreateElementModalService')
 class CreateElementModalService extends ExtendedModel(() => ({
   baseModel:
-    modelClass<ModalService<{ parentElement?: Ref<ElementModel> }>>(
-      ModalService,
-    ),
+    modelClass<ModalService<{ parentElement?: Ref<Element> }>>(ModalService),
   props: {},
 })) {
   @computed

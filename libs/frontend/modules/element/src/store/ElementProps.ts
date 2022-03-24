@@ -1,4 +1,5 @@
 import { PropsData } from '@codelab/shared/abstract/core'
+import { mergeProps } from '@codelab/shared/utils'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { Frozen } from 'mobx-keystone/src/frozen/Frozen'
 import { PropFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
@@ -8,10 +9,25 @@ export class ElementProps extends Model({
   id: idProp,
   // freeze the data object to make it immutable.
   // The actual data is in data.data, because the Frozen class keeps the data in its own data property
-  data: prop<Frozen<PropsData>>().withSetter(),
+  data: prop<Frozen<PropsData>>(() => frozen({})).withSetter(),
 }) {
   get propsData() {
     return this.data.data
+  }
+
+  @modelAction
+  set(key: string, value: any) {
+    this.data = frozen(mergeProps(this.propsData, { [key]: value }))
+  }
+
+  @modelAction
+  get(key: string) {
+    return this.propsData[key]
+  }
+
+  @modelAction
+  clear() {
+    this.data = frozen({})
   }
 
   @modelAction
