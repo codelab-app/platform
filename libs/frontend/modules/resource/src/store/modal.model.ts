@@ -1,4 +1,4 @@
-import { Model, model, modelAction, prop, tProp, types } from 'mobx-keystone'
+import { Model, model, modelAction, prop, tProp, types, rootRef, detach } from 'mobx-keystone'
 
 @model('codelab/Modal')
 // eslint-disable-next-line @typescript-eslint/no-shadow

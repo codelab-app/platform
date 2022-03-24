@@ -5,6 +5,7 @@ import { Model, model, modelAction, modelFlow, objectMap, prop, tProp, transacti
 import { CreateResourceInput } from '../use-cases/create-resource/createResourceSchema'
 import { Resource } from './resource.model'
 import { resourceApi } from './resource.api'
+import { ResourcesModalService } from './resource-modal.service'
 
 export type WithResourceService = {
   resourceService: ResourceService
@@ -14,6 +15,7 @@ export type WithResourceService = {
 export class ResourceService extends Model({
   resourceMap: prop(() => objectMap<Resource>()),
   createModal: prop(() => new ModalService({})),
+  deleteModal: prop(() => new ResourcesModalService({})),
 }) {
   @computed
   get resourceList() {
@@ -65,8 +67,22 @@ export class ResourceService extends Model({
     return resources
   })
 
-  @modelAction
-  remove(resource: Resource) {
-    resourceApi.DeleteResources()
-  }
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: ResourceService, resources: Resource[]) {
+    const ids = resources.map((resource) => resource.id)
+
+
+    for (const id of ids) {
+      if (this.resourceMap.has(id)) {
+        this.resourceMap.delete(id)
+      }
+    }
+
+    const { deleteResources } = yield* _await(
+      resourceApi.DeleteResources({ where: { id_IN: ids } }),
+    )
+
+    return deleteResources
+  })
 }

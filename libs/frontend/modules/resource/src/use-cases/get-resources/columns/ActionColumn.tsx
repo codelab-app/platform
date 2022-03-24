@@ -1,5 +1,6 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -8,28 +9,21 @@ import {
 import { IComponent } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { useRouter } from 'next/router'
+import { resourceRef, Resource } from '../../..'
 
-export type ActionColumnProps = {
-  component: IComponent
-}
-
-export const ActionColumn = ({ component }: ActionColumnProps) => {
+export const ActionColumn = ({ resource }: { resource: Resource }) => {
+  const store = useStore()
   const router = useRouter()
+  const resourceService = store.resourceService
   // const { openDeleteModal, openUpdateModal } = useComponentDispatch()
 
   const onEdit = () => {
-    // openUpdateModal({ updateId: component.id, entity: component })
   }
+
+  console.log({ resource });
 
   const onDelete = () => {
-    // openDeleteModal({ deleteIds: [component.id], entity: component })
-  }
-
-  const onBuilder = () => {
-    router.push({
-      pathname: PageType.ComponentDetail,
-      query: { componentId: component.id },
-    })
+    resourceService.deleteModal.open([resourceRef(resource.id)])
   }
 
   return (
