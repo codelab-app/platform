@@ -26,12 +26,12 @@ export type CreateStoresMutation = {
   }
 }
 
-export type DeleteStoresMutationVariables = Types.Exact<{
+export type DeleteStoresSubgraphMutationVariables = Types.Exact<{
   where: Types.StoreWhere
 }>
 
-export type DeleteStoresMutation = {
-  deleteStores: { nodesDeleted: number; relationshipsDeleted: number }
+export type DeleteStoresSubgraphMutation = {
+  deleteStoresSubgraph: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type GetStoresQueryVariables = Types.Exact<{
@@ -71,9 +71,9 @@ export const CreateStoresGql = gql`
   ${StoreFragmentDoc}
   ${ActionFragmentDoc}
 `
-export const DeleteStoresGql = gql`
-  mutation DeleteStores($where: StoreWhere!) {
-    deleteStores(where: $where) {
+export const DeleteStoresSubgraphGql = gql`
+  mutation DeleteStoresSubgraph($where: StoreWhere!) {
+    deleteStoresSubgraph(where: $where) {
       nodesDeleted
       relationshipsDeleted
     }
@@ -142,17 +142,18 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteStores(
-      variables: DeleteStoresMutationVariables,
+    DeleteStoresSubgraph(
+      variables: DeleteStoresSubgraphMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteStoresMutation> {
+    ): Promise<DeleteStoresSubgraphMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteStoresMutation>(DeleteStoresGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'DeleteStores',
+          client.request<DeleteStoresSubgraphMutation>(
+            DeleteStoresSubgraphGql,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteStoresSubgraph',
         'mutation',
       )
     },

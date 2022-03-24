@@ -34,7 +34,7 @@ const deleteStoresResolver: IRxTxnResolver<
     )
   }
 
-export const deleteStores = withRxTransaction(
+export const deleteStoresSubgraph = withRxTransaction(
   deleteStoresResolver,
   RxTransactionType.WRITE,
 )

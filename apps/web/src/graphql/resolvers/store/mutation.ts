@@ -1,6 +1,6 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { deleteStores } from './deleteStores'
+import { deleteStoresSubgraph } from './deleteStores'
 
 export const storeMutationsResolvers: IResolvers = {
-  deleteStores,
+  deleteStoresSubgraph,
 }

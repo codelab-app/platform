@@ -10,8 +10,8 @@ mutation CreateStores($input: [StoreCreateInput!]!) {
   }
 }
 
-mutation DeleteStores($where: StoreWhere!) {
-  deleteStores(where: $where) {
+mutation DeleteStoresSubgraph($where: StoreWhere!) {
+  deleteStoresSubgraph(where: $where) {
     nodesDeleted
     relationshipsDeleted
   }

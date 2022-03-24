@@ -1,10 +1,9 @@
 import { useAsyncState } from '@codelab/frontend/shared/utils'
-import { TreeService } from '@codelab/shared/core'
 import { Dropdown, Menu, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { StateStore, storeRef } from '../../../store'
+import { StateStore, StoreModel, storeRef } from '../../../store'
 
 export type TreeItemTitleProps = {
   node: DataNode
@@ -47,14 +46,8 @@ const TreeItemTitle = observer<TreeItemTitleProps>(({ node, stateStore }) => {
 })
 
 export const GetStoresTree = observer<GetStoresTableProps>(({ stateStore }) => {
-  const [getStores] = useAsyncState(() => stateStore.getStoresGraphs())
-
-  const storesList = new TreeService({
-    vertices: [...stateStore.storesGraphs.vertices.values()],
-    edges: stateStore.storesGraphs.edges,
-  })
-
-  const storesTrees = storesList.getAntdTrees()
+  const [getStores] = useAsyncState(() => stateStore.getTree())
+  const storesTrees = stateStore.storesTree.nodesList
 
   useEffect(() => {
     getStores()
@@ -62,7 +55,7 @@ export const GetStoresTree = observer<GetStoresTableProps>(({ stateStore }) => {
   }, [])
 
   return (
-    <Tree
+    <Tree<StoreModel>
       blockNode
       className="draggable-tree"
       titleRender={(node) => (
