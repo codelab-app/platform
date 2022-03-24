@@ -38,7 +38,11 @@
           "memoryLimit": 8192,
           "port": 3001
         },
-        "dev": {},
+        "dev": {
+          "buildTarget": "web:build:test",
+          "memoryLimit": 8192,
+          "port": 3001
+        },
         "production": {
           "buildTarget": "web:build:production",
           "dev": false

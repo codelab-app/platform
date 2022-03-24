@@ -6,6 +6,5 @@ export enum Tasks {
   Build = 'build',
   Commitlint = 'commitlint',
   Format = 'format',
-  Eslint = 'eslint',
   Circularlint = 'circular-lint',
 }

@@ -175,7 +175,7 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: yarn cli tasks eslint --env ci
+      - run: yarn cli tasks lint --env ci
       # Check to see if codegen works, all files should be committed locally
       # - run:
       #     name: 'GraphQL Codegen'
@@ -208,7 +208,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - browser-tools/install-firefox
+      # - browser-tools/install-firefox
       - run: npx cypress install
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci

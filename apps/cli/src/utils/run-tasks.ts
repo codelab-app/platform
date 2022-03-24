@@ -43,10 +43,6 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       files?.forEach((file) => {
         const content = readFileSync(file, 'utf8')
 
-        console.log(content)
-
-        console.log(formatCypher(content))
-
         writeFileSync(file, formatCypher(content))
       })
 
@@ -58,9 +54,8 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(
-          `npx nx affected:lint && npx prettier --check '**/*.{graphql,yaml,json}'`,
-        )
+        execCommand(`npx nx affected:lint`)
+        execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
       }
 
       break
@@ -103,13 +98,11 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
     case Tasks.E2e:
       if (env === TaskEnv.Test) {
         execCommand(`${NX_TEST} build web -c=test`)
-        execCommand(
-          `${NX_TEST} run web-e2e:e2e:test --browser firefox --verbose`,
-        )
+        execCommand(`${NX_TEST} run web-e2e:e2e:test --verbose`)
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(`npx nx run web-e2e:e2e:ci --record --browser firefox`)
+        execCommand(`npx nx run web-e2e:e2e:ci --record`)
       }
 
       break
