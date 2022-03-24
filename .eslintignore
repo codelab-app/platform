@@ -13,4 +13,4 @@ public
 **/deprecated
 
 # Graphql codegen files
-**/*.graphql.gen.ts
+**/*.gen.ts

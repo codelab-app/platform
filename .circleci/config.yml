@@ -38,9 +38,6 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.2
   node: circleci/node@4.7.0
-  aws-cli: circleci/aws-cli@2.0.3
-  aws-ecs: circleci/aws-ecs@2.2.1
-  browser-tools: circleci/browser-tools@1.2.3
   nx: nrwl/nx@1.1.3
 
 executors:
@@ -55,16 +52,6 @@ executors:
     docker:
       - image: cimg/node:14.18-browsers
     resource_class: large
-  # cypress-node:
-  #   <<: *executor-config
-  #   docker:
-  #     - image: cypress/browsers:chrome77
-  #   resource_class: large
-  # docker-python:
-  #   <<: *executor-config
-  #   docker:
-  #     - image: circleci/python:3.7
-  #   resource_class: large
 
 commands:
   setup-workspace:
@@ -208,7 +195,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - browser-tools/install-firefox
       - run: npx cypress install
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci
