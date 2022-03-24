@@ -1,6 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { getRenderContext } from '../renderServiceContext'
