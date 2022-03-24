@@ -17,7 +17,6 @@
   "projectId": "37q6ed",
   "env": {},
   "testFiles": "**/*.spec.*",
-  "numTestsKeptInMemory": 1,
   "retries": {
     "runMode": 2,
     "openMode": 0

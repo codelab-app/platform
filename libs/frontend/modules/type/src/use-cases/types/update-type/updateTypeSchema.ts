@@ -117,6 +117,8 @@ export const mapUpdateTypeSchemaToTypeInput = (
 
       return { ...common, elementKind: formData.elementKind }
     case TypeKind.ArrayType:
+      console.log(common)
+
       return { ...common }
     default:
       throw new Error('Invalid Update form type')

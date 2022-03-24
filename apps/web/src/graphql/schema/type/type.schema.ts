@@ -85,6 +85,7 @@ export const typeSchema = gql`
   # Adding @cypher here doesn't seem to work
   interface WithDescendants {
     descendantTypesIds: [ID!]!
+      @cypher(statement: """${getTypeDescendantIds}""")
   }
 
   # A union is needed as a reference point for the type graph
@@ -161,7 +162,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     descendantTypesIds: [ID!]!
-      @cypher(statement: """${getTypeDescendantIds}""")
     graph: TypeGraph!
     # The reason this is an array is that there is a bug with neo4j graphql that appears
     # when referencing a single interface relationship
@@ -181,7 +181,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     descendantTypesIds: [ID!]!
-      @cypher(statement: """${getTypeDescendantIds}""")
     graph: TypeGraph!
     typesOfUnionType: [TypeBase!]!
       @relationship(
@@ -198,7 +197,6 @@ export const typeSchema = gql`
     name: String!
     owner: [User!]!
     descendantTypesIds: [ID!]!
-      @cypher(statement: """${getTypeDescendantIds}""")
     graph: TypeGraph!
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!

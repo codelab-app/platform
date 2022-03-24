@@ -93,7 +93,6 @@ export const mapCreateTypeSchemaToTypeInput = (
         allowedValues: {
           create: formData.allowedValues?.map((v) => ({
             node: { id: v4(), name: v.name, value: v.value },
-            edge: { id: v4() },
           })),
         },
       }
