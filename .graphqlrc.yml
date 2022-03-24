@@ -9,10 +9,3 @@ projects:
     schema: 'schema.api.v2.graphql'
     documents:
       - libs/**/modules/**/*.v2.graphql
-# extensions:
-#   - endpoints:
-#     'Nest API Graphql Endpoint':
-#       url: '${env:CODELAB_API_ENDPOINT}/graphql'
-#       headers:
-#         user-agent: 'JS Graphql'
-#       introspect: true

@@ -59,7 +59,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `npx nx affected:lint --quiet && npx prettier --check '**/*.{graphql,yaml,json}'`,
+          `npx nx affected:lint && npx prettier --check '**/*.{graphql,yaml,json}'`,
         )
       }
 
