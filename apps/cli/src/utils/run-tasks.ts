@@ -21,13 +21,13 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
     case Tasks.Build:
       if (env === TaskEnv.Test) {
         execCommand(
-          `${NX_TEST} affected:build --configuration=test --exclude=tools-plugins-codelab`,
+          `${NX_TEST} affected:build -c=test --exclude=tools-plugins-codelab`,
         )
       }
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          'npx nx run-many --target=build --projects=web,cli,tools-rtk-query --configuration=ci --verbose',
+          'npx nx affected:build --projects=web,cli,tools-rtk-query -c=ci --verbose',
         )
       }
 
@@ -39,7 +39,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `npx nx affected:lint --configuration=ci --quiet && npx prettier --check '**/*,{graphql.yaml.json}'`,
+          `npx nx affected:lint -c=ci --quiet && npx prettier --check '**/*,{graphql.yaml.json}'`,
         )
       }
 
@@ -72,17 +72,21 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       break
+    /**
+     * When building next web, we must use env to create the production port, otherwise the ports will be different
+     *
+     * `configuration` not passed when using affected, use `c`
+     */
     case Tasks.E2e:
       if (env === TaskEnv.Test) {
+        execCommand(`${NX_TEST} build web -c=test`)
         execCommand(
-          `${NX_TEST} affected:e2e --configuration=test --browser firefox`,
+          `${NX_TEST} run e2e:web-e2e:test --browser firefox --verbose`,
         )
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(
-          `yarn affected:e2e --configuration=ci --record --browser firefox`,
-        )
+        execCommand(`npx run e2e:web-e2e:ci --record --browser firefox`)
       }
 
       break
@@ -92,9 +96,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(
-          `yarn affected:e2e --configuration=ci --record --browser firefox`,
-        )
+        execCommand(`yarn affected:e2e -c=ci --record --browser firefox`)
       }
 
       break
