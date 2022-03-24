@@ -40,6 +40,9 @@ yargs(hideBin(process.argv))
         .command(Tasks.Lint, 'Lint projects', requireTestEnvOptions, (argv) =>
           runTasks(argv.env, `${argv._[1]}`),
         )
+        .command(Tasks.Format, 'Format files', requireTestEnvOptions, (argv) =>
+          runTasks(argv.env, `${argv._[1]}`, `${argv._[2]}`),
+        )
         .command(
           Tasks.Commitlint,
           'Commitlint projects',

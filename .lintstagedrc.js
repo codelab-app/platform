@@ -23,6 +23,13 @@ module.exports = {
 
     return cmd
   },
+  // '**/*.{cypher}': (files) => {
+  //   const stagedFiles = files.join(' ')
+  //   const cmd = `yarn cli tasks format --env test ${stagedFiles}`
+  //   console.log(`Running: ${cmd}`)
+
+  //   return cmd
+  // },
   // '**/*.{.tf}': (files) => {
   //   const stagedFiles = files.join(' ')
 

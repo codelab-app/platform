@@ -21,7 +21,7 @@ import {
   IBaseType,
   makeUpdateFn,
 } from '../abstract'
-import { CreateFieldInput, Field } from './field.model';
+import { CreateFieldInput, Field } from './field.model'
 import { typeRef } from './union-type.model'
 
 @model('codelab/InterfaceType')

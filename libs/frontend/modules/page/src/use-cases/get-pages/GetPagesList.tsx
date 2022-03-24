@@ -4,11 +4,9 @@ import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { PageService, WithPageService } from '../../store'
+import { WithPageService } from '../../store'
 import { providerTreePageName } from './consts'
 import { GetPagesItem } from './GetPagesItem'
-
-
 
 export const GetPagesList = observer<WithPageService>(({ pageService }) => {
   const appId = useCurrentAppId()

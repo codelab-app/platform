@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core';
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
   Model,
@@ -9,15 +9,15 @@ import {
   Ref,
   rootRef,
   transaction,
-} from 'mobx-keystone';
-import { TypeFragment, UnionTypeFragment } from '../../graphql';
+} from 'mobx-keystone'
+import { TypeFragment, UnionTypeFragment } from '../../graphql'
 import {
   baseTypeProps,
   baseUpdateFromFragment,
   IBaseType,
   makeUpdateFn,
-} from '../abstract';
-import type { AnyType } from './types';
+} from '../abstract'
+import type { AnyType } from './types'
 
 //
 // Union
@@ -68,4 +68,3 @@ export const typeRef = rootRef<AnyType>('codelab/TypeRef', {
     }
   },
 })
-

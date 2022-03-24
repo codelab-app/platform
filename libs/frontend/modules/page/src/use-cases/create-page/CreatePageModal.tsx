@@ -5,10 +5,8 @@ import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PageService, WithPageService } from '../../store'
+import { WithPageService } from '../../store'
 import { createPageSchema } from './createPageSchema'
-
-
 
 export const CreatePageModal = observer<WithPageService>(({ pageService }) => {
   const currentAppId = useCurrentAppId()

@@ -1,5 +1,8 @@
+/* eslint-disable no-case-declarations */
 import execa from 'execa'
+import { readFileSync, writeFileSync } from 'fs'
 import { TaskEnv } from './env'
+import { formatCypher } from './format-cypher'
 import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
@@ -15,8 +18,6 @@ export const execCommand = (command: string) => {
 }
 
 export const runTasks = (env: TaskEnv, task: string, args?: string) => {
-  // console.log(env, task)
-
   switch (task) {
     case Tasks.Build:
       if (env === TaskEnv.Test) {
@@ -32,6 +33,25 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       break
+
+    case Tasks.Format:
+      // Format cypher files
+      // Get all `*.cypher` files as input
+
+      const files = args?.split(',')
+
+      files?.forEach((file) => {
+        const content = readFileSync(file, 'utf8')
+
+        console.log(content)
+
+        console.log(formatCypher(content))
+
+        writeFileSync(file, formatCypher(content))
+      })
+
+      break
+
     case Tasks.Lint:
       if (env === TaskEnv.Test) {
         execCommand(`yarn cross-env TIMING=1 lint-staged --verbose`)
@@ -39,11 +59,12 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `npx nx affected:lint -c=ci --quiet && npx prettier --check '**/*,{graphql.yaml.json}'`,
+          `npx nx affected:lint --quiet && npx prettier --check '**/*.{graphql,yaml,json}'`,
         )
       }
 
       break
+
     case Tasks.Unit:
       if (env === TaskEnv.Test) {
         execCommand(
@@ -58,6 +79,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       break
+
     case Tasks.Int:
       if (env === TaskEnv.Test) {
         execCommand(
@@ -72,6 +94,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       break
+
     /**
      * When building next web, we must use env to create the production port, otherwise the ports will be different
      *
@@ -81,29 +104,28 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       if (env === TaskEnv.Test) {
         execCommand(`${NX_TEST} build web -c=test`)
         execCommand(
-          `${NX_TEST} run e2e:web-e2e:test --browser firefox --verbose`,
+          `${NX_TEST} run web-e2e:e2e:test --browser firefox --verbose`,
         )
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(`npx run e2e:web-e2e:ci --record --browser firefox`)
+        execCommand(`npx nx run web-e2e:e2e:ci --record --browser firefox`)
       }
 
       break
+
     case Tasks.Commitlint:
       if (env === TaskEnv.Test) {
         execCommand(`npx --no-install commitlint --edit ${args}`)
       }
 
-      if (env === TaskEnv.Ci) {
-        execCommand(`yarn affected:e2e -c=ci --record --browser firefox`)
-      }
-
       break
+
     case Tasks.Circularlint:
       execCommand(`yarn madge --circular apps libs --extensions ts,tsx,js,jsx`)
 
       break
+
     default:
       throw new Error('Incorrect test env')
   }
