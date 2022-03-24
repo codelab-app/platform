@@ -7,6 +7,7 @@ import { mergeProps } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
+  frozen,
   idProp,
   Model,
   model,
@@ -24,26 +25,25 @@ type TransformFn = (props: PropsData) => PropsData
 
 // Renamed from 'Element' because ts doesn't pick it up, because of the native Element type
 // and auto-import doesn't work
-@model('@codelab/ElementModel')
-export class ElementModel extends Model({
+@model('@codelab/Element')
+export class Element extends Model({
   id: idProp.withSetter(),
-  order: prop<number>().withSetter(),
-  parentElement: prop<Nullish<Ref<ElementModel>>>().withSetter(),
-  name: prop<Nullish<string>>(),
-  css: prop<Nullish<string>>(),
-  atom: prop<Nullish<Ref<Atom>>>(() => null),
-  children: prop<Array<Ref<ElementModel>>>(() => []),
-  props: prop<Nullish<ElementProps>>(),
-  propTransformationJs: prop<Nullish<string>>().withSetter(),
-  renderIfPropKey: prop<Nullish<string>>().withSetter(),
-  renderForEachPropKey: prop<Nullish<string>>().withSetter(),
+  parentElement: prop<Nullish<Ref<Element>>>(() => null).withSetter(),
+  name: prop<Nullish<string>>(() => null).withSetter(),
+  css: prop<Nullish<string>>(() => null).withSetter(),
+  atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
+  children: prop<Array<Ref<Element>>>(() => []),
+  props: prop<ElementProps>(() => new ElementProps({})),
+  propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
+  renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
+  renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
   propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
   // component which has this element as rootElement
-  component: prop<Nullish<Ref<Component>>>(),
+  component: prop<Nullish<Ref<Component>>>().withSetter(),
 
   // Marks the element as an instance of a specific component
-  instanceOfComponent: prop<Nullish<Ref<Component>>>(),
+  instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
 }) {
   protected onAttachedToRootStore(): void {
     for (const child of this.children) {
@@ -52,12 +52,15 @@ export class ElementModel extends Model({
   }
 
   @modelAction
-  addChild(child: ElementModel, order?: number) {
+  addChild(child: Element, order?: number) {
     order = order ?? this.lastChildOrder + 1
-    child.setOrder(order)
     child.setParentElement(elementRef(this))
-    this.children.push(elementRef(child))
-    this.children.sort((a, b) => a.current.order - b.current.order)
+    this.children.splice(order - 1, 0, elementRef(child))
+  }
+
+  @modelAction
+  addPropMapBinding(propMapBinding: PropMapBinding) {
+    this.propMapBindings.set(propMapBinding.id, propMapBinding)
   }
 
   @computed
@@ -66,8 +69,18 @@ export class ElementModel extends Model({
   }
 
   @computed
+  get isRoot() {
+    return !this.parentElement && !this.component
+  }
+
+  @computed
+  get isRootOfComponent() {
+    return !this.parentElement && !!this.component
+  }
+
+  @computed
   get childrenList() {
-    return this.children.map((c) => c.current).sort((a, b) => a.order - b.order)
+    return this.children.map((c) => c.current)
   }
 
   hasChild(id: string) {
@@ -76,9 +89,7 @@ export class ElementModel extends Model({
 
   @computed
   get lastChildOrder() {
-    const list = this.childrenList
-
-    return list.length ? list[list.length - 1].order : 1
+    return this.childrenList.length
   }
 
   @computed
@@ -116,7 +127,7 @@ export class ElementModel extends Model({
           appliedProps,
         )
       } else {
-        selfBoundProps = mergeProps(selfBoundProps, selfBoundProps)
+        selfBoundProps = mergeProps(selfBoundProps, appliedProps)
       }
     }
 
@@ -202,9 +213,9 @@ export class ElementModel extends Model({
     this.atom = atom ? atomRef(atom.id) : null
 
     if (props) {
-      this.props?.updateFromFragment(props)
+      this.props.updateFromFragment(props)
     } else {
-      this.props = null
+      this.props.clear()
     }
 
     if (parentElement) {
@@ -257,17 +268,18 @@ export class ElementModel extends Model({
     renderForEachPropKey,
     parentElementConnection,
   }: Omit<ElementFragment, '__typename'>) {
-    return new ElementModel({
+    return new Element({
       id,
       name,
       css,
       atom: atom ? atomRef(atom.id) : null,
-      props: props ? ElementProps.fromFragment(props) : null,
+      props: props
+        ? ElementProps.fromFragment(props)
+        : new ElementProps({ data: frozen({}) }),
       propTransformationJs,
       renderIfPropKey,
       renderForEachPropKey,
       parentElement: null,
-      order: parentElementConnection.edges[0]?.order ?? 1,
       component: component ? componentRef(component.id) : null,
       instanceOfComponent: instanceOfComponent
         ? componentRef(instanceOfComponent.id)

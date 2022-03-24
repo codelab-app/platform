@@ -1,11 +1,11 @@
-import { ElementModel, ElementTree } from '@codelab/frontend/modules/element'
+import { Element, ElementTree } from '@codelab/frontend/modules/element'
 import { TypedValue } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 
 export const getComponentRootElementFromProp = (
   payload: TypedValue<any>,
   tree: ElementTree,
-): Nullish<ElementModel> => {
+): Nullish<Element> => {
   if (!payload) {
     return null
   }
@@ -17,10 +17,6 @@ export const getComponentRootElementFromProp = (
   }
 
   const component = id ? tree.components.get(id) : undefined
-
-  if (!component) {
-    console.warn(`getComponentFromProp: Can't find component id : ${id}`)
-  }
 
   if (!component) {
     return null

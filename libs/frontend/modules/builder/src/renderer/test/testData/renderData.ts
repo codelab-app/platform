@@ -1,49 +1,69 @@
+/// <reference types='jest'/>
+
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { Atom, atomRef } from '@codelab/frontend/modules/atom'
+import { Atom, atomRef, AtomService } from '@codelab/frontend/modules/atom'
 import { Component, componentRef } from '@codelab/frontend/modules/component'
 import {
-  ElementModel,
+  Element,
   ElementProps,
+  ElementService,
   ElementTree,
 } from '@codelab/frontend/modules/element'
 import {
+  AnyType,
   InterfaceType,
   PrimitiveType,
+  ReactNodeType,
+  RenderPropsType,
   typeRef,
+  TypeService,
 } from '@codelab/frontend/modules/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType } from '@codelab/shared/abstract/core'
-import { frozen } from 'mobx-keystone'
+import { clone, frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { IRenderPipe } from '../../abstract/IRenderPipe'
+import { PassThroughRenderPipe } from '../../renderPipes/PassThroughRenderPipe'
+import { rootRenderPipeFactory } from '../../renderPipes/rootRenderPipeFactory'
+import { RenderService } from '../../RenderService'
+import { RenderTestRootStore } from './RenderTestRootStore'
 
 const emptyInterface = new InterfaceType({ name: 'Empty interface' })
 
-export const primitiveType = new PrimitiveType({
+const primitiveType = new PrimitiveType({
   id: v4(),
   name: 'primitiveType',
   primitiveKind: PrimitiveTypeKind.Integer,
 })
 
-export const divAtom = new Atom({
+const renderPropsType = new RenderPropsType({
+  id: v4(),
+  name: 'renderPropsType',
+})
+
+const reactNodeType = new ReactNodeType({
+  id: v4(),
+  name: 'reactNodeType',
+})
+
+const divAtom = new Atom({
   name: 'Html Div',
   id: v4(),
   type: AtomType.HtmlDiv,
   api: typeRef(emptyInterface),
 })
 
-export const textAtom = new Atom({
+const textAtom = new Atom({
   name: 'Text',
   id: v4(),
   type: AtomType.Text,
   api: typeRef(emptyInterface),
 })
 
-export const elementToRender = new ElementModel({
+const elementToRender = new Element({
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   css: '',
-  instanceOfComponent: null,
-  component: null,
   atom: atomRef(divAtom),
   props: new ElementProps({
     id: v4(),
@@ -56,7 +76,6 @@ export const elementToRender = new ElementModel({
       },
     }),
   }),
-  order: 1,
   propTransformationJs: `
   // Write a transformer function, you get the input props as parameter
   // All returned props will get merged with the original ones
@@ -72,51 +91,134 @@ export const elementToRender = new ElementModel({
     }`,
 })
 
-export const elementToRender02 = new ElementModel({
+const elementToRender02 = new Element({
   id: v4(),
   name: '02',
-  css: null,
-  instanceOfComponent: null,
-  component: null,
-  atom: null,
-  props: null,
-  order: 2,
+  props: new ElementProps({}),
 })
 
 const compRootElementId = v4()
 
-export const componentToRender = new Component({
+const componentToRender = new Component({
   id: v4(),
   name: 'My Component',
   rootElementId: compRootElementId,
   ownerId: v4(),
 })
 
-export const componentRootElement = new ElementModel({
+const componentRootElement = new Element({
   id: compRootElementId,
   name: '01',
   css: '',
-  instanceOfComponent: null,
-  component: componentRef(componentToRender),
   atom: atomRef(textAtom),
-  props: null,
-  order: 1,
+  component: componentRef(componentToRender),
+  props: new ElementProps({
+    id: v4(),
+    data: frozen({
+      componentProp: 'original',
+      text: "I'm a component",
+    }),
+  }),
 })
 
-export const elementToRender03 = new ElementModel({
+const componentInstanceElementToRender = new Element({
   id: v4(),
   name: '01',
-  css: null,
   instanceOfComponent: componentRef(componentToRender),
-  atom: atomRef(textAtom),
-  props: null,
-  order: 1,
+  props: new ElementProps({
+    id: v4(),
+    data: frozen({
+      componentProp: 'instance',
+    }),
+  }),
 })
 
-export const elementTree = new ElementTree({})
+// Clone everything so that we don't get conflicts between different test files
+export const setupTestRenderData = (
+  pipeFactory: (
+    next: PassThroughRenderPipe,
+  ) => IRenderPipe = rootRenderPipeFactory,
+) => {
+  const data: {
+    rootStore: RenderTestRootStore
+    renderService: RenderService
+    componentToRender: Component
+    componentRootElement: Element
+    elementToRender: Element
+    elementToRender02: Element
+    componentInstanceElementToRender: Element
+    renderPropsType: AnyType
+    reactNodeType: AnyType
+    primitiveType: AnyType
+    divAtom: Atom
+    textAtom: Atom
+  } = {} as any
 
-elementTree.addElement(elementToRender)
-elementTree.addElement(elementToRender02)
-elementTree.addElement(componentRootElement)
-elementTree.addElement(elementToRender03)
-elementTree.addComponent(componentToRender)
+  beforeEach(() => {
+    data.componentToRender = clone(componentToRender, { generateNewIds: false })
+    data.componentRootElement = clone(componentRootElement, {
+      generateNewIds: false,
+    })
+    data.elementToRender = clone(elementToRender, {
+      generateNewIds: false,
+    })
+    data.elementToRender02 = clone(elementToRender02, {
+      generateNewIds: false,
+    })
+
+    data.componentInstanceElementToRender = clone(
+      componentInstanceElementToRender,
+      { generateNewIds: false },
+    )
+
+    data.renderPropsType = clone(renderPropsType, { generateNewIds: false })
+    data.reactNodeType = clone(reactNodeType, { generateNewIds: false })
+    data.primitiveType = clone(primitiveType, { generateNewIds: false })
+    data.divAtom = clone(divAtom, { generateNewIds: false })
+    data.textAtom = clone(textAtom, { generateNewIds: false })
+
+    data.rootStore = new RenderTestRootStore({
+      typeService: new TypeService({
+        types: objectMap([
+          [primitiveType.id, data.primitiveType],
+          [renderPropsType.id, data.renderPropsType as AnyType],
+          [reactNodeType.id, data.reactNodeType as AnyType],
+        ]),
+      }),
+      atomService: new AtomService({
+        atoms: objectMap([
+          [divAtom.id, data.divAtom],
+          [textAtom.id, data.textAtom],
+        ]),
+      }),
+      renderService: new RenderService({
+        debugMode: true,
+        renderPipe: pipeFactory(new PassThroughRenderPipe({})),
+      }),
+      elementService: new ElementService({
+        elementTree: new ElementTree({
+          components: objectMap([
+            [componentToRender.id, data.componentToRender],
+          ]),
+          elements: objectMap([
+            [elementToRender.id, data.elementToRender],
+            [componentRootElement.id, data.componentRootElement],
+            [
+              componentInstanceElementToRender.id,
+              data.componentInstanceElementToRender,
+            ],
+            [elementToRender02.id, data.elementToRender02],
+          ]),
+        }),
+      }),
+    })
+
+    data.renderService = data.rootStore.renderService
+  })
+
+  afterEach(() => {
+    unregisterRootStore(data.rootStore)
+  })
+
+  return data
+}

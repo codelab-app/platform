@@ -7,11 +7,11 @@ import {
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ElementModel, ElementService } from '../../../store'
+import { Element, ElementService } from '../../../store'
 
 export interface UpdateElementPropTransformationFormProp {
   elementService: ElementService
-  element: ElementModel
+  element: Element
   trackPromises?: UseTrackLoadingPromises
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
 }

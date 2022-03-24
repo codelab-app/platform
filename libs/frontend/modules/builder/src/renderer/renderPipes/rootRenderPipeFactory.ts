@@ -12,5 +12,5 @@ const pipes = [
   AtomRenderPipe,
 ].reverse()
 
-export const rootRenderPipeFactory = () =>
-  pipes.reduce((acc, Pipe) => new Pipe({ next: acc }), new NullRenderPipe({}))
+export const rootRenderPipeFactory = (fallback = new NullRenderPipe({})) =>
+  pipes.reduce((acc, Pipe) => new Pipe({ next: acc }), fallback)

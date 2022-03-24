@@ -7,10 +7,10 @@ import {
 import { PropsData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { ElementModel, ElementService } from '../../../store'
+import { Element, ElementService } from '../../../store'
 
 export interface UpdateElementPropsFormProps extends WithTypeService {
-  element: ElementModel
+  element: Element
   elementService: ElementService
   trackPromises?: UseTrackLoadingPromises
 }

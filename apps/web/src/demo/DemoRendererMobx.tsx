@@ -2,7 +2,7 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import {
-  ElementModel,
+  Element,
   ElementProps,
   elementRef,
 } from '@codelab/frontend/modules/element'
@@ -40,10 +40,9 @@ const textAtom = new Atom({
   tagIds: [],
 })
 
-const textDec = new ElementModel({
+const textDec = new Element({
   id: v4(),
   atom: atomRef(textAtom),
-  order: 1,
   name: 'Decrement text',
   props: new ElementProps({
     id: v4(),
@@ -51,10 +50,9 @@ const textDec = new ElementModel({
   }),
 })
 
-const textInc = new ElementModel({
+const textInc = new Element({
   id: v4(),
   atom: atomRef(textAtom),
-  order: 1,
   name: 'Increment text',
   props: new ElementProps({
     id: v4(),
@@ -62,11 +60,10 @@ const textInc = new ElementModel({
   }),
 })
 
-const buttonDec = new ElementModel({
+const buttonDec = new Element({
   id: v4(),
   name: 'Button Decrement',
   atom: atomRef(buttonAtom),
-  order: 1,
   props: new ElementProps({
     id: v4(),
     data: frozen({
@@ -76,11 +73,10 @@ const buttonDec = new ElementModel({
   children: [elementRef(textDec)],
 })
 
-const buttonInc = new ElementModel({
+const buttonInc = new Element({
   id: v4(),
   name: 'Button Increment',
   atom: atomRef(buttonAtom),
-  order: 2,
   props: new ElementProps({
     id: v4(),
     data: frozen({
@@ -90,11 +86,10 @@ const buttonInc = new ElementModel({
   children: [elementRef(textInc)],
 })
 
-const counterText = new ElementModel({
+const counterText = new Element({
   id: v4(),
   name: 'Counter text',
   atom: atomRef(textAtom),
-  order: 2,
   props: new ElementProps({
     id: v4(),
     data: frozen({
@@ -103,11 +98,10 @@ const counterText = new ElementModel({
   }),
 })
 
-const container = new ElementModel({
+const container = new Element({
   id: v4(),
   name: 'Container',
   atom: atomRef(divAtom),
-  order: 1,
   children: [
     elementRef(buttonDec),
     elementRef(counterText),
@@ -115,10 +109,9 @@ const container = new ElementModel({
   ],
 })
 
-const root = new ElementModel({
+const root = new Element({
   id: v4(),
   name: 'Root element',
-  order: 1,
   children: [elementRef(container)],
 })
 
@@ -170,7 +163,7 @@ export const DemoRendererMobx = observer(() => {
 
   return (
     <>
-      <Renderer renderModel={demoStore.renderService} />
+      <Renderer renderService={demoStore.renderService} />
       <div>Props:</div>
     </>
   )

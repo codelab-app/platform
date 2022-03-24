@@ -1,10 +1,10 @@
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ElementModel, elementRef, ElementService } from '../../../store'
+import { Element, elementRef, ElementService } from '../../../store'
 
 interface DeleteElementProps {
-  element: ElementModel
+  element: Element
   elementService: ElementService
 }
 

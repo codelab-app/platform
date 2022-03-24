@@ -1,12 +1,9 @@
-import { ReactElement } from 'react'
-import { loopingRenderPipe } from './loopRenderingPipe'
-import { elementToRender, endPipe, EndPipeOutput } from './test'
-import { RenderContext } from './types'
-
-const defaultContext = {} as RenderContext
+import { RenderOutput } from '../abstract/RenderOutput'
+import { LoopingRenderPipe } from '../renderPipes/LoopingRenderPipe'
+import { setupTestRenderData } from './testData/renderData'
 
 const initialProps = {
-  [elementToRender.renderForEachPropKey as string]: [
+  data: [
     { prop01: 'prop01Value' },
     { prop02: 'prop02Value' },
     { prop03: 'prop03Value' },
@@ -15,33 +12,38 @@ const initialProps = {
 }
 
 describe('LoopingRenderPipe', () => {
+  const data = setupTestRenderData((next) => new LoopingRenderPipe({ next }))
+
+  beforeEach(() => {
+    data.elementToRender.setRenderForEachPropKey('data')
+  })
+
   it('should add renderForEachPropKey props', () => {
-    const output = loopingRenderPipe(endPipe)(
-      elementToRender,
-      defaultContext,
+    const output = data.renderService.renderElement(
+      data.elementToRender,
       initialProps,
-    ) as ReactElement
+    ) as Array<RenderOutput>
 
-    const props = output.props.children.map((x: EndPipeOutput) => x.props)
+    const props = output.map((x) => x.props)
 
-    expect(props).toStrictEqual([
+    expect(props).toMatchObject([
       {
-        key: `${elementToRender.id}-0`,
+        key: `${data.elementToRender.id}-0`,
         prop01: 'prop01Value',
         ...initialProps,
       },
       {
-        key: `${elementToRender.id}-1`,
+        key: `${data.elementToRender.id}-1`,
         prop02: 'prop02Value',
         ...initialProps,
       },
       {
-        key: `${elementToRender.id}-2`,
+        key: `${data.elementToRender.id}-2`,
         prop03: 'prop03Value',
         ...initialProps,
       },
       {
-        key: `${elementToRender.id}-3`,
+        key: `${data.elementToRender.id}-3`,
         prop04: 'prop04Value',
         ...initialProps,
       },
