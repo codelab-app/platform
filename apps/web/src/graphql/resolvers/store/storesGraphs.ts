@@ -3,12 +3,8 @@ import { mergeMap } from 'rxjs/operators'
 import { Store } from '../../model'
 import { StoreGraph } from '../../ogm-types.gen'
 import { storeRepository } from '../../repositories'
-import {
-  IRxTxnResolver,
-  RxTransactionType,
-  withRxTransaction,
-} from '../abstract'
-import { storeSelectionSet } from '../selectionSets/storeSelectionSet'
+import { storeSelectionSet } from '../../selectionSets/storeSelectionSet'
+import { IRxTxnResolver, withRxTransaction } from '../abstract'
 
 const getStoresGraphsResolver: IRxTxnResolver<void, StoreGraph> = () => (txn) =>
   storeRepository.getStoresGraphsEdges(txn).pipe(
@@ -23,7 +19,4 @@ const getStoresGraphsResolver: IRxTxnResolver<void, StoreGraph> = () => (txn) =>
     }),
   )
 
-export const storesGraphs = withRxTransaction(
-  getStoresGraphsResolver,
-  RxTransactionType.READ,
-)
+export const storesGraphs = withRxTransaction(getStoresGraphsResolver)

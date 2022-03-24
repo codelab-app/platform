@@ -1,32 +1,28 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Dropdown, Menu, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { StateStore, StoreModel, storeRef } from '../../../store'
+import { storeRef, StoreService } from '../../../store'
 
 export type TreeItemTitleProps = {
   node: DataNode
-  stateStore: StateStore
+  storeService: StoreService
 }
 
 export type GetStoresTableProps = {
-  stateStore: StateStore
+  storeService: StoreService
 }
 
-const TreeItemTitle = observer<TreeItemTitleProps>(({ node, stateStore }) => {
+const TreeItemTitle = observer<TreeItemTitleProps>(({ node, storeService }) => {
   const nodeId = node.key as string
 
   const onAddChild = () => {
-    stateStore.createModal.open(storeRef(nodeId))
+    storeService.createModal.open()
   }
 
   const onDelete = () => {
-    stateStore.deleteModal.open([storeRef(nodeId)])
-  }
-
-  const onClick = () => {
-    stateStore.setSelectedStores([storeRef(nodeId)])
+    storeService.deleteModal.open(storeRef(nodeId))
   }
 
   const menu = (
@@ -40,28 +36,30 @@ const TreeItemTitle = observer<TreeItemTitleProps>(({ node, stateStore }) => {
 
   return (
     <Dropdown overlay={menu} trigger={['contextMenu']}>
-      <div onClick={onClick}>{node.title}</div>
+      <div>{node.title}</div>
     </Dropdown>
   )
 })
 
-export const GetStoresTree = observer<GetStoresTableProps>(({ stateStore }) => {
-  const [getStores] = useAsyncState(() => stateStore.getTree())
-  const storesTrees = stateStore.storesTree.nodesList
+export const GetStoresTree = observer<GetStoresTableProps>(
+  ({ storeService }) => {
+    const [getStores] = useLoadingState(() => storeService.getTree())
+    const storesTrees: Array<DataNode> = storeService.storesTree.getAntdTree()
 
-  useEffect(() => {
-    getStores()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    useEffect(() => {
+      getStores()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  return (
-    <Tree<StoreModel>
-      blockNode
-      className="draggable-tree"
-      titleRender={(node) => (
-        <TreeItemTitle node={node} stateStore={stateStore} />
-      )}
-      treeData={storesTrees ? storesTrees : []}
-    />
-  )
-})
+    return (
+      <Tree
+        blockNode
+        className="draggable-tree"
+        titleRender={(node) => (
+          <TreeItemTitle node={node} storeService={storeService} />
+        )}
+        treeData={storesTrees ? storesTrees : []}
+      />
+    )
+  },
+)

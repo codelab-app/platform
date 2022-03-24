@@ -3,38 +3,37 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { StateStore } from '../../../store'
+import { StoreService } from '../../../store'
 import { DisplayIfParent } from '../create-store/DisplayIfParent'
 import { UpdateStoreInput, updateStoreSchema } from './updateStoreSchema'
 
 export interface UpdateStoreModalProps {
-  stateStore: StateStore
+  storeService: StoreService
 }
 
 export const UpdateStoreModal = observer<UpdateStoreModalProps>(
-  ({ stateStore }) => {
-    const closeModal = () => stateStore.updateModal.close()
-    const updateStore = stateStore.updateModal.store
+  ({ storeService }) => {
+    const closeModal = () => storeService.updateModal.close()
+    const updateStore = storeService.updateModal.store
 
     const onSubmit = async (data: UpdateStoreInput) => {
       if (!updateStore) {
         throw new Error('Updated store is not set')
       }
 
-      return updateStore.update(data)
+      return storeService.updateStore(updateStore, data)
     }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while updating store',
     })
 
-    const selectedStore = stateStore.updateModal.store
+    const selectedStore = storeService.updateModal.store
 
     const model = {
       name: selectedStore?.name,
       parentStore: {
         id: selectedStore?.parentStore?.id,
-        key: selectedStore?.parentStoreKey,
       },
     }
 
@@ -42,7 +41,7 @@ export const UpdateStoreModal = observer<UpdateStoreModalProps>(
       <ModalForm.Modal
         okText="Update Store"
         onCancel={closeModal}
-        visible={stateStore.updateModal.isOpen}
+        visible={storeService.updateModal.isOpen}
       >
         <ModalForm.Form<UpdateStoreInput>
           model={model}

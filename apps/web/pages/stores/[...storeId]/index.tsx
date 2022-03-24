@@ -31,11 +31,11 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Stores | Codelab</title>
       </Head>
 
-      <CreateStoreModal stateStore={store.stateStore} />
-      <UpdateStoreModal stateStore={store.stateStore} />
-      <DeleteStoresModal stateStore={store.stateStore} />
+      <CreateStoreModal storeService={store.storeService} />
+      <UpdateStoreModal storeService={store.storeService} />
+      <DeleteStoresModal storeService={store.storeService} />
       <ContentSection>
-        <GetStoresTree stateStore={store.stateStore} />
+        <GetStoresTree storeService={store.storeService} />
       </ContentSection>
     </>
   )
@@ -49,7 +49,7 @@ const Header = observer(() => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <CreateStoreButton key="create" stateStore={store.stateStore} />
+      <CreateStoreButton key="create" storeService={store.storeService} />
     </div>,
   ]
 

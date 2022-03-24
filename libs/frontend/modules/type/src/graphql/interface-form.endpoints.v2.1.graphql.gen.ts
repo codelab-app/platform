@@ -65,6 +65,14 @@ export const InterfaceForm_GetAtomsDocument = gql`
     }
   }
 `
+export const InterfaceForm_GetStoresDocument = gql`
+  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
+    stores(options: $options, where: $where) {
+      id
+      name
+    }
+  }
+`
 export const InterfaceForm_GetComponentsDocument = gql`
   query InterfaceForm_GetComponents(
     $options: ComponentOptions
@@ -139,7 +147,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<InterfaceForm_GetStoresQuery>(
-            InterfaceForm_GetStoresGql,
+            InterfaceForm_GetStoresDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

@@ -1,14 +1,15 @@
+import { BaseTreeService } from '@codelab/frontend/shared/utils'
+import { TreeDataNode } from 'antd'
 import { detach, ExtendedModel, model, rootRef } from 'mobx-keystone'
 import {
   StoreEdgeFragment,
   StoreFragment,
   StoreGraphFragment,
 } from '../graphql/Store.fragment.v2.1.graphql.gen'
-import { BaseTree } from './BaseTree'
-import { StoreModel } from './StoreModel'
+import { Store } from './store.model'
 
-abstract class StoreTreeBase extends BaseTree<
-  StoreModel,
+abstract class StoreTreeBase extends BaseTreeService<
+  Store,
   StoreFragment,
   StoreEdgeFragment,
   StoreGraphFragment
@@ -16,8 +17,12 @@ abstract class StoreTreeBase extends BaseTree<
 
 @model('@codelab/StoreTree')
 export class StoreTree extends ExtendedModel(StoreTreeBase, {}) {
-  nodeFromFragment(fragment: StoreFragment): StoreModel {
-    return StoreModel.fromFragment(fragment)
+  getAntdTree(): Array<TreeDataNode> {
+    return this.nodesList.map(Store.toTreeNode)
+  }
+
+  nodeFromFragment(fragment: StoreFragment): Store {
+    return Store.fromFragment(fragment)
   }
 }
 

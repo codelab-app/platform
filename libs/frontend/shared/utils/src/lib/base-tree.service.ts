@@ -1,3 +1,4 @@
+import { DataNode } from 'antd/lib/tree'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -43,7 +44,7 @@ export abstract class BaseModel<Edge extends BaseEdge = BaseEdge> extends Model(
  * It is used as a local observable node for a tree of nodes.
  * It doesn't handle remote data, use nodeNode for that
  */
-export abstract class BaseTree<
+export abstract class BaseTreeService<
   Node extends BaseModel,
   NodeFragment extends BaseFragment,
   EdgeFragment extends BaseEdge,
@@ -52,6 +53,8 @@ export abstract class BaseTree<
   nodes: ObjectMap<Node> = objectMap()
 
   abstract nodeFromFragment(fragment: BaseFragment): Node
+
+  abstract getAntdTree(): Array<DataNode>
 
   addChild(parent: Node, child: Node, edge: EdgeFragment) {
     parent.addChild(child)

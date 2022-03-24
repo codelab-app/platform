@@ -471,6 +471,15 @@ export type QueryStateFieldsAggregateArgs = {
   where?: InputMaybe<StateFieldWhere>
 }
 
+export type QueryActionsArgs = {
+  where?: InputMaybe<ActionWhere>
+  options?: InputMaybe<ActionOptions>
+}
+
+export type QueryActionsAggregateArgs = {
+  where?: InputMaybe<ActionWhere>
+}
+
 export type QueryStoresArgs = {
   where?: InputMaybe<StoreWhere>
   options?: InputMaybe<StoreOptions>
@@ -1316,6 +1325,25 @@ export type MutationUpdateStateFieldsArgs = {
   update?: InputMaybe<StateFieldUpdateInput>
 }
 
+export type MutationCreateActionsArgs = {
+  input: Array<ActionCreateInput>
+}
+
+export type MutationDeleteActionsArgs = {
+  where?: InputMaybe<ActionWhere>
+  delete?: InputMaybe<ActionDeleteInput>
+}
+
+export type MutationUpdateActionsArgs = {
+  where?: InputMaybe<ActionWhere>
+  update?: InputMaybe<ActionUpdateInput>
+  connect?: InputMaybe<ActionConnectInput>
+  disconnect?: InputMaybe<ActionDisconnectInput>
+  create?: InputMaybe<ActionRelationInput>
+  delete?: InputMaybe<ActionDeleteInput>
+  connectOrCreate?: InputMaybe<ActionConnectOrCreateInput>
+}
+
 export type MutationCreateStoresArgs = {
   input: Array<StoreCreateInput>
 }
@@ -1805,10 +1833,6 @@ export type Field = {
   description?: Maybe<Scalars["String"]>;
 };
 
-export type IdProperty = {
-  id: Scalars['ID']
-}
-
 export type IEdge = {
   source: Scalars["String"];
   target: Scalars["String"];
@@ -1846,6 +1870,68 @@ export type TypeBaseOwnerConnectionArgs = {
 export type WithDescendants = {
   descendantTypesIds: Array<Scalars["ID"]>;
 };
+
+export type Action = {
+  __typename?: 'Action'
+  id: Scalars['ID']
+  name: Scalars['String']
+  body: Scalars['String']
+  store: Store
+  storeAggregate?: Maybe<ActionServiceStoreAggregationSelection>
+  storeConnection: ActionServiceConnection
+}
+
+export type ActionServiceArgs = {
+  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<StoreOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ActionServiceAggregateArgs = {
+  where?: InputMaybe<StoreWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ActionServiceConnectionArgs = {
+  where?: InputMaybe<ActionServiceConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<ActionServiceConnectionSort>>
+}
+
+export type ActionAggregateSelection = {
+  __typename?: 'ActionAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  body: StringAggregateSelectionNonNullable
+}
+
+export type ActionServiceConnection = {
+  __typename?: 'ActionServiceConnection'
+  edges: Array<ActionServiceRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type ActionServiceRelationship = {
+  __typename?: 'ActionServiceRelationship'
+  cursor: Scalars['String']
+  node: Store
+}
+
+export type ActionServiceStoreAggregationSelection = {
+  __typename?: 'ActionServiceStoreAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ActionServiceStoreNodeAggregateSelection>
+}
+
+export type ActionServiceStoreNodeAggregateSelection = {
+  __typename?: 'ActionServiceStoreNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
 
 export type App = {
   __typename?: "App";
@@ -2383,6 +2469,12 @@ export type ComponentUserOwnerNodeAggregateSelection = {
   email: StringAggregateSelectionNonNullable;
 };
 
+export type CreateActionsMutationResponse = {
+  __typename?: 'CreateActionsMutationResponse'
+  info: CreateInfo
+  actions: Array<Action>
+}
+
 export type CreateAppsMutationResponse = {
   __typename?: "CreateAppsMutationResponse";
   info: CreateInfo;
@@ -2502,12 +2594,6 @@ export type CreateImportDataMutationResponsesMutationResponse = {
   info: CreateInfo;
   importDataMutationResponses: Array<ImportDataMutationResponse>;
 };
-
-export type CreateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
-  info: CreateInfo
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-}
 
 export type CreateInfo = {
   __typename?: "CreateInfo";
@@ -3592,16 +3678,6 @@ export type ImportDataMutationResponseAggregateSelection = {
   count: Scalars["Int"];
 };
 
-export type ImportDataMutationResponse = {
-  __typename?: 'ImportDataMutationResponse'
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseAggregateSelection = {
-  __typename?: 'ImportDataMutationResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
 export type IntAggregateSelectionNonNullable = {
   __typename?: "IntAggregateSelectionNonNullable";
   max: Scalars["Int"];
@@ -4547,6 +4623,191 @@ export type TagGraphOptionsAggregateSelection = {
   limit: IntAggregateSelectionNullable;
 };
 
+export type StoreParentStoreConnection = {
+  __typename?: 'StoreParentStoreConnection'
+  edges: Array<StoreParentStoreRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type StoreParentStoreRelationship = ParentOfStore & {
+  __typename?: 'StoreParentStoreRelationship'
+  cursor: Scalars['String']
+  node: Store
+  storeKey: Scalars['String']
+}
+
+export type StoreStateConnection = {
+  __typename?: 'StoreStateConnection'
+  edges: Array<StoreStateRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type StoreStateFieldStateAggregationSelection = {
+  __typename?: 'StoreStateFieldStateAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreStateFieldStateNodeAggregateSelection>
+}
+
+export type StoreStateFieldStateNodeAggregateSelection = {
+  __typename?: 'StoreStateFieldStateNodeAggregateSelection'
+  name: StringAggregateSelectionNonNullable
+  type: StringAggregateSelectionNonNullable
+  defaultValue: StringAggregateSelectionNonNullable
+}
+
+export type StoreStateRelationship = {
+  __typename?: 'StoreStateRelationship'
+  cursor: Scalars['String']
+  node: StateField
+}
+
+export type StoreStoreChildrenAggregationSelection = {
+  __typename?: 'StoreStoreChildrenAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreStoreChildrenNodeAggregateSelection>
+  edge?: Maybe<StoreStoreChildrenEdgeAggregateSelection>
+}
+
+export type StoreStoreChildrenEdgeAggregateSelection = {
+  __typename?: 'StoreStoreChildrenEdgeAggregateSelection'
+  storeKey: StringAggregateSelectionNonNullable
+}
+
+export type StoreStoreChildrenNodeAggregateSelection = {
+  __typename?: 'StoreStoreChildrenNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type StoreStoreParentStoreAggregationSelection = {
+  __typename?: 'StoreStoreParentStoreAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreStoreParentStoreNodeAggregateSelection>
+  edge?: Maybe<StoreStoreParentStoreEdgeAggregateSelection>
+}
+
+export type StoreStoreParentStoreEdgeAggregateSelection = {
+  __typename?: 'StoreStoreParentStoreEdgeAggregateSelection'
+  storeKey: StringAggregateSelectionNonNullable
+}
+
+export type StoreStoreParentStoreNodeAggregateSelection = {
+  __typename?: 'StoreStoreParentStoreNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type StringAggregateSelectionNonNullable = {
+  __typename?: 'StringAggregateSelectionNonNullable'
+  shortest: Scalars['String']
+  longest: Scalars['String']
+}
+
+export type StringAggregateSelectionNullable = {
+  __typename?: 'StringAggregateSelectionNullable'
+  shortest?: Maybe<Scalars['String']>
+  longest?: Maybe<Scalars['String']>
+}
+
+export type Tag = {
+  __typename?: 'Tag'
+  id: Scalars['ID']
+  name: Scalars['String']
+  isRoot?: Maybe<Scalars['Boolean']>
+  parent?: Maybe<Tag>
+  parentAggregate?: Maybe<TagTagParentAggregationSelection>
+  children: Array<Tag>
+  childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
+  parentConnection: TagParentConnection
+  childrenConnection: TagChildrenConnection
+}
+
+export type TagParentArgs = {
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagParentAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagChildrenArgs = {
+  where?: InputMaybe<TagWhere>
+  options?: InputMaybe<TagOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagChildrenAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagParentConnectionArgs = {
+  where?: InputMaybe<TagParentConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TagParentConnectionSort>>
+}
+
+export type TagChildrenConnectionArgs = {
+  where?: InputMaybe<TagChildrenConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<TagChildrenConnectionSort>>
+}
+
+export type TagAggregateSelection = {
+  __typename?: 'TagAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type TagChildrenConnection = {
+  __typename?: 'TagChildrenConnection'
+  edges: Array<TagChildrenRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type TagChildrenRelationship = {
+  __typename?: 'TagChildrenRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type TagEdge = {
+  __typename?: 'TagEdge'
+  source: Scalars['ID']
+  target: Scalars['ID']
+}
+
+export type TagEdgeAggregateSelection = {
+  __typename?: 'TagEdgeAggregateSelection'
+  count: Scalars['Int']
+  source: IdAggregateSelectionNonNullable
+  target: IdAggregateSelectionNonNullable
+}
+
+export type TagGraph = {
+  __typename?: 'TagGraph'
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<Tag>
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>
+}
+
+export type TagGraphAggregateSelection = {
+  __typename?: 'TagGraphAggregateSelection'
+  count: Scalars['Int']
+}
+
 export type TagParentConnection = {
   __typename?: "TagParentConnection";
   edges: Array<TagParentRelationship>;
@@ -4709,6 +4970,12 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
   email: StringAggregateSelectionNonNullable;
 };
 
+export type UpdateActionsMutationResponse = {
+  __typename?: 'UpdateActionsMutationResponse'
+  info: UpdateInfo
+  actions: Array<Action>
+}
+
 export type UpdateAppsMutationResponse = {
   __typename?: "UpdateAppsMutationResponse";
   info: UpdateInfo;
@@ -4828,12 +5095,6 @@ export type UpdateImportDataMutationResponsesMutationResponse = {
   info: UpdateInfo;
   importDataMutationResponses: Array<ImportDataMutationResponse>;
 };
-
-export type UpdateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
-  info: UpdateInfo
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-}
 
 export type UpdateInfo = {
   __typename?: "UpdateInfo";
@@ -8524,12 +8785,6 @@ export type EnumTypeAllowedValuesDisconnectFieldInput = {
   disconnect?: InputMaybe<EnumTypeValueDisconnectInput>;
 };
 
-export type EnumTypeAllowedValuesEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<EnumTypeAllowedValuesEdgeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-}
-
 export type EnumTypeAllowedValuesFieldInput = {
   create?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>;
   connect?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>;
@@ -9437,33 +9692,6 @@ export type ImportDataMutationResponseWhere = {
   result?: InputMaybe<Scalars["Boolean"]>;
   result_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
-
-export type ImportDataMutationResponseCreateInput = {
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseOptions = {
-  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ImportDataMutationResponseSort>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-}
-
-/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
-export type ImportDataMutationResponseSort = {
-  result?: InputMaybe<SortDirection>
-}
-
-export type ImportDataMutationResponseUpdateInput = {
-  result?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ImportDataMutationResponseWhere = {
-  OR?: InputMaybe<Array<ImportDataMutationResponseWhere>>
-  AND?: InputMaybe<Array<ImportDataMutationResponseWhere>>
-  result?: InputMaybe<Scalars['Boolean']>
-  result_NOT?: InputMaybe<Scalars['Boolean']>
-}
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -10734,6 +10962,33 @@ export type ParentOfElementWhere = {
   order_GT?: InputMaybe<Scalars["Int"]>;
   order_GTE?: InputMaybe<Scalars["Int"]>;
 };
+
+export type ParentOfStoreCreateInput = {
+  storeKey: Scalars['String']
+}
+
+export type ParentOfStoreSort = {
+  storeKey?: InputMaybe<SortDirection>
+}
+
+export type ParentOfStoreUpdateInput = {
+  storeKey?: InputMaybe<Scalars['String']>
+}
+
+export type ParentOfStoreWhere = {
+  OR?: InputMaybe<Array<ParentOfStoreWhere>>
+  AND?: InputMaybe<Array<ParentOfStoreWhere>>
+  storeKey?: InputMaybe<Scalars['String']>
+  storeKey_NOT?: InputMaybe<Scalars['String']>
+  storeKey_IN?: InputMaybe<Array<Scalars['String']>>
+  storeKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  storeKey_CONTAINS?: InputMaybe<Scalars['String']>
+  storeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  storeKey_STARTS_WITH?: InputMaybe<Scalars['String']>
+  storeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  storeKey_ENDS_WITH?: InputMaybe<Scalars['String']>
+  storeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+}
 
 export type PrimitiveTypeConnectInput = {
   owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>;
@@ -15666,6 +15921,85 @@ export declare class StateFieldModel {
     context?: any
     rootValue?: any
   }): Promise<StateFieldAggregateSelection>
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface IntAggregateInputNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface ActionAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  name?: StringAggregateInputNonNullable
+  body?: StringAggregateInputNonNullable
+}
+
+export declare class ActionModel {
+  public find(args?: {
+    where?: ActionWhere
+
+    options?: ActionOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<Action>>
+
+  public create(args: {
+    input: Array<ActionCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateActionsMutationResponse>
+
+  public update(args: {
+    where?: ActionWhere
+    update?: ActionUpdateInput
+    connect?: ActionConnectInput
+    disconnect?: ActionDisconnectInput
+    create?: ActionCreateInput
+    connectOrCreate?: ActionConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateActionsMutationResponse>
+
+  public delete(args: {
+    where?: ActionWhere
+    delete?: ActionDeleteInput
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ActionWhere
+
+    aggregate: ActionAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<ActionAggregateSelection>
 }
 
 export interface StringAggregateInputNonNullable {

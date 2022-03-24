@@ -20,6 +20,268 @@ export type Scalars = {
   JSONObject: Record<string, any>
 }
 
+export type Action = {
+  __typename?: 'Action'
+  body: Scalars['String']
+  id: Scalars['ID']
+  name: Scalars['String']
+  store: Store
+  storeAggregate?: Maybe<ActionServiceStoreAggregationSelection>
+  storeConnection: ActionServiceConnection
+}
+
+export type ActionServiceArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<StoreOptions>
+  where?: InputMaybe<StoreWhere>
+}
+
+export type ActionServiceAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<StoreWhere>
+}
+
+export type ActionServiceConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ActionServiceConnectionSort>>
+  where?: InputMaybe<ActionServiceConnectionWhere>
+}
+
+export type ActionAggregateSelection = {
+  __typename?: 'ActionAggregateSelection'
+  body: StringAggregateSelectionNonNullable
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type ActionConnectInput = {
+  store?: InputMaybe<ActionServiceConnectFieldInput>
+}
+
+export type ActionConnectOrCreateInput = {
+  store?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
+}
+
+export type ActionConnectOrCreateWhere = {
+  node: ActionUniqueWhere
+}
+
+export type ActionConnectWhere = {
+  node: ActionWhere
+}
+
+export type ActionCreateInput = {
+  body: Scalars['String']
+  name: Scalars['String']
+  store?: InputMaybe<ActionServiceFieldInput>
+}
+
+export type ActionDeleteInput = {
+  store?: InputMaybe<ActionServiceDeleteFieldInput>
+}
+
+export type ActionDisconnectInput = {
+  store?: InputMaybe<ActionServiceDisconnectFieldInput>
+}
+
+export type ActionOnCreateInput = {
+  body?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+}
+
+export type ActionOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ActionSort objects to sort Actions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ActionSort>>
+}
+
+export type ActionRelationInput = {
+  store?: InputMaybe<ActionServiceCreateFieldInput>
+}
+
+/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
+export type ActionSort = {
+  body?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type ActionServiceAggregateInput = {
+  AND?: InputMaybe<Array<ActionServiceAggregateInput>>
+  OR?: InputMaybe<Array<ActionServiceAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ActionServiceNodeAggregationWhereInput>
+}
+
+export type ActionServiceConnectFieldInput = {
+  connect?: InputMaybe<StoreConnectInput>
+  where?: InputMaybe<StoreConnectWhere>
+}
+
+export type ActionServiceConnectOrCreateFieldInput = {
+  onCreate: ActionServiceConnectOrCreateFieldInputOnCreate
+  where: StoreConnectOrCreateWhere
+}
+
+export type ActionServiceConnectOrCreateFieldInputOnCreate = {
+  node: StoreOnCreateInput
+}
+
+export type ActionServiceConnection = {
+  __typename?: 'ActionServiceConnection'
+  edges: Array<ActionServiceRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ActionServiceConnectionSort = {
+  node?: InputMaybe<StoreSort>
+}
+
+export type ActionServiceConnectionWhere = {
+  AND?: InputMaybe<Array<ActionServiceConnectionWhere>>
+  OR?: InputMaybe<Array<ActionServiceConnectionWhere>>
+  node?: InputMaybe<StoreWhere>
+  node_NOT?: InputMaybe<StoreWhere>
+}
+
+export type ActionServiceCreateFieldInput = {
+  node: StoreCreateInput
+}
+
+export type ActionServiceDeleteFieldInput = {
+  delete?: InputMaybe<StoreDeleteInput>
+  where?: InputMaybe<ActionServiceConnectionWhere>
+}
+
+export type ActionServiceDisconnectFieldInput = {
+  disconnect?: InputMaybe<StoreDisconnectInput>
+  where?: InputMaybe<ActionServiceConnectionWhere>
+}
+
+export type ActionServiceFieldInput = {
+  connect?: InputMaybe<ActionServiceConnectFieldInput>
+  connectOrCreate?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
+  create?: InputMaybe<ActionServiceCreateFieldInput>
+}
+
+export type ActionServiceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionServiceNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ActionServiceNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ActionServiceRelationship = {
+  __typename?: 'ActionServiceRelationship'
+  cursor: Scalars['String']
+  node: Store
+}
+
+export type ActionServiceStoreAggregationSelection = {
+  __typename?: 'ActionServiceStoreAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ActionServiceStoreNodeAggregateSelection>
+}
+
+export type ActionServiceStoreNodeAggregateSelection = {
+  __typename?: 'ActionServiceStoreNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type ActionServiceUpdateConnectionInput = {
+  node?: InputMaybe<StoreUpdateInput>
+}
+
+export type ActionServiceUpdateFieldInput = {
+  connect?: InputMaybe<ActionServiceConnectFieldInput>
+  connectOrCreate?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
+  create?: InputMaybe<ActionServiceCreateFieldInput>
+  delete?: InputMaybe<ActionServiceDeleteFieldInput>
+  disconnect?: InputMaybe<ActionServiceDisconnectFieldInput>
+  update?: InputMaybe<ActionServiceUpdateConnectionInput>
+  where?: InputMaybe<ActionServiceConnectionWhere>
+}
+
+export type ActionUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type ActionUpdateInput = {
+  body?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  store?: InputMaybe<ActionServiceUpdateFieldInput>
+}
+
+export type ActionWhere = {
+  AND?: InputMaybe<Array<ActionWhere>>
+  OR?: InputMaybe<Array<ActionWhere>>
+  body?: InputMaybe<Scalars['String']>
+  body_CONTAINS?: InputMaybe<Scalars['String']>
+  body_ENDS_WITH?: InputMaybe<Scalars['String']>
+  body_IN?: InputMaybe<Array<Scalars['String']>>
+  body_NOT?: InputMaybe<Scalars['String']>
+  body_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  body_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  body_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  body_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  body_STARTS_WITH?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  store?: InputMaybe<StoreWhere>
+  storeAggregate?: InputMaybe<ActionServiceAggregateInput>
+  storeConnection?: InputMaybe<ActionServiceConnectionWhere>
+  storeConnection_NOT?: InputMaybe<ActionServiceConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
+}
+
 export type AnyType =
   | AppType
   | ArrayType

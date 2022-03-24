@@ -1,4 +1,5 @@
 export * from './authTokenStorage'
+export * from './base-tree.service'
 export * from './callbackWithParams'
 export * from './env'
 export * from './extractErrorMessage'

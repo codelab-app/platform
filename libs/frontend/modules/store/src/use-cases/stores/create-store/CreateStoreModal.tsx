@@ -3,31 +3,32 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { StateStore } from '../../../store'
+import { StoreService } from '../../../store'
 import { CreateStoreInput, createStoreSchema } from './createStoreSchema'
 import { DisplayIfParent } from './DisplayIfParent'
 
 export interface CreateStoreModalProps {
-  stateStore: StateStore
+  storeService: StoreService
 }
 
 export const CreateStoreModal = observer<CreateStoreModalProps>(
-  ({ stateStore }) => {
-    const closeModal = () => stateStore.createModal.close()
-    const onSubmit = (input: CreateStoreInput) => stateStore.createStore(input)
+  ({ storeService }) => {
+    const closeModal = () => storeService.createModal.close()
+
+    const onSubmit = (input: CreateStoreInput) =>
+      storeService.createStore(input)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating store',
     })
 
-    const parentStore = stateStore.createModal?.metadata?.current
-    const model = { parentStore } || {}
+    const model = {}
 
     return (
       <ModalForm.Modal
         okText="Create Store"
         onCancel={closeModal}
-        visible={stateStore.createModal.isOpen}
+        visible={storeService.createModal.isOpen}
       >
         <ModalForm.Form<CreateStoreInput>
           model={model}

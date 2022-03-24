@@ -3,20 +3,24 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ActionStore } from '../../../store'
+import { ActionService } from '../../../store'
 
 export interface DeleteActionsModalProps {
-  actionStore: ActionStore
+  actionService: ActionService
 }
 
 export const DeleteActionsModal = observer<DeleteActionsModalProps>(
-  ({ actionStore }) => {
-    const closeModal = () => actionStore.deleteModal.close()
+  ({ actionService }) => {
+    const action = actionService.deleteModal.action
+    const closeModal = () => actionService.deleteModal.close()
 
-    const onSubmit = () =>
-      actionStore.delete(
-        actionStore.deleteModal.actions?.map((a) => a.id) ?? [],
-      )
+    const onSubmit = () => {
+      if (!action) {
+        return Promise.reject('Action not defined in DeleteActionModal')
+      }
+
+      return actionService.delete(action.id)
+    }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while deleting action',
@@ -28,7 +32,7 @@ export const DeleteActionsModal = observer<DeleteActionsModalProps>(
         okText="Delete Action"
         onCancel={closeModal}
         title="Delete Confirmation"
-        visible={actionStore.deleteModal.isOpen}
+        visible={actionService.deleteModal.isOpen}
       >
         <ModalForm.Form
           model={{}}
@@ -39,7 +43,7 @@ export const DeleteActionsModal = observer<DeleteActionsModalProps>(
         >
           <h4>
             Are you sure you want to delete actions "
-            {actionStore.deleteModal.actions?.map((a) => a.name).join(', ')}"?
+            {actionService.deleteModal.action}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

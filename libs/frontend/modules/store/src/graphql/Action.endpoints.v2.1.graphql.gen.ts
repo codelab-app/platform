@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type CreateActionsMutationVariables = Types.Exact<{
   input: Array<Types.ActionCreateInput> | Types.ActionCreateInput
@@ -40,7 +40,7 @@ export type UpdateActionsMutation = {
   updateActions: { actions: Array<ActionFragment> }
 }
 
-export const CreateActionsGql = gql`
+export const CreateActionsDocument = gql`
   mutation CreateActions($input: [ActionCreateInput!]!) {
     createActions(input: $input) {
       info {
@@ -54,7 +54,7 @@ export const CreateActionsGql = gql`
   }
   ${ActionFragmentDoc}
 `
-export const DeleteActionsGql = gql`
+export const DeleteActionsDocument = gql`
   mutation DeleteActions($where: ActionWhere!) {
     deleteActions(where: $where) {
       nodesDeleted
@@ -62,7 +62,7 @@ export const DeleteActionsGql = gql`
     }
   }
 `
-export const GetActionsGql = gql`
+export const GetActionsDocument = gql`
   query GetActions($where: ActionWhere, $options: ActionOptions) {
     actions(where: $where, options: $options) {
       ...Action
@@ -70,7 +70,7 @@ export const GetActionsGql = gql`
   }
   ${ActionFragmentDoc}
 `
-export const UpdateActionsGql = gql`
+export const UpdateActionsDocument = gql`
   mutation UpdateActions($where: ActionWhere, $update: ActionUpdateInput) {
     updateActions(update: $update, where: $where) {
       actions {
@@ -104,10 +104,11 @@ export function getSdk(
     ): Promise<CreateActionsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateActionsMutation>(CreateActionsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<CreateActionsMutation>(
+            CreateActionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'CreateActions',
         'mutation',
       )
@@ -118,10 +119,11 @@ export function getSdk(
     ): Promise<DeleteActionsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteActionsMutation>(DeleteActionsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<DeleteActionsMutation>(
+            DeleteActionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'DeleteActions',
         'mutation',
       )
@@ -132,7 +134,7 @@ export function getSdk(
     ): Promise<GetActionsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetActionsQuery>(GetActionsGql, variables, {
+          client.request<GetActionsQuery>(GetActionsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -146,10 +148,11 @@ export function getSdk(
     ): Promise<UpdateActionsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateActionsMutation>(UpdateActionsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<UpdateActionsMutation>(
+            UpdateActionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'UpdateActions',
         'mutation',
       )

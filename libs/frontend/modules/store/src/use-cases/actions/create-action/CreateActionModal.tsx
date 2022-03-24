@@ -3,22 +3,22 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ActionStore } from '../../../store'
+import { ActionService } from '../../../store'
 import { CreateActionInput, createActionSchema } from './createActionSchema'
 
 export interface CreateActionModalProps {
   selectedStoreId: string
-  actionStore: ActionStore
+  actionService: ActionService
 }
 
 export const CreateActionModal = observer<CreateActionModalProps>(
-  ({ actionStore, selectedStoreId: storeId }) => {
+  ({ actionService, selectedStoreId: storeId }) => {
     const closeModal = () => {
-      actionStore.createModal.close()
+      actionService.createModal.close()
     }
 
     const onSubmit = (input: CreateActionInput) => {
-      return actionStore.createAction(input, storeId)
+      return actionService.createAction(input, storeId)
     }
 
     const onSubmitError = createNotificationHandler({
@@ -29,7 +29,7 @@ export const CreateActionModal = observer<CreateActionModalProps>(
       <ModalForm.Modal
         okText="Create Action"
         onCancel={closeModal}
-        visible={actionStore.createModal.isOpen}
+        visible={actionService.createModal.isOpen}
       >
         <ModalForm.Form<CreateActionInput>
           model={{}}

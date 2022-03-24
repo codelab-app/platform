@@ -3,18 +3,24 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { StateStore } from '../../../store'
+import { StoreService } from '../../../store'
 
 export interface DeleteStoresModalProps {
-  stateStore: StateStore
+  storeService: StoreService
 }
 
 export const DeleteStoresModal = observer<DeleteStoresModalProps>(
-  ({ stateStore }) => {
-    const closeModal = () => stateStore.deleteModal.close()
+  ({ storeService }) => {
+    const store = storeService.deleteModal.store
+    const closeModal = () => storeService.deleteModal.close()
 
-    const onSubmit = () =>
-      stateStore.delete(stateStore.deleteModal.stores?.map((a) => a.id) ?? [])
+    const onSubmit = () => {
+      if (!store) {
+        return Promise.reject('Store not defined in DeleteStoreModal')
+      }
+
+      return storeService.deleteStoresSubgraph(store.id)
+    }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while deleting store',
@@ -26,7 +32,7 @@ export const DeleteStoresModal = observer<DeleteStoresModalProps>(
         okText="Delete Store"
         onCancel={closeModal}
         title="Delete Confirmation"
-        visible={stateStore.deleteModal.isOpen}
+        visible={storeService.deleteModal.isOpen}
       >
         <ModalForm.Form
           model={{}}
@@ -37,7 +43,7 @@ export const DeleteStoresModal = observer<DeleteStoresModalProps>(
         >
           <h4>
             Are you sure you want to delete stores "
-            {stateStore.deleteModal.stores?.map((a) => a.name).join(', ')}"?
+            {storeService.deleteModal.store?.name}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

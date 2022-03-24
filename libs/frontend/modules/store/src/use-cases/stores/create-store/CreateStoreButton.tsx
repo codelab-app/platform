@@ -3,19 +3,19 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { StateStore } from '../../../store'
+import { StoreService } from '../../../store'
 
 export interface CreateStoreButtonProps {
-  stateStore: StateStore
+  storeService: StoreService
 }
 
 export const CreateStoreButton = observer<CreateStoreButtonProps>(
-  ({ stateStore }) => {
+  ({ storeService }) => {
     return (
       <Button
         css={tw`flex justify-center items-center`}
         icon={<PlusOutlined />}
-        onClick={() => stateStore.createModal.open()}
+        onClick={() => storeService.createModal.open()}
         type="primary"
       >
         Create

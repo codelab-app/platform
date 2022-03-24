@@ -1,17 +1,26 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { useEffect } from 'react'
-import { StateStore } from '../store'
+import { StoreService } from '../store'
 
-export const useGetCurrentStore = (storeId: string, stateStore: StateStore) => {
-  const [getStore, { isLoading, error }] = useAsyncState((id: string) =>
-    stateStore.getOne(id),
+export const useGetCurrentStore = (
+  storeId: string,
+  storeService: StoreService,
+) => {
+  const [getStore, { isLoading, error }] = useLoadingState((id: string) =>
+    storeService.getOne(id),
   )
 
   useEffect(() => {
-    if (storeId) {
-      getStore(storeId)
+    if (!storeId) {
+      return
     }
+
+    getStore(storeId)
   }, [storeId, getStore])
 
-  return { store: storeId ? stateStore.store(storeId) : null, isLoading, error }
+  return {
+    store: storeId ? storeService.store(storeId) : null,
+    isLoading,
+    error,
+  }
 }

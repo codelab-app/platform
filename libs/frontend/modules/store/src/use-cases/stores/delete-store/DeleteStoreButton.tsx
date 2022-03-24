@@ -3,10 +3,10 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { StateStore, storeRef } from '../../../store'
+import { storeRef, StoreService } from '../../../store'
 
 export interface DeleteStoreButton extends DeleteButtonProps {
-  storeStore: StateStore
+  storeStore: StoreService
 }
 
 export const DeleteStoreButton = observer(
@@ -16,9 +16,7 @@ export const DeleteStoreButton = observer(
         danger
         disabled={disabled}
         icon={<DeleteOutlined />}
-        onClick={() =>
-          storeStore.deleteModal.open(ids.map((id) => storeRef(id)))
-        }
+        onClick={() => storeStore.deleteModal.open(storeRef(ids[0]))}
         size="small"
       />
     )

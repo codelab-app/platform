@@ -2,11 +2,11 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 export type ComponentFragment = {
   id: string
   name: string
-  rootElement: { id: string; name?: string | null }
+  rootElement: { id: string; name?: string | null | undefined }
   owner: { id: string; auth0Id: string }
 }
 

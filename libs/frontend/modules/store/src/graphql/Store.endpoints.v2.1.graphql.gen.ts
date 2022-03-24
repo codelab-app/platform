@@ -8,7 +8,7 @@ import {
 import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import {
   StoreFragmentDoc,
   StoreGraphFragmentDoc,
@@ -56,7 +56,7 @@ export type UpdateStoresMutation = {
   updateStores: { stores: Array<StoreFragment> }
 }
 
-export const CreateStoresGql = gql`
+export const CreateStoresDocument = gql`
   mutation CreateStores($input: [StoreCreateInput!]!) {
     createStores(input: $input) {
       info {
@@ -71,7 +71,7 @@ export const CreateStoresGql = gql`
   ${StoreFragmentDoc}
   ${ActionFragmentDoc}
 `
-export const DeleteStoresSubgraphGql = gql`
+export const DeleteStoresSubgraphDocument = gql`
   mutation DeleteStoresSubgraph($where: StoreWhere!) {
     deleteStoresSubgraph(where: $where) {
       nodesDeleted
@@ -79,7 +79,7 @@ export const DeleteStoresSubgraphGql = gql`
     }
   }
 `
-export const GetStoresGql = gql`
+export const GetStoresDocument = gql`
   query GetStores($where: StoreWhere, $options: StoreOptions) {
     stores(where: $where, options: $options) {
       ...Store
@@ -88,7 +88,7 @@ export const GetStoresGql = gql`
   ${StoreFragmentDoc}
   ${ActionFragmentDoc}
 `
-export const GetStoresGraphsGql = gql`
+export const GetStoresGraphsDocument = gql`
   query GetStoresGraphs {
     storesGraphs {
       ...StoreGraph
@@ -99,7 +99,7 @@ export const GetStoresGraphsGql = gql`
   ${StoreFragmentDoc}
   ${ActionFragmentDoc}
 `
-export const UpdateStoresGql = gql`
+export const UpdateStoresDocument = gql`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
     updateStores(update: $update, where: $where) {
       stores {
@@ -134,10 +134,11 @@ export function getSdk(
     ): Promise<CreateStoresMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateStoresMutation>(CreateStoresGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<CreateStoresMutation>(
+            CreateStoresDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'CreateStores',
         'mutation',
       )
@@ -149,7 +150,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteStoresSubgraphMutation>(
-            DeleteStoresSubgraphGql,
+            DeleteStoresSubgraphDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -163,7 +164,7 @@ export function getSdk(
     ): Promise<GetStoresQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetStoresQuery>(GetStoresGql, variables, {
+          client.request<GetStoresQuery>(GetStoresDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
@@ -177,10 +178,11 @@ export function getSdk(
     ): Promise<GetStoresGraphsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetStoresGraphsQuery>(GetStoresGraphsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<GetStoresGraphsQuery>(
+            GetStoresGraphsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'GetStoresGraphs',
         'query',
       )
@@ -191,10 +193,11 @@ export function getSdk(
     ): Promise<UpdateStoresMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateStoresMutation>(UpdateStoresGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<UpdateStoresMutation>(
+            UpdateStoresDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'UpdateStores',
         'mutation',
       )

@@ -4,11 +4,7 @@ import { mergeMap } from 'rxjs/operators'
 import { Store } from '../../model'
 import { MutationDeleteStoresArgs } from '../../ogm-types.gen'
 import { storeRepository } from '../../repositories'
-import {
-  IRxTxnResolver,
-  RxTransactionType,
-  withRxTransaction,
-} from '../abstract'
+import { IRxTxnResolver, withRxTransaction } from '../abstract'
 
 const deleteStoresResolver: IRxTxnResolver<
   MutationDeleteStoresArgs,
@@ -34,7 +30,4 @@ const deleteStoresResolver: IRxTxnResolver<
     )
   }
 
-export const deleteStoresSubgraph = withRxTransaction(
-  deleteStoresResolver,
-  RxTransactionType.WRITE,
-)
+export const deleteStoresSubgraph = withRxTransaction(deleteStoresResolver)

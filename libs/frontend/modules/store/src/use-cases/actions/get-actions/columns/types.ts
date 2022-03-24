@@ -1,4 +1,4 @@
-import { ActionStore } from '../../../../store'
+import { ActionService } from '../../../../store'
 
 export type ActionCellData = {
   id: string
@@ -8,5 +8,5 @@ export type ActionCellData = {
 
 export type ActionColumnProps = {
   action: ActionCellData
-  actionStore: ActionStore
+  actionService: ActionService
 }

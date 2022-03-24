@@ -3,23 +3,23 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ActionStore } from '../../../store'
+import { ActionService } from '../../../store'
 import { UpdateActionInput, updateActionSchema } from './updateActionSchema'
 
 export interface UpdateActionModalProps {
-  actionStore: ActionStore
+  actionService: ActionService
 }
 
 export const UpdateActionModal = observer<UpdateActionModalProps>(
-  ({ actionStore }) => {
-    const closeModal = () => actionStore.updateModal.close()
+  ({ actionService }) => {
+    const closeModal = () => actionService.updateModal.close()
 
     const onSubmit = (data: UpdateActionInput) => {
-      if (!actionStore.updateModal.action) {
+      if (!actionService.updateModal.action) {
         throw new Error('Updated action is not set')
       }
 
-      return actionStore.updateModal.action.update(data)
+      return actionService.updateModal.action.update(data)
     }
 
     const onSubmitError = createNotificationHandler({
@@ -27,15 +27,15 @@ export const UpdateActionModal = observer<UpdateActionModalProps>(
     })
 
     const model = {
-      name: actionStore.updateModal.action?.name,
-      body: actionStore.updateModal.action?.body,
+      name: actionService.updateModal.action?.name,
+      body: actionService.updateModal.action?.body,
     }
 
     return (
       <ModalForm.Modal
         okText="Update Action"
         onCancel={closeModal}
-        visible={actionStore.updateModal.isOpen}
+        visible={actionService.updateModal.isOpen}
       >
         <ModalForm.Form<UpdateActionInput>
           model={model}

@@ -139,7 +139,4 @@ export class StoreService extends Model({
 
     return root
   })
-
-
-  
 }

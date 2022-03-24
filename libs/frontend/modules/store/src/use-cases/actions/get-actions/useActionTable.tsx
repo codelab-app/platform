@@ -5,11 +5,11 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { actionRef, ActionStore } from '../../../store'
+import { actionRef, ActionService } from '../../../store'
 import { ActionColumn } from './columns'
 import { ActionCellData } from './columns/types'
 
-export const useActionTable = (actionStore: ActionStore) => {
+export const useActionTable = (actionService: ActionService) => {
   const columns: Array<TableColumnProps<ActionCellData>> = [
     {
       title: 'Name',
@@ -31,7 +31,7 @@ export const useActionTable = (actionStore: ActionStore) => {
       onHeaderCell: headerCellProps,
       width: 100,
       render: (text, action) => (
-        <ActionColumn action={action} actionStore={actionStore} />
+        <ActionColumn action={action} actionService={actionService} />
       ),
     },
   ]
@@ -39,7 +39,7 @@ export const useActionTable = (actionStore: ActionStore) => {
   const rowSelection: TableRowSelection<ActionCellData> = {
     type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<ActionCellData>) => {
-      actionStore.setSelectedActions(selectedRows.map((a) => actionRef(a.id)))
+      actionService.setSelectedActions(selectedRows.map((a) => actionRef(a.id)))
     },
   }
 

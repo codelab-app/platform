@@ -8,11 +8,12 @@ import { actionRef } from '../../../../store'
 import { ActionColumnProps } from './types'
 
 export const ActionColumn = observer(
-  ({ action, actionStore }: ActionColumnProps) => {
-    const onClickEdit = () => actionStore.updateModal.open(actionRef(action.id))
+  ({ action, actionService }: ActionColumnProps) => {
+    const onClickEdit = () =>
+      actionService.updateModal.open(actionRef(action.id))
 
     const onClickDelete = () =>
-      actionStore.deleteModal.open([actionRef(action.id)])
+      actionService.deleteModal.open(actionRef(action.id))
 
     return (
       <Space size="middle">

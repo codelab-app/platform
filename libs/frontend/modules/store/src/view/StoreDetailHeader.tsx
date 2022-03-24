@@ -1,20 +1,20 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { Page, PageService } from '@codelab/frontend/modules/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Menu, Spin } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { PageModel, PageStore } from '../store'
 
 export interface PageDetailHeaderProps {
-  pages: PageStore
+  pages: PageService
 }
 
 export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
@@ -22,7 +22,7 @@ export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const [getPages, { isLoading }] = useAsyncState(() =>
+  const [getPages, { isLoading }] = useLoadingState(() =>
     pages.getAll({ app: { id: appId } }),
   )
 
@@ -69,7 +69,7 @@ export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
 })
 
 interface PageListItemProps {
-  page: PageModel
+  page: Page
 }
 
 const PageListItem = observer<PageListItemProps>(({ page }) => {

@@ -38,6 +38,7 @@ export class RootStore extends Model({
   // This is the default render service used for rendering apps.
   // do not confuse it with the builder-specific render service in builderService.builderRenderer
   renderService: prop(() => new RenderService({})),
+  storeService: prop(() => new StoreService({})),
 }) {
   protected onInit(): void {
     typeServiceContext.set(this, this.typeService)

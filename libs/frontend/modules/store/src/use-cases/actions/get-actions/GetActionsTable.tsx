@@ -1,23 +1,23 @@
-import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { useCurrentStoreId } from '../../../hooks'
-import { ActionStore } from '../../../store'
+import { ActionService } from '../../../store'
 import { ActionCellData } from './columns'
 import { useActionTable } from './useActionTable'
 
 export interface GetActionsTableProps {
-  actionStore: ActionStore
+  actionService: ActionService
 }
 
 export const GetActionsTable = observer<GetActionsTableProps>(
-  ({ actionStore }) => {
-    const { columns, rowSelection, pagination } = useActionTable(actionStore)
+  ({ actionService }) => {
+    const { columns, rowSelection, pagination } = useActionTable(actionService)
     const storeId = useCurrentStoreId()
 
-    const [getActions, { isLoading }] = useAsyncState(() =>
-      actionStore.getAll({ store: { id: storeId } }),
+    const [getActions, { isLoading }] = useLoadingState(() =>
+      actionService.getAll({ store: { id: storeId } }),
     )
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export const GetActionsTable = observer<GetActionsTableProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const actionsList = actionStore.actionsList
+    const actionsList = actionService.actionsList
 
     const actionsData: Array<ActionCellData> = actionsList?.map((a) => ({
       id: a.id,
