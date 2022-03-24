@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-micro'
 import getFieldCypher from '../../repositories/type/getField.cypher'
 import getTypeDescendantIds from '../../repositories/type/getTypeDescendantIds.cypher'
-import getTypeGraphCypher from '../../repositories/type/getTypeGraph.cypher'
 import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.cypher'
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
@@ -83,6 +82,7 @@ export const typeSchema = gql`
       )
   }
 
+  # Adding @cypher here doesn't seem to work
   interface WithDescendants {
     descendantTypesIds: [ID!]!
       @cypher(statement: """${getTypeDescendantIds}""")

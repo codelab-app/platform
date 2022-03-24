@@ -1,8 +1,8 @@
 import Ajv from 'ajv'
 import { objectMap } from 'mobx-keystone'
 import { JsonSchemaTransformer } from '../jsonSchemaTransformer'
-import { TypeModelAny } from '../models'
-import { TypeStore } from '../typeStore'
+import { AnyType } from '../models'
+import { TypeService } from '../type.service'
 import {
   interfaceWithUnionExpectedSchema,
   interfaceWithUnionField,
@@ -15,9 +15,9 @@ import {
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 
 // Need a root store for references to be resolved
-new TypeStore({
+new TypeService({
   types: objectMap([
-    [unionType.id, unionType as TypeModelAny],
+    [unionType.id, unionType as AnyType],
     [interfaceWithUnionField.id, interfaceWithUnionField],
     [intType.id, intType],
     [stringType.id, stringType],

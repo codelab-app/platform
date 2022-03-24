@@ -1,4 +1,4 @@
 export * from './page.api'
+export { Page } from './page.model'
 export * from './page.service'
-export { Page } from "./page.model";
-export { PageModalService } from "./page-modal.service";
+export { PageModalService } from './page-modal.service'

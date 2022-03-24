@@ -1,20 +1,16 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
   arraySet,
-  ExtendedModel,
   Model,
   model,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import { fieldApi } from './apis/field.api'
@@ -136,6 +132,8 @@ export class TypeService extends Model({
     typeKind: TypeKind,
     input: CreateTypeInput,
   ) {
+    console.log(input)
+
     const [type] = yield* _await(createTypeApi[typeKind](input))
 
     if (!type) {

@@ -1,4 +1,5 @@
-import { Nullish } from '@codelab/shared/abstract/types';
+import { CreateFieldInput as _CreateFieldInput } from '@codelab/shared/abstract/codegen'
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
   idProp,
@@ -7,17 +8,14 @@ import {
   modelAction,
   prop,
   Ref,
-  rootRef
-} from 'mobx-keystone';
+  rootRef,
+} from 'mobx-keystone'
 import {
   InterfaceTypeEdgeFragment,
   InterfaceTypeFieldEdgeFragment,
-} from '../../graphql';
-import type { AnyType } from './types';
-import { typeRef } from './union-type.model';
-import {
-  CreateFieldInput as _CreateFieldInput
-} from "@codelab/shared/abstract/codegen";
+} from '../../graphql'
+import type { AnyType } from './types'
+import { typeRef } from './union-type.model'
 
 @model('codelab/Field')
 export class Field extends Model(() => ({
@@ -51,12 +49,14 @@ export class Field extends Model(() => ({
 export const fieldRef = rootRef<Field>('codealb/FieldRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
-      detach(ref);
+      detach(ref)
     }
   },
-});
+})
 
-export type CreateFieldInput = Omit<_CreateFieldInput,
-  'type' | 'interfaceId'> & { existingTypeId: string }
+export type CreateFieldInput = Omit<
+  _CreateFieldInput,
+  'type' | 'interfaceId'
+> & { existingTypeId: string }
 
 export type UpdateFieldInput = CreateFieldInput

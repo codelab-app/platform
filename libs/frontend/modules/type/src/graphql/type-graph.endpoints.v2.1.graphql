@@ -1,0 +1,14 @@
+query GetTypeGraph($interfaceId: ID!) {
+  typeGraph(interfaceId: $interfaceId) {
+    vertices {
+      ... on PrimitiveType {
+        __typename
+        id
+      }
+      # ... on EnumType {
+      #   __typename
+      #   id
+      # }
+    }
+  }
+}

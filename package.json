@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
-    "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev --browser firefox",
+    "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn graphql-codegen",
@@ -73,6 +73,7 @@
     "apollo-link": "1.2.14",
     "apollo-link-context": "1.0.20",
     "apollo-link-http": "1.5.17",
+    "apollo-server": "^3.6.5",
     "apollo-server-express": "3.6.1",
     "apollo-server-micro": "^3.6.2",
     "auth0": "2.37.0",

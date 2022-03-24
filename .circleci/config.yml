@@ -4,12 +4,6 @@ filters-pr: &filters-pr
       ignore:
         - master
 
-filters-master: &filters-master
-  filters:
-    branches:
-      only:
-        - master
-
 executor-params: &executor-params
   parameters:
     e:
@@ -44,9 +38,6 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.2
   node: circleci/node@4.7.0
-  aws-cli: circleci/aws-cli@2.0.3
-  aws-ecs: circleci/aws-ecs@2.2.1
-  browser-tools: circleci/browser-tools@1.2.3
   nx: nrwl/nx@1.1.3
 
 executors:
@@ -60,16 +51,6 @@ executors:
     <<: *executor-config
     docker:
       - image: cimg/node:14.18-browsers
-    resource_class: large
-  cypress-node:
-    <<: *executor-config
-    docker:
-      - image: cypress/browsers:chrome77
-    resource_class: large
-  docker-python:
-    <<: *executor-config
-    docker:
-      - image: circleci/python:3.7
     resource_class: large
 
 commands:
@@ -143,29 +124,6 @@ commands:
           channel: $SLACK_CHANNEL_UPDATE
           template: basic_fail_1
 
-  build-push-docker-image:
-    description: 'Build docker image'
-    steps:
-      - setup-workspace
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 19.03.8
-      - aws-cli/setup
-      - run:
-          name: 'Setup common environment variables'
-          command: |
-            echo 'export ECR_REPOSITORY_NAME="clab-api"' >> $BASH_ENV
-            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
-      - run:
-          name: 'Build Docker image'
-          command: |
-            docker build -t $FULL_IMAGE_NAME -f .docker/Dockerfile .
-      - run:
-          name: 'Push image to ECR'
-          command: |
-            aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/clab-api"
-            docker push $FULL_IMAGE_NAME
-
 jobs:
   install-and-build-workspace:
     <<: *executor-params
@@ -204,7 +162,7 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: yarn cli tasks eslint --env ci
+      - run: yarn cli tasks lint --env ci
       # Check to see if codegen works, all files should be committed locally
       # - run:
       #     name: 'GraphQL Codegen'
@@ -230,10 +188,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
-      # - run: |
-      #     echo 'export CODELAB_DG_ENDPOINT=$CODELAB_INT_DG_ENDPOINT' >> $BASH_ENV
-      #     echo 'export DG_ADMIN_API_KEY=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
       - run: yarn cli tasks int --env ci
       - notify-failure
 
@@ -241,10 +195,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - browser-tools/install-firefox
-      # - run: |
-      #     echo 'export CODELAB_DG_ENDPOINT=$CODELAB_E2E_DG_ENDPOINT' >> $BASH_ENV
-      #     echo 'export DG_ADMIN_API_KEY=$CODELAB_E2E_DG_ADMIN_API_KEY' >> $BASH_ENV
       - run: npx cypress install
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci
@@ -335,11 +285,6 @@ jobs:
             	]
             }
 
-  build-push-docker-image-ecr:
-    <<: *executor-params
-    steps:
-      - build-push-docker-image
-
 workflows:
   app-pr:
     jobs:
@@ -365,31 +310,8 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      # TODO: enable later after addressing the issue with e2e tests
-      # - e2e:
-      #     <<: *filters-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
-      - notify-success:
+      - e2e:
           <<: *filters-pr
-          context: CI
-          e: docker-node
-          requires:
-            - lint
-            - unit
-            - integration
-            # - e2e
-
-  app-master:
-    jobs:
-      - install-and-build-workspace:
-          <<: *filters-master
-          e: docker-node
-          context: CI
-      - build-push-docker-image-ecr:
-          <<: *filters-master
           e: docker-node
           context: CI
           requires:
@@ -399,4 +321,7 @@ workflows:
           context: CI
           e: docker-node
           requires:
-            - build-push-docker-image-ecr
+            - lint
+            - unit
+            - integration
+            - e2e

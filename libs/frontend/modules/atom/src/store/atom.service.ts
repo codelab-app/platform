@@ -6,10 +6,8 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  ExtendedModel,
   Model,
   model,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
@@ -123,7 +121,6 @@ export class AtomService extends Model({
     const apiNode = {
       name: `${input.name} API`,
       owner: apiOwner,
-      descendantTypesIds: [],
     }
 
     const tagsConnect = input.tags?.map((tag) => ({

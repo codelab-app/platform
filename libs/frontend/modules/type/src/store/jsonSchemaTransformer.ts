@@ -10,6 +10,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
 import {
+  AnyType,
   AppType,
   ArrayType,
   ElementType,
@@ -22,7 +23,6 @@ import {
   PrimitiveType,
   ReactNodeType,
   RenderPropsType,
-  AnyType,
   UnionType,
 } from './models'
 
