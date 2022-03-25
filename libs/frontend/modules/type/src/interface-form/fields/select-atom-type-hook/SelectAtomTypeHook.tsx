@@ -28,7 +28,7 @@ export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
       name={name}
       optionFilterProp="label"
       options={componentOptions}
-      showSearch={true}
+      showSearch
     />
   )
 }

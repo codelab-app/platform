@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import { useGetAllTypesQuery } from '../hooks'
-import { TypeService, WithTypeService } from '../store'
+import { WithTypeService } from '../store'
 
 export type CreateTypeSelectOptions = (
   getTypesResult?: ReturnType<typeof useGetAllTypesQuery>,
@@ -35,7 +35,7 @@ export const TypeSelect = observer<TypeSelectProps>(
         name={name}
         optionFilterProp="label"
         options={typeOptions}
-        showSearch={true}
+        showSearch
       />
     )
   },

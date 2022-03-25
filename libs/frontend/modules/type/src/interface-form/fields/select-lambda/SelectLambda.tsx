@@ -20,7 +20,7 @@ export const SelectLambda = ({ name }: SelectLambdaProps) => {
       name={name}
       optionFilterProp="label"
       // options={lambdaOptions}
-      showSearch={true}
+      showSearch
     />
   )
 }

@@ -5,7 +5,7 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import {
   createNonUnionTypeOptionsForTypeSelect,
   TypeSelect,
@@ -44,9 +44,10 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
       >
-        <AutoFields fields={['name', 'kind']} />
+        <AutoFields fields={['name']} />
+        <SelectField name="kind" showSearch />
         <DisplayIfKind kind={TypeKind.PrimitiveType}>
-          <AutoField name="primitiveKind" />
+          <SelectField name="primitiveKind" showSearch />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.UnionType}>
           <AutoField
@@ -67,7 +68,7 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
           />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.ElementType}>
-          <AutoField label="Element kind" name="elementKind" />
+          <SelectField label="Element kind" name="elementKind" showSearch />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.MonacoType}>
           <AutoField label="Language" name="language" />

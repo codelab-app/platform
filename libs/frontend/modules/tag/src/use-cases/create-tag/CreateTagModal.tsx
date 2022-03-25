@@ -55,7 +55,7 @@ export const CreateTagModal = () => {
               optionFilterProp="label"
               options={options}
               required
-              showSearch={true}
+              showSearch
             />
           </DisplayIfNotRoot>
         </Form>
