@@ -6,10 +6,7 @@ import {
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateStoreButton,
-  CreateStoreModal,
-  DeleteStoresModal,
-  GetStoresTree,
-  UpdateStoreModal,
+  StoreMainPane,
 } from '@codelab/frontend/modules/store'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -31,12 +28,7 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Stores | Codelab</title>
       </Head>
 
-      <CreateStoreModal storeService={store.storeService} />
-      <UpdateStoreModal storeService={store.storeService} />
-      <DeleteStoresModal storeService={store.storeService} />
-      <ContentSection>
-        <GetStoresTree storeService={store.storeService} />
-      </ContentSection>
+      <ContentSection>Hello</ContentSection>
     </>
   )
 })
@@ -60,10 +52,15 @@ export default StoresPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-StoresPage.Layout = (page) => {
+StoresPage.Layout = observer((page) => {
+  const store = useStore()
+
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      MainPane={() => <StoreMainPane storeService={store.storeService} />}
+      SidebarNavigation={SidebarNavigation}
+    >
       {page.children}
     </DashboardTemplate>
   )
-}
+})

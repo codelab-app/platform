@@ -11,21 +11,17 @@ abstract class StoreBase extends BaseModel<StoreEdgeFragment> {}
 
 @model('codelab/Store')
 export class Store extends ExtendedModel(StoreBase, {
-  parentStore: prop<Maybe<Ref<Store>>>().withSetter(),
+  parentStore: prop<Maybe<Ref<StoreBase>>>().withSetter(),
   // PARENT_OF_STORE relation property
   storeKey: prop<string>().withSetter(),
   name: prop<string>(),
 }) {
-  getChildren(): Array<Ref<BaseModel<StoreEdgeFragment>>> {
-    return this.children
-  }
-
   addChild(child: BaseModel<StoreEdgeFragment>): void {
     this.children.push(storeRef(child.id))
   }
 
-  setParent(parent: BaseModel<StoreEdgeFragment>): void {
-    this.setParentStore(storeRef(parent.id))
+  hasParent(): boolean {
+    return !!this.parentStore
   }
 
   setEdgeInfo(edge: StoreEdgeFragment): void {

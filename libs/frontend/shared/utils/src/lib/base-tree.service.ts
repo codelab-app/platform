@@ -1,4 +1,3 @@
-import { DataNode } from 'antd/lib/tree'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -30,6 +29,8 @@ export abstract class BaseModel<Edge extends BaseEdge = BaseEdge> extends Model(
     return this.getChildren().map((x) => x.current)
   }
 
+  abstract hasParent(): boolean
+
   abstract getChildren(): Array<Ref<BaseModel<Edge>>>
 
   abstract addChild(child: BaseModel<Edge>): void
@@ -54,8 +55,6 @@ export abstract class BaseTreeService<
 
   abstract nodeFromFragment(fragment: BaseFragment): Node
 
-  abstract getAntdTree(): Array<DataNode>
-
   addChild(parent: Node, child: Node, edge: EdgeFragment) {
     parent.addChild(child)
     child.setParent(parent)
@@ -65,6 +64,11 @@ export abstract class BaseTreeService<
   @computed
   get nodesList() {
     return [...this.nodes.values()]
+  }
+
+  @computed
+  get rootNodes() {
+    return this.nodesList.filter((x) => !x.hasParent())
   }
 
   node(id: string) {
