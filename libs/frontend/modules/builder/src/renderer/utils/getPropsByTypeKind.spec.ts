@@ -1,8 +1,8 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import {
+  IAnyType,
   IEnumType,
   IMonacoType,
-  IAnyType,
   IUnionType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
