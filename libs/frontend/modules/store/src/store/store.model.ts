@@ -24,6 +24,10 @@ export class Store extends ExtendedModel(StoreBase, {
     return !!this.parentStore
   }
 
+  setParent(parent: BaseModel<StoreEdgeFragment>): void {
+    this.setParentStore(storeRef(parent.id))
+  }
+
   setEdgeInfo(edge: StoreEdgeFragment): void {
     this.setStoreKey(edge.storeKey)
   }

@@ -121,8 +121,8 @@ export abstract class BaseTreeService<
   @modelAction
   updateFromFragment({ vertices, edges }: GraphFragment) {
     this.nodes.clear()
+    vertices.map(this.nodeFromFragment).forEach((x) => this.addNode(x))
 
-    vertices.map(this.nodeFromFragment).forEach(this.addNode)
     // Attach the children. Sort the edges to match the children order to the db edge order
     edges.forEach((edge) => {
       const source = this.node(edge.source)
