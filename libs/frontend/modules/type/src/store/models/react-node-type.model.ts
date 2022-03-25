@@ -1,5 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IReactNodeType, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -7,22 +8,17 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { ReactNodeTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/ReactNodeType')
 export class ReactNodeType
-  extends Model(baseTypeProps(TypeKind.ReactNodeType))
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.ReactNodeType),
+    props: {},
+  }))
+  implements IReactNodeType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

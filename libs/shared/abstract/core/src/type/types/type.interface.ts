@@ -28,12 +28,10 @@ export const TypeSchema = z.union([
   MonacoTypeSchema,
 ])
 
-export type TypeId = string
+export type IAnyType = z.infer<typeof TypeSchema>
 
-export type IType = z.infer<typeof TypeSchema>
-
-export type SpecificIType<TKind extends TypeKind> = IType extends {
+export type IType<TKind extends TypeKind> = IAnyType extends {
   typeKind: TKind
 }
-  ? IType
+  ? IAnyType
   : never

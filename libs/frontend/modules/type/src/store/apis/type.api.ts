@@ -129,7 +129,7 @@ type UpdateTypesRecord = Record<
   TypeKind,
   (vars: {
     where: AllTypesWhere
-    udate: UpdateTypeInput
+    data: UpdateTypeInput
   }) => Promise<Array<TypeFragment>>
 >
 export type UpdateTypeInput =

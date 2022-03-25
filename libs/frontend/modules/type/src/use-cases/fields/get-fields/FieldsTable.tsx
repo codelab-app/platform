@@ -4,7 +4,6 @@ import { Button, Space, Table, TableColumnProps } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { getTypeName } from '../../../shared/getTypeName'
 import {
   FieldModalStoreMetadata,
   fieldRef,
@@ -108,11 +107,11 @@ export const FieldsTable = observer<FieldsTableProps>(
     ]
 
     const dataSource: Array<CellData> =
-      interfaceType?.fieldsArray?.map((f) => ({
+      interfaceType?.fields?.map((f) => ({
         id: f.id,
         name: f.name || '',
         key: f.key,
-        typeKind: f.type.current ? getTypeName(f.type.current) : '',
+        typeKind: f.type.current ? f.type.current.typeKind : '',
         description: f.description || '',
       })) ?? []
 

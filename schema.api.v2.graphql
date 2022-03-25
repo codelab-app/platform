@@ -2575,11 +2575,6 @@ input CreateInfoWhere {
   relationshipsCreated_NOT_IN: [Int!]
 }
 
-type CreateInterfaceTypeGraphsMutationResponse {
-  info: CreateInfo!
-  interfaceTypeGraphs: [InterfaceTypeGraph!]!
-}
-
 type CreateInterfaceTypesMutationResponse {
   info: CreateInfo!
   interfaceTypes: [InterfaceType!]!
@@ -6220,38 +6215,6 @@ input InterfaceTypeFieldsUpdateFieldInput {
   where: InterfaceTypeFieldsConnectionWhere
 }
 
-type InterfaceTypeGraph {
-  vertices: [UnionAnyType!]!
-}
-
-type InterfaceTypeGraphAggregateSelection {
-  count: Int!
-}
-
-input InterfaceTypeGraphCreateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input InterfaceTypeGraphOptions {
-  limit: Int
-  offset: Int
-}
-
-input InterfaceTypeGraphUpdateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input InterfaceTypeGraphWhere {
-  AND: [InterfaceTypeGraphWhere!]
-  OR: [InterfaceTypeGraphWhere!]
-}
-
 input InterfaceTypeOnCreateInput {
   id: ID
   name: String
@@ -6889,9 +6852,6 @@ type Mutation {
   createImportDataMutationResponses(
     input: [ImportDataMutationResponseCreateInput!]!
   ): CreateImportDataMutationResponsesMutationResponse!
-  createInterfaceTypeGraphs(
-    input: [InterfaceTypeGraphCreateInput!]!
-  ): CreateInterfaceTypeGraphsMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
   ): CreateInterfaceTypesMutationResponse!
@@ -6968,7 +6928,6 @@ type Mutation {
   deleteImportDataMutationResponses(
     where: ImportDataMutationResponseWhere
   ): DeleteInfo!
-  deleteInterfaceTypeGraphs(where: InterfaceTypeGraphWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
     where: InterfaceTypeWhere
@@ -7130,10 +7089,6 @@ type Mutation {
     update: ImportDataMutationResponseUpdateInput
     where: ImportDataMutationResponseWhere
   ): UpdateImportDataMutationResponsesMutationResponse!
-  updateInterfaceTypeGraphs(
-    update: InterfaceTypeGraphUpdateInput
-    where: InterfaceTypeGraphWhere
-  ): UpdateInterfaceTypeGraphsMutationResponse!
   updateInterfaceTypes(
     connect: InterfaceTypeConnectInput
     connectOrCreate: InterfaceTypeConnectOrCreateInput
@@ -8881,13 +8836,6 @@ type Query {
   importDataMutationResponsesAggregate(
     where: ImportDataMutationResponseWhere
   ): ImportDataMutationResponseAggregateSelection!
-  interfaceTypeGraphs(
-    options: InterfaceTypeGraphOptions
-    where: InterfaceTypeGraphWhere
-  ): [InterfaceTypeGraph!]!
-  interfaceTypeGraphsAggregate(
-    where: InterfaceTypeGraphWhere
-  ): InterfaceTypeGraphAggregateSelection!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -8956,7 +8904,6 @@ type Query {
   tagGraphs: TagGraph!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
-  typeGraph(interfaceId: ID!): InterfaceTypeGraph!
   typeReferences(
     options: TypeReferenceOptions
     where: TypeReferenceWhere
@@ -10336,8 +10283,6 @@ input TypeReferenceWhere {
   name_STARTS_WITH: String
 }
 
-union UnionAnyType = PrimitiveType
-
 """
 Allows picking one of a set of types
 """
@@ -10698,11 +10643,6 @@ type UpdateInfo {
   nodesDeleted: Int!
   relationshipsCreated: Int!
   relationshipsDeleted: Int!
-}
-
-type UpdateInterfaceTypeGraphsMutationResponse {
-  info: UpdateInfo!
-  interfaceTypeGraphs: [InterfaceTypeGraph!]!
 }
 
 type UpdateInterfaceTypesMutationResponse {

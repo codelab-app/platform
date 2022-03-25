@@ -1,5 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ILambdaType, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -7,22 +8,17 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { LambdaTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/LambdaType')
 export class LambdaType
-  extends Model(baseTypeProps(TypeKind.LambdaType))
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.LambdaType),
+    props: {},
+  }))
+  implements ILambdaType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

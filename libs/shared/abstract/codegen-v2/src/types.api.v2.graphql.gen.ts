@@ -2656,12 +2656,6 @@ export type CreateInfoWhere = {
   relationshipsCreated_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
 }
 
-export type CreateInterfaceTypeGraphsMutationResponse = {
-  __typename?: 'CreateInterfaceTypeGraphsMutationResponse'
-  info: CreateInfo
-  interfaceTypeGraphs: Array<InterfaceTypeGraph>
-}
-
 export type CreateInterfaceTypesMutationResponse = {
   __typename?: 'CreateInterfaceTypesMutationResponse'
   info: CreateInfo
@@ -6464,36 +6458,6 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
-export type InterfaceTypeGraph = {
-  __typename?: 'InterfaceTypeGraph'
-  vertices: Array<UnionAnyType>
-}
-
-export type InterfaceTypeGraphAggregateSelection = {
-  __typename?: 'InterfaceTypeGraphAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type InterfaceTypeGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type InterfaceTypeGraphOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-}
-
-export type InterfaceTypeGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type InterfaceTypeGraphWhere = {
-  AND?: InputMaybe<Array<InterfaceTypeGraphWhere>>
-  OR?: InputMaybe<Array<InterfaceTypeGraphWhere>>
-}
-
 export type InterfaceTypeOnCreateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
@@ -7070,7 +7034,6 @@ export type Mutation = {
   createExportAdminDataResponses: CreateExportAdminDataResponsesMutationResponse
   createHooks: CreateHooksMutationResponse
   createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
-  createInterfaceTypeGraphs: CreateInterfaceTypeGraphsMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
   createMonacoTypes: CreateMonacoTypesMutationResponse
@@ -7103,7 +7066,6 @@ export type Mutation = {
   deleteFieldEdge: DeleteFieldResponse
   deleteHooks: DeleteInfo
   deleteImportDataMutationResponses: DeleteInfo
-  deleteInterfaceTypeGraphs: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
   deleteMonacoTypes: DeleteInfo
@@ -7139,7 +7101,6 @@ export type Mutation = {
   updateExportAdminDataResponses: UpdateExportAdminDataResponsesMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
-  updateInterfaceTypeGraphs: UpdateInterfaceTypeGraphsMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
   updateMonacoTypes: UpdateMonacoTypesMutationResponse
@@ -7216,10 +7177,6 @@ export type MutationCreateHooksArgs = {
 
 export type MutationCreateImportDataMutationResponsesArgs = {
   input: Array<ImportDataMutationResponseCreateInput>
-}
-
-export type MutationCreateInterfaceTypeGraphsArgs = {
-  input: Array<InterfaceTypeGraphCreateInput>
 }
 
 export type MutationCreateInterfaceTypesArgs = {
@@ -7359,10 +7316,6 @@ export type MutationDeleteHooksArgs = {
 
 export type MutationDeleteImportDataMutationResponsesArgs = {
   where?: InputMaybe<ImportDataMutationResponseWhere>
-}
-
-export type MutationDeleteInterfaceTypeGraphsArgs = {
-  where?: InputMaybe<InterfaceTypeGraphWhere>
 }
 
 export type MutationDeleteInterfaceTypesArgs = {
@@ -7576,11 +7529,6 @@ export type MutationUpdateHooksArgs = {
 export type MutationUpdateImportDataMutationResponsesArgs = {
   update?: InputMaybe<ImportDataMutationResponseUpdateInput>
   where?: InputMaybe<ImportDataMutationResponseWhere>
-}
-
-export type MutationUpdateInterfaceTypeGraphsArgs = {
-  update?: InputMaybe<InterfaceTypeGraphUpdateInput>
-  where?: InputMaybe<InterfaceTypeGraphWhere>
 }
 
 export type MutationUpdateInterfaceTypesArgs = {
@@ -9340,8 +9288,6 @@ export type Query = {
   hooksAggregate: HookAggregateSelection
   importDataMutationResponses: Array<ImportDataMutationResponse>
   importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
-  interfaceTypeGraphs: Array<InterfaceTypeGraph>
-  interfaceTypeGraphsAggregate: InterfaceTypeGraphAggregateSelection
   interfaceTypes: Array<InterfaceType>
   interfaceTypesAggregate: InterfaceTypeAggregateSelection
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
@@ -9371,7 +9317,6 @@ export type Query = {
   tagGraphs: TagGraph
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
-  typeGraph: InterfaceTypeGraph
   typeReferences: Array<TypeReference>
   typeReferencesAggregate: TypeReferenceAggregateSelection
   unionTypes: Array<UnionType>
@@ -9532,15 +9477,6 @@ export type QueryImportDataMutationResponsesAggregateArgs = {
   where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
-export type QueryInterfaceTypeGraphsArgs = {
-  options?: InputMaybe<InterfaceTypeGraphOptions>
-  where?: InputMaybe<InterfaceTypeGraphWhere>
-}
-
-export type QueryInterfaceTypeGraphsAggregateArgs = {
-  where?: InputMaybe<InterfaceTypeGraphWhere>
-}
-
 export type QueryInterfaceTypesArgs = {
   options?: InputMaybe<InterfaceTypeOptions>
   where?: InputMaybe<InterfaceTypeWhere>
@@ -9661,10 +9597,6 @@ export type QueryTagsArgs = {
 
 export type QueryTagsAggregateArgs = {
   where?: InputMaybe<TagWhere>
-}
-
-export type QueryTypeGraphArgs = {
-  interfaceId: Scalars['ID']
 }
 
 export type QueryTypeReferencesArgs = {
@@ -11087,8 +11019,6 @@ export type TypeReferenceWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
-export type UnionAnyType = PrimitiveType
-
 /** Allows picking one of a set of types */
 export type UnionType = TypeBase &
   WithDescendants & {
@@ -11478,12 +11408,6 @@ export type UpdateInfo = {
   nodesDeleted: Scalars['Int']
   relationshipsCreated: Scalars['Int']
   relationshipsDeleted: Scalars['Int']
-}
-
-export type UpdateInterfaceTypeGraphsMutationResponse = {
-  __typename?: 'UpdateInterfaceTypeGraphsMutationResponse'
-  info: UpdateInfo
-  interfaceTypeGraphs: Array<InterfaceTypeGraph>
 }
 
 export type UpdateInterfaceTypesMutationResponse = {

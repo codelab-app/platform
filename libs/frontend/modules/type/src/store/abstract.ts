@@ -26,19 +26,3 @@ export const baseUpdateFromFragment = function (
 ) {
   self.name = type.name
 }
-
-export const makeUpdateFn = <T extends IBaseType>() =>
-  _async(function* (this: T, input: UpdateTypeInput) {
-    const [type] = yield* _await(
-      updateTypeApi[this.typeKind]({ where: { id: this.id }, udate: input }),
-    )
-
-    if (!type) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Type was not created')
-    }
-
-    this.updateFromFragment?.(type)
-
-    return this
-  })

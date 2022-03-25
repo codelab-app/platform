@@ -2,18 +2,17 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import {
   AtomType,
+  IAnyType,
   IComponent,
   IElement,
-  IType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 
-export const primitiveType: IType = {
+export const primitiveType: IAnyType = {
   id: '0x092',
   name: 'primitiveType',
   typeKind: TypeKind.PrimitiveType,
-  owner: null,
   primitiveKind: PrimitiveTypeKind.Integer,
 }
 

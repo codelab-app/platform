@@ -1,9 +1,18 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import {
+  IAnyType,
+  IAppType,
+  IArrayType,
   IElementType,
+  IEnumType,
+  IInterfaceType,
+  ILambdaType,
+  IMonacoType,
+  IPageType,
+  IPrimitiveType,
   IReactNodeType,
   IRenderPropsType,
-  IType,
+  IUnionType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -30,7 +39,7 @@ export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
-  extraProperties?: (type: IType) => JsonSchema
+  extraProperties?: (type: IAnyType) => JsonSchema
 }
 
 // I'm not sure what the difference is, but I'm keeping it like it is for now
@@ -47,7 +56,7 @@ const primitives = {
 export class JsonSchemaTransformer {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: AnyType) {
+  transform(type: IAnyType) {
     switch (type.typeKind) {
       case TypeKind.AppType:
         return this.fromAppType(type)
@@ -76,7 +85,7 @@ export class JsonSchemaTransformer {
     }
   }
 
-  fromArrayType(type: ArrayType): JsonSchema {
+  fromArrayType(type: IArrayType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
     return {
@@ -88,7 +97,7 @@ export class JsonSchemaTransformer {
     }
   }
 
-  fromInterfaceType(type: InterfaceType): JsonSchema {
+  fromInterfaceType(type: IInterfaceType): JsonSchema {
     const makeFieldSchema = (field: Field) => ({
       ...this.transform(field.type.current),
       label: field.name || pascalCaseToWords(field.key),
@@ -109,11 +118,11 @@ export class JsonSchemaTransformer {
     return {
       ...extra,
       type: 'object',
-      properties: type.fieldsArray.reduce(makeFieldProperties, {}),
+      properties: type.fields.reduce(makeFieldProperties, {}),
     }
   }
 
-  fromUnionType(type: UnionType): JsonSchema {
+  fromUnionType(type: IUnionType): JsonSchema {
     // This is the extra for the union type. Not to be confused with the extra for the value type
     const extra = this.getExtraProperties(type)
     const label: string | undefined = extra?.label
@@ -141,41 +150,41 @@ export class JsonSchemaTransformer {
     }
   }
 
-  fromAppType(type: AppType): JsonSchema {
+  fromAppType(type: IAppType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 
-  fromPageType(type: PageType): JsonSchema {
+  fromPageType(type: IPageType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 
-  fromRenderPropsType(type: RenderPropsType): JsonSchema {
+  fromRenderPropsType(type: IRenderPropsType): JsonSchema {
     return this.transformReactElementType(type)
   }
 
-  fromMonacoType(type: MonacoType): JsonSchema {
+  fromMonacoType(type: IMonacoType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 
-  fromLambdaType(type: LambdaType): JsonSchema {
+  fromLambdaType(type: ILambdaType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 
-  fromReactNodeType(type: ReactNodeType): JsonSchema {
+  fromReactNodeType(type: IReactNodeType): JsonSchema {
     return this.transformReactElementType(type)
   }
 
-  fromElementType(type: ElementType): JsonSchema {
+  fromElementType(type: IElementType): JsonSchema {
     return this.transformReactElementType(type)
   }
 
-  fromPrimitiveType(type: PrimitiveType): JsonSchema {
+  fromPrimitiveType(type: IPrimitiveType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
     return { type: primitives[type.primitiveKind], ...extra }
   }
 
-  fromEnumType(type: EnumType): JsonSchema {
+  fromEnumType(type: IEnumType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
     const uniforms = {
@@ -195,7 +204,7 @@ export class JsonSchemaTransformer {
    * Handles the reference types without any extra properties
    * Produces a 'string' type
    */
-  private simpleReferenceType(type: AnyType): JsonSchema {
+  private simpleReferenceType(type: IAnyType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
     return { type: 'string', ...extra } as const
@@ -240,7 +249,7 @@ export class JsonSchemaTransformer {
     return { type: 'object', properties, uniforms: nullUniforms, label: '' }
   }
 
-  private getExtraProperties(type: IType) {
+  private getExtraProperties(type: IAnyType) {
     return this.options?.extraProperties?.(type) || undefined
   }
 }

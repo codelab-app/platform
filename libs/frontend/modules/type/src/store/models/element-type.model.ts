@@ -1,5 +1,10 @@
-import { ElementTypeKind, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ElementTypeKind,
+  IElementType,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
+import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -8,25 +13,19 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { ElementTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/ElementType')
 export class ElementType
-  extends Model({
-    ...baseTypeProps(TypeKind.ElementType),
-    elementKind: prop<ElementTypeKind>(),
-  })
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.ElementType),
+    props: {
+      elementKind: prop<ElementTypeKind>(),
+    },
+  }))
+  implements IElementType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

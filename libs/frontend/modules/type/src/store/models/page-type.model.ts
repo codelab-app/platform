@@ -1,5 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IPageType, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -7,22 +8,17 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { PageTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/PageType')
 export class PageType
-  extends Model(baseTypeProps(TypeKind.PageType))
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.PageType),
+    props: {},
+  }))
+  implements IPageType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

@@ -1,4 +1,4 @@
-import { IType, SpecificIType, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, IType, TypeKind } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from './types'
 import { appTypeUiProperties } from './ui-properties/appTypeUiProperties'
 import { elementTypeUiProperties } from './ui-properties/elementTypeUiProperties'
@@ -8,7 +8,7 @@ import { selectComponentUiProperties } from './ui-properties/selectComponentUiPr
 import { unionTypeUiProperties } from './ui-properties/unionTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
-  [TKind in TypeKind]: UiPropertiesFn<SpecificIType<TKind>>
+  [TKind in TypeKind]: UiPropertiesFn<IType<TKind>>
 }>
 
 // Handles all 'ui' json schema properties that should be added for specific types
@@ -26,7 +26,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [TypeKind.PageType]: pageTypeUiProperties,
 }
 
-export const getUiProperties = (type: IType) => {
+export const getUiProperties = (type: IAnyType) => {
   const fn: UiPropertiesFn | undefined = uiPropertiesContainer[
     type.typeKind
   ] as any

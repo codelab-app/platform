@@ -32,7 +32,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
       user?.sub,
     )
 
-    return typeToUpdate.update(input)
+    return typeService.update(typeToUpdate, input)
   }
 
   const model = {

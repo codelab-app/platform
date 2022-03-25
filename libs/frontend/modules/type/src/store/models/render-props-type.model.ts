@@ -1,5 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IRenderPropsType, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -7,22 +8,17 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { RenderPropsTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/RenderPropsType')
 export class RenderPropsType
-  extends Model(baseTypeProps(TypeKind.RenderPropsType))
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.RenderPropsType),
+    props: {},
+  }))
+  implements IRenderPropsType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

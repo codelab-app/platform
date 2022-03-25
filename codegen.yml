@@ -31,6 +31,7 @@ generates:
       - typescript
     config:
       namingConvention:
+        # enumsAsConst: true
         enumValues: keep
         dedupeFragments: true
 

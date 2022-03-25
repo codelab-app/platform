@@ -2,7 +2,7 @@ import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import {
   IEnumType,
   IMonacoType,
-  IType,
+  IAnyType,
   IUnionType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -34,7 +34,7 @@ const unionType: IUnionType = {
 }
 
 const types = [enumType, monacoType, unionType]
-const typesById: Record<string, IType> = entityRecordById(types)
+const typesById: Record<string, IAnyType> = entityRecordById(types)
 
 const initialProps = {
   prop01: { type: enumType.id, value: 'prop01-value' },

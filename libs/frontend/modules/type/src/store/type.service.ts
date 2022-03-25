@@ -13,6 +13,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { IBaseType } from './abstract'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -20,6 +21,8 @@ import {
   deleteTypeApi,
   getAllTypes,
   getTypeApi,
+  updateTypeApi,
+  UpdateTypeInput,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
 import {
@@ -60,6 +63,33 @@ export class TypeService extends Model({
   type(id: string) {
     return this.types.get(id)
   }
+
+  @modelFlow
+  @transaction
+  update = _async(function* (
+    this: TypeService,
+    type: IBaseType,
+    input: UpdateTypeInput,
+  ) {
+    console.log(type.id, input)
+
+    const [updatedType] = yield* _await(
+      updateTypeApi[type.typeKind]({ where: { id: type.id }, data: input }),
+    )
+
+    console.log(updatedType)
+
+    if (!updatedType) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('Type was not created')
+    }
+
+    const typeModel = type.updateFromFragment?.(updatedType)
+
+    this.types.set(updatedType.id, typeModel)
+
+    return typeModel
+  })
 
   @modelFlow
   @transaction
