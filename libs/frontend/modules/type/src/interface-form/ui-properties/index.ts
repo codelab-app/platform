@@ -1,11 +1,11 @@
 import { IAnyType, IType, TypeKind } from '@codelab/shared/abstract/core'
-import { UiPropertiesFn } from './types'
-import { appTypeUiProperties } from './ui-properties/appTypeUiProperties'
-import { elementTypeUiProperties } from './ui-properties/elementTypeUiProperties'
-import { lambdaTypeUiProperties } from './ui-properties/lambdaTypeUiProperties'
-import { pageTypeUiProperties } from './ui-properties/pageTypeUiProperties'
-import { selectComponentUiProperties } from './ui-properties/selectComponentUiProperties'
-import { unionTypeUiProperties } from './ui-properties/unionTypeUiProperties'
+import { UiPropertiesFn } from '../types'
+import { appTypeUiProperties } from './appTypeUiProperties'
+import { elementTypeUiProperties } from './elementTypeUiProperties'
+import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
+import { pageTypeUiProperties } from './pageTypeUiProperties'
+import { selectComponentUiProperties } from './selectComponentUiProperties'
+import { unionTypeUiProperties } from './unionTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
   [TKind in TypeKind]: UiPropertiesFn<IType<TKind>>

@@ -3,20 +3,50 @@ import { AtomCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType } from '@codelab/shared/abstract/core'
 
 const atoms = [
-  { name: 'AntDesignGridCol', type: AtomType.AntDesignGridCol },
-  { name: 'AntDesignGridRow', type: AtomType.AntDesignGridRow },
-  { name: 'AntDesignButton', type: AtomType.AntDesignButton },
-  { name: 'AntDesignTypographyText', type: AtomType.AntDesignTypographyText },
+  { name: AtomType.AntDesignGridCol, type: AtomType.AntDesignGridCol },
+  { name: AtomType.AntDesignGridRow, type: AtomType.AntDesignGridRow },
+  { name: AtomType.AntDesignButton, type: AtomType.AntDesignButton },
+  {
+    name: AtomType.AntDesignTypographyText,
+    type: AtomType.AntDesignTypographyText,
+  },
 ]
 
+const ELEMENT_CONTAINER = 'Container'
+const ELEMENT_ROW = 'Row'
+const ELEMENT_COL_A = 'Col A'
+const ELEMENT_COL_B = 'Col B'
+const ELEMENT_TEXT = 'Text'
+const ELEMENT_BUTTON = 'Button'
+
 const elements = [
-  { name: 'Container', parentElement: ROOT_ELEMENT_NAME },
-  { name: 'Row', parentElement: 'Container' },
-  { name: 'Col A', atom: 'AntDesignGridCol', parentElement: 'Row' },
-  { name: 'Col B', atom: 'AntDesignGridCol', parentElement: 'Row' },
-  { name: 'Text', atom: 'AntDesignTypographyText', parentElement: 'Col A' },
-  { name: 'Button', atom: 'AntDesignButton', parentElement: 'Col B' },
-  { name: 'Text', atom: 'AntDesignTypographyText', parentElement: 'Button' },
+  { name: ELEMENT_CONTAINER, parentElement: ROOT_ELEMENT_NAME },
+  { name: ELEMENT_ROW, parentElement: ELEMENT_CONTAINER },
+  {
+    name: ELEMENT_COL_A,
+    atom: AtomType.AntDesignGridCol,
+    parentElement: ELEMENT_ROW,
+  },
+  {
+    name: ELEMENT_COL_B,
+    atom: AtomType.AntDesignGridCol,
+    parentElement: ELEMENT_ROW,
+  },
+  {
+    name: ELEMENT_TEXT,
+    atom: AtomType.AntDesignTypographyText,
+    parentElement: ELEMENT_COL_A,
+  },
+  {
+    name: ELEMENT_BUTTON,
+    atom: AtomType.AntDesignButton,
+    parentElement: ELEMENT_COL_B,
+  },
+  {
+    name: ELEMENT_TEXT,
+    atom: AtomType.AntDesignTypographyText,
+    parentElement: ELEMENT_BUTTON,
+  },
 ]
 
 const updatedElementName = 'Container updated'
@@ -35,7 +65,7 @@ describe('Elements CRUD', () => {
                   node: {
                     name: `${atom.name} API`,
                     owner: userId
-                      ? { connect: { where: { node: { auth0Id: userId } } } }
+                      ? { connect: [{ where: { node: { auth0Id: userId } } }] }
                       : undefined,
                   },
                 },
@@ -64,11 +94,19 @@ describe('Elements CRUD', () => {
 
           cy.getOpenedModal().findByLabelText('Name').type(name)
 
+          /**
+           * We skip this if parent element is root, since it is disabled and can't be accessed
+           */
+          if (parentElement !== ROOT_ELEMENT_NAME) {
+            cy.getOpenedModal().selectOptionItem(
+              'Parent element',
+              parentElement,
+            )
+          }
+
           if (atom) {
             cy.getOpenedModal().selectOptionItem('Atom', atom)
           }
-
-          cy.getOpenedModal().selectOptionItem('Parent element', parentElement)
 
           cy.getOpenedModal()
             .findByButtonText(/Create/)

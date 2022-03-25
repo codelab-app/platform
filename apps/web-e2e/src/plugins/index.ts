@@ -10,7 +10,6 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const encrypt = require('cypress-nextjs-auth0/encrypt')
-// const webpackPreprocessor = require('@cypress/webpack-preprocessor')
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -18,26 +17,6 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
-  // const options = {
-  //   // send in the options from your webpack.config.js, so it works the same
-  //   // as your app's code
-  //   webpackOptions: require('../../webpack.config'),
-  //   watchOptions: {},
-  // }
-
-  // https://mrjean.be/posts/cypress-samesite-cookie-issue-when-running-chromium-based-browsers/
-  // on('before:browser:launch', (browser = {} as any, launchOptions) => {
-  //   if (browser.name === 'chrome' || browser.name === 'edge') {
-  //     // bypass 401 unauthorised access on chromium-based browsers
-  //     launchOptions.args.push('--disable-features=SameSiteByDefaultCookies')
-  //
-  //     return launchOptions
-  //   }
-  //
-  //   return
-  // })
-
-  // on('file:preprocessor', webpackPreprocessor(options))
   on('task', { encrypt })
 
   config.env.tsConfig = 'tsconfig.e2e.json'

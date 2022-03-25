@@ -13,6 +13,7 @@ import { wrapSubject } from './utils'
 
 export const findElementByText = <K extends ElementTagName>(
   subject: any,
+  // subject: HTMLElement,
   text: Matcher,
   element: K,
   options?: SelectorMatcherOptions,

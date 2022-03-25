@@ -18,22 +18,7 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
-import {
-  AnyType,
-  AppType,
-  ArrayType,
-  ElementType,
-  EnumType,
-  Field,
-  InterfaceType,
-  LambdaType,
-  MonacoType,
-  PageType,
-  PrimitiveType,
-  ReactNodeType,
-  RenderPropsType,
-  UnionType,
-} from './models'
+import { Field } from '../store'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
@@ -53,7 +38,7 @@ const primitives = {
   [PrimitiveTypeKind.Boolean]: 'boolean' as const,
 }
 
-export class JsonSchemaTransformer {
+export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
   transform(type: IAnyType) {
@@ -134,7 +119,7 @@ export class JsonSchemaTransformer {
       oneOf: type.typesOfUnionType.map((innerType) => {
         const valueSchema = this.transform(innerType.current)
 
-        const properties = JsonSchemaTransformer.schemaForTypedValue(
+        const properties = TypeSchemaFactory.schemaForTypedValue(
           innerType.id,
           valueSchema,
           typeLabel,
@@ -240,7 +225,7 @@ export class JsonSchemaTransformer {
   ): JsonSchema {
     const extra = this.getExtraProperties(type)
 
-    const properties = JsonSchemaTransformer.schemaForTypedValue(
+    const properties = TypeSchemaFactory.schemaForTypedValue(
       type.id,
       { type: 'string', label: '', ...extra },
       '',

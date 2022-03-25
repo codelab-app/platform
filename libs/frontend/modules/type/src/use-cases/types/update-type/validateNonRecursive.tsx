@@ -1,7 +1,7 @@
 import { typeApi } from '../../../store'
-import { UpdateTypeSchema } from './updateTypeSchema'
+import { UpdateTypeInputFactory } from './update-type-input.factory'
 
-const getInnerTypeIds = (submitData: UpdateTypeSchema) => [
+const getInnerTypeIds = (submitData: UpdateTypeInputFactory) => [
   ...(submitData.typeIdsOfUnionType ?? []),
 ]
 
@@ -9,7 +9,7 @@ const getInnerTypeIds = (submitData: UpdateTypeSchema) => [
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
   updateId: string,
-  submitData: UpdateTypeSchema,
+  submitData: UpdateTypeInputFactory,
 ) => {
   const innerTypes = getInnerTypeIds(submitData)
 

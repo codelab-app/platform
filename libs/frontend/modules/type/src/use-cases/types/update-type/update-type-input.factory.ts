@@ -1,4 +1,3 @@
-import * as cg from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { groupItemsByArrayDiff } from '@codelab/shared/utils'
@@ -11,9 +10,9 @@ import {
 } from '../../../shared'
 import { AnyType, UpdateTypeInput } from '../../../store'
 
-export type UpdateTypeSchema = BaseTypeMutationSchema
+export type UpdateTypeInputFactory = BaseTypeMutationSchema
 
-export const updateTypeSchema: JSONSchemaType<UpdateTypeSchema> = {
+export const updateTypeSchema: JSONSchemaType<UpdateTypeInputFactory> = {
   title: 'Update Type Input',
   type: 'object',
   properties: {
@@ -22,10 +21,11 @@ export const updateTypeSchema: JSONSchemaType<UpdateTypeSchema> = {
   required: ['name'],
 }
 
-// This is similar to the one for create, but has a couple of important differences (we don't assign uuids, we diff the old and new enum values, etc.),
-// so it's not a good candidate for a generic function.
-export const mapUpdateTypeSchemaToTypeInput = (
-  formData: UpdateTypeSchema,
+/**
+ * This is similar to the one for create, but has a couple of important differences (we don't assign uuids, we diff the old and new enum values, etc.), so it's not a good candidate for a generic function.
+ */
+export const mapUpdateTypeSchemaToInput = (
+  formData: UpdateTypeInputFactory,
   originalType: AnyType,
   currentUserId: Nullish<string>,
 ): UpdateTypeInput => {
@@ -33,10 +33,11 @@ export const mapUpdateTypeSchemaToTypeInput = (
     name: formData.name,
     owner: [
       {
-        connect: currentUserId
-          ? [{ where: { node: { auth0Id: currentUserId } } }]
-          : [],
-        disconnect: currentUserId ? [] : [{ where: {} }],
+        where: {
+          node: {
+            auth0Id: currentUserId,
+          },
+        },
       },
     ],
   }
@@ -44,7 +45,7 @@ export const mapUpdateTypeSchemaToTypeInput = (
   const kind = originalType.typeKind
 
   switch (kind) {
-    case TypeKind.UnionType:
+    case TypeKind.UnionType: {
       if (
         !(formData.typeIdsOfUnionType && formData.typeIdsOfUnionType.length > 0)
       ) {
@@ -60,7 +61,8 @@ export const mapUpdateTypeSchemaToTypeInput = (
             })),
           },
         ],
-      } as cg.UnionTypeUpdateInput
+      }
+    }
 
     case TypeKind.InterfaceType:
       return { ...common }
@@ -117,8 +119,6 @@ export const mapUpdateTypeSchemaToTypeInput = (
 
       return { ...common, elementKind: formData.elementKind }
     case TypeKind.ArrayType:
-      console.log(common)
-
       return { ...common }
     default:
       throw new Error('Invalid Update form type')

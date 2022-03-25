@@ -71,22 +71,21 @@ export class TypeService extends Model({
     type: IBaseType,
     input: UpdateTypeInput,
   ) {
-    console.log(type.id, input)
-
     const [updatedType] = yield* _await(
-      updateTypeApi[type.typeKind]({ where: { id: type.id }, data: input }),
+      updateTypeApi[type.typeKind]({
+        where: { id: type.id },
+        update: { name: input.name },
+      }),
     )
-
-    console.log(updatedType)
 
     if (!updatedType) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    const typeModel = type.updateFromFragment?.(updatedType)
+    const typeModel = typeFactory(updatedType)
 
-    this.types.set(updatedType.id, typeModel)
+    this.types.set(type.id, typeModel)
 
     return typeModel
   })
@@ -162,8 +161,6 @@ export class TypeService extends Model({
     typeKind: TypeKind,
     input: CreateTypeInput,
   ) {
-    console.log(input)
-
     const [type] = yield* _await(createTypeApi[typeKind](input))
 
     if (!type) {

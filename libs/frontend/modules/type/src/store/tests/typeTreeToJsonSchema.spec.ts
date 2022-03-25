@@ -1,6 +1,6 @@
 import Ajv from 'ajv'
 import { objectMap } from 'mobx-keystone'
-import { JsonSchemaTransformer } from '../jsonSchemaTransformer'
+import { TypeSchemaFactory } from '../../interface-form/type-schema.factory'
 import { AnyType } from '../models'
 import { TypeService } from '../type.service'
 import {
@@ -25,7 +25,7 @@ new TypeService({
 })
 
 describe('Type tree to json schema', function () {
-  const transformer = new JsonSchemaTransformer()
+  const transformer = new TypeSchemaFactory()
 
   it('should transform union type', function () {
     const jsonSchema = transformer.transform(unionType)

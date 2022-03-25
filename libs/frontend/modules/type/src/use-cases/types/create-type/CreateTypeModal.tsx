@@ -10,12 +10,12 @@ import {
   createNonUnionTypeOptionsForTypeSelect,
   TypeSelect,
 } from '../../../shared'
-import { TypeService, WithTypeService } from '../../../store'
+import { WithTypeService } from '../../../store'
 import {
   CreateTypeSchema,
   createTypeSchema,
-  mapCreateTypeSchemaToTypeInput,
-} from './createTypeSchema'
+  mapCreateTypeSchemaToInput,
+} from './create-type-input.factory'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
@@ -33,10 +33,7 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
       <ModalForm.Form<CreateTypeSchema>
         model={{}}
         onSubmit={(data) => {
-          const input = mapCreateTypeSchemaToTypeInput(
-            data,
-            user.user?.sub,
-          ) as any
+          const input = mapCreateTypeSchemaToInput(data, user.user?.sub) as any
 
           return typeService.create(data.kind, input)
         }}

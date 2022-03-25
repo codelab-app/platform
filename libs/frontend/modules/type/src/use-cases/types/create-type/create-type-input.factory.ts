@@ -40,7 +40,7 @@ type AnyTypeCreateInput =
   | cg.RenderPropsTypeCreateInput
   | cg.UnionTypeCreateInput
 
-export const mapCreateTypeSchemaToTypeInput = (
+export const mapCreateTypeSchemaToInput = (
   formData: CreateTypeSchema,
   currentUserId: Nullish<string>,
 ): AnyTypeCreateInput => {

@@ -3,11 +3,11 @@ import { autorun } from 'mobx'
 import { mergeDeepRight } from 'ramda'
 import React, { useEffect, useRef, useState } from 'react'
 import { DeepPartial } from 'uniforms'
-import { JsonSchemaTransformer } from '../store'
-import { getUiProperties } from './jsonSchemaUiProperties'
+import { TypeSchemaFactory } from '../store'
 import { InterfaceFormProps } from './types'
+import { getUiProperties } from './ui-properties'
 
-const transformer = new JsonSchemaTransformer({
+const transformer = new TypeSchemaFactory({
   extraProperties: getUiProperties,
 })
 

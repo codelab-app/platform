@@ -7,6 +7,6 @@ const commands = [...helpersCommands, ...databaseCommands, ...selectorCommands]
 
 for (const cmd of commands) {
   cmd.options
-    ? Cypress.Commands.add(cmd.name, cmd.options as any, cmd.fn)
+    ? Cypress.Commands.add(cmd.name, cmd.options, cmd.fn)
     : Cypress.Commands.add(cmd.name, cmd.fn)
 }
