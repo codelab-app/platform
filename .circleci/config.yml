@@ -145,8 +145,7 @@ jobs:
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            # - ~/.cache/yarn
-            # Not required since yarn cache can easily build this
+            - ~/project/dist/apps/web/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/
