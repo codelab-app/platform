@@ -3,15 +3,11 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { StoreService } from '../../../store'
+import { WithStoreService } from '../../../store'
 import { DisplayIfParent } from '../create-store/DisplayIfParent'
 import { UpdateStoreInput, updateStoreSchema } from './updateStoreSchema'
 
-export interface UpdateStoreModalProps {
-  storeService: StoreService
-}
-
-export const UpdateStoreModal = observer<UpdateStoreModalProps>(
+export const UpdateStoreModal = observer<WithStoreService>(
   ({ storeService }) => {
     const closeModal = () => storeService.updateModal.close()
     const updateStore = storeService.updateModal.store

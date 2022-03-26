@@ -3,13 +3,9 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { StoreService } from '../../../store'
+import { WithStoreService } from '../../../store'
 
-export interface CreateStoreButtonProps {
-  storeService: StoreService
-}
-
-export const CreateStoreButton = observer<CreateStoreButtonProps>(
+export const CreateStoreButton = observer<WithStoreService>(
   ({ storeService }) => {
     return (
       <Button

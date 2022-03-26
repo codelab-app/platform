@@ -18,6 +18,10 @@ import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
 import { actionApi } from './actionApi'
 
+export type WithActionService = {
+  actionService: ActionService
+}
+
 @model('codelab/ActionService')
 export class ActionService extends Model({
   actions: prop(() => objectMap<Action>()),
@@ -38,17 +42,15 @@ export class ActionService extends Model({
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, where?: ActionWhere) {
+    this.actions.clear()
+
     const { actions } = yield* _await(actionApi.GetActions({ where }))
 
     return actions.map((action) => {
-      if (this.actions.get(action.id)) {
-        return this.actions.get(action.id)
-      } else {
-        const actionModel = Action.fromFragment(action)
-        this.actions.set(action.id, actionModel)
+      const actionModel = Action.fromFragment(action)
+      this.actions.set(action.id, actionModel)
 
-        return actionModel
-      }
+      return actionModel
     })
   })
 

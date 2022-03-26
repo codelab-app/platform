@@ -4,11 +4,14 @@ import {
 } from '@codelab/frontend/view/components'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { actionRef } from '../../../../store'
-import { ActionColumnProps } from './types'
+import { Action, actionRef, WithActionService } from '../../../../store'
 
-export const ActionColumn = observer(
-  ({ action, actionService }: ActionColumnProps) => {
+type ActionColumnProps = WithActionService & {
+  action: Action
+}
+
+export const ActionColumn = observer<ActionColumnProps>(
+  ({ action, actionService }) => {
     const onClickEdit = () =>
       actionService.updateModal.open(actionRef(action.id))
 

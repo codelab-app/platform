@@ -1,7 +1,8 @@
+import { isArray } from 'lodash'
 import { useRouter } from 'next/router'
 
 export const useCurrentStoreId = () => {
   const { query } = useRouter()
 
-  return query.storeId as string
+  return isArray(query.storeId) ? query.storeId[0] : undefined
 }

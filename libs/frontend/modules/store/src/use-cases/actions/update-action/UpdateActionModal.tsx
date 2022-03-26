@@ -3,14 +3,10 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ActionService } from '../../../store'
+import { WithActionService } from '../../../store'
 import { UpdateActionInput, updateActionSchema } from './updateActionSchema'
 
-export interface UpdateActionModalProps {
-  actionService: ActionService
-}
-
-export const UpdateActionModal = observer<UpdateActionModalProps>(
+export const UpdateActionModal = observer<WithActionService>(
   ({ actionService }) => {
     const closeModal = () => actionService.updateModal.close()
 

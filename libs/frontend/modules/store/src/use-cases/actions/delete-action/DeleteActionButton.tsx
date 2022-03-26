@@ -3,22 +3,18 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { actionRef, ActionService } from '../../../store'
+import { actionRef, WithActionService } from '../../../store'
 
-export interface DeleteActionButton extends DeleteButtonProps {
-  actionService: ActionService
-}
+type DeleteActionButtonProps = DeleteButtonProps & WithActionService
 
-export const DeleteActionButton = observer(
-  ({ disabled, ids, actionService }: DeleteActionButton) => {
-    return (
-      <Button
-        danger
-        disabled={disabled}
-        icon={<DeleteOutlined />}
-        onClick={() => actionService.deleteModal.open(actionRef(ids[0]))}
-        size="small"
-      />
-    )
-  },
+export const DeleteActionButton = observer<DeleteActionButtonProps>(
+  ({ disabled, ids, actionService }) => (
+    <Button
+      danger
+      disabled={disabled}
+      icon={<DeleteOutlined />}
+      onClick={() => actionService.deleteModal.open(actionRef(ids[0]))}
+      size="small"
+    />
+  ),
 )

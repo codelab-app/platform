@@ -39,6 +39,7 @@ export class RootStore extends Model({
   // do not confuse it with the builder-specific render service in builderService.builderRenderer
   renderService: prop(() => new RenderService({})),
   storeService: prop(() => new StoreService({})),
+  actionService: prop(() => new ActionService({})),
 }) {
   protected onInit(): void {
     typeServiceContext.set(this, this.typeService)

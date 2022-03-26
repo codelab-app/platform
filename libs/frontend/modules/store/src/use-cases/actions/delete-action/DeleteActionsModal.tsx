@@ -3,13 +3,9 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ActionService } from '../../../store'
+import { WithActionService } from '../../../store'
 
-export interface DeleteActionsModalProps {
-  actionService: ActionService
-}
-
-export const DeleteActionsModal = observer<DeleteActionsModalProps>(
+export const DeleteActionsModal = observer<WithActionService>(
   ({ actionService }) => {
     const action = actionService.deleteModal.action
     const closeModal = () => actionService.deleteModal.close()

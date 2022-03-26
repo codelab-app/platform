@@ -1,5 +1,7 @@
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Dropdown, Menu, TreeDataNode } from 'antd'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 import React from 'react'
 import { storeRef, WithStoreService } from '../../../store'
 
@@ -26,9 +28,18 @@ export const TreeItemTitle = observer<TreeItemTitleProps>(
       </Menu>
     )
 
+    const href = {
+      pathname: PageType.Store,
+      query: { storeId: node.key },
+    }
+
     return (
       <Dropdown overlay={menu} trigger={['contextMenu']}>
-        <div>{node.title}</div>
+        <div>
+          <Link href={href}>
+            <a>{node.title}</a>
+          </Link>
+        </div>
       </Dropdown>
     )
   },
