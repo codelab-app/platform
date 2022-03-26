@@ -10,16 +10,14 @@ import {
   UpdateStoreModal,
 } from '../use-cases'
 
-export const StoreMainPane = observer<WithStoreService>(({ storeService }) => {
-  return (
-    <MainPaneTemplate
-      header={<CreateStoreButton key={0} storeService={storeService} />}
-      title="Stores"
-    >
-      <GetStoresTree storeService={storeService} />
-      <CreateStoreModal storeService={storeService} />
-      <UpdateStoreModal storeService={storeService} />
-      <DeleteStoresModal storeService={storeService} />
-    </MainPaneTemplate>
-  )
-})
+export const StoreMainPane = observer<WithStoreService>(({ storeService }) => (
+  <MainPaneTemplate
+    header={<CreateStoreButton key={0} storeService={storeService} />}
+    title="Stores"
+  >
+    <GetStoresTree storeService={storeService} />
+    <CreateStoreModal storeService={storeService} />
+    <UpdateStoreModal storeService={storeService} />
+    <DeleteStoresModal storeService={storeService} />
+  </MainPaneTemplate>
+))

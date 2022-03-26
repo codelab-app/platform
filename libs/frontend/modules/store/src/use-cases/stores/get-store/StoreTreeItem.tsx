@@ -9,20 +9,26 @@ export type TreeItemTitleProps = WithStoreService & {
 
 export const TreeItemTitle = observer<TreeItemTitleProps>(
   ({ node, storeService }) => {
-    const nodeId = node.key as string
+    const store = storeService.store(node.key as string)
+
+    if (!store) {
+      return null
+    }
 
     const onAddChild = () => {
-      storeService.createModal.open()
+      storeService.createModal.open(storeRef(store))
     }
 
     const onDelete = () => {
-      storeService.deleteModal.open(storeRef(nodeId))
+      storeService.deleteModal.open(storeRef(store))
     }
 
     const menu = (
       <Menu>
-        <Menu.Item onClick={onAddChild}>Add Child</Menu.Item>
-        <Menu.Item danger onClick={onDelete}>
+        <Menu.Item key="add-child" onClick={onAddChild}>
+          Add Child
+        </Menu.Item>
+        <Menu.Item danger key="delete" onClick={onDelete}>
           Delete
         </Menu.Item>
       </Menu>

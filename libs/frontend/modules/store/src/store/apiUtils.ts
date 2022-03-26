@@ -14,7 +14,7 @@ export const makeCreateInput = (input: CreateStoreInput): StoreCreateInput => {
   return {
     name,
     parentStore: {
-      connect: parentStore.id
+      connect: parentStore?.id
         ? {
             where: { node: { id: parentStore.id } },
             edge: { storeKey: parentStore.key },
@@ -30,7 +30,7 @@ export const makeUpdateInput = (input: UpdateStoreInput): StoreUpdateInput => {
   return {
     name,
     parentStore: {
-      connect: parentStore.id
+      connect: parentStore?.id
         ? {
             where: { node: { id: parentStore.id } },
             edge: { storeKey: parentStore.key },

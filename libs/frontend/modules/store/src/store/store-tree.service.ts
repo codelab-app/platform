@@ -1,7 +1,13 @@
 import { BaseTreeService } from '@codelab/frontend/shared/utils'
 import { TreeDataNode } from 'antd'
 import { computed } from 'mobx'
-import { detach, ExtendedModel, model, rootRef } from 'mobx-keystone'
+import {
+  detach,
+  ExtendedModel,
+  model,
+  modelClass,
+  rootRef,
+} from 'mobx-keystone'
 import {
   StoreEdgeFragment,
   StoreFragment,
@@ -9,15 +15,19 @@ import {
 } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { Store } from './store.model'
 
-abstract class StoreTreeBase extends BaseTreeService<
-  Store,
-  StoreFragment,
-  StoreEdgeFragment,
-  StoreGraphFragment
-> {}
-
 @model('@codelab/StoreTree')
-export class StoreTree extends ExtendedModel(StoreTreeBase, {}) {
+export class StoreTree extends ExtendedModel(() => ({
+  baseModel:
+    modelClass<
+      BaseTreeService<
+        StoreFragment,
+        StoreEdgeFragment,
+        Store,
+        StoreGraphFragment
+      >
+    >(BaseTreeService),
+  props: {},
+})) {
   @computed
   get antdTree(): Array<TreeDataNode> {
     return this.rootNodes.map((x) => Store.toTreeNode(x))

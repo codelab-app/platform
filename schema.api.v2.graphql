@@ -77,15 +77,6 @@ input ActionRelationInput {
   store: ActionServiceCreateFieldInput
 }
 
-"""
-Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object.
-"""
-input ActionSort {
-  body: SortDirection
-  id: SortDirection
-  name: SortDirection
-}
-
 input ActionServiceAggregateInput {
   AND: [ActionServiceAggregateInput!]
   OR: [ActionServiceAggregateInput!]
@@ -201,6 +192,15 @@ input ActionServiceUpdateFieldInput {
   disconnect: ActionServiceDisconnectFieldInput
   update: ActionServiceUpdateConnectionInput
   where: ActionServiceConnectionWhere
+}
+
+"""
+Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object.
+"""
+input ActionSort {
+  body: SortDirection
+  id: SortDirection
+  name: SortDirection
 }
 
 input ActionUniqueWhere {

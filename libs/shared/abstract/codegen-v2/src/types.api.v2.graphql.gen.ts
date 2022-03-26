@@ -30,18 +30,18 @@ export type Action = {
   storeConnection: ActionServiceConnection
 }
 
-export type ActionServiceArgs = {
+export type ActionStoreArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<StoreOptions>
   where?: InputMaybe<StoreWhere>
 }
 
-export type ActionServiceAggregateArgs = {
+export type ActionStoreAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<StoreWhere>
 }
 
-export type ActionServiceConnectionArgs = {
+export type ActionStoreConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
@@ -102,13 +102,6 @@ export type ActionOptions = {
 
 export type ActionRelationInput = {
   store?: InputMaybe<ActionServiceCreateFieldInput>
-}
-
-/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
-export type ActionSort = {
-  body?: InputMaybe<SortDirection>
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
 }
 
 export type ActionServiceAggregateInput = {
@@ -230,6 +223,13 @@ export type ActionServiceUpdateFieldInput = {
   disconnect?: InputMaybe<ActionServiceDisconnectFieldInput>
   update?: InputMaybe<ActionServiceUpdateConnectionInput>
   where?: InputMaybe<ActionServiceConnectionWhere>
+}
+
+/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
+export type ActionSort = {
+  body?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type ActionUniqueWhere = {

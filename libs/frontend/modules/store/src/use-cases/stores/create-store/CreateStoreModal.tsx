@@ -3,15 +3,11 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { StoreService } from '../../../store'
+import { WithStoreService } from '../../../store'
 import { CreateStoreInput, createStoreSchema } from './createStoreSchema'
 import { DisplayIfParent } from './DisplayIfParent'
 
-export interface CreateStoreModalProps {
-  storeService: StoreService
-}
-
-export const CreateStoreModal = observer<CreateStoreModalProps>(
+export const CreateStoreModal = observer<WithStoreService>(
   ({ storeService }) => {
     const closeModal = () => storeService.createModal.close()
 
@@ -30,7 +26,7 @@ export const CreateStoreModal = observer<CreateStoreModalProps>(
         onCancel={closeModal}
         visible={storeService.createModal.isOpen}
       >
-        <ModalForm.Form<CreateStoreInput>
+        <ModalForm.Form
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

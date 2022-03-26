@@ -18,24 +18,23 @@ type BaseGraphFragment<NodeFragment = BaseFragment, EdgeFragment = BaseEdge> = {
   edges: Array<EdgeFragment>
 }
 
-export abstract class BaseModel<Edge extends BaseEdge = BaseEdge> extends Model(
-  {
+export abstract class BaseModel<M, Edge> extends Model(
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  <M extends object, Edge>() => ({
     id: idProp,
-    children: prop(() => Array<Ref<BaseModel>>()),
-  },
-) {
+    children: prop<Array<Ref<M>>>(() => []),
+  }),
+)<M, Edge> {
   @computed
-  get childrenList(): Array<BaseModel<Edge>> {
-    return this.getChildren().map((x) => x.current)
+  get childrenList(): Array<M> {
+    return this.children.map((x) => x.current)
   }
 
   abstract hasParent(): boolean
 
-  abstract getChildren(): Array<Ref<BaseModel<Edge>>>
+  abstract addChild(child: M): void
 
-  abstract addChild(child: BaseModel<Edge>): void
-
-  abstract setParent(parent: BaseModel<Edge>): void
+  abstract setParent(parent: M): void
 
   abstract setEdgeInfo(edge: Edge): void
 }
@@ -46,9 +45,9 @@ export abstract class BaseModel<Edge extends BaseEdge = BaseEdge> extends Model(
  * It doesn't handle remote data, use nodeNode for that
  */
 export abstract class BaseTreeService<
-  Node extends BaseModel,
   NodeFragment extends BaseFragment,
   EdgeFragment extends BaseEdge,
+  Node extends BaseModel<any, EdgeFragment>,
   GraphFragment extends BaseGraphFragment<NodeFragment, EdgeFragment>,
 > extends Model({}) {
   nodes: ObjectMap<Node> = objectMap()
@@ -121,7 +120,9 @@ export abstract class BaseTreeService<
   @modelAction
   updateFromFragment({ vertices, edges }: GraphFragment) {
     this.nodes.clear()
-    vertices.map(this.nodeFromFragment).forEach((x) => this.addNode(x))
+    vertices
+      .map((fragment) => this.nodeFromFragment(fragment))
+      .forEach((x) => this.addNode(x))
 
     // Attach the children. Sort the edges to match the children order to the db edge order
     edges.forEach((edge) => {
