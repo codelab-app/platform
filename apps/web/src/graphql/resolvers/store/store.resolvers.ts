@@ -13,26 +13,23 @@ import { IRxTxnResolver } from '../abstract'
 export const deleteStoresSubgraph: IRxTxnResolver<
   MutationDeleteStoresArgs,
   DeleteInfo
-> =
-  ({ where }) =>
-  (txn) => {
-    if (!where) {
-      throw new Error('No argument provided for delete operation')
-    }
-
-    const $stores = from(
-      Store().then((StoreModel) => StoreModel.find({ where })),
-    )
-
-    return $stores.pipe(
-      mergeMap((stores) =>
-        storeRepository.deleteStoresSubgraph(
-          txn,
-          stores.map((x) => x.id),
-        ),
-      ),
-    )
+> = (parent, args, context, info) => (txn) => {
+  if (!args.where) {
+    throw new Error('No argument provided for delete operation')
   }
+
+  const { where } = args
+  const $stores = from(Store().then((StoreModel) => StoreModel.find({ where })))
+
+  return $stores.pipe(
+    mergeMap((stores) =>
+      storeRepository.deleteStoresSubgraph(
+        txn,
+        stores.map((x) => x.id),
+      ),
+    ),
+  )
+}
 
 export const storesGraphs: IRxTxnResolver<void, StoreGraph> = () => (txn) =>
   storeRepository.getStoresGraphsEdges(txn).pipe(

@@ -10,14 +10,14 @@ type Action {
   storeAggregate(
     directed: Boolean = true
     where: StoreWhere
-  ): ActionServiceStoreAggregationSelection
+  ): ActionStoreStoreAggregationSelection
   storeConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ActionServiceConnectionSort!]
-    where: ActionServiceConnectionWhere
-  ): ActionServiceConnection!
+    sort: [ActionStoreConnectionSort!]
+    where: ActionStoreConnectionWhere
+  ): ActionStoreConnection!
 }
 
 type ActionAggregateSelection {
@@ -28,11 +28,11 @@ type ActionAggregateSelection {
 }
 
 input ActionConnectInput {
-  store: ActionServiceConnectFieldInput
+  store: ActionStoreConnectFieldInput
 }
 
 input ActionConnectOrCreateInput {
-  store: ActionServiceConnectOrCreateFieldInput
+  store: ActionStoreConnectOrCreateFieldInput
 }
 
 input ActionConnectOrCreateWhere {
@@ -46,15 +46,15 @@ input ActionConnectWhere {
 input ActionCreateInput {
   body: String!
   name: String!
-  store: ActionServiceFieldInput
+  store: ActionStoreFieldInput
 }
 
 input ActionDeleteInput {
-  store: ActionServiceDeleteFieldInput
+  store: ActionStoreDeleteFieldInput
 }
 
 input ActionDisconnectInput {
-  store: ActionServiceDisconnectFieldInput
+  store: ActionStoreDisconnectFieldInput
 }
 
 input ActionOnCreateInput {
@@ -74,74 +74,83 @@ input ActionOptions {
 }
 
 input ActionRelationInput {
-  store: ActionServiceCreateFieldInput
+  store: ActionStoreCreateFieldInput
 }
 
-input ActionServiceAggregateInput {
-  AND: [ActionServiceAggregateInput!]
-  OR: [ActionServiceAggregateInput!]
+"""
+Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object.
+"""
+input ActionSort {
+  body: SortDirection
+  id: SortDirection
+  name: SortDirection
+}
+
+input ActionStoreAggregateInput {
+  AND: [ActionStoreAggregateInput!]
+  OR: [ActionStoreAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ActionServiceNodeAggregationWhereInput
+  node: ActionStoreNodeAggregationWhereInput
 }
 
-input ActionServiceConnectFieldInput {
+input ActionStoreConnectFieldInput {
   connect: StoreConnectInput
   where: StoreConnectWhere
 }
 
-input ActionServiceConnectOrCreateFieldInput {
-  onCreate: ActionServiceConnectOrCreateFieldInputOnCreate!
+input ActionStoreConnectOrCreateFieldInput {
+  onCreate: ActionStoreConnectOrCreateFieldInputOnCreate!
   where: StoreConnectOrCreateWhere!
 }
 
-input ActionServiceConnectOrCreateFieldInputOnCreate {
+input ActionStoreConnectOrCreateFieldInputOnCreate {
   node: StoreOnCreateInput!
 }
 
-type ActionServiceConnection {
-  edges: [ActionServiceRelationship!]!
+type ActionStoreConnection {
+  edges: [ActionStoreRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ActionServiceConnectionSort {
+input ActionStoreConnectionSort {
   node: StoreSort
 }
 
-input ActionServiceConnectionWhere {
-  AND: [ActionServiceConnectionWhere!]
-  OR: [ActionServiceConnectionWhere!]
+input ActionStoreConnectionWhere {
+  AND: [ActionStoreConnectionWhere!]
+  OR: [ActionStoreConnectionWhere!]
   node: StoreWhere
   node_NOT: StoreWhere
 }
 
-input ActionServiceCreateFieldInput {
+input ActionStoreCreateFieldInput {
   node: StoreCreateInput!
 }
 
-input ActionServiceDeleteFieldInput {
+input ActionStoreDeleteFieldInput {
   delete: StoreDeleteInput
-  where: ActionServiceConnectionWhere
+  where: ActionStoreConnectionWhere
 }
 
-input ActionServiceDisconnectFieldInput {
+input ActionStoreDisconnectFieldInput {
   disconnect: StoreDisconnectInput
-  where: ActionServiceConnectionWhere
+  where: ActionStoreConnectionWhere
 }
 
-input ActionServiceFieldInput {
-  connect: ActionServiceConnectFieldInput
-  connectOrCreate: ActionServiceConnectOrCreateFieldInput
-  create: ActionServiceCreateFieldInput
+input ActionStoreFieldInput {
+  connect: ActionStoreConnectFieldInput
+  connectOrCreate: ActionStoreConnectOrCreateFieldInput
+  create: ActionStoreCreateFieldInput
 }
 
-input ActionServiceNodeAggregationWhereInput {
-  AND: [ActionServiceNodeAggregationWhereInput!]
-  OR: [ActionServiceNodeAggregationWhereInput!]
+input ActionStoreNodeAggregationWhereInput {
+  AND: [ActionStoreNodeAggregationWhereInput!]
+  OR: [ActionStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -165,42 +174,33 @@ input ActionServiceNodeAggregationWhereInput {
   name_SHORTEST_LTE: Int
 }
 
-type ActionServiceRelationship {
+type ActionStoreRelationship {
   cursor: String!
   node: Store!
 }
 
-type ActionServiceStoreAggregationSelection {
+type ActionStoreStoreAggregationSelection {
   count: Int!
-  node: ActionServiceStoreNodeAggregateSelection
+  node: ActionStoreStoreNodeAggregateSelection
 }
 
-type ActionServiceStoreNodeAggregateSelection {
+type ActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
-input ActionServiceUpdateConnectionInput {
+input ActionStoreUpdateConnectionInput {
   node: StoreUpdateInput
 }
 
-input ActionServiceUpdateFieldInput {
-  connect: ActionServiceConnectFieldInput
-  connectOrCreate: ActionServiceConnectOrCreateFieldInput
-  create: ActionServiceCreateFieldInput
-  delete: ActionServiceDeleteFieldInput
-  disconnect: ActionServiceDisconnectFieldInput
-  update: ActionServiceUpdateConnectionInput
-  where: ActionServiceConnectionWhere
-}
-
-"""
-Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object.
-"""
-input ActionSort {
-  body: SortDirection
-  id: SortDirection
-  name: SortDirection
+input ActionStoreUpdateFieldInput {
+  connect: ActionStoreConnectFieldInput
+  connectOrCreate: ActionStoreConnectOrCreateFieldInput
+  create: ActionStoreCreateFieldInput
+  delete: ActionStoreDeleteFieldInput
+  disconnect: ActionStoreDisconnectFieldInput
+  update: ActionStoreUpdateConnectionInput
+  where: ActionStoreConnectionWhere
 }
 
 input ActionUniqueWhere {
@@ -210,7 +210,7 @@ input ActionUniqueWhere {
 input ActionUpdateInput {
   body: String
   name: String
-  store: ActionServiceUpdateFieldInput
+  store: ActionStoreUpdateFieldInput
 }
 
 input ActionWhere {
@@ -247,9 +247,9 @@ input ActionWhere {
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
   store: StoreWhere
-  storeAggregate: ActionServiceAggregateInput
-  storeConnection: ActionServiceConnectionWhere
-  storeConnection_NOT: ActionServiceConnectionWhere
+  storeAggregate: ActionStoreAggregateInput
+  storeConnection: ActionStoreConnectionWhere
+  storeConnection_NOT: ActionStoreConnectionWhere
   store_NOT: StoreWhere
 }
 

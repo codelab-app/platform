@@ -6,6 +6,8 @@ import {
   ExtendedModel,
   model,
   modelClass,
+  objectMap,
+  prop,
   rootRef,
 } from 'mobx-keystone'
 import {
@@ -26,7 +28,9 @@ export class StoreTree extends ExtendedModel(() => ({
         StoreGraphFragment
       >
     >(BaseTreeService),
-  props: {},
+  props: {
+    nodes: prop(() => objectMap<Store>()),
+  },
 })) {
   @computed
   get antdTree(): Array<TreeDataNode> {

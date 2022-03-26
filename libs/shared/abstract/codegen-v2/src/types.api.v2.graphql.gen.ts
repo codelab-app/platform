@@ -26,8 +26,8 @@ export type Action = {
   id: Scalars['ID']
   name: Scalars['String']
   store: Store
-  storeAggregate?: Maybe<ActionServiceStoreAggregationSelection>
-  storeConnection: ActionServiceConnection
+  storeAggregate?: Maybe<ActionStoreStoreAggregationSelection>
+  storeConnection: ActionStoreConnection
 }
 
 export type ActionStoreArgs = {
@@ -45,8 +45,8 @@ export type ActionStoreConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ActionServiceConnectionSort>>
-  where?: InputMaybe<ActionServiceConnectionWhere>
+  sort?: InputMaybe<Array<ActionStoreConnectionSort>>
+  where?: InputMaybe<ActionStoreConnectionWhere>
 }
 
 export type ActionAggregateSelection = {
@@ -58,11 +58,11 @@ export type ActionAggregateSelection = {
 }
 
 export type ActionConnectInput = {
-  store?: InputMaybe<ActionServiceConnectFieldInput>
+  store?: InputMaybe<ActionStoreConnectFieldInput>
 }
 
 export type ActionConnectOrCreateInput = {
-  store?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
+  store?: InputMaybe<ActionStoreConnectOrCreateFieldInput>
 }
 
 export type ActionConnectOrCreateWhere = {
@@ -76,15 +76,15 @@ export type ActionConnectWhere = {
 export type ActionCreateInput = {
   body: Scalars['String']
   name: Scalars['String']
-  store?: InputMaybe<ActionServiceFieldInput>
+  store?: InputMaybe<ActionStoreFieldInput>
 }
 
 export type ActionDeleteInput = {
-  store?: InputMaybe<ActionServiceDeleteFieldInput>
+  store?: InputMaybe<ActionStoreDeleteFieldInput>
 }
 
 export type ActionDisconnectInput = {
-  store?: InputMaybe<ActionServiceDisconnectFieldInput>
+  store?: InputMaybe<ActionStoreDisconnectFieldInput>
 }
 
 export type ActionOnCreateInput = {
@@ -101,75 +101,82 @@ export type ActionOptions = {
 }
 
 export type ActionRelationInput = {
-  store?: InputMaybe<ActionServiceCreateFieldInput>
+  store?: InputMaybe<ActionStoreCreateFieldInput>
 }
 
-export type ActionServiceAggregateInput = {
-  AND?: InputMaybe<Array<ActionServiceAggregateInput>>
-  OR?: InputMaybe<Array<ActionServiceAggregateInput>>
+/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
+export type ActionSort = {
+  body?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type ActionStoreAggregateInput = {
+  AND?: InputMaybe<Array<ActionStoreAggregateInput>>
+  OR?: InputMaybe<Array<ActionStoreAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ActionServiceNodeAggregationWhereInput>
+  node?: InputMaybe<ActionStoreNodeAggregationWhereInput>
 }
 
-export type ActionServiceConnectFieldInput = {
+export type ActionStoreConnectFieldInput = {
   connect?: InputMaybe<StoreConnectInput>
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type ActionServiceConnectOrCreateFieldInput = {
-  onCreate: ActionServiceConnectOrCreateFieldInputOnCreate
+export type ActionStoreConnectOrCreateFieldInput = {
+  onCreate: ActionStoreConnectOrCreateFieldInputOnCreate
   where: StoreConnectOrCreateWhere
 }
 
-export type ActionServiceConnectOrCreateFieldInputOnCreate = {
+export type ActionStoreConnectOrCreateFieldInputOnCreate = {
   node: StoreOnCreateInput
 }
 
-export type ActionServiceConnection = {
-  __typename?: 'ActionServiceConnection'
-  edges: Array<ActionServiceRelationship>
+export type ActionStoreConnection = {
+  __typename?: 'ActionStoreConnection'
+  edges: Array<ActionStoreRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type ActionServiceConnectionSort = {
+export type ActionStoreConnectionSort = {
   node?: InputMaybe<StoreSort>
 }
 
-export type ActionServiceConnectionWhere = {
-  AND?: InputMaybe<Array<ActionServiceConnectionWhere>>
-  OR?: InputMaybe<Array<ActionServiceConnectionWhere>>
+export type ActionStoreConnectionWhere = {
+  AND?: InputMaybe<Array<ActionStoreConnectionWhere>>
+  OR?: InputMaybe<Array<ActionStoreConnectionWhere>>
   node?: InputMaybe<StoreWhere>
   node_NOT?: InputMaybe<StoreWhere>
 }
 
-export type ActionServiceCreateFieldInput = {
+export type ActionStoreCreateFieldInput = {
   node: StoreCreateInput
 }
 
-export type ActionServiceDeleteFieldInput = {
+export type ActionStoreDeleteFieldInput = {
   delete?: InputMaybe<StoreDeleteInput>
-  where?: InputMaybe<ActionServiceConnectionWhere>
+  where?: InputMaybe<ActionStoreConnectionWhere>
 }
 
-export type ActionServiceDisconnectFieldInput = {
+export type ActionStoreDisconnectFieldInput = {
   disconnect?: InputMaybe<StoreDisconnectInput>
-  where?: InputMaybe<ActionServiceConnectionWhere>
+  where?: InputMaybe<ActionStoreConnectionWhere>
 }
 
-export type ActionServiceFieldInput = {
-  connect?: InputMaybe<ActionServiceConnectFieldInput>
-  connectOrCreate?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
-  create?: InputMaybe<ActionServiceCreateFieldInput>
+export type ActionStoreFieldInput = {
+  connect?: InputMaybe<ActionStoreConnectFieldInput>
+  connectOrCreate?: InputMaybe<ActionStoreConnectOrCreateFieldInput>
+  create?: InputMaybe<ActionStoreCreateFieldInput>
 }
 
-export type ActionServiceNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ActionServiceNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ActionServiceNodeAggregationWhereInput>>
+export type ActionStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -193,43 +200,36 @@ export type ActionServiceNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type ActionServiceRelationship = {
-  __typename?: 'ActionServiceRelationship'
+export type ActionStoreRelationship = {
+  __typename?: 'ActionStoreRelationship'
   cursor: Scalars['String']
   node: Store
 }
 
-export type ActionServiceStoreAggregationSelection = {
-  __typename?: 'ActionServiceStoreAggregationSelection'
+export type ActionStoreStoreAggregationSelection = {
+  __typename?: 'ActionStoreStoreAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<ActionServiceStoreNodeAggregateSelection>
+  node?: Maybe<ActionStoreStoreNodeAggregateSelection>
 }
 
-export type ActionServiceStoreNodeAggregateSelection = {
-  __typename?: 'ActionServiceStoreNodeAggregateSelection'
+export type ActionStoreStoreNodeAggregateSelection = {
+  __typename?: 'ActionStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
-export type ActionServiceUpdateConnectionInput = {
+export type ActionStoreUpdateConnectionInput = {
   node?: InputMaybe<StoreUpdateInput>
 }
 
-export type ActionServiceUpdateFieldInput = {
-  connect?: InputMaybe<ActionServiceConnectFieldInput>
-  connectOrCreate?: InputMaybe<ActionServiceConnectOrCreateFieldInput>
-  create?: InputMaybe<ActionServiceCreateFieldInput>
-  delete?: InputMaybe<ActionServiceDeleteFieldInput>
-  disconnect?: InputMaybe<ActionServiceDisconnectFieldInput>
-  update?: InputMaybe<ActionServiceUpdateConnectionInput>
-  where?: InputMaybe<ActionServiceConnectionWhere>
-}
-
-/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
-export type ActionSort = {
-  body?: InputMaybe<SortDirection>
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
+export type ActionStoreUpdateFieldInput = {
+  connect?: InputMaybe<ActionStoreConnectFieldInput>
+  connectOrCreate?: InputMaybe<ActionStoreConnectOrCreateFieldInput>
+  create?: InputMaybe<ActionStoreCreateFieldInput>
+  delete?: InputMaybe<ActionStoreDeleteFieldInput>
+  disconnect?: InputMaybe<ActionStoreDisconnectFieldInput>
+  update?: InputMaybe<ActionStoreUpdateConnectionInput>
+  where?: InputMaybe<ActionStoreConnectionWhere>
 }
 
 export type ActionUniqueWhere = {
@@ -239,7 +239,7 @@ export type ActionUniqueWhere = {
 export type ActionUpdateInput = {
   body?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
-  store?: InputMaybe<ActionServiceUpdateFieldInput>
+  store?: InputMaybe<ActionStoreUpdateFieldInput>
 }
 
 export type ActionWhere = {
@@ -276,9 +276,9 @@ export type ActionWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
   store?: InputMaybe<StoreWhere>
-  storeAggregate?: InputMaybe<ActionServiceAggregateInput>
-  storeConnection?: InputMaybe<ActionServiceConnectionWhere>
-  storeConnection_NOT?: InputMaybe<ActionServiceConnectionWhere>
+  storeAggregate?: InputMaybe<ActionStoreAggregateInput>
+  storeConnection?: InputMaybe<ActionStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<ActionStoreConnectionWhere>
   store_NOT?: InputMaybe<StoreWhere>
 }
 

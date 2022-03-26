@@ -1,14 +1,6 @@
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
-import {
-  idProp,
-  Model,
-  modelAction,
-  ObjectMap,
-  objectMap,
-  prop,
-  Ref,
-} from 'mobx-keystone'
+import { idProp, Model, modelAction, ObjectMap, prop, Ref } from 'mobx-keystone'
 
 type BaseEdge = { source: string; target: string }
 type BaseFragment = { id: string }
@@ -50,7 +42,7 @@ export abstract class BaseTreeService<
   Node extends BaseModel<any, EdgeFragment>,
   GraphFragment extends BaseGraphFragment<NodeFragment, EdgeFragment>,
 > extends Model({}) {
-  nodes: ObjectMap<Node> = objectMap()
+  abstract nodes: ObjectMap<Node>
 
   abstract nodeFromFragment(fragment: BaseFragment): Node
 
@@ -100,7 +92,7 @@ export abstract class BaseTreeService<
 
       cache.add(_e.id)
 
-      const children = _e.childrenList as Array<Node>
+      const children = _e.childrenList
 
       return [...children, ...flatMap(children, getDescendants)]
     }

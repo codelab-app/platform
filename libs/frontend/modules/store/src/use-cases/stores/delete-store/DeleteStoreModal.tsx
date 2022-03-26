@@ -11,15 +11,16 @@ export interface DeleteStoresModalProps {
 
 export const DeleteStoresModal = observer<DeleteStoresModalProps>(
   ({ storeService }) => {
-    const store = storeService.deleteModal.store
     const closeModal = () => storeService.deleteModal.close()
 
     const onSubmit = () => {
+      const store = storeService.deleteModal.store
+
       if (!store) {
-        return Promise.reject('Store not defined in DeleteStoreModal')
+        throw new Error('Store to delete not found')
       }
 
-      return storeService.deleteStoresSubgraph(store.id)
+      return storeService.deleteStoresSubgraph(store?.id)
     }
 
     const onSubmitError = createNotificationHandler({

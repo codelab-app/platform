@@ -18,7 +18,16 @@ export const CreateStoreModal = observer<WithStoreService>(
       title: 'Error while creating store',
     })
 
-    const model = {}
+    const selectedStore = storeService.createModal.store
+
+    const model = {
+      parentStore: selectedStore
+        ? {
+            id: selectedStore?.id,
+            storeKey: selectedStore?.storeKey,
+          }
+        : undefined,
+    }
 
     return (
       <ModalForm.Modal

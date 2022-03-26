@@ -6,9 +6,7 @@ import { WithStoreService } from '../../../store'
 import { TreeItemTitle } from './StoreTreeItem'
 
 export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
-  const [getStores] = useLoadingState(() => {
-    return storeService.getTree()
-  })
+  const [getStores] = useLoadingState(() => storeService.getTree())
 
   useEffect(() => {
     getStores()
