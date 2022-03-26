@@ -3,16 +3,11 @@ import get from 'lodash/get'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isUndefined from 'lodash/isUndefined'
-import { CommonOptions, Label } from './types'
-import { logAndMute } from './utils'
+import { CommonOptions, Label } from '../types'
+import { logAndMute } from '../utils'
+import { SearchCellOptions, SORT_ORDER, SortOptions } from './table.types'
 
 const { $ } = Cypress
-
-type SortOrder = 'asc' | 'desc'
-export const SORT_ORDER = {
-  ASCENDING: 'asc' as SortOrder,
-  DESCENDING: 'desc' as SortOrder,
-}
 
 export const getTable = (options?: CommonOptions) => {
   return cy.get('.ant-table-container', options)
@@ -43,8 +38,6 @@ export const getTableColumnHeader = (
     ? getTableColumnHeaders(options).eq(columnIdxOrLabel)
     : getTableHeader(options).contains('> tr > th', columnIdxOrLabel, options)
 }
-
-export type SortOptions = { sortOrder?: SortOrder }
 
 export const getTableColumnSorter = (
   columnIdxOrLabel: number | Label,
@@ -81,6 +74,31 @@ export const getTableBody = (options?: CommonOptions) => {
 
 export const getTableRows = (options?: CommonOptions) => {
   return getTableBody(options).find('> tr:not(.ant-table-measure-row)', options)
+}
+
+/**
+ * Search table by header label & cell value
+ *
+ * @returns Row
+ */
+export const searchTableRow = (
+  { header, row }: SearchCellOptions,
+  options?: CommonOptions,
+) => {
+  /**
+   * Get the index of the header column we're searching for
+   */
+  return getTableHeader()
+    .contains('.ant-table-cell', header, options)
+    .invoke('index')
+    .then((columnIndex) => {
+      /**
+       * Return the matching row
+       */
+      return getTableBody()
+        .contains(`.ant-table-cell:nth-child(${columnIndex + 1})`, row, options)
+        .parent('tr.ant-table-row')
+    })
 }
 
 export const getTableRow = (rowIdx = 0, options?: CommonOptions) => {

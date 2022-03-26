@@ -1,5 +1,5 @@
-import { chooseSelectDropdownOption } from './form'
-import { logAndMute } from './utils'
+import { chooseSelectDropdownOption } from '../form/form.commands'
+import { logAndMute } from '../utils'
 
 export const selectPageSize = (
   size: string | number,

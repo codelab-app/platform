@@ -1,10 +1,10 @@
+import { getSpinner } from '../antd/spin/spin.command'
 import { CypressCommand } from '../types'
 import { findButtonByItemText } from './findButtonByItemText'
 import { findByButtonText } from './findByButtonText'
 import { findElementByText } from './findElementByText'
 import { getOpenedModal } from './getOpenedModal'
 import { getOptionItem } from './getOptionItem'
-import { getSpinner } from './getSpinner'
 import { selectOptionItem } from './selectOptionItem'
 import { OmitFirstArg } from './types'
 

@@ -1,7 +1,7 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
 import pickBy from 'lodash/pickBy'
-import { CommonOptions, Label } from './types'
-import { logAndMute } from './utils'
+import { CommonOptions, Label } from '../types'
+import { logAndMute } from '../utils'
 
 const find = (selector: string, text?: Label, options?: CommonOptions) =>
   text ? cy.contains(selector, text, options) : cy.get(selector, options)

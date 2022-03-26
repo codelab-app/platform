@@ -1,25 +1,16 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
-import { CommonOptions } from './types'
+import type { CommonOptions } from '../types'
 import {
   ifOnClock,
   logAndMute,
   MUTE,
   tickIfOnClock,
   TickOptions,
-} from './utils'
+} from '../utils'
+import { forceHidePopover, forceShowPopover } from './popover.util'
 
 export const getPopover = (options?: CommonOptions) =>
   absoluteRoot(options).find('.ant-popover:visible', options)
-
-const forceShowPopover = (options?: CommonOptions) =>
-  absoluteRoot(options)
-    .find('.ant-popover')
-    .then(($el) => $el.css({ 'pointer-events': 'all', opacity: 1 }))
-
-const forceHidePopover = (options?: CommonOptions) =>
-  absoluteRoot(options)
-    .find('.ant-popover')
-    .then(($el) => $el.css({ 'pointer-events': 'none', opacity: 0 }))
 
 export const showPopover =
   (options?: CommonOptions & TickOptions) => ($el: JQuery) => {

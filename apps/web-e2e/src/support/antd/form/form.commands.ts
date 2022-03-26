@@ -6,57 +6,31 @@ import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
-import map from 'lodash/map'
-import mapValues from 'lodash/mapValues'
-import merge from 'lodash/merge'
-import { CommonOptions, Label } from './types'
+import { CommonOptions, Label } from '../types'
+import { ifOnClock, logAndMute, tickIfOnClock, TickOptions } from '../utils'
 import {
-  ifOnClock,
-  logAndMute,
-  MUTE,
-  tickIfOnClock,
-  TickOptions,
-} from './utils'
-
-type FieldType =
-  | 'input'
-  | 'number'
-  | 'select'
-  | 'multiselect'
-  | 'tags'
-  | 'radio'
-  | 'date'
-export const FIELD_TYPE = {
-  INPUT: 'input' as FieldType,
-  NUMBER_INPUT: 'number' as FieldType,
-  SELECT: 'select' as FieldType,
-  MULTISELECT: 'multiselect' as FieldType,
-  TAGS: 'tags' as FieldType,
-  RADIO: 'radio' as FieldType,
-  DATE: 'date' as FieldType,
-}
-
-const { INPUT, NUMBER_INPUT, SELECT, MULTISELECT, TAGS, RADIO, DATE } =
-  FIELD_TYPE
-
-const on = ($el: JQuery) => cy.wrap($el, MUTE)
-
-const unsupportedFieldType = (type: string) =>
-  new Error(`Field type "${type}" is not supported!`)
-
-// region:Selection
-
-const getSelectValuePart = <Subject>(
-  scope: Cypress.Chainable<Subject>,
-  options?: CommonOptions,
-) => scope.find('.ant-select-selector', options)
-
-const getSelectSearchPart = <Subject>(
-  scope: Cypress.Chainable<Subject>,
-  options?: CommonOptions,
-) => scope.find('.ant-select-selection-search-input', options)
-
-type FormFieldOptions = { label?: string }
+  type ExpectFormFieldErrorArgs,
+  type ExpectFormFieldsArgs,
+  type ExpectFormFieldValueArgs,
+  type FIELD_TYPE,
+  type FormFieldOptions,
+  type FormFieldValueOptions,
+  type FormFieldValueOrErrorOptions,
+  type FormInputOptions,
+  type ScrollPosition,
+  type SetFormFieldValueArgs,
+  type SetFormFieldValuesArgs,
+} from './form.types'
+import {
+  dropdownSelector,
+  getSelectSearchPart,
+  getSelectValuePart,
+  mergeFields,
+  on,
+  scrollToToVerticalPosition,
+  unlockSelectDropdownOptions,
+  unsupportedFieldType,
+} from './form.utils'
 
 export const getFormFieldLabel = ({
   label,
@@ -84,8 +58,6 @@ export const getFormField = ({
     : getFormFieldLabel({ label, ...opts }).closest('.ant-form-item', opts)
 }
 
-type FormInputOptions = FormFieldOptions & { type?: FieldType }
-
 export const getFormInput = ({
   label,
   type = FIELD_TYPE.INPUT,
@@ -100,25 +72,22 @@ export const getFormInput = ({
   const scope = label ? getFormField({ label, ...opts }) : cy.root()
 
   switch (type) {
-    case INPUT:
+    case FIELD_TYPE.INPUT:
       return scope.find('.ant-input', opts)
-    case NUMBER_INPUT:
+    case FIELD_TYPE.NUMBER_INPUT:
       return scope.find('.ant-input-number-input', opts)
-    case SELECT:
-    case MULTISELECT:
-    case TAGS:
+    case FIELD_TYPE.SELECT:
+    case FIELD_TYPE.MULTISELECT:
+    case FIELD_TYPE.TAGS:
       return getSelectValuePart(scope, opts)
-    case RADIO:
+    case FIELD_TYPE.RADIO:
       return scope.find('.ant-radio-group', opts)
-    case DATE:
+    case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
     default:
       throw unsupportedFieldType(type)
   }
 }
-
-// endregion
-// region:Assertions
 
 export const expectSelectValue =
   (expectedValue?: string, options?: CommonOptions) => ($el: JQuery) => {
@@ -158,12 +127,6 @@ export const expectSelectPlaceholder =
     }
   }
 
-type FormFieldValueOptions = FormInputOptions & {
-  value?: string | number | Array<string>
-  placeholder?: string
-  scrollIntoView?: boolean
-}
-
 export const expectFormFieldValue = ({
   label,
   type = FIELD_TYPE.INPUT,
@@ -193,9 +156,9 @@ export const expectFormFieldValue = ({
   }
 
   switch (type) {
-    case INPUT:
-    case NUMBER_INPUT:
-    case DATE:
+    case FIELD_TYPE.INPUT:
+    case FIELD_TYPE.NUMBER_INPUT:
+    case FIELD_TYPE.DATE:
       getInput().should('have.value', isUndefined(value) ? '' : String(value))
 
       if (shouldExpectPlaceholder) {
@@ -203,7 +166,7 @@ export const expectFormFieldValue = ({
       }
 
       return
-    case SELECT:
+    case FIELD_TYPE.SELECT:
       getInput().then(
         expectSelectValue(isUndefined(value) ? '' : String(value), opts),
       )
@@ -213,8 +176,8 @@ export const expectFormFieldValue = ({
       }
 
       return
-    case MULTISELECT:
-    case TAGS:
+    case FIELD_TYPE.MULTISELECT:
+    case FIELD_TYPE.TAGS:
       if (shouldExpectPlaceholder) {
         getInput().then(expectSelectPlaceholder(placeholder, opts))
       }
@@ -229,7 +192,7 @@ export const expectFormFieldValue = ({
       }
 
       return
-    case RADIO:
+    case FIELD_TYPE.RADIO:
       getInput()
         .contains('.ant-radio-wrapper', String(value), opts)
         .should('have.class', 'ant-radio-wrapper-checked')
@@ -239,8 +202,6 @@ export const expectFormFieldValue = ({
       throw unsupportedFieldType(type)
   }
 }
-
-type ExpectFormFieldValueArgs = Parameters<typeof expectFormFieldValue>
 
 export const expectFormFieldValueFn =
   (field: Omit<ExpectFormFieldValueArgs[0], 'value'>) =>
@@ -268,34 +229,10 @@ export const expectFormFieldError = ({
     : field.should('not.exist')
 }
 
-type ExpectFormFieldErrorArgs = Parameters<typeof expectFormFieldError>
-
 export const expectFormFieldErrorFn =
   (field: Omit<ExpectFormFieldErrorArgs[0], 'error'>) =>
   (error?: ExpectFormFieldErrorArgs[0]['error']) =>
     expectFormFieldError({ ...field, error })
-
-// h4ck: shit-typed because it's internal and I don't have the time to properly type it
-const mergeFields = (fields: any, additionalProps: any) => {
-  const [empty, mapPropValues]: [
-    object,
-    (collection: any, mapper: (value: any) => any) => any,
-  ] = isArray(fields) ? [[], map] : [{}, mapValues]
-
-  return merge(
-    empty,
-    fields,
-    ...Object.entries(additionalProps)
-      .filter(([, values]) => values)
-      .map(([key, values]) =>
-        mapPropValues(values, (value) => ({ [key]: value })),
-      ),
-  )
-}
-
-type FormFieldValueOrErrorOptions = Partial<
-  { error?: string } & FormFieldValueOptions
->
 
 export const expectFormFields = (
   fields:
@@ -329,7 +266,6 @@ export const expectFormFields = (
   })
 }
 
-type ExpectFormFieldsArgs = Parameters<typeof expectFormFields>
 export const expectFormFieldsFn =
   (
     fields: ExpectFormFieldsArgs[0],
@@ -345,34 +281,8 @@ export const expectFormFieldsFn =
       errors,
     } as ExpectFormFieldsArgs[1])
 
-// endregion
-// region:Interaction
-
-const dropdownSelector =
-  '.ant-select-dropdown:not(.ant-select-dropdown-hidden):not(.ant-slide-up-leave):not(.ant-slide-down-leave):not(.ant-slice-up-appear):not(.ant-slide-down-appear)'
-
 export const getSelectDropdown = (options?: CommonOptions) =>
   absoluteRoot(options).find(dropdownSelector, options)
-
-type ScrollPosition = 'top' | 'bottom' | number
-
-const scrollToToVerticalPosition = (scrollTo: ScrollPosition) => {
-  if (scrollTo === 'top') {
-    return 0
-  }
-
-  if (scrollTo === 'bottom') {
-    return Number.MAX_SAFE_INTEGER
-  }
-
-  if (isNumber(scrollTo)) {
-    return scrollTo
-  }
-
-  throw new Error(
-    'Vertical `scrollTo` must be either `top`, `bottom`, or a number!',
-  )
-}
 
 export const scrollSelectDropdown = (
   scrollTo: ScrollPosition,
@@ -386,9 +296,6 @@ export const scrollSelectDropdown = (
       $el[0].scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
     )
 }
-
-const unlockSelectDropdownOptions = (options?: CommonOptions) =>
-  getSelectDropdown(options).then(($el) => $el.css({ 'pointer-events': 'all' }))
 
 export const chooseSelectDropdownOption = (
   value: Label,
@@ -561,8 +468,8 @@ export const setFormFieldValue = ({
   getField().scrollIntoView(opts)
 
   switch (type) {
-    case INPUT:
-    case NUMBER_INPUT:
+    case FIELD_TYPE.INPUT:
+    case FIELD_TYPE.NUMBER_INPUT:
       if (isArray(value) || value === undefined) {
         throw new Error('Input `value` must be a single string or number.')
       }
@@ -572,7 +479,7 @@ export const setFormFieldValue = ({
       )
 
       return
-    case SELECT:
+    case FIELD_TYPE.SELECT:
       if (isArray(value)) {
         throw new Error('Select `value` must be a `Label`.')
       }
@@ -580,7 +487,7 @@ export const setFormFieldValue = ({
       getField().then(setSelectValue(value, opts))
 
       return
-    case MULTISELECT:
+    case FIELD_TYPE.MULTISELECT:
       if (!isArray(value)) {
         throw new Error('Multiselect `value` must be an array of `Label`s.')
       }
@@ -588,7 +495,7 @@ export const setFormFieldValue = ({
       getField().then(setMultiselectValue(value, opts))
 
       return
-    case TAGS:
+    case FIELD_TYPE.TAGS:
       if (!isArray(value)) {
         throw new Error('Multiselect `value` must be an array of `Label`s.')
       }
@@ -596,7 +503,7 @@ export const setFormFieldValue = ({
       getField().then(setTagsValue(value, opts))
 
       return
-    case RADIO:
+    case FIELD_TYPE.RADIO:
       if (isArray(value) || value === undefined) {
         throw new Error('Select `value` must be a `Label`.')
       }
@@ -604,7 +511,7 @@ export const setFormFieldValue = ({
       getInput().then(setRadioValue(value, opts))
 
       return
-    case DATE:
+    case FIELD_TYPE.DATE:
       if (isArray(value) || isNumber(value)) {
         throw new Error('Date `value` must be a string.')
       }
@@ -617,7 +524,6 @@ export const setFormFieldValue = ({
   }
 }
 
-type SetFormFieldValueArgs = Parameters<typeof setFormFieldValue>
 export const setFormFieldValueFn =
   (field: Omit<SetFormFieldValueArgs[0], 'value'>) =>
   (value: SetFormFieldValueArgs[0]['value']) =>
@@ -644,7 +550,6 @@ export const setFormFieldValues = (
   })
 }
 
-type SetFormFieldValuesArgs = Parameters<typeof setFormFieldValues>
 export const setFormFieldValuesFn =
   (
     fields: SetFormFieldValuesArgs[0],
@@ -652,5 +557,3 @@ export const setFormFieldValuesFn =
   ) =>
   (values: NonNullable<SetFormFieldValuesArgs[1]>['values']) =>
     setFormFieldValues(fields, { ...options, values })
-
-// endregion

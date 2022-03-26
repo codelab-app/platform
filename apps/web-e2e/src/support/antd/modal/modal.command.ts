@@ -1,6 +1,6 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
-import { CommonOptions, Label } from './types'
-import { logAndMute } from './utils'
+import type { CommonOptions, Label } from '../types'
+import { logAndMute } from '../utils'
 
 export const getModal = (options?: CommonOptions) =>
   absoluteRoot().find('.ant-modal:visible', options)
@@ -13,7 +13,7 @@ export const getModalBody = (options?: CommonOptions) =>
 
 export const getModalAction = (
   label: Label,
-  options:
+  options?:
     | (Partial<Cypress.Loggable> & { log: boolean })
     | CommonOptions
     | undefined,
@@ -28,7 +28,7 @@ export const getModalConfirmTitle = (options?: CommonOptions) =>
 export const getModalConfirmBody = (options?: CommonOptions) =>
   getModal(options).find('.ant-modal-confirm-content', options)
 
-const getModalConfirmButtons = (options?: CommonOptions) =>
+export const getModalConfirmButtons = (options?: CommonOptions) =>
   getModal(options).find('.ant-modal-confirm-btns', options)
 
 export const getModalConfirmAction = (

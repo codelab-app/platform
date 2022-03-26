@@ -2,11 +2,10 @@ import '@testing-library/cypress/add-commands'
 import { CypressAuth0Commands } from './auth0'
 import { CypressDatabaseCommands } from './database'
 import { CypressHelpersCommands } from './helpers'
-import { CypressSelectorsCommands } from './selectors'
 
 export type CypressCommand = {
   name: keyof Cypress.Chainable<any>
-  options?: any
+  options?: Cypress.CommandOptions & { prevSubject: false }
   fn: any
 }
 
@@ -19,7 +18,7 @@ declare global {
     interface Chainable<Subject>
       extends CypressDatabaseCommands,
         CypressAuth0Commands,
-        CypressSelectorsCommands,
+        // CypressSelectorsCommands,
         CypressHelpersCommands {}
   }
 }

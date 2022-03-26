@@ -1,6 +1,6 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
-import { Label } from './types'
-import { logAndMute, triggerAliased } from './utils'
+import type { Label } from '../types'
+import { logAndMute, triggerAliased } from '../utils'
 
 export const getDropdown = (
   options?: Partial<Cypress.Loggable & Cypress.Timeoutable>,

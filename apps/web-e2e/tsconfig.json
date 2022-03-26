@@ -6,14 +6,12 @@
     "strict": true,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,
-    "target": "es5",
-    "lib": ["es5", "dom"],
     "types": [
       "cypress",
       "node",
       "worker-loader",
-      "@testing-library/express"
-      // "cypress-nextjs-auth0"
+      "@testing-library/express",
+      "cypress-nextjs-auth0"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.js"]
