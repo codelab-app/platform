@@ -2904,6 +2904,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:7.16.3":
+  version: 7.16.3
+  resolution: "@babel/runtime@npm:7.16.3"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: ab8ac887096d76185ddbf291d28fb976cd32473696dc497ad4905b784acbd5aa462533ad83a5c5104e10ead28c2e0e119840ee28ed8eff90dcdde9d57f916eda
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:7.17.2":
   version: 7.17.2
   resolution: "@babel/runtime@npm:7.17.2"
@@ -4744,6 +4753,26 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^9.0.0
   checksum: 604dfd5dde76d5c334bd03f9001fce69c7ce529883acf92da96f4fe7e51221bf5e5110e964caca287a6a616ba027c071748ab636ff178ad750547fba611d6014
+  languageName: node
+  linkType: hard
+
+"@hon2a/cypress-antd@npm:^0.4.10":
+  version: 0.4.10
+  resolution: "@hon2a/cypress-antd@npm:0.4.10"
+  dependencies:
+    "@babel/runtime": 7.16.3
+    "@hon2a/cypress-without": 1.1.8
+    lodash: ^4.17.21
+  checksum: afd042335f4e89b29553ca78c550c694f869a444df63c91b61acd82d80292ea318f3f93383a3c67e41425c3ac2430808fbf826131578cd3424c6d325dbee29d4
+  languageName: node
+  linkType: hard
+
+"@hon2a/cypress-without@npm:1.1.8":
+  version: 1.1.8
+  resolution: "@hon2a/cypress-without@npm:1.1.8"
+  dependencies:
+    "@babel/runtime": 7.16.3
+  checksum: 576b8b6136aaf4c8d0cf32c7d40a7bcb0f9c256bfdee4054acaf8f11694c75f3da00a9af49065ea2f1ac750e1497d4c0501fbf074a8148e96d6b54b9496b122d
   languageName: node
   linkType: hard
 
@@ -14287,6 +14316,7 @@ __metadata:
     "@graphql-codegen/typescript-rtk-query": 2.2.5
     "@graphql-eslint/eslint-plugin": 3.6.0
     "@graphql-tools/load-files": 6.5.3
+    "@hon2a/cypress-antd": ^0.4.10
     "@monaco-editor/react": ^4.3.1
     "@mui/core": 5.0.0-alpha.54
     "@mui/lab": 5.0.0-alpha.69

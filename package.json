@@ -184,6 +184,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.2.7",
     "@graphql-codegen/typescript-rtk-query": "2.2.5",
     "@graphql-eslint/eslint-plugin": "3.6.0",
+    "@hon2a/cypress-antd": "^0.4.10",
     "@nrwl/angular": "13.9.4",
     "@nrwl/cli": "13.8.7",
     "@nrwl/cypress": "13.9.4",
