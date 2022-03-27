@@ -1,6 +1,7 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -9,25 +10,19 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { PrimitiveTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 
 @model('codelab/PrimitiveType')
 export class PrimitiveType
-  extends Model({
-    ...baseTypeProps(TypeKind.PrimitiveType),
-    primitiveKind: prop<PrimitiveTypeKind>(),
-  })
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.PrimitiveType),
+    props: {
+      primitiveKind: prop<PrimitiveTypeKind>(),
+    },
+  }))
+  implements IPrimitiveType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

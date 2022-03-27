@@ -28,7 +28,7 @@ export const SelectApp = ({ name, error }: SelectAppProps) => {
       name={name}
       optionFilterProp="label"
       options={appOptions}
-      showSearch={true}
+      showSearch
     />
   )
 }

@@ -1,6 +1,6 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { domClasses } from '../support/selectors/domClasses'
+import { FIELD_TYPE } from '../support/antd/form/form.types'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -41,20 +41,28 @@ describe('Types CRUD', () => {
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(primitiveTypeName)
+      cy.getModal().setFormFieldValue({
+        label: 'Name',
+        value: primitiveTypeName,
+      })
 
-      cy.getOpenedModal().selectOptionItem('Kind', primitiveTypeKind)
+      cy.getModal().setFormFieldValue({
+        label: 'Kind',
+        type: FIELD_TYPE.SELECT,
+        value: primitiveTypeKind,
+      })
 
-      cy.getOpenedModal().selectOptionItem(
-        'Primitive kind',
-        primitiveTypePrimitiveKind,
-      )
+      cy.getModal().setFormFieldValue({
+        label: 'Primitive kind',
+        type: FIELD_TYPE.SELECT,
+        value: primitiveTypePrimitiveKind,
+      })
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
+      cy.getModal()
+        .getModalAction(/Create/)
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().should('not.exist')
       cy.findByText(primitiveTypeName).should('exist')
     })
 
@@ -65,42 +73,54 @@ describe('Types CRUD', () => {
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(enumTypeName)
-      cy.getOpenedModal().selectOptionItem('Kind', enumTypeKind)
+      cy.getModal().setFormFieldValue({ label: 'Name', value: enumTypeName })
+
+      cy.getModal().setFormFieldValue({
+        label: 'Kind',
+        type: FIELD_TYPE.SELECT,
+        value: enumTypeKind,
+      })
 
       enumTypeAllowedValues.map((enumItem) => {
         cy.findByRole('button', { name: /plus-square/ }).click()
 
-        cy.getOpenedModal()
-          .findAllByLabelText('Name')
-          .last()
-          .type(enumItem.name)
-        cy.getOpenedModal()
-          .findAllByLabelText('Value')
-          .last()
-          .type(enumItem.value)
+        // Can't use setFormFieldValue since it doesn't take previous subject
+        cy.getModal().findAllByLabelText('Name').last().type(enumItem.name)
+        cy.getModal().findAllByLabelText('Value').last().type(enumItem.value)
       })
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
-        .click()
+      cy.getModal().getModalAction('Create').click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().should('not.exist')
+
       cy.findByText(primitiveTypeName).should('exist')
     })
 
     it('should be able to create array', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(arrayTypeName)
-      cy.getOpenedModal().selectOptionItem('Kind', arrayTypeKind)
-      cy.getOpenedModal().selectOptionItem('Array item type', arrayItemType)
+      cy.getModal().setFormFieldValue({
+        label: 'Name',
+        value: arrayTypeName,
+      })
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
+      cy.getModal().setFormFieldValue({
+        label: 'Kind',
+        type: FIELD_TYPE.SELECT,
+        value: arrayTypeKind,
+      })
+
+      cy.getModal().setFormFieldValue({
+        label: 'Array item type',
+        type: FIELD_TYPE.SELECT,
+        value: arrayItemType,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().should('not.exist')
       cy.findByText(primitiveTypeName).should('exist')
     })
 
@@ -111,14 +131,22 @@ describe('Types CRUD', () => {
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(interfaceTypeName)
-      cy.getOpenedModal().selectOptionItem('Kind', interfaceTypeKind)
+      cy.getModal().setFormFieldValue({
+        label: 'Name',
+        value: interfaceTypeName,
+      })
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
+      cy.getModal().setFormFieldValue({
+        label: 'Kind',
+        value: interfaceTypeKind,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().should('not.exist')
       cy.findByText(interfaceTypeName).should('exist')
     })
   })
@@ -129,23 +157,26 @@ describe('Types CRUD', () => {
         'exist',
       )
 
-      cy.findButtonByItemText(
-        arrayTypeName,
-        domClasses.buttons.edit,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByLabelText('Name')
-        .clear()
-        .type(updatedArrayTypeName)
-
-      cy.getOpenedModal()
-        .findByButtonText(/Update/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: arrayTypeName,
+      })
+        .getButton({
+          icon: 'edit',
+        })
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getSpinner().should('not.exist')
+
+      cy.getModal().setFormFieldValue({
+        label: 'Name',
+        value: updatedArrayTypeName,
+      })
+      cy.getModal()
+        .getModalAction(/Update/)
+        .click()
+
+      cy.getModal().should('not.exist')
       cy.findByText(arrayTypeName).should('not.exist')
       cy.findByText(updatedArrayTypeName).should('exist')
     })
@@ -153,61 +184,78 @@ describe('Types CRUD', () => {
 
   describe('delete type', () => {
     it('should be able to delete interface', () => {
-      cy.findButtonByItemText(
-        interfaceTypeName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
+      cy.searchTableRow({
+        header: 'Name',
+        row: interfaceTypeName,
+      })
+        .getButton({
+          icon: 'delete',
+        })
+        .click()
 
       cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
+
+      cy.getModal()
+        .getModalAction(/Delete/)
         .click()
+      cy.getModal().should('not.exist')
 
       cy.findAllByText(interfaceTypeName).should('not.exist')
     })
 
     it('should be able to delete array', () => {
-      cy.findButtonByItemText(
-        updatedArrayTypeName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: updatedArrayTypeName,
+      })
+        .getButton({
+          icon: 'delete',
+        })
         .click()
+      cy.getSpinner().should('not.exist')
+
+      cy.getModal()
+        .getModalAction(/Delete/)
+        .click()
+      cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedArrayTypeName).should('not.exist')
     })
 
     it('should be able to delete enum', () => {
-      cy.findButtonByItemText(
-        enumTypeName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: enumTypeName,
+      })
+        .getButton({
+          icon: 'delete',
+        })
         .click()
+      cy.getSpinner().should('not.exist')
+
+      cy.getModal()
+        .getModalAction(/Delete/)
+        .click()
+      cy.getModal().should('not.exist')
 
       cy.findAllByText(enumTypeName).should('not.exist')
     })
 
     it('should be able to delete primitive', () => {
-      cy.findButtonByItemText(
-        primitiveTypeName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: primitiveTypeName,
+      })
+        .getButton({
+          icon: 'delete',
+        })
         .click()
+      cy.getSpinner().should('not.exist')
+
+      cy.getModal()
+        .getModalAction(/Delete/)
+        .click()
+      cy.getModal().should('not.exist')
 
       cy.findAllByText(primitiveTypeName).should('not.exist')
     })

@@ -27,9 +27,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(
-          'npx nx affected:build --projects=web,cli,tools-rtk-query -c=ci --verbose',
-        )
+        execCommand('npx nx affected:build --projects=web,cli -c=ci --verbose')
       }
 
       break

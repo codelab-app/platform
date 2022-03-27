@@ -2,7 +2,7 @@ import { DisplayIfField } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import { CreateTypeSchema } from './createTypeSchema'
+import { CreateTypeSchema } from './create-type-input.factory'
 
 export const DisplayIfKind = observer(
   ({ kind, children }: PropsWithChildren<{ kind: TypeKind }>) => (

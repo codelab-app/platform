@@ -28,7 +28,7 @@ export const SelectComponent = ({ name, error }: SelectComponentProps) => {
       name={name}
       optionFilterProp="label"
       options={componentOptions}
-      showSearch={true}
+      showSearch
     />
   )
 }

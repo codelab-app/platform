@@ -5,17 +5,17 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import {
   createNonUnionTypeOptionsForTypeSelect,
   TypeSelect,
 } from '../../../shared'
-import { TypeService, WithTypeService } from '../../../store'
+import { WithTypeService } from '../../../store'
 import {
   CreateTypeSchema,
   createTypeSchema,
-  mapCreateTypeSchemaToTypeInput,
-} from './createTypeSchema'
+  mapCreateTypeSchemaToInput,
+} from './create-type-input.factory'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
@@ -33,10 +33,7 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
       <ModalForm.Form<CreateTypeSchema>
         model={{}}
         onSubmit={(data) => {
-          const input = mapCreateTypeSchemaToTypeInput(
-            data,
-            user.user?.sub,
-          ) as any
+          const input = mapCreateTypeSchemaToInput(data, user.user?.sub) as any
 
           return typeService.create(data.kind, input)
         }}
@@ -47,9 +44,10 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
       >
-        <AutoFields fields={['name', 'kind']} />
+        <AutoFields fields={['name']} />
+        <SelectField name="kind" showSearch />
         <DisplayIfKind kind={TypeKind.PrimitiveType}>
-          <AutoField name="primitiveKind" />
+          <SelectField name="primitiveKind" showSearch />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.UnionType}>
           <AutoField
@@ -70,7 +68,7 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
           />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.ElementType}>
-          <AutoField label="Element kind" name="elementKind" />
+          <SelectField label="Element kind" name="elementKind" showSearch />
         </DisplayIfKind>
         <DisplayIfKind kind={TypeKind.MonacoType}>
           <AutoField label="Language" name="language" />

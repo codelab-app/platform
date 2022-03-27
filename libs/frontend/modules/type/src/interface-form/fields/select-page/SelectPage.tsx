@@ -41,7 +41,7 @@ export const SelectPage = ({ name, error }: SelectPageProps) => {
       name={name}
       optionFilterProp="label"
       options={pageOptions}
-      showSearch={true}
+      showSearch
     />
   )
 }

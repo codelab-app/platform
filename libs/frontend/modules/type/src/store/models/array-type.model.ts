@@ -1,37 +1,32 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IArrayType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
+  ExtendedModel,
   Model,
   model,
   modelAction,
+  modelClass,
   modelFlow,
   prop,
   Ref,
   transaction,
 } from 'mobx-keystone'
 import { ArrayTypeFragment, TypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 import type { AnyType } from './types'
 import { typeRef } from './union-type.model'
 
 @model('codelab/ArrayType')
 export class ArrayType
-  extends Model({
-    ...baseTypeProps(TypeKind.ArrayType),
-
-    itemType: prop<Nullish<Ref<AnyType>>>(),
-  })
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.ArrayType),
+    props: {
+      itemType: prop<Nullish<Ref<AnyType>>>(),
+    },
+  }))
+  implements IArrayType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment) {
     baseUpdateFromFragment(this, fragment)

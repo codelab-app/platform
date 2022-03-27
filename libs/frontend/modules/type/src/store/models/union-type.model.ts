@@ -1,6 +1,7 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IUnionType, TypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
+  ExtendedModel,
   Model,
   model,
   modelAction,
@@ -11,30 +12,20 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { TypeFragment, UnionTypeFragment } from '../../graphql'
-import {
-  baseTypeProps,
-  baseUpdateFromFragment,
-  IBaseType,
-  makeUpdateFn,
-} from '../abstract'
+import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { createTypeBase } from './base-type.model'
 import type { AnyType } from './types'
 
-//
-// Union
-//
 @model('codelab/UnionType')
 export class UnionType
-  extends Model({
-    ...baseTypeProps(TypeKind.UnionType),
-
-    typesOfUnionType: prop<Array<Ref<AnyType>>>(() => []),
-  })
-  implements IBaseType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.UnionType),
+    props: {
+      typesOfUnionType: prop<Array<Ref<AnyType>>>(() => []),
+    },
+  }))
+  implements IUnionType
 {
-  @modelFlow
-  @transaction
-  update = makeUpdateFn()
-
   @modelAction
   updateFromFragment(fragment: TypeFragment): void {
     baseUpdateFromFragment(this, fragment)

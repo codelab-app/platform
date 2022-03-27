@@ -1,5 +1,3 @@
-import { domClasses } from '../support/selectors/domClasses'
-
 const componentName = 'Test Component'
 const updatedComponentName = 'Test Component updated'
 
@@ -21,35 +19,33 @@ describe('Components CRUD', () => {
       )
 
       cy.findByRole('button', { name: /plus/ }).click()
-      cy.getOpenedModal().findByLabelText('Name').type(componentName)
-      cy.getOpenedModal()
-        .findByButtonText(/Create Component/)
-        .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().findByLabelText('Name').type(componentName)
+      cy.getModal()
+        .getModalAction(/Create Component/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findByText(componentName).should('exist')
     })
   })
 
   describe('update', () => {
     it('should be able to update component name', () => {
-      cy.findButtonByItemText(
-        componentName,
-        domClasses.buttons.edit,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByLabelText('Name')
-        .clear()
-        .type(updatedComponentName)
-
-      cy.getOpenedModal()
-        .findByButtonText(/Update Component/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: componentName,
+      })
+        .getButton({ icon: 'edit' })
         .click()
+      cy.getSpinner().should('not.exist')
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().findByLabelText('Name').clear().type(updatedComponentName)
+      cy.getModal()
+        .getModalAction(/Update Component/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findByText(componentName).should('not.exist')
       cy.findByText(updatedComponentName).should('exist')
     })
@@ -57,18 +53,19 @@ describe('Components CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete an component', () => {
-      cy.findButtonByItemText(
-        updatedComponentName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete Component/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: updatedComponentName,
+      })
+        .getButton({ icon: 'delete' })
         .click()
+      cy.getSpinner().should('not.exist')
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal()
+        .getModalAction(/Delete Component/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findAllByText(updatedComponentName).should('not.exist')
     })
   })

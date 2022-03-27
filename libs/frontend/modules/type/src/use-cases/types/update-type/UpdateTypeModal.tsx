@@ -6,12 +6,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { TypeService, WithTypeService } from '../../../store'
+import { WithTypeService } from '../../../store'
 import {
-  mapUpdateTypeSchemaToTypeInput,
-  UpdateTypeSchema,
+  mapUpdateTypeSchemaToInput,
+  UpdateTypeInputFactory,
   updateTypeSchema,
-} from './updateTypeSchema'
+} from './update-type-input.factory'
 import { validateNonRecursive } from './validateNonRecursive'
 
 export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
@@ -19,20 +19,20 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.updateModal.close()
   const typeToUpdate = typeService.updateModal.type
 
-  const handleSubmit = async (submitData: UpdateTypeSchema) => {
+  const handleSubmit = async (submitData: UpdateTypeInputFactory) => {
     if (!typeToUpdate) {
       throw new Error('Type not set for typeStore.updateModal.')
     }
 
     await validateNonRecursive(typeToUpdate.id, submitData)
 
-    const input = mapUpdateTypeSchemaToTypeInput(
+    const input = mapUpdateTypeSchemaToInput(
       submitData,
       typeToUpdate,
       user?.sub,
     )
 
-    return typeToUpdate.update(input)
+    return typeService.update(typeToUpdate, input)
   }
 
   const model = {
@@ -63,7 +63,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
       title={<span css={tw`font-semibold`}>Update type</span>}
       visible={typeService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTypeSchema>
+      <ModalForm.Form<UpdateTypeInputFactory>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({

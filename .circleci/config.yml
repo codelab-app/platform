@@ -139,14 +139,13 @@ jobs:
           # npx cypress cache path
       - run:
           name: 'Build CI'
-          command: npx nx run-many --target=build --projects=web,cli,tools-rtk-query --configuration=ci --verbose
+          command: npx nx run-many --target=build --projects=web,cli --configuration=ci --verbose
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            # - ~/.cache/yarn
-            # Not required since yarn cache can easily build this
+            - ~/project/dist/apps/web/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/
@@ -200,10 +199,10 @@ jobs:
       - run: yarn cli tasks e2e --env ci
       - store_artifacts:
           path: ~/project/apps/web-e2e/src/videos
-          destination: cypress-videos
+          destination: cypress/videos
       - store_artifacts:
           path: ~/project/apps/web-e2e/src/screenshots
-          destination: cypress-screenshots
+          destination: cypress/screenshots
       - notify-failure
 
   notify-success:

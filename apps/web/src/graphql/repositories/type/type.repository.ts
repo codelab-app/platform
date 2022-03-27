@@ -1,5 +1,5 @@
 import { Field, InterfaceTypeEdge } from '@codelab/shared/abstract/codegen-v2'
-import { IType, ITypeGraph, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, ITypeGraph, TypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { throwIfNullish } from '@codelab/shared/utils'
 import { omit } from 'lodash'
@@ -228,7 +228,7 @@ export const typeRepository = {
   // https://community.neo4j.com/t/having-a-label-as-a-parameter-in-a-cypher-query-efficiently/26555/4
   createTypes: (
     txn: RxTransaction,
-    types: Array<IType & { auth0Id?: string }>,
+    types: Array<IAnyType & { auth0Id?: string }>,
   ) => {
     if (types.length === 0) {
       return of([])
@@ -272,10 +272,9 @@ export const typeRepository = {
     return txn
       .run(`${cypher}`, params)
       .records()
-      .pipe(map((r) => r?.get('nodes') as Array<IType>))
+      .pipe(map((r) => r?.get('nodes') as Array<IAnyType>))
   },
 
-  //
   upsertTypes: (txn: RxTransaction, types: Array<AnyType>, auth0Id: string) => {
     if (types.length === 0) {
       return of([])
@@ -336,7 +335,7 @@ export const typeRepository = {
     return txn
       .run(`${cypher}`)
       .records()
-      .pipe(map((r) => r?.get('nodes') as Array<IType>))
+      .pipe(map((r) => r?.get('nodes') as Array<IAnyType>))
   },
 }
 

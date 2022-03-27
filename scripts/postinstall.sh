@@ -8,5 +8,5 @@ if [ "$CI" != true ]; then
   husky install
 
   # Build only required projects
-  nx run-many --target=build --projects=cli,tools-rtk-query
+  nx run-many --target=build --projects=cli
 fi
