@@ -30,7 +30,7 @@ export type FormFieldOptions = { label?: string }
 export type FormInputOptions = FormFieldOptions & { type?: FieldType }
 
 export type FormFieldValueOptions = FormInputOptions & {
-  value?: string | number | Array<string>
+  value: string | number | Array<string>
   placeholder?: string
   scrollIntoView?: boolean
 }

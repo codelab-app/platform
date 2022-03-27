@@ -492,10 +492,15 @@ export const setFormFieldValue = ({
        * For long lists, the target item isn't in view, causing the item to not be selected.
        */
       // getField().then(setSelectValue(value, opts))
+
       getField()
         .findByLabelText(label)
         .click({ force: true })
-        .type(`${value}{enter}`, { force: true })
+        .type(`${value}`, { force: true })
+
+      getSelectDropdown()
+        .contains('.ant-select-item', value)
+        .click({ force: true })
 
       return
     case FIELD_TYPE.MULTISELECT:
