@@ -33,10 +33,9 @@ describe('Apps CRUD', () => {
       cy.getCard({ title: appName }).getButton({ icon: 'ellipsis' }).click()
 
       cy.getDropdownItem('Edit').click()
-
-      cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAppName })
       cy.getSpinner().should('not.exist')
 
+      cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAppName })
       cy.getModal()
         .getModalAction(/Update App/)
         .click()

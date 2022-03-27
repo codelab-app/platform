@@ -40,8 +40,8 @@ describe('Pages CRUD', () => {
           icon: 'edit',
         })
         .click()
-
       cy.getSpinner().should('not.exist')
+
       cy.getModal().findByLabelText('Name').clear().type(updatedPageName)
 
       cy.getModal()

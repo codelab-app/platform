@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
+import { getDropdownItem } from '../dropdown/dropdown.command'
 import { CommonOptions, Label } from '../types'
 import { ifOnClock, logAndMute, tickIfOnClock, TickOptions } from '../utils'
 import {
@@ -498,9 +499,9 @@ export const setFormFieldValue = ({
         .click({ force: true })
         .type(`${value}`, { force: true })
 
-      getSelectDropdown()
-        .contains('.ant-select-item', value)
-        .click({ force: true })
+      // getSelectDropdown()
+      //   .contains('.ant-select-item', value)
+      getDropdownItem(value).click({ force: true })
 
       return
     case FIELD_TYPE.MULTISELECT:
