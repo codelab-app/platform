@@ -18,11 +18,13 @@ export const getButton = (
   >,
 ): CypressElement => {
   if (icon) {
-    return wrapSubject(subject).find(`.ant-btn .anticon.anticon-${icon}`)
+    return wrapSubject(subject)
+      .find(`button.ant-btn .anticon.anticon-${icon}`)
+      .closest('button.ant-btn')
   }
 
   if (label) {
-    return wrapSubject(subject).contains('.ant-btn', label, options)
+    return wrapSubject(subject).contains('button.ant-btn', label, options)
   }
 
   throw new Error(

@@ -4,6 +4,8 @@ import type { AntDrawerCommands } from './drawer'
 import type { AntDropdownCommands } from './dropdown'
 import type { AntFormCommands } from './form'
 import type { AntIconCommands } from './icon'
+import { AntLayoutCommands } from './layout'
+import { AntListCommands } from './list'
 import type { AntMessageCommands } from './message'
 import type { AntModalCommands } from './modal/modal.register'
 import type { AntNotificationCommands } from './notification'
@@ -30,6 +32,8 @@ declare global {
         AntDropdownCommands,
         AntFormCommands,
         AntIconCommands,
+        AntLayoutCommands,
+        AntListCommands,
         AntMessageCommands,
         AntModalCommands,
         AntNotificationCommands,

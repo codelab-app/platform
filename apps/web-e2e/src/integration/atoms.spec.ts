@@ -1,9 +1,9 @@
 import { AtomType } from '@codelab/shared/abstract/core'
-import { domClasses } from '../support/selectors/domClasses'
+import { FIELD_TYPE } from '../support/antd/form'
 
-const atomName = 'Row'
+const atomName = 'Button'
 const atomType = AtomType.AntDesignButton
-const updatedAtomName = 'Row updated'
+const updatedAtomName = 'Button updated'
 
 describe('Atoms CRUD', () => {
   before(() => {
@@ -24,34 +24,42 @@ describe('Atoms CRUD', () => {
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(atomName)
-      cy.selectOptionItem('Type', atomType)
+      cy.getModal().setFormFieldValue({ label: 'Name', value: atomName })
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create Atom/)
+      cy.getModal().setFormFieldValue({
+        label: 'Type',
+        value: atomType,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create Atom/)
         .click()
+      cy.getModal().should('not.exist')
 
-      cy.getOpenedModal().should('not.exist')
       cy.findByText(atomName).should('exist')
     })
   })
 
   describe('update', () => {
     it('should be able to update atom name', () => {
-      cy.findButtonByItemText(
-        atomName,
-        domClasses.buttons.edit,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAtomName)
-
-      cy.getOpenedModal()
-        .findByButtonText(/Update Atom/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: atomName,
+      })
+        .getButton({
+          icon: 'edit',
+        })
         .click()
+      cy.getSpinner().should('not.exist')
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAtomName })
+
+      cy.getModal()
+        .getModalAction(/Update Atom/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findByText(atomName).should('not.exist')
       cy.findByText(updatedAtomName).should('exist')
     })
@@ -59,18 +67,19 @@ describe('Atoms CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      cy.findButtonByItemText(
-        updatedAtomName,
-        domClasses.buttons.delete,
-        domClasses.tableRow,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete Atom/)
+      cy.searchTableRow({
+        header: 'Name',
+        row: updatedAtomName,
+      })
+        .getButton({ icon: 'delete' })
         .click()
+      cy.getSpinner().should('not.exist')
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal()
+        .getModalAction(/Delete Atom/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findAllByText(updatedAtomName).should('not.exist')
     })
   })

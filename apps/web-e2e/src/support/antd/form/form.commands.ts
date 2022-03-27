@@ -12,7 +12,6 @@ import {
   type ExpectFormFieldErrorArgs,
   type ExpectFormFieldsArgs,
   type ExpectFormFieldValueArgs,
-  type FIELD_TYPE,
   type FormFieldOptions,
   type FormFieldValueOptions,
   type FormFieldValueOrErrorOptions,
@@ -20,6 +19,7 @@ import {
   type ScrollPosition,
   type SetFormFieldValueArgs,
   type SetFormFieldValuesArgs,
+  FIELD_TYPE,
 } from './form.types'
 import {
   dropdownSelector,
@@ -50,7 +50,7 @@ export const getFormFieldLabel = ({
 export const getFormField = ({
   label,
   ...options
-}: FormFieldOptions & CommonOptions = {}) => {
+}: FormFieldOptions & CommonOptions = {}): Cypress.Chainable<any> => {
   const opts = logAndMute('getFormField', label, options)
 
   return isUndefined(label)
@@ -335,7 +335,7 @@ export const setSelectValue =
   ) =>
   ($el: JQuery) => {
     if (value) {
-      getSelectValuePart(on($el), options).click(options)
+      getSelectValuePart(on($el), options).click({ ...options, force: true })
       tickIfOnClock(options)
       tickIfOnClock(options)
 
@@ -465,7 +465,7 @@ export const setFormFieldValue = ({
   const getField = () => getFormField({ label, ...opts })
   const getInput = () => getFormInput({ label, type, ...opts })
 
-  getField().scrollIntoView(opts)
+  // getField().scrollIntoView(opts)
 
   switch (type) {
     case FIELD_TYPE.INPUT:
@@ -484,7 +484,18 @@ export const setFormFieldValue = ({
         throw new Error('Select `value` must be a `Label`.')
       }
 
-      getField().then(setSelectValue(value, opts))
+      if (!label) {
+        throw new Error('Label must be set')
+      }
+
+      /**
+       * For long lists, the target item isn't in view, causing the item to not be selected.
+       */
+      // getField().then(setSelectValue(value, opts))
+      getField()
+        .findByLabelText(label)
+        .click({ force: true })
+        .type(`${value}{enter}`, { force: true })
 
       return
     case FIELD_TYPE.MULTISELECT:

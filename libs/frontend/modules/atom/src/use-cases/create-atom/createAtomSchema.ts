@@ -37,10 +37,6 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
         nullable: true,
       },
     } as any),
-    // api: {
-    //   type: 'string',
-    //   nullable: true,
-    // },
   },
   required: ['name', 'type'],
 } as const

@@ -5,8 +5,8 @@ describe('User', () => {
   })
 
   it('shows a signup and login button', () => {
-    cy.findElementByText('Register', 'a').should('exist')
-    cy.findElementByText('Login', 'a').should('exist')
+    cy.contains('a', 'Register').should('exist')
+    cy.contains('a', 'Login').should('exist')
   })
 
   it('logs in shows email and signs out', () => {
@@ -21,10 +21,10 @@ describe('User', () => {
         }
 
         cy.findByLabelText('user').click() // the icon has a user label
-        cy.findElementByText(email, 'li', { exact: false }).should('exist')
+        cy.contains('li', email).should('exist')
 
-        cy.findElementByText('Sign Out', 'a').click()
-        cy.findElementByText('Login', 'a').should('exist')
+        cy.contains('a', 'Sign Out').click()
+        cy.contains('a', 'Login').should('exist')
       })
     })
   })

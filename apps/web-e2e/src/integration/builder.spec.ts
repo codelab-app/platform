@@ -1,6 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType } from '@codelab/shared/abstract/core'
+import { FIELD_TYPE } from '../support/antd/form'
 
 const atoms = [
   { name: AtomType.AntDesignGridCol, type: AtomType.AntDesignGridCol },
@@ -90,29 +91,34 @@ describe('Elements CRUD', () => {
       cy.wrap(elements).each(
         (element: { name: string; atom: string; parentElement: string }) => {
           const { atom, name, parentElement } = element
-          cy.findByRole('button', { name: /plus/ }).click()
 
-          cy.getOpenedModal().findByLabelText('Name').type(name)
+          cy.getSider().getButton({ icon: 'plus' }).click()
+
+          cy.getModal().findByLabelText('Name').type(name)
 
           /**
            * We skip this if parent element is root, since it is disabled and can't be accessed
            */
           if (parentElement !== ROOT_ELEMENT_NAME) {
-            cy.getOpenedModal().selectOptionItem(
-              'Parent element',
-              parentElement,
-            )
+            cy.getModal().setFormFieldValue({
+              label: 'Parent element',
+              value: parentElement,
+              type: FIELD_TYPE.SELECT,
+            })
           }
 
           if (atom) {
-            cy.getOpenedModal().selectOptionItem('Atom', atom)
+            cy.getModal().setFormFieldValue({
+              label: 'Atom',
+              value: atom,
+              type: FIELD_TYPE.SELECT,
+            })
           }
 
-          cy.getOpenedModal()
-            .findByButtonText(/Create/)
+          cy.getModal()
+            .getModalAction(/Create/)
             .click()
-
-          cy.getOpenedModal().should('not.exist')
+          cy.getModal().should('not.exist')
         },
       )
     })
@@ -131,11 +137,12 @@ describe('Elements CRUD', () => {
       cy.findByText(/Container/).rightclick()
       cy.contains(/Delete/).click()
       cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
-        .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal()
+        .getModalAction(/Delete/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findByText(/Container/).should('not.exist')
     })
   })

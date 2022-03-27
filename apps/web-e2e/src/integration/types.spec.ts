@@ -43,7 +43,7 @@ describe('Types CRUD', () => {
 
       cy.getModal().setFormFieldValue({
         label: 'Name',
-        value: `${primitiveTypeName}`,
+        value: primitiveTypeName,
       })
 
       cy.getModal().setFormFieldValue({

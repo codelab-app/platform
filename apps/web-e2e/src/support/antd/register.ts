@@ -4,6 +4,8 @@ import { antDrawerCommands } from './drawer/drawer.register'
 import { antDropdownCommands } from './dropdown/dropdown.register'
 import { antFormCommands } from './form'
 import { antIconCommands } from './icon'
+import { antLayoutCommands } from './layout'
+import { antListCommands } from './list'
 import { antMessageCommands } from './message'
 import { antModalCommands } from './modal'
 import { antNotificationCommands } from './notification'
@@ -21,6 +23,8 @@ const antCommands = [
   ...antDropdownCommands,
   ...antFormCommands,
   ...antIconCommands,
+  ...antLayoutCommands,
+  ...antListCommands,
   ...antMessageCommands,
   ...antModalCommands,
   ...antNotificationCommands,

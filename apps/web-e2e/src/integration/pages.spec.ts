@@ -1,5 +1,3 @@
-import { domClasses } from '../support/selectors/domClasses'
-
 describe('Pages CRUD', () => {
   let appId: string
   const pageName = 'new useful page'
@@ -25,32 +23,32 @@ describe('Pages CRUD', () => {
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(pageName)
-      cy.getOpenedModal()
-        .findByButtonText(/Create Page/)
+      cy.getModal().findByLabelText('Name').type(pageName)
+      cy.getModal()
+        .getModalAction(/Create Page/)
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getModal().should('not.exist')
       cy.findByText(pageName).should('exist')
     })
   })
 
   describe('update', () => {
     it('should be able to update page name', () => {
-      cy.findButtonByItemText(
-        pageName,
-        domClasses.buttons.edit,
-        domClasses.listItem,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal().findByLabelText('Name').clear().type(updatedPageName)
-
-      cy.getOpenedModal()
-        .findByButtonText(/Update Page/)
+      cy.getListItem(pageName)
+        .getButton({
+          icon: 'edit',
+        })
         .click()
 
-      cy.getOpenedModal().should('not.exist')
+      cy.getSpinner().should('not.exist')
+      cy.getModal().findByLabelText('Name').clear().type(updatedPageName)
+
+      cy.getModal()
+        .getModalAction(/Update Page/)
+        .click()
+      cy.getModal().should('not.exist')
+
       cy.findByText(pageName).should('not.exist')
       cy.findByText(updatedPageName).should('exist')
     })
@@ -58,16 +56,17 @@ describe('Pages CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete page', () => {
-      cy.findButtonByItemText(
-        updatedPageName,
-        domClasses.buttons.delete,
-        domClasses.listItem,
-      ).click()
-
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete Page/)
+      cy.getListItem(updatedPageName)
+        .getButton({
+          icon: 'delete',
+        })
         .click()
+      cy.getSpinner().should('not.exist')
+
+      cy.getModal()
+        .getModalAction(/Delete Page/)
+        .click()
+      cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedPageName).should('not.exist')
     })
