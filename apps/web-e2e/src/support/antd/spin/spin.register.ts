@@ -1,4 +1,4 @@
-import { OmitFirstArg } from '../../selectors/types'
+import { OmitFirstArg } from '../../deprecated/types'
 import { CypressCommand } from '../../types'
 import { getSpinner } from './spin.command'
 

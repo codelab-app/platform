@@ -1,6 +1,6 @@
-import { domClasses } from '../../selectors/domClasses'
-import { CypressElement } from '../../selectors/types'
-import { wrapSubject } from '../../selectors/utils'
+import { domClasses } from '../../deprecated/domClasses'
+import { CypressElement } from '../../deprecated/types'
+import { wrapSubject } from '../../deprecated/utils'
 
 export const getSpinner = (subject: any): CypressElement =>
   wrapSubject(subject).get(domClasses.spinner)

@@ -1,5 +1,5 @@
-import { CypressElement } from '../../selectors/types'
-import { wrapSubject } from '../../selectors/utils'
+import { CypressElement } from '../../deprecated/types'
+import { wrapSubject } from '../../deprecated/utils'
 import { Label } from '../types'
 
 type ButtonSelector = {

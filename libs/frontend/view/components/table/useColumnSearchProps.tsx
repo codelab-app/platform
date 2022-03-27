@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { Button, Input, Space, TableColumnProps } from 'antd'
+import { Button, Input, InputRef, Space, TableColumnProps } from 'antd'
 import React, { useRef, useState } from 'react'
 
 export const useColumnSearchProps = (dataIndex: string) => {
@@ -9,7 +9,7 @@ export const useColumnSearchProps = (dataIndex: string) => {
     searchedColumn: '',
   })
 
-  const searchInputRef = useRef<null | Input>(null)
+  const searchInputRef = useRef<null | InputRef>(null)
 
   const handleSearch = (
     selectedKeys: Array<React.Key>,
