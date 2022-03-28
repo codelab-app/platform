@@ -1,4 +1,14 @@
 {
+  "apps": [
+    {
+      "name": "shop 1",
+      "id": "3b1abc99-5eab-4365-a775-a6fc9694bf82"
+    },
+    {
+      "name": "shop 2",
+      "id": "0cd9d675-a4e7-4b11-8c6f-afcec4b33e99"
+    }
+  ],
   "tags": {
     "vertices": [
       {

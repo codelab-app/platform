@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators'
 import { getDriver } from '../../infra/driver'
 import {
   AnyType,
+  AppCreateInput,
   Atom,
   MutationImportAdminDataArgs,
   TagGraph,
@@ -15,6 +16,7 @@ import {
   fieldRepository,
   typeRepository,
 } from '../../repositories'
+import { appRepository } from '../../repositories/app'
 import { atomRepository } from '../../repositories/atom'
 import { tagRepository } from '../../repositories/tag'
 import { IRxTxnResolver } from '../abstract/withRxTransaction'
@@ -28,10 +30,10 @@ export const importAdminData: IFieldResolver<
 > = async (parent, args, context, info) => {
   const payload = args.input.payload ?? ''
   const session = driver.rxSession()
+  const auth0Id = context.jwt?.sub
 
   const createTypes = await session
     .writeTransaction((txn) => {
-      const auth0Id = context.jwt?.sub
       const importedGraphs = JSON.parse(payload)?.typesGraph as Array<TypeGraph>
 
       const vertices: Array<AnyType> = importedGraphs.reduce(
@@ -57,19 +59,22 @@ export const importAdminData: IFieldResolver<
     .toPromise()
     .finally(() => session.close())
 
+  const apps = JSON.parse(payload)?.apps ?? ([] as Array<AppCreateInput>)
   const tags = JSON.parse(payload)?.tags as TagGraph
-  const atoms = JSON.parse(payload)?.atoms as Array<Atom>
+  const atoms = JSON.parse(payload)?.atoms ?? ([] as Array<Atom>)
   const createTags = await tagRepository.importTagsFromJson(tags)
   const createAtom = await atomRepository.importAtomFromJson(atoms)
+  const createApps = await appRepository.importAppFromJson(apps, auth0Id)
 
   return Promise.resolve({
-    result: !!createTypes && !!createTags && !!createAtom,
+    result: !!createApps && !!createTypes && !!createTags && !!createAtom,
   })
 }
 
 export const exportAdminData: IRxTxnResolver = () => (txn) => {
   return forkJoin({
-    // tags: tagRepository.getTagsGraph(txn),
+    apps: appRepository.exportApp(txn),
+    tags: tagRepository.getTagsGraph(txn),
     atoms: atomRepository.exportAtom(txn),
     typesGraph: adminRepository.getExportAdminData(txn),
   }).pipe(map((result) => ({ result })))

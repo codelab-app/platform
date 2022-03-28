@@ -4,7 +4,7 @@ export const appSchema = gql`
   type App {
     id: ID! @id
     owner: [User!]! @relationship(type: "OWNED_BY", direction: OUT)
-    name: String!
+    name: String! @unique
     pages: [Page!]! @relationship(type: "PAGES", direction: IN)
     rootProviderElement: Element! @relationship(type: "ROOT", direction: IN)
   }

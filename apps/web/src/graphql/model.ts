@@ -1,5 +1,6 @@
 import { getOgm } from './infra/ogm'
 import {
+  AppModel,
   AppTypeModel,
   ArrayTypeModel,
   AtomModel,
@@ -24,6 +25,10 @@ import {
 let userInst: UserModel
 
 export const User = async () => (userInst ??= (await getOgm()).model('User'))
+
+let appInst: AppModel
+
+export const App = async () => (appInst ??= (await getOgm()).model('App'))
 
 let atomInst: AtomModel
 
@@ -77,10 +82,10 @@ let LambdaInst: LambdaTypeModel
 export const LambdaType = async () =>
   (LambdaInst ??= (await getOgm()).model('LambdaType'))
 
-let appInst: AppTypeModel
+let appTypeInst: AppTypeModel
 
 export const AppType = async () =>
-  (appInst ??= (await getOgm()).model('AppType'))
+  (appTypeInst ??= (await getOgm()).model('AppType'))
 
 let renderPropsInst: RenderPropsTypeModel
 

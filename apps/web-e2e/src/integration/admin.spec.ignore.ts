@@ -14,6 +14,9 @@ describe('Admin Import and Export', () => {
           cy.exportAdminData().then((exportResult: any) => {
             // compare only names for tags, atoms because these nodes will be created by ogm with new id
             const payloadNames = {
+              apps: payload.apps
+                ?.map((v: any) => v.name)
+                .sort((a: string, b: string) => (a > b ? -1 : 1)),
               tags: payload.tags?.vertices
                 .map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),
@@ -24,6 +27,9 @@ describe('Admin Import and Export', () => {
             }
 
             const exportResultNames = {
+              apps: exportResult.apps
+                ?.map((v: any) => v.name)
+                .sort((a: string, b: string) => (a > b ? -1 : 1)),
               tags: exportResult.tags?.vertices
                 .map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),

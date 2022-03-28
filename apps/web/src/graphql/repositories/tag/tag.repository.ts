@@ -92,11 +92,7 @@ export const tagRepository = {
             }
           }
 
-          const tagCreated: CreateTagsMutationResponse = await (
-            await Tag()
-          ).create({
-            input: [tagInput],
-          })
+          const tagCreated = await (await Tag()).create({ input: [tagInput] })
 
           createdTagsMap.set(tag.name, tagCreated.tags[0])
         }

@@ -783,6 +783,7 @@ input AppTypeWhere {
 
 input AppUniqueWhere {
   id: ID
+  name: String
 }
 
 input AppUpdateInput {

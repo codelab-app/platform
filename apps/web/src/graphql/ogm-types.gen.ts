@@ -5496,6 +5496,7 @@ export type AppTypeWhere = {
 
 export type AppUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
 export type AppUpdateInput = {
