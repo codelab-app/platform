@@ -3,7 +3,11 @@ import { AtomService } from '@codelab/frontend/modules/atom'
 import { PageService } from '@codelab/frontend/modules/page'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService } from '@codelab/frontend/modules/type'
-import { fromSnapshot, Model, model, prop } from 'mobx-keystone'
+import { fromSnapshot, Model, model, prop, SnapshotOutOf } from 'mobx-keystone'
+
+export type Snapshot<T = any> = {
+  snapshot: SnapshotOutOf<T>
+}
 
 @model('codelab/RootStore')
 export class RootStore extends Model({

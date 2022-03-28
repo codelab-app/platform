@@ -1,12 +1,8 @@
-import { useLoadingState } from '@codelab/frontend/shared/utils'
-import {
-  ConditionalView,
-  SpinnerWrapper,
-} from '@codelab/frontend/view/components'
+import { ConditionalView } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
-import { Alert, Col, Empty, Row } from 'antd'
+import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { WithAppService } from '../../store'
 import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
@@ -16,22 +12,23 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetAppsList = observer<WithAppService>(({ appService }) => {
-  const [load, { isLoading, error }] = useLoadingState(() =>
-    appService.getAll(),
-  )
+  // const [load, { isLoading, error }] = useLoadingState(() =>
+  //   appService.getAll(),
+  // )
 
-  useEffect(() => {
-    load()
-  }, [load])
+  // useEffect(() => {
+  //   load()
+  // }, [load])
 
   const appList = appService.appsList
 
   return (
-    <SpinnerWrapper isLoading={isLoading}>
-      <ConditionalView condition={!!error}>
-        <Alert type="error">{error}</Alert>
-      </ConditionalView>
+    // <SpinnerWrapper isLoading={isLoading}>
+    // <ConditionalView condition={!!error}>
+    //   <Alert type="error">{error}</Alert>
+    // </ConditionalView>
 
+    <>
       <ConditionalView condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
           <CreateAppButton appService={appService} text="Create Now" />
@@ -46,6 +43,7 @@ export const GetAppsList = observer<WithAppService>(({ appService }) => {
           </Col>
         ))}
       </Row>
-    </SpinnerWrapper>
+    </>
+    // </SpinnerWrapper>
   )
 })

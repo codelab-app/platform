@@ -4,12 +4,17 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { setClientAuthHeaders } from '@codelab/frontend/model/infra/graphql'
-import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
+import {
+  initializeStore,
+  Snapshot,
+  useStore,
+} from '@codelab/frontend/model/infra/mobx'
 import {
   CreateTagButton,
   CreateTagModal,
   DeleteTagsButton,
   DeleteTagsModal,
+  GetTagsTable,
   GetTagsTree,
   UpdateTagModal,
 } from '@codelab/frontend/modules/tag'
@@ -24,7 +29,7 @@ import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
-const TagPage: CodelabPage<DashboardTemplateProps> = () => {
+const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
 
   return (
@@ -36,10 +41,10 @@ const TagPage: CodelabPage<DashboardTemplateProps> = () => {
       <CreateTagModal tagService={store.tagService} />
       <UpdateTagModal tagService={store.tagService} />
       <DeleteTagsModal tagService={store.tagService} />
-      <GetTagsTree tagService={store.tagService} />
+      <GetTagsTable tagService={store.tagService} />
     </>
   )
-}
+})
 
 const TagPageHeader = () => {
   const store = useStore()
@@ -52,7 +57,7 @@ const TagPageHeader = () => {
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Tags" />
 }
 
-export const getServerSideProps = withPageAuthRequired({
+export const getServerSideProps = withPageAuthRequired<Snapshot>({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
     await setClientAuthHeaders(context)
 
@@ -61,7 +66,7 @@ export const getServerSideProps = withPageAuthRequired({
     await store.tagService.getTagGraphs()
 
     return {
-      props: { initialState: getSnapshot(store) },
+      props: { snapshot: getSnapshot(store) },
     }
   },
 })

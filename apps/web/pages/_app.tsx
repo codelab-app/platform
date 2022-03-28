@@ -27,9 +27,9 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 
 const queryClient = new QueryClient()
 
-const App = ({ pageProps, Component }: AppProps<unknown>) => {
+const App = ({ pageProps, Component, ...props }: AppProps<unknown>) => {
   const store = useMemo(
-    () => initializeStore(pageProps.initialState),
+    () => initializeStore(pageProps.snapshot),
     [pageProps.initialState],
   )
 

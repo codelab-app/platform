@@ -5,7 +5,11 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { setClientAuthHeaders } from '@codelab/frontend/model/infra/graphql'
-import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
+import {
+  initializeStore,
+  Snapshot,
+  useStore,
+} from '@codelab/frontend/model/infra/mobx'
 import {
   CreateAppButton,
   CreateAppModal,
@@ -74,7 +78,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 export default AppsPage
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
-export const getServerSideProps = withPageAuthRequired({
+export const getServerSideProps = withPageAuthRequired<Snapshot>({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
     await setClientAuthHeaders(context)
 
@@ -83,7 +87,9 @@ export const getServerSideProps = withPageAuthRequired({
     await store.appService.getAll()
 
     return {
-      props: { initialState: getSnapshot(store) },
+      props: {
+        snapshot: getSnapshot(store),
+      },
     }
   },
 })

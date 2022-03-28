@@ -5,7 +5,7 @@ import { IRxTxnResolver } from '../abstract/withRxTransaction'
 export const tagGraphs: IRxTxnResolver = () => (txn) => {
   return tagRepository.getTagGraphs(txn).pipe(
     map((x) => {
-      console.log(x)
+      // console.log(x)
 
       return x
     }),

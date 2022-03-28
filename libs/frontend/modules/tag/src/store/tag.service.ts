@@ -1,4 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -26,6 +27,11 @@ export class TagService extends Model({
   updateModal: prop(() => new TagModalService({})),
   deleteModal: prop(() => new TagsModalService({})),
 }) {
+  @computed
+  get tagsList() {
+    return [...this.tags.values()]
+  }
+
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, input: CreateTagInput) {
@@ -119,6 +125,6 @@ export class TagService extends Model({
       this.tags.set(tag.id, tagModel)
     })
 
-    console.log(tagIds, tags)
+    console.log('tagList', this.tagsList)
   })
 }
