@@ -1,14 +1,16 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import { useTagDispatch } from '../../hooks'
+import { observer } from 'mobx-react-lite'
+import { WithTagService } from '../../store'
 
-export const CreateTagButton = () => {
-  const { openCreateModal } = useTagDispatch()
-  const onClick = () => openCreateModal()
-
+export const CreateTagButton = observer<WithTagService>(({ tagService }) => {
   return (
-    <Button icon={<PlusOutlined />} onClick={onClick} type="primary">
+    <Button
+      icon={<PlusOutlined />}
+      onClick={() => tagService.createModal.open()}
+      type="primary"
+    >
       Create Tag
     </Button>
   )
-}
+})

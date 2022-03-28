@@ -1,5 +1,3 @@
-import { AtomFragment } from '@codelab/frontend/modules/atom'
-import { IResolvers } from '@graphql-tools/utils'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { concat, forkJoin } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -7,8 +5,6 @@ import { getDriver } from '../../infra/driver'
 import {
   AnyType,
   Atom,
-  ImportAdminDataInput,
-  Maybe,
   MutationImportAdminDataArgs,
   TagGraph,
   TypeEdge,
@@ -21,10 +17,7 @@ import {
 } from '../../repositories'
 import { atomRepository } from '../../repositories/atom'
 import { tagRepository } from '../../repositories/tag'
-import {
-  IRxTxnResolver,
-  withRxTransaction,
-} from '../abstract/withRxTransaction'
+import { IRxTxnResolver } from '../abstract/withRxTransaction'
 
 const driver = getDriver()
 
@@ -76,7 +69,7 @@ export const importAdminData: IFieldResolver<
 
 export const exportAdminData: IRxTxnResolver = () => (txn) => {
   return forkJoin({
-    tags: tagRepository.getTagsGraph(txn),
+    // tags: tagRepository.getTagsGraph(txn),
     atoms: atomRepository.exportAtom(txn),
     typesGraph: adminRepository.getExportAdminData(txn),
   }).pipe(map((result) => ({ result })))

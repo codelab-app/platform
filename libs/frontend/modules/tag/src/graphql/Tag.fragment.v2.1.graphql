@@ -1,0 +1,16 @@
+fragment Tag on Tag {
+  id
+  name
+  # isRoot
+  # children {
+  #   id
+  #   name
+  # }
+  # childrenConnection {
+  #   edges {
+  #     node {
+  #       ...Tag
+  #     }
+  #   }
+  # }
+}

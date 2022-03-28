@@ -1,21 +1,21 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
-import { useTagDispatch } from '../../hooks'
+import { observer } from 'mobx-react-lite'
+import { WithTagService } from '../../store'
 
-export const DeleteTagsButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useTagDispatch()
-  const onClick = () => openDeleteModal({ deleteIds: ids })
-
-  return (
-    <Button
-      danger
-      disabled={disabled}
-      icon={<DeleteOutlined />}
-      onClick={onClick}
-      type="primary"
-    >
-      Delete Tags
-    </Button>
-  )
-}
+export const DeleteTagsButton = observer<WithTagService & DeleteButtonProps>(
+  ({ disabled, ids, tagService }) => {
+    return (
+      <Button
+        danger
+        disabled={disabled}
+        icon={<DeleteOutlined />}
+        onClick={() => null}
+        type="primary"
+      >
+        Delete Tags
+      </Button>
+    )
+  },
+)

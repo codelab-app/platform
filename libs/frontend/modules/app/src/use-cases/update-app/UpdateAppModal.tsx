@@ -3,7 +3,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AppService, WithAppService } from '../../store'
+import { WithAppService } from '../../store'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
@@ -16,10 +16,6 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
 
     return appService.update(app, input)
   }
-
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updating app',
-  })
 
   const closeModal = () => appService.updateModal.close()
 
@@ -34,7 +30,9 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
           name: app?.name,
         }}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while updating app',
+        })}
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
       >

@@ -1,11 +1,9 @@
-import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AtomService, WithAtomService } from '../../store'
-import { TreeSelectField } from '../components'
+import { WithAtomService } from '../../store'
 import { UpdateAtomInputSchema, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomModal = observer<WithAtomService>(({ atomService }) => {
@@ -31,9 +29,9 @@ export const UpdateAtomModal = observer<WithAtomService>(({ atomService }) => {
   }
 
   const tagModel = model.tags as Array<string>
-  const { data } = useGetTagGraphsQuery()
-  const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTrees()
+  // const { data } = useGetTagGraphsQuery()
+  // const tagTree = useTagTree(data?.tagGraphs)
+  // const tagTreeData = tagTree.getAntdTrees()
 
   return (
     <ModalForm.Modal
@@ -49,12 +47,12 @@ export const UpdateAtomModal = observer<WithAtomService>(({ atomService }) => {
         schema={updateAtomSchema}
       >
         <AutoFields omitFields={['tags']} />
-        <TreeSelectField
+        {/* <TreeSelectField
           label="Tags"
           name="tags"
           treeData={tagTreeData}
           value={tagModel}
-        />
+        /> */}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

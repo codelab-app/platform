@@ -1,6 +1,7 @@
 import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService } from '@codelab/frontend/modules/atom'
 import { PageService } from '@codelab/frontend/modules/page'
+import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService } from '@codelab/frontend/modules/type'
 import { fromSnapshot, Model, model, prop } from 'mobx-keystone'
 
@@ -10,6 +11,7 @@ export class RootStore extends Model({
   pageService: prop(() => new PageService({})),
   typeService: prop(() => new TypeService({})),
   atomService: prop(() => new AtomService({})),
+  tagService: prop(() => new TagService({})),
 }) {}
 
 let _store: RootStore | null = null

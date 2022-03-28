@@ -7,7 +7,7 @@ import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Alert, Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { AppService, WithAppService } from '../../store'
+import { WithAppService } from '../../store'
 import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
 
@@ -34,7 +34,7 @@ export const GetAppsList = observer<WithAppService>(({ appService }) => {
 
       <ConditionalView condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
-          <CreateAppButton apps={appService} text="Create Now" />
+          <CreateAppButton appService={appService} text="Create Now" />
         </Empty>
       </ConditionalView>
 

@@ -109,7 +109,7 @@ export class AtomService extends Model({
 
   @modelFlow
   @transaction
-  createAtom = _async(function* (
+  create = _async(function* (
     this: AtomService,
     input: CreateAtomInputSchema,
     ownerId: Nullish<string>,

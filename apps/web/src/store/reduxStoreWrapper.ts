@@ -13,7 +13,6 @@ import {
   propMapBindingSlice,
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
-import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
@@ -26,7 +25,6 @@ export const makeStore = () => {
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [hookEndpoints.reducerPath]: hookEndpoints.reducer,
       [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
-      [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
       [componentEndpoints.reducerPath]: componentEndpoints.reducer,
@@ -40,7 +38,6 @@ export const makeStore = () => {
       [hookSlice.name]: hookSlice.reducer,
       [lambdaSlice.name]: lambdaSlice.reducer,
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
-      [tagSlice.name]: tagSlice.reducer,
       [userSlice.name]: userSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>

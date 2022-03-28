@@ -2,7 +2,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { TreeService } from '@codelab/shared/core'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
-import { first, map } from 'rxjs/operators'
+import { map, reduce } from 'rxjs/operators'
 import { Tag } from '../../model'
 import {
   CreateTagsMutationResponse,
@@ -10,7 +10,7 @@ import {
   TagCreateInput,
   TagGraph,
 } from '../../ogm-types.gen'
-import getTagsGraph from './getTagsGraph.cypher'
+import getTagGraphs from './getTagGraphs.cypher'
 
 type CreateTagOperation = (
   map: Map<string, TagType>,
@@ -23,13 +23,34 @@ type CreateTagArgs = {
 }
 
 export const tagRepository = {
-  getTagsGraph: (txn: RxTransaction): Observable<Maybe<TagGraph>> =>
+  // getTagsGraph: (txn: RxTransaction): Observable<Maybe<TagGraph>> =>
+  //   txn
+  //     .run(getTagsGraph)
+  //     .records()
+  //     .pipe(
+  //       first(() => true, undefined),
+  //       map((r) => r?.get('graph') as Maybe<TagGraph>),
+  //     ),
+
+  getTagGraphs: (txn: RxTransaction): Observable<Array<TagGraph>> =>
     txn
-      .run(getTagsGraph)
+      .run(getTagGraphs)
       .records()
       .pipe(
-        first(() => true, undefined),
-        map((r) => r?.get('graph') as Maybe<TagGraph>),
+        map((record) => {
+          const tag = record.get(0)
+          const descendants = record.get(1)
+
+          const tagGraph = {
+            ...tag.properties,
+            descendants,
+          }
+
+          return tagGraph
+        }),
+        reduce<any>((tagGraphs, tagGraph) => {
+          return [...tagGraphs, tagGraph]
+        }, []),
       ),
 
   importTagsFromJson: async (tags: TagGraph): Promise<Map<string, TagType>> => {

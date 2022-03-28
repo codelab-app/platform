@@ -17,30 +17,6 @@ RETURN node {
     __resolveType: labels(node)[0]
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // RETURN nodes, relationships
 
 // UNWIND nodes AS n

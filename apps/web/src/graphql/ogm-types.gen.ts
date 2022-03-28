@@ -30,7 +30,6 @@ export type Query = {
   __typename?: "Query";
   exportAdminData: ExportAdminDataResponse;
   exportGraph?: Maybe<Scalars["JSONObject"]>;
-  tagGraphs: Array<TagGraph>;
   elementGraph: ElementGraph;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection;
@@ -86,8 +85,7 @@ export type Query = {
   monacoTypesAggregate: MonacoTypeAggregateSelection;
   tags: Array<Tag>;
   tagsAggregate: TagAggregateSelection;
-  tagEdges: Array<TagEdge>;
-  tagEdgesAggregate: TagEdgeAggregateSelection;
+  tagGraphs: Array<TagGraph>;
   tagGraphsAggregate: TagGraphAggregateSelection;
   elementEdges: Array<ElementEdge>;
   elementEdgesAggregate: ElementEdgeAggregateSelection;
@@ -119,11 +117,6 @@ export type Query = {
 
 export type QueryExportGraphArgs = {
   typeId: Scalars["ID"];
-};
-
-export type QueryTagGraphsArgs = {
-  where?: InputMaybe<TagGraphWhere>;
-  options?: InputMaybe<TagGraphOptions>;
 };
 
 export type QueryElementGraphArgs = {
@@ -373,15 +366,6 @@ export type QueryTagsAggregateArgs = {
   where?: InputMaybe<TagWhere>;
 };
 
-export type QueryTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>;
-  options?: InputMaybe<TagEdgeOptions>;
-};
-
-export type QueryTagEdgesAggregateArgs = {
-  where?: InputMaybe<TagEdgeWhere>;
-};
-
 export type QueryTagGraphsAggregateArgs = {
   where?: InputMaybe<TagGraphWhere>;
 };
@@ -570,9 +554,6 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse;
   deleteTags: DeleteInfo;
   updateTags: UpdateTagsMutationResponse;
-  createTagEdges: CreateTagEdgesMutationResponse;
-  deleteTagEdges: DeleteInfo;
-  updateTagEdges: UpdateTagEdgesMutationResponse;
   createTagGraphs: CreateTagGraphsMutationResponse;
   deleteTagGraphs: DeleteInfo;
   updateTagGraphs: UpdateTagGraphsMutationResponse;
@@ -1089,19 +1070,6 @@ export type MutationUpdateTagsArgs = {
   create?: InputMaybe<TagRelationInput>;
   delete?: InputMaybe<TagDeleteInput>;
   connectOrCreate?: InputMaybe<TagConnectOrCreateInput>;
-};
-
-export type MutationCreateTagEdgesArgs = {
-  input: Array<TagEdgeCreateInput>;
-};
-
-export type MutationDeleteTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>;
-};
-
-export type MutationUpdateTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>;
-  update?: InputMaybe<TagEdgeUpdateInput>;
 };
 
 export type MutationCreateTagGraphsArgs = {
@@ -2458,12 +2426,6 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: "CreateResetDatabaseMutationResponsesMutationResponse";
   info: CreateInfo;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
-};
-
-export type CreateTagEdgesMutationResponse = {
-  __typename?: "CreateTagEdgesMutationResponse";
-  info: CreateInfo;
-  tagEdges: Array<TagEdge>;
 };
 
 export type CreateTagGraphsMutationResponse = {
@@ -4342,30 +4304,18 @@ export type TagChildrenRelationship = {
   node: Tag;
 };
 
-export type TagEdge = {
-  __typename?: "TagEdge";
-  source: Scalars["ID"];
-  target: Scalars["ID"];
-};
-
-export type TagEdgeAggregateSelection = {
-  __typename?: "TagEdgeAggregateSelection";
-  count: Scalars["Int"];
-  source: IdAggregateSelectionNonNullable;
-  target: IdAggregateSelectionNonNullable;
-};
-
 export type TagGraph = {
   __typename?: "TagGraph";
-  /** All descendant Elements or Components, at any level */
-  vertices: Array<Tag>;
-  /** All the links connecting the descendant elements/components */
-  edges: Array<TagEdge>;
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  descendants: Array<Scalars["ID"]>;
 };
 
 export type TagGraphAggregateSelection = {
   __typename?: "TagGraphAggregateSelection";
   count: Scalars["Int"];
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
 };
 
 export type TagParentConnection = {
@@ -4723,12 +4673,6 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: "UpdateResetDatabaseMutationResponsesMutationResponse";
   info: UpdateInfo;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
-};
-
-export type UpdateTagEdgesMutationResponse = {
-  __typename?: "UpdateTagEdgesMutationResponse";
-  info: UpdateInfo;
-  tagEdges: Array<TagEdge>;
 };
 
 export type UpdateTagGraphsMutationResponse = {
@@ -11552,72 +11496,45 @@ export type TagDisconnectInput = {
   children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>;
 };
 
-export type TagEdgeCreateInput = {
-  source: Scalars["ID"];
-  target: Scalars["ID"];
-};
-
-export type TagEdgeOptions = {
-  /** Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TagEdgeSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object. */
-export type TagEdgeSort = {
-  source?: InputMaybe<SortDirection>;
-  target?: InputMaybe<SortDirection>;
-};
-
-export type TagEdgeUpdateInput = {
-  source?: InputMaybe<Scalars["ID"]>;
-  target?: InputMaybe<Scalars["ID"]>;
-};
-
-export type TagEdgeWhere = {
-  OR?: InputMaybe<Array<TagEdgeWhere>>;
-  AND?: InputMaybe<Array<TagEdgeWhere>>;
-  source?: InputMaybe<Scalars["ID"]>;
-  source_NOT?: InputMaybe<Scalars["ID"]>;
-  source_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  source_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  source_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  source_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  source_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  source_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  source_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  source_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  target?: InputMaybe<Scalars["ID"]>;
-  target_NOT?: InputMaybe<Scalars["ID"]>;
-  target_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  target_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  target_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  target_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  target_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  target_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  target_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  target_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-};
-
 export type TagGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type TagGraphOptions = {
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  descendants: Array<Scalars["ID"]>;
 };
 
 export type TagGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  descendants?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type TagGraphWhere = {
   OR?: InputMaybe<Array<TagGraphWhere>>;
   AND?: InputMaybe<Array<TagGraphWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  descendants?: InputMaybe<Array<Scalars["ID"]>>;
+  descendants_NOT?: InputMaybe<Array<Scalars["ID"]>>;
+  descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
+  descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
 };
 
 export type TagOnCreateInput = {
@@ -14494,73 +14411,10 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface TagEdgeAggregateSelectionInput {
-  count?: boolean;
-  source?: IdAggregateInputNonNullable;
-  target?: IdAggregateInputNonNullable;
-}
-
-export declare class TagEdgeModel {
-  public find(args?: {
-    where?: TagEdgeWhere;
-
-    options?: TagEdgeOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagEdge[]>;
-  public create(args: {
-    input: TagEdgeCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateTagEdgesMutationResponse>;
-  public update(args: {
-    where?: TagEdgeWhere;
-    update?: TagEdgeUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateTagEdgesMutationResponse>;
-  public delete(args: {
-    where?: TagEdgeWhere;
-
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: TagEdgeWhere;
-
-    aggregate: TagEdgeAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<TagEdgeAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface TagGraphAggregateSelectionInput {
   count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
 }
 
 export declare class TagGraphModel {
@@ -15284,7 +15138,6 @@ export interface ModelMap {
   AppType: AppTypeModel;
   MonacoType: MonacoTypeModel;
   Tag: TagModel;
-  TagEdge: TagEdgeModel;
   TagGraph: TagGraphModel;
   ElementEdge: ElementEdgeModel;
   ElementGraph: ElementGraphModel;

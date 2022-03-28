@@ -16,7 +16,7 @@ import React from 'react'
 const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   const { data } = useGetUsersQuery()
 
-  const dataSource = data?.users?.map((user) => ({
+  const dataSource = data?.users?.map((user: any) => ({
     id: user?.id,
     key: user?.id,
   }))

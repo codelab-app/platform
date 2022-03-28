@@ -2630,11 +2630,6 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
-type CreateTagEdgesMutationResponse {
-  info: CreateInfo!
-  tagEdges: [TagEdge!]!
-}
-
 type CreateTagsMutationResponse {
   info: CreateInfo!
   tags: [Tag!]!
@@ -6881,7 +6876,6 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
-  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -6965,7 +6959,6 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -7178,10 +7171,6 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
-  updateTagEdges(
-    update: TagEdgeUpdateInput
-    where: TagEdgeWhere
-  ): UpdateTagEdgesMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -8899,9 +8888,7 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
-  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
-  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagGraphs: TagGraph!
+  tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   typeReferences(
@@ -9570,80 +9557,10 @@ input TagDisconnectInput {
   parent: TagParentDisconnectFieldInput
 }
 
-type TagEdge {
-  source: ID!
-  target: ID!
-}
-
-type TagEdgeAggregateSelection {
-  count: Int!
-  source: IDAggregateSelectionNonNullable!
-  target: IDAggregateSelectionNonNullable!
-}
-
-input TagEdgeCreateInput {
-  source: ID!
-  target: ID!
-}
-
-input TagEdgeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [TagEdgeSort!]
-}
-
-"""
-Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object.
-"""
-input TagEdgeSort {
-  source: SortDirection
-  target: SortDirection
-}
-
-input TagEdgeUpdateInput {
-  source: ID
-  target: ID
-}
-
-input TagEdgeWhere {
-  AND: [TagEdgeWhere!]
-  OR: [TagEdgeWhere!]
-  source: ID
-  source_CONTAINS: ID
-  source_ENDS_WITH: ID
-  source_IN: [ID!]
-  source_NOT: ID
-  source_NOT_CONTAINS: ID
-  source_NOT_ENDS_WITH: ID
-  source_NOT_IN: [ID!]
-  source_NOT_STARTS_WITH: ID
-  source_STARTS_WITH: ID
-  target: ID
-  target_CONTAINS: ID
-  target_ENDS_WITH: ID
-  target_IN: [ID!]
-  target_NOT: ID
-  target_NOT_CONTAINS: ID
-  target_NOT_ENDS_WITH: ID
-  target_NOT_IN: [ID!]
-  target_NOT_STARTS_WITH: ID
-  target_STARTS_WITH: ID
-}
-
 type TagGraph {
-  """
-  All the links connecting the descendant elements/components
-  """
-  edges: [TagEdge!]!
-
-  """
-  All descendant Elements or Components, at any level
-  """
-  vertices: [Tag!]!
+  descendants: [ID!]!
+  id: ID!
+  name: String!
 }
 
 input TagOnCreateInput {
@@ -10698,11 +10615,6 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
-type UpdateTagEdgesMutationResponse {
-  info: UpdateInfo!
-  tagEdges: [TagEdge!]!
 }
 
 type UpdateTagsMutationResponse {

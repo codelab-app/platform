@@ -1,43 +1,42 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
-import { useUpdateTagForm } from './useUpdateTagForm'
+import { WithTagService } from '../../store/tag.service'
+import { UpdateTagInput, updateTagSchema } from './updateTagSchema'
 
-export const UpdateTagModal = () => {
-  const {
-    onSubmit,
-    onSubmitSuccess,
-    onSubmitError,
-    isLoading,
-    reset,
-    model,
-    actionType,
-  } = useUpdateTagForm()
+export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
+  const tag = tagService.updateModal.tag
+
+  const onSubmit = (input: UpdateTagInput) => {
+    if (!tag) {
+      throw new Error('Updated tag is not set')
+    }
+
+    return tagService.update(tag, input)
+  }
+
+  const closeModal = () => tagService.updateModal.close()
 
   return (
-    <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
+    <ModalForm.Modal
       okText="Update Tag"
-      onCancel={() => reset()}
+      onCancel={closeModal}
       title={<span css={tw`font-semibold`}>Update Tag</span>}
-      visible={actionType === CRUDActionType.Update}
+      visible={tagService.updateModal.isOpen}
     >
-      {({ submitRef }) => (
-        <Form<UpdateTagSchema>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={updateTagSchema}
-          submitRef={submitRef}
-        >
-          <AutoFields omitFields={['id']} />
-        </Form>
-      )}
-    </FormModal>
+      <ModalForm.Form<UpdateTagInput>
+        model={{ ...tag }}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while updating tag',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={updateTagSchema}
+      >
+        <AutoFields omitFields={['id']} />
+      </ModalForm.Form>
+    </ModalForm.Modal>
   )
-}
+})

@@ -22,6 +22,7 @@ export const atomRepository = {
         first(() => true, undefined),
         map((r) => r?.get('graph') as Maybe<Array<AtomFragment>>),
       ),
+
   importAtomFromJson: async (
     atoms: Array<AtomInput>,
   ): Promise<Array<CreateAtomsMutationResponse>> => {

@@ -1,12 +1,13 @@
 import { gql } from 'apollo-server-micro'
+import getTagGraphs from '../repositories/tag/getTagGraphs.cypher'
 
 export const tagSchema = gql`
   type Tag {
     id: ID! @id
     name: String! @unique
     isRoot: Boolean
-    parent: Tag @relationship(type: "Children", direction: IN)
-    children: [Tag!]! @relationship(type: "Children", direction: OUT)
+    parent: Tag @relationship(type: "CHILDREN", direction: IN)
+    children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
   }
 
   # # should be removed, added as a workaround to fix the build issue
@@ -15,24 +16,20 @@ export const tagSchema = gql`
   #   limit: Int
   # }
 
-  type TagEdge {
-    source: ID!
-    target: ID!
-  }
+  # type TagEdge {
+  #   source: ID!
+  #   target: ID!
+  # }
 
-  # # Have ogm generation issue if using type
+  # We represent the TagGraph as a root node
   type TagGraph @exclude {
-    """
-    All descendant Elements or Components, at any level
-    """
-    vertices: [Tag!]!
-    """
-    All the links connecting the descendant elements/components
-    """
-    edges: [TagEdge!]!
+    id: ID!
+    name: String!
+    descendants: [ID!]!
   }
 
   type Query {
-    tagGraphs: TagGraph!
+    tagGraphs: [TagGraph!]!
+      @cypher(statement: """${getTagGraphs}""")
   }
 `

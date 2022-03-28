@@ -1,57 +1,43 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
-import { useGetTagsQuery } from '../../store'
+import { WithTagService } from '../../store/tag.service'
 import { deleteTagsSchema } from './deleteTagsSchema'
-import { useDeleteTagForm } from './useDeleteTagsForm'
 
-export const DeleteTagsModal = () => {
-  const {
-    onSubmit,
-    actionType,
-    entity,
-    onSubmitSuccess,
-    onSubmitError,
-    reset,
-    isLoading,
-    model,
-  } = useDeleteTagForm()
+export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
+  // const deleteTags = data?.tags
+  //   .filter((tag) => deleteIds?.includes(tag.id))
+  //   .map((tag) => tag.name)
+  //   .sort()
 
-  const { data } = useGetTagsQuery()
-  const deleteIds = model?.ids
-
-  const deleteTags = data?.tags
-    .filter((tag) => deleteIds?.includes(tag.id))
-    .map((tag) => tag.name)
-    .sort()
+  const tags = tagService.deleteModal.tags
+  const onSubmit = () => tagService.delete(tags)
+  const closeModal = () => tagService.deleteModal.close()
 
   return (
-    <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
+    <ModalForm.Modal
       okText="Delete Tags"
-      onCancel={() => reset()}
+      onCancel={closeModal}
       title={<span css={tw`font-semibold`}>Delete tags</span>}
-      visible={actionType === CRUDActionType.Delete}
+      visible={tagService.deleteModal.isOpen}
     >
-      {({ submitRef }) => (
-        <Form<DeleteTagsInput>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={deleteTagsSchema}
-          submitRef={submitRef}
-        >
-          Are you sure you want to delete {deleteTags?.join(', ')}?
-          <AutoFields omitFields={['ids']} />
-          <ListField hidden={true} itemProps={{}} name="ids" />
-        </Form>
-      )}
-    </FormModal>
+      <ModalForm.Form<DeleteTagsInput>
+        model={{}}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while deleting tags',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={deleteTagsSchema}
+      >
+        Are you sure you want to delete {tags?.join(', ')}?
+        <AutoFields omitFields={['ids']} />
+        <ListField hidden={true} itemProps={{}} name="ids" />
+      </ModalForm.Form>
+    </ModalForm.Modal>
   )
-}
+})

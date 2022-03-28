@@ -4,18 +4,14 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AppService, WithAppService } from '../../store'
+import { WithAppService } from '../../store'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppModal = observer<WithAppService>(({ appService }) => {
   const { user } = useUser()
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating app',
-  })
-
   const onSubmit = (input: CreateAppInput) =>
-    appService.createApp({ ...input }, user?.sub)
+    appService.create({ ...input }, user?.sub)
 
   const closeModal = () => appService.createModal.close()
 
@@ -28,7 +24,9 @@ export const CreateAppModal = observer<WithAppService>(({ appService }) => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating app',
+        })}
         onSubmitSuccess={closeModal}
         schema={createAppSchema}
       >

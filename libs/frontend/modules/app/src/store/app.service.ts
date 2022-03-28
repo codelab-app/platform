@@ -11,7 +11,6 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
 import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
@@ -75,7 +74,7 @@ export class AppService extends Model({
 
     const updatedApp = apps[0]
 
-    if (!app) {
+    if (!updatedApp) {
       throw new Error('Failed to update app')
     }
 
@@ -100,7 +99,7 @@ export class AppService extends Model({
 
   @modelFlow
   @transaction
-  createApp = _async(function* (
+  create = _async(function* (
     this: AppService,
     input: CreateAppInput,
     ownerId: Nullish<string>,
@@ -153,6 +152,6 @@ export class AppService extends Model({
       throw new Error('App was not deleted')
     }
 
-    return deleteApps
+    return
   })
 }

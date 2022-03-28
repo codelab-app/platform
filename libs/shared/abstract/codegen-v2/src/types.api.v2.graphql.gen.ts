@@ -2722,12 +2722,6 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
-export type CreateTagEdgesMutationResponse = {
-  __typename?: 'CreateTagEdgesMutationResponse'
-  info: CreateInfo
-  tagEdges: Array<TagEdge>
-}
-
 export type CreateTagsMutationResponse = {
   __typename?: 'CreateTagsMutationResponse'
   info: CreateInfo
@@ -7045,7 +7039,6 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
-  createTagEdges: CreateTagEdgesMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -7077,7 +7070,6 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
-  deleteTagEdges: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -7112,7 +7104,6 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
-  updateTagEdges: UpdateTagEdgesMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -7221,10 +7212,6 @@ export type MutationCreateRenderPropsTypesArgs = {
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
-}
-
-export type MutationCreateTagEdgesArgs = {
-  input: Array<TagEdgeCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -7369,10 +7356,6 @@ export type MutationDeleteRenderPropsTypesArgs = {
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type MutationDeleteTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>
 }
 
 export type MutationDeleteTagsArgs = {
@@ -7629,11 +7612,6 @@ export type MutationUpdateRenderPropsTypesArgs = {
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type MutationUpdateTagEdgesArgs = {
-  update?: InputMaybe<TagEdgeUpdateInput>
-  where?: InputMaybe<TagEdgeWhere>
 }
 
 export type MutationUpdateTagsArgs = {
@@ -9312,9 +9290,7 @@ export type Query = {
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-  tagEdges: Array<TagEdge>
-  tagEdgesAggregate: TagEdgeAggregateSelection
-  tagGraphs: TagGraph
+  tagGraphs: Array<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   typeReferences: Array<TypeReference>
@@ -9579,15 +9555,6 @@ export type QueryResetDatabaseMutationResponsesArgs = {
 
 export type QueryResetDatabaseMutationResponsesAggregateArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type QueryTagEdgesArgs = {
-  options?: InputMaybe<TagEdgeOptions>
-  where?: InputMaybe<TagEdgeWhere>
-}
-
-export type QueryTagEdgesAggregateArgs = {
-  where?: InputMaybe<TagEdgeWhere>
 }
 
 export type QueryTagsArgs = {
@@ -10342,73 +10309,11 @@ export type TagDisconnectInput = {
   parent?: InputMaybe<TagParentDisconnectFieldInput>
 }
 
-export type TagEdge = {
-  __typename?: 'TagEdge'
-  source: Scalars['ID']
-  target: Scalars['ID']
-}
-
-export type TagEdgeAggregateSelection = {
-  __typename?: 'TagEdgeAggregateSelection'
-  count: Scalars['Int']
-  source: IdAggregateSelectionNonNullable
-  target: IdAggregateSelectionNonNullable
-}
-
-export type TagEdgeCreateInput = {
-  source: Scalars['ID']
-  target: Scalars['ID']
-}
-
-export type TagEdgeOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<TagEdgeSort>>
-}
-
-/** Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object. */
-export type TagEdgeSort = {
-  source?: InputMaybe<SortDirection>
-  target?: InputMaybe<SortDirection>
-}
-
-export type TagEdgeUpdateInput = {
-  source?: InputMaybe<Scalars['ID']>
-  target?: InputMaybe<Scalars['ID']>
-}
-
-export type TagEdgeWhere = {
-  AND?: InputMaybe<Array<TagEdgeWhere>>
-  OR?: InputMaybe<Array<TagEdgeWhere>>
-  source?: InputMaybe<Scalars['ID']>
-  source_CONTAINS?: InputMaybe<Scalars['ID']>
-  source_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  source_IN?: InputMaybe<Array<Scalars['ID']>>
-  source_NOT?: InputMaybe<Scalars['ID']>
-  source_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  source_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  source_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  source_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  source_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  target?: InputMaybe<Scalars['ID']>
-  target_CONTAINS?: InputMaybe<Scalars['ID']>
-  target_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  target_IN?: InputMaybe<Array<Scalars['ID']>>
-  target_NOT?: InputMaybe<Scalars['ID']>
-  target_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  target_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  target_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  target_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  target_STARTS_WITH?: InputMaybe<Scalars['ID']>
-}
-
 export type TagGraph = {
   __typename?: 'TagGraph'
-  /** All the links connecting the descendant elements/components */
-  edges: Array<TagEdge>
-  /** All descendant Elements or Components, at any level */
-  vertices: Array<Tag>
+  descendants: Array<Scalars['ID']>
+  id: Scalars['ID']
+  name: Scalars['String']
 }
 
 export type TagOnCreateInput = {
@@ -11474,12 +11379,6 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-}
-
-export type UpdateTagEdgesMutationResponse = {
-  __typename?: 'UpdateTagEdgesMutationResponse'
-  info: UpdateInfo
-  tagEdges: Array<TagEdge>
 }
 
 export type UpdateTagsMutationResponse = {

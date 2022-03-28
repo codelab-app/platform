@@ -1,10 +1,13 @@
 import { map } from 'rxjs/operators'
-import { TagGraph } from '../../ogm-types.gen'
 import { tagRepository } from '../../repositories/tag'
-import {
-  IRxTxnResolver,
-  withRxTransaction,
-} from '../abstract/withRxTransaction'
+import { IRxTxnResolver } from '../abstract/withRxTransaction'
 
-export const tagGraphs: IRxTxnResolver = () => (txn) =>
-  tagRepository.getTagsGraph(txn).pipe(map((r) => r))
+export const tagGraphs: IRxTxnResolver = () => (txn) => {
+  return tagRepository.getTagGraphs(txn).pipe(
+    map((x) => {
+      console.log(x)
+
+      return x
+    }),
+  )
+}

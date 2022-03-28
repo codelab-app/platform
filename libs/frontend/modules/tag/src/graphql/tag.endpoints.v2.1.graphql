@@ -28,6 +28,8 @@ query GetTags($options: TagOptions, $where: TagWhere) {
 
 query GetTagGraphs {
   tagGraphs {
-    ...TagGraph
+    id
+    name
+    descendants
   }
 }

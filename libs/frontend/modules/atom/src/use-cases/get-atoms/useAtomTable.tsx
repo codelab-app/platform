@@ -1,4 +1,3 @@
-import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { TableColumnProps } from 'antd'
@@ -7,8 +6,7 @@ import {
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { atomRef, AtomService } from '../../store'
-import { makeFilterData } from '../helper'
-import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
+import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
 import { AtomCellData } from './columns/types'
 
 const onLibraryFilter = (value: any, atom: AtomCellData): boolean => {
@@ -19,10 +17,10 @@ const onLibraryFilter = (value: any, atom: AtomCellData): boolean => {
 }
 
 export const useAtomTable = (atomService: AtomService) => {
-  const { data } = useGetTagGraphsQuery()
-  const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTrees()
-  const filterTreeData = makeFilterData(tagTreeData)
+  // const { data } = useGetTagGraphsQuery()
+  // const tagTree = useTagTree(data?.tagGraphs)
+  // const tagTreeData = tagTree.getAntdTrees()
+  // const filterTreeData = makeFilterData(tagTreeData)
 
   const columns: Array<TableColumnProps<AtomCellData>> = [
     {
@@ -40,19 +38,19 @@ export const useAtomTable = (atomService: AtomService) => {
       onFilter: onLibraryFilter,
       render: (library) => <LibraryColumn library={library} />,
     },
-    {
-      title: 'Tags',
-      dataIndex: 'tags',
-      key: 'tags',
-      filters: filterTreeData,
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value: string | number | boolean, atom: AtomCellData) => {
-        return !!atom.tagIds?.includes(value.toString())
-      },
-      onHeaderCell: headerCellProps,
-      render: (tags) => <TagsColumn tags={tags} />,
-    },
+    // {
+    //   title: 'Tags',
+    //   dataIndex: 'tags',
+    //   key: 'tags',
+    //   filters: filterTreeData,
+    //   filterMode: 'tree',
+    //   filterSearch: true,
+    //   onFilter: (value: string | number | boolean, atom: AtomCellData) => {
+    //     return !!atom.tagIds?.includes(value.toString())
+    //   },
+    //   onHeaderCell: headerCellProps,
+    //   render: (tags) => <TagsColumn tags={tags} />,
+    // },
     {
       title: 'Props API',
       dataIndex: 'props',

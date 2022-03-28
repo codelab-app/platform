@@ -21,6 +21,6 @@ export class AtomsModalService extends ExtendedModel(() => ({
 })) {
   @computed
   get atoms() {
-    return this.metadata?.map((a) => a.current) ?? []
+    return this.metadata?.map((atom) => atom.current) ?? []
   }
 }

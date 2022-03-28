@@ -1,65 +1,49 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateTagInput } from '@codelab/shared/abstract/codegen'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { useTagState } from '../../hooks'
-import { useGetTagsQuery } from '../../store'
+import { WithTagService } from '../../store/tag.service'
 import { createTagSchema } from './createTagSchema'
 import { DisplayIfNotRoot } from './DisplayIfNotRoot'
-import { useCreateTagForm } from './useCreateTagForm'
+import { CreateTagInput } from './types'
 
-export const CreateTagModal = () => {
-  const { selectedTag } = useTagState()
-
-  const {
-    onSubmit,
-    model,
-    onSubmitError,
-    onSubmitSuccess,
-    actionType,
-    reset,
-    isLoading,
-  } = useCreateTagForm(selectedTag?.toString() as string)
-
-  const { data } = useGetTagsQuery()
-
-  const options = data?.tags.map((tag) => ({
-    label: tag.name,
-    value: tag.id,
-  }))
+export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
+  const onSubmit = (input: CreateTagInput) => tagService.create({ ...input })
+  // const options = tagService.getAll.map((tag) => ({
+  //   label: tag.name,
+  //   value: tag.id,
+  // }))
+  const options = [{ label: '', value: '' }]
+  const closeModal = () => tagService.createModal.close()
 
   return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
+    <ModalForm.Modal
       okText="Create Tag"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Create tag</span>}
-      visible={actionType === CRUDActionType.Create}
+      onCancel={closeModal}
+      visible={tagService.createModal.isOpen}
     >
-      {({ submitRef }) => (
-        <Form<CreateTagInput>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={createTagSchema}
-          submitRef={submitRef}
-        >
-          <AutoFields omitFields={['parentTagId']} />
-          <DisplayIfNotRoot>
-            <SelectField
-              label="Parent Tag"
-              name="parentTagId"
-              optionFilterProp="label"
-              options={options}
-              required
-              showSearch
-            />
-          </DisplayIfNotRoot>
-        </Form>
-      )}
-    </FormModal>
+      <ModalForm.Form
+        model={{}}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating tag',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={createTagSchema}
+      >
+        <AutoFields omitFields={['parentTagId']} />
+        <DisplayIfNotRoot>
+          <SelectField
+            label="Parent Tag"
+            name="parentTagId"
+            optionFilterProp="label"
+            options={options}
+            required
+            showSearch={true}
+          />
+        </DisplayIfNotRoot>
+      </ModalForm.Form>
+    </ModalForm.Modal>
   )
-}
+})

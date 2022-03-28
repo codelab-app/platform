@@ -1,23 +1,21 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AtomService, WithAtomService } from '../../store'
-import { TreeSelectField } from '../components'
+import { WithAtomService } from '../../store'
 import { CreateAtomInputSchema, createAtomSchema } from './createAtomSchema'
 
 export const CreateAtomModal = observer<WithAtomService>(({ atomService }) => {
   const closeModal = () => atomService.createModal.close()
   const { user } = useUser()
-  const { data } = useGetTagGraphsQuery()
-  const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTrees()
+  // const { data } = useGetTagGraphsQuery()
+  // const tagTree = useTagTree(data?.tagGraphs)
+  // const tagTreeData = tagTree.getAntdTrees()
 
   const onSubmit = (input: CreateAtomInputSchema) =>
-    atomService.createAtom(input, user?.sub)
+    atomService.create(input, user?.sub)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating atom',
@@ -37,7 +35,7 @@ export const CreateAtomModal = observer<WithAtomService>(({ atomService }) => {
         schema={createAtomSchema}
       >
         <AutoFields omitFields={['tags']} />
-        <TreeSelectField label="Tags" name="tags" treeData={tagTreeData} />
+        {/* <TreeSelectField label="Tags" name="tags" treeData={tagTreeData} /> */}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

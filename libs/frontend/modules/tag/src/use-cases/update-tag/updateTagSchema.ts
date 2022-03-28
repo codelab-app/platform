@@ -1,10 +1,10 @@
 import { JSONSchemaType } from 'ajv'
 
-export type UpdateTagSchema = {
+export type UpdateTagInput = {
   name: string
 }
 
-export const updateTagSchema: JSONSchemaType<UpdateTagSchema> = {
+export const updateTagSchema: JSONSchemaType<UpdateTagInput> = {
   title: 'Update Tag Input',
   type: 'object',
   properties: {

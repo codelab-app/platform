@@ -42,20 +42,13 @@ const AppsPageHeader = observer(() => {
   const store = useStore()
 
   const pageHeaderButtons = [
-    <CreateAppButton apps={store.appService} key={0} />,
+    <CreateAppButton appService={store.appService} key={0} />,
     <Dropdown key={1} overlay={menu} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
   ]
 
-  return (
-    <PageHeader
-      extra={pageHeaderButtons}
-      // onBack={() => router.back()}
-      ghost={false}
-      title="Apps"
-    />
-  )
+  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Apps" />
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {

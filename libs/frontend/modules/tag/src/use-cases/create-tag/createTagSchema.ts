@@ -1,5 +1,5 @@
-import { CreateTagInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { CreateTagInput } from './types'
 
 export const createTagSchema: JSONSchemaType<CreateTagInput> = {
   title: 'Create Tag Input',
