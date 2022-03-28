@@ -2632,19 +2632,11 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
-<<<<<<< HEAD
-=======
 type CreateResourcesMutationResponse {
   info: CreateInfo!
   resources: [Resource!]!
 }
 
-type CreateTagEdgesMutationResponse {
-  info: CreateInfo!
-  tagEdges: [TagEdge!]!
-}
-
->>>>>>> feat: get resource table
 type CreateTagsMutationResponse {
   info: CreateInfo!
   tags: [Tag!]!
@@ -6891,13 +6883,9 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
-<<<<<<< HEAD
-=======
   createResources(
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
-  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
->>>>>>> feat: get resource table
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -6981,14 +6969,10 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-<<<<<<< HEAD
-=======
   deleteResources(
     delete: ResourceDeleteInput
     where: ResourceWhere
   ): DeleteInfo!
-  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
->>>>>>> feat: get resource table
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -7201,8 +7185,6 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
-<<<<<<< HEAD
-=======
   updateResources(
     connect: ResourceConnectInput
     connectOrCreate: ResourceConnectOrCreateInput
@@ -7212,11 +7194,6 @@ type Mutation {
     update: ResourceUpdateInput
     where: ResourceWhere
   ): UpdateResourcesMutationResponse!
-  updateTagEdges(
-    update: TagEdgeUpdateInput
-    where: TagEdgeWhere
-  ): UpdateTagEdgesMutationResponse!
->>>>>>> feat: get resource table
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -8934,15 +8911,9 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
-<<<<<<< HEAD
-  tagGraphs: [TagGraph!]!
-=======
   resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
   resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
-  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
-  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagGraphs: TagGraph!
->>>>>>> feat: get resource table
+  tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   typeReferences(
@@ -9420,12 +9391,14 @@ type Resource {
     sort: [ResourceAtomConnectionSort!]
     where: ResourceAtomConnectionWhere
   ): ResourceAtomConnection!
+  data: String!
   id: ID!
   name: String!
 }
 
 type ResourceAggregateSelection {
   count: Int!
+  data: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -9557,6 +9530,7 @@ input ResourceConnectOrCreateInput {
 
 input ResourceCreateInput {
   atom: ResourceAtomFieldInput
+  data: String!
   name: String!
 }
 
@@ -9586,12 +9560,14 @@ input ResourceRelationInput {
 Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object.
 """
 input ResourceSort {
+  data: SortDirection
   id: SortDirection
   name: SortDirection
 }
 
 input ResourceUpdateInput {
   atom: ResourceAtomUpdateFieldInput
+  data: String
   name: String
 }
 
@@ -9603,6 +9579,16 @@ input ResourceWhere {
   atomConnection: ResourceAtomConnectionWhere
   atomConnection_NOT: ResourceAtomConnectionWhere
   atom_NOT: AtomWhere
+  data: String
+  data_CONTAINS: String
+  data_ENDS_WITH: String
+  data_IN: [String!]
+  data_NOT: String
+  data_NOT_CONTAINS: String
+  data_NOT_ENDS_WITH: String
+  data_NOT_IN: [String!]
+  data_NOT_STARTS_WITH: String
+  data_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10889,19 +10875,11 @@ type UpdateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
-<<<<<<< HEAD
-=======
 type UpdateResourcesMutationResponse {
   info: UpdateInfo!
   resources: [Resource!]!
 }
 
-type UpdateTagEdgesMutationResponse {
-  info: UpdateInfo!
-  tagEdges: [TagEdge!]!
-}
-
->>>>>>> feat: get resource table
 type UpdateTagsMutationResponse {
   info: UpdateInfo!
   tags: [Tag!]!

@@ -21,6 +21,20 @@ export type InterfaceForm_GetAtomsQuery = {
   atoms: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
+export type InterfaceForm_GetAtomsWithApiQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.AtomOptions>
+  where?: Types.InputMaybe<Types.AtomWhere>
+}>
+
+export type InterfaceForm_GetAtomsWithApiQuery = {
+  atoms: Array<{
+    id: string
+    name: string
+    type: Types.AtomType
+    api: { id: string }
+  }>
+}
+
 export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ComponentOptions>
   where?: Types.InputMaybe<Types.ComponentWhere>
@@ -53,6 +67,21 @@ export const InterfaceForm_GetAtomsDocument = gql`
       id
       name
       type
+    }
+  }
+`
+export const InterfaceForm_GetAtomsWithApiDocument = gql`
+  query InterfaceForm_GetAtomsWithApi(
+    $options: AtomOptions
+    $where: AtomWhere
+  ) {
+    atoms(options: $options, where: $where) {
+      id
+      name
+      type
+      api {
+        id
+      }
     }
   }
 `
@@ -120,6 +149,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'InterfaceForm_GetAtoms',
+        'query',
+      )
+    },
+    InterfaceForm_GetAtomsWithApi(
+      variables?: InterfaceForm_GetAtomsWithApiQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<InterfaceForm_GetAtomsWithApiQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<InterfaceForm_GetAtomsWithApiQuery>(
+            InterfaceForm_GetAtomsWithApiDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'InterfaceForm_GetAtomsWithApi',
         'query',
       )
     },

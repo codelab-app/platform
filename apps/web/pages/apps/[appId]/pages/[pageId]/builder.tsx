@@ -20,7 +20,6 @@ import {
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import { reduxStoreWrapper } from 'apps/web/src/store/reduxStoreWrapper'
-import { useStore } from 'libs/frontend/model/infra/mobx/src/mst'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'

@@ -16,7 +16,7 @@ export type E2eImportAdminDataMutationVariables = Types.Exact<{
 }>
 
 export type E2eImportAdminDataMutation = {
-  importAdminData?: { result: boolean } | null | undefined
+  importAdminData?: { result: boolean } | null
 }
 
 export type E2eExportAdminDataQueryVariables = Types.Exact<{

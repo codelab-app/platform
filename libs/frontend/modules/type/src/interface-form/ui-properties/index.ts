@@ -1,4 +1,4 @@
-import { IAnyType, IType, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 import { appTypeUiProperties } from './appTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
@@ -6,6 +6,8 @@ import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
 import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
+import { monacoTypeUiProperties } from './monacoTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
   [TKind in TypeKind]: UiPropertiesFn<IType<TKind>>
@@ -15,6 +17,7 @@ type UniformsPropertiesContainer = Partial<{
 // We don't set them in the json schema, because they are needed only when rendering a form with Uniforms
 // Register ui properties for new types here
 const uiPropertiesContainer: UniformsPropertiesContainer = {
+  [TypeKind.MonacoType]: monacoTypeUiProperties,
   [TypeKind.UnionType]: unionTypeUiProperties,
 
   [TypeKind.ReactNodeType]: selectComponentUiProperties,

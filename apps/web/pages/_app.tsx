@@ -28,46 +28,41 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: AppProps<unknown>) => {
-  /**
-   * mobx-key-stone
-   */
   const store = useMemo(
     () => initializeStore(pageProps.initialState),
-    [],
+    [pageProps.initialState],
   )
-
-
 
   const {
     Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
   } = Component as CodelabPage<unknown>
 
-
   return (
     <StoreProvider value={store}>
       <UserProvider>
-        <LocalizationProvider dateAdapter={DateFnsAdapter}>
-          <ConfigProvider>
-            <GlobalStyles />
-            <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                slickCssFix,
-                ...globalTailwindFix,
-              ]}
-            />
-            <Layout>
-              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              <Component {...pageProps} />
-            </Layout>
-          </ConfigProvider>
-        </LocalizationProvider>
+        <QueryClientProvider client={queryClient}>
+          <LocalizationProvider dateAdapter={DateFnsAdapter}>
+            <ConfigProvider>
+              <GlobalStyles />
+              <Global
+                styles={[
+                  css({
+                    '#__next': {
+                      height: '100%',
+                    },
+                  }),
+                  slickCssFix,
+                  ...globalTailwindFix,
+                ]}
+              />
+              <Layout>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <Component {...pageProps} />
+              </Layout>
+            </ConfigProvider>
+          </LocalizationProvider>
+        </QueryClientProvider>
       </UserProvider>
-
     </StoreProvider>
   )
 }

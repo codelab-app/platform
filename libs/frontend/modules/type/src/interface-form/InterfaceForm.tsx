@@ -1,4 +1,5 @@
-import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import { Form, handleAsyncFormSubmit } from '@codelab/frontend/view/components'
+import { Spin } from 'antd'
 import { autorun } from 'mobx'
 import { mergeDeepRight } from 'ramda'
 import React, { useEffect, useRef, useState } from 'react'
@@ -23,14 +24,21 @@ export const InterfaceForm = <TData,>({
   onChange,
   onSubmitError,
   onSubmitSuccess,
+  submitRef,
+  setIsLoading
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const initialSchemaRef = useRef(initialSchema)
   const [formSchema, setFormSchema] = useState(initialSchema ?? {})
+  console.log({ formSchema, interfaceType });
+
 
   useEffect(
     () =>
       autorun(() => {
         const typeTreeSchema = transformer.transform(interfaceType)
+
+        console.log({ typeTreeSchema });
+
         setFormSchema(mergeDeepRight(initialSchemaRef.current, typeTreeSchema))
       }),
     [interfaceType],
@@ -42,11 +50,12 @@ export const InterfaceForm = <TData,>({
 
   return (
     <Form
+      submitRef={submitRef}
       model={model}
       onChange={onChange}
       onSubmit={handleFormSubmit<DeepPartial<TData>>(
         onSubmit as any,
-        undefined,
+        setIsLoading,
         onSubmitSuccess as any,
         onSubmitError as any,
       )}

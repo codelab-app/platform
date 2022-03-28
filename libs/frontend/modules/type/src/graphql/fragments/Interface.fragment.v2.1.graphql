@@ -5,6 +5,7 @@ fragment InterfaceType on InterfaceType {
       ...InterfaceTypeFieldEdge
     }
   }
+  descendantTypesIds
 }
 
 fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {

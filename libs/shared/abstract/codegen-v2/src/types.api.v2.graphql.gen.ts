@@ -2724,21 +2724,12 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
-<<<<<<< HEAD
-=======
 export type CreateResourcesMutationResponse = {
   __typename?: 'CreateResourcesMutationResponse'
   info: CreateInfo
   resources: Array<Resource>
 }
 
-export type CreateTagEdgesMutationResponse = {
-  __typename?: 'CreateTagEdgesMutationResponse'
-  info: CreateInfo
-  tagEdges: Array<TagEdge>
-}
-
->>>>>>> feat: get resource table
 export type CreateTagsMutationResponse = {
   __typename?: 'CreateTagsMutationResponse'
   info: CreateInfo
@@ -7056,11 +7047,7 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
-<<<<<<< HEAD
-=======
   createResources: CreateResourcesMutationResponse
-  createTagEdges: CreateTagEdgesMutationResponse
->>>>>>> feat: get resource table
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -7092,11 +7079,7 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
-<<<<<<< HEAD
-=======
   deleteResources: DeleteInfo
-  deleteTagEdges: DeleteInfo
->>>>>>> feat: get resource table
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -7131,11 +7114,7 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
-<<<<<<< HEAD
-=======
   updateResources: UpdateResourcesMutationResponse
-  updateTagEdges: UpdateTagEdgesMutationResponse
->>>>>>> feat: get resource table
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -7246,17 +7225,10 @@ export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
 }
 
-<<<<<<< HEAD
-=======
 export type MutationCreateResourcesArgs = {
   input: Array<ResourceCreateInput>
 }
 
-export type MutationCreateTagEdgesArgs = {
-  input: Array<TagEdgeCreateInput>
-}
-
->>>>>>> feat: get resource table
 export type MutationCreateTagsArgs = {
   input: Array<TagCreateInput>
 }
@@ -7401,18 +7373,11 @@ export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
-<<<<<<< HEAD
-=======
 export type MutationDeleteResourcesArgs = {
   delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<ResourceWhere>
 }
 
-export type MutationDeleteTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>
-}
-
->>>>>>> feat: get resource table
 export type MutationDeleteTagsArgs = {
   delete?: InputMaybe<TagDeleteInput>
   where?: InputMaybe<TagWhere>
@@ -7669,8 +7634,6 @@ export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
-<<<<<<< HEAD
-=======
 export type MutationUpdateResourcesArgs = {
   connect?: InputMaybe<ResourceConnectInput>
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
@@ -7681,12 +7644,6 @@ export type MutationUpdateResourcesArgs = {
   where?: InputMaybe<ResourceWhere>
 }
 
-export type MutationUpdateTagEdgesArgs = {
-  update?: InputMaybe<TagEdgeUpdateInput>
-  where?: InputMaybe<TagEdgeWhere>
-}
-
->>>>>>> feat: get resource table
 export type MutationUpdateTagsArgs = {
   connect?: InputMaybe<TagConnectInput>
   connectOrCreate?: InputMaybe<TagConnectOrCreateInput>
@@ -9363,15 +9320,9 @@ export type Query = {
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-<<<<<<< HEAD
-  tagGraphs: Array<TagGraph>
-=======
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
-  tagEdges: Array<TagEdge>
-  tagEdgesAggregate: TagEdgeAggregateSelection
-  tagGraphs: TagGraph
->>>>>>> feat: get resource table
+  tagGraphs: Array<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   typeReferences: Array<TypeReference>
@@ -9638,8 +9589,6 @@ export type QueryResetDatabaseMutationResponsesAggregateArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
-<<<<<<< HEAD
-=======
 export type QueryResourcesArgs = {
   options?: InputMaybe<ResourceOptions>
   where?: InputMaybe<ResourceWhere>
@@ -9649,16 +9598,6 @@ export type QueryResourcesAggregateArgs = {
   where?: InputMaybe<ResourceWhere>
 }
 
-export type QueryTagEdgesArgs = {
-  options?: InputMaybe<TagEdgeOptions>
-  where?: InputMaybe<TagEdgeWhere>
-}
-
-export type QueryTagEdgesAggregateArgs = {
-  where?: InputMaybe<TagEdgeWhere>
-}
-
->>>>>>> feat: get resource table
 export type QueryTagsArgs = {
   options?: InputMaybe<TagOptions>
   where?: InputMaybe<TagWhere>
@@ -10195,6 +10134,7 @@ export type Resource = {
   atom: Atom
   atomAggregate?: Maybe<ResourceAtomAtomAggregationSelection>
   atomConnection: ResourceAtomConnection
+  data: Scalars['String']
   id: Scalars['ID']
   name: Scalars['String']
 }
@@ -10221,6 +10161,7 @@ export type ResourceAtomConnectionArgs = {
 export type ResourceAggregateSelection = {
   __typename?: 'ResourceAggregateSelection'
   count: Scalars['Int']
+  data: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -10356,6 +10297,7 @@ export type ResourceConnectOrCreateInput = {
 
 export type ResourceCreateInput = {
   atom?: InputMaybe<ResourceAtomFieldInput>
+  data: Scalars['String']
   name: Scalars['String']
 }
 
@@ -10380,12 +10322,14 @@ export type ResourceRelationInput = {
 
 /** Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object. */
 export type ResourceSort = {
+  data?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
 export type ResourceUpdateInput = {
   atom?: InputMaybe<ResourceAtomUpdateFieldInput>
+  data?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
 }
 
@@ -10397,6 +10341,16 @@ export type ResourceWhere = {
   atomConnection?: InputMaybe<ResourceAtomConnectionWhere>
   atomConnection_NOT?: InputMaybe<ResourceAtomConnectionWhere>
   atom_NOT?: InputMaybe<AtomWhere>
+  data?: InputMaybe<Scalars['String']>
+  data_CONTAINS?: InputMaybe<Scalars['String']>
+  data_ENDS_WITH?: InputMaybe<Scalars['String']>
+  data_IN?: InputMaybe<Array<Scalars['String']>>
+  data_NOT?: InputMaybe<Scalars['String']>
+  data_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  data_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  data_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  data_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  data_STARTS_WITH?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -11712,21 +11666,12 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
-<<<<<<< HEAD
-=======
 export type UpdateResourcesMutationResponse = {
   __typename?: 'UpdateResourcesMutationResponse'
   info: UpdateInfo
   resources: Array<Resource>
 }
 
-export type UpdateTagEdgesMutationResponse = {
-  __typename?: 'UpdateTagEdgesMutationResponse'
-  info: UpdateInfo
-  tagEdges: Array<TagEdge>
-}
-
->>>>>>> feat: get resource table
 export type UpdateTagsMutationResponse = {
   __typename?: 'UpdateTagsMutationResponse'
   info: UpdateInfo

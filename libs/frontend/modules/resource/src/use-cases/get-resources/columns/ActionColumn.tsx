@@ -18,9 +18,9 @@ export const ActionColumn = ({ resource }: { resource: Resource }) => {
   // const { openDeleteModal, openUpdateModal } = useComponentDispatch()
 
   const onEdit = () => {
+    resourceService.updateModal.open(resourceRef(resource.id))
   }
 
-  console.log({ resource });
 
   const onDelete = () => {
     resourceService.deleteModal.open([resourceRef(resource.id)])

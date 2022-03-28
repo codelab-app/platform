@@ -19,6 +19,7 @@ import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
+import { filterResourceType } from '@codelab/shared/abstract/core'
 
 export type WithAtomService = {
   atomService: AtomService
@@ -34,6 +35,13 @@ export class AtomService extends Model({
   @computed
   get atomsList() {
     return [...this.atoms.values()]
+  }
+
+  @computed
+  get getResourceAtomList() {
+    const atoms = this.atomsList
+    const resourceAtoms = atoms.filter((a) => filterResourceType(a.type))
+    return resourceAtoms
   }
 
   atom(id: string) {

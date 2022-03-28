@@ -1,4 +1,3 @@
-
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
@@ -11,6 +10,8 @@ export class ResourceModalService extends ExtendedModel(() => ({
 })) {
   @computed
   get resource() {
+    console.log(this.metadata?.current)
+
     return this.metadata?.current ?? null
   }
 }
