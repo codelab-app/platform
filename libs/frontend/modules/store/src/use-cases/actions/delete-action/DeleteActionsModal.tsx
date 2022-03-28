@@ -39,7 +39,7 @@ export const DeleteActionsModal = observer<WithActionService>(
         >
           <h4>
             Are you sure you want to delete actions "
-            {actionService.deleteModal.action}"?
+            {actionService.deleteModal.action?.name}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

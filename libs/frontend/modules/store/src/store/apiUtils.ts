@@ -8,7 +8,9 @@ import {
 } from '@codelab/shared/abstract/codegen-v2'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 
-export const makeCreateInput = (input: CreateStoreInput): StoreCreateInput => {
+export const makeStoreCreateInput = (
+  input: CreateStoreInput,
+): StoreCreateInput => {
   const { name, parentStore } = input
 
   return {
@@ -24,7 +26,9 @@ export const makeCreateInput = (input: CreateStoreInput): StoreCreateInput => {
   }
 }
 
-export const makeUpdateInput = (input: UpdateStoreInput): StoreUpdateInput => {
+export const makeStoreUpdateInput = (
+  input: UpdateStoreInput,
+): StoreUpdateInput => {
   const { name, parentStore } = input
 
   return {

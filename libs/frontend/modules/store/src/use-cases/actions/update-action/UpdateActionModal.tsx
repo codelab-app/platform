@@ -9,13 +9,14 @@ import { UpdateActionInput, updateActionSchema } from './updateActionSchema'
 export const UpdateActionModal = observer<WithActionService>(
   ({ actionService }) => {
     const closeModal = () => actionService.updateModal.close()
+    const updateAction = actionService.updateModal.action
 
     const onSubmit = (data: UpdateActionInput) => {
-      if (!actionService.updateModal.action) {
+      if (!updateAction) {
         throw new Error('Updated action is not set')
       }
 
-      return actionService.updateModal.action.update(data)
+      return actionService.updateAction(updateAction, data)
     }
 
     const onSubmitError = createNotificationHandler({

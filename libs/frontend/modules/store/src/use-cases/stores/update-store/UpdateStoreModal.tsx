@@ -24,14 +24,12 @@ export const UpdateStoreModal = observer<WithStoreService>(
       title: 'Error while updating store',
     })
 
-    const selectedStore = storeService.updateModal.store
-
     const model = {
-      name: selectedStore?.name,
-      parentStore: selectedStore
+      name: updateStore?.name,
+      parentStore: updateStore
         ? {
-            id: selectedStore.parentStore?.id,
-            key: selectedStore.storeKey,
+            id: updateStore.parentStore?.id,
+            key: updateStore.storeKey,
           }
         : undefined,
     }

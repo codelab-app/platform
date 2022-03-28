@@ -13,7 +13,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import type { CreateActionInput } from '../use-cases'
+import type { CreateActionInput, UpdateActionInput } from '../use-cases'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
 import { actionApi } from './actionApi'
@@ -38,6 +38,30 @@ export class ActionService extends Model({
   action(id: string) {
     return this.actions.get(id)
   }
+
+  @modelFlow
+  @transaction
+  updateAction = _async(function* (
+    this: ActionService,
+    store: Action,
+    input: UpdateActionInput,
+  ) {
+    const { updateActions } = yield* _await(
+      actionApi.UpdateActions({
+        where: { id: store.id },
+        update: {
+          body: input.body,
+          name: input.name,
+        },
+      }),
+    )
+
+    const updatedAction = updateActions.actions[0]
+    const actionModel = Action.fromFragment(updatedAction)
+    this.actions.set(updatedAction.id, actionModel)
+
+    return actionModel
+  })
 
   @modelFlow
   @transaction
