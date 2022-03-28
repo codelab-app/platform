@@ -30,6 +30,10 @@ export class Store extends ExtendedModel(() => ({
     return this.id
   }
 
+  getParent(): Maybe<Store> {
+    return this.parentStore?.current
+  }
+
   addChild(child: Store): void {
     this.children.push(storeRef(child.id))
   }

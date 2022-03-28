@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import { idProp, Model, modelAction, ObjectMap, prop, Ref } from 'mobx-keystone'
@@ -23,6 +24,8 @@ export abstract class BaseModel<M, Edge> extends Model(
   }
 
   abstract hasParent(): boolean
+
+  abstract getParent(): Maybe<M>
 
   abstract addChild(child: M): void
 
@@ -71,6 +74,17 @@ export abstract class BaseTreeService<
     this.nodes.set(node.id, node)
 
     return node
+  }
+
+  /**
+   * Returns parent ids till root for a node
+   */
+  getNodeAndParentsIds(id: string): Array<string> {
+    const node = this.node(id)
+
+    return node?.hasParent()
+      ? [id].concat(this.getNodeAndParentsIds(node.getParent().id))
+      : [id]
   }
 
   /**

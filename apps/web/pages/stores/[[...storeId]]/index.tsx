@@ -13,6 +13,7 @@ import {
   UpdateActionModal,
   useCurrentStoreId,
 } from '@codelab/frontend/modules/store'
+import { ConditionalView } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -20,30 +21,38 @@ import {
 } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { actionService } = useStore()
+  const { actionService, storeService } = useStore()
   const storeId = useCurrentStoreId()
 
-  if (!storeId) {
-    return null
-  }
+  useEffect(() => {
+    if (storeId) {
+      storeService.setCurrentStoreId(storeId)
+    }
+  }, [storeId])
 
   return (
     <>
       <Head>
         <title>Stores | Codelab</title>
       </Head>
-      <>
-        <CreateActionModal actionService={actionService} storeId={storeId} />
+      <ConditionalView condition={Boolean(storeService.currentStoreId)}>
+        <CreateActionModal
+          actionService={actionService}
+          storeId={storeService.currentStoreId}
+        />
         <UpdateActionModal actionService={actionService} />
         <DeleteActionsModal actionService={actionService} />
         <ContentSection>
           <ActionPageHeader actionService={actionService} />
-          <GetActionsTable actionService={actionService} storeId={storeId} />
+          <GetActionsTable
+            actionService={actionService}
+            storeService={storeService}
+          />
         </ContentSection>
-      </>
+      </ConditionalView>
     </>
   )
 })

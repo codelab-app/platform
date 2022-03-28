@@ -24,6 +24,8 @@ export class StoreService extends Model({
   createModal: prop(() => new StoreModalService({})),
   updateModal: prop(() => new StoreModalService({})),
   deleteModal: prop(() => new StoreModalService({})),
+
+  currentStoreId: prop<string>().withSetter(),
 }) {
   store(id: string): Store {
     return this.storesTree.node(id) as Store
