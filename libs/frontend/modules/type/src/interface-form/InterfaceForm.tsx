@@ -1,4 +1,5 @@
-import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import { Form, handleAsyncFormSubmit } from '@codelab/frontend/view/components'
+import { Spin } from 'antd'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
@@ -48,7 +49,7 @@ export const InterfaceForm = observer(
       <Form
         model={model}
         onChange={onChange}
-        onSubmit={handleFormSubmit<DeepPartial<TData>>(
+        onSubmit={handleAsyncFormSubmit<DeepPartial<TData>>(
           onSubmit as any,
           undefined,
           onSubmitSuccess as any,

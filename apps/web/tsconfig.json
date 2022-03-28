@@ -7,7 +7,6 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "useDefineForClassFields": true,
     "lib": ["es2021"],
     "allowSyntheticDefaultImports": true,
     "types": ["node", "worker-loader", "window", "@fancyapps/ui", "cypher"],

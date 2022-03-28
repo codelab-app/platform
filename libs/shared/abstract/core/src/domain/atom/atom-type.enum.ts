@@ -394,10 +394,7 @@ export const hookTypes = new Set([
   AtomType.HookRouter,
 ])
 
-export const resourceTypes = [
-  AtomType.ResourceGraphQL,
-  AtomType.ResourceREST
-]
+export const resourceTypes = [AtomType.ResourceGraphQL, AtomType.ResourceREST]
 
 export const filterResourceType = (atom: AtomType | string) =>
   resourceTypes.includes(atom as AtomType)

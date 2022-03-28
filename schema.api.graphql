@@ -7116,6 +7116,9 @@ type Mutation {
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
   createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
+  createResources(
+    input: [ResourceCreateInput!]!
+  ): CreateResourcesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -9330,6 +9333,9 @@ type Query {
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
   tagGraphs: TagGraph!
+  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
+  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
+  tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   tagsConnection(

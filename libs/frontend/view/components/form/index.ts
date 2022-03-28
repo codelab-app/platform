@@ -1,5 +1,7 @@
 export * from './components/Form'
 export * from './components/FormModal'
+export * from './components/ModalForm'
+export * from './components/ModalInterfaceForm'
 export * from './components/utils'
 export * from './fields/AutoCompleteField'
 export * from './fields/DisplayIfField'

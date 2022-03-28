@@ -4,6 +4,8 @@ import { JSONSchemaType } from 'ajv'
 export type CreateResourceInput = {
   name: string
   type: AtomType
+  url: string
+  queryString: string
 }
 
 export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
@@ -16,10 +18,13 @@ export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
     },
     type: {
       type: 'string',
-      enum: Object.keys(AtomType).filter(
-        filterResourceType
-      ) as Array<AtomType>,
+    },
+    url: {
+      type: 'string',
+    },
+    queryString: {
+      type: 'string',
     },
   },
-  required: ['name', 'type'],
+  required: ['name', 'type', 'url'],
 }

@@ -6,6 +6,8 @@ import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
 import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
+import { monacoTypeUiProperties } from './monacoTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
   [TKind in ITypeKind]: UiPropertiesFn<IType<TKind>>

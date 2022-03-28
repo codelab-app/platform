@@ -21,13 +21,18 @@ export type InterfaceForm_GetAtomsQuery = {
   atoms: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
-export type InterfaceForm_GetStoresQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.StoreOptions>
-  where?: Types.InputMaybe<Types.StoreWhere>
+export type InterfaceForm_GetAtomsWithApiQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.AtomOptions>
+  where?: Types.InputMaybe<Types.AtomWhere>
 }>
 
-export type InterfaceForm_GetStoresQuery = {
-  stores: Array<{ id: string; name: string }>
+export type InterfaceForm_GetAtomsWithApiQuery = {
+  atoms: Array<{
+    id: string
+    name: string
+    type: Types.AtomType
+    api: { id: string }
+  }>
 }
 
 export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
@@ -65,11 +70,18 @@ export const InterfaceForm_GetAtomsDocument = gql`
     }
   }
 `
-export const InterfaceForm_GetStoresDocument = gql`
-  query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
-    stores(options: $options, where: $where) {
+export const InterfaceForm_GetAtomsWithApiDocument = gql`
+  query InterfaceForm_GetAtomsWithApi(
+    $options: AtomOptions
+    $where: AtomWhere
+  ) {
+    atoms(options: $options, where: $where) {
       id
       name
+      type
+      api {
+        id
+      }
     }
   }
 `
@@ -140,18 +152,18 @@ export function getSdk(
         'query',
       )
     },
-    InterfaceForm_GetStores(
-      variables?: InterfaceForm_GetStoresQueryVariables,
+    InterfaceForm_GetAtomsWithApi(
+      variables?: InterfaceForm_GetAtomsWithApiQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<InterfaceForm_GetStoresQuery> {
+    ): Promise<InterfaceForm_GetAtomsWithApiQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<InterfaceForm_GetStoresQuery>(
-            InterfaceForm_GetStoresDocument,
+          client.request<InterfaceForm_GetAtomsWithApiQuery>(
+            InterfaceForm_GetAtomsWithApiDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'InterfaceForm_GetStores',
+        'InterfaceForm_GetAtomsWithApi',
         'query',
       )
     },

@@ -10,23 +10,32 @@ import {
   CreateResourceModal,
   DeleteResourceModal,
   GetResourcesTable,
+  UpdateResourceModal
 } from '@codelab/frontend/modules/resource'
+import { TypeService } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { resourceTypes } from '@codelab/shared/abstract/core'
 import { PageHeader } from 'antd'
 import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 
 export const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(
   () => {
     const store = useStore()
+    const resourceService = store.resourceService
+    const atomService = store.atomService
+
+    useEffect(() => {
+      atomService.getAll({ type_IN: resourceTypes })
+    }, [])
 
     return (
       <>
@@ -34,11 +43,12 @@ export const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(
           <title>Resources | Codelab</title>
         </Head>
 
-        <CreateResourceModal resourceService={store.resourceService} />
-        <DeleteResourceModal resourceService={store.resourceService} />
+        <DeleteResourceModal resourceService={resourceService} />
+        <CreateResourceModal typeService={store.typeService} resourceService={resourceService} />
+        <UpdateResourceModal typeService={store.typeService} resourceService={resourceService} />
 
         <ContentSection>
-          <GetResourcesTable resourceService={store.resourceService} />
+          <GetResourcesTable resourceService={resourceService} />
         </ContentSection>
       </>
     )

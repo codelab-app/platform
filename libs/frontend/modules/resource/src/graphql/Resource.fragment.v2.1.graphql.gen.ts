@@ -9,6 +9,7 @@ export type ResourceFragment = {
   __typename: 'Resource'
   id: string
   name: string
+  data: string
   atom: AtomFragment
 }
 
@@ -17,6 +18,7 @@ export const ResourceFragmentDoc = gql`
     __typename
     id
     name
+    data
     atom {
       ...Atom
     }

@@ -7,7 +7,7 @@ export const monacoTypeUiProperties: UiPropertiesFn<IMonacoType> = (type) => {
     uniforms: {
       component: monacoFieldFactory({
         editorOptions: {
-          language: languageMap(type.language),
+          language: type.language,
           lineNumbers: 'off',
         },
         containerProps: { style: { height: '15rem' } },

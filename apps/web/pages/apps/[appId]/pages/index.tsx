@@ -3,13 +3,13 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { useStore } from 'libs/frontend/model/infra/mobx/src/mst'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
