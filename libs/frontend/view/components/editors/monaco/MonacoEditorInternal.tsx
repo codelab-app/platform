@@ -107,6 +107,7 @@ const MonacoEditorInternal = ({
         height: '100%',
         ...(containerProps?.style ?? {}),
       }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(containerProps ?? {})}
     />
   )

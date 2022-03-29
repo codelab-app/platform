@@ -6,6 +6,7 @@ import List, { ListProps } from 'antd/lib/list'
 export const TextList = (props: ListProps<any>) => (
   <List
     renderItem={(item) => <List.Item>{item.toString()}</List.Item>}
+    // eslint-disable-next-line react/jsx-props-no-spreading
     {...props}
   />
 )

@@ -6,7 +6,7 @@ import {
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
-import { App, appRef, AppService, WithAppService } from '../../store'
+import { App, appRef, WithAppService } from '../../store'
 
 export type ItemMenuProps = {
   app: App

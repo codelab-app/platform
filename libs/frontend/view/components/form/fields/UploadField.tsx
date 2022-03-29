@@ -15,7 +15,6 @@ const UploadFieldInternal = (props: UploadFieldProps) =>
     props,
     <Dragger
       name={props.name}
-      {...(props as any)}
       onChange={(info) => {
         const { status } = info.file
 

@@ -17,12 +17,11 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
-import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
   return (
@@ -39,9 +38,9 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </ContentSection>
     </>
   )
-})
+}
 
-const Header = observer(() => {
+const Header = () => {
   const store = useStore()
 
   const pageHeaderButtons = [
@@ -54,7 +53,7 @@ const Header = observer(() => {
   ]
 
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Atom" />
-})
+}
 
 export default AtomsPage
 

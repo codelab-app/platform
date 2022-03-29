@@ -21,6 +21,7 @@ const AutoCompleteInternal = (props: AutoCompleteFieldProps) =>
       ref={props.inputRef}
       showAction={['focus', 'click']}
       value={props.value ?? ''}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...filterDOMProps(props)}
     />,
   )

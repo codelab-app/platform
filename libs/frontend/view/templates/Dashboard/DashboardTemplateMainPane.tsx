@@ -1,16 +1,12 @@
-import {
-  componentLikeDestructure,
-  ComponentTypeLike,
-} from '@codelab/frontend/shared/utils'
 import Sider from 'antd/lib/layout/Sider'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
 import { sidebarNavigationWidth } from './constants'
 
 export interface DashboardTemplateMainPaneProps {
-  MainPane: ComponentTypeLike
+  MainPane: ComponentType
   hasHeader: boolean
   headerHeight: number
   hasSidebarNavigation: boolean
@@ -22,13 +18,12 @@ const DashboardTemplateMainPane = ({
   hasSidebarNavigation,
   resizable,
   headerHeight,
-  ...props
+  MainPane,
 }: DashboardTemplateMainPaneProps) => {
-  const [MainPane, mainPaneProps] = componentLikeDestructure(props.MainPane)
-
   return (
     <motion.div
       css={tw`fixed left-0 top-0 bottom-0 h-full`}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...resizable.containerProps}
       style={{
         ...resizable.containerProps.style,
@@ -44,10 +39,11 @@ const DashboardTemplateMainPane = ({
       >
         <div css={tw`relative max-h-full h-full flex flex-row`}>
           <motion.div css={tw`h-full flex-1`}>
-            <MainPane {...mainPaneProps} />
+            <MainPane />
           </motion.div>
           <motion.div
             css={[tw`bg-gray-200 h-full z-10`, `width: 2px`]}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...resizable.xDragHandleProps}
           />
         </div>

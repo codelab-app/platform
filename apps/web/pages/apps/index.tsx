@@ -55,7 +55,7 @@ const AppsPageHeader = observer(() => {
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Apps" />
 })
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
   return (
@@ -73,7 +73,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </ContentSection>
     </>
   )
-})
+}
 
 export default AppsPage
 
@@ -83,7 +83,6 @@ export const getServerSideProps = withPageAuthRequired<Snapshot>({
     await setClientAuthHeaders(context)
 
     const store = initializeStore()
-
     await store.appService.getAll()
 
     return {

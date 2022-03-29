@@ -8,11 +8,14 @@ export type MainPaneTemplateProps = React.PropsWithChildren<{
   title: React.ReactNode
   // For buttons
   header?: React.ReactElement | Array<React.ReactElement>
-  containerProps?: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
+  containerProps?: Pick<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >,
+    'onClick'
   >
-  headerProps?: PageHeaderProps
+  headerProps?: Pick<PageHeaderProps, 'onBack'>
 }>
 
 const StyledContainer = styled.div`
@@ -55,14 +58,14 @@ export const MainPaneTemplate = ({
         max-height: 100%;
         overflow: auto;
       `}
-      {...containerProps}
+      onClick={containerProps?.onClick}
     >
       <GlobalStyles />
       <PageHeader
         extra={[...extra]}
-        style={{ maxHeight: '100%', ...(headerProps?.style ?? {}) }}
+        onBack={headerProps?.onBack}
+        style={{ maxHeight: '100%' }}
         title={title}
-        {...(headerProps || {})}
       >
         <div
           css={css`

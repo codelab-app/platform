@@ -80,6 +80,7 @@ export const OverlayToolbar = ({
             color: 'white',
             ...(toolbarStyle || {}),
           }}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...toolbarProps}
         >
           {content}

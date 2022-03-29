@@ -22,6 +22,7 @@ const GraphqlEditorInternal = ({
 
   return (
     <MonacoEditorInternal
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       editorOptions={{ ...(props.editorOptions ?? {}), language: 'graphqlDev' }}
     />

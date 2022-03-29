@@ -1,13 +1,8 @@
 import React from 'react'
 import { commonSidebarItems } from './commonSidebarItems'
-import {
-  SidebarNavigationContainer,
-  SidebarNavigationContainerProps,
-} from './SidebarNavigationContainer'
+import { SidebarNavigationContainer } from './SidebarNavigationContainer'
 
-export type SidebarNavigationProps = SidebarNavigationContainerProps
-
-export const SidebarNavigation = (props: SidebarNavigationProps) => {
+export const SidebarNavigation = () => {
   return (
     <SidebarNavigationContainer
       fullHeight
@@ -16,9 +11,7 @@ export const SidebarNavigation = (props: SidebarNavigationProps) => {
         flexDirection: 'column',
         justifyContent: 'start',
         height: '100%',
-        ...(props.style ?? {}),
       }}
-      {...props}
     >
       {commonSidebarItems}
     </SidebarNavigationContainer>

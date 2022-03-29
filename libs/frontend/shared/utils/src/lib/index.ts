@@ -1,6 +1,5 @@
 export * from './authTokenStorage'
 export * from './callbackWithParams'
-export * from './combineComponents'
 export * from './env'
 export * from './extractErrorMessage'
 export * from './modal.service'

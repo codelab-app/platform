@@ -1,16 +1,12 @@
-import {
-  componentLikeDestructure,
-  ComponentTypeLike,
-} from '@codelab/frontend/shared/utils'
 import { motion, MotionValue } from 'framer-motion'
-import React from 'react'
+import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
 import { sidebarNavigationWidth } from './constants'
 
 export interface DashboardTemplateMetaPaneProps {
   hasSidebarNavigation: boolean
-  MetaPane: ComponentTypeLike
+  MetaPane: ComponentType
   resizable: UseResizable
   hasMainPane: boolean
   mainPaneWidth: MotionValue<number>
@@ -21,9 +17,8 @@ export const DashboardTemplateMetaPane = ({
   hasMainPane,
   mainPaneWidth,
   resizable,
-  ...props
+  MetaPane,
 }: DashboardTemplateMetaPaneProps) => {
-  const [MetaPane, metaPaneProps] = componentLikeDestructure(props.MetaPane)
   const sidebarNavMarginLeft = hasSidebarNavigation ? sidebarNavigationWidth : 0
   const mainPaneMarginLeft = hasMainPane ? mainPaneWidth : 0
 
@@ -33,6 +28,7 @@ export const DashboardTemplateMetaPane = ({
       css={tw`fixed left-0 right-0 bottom-0 bg-white z-50 flex flex-col`}
       exit={{ y: 400 }}
       initial={{ y: 0 }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...resizable.containerProps}
       style={{
         ...resizable.containerProps.style,
@@ -42,10 +38,11 @@ export const DashboardTemplateMetaPane = ({
     >
       <motion.div
         css={[tw`bg-gray-200 w-full z-10`, `min-height: 2px`]}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...resizable.yDragHandleProps}
       />
       <div css={tw`flex-1 overflow-y-auto`}>
-        <MetaPane {...metaPaneProps} />
+        <MetaPane />
       </div>
     </motion.div>
   )

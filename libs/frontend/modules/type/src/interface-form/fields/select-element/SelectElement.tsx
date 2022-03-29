@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { IElement } from '@codelab/frontend/abstract/core'
 import { useElementIdContext } from '@codelab/frontend/presenter/container'
 import { ElementTypeKind } from '@codelab/shared/abstract/core'
@@ -61,7 +62,6 @@ export const SelectElement = ({ name, kind, ...props }: SelectElementProps) => {
       optionFilterProp="label"
       options={elementOptions}
       showSearch
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(props as any)}
       disabled={elementOptions.length === 1 || !elementOptions.length}
     />
@@ -69,26 +69,22 @@ export const SelectElement = ({ name, kind, ...props }: SelectElementProps) => {
 }
 
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.ChildrenOnly} {...props} />
 )
 
 export const SelectExcludeDescendantsElements = (
   props: Omit<SelectElementProps, 'kind'>,
 ) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.ExcludeDescendantsElements} {...props} />
 )
 
 export const SelectDescendantElement = (
   props: Omit<SelectElementProps, 'kind'>,
 ) => {
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <SelectElement kind={ElementTypeKind.DescendantsOnly} {...props} />
 }
 
 export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.AllElements} {...props} />
 )
 

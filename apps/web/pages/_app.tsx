@@ -56,8 +56,10 @@ const App = ({ pageProps, Component, ...props }: AppProps<unknown>) => {
                 ]}
               />
               <Layout>
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                <Component {...pageProps} />
+                <Component
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...pageProps}
+                />
               </Layout>
             </ConfigProvider>
           </LocalizationProvider>

@@ -3,35 +3,33 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PageService, WithPageService } from '../../store'
+import { WithPageService } from '../../store'
 import { UpdatePageInput, updatePageSchema } from './updatePageSchema'
 
 export const UpdatePageModal = observer<WithPageService>(({ pageService }) => {
-  const isOpen = pageService.updateModal.isOpen
   const closeModal = () => pageService.updateModal.close()
-  const pageToUpdate = pageService.updateModal.page
+  const page = pageService.updateModal.page
 
-  if (!pageToUpdate) {
+  if (!page) {
     return null
   }
 
-  const onSubmit = (input: UpdatePageInput) =>
-    pageService.update(pageToUpdate, input)
+  const onSubmit = (input: UpdatePageInput) => pageService.update(page, input)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while updating page',
   })
 
   const model = {
-    name: pageToUpdate.name,
-    appId: pageToUpdate.appId || undefined,
+    name: page.name,
+    appId: page.appId || undefined,
   }
 
   return (
     <ModalForm.Modal
       okText="Update Page"
       onCancel={closeModal}
-      visible={isOpen}
+      visible={pageService.updateModal.isOpen}
     >
       <ModalForm.Form<UpdatePageInput>
         model={model}
