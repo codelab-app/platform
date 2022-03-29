@@ -10,11 +10,11 @@ export const tagSchema = gql`
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
   }
 
-  # # should be removed, added as a workaround to fix the build issue
-  # type TagGraphOptions {
-  #   sort: Int
-  #   limit: Int
-  # }
+  # should be removed, added as a workaround to fix the build issue
+  type TagGraphOptions {
+    sort: Int
+    limit: Int
+  }
 
   # type TagEdge {
   #   source: ID!

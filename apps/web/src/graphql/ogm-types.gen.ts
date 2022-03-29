@@ -85,6 +85,8 @@ export type Query = {
   monacoTypesAggregate: MonacoTypeAggregateSelection;
   tags: Array<Tag>;
   tagsAggregate: TagAggregateSelection;
+  tagGraphOptions: Array<TagGraphOptions>;
+  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection;
   tagGraphs: Array<TagGraph>;
   tagGraphsAggregate: TagGraphAggregateSelection;
   elementEdges: Array<ElementEdge>;
@@ -366,6 +368,15 @@ export type QueryTagsAggregateArgs = {
   where?: InputMaybe<TagWhere>;
 };
 
+export type QueryTagGraphOptionsArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>;
+  options?: InputMaybe<TagGraphOptionsOptions>;
+};
+
+export type QueryTagGraphOptionsAggregateArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>;
+};
+
 export type QueryTagGraphsAggregateArgs = {
   where?: InputMaybe<TagGraphWhere>;
 };
@@ -554,6 +565,9 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse;
   deleteTags: DeleteInfo;
   updateTags: UpdateTagsMutationResponse;
+  createTagGraphOptions: CreateTagGraphOptionsMutationResponse;
+  deleteTagGraphOptions: DeleteInfo;
+  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse;
   createTagGraphs: CreateTagGraphsMutationResponse;
   deleteTagGraphs: DeleteInfo;
   updateTagGraphs: UpdateTagGraphsMutationResponse;
@@ -1070,6 +1084,19 @@ export type MutationUpdateTagsArgs = {
   create?: InputMaybe<TagRelationInput>;
   delete?: InputMaybe<TagDeleteInput>;
   connectOrCreate?: InputMaybe<TagConnectOrCreateInput>;
+};
+
+export type MutationCreateTagGraphOptionsArgs = {
+  input: Array<TagGraphOptionsCreateInput>;
+};
+
+export type MutationDeleteTagGraphOptionsArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>;
+};
+
+export type MutationUpdateTagGraphOptionsArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>;
+  update?: InputMaybe<TagGraphOptionsUpdateInput>;
 };
 
 export type MutationCreateTagGraphsArgs = {
@@ -2426,6 +2453,12 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: "CreateResetDatabaseMutationResponsesMutationResponse";
   info: CreateInfo;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
+};
+
+export type CreateTagGraphOptionsMutationResponse = {
+  __typename?: "CreateTagGraphOptionsMutationResponse";
+  info: CreateInfo;
+  tagGraphOptions: Array<TagGraphOptions>;
 };
 
 export type CreateTagGraphsMutationResponse = {
@@ -4318,6 +4351,19 @@ export type TagGraphAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
+export type TagGraphOptions = {
+  __typename?: "TagGraphOptions";
+  sort?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
+};
+
+export type TagGraphOptionsAggregateSelection = {
+  __typename?: "TagGraphOptionsAggregateSelection";
+  count: Scalars["Int"];
+  sort: IntAggregateSelectionNullable;
+  limit: IntAggregateSelectionNullable;
+};
+
 export type TagParentConnection = {
   __typename?: "TagParentConnection";
   edges: Array<TagParentRelationship>;
@@ -4673,6 +4719,12 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: "UpdateResetDatabaseMutationResponsesMutationResponse";
   info: UpdateInfo;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
+};
+
+export type UpdateTagGraphOptionsMutationResponse = {
+  __typename?: "UpdateTagGraphOptionsMutationResponse";
+  info: UpdateInfo;
+  tagGraphOptions: Array<TagGraphOptions>;
 };
 
 export type UpdateTagGraphsMutationResponse = {
@@ -11502,6 +11554,50 @@ export type TagGraphCreateInput = {
   descendants: Array<Scalars["ID"]>;
 };
 
+export type TagGraphOptionsCreateInput = {
+  sort?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+};
+
+export type TagGraphOptionsOptions = {
+  /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<TagGraphOptionsSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+/** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
+export type TagGraphOptionsSort = {
+  sort?: InputMaybe<SortDirection>;
+  limit?: InputMaybe<SortDirection>;
+};
+
+export type TagGraphOptionsUpdateInput = {
+  sort?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+};
+
+export type TagGraphOptionsWhere = {
+  OR?: InputMaybe<Array<TagGraphOptionsWhere>>;
+  AND?: InputMaybe<Array<TagGraphOptionsWhere>>;
+  sort?: InputMaybe<Scalars["Int"]>;
+  sort_NOT?: InputMaybe<Scalars["Int"]>;
+  sort_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  sort_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  sort_LT?: InputMaybe<Scalars["Int"]>;
+  sort_LTE?: InputMaybe<Scalars["Int"]>;
+  sort_GT?: InputMaybe<Scalars["Int"]>;
+  sort_GTE?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  limit_NOT?: InputMaybe<Scalars["Int"]>;
+  limit_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  limit_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  limit_LT?: InputMaybe<Scalars["Int"]>;
+  limit_LTE?: InputMaybe<Scalars["Int"]>;
+  limit_GT?: InputMaybe<Scalars["Int"]>;
+  limit_GTE?: InputMaybe<Scalars["Int"]>;
+};
+
 export type TagGraphUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
@@ -14411,6 +14507,83 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface TagGraphOptionsAggregateSelectionInput {
+  count?: boolean;
+  sort?: IntAggregateInputNullable;
+  limit?: IntAggregateInputNullable;
+}
+
+export declare class TagGraphOptionsModel {
+  public find(args?: {
+    where?: TagGraphOptionsWhere;
+
+    options?: TagGraphOptionsOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraphOptions[]>;
+  public create(args: {
+    input: TagGraphOptionsCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateTagGraphOptionsMutationResponse>;
+  public update(args: {
+    where?: TagGraphOptionsWhere;
+    update?: TagGraphOptionsUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateTagGraphOptionsMutationResponse>;
+  public delete(args: {
+    where?: TagGraphOptionsWhere;
+
+    context?: any;
+    rootValue: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: TagGraphOptionsWhere;
+
+    aggregate: TagGraphOptionsAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraphOptionsAggregateSelection>;
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
 export interface TagGraphAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -15138,6 +15311,7 @@ export interface ModelMap {
   AppType: AppTypeModel;
   MonacoType: MonacoTypeModel;
   Tag: TagModel;
+  TagGraphOptions: TagGraphOptionsModel;
   TagGraph: TagGraphModel;
   ElementEdge: ElementEdgeModel;
   ElementGraph: ElementGraphModel;

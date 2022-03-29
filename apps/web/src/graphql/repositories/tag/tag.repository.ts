@@ -55,8 +55,8 @@ export const tagRepository = {
 
   importTagsFromJson: async (tags: TagGraph): Promise<Map<string, TagType>> => {
     const tagsInput: Array<CreateTagArgs> = []
-    const tagTree = new TreeService(tags ?? { vertices: [], edges: [] })
-    const rootTagId = tagTree.getRootVertex()?.id
+    const tagTree = new TreeService({ vertices: [], edges: [] })
+    const rootTagId = (tagTree.getRootVertex() as any).id
 
     if (rootTagId) {
       tagTree.bfsVisit((v) => {
@@ -75,6 +75,7 @@ export const tagRepository = {
     }
 
     const tagImportOperations: Array<CreateTagOperation> = []
+
     tagsInput.map((tag: any) => {
       tagImportOperations.push(async (createdTagsMap: Map<string, TagType>) => {
         const tagFound = createdTagsMap.get(tag.name)
