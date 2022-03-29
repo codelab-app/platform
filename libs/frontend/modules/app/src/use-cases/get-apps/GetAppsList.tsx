@@ -20,6 +20,8 @@ export const GetAppsList = observer<WithAppService>(({ appService }) => {
   //   load()
   // }, [load])
 
+  // appService.getAll()
+
   const appList = appService.appsList
 
   return (

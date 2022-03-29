@@ -9,15 +9,16 @@ import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
   const app = appService.updateModal.app
 
-  const onSubmit = (input: UpdateAppInput) => {
-    if (!app) {
-      throw new Error('Updated app is not set')
-    }
-
-    return appService.update(app, input)
+  if (!app) {
+    return null
   }
 
+  const onSubmit = (input: UpdateAppInput) => appService.update(app, input)
   const closeModal = () => appService.updateModal.close()
+
+  const model = {
+    name: app?.name,
+  }
 
   return (
     <ModalForm.Modal
@@ -25,10 +26,8 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
       onCancel={closeModal}
       visible={appService.updateModal.isOpen}
     >
-      <ModalForm.Form
-        model={{
-          name: app?.name,
-        }}
+      <ModalForm.Form<UpdateAppInput>
+        model={model}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating app',

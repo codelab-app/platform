@@ -14,4 +14,4 @@ export const createAppSchema: JSONSchemaType<CreateAppInput> = {
     },
   },
   required: ['name'],
-}
+} as const
