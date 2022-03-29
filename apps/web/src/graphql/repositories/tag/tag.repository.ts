@@ -4,12 +4,7 @@ import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
 import { map, reduce } from 'rxjs/operators'
 import { Tag } from '../../model'
-import {
-  CreateTagsMutationResponse,
-  Tag as TagType,
-  TagCreateInput,
-  TagGraph,
-} from '../../ogm-types.gen'
+import { Tag as TagType, TagCreateInput, TagGraph } from '../../ogm-types.gen'
 import getTagGraphs from './getTagGraphs.cypher'
 
 type CreateTagOperation = (
