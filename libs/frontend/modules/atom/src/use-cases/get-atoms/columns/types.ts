@@ -1,7 +1,7 @@
 import { AtomType } from '@codelab/shared/abstract/core'
-import { AtomService, WithAtomService } from '../../../store'
+import { WithAtomService } from '../../../store'
 
-export interface AtomCellData {
+export interface AtomRecord {
   id: string
   name: string
   type: AtomType
@@ -14,11 +14,11 @@ export type LibraryColumnProps = {
 }
 
 export type PropsColumnProps = {
-  atom: AtomCellData
+  atom: AtomRecord
 }
 
 export type ActionColumnProps = {
-  atom: AtomCellData
+  atom: AtomRecord
 } & WithAtomService
 
 export type TagsColumnProps = {

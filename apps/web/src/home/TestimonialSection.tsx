@@ -82,7 +82,6 @@ export const TestimonialSection = () => {
       <Title css={tw`text-center !font-extrabold`} level={2}>
         Loved by startups
       </Title>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Slider {...settings} css={tw`my-8`}>
         <TestimonialItem
           review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."

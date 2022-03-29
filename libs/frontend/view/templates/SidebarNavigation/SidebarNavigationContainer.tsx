@@ -3,7 +3,10 @@ import { Menu, MenuProps } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export type SidebarNavigationContainerProps = MenuProps & {
+export type SidebarNavigationContainerProps = Pick<
+  MenuProps,
+  'defaultSelectedKeys' | 'selectedKeys' | 'style'
+> & {
   fullHeight?: boolean
 }
 
@@ -19,7 +22,7 @@ export const SidebarNavigationContainer = (
   props: React.PropsWithChildren<SidebarNavigationContainerProps>,
 ) => {
   const router = useRouter()
-  const { children, fullHeight = true, ...rest } = props
+  const { children, fullHeight = true } = props
 
   return (
     <Menu
@@ -28,10 +31,8 @@ export const SidebarNavigationContainer = (
       mode="inline"
       selectedKeys={[router.pathname]}
       style={{
-        ...sidebarNavContainerStyle(props),
-        ...(props.style ?? {}),
+        ...sidebarNavContainerStyle({ fullHeight }),
       }}
-      {...rest}
     >
       {children}
     </Menu>

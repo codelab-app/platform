@@ -2,8 +2,8 @@ import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { AtomService, WithAtomService } from '../../store'
-import { AtomCellData } from './columns/types'
+import { WithAtomService } from '../../store'
+import { AtomRecord } from './columns/types'
 import { useAtomTable } from './useAtomTable'
 
 export const GetAtomsTable = observer<WithAtomService>(({ atomService }) => {
@@ -11,7 +11,7 @@ export const GetAtomsTable = observer<WithAtomService>(({ atomService }) => {
   const [getAtoms, { isLoading }] = useLoadingState(() => atomService.getAll())
   const atomsList = atomService.atomsList
 
-  const atomsData: Array<AtomCellData> = atomsList.map((a) => ({
+  const atomsData: Array<AtomRecord> = atomsList.map((a) => ({
     id: a.id,
     type: a.type,
     apiId: a.api.id,

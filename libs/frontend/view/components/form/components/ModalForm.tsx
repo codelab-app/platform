@@ -1,6 +1,6 @@
 import { FormProps, SubmitController } from '@codelab/frontend/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
-import AntdModal, { ModalProps } from 'antd/lib/modal'
+import AntdModal, { ModalProps as AntModalProps } from 'antd/lib/modal'
 import React, {
   createContext,
   MutableRefObject,
@@ -14,7 +14,7 @@ import React, {
 import { Bridge, DeepPartial } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
-import { handleAsyncFormSubmit, handleSubmitRefModalOk } from './utils'
+import { handleFormSubmit, handleSubmitRefModalOk } from './utils'
 
 interface ModalFormContext {
   isLoading: boolean
@@ -63,7 +63,7 @@ const Form = <TData, TResponse = unknown>({
       model={model}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={handleAsyncFormSubmit<DeepPartial<TData>>(
+      onSubmit={handleFormSubmit<DeepPartial<TData>>(
         onSubmit as any,
         setIsLoading,
         onSubmitSuccess as any,
@@ -77,12 +77,27 @@ const Form = <TData, TResponse = unknown>({
   )
 }
 
+type ModalProps = Pick<
+  AntModalProps,
+  | 'okButtonProps'
+  | 'cancelButtonProps'
+  | 'onOk'
+  | 'okText'
+  | 'onCancel'
+  | 'visible'
+  | 'className'
+  | 'title'
+>
+
 const Modal = ({
   okButtonProps,
   cancelButtonProps,
-  children,
   onOk,
-  ...props
+  okText,
+  onCancel,
+  visible,
+  className,
+  children,
 }: PropsWithChildren<ModalProps>) => {
   const [isLoading, setIsLoading] = useState(false)
   // This is the controller that will do the form submission, create by the modal and passed down to the form
@@ -96,6 +111,7 @@ const Modal = ({
           ...cancelButtonProps,
           disabled: isLoading,
         }}
+        className={className}
         destroyOnClose
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
@@ -103,8 +119,10 @@ const Modal = ({
           disabled: isLoading,
           loading: isLoading,
         }}
+        okText={okText}
+        onCancel={onCancel}
         onOk={handleSubmitRefModalOk(submitRef, onOk)}
-        {...props}
+        visible={visible}
       >
         {children}
       </AntdModal>

@@ -57,6 +57,7 @@ const AppsPageHeader = observer(() => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
+  store.appService.getAll()
 
   return (
     <>

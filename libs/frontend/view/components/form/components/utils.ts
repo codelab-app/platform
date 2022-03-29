@@ -2,7 +2,7 @@ import { SubmitRef } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { MouseEvent } from 'react'
 
-export const handleAsyncFormSubmit =
+export const handleFormSubmit =
   <T>(
     onSubmit: (values: T) => any | Promise<any>,
     setIsLoading?: (isLoading: boolean) => void,

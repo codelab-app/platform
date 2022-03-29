@@ -7,9 +7,9 @@ import {
 } from 'antd/lib/table/interface'
 import { atomRef, AtomService } from '../../store'
 import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
-import { AtomCellData } from './columns/types'
+import { AtomRecord } from './columns/types'
 
-const onLibraryFilter = (value: any, atom: AtomCellData): boolean => {
+const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
 
@@ -22,7 +22,7 @@ export const useAtomTable = (atomService: AtomService) => {
   // const tagTreeData = tagTree.getAntdTrees()
   // const filterTreeData = makeFilterData(tagTreeData)
 
-  const columns: Array<TableColumnProps<AtomCellData>> = [
+  const columns: Array<TableColumnProps<AtomRecord>> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -70,9 +70,9 @@ export const useAtomTable = (atomService: AtomService) => {
     },
   ]
 
-  const rowSelection: TableRowSelection<AtomCellData> = {
+  const rowSelection: TableRowSelection<AtomRecord> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<AtomCellData>) => {
+    onChange: (_: Array<React.Key>, selectedRows: Array<AtomRecord>) => {
       atomService.setSelectedAtoms(selectedRows.map((a) => atomRef(a.id)))
     },
   }

@@ -1,8 +1,22 @@
 import Button, { ButtonProps } from 'antd/lib/button/button'
 
-export type ListItemButtonProps = Omit<ButtonProps, 'size' | 'type'> &
-  Required<Pick<ButtonProps, 'icon'>>
+export type ListItemButtonProps = Required<
+  Pick<ButtonProps, 'icon' | 'onClick'>
+> &
+  Pick<ButtonProps, 'danger' | 'title' | 'children'>
 
-export const ListItemButton = (props: ListItemButtonProps) => {
-  return <Button size="small" type="text" {...props} />
+export const ListItemButton = ({
+  danger,
+  icon,
+  onClick,
+}: ListItemButtonProps) => {
+  return (
+    <Button
+      danger={danger}
+      icon={icon}
+      onClick={onClick}
+      size="small"
+      type="text"
+    />
+  )
 }

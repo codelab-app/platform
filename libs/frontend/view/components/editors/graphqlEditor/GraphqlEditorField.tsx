@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import dynamic from 'next/dynamic'
 import { Ref } from 'react'
 import tw from 'twin.macro'

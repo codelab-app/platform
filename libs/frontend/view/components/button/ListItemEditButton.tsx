@@ -8,5 +8,11 @@ export type ListItemEditButtonProps = Omit<
 >
 
 export const ListItemEditButton = (props: ListItemEditButtonProps) => {
-  return <ListItemButton icon={<EditOutlined />} title="Edit" {...props} />
+  return (
+    <ListItemButton
+      icon={<EditOutlined />}
+      onClick={props.onClick}
+      title="Edit"
+    />
+  )
 }

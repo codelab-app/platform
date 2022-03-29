@@ -124,7 +124,5 @@ export class TagService extends Model({
       const tagModel = Tag.fromFragment(tag)
       this.tags.set(tag.id, tagModel)
     })
-
-    console.log('tagList', this.tagsList)
   })
 }

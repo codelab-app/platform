@@ -152,6 +152,6 @@ export class AppService extends Model({
       throw new Error('App was not deleted')
     }
 
-    return
+    return deleteApps
   })
 }

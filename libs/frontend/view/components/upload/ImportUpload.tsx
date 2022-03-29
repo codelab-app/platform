@@ -48,7 +48,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
   }
 
   return (
-    <Upload {...props}>
+    <Upload>
       <Button icon={<UploadOutlined />} loading={isLoading}>
         Import
       </Button>

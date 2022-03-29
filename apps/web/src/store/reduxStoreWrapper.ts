@@ -1,4 +1,3 @@
-import { adminEndpoints, adminSlice } from '@codelab/frontend/modules/admin'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
@@ -21,7 +20,6 @@ export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
       // APIs:
-      [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [hookEndpoints.reducerPath]: hookEndpoints.reducer,
       [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
@@ -30,7 +28,6 @@ export const makeStore = () => {
       [componentEndpoints.reducerPath]: componentEndpoints.reducer,
 
       // Slices:
-      [adminSlice.name]: adminSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
       [builderSlice.name]: builderSlice.reducer,
       [componentSlice.name]: componentSlice.reducer,
@@ -42,7 +39,6 @@ export const makeStore = () => {
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
-        adminEndpoints.middleware,
         elementEndpoints.middleware,
         componentEndpoints.middleware,
         hookEndpoints.middleware,
