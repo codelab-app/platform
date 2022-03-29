@@ -50,7 +50,6 @@ const AppsPageHeader = observer(() => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
-  store.appService.getAll()
 
   const [, { isLoading }] = useLoadingState(() => store.appService.getAll(), {
     executeOnMount: true,
