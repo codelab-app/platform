@@ -1,25 +1,17 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { CreateAppInput } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { RxTransaction } from 'neo4j-driver'
-import { Observable } from 'rxjs'
-import { first, map } from 'rxjs/operators'
 import { App } from '../../model'
 import {
   App as AppInput,
   CreateAppsMutationResponse,
 } from '../../ogm-types.gen'
-import exportApp from './exportApp.cypher'
 
 export const appRepository = {
-  exportApp: (txn: RxTransaction): Observable<Maybe<Array<AppInput>>> =>
-    txn
-      .run(exportApp)
-      .records()
-      .pipe(
-        first(() => true, undefined),
-        map((r) => r?.get('vertices') as Maybe<Array<AppInput>>),
-      ),
+  exportApp: async (): Promise<Array<AppInput>> => {
+    const apps = (await App()).find()
+
+    return apps
+  },
   importAppFromJson: async (
     appInputs: Array<CreateAppInput>,
     auth0Id: string,

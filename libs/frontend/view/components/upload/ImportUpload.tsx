@@ -13,7 +13,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
   const [progress, setProgress] = useState<UploadProgressEvent>()
   const [isLoading, setIsLoading] = useState(false)
 
-  const props: UploadProps = {
+  const props: Partial<UploadProps> = {
     accept: '.json',
     beforeUpload: async (file: File) => {
       const text = await file.text()
@@ -48,7 +48,8 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
   }
 
   return (
-    <Upload>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Upload {...props}>
       <Button icon={<UploadOutlined />} loading={isLoading}>
         Import
       </Button>

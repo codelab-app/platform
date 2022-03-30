@@ -1,5 +1,5 @@
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
-import { concat, forkJoin } from 'rxjs'
+import { concat, forkJoin, from } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { getDriver } from '../../infra/driver'
 import {
@@ -71,7 +71,7 @@ export const importAdminData: IFieldResolver<
 
 export const exportAdminData: IRxTxnResolver = () => (txn) => {
   return forkJoin({
-    apps: appRepository.exportApp(txn),
+    apps: from(appRepository.exportApp()),
     // tags: tagRepository.getTagGraphs(txn),
     atoms: atomRepository.exportAtom(txn),
     typesGraph: adminRepository.getExportAdminData(txn),
