@@ -1,10 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql, GraphQLClient } from 'graphql-request'
 
-import { gql } from 'graphql-request'
-import {
-  api,
-  GraphqlOperationOptions,
-} from '@codelab/frontend/model/infra/redux'
 export type ResetDatabaseMutationVariables = Types.Exact<{
   [key: string]: never
 }>
@@ -51,41 +48,70 @@ export const ExportAdminDataGql = gql`
   }
 `
 
-const injectedRtkApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    ResetDatabase: build.mutation<
-      ResetDatabaseMutation,
-      GraphqlOperationOptions<ResetDatabaseMutationVariables> | void | undefined
-    >({
-      query: (options) => ({
-        document: ResetDatabaseGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    importAdminData: build.mutation<
-      ImportAdminDataMutation,
-      GraphqlOperationOptions<ImportAdminDataMutationVariables>
-    >({
-      query: (options) => ({
-        document: ImportAdminDataGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    exportAdminData: build.query<
-      ExportAdminDataQuery,
-      GraphqlOperationOptions<ExportAdminDataQueryVariables> | void | undefined
-    >({
-      query: (options) => ({
-        document: ExportAdminDataGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-  }),
-})
-export { injectedRtkApi as api }
-export const {
-  useResetDatabaseMutation,
-  useImportAdminDataMutation,
-  useExportAdminDataQuery,
-  useLazyExportAdminDataQuery,
-} = injectedRtkApi
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+  operationType?: string,
+) => Promise<T>
+
+const defaultWrapper: SdkFunctionWrapper = (
+  action,
+  _operationName,
+  _operationType,
+) => action()
+
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper,
+) {
+  return {
+    ResetData(
+      variables?: ResetDatabaseMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<ResetDatabaseMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ResetDatabaseMutation>(ResetDatabaseGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'ResetData',
+        'mutation',
+      )
+    },
+
+    ImportData(
+      variables: ImportAdminDataMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<ImportAdminDataMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ImportAdminDataMutation>(
+            ImportAdminDataGql,
+            variables,
+            {
+              ...requestHeaders,
+              ...wrappedRequestHeaders,
+            },
+          ),
+        'ImportData',
+        'mutation',
+      )
+    },
+
+    ExportData(
+      variables?: ExportAdminDataQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<ExportAdminDataQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ExportAdminDataQuery>(ExportAdminDataGql, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'ExportData',
+        'query',
+      )
+    },
+  }
+}
