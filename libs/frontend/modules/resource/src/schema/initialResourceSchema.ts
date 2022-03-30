@@ -7,10 +7,9 @@ export type CreateResourceInput = {
   url: string
   queryString: string
   header: string
-  httpMethod: string
 }
 
-export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
+export const initialResourceSchema: JSONSchemaType<CreateResourceInput> = {
   title: 'Create Resource',
   type: 'object',
   properties: {
@@ -28,9 +27,6 @@ export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
       type: 'string',
     },
     header: {
-      type: 'string',
-    },
-    httpMethod: {
       type: 'string',
     },
   },
