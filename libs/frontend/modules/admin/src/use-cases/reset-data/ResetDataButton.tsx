@@ -1,16 +1,18 @@
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
-import { useResetDatabaseMutation } from '../../store'
+import { observer } from 'mobx-react-lite'
+import { WithAdminService } from '../../store'
 
-export const ResetDataButton = () => {
-  const [resetDatabase] = useResetDatabaseMutation()
+export const ResetDataButton = observer<WithAdminService>(
+  ({ adminService }) => {
+    const { onSuccess, onError } = useNotify(
+      { title: 'Data has been reset successfully' },
+      { title: 'Failed to reset Data' },
+    )
 
-  const { onSuccess, onError } = useNotify(
-    { title: 'Data has been reset successfully' },
-    { title: 'Failed to reset Data' },
-  )
+    const onClick = () =>
+      adminService.resetData().then(onSuccess).catch(onError)
 
-  const onClick = () => resetDatabase().unwrap().then(onSuccess).catch(onError)
-
-  return <Button onClick={onClick}>Reset Data</Button>
-}
+    return <Button onClick={onClick}>Reset Data</Button>
+  },
+)

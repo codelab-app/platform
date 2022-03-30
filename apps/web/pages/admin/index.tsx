@@ -3,6 +3,7 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   ExecuteCommandButton,
   ExecuteCommandModal,
@@ -16,11 +17,14 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader, Space } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
+const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
+
   return (
     <>
       <Head>
@@ -31,15 +35,15 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
 
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
-          <ResetDataButton />
+          <ResetDataButton adminService={store.adminService} />
           <ExecuteCommandButton />
-          <ExportButton />
-          <ImportButton />
+          <ExportButton adminService={store.adminService} />
+          <ImportButton adminService={store.adminService} />
         </Space>
       </ContentSection>
     </>
   )
-}
+})
 
 export default AdminPage
 

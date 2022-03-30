@@ -1,21 +1,27 @@
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
-import React from 'react'
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 import sanitizeFilename from 'sanitize-filename'
-import { useExportAdminDataQuery } from '../../graphql/Admin.endpoints.v2.graphql.gen'
+import { WithAdminService } from '../../store'
 
-export const ExportButton = () => {
+export const ExportButton = observer<WithAdminService>(({ adminService }) => {
   // All Types Data
-  const { data, isLoading } = useExportAdminDataQuery()
-  const exportedResources = data?.exportAdminData.result
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  console.log(exportedResources)
+  const downloadFile = (data: Record<string, any>) => {
+    fileDownload(JSON.stringify(data), sanitizeFilename(`data.codelab.json`))
+  }
 
   const onClickExport = () => {
-    fileDownload(
-      JSON.stringify(exportedResources),
-      sanitizeFilename(`data.codelab.json`),
-    )
+    setIsLoading(true)
+    adminService
+      .exportData()
+      .then((response) => {
+        const exportedResources = response
+        downloadFile(exportedResources)
+      })
+      .finally(() => setIsLoading(false))
   }
 
   return (
@@ -23,4 +29,4 @@ export const ExportButton = () => {
       Export
     </Button>
   )
-}
+})
