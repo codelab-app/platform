@@ -58,9 +58,8 @@ input ActionDisconnectInput {
 }
 
 input ActionOnCreateInput {
-  body: String
-  id: ID
-  name: String
+  body: String!
+  name: String!
 }
 
 input ActionOptions {
@@ -380,8 +379,7 @@ type AppElementRootProviderElementNodeAggregateSelection {
 }
 
 input AppOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input AppOptions {
@@ -1611,8 +1609,7 @@ type AtomInterfaceTypeApiNodeAggregateSelection {
 }
 
 input AtomOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input AtomOptions {
@@ -2283,8 +2280,7 @@ type ComponentElementRootElementNodeAggregateSelection {
 }
 
 input ComponentOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input ComponentOptions {
@@ -3986,7 +3982,6 @@ input ElementInstanceOfComponentUpdateFieldInput {
 
 input ElementOnCreateInput {
   css: String
-  id: ID
   name: String
   propTransformationJs: String
   renderForEachPropKey: String
@@ -5136,8 +5131,7 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
 }
 
 input EnumTypeOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input EnumTypeOptions {
@@ -6039,7 +6033,10 @@ input HookElementUpdateFieldInput {
 }
 
 input HookOnCreateInput {
-  id: ID
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
 }
 
 input HookOptions {
@@ -6478,8 +6475,7 @@ input InterfaceTypeFieldsUpdateFieldInput {
 }
 
 input InterfaceTypeOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input InterfaceTypeOptions {
@@ -7717,8 +7713,7 @@ type PageInfo {
 }
 
 input PageOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input PageOptions {
@@ -8764,9 +8759,8 @@ input PropMapBindingElementUpdateFieldInput {
 }
 
 input PropMapBindingOnCreateInput {
-  id: ID
-  sourceKey: String
-  targetKey: String
+  sourceKey: String!
+  targetKey: String!
 }
 
 input PropMapBindingOptions {
@@ -9037,8 +9031,7 @@ input PropMapBindingWhere {
 }
 
 input PropOnCreateInput {
-  data: String = "{}"
-  id: ID
+  data: String! = "{}"
 }
 
 input PropOptions {
@@ -10206,8 +10199,7 @@ type StoreInterfaceTypeStateNodeAggregateSelection {
 }
 
 input StoreOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input StoreOptions {
@@ -10869,9 +10861,8 @@ input TagGraphOptionsWhere {
 }
 
 input TagOnCreateInput {
-  id: ID
   isRoot: Boolean
-  name: String
+  name: String!
 }
 
 input TagOptions {
@@ -12288,9 +12279,8 @@ input UserDisconnectInput {
 }
 
 input UserOnCreateInput {
-  auth0Id: String
-  email: String
-  id: ID
+  auth0Id: String!
+  email: String!
 }
 
 input UserOptions {

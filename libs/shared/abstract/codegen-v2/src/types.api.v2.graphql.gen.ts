@@ -88,9 +88,8 @@ export type ActionDisconnectInput = {
 }
 
 export type ActionOnCreateInput = {
-  body?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  body: Scalars['String']
+  name: Scalars['String']
 }
 
 export type ActionOptions = {
@@ -431,8 +430,7 @@ export type AppElementRootProviderElementNodeAggregateSelection = {
 }
 
 export type AppOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type AppOptions = {
@@ -1679,8 +1677,7 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
 }
 
 export type AtomOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type AtomOptions = {
@@ -2358,8 +2355,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 }
 
 export type ComponentOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type ComponentOptions = {
@@ -4174,7 +4170,6 @@ export type ElementInstanceOfComponentUpdateFieldInput = {
 
 export type ElementOnCreateInput = {
   css?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
@@ -5355,8 +5350,7 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
 }
 
 export type EnumTypeOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type EnumTypeOptions = {
@@ -6255,7 +6249,8 @@ export type HookElementUpdateFieldInput = {
 }
 
 export type HookOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
 }
 
 export type HookOptions = {
@@ -6730,8 +6725,7 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 }
 
 export type InterfaceTypeOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type InterfaceTypeOptions = {
@@ -8236,8 +8230,7 @@ export type PageInfo = {
 }
 
 export type PageOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type PageOptions = {
@@ -9290,9 +9283,8 @@ export type PropMapBindingElementUpdateFieldInput = {
 }
 
 export type PropMapBindingOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  sourceKey?: InputMaybe<Scalars['String']>
-  targetKey?: InputMaybe<Scalars['String']>
+  sourceKey: Scalars['String']
+  targetKey: Scalars['String']
 }
 
 export type PropMapBindingOptions = {
@@ -9560,8 +9552,7 @@ export type PropMapBindingWhere = {
 }
 
 export type PropOnCreateInput = {
-  data?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
+  data?: Scalars['String']
 }
 
 export type PropOptions = {
@@ -11050,8 +11041,7 @@ export type StoreInterfaceTypeStateNodeAggregateSelection = {
 }
 
 export type StoreOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type StoreOptions = {
@@ -11714,9 +11704,8 @@ export type TagGraphOptionsWhere = {
 }
 
 export type TagOnCreateInput = {
-  id?: InputMaybe<Scalars['ID']>
   isRoot?: InputMaybe<Scalars['Boolean']>
-  name?: InputMaybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type TagOptions = {
@@ -13181,9 +13170,8 @@ export type UserDisconnectInput = {
 }
 
 export type UserOnCreateInput = {
-  auth0Id?: InputMaybe<Scalars['String']>
-  email?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['ID']>
+  auth0Id: Scalars['String']
+  email: Scalars['String']
 }
 
 export type UserOptions = {
