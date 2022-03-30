@@ -2900,9 +2900,9 @@ type CreateStoresMutationResponse {
   stores: [Store!]!
 }
 
-type CreateTagEdgesMutationResponse {
+type CreateTagGraphOptionsMutationResponse {
   info: CreateInfo!
-  tagEdges: [TagEdge!]!
+  tagGraphOptions: [TagGraphOptions!]!
 }
 
 type CreateTagsMutationResponse {
@@ -7148,7 +7148,9 @@ type Mutation {
     input: [StoreEdgeCreateInput!]!
   ): CreateStoreEdgesMutationResponse!
   createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
-  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
+  createTagGraphOptions(
+    input: [TagGraphOptionsCreateInput!]!
+  ): CreateTagGraphOptionsMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -7236,7 +7238,7 @@ type Mutation {
   deleteStoreEdges(where: StoreEdgeWhere): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
-  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
+  deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -7468,10 +7470,10 @@ type Mutation {
     update: StoreUpdateInput
     where: StoreWhere
   ): UpdateStoresMutationResponse!
-  updateTagEdges(
-    update: TagEdgeUpdateInput
-    where: TagEdgeWhere
-  ): UpdateTagEdgesMutationResponse!
+  updateTagGraphOptions(
+    update: TagGraphOptionsUpdateInput
+    where: TagGraphOptionsWhere
+  ): UpdateTagGraphOptionsMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -9227,9 +9229,14 @@ type Query {
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
   storesGraphs: StoreGraph!
-  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
-  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagGraphs: TagGraph!
+  tagGraphOptions(
+    options: TagGraphOptionsOptions
+    where: TagGraphOptionsWhere
+  ): [TagGraphOptions!]!
+  tagGraphOptionsAggregate(
+    where: TagGraphOptionsWhere
+  ): TagGraphOptionsAggregateSelection!
+  tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   typeReferences(
@@ -11930,9 +11937,9 @@ type UpdateStoresMutationResponse {
   stores: [Store!]!
 }
 
-type UpdateTagEdgesMutationResponse {
+type UpdateTagGraphOptionsMutationResponse {
   info: UpdateInfo!
-  tagEdges: [TagEdge!]!
+  tagGraphOptions: [TagGraphOptions!]!
 }
 
 type UpdateTagsMutationResponse {

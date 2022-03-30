@@ -3002,10 +3002,10 @@ export type CreateStoresMutationResponse = {
   stores: Array<Store>
 }
 
-export type CreateTagEdgesMutationResponse = {
-  __typename?: 'CreateTagEdgesMutationResponse'
+export type CreateTagGraphOptionsMutationResponse = {
+  __typename?: 'CreateTagGraphOptionsMutationResponse'
   info: CreateInfo
-  tagEdges: Array<TagEdge>
+  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type CreateTagsMutationResponse = {
@@ -7319,7 +7319,7 @@ export type Mutation = {
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   createStoreEdges: CreateStoreEdgesMutationResponse
   createStores: CreateStoresMutationResponse
-  createTagEdges: CreateTagEdgesMutationResponse
+  createTagGraphOptions: CreateTagGraphOptionsMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -7355,7 +7355,7 @@ export type Mutation = {
   deleteStoreEdges: DeleteInfo
   deleteStores: DeleteInfo
   deleteStoresSubgraph: DeleteInfo
-  deleteTagEdges: DeleteInfo
+  deleteTagGraphOptions: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -7392,7 +7392,7 @@ export type Mutation = {
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   updateStoreEdges: UpdateStoreEdgesMutationResponse
   updateStores: UpdateStoresMutationResponse
-  updateTagEdges: UpdateTagEdgesMutationResponse
+  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -7515,8 +7515,8 @@ export type MutationCreateStoresArgs = {
   input: Array<StoreCreateInput>
 }
 
-export type MutationCreateTagEdgesArgs = {
-  input: Array<TagEdgeCreateInput>
+export type MutationCreateTagGraphOptionsArgs = {
+  input: Array<TagGraphOptionsCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -7682,8 +7682,8 @@ export type MutationDeleteStoresSubgraphArgs = {
   where?: InputMaybe<StoreWhere>
 }
 
-export type MutationDeleteTagEdgesArgs = {
-  where?: InputMaybe<TagEdgeWhere>
+export type MutationDeleteTagGraphOptionsArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationDeleteTagsArgs = {
@@ -7963,9 +7963,9 @@ export type MutationUpdateStoresArgs = {
   where?: InputMaybe<StoreWhere>
 }
 
-export type MutationUpdateTagEdgesArgs = {
-  update?: InputMaybe<TagEdgeUpdateInput>
-  where?: InputMaybe<TagEdgeWhere>
+export type MutationUpdateTagGraphOptionsArgs = {
+  update?: InputMaybe<TagGraphOptionsUpdateInput>
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationUpdateTagsArgs = {
@@ -9682,9 +9682,9 @@ export type Query = {
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
   storesGraphs: StoreGraph
-  tagEdges: Array<TagEdge>
-  tagEdgesAggregate: TagEdgeAggregateSelection
-  tagGraphs: TagGraph
+  tagGraphOptions: Array<TagGraphOptions>
+  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
+  tagGraphs: Array<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   typeReferences: Array<TypeReference>
@@ -9978,13 +9978,13 @@ export type QueryStoresAggregateArgs = {
   where?: InputMaybe<StoreWhere>
 }
 
-export type QueryTagEdgesArgs = {
-  options?: InputMaybe<TagEdgeOptions>
-  where?: InputMaybe<TagEdgeWhere>
+export type QueryTagGraphOptionsArgs = {
+  options?: InputMaybe<TagGraphOptionsOptions>
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
-export type QueryTagEdgesAggregateArgs = {
-  where?: InputMaybe<TagEdgeWhere>
+export type QueryTagGraphOptionsAggregateArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type QueryTagsArgs = {
@@ -12796,10 +12796,10 @@ export type UpdateStoresMutationResponse = {
   stores: Array<Store>
 }
 
-export type UpdateTagEdgesMutationResponse = {
-  __typename?: 'UpdateTagEdgesMutationResponse'
+export type UpdateTagGraphOptionsMutationResponse = {
+  __typename?: 'UpdateTagGraphOptionsMutationResponse'
   info: UpdateInfo
-  tagEdges: Array<TagEdge>
+  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type UpdateTagsMutationResponse = {
