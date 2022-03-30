@@ -1,12 +1,6 @@
 import { gql } from 'apollo-server-micro'
 
 export const storeSchema = gql`
-  type StateField {
-    name: String!
-    type: String!
-    defaultValue: String!
-  }
-
   type Action {
     id: ID! @id
     name: String!
@@ -17,7 +11,7 @@ export const storeSchema = gql`
   type Store {
     id: ID! @id
     name: String!
-    state: [StateField!]! @relationship(type: "FIELD_OF_STORE", direction: OUT)
+    state: InterfaceType! @relationship(type: "STATE_OF_STORE", direction: OUT)
     actions: [Action!]! @relationship(type: "ACTION_OF_STORE", direction: OUT)
 
     parentStore: Store

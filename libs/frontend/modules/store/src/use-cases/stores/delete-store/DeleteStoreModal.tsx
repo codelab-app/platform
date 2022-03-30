@@ -1,17 +1,29 @@
+import { PageType } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useCurrentStoreId } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 
 export const DeleteStoresModal = observer<WithStoreService>(
   ({ storeService }) => {
-    const closeModal = () => storeService.deleteModal.close()
+    const router = useRouter()
+    const storeId = useCurrentStoreId()
+    const store = storeService.deleteModal.store
+
+    const onSubmitSuccess = () => {
+      storeService.deleteModal.close()
+
+      if (storeId === store?.id) {
+        router.push({ pathname: PageType.Store, query: {} })
+        storeService.setCurrentStore(null)
+      }
+    }
 
     const onSubmit = () => {
-      const store = storeService.deleteModal.store
-
       if (!store) {
         throw new Error('Store to delete not found')
       }
@@ -27,7 +39,7 @@ export const DeleteStoresModal = observer<WithStoreService>(
       <ModalForm.Modal
         className="delete-stores-modal"
         okText="Delete Store"
-        onCancel={closeModal}
+        onCancel={onSubmitSuccess}
         title="Delete Confirmation"
         visible={storeService.deleteModal.isOpen}
       >
@@ -35,7 +47,7 @@ export const DeleteStoresModal = observer<WithStoreService>(
           model={{}}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
-          onSubmitSuccess={closeModal}
+          onSubmitSuccess={onSubmitSuccess}
           schema={emptyJsonSchema}
         >
           <h4>

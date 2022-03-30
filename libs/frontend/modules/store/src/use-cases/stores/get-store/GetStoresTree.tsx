@@ -3,10 +3,13 @@ import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Tree, TreeDataNode } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import { useCurrentStoreId } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 import { TreeItemTitle } from './StoreTreeItem'
 
 export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
+  const currentStoreId = useCurrentStoreId()
+
   const [getStores, { isLoading }] = useLoadingState(() =>
     storeService.getTree(),
   )
@@ -21,7 +24,7 @@ export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <Tree
-        activeKey={storeService.currentStoreId}
+        activeKey={currentStoreId}
         blockNode
         defaultExpandAll
         titleRender={(node) => (

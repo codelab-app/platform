@@ -15,6 +15,7 @@ import {
 export type FieldsTableProps = {
   interfaceType?: InterfaceType
   isLoading: boolean
+  hideActions?: boolean
 } & WithTypeService
 
 interface CellData {
@@ -28,7 +29,7 @@ interface CellData {
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
-  ({ interfaceType, isLoading, typeService }) => {
+  ({ interfaceType, isLoading, typeService, hideActions }) => {
     const columns: Array<TableColumnProps<CellData>> = [
       {
         title: 'Field Name',
@@ -116,7 +117,9 @@ export const FieldsTable = observer<FieldsTableProps>(
 
     return (
       <Table
-        columns={columns}
+        columns={
+          hideActions ? columns.filter((x) => x.key !== 'action') : columns
+        }
         dataSource={dataSource}
         loading={isLoading}
         pagination={{ position: ['bottomCenter'], pageSize: 25 }}

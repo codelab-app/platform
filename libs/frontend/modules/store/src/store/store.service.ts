@@ -1,3 +1,4 @@
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
@@ -5,6 +6,7 @@ import {
   model,
   modelFlow,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
@@ -25,7 +27,7 @@ export class StoreService extends Model({
   updateModal: prop(() => new StoreModalService({})),
   deleteModal: prop(() => new StoreModalService({})),
 
-  currentStoreId: prop<string>().withSetter(),
+  currentStore: prop<Nullish<Ref<Store>>>().withSetter(),
 }) {
   store(id: string): Store {
     return this.storesTree.node(id) as Store

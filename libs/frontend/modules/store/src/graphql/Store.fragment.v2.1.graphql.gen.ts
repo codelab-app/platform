@@ -9,7 +9,7 @@ export type StoreFragment = {
   __typename: 'Store'
   id: string
   name: string
-  state: Array<{ name: string; type: string; defaultValue: string }>
+  state: { id: string; name: string }
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null | undefined
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
@@ -39,9 +39,8 @@ export const StoreFragmentDoc = gql`
     id
     name
     state {
+      id
       name
-      type
-      defaultValue
     }
     actions {
       ...Action

@@ -2,9 +2,8 @@ export const storeSelectionSet = `{
     id
     name
     state {
+      id
       name
-      type
-      defaultValue
     }
     parentStore {
       id

@@ -9,11 +9,21 @@ import {
   CreateActionModal,
   DeleteActionsModal,
   GetActionsTable,
+  GetStateTable,
+  StatePageHeader,
   StoreMainPane,
+  storeRef,
   UpdateActionModal,
   useCurrentStoreId,
+  WithActionService,
+  WithStoreService,
 } from '@codelab/frontend/modules/store'
-import { ConditionalView } from '@codelab/frontend/view/components'
+import { WithTypeService } from '@codelab/frontend/modules/type'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
+import {
+  ConditionalView,
+  SpinnerWrapper,
+} from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -22,15 +32,54 @@ import {
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
+import tw from 'twin.macro'
+
+const StatePage = observer<WithStoreService & WithTypeService>(
+  ({ typeService, storeService }) => (
+    <>
+      <StatePageHeader storeService={storeService} />
+      <GetStateTable storeService={storeService} typeService={typeService} />
+    </>
+  ),
+)
+
+const ActionPage = observer<WithStoreService & WithActionService>(
+  ({ actionService, storeService }) => (
+    <>
+      <ActionPageHeader actionService={actionService} />
+      <CreateActionModal
+        actionService={actionService}
+        storeService={storeService}
+      />
+      <UpdateActionModal actionService={actionService} />
+      <DeleteActionsModal actionService={actionService} />
+
+      <GetActionsTable
+        actionService={actionService}
+        storeService={storeService}
+      />
+    </>
+  ),
+)
 
 const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { actionService, storeService } = useStore()
+  const { actionService, storeService, typeService } = useStore()
   const storeId = useCurrentStoreId()
 
+  const [getCurrentStore, { isLoading }] = useLoadingState(() =>
+    storeService.getOne(storeId as string),
+  )
+
   useEffect(() => {
-    if (storeId) {
-      storeService.setCurrentStoreId(storeId)
+    if (!storeId) {
+      return
     }
+
+    getCurrentStore().then(() =>
+      storeService.setCurrentStore(storeRef(storeId)),
+    )
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeId])
 
   return (
@@ -38,20 +87,19 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Head>
         <title>Stores | Codelab</title>
       </Head>
-      <ConditionalView condition={Boolean(storeService.currentStoreId)}>
-        <CreateActionModal
-          actionService={actionService}
-          storeId={storeService.currentStoreId}
-        />
-        <UpdateActionModal actionService={actionService} />
-        <DeleteActionsModal actionService={actionService} />
-        <ContentSection>
-          <ActionPageHeader actionService={actionService} />
-          <GetActionsTable
-            actionService={actionService}
-            storeService={storeService}
-          />
-        </ContentSection>
+      <ConditionalView
+        condition={Boolean(storeId && storeService.currentStore?.current)}
+      >
+        <SpinnerWrapper isLoading={isLoading}>
+          <ContentSection>
+            <StatePage storeService={storeService} typeService={typeService} />
+            <div css={tw`mb-5`} />
+            <ActionPage
+              actionService={actionService}
+              storeService={storeService}
+            />
+          </ContentSection>
+        </SpinnerWrapper>
       </ConditionalView>
     </>
   )

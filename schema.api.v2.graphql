@@ -2890,11 +2890,6 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
-type CreateStateFieldsMutationResponse {
-  info: CreateInfo!
-  stateFields: [StateField!]!
-}
-
 type CreateStoreEdgesMutationResponse {
   info: CreateInfo!
   storeEdges: [StoreEdge!]!
@@ -7149,9 +7144,6 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
-  createStateFields(
-    input: [StateFieldCreateInput!]!
-  ): CreateStateFieldsMutationResponse!
   createStoreEdges(
     input: [StoreEdgeCreateInput!]!
   ): CreateStoreEdgesMutationResponse!
@@ -7241,7 +7233,6 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteStateFields(where: StateFieldWhere): DeleteInfo!
   deleteStoreEdges(where: StoreEdgeWhere): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
@@ -7464,10 +7455,6 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
-  updateStateFields(
-    update: StateFieldUpdateInput
-    where: StateFieldWhere
-  ): UpdateStateFieldsMutationResponse!
   updateStoreEdges(
     update: StoreEdgeUpdateInput
     where: StoreEdgeWhere
@@ -9235,11 +9222,6 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
-  stateFields(
-    options: StateFieldOptions
-    where: StateFieldWhere
-  ): [StateField!]!
-  stateFieldsAggregate(where: StateFieldWhere): StateFieldAggregateSelection!
   storeEdges(options: StoreEdgeOptions, where: StoreEdgeWhere): [StoreEdge!]!
   storeEdgesAggregate(where: StoreEdgeWhere): StoreEdgeAggregateSelection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
@@ -9724,89 +9706,6 @@ enum SortDirection {
   DESC
 }
 
-type StateField {
-  defaultValue: String!
-  name: String!
-  type: String!
-}
-
-type StateFieldAggregateSelection {
-  count: Int!
-  defaultValue: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  type: StringAggregateSelectionNonNullable!
-}
-
-input StateFieldConnectWhere {
-  node: StateFieldWhere!
-}
-
-input StateFieldCreateInput {
-  defaultValue: String!
-  name: String!
-  type: String!
-}
-
-input StateFieldOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more StateFieldSort objects to sort StateFields by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [StateFieldSort!]
-}
-
-"""
-Fields to sort StateFields by. The order in which sorts are applied is not guaranteed when specifying many fields in one StateFieldSort object.
-"""
-input StateFieldSort {
-  defaultValue: SortDirection
-  name: SortDirection
-  type: SortDirection
-}
-
-input StateFieldUpdateInput {
-  defaultValue: String
-  name: String
-  type: String
-}
-
-input StateFieldWhere {
-  AND: [StateFieldWhere!]
-  OR: [StateFieldWhere!]
-  defaultValue: String
-  defaultValue_CONTAINS: String
-  defaultValue_ENDS_WITH: String
-  defaultValue_IN: [String!]
-  defaultValue_NOT: String
-  defaultValue_NOT_CONTAINS: String
-  defaultValue_NOT_ENDS_WITH: String
-  defaultValue_NOT_IN: [String!]
-  defaultValue_NOT_STARTS_WITH: String
-  defaultValue_STARTS_WITH: String
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  type: String
-  type_CONTAINS: String
-  type_ENDS_WITH: String
-  type_IN: [String!]
-  type_NOT: String
-  type_NOT_CONTAINS: String
-  type_NOT_ENDS_WITH: String
-  type_NOT_IN: [String!]
-  type_NOT_STARTS_WITH: String
-  type_STARTS_WITH: String
-}
-
 type Store {
   actions(
     directed: Boolean = true
@@ -9860,13 +9759,13 @@ type Store {
   ): StoreParentStoreConnection!
   state(
     directed: Boolean = true
-    options: StateFieldOptions
-    where: StateFieldWhere
-  ): [StateField!]!
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
   stateAggregate(
     directed: Boolean = true
-    where: StateFieldWhere
-  ): StoreStateFieldStateAggregationSelection
+    where: InterfaceTypeWhere
+  ): StoreInterfaceTypeStateAggregationSelection
   stateConnection(
     after: String
     directed: Boolean = true
@@ -10165,13 +10064,14 @@ input StoreConnectInput {
   actions: [StoreActionsConnectFieldInput!]
   children: [StoreChildrenConnectFieldInput!]
   parentStore: StoreParentStoreConnectFieldInput
-  state: [StoreStateConnectFieldInput!]
+  state: StoreStateConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: [StoreActionsConnectOrCreateFieldInput!]
   children: [StoreChildrenConnectOrCreateFieldInput!]
   parentStore: StoreParentStoreConnectOrCreateFieldInput
+  state: StoreStateConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -10194,14 +10094,14 @@ input StoreDeleteInput {
   actions: [StoreActionsDeleteFieldInput!]
   children: [StoreChildrenDeleteFieldInput!]
   parentStore: StoreParentStoreDeleteFieldInput
-  state: [StoreStateDeleteFieldInput!]
+  state: StoreStateDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: [StoreActionsDisconnectFieldInput!]
   children: [StoreChildrenDisconnectFieldInput!]
   parentStore: StoreParentStoreDisconnectFieldInput
-  state: [StoreStateDisconnectFieldInput!]
+  state: StoreStateDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -10286,6 +10186,16 @@ input StoreEdgeWhere {
 type StoreGraph {
   edges: [StoreEdge!]!
   vertices: [Store!]!
+}
+
+type StoreInterfaceTypeStateAggregationSelection {
+  count: Int!
+  node: StoreInterfaceTypeStateNodeAggregateSelection
+}
+
+type StoreInterfaceTypeStateNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input StoreOnCreateInput {
@@ -10448,7 +10358,7 @@ input StoreRelationInput {
   actions: [StoreActionsCreateFieldInput!]
   children: [StoreChildrenCreateFieldInput!]
   parentStore: StoreParentStoreCreateFieldInput
-  state: [StoreStateCreateFieldInput!]
+  state: StoreStateCreateFieldInput
 }
 
 """
@@ -10471,7 +10381,17 @@ input StoreStateAggregateInput {
 }
 
 input StoreStateConnectFieldInput {
-  where: StateFieldConnectWhere
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input StoreStateConnectOrCreateFieldInput {
+  onCreate: StoreStateConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input StoreStateConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeOnCreateInput!
 }
 
 type StoreStateConnection {
@@ -10481,67 +10401,40 @@ type StoreStateConnection {
 }
 
 input StoreStateConnectionSort {
-  node: StateFieldSort
+  node: InterfaceTypeSort
 }
 
 input StoreStateConnectionWhere {
   AND: [StoreStateConnectionWhere!]
   OR: [StoreStateConnectionWhere!]
-  node: StateFieldWhere
-  node_NOT: StateFieldWhere
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
 }
 
 input StoreStateCreateFieldInput {
-  node: StateFieldCreateInput!
+  node: InterfaceTypeCreateInput!
 }
 
 input StoreStateDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
   where: StoreStateConnectionWhere
 }
 
 input StoreStateDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
   where: StoreStateConnectionWhere
 }
 
 input StoreStateFieldInput {
-  connect: [StoreStateConnectFieldInput!]
-  create: [StoreStateCreateFieldInput!]
-}
-
-type StoreStateFieldStateAggregationSelection {
-  count: Int!
-  node: StoreStateFieldStateNodeAggregateSelection
-}
-
-type StoreStateFieldStateNodeAggregateSelection {
-  defaultValue: StringAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  type: StringAggregateSelectionNonNullable!
+  connect: StoreStateConnectFieldInput
+  connectOrCreate: StoreStateConnectOrCreateFieldInput
+  create: StoreStateCreateFieldInput
 }
 
 input StoreStateNodeAggregationWhereInput {
   AND: [StoreStateNodeAggregationWhereInput!]
   OR: [StoreStateNodeAggregationWhereInput!]
-  defaultValue_AVERAGE_EQUAL: Float
-  defaultValue_AVERAGE_GT: Float
-  defaultValue_AVERAGE_GTE: Float
-  defaultValue_AVERAGE_LT: Float
-  defaultValue_AVERAGE_LTE: Float
-  defaultValue_EQUAL: String
-  defaultValue_GT: Int
-  defaultValue_GTE: Int
-  defaultValue_LONGEST_EQUAL: Int
-  defaultValue_LONGEST_GT: Int
-  defaultValue_LONGEST_GTE: Int
-  defaultValue_LONGEST_LT: Int
-  defaultValue_LONGEST_LTE: Int
-  defaultValue_LT: Int
-  defaultValue_LTE: Int
-  defaultValue_SHORTEST_EQUAL: Int
-  defaultValue_SHORTEST_GT: Int
-  defaultValue_SHORTEST_GTE: Int
-  defaultValue_SHORTEST_LT: Int
-  defaultValue_SHORTEST_LTE: Int
+  id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -10562,42 +10455,23 @@ input StoreStateNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
-  type_AVERAGE_EQUAL: Float
-  type_AVERAGE_GT: Float
-  type_AVERAGE_GTE: Float
-  type_AVERAGE_LT: Float
-  type_AVERAGE_LTE: Float
-  type_EQUAL: String
-  type_GT: Int
-  type_GTE: Int
-  type_LONGEST_EQUAL: Int
-  type_LONGEST_GT: Int
-  type_LONGEST_GTE: Int
-  type_LONGEST_LT: Int
-  type_LONGEST_LTE: Int
-  type_LT: Int
-  type_LTE: Int
-  type_SHORTEST_EQUAL: Int
-  type_SHORTEST_GT: Int
-  type_SHORTEST_GTE: Int
-  type_SHORTEST_LT: Int
-  type_SHORTEST_LTE: Int
 }
 
 type StoreStateRelationship {
   cursor: String!
-  node: StateField!
+  node: InterfaceType!
 }
 
 input StoreStateUpdateConnectionInput {
-  node: StateFieldUpdateInput
+  node: InterfaceTypeUpdateInput
 }
 
 input StoreStateUpdateFieldInput {
-  connect: [StoreStateConnectFieldInput!]
-  create: [StoreStateCreateFieldInput!]
-  delete: [StoreStateDeleteFieldInput!]
-  disconnect: [StoreStateDisconnectFieldInput!]
+  connect: StoreStateConnectFieldInput
+  connectOrCreate: StoreStateConnectOrCreateFieldInput
+  create: StoreStateCreateFieldInput
+  delete: StoreStateDeleteFieldInput
+  disconnect: StoreStateDisconnectFieldInput
   update: StoreStateUpdateConnectionInput
   where: StoreStateConnectionWhere
 }
@@ -10641,7 +10515,7 @@ input StoreUpdateInput {
   children: [StoreChildrenUpdateFieldInput!]
   name: String
   parentStore: StoreParentStoreUpdateFieldInput
-  state: [StoreStateUpdateFieldInput!]
+  state: StoreStateUpdateFieldInput
 }
 
 input StoreWhere {
@@ -10722,31 +10596,11 @@ input StoreWhere {
   parentStoreConnection: StoreParentStoreConnectionWhere
   parentStoreConnection_NOT: StoreParentStoreConnectionWhere
   parentStore_NOT: StoreWhere
+  state: InterfaceTypeWhere
   stateAggregate: StoreStateAggregateInput
-  stateConnection_ALL: StoreStateConnectionWhere
-  stateConnection_NONE: StoreStateConnectionWhere
-  stateConnection_SINGLE: StoreStateConnectionWhere
-  stateConnection_SOME: StoreStateConnectionWhere
-
-  """
-  Return Stores where all of the related StateFields match this filter
-  """
-  state_ALL: StateFieldWhere
-
-  """
-  Return Stores where none of the related StateFields match this filter
-  """
-  state_NONE: StateFieldWhere
-
-  """
-  Return Stores where one of the related StateFields match this filter
-  """
-  state_SINGLE: StateFieldWhere
-
-  """
-  Return Stores where some of the related StateFields match this filter
-  """
-  state_SOME: StateFieldWhere
+  stateConnection: StoreStateConnectionWhere
+  stateConnection_NOT: StoreStateConnectionWhere
+  state_NOT: InterfaceTypeWhere
 }
 
 type StringAggregateSelectionNonNullable {
@@ -12064,11 +11918,6 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
-type UpdateStateFieldsMutationResponse {
-  info: UpdateInfo!
-  stateFields: [StateField!]!
 }
 
 type UpdateStoreEdgesMutationResponse {

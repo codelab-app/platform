@@ -3,6 +3,7 @@
 //
 
 import {
+  InterfaceTypeCreateInput,
   StoreCreateInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen-v2'
@@ -10,8 +11,16 @@ import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 
 export const makeStoreCreateInput = (
   input: CreateStoreInput,
+  ownerId: string,
 ): StoreCreateInput => {
   const { name, parentStore } = input
+
+  const interfaceCreateInput: InterfaceTypeCreateInput = {
+    name: `${name} State`,
+    owner: {
+      connect: [{ where: { node: { id: ownerId } } }],
+    },
+  }
 
   return {
     name,
@@ -23,6 +32,7 @@ export const makeStoreCreateInput = (
           }
         : null,
     },
+    state: { create: { node: interfaceCreateInput } },
   }
 }
 

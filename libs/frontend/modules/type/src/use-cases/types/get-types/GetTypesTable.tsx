@@ -13,7 +13,7 @@ import { arraySet } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useGetAllTypesQuery } from '../../../hooks'
-import { typeRef, TypeService, WithTypeService } from '../../../store'
+import { typeRef, WithTypeService } from '../../../store'
 
 interface CellData {
   name: string
