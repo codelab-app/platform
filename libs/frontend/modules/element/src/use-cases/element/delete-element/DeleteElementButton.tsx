@@ -1,11 +1,10 @@
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, ElementService } from '../../../store'
+import { Element, elementRef, WithElementService } from '../../../store'
 
-interface DeleteElementProps {
+interface DeleteElementProps extends WithElementService {
   element: Element
-  elementService: ElementService
 }
 
 export const DeleteElementButton = observer(

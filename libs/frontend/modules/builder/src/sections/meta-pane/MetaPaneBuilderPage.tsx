@@ -1,7 +1,15 @@
 import { WithAtomService } from '@codelab/frontend/modules/atom'
+import {
+  DeleteElementButton,
+  MoveElementForm,
+  UpdateElementForm,
+  WithElementService,
+} from '@codelab/frontend/modules/element'
 import { WithTypeService } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
 import { usePropCompletion } from '../../hooks'
+import { WithBuilderService } from '../../store/BuilderService'
+import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export type MetaPaneBuilderPageProps = WithAtomService &
   WithTypeService &
@@ -9,50 +17,45 @@ export type MetaPaneBuilderPageProps = WithAtomService &
   WithElementService
 
 export const MetaPaneBuilderPage = observer<MetaPaneBuilderPageProps>(
-  ({ typeService, atomService }) => {
-    const { providePropCompletion } = usePropCompletion()
-    // const { elementTree } = useElementGraphContext()
+  ({ typeService, atomService, builderService, elementService }) => {
+    const { providePropCompletion } = usePropCompletion(builderService)
 
-    // if (!elementTree) {
-    //   return null
-    // }
+    return (
+      <MetaPaneBuilder
+        atomService={atomService}
+        builderService={builderService}
+        elementService={elementService}
+        renderUpdateElementContent={(element, trackPromises) => (
+          <>
+            <UpdateElementForm
+              element={element}
+              elementService={elementService}
+              key={element.id + '_update_form'}
+              model={{}}
+              providePropCompletion={(value) =>
+                providePropCompletion(value, element.id)
+              }
+              submitRef={undefined}
+              trackPromises={trackPromises}
+            />
 
-    return null
+            <MoveElementForm
+              element={element}
+              elementService={elementService}
+              key={element.id + '_move_form'}
+              model={{}}
+              submitRef={undefined}
+              trackPromises={trackPromises}
+            />
 
-    // return (
-    //   <SelectElementProvider tree={elementTree}>
-    //     <MetaPaneBuilder
-    //       atomService={atomService}
-    //       renderUpdateElementContent={(element, trackPromises) => (
-    //         <>
-    //           <UpdateElementForm
-    //             elementId={element.id}
-    //             key={element.id + '_update_form'}
-    //             model={{}}
-    //             providePropCompletion={(value) =>
-    //               providePropCompletion(value, element.id)
-    //             }
-    //             submitRef={undefined}
-    //             trackPromises={trackPromises}
-    //             tree={elementTree}
-    //           />
-    //
-    //           <MoveElementForm
-    //             elementId={element.id}
-    //             key={element.id + '_move_form'}
-    //             model={{}}
-    //             submitRef={undefined}
-    //             trackPromises={trackPromises}
-    //             tree={elementTree}
-    //           />
-    //
-    //           <DeleteElementButton elementId={element.id} entity={element} />
-    //         </>
-    //       )}
-    //       tree={elementTree}
-    //       typeService={typeService}
-    //     />
-    //   </SelectElementProvider>
-    // )
+            <DeleteElementButton
+              element={element}
+              elementService={elementService}
+            />
+          </>
+        )}
+        typeService={typeService}
+      />
+    )
   },
 )

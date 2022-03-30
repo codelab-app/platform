@@ -3,7 +3,11 @@ import {
   SelectElementOption,
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
+import {
+  AutoCompleteField,
+  Form,
+  ModalForm,
+} from '@codelab/frontend/view/components'
 import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -53,7 +57,7 @@ export const CreatePropMapBindingModal = observer(
       elementService.elementTree.elementsList.map((e) => ({
         value: e.id,
         label: e.label,
-        childrenIds: e.childrenSorted.map((c) => c.id),
+        childrenIds: e.childrenList.map((c) => c.id),
       }))
 
     return (
@@ -63,7 +67,7 @@ export const CreatePropMapBindingModal = observer(
         title={<span css={tw`font-semibold`}>Create prop binding</span>}
         visible={elementService.createPropMapBindingModal.isOpen}
       >
-        <ModalForm.Form<CreatePropMapBindingInput>
+        <Form<CreatePropMapBindingInput>
           model={{ elementId: element?.id }}
           onSubmit={(data) => {
             if (!element) {
@@ -99,7 +103,7 @@ export const CreatePropMapBindingModal = observer(
           />
 
           <TargetKeyField name="targetKey" tree={elementService.elementTree} />
-        </ModalForm.Form>
+        </Form>
       </ModalForm.Modal>
     )
   },

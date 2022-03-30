@@ -8,8 +8,8 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { DeletePropMapBindingForm, ElementId } from './DeletePropMapBindingForm'
-import { useDeletePropMapBindingForm } from './useDeletePropMapBindingForm'
+import { AutoFields } from 'uniforms-antd'
+import { WithElementService } from '../../../store'
 
 export type DeletePropMapBindingModalProps = WithElementService
 

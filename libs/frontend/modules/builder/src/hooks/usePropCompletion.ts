@@ -1,7 +1,7 @@
 import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isObjectLike } from 'lodash'
-import { BuilderService } from '../store'
+import { BuilderService } from '../store/BuilderService'
 
 /**
  * Provides a callback that takes in a search input value and a target element id
@@ -11,7 +11,7 @@ import { BuilderService } from '../store'
  */
 export const usePropCompletion = (builderService: BuilderService) => {
   const providePropCompletion = (value: string, elementId: string) => {
-    const element = builderService.builderRenderer.tree?.element(elementId)
+    const element = builderService.builderRenderer.tree.element(elementId)
 
     if (!element) {
       return []

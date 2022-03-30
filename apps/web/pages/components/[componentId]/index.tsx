@@ -5,9 +5,8 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  Builder,
-  BuilderContext,
   BuilderDashboardTemplate,
+  BuilderOld,
   BuilderSidebarNavigation,
   MainPaneBuilder,
   MetaPaneBuilderComponent,
@@ -31,10 +30,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
     <>
       <Head>{/* <title>{root?.component?.name} | Codelab</title>*/}</Head>
 
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
-      {isLoading && <Spin />}
-
-      <Builder
+      <BuilderOld
         isComponentBuilder
         // tree={elementTree}
         typeService={store.typeService}

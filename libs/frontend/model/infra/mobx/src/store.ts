@@ -1,7 +1,11 @@
 import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
-import { renderContext, RenderService } from '@codelab/frontend/modules/builder'
+import {
+  BuilderService,
+  renderContext,
+  RenderService,
+} from '@codelab/frontend/modules/builder'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
 import { TagService } from '@codelab/frontend/modules/tag'
@@ -27,7 +31,13 @@ export class RootStore extends Model({
   atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
-  elementService: prop(() => new ElementService({})),
+
+  elementService: prop(() => new ElementService({})), // default regular service that holds the element tree
+  providerElementService: prop(() => new ElementService({})), // element service that is used by the provider tree
+  builderService: prop(() => new BuilderService({})),
+
+  // This is the default render service used for rendering apps.
+  // do not confuse it with the builder-specific render service in builderService.builderRenderer
   renderService: prop(() => new RenderService({})),
 }) {
   protected onInit(): void {

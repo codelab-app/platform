@@ -10,11 +10,11 @@ export const useExpandedNodes = (builderService: BuilderService) => {
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
     return autorun(() => {
-      if (!builderService.selectedElement?.maybeCurrent) {
+      if (!builderService.selectedElement?.current) {
         return
       }
 
-      const pathResult = builderService.builderRenderer.tree?.getPathFromRoot(
+      const pathResult = builderService.builderRenderer.tree.getPathFromRoot(
         builderService.selectedElement.current,
       )
       // go through each node of the path and keep track of all nodes that need to get expanded

@@ -6,7 +6,6 @@ import {
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   PageDetailHeader,
-  PageProvider,
   useAppElementTree,
   usePage,
 } from '@codelab/frontend/modules/page'

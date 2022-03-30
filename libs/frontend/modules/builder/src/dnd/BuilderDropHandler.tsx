@@ -13,8 +13,7 @@ export const BuilderDropHandler = observer<WithBuilderService>(
     const { setNodeRef } = useCreateElementDroppable(
       BuilderDropId.BuilderRoot,
       {
-        parentElementId: builderService.builderRenderer.tree?.root
-          ?.id as string,
+        parentElementId: builderService.builderRenderer.tree.root?.id as string,
       },
     )
 

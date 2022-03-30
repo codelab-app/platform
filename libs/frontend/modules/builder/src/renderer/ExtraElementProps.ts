@@ -13,20 +13,17 @@ import {
 @model('@codelab/ExtraElementProps')
 export class ExtraElementProps extends Model({
   elementPropMap: prop(() => objectMap<Frozen<PropsData>>()),
-  global: prop<Frozen<PropsData>>(() => frozen({})).withSetter(),
+  global: prop<Frozen<PropsData>>(() => frozen({})),
 }) {
   getForElement(elementId: string) {
-    return mergeProps(
-      this.elementPropMap.get(elementId)?.data,
-      this.global.data,
-    )
+    return mergeProps(this.elementPropMap.get(elementId), this.global)
   }
 
   @modelAction
   addForElement(elementId: string, props: PropsData) {
     this.elementPropMap.set(
       elementId,
-      frozen(mergeProps(this.getForElement(elementId), props)),
+      frozen(mergeProps(this.elementPropMap.get(elementId), props)),
     )
   }
 
@@ -34,13 +31,6 @@ export class ExtraElementProps extends Model({
   addAll(props: PropsDataByElementId) {
     for (const [key, value] of Object.entries(props)) {
       this.addForElement(key, value)
-    }
-  }
-
-  @modelAction
-  setAll(props: PropsDataByElementId) {
-    for (const [key, value] of Object.entries(props)) {
-      this.setForElement(key, value)
     }
   }
 

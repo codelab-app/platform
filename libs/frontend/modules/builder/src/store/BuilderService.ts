@@ -2,7 +2,7 @@ import { Element } from '@codelab/frontend/modules/element'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, frozen, Model, model, prop, Ref } from 'mobx-keystone'
 import { BuilderDragData } from '../dnd/BuilderDragData'
-import { RenderService, renderServiceContext } from '../renderer'
+import { RenderService } from '../renderer'
 import { ExtraElementProps } from '../renderer/ExtraElementProps'
 import { BuilderTab } from './BuilderTab'
 
@@ -13,8 +13,6 @@ const voidClick = () => {
 export type WithBuilderService = {
   builderService: BuilderService
 }
-
-const globalProps = { onClick: voidClick }
 
 @model('@codelab/BuilderService')
 export class BuilderService extends Model({
@@ -32,17 +30,8 @@ export class BuilderService extends Model({
     () =>
       new RenderService({
         extraElementProps: new ExtraElementProps({
-          global: frozen(globalProps),
+          global: frozen({ onClick: voidClick }),
         }),
       }),
   ),
-}) {
-  protected override onAttachedToRootStore(
-    rootStore: object,
-  ): (() => void) | void {
-    renderServiceContext.set(this, this.builderRenderer)
-
-    // Override it in case the renderer comes from a snapshot
-    this.builderRenderer.extraElementProps.setGlobal(frozen(globalProps))
-  }
-}
+}) {}

@@ -1,6 +1,10 @@
 import { Atom, atomServiceContext } from '@codelab/frontend/modules/atom'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
+  CreatePropMapBindingInput,
+  UpdatePropMapBindingData,
+} from '@codelab/shared/abstract/codegen'
+import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen-v2'
@@ -22,10 +26,15 @@ import {
 import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
 import { MoveData } from '../use-cases/element/move-element/types'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
-import { elementApi } from './apis'
+import { elementApi, propMapBindingApi } from './apis'
 import { makeCreateInput, makeUpdateInput } from './apiUtils'
 import { Element } from './Element'
 import { ElementTree } from './ElementTree'
+import { PropMapBinding } from './PropMapBinding'
+
+export type WithElementService = {
+  elementService: ElementService
+}
 
 /**
  * Element stores a tree of elements locally using an ElementTree
@@ -38,6 +47,10 @@ export class ElementService extends Model({
   createModal: prop(() => new CreateElementModalService({})),
   updateModal: prop(() => new ElementModalService({})),
   deleteModal: prop(() => new ElementModalService({})),
+
+  createPropMapBindingModal: prop(() => new ElementModalService({})),
+  updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+  deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 }) {
   @modelFlow
   @transaction
@@ -68,6 +81,8 @@ export class ElementService extends Model({
     }
 
     this.elementTree.updateFromFragment(elementGraph)
+
+    return this.elementTree
   })
 
   @modelFlow
@@ -102,6 +117,8 @@ export class ElementService extends Model({
     }
 
     this.elementTree.addElement(element)
+
+    return element
   })
 
   @modelFlow
@@ -241,6 +258,106 @@ export class ElementService extends Model({
 
     return root
   })
+
+  @modelFlow
+  @transaction
+  createPropMapBinding = _async(function* (
+    this: ElementService,
+    element: Element,
+    createInput: CreatePropMapBindingInput,
+  ) {
+    const {
+      createPropMapBindings: {
+        propMapBindings: [createdPropMapBinding],
+      },
+    } = yield* _await(
+      propMapBindingApi.CreatePropMapBindings({
+        input: {
+          sourceKey: createInput.sourceKey.trim(),
+          targetKey: createInput.targetKey.trim(),
+          element: {
+            connect: { where: { node: { id: element.id } } },
+          },
+          targetElement: createInput.targetElementId
+            ? {
+                connect: {
+                  where: { node: { id: createInput.targetElementId } },
+                },
+              }
+            : undefined,
+        },
+      }),
+    )
+
+    if (!createdPropMapBinding) {
+      throw new Error('No prop map bindings created')
+    }
+
+    const propMapBinding = PropMapBinding.fromFragment(createdPropMapBinding)
+
+    element.addPropMapBinding(propMapBinding)
+
+    return propMapBinding
+  })
+
+  @modelFlow
+  @transaction
+  updatePropMapBinding = _async(function* (
+    this: ElementService,
+    element: Element,
+    propMapBinding: PropMapBinding,
+    updateData: UpdatePropMapBindingData,
+  ) {
+    const {
+      updatePropMapBindings: {
+        propMapBindings: [updatedPropMapBinding],
+      },
+    } = yield* _await(
+      propMapBindingApi.UpdatePropMapBindings({
+        where: { id: propMapBinding.id },
+        update: {
+          sourceKey: updateData.sourceKey,
+          targetKey: updateData.targetKey,
+          targetElement: {
+            connect: { where: { node: { id: updateData.targetElementId } } },
+            disconnect: { where: {} },
+          },
+        },
+      }),
+    )
+
+    if (!updatedPropMapBinding) {
+      throw new Error('No prop map bindings updated')
+    }
+
+    propMapBinding.updateFromFragment(updatedPropMapBinding)
+
+    return propMapBinding
+  })
+
+  @modelFlow
+  @transaction
+  deletePropMapBinding = _async(function* (
+    this: ElementService,
+    element: Element,
+    propMapBinding: PropMapBinding,
+  ) {
+    const {
+      deletePropMapBindings: { nodesDeleted },
+    } = yield* _await(
+      propMapBindingApi.DeletePropMapBindings({
+        where: { id: propMapBinding.id },
+      }),
+    )
+
+    if (nodesDeleted === 0) {
+      throw new Error('No prop map bindings deleted')
+    }
+
+    element.removePropMapBinding(propMapBinding)
+
+    return propMapBinding
+  })
 }
 
 @model('codelab/ElementModalService')
@@ -263,5 +380,26 @@ class CreateElementModalService extends ExtendedModel(() => ({
   @computed
   get parentElement() {
     return this.metadata?.parentElement?.current ?? null
+  }
+}
+
+@model('codelab/PropMapBindingModalService')
+class PropMapBindingModalService extends ExtendedModel(() => ({
+  baseModel: modelClass<
+    ModalService<{
+      propMapBinding: Ref<PropMapBinding>
+      element: Ref<Element>
+    }>
+  >(ModalService),
+  props: {},
+})) {
+  @computed
+  get propMapBinding() {
+    return this.metadata?.propMapBinding.current ?? null
+  }
+
+  @computed
+  get element() {
+    return this.metadata?.element.current ?? null
   }
 }

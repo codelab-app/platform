@@ -1,4 +1,12 @@
-import { ElementTree } from '@codelab/shared/core'
+import tw from 'twin.macro'
+import { Element, WithElementService } from '../store'
+import {
+  CreatePropMapBindingButton,
+  CreatePropMapBindingModal,
+  DeletePropMapBindingModal,
+  PropMapBindingsTable,
+  UpdatePropMapBindingModal,
+} from '../use-cases'
 
 export interface PropMapBindingSectionProps extends WithElementService {
   element: Element
@@ -10,33 +18,26 @@ export const PropMapBindingSection = ({
   elementService,
   providePropCompletion,
 }: PropMapBindingSectionProps) => {
-  // const element = useGetElementById(elementId)
-
-  // if (!element) {
-  //   return null
-  // }
-
-  return null
-
-  // return (
-  //   <>
-  //     <PropMapBindingsTable element={element} tree={tree} />
-  //     <div css={tw`text-center m-2`}>
-  //       <CreatePropMapBindingButton />
-  //     </div>
-  //     <CreatePropMapBindingModal
-  //       elementId={elementId}
-  //       providePropCompletion={providePropCompletion}
-  //       tree={tree}
-  //     />
-  //     <UpdatePropMapBindingModal
-  //       elementId={elementId}
-  //       providePropCompletion={providePropCompletion}
-  //       tree={tree}
-  //     />
-  //     <DeletePropMapBindingModal elementId={elementId} />
-  //   </>
-  // )
+  return (
+    <>
+      <PropMapBindingsTable element={element} elementService={elementService} />
+      <div css={tw`text-center m-2`}>
+        <CreatePropMapBindingButton
+          element={element}
+          elementService={elementService}
+        />
+      </div>
+      <CreatePropMapBindingModal
+        elementService={elementService}
+        providePropCompletion={providePropCompletion}
+      />
+      <UpdatePropMapBindingModal
+        elementService={elementService}
+        providePropCompletion={providePropCompletion}
+      />
+      <DeletePropMapBindingModal elementService={elementService} />
+    </>
+  )
 }
 
 PropMapBindingSection.displayName = 'PropMapBindingSection'

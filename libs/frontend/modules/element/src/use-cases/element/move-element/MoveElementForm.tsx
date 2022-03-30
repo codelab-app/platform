@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { Element, ElementService } from '../../../store'
+import { Element, WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
@@ -16,11 +16,11 @@ import { MoveData } from './types'
 export type MoveElementFormProps = Omit<
   UseCaseFormWithRef<MoveData>,
   'onSubmit'
-> & {
-  element: Element
-  elementService: ElementService
-  trackPromises?: UseTrackLoadingPromises
-}
+> &
+  WithElementService & {
+    element: Element
+    trackPromises?: UseTrackLoadingPromises
+  }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer(
@@ -30,7 +30,7 @@ export const MoveElementForm = observer(
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
       parentElementId: element.parentElement?.id,
-      order: element.order,
+      order: element.parentElement?.current?.orderOfElement(element),
     })
 
     const onSubmit = (data: MoveData) => {

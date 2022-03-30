@@ -1,12 +1,12 @@
 import { WithAtomService } from '@codelab/frontend/modules/atom'
+import { CreateElementButton } from '@codelab/frontend/modules/element'
 import { EqualityConditionalView } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import { Nullable } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useBuilderSelectedElement, useBuilderTab } from '../../hooks'
-import { BuilderTab } from '../../store'
+import { BuilderTab } from '../../store/BuilderTab'
 
 const { Search } = Input
 
@@ -22,9 +22,9 @@ const headerFactory = (
   elementService: ElementService,
   builderService: BuilderService,
 ) => {
-  // if (tab === BuilderTab.Tree && root) {
-  //   return <CreateElementButton key={0} parentElementId={root.id} />
-  // }
+  if (tab === BuilderTab.Tree && root) {
+    return <CreateElementButton key={0} parentElementId={root.id} />
+  }
 
   if (tab === BuilderTab.Toolbox) {
     return (

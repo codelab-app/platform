@@ -1,11 +1,15 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import {
+  elementRef,
+  WithElementService,
+} from '@codelab/frontend/modules/element'
 import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useBuilderSelectedElement } from '../../hooks'
 import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
+import { WithBuilderService } from '../../store/BuilderService'
 
 const StyledOverlayContainer = styled.div`
   display: flex;
@@ -30,13 +34,13 @@ const StyledOverlayButtonGroup = styled.div`
   }
 `
 
-export const BuilderClickOverlay = () => {
-  const { selectedElement } = useBuilderSelectedElement()
-  // const { openDeleteModal, openCreateModal } = useElementDispatch()
+export interface BuilderClickOverlayProps
+  extends WithElementService,
+    WithBuilderService {}
 
 export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
   ({ builderService, elementService }) => {
-    const selectedElement = builderService.selectedElement?.maybeCurrent
+    const selectedElement = builderService.selectedElement?.current
 
     if (!selectedElement) {
       return null
@@ -56,11 +60,13 @@ export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
             onClick={(e) => {
               e.stopPropagation()
 
-            // return openCreateModal({ parentElementId: selectedElement.id })
-          }}
-          size="small"
-          type="text"
-        />
+              elementService.createModal.open({
+                parentElement: elementRef(selectedElement),
+              })
+            }}
+            size="small"
+            type="text"
+          />
 
           <Button
             danger
@@ -68,17 +74,14 @@ export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
             onClick={(e) => {
               e.stopPropagation()
 
-            // return openDeleteModal({
-            //   deleteIds: [selectedElement.id],
-            //   entity: selectedElement,
-            // })
-          }}
-          size="small"
-          type="text"
-        />
-      </StyledOverlayButtonGroup>
-    </StyledOverlayContainer>
-  )
+              elementService.deleteModal.open(elementRef(selectedElement))
+            }}
+            size="small"
+            type="text"
+          />
+        </StyledOverlayButtonGroup>
+      </StyledOverlayContainer>
+    )
 
     return (
       <ClickOverlay

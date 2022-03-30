@@ -3,6 +3,7 @@ import { HoverOverlay } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { queryRenderedElementById } from '../renderer/utils/queryRenderedElementById'
+import { WithBuilderService } from '../store/BuilderService'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
 export type BuilderDropHandlersProps = WithBuilderService
@@ -47,7 +48,7 @@ export const ElementDropHandlers = observer(
   ({ builderService }: BuilderDropHandlersProps) => {
     return (
       <>
-        {builderService.builderRenderer.tree?.elementsList.map((e) => {
+        {builderService.builderRenderer.tree.elementsList.map((e) => {
           const target = queryRenderedElementById(e.id)
 
           if (!target) {
