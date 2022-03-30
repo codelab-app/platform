@@ -21,7 +21,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   Ref,
   rootRef,
@@ -66,9 +65,6 @@ export class RenderService extends Model({
 
   /** Props passed to specific elements */
   extraElementProps: prop(() => new ExtraElementProps({})),
-
-  /** Props passed to specific elements, mapped by the element id */
-  extraElementProps: prop(() => objectMap<Frozen<PropsData>>()),
 
   /** Those transform different kinds of typed values into render-ready props */
   typedValueTransformers: prop<Array<ITypedValueTransformer>>(

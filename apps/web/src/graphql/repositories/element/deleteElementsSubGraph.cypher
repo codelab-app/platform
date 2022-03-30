@@ -9,4 +9,4 @@ CALL apoc.nodes.delete(nodes ,10000) Yield value
 Return 
 value as nodesDeleted,
 deletedIds as deletedIds,
-size(relationships) as relationshipsDeleted 
+size(relationships) as relationshipsDeleted     

@@ -10,7 +10,6 @@ export const deleteTagsSchema: JSONSchemaType<DeleteTagsInput> = {
       items: {
         type: 'string',
       },
-
       disabled: true,
       autoFocus: true,
     },

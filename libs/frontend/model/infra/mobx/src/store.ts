@@ -1,3 +1,4 @@
+import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import {
@@ -7,6 +8,7 @@ import {
 } from '@codelab/frontend/modules/builder'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
+import { ActionService, StoreService } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import {
