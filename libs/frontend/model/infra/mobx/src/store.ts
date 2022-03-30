@@ -1,3 +1,4 @@
+import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService } from '@codelab/frontend/modules/atom'
 import { PageService } from '@codelab/frontend/modules/page'
@@ -16,6 +17,7 @@ export class RootStore extends Model({
   typeService: prop(() => new TypeService({})),
   atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
+  adminService: prop(() => new AdminService({})),
 }) {}
 
 let _store: RootStore | null = null
