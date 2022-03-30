@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { Resource, ResourceService, WithResourceService } from '../..'
 import { ResourceModalInterfaceForm } from '../../components/ResourceModalInterfaceForm'
-import { createResourceSchema } from '../create-resource/createResourceSchema'
+import { initialResourceSchema } from '../../schema/initialResourceSchema'
 import { UpdateResourceInput, updateResourceSchema } from './updateResourceSchema'
 import { getSnapshot } from 'mobx-keystone'
 
@@ -46,7 +46,7 @@ export const UpdateResourceModal = observer(
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
-          initialSchema={createResourceSchema}
+          initialSchema={initialResourceSchema}
           model={deserializedResource}
         />
       </ModalForm.Modal>

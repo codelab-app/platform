@@ -8,14 +8,15 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { Resource } from '../../store/resource.model'
 import {
   CreateResourceInput,
-  createResourceSchema,
-} from './createResourceSchema'
+  initialResourceSchema,
+} from '../../schema/initialResourceSchema'
 import { ResourceService, WithResourceService } from '../..'
 import { AtomService } from '@codelab/frontend/modules/atom'
 import { AtomType } from '@codelab/shared/abstract/codegen-v2'
 import { InterfaceForm, interfaceFormApi, SelectAtom, SelectResourceAtom, TypeService } from '@codelab/frontend/modules/type'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { ResourceModalInterfaceForm } from '../../components/ResourceModalInterfaceForm'
+import { createResourceSchema } from './createResourceSchema'
 
 
 export const CreateResourceModal = observer(

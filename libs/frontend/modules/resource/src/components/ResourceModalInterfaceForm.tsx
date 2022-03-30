@@ -26,16 +26,33 @@ export const ResourceModalInterfaceForm = (props: any) => {
     if (!currentAtomType) return
     const atom = resourceAtomByType[currentAtomType]
     if (!atom) return
+    console.log({ atom });
+
 
     getInterfaceType(atom.api.id)
-  }, [resourceAtomByType])
+  }, [resourceAtomByType, currentAtomType])
+
+  const onChange = (field, value) => {
+    if (field !== 'type') return
+    setCurrentAtomType(value)
+  }
+
+  const model = {
+    type: currentAtomType,
+    ...props.model
+  }
 
 
   return (
     <SpinnerWrapper isLoading={isLoading || !interfaceType}>
-      <ModalInterfaceForm {...rest} interfaceType={interfaceType}>
-        <AutoFields omitFields={["type"]} />
+      <ModalInterfaceForm {...rest} onChange={onChange} interfaceType={interfaceType} model={model}>
+        <AutoField name="name" />
         <AutoField component={SelectResourceAtom} name="type" />
+        <AutoField name="url" />
+        <AutoField name="httpMethod" />
+        <AutoField name="header" />
+        <AutoField name="queryString" />
+        <AutoFields omitFields={["type", "name", "type", "url", "header", 'queryString']} />
       </ModalInterfaceForm>
     </SpinnerWrapper>
   )

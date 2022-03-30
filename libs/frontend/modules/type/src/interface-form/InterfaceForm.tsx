@@ -29,7 +29,7 @@ export const InterfaceForm = <TData,>({
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const initialSchemaRef = useRef(initialSchema)
   const [formSchema, setFormSchema] = useState(initialSchema ?? {})
-  console.log({ formSchema, interfaceType });
+  console.log({ formSchema, initialSchema, interfaceType });
 
 
   useEffect(

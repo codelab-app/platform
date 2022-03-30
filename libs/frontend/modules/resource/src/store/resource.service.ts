@@ -17,7 +17,7 @@ import {
   _async,
   _await,
 } from 'mobx-keystone'
-import { CreateResourceInput } from '../use-cases/create-resource/createResourceSchema'
+import { CreateResourceInput } from '../schema/initialResourceSchema'
 import { Resource } from './resource.model'
 import { resourceApi } from './resource.api'
 import {
