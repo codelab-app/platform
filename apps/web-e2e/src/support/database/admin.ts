@@ -19,7 +19,7 @@ export const importAdminData = (data: any) =>
       query: print(E2eImportAdminDataDocument),
       variables: { input: { payload: data } },
     })
-    .then((r) => r.body.data?.importAdminData.result as boolean)
+    .then((r) => r.body.data?.importAdminData.success as boolean)
 
 export const exportAdminData = () =>
   cy

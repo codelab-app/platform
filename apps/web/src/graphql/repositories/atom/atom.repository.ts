@@ -14,7 +14,7 @@ import {
 import exportAtom from './exportAtom.cypher'
 
 export const atomRepository = {
-  exportAtom: (txn: RxTransaction): Observable<Maybe<Array<AtomFragment>>> =>
+  getAtom: (txn: RxTransaction): Observable<Maybe<Array<AtomFragment>>> =>
     txn
       .run(exportAtom)
       .records()
@@ -23,7 +23,7 @@ export const atomRepository = {
         map((r) => r?.get('graph') as Maybe<Array<AtomFragment>>),
       ),
 
-  importAtomFromJson: async (
+  createAtom: async (
     atoms: Array<AtomInput>,
   ): Promise<Array<CreateAtomsMutationResponse>> => {
     const allAtomPromises: Array<CreateAtomsMutationResponse> =

@@ -6,7 +6,7 @@ import { omit } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable, of } from 'rxjs'
 import { first, map, switchMap, tap } from 'rxjs/operators'
-import { AnyType } from '../../ogm-types.gen'
+import { AnyType, TypeGraph } from '../../ogm-types.gen'
 import disconnectFieldCypher from './disconnectField.cypher'
 import getAllTypeGraphCypher from './getAllTypeGraph.cypher'
 import getFieldCypher from './getField.cypher'
@@ -50,6 +50,14 @@ type NestedFieldType = Field & {
 }
 
 export const typeRepository = {
+  getAllTypes: (txn: RxTransaction): Observable<Maybe<Array<TypeGraph>>> =>
+    txn
+      .run(getAllTypeGraphCypher)
+      .records()
+      .pipe(
+        first(() => true, undefined),
+        map((r) => r?.get('graph')),
+      ),
   // It's easier to just do it in cypher than try and peace together all XType.find() calls
   getTypeById: (
     txn: RxTransaction,

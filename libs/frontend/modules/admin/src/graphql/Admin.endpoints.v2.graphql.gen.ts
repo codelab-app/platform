@@ -18,7 +18,7 @@ export type ImportAdminDataMutationVariables = Types.Exact<{
 }>
 
 export type ImportAdminDataMutation = {
-  importAdminData?: { result: boolean } | null | undefined
+  importAdminData?: { success: boolean } | null | undefined
 }
 
 export type ExportAdminDataQueryVariables = Types.Exact<{
@@ -39,7 +39,7 @@ export const ResetDatabaseGql = gql`
 export const ImportAdminDataGql = gql`
   mutation importAdminData($input: ImportAdminDataInput!) {
     importAdminData(input: $input) {
-      result
+      success
     }
   }
 `

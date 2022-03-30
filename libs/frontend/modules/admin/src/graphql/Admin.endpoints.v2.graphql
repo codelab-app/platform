@@ -6,7 +6,7 @@ mutation ResetDatabase {
 
 mutation importAdminData($input: ImportAdminDataInput!) {
   importAdminData(input: $input) {
-    result
+    success
   }
 }
 

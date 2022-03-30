@@ -5,7 +5,7 @@ mutation E2eResetDatabase {
 }
 mutation E2eImportAdminData($input: ImportAdminDataInput!) {
   importAdminData(input: $input) {
-    result
+    success
   }
 }
 

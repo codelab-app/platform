@@ -7,12 +7,12 @@ import {
 } from '../../ogm-types.gen'
 
 export const appRepository = {
-  exportApp: async (): Promise<Array<AppInput>> => {
+  getApp: async (): Promise<Array<AppInput>> => {
     const apps = (await App()).find()
 
     return apps
   },
-  importAppFromJson: async (
+  createApp: async (
     appInputs: Array<CreateAppInput>,
     auth0Id: string,
   ): Promise<Array<CreateAppsMutationResponse>> => {

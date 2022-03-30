@@ -6,7 +6,7 @@ export const adminSchema = gql`
   }
 
   type ImportDataMutationResponse {
-    result: Boolean!
+    success: Boolean!
   }
 
   input ImportAdminDataInput {

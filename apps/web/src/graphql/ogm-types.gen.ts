@@ -3411,7 +3411,7 @@ export type IdAggregateSelectionNonNullable = {
 
 export type ImportDataMutationResponse = {
   __typename?: "ImportDataMutationResponse";
-  result: Scalars["Boolean"];
+  success: Scalars["Boolean"];
 };
 
 export type ImportDataMutationResponseAggregateSelection = {
@@ -9131,7 +9131,7 @@ export type ImportAdminDataInput = {
 };
 
 export type ImportDataMutationResponseCreateInput = {
-  result: Scalars["Boolean"];
+  success: Scalars["Boolean"];
 };
 
 export type ImportDataMutationResponseOptions = {
@@ -9143,18 +9143,18 @@ export type ImportDataMutationResponseOptions = {
 
 /** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
 export type ImportDataMutationResponseSort = {
-  result?: InputMaybe<SortDirection>;
+  success?: InputMaybe<SortDirection>;
 };
 
 export type ImportDataMutationResponseUpdateInput = {
-  result?: InputMaybe<Scalars["Boolean"]>;
+  success?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type ImportDataMutationResponseWhere = {
   OR?: InputMaybe<Array<ImportDataMutationResponseWhere>>;
   AND?: InputMaybe<Array<ImportDataMutationResponseWhere>>;
-  result?: InputMaybe<Scalars["Boolean"]>;
-  result_NOT?: InputMaybe<Scalars["Boolean"]>;
+  success?: InputMaybe<Scalars["Boolean"]>;
+  success_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {

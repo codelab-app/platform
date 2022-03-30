@@ -10,11 +10,7 @@ import {
   TypeEdge,
   TypeGraph,
 } from '../../ogm-types.gen'
-import {
-  adminRepository,
-  fieldRepository,
-  typeRepository,
-} from '../../repositories'
+import { fieldRepository, typeRepository } from '../../repositories'
 import { appRepository } from '../../repositories/app'
 import { atomRepository } from '../../repositories/atom'
 import { IRxTxnResolver } from '../abstract/withRxTransaction'
@@ -61,19 +57,19 @@ export const importAdminData: IFieldResolver<
   // const tags = JSON.parse(payload)?.tags as TagGraph
   const atoms = JSON.parse(payload)?.atoms ?? ([] as Array<Atom>)
   // const createTags = await tagRepository.importTagsFromJson(tags)
-  const createAtom = await atomRepository.importAtomFromJson(atoms)
-  const createApps = await appRepository.importAppFromJson(apps, auth0Id)
+  const createAtom = await atomRepository.createAtom(atoms)
+  const createApps = await appRepository.createApp(apps, auth0Id)
 
   return Promise.resolve({
-    result: !!createApps && !!createTypes && /* !!createTags &&*/ !!createAtom,
+    success: !!createApps && !!createTypes && /* !!createTags &&*/ !!createAtom,
   })
 }
 
 export const exportAdminData: IRxTxnResolver = () => (txn) => {
   return forkJoin({
-    apps: from(appRepository.exportApp()),
+    apps: from(appRepository.getApp()),
     // tags: tagRepository.getTagGraphs(txn),
-    atoms: atomRepository.exportAtom(txn),
-    typesGraph: adminRepository.getExportAdminData(txn),
+    atoms: atomRepository.getAtom(txn),
+    typesGraph: typeRepository.getAllTypes(txn),
   }).pipe(map((result) => ({ result })))
 }

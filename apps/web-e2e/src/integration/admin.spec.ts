@@ -17,26 +17,42 @@ describe('Admin Import and Export', () => {
               apps: payload.apps
                 ?.map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),
-              tags: payload.tags?.vertices
-                .map((v: any) => v.name)
-                .sort((a: string, b: string) => (a > b ? -1 : 1)),
+              // tags: payload.tags?.vertices
+              //   .map((v: any) => v.name)
+              //   .sort((a: string, b: string) => (a > b ? -1 : 1)),
               atoms: payload.atoms
                 ?.map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),
-              typesGraph: payload.typesGraph,
+              typesGraph: payload.typesGraph
+                ?.map((g: any) =>
+                  g.vertices
+                    .map((v: any) => v.name)
+                    .sort((a: string, b: string) => (a > b ? -1 : 1)),
+                )
+                .sort((a: Array<string>, b: Array<string>) =>
+                  a.join() > b.join() ? -1 : 1,
+                ),
             }
 
             const exportResultNames = {
               apps: exportResult.apps
                 ?.map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),
-              tags: exportResult.tags?.vertices
-                .map((v: any) => v.name)
-                .sort((a: string, b: string) => (a > b ? -1 : 1)),
+              // tags: exportResult.tags?.vertices
+              //   .map((v: any) => v.name)
+              //   .sort((a: string, b: string) => (a > b ? -1 : 1)),
               atoms: exportResult.atoms
                 ?.map((v: any) => v.name)
                 .sort((a: string, b: string) => (a > b ? -1 : 1)),
-              typesGraph: exportResult.typesGraph,
+              typesGraph: exportResult.typesGraph
+                ?.map((g: any) =>
+                  g.vertices
+                    .map((v: any) => v.name)
+                    .sort((a: string, b: string) => (a > b ? -1 : 1)),
+                )
+                .sort((a: Array<string>, b: Array<string>) =>
+                  a.join() > b.join() ? -1 : 1,
+                ),
             }
 
             expect(payloadNames).to.deep.eq(exportResultNames)
