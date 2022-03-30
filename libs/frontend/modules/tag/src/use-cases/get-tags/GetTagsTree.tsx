@@ -2,8 +2,11 @@ import { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { css, SerializedStyles } from '@emotion/react'
 import { Tree, TreeProps, Typography } from 'antd'
 import { DataNode } from 'antd/lib/tree'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { WithTagService } from '../../store'
+import { Tag } from '../../store/tag.model'
+import { TreeService } from '../../store/tree.service'
 import { UpdateTagIconButton } from '../update-tag/UpdateTagIconButton'
 
 const tagNodeStyle: SerializedStyles = css({
@@ -15,9 +18,10 @@ const tagNodeStyle: SerializedStyles = css({
 })
 
 export const GetTagsTree = observer<WithTagService>(({ tagService }) => {
-  // const tagGraph = await tagService.getTagGraphs()
+  const tagsList = tagService.tagsList
+  const tree = TreeService.init({ nodes: tagsList })
 
-  // console.log(tagGraph)
+  // console.log(Array.from(tree.nodes.entries()))
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     // setSelectedTag({ key: selectedKeys[0] })

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
-import { WithTagService } from '../../store/tag.service'
+import { WithTagService } from '../../store'
 import { deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
@@ -34,7 +34,8 @@ export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
         onSubmitSuccess={closeModal}
         schema={deleteTagsSchema}
       >
-        Are you sure you want to delete {tags?.join(', ')}?
+        Are you sure you want to delete {tags.map((tag) => tag.name).join(', ')}
+        ?
         <AutoFields omitFields={['ids']} />
         <ListField hidden={true} itemProps={{}} name="ids" />
       </ModalForm.Form>

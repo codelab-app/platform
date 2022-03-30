@@ -23,11 +23,10 @@ export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
     <ModalForm.Modal
       okText="Update Tag"
       onCancel={closeModal}
-      title={<span css={tw`font-semibold`}>Update Tag</span>}
       visible={tagService.updateModal.isOpen}
     >
       <ModalForm.Form<UpdateTagInput>
-        model={{ ...tag }}
+        model={{ name: tag?.name }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating tag',

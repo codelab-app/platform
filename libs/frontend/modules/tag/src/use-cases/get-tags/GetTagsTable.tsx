@@ -1,14 +1,21 @@
+import {
+  ListItemDeleteButton,
+  ListItemEditButton,
+} from '@codelab/frontend/view/components'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { WithTagService } from '../../store'
+import { tagRef } from '../../store/tag.model'
 
 export interface TagRecord {
+  id: string
   name: string
 }
 
 export const GetTagsTable = observer<WithTagService>(({ tagService }) => {
   const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
     key: tag.id,
+    id: tag.id,
     name: tag.name,
   }))
 
@@ -22,7 +29,16 @@ export const GetTagsTable = observer<WithTagService>(({ tagService }) => {
       title: 'Action',
       key: 'action',
       width: 100,
-      render: (text, atom) => <Space size="middle"></Space>,
+      render: (text, tag) => (
+        <Space size="middle">
+          <ListItemEditButton
+            onClick={() => tagService.updateModal.open(tagRef(tag.id))}
+          />
+          <ListItemDeleteButton
+            onClick={() => tagService.deleteModal.open([tagRef(tag.id)])}
+          />
+        </Space>
+      ),
     },
   ]
 

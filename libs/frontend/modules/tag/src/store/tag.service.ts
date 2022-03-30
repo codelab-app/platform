@@ -32,6 +32,14 @@ export class TagService extends Model({
     return [...this.tags.values()]
   }
 
+  @computed
+  get TagsListOptions() {
+    return this.tagsList.map((tag) => ({
+      label: tag.name,
+      value: tag.id,
+    }))
+  }
+
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, input: CreateTagInput) {
@@ -39,7 +47,18 @@ export class TagService extends Model({
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input,
+        input: {
+          name: input.name,
+          parent: {
+            connect: {
+              where: {
+                node: {
+                  id: input.parentTagId,
+                },
+              },
+            },
+          },
+        },
       }),
     )
 
@@ -100,7 +119,7 @@ export class TagService extends Model({
       throw new Error('App was not deleted')
     }
 
-    return
+    return deleteTags
   })
 
   @modelFlow

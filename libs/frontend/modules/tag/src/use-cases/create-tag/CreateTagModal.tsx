@@ -14,7 +14,7 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   //   label: tag.name,
   //   value: tag.id,
   // }))
-  const options = [{ label: '', value: '' }]
+  const options = tagService.TagsListOptions
   const closeModal = () => tagService.createModal.close()
 
   return (
@@ -33,16 +33,16 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
         schema={createTagSchema}
       >
         <AutoFields omitFields={['parentTagId']} />
-        <DisplayIfNotRoot>
-          <SelectField
-            label="Parent Tag"
-            name="parentTagId"
-            optionFilterProp="label"
-            options={options}
-            required
-            showSearch={true}
-          />
-        </DisplayIfNotRoot>
+        {/* <DisplayIfNotRoot>*/}
+        <SelectField
+          label="Parent Tag"
+          name="parentTagId"
+          optionFilterProp="label"
+          options={options}
+          // required
+          showSearch
+        />
+        {/* </DisplayIfNotRoot>*/}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

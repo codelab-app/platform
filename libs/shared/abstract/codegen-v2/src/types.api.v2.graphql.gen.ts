@@ -2722,6 +2722,12 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
+export type CreateTagGraphOptionsMutationResponse = {
+  __typename?: 'CreateTagGraphOptionsMutationResponse'
+  info: CreateInfo
+  tagGraphOptions: Array<TagGraphOptions>
+}
+
 export type CreateTagsMutationResponse = {
   __typename?: 'CreateTagsMutationResponse'
   info: CreateInfo
@@ -7039,6 +7045,7 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
+  createTagGraphOptions: CreateTagGraphOptionsMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
@@ -7070,6 +7077,7 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
+  deleteTagGraphOptions: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
@@ -7104,6 +7112,7 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
+  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
@@ -7212,6 +7221,10 @@ export type MutationCreateRenderPropsTypesArgs = {
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
+}
+
+export type MutationCreateTagGraphOptionsArgs = {
+  input: Array<TagGraphOptionsCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -7356,6 +7369,10 @@ export type MutationDeleteRenderPropsTypesArgs = {
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationDeleteTagGraphOptionsArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationDeleteTagsArgs = {
@@ -7612,6 +7629,11 @@ export type MutationUpdateRenderPropsTypesArgs = {
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationUpdateTagGraphOptionsArgs = {
+  update?: InputMaybe<TagGraphOptionsUpdateInput>
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type MutationUpdateTagsArgs = {
@@ -9290,6 +9312,8 @@ export type Query = {
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
+  tagGraphOptions: Array<TagGraphOptions>
+  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
   tagGraphs: Array<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
@@ -9555,6 +9579,15 @@ export type QueryResetDatabaseMutationResponsesArgs = {
 
 export type QueryResetDatabaseMutationResponsesAggregateArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryTagGraphOptionsArgs = {
+  options?: InputMaybe<TagGraphOptionsOptions>
+  where?: InputMaybe<TagGraphOptionsWhere>
+}
+
+export type QueryTagGraphOptionsAggregateArgs = {
+  where?: InputMaybe<TagGraphOptionsWhere>
 }
 
 export type QueryTagsArgs = {
@@ -10314,6 +10347,63 @@ export type TagGraph = {
   descendants: Array<Scalars['ID']>
   id: Scalars['ID']
   name: Scalars['String']
+}
+
+export type TagGraphOptions = {
+  __typename?: 'TagGraphOptions'
+  limit?: Maybe<Scalars['Int']>
+  sort?: Maybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsAggregateSelection = {
+  __typename?: 'TagGraphOptionsAggregateSelection'
+  count: Scalars['Int']
+  limit: IntAggregateSelectionNullable
+  sort: IntAggregateSelectionNullable
+}
+
+export type TagGraphOptionsCreateInput = {
+  limit?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<TagGraphOptionsSort>>
+}
+
+/** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
+export type TagGraphOptionsSort = {
+  limit?: InputMaybe<SortDirection>
+  sort?: InputMaybe<SortDirection>
+}
+
+export type TagGraphOptionsUpdateInput = {
+  limit?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsWhere = {
+  AND?: InputMaybe<Array<TagGraphOptionsWhere>>
+  OR?: InputMaybe<Array<TagGraphOptionsWhere>>
+  limit?: InputMaybe<Scalars['Int']>
+  limit_GT?: InputMaybe<Scalars['Int']>
+  limit_GTE?: InputMaybe<Scalars['Int']>
+  limit_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  limit_LT?: InputMaybe<Scalars['Int']>
+  limit_LTE?: InputMaybe<Scalars['Int']>
+  limit_NOT?: InputMaybe<Scalars['Int']>
+  limit_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  sort?: InputMaybe<Scalars['Int']>
+  sort_GT?: InputMaybe<Scalars['Int']>
+  sort_GTE?: InputMaybe<Scalars['Int']>
+  sort_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  sort_LT?: InputMaybe<Scalars['Int']>
+  sort_LTE?: InputMaybe<Scalars['Int']>
+  sort_NOT?: InputMaybe<Scalars['Int']>
+  sort_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
 }
 
 export type TagOnCreateInput = {
@@ -11379,6 +11469,12 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
+export type UpdateTagGraphOptionsMutationResponse = {
+  __typename?: 'UpdateTagGraphOptionsMutationResponse'
+  info: UpdateInfo
+  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type UpdateTagsMutationResponse = {
