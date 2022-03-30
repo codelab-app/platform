@@ -58,6 +58,7 @@ export const mapUpdateTypeSchemaToInput = (
           {
             connect: formData.typeIdsOfUnionType.map((id) => ({
               where: { node: { id } },
+              edge: { id: v4() },
             })),
           },
         ],

@@ -956,6 +956,7 @@ input ArrayTypeDisconnectInput {
 
 input ArrayTypeItemTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -966,17 +967,21 @@ type ArrayTypeItemTypeConnection {
 }
 
 input ArrayTypeItemTypeConnectionSort {
+  edge: IdPropertySort
   node: TypeBaseSort
 }
 
 input ArrayTypeItemTypeConnectionWhere {
   AND: [ArrayTypeItemTypeConnectionWhere!]
   OR: [ArrayTypeItemTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input ArrayTypeItemTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -995,12 +1000,14 @@ input ArrayTypeItemTypeFieldInput {
   create: [ArrayTypeItemTypeCreateFieldInput!]
 }
 
-type ArrayTypeItemTypeRelationship {
+type ArrayTypeItemTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input ArrayTypeItemTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 
@@ -4722,11 +4729,13 @@ input EnumTypeAllowedValuesAggregateInput {
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
+  edge: EnumTypeAllowedValuesEdgeAggregationWhereInput
   node: EnumTypeAllowedValuesNodeAggregationWhereInput
 }
 
 input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
+  edge: IdPropertyCreateInput!
   where: EnumTypeValueConnectWhere
 }
 
@@ -4737,17 +4746,21 @@ type EnumTypeAllowedValuesConnection {
 }
 
 input EnumTypeAllowedValuesConnectionSort {
+  edge: IdPropertySort
   node: EnumTypeValueSort
 }
 
 input EnumTypeAllowedValuesConnectionWhere {
   AND: [EnumTypeAllowedValuesConnectionWhere!]
   OR: [EnumTypeAllowedValuesConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: EnumTypeValueWhere
   node_NOT: EnumTypeValueWhere
 }
 
 input EnumTypeAllowedValuesCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: EnumTypeValueCreateInput!
 }
 
@@ -4759,6 +4772,12 @@ input EnumTypeAllowedValuesDeleteFieldInput {
 input EnumTypeAllowedValuesDisconnectFieldInput {
   disconnect: EnumTypeValueDisconnectInput
   where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeAllowedValuesEdgeAggregationWhereInput {
+  AND: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  OR: [EnumTypeAllowedValuesEdgeAggregationWhereInput!]
+  id_EQUAL: ID
 }
 
 input EnumTypeAllowedValuesFieldInput {
@@ -4812,12 +4831,14 @@ input EnumTypeAllowedValuesNodeAggregationWhereInput {
   value_SHORTEST_LTE: Int
 }
 
-type EnumTypeAllowedValuesRelationship {
+type EnumTypeAllowedValuesRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: EnumTypeValue!
 }
 
 input EnumTypeAllowedValuesUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: EnumTypeValueUpdateInput
 }
 
@@ -4865,7 +4886,12 @@ input EnumTypeDisconnectInput {
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
   count: Int!
+  edge: EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection
   node: EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection
+}
+
+type EnumTypeEnumTypeValueAllowedValuesEdgeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
 }
 
 type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
@@ -5861,6 +5887,37 @@ type IDAggregateSelectionNonNullable {
 interface IEdge {
   source: String!
   target: String!
+}
+
+interface IdProperty {
+  id: ID!
+}
+
+input IdPropertyCreateInput {
+  id: ID!
+}
+
+input IdPropertySort {
+  id: SortDirection
+}
+
+input IdPropertyUpdateInput {
+  id: ID
+}
+
+input IdPropertyWhere {
+  AND: [IdPropertyWhere!]
+  OR: [IdPropertyWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
 }
 
 input ImportAdminDataInput {
@@ -10432,6 +10489,7 @@ input UnionTypeSort {
 
 input UnionTypeTypesOfUnionTypeConnectFieldInput {
   connect: TypeBaseConnectInput
+  edge: IdPropertyCreateInput!
   where: TypeBaseConnectWhere
 }
 
@@ -10442,17 +10500,21 @@ type UnionTypeTypesOfUnionTypeConnection {
 }
 
 input UnionTypeTypesOfUnionTypeConnectionSort {
+  edge: IdPropertySort
   node: TypeBaseSort
 }
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeConnectionWhere!]
   OR: [UnionTypeTypesOfUnionTypeConnectionWhere!]
+  edge: IdPropertyWhere
+  edge_NOT: IdPropertyWhere
   node: TypeBaseWhere
   node_NOT: TypeBaseWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
+  edge: IdPropertyCreateInput!
   node: TypeBaseCreateInput!
 }
 
@@ -10471,12 +10533,14 @@ input UnionTypeTypesOfUnionTypeFieldInput {
   create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
-type UnionTypeTypesOfUnionTypeRelationship {
+type UnionTypeTypesOfUnionTypeRelationship implements IdProperty {
   cursor: String!
+  id: ID!
   node: TypeBase!
 }
 
 input UnionTypeTypesOfUnionTypeUpdateConnectionInput {
+  edge: IdPropertyUpdateInput
   node: TypeBaseUpdateInput
 }
 

@@ -77,6 +77,7 @@ export const mapCreateTypeSchemaToInput = (
           connect: [
             {
               where: { node: { id: formData.arrayItemTypeId } },
+              edge: { id: v4() },
             },
           ],
         },
@@ -93,6 +94,7 @@ export const mapCreateTypeSchemaToInput = (
         allowedValues: {
           create: formData.allowedValues?.map((v) => ({
             node: { id: v4(), name: v.name, value: v.value },
+            edge: { id: v4() },
           })),
         },
       }
