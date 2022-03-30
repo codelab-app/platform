@@ -1,15 +1,11 @@
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { useMemo } from 'react'
-import { PageService } from '..'
-import { usePage } from '.'
+import { Page, PageService } from '../store'
 
-export const useAppElementTree = (pages: PageService) => {
+export const useAppElementTree = (pages: PageService, page: Maybe<Page>) => {
   const currentPageId = useCurrentPageId()
-  const { page } = usePage(currentPageId, pages)
   const providerElementId = page?.providerElementId
-
-  // const { elementGraph: pageElementGraph, elementId: pageElementRootId } =
-  //   useElementGraphContext()
 
   // const {
   //   elementGraph: providerElementGraph,

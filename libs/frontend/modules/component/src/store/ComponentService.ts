@@ -60,7 +60,7 @@ class ComponentModalService extends ExtendedModel(() => ({
 }
 
 @model('codelab/ComponentStore')
-export class ComponentStore extends Model({
+export class ComponentService extends Model({
   components: prop(() => objectMap<Component>()),
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new ComponentModalService({})),
@@ -77,7 +77,7 @@ export class ComponentStore extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ComponentStore, where?: ComponentWhere) {
+  getAll = _async(function* (this: ComponentService, where?: ComponentWhere) {
     const { components } = yield* _await(componentApi.GetComponents({ where }))
 
     return components.map((component) => {
@@ -94,7 +94,7 @@ export class ComponentStore extends Model({
 
   @modelFlow
   @transaction
-  getOne = _async(function* (this: ComponentStore, id: string) {
+  getOne = _async(function* (this: ComponentService, id: string) {
     if (this.components.has(id)) {
       return this.components.get(id)
     }
@@ -107,7 +107,7 @@ export class ComponentStore extends Model({
   @modelFlow
   @transaction
   createComponent = _async(function* (
-    this: ComponentStore,
+    this: ComponentService,
     input: CreateComponentInput,
     ownerId: string,
   ) {
@@ -138,7 +138,7 @@ export class ComponentStore extends Model({
   @modelFlow
   @transaction
   update = _async(function* (
-    this: ComponentStore,
+    this: ComponentService,
     component: Component,
     { name }: UpdateComponentInput,
   ) {
@@ -164,7 +164,7 @@ export class ComponentStore extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentStore, id: string) {
+  delete = _async(function* (this: ComponentService, id: string) {
     if (this.components.has(id)) {
       this.components.delete(id)
     }

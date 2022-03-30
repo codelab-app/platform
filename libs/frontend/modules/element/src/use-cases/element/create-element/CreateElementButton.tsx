@@ -3,11 +3,11 @@ import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { elementRef, ElementService } from '../../../store'
+import { elementRef, WithElementService } from '../../../store'
 
 export interface CreateElementButtonProps
-  extends Omit<ButtonProps, 'onClick' | 'icon'> {
-  elementService: ElementService
+  extends Omit<ButtonProps, 'onClick' | 'icon'>,
+    WithElementService {
   parentElementId?: string
 }
 

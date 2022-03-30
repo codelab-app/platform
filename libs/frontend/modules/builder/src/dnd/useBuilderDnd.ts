@@ -1,9 +1,9 @@
-import { ElementService } from '@codelab/frontend/modules/element'
+import { elementRef, ElementService } from '@codelab/frontend/modules/element'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import { frozen } from 'mobx-keystone'
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import { useBuilderDispatch, useBuilderSelectedElement } from '../hooks'
+import { BuilderService } from '../store/BuilderService'
 import { BuilderDndType } from './BuilderDndType'
 import { BuilderDragData } from './BuilderDragData'
 
@@ -14,25 +14,22 @@ export interface UseBuilderDnd {
 }
 
 export const useBuilderDnd = (
+  builderService: BuilderService,
   elementService: ElementService,
 ): UseBuilderDnd => {
-  const { setCurrentlyDragging } = useBuilderDispatch()
-  const state = useSelector((s) => s.builder.currentlyDragging)
-  const { setSelectedElement } = useBuilderSelectedElement()
-
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
 
       if (data?.type === BuilderDndType.CreateElement) {
-        setCurrentlyDragging(data)
+        builderService.setCurrentDragData(frozen(data))
       }
     },
-    [setCurrentlyDragging],
+    [builderService],
   )
 
   const onDragEnd = useCallback(
-    (e: DragEndEvent) => {
+    async (e: DragEndEvent) => {
       const data = e.active.data.current as Maybe<BuilderDragData>
       const overData = e.over?.data.current as Maybe<BuilderDragData>
 
@@ -41,25 +38,20 @@ export const useBuilderDnd = (
         overData?.type === BuilderDndType.CreateElement &&
         (data?.createElementInput || overData?.createElementInput)
 
+      builderService.setCurrentDragData(null)
+
       if (shouldCreate) {
         const createElementInput = {
           ...(data?.createElementInput ?? {}),
           ...(overData?.createElementInput ?? {}),
         }
 
-        elementService.createElement(createElementInput).then((el: any) => {
-          setSelectedElement(el.data?.createElement.id)
-        })
+        const el = await elementService.createElement(createElementInput)
+        builderService.setSelectedElement(elementRef(el))
       }
-
-      setCurrentlyDragging(undefined)
     },
-    [elementService, setCurrentlyDragging, setSelectedElement],
+    [builderService, elementService],
   )
 
-  return {
-    currentlyDragging: state,
-    onDragStart,
-    onDragEnd,
-  }
+  return { onDragStart, onDragEnd }
 }

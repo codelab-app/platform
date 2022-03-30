@@ -1,5 +1,5 @@
 import { PropsData } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
+import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { Frozen } from 'mobx-keystone/src/frozen/Frozen'
 import { PropFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
@@ -38,5 +38,9 @@ export class ElementProps extends Model({
 
   public static fromFragment({ id, data }: PropFragment): ElementProps {
     return new ElementProps({ id, data: frozen(JSON.parse(data)) })
+  }
+
+  toJsonString() {
+    return propSafeStringify(this.propsData)
   }
 }

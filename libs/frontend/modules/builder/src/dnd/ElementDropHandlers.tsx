@@ -1,21 +1,20 @@
+import { Element } from '@codelab/frontend/modules/element'
 import { HoverOverlay } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
-import { ElementTree } from '@codelab/shared/core'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { queryRenderedElementById } from '../renderer/utils/queryRenderedElementById'
+import { WithBuilderService } from '../store/BuilderService'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
-export interface BuilderDropHandlersProps {
-  tree: ElementTree
-}
+export type BuilderDropHandlersProps = WithBuilderService
 
-const BuilderDropHandler = React.memo(
+const BuilderDropHandler = observer(
   ({
     element,
     target,
     order,
   }: {
-    element: IElement
+    element: Element
     target: HTMLElement
     order?: number
   }) => {
@@ -27,7 +26,7 @@ const BuilderDropHandler = React.memo(
 
     if (isOver) {
       const content = `${element.name} ${
-        element.atom ? `(${element.atom.name})` : ''
+        element.atom ? `(${element.atom?.current?.name})` : ''
       }`
 
       return (
@@ -45,11 +44,11 @@ const BuilderDropHandler = React.memo(
   },
 )
 
-export const BuilderDropHandlers = React.memo(
-  ({ tree }: BuilderDropHandlersProps) => {
+export const ElementDropHandlers = observer(
+  ({ builderService }: BuilderDropHandlersProps) => {
     return (
       <>
-        {tree.getAllVertices(ElementTree.isElement).map((e) => {
+        {builderService.builderRenderer.tree.elementsList.map((e) => {
           const target = queryRenderedElementById(e.id)
 
           if (!target) {
@@ -63,4 +62,4 @@ export const BuilderDropHandlers = React.memo(
   },
 )
 
-BuilderDropHandlers.displayName = 'BuilderDropHandlers'
+ElementDropHandlers.displayName = 'BuilderDropHandlers'

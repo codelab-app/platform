@@ -217,6 +217,18 @@ export class ElementTree extends Model({
   public static fromFragment(fragment: ElementGraphFragment) {
     return new ElementTree({}).updateFromFragment(fragment)
   }
+
+  getPathFromRoot(selectedElement: Element): Array<Element> {
+    const path = []
+    let current: Element | undefined = selectedElement
+
+    while (current) {
+      path.push(current)
+      current = current.parentElement?.current
+    }
+
+    return path.reverse()
+  }
 }
 
 export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {

@@ -1,1 +1,1 @@
-export * from './ComponentStore'
+export * from './ComponentService'

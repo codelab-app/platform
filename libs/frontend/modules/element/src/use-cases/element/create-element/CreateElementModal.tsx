@@ -9,13 +9,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementService } from '../../../store'
+import { WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { CreateElementInput, createElementSchema } from './createElementSchema'
 
-export interface CreateElementModalProps {
-  elementService: ElementService
-}
+export type CreateElementModalProps = WithElementService
 
 export const CreateElementModal = observer(
   ({ elementService }: CreateElementModalProps) => {

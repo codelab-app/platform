@@ -9,18 +9,18 @@ import {
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { Element, ElementService } from '../../../store'
+import { Element, WithElementService } from '../../../store'
 import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps = Omit<
   UseCaseFormWithRef<UpdateElementInput>,
   'onSubmit'
-> & {
-  elementService: ElementService
-  element: Element
-  providePropCompletion?: (searchValue: string) => Array<string>
-  trackPromises?: UseTrackLoadingPromises
-}
+> &
+  WithElementService & {
+    element: Element
+    providePropCompletion?: (searchValue: string) => Array<string>
+    trackPromises?: UseTrackLoadingPromises
+  }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer(

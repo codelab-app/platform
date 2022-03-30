@@ -6,7 +6,6 @@ import {
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   PageDetailHeader,
-  PageProvider,
   useAppElementTree,
   usePage,
 } from '@codelab/frontend/modules/page'
@@ -46,13 +45,11 @@ PageRenderer.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <PageProvider pages={store.pageService}>
-      <DashboardTemplate
-        Header={() => <PageDetailHeader pages={store.pageService} />}
-        headerHeight={38}
-      >
-        {page.children}
-      </DashboardTemplate>
-    </PageProvider>
+    <DashboardTemplate
+      Header={() => <PageDetailHeader pages={store.pageService} />}
+      headerHeight={38}
+    >
+      {page.children}
+    </DashboardTemplate>
   )
 })

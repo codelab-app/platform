@@ -3,12 +3,12 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { ComponentStore } from '../../store/ComponentStore'
+import { ComponentService } from '../../store/ComponentService'
 import { deleteComponentSchema } from './deleteComponentSchema'
 import { DeleteComponentInput } from './types'
 
 export interface DeleteComponentModal {
-  componentStore: ComponentStore
+  componentStore: ComponentService
 }
 
 export const DeleteComponentModal = observer<DeleteComponentModal>(

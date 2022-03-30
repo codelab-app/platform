@@ -9,7 +9,7 @@ export interface RendererProps {
 }
 
 /**
- * Renders an ElementTree. Reworked version of ./renderer-old, adapted to use observable state from mobx
+ * Renders an ElementTree
  *
  * Hooks and prop map bindings are currently not implemented, since they might be
  * replaced by platform-level mobx.

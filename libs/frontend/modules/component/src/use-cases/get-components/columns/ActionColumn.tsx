@@ -8,12 +8,12 @@ import {
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { componentRef, ComponentStore } from '../../../store/ComponentStore'
+import { componentRef, ComponentService } from '../../../store/ComponentService'
 import { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {
   component: ComponentColumnData
-  componentStore: ComponentStore
+  componentStore: ComponentService
 }
 
 export const ActionColumn = observer(

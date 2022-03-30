@@ -1,10 +1,15 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import {
+  elementRef,
+  WithElementService,
+} from '@codelab/frontend/modules/element'
 import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useBuilderSelectedElement } from '../../hooks'
 import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
+import { WithBuilderService } from '../../store/BuilderService'
 
 const StyledOverlayContainer = styled.div`
   display: flex;
@@ -29,57 +34,63 @@ const StyledOverlayButtonGroup = styled.div`
   }
 `
 
-export const BuilderClickOverlay = () => {
-  const { selectedElement } = useBuilderSelectedElement()
-  // const { openDeleteModal, openCreateModal } = useElementDispatch()
+export interface BuilderClickOverlayProps
+  extends WithElementService,
+    WithBuilderService {}
 
-  if (!selectedElement) {
-    return null
-  }
+export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
+  ({ builderService, elementService }) => {
+    const selectedElement = builderService.selectedElement?.current
 
-  const content = (
-    <StyledOverlayContainer className="click-overlay-toolbar">
-      <span>
-        {selectedElement.name}{' '}
-        {selectedElement.atom ? `(${selectedElement.atom.name})` : ''}
-      </span>
-      <StyledOverlayButtonGroup>
-        <Button
-          icon={<PlusOutlined />}
-          onClick={(e) => {
-            e.stopPropagation()
+    if (!selectedElement) {
+      return null
+    }
 
-            // return openCreateModal({ parentElementId: selectedElement.id })
-          }}
-          size="small"
-          type="text"
-        />
+    const content = (
+      <StyledOverlayContainer className="click-overlay-toolbar">
+        <span>
+          {selectedElement.name}{' '}
+          {selectedElement.atom
+            ? `(${selectedElement.atom?.current.name})`
+            : ''}
+        </span>
+        <StyledOverlayButtonGroup>
+          <Button
+            icon={<PlusOutlined />}
+            onClick={(e) => {
+              e.stopPropagation()
 
-        <Button
-          danger
-          icon={<DeleteOutlined />}
-          onClick={(e) => {
-            e.stopPropagation()
+              elementService.createModal.open({
+                parentElement: elementRef(selectedElement),
+              })
+            }}
+            size="small"
+            type="text"
+          />
 
-            // return openDeleteModal({
-            //   deleteIds: [selectedElement.id],
-            //   entity: selectedElement,
-            // })
-          }}
-          size="small"
-          type="text"
-        />
-      </StyledOverlayButtonGroup>
-    </StyledOverlayContainer>
-  )
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+            onClick={(e) => {
+              e.stopPropagation()
 
-  return (
-    <ClickOverlay
-      content={content}
-      getOverlayElement={queryRenderedElementById}
-      nodeId={selectedElement.id}
-    />
-  )
-}
+              elementService.deleteModal.open(elementRef(selectedElement))
+            }}
+            size="small"
+            type="text"
+          />
+        </StyledOverlayButtonGroup>
+      </StyledOverlayContainer>
+    )
+
+    return (
+      <ClickOverlay
+        content={content}
+        getOverlayElement={queryRenderedElementById}
+        nodeId={selectedElement.id}
+      />
+    )
+  },
+)
 
 BuilderClickOverlay.displayName = 'BuilderClickOverlay'

@@ -65,7 +65,13 @@ export class Element extends Model({
 
   @computed
   get label() {
-    return this.name || this.atom?.current.name || '' // TODO add this.component?.name and this.componentInstance.name to Element.label
+    return (
+      this.name ||
+      this.atom?.current.name ||
+      this.component?.current?.name ||
+      this.instanceOfComponent?.current?.name ||
+      ''
+    )
   }
 
   @computed
@@ -95,6 +101,10 @@ export class Element extends Model({
   @computed
   get baseProps() {
     return { [DATA_ID]: this.id, key: this.id }
+  }
+
+  orderOfElement(element: Element) {
+    return this.childrenList.indexOf(element)
   }
 
   @modelAction
@@ -245,6 +255,11 @@ export class Element extends Model({
     this.instanceOfComponent = instanceOfComponent
       ? componentRef(instanceOfComponent.id)
       : null
+  }
+
+  @modelAction
+  removePropMapBinding(propMapBinding: PropMapBinding): void {
+    this.propMapBindings.delete(propMapBinding.id)
   }
 
   /**

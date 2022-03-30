@@ -1,15 +1,19 @@
 import { DragOutlined } from '@ant-design/icons'
-import { AtomService } from '@codelab/frontend/modules/atom'
-// import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
+import { Atom, AtomService } from '@codelab/frontend/modules/atom'
+import {
+  Component,
+  ComponentService,
+} from '@codelab/frontend/modules/component'
 import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
-import { IAtom, IComponent } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
+import Fuse from 'fuse.js'
+import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
@@ -23,7 +27,7 @@ export interface ToolboxItem {
   >
 }
 
-const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
+const atomToolboxItemFactory = (atom: Atom): ToolboxItem => ({
   name: atom.name,
   id: atom.id,
   createElementInputFactory: () => ({
@@ -34,7 +38,7 @@ const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
   }),
 })
 
-const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
+const componentToolboxItemFactory = (component: Component): ToolboxItem => {
   const { name, id } = component
 
   return {
@@ -49,35 +53,50 @@ const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
 
 export interface MainPaneBuilderToolboxTabProps {
   searchQuery?: string
-  atomStore: AtomService
+  atomService: AtomService
+  componentService: ComponentService
 }
 
 export const MainPaneBuilderToolboxTab = observer(
-  ({ searchQuery, atomStore }: MainPaneBuilderToolboxTabProps) => {
+  ({
+    searchQuery,
+    atomService,
+    componentService,
+  }: MainPaneBuilderToolboxTabProps) => {
     const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
+    const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])
+    const fuseRef = useRef(new Fuse<ToolboxItem>([], { keys: ['name'] }))
 
-    const [getAtoms, { isLoading: isLoadingAtoms }] = useLoadingState(() =>
-      atomStore.getAll(),
+    const [, { isLoading: isLoadingAtoms }] = useLoadingState(
+      () => atomService.getAll(),
+      { executeOnMount: true },
     )
 
-    const atomsList = atomStore.atomsList
+    const [, { isLoading: isLoadingComponents }] = useLoadingState(
+      () => componentService.getAll(),
+      { executeOnMount: true },
+    )
 
     useEffect(() => {
-      getAtoms()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+      return autorun(() => {
+        const componentsList = componentService.componentsList
+        const atomsList = atomService.atomsList
 
-    const search = searchQuery
-      ? { variables: { where: { name_CONTAINS: searchQuery } } }
-      : {}
+        const toolboxItems: Array<ToolboxItem> = [
+          ...atomsList.map(atomToolboxItemFactory),
+          ...componentsList.map(componentToolboxItemFactory),
+        ]
 
-    // const componentsResponse = useGetComponentsQuery(search)
-    // const components = componentsResponse.data?.components || []
+        fuseRef.current.setCollection(toolboxItems)
 
-    const toolboxItems: Array<ToolboxItem> = [
-      ...atomsList.map(atomToolboxItemFactory),
-      // ...components.map(componentToolboxItemFactory),
-    ]
+        if (searchQuery) {
+          const results = fuseRef.current.search(searchQuery)
+          setFilteredItems(results.map((r) => r.item))
+        } else {
+          setFilteredItems(toolboxItems)
+        }
+      })
+    }, [searchQuery])
 
     return (
       <div
@@ -91,11 +110,8 @@ export const MainPaneBuilderToolboxTab = observer(
         `}
         ref={setNodeRef}
       >
-        <SpinnerWrapper
-          isLoading={false}
-          // isLoading={isLoadingAtoms || componentsResponse.isLoading}
-        >
-          {toolboxItems.map((item) => (
+        <SpinnerWrapper isLoading={isLoadingAtoms || isLoadingComponents}>
+          {filteredItems.map((item) => (
             <ToolboxItemView key={item.id} toolboxItem={item} />
           ))}
         </SpinnerWrapper>

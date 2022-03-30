@@ -1,7 +1,7 @@
+import { PropsData } from '@codelab/shared/abstract/core'
+import { mergeProps } from '@codelab/shared/utils'
 import { isObjectLike } from 'lodash'
-import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import { builderSelectors } from '../store/builderState'
+import { BuilderService } from '../store/BuilderService'
 
 /**
  * Provides a callback that takes in a search input value and a target element id
@@ -9,64 +9,71 @@ import { builderSelectors } from '../store/builderState'
  * If the element hasn't been rendered it returns an empty array
  * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
  */
-export const usePropCompletion = () => {
-  const lastRenderedProps = useSelector(builderSelectors.lastRenderedProps)
+export const usePropCompletion = (builderService: BuilderService) => {
+  const providePropCompletion = (value: string, elementId: string) => {
+    const element = builderService.builderRenderer.tree.element(elementId)
 
-  const providePropCompletion = useCallback(
-    (value, elementId: string) => {
-      if (!lastRenderedProps || !lastRenderedProps[elementId]) {
-        return []
+    if (!element) {
+      return []
+    }
+
+    const renderOutput =
+      builderService.builderRenderer.renderElementIntermediate(element)
+
+    if (!renderOutput) {
+      return []
+    }
+
+    const allRenderedProps = Array.isArray(renderOutput)
+      ? renderOutput
+          .map((r) => r.props)
+          .reduce((acc, next) => mergeProps(acc, next), {} as PropsData)
+      : renderOutput.props
+
+    const keys: Array<string> = []
+    const visited: Array<any> = []
+
+    const visitProp = (prop: any, key: string) => {
+      if (!prop) {
+        return
       }
 
-      const keys: Array<string> = []
-      const visited: Array<any> = []
-
-      const visitProp = (prop: any, key: string) => {
-        if (!prop) {
-          return
-        }
-
-        if (key.startsWith('_')) {
-          return
-        }
-
-        if (visited.includes(prop)) {
-          return
-        }
-
-        visited.push(prop)
-        keys.push(key)
-
-        if (key.startsWith('_') || key === 'children') {
-          return
-        }
-
-        if (Array.isArray(prop)) {
-          for (let i = 0; i < prop.length; i++) {
-            visitProp(prop[i], `${key}[${i}]`)
-          }
-        }
-
-        if (isObjectLike(prop)) {
-          for (const innerKey in prop) {
-            visitProp(prop[innerKey], `${key}.${innerKey}`)
-          }
-        }
+      if (key.startsWith('_')) {
+        return
       }
 
-      for (const propKey in lastRenderedProps[elementId]) {
-        if (
-          propKey.toLowerCase().startsWith(value.toLowerCase()) &&
-          lastRenderedProps[elementId]
-        ) {
-          visitProp(lastRenderedProps[elementId]?.[propKey], propKey)
+      if (visited.includes(prop)) {
+        return
+      }
+
+      visited.push(prop)
+      keys.push(key)
+
+      if (key.startsWith('_') || key === 'children') {
+        return
+      }
+
+      if (Array.isArray(prop)) {
+        for (let i = 0; i < prop.length; i++) {
+          visitProp(prop[i], `${key}[${i}]`)
         }
       }
 
-      return keys
-    },
-    [lastRenderedProps],
-  )
+      if (isObjectLike(prop)) {
+        for (const innerKey in prop) {
+          visitProp(prop[innerKey], `${key}.${innerKey}`)
+        }
+      }
+    }
+
+    for (const propKey in allRenderedProps) {
+      if (propKey.toLowerCase().startsWith(value.toLowerCase())) {
+        visitProp(allRenderedProps[propKey], propKey)
+      }
+    }
+
+    return keys
+  }
 
   return {
     providePropCompletion,

@@ -1,5 +1,6 @@
 import { Element } from '@codelab/frontend/modules/element'
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
+import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { getRenderContext } from '../renderContext'
@@ -54,6 +55,6 @@ export class RenderPropsTypedValueTransformer
     const renderer = getRenderContext(this)
 
     return (...renderPropArgs: Array<any>) =>
-      renderer.renderElement(element, renderPropArgs)
+      renderer.renderElement(element, mergeProps(...renderPropArgs))
   }
 }

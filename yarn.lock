@@ -14488,6 +14488,7 @@ __metadata:
     execa: ^5
     fp-ts: 2.11.7
     framer-motion: 5.5.7
+    fuse.js: ^6.5.3
     glob: 7.2.0
     graphql: 16.3.0
     graphql-iso-date: 3.6.1
@@ -19644,6 +19645,13 @@ __metadata:
   version: 3.6.1
   resolution: "fuse.js@npm:3.6.1"
   checksum: 958aa877ace65dc900df776becd39a03df68d7eebc7890b5fd2fc8c5d88e2fff238f60c37f80013ce70e9d9e7ac8efa9f503695fdd23d1eca3cc983797b50191
+  languageName: node
+  linkType: hard
+
+"fuse.js@npm:^6.5.3":
+  version: 6.5.3
+  resolution: "fuse.js@npm:6.5.3"
+  checksum: f7c14f4422000e7f7e3515c66f7cefdfc38adec4cf380097f4146a201ea438af60b67dc5849b3c0de0115ce3f9bc5afad6fc6570c08dcfcef5bf6e95eb8e6d6f
   languageName: node
   linkType: hard
 

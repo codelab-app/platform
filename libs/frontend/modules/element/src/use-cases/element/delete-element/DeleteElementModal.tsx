@@ -5,12 +5,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { Element, ElementService } from '../../../store'
+import { Element, WithElementService } from '../../../store'
 import { deleteElementSchema } from './deleteElementSchema'
 
-export interface DeleteElementModalProps {
+export interface DeleteElementModalProps extends WithElementService {
   element: Element
-  elementService: ElementService
 }
 
 export const DeleteElementModal = observer<DeleteElementModalProps>(

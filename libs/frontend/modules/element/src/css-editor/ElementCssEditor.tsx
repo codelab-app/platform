@@ -6,11 +6,10 @@ import {
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Element, ElementService } from '../store'
+import { Element, WithElementService } from '../store'
 
-export interface ElementCssEditorInternalProps {
+export interface ElementCssEditorInternalProps extends WithElementService {
   element: Element
-  elementService: ElementService
   trackPromises?: UseTrackLoadingPromises
 }
 

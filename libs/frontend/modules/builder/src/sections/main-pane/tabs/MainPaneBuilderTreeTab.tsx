@@ -1,74 +1,70 @@
-import { IElement } from '@codelab/frontend/abstract/core'
+import { ElementTree } from '@codelab/frontend/modules/element'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { ElementTree } from '@codelab/shared/core'
 import { Dropdown } from 'antd'
+import { observer } from 'mobx-react-lite'
 import { DataNode } from 'rc-tree/lib/interface'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import {
-  useBuilderHoveringElement,
-  useBuilderSelectedElement,
-} from '../../../hooks'
+import { useExpandedNodes } from '../../../hooks'
+import { WithBuilderService } from '../../../store/BuilderService'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-type MainPaneBuilderTreeTabProps = {
-  isComponentBuilder?: boolean
-  rootId: string
-}
+type MainPaneBuilderTreeTabProps = WithBuilderService
 
-export const MainPaneBuilderTreeTab = ({
-  rootId,
-}: MainPaneBuilderTreeTabProps) => {
-  // const { elementTree } = useElementGraphContext()
-  // const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-  // we have main tree and components trees.
-  // so we need the root to find the correct one
-  // const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
-  // const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
-  const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
-  const { setHoveringElement } = useBuilderHoveringElement()
+export const MainPaneBuilderTreeTab = observer<MainPaneBuilderTreeTabProps>(
+  ({ builderService }) => {
+    const { setExpandedNodeIds, expandedNodeIds } =
+      useExpandedNodes(builderService)
 
-  // if (!elementTree) {
-  //   return null
-  // }
-  return null
+    // we have main tree and components trees.
+    // so we need the root to find the correct one
+    // const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
+    // const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
+    const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
+    const { setHoveringElement } = useBuilderHoveringElement()
 
-  // return (
-  //   <AntdTree
-  //     blockNode
-  //     className="draggable-tree"
-  //     disabled={isMoving}
-  //     draggable
-  //     expandedKeys={expandedNodeIds}
-  //     onClick={(e) => e.stopPropagation()}
-  //     onDrop={handleDrop}
-  //     onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
-  //     onMouseEnter={({ node }: any) => {
-  //       setHoveringElement(node.id)
-  //     }}
-  //     onMouseLeave={() => setHoveringElement(undefined)}
-  //     onSelect={([id], { nativeEvent, node }) => {
-  //       nativeEvent.stopPropagation()
-  //
-  //       if (id) {
-  //         setSelectedElement(id.toString())
-  //       }
-  //     }}
-  //     selectedKeys={selectedElement ? [selectedElement.id] : []}
-  //     titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
-  //     treeData={antdTree ? [antdTree] : []}
-  //   />
-  // )
-}
+    // if (!elementTree) {
+    //   return null
+    // }
+    return null
+
+    // return (
+    //   <AntdTree
+    //     blockNode
+    //     className="draggable-tree"
+    //     disabled={isMoving}
+    //     draggable
+    //     expandedKeys={expandedNodeIds}
+    //     onClick={(e) => e.stopPropagation()}
+    //     onDrop={handleDrop}
+    //     onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+    //     onMouseEnter={({ node }: any) => {
+    //       setHoveringElement(node.id)
+    //     }}
+    //     onMouseLeave={() => setHoveringElement(undefined)}
+    //     onSelect={([id], { nativeEvent, node }) => {
+    //       nativeEvent.stopPropagation()
+    //
+    //       if (id) {
+    //         setSelectedElement(id.toString())
+    //       }
+    //     }}
+    //     selectedKeys={selectedElement ? [selectedElement.id] : []}
+    //     titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
+    //     treeData={antdTree ? [antdTree] : []}
+    //   />
+    // )
+  },
+)
 
 MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'
 
-type TreeItemTitleProps = {
+interface TreeItemTitleProps {
   node: DataNode
   tree: ElementTree
 }
 
-type TreeItemDropDownOverplayProps = {
+interface TreeItemDropDownOverplayProps {
   setContextMenuNodeId: (id: Nullable<string>) => void
   node: IElement
 }

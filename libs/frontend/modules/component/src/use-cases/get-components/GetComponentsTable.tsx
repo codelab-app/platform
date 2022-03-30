@@ -4,13 +4,13 @@ import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import tw from 'twin.macro'
-import { ComponentStore } from '../../store/ComponentStore'
+import { ComponentService } from '../../store/ComponentService'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { ComponentColumnData } from './columns/types'
 
 export interface GetComponentsTableProps {
-  componentStore: ComponentStore
+  componentStore: ComponentService
 }
 
 export const GetComponentsTable = observer<GetComponentsTableProps>(

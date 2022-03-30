@@ -4,12 +4,12 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { ComponentStore } from '../../store/ComponentStore'
+import { ComponentService } from '../../store/ComponentService'
 import { createComponentSchema } from './createComponentSchema'
 import { CreateComponentInput } from './types'
 
 export interface CreateComponentModalProps {
-  componentStore: ComponentStore
+  componentStore: ComponentService
 }
 
 export const CreateComponentModal = observer<CreateComponentModalProps>(
