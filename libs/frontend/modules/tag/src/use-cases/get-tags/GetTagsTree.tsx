@@ -1,6 +1,7 @@
 import { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { Tree, TreeProps } from 'antd'
 import { DataNode } from 'antd/lib/tree'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import useDeepCompareEffect from 'use-deep-compare-effect'

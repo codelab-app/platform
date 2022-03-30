@@ -13,6 +13,7 @@ export interface TagRecord {
 }
 
 export interface TagRecord {
+  id: string
   name: string
 }
 
