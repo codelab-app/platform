@@ -7,6 +7,7 @@ import {
   StoreCreateInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen-v2'
+import { capitalize } from 'lodash'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 
 export const makeStoreCreateInput = (
@@ -16,7 +17,7 @@ export const makeStoreCreateInput = (
   const { name, parentStore } = input
 
   const interfaceCreateInput: InterfaceTypeCreateInput = {
-    name: `${name} State`,
+    name: `${capitalize(name)} State`,
     owner: {
       connect: [{ where: { node: { id: ownerId } } }],
     },

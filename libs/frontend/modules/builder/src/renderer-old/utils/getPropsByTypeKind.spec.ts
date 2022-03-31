@@ -1,25 +1,51 @@
-import { extraElementPropsPipe } from './extraElementPropsPipe'
-import { elementToRender, endPipe, EndPipeOutput } from './test'
-import { RenderContext } from './types'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
+import {
+  IAnyType,
+  IEnumType,
+  IMonacoType,
+  IUnionType,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
+import { entityRecordById } from '@codelab/shared/utils'
+import { getPropsByTypeKind } from './getPropsByTypeKind'
 
-const extraElementProps: RenderContext['extraElementProps'] = {
-  [elementToRender.id]: {
-    extra1: '01',
-    extra2: '02',
-  },
+const enumType: IEnumType = {
+  name: 'EnumType',
+  typeKind: TypeKind.EnumType,
+  allowedValues: [],
+  owner: null,
+  id: '0x123',
 }
 
-const defaultContext = { extraElementProps } as RenderContext
-const initialProps = {}
+const monacoType: IMonacoType = {
+  name: 'MonacoType',
+  typeKind: TypeKind.MonacoType,
+  language: MonacoLanguage.typescript,
+  owner: null,
+  id: '0x124',
+}
 
-describe('ExtraElementPropsPipe', () => {
-  it('should add element extra props', () => {
-    const { props } = extraElementPropsPipe(endPipe)(
-      elementToRender,
-      defaultContext,
-      initialProps,
-    ) as EndPipeOutput
+const unionType: IUnionType = {
+  name: 'UnionType',
+  typeKind: TypeKind.UnionType,
+  typesOfUnionType: [],
+  owner: null,
+  id: '0x125',
+}
 
-    expect(props).toStrictEqual(extraElementProps[elementToRender.id])
+const types = [enumType, monacoType, unionType]
+const typesById: Record<string, IAnyType> = entityRecordById(types)
+
+const initialProps = {
+  prop01: { type: enumType.id, value: 'prop01-value' },
+  prop02: { type: monacoType.id, value: 'prop02-value' },
+  prop03: { type: unionType.id, value: 'prop03-value' },
+}
+
+describe('GetPropsByTypeKind', () => {
+  it('should filter props with typeKind', () => {
+    expect(
+      getPropsByTypeKind(initialProps, TypeKind.UnionType, typesById),
+    ).toStrictEqual({ prop03: initialProps.prop03 })
   })
 })

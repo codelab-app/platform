@@ -12,14 +12,12 @@ import {
   GetStateTable,
   StatePageHeader,
   StoreMainPane,
-  storeRef,
   UpdateActionModal,
-  useCurrentStoreId,
+  useCurrentStore,
   WithActionService,
   WithStoreService,
 } from '@codelab/frontend/modules/store'
 import { WithTypeService } from '@codelab/frontend/modules/type'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   ConditionalView,
   SpinnerWrapper,
@@ -31,7 +29,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 
 const StatePage = observer<WithStoreService & WithTypeService>(
@@ -64,33 +62,15 @@ const ActionPage = observer<WithStoreService & WithActionService>(
 
 const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { actionService, storeService, typeService } = useStore()
-  const storeId = useCurrentStoreId()
-
-  const [getCurrentStore, { isLoading }] = useLoadingState(() =>
-    storeService.getOne(storeId as string),
-  )
-
-  useEffect(() => {
-    if (!storeId) {
-      return
-    }
-
-    getCurrentStore().then(() =>
-      storeService.setCurrentStore(storeRef(storeId)),
-    )
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeId])
+  const { store, isLoading } = useCurrentStore(storeService)
 
   return (
     <>
       <Head>
         <title>Stores | Codelab</title>
       </Head>
-      <ConditionalView
-        condition={Boolean(storeId && storeService.currentStore?.current)}
-      >
-        <SpinnerWrapper isLoading={isLoading}>
+      <SpinnerWrapper isLoading={isLoading}>
+        <ConditionalView condition={Boolean(store)}>
           <ContentSection>
             <StatePage storeService={storeService} typeService={typeService} />
             <div css={tw`mb-5`} />
@@ -99,8 +79,8 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
               storeService={storeService}
             />
           </ContentSection>
-        </SpinnerWrapper>
-      </ConditionalView>
+        </ConditionalView>
+      </SpinnerWrapper>
     </>
   )
 })

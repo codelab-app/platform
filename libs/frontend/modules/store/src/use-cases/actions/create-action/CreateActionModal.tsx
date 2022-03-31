@@ -3,6 +3,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useCurrentStore } from '../../../hooks'
 import { WithActionService, WithStoreService } from '../../../store'
 import { CreateActionInput, createActionSchema } from './createActionSchema'
 
@@ -10,10 +11,11 @@ type CreateActionModalProp = WithActionService & WithStoreService
 
 export const CreateActionModal = observer<CreateActionModalProp>(
   ({ actionService, storeService }) => {
+    const { store } = useCurrentStore(storeService)
     const closeModal = () => actionService.createModal.close()
 
     const onSubmit = (input: CreateActionInput) =>
-      actionService.createAction(input, storeService.currentStore?.current.id)
+      actionService.createAction(input, store?.id)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating action',

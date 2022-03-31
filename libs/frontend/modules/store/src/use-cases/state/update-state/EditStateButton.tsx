@@ -4,16 +4,18 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
+import { useCurrentStore } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 
 export const EditStateButton = observer<WithStoreService>(
   ({ storeService }) => {
     const router = useRouter()
+    const { store } = useCurrentStore(storeService)
 
     const onClick = () =>
       router.push({
         pathname: PageType.InterfaceDetail,
-        query: { interfaceId: storeService.currentStore?.current.stateId },
+        query: { interfaceId: store?.stateId },
       })
 
     return (

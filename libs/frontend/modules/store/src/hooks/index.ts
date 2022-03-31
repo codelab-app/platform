@@ -1,1 +1,1 @@
-export * from './useGetCurrentStoreId'
+export * from './useCurrentStore'
