@@ -23,11 +23,11 @@ export const componentLikeDestructure = (
   comp: ComponentTypeLike,
 ): ComponentTypeWithProps<any> => {
   if (Array.isArray(comp)) {
-    return comp
+    return [comp[0] ?? ChildrenRender, comp[1] ?? {}]
   }
 
   if (comp) {
-    return [comp ?? ChildrenRender, {}]
+    return [comp, {}]
   }
 
   return [ChildrenRender, {}]

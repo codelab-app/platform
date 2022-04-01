@@ -16,6 +16,16 @@ export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
   api: { id: string }
 }
 
+const fromFragment = (atom: AtomFromFragmentInput) => {
+  return new Atom({
+    id: atom.id,
+    name: atom.name,
+    type: atom.type,
+    api: typeRef(atom.api.id) as Ref<InterfaceType>,
+    tagIds: atom.tags.map((tag) => tag.id),
+  })
+}
+
 @model('codelab/Atom')
 export class Atom extends Model({
   id: idProp,
@@ -34,15 +44,7 @@ export class Atom extends Model({
     this.tagIds = atom.tags.map((tag) => tag.id)
   }
 
-  static fromFragment(atom: AtomFromFragmentInput) {
-    return new Atom({
-      id: atom.id,
-      name: atom.name,
-      type: atom.type,
-      api: typeRef(atom.api.id) as Ref<InterfaceType>,
-      tagIds: atom.tags.map((tag) => tag.id),
-    })
-  }
+  static fromFragment = fromFragment
 }
 
 export const atomRef = rootRef<Atom>('AtomRef', {

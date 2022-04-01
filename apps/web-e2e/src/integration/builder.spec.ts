@@ -78,7 +78,7 @@ describe('Elements CRUD', () => {
 
               // select root now so we can update its child later
               // there is an issue with tree interaction
-              cy.findByText(ROOT_ELEMENT_NAME).click()
+              cy.findByText(ROOT_ELEMENT_NAME, { timeout: 10000 }).click()
             })
           })
         })
@@ -118,7 +118,7 @@ describe('Elements CRUD', () => {
           cy.getModal()
             .getModalAction(/Create/)
             .click()
-          cy.getModal().should('not.exist')
+          cy.getModal().should('not.exist', { timeout: 10000 })
         },
       )
     })
