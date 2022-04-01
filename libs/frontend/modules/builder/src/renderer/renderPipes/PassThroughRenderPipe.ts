@@ -1,10 +1,10 @@
 import { Element } from '@codelab/frontend/modules/element'
 import { AtomType, PropsData } from '@codelab/shared/abstract/core'
-import { getSnapshot, Model, model } from 'mobx-keystone'
+import { Model, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderContext'
+import { getRenderContext } from '../renderServiceContext'
 
 /**
  * Render pipe that renders whatever you give it - useful for unit testing
@@ -16,7 +16,7 @@ export class PassThroughRenderPipe extends Model({}) implements IRenderPipe {
 
     if (renderer.debugMode) {
       console.log(`PassThroughRenderPipe: rendering input`, {
-        element: getSnapshot(element),
+        element,
         props,
       })
     }

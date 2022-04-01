@@ -3,9 +3,13 @@ import { AppService } from '@codelab/frontend/modules/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import {
   BuilderService,
-  renderContext,
   RenderService,
+  renderServiceContext,
 } from '@codelab/frontend/modules/builder'
+import {
+  ComponentService,
+  componentServiceContext,
+} from '@codelab/frontend/modules/component'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
 import { TagService } from '@codelab/frontend/modules/tag'
@@ -31,6 +35,7 @@ export class RootStore extends Model({
   atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
+  componentService: prop(() => new ComponentService({})),
 
   elementService: prop(() => new ElementService({})), // default regular service that holds the element tree
   providerElementService: prop(() => new ElementService({})), // element service that is used by the provider tree
@@ -43,7 +48,8 @@ export class RootStore extends Model({
   protected onInit(): void {
     typeServiceContext.set(this, this.typeService)
     atomServiceContext.set(this, this.atomService)
-    renderContext.set(this, this.renderService)
+    componentServiceContext.set(this, this.componentService)
+    renderServiceContext.set(this, this.renderService)
   }
 }
 
@@ -65,6 +71,10 @@ export const initializeStore = (snapshot: any = null) => {
   // Create the store once in the client
   if (!_store) {
     _store = store
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    ;(window as any).store = store
   }
 
   return store

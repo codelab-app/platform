@@ -1,4 +1,8 @@
-import { AtomType, PropsData } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  PropsData,
+  PropsDataByElementId,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 
@@ -10,11 +14,13 @@ export interface RenderOutput {
   elementId: string
   atomType?: AtomType
   props?: PropsData
+  /** Any props that should get passed to descendants of this element, mapped by id */
+  descendantBoundProps?: PropsDataByElementId
 }
 
 // Named factory methods for convenience
 export const RenderOutput = {
-  empty: (input: Pick<RenderOutput, 'elementId'>): RenderOutput => ({
+  empty: (input: Pick<RenderOutput, 'elementId' | 'props'>): RenderOutput => ({
     ...input,
   }),
   withAtom: (

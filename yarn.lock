@@ -5492,20 +5492,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql-ogm@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@neo4j/graphql-ogm@npm:3.0.1"
+"@neo4j/graphql-ogm@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@neo4j/graphql-ogm@npm:3.0.3"
   dependencies:
     "@graphql-codegen/core": ^2.4.0
     "@graphql-codegen/plugin-helpers": ^2.3.2
     "@graphql-codegen/typescript": ^2.4.2
     "@graphql-tools/merge": ^8.2.1
-    "@neo4j/graphql": ^3.0.1
+    "@neo4j/graphql": ^3.0.3
     prettier: ^2.5.1
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0
-  checksum: ca9d5a8e81bdd0f509edf346ed6028c6dfa5543356bf7646146aac12a741bcdf94c33a0779de6e7219f330c2bc64d8902c32bfd0a319956b41ae4eac9b2cf2a2
+  checksum: 62d5c44a2b079c72a390f537baff19b1a01dff46b80683f457477ad6624e64bc5889eb05a38f807686fb469f536db8cd7fffa648b00d1f30c2b41e85b37a456e
   languageName: node
   linkType: hard
 
@@ -5521,9 +5521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@neo4j/graphql@npm:3.0.1"
+"@neo4j/graphql@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@neo4j/graphql@npm:3.0.3"
   dependencies:
     "@graphql-tools/merge": ^8.2.1
     "@graphql-tools/resolvers-composition": ^6.4.1
@@ -5541,7 +5541,7 @@ __metadata:
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0
-  checksum: 487a2d0d673b2fa88e10831c36251fc438dd12c2a782e2271dfaeff51f472b55539442fae5e89430f6a156ba1c2682fa61e6dd1d7a85a1b473ea6004b016605d
+  checksum: 3ecd136e3005ba35d307cbcf8de9dd1aaeb7264d9b3cbbe71c26f7d44f0de524ffcf64b9030c48f450d2d4c370038d9d5c9466cdd155b67da00b5e41a1cfe716
   languageName: node
   linkType: hard
 
@@ -14323,8 +14323,8 @@ __metadata:
     "@mui/lab": 5.0.0-alpha.69
     "@mui/material": 5.4.2
     "@mui/x-data-grid": 5.5.1
-    "@neo4j/graphql": ^3.0.1
-    "@neo4j/graphql-ogm": ^3.0.1
+    "@neo4j/graphql": ^3.0.3
+    "@neo4j/graphql-ogm": ^3.0.3
     "@neo4j/graphql-plugin-auth": ^1.0.0
     "@next/bundle-analyzer": 12.0.7
     "@nrwl/angular": 13.9.5

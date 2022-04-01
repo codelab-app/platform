@@ -1,4 +1,3 @@
-import { Atom, atomServiceContext } from '@codelab/frontend/modules/atom'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   CreatePropMapBindingInput,
@@ -14,7 +13,6 @@ import {
   _async,
   _await,
   ExtendedModel,
-  frozen,
   Model,
   model,
   modelClass,
@@ -27,7 +25,11 @@ import { CreateElementInput } from '../use-cases/element/create-element/createEl
 import { MoveData } from '../use-cases/element/move-element/types'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
 import { elementApi, propMapBindingApi } from './apis'
-import { makeCreateInput, makeUpdateInput } from './apiUtils'
+import {
+  makeCreateInput,
+  makeDuplicateInput,
+  makeUpdateInput,
+} from './apiUtils'
 import { Element } from './Element'
 import { ElementTree } from './ElementTree'
 import { PropMapBinding } from './PropMapBinding'
@@ -53,34 +55,12 @@ export class ElementService extends Model({
   deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 }) {
   @modelFlow
-  @transaction
   getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementsGraph({ input: { rootId } }),
     )
 
-    // Add all non-existing atoms to the AtomStore, so we can reference them safely in Element
-    for (const vertex of elementGraph.vertices) {
-      if (!vertex.atom) {
-        continue
-      }
-
-      const atomStore = atomServiceContext.get(this)
-
-      if (!atomStore) {
-        throw new Error('atomServiceContext is not defined')
-      }
-
-      const existing = atomStore.atom(vertex.atom.id)
-
-      if (existing) {
-        existing.updateFromFragment(vertex.atom)
-      } else {
-        atomStore.addAtom(Atom.fromFragment(vertex.atom))
-      }
-    }
-
-    this.elementTree.updateFromFragment(elementGraph)
+    this.elementTree.updateFromFragment(elementGraph, rootId)
 
     return this.elementTree
   })
@@ -108,15 +88,7 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const element = Element.fromFragment(createdElement)
-
-    if (input.parentElementId) {
-      this.elementTree
-        .element(input.parentElementId)
-        ?.addChild(element, input.order)
-    }
-
-    this.elementTree.addElement(element)
+    const [element] = this.elementTree.addOrUpdateAll([createdElement])
 
     return element
   })
@@ -129,6 +101,8 @@ export class ElementService extends Model({
     input: UpdateElementInput,
   ) {
     const updateInput = makeUpdateInput(input)
+
+    element.setName(input.name)
 
     return yield* _await(this.patchElement(element, updateInput))
   })
@@ -193,8 +167,6 @@ export class ElementService extends Model({
   ) {
     const createOrUpdate = element.props ? 'update' : 'create'
 
-    element.props?.setData(frozen(data))
-
     const input: ElementUpdateInput = {
       props: { [createOrUpdate]: { node: { data: JSON.stringify(data) } } },
     }
@@ -238,13 +210,13 @@ export class ElementService extends Model({
     this: ElementService,
     rootId: string,
   ) {
-    const root = this.elementTree.element(rootId)
+    const deletedRoot = this.elementTree.element(rootId)
 
-    if (!root) {
+    if (!deletedRoot) {
       throw new Error('Deleted element not found')
     }
 
-    this.elementTree.removeElementAndDescendants(root)
+    this.elementTree.removeElementAndDescendants(deletedRoot)
 
     const {
       deleteElementsSubgraph: { nodesDeleted },
@@ -256,7 +228,131 @@ export class ElementService extends Model({
       throw new Error('No elements deleted')
     }
 
-    return root
+    return deletedRoot
+  })
+
+  @modelFlow
+  @transaction
+  duplicateElement = _async(function* (
+    this: ElementService,
+    targetElement: Element,
+    userId: string,
+  ) {
+    if (!targetElement.parentElement) {
+      throw new Error("Can't duplicate root element")
+    }
+
+    const oldToNewIdMap = new Map<string, string>()
+
+    const recursiveDuplicate = async (element: Element, parentId: string) => {
+      const createInput: ElementCreateInput = makeDuplicateInput(
+        element,
+        parentId,
+        userId,
+      )
+
+      const {
+        createElements: {
+          elements: [createdElement],
+        },
+      } = await elementApi.CreateElements({ input: createInput })
+
+      if (!createdElement) {
+        throw new Error('No elements created')
+      }
+
+      const [elementModel] = this.elementTree.addOrUpdateAll([createdElement])
+
+      oldToNewIdMap.set(element.id, elementModel.id)
+
+      for (const child of element.childrenSorted) {
+        await recursiveDuplicate(child, elementModel.id)
+      }
+
+      return elementModel
+    }
+
+    yield* _await(
+      recursiveDuplicate(targetElement, targetElement.parentElement.id),
+    )
+
+    // re-attach the prop map bindings now that we have the new ids
+    const allInputs = [targetElement, ...targetElement.descendants]
+
+    for (const inputElement of allInputs) {
+      const newId = oldToNewIdMap.get(inputElement.id)
+
+      if (!newId) {
+        throw new Error(`Could not find new id for ${inputElement.id}`)
+      }
+
+      const duplicated = this.elementTree.element(newId)
+
+      if (!duplicated) {
+        throw new Error(`Could not find duplicated element ${newId}`)
+      }
+
+      for (const propMapBinding of inputElement.propMapBindings.values()) {
+        yield* _await(
+          this.createPropMapBinding(duplicated, {
+            elementId: newId,
+            targetElementId: propMapBinding.targetElement
+              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
+              : undefined,
+            targetKey: propMapBinding.targetKey,
+            sourceKey: propMapBinding.sourceKey,
+          }),
+        )
+      }
+    }
+  })
+
+  @modelFlow
+  @transaction
+  convertElementToComponent = _async(function* (
+    this: ElementService,
+    element: Element,
+    userId: string,
+  ) {
+    if (!element.parentElement) {
+      throw new Error("Can't convert root element")
+    }
+
+    // 1. Attach a Component to the Element and detach it from the parent
+    const parentId = element.parentElement.id
+
+    const order =
+      element.orderInParent ?? element.parentElement.lastChildOrder + 1
+
+    element.parentElement.removeChild(element)
+
+    yield* _await(
+      this.patchElement(element, {
+        parentElement: { disconnect: { where: {} } },
+        component: {
+          create: {
+            node: {
+              name: element.label,
+              owner: { connect: { where: { node: { auth0Id: userId } } } },
+            },
+          },
+        },
+      }),
+    )
+
+    if (!element.component) {
+      throw new Error('Could not find component')
+    }
+
+    // 2. Make an intermediate element with instance of the Component
+    yield* _await(
+      this.createElement({
+        name: element.label,
+        instanceOfComponentId: element.component.id,
+        parentElementId: parentId,
+        order,
+      }),
+    )
   })
 
   @modelFlow
@@ -379,7 +475,7 @@ class CreateElementModalService extends ExtendedModel(() => ({
 })) {
   @computed
   get parentElement() {
-    return this.metadata?.parentElement?.current ?? null
+    return this.metadata?.parentElement ?? null
   }
 }
 

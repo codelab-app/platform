@@ -4,22 +4,20 @@ import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import tw from 'twin.macro'
-import { ComponentService } from '../../store/ComponentService'
+import { WithComponentService } from '../../store'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { ComponentColumnData } from './columns/types'
 
-export interface GetComponentsTableProps {
-  componentStore: ComponentService
-}
+export type GetComponentsTableProps = WithComponentService
 
 export const GetComponentsTable = observer<GetComponentsTableProps>(
-  ({ componentStore }) => {
+  ({ componentService }) => {
     const [getComponents, { isLoading }] = useLoadingState(() =>
-      componentStore.getAll(),
+      componentService.getAll(),
     )
 
-    const components = componentStore.componentsList
+    const components = componentService.componentsList
     useEffect(() => {
       getComponents()
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +43,10 @@ export const GetComponentsTable = observer<GetComponentsTableProps>(
         onHeaderCell: headerCellProps,
         width: 100,
         render: (_, component) => (
-          <ActionColumn component={component} componentStore={componentStore} />
+          <ActionColumn
+            component={component}
+            componentStore={componentService}
+          />
         ),
       },
     ]

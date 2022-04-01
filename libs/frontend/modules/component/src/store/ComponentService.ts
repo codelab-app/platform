@@ -4,11 +4,13 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   detach,
   ExtendedModel,
   idProp,
   Model,
   model,
+  modelAction,
   modelClass,
   modelFlow,
   objectMap,
@@ -38,6 +40,12 @@ export class Component extends Model({
       ownerId: component.owner?.id,
     })
   }
+
+  updateFromFragment(componentFragment: ComponentFragment): void {
+    this.name = componentFragment.name
+    this.rootElementId = componentFragment.rootElement.id
+    this.ownerId = componentFragment.owner?.id
+  }
 }
 
 export const componentRef = rootRef<Component>('ComponentRef', {
@@ -57,6 +65,10 @@ class ComponentModalService extends ExtendedModel(() => ({
   get component() {
     return this.metadata?.current ?? null
   }
+}
+
+export interface WithComponentService {
+  componentService: ComponentService
 }
 
 @model('codelab/ComponentStore')
@@ -180,4 +192,40 @@ export class ComponentService extends Model({
 
     return deleteComponents
   })
+
+  @modelAction
+  addComponent(component: Component) {
+    this.components.set(component.id, component)
+  }
+
+  @modelAction
+  addOrUpdate(componentFragment: ComponentFragment) {
+    const existing = this.component(componentFragment.id)
+
+    if (existing) {
+      existing.updateFromFragment(componentFragment)
+    } else {
+      this.addComponent(Component.fromFragment(componentFragment))
+    }
+  }
+
+  @modelAction
+  addOrUpdateAll(components: Array<ComponentFragment>) {
+    for (const component of components) {
+      this.addOrUpdate(component)
+    }
+  }
+}
+
+// This can be used to access the type store from anywhere inside the mobx-keystone tree
+export const componentServiceContext = createContext<ComponentService>()
+
+export const getComponentServiceFromContext = (thisModel: any) => {
+  const componentService = componentServiceContext.get(thisModel)
+
+  if (!componentService) {
+    throw new Error('componentServiceContext is not set')
+  }
+
+  return componentService
 }

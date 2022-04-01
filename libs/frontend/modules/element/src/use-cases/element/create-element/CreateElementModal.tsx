@@ -4,7 +4,7 @@ import {
   SelectComponent,
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { Form, ModalForm } from '@codelab/frontend/view/components'
+import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -28,7 +28,7 @@ export const CreateElementModal = observer(
 
     const model = {
       parentElementId: parentElement?.id || undefined,
-      order: parentElement ? parentElement.lastChildOrder + 1 : 1,
+      order: parentElement ? parentElement?.current.lastChildOrder + 1 : 1,
     }
 
     const closeModal = () => elementService.createModal.close()
@@ -40,7 +40,7 @@ export const CreateElementModal = observer(
         title={<span css={tw`font-semibold`}>Create element</span>}
         visible={elementService.createModal.isOpen}
       >
-        <Form<CreateElementInput>
+        <ModalForm.Form<CreateElementInput>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -62,9 +62,9 @@ export const CreateElementModal = observer(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={elementService.elementTree.elementsList.map(
-                  mapElementOption,
-                )}
+                allElementOptions={elementService.elementTree.elementsList
+                  .filter((e) => !e.instanceOfComponent && !e.component)
+                  .map(mapElementOption)}
               />
             ))}
             name="parentElementId"
@@ -72,7 +72,7 @@ export const CreateElementModal = observer(
           <AutoField name="order" />
           <AutoField component={SelectAtom} name="atomId" />
           <AutoField component={SelectComponent} name="instanceOfComponentId" />
-        </Form>
+        </ModalForm.Form>
       </ModalForm.Modal>
     )
   },

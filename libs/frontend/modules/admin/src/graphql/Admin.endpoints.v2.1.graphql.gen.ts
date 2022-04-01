@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql, GraphQLClient } from 'graphql-request'
 
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
 export type ResetDatabaseMutationVariables = Types.Exact<{
   [key: string]: never
 }>
@@ -26,21 +27,21 @@ export type ExportAdminDataQuery = {
   exportAdminData: { result: Record<string, any> }
 }
 
-export const ResetDatabaseGql = gql`
+export const ResetDatabaseDocument = gql`
   mutation ResetDatabase {
     resetDatabase {
       success
     }
   }
 `
-export const ImportAdminDataGql = gql`
+export const ImportAdminDataDocument = gql`
   mutation importAdminData($input: ImportAdminDataInput!) {
     importAdminData(input: $input) {
       result
     }
   }
 `
-export const ExportAdminDataGql = gql`
+export const ExportAdminDataDocument = gql`
   query exportAdminData {
     exportAdminData {
       result
@@ -65,53 +66,51 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    ResetData(
+    ResetDatabase(
       variables?: ResetDatabaseMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<ResetDatabaseMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<ResetDatabaseMutation>(ResetDatabaseGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'ResetData',
+          client.request<ResetDatabaseMutation>(
+            ResetDatabaseDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'ResetDatabase',
         'mutation',
       )
     },
-
-    ImportData(
+    importAdminData(
       variables: ImportAdminDataMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<ImportAdminDataMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<ImportAdminDataMutation>(
-            ImportAdminDataGql,
+            ImportAdminDataDocument,
             variables,
-            {
-              ...requestHeaders,
-              ...wrappedRequestHeaders,
-            },
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'ImportData',
+        'importAdminData',
         'mutation',
       )
     },
-
-    ExportData(
+    exportAdminData(
       variables?: ExportAdminDataQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<ExportAdminDataQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<ExportAdminDataQuery>(ExportAdminDataGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'ExportData',
+          client.request<ExportAdminDataQuery>(
+            ExportAdminDataDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'exportAdminData',
         'query',
       )
     },
   }
 }
+export type Sdk = ReturnType<typeof getSdk>

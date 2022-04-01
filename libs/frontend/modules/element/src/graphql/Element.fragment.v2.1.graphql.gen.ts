@@ -3,33 +3,39 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { ComponentFragment } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
-  name?: string | null
-  css?: string | null
-  renderForEachPropKey?: string | null
-  renderIfPropKey?: string | null
-  propTransformationJs?: string | null
-  component?: ComponentFragment | null
-  instanceOfComponent?: ComponentFragment | null
-  parentElement?: { id: string; name?: string | null } | null
-  atom?: {
-    id: string
-    type: Types.AtomType
-    name: string
-    tags: Array<{ id: string; name: string }>
-    api: { id: string; name: string }
-  } | null
-  props?: PropFragment | null
+  name?: string | null | undefined
+  css?: string | null | undefined
+  renderForEachPropKey?: string | null | undefined
+  renderIfPropKey?: string | null | undefined
+  propTransformationJs?: string | null | undefined
+  component?: ComponentFragment | null | undefined
+  instanceOfComponent?: ComponentFragment | null | undefined
+  parentElement?:
+    | { id: string; name?: string | null | undefined }
+    | null
+    | undefined
+  atom?:
+    | {
+        id: string
+        type: Types.AtomType
+        name: string
+        tags: Array<{ id: string; name: string }>
+        api: { id: string; name: string }
+      }
+    | null
+    | undefined
+  props?: PropFragment | null | undefined
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
   parentElementConnection: {
     edges: Array<{
-      order?: number | null
-      node: { id: string; name?: string | null }
+      order?: number | null | undefined
+      node: { id: string; name?: string | null | undefined }
     }>
   }
 }
@@ -37,7 +43,7 @@ export type ElementFragment = {
 export type ElementEdgeFragment = {
   source: string
   target: string
-  order?: number | null
+  order?: number | null | undefined
 }
 
 export type ElementGraphFragment = {
@@ -53,15 +59,18 @@ export type HookFragment = {
   id: string
   type: Types.AtomType
   config: HookPropFragment
-  element: { id: string; name?: string | null }
+  element: { id: string; name?: string | null | undefined }
 }
 
 export type PropMapBindingFragment = {
   id: string
   sourceKey: string
   targetKey: string
-  element: { id: string; name?: string | null }
-  targetElement?: { id: string; name?: string | null } | null
+  element: { id: string; name?: string | null | undefined }
+  targetElement?:
+    | { id: string; name?: string | null | undefined }
+    | null
+    | undefined
 }
 
 export const ElementEdgeFragmentDoc = gql`

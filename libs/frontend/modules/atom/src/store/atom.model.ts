@@ -12,6 +12,10 @@ import {
 } from 'mobx-keystone'
 import { AtomFragment } from '../graphql/Atom.fragment.v2.1.graphql.gen'
 
+export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
+  api: { id: string }
+}
+
 @model('codelab/Atom')
 export class Atom extends Model({
   id: idProp,
@@ -23,18 +27,14 @@ export class Atom extends Model({
   api: prop<Ref<InterfaceType>>(),
 }) {
   @modelAction
-  updateFromFragment(
-    atom: Omit<AtomFragment, 'api' | '__typename'> & { api: { id: string } },
-  ) {
+  updateFromFragment(atom: AtomFromFragmentInput) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tagIds = atom.tags.map((tag) => tag.id)
   }
 
-  static fromFragment(
-    atom: Omit<AtomFragment, 'api' | '__typename'> & { api: { id: string } },
-  ) {
+  static fromFragment(atom: AtomFromFragmentInput) {
     return new Atom({
       id: atom.id,
       name: atom.name,

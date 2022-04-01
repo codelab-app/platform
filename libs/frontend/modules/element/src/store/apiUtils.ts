@@ -2,6 +2,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen-v2'
+import { Element } from '../store'
 import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
 
@@ -49,6 +50,58 @@ export const makeCreateInput = (
     parentElement,
     props,
     ...data,
+  }
+}
+
+export const makeDuplicateInput = (
+  element: Element,
+  parentId: string,
+  userId: string,
+): ElementCreateInput => {
+  const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
+    element.instanceOfComponent
+      ? { connect: { where: { node: { id: element.instanceOfComponent.id } } } }
+      : undefined
+
+  const atom: ElementCreateInput['atom'] = element.atom
+    ? { connect: { where: { node: { id: element.atom.id } } } }
+    : undefined
+
+  const props: ElementCreateInput['props'] = element.props
+    ? { create: { node: { data: element.props.jsonString } } }
+    : undefined
+
+  const component: ElementCreateInput['component'] = element.component
+    ? {
+        create: {
+          node: {
+            name: element.component.current.name,
+            owner: { connect: { where: { node: { auth0Id: userId } } } },
+          },
+        },
+      }
+    : undefined
+
+  const parentElement: ElementCreateInput['parentElement'] = {
+    connect: {
+      where: {
+        node: { id: parentId },
+      },
+      edge: { order: element.orderInParent },
+    },
+  }
+
+  return {
+    instanceOfComponent,
+    atom,
+    props,
+    parentElement,
+    propTransformationJs: element.propTransformationJs,
+    renderIfPropKey: element.renderIfPropKey,
+    renderForEachPropKey: element.renderForEachPropKey,
+    name: element.name,
+    css: element.css,
+    component,
   }
 }
 

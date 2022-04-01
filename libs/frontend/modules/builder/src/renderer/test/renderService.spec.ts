@@ -11,7 +11,7 @@ describe('RenderService', () => {
   const data = setupTestRenderData()
 
   it('should add extra props', () => {
-    const { props } = data.renderService.renderElement(
+    const { props } = data.renderService.renderElementIntermediate(
       data.elementToRender,
       extraProps,
     ) as RenderOutput
@@ -20,7 +20,7 @@ describe('RenderService', () => {
   })
 
   it('should apply transformation function', () => {
-    const { props } = data.renderService.renderElement(
+    const { props } = data.renderService.renderElementIntermediate(
       data.elementToRender,
       extraProps,
     ) as RenderOutput
@@ -35,7 +35,7 @@ describe('RenderService', () => {
   it('should keep same props when transform function is invalid', () => {
     data.elementToRender.setPropTransformationJs('invalid fn')
 
-    const { props } = data.renderService.renderElement(
+    const { props } = data.renderService.renderElementIntermediate(
       data.elementToRender,
       extraProps,
     ) as RenderOutput
@@ -48,10 +48,11 @@ describe('RenderService', () => {
   })
 
   it('should render component instance', () => {
-    const { props, atomType, elementId } = data.renderService.renderElement(
-      data.componentInstanceElementToRender,
-      {},
-    ) as RenderOutput
+    const { props, atomType, elementId } =
+      data.renderService.renderElementIntermediate(
+        data.componentInstanceElementToRender,
+        {},
+      ) as RenderOutput
 
     expect(props).toMatchObject({
       [DATA_COMPONENT_ID]: data.componentToRender.id,
@@ -59,6 +60,6 @@ describe('RenderService', () => {
     })
 
     expect(atomType).toBe(data.componentRootElement.atom?.current.type)
-    expect(elementId).toBe(data.componentInstanceElementToRender.id)
+    expect(elementId).toBe(data.componentRootElement.id)
   })
 })

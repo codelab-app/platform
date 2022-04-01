@@ -1,6 +1,5 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { WithElementService } from '@codelab/frontend/modules/element'
-import { WithTypeService } from '@codelab/frontend/modules/type'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import { BuilderDropHandler } from './dnd/BuilderDropHandler'
@@ -10,15 +9,10 @@ import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
 import { Renderer } from './renderer'
 import { WithBuilderService } from './store/BuilderService'
 
-export interface BuilderProps
-  extends WithBuilderService,
-    WithTypeService,
-    WithElementService {
-  isComponentBuilder?: boolean
-}
+export interface BuilderProps extends WithBuilderService, WithElementService {}
 
 export const Builder = observer<BuilderProps>(
-  ({ builderService, isComponentBuilder, elementService, typeService }) => {
+  ({ builderService, elementService }) => {
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(
       builderService,
       builderService.builderRenderer.tree,

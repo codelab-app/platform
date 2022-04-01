@@ -1,6 +1,7 @@
 import { elementRef, ElementTree } from '@codelab/frontend/modules/element'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { MouseEvent, useCallback } from 'react'
-import { BuilderService } from '../store/BuilderService'
+import { BuilderService } from '../store'
 
 /**
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
@@ -8,7 +9,7 @@ import { BuilderService } from '../store/BuilderService'
  */
 export const useBuilderHoverHandlers = (
   builderService: BuilderService,
-  elementTree: ElementTree,
+  elementTree: Nullable<ElementTree>,
 ) => {
   const handleMouseOver = useCallback(
     (e: MouseEvent) => {
@@ -36,15 +37,13 @@ export const useBuilderHoverHandlers = (
         return
       }
 
-      const element = elementTree.element(elementId)
-
-      if (element) {
-        builderService.setHoveredElement(elementRef(element))
+      if (elementId) {
+        builderService.setHoveredElement(elementRef(elementId))
       } else {
         builderService.setHoveredElement(null)
       }
     },
-    [builderService, elementTree],
+    [builderService],
   )
 
   const handleMouseLeave = useCallback(() => {

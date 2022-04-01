@@ -43,7 +43,7 @@ export const UpdatePropMapBindingModal =
         elementService.elementTree.elementsList.map((e) => ({
           value: e.id,
           label: e.label,
-          childrenIds: e.childrenList.map((c) => c.id),
+          childrenIds: e.childrenSorted.map((c) => c.id),
         }))
 
       return (

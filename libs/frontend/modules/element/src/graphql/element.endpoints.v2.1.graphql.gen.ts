@@ -12,7 +12,7 @@ import {
 import { ComponentFragment } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import {
   ElementGraphFragmentDoc,
   ElementEdgeFragmentDoc,
@@ -64,23 +64,6 @@ export type MoveElementsMutation = {
   updateElements: { elements: Array<ElementFragment> }
 }
 
-export type ConvertElementsToComponentsMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.ElementWhere>
-  update?: Types.InputMaybe<Types.ElementUpdateInput>
-}>
-
-export type ConvertElementsToComponentsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
-}
-
-export type DuplicateElementMutationVariables = Types.Exact<{
-  input: Types.DuplicateElementInput
-}>
-
-export type DuplicateElementMutation = {
-  duplicateElement: { elements: Array<ElementFragment> }
-}
-
 export type GetElementsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ElementOptions>
   where?: Types.InputMaybe<Types.ElementWhere>
@@ -88,7 +71,7 @@ export type GetElementsQueryVariables = Types.Exact<{
 
 export type GetElementsQuery = { elements: Array<ElementFragment> }
 
-export const GetElementsGraphGql = gql`
+export const GetElementsGraphDocument = gql`
   query GetElementsGraph($input: ElementGraphInput!) {
     elementGraph(input: $input) {
       ...ElementGraph
@@ -103,7 +86,7 @@ export const GetElementsGraphGql = gql`
   ${HookPropFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
-export const CreateElementsGql = gql`
+export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
       elements {
@@ -118,7 +101,7 @@ export const CreateElementsGql = gql`
   ${HookPropFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
-export const DeleteElementsSubgraphGql = gql`
+export const DeleteElementsSubgraphDocument = gql`
   mutation DeleteElementsSubgraph(
     $where: ElementWhere
     $delete: ElementDeleteInput
@@ -129,7 +112,7 @@ export const DeleteElementsSubgraphGql = gql`
     }
   }
 `
-export const UpdateElementsGql = gql`
+export const UpdateElementsDocument = gql`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
       elements {
@@ -144,7 +127,7 @@ export const UpdateElementsGql = gql`
   ${HookPropFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
-export const MoveElementsGql = gql`
+export const MoveElementsDocument = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
       elements {
@@ -159,40 +142,7 @@ export const MoveElementsGql = gql`
   ${HookPropFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
-export const ConvertElementsToComponentsGql = gql`
-  mutation ConvertElementsToComponents(
-    $where: ElementWhere
-    $update: ElementUpdateInput
-  ) {
-    updateElements(where: $where, update: $update) {
-      elements {
-        ...Element
-      }
-    }
-  }
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
-`
-export const DuplicateElementGql = gql`
-  mutation DuplicateElement($input: DuplicateElementInput!) {
-    duplicateElement(input: $input) {
-      elements {
-        ...Element
-      }
-    }
-  }
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
-`
-export const GetElementsGql = gql`
+export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
     elements: elements(options: $options, where: $where) {
       ...Element
@@ -230,7 +180,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetElementsGraphQuery>(
-            GetElementsGraphGql,
+            GetElementsGraphDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -244,10 +194,11 @@ export function getSdk(
     ): Promise<CreateElementsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateElementsMutation>(CreateElementsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<CreateElementsMutation>(
+            CreateElementsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'CreateElements',
         'mutation',
       )
@@ -259,7 +210,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeleteElementsSubgraphMutation>(
-            DeleteElementsSubgraphGql,
+            DeleteElementsSubgraphDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -273,10 +224,11 @@ export function getSdk(
     ): Promise<UpdateElementsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateElementsMutation>(UpdateElementsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<UpdateElementsMutation>(
+            UpdateElementsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'UpdateElements',
         'mutation',
       )
@@ -287,41 +239,12 @@ export function getSdk(
     ): Promise<MoveElementsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<MoveElementsMutation>(MoveElementsGql, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
+          client.request<MoveElementsMutation>(
+            MoveElementsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
         'MoveElements',
-        'mutation',
-      )
-    },
-    ConvertElementsToComponents(
-      variables?: ConvertElementsToComponentsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<ConvertElementsToComponentsMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ConvertElementsToComponentsMutation>(
-            ConvertElementsToComponentsGql,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'ConvertElementsToComponents',
-        'mutation',
-      )
-    },
-    DuplicateElement(
-      variables: DuplicateElementMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DuplicateElementMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<DuplicateElementMutation>(
-            DuplicateElementGql,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'DuplicateElement',
         'mutation',
       )
     },
@@ -331,7 +254,7 @@ export function getSdk(
     ): Promise<GetElementsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetElementsQuery>(GetElementsGql, variables, {
+          client.request<GetElementsQuery>(GetElementsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),

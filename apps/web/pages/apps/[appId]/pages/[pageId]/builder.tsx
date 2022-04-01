@@ -1,4 +1,4 @@
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
@@ -35,28 +35,29 @@ const PageBuilder: CodelabPage<any> = observer(() => {
   )
 
   const [, { isLoading, error, data }] = useLoadingState(
-    () =>
+    async () => {
       // Load the page we're rendering
-      store.pageService.getOne(currentPageId).then(async (page) => {
-        if (!page) {
-          throw new Error('Page not found')
-        }
+      const page = await store.pageService.getOne(currentPageId)
 
-        // Get element tree and provider tree
-        const [elementTree, providerTree] = await Promise.all([
-          store.elementService.getTree(page.rootElementId),
-          store.providerElementService.getTree(page.providerElementId),
-        ])
+      if (!page) {
+        throw new Error('Page not found')
+      }
 
-        // initialize renderer
-        await store.renderService.init(
-          store.elementService.elementTree,
-          store.providerElementService.elementTree,
-          null,
-        )
+      // Get element tree and provider tree
+      const [elementTree, providerTree] = await Promise.all([
+        store.elementService.getTree(page.rootElementId),
+        store.providerElementService.getTree(page.providerElementId),
+      ])
 
-        return { page, elementTree, providerTree }
-      }),
+      // initialize renderer
+      await store.builderService.builderRenderer.init(
+        store.elementService.elementTree,
+        store.providerElementService.elementTree,
+        null,
+      )
+
+      return { page, elementTree, providerTree }
+    },
     { executeOnMount: true },
   )
 
@@ -72,7 +73,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       <Builder
         builderService={store.builderService}
         elementService={store.elementService}
-        typeService={store.typeService}
+        key={store.builderService.builderRenderer.tree?.root?.id}
       />
     </>
   )
@@ -89,15 +90,24 @@ PageBuilder.Layout = observer((page) => {
       elementService={store.elementService}
     >
       <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pages={store.pageService} />}
+        Header={observer(() => (
+          <PageDetailHeader pages={store.pageService} />
+        ))}
         MainPane={observer(() => (
-          <MainPaneBuilder atomService={store.atomService} />
+          <MainPaneBuilder
+            atomService={store.atomService}
+            builderService={store.builderService}
+            componentService={store.componentService}
+            elementService={store.elementService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
+          />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
             elementService={store.elementService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
           />
         ))}
@@ -106,8 +116,10 @@ PageBuilder.Layout = observer((page) => {
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...props}
             builderService={store.builderService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
           />
         ))}
+        builderService={store.builderService}
         headerHeight={38}
       >
         {page.children}

@@ -67,6 +67,8 @@ export const SelectElement = ({
     }
   }
 
+  console.log(elements)
+
   return (
     <SelectField
       name={name}
@@ -75,7 +77,7 @@ export const SelectElement = ({
       showSearch
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...(props as any)}
-      disabled={elements.length === 1 || !elements.length}
+      disabled={!elements.length}
     />
   )
 }

@@ -1,131 +1,143 @@
-import { ElementTree } from '@codelab/frontend/modules/element'
+import {
+  Element,
+  elementRef,
+  WithElementService,
+} from '@codelab/frontend/modules/element'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { Dropdown } from 'antd'
+import { Dropdown, Tree as AntdTree } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { DataNode } from 'rc-tree/lib/interface'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { useExpandedNodes } from '../../../hooks'
+import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
 import { WithBuilderService } from '../../../store/BuilderService'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-type MainPaneBuilderTreeTabProps = WithBuilderService
+type MainPaneBuilderTreeTabProps = WithBuilderService & WithElementService
 
 export const MainPaneBuilderTreeTab = observer<MainPaneBuilderTreeTabProps>(
-  ({ builderService }) => {
+  ({ builderService, elementService }) => {
     const { setExpandedNodeIds, expandedNodeIds } =
       useExpandedNodes(builderService)
 
-    // we have main tree and components trees.
-    // so we need the root to find the correct one
-    // const antdTree = elementTree.getAntdTrees().find((x: any) => x?.id === rootId)
-    // const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
-    const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
-    const { setHoveringElement } = useBuilderHoveringElement()
+    const { isMoving, handleDrop } = useElementTreeDrop(elementService)
+    const antdTree = elementService.elementTree.root?.antdNode
 
-    // if (!elementTree) {
-    //   return null
-    // }
-    return null
+    return (
+      <AntdTree
+        blockNode
+        className="draggable-tree"
+        disabled={isMoving}
+        draggable
+        expandedKeys={expandedNodeIds}
+        onClick={(e) => e.stopPropagation()}
+        onDrop={handleDrop}
+        onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+        onMouseEnter={({ node }) => {
+          builderService.setHoveredElement(elementRef(node.key.toString()))
+        }}
+        onMouseLeave={() => builderService.setHoveredElement(null)}
+        onSelect={([id], { nativeEvent, node }) => {
+          nativeEvent.stopPropagation()
 
-    // return (
-    //   <AntdTree
-    //     blockNode
-    //     className="draggable-tree"
-    //     disabled={isMoving}
-    //     draggable
-    //     expandedKeys={expandedNodeIds}
-    //     onClick={(e) => e.stopPropagation()}
-    //     onDrop={handleDrop}
-    //     onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
-    //     onMouseEnter={({ node }: any) => {
-    //       setHoveringElement(node.id)
-    //     }}
-    //     onMouseLeave={() => setHoveringElement(undefined)}
-    //     onSelect={([id], { nativeEvent, node }) => {
-    //       nativeEvent.stopPropagation()
-    //
-    //       if (id) {
-    //         setSelectedElement(id.toString())
-    //       }
-    //     }}
-    //     selectedKeys={selectedElement ? [selectedElement.id] : []}
-    //     titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
-    //     treeData={antdTree ? [antdTree] : []}
-    //   />
-    // )
+          if (id) {
+            builderService.setSelectedElement(elementRef(node.key.toString()))
+          }
+        }}
+        selectedKeys={
+          builderService.selectedElement
+            ? [builderService.selectedElement.id]
+            : []
+        }
+        titleRender={(node) => (
+          <TreeItemTitle elementService={elementService} node={node} />
+        )}
+        treeData={antdTree ? [antdTree] : []}
+      />
+    )
   },
 )
 
 MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'
 
-interface TreeItemTitleProps {
+interface TreeItemTitleProps extends WithElementService {
   node: DataNode
-  tree: ElementTree
 }
 
-interface TreeItemDropDownOverplayProps {
+const TreeItemTitle = observer(
+  ({ node, elementService }: TreeItemTitleProps) => {
+    const [contextMenuItemId, setContextMenuNodeId] =
+      useState<Nullable<string>>(null)
+
+    const element = elementService.elementTree.element(node.key.toString())
+
+    if (!element) {
+      return null
+    }
+
+    const atomName = element.atom?.current?.name || element.atom?.current?.type
+    const componentInstanceName = element.instanceOfComponent?.current?.name
+    const isComponentInstance = !!element.instanceOfComponent
+
+    const componentMeta = componentInstanceName
+      ? `(instance of ${componentInstanceName || 'a Component'})`
+      : undefined
+
+    const atomMeta = atomName ? `(${atomName})` : undefined
+    const meta = componentMeta || atomMeta || ''
+
+    return (
+      <div>
+        <Dropdown
+          onVisibleChange={(visible) =>
+            setContextMenuNodeId(visible ? element.id : null)
+          }
+          overlay={
+            <TreeItemDropDownOverplay
+              element={element}
+              elementService={elementService}
+              setContextMenuNodeId={setContextMenuNodeId}
+            />
+          }
+          trigger={['contextMenu']}
+          visible={contextMenuItemId === element.id}
+        >
+          <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
+            {element.label} <span css={tw`text-xs`}>{meta}</span>
+          </div>
+        </Dropdown>
+      </div>
+    )
+  },
+)
+
+interface TreeItemDropDownOverplayProps extends WithElementService {
   setContextMenuNodeId: (id: Nullable<string>) => void
-  node: IElement
+  element: Element
 }
 
-const TreeItemDropDownOverplay = ({
-  setContextMenuNodeId,
-  node,
-}: TreeItemDropDownOverplayProps) => {
-  const closeMenu = () => setContextMenuNodeId(null)
+const TreeItemDropDownOverplay = observer(
+  ({
+    setContextMenuNodeId,
+    element,
+    elementService,
+  }: TreeItemDropDownOverplayProps) => {
+    const closeMenu = () => setContextMenuNodeId(null)
 
-  const onClick = (e: React.MouseEvent) => {
-    closeMenu()
-    e.stopPropagation()
-  }
+    const onClick = (e: React.MouseEvent) => {
+      closeMenu()
+      e.stopPropagation()
+    }
 
-  return (
-    <>
-      <div css={tw`inset-0`} onClick={onClick} />
-      <ElementContextMenu element={node as any} onClick={closeMenu} />
-    </>
-  )
-}
-
-const TreeItemTitle = ({ node, tree }: TreeItemTitleProps) => {
-  const [contextMenuItemId, setContextMenuNodeId] =
-    useState<Nullable<string>>(null)
-
-  const element = node as unknown as IElement
-  const { name, id: nodeId, atom } = element
-  const atomName = atom?.name || atom?.type
-
-  const componentInstanceName = element.instanceOfComponent
-    ? tree.getComponentById(element.instanceOfComponent.id)?.name
-    : undefined
-
-  const isComponentInstance = !!element.instanceOfComponent
-
-  const componentMeta = componentInstanceName
-    ? `(instance of ${componentInstanceName || 'a Component'})`
-    : undefined
-
-  const atomMeta = atomName ? `(${atomName})` : undefined
-  const meta = componentMeta || atomMeta || ''
-
-  return (
-    <div>
-      <Dropdown
-        onVisibleChange={() => setContextMenuNodeId(nodeId)}
-        overlay={
-          <TreeItemDropDownOverplay
-            node={element}
-            setContextMenuNodeId={setContextMenuNodeId}
-          />
-        }
-        trigger={['contextMenu']}
-        visible={contextMenuItemId === nodeId}
-      >
-        <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
-          {name} <span css={tw`text-xs`}>{meta}</span>
-        </div>
-      </Dropdown>
-    </div>
-  )
-}
+    return (
+      <>
+        <div css={tw`inset-0`} onClick={onClick} />
+        <ElementContextMenu
+          element={element}
+          elementService={elementService}
+          onClick={closeMenu}
+        />
+      </>
+    )
+  },
+)

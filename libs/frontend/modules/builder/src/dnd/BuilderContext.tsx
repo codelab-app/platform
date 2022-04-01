@@ -22,7 +22,7 @@ export const BuilderContext = observer(
     elementService,
     builderService,
   }: PropsWithChildren<BuilderContextProps>) => {
-    const { onDragEnd, onDragStart, currentlyDragging } = useBuilderDnd(
+    const { onDragEnd, onDragStart } = useBuilderDnd(
       builderService,
       elementService,
     )
@@ -47,9 +47,9 @@ export const BuilderContext = observer(
         {children}
 
         <DragOverlay dropAnimation={null}>
-          {currentlyDragging ? (
+          {builderService.currentDragData ? (
             <div css={tw`p-2 text-sm border-gray-200 border w-24`}>
-              {currentlyDragging.createElementInput.name}
+              {builderService.currentDragData.data.createElementInput.name}
             </div>
           ) : null}
         </DragOverlay>

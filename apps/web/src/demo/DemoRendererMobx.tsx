@@ -1,15 +1,11 @@
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
-import {
-  Element,
-  ElementProps,
-  elementRef,
-} from '@codelab/frontend/modules/element'
+import { Element, ElementProps } from '@codelab/frontend/modules/element'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { action, makeObservable, observable } from 'mobx'
-import { frozen } from 'mobx-keystone'
+import { frozen, objectMap } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
@@ -70,7 +66,7 @@ const buttonDec = new Element({
       onClick: '{{root.decrement}}',
     }),
   }),
-  children: [elementRef(textDec)],
+  children: objectMap([[textDec.id, textDec]]),
 })
 
 const buttonInc = new Element({
@@ -83,7 +79,7 @@ const buttonInc = new Element({
       onClick: '{{root.increment}}',
     }),
   }),
-  children: [elementRef(textInc)],
+  children: objectMap([[textInc.id, textInc]]),
 })
 
 const counterText = new Element({
@@ -102,17 +98,17 @@ const container = new Element({
   id: v4(),
   name: 'Container',
   atom: atomRef(divAtom),
-  children: [
-    elementRef(buttonDec),
-    elementRef(counterText),
-    elementRef(buttonInc),
-  ],
+  children: objectMap([
+    [buttonDec.id, buttonDec],
+    [counterText.id, counterText],
+    [buttonInc.id, buttonInc],
+  ]),
 })
 
 const root = new Element({
   id: v4(),
   name: 'Root element',
-  children: [elementRef(container)],
+  children: objectMap([[container.id, container]]),
 })
 
 const demoStore = initializeStore()
@@ -123,13 +119,7 @@ demoStore.atomService.addAtom(divAtom)
 demoStore.atomService.addAtom(buttonAtom)
 demoStore.atomService.addAtom(textAtom)
 
-demoStore.elementService.elementTree.addElement(counterText)
-demoStore.elementService.elementTree.addElement(textDec)
-demoStore.elementService.elementTree.addElement(textInc)
-demoStore.elementService.elementTree.addElement(buttonInc)
-demoStore.elementService.elementTree.addElement(buttonDec)
-demoStore.elementService.elementTree.addElement(container)
-demoStore.elementService.elementTree.addElement(root)
+demoStore.elementService.elementTree.setRoot(root)
 
 class PlatformState {
   counter = 0
@@ -153,6 +143,7 @@ class PlatformState {
 
 demoStore.renderService.init(
   demoStore.elementService.elementTree,
+  undefined,
   new PlatformState() as any,
 )
 

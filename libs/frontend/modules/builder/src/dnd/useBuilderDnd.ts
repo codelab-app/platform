@@ -8,7 +8,6 @@ import { BuilderDndType } from './BuilderDndType'
 import { BuilderDragData } from './BuilderDragData'
 
 export interface UseBuilderDnd {
-  currentlyDragging?: BuilderDragData
   onDragStart: (data: DragStartEvent) => void
   onDragEnd: (data: DragEndEvent) => void
 }

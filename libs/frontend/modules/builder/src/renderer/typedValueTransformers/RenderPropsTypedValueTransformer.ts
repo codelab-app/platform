@@ -1,9 +1,10 @@
+import { getComponentServiceFromContext } from '@codelab/frontend/modules/component'
 import { Element } from '@codelab/frontend/modules/element'
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderContext } from '../renderContext'
+import { getRenderContext } from '../renderServiceContext'
 import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
 
 /**
@@ -25,24 +26,29 @@ export class RenderPropsTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer
 {
-  public readonly handledKinds: ReadonlySet<TypeKind> = new Set([])
-
   canHandleTypeKind(typeKind: TypeKind): boolean {
     return typeKind === TypeKind.RenderPropsType
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
     const renderer = getRenderContext(this)
+    const componentService = getComponentServiceFromContext(this)
 
     return (
       typeof value.value === 'string' &&
-      !!getComponentRootElementFromProp(value, renderer.tree)
+      !!getComponentRootElementFromProp(value, renderer.tree, componentService)
     )
   }
 
-  public transform(value: any): any {
+  public transform(value: TypedValue<any>): any {
     const renderer = getRenderContext(this)
-    const rootElement = getComponentRootElementFromProp(value, renderer.tree)
+    const componentService = getComponentServiceFromContext(this)
+
+    const rootElement = getComponentRootElementFromProp(
+      value,
+      renderer.tree,
+      componentService,
+    )
 
     if (!rootElement) {
       return value

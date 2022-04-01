@@ -16,19 +16,20 @@ describe('PropMapBindings', () => {
     })
 
     data.elementToRender.addPropMapBinding(pmb)
-    data.elementToRender.props.set(pmb.sourceKey, 'parentPropValue')
+    data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props, descendantPropBindings } = data.renderService.renderElement(
-      data.elementToRender,
-    ) as RenderOutput
+    const { props, descendantBoundProps } =
+      data.renderService.renderElementIntermediate(
+        data.elementToRender,
+      ) as RenderOutput
 
     expect(props).toMatchObject({
-      [pmb.sourceKey]: data.elementToRender.props.get(pmb.sourceKey), // control
+      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey), // control
     })
 
-    expect(descendantPropBindings).toMatchObject({
+    expect(descendantBoundProps).toMatchObject({
       [data.elementToRender02.id]: {
-        [pmb.targetKey]: data.elementToRender.props.get(pmb.sourceKey),
+        [pmb.targetKey]: data.elementToRender.props?.get(pmb.sourceKey),
       },
     })
   })
@@ -42,15 +43,15 @@ describe('PropMapBindings', () => {
     })
 
     data.elementToRender.addPropMapBinding(pmb)
-    data.elementToRender.props.set(pmb.sourceKey, 'parentPropValue')
+    data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props } = data.renderService.renderElement(
+    const { props } = data.renderService.renderElementIntermediate(
       data.elementToRender,
     ) as RenderOutput
 
     expect(props).toMatchObject({
-      [pmb.sourceKey]: data.elementToRender.props.get(pmb.sourceKey), // control
-      [pmb.targetKey]: data.elementToRender.props.get(pmb.sourceKey),
+      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey), // control
+      [pmb.targetKey]: data.elementToRender.props?.get(pmb.sourceKey),
     })
   })
 })

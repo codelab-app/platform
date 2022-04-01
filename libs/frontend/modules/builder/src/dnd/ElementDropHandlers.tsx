@@ -48,7 +48,7 @@ export const ElementDropHandlers = observer(
   ({ builderService }: BuilderDropHandlersProps) => {
     return (
       <>
-        {builderService.builderRenderer.tree.elementsList.map((e) => {
+        {builderService.builderRenderer.tree?.elementsList.map((e) => {
           const target = queryRenderedElementById(e.id)
 
           if (!target) {

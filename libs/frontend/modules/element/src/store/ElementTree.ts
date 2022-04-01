@@ -1,9 +1,12 @@
 import {
-  Component,
+  AtomFromFragmentInput,
+  getAtomServiceFromContext,
+} from '@codelab/frontend/modules/atom'
+import {
   ComponentFragment,
+  getComponentServiceFromContext,
 } from '@codelab/frontend/modules/component'
-import { Nullish } from '@codelab/shared/abstract/types'
-import { flatMap } from 'lodash'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   detach,
@@ -13,23 +16,22 @@ import {
   modelAction,
   objectMap,
   prop,
+  Ref,
   rootRef,
 } from 'mobx-keystone'
 import {
-  ElementEdgeFragment,
+  ElementFragment,
   ElementGraphFragment,
 } from '../graphql/Element.fragment.v2.1.graphql.gen'
 import { Element } from './Element'
 import { elementRef } from './elementRef'
 
-const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
-  // Then by the edge order, so that we can get a consistent ordering in the children array
-  if (a.source === b.source) {
-    return (b.order || 1) - (a.order || 1)
-  }
+const fromFragment = (fragment: ElementGraphFragment, rootId: string) => {
+  const tree = new ElementTree({})
 
-  // Order by source first
-  return a.source > b.source ? 1 : -1
+  tree.updateFromFragment(fragment, rootId)
+
+  return tree
 }
 
 /**
@@ -37,90 +39,113 @@ const sortEdges = (a: ElementEdgeFragment, b: ElementEdgeFragment) => {
  * It is used as a local observable store for a tree of elements.
  * It doesn't handle remote data, use elementService for that
  */
-@model('@codelab,ElementTree')
+@model('@codelab/ElementTree')
 export class ElementTree extends Model({
   id: idProp,
 
-  elements: prop(() => objectMap<Element>()),
-  components: prop(() => objectMap<Component>()),
+  /** The root tree element */
+  root: prop<Nullable<Element>>(null).withSetter(),
+
+  /** All root elements of the components in the main tree */
+  componentRoots: prop(() => objectMap<Element>()),
+
+  elementCache: prop(() => objectMap<Ref<Element>>()),
 }) {
   @computed
   get elementsList() {
-    return [...this.elements.values()]
+    return this.root ? [this.root, ...this.root.descendants] : []
   }
 
-  @computed
-  get root() {
-    for (const element of this.elements.values()) {
-      if (element.isRoot) {
+  element(id: string) {
+    if (this.componentRoots.has(id)) {
+      return this.componentRoots.get(id)
+    }
+
+    if (this.elementCache.has(id)) {
+      return this.elementCache.get(id)?.maybeCurrent
+    }
+
+    const allRoots = [this.root, ...this.componentRoots.values()]
+
+    for (const value of allRoots) {
+      const element = value?.findDescendant(id)
+
+      if (element) {
+        this.elementCache.set(id, elementRef(element))
+
         return element
       }
     }
 
-    return null
-  }
-
-  element(id: string) {
-    return this.elements.get(id)
+    return undefined
   }
 
   @modelAction
-  addElement(element: Element) {
-    this.elements.set(element.id, element)
+  addOrUpdateAll(elementFragments: Array<ElementFragment>, rootId?: string) {
+    this.ensureAllAtomsAreAdded(elementFragments)
+    this.ensureAllComponentsAreAdded(elementFragments)
 
-    return element
-  }
+    // Create all elements first. Keep them in a temp map. Then after all are created, assign parent/children
+    const elements = new Map<string, Element>()
+    const childToParentMap = new Map<string, string>()
 
-  @modelAction
-  addComponent(component: Component) {
-    this.components.set(component.id, component)
+    for (const fragment of elementFragments) {
+      let element = this.element(fragment.id)
 
-    return component
-  }
-
-  getRootElementOfComponent(component: Component) {
-    const rootElement = this.element(component.rootElementId)
-
-    if (!rootElement) {
-      console.warn(`Could not find root element for component ${component.id}`)
-    }
-
-    return rootElement
-  }
-
-  /**
-   * Returns the element with the given id and all of its descendant elements
-   */
-  getElementAndDescendants(id: string): Array<Element> {
-    const element = this.element(id)
-
-    if (!element) {
-      return []
-    }
-
-    const cache = new Set<string>()
-
-    const getDescendants = (_e: Element): Array<Element> => {
-      if (cache.has(_e.id)) {
-        return []
+      if (element) {
+        element.updateFromFragment(fragment)
+      } else {
+        element = Element.fromFragment(fragment)
       }
 
-      cache.add(_e.id)
+      elements.set(fragment.id, element)
 
-      const children = _e.childrenList
-
-      return [...children, ...flatMap(children, getDescendants)]
+      if (fragment.id === rootId) {
+        this.root = element
+      } else if (fragment.parentElement?.id) {
+        childToParentMap.set(fragment.id, fragment.parentElement.id)
+      } else if (fragment.component) {
+        this.componentRoots.set(fragment.id, element)
+      }
     }
 
-    const descendants = getDescendants(element)
+    // Assign parent/children
+    for (const addedElement of elements.values()) {
+      const parentId = childToParentMap.get(addedElement.id)
 
-    return [element, ...descendants]
+      if (!parentId) {
+        continue
+      }
+
+      const parent = elements.get(parentId) || this.element(parentId)
+
+      if (!parent) {
+        continue
+      }
+
+      parent.addChild(addedElement)
+    }
+
+    return [...elements.values()]
   }
 
   @modelAction
   removeElementAndDescendants(element: Element) {
-    for (const item of this.getElementAndDescendants(element.id)) {
-      this.elements.delete(item.id)
+    const elementAndDescendantIds = [
+      element.id,
+      ...element.descendants.map((e) => e.id),
+    ]
+
+    for (const id of elementAndDescendantIds) {
+      if (this.elementCache.has(id)) {
+        this.elementCache.delete(id)
+      }
+    }
+
+    if (element.id === this.root?.id) {
+      this.root = null
+    } else {
+      element.parentElement?.removeChild(element)
     }
   }
 
@@ -147,75 +172,24 @@ export class ElementTree extends Model({
     }
 
     // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id) {
+    if (newParent.id === element.id || newParent.findDescendant(element.id)) {
       throw new Error(`Cannot move element ${elementId} to itself`)
     }
 
-    if (existingParent?.current) {
-      existingParent.current.removeChild(element.id)
+    if (existingParent) {
+      existingParent.removeChild(element)
     }
 
-    newParent.addChild(element, newOrder)
+    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
+    element.setOrderInParent(newOrder)
+    newParent.addChild(element)
 
     return element
   }
 
   @modelAction
-  updateFromFragment({ vertices, edges }: ElementGraphFragment) {
-    this.elements.clear()
-
-    const root = vertices.find((v) => !v.parentElement)
-
-    if (!root) {
-      throw new Error('No root element found')
-    }
-
-    const getOrCreateComponent = (
-      data: Nullish<ComponentFragment>,
-    ): Component | null => {
-      if (!data) {
-        return null
-      }
-
-      if (this.components.has(data.id)) {
-        return this.components.get(data.id) as Component
-      }
-
-      const component = Component.fromFragment(data)
-
-      this.components.set(data.id, component)
-
-      return component
-    }
-
-    // Map each element fragment to an element model and put it in the tree
-    for (const v of vertices) {
-      // Make sure we have the components first because we reference them in the element
-      getOrCreateComponent(v.component)
-      getOrCreateComponent(v.instanceOfComponent)
-
-      const element = Element.fromFragment(v)
-      this.addElement(element)
-    }
-
-    // Attach the children. Sort the edges to match the children order to the db edge order
-    edges.sort(sortEdges).forEach((edge) => {
-      const source = this.element(edge.source)
-      const target = this.element(edge.target)
-
-      if (!source || !target) {
-        throw new Error('Can not find source or target element of edge')
-      }
-
-      source.addChild(target)
-      target.setParentElement(elementRef(source.id))
-    })
-
-    return this
-  }
-
-  public static fromFragment(fragment: ElementGraphFragment) {
-    return new ElementTree({}).updateFromFragment(fragment)
+  updateFromFragment({ vertices }: ElementGraphFragment, rootId: string) {
+    return this.addOrUpdateAll(vertices, rootId)
   }
 
   getPathFromRoot(selectedElement: Element): Array<Element> {
@@ -224,11 +198,37 @@ export class ElementTree extends Model({
 
     while (current) {
       path.push(current)
-      current = current.parentElement?.current
+      current = current.parentElement
     }
 
     return path.reverse()
   }
+
+  @modelAction
+  private ensureAllAtomsAreAdded(elements: Array<ElementFragment>) {
+    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
+    const atomService = getAtomServiceFromContext(this)
+
+    const allAtoms = elements
+      .map((v) => v.atom)
+      .filter(Boolean) as Array<AtomFromFragmentInput>
+
+    atomService.addOrUpdateAll(allAtoms)
+  }
+
+  @modelAction
+  private ensureAllComponentsAreAdded(elements: Array<ElementFragment>) {
+    // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
+    const componentService = getComponentServiceFromContext(this)
+
+    const allComponents = elements
+      .map((v) => v.component)
+      .filter(Boolean) as Array<ComponentFragment>
+
+    componentService.addOrUpdateAll(allComponents)
+  }
+
+  public static fromFragment = fromFragment
 }
 
 export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {

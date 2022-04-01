@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { PropMapBindingFragment } from './Element.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-tag'
 import { PropMapBindingFragmentDoc } from './Element.fragment.v2.1.graphql.gen'
 export type CreatePropMapBindingsMutationVariables = Types.Exact<{
   input:
@@ -41,7 +41,7 @@ export type GetPropMapBindingsQuery = {
   propMapBindings: Array<PropMapBindingFragment>
 }
 
-export const CreatePropMapBindingsGql = gql`
+export const CreatePropMapBindingsDocument = gql`
   mutation CreatePropMapBindings($input: [PropMapBindingCreateInput!]!) {
     createPropMapBindings(input: $input) {
       propMapBindings {
@@ -51,7 +51,7 @@ export const CreatePropMapBindingsGql = gql`
   }
   ${PropMapBindingFragmentDoc}
 `
-export const UpdatePropMapBindingsGql = gql`
+export const UpdatePropMapBindingsDocument = gql`
   mutation UpdatePropMapBindings(
     $where: PropMapBindingWhere!
     $update: PropMapBindingUpdateInput!
@@ -64,14 +64,14 @@ export const UpdatePropMapBindingsGql = gql`
   }
   ${PropMapBindingFragmentDoc}
 `
-export const DeletePropMapBindingsGql = gql`
+export const DeletePropMapBindingsDocument = gql`
   mutation DeletePropMapBindings($where: PropMapBindingWhere!) {
     deletePropMapBindings(where: $where) {
       nodesDeleted
     }
   }
 `
-export const GetPropMapBindingsGql = gql`
+export const GetPropMapBindingsDocument = gql`
   query GetPropMapBindings(
     $options: PropMapBindingOptions
     $where: PropMapBindingWhere
@@ -107,7 +107,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<CreatePropMapBindingsMutation>(
-            CreatePropMapBindingsGql,
+            CreatePropMapBindingsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -122,7 +122,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<UpdatePropMapBindingsMutation>(
-            UpdatePropMapBindingsGql,
+            UpdatePropMapBindingsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -137,7 +137,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<DeletePropMapBindingsMutation>(
-            DeletePropMapBindingsGql,
+            DeletePropMapBindingsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
@@ -152,7 +152,7 @@ export function getSdk(
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetPropMapBindingsQuery>(
-            GetPropMapBindingsGql,
+            GetPropMapBindingsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),

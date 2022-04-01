@@ -1,121 +1,65 @@
-import { IElement } from '@codelab/frontend/abstract/core'
-import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
-import { EntityLike, Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { ElementTree } from '@codelab/shared/core'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { useUser } from '@auth0/nextjs-auth0'
+import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  Element,
+  elementRef,
+  ElementService,
+} from '@codelab/frontend/modules/element'
+import { Key } from '@codelab/frontend/view/components'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
 export interface ElementContextMenuProps {
-  element: IElement
+  element: Element
+  elementService: ElementService
   onClick?: () => any
   onBlur?: () => any
 }
 
 /**
- * Generates a default element name based on the element's name or atom
- */
-export const defaultElementName = (element: IElement) =>
-  element.name ||
-  element.atom?.name ||
-  (element.atom?.type ? pascalCaseToWords(element?.atom?.type) : undefined)
-
-const connect = (id: Maybe<string>) =>
-  id ? { connect: { where: { node: { id } } } } : undefined
-
-const connectArray = (items: Nullish<Array<EntityLike>>) => ({
-  connect: items?.map((x) => ({ where: { node: { id: x.id } } })),
-})
-
-const getElementCreationInput = (
-  element: IElement,
-  tree: ElementTree,
-): ComponentCreateInput['rootElement'] => ({
-  create: {
-    node: {
-      css: element.css,
-      propTransformationJs: element.propTransformationJs,
-      renderForEachPropKey: element.renderForEachPropKey,
-      renderIfPropKey: element.renderIfPropKey,
-      component: undefined,
-      instanceOfComponent: undefined,
-      parentElement: undefined,
-      name: element.name || element.atom?.name || element.id,
-      atom: connect(element.atom?.id),
-      props: connect(element.props?.id),
-      hooks: connectArray(element.hooks),
-      children: connectArray(tree.getChildren(element.id)),
-      propMapBindings: connectArray(element?.propMapBindings),
-    },
-  },
-})
-
-/**
  * The right-click menu in the element tree
  */
 export const ElementContextMenu = observer(
-  ({ element, onClick, onBlur }: ElementContextMenuProps) => {
-    // const [convertToComponent] = useConvertElementsToComponentsMutation()
-    // const [createElement] = useDuplicateElementMutation()
-    // const { push } = useRouter()
-    // const { elementTree } = useElementGraphContext()
-    // const { user } = useUserState()
-    // const { openCreateModal, openDeleteModal } = useElementDispatch()
+  ({ element, onClick, onBlur, elementService }: ElementContextMenuProps) => {
+    const { push } = useRouter()
+    const { user } = useUser()
     const isComponentInstance = !!element.instanceOfComponent
-    // const hideForRoot = elementTree?.getRootVertex()?.id === element.id
+    const hideForRoot = elementService.elementTree.root?.id === element.id
 
     const onAddChild = () => {
-      // openCreateModal({ parentElementId: element.id })
+      return elementService.createModal.open({
+        parentElement: elementRef(element),
+      })
     }
 
     const onDelete = () => {
-      // openDeleteModal({
-      //   deleteIds: [element.id],
-      //   entity: element,
-      // })
+      return elementService.deleteModal.open(elementRef(element))
     }
 
     const onDuplicate = () => {
-      // createElement({
-      //   variables: { input: { elementId: element.id } },
-      // })
+      if (!user?.sub) {
+        return
+      }
+
+      return elementService.duplicateElement(element, user.sub)
     }
 
     const onConvert = () => {
-      onClick?.()
+      if (!user?.sub) {
+        return
+      }
 
-      // const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
-      //   create: {
-      //     node: {
-      //       owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
-      //       name: element.name || element.atom?.name || element.id,
-      //       rootElement: getElementCreationInput(element, elementTree),
-      //     },
-      //   },
-      // }
-      //
-      // return convertToComponent({
-      //   variables: {
-      //     where: { id: element.id },
-      //     update: {
-      //       instanceOfComponent,
-      //       children: [{ disconnect: [{ where: {} }] }],
-      //       hooks: [{ disconnect: [{ where: {} }] }],
-      //       propMapBindings: [{ disconnect: [{ where: {} }] }],
-      //       atom: { disconnect: { where: {} } },
-      //       props: { disconnect: { where: {} } },
-      //     },
-      //   },
-      // })
+      return elementService.convertElementToComponent(element, user.sub)
     }
 
     const onEditComponent = () => {
-      // push({
-      //   pathname: PageType.ComponentDetail,
-      //   query: { componentId: element.instanceOfComponent?.id },
-      // })
+      push({
+        pathname: PageType.ComponentDetail,
+        query: { componentId: element.instanceOfComponent?.id },
+      })
     }
 
     return (
@@ -124,13 +68,15 @@ export const ElementContextMenu = observer(
         onBlur={onBlur}
         onClick={() => onClick?.()}
       >
-        <Menu.Item key="add-child" onClick={onAddChild}>
-          Add child
-        </Menu.Item>
+        {!isComponentInstance && (
+          <Menu.Item key="add-child" onClick={onAddChild}>
+            Add child
+          </Menu.Item>
+        )}
 
-        {/* <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>*/}
-        {/*  Duplicate*/}
-        {/* </Menu.Item>*/}
+        <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>
+          Duplicate
+        </Menu.Item>
 
         {isComponentInstance ? (
           <Menu.Item
@@ -142,7 +88,7 @@ export const ElementContextMenu = observer(
           </Menu.Item>
         ) : (
           <Menu.Item
-            // hidden={hideForRoot}
+            hidden={hideForRoot}
             key="convert-component"
             onClick={onConvert}
           >
@@ -150,12 +96,12 @@ export const ElementContextMenu = observer(
           </Menu.Item>
         )}
 
-        {/* <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>*/}
-        {/*  <span>Delete `{element.name}` </span>{' '}*/}
-        {/*  <span>*/}
-        {/*    <Key>del</Key> <Key>{'\u232B'}</Key>*/}
-        {/*  </span>*/}
-        {/* </Menu.Item>*/}
+        <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>
+          <span>Delete `{element.name}` </span>{' '}
+          <span>
+            <Key>del</Key> <Key>{'\u232B'}</Key>
+          </span>
+        </Menu.Item>
       </Menu>
     )
   },

@@ -19,7 +19,7 @@ describe('LoopingRenderPipe', () => {
   })
 
   it('should add renderForEachPropKey props', () => {
-    const output = data.renderService.renderElement(
+    const output = data.renderService.renderElementIntermediate(
       data.elementToRender,
       initialProps,
     ) as Array<RenderOutput>

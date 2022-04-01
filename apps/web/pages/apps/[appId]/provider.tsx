@@ -3,6 +3,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import {
+  Builder,
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
@@ -10,26 +11,70 @@ import {
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import { Empty } from 'antd'
+import {
+  useCurrentAppId,
+  useCurrentPageId,
+} from '@codelab/frontend/presenter/container'
+import {
+  extractErrorMessage,
+  useLoadingState,
+} from '@codelab/frontend/shared/utils'
+import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
 const AppProviderBuilder: CodelabPage<any> = observer(() => {
   const store = useStore()
+  const currentAppId = useCurrentAppId()
+  const currentPageId = useCurrentPageId()
   const { app } = useCurrentApp(store.appService)
-  // const { elementTree } = useElementGraphContext()
 
-  if (!app) {
-    return <Empty />
-  }
+  // Load the pages list for the top bar
+  useLoadingState(
+    () => store.pageService.getAll({ app: { id: currentAppId } }),
+    { executeOnMount: true },
+  )
+
+  const [, { isLoading, error }] = useLoadingState(
+    async () => {
+      // Load the page we're rendering
+      const page = await store.pageService.getOne(currentPageId)
+
+      if (!page) {
+        throw new Error('Page not found')
+      }
+
+      // Get provider tree
+      const providerTree = await store.providerElementService.getTree(
+        page.providerElementId,
+      )
+
+      // initialize renderer
+      await store.builderService.builderRenderer.init(
+        store.elementService.elementTree,
+        store.providerElementService.elementTree,
+        null,
+      )
+
+      return { page, providerTree }
+    },
+    { executeOnMount: true },
+  )
 
   return (
     <>
       <Head>
         <title>{app?.name} | Provider Builder | Codelab</title>
       </Head>
-      {/* <Builder tree={elementTree} typeService={store.typeService} />*/}
+
+      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {isLoading && <Spin />}
+
+      <Builder
+        builderService={store.builderService}
+        elementService={store.providerElementService}
+      />
     </>
   )
 })
@@ -40,22 +85,38 @@ export const getServerSideProps = withPageAuthRequired()
 
 AppProviderBuilder.Layout = observer((page) => {
   const store = useStore()
-  const { app } = useCurrentApp(store.appService)
 
   return (
-    <BuilderContext elementService={store.elementService}>
+    <BuilderContext
+      builderService={store.builderService}
+      elementService={store.providerElementService}
+    >
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pages={store.pageService} />}
         MainPane={observer(() => (
-          <MainPaneBuilder atomService={store.atomService} />
+          <MainPaneBuilder
+            atomService={store.atomService}
+            builderService={store.builderService}
+            componentService={store.componentService}
+            elementService={store.providerElementService}
+          />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderPage
             atomService={store.atomService}
+            builderService={store.builderService}
+            elementService={store.providerElementService}
             typeService={store.typeService}
           />
         ))}
-        SidebarNavigation={BuilderSidebarNavigation}
+        SidebarNavigation={observer((props) => (
+          <BuilderSidebarNavigation
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...props}
+            builderService={store.builderService}
+          />
+        ))}
+        builderService={store.builderService}
         headerHeight={38}
       >
         {page.children}

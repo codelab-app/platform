@@ -39,26 +39,6 @@ mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
   }
 }
 
-# different from updateElements and MoveElements in the way we process element graph cache
-mutation ConvertElementsToComponents(
-  $where: ElementWhere
-  $update: ElementUpdateInput
-) {
-  updateElements(where: $where, update: $update) {
-    elements {
-      ...Element
-    }
-  }
-}
-
-mutation DuplicateElement($input: DuplicateElementInput!) {
-  duplicateElement(input: $input) {
-    elements {
-      ...Element
-    }
-  }
-}
-
 query GetElements($options: ElementOptions, $where: ElementWhere) {
   elements: elements(options: $options, where: $where) {
     ...Element

@@ -1,4 +1,4 @@
-const componentSelectionSet = `{
+const componentSelectionSet = `
   id
   name
   rootElement {
@@ -9,7 +9,7 @@ const componentSelectionSet = `{
     id
     auth0Id
   }
-}`
+`
 
 export const elementSelectionSet = `{
     id
