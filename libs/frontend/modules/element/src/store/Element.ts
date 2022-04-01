@@ -360,6 +360,7 @@ export class Element extends Model({
       : null
   }
 
+  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   public static fromFragment = elementFromFragment
 }
 

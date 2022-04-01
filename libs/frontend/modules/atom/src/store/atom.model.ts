@@ -44,6 +44,7 @@ export class Atom extends Model({
     this.tagIds = atom.tags.map((tag) => tag.id)
   }
 
+  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static fromFragment = fromFragment
 }
 

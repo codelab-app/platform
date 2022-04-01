@@ -228,6 +228,7 @@ export class ElementTree extends Model({
     componentService.addOrUpdateAll(allComponents)
   }
 
+  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   public static fromFragment = fromFragment
 }
 

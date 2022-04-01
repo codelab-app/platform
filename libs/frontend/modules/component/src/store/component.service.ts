@@ -7,7 +7,6 @@ import {
   createContext,
   detach,
   ExtendedModel,
-  idProp,
   Model,
   model,
   modelAction,
@@ -23,30 +22,8 @@ import { ComponentFragment } from '../graphql/Component.fragment.v2.1.graphql.ge
 import type { CreateComponentInput } from '../use-cases/create-component/types'
 import type { UpdateComponentInput } from '../use-cases/update-component/types'
 import { mapCreateInput } from './apiUtils'
+import { Component } from './component'
 import { componentApi } from './componentApi'
-
-@model('codelab/Component')
-export class Component extends Model({
-  id: idProp,
-  name: prop<string>().withSetter(),
-  rootElementId: prop<string>().withSetter(), // this isn't a Ref, because it will cause a circular dep.
-  ownerId: prop<string>(),
-}) {
-  static fromFragment(component: ComponentFragment) {
-    return new Component({
-      id: component.id,
-      name: component.name,
-      rootElementId: component.rootElement.id,
-      ownerId: component.owner?.id,
-    })
-  }
-
-  updateFromFragment(componentFragment: ComponentFragment): void {
-    this.name = componentFragment.name
-    this.rootElementId = componentFragment.rootElement.id
-    this.ownerId = componentFragment.owner?.id
-  }
-}
 
 export const componentRef = rootRef<Component>('ComponentRef', {
   onResolvedValueChange(ref, newComponent, oldComponent) {

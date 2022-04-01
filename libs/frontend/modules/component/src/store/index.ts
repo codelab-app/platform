@@ -1,1 +1,2 @@
-export * from './ComponentService'
+export { Component } from './component'
+export * from './component.service'
