@@ -18,7 +18,7 @@ export class AdminService extends Model({}) {
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    const { resetDatabase } = yield* _await(adminApi.ResetData())
+    const { resetDatabase } = yield* _await(adminApi.ResetDatabase())
 
     return resetDatabase?.success
   })
@@ -26,7 +26,7 @@ export class AdminService extends Model({}) {
   @modelFlow
   @transaction
   exportData = _async(function* (this: AdminService) {
-    const { exportAdminData } = yield* _await(adminApi.ExportData())
+    const { exportAdminData } = yield* _await(adminApi.exportAdminData())
 
     return exportAdminData.result
   })
@@ -38,7 +38,7 @@ export class AdminService extends Model({}) {
     data: ImportAdminDataInput,
   ) {
     const { importAdminData } = yield* _await(
-      adminApi.ImportData({ input: data }),
+      adminApi.importAdminData({ input: data }),
     )
 
     return importAdminData?.result

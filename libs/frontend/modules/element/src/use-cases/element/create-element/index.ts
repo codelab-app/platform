@@ -1,3 +1,3 @@
 export * from './CreateElementButton'
 export * from './CreateElementModal'
-export * from './types'
+export * from './createElementSchema'

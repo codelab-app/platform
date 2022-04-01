@@ -1,17 +1,6 @@
 import { Nullish } from '@codelab/shared/abstract/types'
-import {
-  _async,
-  _await,
-  idProp,
-  Model,
-  model,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 import { PageFragment } from '../graphql/Page.fragment.v2.1.graphql.gen'
-import { UpdatePageInput } from '../use-cases/update-page/updatePageSchema'
-import { pageApi } from './page.api'
 
 @model('codelab/Page')
 export class Page extends Model({

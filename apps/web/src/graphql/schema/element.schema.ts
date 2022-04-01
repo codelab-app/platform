@@ -86,14 +86,6 @@ export const elementSchema = gql`
     elementGraph(input: ElementGraphInput!): ElementGraph!
   }
 
-  input DuplicateElementInput {
-    elementId: String!
-  }
-
-  type DuplicateElementMutationResponse @exclude {
-    elements: [Element!]!
-  }
-
   type DeleteElementsInfo @exclude {
     nodesDeleted: Int!
     relationshipsDeleted: Int!
@@ -101,10 +93,6 @@ export const elementSchema = gql`
   }
 
   type Mutation {
-    duplicateElement(
-      input: DuplicateElementInput!
-    ): DuplicateElementMutationResponse!
-
     deleteElementsSubgraph(
       delete: ElementDeleteInput
       where: ElementWhere

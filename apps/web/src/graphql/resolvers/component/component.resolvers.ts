@@ -1,4 +1,3 @@
-import { IResolvers } from '@graphql-tools/utils'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { getDriver } from '../../infra/driver'
 import { Component } from '../../model'

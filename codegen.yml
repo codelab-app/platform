@@ -6,7 +6,7 @@ hooks:
 
 # If you're in the bind of not being able to run the app because of a codegen error
 # but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
-# schema: schema.api.v2.graphql
+#schema: schema.api.v2.graphql
 schema: http://127.0.0.1:3000/api/graphql
 
 config:

@@ -1,29 +1,38 @@
-import {
-  useGetElementById,
-  useUpdateElementsMutation,
-} from '@codelab/frontend/modules/element'
+import { Element, ElementService } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { propSafeStringify } from '@codelab/shared/utils'
+import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import { autorun } from 'mobx'
 import { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { builderSelectors } from '../store/builderState'
-import { useBuilderDispatch } from './useBuilderDispatch'
+import { BuilderService } from '../store/BuilderService'
 
-export const usePropsInspector = (elementId: string) => {
-  const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
-  const { setExtraPropsForElement } = useBuilderDispatch()
-  const [mutate, { isLoading }] = useUpdateElementsMutation()
-  const element = useGetElementById(elementId)
+export const usePropsInspector = (
+  element: Element,
+  builderService: BuilderService,
+  elementService: ElementService,
+) => {
+  const [isLoading, setIsLoading] = useState(false)
 
-  const lastRenderedProps = useSelector((s) =>
-    builderSelectors.lastRenderedPropsForElement(s, elementId),
+  const [persistedProps, setPersistedProps] = useState<Maybe<string>>(
+    element.props?.jsonString ?? '{}',
   )
 
+  // this is memoized by createTransformer, so we're effectively getting the last rendered output
+  const renderOutput =
+    builderService.builderRenderer.renderElementIntermediate(element)
+
+  const lastRenderedProps = Array.isArray(renderOutput)
+    ? mergeProps(renderOutput.map((o) => o.props))
+    : renderOutput.props
+
   const setExtraProps = useCallback(
-    (props: PropsData) => setExtraPropsForElement({ elementId, props }),
-    [setExtraPropsForElement, elementId],
+    (props: PropsData) =>
+      builderService.builderRenderer.extraElementProps.setForElement(
+        element.id,
+        props,
+      ),
+    [builderService.builderRenderer.extraElementProps, element.id],
   )
 
   const save = async () => {
@@ -34,41 +43,32 @@ export const usePropsInspector = (elementId: string) => {
     }
 
     try {
-      const createOrUpdate = element?.props ? 'update' : 'create'
-      await mutate({
-        variables: {
-          where: { id: elementId },
-          update: {
-            props: {
-              [createOrUpdate]: {
-                node: { data: JSON.stringify(JSON.parse(persistedProps)) },
-              },
-            },
-          },
-        },
-      }).unwrap()
+      setIsLoading(true)
+      await elementService.updateElementProps(
+        element,
+        JSON.parse(persistedProps),
+      )
     } catch (e) {
+      console.error(e)
       notify({ title: 'Invalid json', type: 'warning' })
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  useEffect(() => {
-    if (element?.props) {
-      try {
-        setPersistedProps(
-          JSON.stringify(JSON.parse(element?.props.data), null, 4),
-        )
-      } catch (e) {
-        console.warn("Couldn't parse element props", element?.props)
-      }
-    }
-  }, [element?.props])
+  useEffect(
+    () =>
+      autorun(() => {
+        setPersistedProps(element.props?.jsonString ?? '{}')
+      }),
+    [element.props],
+  )
 
   useEffect(() => {
     return () => {
       setExtraProps({})
     }
-  }, [elementId, setExtraProps])
+  }, [setExtraProps])
 
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 

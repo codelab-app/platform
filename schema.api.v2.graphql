@@ -2630,6 +2630,11 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
+type CreateTagGraphOptionsMutationResponse {
+  info: CreateInfo!
+  tagGraphOptions: [TagGraphOptions!]!
+}
+
 type CreateTagsMutationResponse {
   info: CreateInfo!
   tags: [Tag!]!
@@ -2707,14 +2712,6 @@ type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
   relationshipsDeleted: Int!
-}
-
-input DuplicateElementInput {
-  elementId: String!
-}
-
-type DuplicateElementMutationResponse {
-  elements: [Element!]!
 }
 
 """
@@ -6876,6 +6873,9 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
+  createTagGraphOptions(
+    input: [TagGraphOptionsCreateInput!]!
+  ): CreateTagGraphOptionsMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -6959,6 +6959,7 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
+  deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -6966,9 +6967,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  duplicateElement(
-    input: DuplicateElementInput!
-  ): DuplicateElementMutationResponse!
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
@@ -7171,6 +7169,10 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
+  updateTagGraphOptions(
+    update: TagGraphOptionsUpdateInput
+    where: TagGraphOptionsWhere
+  ): UpdateTagGraphOptionsMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -8888,6 +8890,13 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
+  tagGraphOptions(
+    options: TagGraphOptionsOptions
+    where: TagGraphOptionsWhere
+  ): [TagGraphOptions!]!
+  tagGraphOptionsAggregate(
+    where: TagGraphOptionsWhere
+  ): TagGraphOptionsAggregateSelection!
   tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
@@ -9561,6 +9570,66 @@ type TagGraph {
   descendants: [ID!]!
   id: ID!
   name: String!
+}
+
+type TagGraphOptions {
+  limit: Int
+  sort: Int
+}
+
+type TagGraphOptionsAggregateSelection {
+  count: Int!
+  limit: IntAggregateSelectionNullable!
+  sort: IntAggregateSelectionNullable!
+}
+
+input TagGraphOptionsCreateInput {
+  limit: Int
+  sort: Int
+}
+
+input TagGraphOptionsOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [TagGraphOptionsSort!]
+}
+
+"""
+Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object.
+"""
+input TagGraphOptionsSort {
+  limit: SortDirection
+  sort: SortDirection
+}
+
+input TagGraphOptionsUpdateInput {
+  limit: Int
+  sort: Int
+}
+
+input TagGraphOptionsWhere {
+  AND: [TagGraphOptionsWhere!]
+  OR: [TagGraphOptionsWhere!]
+  limit: Int
+  limit_GT: Int
+  limit_GTE: Int
+  limit_IN: [Int]
+  limit_LT: Int
+  limit_LTE: Int
+  limit_NOT: Int
+  limit_NOT_IN: [Int]
+  sort: Int
+  sort_GT: Int
+  sort_GTE: Int
+  sort_IN: [Int]
+  sort_LT: Int
+  sort_LTE: Int
+  sort_NOT: Int
+  sort_NOT_IN: [Int]
 }
 
 input TagOnCreateInput {
@@ -10615,6 +10684,11 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
+type UpdateTagGraphOptionsMutationResponse {
+  info: UpdateInfo!
+  tagGraphOptions: [TagGraphOptions!]!
 }
 
 type UpdateTagsMutationResponse {

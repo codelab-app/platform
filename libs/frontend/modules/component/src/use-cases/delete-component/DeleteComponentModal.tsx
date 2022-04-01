@@ -1,43 +1,49 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { WithComponentService } from '../../store'
 import { deleteComponentSchema } from './deleteComponentSchema'
 import { DeleteComponentInput } from './types'
-import { useDeleteComponentForm } from './useDeleteComponentForm'
 
-export const DeleteComponentModal = () => {
-  const {
-    actionType,
-    onSubmit,
-    entity,
-    onSubmitSuccess,
-    onSubmitError,
-    reset,
-    isLoading,
-    model,
-  } = useDeleteComponentForm()
+export type DeleteComponentModal = WithComponentService
 
-  return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
-      okText="Delete Component"
-      onCancel={reset}
-      visible={actionType === CRUDActionType.Delete}
-    >
-      {({ submitRef }) => (
-        <Form<DeleteComponentInput>
+export const DeleteComponentModal = observer<DeleteComponentModal>(
+  ({ componentService }) => {
+    const closeModal = () => componentService.deleteModal.close()
+
+    const onSubmit = ({ componentId }: DeleteComponentInput) =>
+      componentService.delete(componentId)
+
+    if (!componentService.deleteModal.component) {
+      return null
+    }
+
+    const model = { componentId: componentService.deleteModal.component.id }
+
+    return (
+      <ModalForm.Modal
+        okText="Delete Component"
+        onCancel={closeModal}
+        visible={componentService.deleteModal.isOpen}
+      >
+        <ModalForm.Form<DeleteComponentInput>
           model={model}
           onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while deleting component',
+          })}
+          onSubmitSuccess={closeModal}
           schema={deleteComponentSchema}
-          submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete component "{entity?.name}"?</h4>
+          <h4>
+            Are you sure you want to delete component "
+            {componentService.deleteModal.component.name}"?
+          </h4>
           <AutoFields omitFields={['componentId']} />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

@@ -3,11 +3,9 @@ import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import {
   MutationDeleteElementsArgs,
-  MutationDuplicateElementArgs,
   QueryElementGraphArgs,
 } from '../../ogm-types.gen'
-import { elementRepository } from '../../repositories/element'
-import { elementSelectionSet } from '../../selectionSets'
+import { elementRepository } from '../../repositories'
 
 const driver = getDriver()
 
@@ -23,29 +21,6 @@ export const elementGraph: IFieldResolver<
   )
 
   return await $elementGraph.toPromise()
-}
-
-export const duplicateElement: IFieldResolver<
-  any,
-  any,
-  MutationDuplicateElementArgs
-> = async (parent, args) => {
-  const session = driver.rxSession()
-  const { elementId } = args.input
-
-  const { ids } = await session
-    .writeTransaction((txn) =>
-      elementRepository.duplicateElement(txn, elementId),
-    )
-    .toPromise()
-    .finally(() => session.close())
-
-  const elements = (await Element()).find({
-    where: { id_IN: ids },
-    selectionSet: elementSelectionSet,
-  })
-
-  return { elements }
 }
 
 export const deleteElementsSubgraph: IFieldResolver<

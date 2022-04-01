@@ -1,0 +1,46 @@
+query GetElementsGraph($input: ElementGraphInput!) {
+  elementGraph(input: $input) {
+    ...ElementGraph
+  }
+}
+
+mutation CreateElements($input: [ElementCreateInput!]!) {
+  createElements(input: $input) {
+    elements {
+      ...Element
+    }
+  }
+}
+
+mutation DeleteElementsSubgraph(
+  $where: ElementWhere
+  $delete: ElementDeleteInput
+) {
+  deleteElementsSubgraph(where: $where, delete: $delete) {
+    nodesDeleted
+    deletedIds
+  }
+}
+
+mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
+  updateElements(where: $where, update: $update) {
+    elements {
+      ...Element
+    }
+  }
+}
+
+# different from updateElements in the way we process element graph cache
+mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
+  updateElements(where: $where, update: $update) {
+    elements {
+      ...Element
+    }
+  }
+}
+
+query GetElements($options: ElementOptions, $where: ElementWhere) {
+  elements: elements(options: $options, where: $where) {
+    ...Element
+  }
+}

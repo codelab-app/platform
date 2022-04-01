@@ -1,15 +1,9 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { setClientAuthHeaders } from '@codelab/frontend/model/infra/graphql'
-import {
-  initializeStore,
-  Snapshot,
-  useStore,
-} from '@codelab/frontend/model/infra/mobx'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateAppButton,
   CreateAppModal,
@@ -19,15 +13,14 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { Button, Dropdown, Menu, PageHeader } from 'antd'
-import { getSnapshot } from 'mobx-keystone'
+import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
@@ -58,6 +51,10 @@ const AppsPageHeader = observer(() => {
 const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
+  const [, { isLoading }] = useLoadingState(() => store.appService.getAll(), {
+    executeOnMount: true,
+  })
+
   return (
     <>
       <Head>
@@ -69,29 +66,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
       <DeleteAppModal appService={store.appService} />
 
       <ContentSection>
-        <GetAppsList appService={store.appService} />
+        {isLoading && <Spin />}
+        {!isLoading && <GetAppsList appService={store.appService} />}
       </ContentSection>
     </>
   )
 }
 
 export default AppsPage
-
-// https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
-export const getServerSideProps = withPageAuthRequired<Snapshot>({
-  getServerSideProps: async (context: GetServerSidePropsContext) => {
-    await setClientAuthHeaders(context)
-
-    const store = initializeStore()
-    await store.appService.getAll()
-
-    return {
-      props: {
-        snapshot: getSnapshot(store),
-      },
-    }
-  },
-})
 
 AppsPage.Layout = (page) => {
   return (

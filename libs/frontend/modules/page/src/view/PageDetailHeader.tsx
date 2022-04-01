@@ -1,16 +1,12 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  useCurrentAppId,
-  useCurrentPageId,
-} from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { Menu, Spin } from 'antd'
+import { useCurrentPageId } from '@codelab/frontend/presenter/container'
+import { Menu } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Page, PageService } from '../store'
 
 export interface PageDetailHeaderProps {
@@ -19,20 +15,8 @@ export interface PageDetailHeaderProps {
 
 export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
   const router = useRouter()
-  const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-
-  const [getPages, { isLoading }] = useLoadingState(() =>
-    pages.getAll({ app: { id: appId } }),
-  )
-
   const pagesList = pages.pagesList
-
-  useEffect(() => {
-    getPages()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const currentPage = pagesList?.find((x) => x?.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
@@ -51,7 +35,6 @@ export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
       triggerSubMenuAction="click"
     >
       <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-        {isLoading && <Spin />}
         {pagesList?.map((page) => (
           <PageListItem key={page.id} page={page} />
         ))}

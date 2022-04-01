@@ -11,10 +11,6 @@ import type { ReactNodeType } from './react-node-type.model'
 import type { RenderPropsType } from './render-props-type.model'
 import type { UnionType } from './union-type.model'
 
-//
-// Types that reference other types.
-// Putting them in the same file as it cause a circular dependency otherwise
-//
 export type AnyType =
   | AppType
   | LambdaType

@@ -1,105 +1,63 @@
-import {
-  InterfaceForm,
-  TypeService,
-  WithTypeService,
-} from '@codelab/frontend/modules/type'
-import { ElementIdProvider } from '@codelab/frontend/presenter/container'
+import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   SpinnerWrapper,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IProp } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { useGetElementById } from '../../../hooks'
-import { useUpdateElementsMutation } from '../../../store'
+import { Element, WithElementService } from '../../../store'
 
-type UpdateElementPropsFormInternalProps = {
-  elementId: string
-  interfaceId: string
-  existingProps: Nullish<IProp>
+export interface UpdateElementPropsFormProps
+  extends WithTypeService,
+    WithElementService {
+  element: Element
   trackPromises?: UseTrackLoadingPromises
-} & WithTypeService
+}
 
-export const UpdateElementPropsFormInternal =
-  observer<UpdateElementPropsFormInternalProps>(
-    ({ interfaceId, elementId, existingProps, trackPromises, typeService }) => {
-      const { trackPromise } = trackPromises ?? {}
-      const [mutate] = useUpdateElementsMutation()
-      const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
+export const UpdateElementPropsForm = observer(
+  ({
+    elementService,
+    element,
+    trackPromises,
+    typeService,
+  }: UpdateElementPropsFormProps) => {
+    const { trackPromise } = trackPromises ?? {}
+    const initialPropsRef = useRef(element?.props?.propsData ?? {}) // cache it to not confuse the user when auto-saving
 
-      const [getInterfaceType, { data: interfaceType, isLoading }] =
-        useLoadingState((_id: string) =>
-          typeService.getInterfaceAndDescendants({ id: _id }),
-        )
-
-      useEffect(() => {
-        getInterfaceType(interfaceId)
-      }, [getInterfaceType, interfaceId])
-
-      const onSubmit = (data: any) => {
-        const createOrUpdate = existingProps ? 'update' : 'create'
-
-        const promise = mutate({
-          variables: {
-            where: { id: elementId },
-            update: {
-              props: {
-                [createOrUpdate]: { node: { data: JSON.stringify(data) } },
-              },
-            },
-          },
-        }).unwrap()
-
-        return trackPromise?.(promise) ?? promise
-      }
-
-      return (
-        <SpinnerWrapper isLoading={isLoading}>
-          {interfaceType && (
-            <InterfaceForm
-              autosave
-              interfaceType={interfaceType}
-              key={elementId}
-              model={initialPropsRef.current}
-              onSubmit={onSubmit}
-              submitRef={undefined}
-            />
-          )}
-        </SpinnerWrapper>
+    const [getInterfaceType, { data: interfaceType, isLoading }] =
+      useLoadingState((_id: string) =>
+        typeService.getInterfaceAndDescendants({ id: _id }),
       )
-    },
-  )
 
-export type UpdateElementPropsFormProps = {
-  elementId: string
-  trackPromises?: UseTrackLoadingPromises
-} & WithTypeService
+    const apiId = element.atom?.current.api.id
 
-export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ elementId, trackPromises, typeService }) => {
-    const element = useGetElementById(elementId)
+    useEffect(() => {
+      if (apiId) {
+        getInterfaceType(apiId)
+      }
+    }, [getInterfaceType, apiId])
 
-    if (!element) {
-      return null
-    }
+    const onSubmit = (data: PropsData) => {
+      const promise = elementService.updateElementProps(element, data)
 
-    if (!element.atom) {
-      return <>Add an atom to this element to update its props</>
+      return trackPromise?.(promise) ?? promise
     }
 
     return (
-      <ElementIdProvider elementId={element.id}>
-        <UpdateElementPropsFormInternal
-          elementId={element.id}
-          existingProps={element.props}
-          interfaceId={element.atom.api.id}
-          trackPromises={trackPromises}
-          typeService={typeService}
-        />
-      </ElementIdProvider>
+      <SpinnerWrapper isLoading={isLoading}>
+        {interfaceType && (
+          <InterfaceForm
+            autosave
+            interfaceType={interfaceType}
+            key={element.id}
+            model={initialPropsRef.current}
+            onSubmit={onSubmit}
+            submitRef={undefined}
+          />
+        )}
+      </SpinnerWrapper>
     )
   },
 )

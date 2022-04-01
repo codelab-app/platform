@@ -96,14 +96,18 @@ const handler: NextApiHandler = async (req, res) => {
     if (existing) {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
-      const { users } = await UserModel.create({
-        input: [
-          {
-            auth0Id: user.sub,
-            email: user.email,
-          },
-        ],
-      })
+      try {
+        const { users } = await UserModel.create({
+          input: [
+            {
+              auth0Id: user.sub,
+              email: user.email,
+            },
+          ],
+        })
+      } catch (e) {
+        console.error(e)
+      }
 
       // console.log('Created', users)
     }

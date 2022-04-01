@@ -1,32 +1,32 @@
-import { ElementTree } from '@codelab/shared/core'
+import { elementRef, ElementTree } from '@codelab/frontend/modules/element'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { MouseEvent, useCallback } from 'react'
-import { useBuilderDnd } from '../dnd'
-import { useBuilderDispatch } from './useBuilderDispatch'
+import { BuilderService } from '../store'
 
 /**
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
- * them to the builder redux state for hovering elements
+ * them to the builder state for hovering elements
  */
-export const useBuilderHoverHandlers = (tree: ElementTree) => {
-  const { hoverElement } = useBuilderDispatch()
-  const { currentlyDragging } = useBuilderDnd()
-
+export const useBuilderHoverHandlers = (
+  builderService: BuilderService,
+  elementTree: Nullable<ElementTree>,
+) => {
   const handleMouseOver = useCallback(
     (e: MouseEvent) => {
-      if (currentlyDragging) {
+      if (builderService.currentDragData) {
         return
       }
 
       const target = e.target as HTMLElement
 
       if (!target) {
-        hoverElement({ elementId: undefined })
+        builderService.setHoveredElement(null)
 
         return
       }
 
-      const elementId = target.dataset.id
-      const componentId = target.dataset.componentId
+      const elementId = target.dataset['id']
+      const componentId = target.dataset['componentId']
 
       if (!elementId) {
         return
@@ -37,20 +37,18 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
         return
       }
 
-      const element = tree.getVertex(elementId, ElementTree.isElement)
-
-      if (element && ElementTree.isElement(element)) {
-        hoverElement({ elementId })
+      if (elementId) {
+        builderService.setHoveredElement(elementRef(elementId))
       } else {
-        hoverElement({ elementId: undefined })
+        builderService.setHoveredElement(null)
       }
     },
-    [currentlyDragging, hoverElement, tree],
+    [builderService],
   )
 
   const handleMouseLeave = useCallback(() => {
-    hoverElement({ elementId: undefined })
-  }, [hoverElement])
+    builderService.setHoveredElement(null)
+  }, [builderService])
 
   return {
     handleMouseOver,

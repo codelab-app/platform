@@ -1,84 +1,79 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
   SelectAnyElement,
   SelectAtom,
   SelectComponent,
-  SelectElementProvider,
 } from '@codelab/frontend/modules/type'
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useElementDispatch } from '../../../hooks'
-import { useElementGraphContext } from '../../../providers'
-import { createElementSchema } from './createElementSchema'
-import { CreateElementInput } from './types'
-import { useCreateElementForm } from './useCreateElementForm'
+import { WithElementService } from '../../../store'
+import { mapElementOption } from '../../../utils/elementOptions'
+import { CreateElementInput, createElementSchema } from './createElementSchema'
 
-/**
- * Initial data used to determine the parent element
- *
- * @param initialData
- * @constructor
- */
-export const CreateElementModal = ({
-  parentElementId,
-}: Pick<CreateElementInput, 'parentElementId'>) => {
-  const { resetModal } = useElementDispatch()
-  const { elementTree } = useElementGraphContext()
+export type CreateElementModalProps = WithElementService
 
-  const {
-    onSubmit,
-    actionType,
-    onSubmitSuccess,
-    onSubmitError,
-    isLoading,
-    model,
-  } = useCreateElementForm({ parentElementId })
+export const CreateElementModal = observer(
+  ({ elementService }: CreateElementModalProps) => {
+    const onSubmit = (submitData: CreateElementInput) =>
+      elementService.createElement(submitData)
 
-  return (
-    <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
-      okText="Create"
-      onCancel={() => resetModal()}
-      title={<span css={tw`font-semibold`}>Create element</span>}
-      visible={actionType === CRUDActionType.Create}
-    >
-      {({ submitRef }) => (
-        <SelectElementProvider
-          tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while creating element',
+    })
+
+    const parentElement = elementService.createModal.parentElement
+
+    const model = {
+      parentElementId: parentElement?.id || undefined,
+      order: parentElement ? parentElement?.current.lastChildOrder + 1 : 1,
+    }
+
+    const closeModal = () => elementService.createModal.close()
+
+    return (
+      <ModalForm.Modal
+        okText="Create"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Create element</span>}
+        visible={elementService.createModal.isOpen}
+      >
+        <ModalForm.Form<CreateElementInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={closeModal}
+          schema={createElementSchema}
         >
-          <Form<CreateElementInput>
-            model={model}
-            onSubmit={onSubmit}
-            onSubmitError={onSubmitError}
-            onSubmitSuccess={onSubmitSuccess}
-            schema={createElementSchema}
-            submitRef={submitRef}
-          >
-            <AutoFields
-              omitFields={[
-                'parentElementId',
-                'atomId',
-                'instanceOfComponentId',
-                'order',
-                'css',
-                'propsData',
-              ]}
-            />
-            <AutoField component={SelectAnyElement} name="parentElementId" />
-            <AutoField name="order" />
-            <AutoField component={SelectAtom} name="atomId" />
-            <AutoField
-              component={SelectComponent}
-              name="instanceOfComponentId"
-            />
-          </Form>
-        </SelectElementProvider>
-      )}
-    </FormModal>
-  )
-}
+          <AutoFields
+            omitFields={[
+              'parentElementId',
+              'atomId',
+              'instanceOfComponentId',
+              'order',
+              'css',
+              'propsData',
+            ]}
+          />
+          <AutoField
+            component={observer((props) => (
+              <SelectAnyElement
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...(props as any)}
+                allElementOptions={elementService.elementTree.elementsList
+                  .filter((e) => !e.instanceOfComponent && !e.component)
+                  .map(mapElementOption)}
+              />
+            ))}
+            name="parentElementId"
+          />
+          <AutoField name="order" />
+          <AutoField component={SelectAtom} name="atomId" />
+          <AutoField component={SelectComponent} name="instanceOfComponentId" />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

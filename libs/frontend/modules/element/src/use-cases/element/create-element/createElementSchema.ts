@@ -1,5 +1,15 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
-import { CreateElementInput } from './types'
+
+export type CreateElementInput = {
+  name?: Nullable<string>
+  order?: number
+  instanceOfComponentId?: Nullable<string>
+  atomId?: Nullable<string>
+  parentElementId?: string
+  css?: string
+  propsData?: string
+}
 
 export const createElementSchema: JSONSchemaType<CreateElementInput> = {
   title: 'Create Element Input',

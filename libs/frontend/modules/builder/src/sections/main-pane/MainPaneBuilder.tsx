@@ -1,20 +1,22 @@
-import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
+import { WithAtomService } from '@codelab/frontend/modules/atom'
+import { WithComponentService } from '@codelab/frontend/modules/component'
 import {
   CreateElementButton,
   CreateElementModal,
   DeleteElementModal,
-  useElementGraphContext,
+  Element,
+  ElementService,
+  WithElementService,
 } from '@codelab/frontend/modules/element'
 import { EqualityConditionalView } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import { IElement } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
-import { useBuilderSelectedElement, useBuilderTab } from '../../hooks'
-import { BuilderTab } from '../../store'
+import { BuilderService, WithBuilderService } from '../../store/BuilderService'
+import { BuilderTab } from '../../store/BuilderTab'
 import { MainPaneBuilderToolboxTab } from './tabs/MainPaneBuilderToolboxTab'
 import { MainPaneBuilderTreeTab } from './tabs/MainPaneBuilderTreeTab'
 
@@ -27,11 +29,19 @@ const paneTitles: Record<BuilderTab, string> = {
 
 const headerFactory = (
   tab: BuilderTab,
-  root: Maybe<IElement>,
+  root: Nullable<Element>,
   onSearch: (input: string) => void,
+  elementService: ElementService,
+  builderService: BuilderService,
 ) => {
   if (tab === BuilderTab.Tree && root) {
-    return <CreateElementButton key={0} parentElementId={root.id} />
+    return (
+      <CreateElementButton
+        elementService={elementService}
+        key={0}
+        parentElementId={builderService.selectedElement?.id || root.id}
+      />
+    )
   }
 
   if (tab === BuilderTab.Toolbox) {
@@ -48,21 +58,14 @@ const headerFactory = (
   return undefined
 }
 
-export type MainPaneBuilderProps = {
-  isComponentBuilder?: boolean
-} & WithAtomService
+export type MainPaneBuilderProps = WithAtomService &
+  WithBuilderService &
+  WithElementService &
+  WithComponentService
 
-/** Requires ElementGraphContext */
 export const MainPaneBuilder = observer<MainPaneBuilderProps>(
-  ({ isComponentBuilder, atomService }) => {
-    const { builderTab } = useBuilderTab()
-    const { elementTree } = useElementGraphContext()
-    const { selectedElement, resetSelection } = useBuilderSelectedElement()
-
-    const root = isComponentBuilder
-      ? elementTree.getRootComponent()
-      : elementTree.getRootElement()
-
+  ({ atomService, builderService, elementService, componentService }) => {
+    const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
 
     const debouncedSearch = useCallback(
@@ -71,10 +74,20 @@ export const MainPaneBuilder = observer<MainPaneBuilderProps>(
       [],
     )
 
+    const root = elementService.elementTree?.root
+
     return (
       <MainPaneTemplate
-        containerProps={{ onClick: () => resetSelection() }}
-        header={headerFactory(builderTab, root, debouncedSearch)}
+        containerProps={{
+          onClick: () => builderService.setSelectedElement(null),
+        }}
+        header={headerFactory(
+          builderTab,
+          root ?? null,
+          debouncedSearch,
+          elementService,
+          builderService,
+        )}
         key={root?.id ?? 'main-pane-builder'}
         title={paneTitles[builderTab]}
       >
@@ -83,8 +96,8 @@ export const MainPaneBuilder = observer<MainPaneBuilderProps>(
           value={builderTab}
         >
           <MainPaneBuilderTreeTab
-            isComponentBuilder={isComponentBuilder}
-            rootId={root?.id as string}
+            builderService={builderService}
+            elementService={elementService}
           />
         </EqualityConditionalView>
 
@@ -93,13 +106,14 @@ export const MainPaneBuilder = observer<MainPaneBuilderProps>(
           value={builderTab}
         >
           <MainPaneBuilderToolboxTab
-            atomStore={atomService}
+            atomService={atomService}
+            componentService={componentService}
             searchQuery={searchValue}
           />
         </EqualityConditionalView>
 
-        <CreateElementModal parentElementId={selectedElement?.id} />
-        <DeleteElementModal />
+        <CreateElementModal elementService={elementService} />
+        <DeleteElementModal elementService={elementService} />
       </MainPaneTemplate>
     )
   },
