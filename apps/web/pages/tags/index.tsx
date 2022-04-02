@@ -63,7 +63,7 @@ export const getServerSideProps = withPageAuthRequired<Snapshot>({
 
     const store = initializeStore()
 
-    await store.tagService.getTagGraphs()
+    await store.tagService.getTags()
 
     return {
       props: { snapshot: getSnapshot(store) },

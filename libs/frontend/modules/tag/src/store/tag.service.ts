@@ -103,15 +103,22 @@ export class TagService extends Model({
   @transaction
   delete = _async(function* (this: TagService, tags: Array<Tag>) {
     const ids = tags.map((tag) => tag.id)
+    const descendantsIds: Array<string> = []
 
     for (const id of ids) {
       if (this.tags.has(id)) {
+        const DescendantsOfTag = yield* _await(this.getTagDescendants(id))
+        DescendantsOfTag?.forEach((descendantsId) => {
+          descendantsIds.push(descendantsId)
+          this.tags.delete(descendantsId)
+        })
+
         this.tags.delete(id)
       }
     }
 
     const { deleteTags } = yield* _await(
-      tagApi.DeleteTags({ where: { id_IN: ids } }),
+      tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
     )
 
     if (deleteTags.nodesDeleted === 0) {
@@ -143,5 +150,36 @@ export class TagService extends Model({
       const tagModel = Tag.fromFragment(tag)
       this.tags.set(tag.id, tagModel)
     })
+  })
+
+  @modelFlow
+  @transaction
+  getTags = _async(function* (this: TagService) {
+    const { tags } = yield* _await(tagApi.GetTags())
+
+    tags.sort((a, b) => {
+      if (a.children.length > b.children.length) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+
+    tags.forEach((tag) => {
+      const tagModel = Tag.fromFragment(tag)
+      this.tags.set(tag.id, tagModel)
+    })
+  })
+
+  @modelFlow
+  @transaction
+  getTagDescendants = _async(function* (this: TagService, tagId: string) {
+    const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
+
+    const TagWithItsDescendants = tagGraphs.find(
+      (tagGraph) => tagGraph.id == tagId,
+    )
+
+    return TagWithItsDescendants?.descendants
   })
 }
