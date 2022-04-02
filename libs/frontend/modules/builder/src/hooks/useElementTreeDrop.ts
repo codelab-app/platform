@@ -17,14 +17,9 @@ export const useElementTreeDrop = (elementService: ElementService) => {
       // Switch spots with the element next to the drop indicator
       const dropElement = elementService.elementTree.element(dropNodeId)
       const dropNodeParentId = dropElement?.parentElement?.id
-
-      const dropElementOrder =
-        dropElement?.parentElement?.current.orderOfElement(dropElement) ?? 0
-
+      const dropElementOrder = dropElement?.orderInParent ?? 0
       const dragElement = elementService.elementTree.element(dragNodeId)
-
-      const originalDragElementOrder =
-        dragElement?.parentElement?.current.orderOfElement(dragElement)
+      const originalDragElementOrder = dragElement?.orderInParent ?? 0
 
       if (dropNodeParentId) {
         const order =

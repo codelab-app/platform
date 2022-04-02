@@ -5,12 +5,18 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
+  Builder,
+  BuilderContext,
   BuilderDashboardTemplate,
-  BuilderOld,
   BuilderSidebarNavigation,
   MainPaneBuilder,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
+import {
+  extractErrorMessage,
+  useLoadingState,
+} from '@codelab/frontend/shared/utils'
+import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -18,54 +24,52 @@ import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
-  // const { elementTree } = useElementGraphContext()
+  const { query } = useRouter()
+  const currentComponentId = query.componentId as string
 
-  // if (!elementTree) {
-  //   return <Empty />
-  // }
-  //
-  // const root = elementTree.getRootVertex(ElementTree.isComponent)
+  const [, { isLoading, error, data }] = useLoadingState(
+    async () => {
+      // Load the component we're rendering
+      const component = await store.componentService.getOne(currentComponentId)
+
+      if (!component) {
+        throw new Error('Component not found')
+      }
+
+      // Get element tree
+      const elementTree = await store.elementService.getTree(
+        component.rootElementId,
+      )
+
+      // initialize renderer
+      await store.builderService.builderRenderer.init(
+        store.elementService.elementTree,
+        null,
+        null,
+      )
+
+      return { component, elementTree }
+    },
+    { executeOnMount: true },
+  )
 
   return (
     <>
-      <Head>{/* <title>{root?.component?.name} | Codelab</title>*/}</Head>
+      <Head>
+        <title>{data?.component?.name} | Codelab</title>
+      </Head>
 
-      <BuilderOld
-        isComponentBuilder
-        // tree={elementTree}
-        typeService={store.typeService}
+      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {isLoading && <Spin />}
+
+      <Builder
+        builderService={store.builderService}
+        elementService={store.elementService}
+        key={store.builderService.builderRenderer.tree?.root?.id}
       />
     </>
   )
 })
-
-const ComponentElementGraphProvider = ({
-  children,
-}: React.PropsWithChildren<unknown>) => {
-  const { query } = useRouter()
-  const componentId = query.componentId as string
-
-  // const { data, isLoading } = useGetComponentsQuery({
-  //   variables: { where: { id: componentId } },
-  // })
-
-  // const rootElementId = data?.components[0]?.rootElement.id
-
-  // if (!rootElementId) {
-  //   return null
-  // }
-
-  return null
-  // return (
-  // <SpinnerWrapper isLoading={isLoading}>
-  // <ElementGraphProvider elementId={rootElementId}>
-  // {children}
-  // </ElementGraphProvider>*
-  // </SpinnerWrapper>
-  // )
-}
-
-export default ComponentDetail
 
 export const getServerSideProps = withPageAuthRequired()
 

@@ -73,7 +73,7 @@ export const useLoadingState = <TArgs extends Array<any>, TOut>(
 
   useEffect(() => {
     if (options?.executeOnMount) {
-      statefulExecutor(...(options.executeOnMountArgs as any))
+      statefulExecutor(...(options.executeOnMountArgs ?? ([] as any)))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

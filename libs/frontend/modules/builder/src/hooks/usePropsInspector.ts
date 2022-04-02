@@ -12,15 +12,11 @@ export const usePropsInspector = (
   builderService: BuilderService,
   elementService: ElementService,
 ) => {
-  const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
+  const [isLoading, setIsLoading] = useState(false)
 
-  // this is memoized by createTransformer, so we're effectively getting the last rendered output
-  const renderOutput =
-    builderService.builderRenderer.renderElementIntermediate(element)
-
-  const lastRenderedProps = Array.isArray(renderOutput)
-    ? mergeProps(renderOutput.map((o) => o.props))
-    : renderOutput.props
+  const [persistedProps, setPersistedProps] = useState<Maybe<string>>(
+    element.props?.jsonString ?? '{}',
+  )
 
   // this is memoized by createTransformer, so we're effectively getting the last rendered output
   const renderOutput =
@@ -47,6 +43,7 @@ export const usePropsInspector = (
     }
 
     try {
+      setIsLoading(true)
       await elementService.updateElementProps(
         element,
         JSON.parse(persistedProps),
@@ -62,7 +59,7 @@ export const usePropsInspector = (
   useEffect(
     () =>
       autorun(() => {
-        setPersistedProps(element.props.toJsonString())
+        setPersistedProps(element.props?.jsonString ?? '{}')
       }),
     [element.props],
   )
@@ -78,7 +75,7 @@ export const usePropsInspector = (
   return {
     lastRenderedPropsString,
     save,
-    isLoading: false,
+    isLoading,
     persistedProps,
     setPersistedProps,
     setExtraPropsForElement: setExtraProps,

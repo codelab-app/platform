@@ -5,15 +5,13 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { Element, WithElementService } from '../../../store'
+import { WithElementService } from '../../../store'
 import { deleteElementSchema } from './deleteElementSchema'
 
-export interface DeleteElementModalProps extends WithElementService {
-  element: Element
-}
+export type DeleteElementModalProps = WithElementService
 
 export const DeleteElementModal = observer<DeleteElementModalProps>(
-  ({ element, elementService }) => {
+  ({ elementService }) => {
     const closeModal = () => elementService.deleteModal.close()
 
     const onSubmit = async ({ elementId }: DeleteElementInput) => {
