@@ -28,6 +28,7 @@ export const tagSchema = gql`
     id: ID!
     name: String!
     descendants: [ID!]!
+    isRoot: Boolean!
   }
 
   type Query {
