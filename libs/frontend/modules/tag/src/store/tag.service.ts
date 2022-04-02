@@ -43,21 +43,25 @@ export class TagService extends Model({
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, input: CreateTagInput) {
+    const parentSetStatement = input?.parentTagId && {
+      parent: {
+        connect: {
+          where: {
+            node: {
+              id: input.parentTagId,
+            },
+          },
+        },
+      },
+    }
+
     const {
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
         input: {
           name: input.name,
-          parent: {
-            connect: {
-              where: {
-                node: {
-                  id: input.parentTagId,
-                },
-              },
-            },
-          },
+          ...parentSetStatement,
         },
       }),
     )
