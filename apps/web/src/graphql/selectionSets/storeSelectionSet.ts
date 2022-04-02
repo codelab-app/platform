@@ -5,6 +5,7 @@ export const storeSelectionSet = `{
       id
       name
     }
+    initialState
     parentStore {
       id
       name

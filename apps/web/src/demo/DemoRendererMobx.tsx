@@ -6,10 +6,17 @@ import {
   ElementProps,
   elementRef,
 } from '@codelab/frontend/modules/element'
-import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
-import { action, makeObservable, observable } from 'mobx'
-import { frozen } from 'mobx-keystone'
+import { Action, Store, storeRef } from '@codelab/frontend/modules/store'
+import {
+  Field,
+  InterfaceType,
+  PrimitiveType,
+  typeRef,
+} from '@codelab/frontend/modules/type'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
+import { makeAutoObservable } from 'mobx'
+import { frozen, ObjectMap } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
@@ -93,7 +100,7 @@ const counterText = new Element({
   props: new ElementProps({
     id: v4(),
     data: frozen({
-      text: '{{root.counter}}',
+      text: '{{root.count}}',
     }),
   }),
 })
@@ -131,29 +138,71 @@ demoStore.elementService.elementTree.addElement(buttonDec)
 demoStore.elementService.elementTree.addElement(container)
 demoStore.elementService.elementTree.addElement(root)
 
-class PlatformState {
-  counter = 0
+const counterStore = new Store({
+  name: 'counterStore',
+  stateId: v4(),
+  storeKey: '',
+  initialState: '{\n"count":2.0\n}',
+})
 
-  constructor() {
-    makeObservable(this, {
-      counter: observable,
-      decrement: action,
-      increment: action,
-    })
+const initialState = JSON.parse(counterStore.initialState)
+
+const integerType = new PrimitiveType({
+  name: 'Integer',
+  primitiveKind: PrimitiveTypeKind.Integer,
+})
+
+const interfaceType = new InterfaceType({
+  name: '',
+  _fields: new ObjectMap({
+    items: {
+      [v4()]: new Field({
+        key: 'count',
+        name: 'Count',
+        type: typeRef(integerType.id),
+      }),
+    },
+  }),
+  typeKind: TypeKind.InterfaceType,
+})
+
+const counterActions: Array<Action> = [
+  new Action({
+    name: 'increment',
+    body: `function increment(){ this.count++ }`,
+    store: storeRef(counterStore.id),
+    id: counterStore.stateId,
+  }),
+  new Action({
+    name: 'decrement',
+    body: `function decrement(){ this.count-- }`,
+    store: storeRef(counterStore.id),
+    id: counterStore.stateId,
+  }),
+]
+
+const createCounter = (state: InterfaceType, actions: Array<Action>) => {
+  const payload = {
+    ...state.fields.reduce(
+      (all, x) => ({ ...all, [x.key]: initialState[x.key] }),
+      {},
+    ),
+    ...actions.reduce(
+      (all, x) => ({ ...all, [x.name]: eval(`(${x.body})`) }),
+      {},
+    ),
   }
 
-  increment() {
-    this.counter += 1
-  }
+  const d = makeAutoObservable(payload)
+  console.log(d)
 
-  decrement() {
-    this.counter -= 1
-  }
+  return d
 }
 
 demoStore.renderService.init(
   demoStore.elementService.elementTree,
-  new PlatformState() as any,
+  undefined,
+  createCounter(interfaceType, counterActions),
 )
 
 export const DemoRendererMobx = observer(() => {

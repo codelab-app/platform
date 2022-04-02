@@ -5,14 +5,14 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  ActionPageHeader,
+  CreateActionButton,
   CreateActionModal,
   DeleteActionsModal,
+  EditStateButton,
   GetActionsTable,
-  GetStateTable,
-  StatePageHeader,
   StoreMainPane,
   UpdateActionModal,
+  UpdateInitialStateForm,
   useCurrentStore,
   WithActionService,
   WithStoreService,
@@ -27,16 +27,24 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const StatePage = observer<WithStoreService & WithTypeService>(
-  ({ typeService, storeService }) => (
+const InitialStatePage = observer<WithStoreService & WithTypeService>(
+  ({ storeService, typeService }) => (
     <>
-      <StatePageHeader storeService={storeService} />
-      <GetStateTable storeService={storeService} typeService={typeService} />
+      <PageHeader
+        extra={[<EditStateButton storeService={storeService} />]}
+        ghost={false}
+        title="Initial State"
+      />
+      <UpdateInitialStateForm
+        storeService={storeService}
+        typeService={typeService}
+      />
     </>
   ),
 )
@@ -44,14 +52,17 @@ const StatePage = observer<WithStoreService & WithTypeService>(
 const ActionPage = observer<WithStoreService & WithActionService>(
   ({ actionService, storeService }) => (
     <>
-      <ActionPageHeader actionService={actionService} />
+      <PageHeader
+        extra={[<CreateActionButton actionService={actionService} />]}
+        ghost={false}
+        title="Actions"
+      />
       <CreateActionModal
         actionService={actionService}
         storeService={storeService}
       />
       <UpdateActionModal actionService={actionService} />
       <DeleteActionsModal actionService={actionService} />
-
       <GetActionsTable
         actionService={actionService}
         storeService={storeService}
@@ -72,7 +83,10 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <SpinnerWrapper isLoading={isLoading}>
         <ConditionalView condition={Boolean(store)}>
           <ContentSection>
-            <StatePage storeService={storeService} typeService={typeService} />
+            <InitialStatePage
+              storeService={storeService}
+              typeService={typeService}
+            />
             <div css={tw`mb-5`} />
             <ActionPage
               actionService={actionService}

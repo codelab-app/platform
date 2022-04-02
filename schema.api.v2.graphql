@@ -151,6 +151,26 @@ input ActionStoreNodeAggregationWhereInput {
   AND: [ActionStoreNodeAggregationWhereInput!]
   OR: [ActionStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -185,6 +205,7 @@ type ActionStoreStoreAggregationSelection {
 
 type ActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -9740,6 +9761,7 @@ type Store {
     where: StoreChildrenConnectionWhere
   ): StoreChildrenConnection!
   id: ID!
+  initialState: String!
   name: String!
   parentStore(
     directed: Boolean = true
@@ -9916,6 +9938,7 @@ input StoreActionsUpdateFieldInput {
 type StoreAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10017,6 +10040,26 @@ input StoreChildrenNodeAggregationWhereInput {
   AND: [StoreChildrenNodeAggregationWhereInput!]
   OR: [StoreChildrenNodeAggregationWhereInput!]
   id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -10085,6 +10128,7 @@ input StoreConnectWhere {
 input StoreCreateInput {
   actions: StoreActionsFieldInput
   children: StoreChildrenFieldInput
+  initialState: String! = "{}"
   name: String!
   parentStore: StoreParentStoreFieldInput
   state: StoreStateFieldInput
@@ -10199,6 +10243,7 @@ type StoreInterfaceTypeStateNodeAggregateSelection {
 }
 
 input StoreOnCreateInput {
+  initialState: String! = "{}"
   name: String!
 }
 
@@ -10310,6 +10355,26 @@ input StoreParentStoreNodeAggregationWhereInput {
   AND: [StoreParentStoreNodeAggregationWhereInput!]
   OR: [StoreParentStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -10365,6 +10430,7 @@ Fields to sort Stores by. The order in which sorts are applied is not guaranteed
 """
 input StoreSort {
   id: SortDirection
+  initialState: SortDirection
   name: SortDirection
 }
 
@@ -10487,6 +10553,7 @@ type StoreStoreChildrenEdgeAggregateSelection {
 
 type StoreStoreChildrenNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10502,6 +10569,7 @@ type StoreStoreParentStoreEdgeAggregateSelection {
 
 type StoreStoreParentStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10512,6 +10580,7 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: [StoreActionsUpdateFieldInput!]
   children: [StoreChildrenUpdateFieldInput!]
+  initialState: String
   name: String
   parentStore: StoreParentStoreUpdateFieldInput
   state: StoreStateUpdateFieldInput
@@ -10580,6 +10649,16 @@ input StoreWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  initialState: String
+  initialState_CONTAINS: String
+  initialState_ENDS_WITH: String
+  initialState_IN: [String!]
+  initialState_NOT: String
+  initialState_NOT_CONTAINS: String
+  initialState_NOT_ENDS_WITH: String
+  initialState_NOT_IN: [String!]
+  initialState_NOT_STARTS_WITH: String
+  initialState_STARTS_WITH: String
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String

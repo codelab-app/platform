@@ -13,7 +13,7 @@ export const storeSchema = gql`
     name: String!
     state: InterfaceType! @relationship(type: "STATE_OF_STORE", direction: OUT)
     actions: [Action!]! @relationship(type: "ACTION_OF_STORE", direction: OUT)
-
+    initialState: String! @default(value: "{}")
     parentStore: Store
       @relationship(
         type: "PARENT_OF_STORE"

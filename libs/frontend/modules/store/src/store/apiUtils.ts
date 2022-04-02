@@ -33,6 +33,7 @@ export const makeStoreCreateInput = (
           }
         : null,
     },
+    initialState: '{}',
     state: { create: { node: interfaceCreateInput } },
   }
 }
@@ -40,10 +41,11 @@ export const makeStoreCreateInput = (
 export const makeStoreUpdateInput = (
   input: UpdateStoreInput,
 ): StoreUpdateInput => {
-  const { name, parentStore } = input
+  const { name, parentStore, initialState } = input
 
   return {
     name,
+    initialState,
     parentStore: {
       connect: parentStore?.id
         ? {

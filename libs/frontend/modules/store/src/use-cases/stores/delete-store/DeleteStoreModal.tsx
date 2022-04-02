@@ -1,11 +1,11 @@
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useCurrentStoreId } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 
 export const DeleteStoresModal = observer<WithStoreService>(
@@ -19,7 +19,6 @@ export const DeleteStoresModal = observer<WithStoreService>(
 
       if (storeId === store?.id) {
         router.push({ pathname: PageType.Store, query: {} })
-        storeService.setCurrentStore(null)
       }
     }
 

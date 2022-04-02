@@ -1,9 +1,9 @@
+import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Tree, TreeDataNode } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { useCurrentStoreId } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 import { TreeItemTitle } from './StoreTreeItem'
 

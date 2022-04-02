@@ -6,6 +6,7 @@ fragment Store on Store {
     id
     name
   }
+  initialState
   actions {
     ...Action
   }

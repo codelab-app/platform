@@ -26,7 +26,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
 
     const model = {
       name: updateStore?.name,
-      parentStore: updateStore
+      parentStore: updateStore?.parentStore
         ? {
             id: updateStore.parentStore?.id,
             key: updateStore.storeKey,
@@ -47,7 +47,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
           onSubmitSuccess={closeModal}
           schema={updateStoreSchema}
         >
-          <AutoFields omitFields={['parentStore']} />
+          <AutoFields omitFields={['parentStore', 'initialState']} />
           <AutoField name="parentStore.id" />
           <DisplayIfParent>
             <AutoField name="parentStore.key" />

@@ -23,7 +23,7 @@ export class Store extends ExtendedModel(() => ({
     // PARENT_OF_STORE relation property
     storeKey: prop<string>().withSetter(),
     name: prop<string>(),
-
+    initialState: prop<string>(),
     stateId: prop<string>(),
   },
 })) {
@@ -70,6 +70,7 @@ export class Store extends ExtendedModel(() => ({
         ? storeRef(store.parentStore.id)
         : undefined,
       storeKey: store.parentStoreConnection?.edges?.[0]?.storeKey,
+      initialState: store.initialState,
       stateId: store.state.id,
     })
   }

@@ -177,6 +177,26 @@ export type ActionStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+  initialState_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  initialState_EQUAL?: InputMaybe<Scalars['String']>
+  initialState_GT?: InputMaybe<Scalars['Int']>
+  initialState_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  initialState_LT?: InputMaybe<Scalars['Int']>
+  initialState_LTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -214,6 +234,7 @@ export type ActionStoreStoreAggregationSelection = {
 export type ActionStoreStoreNodeAggregateSelection = {
   __typename?: 'ActionStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  initialState: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -10525,6 +10546,7 @@ export type Store = {
   childrenAggregate?: Maybe<StoreStoreChildrenAggregationSelection>
   childrenConnection: StoreChildrenConnection
   id: Scalars['ID']
+  initialState: Scalars['String']
   name: Scalars['String']
   parentStore?: Maybe<Store>
   parentStoreAggregate?: Maybe<StoreStoreParentStoreAggregationSelection>
@@ -10756,6 +10778,7 @@ export type StoreAggregateSelection = {
   __typename?: 'StoreAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
+  initialState: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -10858,6 +10881,26 @@ export type StoreChildrenNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+  initialState_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  initialState_EQUAL?: InputMaybe<Scalars['String']>
+  initialState_GT?: InputMaybe<Scalars['Int']>
+  initialState_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  initialState_LT?: InputMaybe<Scalars['Int']>
+  initialState_LTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -10927,6 +10970,7 @@ export type StoreConnectWhere = {
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsFieldInput>
   children?: InputMaybe<StoreChildrenFieldInput>
+  initialState?: Scalars['String']
   name: Scalars['String']
   parentStore?: InputMaybe<StoreParentStoreFieldInput>
   state?: InputMaybe<StoreStateFieldInput>
@@ -11041,6 +11085,7 @@ export type StoreInterfaceTypeStateNodeAggregateSelection = {
 }
 
 export type StoreOnCreateInput = {
+  initialState?: Scalars['String']
   name: Scalars['String']
 }
 
@@ -11150,6 +11195,26 @@ export type StoreParentStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+  initialState_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  initialState_EQUAL?: InputMaybe<Scalars['String']>
+  initialState_GT?: InputMaybe<Scalars['Int']>
+  initialState_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  initialState_LT?: InputMaybe<Scalars['Int']>
+  initialState_LTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -11204,6 +11269,7 @@ export type StoreRelationInput = {
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
 export type StoreSort = {
   id?: InputMaybe<SortDirection>
+  initialState?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -11331,6 +11397,7 @@ export type StoreStoreChildrenEdgeAggregateSelection = {
 export type StoreStoreChildrenNodeAggregateSelection = {
   __typename?: 'StoreStoreChildrenNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  initialState: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -11349,6 +11416,7 @@ export type StoreStoreParentStoreEdgeAggregateSelection = {
 export type StoreStoreParentStoreNodeAggregateSelection = {
   __typename?: 'StoreStoreParentStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  initialState: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -11359,6 +11427,7 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
   children?: InputMaybe<Array<StoreChildrenUpdateFieldInput>>
+  initialState?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   parentStore?: InputMaybe<StoreParentStoreUpdateFieldInput>
   state?: InputMaybe<StoreStateUpdateFieldInput>
@@ -11403,6 +11472,16 @@ export type StoreWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  initialState?: InputMaybe<Scalars['String']>
+  initialState_CONTAINS?: InputMaybe<Scalars['String']>
+  initialState_ENDS_WITH?: InputMaybe<Scalars['String']>
+  initialState_IN?: InputMaybe<Array<Scalars['String']>>
+  initialState_NOT?: InputMaybe<Scalars['String']>
+  initialState_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  initialState_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  initialState_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  initialState_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  initialState_STARTS_WITH?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
