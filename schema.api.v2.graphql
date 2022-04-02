@@ -12441,6 +12441,7 @@ input UserTypesUpdateFieldInput {
 }
 
 input UserUniqueWhere {
+  auth0Id: String
   id: ID
 }
 

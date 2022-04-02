@@ -13329,6 +13329,7 @@ export type UserTypesUpdateFieldInput = {
 }
 
 export type UserUniqueWhere = {
+  auth0Id?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
 }
 

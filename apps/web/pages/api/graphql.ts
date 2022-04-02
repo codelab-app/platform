@@ -1,5 +1,6 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
+import { generateOgmTypes } from 'apps/web/src/graphql/generate-ogm-types'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 import { getDriver } from '../../src/graphql/infra/driver'
@@ -126,7 +127,7 @@ const handler: NextApiHandler = async (req, res) => {
    *
    * Keep in mind you'll need to access a web page that loads this api graphql route, otherwise this won't be triggered
    */
-  // await generateOgmTypes()
+  await generateOgmTypes()
 }
 
 export default handler

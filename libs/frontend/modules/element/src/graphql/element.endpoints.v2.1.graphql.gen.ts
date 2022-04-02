@@ -64,23 +64,6 @@ export type MoveElementsMutation = {
   updateElements: { elements: Array<ElementFragment> }
 }
 
-export type ConvertElementsToComponentsMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.ElementWhere>
-  update?: Types.InputMaybe<Types.ElementUpdateInput>
-}>
-
-export type ConvertElementsToComponentsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
-}
-
-export type DuplicateElementMutationVariables = Types.Exact<{
-  input: Types.DuplicateElementInput
-}>
-
-export type DuplicateElementMutation = {
-  duplicateElement: { elements: Array<ElementFragment> }
-}
-
 export type GetElementsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ElementOptions>
   where?: Types.InputMaybe<Types.ElementWhere>
@@ -147,39 +130,6 @@ export const UpdateElementsDocument = gql`
 export const MoveElementsDocument = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
-      elements {
-        ...Element
-      }
-    }
-  }
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
-`
-export const ConvertElementsToComponentsDocument = gql`
-  mutation ConvertElementsToComponents(
-    $where: ElementWhere
-    $update: ElementUpdateInput
-  ) {
-    updateElements(where: $where, update: $update) {
-      elements {
-        ...Element
-      }
-    }
-  }
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
-`
-export const DuplicateElementDocument = gql`
-  mutation DuplicateElement($input: DuplicateElementInput!) {
-    duplicateElement(input: $input) {
       elements {
         ...Element
       }
@@ -295,36 +245,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'MoveElements',
-        'mutation',
-      )
-    },
-    ConvertElementsToComponents(
-      variables?: ConvertElementsToComponentsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<ConvertElementsToComponentsMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ConvertElementsToComponentsMutation>(
-            ConvertElementsToComponentsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'ConvertElementsToComponents',
-        'mutation',
-      )
-    },
-    DuplicateElement(
-      variables: DuplicateElementMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DuplicateElementMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<DuplicateElementMutation>(
-            DuplicateElementDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'DuplicateElement',
         'mutation',
       )
     },
