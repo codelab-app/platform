@@ -11,6 +11,7 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
+import { flatMap, isEmpty } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -28,6 +29,7 @@ import {
 import { createTransformer } from 'mobx-utils'
 import React, { ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
+import { atoms } from '../atoms/atoms'
 import { IRenderPipe } from './abstract/IRenderPipe'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { RenderOutput } from './abstract/RenderOutput'
@@ -35,6 +37,7 @@ import { ElementWrapper, ElementWrapperProps } from './ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import { rootRenderPipeFactory } from './renderPipes/rootRenderPipeFactory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
+import { combineComponents, ComponentTypeLike } from './utils/combineComponents'
 import { isTypedValue } from './utils/isTypedValue'
 import { getTemplateFn } from './utils/platformState'
 import { mapOutput } from './utils/renderOutputUtils'
@@ -56,37 +59,49 @@ import { mapOutput } from './utils/renderOutputUtils'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 @model('@codelab/RenderService')
-export class RenderService extends Model({
-  /** The tree that's being rendered */
-  treeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
+export class RenderService extends Model(
+  {
+    /** The tree that's being rendered */
+    treeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
 
-  /** A tree of providers that will get rendered before all of the regular elements */
-  providerTreeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
+    /** A tree of providers that will get rendered before all of the regular elements */
+    providerTreeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
 
-  /** Props passed to specific elements */
-  extraElementProps: prop(() => new ExtraElementProps({})),
+    /** Props passed to specific elements */
+    extraElementProps: prop(() => new ExtraElementProps({})),
 
-  /** Those transform different kinds of typed values into render-ready props */
-  typedValueTransformers: prop<Array<ITypedValueTransformer>>(
-    typedValueTransformersFactory,
-  ),
+    /** Those transform different kinds of typed values into render-ready props */
+    typedValueTransformers: prop<Array<ITypedValueTransformer>>(
+      typedValueTransformersFactory,
+    ),
 
-  /** The render pipe handles and augments the render process */
-  renderPipe: prop<IRenderPipe>(rootRenderPipeFactory),
+    /** The render pipe handles and augments the render process */
+    renderPipe: prop<IRenderPipe>(rootRenderPipeFactory),
 
-  isInitialized: prop(() => false),
+    isInitialized: prop(() => true),
 
-  /** Will log the render output and render pipe info to the console */
-  debugMode: prop(() => false).withSetter(),
-}) {
-  private platformState: any
+    /** Will log the render output and render pipe info to the console */
+    debugMode: prop(() => false).withSetter(),
+  },
+  {
+    toSnapshotProcessor(sn, modelInstance) {
+      return {
+        ...sn,
+        // Remove those, because they are runtime only and not serializable
+        extraElementProps: getSnapshot(new ExtraElementProps({})),
+      }
+    },
+  },
+) {
+  /** Set to any observable that will act as a source for the state of the rendered app */
+  private platformState?: any
 
   @modelFlow
   init = _async(function* (
     this: RenderService,
     tree: ElementTree,
-    providerTree?: ElementTree,
-    platformState?: any, // pass in any observable
+    providerTree?: Nullable<ElementTree>,
+    platformState?: any,
   ) {
     this.treeRef = elementTreeRef(tree)
     this.providerTreeRef = providerTree ? elementTreeRef(providerTree) : null
@@ -125,18 +140,59 @@ export class RenderService extends Model({
 
   @computed
   get tree() {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.treeRef!.current
+    return this.treeRef?.current ?? null
+  }
+
+  renderRoot() {
+    const root = this.tree?.root
+
+    if (!root) {
+      console.warn('Renderer: No root element found')
+
+      return null
+    }
+
+    const rootElement = this.renderElement(root)
+
+    return this.renderWithProviders(rootElement)
+  }
+
+  renderWithProviders(leaf: ReactElement) {
+    const providerRoot = this.providerTreeRef?.current?.root
+
+    const providerElements = providerRoot
+      ? [providerRoot, ...providerRoot?.leftHandDescendants]
+      : []
+
+    const providerOutputsMaybeArray = providerElements.map((element) =>
+      this.renderElementIntermediate(element),
+    )
+
+    const providerOutputs = flatMap(providerOutputsMaybeArray, (o) =>
+      mapOutput(o, (io) => io),
+    ).filter((o): o is RenderOutput => !!o)
+
+    const Providers = combineComponents(
+      ...providerOutputs.map(
+        (output) =>
+          (output.atomType
+            ? [atoms[output.atomType], output.props]
+            : []) as ComponentTypeLike,
+      ),
+    )
+
+    return React.createElement(Providers, {}, leaf)
   }
 
   /**
    * Renders a single Element using the provided RenderAdapter
    */
-  renderElement(element: Element): ReactElement {
+  renderElement = (element: Element, extraProps?: PropsData): ReactElement => {
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,
       renderService: this,
       element,
+      extraProps,
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
@@ -144,31 +200,44 @@ export class RenderService extends Model({
 
   /**
    * Renders a single element (without its children) to an intermediate RenderOutput
-   * createTransformer memoizes the result in an observer-friendly cache
    */
-  renderElementIntermediate = createTransformer(
-    (element: Element): ArrayOrSingle<RenderOutput> => {
-      const { props, descendantBoundProps } = this.getPropsForRender(element)
+  renderElementIntermediate = (
+    element: Element,
+    extraProps?: PropsData,
+  ): ArrayOrSingle<RenderOutput> => {
+    let props = mergeProps(
+      element.baseProps,
+      element.props?.propsData,
+      extraProps,
+      this.extraElementProps.getForElement(element.id),
+    )
 
-      this.extraElementProps.addAll(descendantBoundProps)
+    props = this.processPropsForRender(props, element)
 
-      const extraProps = this.extraElementProps.elementPropMap.get(element.id)
+    const output = this.renderPipe.render(element, props)
 
-      const renderOutput = this.renderPipe.render(
-        element,
-        mergeProps(props, extraProps),
+    return mapOutput(output, (o) => {
+      const { descendantBoundProps } = element.applyPropMapBindings(props)
+
+      const outputDescendantBoundProps = mergeProps(
+        o.descendantBoundProps,
+        descendantBoundProps,
       )
 
-      return mapOutput(renderOutput, (output) => ({
-        ...output,
-        descendantPropBindings: descendantBoundProps,
-      }))
-    },
-  )
+      if (isEmpty(outputDescendantBoundProps)) {
+        return o
+      }
+
+      return {
+        ...o,
+        descendantBoundProps: outputDescendantBoundProps,
+      }
+    })
+  }
 
   /** Renders the elements children */
   renderChildren = createTransformer((parentOutput: RenderOutput): any => {
-    const element = this.tree.element(parentOutput.elementId)
+    const element = this.tree?.element(parentOutput.elementId)
 
     if (!element) {
       console.warn(
@@ -178,7 +247,7 @@ export class RenderService extends Model({
       return undefined
     }
 
-    const children: ReactNode = element.childrenList?.map((child) =>
+    const children: ReactNode = element.childrenSorted?.map((child) =>
       this.renderElement(child),
     )
 
@@ -208,31 +277,28 @@ export class RenderService extends Model({
     return children
   })
 
-  logRendered(element: Element, rendered: ArrayOrSingle<RenderOutput>) {
+  logRendered = (element: Element, rendered: ArrayOrSingle<RenderOutput>) => {
     if (this.debugMode) {
-      console.dir({ element: getSnapshot(element), rendered })
+      console.dir({ element: element, rendered })
     }
   }
 
   /**
    * Parses and transforms the props for a given element, so they are ready for rendering
    */
-  private getPropsForRender(element: Element) {
-    let props = mergeProps(element.baseProps, element.props.propsData)
-
-    const { descendantBoundProps, selfBoundProps } =
-      element.applyPropMapBindings(props)
-
-    props = mergeProps(props, selfBoundProps)
+  private processPropsForRender = (props: PropsData, element: Element) => {
     props = this.applyTypedValuedTransformers(props)
     props = element.executePropTransformJs(props)
     props = this.replaceStateInProps(props)
 
-    return { props, descendantBoundProps }
+    const { selfBoundProps } = element.applyPropMapBindings(props)
+    props = mergeProps(props, selfBoundProps)
+
+    return props
   }
 
   // Proof of concept implementation of state replacement
-  private replaceStateInProps(props: PropsData) {
+  private replaceStateInProps = (props: PropsData) => {
     if (!this.platformState) {
       return props
     }
@@ -271,8 +337,8 @@ export class RenderService extends Model({
   /**
    * Applies all the typed value transformers to the props
    */
-  private applyTypedValuedTransformers(props: PropsData): PropsData {
-    return deepReplaceObjectValues(props, (value, key, innerObj) => {
+  private applyTypedValuedTransformers = (props: PropsData): PropsData =>
+    deepReplaceObjectValues(props, (value, key, innerObj) => {
       if (!isTypedValue(value)) {
         return value
       }
@@ -294,7 +360,6 @@ export class RenderService extends Model({
         return propTransformer.transform(value, typeKind)
       }
     })
-  }
 
   private getTypeKindById(typeId: string): TypeKind | undefined {
     return getTypeServiceFromContext(this).type(typeId)?.typeKind

@@ -40,7 +40,7 @@ export interface BuilderClickOverlayProps
 
 export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
   ({ builderService, elementService }) => {
-    const selectedElement = builderService.selectedElement?.current
+    const selectedElement = builderService.selectedElement?.maybeCurrent
 
     if (!selectedElement) {
       return null
@@ -61,7 +61,9 @@ export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
               e.stopPropagation()
 
               elementService.createModal.open({
-                parentElement: elementRef(selectedElement),
+                parentElement: selectedElement?.instanceOfComponent
+                  ? undefined
+                  : elementRef(selectedElement),
               })
             }}
             size="small"

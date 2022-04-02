@@ -1,15 +1,13 @@
-import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID, DATA_ID } from '@codelab/frontend/abstract/core'
 import { Component } from '@codelab/frontend/modules/component'
 import { Element } from '@codelab/frontend/modules/element'
 import { PropsData } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderContext'
 import type { RenderService } from '../RenderService'
-import { mapOutput } from '../utils/renderOutputUtils'
+import { getRenderContext } from '../renderServiceContext'
 
 @model('@codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
@@ -24,7 +22,7 @@ export class ComponentRenderPipe
     }
 
     const renderer = getRenderContext(this)
-    const rootElement = renderer.tree.getRootElementOfComponent(component)
+    const rootElement = renderer.tree?.element(component.rootElementId)
 
     if (!rootElement) {
       ComponentRenderPipe.logRootElementNotFound(renderer, element)
@@ -35,31 +33,25 @@ export class ComponentRenderPipe
     ComponentRenderPipe.logRendering(renderer, rootElement, element)
 
     // Start the pipe again with the root element
-    const output = renderer.renderElementIntermediate(rootElement)
-
     const overrideProps = ComponentRenderPipe.makeOverrideProps(
       props,
       component,
     )
 
-    return mapOutput(output, (o) => ({
-      ...o,
-      // replace the root element id with the instance id
-      elementId: element.id,
-      // Override the component props with the instance props
-      props: mergeProps(o.props, overrideProps),
-    }))
+    return renderer.renderElementIntermediate(rootElement, overrideProps)
   }
 
   private static makeOverrideProps(props: PropsData, component: Component) {
     const {
       key,
       [DATA_COMPONENT_ID]: cid,
+      [DATA_ID]: id,
       ...overrideProps
     } = { ...props } as any
 
     return {
       [DATA_COMPONENT_ID]: component.id,
+      [DATA_ID]: component.rootElementId,
       ...overrideProps,
     }
   }

@@ -8,6 +8,7 @@ import {
 import { WithTypeService } from '@codelab/frontend/modules/type'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
 import { WithBuilderService } from '../../store/BuilderService'

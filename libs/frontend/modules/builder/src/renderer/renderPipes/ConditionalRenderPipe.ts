@@ -5,7 +5,7 @@ import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderContext'
+import { getRenderContext } from '../renderServiceContext'
 
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe

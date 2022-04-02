@@ -81,7 +81,7 @@ export const MetaPaneBuilder = observer(
     atomService,
     elementService,
   }: MetaPaneBuilderProps) => {
-    const selectedElement = builderService.selectedElement?.current
+    const selectedElement = builderService.selectedElement?.maybeCurrent
     const { providePropCompletion } = usePropCompletion(builderService)
     const trackPromises = useTrackLoadingPromises()
 

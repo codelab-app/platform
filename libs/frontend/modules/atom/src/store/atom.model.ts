@@ -37,9 +37,7 @@ export class Atom extends Model({
   api: prop<Ref<InterfaceType>>(),
 }) {
   @modelAction
-  updateFromFragment(
-    atom: Omit<AtomFragment, 'api' | '__typename'> & { api: { id: string } },
-  ) {
+  updateFromFragment(atom: AtomFromFragmentInput) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>

@@ -15,18 +15,10 @@ export interface RendererProps {
  * replaced by platform-level mobx.
  */
 export const Renderer = observer(({ renderService }: RendererProps) => {
-  const root = renderService.tree.root
-
-  if (!root) {
-    console.warn('Renderer: No root element found')
-
-    return null
-  }
-
   return (
     <ErrorBoundary>
       <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
-        {renderService.renderElement(root)}
+        {renderService.renderRoot()}
       </div>
     </ErrorBoundary>
   )

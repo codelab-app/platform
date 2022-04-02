@@ -7,7 +7,7 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../../atoms'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderContext'
+import { getRenderContext } from '../renderServiceContext'
 import { evalCss } from '../utils/evalCss'
 
 @model('@codelab/AtomRenderPipe')

@@ -4,8 +4,7 @@ import { Model, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderContext } from '../renderContext'
-
+import { getRenderContext } from '../renderServiceContext'
 /**
  * Fallback render pipe, returns null
  */
@@ -18,6 +17,6 @@ export class NullRenderPipe extends Model({}) implements IRenderPipe {
       console.log(`NullRenderPipe: rendering null`, { element: element.name })
     }
 
-    return RenderOutput.empty({ elementId: element.id })
+    return RenderOutput.empty({ elementId: element.id, props })
   }
 }

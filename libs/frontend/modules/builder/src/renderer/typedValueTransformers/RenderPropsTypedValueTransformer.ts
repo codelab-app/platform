@@ -1,4 +1,4 @@
-import { Element } from '@codelab/frontend/modules/element'
+import { getComponentServiceFromContext } from '@codelab/frontend/modules/component'
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
@@ -9,23 +9,23 @@ import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
  * Transforms props from the following format:
  * {
  *   [$propName]: {
- *     type: '<id of a type with kind RenderPropsType>',
+ *     type: '<id of a type with kind ReactNodeType>',
  *     value: '$componentId'
  *   }
  * }
  *
  * into:
  * {
- *   [$propName]: <(...args) => ReactNode - A function that renders the component with id: $componentId>
+ *   [$propName]: <ReactNode - Rendered component with id: $componentId>
  * }
  */
-@model('@codelab/RenderPropsTypedValueTransformer')
-export class RenderPropsTypedValueTransformer
+@model('@codelab/ReactNodeTypedValueTransformer')
+export class ReactNodeTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(typeKind: TypeKind): boolean {
-    return typeKind === TypeKind.RenderPropsType
+    return typeKind === TypeKind.ReactNodeType
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
@@ -52,13 +52,6 @@ export class RenderPropsTypedValueTransformer
       return value
     }
 
-    return this.makeRenderProp(rootElement)
-  }
-
-  private makeRenderProp(element: Element) {
-    const renderer = getRenderContext(this)
-
-    return (...renderPropArgs: Array<any>) =>
-      renderer.renderElement(element, mergeProps(...renderPropArgs))
+    return renderer.renderElement(rootElement)
   }
 }

@@ -7,6 +7,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { WithTypeService } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { usePropCompletion } from '../../hooks'
 import { WithBuilderService } from '../../store/BuilderService'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
