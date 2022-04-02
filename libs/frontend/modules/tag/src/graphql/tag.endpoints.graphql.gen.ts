@@ -84,6 +84,7 @@ export const GetTagGraphsDocument = gql`
       isRoot
       name
       descendants
+      isRoot
     }
   }
 `
