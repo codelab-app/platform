@@ -41,8 +41,6 @@ export const tagRepository = {
           const tag = record.get(0)
           const descendants = record.get(1)
 
-          console.log(tag)
-
           const tagGraph = {
             ...tag,
             descendants,
