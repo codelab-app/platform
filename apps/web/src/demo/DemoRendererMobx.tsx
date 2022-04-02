@@ -1,11 +1,7 @@
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
-import {
-  Element,
-  ElementProps,
-  elementRef,
-} from '@codelab/frontend/modules/element'
+import { Element, ElementProps } from '@codelab/frontend/modules/element'
 import { Action, Store, storeRef } from '@codelab/frontend/modules/store'
 import {
   Field,
@@ -16,7 +12,7 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
 import { makeAutoObservable } from 'mobx'
-import { frozen, ObjectMap } from 'mobx-keystone'
+import { frozen, ObjectMap, objectMap } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
@@ -77,7 +73,7 @@ const buttonDec = new Element({
       onClick: '{{root.decrement}}',
     }),
   }),
-  children: [elementRef(textDec)],
+  children: objectMap([[textDec.id, textDec]]),
 })
 
 const buttonInc = new Element({
@@ -90,7 +86,7 @@ const buttonInc = new Element({
       onClick: '{{root.increment}}',
     }),
   }),
-  children: [elementRef(textInc)],
+  children: objectMap([[textInc.id, textInc]]),
 })
 
 const counterText = new Element({
@@ -109,17 +105,17 @@ const container = new Element({
   id: v4(),
   name: 'Container',
   atom: atomRef(divAtom),
-  children: [
-    elementRef(buttonDec),
-    elementRef(counterText),
-    elementRef(buttonInc),
-  ],
+  children: objectMap([
+    [buttonDec.id, buttonDec],
+    [counterText.id, counterText],
+    [buttonInc.id, buttonInc],
+  ]),
 })
 
 const root = new Element({
   id: v4(),
   name: 'Root element',
-  children: [elementRef(container)],
+  children: objectMap([[container.id, container]]),
 })
 
 const demoStore = initializeStore()
@@ -130,13 +126,7 @@ demoStore.atomService.addAtom(divAtom)
 demoStore.atomService.addAtom(buttonAtom)
 demoStore.atomService.addAtom(textAtom)
 
-demoStore.elementService.elementTree.addElement(counterText)
-demoStore.elementService.elementTree.addElement(textDec)
-demoStore.elementService.elementTree.addElement(textInc)
-demoStore.elementService.elementTree.addElement(buttonInc)
-demoStore.elementService.elementTree.addElement(buttonDec)
-demoStore.elementService.elementTree.addElement(container)
-demoStore.elementService.elementTree.addElement(root)
+demoStore.elementService.elementTree.setRoot(root)
 
 const counterStore = new Store({
   name: 'counterStore',

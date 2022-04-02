@@ -5,6 +5,7 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { getRenderContext } from '../renderServiceContext'
+
 /**
  * Fallback render pipe, returns null
  */
