@@ -12,6 +12,7 @@ import {
 } from '@codelab/frontend/modules/component'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
+import { ActionService, StoreService } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import {
@@ -36,6 +37,8 @@ export class RootStore extends Model({
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
   componentService: prop(() => new ComponentService({})),
+  actionService: prop(() => new ActionService({})),
+  storeService: prop(() => new StoreService({})),
 
   elementService: prop(() => new ElementService({})), // default regular service that holds the element tree
   providerElementService: prop(() => new ElementService({})), // element service that is used by the provider tree

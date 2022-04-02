@@ -11,7 +11,7 @@ export const CreateStoreButton = observer<WithStoreService>(
       <Button
         css={tw`flex justify-center items-center`}
         icon={<PlusOutlined />}
-        onClick={() => storeService.createModal.open()}
+        onClick={() => storeService.createModal.open(undefined)}
         type="primary"
       >
         Create

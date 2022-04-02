@@ -11,7 +11,7 @@ type BaseGraphFragment<NodeFragment = BaseFragment, EdgeFragment = BaseEdge> = {
   edges: Array<EdgeFragment>
 }
 
-export abstract class BaseModel<M, Edge> extends Model(
+export abstract class BaseModel<M extends object, Edge> extends Model(
   // eslint-disable-next-line @typescript-eslint/no-shadow
   <M extends object, Edge>() => ({
     id: idProp,

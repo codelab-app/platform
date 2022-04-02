@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -9,10 +10,11 @@ import { DisplayIfParent } from './DisplayIfParent'
 
 export const CreateStoreModal = observer<WithStoreService>(
   ({ storeService }) => {
+    const { user } = useUser()
     const closeModal = () => storeService.createModal.close()
 
     const onSubmit = (input: CreateStoreInput) =>
-      storeService.createStore(input)
+      storeService.createStore(input, user?.sub)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating store',

@@ -1,3 +1,4 @@
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
@@ -43,8 +44,12 @@ export class StoreService extends Model({
   createStore = _async(function* (
     this: StoreService,
     input: CreateStoreInput,
-    ownerId: string,
+    ownerId: Nullish<string>,
   ) {
+    if (!ownerId) {
+      throw new Error('No owner id not provided')
+    }
+
     const {
       createStores: {
         stores: [createdStore],
