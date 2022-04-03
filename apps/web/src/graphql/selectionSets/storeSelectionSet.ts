@@ -19,9 +19,5 @@ export const storeSelectionSet = `{
       id
       name
       body
-      store {
-        id
-        name
-      }
     }
 }`

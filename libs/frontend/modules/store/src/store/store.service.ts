@@ -1,7 +1,4 @@
-import {
-  getTypeServiceFromContext,
-  InterfaceType,
-} from '@codelab/frontend/modules/type'
+import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -95,10 +92,9 @@ export class StoreService extends Model({
     return createdStore
   })
 
+  @modelAction
   ensureStateInterfaceAdded(state: StoreFragment['state']) {
-    getTypeServiceFromContext(this).addTypeLocal(
-      InterfaceType.fromFragment(state),
-    )
+    getTypeServiceFromContext(this).getOne(state.id)
   }
 
   @modelAction

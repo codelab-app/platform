@@ -14,16 +14,6 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type PrimitiveTypeFragment = {
   primitiveKind: Types.PrimitiveTypeKind
 } & TypeBase_PrimitiveType_Fragment
-
-export const PrimitiveTypeFragmentDoc = gql`
-  fragment PrimitiveType on PrimitiveType {
-    ...TypeBase
-    primitiveKind
-  }
-  ${TypeBaseFragmentDoc}
-`

@@ -5,25 +5,6 @@ import {
   StoreGraphFragment,
   StoreEdgeFragment,
 } from './Store.fragment.v2.1.graphql.gen'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from '../../../type/src/graphql/fragments/Interface.fragment.v2.1.graphql.gen'
-import {
-  TypeBase_AppType_Fragment,
-  TypeBase_ArrayType_Fragment,
-  TypeBase_ElementType_Fragment,
-  TypeBase_EnumType_Fragment,
-  TypeBase_InterfaceType_Fragment,
-  TypeBase_LambdaType_Fragment,
-  TypeBase_MonacoType_Fragment,
-  TypeBase_PageType_Fragment,
-  TypeBase_PrimitiveType_Fragment,
-  TypeBase_ReactNodeType_Fragment,
-  TypeBase_RenderPropsType_Fragment,
-  TypeBase_UnionType_Fragment,
-} from '../../../type/src/graphql/fragments/TypeBase.fragment.v2.1.graphql.gen'
-import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -32,12 +13,6 @@ import {
   StoreGraphFragmentDoc,
   StoreEdgeFragmentDoc,
 } from './Store.fragment.v2.1.graphql.gen'
-import {
-  InterfaceTypeFragmentDoc,
-  InterfaceTypeFieldEdgeFragmentDoc,
-} from '../../../type/src/graphql/fragments/Interface.fragment.v2.1.graphql.gen'
-import { TypeBaseFragmentDoc } from '../../../type/src/graphql/fragments/TypeBase.fragment.v2.1.graphql.gen'
-import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
@@ -92,10 +67,6 @@ export const CreateStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${ActionFragmentDoc}
 `
 export const DeleteStoresSubgraphDocument = gql`
   mutation DeleteStoresSubgraph($where: StoreWhere!) {
@@ -112,10 +83,6 @@ export const GetStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${ActionFragmentDoc}
 `
 export const GetStoresGraphsDocument = gql`
   query GetStoresGraphs {
@@ -126,10 +93,6 @@ export const GetStoresGraphsDocument = gql`
   ${StoreGraphFragmentDoc}
   ${StoreEdgeFragmentDoc}
   ${StoreFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${ActionFragmentDoc}
 `
 export const UpdateStoresDocument = gql`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
@@ -140,10 +103,6 @@ export const UpdateStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${ActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

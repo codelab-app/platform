@@ -3,11 +3,13 @@ fragment Store on Store {
   id
   name
   state {
-    ...InterfaceType
+    id
+    name
   }
   initialState
   actions {
-    ...Action
+    id
+    name
   }
   parentStore {
     id

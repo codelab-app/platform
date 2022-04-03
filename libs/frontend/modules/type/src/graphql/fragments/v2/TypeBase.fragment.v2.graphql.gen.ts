@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
 export type TypeBase_AppType_Fragment = {
   id: string
   name: string
@@ -98,15 +97,3 @@ export type TypeBaseFragment =
   | TypeBase_ReactNodeType_Fragment
   | TypeBase_RenderPropsType_Fragment
   | TypeBase_UnionType_Fragment
-
-export const TypeBaseFragmentDoc = gql`
-  fragment TypeBase on TypeBase {
-    typeKind: __typename
-    id
-    owner {
-      id
-      auth0Id
-    }
-    name
-  }
-`

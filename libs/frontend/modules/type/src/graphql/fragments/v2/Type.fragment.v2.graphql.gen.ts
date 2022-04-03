@@ -31,25 +31,6 @@ import {
 import { MonacoTypeFragment } from './MonacoType.fragment.v2.graphql.gen'
 import { PageTypeFragment } from './PageType.fragment.v2.graphql.gen'
 import { AppTypeFragment } from './AppType.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragmentDoc,
-  ArrayTypeFragmentDoc,
-} from './ArrayType.fragment.v2.graphql.gen'
-import { EnumTypeFragmentDoc } from './EnumType.fragment.v2.graphql.gen'
-import { InterfaceTypeFragmentDoc } from './Interface.fragment.v2.graphql.gen'
-import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.v2.graphql.gen'
-import { ElementTypeFragmentDoc } from './ElementType.fragment.v2.graphql.gen'
-import { LambdaTypeFragmentDoc } from './LambdaType.fragment.v2.graphql.gen'
-import { RenderPropsTypeFragmentDoc } from './RenderProps.fragment.v2.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragmentDoc,
-  UnionTypeFragmentDoc,
-} from './UnionType.fragment.v2.graphql.gen'
-import { MonacoTypeFragmentDoc } from './MonacoType.fragment.v2.graphql.gen'
-import { PageTypeFragmentDoc } from './PageType.fragment.v2.graphql.gen'
-import { AppTypeFragmentDoc } from './AppType.fragment.v2.graphql.gen'
 export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 
 export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
@@ -147,60 +128,3 @@ export type TypeNonRecursiveFragment =
   | TypeNonRecursive_ReactNodeType_Fragment
   | TypeNonRecursive_RenderPropsType_Fragment
   | TypeNonRecursive_UnionType_Fragment
-
-export const TypeFragmentDoc = gql`
-  fragment Type on TypeBase {
-    ...TypeBase
-    ...ArrayTypeWithItemType
-    ...EnumType
-    ...InterfaceType
-    ...PrimitiveType
-    ...ElementType
-    ...LambdaType
-    ...RenderPropsType
-    ...UnionTypeWithInnerTypes
-    ...MonacoType
-    ...PageType
-    ...AppType
-  }
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
-`
-export const TypeNonRecursiveFragmentDoc = gql`
-  fragment TypeNonRecursive on TypeBase {
-    ...TypeBase
-    ...ArrayType
-    ...EnumType
-    ...InterfaceType
-    ...PrimitiveType
-    ...ElementType
-    ...LambdaType
-    ...RenderPropsType
-    ...UnionType
-    ...MonacoType
-    ...PageType
-    ...AppType
-  }
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
-`

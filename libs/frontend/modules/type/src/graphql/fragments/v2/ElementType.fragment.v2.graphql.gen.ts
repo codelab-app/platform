@@ -14,16 +14,6 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type ElementTypeFragment = {
   elementKind: Types.ElementTypeKind
 } & TypeBase_ElementType_Fragment
-
-export const ElementTypeFragmentDoc = gql`
-  fragment ElementType on ElementType {
-    ...TypeBase
-    elementKind
-  }
-  ${TypeBaseFragmentDoc}
-`

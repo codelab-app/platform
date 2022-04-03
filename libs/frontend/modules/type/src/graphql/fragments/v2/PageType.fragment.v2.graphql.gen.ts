@@ -14,13 +14,4 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type PageTypeFragment = TypeBase_PageType_Fragment
-
-export const PageTypeFragmentDoc = gql`
-  fragment PageType on PageType {
-    ...TypeBase
-  }
-  ${TypeBaseFragmentDoc}
-`

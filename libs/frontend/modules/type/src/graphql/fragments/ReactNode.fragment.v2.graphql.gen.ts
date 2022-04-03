@@ -14,13 +14,4 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './v2/TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './v2/TypeBase.fragment.v2.graphql.gen'
 export type ReactNodeTypeFragment = TypeBase_ReactNodeType_Fragment
-
-export const ReactNodeTypeFragmentDoc = gql`
-  fragment ReactNodeType on ReactNodeType {
-    ...TypeBase
-  }
-  ${TypeBaseFragmentDoc}
-`
