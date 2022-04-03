@@ -28,8 +28,8 @@ export const UpdateInitialStateForm = observer<
   )
 
   useEffect(() => {
-    if (store?.stateId) {
-      getInterfaceType(store?.stateId)
+    if (store?.state?.id) {
+      getInterfaceType(store.state.id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -41,7 +41,10 @@ export const UpdateInitialStateForm = observer<
 
     return storeService.updateStore(store, {
       name: store?.name,
-      parentStore: { id: store.parentStore?.id as string, key: store.storeKey },
+      parentStore: {
+        id: store.parentStore?.id as string,
+        key: store.storeKey as string,
+      },
       initialState: JSON.stringify(initialState),
     })
   }
@@ -58,7 +61,7 @@ export const UpdateInitialStateForm = observer<
             autosave
             interfaceType={data as InterfaceType}
             key={store?.id}
-            model={JSON.parse(store?.initialState || '{}')}
+            model={store?.initialState || {}}
             onSubmit={onSubmit}
             onSubmitError={onSubmitError}
             submitRef={undefined}

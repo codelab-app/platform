@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request'
 export type AtomFragment = {
   __typename: 'Atom'
   id: string
@@ -9,20 +8,3 @@ export type AtomFragment = {
   tags: Array<{ id: string; name: string }>
   api: { id: string; name: string }
 }
-
-export const AtomFragmentDoc = gql`
-  fragment Atom on Atom {
-    __typename
-    id
-    name
-    type
-    tags {
-      id
-      name
-    }
-    api {
-      id
-      name
-    }
-  }
-`

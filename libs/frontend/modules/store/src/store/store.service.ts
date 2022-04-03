@@ -1,14 +1,21 @@
+import {
+  getTypeServiceFromContext,
+  InterfaceType,
+} from '@codelab/frontend/modules/type'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
   Model,
   model,
+  modelAction,
   modelFlow,
   prop,
   transaction,
 } from 'mobx-keystone'
+import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
+import { getActionServiceFromContext } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './apiUtils'
 import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
@@ -34,10 +41,21 @@ export class StoreService extends Model({
   @transaction
   getTree = _async(function* (this: StoreService) {
     const { storesGraphs } = yield* _await(storeApi.GetStoresGraphs({}))
+
+    for (const store of storesGraphs.vertices) {
+      this.ensureStateInterfaceAdded(store.state)
+      this.ensureAllActionsAdded(store.actions)
+    }
+
     this.storesTree.updateFromFragment(storesGraphs)
 
     return this.storesTree.nodes
   })
+
+  @modelAction
+  addStore(store: Store) {
+    this.storesTree.addNode(store)
+  }
 
   @modelFlow
   @transaction
@@ -77,6 +95,17 @@ export class StoreService extends Model({
     return createdStore
   })
 
+  ensureStateInterfaceAdded(state: StoreFragment['state']) {
+    getTypeServiceFromContext(this).addTypeLocal(
+      InterfaceType.fromFragment(state),
+    )
+  }
+
+  @modelAction
+  ensureAllActionsAdded(actions: StoreFragment['actions']) {
+    getActionServiceFromContext(this).addOrUpdateAll(actions)
+  }
+
   @modelFlow
   @transaction
   getOne = _async(function* (this: StoreService, id: string) {
@@ -91,6 +120,9 @@ export class StoreService extends Model({
     if (!store) {
       throw new Error('Store not found')
     }
+
+    this.ensureStateInterfaceAdded(store.state)
+    this.ensureAllActionsAdded(store.actions)
 
     this.storesTree.addNode(Store.fromFragment(store))
 

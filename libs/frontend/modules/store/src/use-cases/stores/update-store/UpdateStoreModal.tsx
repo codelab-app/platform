@@ -28,8 +28,8 @@ export const UpdateStoreModal = observer<WithStoreService>(
       name: updateStore?.name,
       parentStore: updateStore?.parentStore
         ? {
-            id: updateStore.parentStore?.id,
-            key: updateStore.storeKey,
+            id: updateStore.parentStore.id,
+            key: updateStore.storeKey as string,
           }
         : undefined,
     }

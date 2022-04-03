@@ -3,8 +3,7 @@ fragment Store on Store {
   id
   name
   state {
-    id
-    name
+    ...InterfaceType
   }
   initialState
   actions {

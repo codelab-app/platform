@@ -1,10 +1,15 @@
+import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { BaseModel } from '@codelab/frontend/shared/utils'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { PropsData } from '@codelab/shared/abstract/core'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { TreeDataNode } from 'antd'
+import { merge } from 'lodash'
+import { makeAutoObservable } from 'mobx'
 import {
   detach,
   ExtendedModel,
   model,
+  modelAction,
   modelClass,
   prop,
   Ref,
@@ -14,17 +19,19 @@ import {
   StoreEdgeFragment,
   StoreFragment,
 } from '../graphql/Store.fragment.v2.1.graphql.gen'
+import { Action, actionRef } from './action.model'
 
 @model('codelab/Store')
 export class Store extends ExtendedModel(() => ({
   baseModel: modelClass<BaseModel<Store, StoreEdgeFragment>>(BaseModel),
   props: {
-    parentStore: prop<Maybe<Ref<Store>>>().withSetter(),
+    parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
     // PARENT_OF_STORE relation property
-    storeKey: prop<string>().withSetter(),
+    storeKey: prop<Nullable<string>>(null).withSetter(),
     name: prop<string>(),
-    initialState: prop<string>(),
-    stateId: prop<string>(),
+    actions: prop<Array<Ref<Action>>>().withSetter(),
+    initialState: prop<PropsData>(),
+    state: prop<Ref<InterfaceType>>().withSetter(),
   },
 })) {
   getRefId() {
@@ -32,10 +39,11 @@ export class Store extends ExtendedModel(() => ({
     return this.id
   }
 
-  getParent(): Maybe<Store> {
-    return this.parentStore?.current
+  getParent(): Nullable<Store> {
+    return this.parentStore?.current ? this.parentStore?.current : null
   }
 
+  @modelAction
   addChild(child: Store): void {
     this.children.push(storeRef(child.id))
   }
@@ -44,10 +52,12 @@ export class Store extends ExtendedModel(() => ({
     return !!this.parentStore
   }
 
+  @modelAction
   setParent(parent: Store): void {
     this.setParentStore(storeRef(parent.id))
   }
 
+  @modelAction
   setEdgeInfo(edge: StoreEdgeFragment): void {
     this.setStoreKey(edge.storeKey)
   }
@@ -62,16 +72,33 @@ export class Store extends ExtendedModel(() => ({
     }
   }
 
+  @modelAction
+  toMobxObservable() {
+    const storeState = this.state.current.fields
+      .map((field) => ({ [field.key]: this.initialState[field.key] }))
+      .reduce(merge, {})
+
+    const storeActions = this.actions
+      .map((action) => ({
+        // eslint-disable-next-line no-eval
+        [action.current.name]: eval(`(${action.current.body})`),
+      }))
+      .reduce(merge, {})
+
+    return makeAutoObservable(merge(storeState, storeActions))
+  }
+
   static fromFragment(store: StoreFragment): Store {
     return new Store({
       id: store.id,
       name: store.name,
       parentStore: store.parentStore?.id
         ? storeRef(store.parentStore.id)
-        : undefined,
+        : null,
+      actions: store.actions.map((action) => actionRef(action.id)),
       storeKey: store.parentStoreConnection?.edges?.[0]?.storeKey,
-      initialState: store.initialState,
-      stateId: store.state.id,
+      initialState: JSON.parse(store.initialState),
+      state: typeRef(store.state.id) as Ref<InterfaceType>,
     })
   }
 }

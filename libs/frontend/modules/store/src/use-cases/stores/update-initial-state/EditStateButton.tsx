@@ -15,7 +15,7 @@ export const EditStateButton = observer<WithStoreService>(
     const onClick = () =>
       router.push({
         pathname: PageType.InterfaceDetail,
-        query: { interfaceId: store?.stateId },
+        query: { interfaceId: store?.state.id },
       })
 
     return (

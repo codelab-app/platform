@@ -5,14 +5,17 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
   Ref,
   transaction,
 } from 'mobx-keystone'
+import { ActionFragment } from '../graphql/Action.fragment.v2.1.graphql.gen'
 import type { CreateActionInput, UpdateActionInput } from '../use-cases'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
@@ -37,6 +40,30 @@ export class ActionService extends Model({
 
   action(id: string) {
     return this.actions.get(id)
+  }
+
+  @modelAction
+  addAction(action: Action) {
+    this.actions.set(action.id, action)
+  }
+
+  @modelAction
+  addOrUpdate(action: ActionFragment) {
+    const existing = this.action(action.id)
+
+    if (existing) {
+      existing.name = action.name
+      existing.body = action.body
+    } else {
+      this.addAction(Action.fromFragment(action))
+    }
+  }
+
+  @modelAction
+  addOrUpdateAll(actions: Array<ActionFragment>) {
+    for (const action of actions) {
+      this.addOrUpdate(action)
+    }
   }
 
   @modelFlow
@@ -135,4 +162,16 @@ export class ActionService extends Model({
 
     return deleteActions
   })
+}
+
+export const actionServiceContext = createContext<ActionService>()
+
+export const getActionServiceFromContext = (thisModel: object) => {
+  const actionStore = actionServiceContext.get(thisModel)
+
+  if (!actionStore) {
+    throw new Error('ActionService context is not defined')
+  }
+
+  return actionStore
 }

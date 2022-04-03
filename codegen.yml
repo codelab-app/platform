@@ -67,12 +67,12 @@ generates:
       baseTypesPath: ~@codelab/shared/abstract/codegen-v2
     plugins:
       - typescript-operations
-      - dist/libs/tools/rtk-query:
-          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
-          exportHooks: true
-          extraOptions:
-            context:
-              env: 'v2'
+    #      - dist/libs/tools/rtk-query:
+    #          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
+    #          exportHooks: true
+    #          extraOptions:
+    #            context:
+    #              env: 'v2'
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql

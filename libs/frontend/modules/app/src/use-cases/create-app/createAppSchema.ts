@@ -1,7 +1,9 @@
+import { SelectStore } from '@codelab/frontend/modules/type'
 import { JSONSchemaType } from 'ajv'
 
 export type CreateAppInput = {
   name: string
+  storeId: string
 }
 
 export const createAppSchema: JSONSchemaType<CreateAppInput> = {
@@ -11,6 +13,11 @@ export const createAppSchema: JSONSchemaType<CreateAppInput> = {
     name: {
       autoFocus: true,
       type: 'string',
+    },
+    storeId: {
+      type: 'string',
+      label: 'Mobx Store',
+      uniforms: { component: SelectStore },
     },
   },
   required: ['name'],

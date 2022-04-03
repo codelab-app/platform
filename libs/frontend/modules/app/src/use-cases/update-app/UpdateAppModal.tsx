@@ -18,6 +18,7 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
 
   const model = {
     name: app?.name,
+    storeId: app?.store?.id,
   }
 
   return (

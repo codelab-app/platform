@@ -2,7 +2,12 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import { Element, ElementProps } from '@codelab/frontend/modules/element'
-import { Action, Store, storeRef } from '@codelab/frontend/modules/store'
+import {
+  Action,
+  actionRef,
+  Store,
+  storeRef,
+} from '@codelab/frontend/modules/store'
 import {
   Field,
   InterfaceType,
@@ -11,11 +16,29 @@ import {
 } from '@codelab/frontend/modules/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
-import { makeAutoObservable } from 'mobx'
-import { frozen, ObjectMap, objectMap } from 'mobx-keystone'
+import { frozen, ObjectMap, objectMap, Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
+
+const integerType = new PrimitiveType({
+  name: 'Integer',
+  primitiveKind: PrimitiveTypeKind.Integer,
+})
+
+const counterState = new InterfaceType({
+  name: 'Counter State',
+  _fields: new ObjectMap({
+    items: {
+      [v4()]: new Field({
+        key: 'count',
+        name: 'Count',
+        type: typeRef(integerType.id),
+      }),
+    },
+  }),
+  typeKind: TypeKind.InterfaceType,
+})
 
 const emptyApi = new InterfaceType({ id: v4(), name: 'Empty api' }) // not relevant, just an empty type
 
@@ -121,6 +144,7 @@ const root = new Element({
 const demoStore = initializeStore()
 
 demoStore.typeService.addTypeLocal(emptyApi)
+demoStore.typeService.addTypeLocal(counterState)
 
 demoStore.atomService.addAtom(divAtom)
 demoStore.atomService.addAtom(buttonAtom)
@@ -130,69 +154,38 @@ demoStore.elementService.elementTree.setRoot(root)
 
 const counterStore = new Store({
   name: 'counterStore',
-  stateId: v4(),
+  state: typeRef(counterState.id) as Ref<InterfaceType>,
+  actions: [],
   storeKey: '',
-  initialState: '{\n"count":2.0\n}',
+  initialState: {
+    count: 2.0,
+  },
 })
 
-const initialState = JSON.parse(counterStore.initialState)
-
-const integerType = new PrimitiveType({
-  name: 'Integer',
-  primitiveKind: PrimitiveTypeKind.Integer,
+const incrementAction = new Action({
+  name: 'increment',
+  body: `function increment(){ this.count++ }`,
+  store: storeRef(counterStore.id),
+  id: v4(),
 })
 
-const interfaceType = new InterfaceType({
-  name: '',
-  _fields: new ObjectMap({
-    items: {
-      [v4()]: new Field({
-        key: 'count',
-        name: 'Count',
-        type: typeRef(integerType.id),
-      }),
-    },
-  }),
-  typeKind: TypeKind.InterfaceType,
+const decrementAction = new Action({
+  name: 'decrement',
+  body: `function decrement(){ this.count-- }`,
+  store: storeRef(counterStore.id),
+  id: v4(),
 })
 
-const counterActions: Array<Action> = [
-  new Action({
-    name: 'increment',
-    body: `function increment(){ this.count++ }`,
-    store: storeRef(counterStore.id),
-    id: counterStore.stateId,
-  }),
-  new Action({
-    name: 'decrement',
-    body: `function decrement(){ this.count-- }`,
-    store: storeRef(counterStore.id),
-    id: counterStore.stateId,
-  }),
-]
+counterStore.setActions([incrementAction, decrementAction].map(actionRef))
 
-const createCounter = (state: InterfaceType, actions: Array<Action>) => {
-  const payload = {
-    ...state.fields.reduce(
-      (all, x) => ({ ...all, [x.key]: initialState[x.key] }),
-      {},
-    ),
-    ...actions.reduce(
-      (all, x) => ({ ...all, [x.name]: eval(`(${x.body})`) }),
-      {},
-    ),
-  }
-
-  const d = makeAutoObservable(payload)
-  console.log(d)
-
-  return d
-}
+demoStore.actionService.addAction(incrementAction)
+demoStore.actionService.addAction(decrementAction)
+demoStore.storeService.addStore(counterStore)
 
 demoStore.renderService.init(
   demoStore.elementService.elementTree,
   undefined,
-  createCounter(interfaceType, counterActions),
+  counterStore.toMobxObservable(),
 )
 
 export const DemoRendererMobx = observer(() => {

@@ -19,7 +19,7 @@ export const makeStoreCreateInput = (
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     name: `${capitalize(name)} State`,
     owner: {
-      connect: [{ where: { node: { id: ownerId } } }],
+      connect: [{ where: { node: { auth0Id: ownerId } } }],
     },
   }
 

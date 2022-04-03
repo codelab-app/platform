@@ -329,6 +329,9 @@ export type App = {
   rootProviderElement: Element
   rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>
   rootProviderElementConnection: AppRootProviderElementConnection
+  store?: Maybe<Store>
+  storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
+  storeConnection: AppStoreConnection
 }
 
 export type AppOwnerArgs = {
@@ -388,6 +391,25 @@ export type AppRootProviderElementConnectionArgs = {
   where?: InputMaybe<AppRootProviderElementConnectionWhere>
 }
 
+export type AppStoreArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<StoreOptions>
+  where?: InputMaybe<StoreWhere>
+}
+
+export type AppStoreAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<StoreWhere>
+}
+
+export type AppStoreConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AppStoreConnectionSort>>
+  where?: InputMaybe<AppStoreConnectionWhere>
+}
+
 export type AppAggregateSelection = {
   __typename?: 'AppAggregateSelection'
   count: Scalars['Int']
@@ -399,12 +421,14 @@ export type AppConnectInput = {
   owner?: InputMaybe<Array<AppOwnerConnectFieldInput>>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>
+  store?: InputMaybe<AppStoreConnectFieldInput>
 }
 
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
+  store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
 
 export type AppConnectOrCreateWhere = {
@@ -420,18 +444,21 @@ export type AppCreateInput = {
   owner?: InputMaybe<AppOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementFieldInput>
+  store?: InputMaybe<AppStoreFieldInput>
 }
 
 export type AppDeleteInput = {
   owner?: InputMaybe<Array<AppOwnerDeleteFieldInput>>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>
+  store?: InputMaybe<AppStoreDeleteFieldInput>
 }
 
 export type AppDisconnectInput = {
   owner?: InputMaybe<Array<AppOwnerDisconnectFieldInput>>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>
+  store?: InputMaybe<AppStoreDisconnectFieldInput>
 }
 
 export type AppElementRootProviderElementAggregationSelection = {
@@ -715,6 +742,7 @@ export type AppRelationInput = {
   owner?: InputMaybe<Array<AppOwnerCreateFieldInput>>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>
+  store?: InputMaybe<AppStoreCreateFieldInput>
 }
 
 export type AppRootProviderElementAggregateInput = {
@@ -910,6 +938,148 @@ export type AppRootProviderElementUpdateFieldInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+}
+
+export type AppStoreAggregateInput = {
+  AND?: InputMaybe<Array<AppStoreAggregateInput>>
+  OR?: InputMaybe<Array<AppStoreAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AppStoreNodeAggregationWhereInput>
+}
+
+export type AppStoreConnectFieldInput = {
+  connect?: InputMaybe<StoreConnectInput>
+  where?: InputMaybe<StoreConnectWhere>
+}
+
+export type AppStoreConnectOrCreateFieldInput = {
+  onCreate: AppStoreConnectOrCreateFieldInputOnCreate
+  where: StoreConnectOrCreateWhere
+}
+
+export type AppStoreConnectOrCreateFieldInputOnCreate = {
+  node: StoreOnCreateInput
+}
+
+export type AppStoreConnection = {
+  __typename?: 'AppStoreConnection'
+  edges: Array<AppStoreRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AppStoreConnectionSort = {
+  node?: InputMaybe<StoreSort>
+}
+
+export type AppStoreConnectionWhere = {
+  AND?: InputMaybe<Array<AppStoreConnectionWhere>>
+  OR?: InputMaybe<Array<AppStoreConnectionWhere>>
+  node?: InputMaybe<StoreWhere>
+  node_NOT?: InputMaybe<StoreWhere>
+}
+
+export type AppStoreCreateFieldInput = {
+  node: StoreCreateInput
+}
+
+export type AppStoreDeleteFieldInput = {
+  delete?: InputMaybe<StoreDeleteInput>
+  where?: InputMaybe<AppStoreConnectionWhere>
+}
+
+export type AppStoreDisconnectFieldInput = {
+  disconnect?: InputMaybe<StoreDisconnectInput>
+  where?: InputMaybe<AppStoreConnectionWhere>
+}
+
+export type AppStoreFieldInput = {
+  connect?: InputMaybe<AppStoreConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
+  create?: InputMaybe<AppStoreCreateFieldInput>
+}
+
+export type AppStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  initialState_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  initialState_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  initialState_EQUAL?: InputMaybe<Scalars['String']>
+  initialState_GT?: InputMaybe<Scalars['Int']>
+  initialState_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  initialState_LT?: InputMaybe<Scalars['Int']>
+  initialState_LTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  initialState_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AppStoreRelationship = {
+  __typename?: 'AppStoreRelationship'
+  cursor: Scalars['String']
+  node: Store
+}
+
+export type AppStoreStoreAggregationSelection = {
+  __typename?: 'AppStoreStoreAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AppStoreStoreNodeAggregateSelection>
+}
+
+export type AppStoreStoreNodeAggregateSelection = {
+  __typename?: 'AppStoreStoreNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  initialState: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type AppStoreUpdateConnectionInput = {
+  node?: InputMaybe<StoreUpdateInput>
+}
+
+export type AppStoreUpdateFieldInput = {
+  connect?: InputMaybe<AppStoreConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
+  create?: InputMaybe<AppStoreCreateFieldInput>
+  delete?: InputMaybe<AppStoreDeleteFieldInput>
+  disconnect?: InputMaybe<AppStoreDisconnectFieldInput>
+  update?: InputMaybe<AppStoreUpdateConnectionInput>
+  where?: InputMaybe<AppStoreConnectionWhere>
 }
 
 /** Allows picking a app from the list of apps */
@@ -1112,6 +1282,7 @@ export type AppUpdateInput = {
   owner?: InputMaybe<Array<AppOwnerUpdateFieldInput>>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
   rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>
+  store?: InputMaybe<AppStoreUpdateFieldInput>
 }
 
 export type AppUserOwnerAggregationSelection = {
@@ -1181,6 +1352,11 @@ export type AppWhere = {
   rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>
   rootProviderElementConnection_NOT?: InputMaybe<AppRootProviderElementConnectionWhere>
   rootProviderElement_NOT?: InputMaybe<ElementWhere>
+  store?: InputMaybe<StoreWhere>
+  storeAggregate?: InputMaybe<AppStoreAggregateInput>
+  storeConnection?: InputMaybe<AppStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
 }
 
 /**

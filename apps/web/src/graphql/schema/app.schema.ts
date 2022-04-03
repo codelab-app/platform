@@ -7,6 +7,7 @@ export const appSchema = gql`
     name: String!
     pages: [Page!]! @relationship(type: "PAGES", direction: IN)
     rootProviderElement: Element! @relationship(type: "ROOT", direction: IN)
+    store: Store @relationship(type: "STORE_OF_APP", direction: IN)
   }
 
   # extend type App

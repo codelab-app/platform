@@ -1917,9 +1917,12 @@ export type App = {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>;
   rootProviderElement: Element;
   rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>;
+  store?: Maybe<Store>;
+  storeAggregate?: Maybe<AppStoreStoreAggregationSelection>;
   ownerConnection: AppOwnerConnection;
   pagesConnection: AppPagesConnection;
   rootProviderElementConnection: AppRootProviderElementConnection;
+  storeConnection: AppStoreConnection;
 };
 
 export type AppOwnerArgs = {
@@ -1955,6 +1958,17 @@ export type AppRootProviderElementAggregateArgs = {
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
+export type AppStoreArgs = {
+  where?: InputMaybe<StoreWhere>;
+  options?: InputMaybe<StoreOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type AppStoreAggregateArgs = {
+  where?: InputMaybe<StoreWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
 export type AppOwnerConnectionArgs = {
   where?: InputMaybe<AppOwnerConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
@@ -1977,6 +1991,14 @@ export type AppRootProviderElementConnectionArgs = {
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
   sort?: InputMaybe<Array<AppRootProviderElementConnectionSort>>;
+};
+
+export type AppStoreConnectionArgs = {
+  where?: InputMaybe<AppStoreConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<AppStoreConnectionSort>>;
 };
 
 export type AppAggregateSelection = {
@@ -2051,6 +2073,32 @@ export type AppRootProviderElementRelationship = {
   __typename?: "AppRootProviderElementRelationship";
   cursor: Scalars["String"];
   node: Element;
+};
+
+export type AppStoreConnection = {
+  __typename?: "AppStoreConnection";
+  edges: Array<AppStoreRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type AppStoreRelationship = {
+  __typename?: "AppStoreRelationship";
+  cursor: Scalars["String"];
+  node: Store;
+};
+
+export type AppStoreStoreAggregationSelection = {
+  __typename?: "AppStoreStoreAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<AppStoreStoreNodeAggregateSelection>;
+};
+
+export type AppStoreStoreNodeAggregateSelection = {
+  __typename?: "AppStoreStoreNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  initialState: StringAggregateSelectionNonNullable;
 };
 
 /** Allows picking a app from the list of apps */
@@ -5605,12 +5653,14 @@ export type AppConnectInput = {
   owner?: InputMaybe<Array<AppOwnerConnectFieldInput>>;
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>;
+  store?: InputMaybe<AppStoreConnectFieldInput>;
 };
 
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>;
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>;
+  store?: InputMaybe<AppStoreConnectOrCreateFieldInput>;
 };
 
 export type AppConnectOrCreateWhere = {
@@ -5626,18 +5676,21 @@ export type AppCreateInput = {
   owner?: InputMaybe<AppOwnerFieldInput>;
   pages?: InputMaybe<AppPagesFieldInput>;
   rootProviderElement?: InputMaybe<AppRootProviderElementFieldInput>;
+  store?: InputMaybe<AppStoreFieldInput>;
 };
 
 export type AppDeleteInput = {
   owner?: InputMaybe<Array<AppOwnerDeleteFieldInput>>;
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>;
+  store?: InputMaybe<AppStoreDeleteFieldInput>;
 };
 
 export type AppDisconnectInput = {
   owner?: InputMaybe<Array<AppOwnerDisconnectFieldInput>>;
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>;
+  store?: InputMaybe<AppStoreDisconnectFieldInput>;
 };
 
 export type AppOnCreateInput = {
@@ -5867,6 +5920,7 @@ export type AppRelationInput = {
   owner?: InputMaybe<Array<AppOwnerCreateFieldInput>>;
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>;
+  store?: InputMaybe<AppStoreCreateFieldInput>;
 };
 
 export type AppRootProviderElementAggregateInput = {
@@ -6051,6 +6105,122 @@ export type AppSort = {
   name?: InputMaybe<SortDirection>;
 };
 
+export type AppStoreAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<AppStoreAggregateInput>>;
+  OR?: InputMaybe<Array<AppStoreAggregateInput>>;
+  node?: InputMaybe<AppStoreNodeAggregationWhereInput>;
+};
+
+export type AppStoreConnectFieldInput = {
+  where?: InputMaybe<StoreConnectWhere>;
+  connect?: InputMaybe<StoreConnectInput>;
+};
+
+export type AppStoreConnectionSort = {
+  node?: InputMaybe<StoreSort>;
+};
+
+export type AppStoreConnectionWhere = {
+  AND?: InputMaybe<Array<AppStoreConnectionWhere>>;
+  OR?: InputMaybe<Array<AppStoreConnectionWhere>>;
+  node?: InputMaybe<StoreWhere>;
+  node_NOT?: InputMaybe<StoreWhere>;
+};
+
+export type AppStoreConnectOrCreateFieldInput = {
+  where: StoreConnectOrCreateWhere;
+  onCreate: AppStoreConnectOrCreateFieldInputOnCreate;
+};
+
+export type AppStoreConnectOrCreateFieldInputOnCreate = {
+  node: StoreOnCreateInput;
+};
+
+export type AppStoreCreateFieldInput = {
+  node: StoreCreateInput;
+};
+
+export type AppStoreDeleteFieldInput = {
+  where?: InputMaybe<AppStoreConnectionWhere>;
+  delete?: InputMaybe<StoreDeleteInput>;
+};
+
+export type AppStoreDisconnectFieldInput = {
+  where?: InputMaybe<AppStoreConnectionWhere>;
+  disconnect?: InputMaybe<StoreDisconnectInput>;
+};
+
+export type AppStoreFieldInput = {
+  create?: InputMaybe<AppStoreCreateFieldInput>;
+  connect?: InputMaybe<AppStoreConnectFieldInput>;
+  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>;
+};
+
+export type AppStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  initialState_EQUAL?: InputMaybe<Scalars["String"]>;
+  initialState_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  initialState_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  initialState_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  initialState_GT?: InputMaybe<Scalars["Int"]>;
+  initialState_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  initialState_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  initialState_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  initialState_GTE?: InputMaybe<Scalars["Int"]>;
+  initialState_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  initialState_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  initialState_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  initialState_LT?: InputMaybe<Scalars["Int"]>;
+  initialState_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  initialState_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  initialState_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  initialState_LTE?: InputMaybe<Scalars["Int"]>;
+  initialState_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  initialState_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  initialState_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type AppStoreUpdateConnectionInput = {
+  node?: InputMaybe<StoreUpdateInput>;
+};
+
+export type AppStoreUpdateFieldInput = {
+  where?: InputMaybe<AppStoreConnectionWhere>;
+  update?: InputMaybe<AppStoreUpdateConnectionInput>;
+  connect?: InputMaybe<AppStoreConnectFieldInput>;
+  disconnect?: InputMaybe<AppStoreDisconnectFieldInput>;
+  create?: InputMaybe<AppStoreCreateFieldInput>;
+  delete?: InputMaybe<AppStoreDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>;
+};
+
 export type AppTypeConnectInput = {
   owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>;
 };
@@ -6202,6 +6372,7 @@ export type AppUpdateInput = {
   owner?: InputMaybe<Array<AppOwnerUpdateFieldInput>>;
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>;
+  store?: InputMaybe<AppStoreUpdateFieldInput>;
 };
 
 export type AppWhere = {
@@ -6252,6 +6423,9 @@ export type AppWhere = {
   rootProviderElement?: InputMaybe<ElementWhere>;
   rootProviderElement_NOT?: InputMaybe<ElementWhere>;
   rootProviderElementAggregate?: InputMaybe<AppRootProviderElementAggregateInput>;
+  store?: InputMaybe<StoreWhere>;
+  store_NOT?: InputMaybe<StoreWhere>;
+  storeAggregate?: InputMaybe<AppStoreAggregateInput>;
   ownerConnection?: InputMaybe<AppOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<AppOwnerConnectionWhere>;
   ownerConnection_ALL?: InputMaybe<AppOwnerConnectionWhere>;
@@ -6266,6 +6440,8 @@ export type AppWhere = {
   pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>;
   rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>;
   rootProviderElementConnection_NOT?: InputMaybe<AppRootProviderElementConnectionWhere>;
+  storeConnection?: InputMaybe<AppStoreConnectionWhere>;
+  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>;
 };
 
 export type ArrayTypeConnectInput = {

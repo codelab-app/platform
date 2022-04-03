@@ -1,16 +1,39 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import {
+  InterfaceTypeFragment,
+  InterfaceTypeFieldEdgeFragment,
+} from '../../../type/src/graphql/fragments/Interface.fragment.v2.1.graphql.gen'
+import {
+  TypeBase_AppType_Fragment,
+  TypeBase_ArrayType_Fragment,
+  TypeBase_ElementType_Fragment,
+  TypeBase_EnumType_Fragment,
+  TypeBase_InterfaceType_Fragment,
+  TypeBase_LambdaType_Fragment,
+  TypeBase_MonacoType_Fragment,
+  TypeBase_PageType_Fragment,
+  TypeBase_PrimitiveType_Fragment,
+  TypeBase_ReactNodeType_Fragment,
+  TypeBase_RenderPropsType_Fragment,
+  TypeBase_UnionType_Fragment,
+} from '../../../type/src/graphql/fragments/TypeBase.fragment.v2.1.graphql.gen'
 import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import {
+  InterfaceTypeFragmentDoc,
+  InterfaceTypeFieldEdgeFragmentDoc,
+} from '../../../type/src/graphql/fragments/Interface.fragment.v2.1.graphql.gen'
+import { TypeBaseFragmentDoc } from '../../../type/src/graphql/fragments/TypeBase.fragment.v2.1.graphql.gen'
 import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type StoreFragment = {
   __typename: 'Store'
   id: string
   name: string
   initialState: string
-  state: { id: string; name: string }
+  state: InterfaceTypeFragment
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null | undefined
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
@@ -40,8 +63,7 @@ export const StoreFragmentDoc = gql`
     id
     name
     state {
-      id
-      name
+      ...InterfaceType
     }
     initialState
     actions {

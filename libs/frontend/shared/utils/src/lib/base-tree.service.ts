@@ -1,4 +1,4 @@
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import { idProp, Model, modelAction, ObjectMap, prop, Ref } from 'mobx-keystone'
@@ -25,7 +25,7 @@ export abstract class BaseModel<M extends object, Edge> extends Model(
 
   abstract hasParent(): boolean
 
-  abstract getParent(): Maybe<M>
+  abstract getParent(): Nullable<M>
 
   abstract addChild(child: M): void
 

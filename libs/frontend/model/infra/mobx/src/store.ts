@@ -12,7 +12,11 @@ import {
 } from '@codelab/frontend/modules/component'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
-import { ActionService, StoreService } from '@codelab/frontend/modules/store'
+import {
+  ActionService,
+  actionServiceContext,
+  StoreService,
+} from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import {
@@ -53,6 +57,7 @@ export class RootStore extends Model({
     atomServiceContext.set(this, this.atomService)
     componentServiceContext.set(this, this.componentService)
     renderServiceContext.set(this, this.renderService)
+    actionServiceContext.set(this, this.actionService)
   }
 }
 
