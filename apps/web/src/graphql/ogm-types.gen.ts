@@ -134,6 +134,10 @@ export type QueryElementGraphArgs = {
   input: ElementGraphInput;
 };
 
+export type QueryStoresGraphsArgs = {
+  input?: InputMaybe<GetStoresGraphsInput>;
+};
+
 export type QueryResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>;
   options?: InputMaybe<ResetDatabaseMutationResponseOptions>;
@@ -9663,6 +9667,10 @@ export type FieldWhere = {
   description_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   description_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   description_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+};
+
+export type GetStoresGraphsInput = {
+  rootId?: InputMaybe<Scalars["String"]>;
 };
 
 export type HookConfigAggregateInput = {

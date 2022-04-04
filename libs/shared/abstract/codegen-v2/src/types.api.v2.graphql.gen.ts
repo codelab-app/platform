@@ -6044,6 +6044,10 @@ export type FieldWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
+export type GetStoresGraphsInput = {
+  rootId?: InputMaybe<Scalars['String']>
+}
+
 export type Hook = {
   __typename?: 'Hook'
   config: Prop
@@ -10164,6 +10168,10 @@ export type QueryStoresArgs = {
 
 export type QueryStoresAggregateArgs = {
   where?: InputMaybe<StoreWhere>
+}
+
+export type QueryStoresGraphsArgs = {
+  input?: InputMaybe<GetStoresGraphsInput>
 }
 
 export type QueryTagGraphOptionsArgs = {

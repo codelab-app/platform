@@ -22,12 +22,12 @@ export const GetActionsTable = observer<GetActionsTableProps>(
         getActions(storeId)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [storeId])
 
     return (
       <Table
         columns={columns}
-        dataSource={actionService.actionsList}
+        dataSource={actionService.actionsList(storeId)}
         pagination={pagination}
         rowKey={(action) => action.id}
         rowSelection={rowSelection}

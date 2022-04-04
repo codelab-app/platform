@@ -5838,6 +5838,10 @@ input FieldWhere {
   name_STARTS_WITH: String
 }
 
+input GetStoresGraphsInput {
+  rootId: String
+}
+
 type Hook {
   config(
     directed: Boolean = true
@@ -9408,7 +9412,7 @@ type Query {
   storeEdgesAggregate(where: StoreEdgeWhere): StoreEdgeAggregateSelection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
-  storesGraphs: StoreGraph!
+  storesGraphs(input: GetStoresGraphsInput): StoreGraph!
   tagGraphOptions(
     options: TagGraphOptionsOptions
     where: TagGraphOptionsWhere

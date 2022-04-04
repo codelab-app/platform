@@ -44,8 +44,12 @@ export const storeSchema = gql`
     edges: [StoreEdge!]!
   }
 
+  input GetStoresGraphsInput {
+    rootId: String
+  }
+
   type Query {
-    storesGraphs: StoreGraph!
+    storesGraphs(input: GetStoresGraphsInput): StoreGraph!
   }
 
   type DeleteInfo @exclude {

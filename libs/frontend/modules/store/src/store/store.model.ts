@@ -85,7 +85,13 @@ export class Store extends ExtendedModel(() => ({
       }))
       .reduce(merge, {})
 
-    return makeAutoObservable(merge(storeState, storeActions))
+    const childStores: any = this.children
+      .map((x) => ({
+        [x.current.storeKey as string]: x.current.toMobxObservable(),
+      }))
+      .reduce(merge, {})
+
+    return makeAutoObservable(merge({}, storeState, storeActions, childStores))
   }
 
   static fromFragment(store: StoreFragment): Store {

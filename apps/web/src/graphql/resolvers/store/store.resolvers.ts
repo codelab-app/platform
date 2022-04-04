@@ -4,7 +4,7 @@ import { Store } from '../../model'
 import {
   DeleteInfo,
   MutationDeleteStoresArgs,
-  StoreGraph,
+  QueryStoreGraphsArgs,
 } from '../../ogm-types.gen'
 import { storeRepository } from '../../repositories'
 import { storeSelectionSet } from '../../selectionSets'
@@ -31,15 +31,16 @@ export const deleteStoresSubgraph: IRxTxnResolver<
   )
 }
 
-export const storesGraphs: IRxTxnResolver<void, StoreGraph> = () => (txn) =>
-  storeRepository.getStoresGraphsEdges(txn).pipe(
-    mergeMap(({ edges }) => {
-      const $vertices = from(
-        Store().then((StoreModel) =>
-          StoreModel.find({ selectionSet: storeSelectionSet }),
-        ),
-      )
+export const storesGraphs: IRxTxnResolver<QueryStoreGraphsArgs, DeleteInfo> =
+  (parent, args, context, info) => (txn) =>
+    storeRepository.getStoresGraphsEdges(txn, args).pipe(
+      mergeMap(({ edges }) => {
+        const $vertices = from(
+          Store().then((StoreModel) =>
+            StoreModel.find({ selectionSet: storeSelectionSet }),
+          ),
+        )
 
-      return $vertices.pipe(mergeMap((vertices) => of({ edges, vertices })))
-    }),
-  )
+        return $vertices.pipe(mergeMap((vertices) => of({ edges, vertices })))
+      }),
+    )

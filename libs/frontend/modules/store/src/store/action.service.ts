@@ -1,7 +1,6 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ActionWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -33,9 +32,10 @@ export class ActionService extends Model({
   deleteModal: prop(() => new ActionModalService({})),
   selectedActions: prop(() => Array<Ref<Action>>()).withSetter(),
 }) {
-  @computed
-  get actionsList() {
-    return [...this.actions.values()]
+  actionsList(storeId: Nullish<string>) {
+    const actions = [...this.actions.values()]
+
+    return storeId ? actions.filter((x) => x.storeId === storeId) : actions
   }
 
   action(id: string) {

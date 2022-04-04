@@ -23,8 +23,8 @@ query GetStores($where: StoreWhere, $options: StoreOptions) {
   }
 }
 
-query GetStoresGraphs {
-  storesGraphs {
+query GetStoresGraphs($input: GetStoresGraphsInput) {
+  storesGraphs(input: $input) {
     ...StoreGraph
   }
 }

@@ -1,4 +1,5 @@
 import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
+import { GetStoresGraphsInput } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -36,13 +37,16 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  getTree = _async(function* (this: StoreService) {
-    const { storesGraphs } = yield* _await(storeApi.GetStoresGraphs({}))
+  getTree = _async(function* (
+    this: StoreService,
+    input?: GetStoresGraphsInput,
+  ) {
+    const { storesGraphs } = yield* _await(storeApi.GetStoresGraphs({ input }))
+    const states = storesGraphs.vertices.map((x) => x.state)
+    const actions = storesGraphs.vertices.flatMap((x) => x.actions)
 
-    for (const store of storesGraphs.vertices) {
-      this.ensureStateInterfaceAdded(store.state)
-      this.ensureAllActionsAdded(store.actions)
-    }
+    yield* _await(this.ensureAllStateInterfacesAdded(states))
+    this.ensureAllActionsAdded(actions)
 
     this.storesTree.updateFromFragment(storesGraphs)
 
@@ -93,8 +97,15 @@ export class StoreService extends Model({
   })
 
   @modelAction
-  ensureStateInterfaceAdded(state: StoreFragment['state']) {
-    getTypeServiceFromContext(this).getOne(state.id)
+  async ensureStateInterfaceAdded(state: StoreFragment['state']) {
+    // loading state interface within store fragment is hard so we load it separately
+    return await getTypeServiceFromContext(this).getOne(state.id)
+  }
+
+  @modelAction
+  async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
+    // loading state interface within store fragment is hard so we load it separately
+    return await getTypeServiceFromContext(this).getAll(state.map((x) => x.id))
   }
 
   @modelAction
@@ -117,7 +128,8 @@ export class StoreService extends Model({
       throw new Error('Store not found')
     }
 
-    this.ensureStateInterfaceAdded(store.state)
+    yield* _await(this.ensureStateInterfaceAdded(store.state))
+
     this.ensureAllActionsAdded(store.actions)
 
     this.storesTree.addNode(Store.fromFragment(store))

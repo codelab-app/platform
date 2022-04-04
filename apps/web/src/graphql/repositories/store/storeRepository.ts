@@ -1,3 +1,4 @@
+import { GetStoresGraphsInput } from '@codelab/shared/abstract/codegen-v2'
 import { DeleteInfo } from '@neo4j/graphql'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs/internal/Observable'
@@ -19,9 +20,10 @@ export type DeleteStoresResponse = {
 export const storeRepository = {
   getStoresGraphsEdges: (
     txn: RxTransaction,
+    input: GetStoresGraphsInput,
   ): Observable<GetStoresGraphsResponse> =>
     txn
-      .run(getStoresGraphsCypher)
+      .run(getStoresGraphsCypher, { rootId: input.rootId || null })
       .records()
       .pipe(
         map((response) => ({

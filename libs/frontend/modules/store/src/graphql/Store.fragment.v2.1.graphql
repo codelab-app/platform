@@ -8,8 +8,7 @@ fragment Store on Store {
   }
   initialState
   actions {
-    id
-    name
+    ...Action
   }
   parentStore {
     id
