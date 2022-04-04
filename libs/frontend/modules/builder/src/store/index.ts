@@ -1,2 +1,1 @@
-export * from './builderState'
-export * from './types/react-redux'
+export { BuilderService } from './BuilderService'

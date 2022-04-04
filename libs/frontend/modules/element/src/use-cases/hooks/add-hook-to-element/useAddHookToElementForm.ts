@@ -9,8 +9,6 @@ import {
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useEffect } from 'react'
-import { useCreateHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
-import { useHookDispatch, useHookState } from '../../../hooks'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
 type UseAddHookToElementForm = (
@@ -25,8 +23,8 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   typeStore,
   atomStore,
 ) => {
-  const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
-  const { selectedType, actionType } = useHookState()
+  // const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
+  // const { selectedType, actionType } = useHookState()
   const [getAtoms] = useLoadingState(() => atomStore.getAll())
 
   useEffect(() => {
@@ -40,14 +38,14 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     useLoadingState((where: InterfaceTypeWhere) =>
       typeStore.getInterfaceAndDescendants(where),
     )
-
-  const [mutate, { isLoading }] = useCreateHooksMutation({
-    selectFromResult: (r) => ({
-      hook: r.data?.createHooks,
-      isLoading: r.isLoading,
-      error: r.error,
-    }),
-  })
+  //
+  // const [mutate, { isLoading }] = useCreateHooksMutation({
+  //   selectFromResult: (r) => ({
+  //     hook: r.data?.createHooks,
+  //     isLoading: r.isLoading,
+  //     error: r.error,
+  //   }),
+  // })
 
   const mapFormDataToMutationInput = (
     submitData: AddHookToElementMutationInput,
@@ -68,41 +66,46 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
 
     const { type, config } = input
 
-    return mutate({
-      variables: {
-        input: {
-          element: { connect: { where: { node: { id: input.elementId } } } },
-          config: { create: { node: { data: config } } },
-          type,
-        },
-      },
-    }).unwrap()
+    // return mutate({
+    //   variables: {
+    //     input: {
+    //       element: { connect: { where: { node: { id: input.elementId } } } },
+    //       config: { create: { node: { data: config } } },
+    //       type,
+    //     },
+    //   },
+    // }).unwrap()
+    return Promise.reject('Not implemented')
   }
 
-  const reset = () => {
-    resetModal()
-    resetSelectedType()
-  }
+  // const reset = () => {
+  //   resetModal()
+  //   resetSelectedType()
+  // }
 
   return {
     onChange: (key: string, value: any) => {
-      if (key === 'typeId') {
-        setSelectedType({ selectedType: value })
-        fetchInterface({ apiOfAtoms_SOME: { id: value } })
-      }
+      // if (key === 'typeId') {
+      //   setSelectedType({ selectedType: value })
+      //   fetchInterface({ apiOfAtoms_SOME: { id: value } })
+      // }
     },
     interfaceType,
-    reset,
+    reset: () => {
+      //
+    },
     onSubmit,
-    onSubmitSuccess: [() => resetModal()],
+    onSubmitSuccess: () => {
+      //
+    }, // [() => resetModal()],
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while creating hook',
       }),
     ],
-    model: { typeId: selectedType },
-    actionType,
-    isLoading,
+    model: {}, // { typeId: selectedType },
+    actionType: CRUDActionType.Create,
+    isLoading: false,
     interfaceLoading,
   }
 }

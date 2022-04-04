@@ -1,25 +1,26 @@
-import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
+import { WithAtomService } from '@codelab/frontend/modules/atom'
 import {
+  Element,
   ElementCssEditor,
   ElementHookSection,
   PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
+  WithElementService,
 } from '@codelab/frontend/modules/element'
-import { TypeService, WithTypeService } from '@codelab/frontend/modules/type'
+import { WithTypeService } from '@codelab/frontend/modules/type'
 import {
   LoadingIndicator,
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
-import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { useBuilderSelectedElement, usePropCompletion } from '../../hooks'
+import { usePropCompletion } from '../../hooks'
+import { WithBuilderService } from '../../store/BuilderService'
 import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
@@ -64,36 +65,30 @@ const TabContainer = styled.div`
 
 export type MetaPaneBuilderProps = {
   renderUpdateElementContent: (
-    element: IElement,
+    element: Element,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
-  tree: ElementTree
 } & WithTypeService &
-  WithAtomService
+  WithAtomService &
+  WithBuilderService &
+  WithElementService
 
-/**
- *  the props form,
- * a component will have an interface.
- * The process to transform an interface (typeGraph) into a form is fetching the typeGraph of an interface,
- * transforming it to TypeTree using useTypeTree,
- * and passing the tree to the InterfaceForm
- */
 export const MetaPaneBuilder = observer(
   ({
     renderUpdateElementContent,
-    tree,
+    builderService,
     typeService,
     atomService,
+    elementService,
   }: MetaPaneBuilderProps) => {
-    const { selectedElement } = useBuilderSelectedElement()
-    const { providePropCompletion } = usePropCompletion()
+    const selectedElement = builderService.selectedElement?.maybeCurrent
+    const { providePropCompletion } = usePropCompletion(builderService)
     const trackPromises = useTrackLoadingPromises()
 
     if (!selectedElement) {
       return null
     }
 
-    // Transform it, because we have the node in the state
     return (
       <TabContainer>
         <div css={tw`absolute bottom-0 right-0 m-8`}>
@@ -122,7 +117,8 @@ export const MetaPaneBuilder = observer(
           >
             {selectedElement.atom ? (
               <UpdateElementPropsForm
-                elementId={selectedElement.id}
+                element={selectedElement}
+                elementService={elementService}
                 key={selectedElement.id}
                 trackPromises={trackPromises}
                 typeService={typeService}
@@ -139,7 +135,8 @@ export const MetaPaneBuilder = observer(
           >
             {selectedElement.atom ? (
               <ElementCssEditor
-                elementId={selectedElement.id}
+                element={selectedElement}
+                elementService={elementService}
                 key={selectedElement.id}
                 trackPromises={trackPromises}
               />
@@ -167,7 +164,9 @@ export const MetaPaneBuilder = observer(
             tab="Props Inspector"
           >
             <PropsInspectorTab
-              elementId={selectedElement.id}
+              builderService={builderService}
+              element={selectedElement}
+              elementService={elementService}
               key={selectedElement.id}
             />
           </Tabs.TabPane>
@@ -178,14 +177,14 @@ export const MetaPaneBuilder = observer(
             tab="Prop mapping"
           >
             <PropMapBindingSection
-              elementId={selectedElement.id}
+              element={selectedElement}
+              elementService={elementService}
               key={selectedElement.id}
               providePropCompletion={(searchValue) =>
                 selectedElement
                   ? providePropCompletion(searchValue, selectedElement.id)
                   : []
               }
-              tree={tree}
             />
           </Tabs.TabPane>
 
@@ -195,10 +194,10 @@ export const MetaPaneBuilder = observer(
             tab="Prop transformation"
           >
             <UpdateElementPropTransformationForm
-              elementId={selectedElement.id}
+              element={selectedElement}
+              elementService={elementService}
               key={selectedElement.id}
               trackPromises={trackPromises}
-              tree={tree}
             />
           </Tabs.TabPane>
         </Tabs>

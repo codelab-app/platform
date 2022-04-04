@@ -2714,14 +2714,6 @@ type DeleteInfo {
   relationshipsDeleted: Int!
 }
 
-input DuplicateElementInput {
-  elementId: String!
-}
-
-type DuplicateElementMutationResponse {
-  elements: [Element!]!
-}
-
 """
 Simplest implementation of an IEdge with no additional fields
 """
@@ -6975,9 +6967,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  duplicateElement(
-    input: DuplicateElementInput!
-  ): DuplicateElementMutationResponse!
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse

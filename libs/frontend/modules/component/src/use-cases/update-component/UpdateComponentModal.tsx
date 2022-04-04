@@ -1,38 +1,53 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useComponentState } from '../../hooks'
+import { WithComponentService } from '../../store'
 import { updateComponentSchema } from './createComponentSchema'
 import { UpdateComponentInput } from './types'
-import { useUpdateComponentForm } from './useUpdateComponentForm'
 
-export const UpdateComponentModal = () => {
-  const { actionType } = useComponentState()
+export type UpdateComponentModalProps = WithComponentService
 
-  const { isLoading, onSubmit, onSubmitSuccess, onSubmitError, reset, model } =
-    useUpdateComponentForm()
+export const UpdateComponentModal = observer<UpdateComponentModalProps>(
+  ({ componentService }) => {
+    const updatedComponent = componentService.updateModal.component
 
-  return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
-      okText="Update Component"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Update component</span>}
-      visible={actionType === CRUDActionType.Update}
-    >
-      {({ submitRef }) => (
-        <Form<UpdateComponentInput>
+    if (!updatedComponent) {
+      return null
+    }
+
+    const handleSubmit = (input: UpdateComponentInput) => {
+      if (!updatedComponent) {
+        throw new Error('componentStore.updateModal.component is null')
+      }
+
+      return componentService.update(updatedComponent, input)
+    }
+
+    const model = { name: updatedComponent.name }
+    const closeModal = () => componentService.updateModal.close()
+
+    return (
+      <ModalForm.Modal
+        okText="Update Component"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Update component</span>}
+        visible={componentService.updateModal.isOpen}
+      >
+        <ModalForm.Form<UpdateComponentInput>
           model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmit={handleSubmit}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while creating component',
+            type: 'error',
+          })}
+          onSubmitSuccess={closeModal}
           schema={updateComponentSchema}
-          submitRef={submitRef}
         >
           <AutoFields />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

@@ -7,16 +7,22 @@ export const deepReplaceObjectValues = <
   obj: TIn,
   fn: (value: any, key: string, innerObj: Record<string, any>) => any,
 ): TIn => {
-  if (!obj) {
-    return undefined as TIn
-  }
-
-  if (typeof obj !== 'object') {
+  if (!obj || typeof obj !== 'object') {
     return undefined as TIn
   }
 
   if (Array.isArray(obj)) {
     return obj.map((itemValue) => deepReplaceObjectValues(itemValue, fn)) as TIn
+  }
+
+  obj = fn(obj, '', obj)
+
+  if (typeof obj !== 'object' || !obj) {
+    return obj
+  }
+
+  if (Array.isArray(obj)) {
+    return deepReplaceObjectValues(obj, fn)
   }
 
   const newObj: Record<string, any> = {}

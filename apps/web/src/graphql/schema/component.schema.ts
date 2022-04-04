@@ -11,7 +11,7 @@ export const componentSchema = gql`
   extend type Component
     @auth(
       rules: [
-        { operations: [CONNECT, DISCONNECT, READ], roles: ["Admin", "User"] }
+        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
         {
           operations: [READ, CREATE, UPDATE, DELETE]
           where: { owner: { auth0Id: "$jwt.sub" } }

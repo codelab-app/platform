@@ -1,71 +1,107 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { IElement } from '@codelab/frontend/abstract/core'
-import { useElementIdContext } from '@codelab/frontend/presenter/container'
 import { ElementTypeKind } from '@codelab/shared/abstract/core'
-import { ElementTree } from '@codelab/shared/core'
 import { difference } from 'lodash'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useSelectElementContext } from './SelectElementContext'
+
+export interface SelectElementOption {
+  label: string
+  value: string // id
+  childrenIds?: Array<string>
+}
 
 export type SelectElementProps = HTMLFieldProps<string, SelectFieldProps> & {
   kind: ElementTypeKind
+  allElementOptions: Array<SelectElementOption>
+  targetElementId?: string
 }
 
-export const SelectElement = ({ name, kind, ...props }: SelectElementProps) => {
-  const context = useSelectElementContext()
-  const tree = context?.tree
+export const SelectElement = ({
+  targetElementId,
+  allElementOptions,
+  name,
+  kind,
+  ...props
+}: SelectElementProps) => {
+  let elements: Array<SelectElementOption>
 
-  if (!tree) {
-    throw new Error('A SelectElementProvider is needed for SelectElement')
-  }
+  const targetElement = allElementOptions.find(
+    (element) => element.value === targetElementId,
+  )
 
-  let elements: Array<IElement>
-  const elementIdContext = useElementIdContext()
+  const elementMap = allElementOptions.reduce((acc, element) => {
+    acc[element.value] = element
 
-  if (!elementIdContext) {
-    console.warn(
-      'SelectElement needs ElementIdContext, but it was not found. Will display All Elements',
-    )
-    elements = tree.getAllVertices()
+    return acc
+  }, {} as Record<string, SelectElementOption>)
+
+  if (!targetElement) {
+    elements = allElementOptions
   } else {
     switch (kind) {
       case ElementTypeKind.AllElements:
-        elements = tree.getAllVertices(ElementTree.isElement)
+        elements = allElementOptions
         break
-      case ElementTypeKind.ChildrenOnly:
-        elements = tree.getChildren(elementIdContext.elementId)
+
+      case ElementTypeKind.ChildrenOnly: {
+        elements = getElementChildren(targetElement, elementMap)
+
         break
-      case ElementTypeKind.DescendantsOnly:
-        elements = tree.getDescendants(elementIdContext.elementId)
+      }
+
+      case ElementTypeKind.DescendantsOnly: {
+        elements = getDescendants(targetElement, elementMap)
+
         break
+      }
+
       case ElementTypeKind.ExcludeDescendantsElements:
         elements = difference(
-          tree.getAllVertices(ElementTree.isElement),
-          tree.getDescendants(elementIdContext.elementId),
-        ).filter((x) => x.id !== elementIdContext.elementId) // remove the element itself
+          allElementOptions,
+          getDescendants(targetElement, elementMap),
+        ).filter((x) => x.value !== targetElement.value) // remove the element itself
         break
       default:
         elements = []
     }
   }
 
-  const elementOptions = elements.map(({ id, name: elementName, atom }) => ({
-    label: elementName || atom?.type,
-    value: id,
-  }))
+  console.log(elements)
 
   return (
     <SelectField
       name={name}
       optionFilterProp="label"
-      options={elementOptions}
+      options={elements}
       showSearch
       {...(props as any)}
-      disabled={elementOptions.length === 1 || !elementOptions.length}
+      disabled={!elements.length}
     />
   )
+}
+
+const getElementChildren = (
+  el: SelectElementOption,
+  elementMap: Record<string, SelectElementOption>,
+) => el.childrenIds?.map((childId) => elementMap[childId]) || []
+
+const getDescendants = (
+  element: SelectElementOption,
+  elementMap: Record<string, SelectElementOption>,
+) => {
+  const descendants: Array<SelectElementOption> = []
+
+  const _getDescendants = (el: SelectElementOption) => {
+    for (const child of getElementChildren(el, elementMap)) {
+      descendants.push(child)
+      _getDescendants(child)
+    }
+  }
+
+  _getDescendants(element)
+
+  return descendants
 }
 
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (

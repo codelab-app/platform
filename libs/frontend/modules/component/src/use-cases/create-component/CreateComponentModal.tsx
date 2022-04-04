@@ -1,38 +1,45 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { useUser } from '@auth0/nextjs-auth0'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useComponentState } from '../../hooks'
+import { WithComponentService } from '../../store'
 import { createComponentSchema } from './createComponentSchema'
 import { CreateComponentInput } from './types'
-import { useCreateComponentForm } from './useCreateComponentForm'
 
-export const CreateComponentModal = () => {
-  const { actionType } = useComponentState()
+export type CreateComponentModalProps = WithComponentService
 
-  const { isLoading, onSubmit, onSubmitSuccess, onSubmitError, reset } =
-    useCreateComponentForm()
+export const CreateComponentModal = observer<CreateComponentModalProps>(
+  ({ componentService }) => {
+    const { user } = useUser()
 
-  return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
-      okText="Create Component"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Create component</span>}
-      visible={actionType === CRUDActionType.Create}
-    >
-      {({ submitRef }) => (
-        <Form<CreateComponentInput>
+    const handleSubmit = (input: CreateComponentInput) =>
+      componentService.createComponent(input, user?.sub ?? '')
+
+    const closeModal = () => componentService.createModal.close()
+
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while creating component',
+    })
+
+    return (
+      <ModalForm.Modal
+        okText="Create Component"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Create component</span>}
+        visible={componentService.createModal.isOpen}
+      >
+        <ModalForm.Form<CreateComponentInput>
           model={{}}
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmitSuccess={closeModal}
           schema={createComponentSchema}
-          submitRef={submitRef}
         >
           <AutoFields />
-        </Form>
-      )}
-    </FormModal>
-  )
-}
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

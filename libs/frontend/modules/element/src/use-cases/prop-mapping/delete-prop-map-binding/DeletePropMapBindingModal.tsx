@@ -1,42 +1,55 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
+  Form,
+  ModalForm,
+} from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { usePropMapBindingState } from '../../../hooks'
-import { DeletePropMapBindingForm, ElementId } from './DeletePropMapBindingForm'
-import { useDeletePropMapBindingForm } from './useDeletePropMapBindingForm'
+import { AutoFields } from 'uniforms-antd'
+import { WithElementService } from '../../../store'
 
-export const DeletePropMapBindingModal = (props: ElementId) => {
-  const {
-    onSubmit,
-    actionType,
-    onSubmitError,
-    entity,
-    onSubmitSuccess,
-    isLoading,
-    reset,
-  } = useDeletePropMapBindingForm(props.elementId)
+export type DeletePropMapBindingModalProps = WithElementService
 
-  return (
-    <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
-      okText="Delete"
-      onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Delete prop binding</span>}
-      visible={actionType === CRUDActionType.Delete}
-    >
-      {({ submitRef }) => (
-        <DeletePropMapBindingForm
-          entity={entity}
+export const DeletePropMapBindingModal =
+  observer<DeletePropMapBindingModalProps>(({ elementService }) => {
+    const element = elementService.deletePropMapBindingModal.element
+    const pmb = elementService.deletePropMapBindingModal.propMapBinding
+    const closeModal = () => elementService.deletePropMapBindingModal.close()
+
+    return (
+      <ModalForm.Modal
+        okText="Delete"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Delete prop binding</span>}
+        visible={elementService.deletePropMapBindingModal.isOpen}
+      >
+        <Form<EmptyJsonSchemaType>
           model={{}}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          submitRef={submitRef}
-        />
-      )}
-    </FormModal>
-  )
-}
+          onSubmit={() => {
+            if (!element || !pmb) {
+              throw new Error(
+                'DeletePropMapBindingModal: element or pmb is undefined',
+              )
+            }
+
+            return elementService.deletePropMapBinding(element, pmb)
+          }}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while deleting prop map binding',
+            type: 'error',
+          })}
+          onSubmitSuccess={closeModal}
+          schema={emptyJsonSchema}
+        >
+          <h4>
+            Are you sure you want to delete the prop map binding "
+            {pmb?.sourceKey} - {pmb?.targetKey}"?
+          </h4>
+          <AutoFields />
+        </Form>
+      </ModalForm.Modal>
+    )
+  })

@@ -5,40 +5,43 @@ import {
   SidebarNavigationContainer,
 } from '@codelab/frontend/view/templates'
 import { Menu } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { useBuilderTab } from '../../hooks'
-import { BuilderTab } from '../../store'
+import { WithBuilderService } from '../../store/BuilderService'
+import { BuilderTab } from '../../store/BuilderTab'
 
-export const BuilderSidebarNavigation = () => {
-  const { builderTab, setBuilderTab } = useBuilderTab()
+export type BuilderSidebarNavigationProps = WithBuilderService
 
-  return (
-    <div
-      css={tw`flex flex-col justify-between`}
-      style={sidebarNavContainerStyle({ fullHeight: true })}
-    >
-      <SidebarNavigationContainer
-        defaultSelectedKeys={[BuilderTab.Tree]}
-        fullHeight={false}
-        selectedKeys={[builderTab]}
+export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
+  ({ builderService }) => {
+    return (
+      <div
+        css={tw`flex flex-col justify-between`}
+        style={sidebarNavContainerStyle({ fullHeight: true })}
       >
-        <Menu.Item
-          icon={<PartitionOutlined title="Tree" />}
-          key={BuilderTab.Tree}
-          onClick={() => setBuilderTab(BuilderTab.Tree)}
+        <SidebarNavigationContainer
+          defaultSelectedKeys={[BuilderTab.Tree]}
+          fullHeight={false}
+          selectedKeys={[builderService.builderTab]}
         >
-          Tree
-        </Menu.Item>
-        <Menu.Item
-          icon={<AppstoreAddOutlined title="Toolbox" />}
-          key={BuilderTab.Toolbox}
-          onClick={() => setBuilderTab(BuilderTab.Toolbox)}
-        >
-          Toolbox
-        </Menu.Item>
-      </SidebarNavigationContainer>
-      <SidebarNavigation />
-    </div>
-  )
-}
+          <Menu.Item
+            icon={<PartitionOutlined title="Tree" />}
+            key={BuilderTab.Tree}
+            onClick={() => builderService.setBuilderTab(BuilderTab.Tree)}
+          >
+            Tree
+          </Menu.Item>
+          <Menu.Item
+            icon={<AppstoreAddOutlined title="Toolbox" />}
+            key={BuilderTab.Toolbox}
+            onClick={() => builderService.setBuilderTab(BuilderTab.Toolbox)}
+          >
+            Toolbox
+          </Menu.Item>
+        </SidebarNavigationContainer>
+        <SidebarNavigation />
+      </div>
+    )
+  },
+)

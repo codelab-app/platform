@@ -2809,15 +2809,6 @@ export type DeleteInfo = {
   relationshipsDeleted: Scalars['Int']
 }
 
-export type DuplicateElementInput = {
-  elementId: Scalars['String']
-}
-
-export type DuplicateElementMutationResponse = {
-  __typename?: 'DuplicateElementMutationResponse'
-  elements: Array<Element>
-}
-
 /** Simplest implementation of an IEdge with no additional fields */
 export type Edge = IEdge & {
   __typename?: 'Edge'
@@ -7082,7 +7073,6 @@ export type Mutation = {
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
   deleteUsers: DeleteInfo
-  duplicateElement: DuplicateElementMutationResponse
   importAdminData?: Maybe<ImportDataMutationResponse>
   importTypeGraph: TypeGraph
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
@@ -7392,10 +7382,6 @@ export type MutationDeleteUnionTypesArgs = {
 export type MutationDeleteUsersArgs = {
   delete?: InputMaybe<UserDeleteInput>
   where?: InputMaybe<UserWhere>
-}
-
-export type MutationDuplicateElementArgs = {
-  input: DuplicateElementInput
 }
 
 export type MutationImportAdminDataArgs = {

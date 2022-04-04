@@ -1,28 +1,22 @@
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { ImportUpload } from '@codelab/frontend/view/components'
-import React from 'react'
-import { useImportAdminDataMutation } from '../../graphql/Admin.endpoints.v2.graphql.gen'
+import { observer } from 'mobx-react-lite'
+import { WithAdminService } from '../../store'
 
-export const ImportButton = () => {
-  const [importAdminData] = useImportAdminDataMutation()
-
+export const ImportButton = observer<WithAdminService>(({ adminService }) => {
   const { onSuccess, onError } = useNotify(
     { title: 'Admin data successfully imported' },
     { title: 'Error while importing admin data' },
   )
 
   const fetchFn = (data: any) => {
-    return importAdminData({
-      variables: {
-        input: {
-          payload: data,
-        },
-      },
-    })
-      .unwrap()
+    console.log(' >> Here <<')
+
+    return adminService
+      .importData({ payload: data })
       .then(onSuccess)
       .catch(onError)
   }
 
   return <ImportUpload fetchFn={fetchFn} />
-}
+})

@@ -2,7 +2,6 @@ import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen-v2'
 import { IElement, IElementGraph } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { uuidRegex } from '@codelab/shared/utils'
-import { IResolvers } from '@graphql-tools/utils'
 import { difference, merge, partition, uniq } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { combineLatest, from, Observable, of, zip } from 'rxjs'
@@ -10,7 +9,6 @@ import { map, mergeMap } from 'rxjs/operators'
 import { Component, Element } from '../../model'
 import { componentSelectionSet, elementSelectionSet } from '../../selectionSets'
 import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
-import duplicateElementCypher from './duplicateElement.cypher'
 import getElementGraphCypher from './getElementGraph.cypher'
 
 // contains edges for three relations PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>|COMPONENT_ROOT>
@@ -91,15 +89,6 @@ export const elementRepository = {
           return { edges: elementComponentEdges.concat(parentOfElementEdges) }
         }),
       ),
-
-  duplicateElement: (
-    txn: RxTransaction,
-    elementId: string,
-  ): Observable<DuplicateElementResponse> =>
-    txn
-      .run(duplicateElementCypher, { elementId })
-      .records()
-      .pipe(map((response) => ({ ids: response.get('ids') }))),
 
   deleteElementsSubgraph: (
     txn: RxTransaction,

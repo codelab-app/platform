@@ -6,21 +6,17 @@ import { HooksListItemProps } from './types'
 
 export const HooksListItem = ({ hook }: HooksListItemProps) => {
   const actions = [
-    <RemoveHookFromElementButton
-      key={'delete'}
-      hookId={hook.id}
-      entity={hook}
-    />,
+    <RemoveHookFromElementButton entity={hook} hookId={hook.id} key="delete" />,
   ]
 
   return (
     <List.Item
-      css={tw`flex flex-row items-center justify-between`}
       actions={actions}
+      css={tw`flex flex-row items-center justify-between`}
     >
       <List.Item.Meta
-        title={hook.type}
         description={<HooksListItemDescription hook={hook} />}
+        title={hook.type}
       />
     </List.Item>
   )

@@ -6,19 +6,17 @@ import {
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   Builder,
+  BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
   MainPaneBuilder,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
-import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import {
-  ElementGraphProvider,
-  useElementGraphContext,
-} from '@codelab/frontend/modules/element'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
-import { Empty } from 'antd'
+  extractErrorMessage,
+  useLoadingState,
+} from '@codelab/frontend/shared/utils'
+import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -26,55 +24,52 @@ import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
-  const { elementTree } = useElementGraphContext()
+  const { query } = useRouter()
+  const currentComponentId = query.componentId as string
 
-  if (!elementTree) {
-    return <Empty />
-  }
+  const [, { isLoading, error, data }] = useLoadingState(
+    async () => {
+      // Load the component we're rendering
+      const component = await store.componentService.getOne(currentComponentId)
 
-  const root = elementTree.getRootVertex(ElementTree.isComponent)
+      if (!component) {
+        throw new Error('Component not found')
+      }
+
+      // Get element tree
+      const elementTree = await store.elementService.getTree(
+        component.rootElementId,
+      )
+
+      // initialize renderer
+      await store.builderService.builderRenderer.init(
+        store.elementService.elementTree,
+        null,
+        null,
+      )
+
+      return { component, elementTree }
+    },
+    { executeOnMount: true },
+  )
 
   return (
     <>
       <Head>
-        <title>{root?.component?.name} | Codelab</title>
+        <title>{data?.component?.name} | Codelab</title>
       </Head>
 
+      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {isLoading && <Spin />}
+
       <Builder
-        isComponentBuilder
-        tree={elementTree}
-        typeService={store.typeService}
+        builderService={store.builderService}
+        elementService={store.elementService}
+        key={store.builderService.builderRenderer.tree?.root?.id}
       />
     </>
   )
 })
-
-const ComponentElementGraphProvider = ({
-  children,
-}: React.PropsWithChildren<unknown>) => {
-  const { query } = useRouter()
-  const componentId = query.componentId as string
-
-  const { data, isLoading } = useGetComponentsQuery({
-    variables: { where: { id: componentId } },
-  })
-
-  const rootElementId = data?.components[0]?.rootElement.id
-
-  if (!rootElementId) {
-    return null
-  }
-
-  return (
-    <SpinnerWrapper isLoading={isLoading}>
-      <ElementGraphProvider elementId={rootElementId}>
-        {children}
-      </ElementGraphProvider>
-    </SpinnerWrapper>
-  )
-}
-
-export default ComponentDetail
 
 export const getServerSideProps = withPageAuthRequired()
 
@@ -82,21 +77,43 @@ ComponentDetail.Layout = observer((page) => {
   const store = useStore()
 
   return (
-    <ComponentElementGraphProvider>
+    <BuilderContext
+      builderService={store.builderService}
+      elementService={store.elementService}
+    >
       <BuilderDashboardTemplate
         MainPane={observer(() => (
-          <MainPaneBuilder atomService={store.atomService} isComponentBuilder />
+          <MainPaneBuilder
+            atomService={store.atomService}
+            builderService={store.builderService}
+            componentService={store.componentService}
+            elementService={store.elementService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
+          />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderComponent
             atomService={store.atomService}
+            builderService={store.builderService}
+            elementService={store.elementService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
           />
         ))}
-        SidebarNavigation={BuilderSidebarNavigation}
+        SidebarNavigation={observer((props) => (
+          <BuilderSidebarNavigation
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...props}
+            builderService={store.builderService}
+            key={store.builderService.builderRenderer.tree?.root?.id}
+          />
+        ))}
+        builderService={store.builderService}
       >
         {page.children}
       </BuilderDashboardTemplate>
-    </ComponentElementGraphProvider>
+    </BuilderContext>
   )
 })
+
+export default ComponentDetail

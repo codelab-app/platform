@@ -1,23 +1,20 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useElementDispatch } from '../../../hooks'
+import { Element, elementRef, WithElementService } from '../../../store'
 
-interface DeleteElementProps {
-  elementId: string
-  entity?: IElement
+interface DeleteElementProps extends WithElementService {
+  element: Element
 }
 
-export const DeleteElementButton = ({
-  elementId,
-  entity,
-}: DeleteElementProps) => {
-  const { openDeleteModal } = useElementDispatch()
-  const onClick = () => openDeleteModal({ deleteIds: [elementId], entity })
+export const DeleteElementButton = observer(
+  ({ elementService, element }: DeleteElementProps) => {
+    const onClick = () => elementService.deleteModal.open(elementRef(element))
 
-  return (
-    <Button danger onClick={onClick}>
-      Delete
-    </Button>
-  )
-}
+    return (
+      <Button danger onClick={onClick}>
+        Delete
+      </Button>
+    )
+  },
+)

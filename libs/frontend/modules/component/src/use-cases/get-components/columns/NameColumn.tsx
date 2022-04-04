@@ -1,9 +1,9 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { IComponent } from '@codelab/shared/abstract/core'
 import Link from 'next/link'
+import { ComponentColumnData } from './types'
 
 export type NameColumnProps = {
-  component: IComponent
+  component: ComponentColumnData
 }
 
 export const NameColumn = ({ component }: NameColumnProps) => (

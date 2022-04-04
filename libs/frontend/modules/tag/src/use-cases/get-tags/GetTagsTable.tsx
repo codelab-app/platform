@@ -12,6 +12,10 @@ export interface TagRecord {
   name: string
 }
 
+export interface TagRecord {
+  name: string
+}
+
 export const GetTagsTable = observer<WithTagService>(({ tagService }) => {
   const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
     key: tag.id,

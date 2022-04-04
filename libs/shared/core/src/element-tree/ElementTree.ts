@@ -5,6 +5,7 @@ import { getCyElementData } from '../cytoscape/element'
 import { filterPredicate, TreeService } from '../tree'
 import { isComponent, isElement } from './guards'
 
+/** @deprecated use ElementTree from @codelab/frontend/modules/element */
 export class ElementTree extends TreeService<IElement, IElementEdge> {
   public static readonly isElement = isElement
 

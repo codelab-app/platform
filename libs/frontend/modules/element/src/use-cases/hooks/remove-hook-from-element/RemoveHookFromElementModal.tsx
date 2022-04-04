@@ -8,7 +8,6 @@ import {
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useHookState } from '../../../hooks'
 import { useRemoveHookFromElementForm } from './useRemoveHookFromElementForm'
 
 export interface RemoveHookFromElementModalProps {

@@ -2,7 +2,11 @@ import { DashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
-import { useBuilderSelectedElement } from '../hooks'
+import { BuilderService } from '../store'
+
+export interface BuilderDashboardTemplateProps extends DashboardTemplateProps {
+  builderService: BuilderService
+}
 
 export const BuilderDashboardTemplate = observer(
   ({
@@ -12,14 +16,15 @@ export const BuilderDashboardTemplate = observer(
     Header,
     SidebarNavigation,
     headerHeight,
-  }: PropsWithChildren<DashboardTemplateProps>) => {
-    const { selectedElementId } = useBuilderSelectedElement()
-
+    builderService,
+  }: PropsWithChildren<BuilderDashboardTemplateProps>) => {
     return (
       <DashboardTemplate
         Header={Header}
         MainPane={MainPane}
-        MetaPane={selectedElementId ? MetaPane : undefined}
+        MetaPane={
+          builderService.selectedElement?.maybeCurrent ? MetaPane : undefined
+        }
         SidebarNavigation={SidebarNavigation}
         contentStyles={{ paddingTop: '3rem' }}
         headerHeight={headerHeight ?? 38}

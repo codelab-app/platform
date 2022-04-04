@@ -1,2 +1,2 @@
-export * from './componentEndpoints.v2'
-export * from './componentState'
+export { Component } from './component'
+export * from './component.service'
