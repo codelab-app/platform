@@ -33,7 +33,7 @@ export class TagService extends Model({
   }
 
   @computed
-  get TagsListOptions() {
+  get tagsListOptions() {
     return this.tagsList.map((tag) => ({
       label: tag.name,
       value: tag.id,
@@ -43,7 +43,7 @@ export class TagService extends Model({
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, input: CreateTagInput) {
-    const parentSetStatement = input?.parentTagId && {
+    const connectParentWhere = input?.parentTagId && {
       parent: {
         connect: {
           where: {
@@ -61,7 +61,7 @@ export class TagService extends Model({
       tagApi.CreateTags({
         input: {
           name: input.name,
-          ...parentSetStatement,
+          ...connectParentWhere,
         },
       }),
     )
@@ -180,10 +180,10 @@ export class TagService extends Model({
   getTagDescendants = _async(function* (this: TagService, tagId: string) {
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
 
-    const TagWithItsDescendants = tagGraphs.find(
+    const tagWithDescendants = tagGraphs.find(
       (tagGraph) => tagGraph.id == tagId,
     )
 
-    return TagWithItsDescendants?.descendants
+    return tagWithDescendants?.descendants
   })
 }
