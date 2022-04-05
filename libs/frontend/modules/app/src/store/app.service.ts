@@ -112,7 +112,7 @@ export class AppService extends Model({
     } = yield* _await(
       appApi.CreateApps({
         input: {
-          ...input,
+          name: input.name,
           owner: { connect: [{ where: { node: { auth0Id: ownerId } } }] },
           store: input.storeId
             ? { connect: { where: { node: { id: input.storeId } } } }
