@@ -16,35 +16,41 @@ export interface TagRecord {
   name: string
 }
 
-export const GetTagsTable = observer<WithTagService>(({ tagService }) => {
-  const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
-    key: tag.id,
-    id: tag.id,
-    name: tag.name,
-  }))
+interface GetTagsTableProps {
+  loading: boolean
+}
 
-  const columns: Array<TableColumnProps<TagRecord>> = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      width: 100,
-      render: (text, tag) => (
-        <Space size="middle">
-          <ListItemEditButton
-            onClick={() => tagService.updateModal.open(tagRef(tag.id))}
-          />
-          <ListItemDeleteButton
-            onClick={() => tagService.deleteModal.open([tagRef(tag.id)])}
-          />
-        </Space>
-      ),
-    },
-  ]
+export const GetTagsTable = observer<WithTagService & GetTagsTableProps>(
+  ({ tagService, loading }) => {
+    const dataSource: Array<TagRecord> = tagService.tagsList.map((tag) => ({
+      key: tag.id,
+      id: tag.id,
+      name: tag.name,
+    }))
 
-  return <Table columns={columns} dataSource={dataSource} />
-})
+    const columns: Array<TableColumnProps<TagRecord>> = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        width: 100,
+        render: (text, tag) => (
+          <Space size="middle">
+            <ListItemEditButton
+              onClick={() => tagService.updateModal.open(tagRef(tag.id))}
+            />
+            <ListItemDeleteButton
+              onClick={() => tagService.deleteModal.open([tagRef(tag.id)])}
+            />
+          </Space>
+        ),
+      },
+    ]
+
+    return <Table columns={columns} dataSource={dataSource} loading={loading} />
+  },
+)

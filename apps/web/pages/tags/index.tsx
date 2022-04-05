@@ -18,7 +18,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { PageHeader, Spin } from 'antd'
+import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
@@ -41,7 +41,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal tagService={store.tagService} />
 
       <ContentSection>
-        {isLoading ? <Spin /> : <GetTagsTable tagService={store.tagService} />}
+        <GetTagsTable loading={isLoading} tagService={store.tagService} />
       </ContentSection>
     </>
   )
