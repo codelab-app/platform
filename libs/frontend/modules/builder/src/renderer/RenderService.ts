@@ -96,7 +96,7 @@ export class RenderService extends Model(
   },
 ) {
   /** Set to any observable that will act as a source for the state of the rendered app */
-  private platformState?: any
+  public platformState?: any
 
   @modelFlow
   init = _async(function* (
