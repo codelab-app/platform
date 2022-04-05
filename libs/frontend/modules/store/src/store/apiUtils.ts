@@ -47,6 +47,7 @@ export const makeStoreUpdateInput = (
     name,
     initialState,
     parentStore: {
+      disconnect: { where: {} },
       connect: parentStore?.id
         ? {
             where: { node: { id: parentStore.id } },

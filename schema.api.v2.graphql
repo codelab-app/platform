@@ -3073,11 +3073,6 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
-type CreateStoreEdgesMutationResponse {
-  info: CreateInfo!
-  storeEdges: [StoreEdge!]!
-}
-
 type CreateStoresMutationResponse {
   info: CreateInfo!
   stores: [Store!]!
@@ -5838,10 +5833,6 @@ input FieldWhere {
   name_STARTS_WITH: String
 }
 
-input GetStoresGraphsInput {
-  rootId: String
-}
-
 type Hook {
   config(
     directed: Boolean = true
@@ -7331,9 +7322,6 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
-  createStoreEdges(
-    input: [StoreEdgeCreateInput!]!
-  ): CreateStoreEdgesMutationResponse!
   createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
   createTagGraphOptions(
     input: [TagGraphOptionsCreateInput!]!
@@ -7422,7 +7410,6 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteStoreEdges(where: StoreEdgeWhere): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
@@ -7644,10 +7631,6 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
-  updateStoreEdges(
-    update: StoreEdgeUpdateInput
-    where: StoreEdgeWhere
-  ): UpdateStoreEdgesMutationResponse!
   updateStores(
     connect: StoreConnectInput
     connectOrCreate: StoreConnectOrCreateInput
@@ -9408,11 +9391,8 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
-  storeEdges(options: StoreEdgeOptions, where: StoreEdgeWhere): [StoreEdge!]!
-  storeEdgesAggregate(where: StoreEdgeWhere): StoreEdgeAggregateSelection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
-  storesGraphs(input: GetStoresGraphsInput): StoreGraph!
   tagGraphOptions(
     options: TagGraphOptionsOptions
     where: TagGraphOptionsWhere
@@ -9930,6 +9910,7 @@ type Store {
     sort: [StoreChildrenConnectionSort!]
     where: StoreChildrenConnectionWhere
   ): StoreChildrenConnection!
+  descendants: [Store!]!
   id: ID!
   initialState: String!
   name: String!
@@ -10316,90 +10297,6 @@ input StoreDisconnectInput {
   children: [StoreChildrenDisconnectFieldInput!]
   parentStore: StoreParentStoreDisconnectFieldInput
   state: StoreStateDisconnectFieldInput
-}
-
-type StoreEdge {
-  source: ID!
-  storeKey: String!
-  target: ID!
-}
-
-type StoreEdgeAggregateSelection {
-  count: Int!
-  source: IDAggregateSelectionNonNullable!
-  storeKey: StringAggregateSelectionNonNullable!
-  target: IDAggregateSelectionNonNullable!
-}
-
-input StoreEdgeCreateInput {
-  source: ID!
-  storeKey: String!
-  target: ID!
-}
-
-input StoreEdgeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more StoreEdgeSort objects to sort StoreEdges by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [StoreEdgeSort!]
-}
-
-"""
-Fields to sort StoreEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreEdgeSort object.
-"""
-input StoreEdgeSort {
-  source: SortDirection
-  storeKey: SortDirection
-  target: SortDirection
-}
-
-input StoreEdgeUpdateInput {
-  source: ID
-  storeKey: String
-  target: ID
-}
-
-input StoreEdgeWhere {
-  AND: [StoreEdgeWhere!]
-  OR: [StoreEdgeWhere!]
-  source: ID
-  source_CONTAINS: ID
-  source_ENDS_WITH: ID
-  source_IN: [ID!]
-  source_NOT: ID
-  source_NOT_CONTAINS: ID
-  source_NOT_ENDS_WITH: ID
-  source_NOT_IN: [ID!]
-  source_NOT_STARTS_WITH: ID
-  source_STARTS_WITH: ID
-  storeKey: String
-  storeKey_CONTAINS: String
-  storeKey_ENDS_WITH: String
-  storeKey_IN: [String!]
-  storeKey_NOT: String
-  storeKey_NOT_CONTAINS: String
-  storeKey_NOT_ENDS_WITH: String
-  storeKey_NOT_IN: [String!]
-  storeKey_NOT_STARTS_WITH: String
-  storeKey_STARTS_WITH: String
-  target: ID
-  target_CONTAINS: ID
-  target_ENDS_WITH: ID
-  target_IN: [ID!]
-  target_NOT: ID
-  target_NOT_CONTAINS: ID
-  target_NOT_ENDS_WITH: ID
-  target_NOT_IN: [ID!]
-  target_NOT_STARTS_WITH: ID
-  target_STARTS_WITH: ID
-}
-
-type StoreGraph {
-  edges: [StoreEdge!]!
-  vertices: [Store!]!
 }
 
 type StoreInterfaceTypeStateAggregationSelection {
@@ -12165,11 +12062,6 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
-}
-
-type UpdateStoreEdgesMutationResponse {
-  info: UpdateInfo!
-  storeEdges: [StoreEdge!]!
 }
 
 type UpdateStoresMutationResponse {

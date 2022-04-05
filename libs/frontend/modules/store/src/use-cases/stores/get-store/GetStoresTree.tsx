@@ -11,7 +11,7 @@ export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
   const currentStoreId = useCurrentStoreId()
 
   const [getStores, { isLoading }] = useLoadingState(() =>
-    storeService.getTree(),
+    storeService.getAll(),
   )
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const storesTrees: Array<TreeDataNode> = storeService.storesTree.antdTree
+  const storesTrees: Array<TreeDataNode> = storeService.antdTree
 
   return (
     <SpinnerWrapper isLoading={isLoading}>

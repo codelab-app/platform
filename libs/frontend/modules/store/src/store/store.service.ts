@@ -1,6 +1,7 @@
 import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
-import { GetStoresGraphsInput } from '@codelab/shared/abstract/codegen-v2'
+import { StoreWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -8,16 +9,17 @@ import {
   model,
   modelAction,
   modelFlow,
+  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
 import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
+import { storeRef } from '.'
 import { getActionServiceFromContext } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './apiUtils'
 import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
-import { StoreTree } from './store-tree.service'
 import { storeApi } from './storeApi'
 
 export type WithStoreService = {
@@ -25,37 +27,86 @@ export type WithStoreService = {
 }
 @model('codelab/StoreService')
 export class StoreService extends Model({
-  storesTree: prop(() => new StoreTree({})),
+  stores: prop(() => objectMap<Store>()),
 
   createModal: prop(() => new StoreModalService({})),
   updateModal: prop(() => new StoreModalService({})),
   deleteModal: prop(() => new StoreModalService({})),
 }) {
-  store(id: string): Store {
-    return this.storesTree.node(id) as Store
+  @computed
+  get antdTree() {
+    return [...this.stores.values()]
+      .filter((s) => s.isRoot)
+      .map((s) => s.toTreeNode())
+  }
+
+  store(id: string) {
+    return this.stores.get(id)
+  }
+
+  @modelAction
+  async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
+    // loading state interface within store fragment is hard so we load it separately
+    return await getTypeServiceFromContext(this).getAll(state.map((x) => x.id))
+  }
+
+  @modelAction
+  ensureAllActionsAdded(actions: StoreFragment['actions']) {
+    getActionServiceFromContext(this).addOrUpdateAll(actions)
   }
 
   @modelFlow
   @transaction
-  getTree = _async(function* (
-    this: StoreService,
-    input?: GetStoresGraphsInput,
-  ) {
-    const { storesGraphs } = yield* _await(storeApi.GetStoresGraphs({ input }))
-    const states = storesGraphs.vertices.map((x) => x.state)
-    const actions = storesGraphs.vertices.flatMap((x) => x.actions)
+  getAll = _async(function* (this: StoreService, where?: StoreWhere) {
+    this.stores.clear()
+
+    const { stores } = yield* _await(
+      storeApi.GetStores({
+        where: {
+          // query only root stores and the reset will be descendants
+          parentStoreAggregate: { count: 0 },
+          AND: where ? [where] : [],
+        },
+      }),
+    )
+
+    const states = stores.map((x) => x.state)
+    const actions = stores.flatMap((x) => x.actions)
 
     yield* _await(this.ensureAllStateInterfacesAdded(states))
     this.ensureAllActionsAdded(actions)
 
-    this.storesTree.updateFromFragment(storesGraphs)
+    const descendants = stores.flatMap((x) => x.descendants)
 
-    return this.storesTree.nodes
+    descendants.concat(stores).forEach((store) => {
+      this.stores.set(store.id, Store.fromFragment(store))
+    })
+
+    return this.stores
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: StoreService, id: string) {
+    if (!this.stores.has(id)) {
+      yield* _await(this.getAll({ id }))
+    }
+
+    return this.stores.get(id)
   })
 
   @modelAction
   addStore(store: Store) {
-    this.storesTree.addNode(store)
+    this.stores.set(store.id, store)
+  }
+
+  @modelAction
+  attachToParent(store: Store) {
+    if (!store.parentStore?.id) {
+      return
+    }
+
+    this.store(store.parentStore?.id)?.children.push(storeRef(store))
   }
 
   @modelFlow
@@ -83,59 +134,26 @@ export class StoreService extends Model({
 
     const store = Store.fromFragment(createdStore)
 
-    if (input.parentStore?.id) {
-      this.storesTree.addChild(this.store(input.parentStore?.id), store, {
-        source: input.parentStore.id,
-        target: store.id,
-        storeKey: input.parentStore.key,
-      })
-    }
-
-    this.storesTree.addNode(store)
+    this.addStore(store)
+    this.attachToParent(store)
 
     return createdStore
   })
 
   @modelAction
-  async ensureStateInterfaceAdded(state: StoreFragment['state']) {
-    // loading state interface within store fragment is hard so we load it separately
-    return await getTypeServiceFromContext(this).getOne(state.id)
-  }
-
-  @modelAction
-  async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
-    // loading state interface within store fragment is hard so we load it separately
-    return await getTypeServiceFromContext(this).getAll(state.map((x) => x.id))
-  }
-
-  @modelAction
-  ensureAllActionsAdded(actions: StoreFragment['actions']) {
-    getActionServiceFromContext(this).addOrUpdateAll(actions)
-  }
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: StoreService, id: string) {
-    if (this.storesTree.nodes.has(id)) {
-      return this.storesTree.nodes.get(id)
+  detachFromParent(store: Store) {
+    if (!store.parentStore?.id) {
+      return
     }
 
-    const {
-      stores: [store],
-    } = yield* _await(storeApi.GetStores({ where: { id } }))
+    const oldParent = this.store(store.parentStore?.id)
 
-    if (!store) {
-      throw new Error('Store not found')
-    }
+    const oldRefIndex = oldParent?.children.findIndex(
+      (x) => x.current.id === store.id,
+    ) as number
 
-    yield* _await(this.ensureStateInterfaceAdded(store.state))
-
-    this.ensureAllActionsAdded(store.actions)
-
-    this.storesTree.addNode(Store.fromFragment(store))
-
-    return store
-  })
+    oldParent?.children.splice(oldRefIndex, 1)
+  }
 
   @modelFlow
   @transaction
@@ -153,10 +171,22 @@ export class StoreService extends Model({
 
     const updatedStore = updateStores.stores[0]
     const storeModel = Store.fromFragment(updatedStore)
-    this.storesTree.nodes.set(updatedStore.id, storeModel)
+
+    this.detachFromParent(store) // detach from old parent
+    this.attachToParent(storeModel) // attach to new parent
+
+    this.stores.set(updatedStore.id, storeModel)
 
     return storeModel
   })
+
+  @modelAction
+  removeStoreAndDescendants(store: Store) {
+    store.children.forEach((child) =>
+      this.removeStoreAndDescendants(child.current),
+    )
+    this.stores.delete(store.id)
+  }
 
   @modelFlow
   @transaction
@@ -170,7 +200,7 @@ export class StoreService extends Model({
       throw new Error('Deleted store not found')
     }
 
-    this.storesTree.removeNodeAndDescendants(root)
+    this.removeStoreAndDescendants(root)
 
     const { deleteStoresSubgraph } = yield* _await(
       storeApi.DeleteStoresSubgraph({ where: { id: storeId } }),

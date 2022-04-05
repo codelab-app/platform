@@ -1,19 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import {
-  StoreFragment,
-  StoreGraphFragment,
-  StoreEdgeFragment,
-} from './Store.fragment.v2.1.graphql.gen'
+import { StoreFragment } from './Store.fragment.v2.1.graphql.gen'
 import { ActionFragment } from './Action.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  StoreFragmentDoc,
-  StoreGraphFragmentDoc,
-  StoreEdgeFragmentDoc,
-} from './Store.fragment.v2.1.graphql.gen'
+import { StoreFragmentDoc } from './Store.fragment.v2.1.graphql.gen'
 import { ActionFragmentDoc } from './Action.fragment.v2.1.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
@@ -39,13 +31,9 @@ export type GetStoresQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.StoreOptions>
 }>
 
-export type GetStoresQuery = { stores: Array<StoreFragment> }
-
-export type GetStoresGraphsQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetStoresGraphsInput>
-}>
-
-export type GetStoresGraphsQuery = { storesGraphs: StoreGraphFragment }
+export type GetStoresQuery = {
+  stores: Array<{ descendants: Array<StoreFragment> } & StoreFragment>
+}
 
 export type UpdateStoresMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
@@ -83,19 +71,11 @@ export const GetStoresDocument = gql`
   query GetStores($where: StoreWhere, $options: StoreOptions) {
     stores(where: $where, options: $options) {
       ...Store
+      descendants {
+        ...Store
+      }
     }
   }
-  ${StoreFragmentDoc}
-  ${ActionFragmentDoc}
-`
-export const GetStoresGraphsDocument = gql`
-  query GetStoresGraphs($input: GetStoresGraphsInput) {
-    storesGraphs(input: $input) {
-      ...StoreGraph
-    }
-  }
-  ${StoreGraphFragmentDoc}
-  ${StoreEdgeFragmentDoc}
   ${StoreFragmentDoc}
   ${ActionFragmentDoc}
 `
@@ -169,21 +149,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetStores',
-        'query',
-      )
-    },
-    GetStoresGraphs(
-      variables?: GetStoresGraphsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetStoresGraphsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetStoresGraphsQuery>(
-            GetStoresGraphsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetStoresGraphs',
         'query',
       )
     },

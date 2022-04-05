@@ -20,12 +20,9 @@ mutation DeleteStoresSubgraph($where: StoreWhere!) {
 query GetStores($where: StoreWhere, $options: StoreOptions) {
   stores(where: $where, options: $options) {
     ...Store
-  }
-}
-
-query GetStoresGraphs($input: GetStoresGraphsInput) {
-  storesGraphs(input: $input) {
-    ...StoreGraph
+    descendants {
+      ...Store
+    }
   }
 }
 

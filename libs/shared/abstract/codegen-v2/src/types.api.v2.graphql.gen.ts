@@ -3183,12 +3183,6 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
-export type CreateStoreEdgesMutationResponse = {
-  __typename?: 'CreateStoreEdgesMutationResponse'
-  info: CreateInfo
-  storeEdges: Array<StoreEdge>
-}
-
 export type CreateStoresMutationResponse = {
   __typename?: 'CreateStoresMutationResponse'
   info: CreateInfo
@@ -6044,10 +6038,6 @@ export type FieldWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
-export type GetStoresGraphsInput = {
-  rootId?: InputMaybe<Scalars['String']>
-}
-
 export type Hook = {
   __typename?: 'Hook'
   config: Prop
@@ -7512,7 +7502,6 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
-  createStoreEdges: CreateStoreEdgesMutationResponse
   createStores: CreateStoresMutationResponse
   createTagGraphOptions: CreateTagGraphOptionsMutationResponse
   createTags: CreateTagsMutationResponse
@@ -7547,7 +7536,6 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
-  deleteStoreEdges: DeleteInfo
   deleteStores: DeleteInfo
   deleteStoresSubgraph: DeleteInfo
   deleteTagGraphOptions: DeleteInfo
@@ -7585,7 +7573,6 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
-  updateStoreEdges: UpdateStoreEdgesMutationResponse
   updateStores: UpdateStoresMutationResponse
   updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   updateTags: UpdateTagsMutationResponse
@@ -7700,10 +7687,6 @@ export type MutationCreateRenderPropsTypesArgs = {
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
-}
-
-export type MutationCreateStoreEdgesArgs = {
-  input: Array<StoreEdgeCreateInput>
 }
 
 export type MutationCreateStoresArgs = {
@@ -7861,10 +7844,6 @@ export type MutationDeleteRenderPropsTypesArgs = {
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type MutationDeleteStoreEdgesArgs = {
-  where?: InputMaybe<StoreEdgeWhere>
 }
 
 export type MutationDeleteStoresArgs = {
@@ -8141,11 +8120,6 @@ export type MutationUpdateRenderPropsTypesArgs = {
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-}
-
-export type MutationUpdateStoreEdgesArgs = {
-  update?: InputMaybe<StoreEdgeUpdateInput>
-  where?: InputMaybe<StoreEdgeWhere>
 }
 
 export type MutationUpdateStoresArgs = {
@@ -9869,11 +9843,8 @@ export type Query = {
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-  storeEdges: Array<StoreEdge>
-  storeEdgesAggregate: StoreEdgeAggregateSelection
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
-  storesGraphs: StoreGraph
   tagGraphOptions: Array<TagGraphOptions>
   tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
   tagGraphs: Array<TagGraph>
@@ -10152,15 +10123,6 @@ export type QueryResetDatabaseMutationResponsesAggregateArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
-export type QueryStoreEdgesArgs = {
-  options?: InputMaybe<StoreEdgeOptions>
-  where?: InputMaybe<StoreEdgeWhere>
-}
-
-export type QueryStoreEdgesAggregateArgs = {
-  where?: InputMaybe<StoreEdgeWhere>
-}
-
 export type QueryStoresArgs = {
   options?: InputMaybe<StoreOptions>
   where?: InputMaybe<StoreWhere>
@@ -10168,10 +10130,6 @@ export type QueryStoresArgs = {
 
 export type QueryStoresAggregateArgs = {
   where?: InputMaybe<StoreWhere>
-}
-
-export type QueryStoresGraphsArgs = {
-  input?: InputMaybe<GetStoresGraphsInput>
 }
 
 export type QueryTagGraphOptionsArgs = {
@@ -10729,6 +10687,7 @@ export type Store = {
   children: Array<Store>
   childrenAggregate?: Maybe<StoreStoreChildrenAggregationSelection>
   childrenConnection: StoreChildrenConnection
+  descendants: Array<Store>
   id: Scalars['ID']
   initialState: Scalars['String']
   name: Scalars['String']
@@ -11172,88 +11131,6 @@ export type StoreDisconnectInput = {
   children?: InputMaybe<Array<StoreChildrenDisconnectFieldInput>>
   parentStore?: InputMaybe<StoreParentStoreDisconnectFieldInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
-}
-
-export type StoreEdge = {
-  __typename?: 'StoreEdge'
-  source: Scalars['ID']
-  storeKey: Scalars['String']
-  target: Scalars['ID']
-}
-
-export type StoreEdgeAggregateSelection = {
-  __typename?: 'StoreEdgeAggregateSelection'
-  count: Scalars['Int']
-  source: IdAggregateSelectionNonNullable
-  storeKey: StringAggregateSelectionNonNullable
-  target: IdAggregateSelectionNonNullable
-}
-
-export type StoreEdgeCreateInput = {
-  source: Scalars['ID']
-  storeKey: Scalars['String']
-  target: Scalars['ID']
-}
-
-export type StoreEdgeOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more StoreEdgeSort objects to sort StoreEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<StoreEdgeSort>>
-}
-
-/** Fields to sort StoreEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreEdgeSort object. */
-export type StoreEdgeSort = {
-  source?: InputMaybe<SortDirection>
-  storeKey?: InputMaybe<SortDirection>
-  target?: InputMaybe<SortDirection>
-}
-
-export type StoreEdgeUpdateInput = {
-  source?: InputMaybe<Scalars['ID']>
-  storeKey?: InputMaybe<Scalars['String']>
-  target?: InputMaybe<Scalars['ID']>
-}
-
-export type StoreEdgeWhere = {
-  AND?: InputMaybe<Array<StoreEdgeWhere>>
-  OR?: InputMaybe<Array<StoreEdgeWhere>>
-  source?: InputMaybe<Scalars['ID']>
-  source_CONTAINS?: InputMaybe<Scalars['ID']>
-  source_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  source_IN?: InputMaybe<Array<Scalars['ID']>>
-  source_NOT?: InputMaybe<Scalars['ID']>
-  source_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  source_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  source_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  source_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  source_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  storeKey?: InputMaybe<Scalars['String']>
-  storeKey_CONTAINS?: InputMaybe<Scalars['String']>
-  storeKey_ENDS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_IN?: InputMaybe<Array<Scalars['String']>>
-  storeKey_NOT?: InputMaybe<Scalars['String']>
-  storeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  storeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  storeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_STARTS_WITH?: InputMaybe<Scalars['String']>
-  target?: InputMaybe<Scalars['ID']>
-  target_CONTAINS?: InputMaybe<Scalars['ID']>
-  target_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  target_IN?: InputMaybe<Array<Scalars['ID']>>
-  target_NOT?: InputMaybe<Scalars['ID']>
-  target_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  target_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  target_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  target_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  target_STARTS_WITH?: InputMaybe<Scalars['ID']>
-}
-
-export type StoreGraph = {
-  __typename?: 'StoreGraph'
-  edges: Array<StoreEdge>
-  vertices: Array<Store>
 }
 
 export type StoreInterfaceTypeStateAggregationSelection = {
@@ -13034,12 +12911,6 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-}
-
-export type UpdateStoreEdgesMutationResponse = {
-  __typename?: 'UpdateStoreEdgesMutationResponse'
-  info: UpdateInfo
-  storeEdges: Array<StoreEdge>
 }
 
 export type UpdateStoresMutationResponse = {

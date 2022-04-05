@@ -14,26 +14,9 @@ export type StoreFragment = {
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null | undefined
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
+  children: Array<{ id: string }>
 }
 
-export type StoreEdgeFragment = {
-  source: string
-  target: string
-  storeKey: string
-}
-
-export type StoreGraphFragment = {
-  edges: Array<StoreEdgeFragment>
-  vertices: Array<StoreFragment>
-}
-
-export const StoreEdgeFragmentDoc = gql`
-  fragment StoreEdge on StoreEdge {
-    source
-    target
-    storeKey
-  }
-`
 export const StoreFragmentDoc = gql`
   fragment Store on Store {
     __typename
@@ -56,15 +39,8 @@ export const StoreFragmentDoc = gql`
         storeKey
       }
     }
-  }
-`
-export const StoreGraphFragmentDoc = gql`
-  fragment StoreGraph on StoreGraph {
-    edges {
-      ...StoreEdge
-    }
-    vertices {
-      ...Store
+    children {
+      id
     }
   }
 `

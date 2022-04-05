@@ -19,19 +19,7 @@ fragment Store on Store {
       storeKey
     }
   }
-}
-
-fragment StoreEdge on StoreEdge {
-  source
-  target
-  storeKey
-}
-
-fragment StoreGraph on StoreGraph {
-  edges {
-    ...StoreEdge
-  }
-  vertices {
-    ...Store
+  children {
+    id
   }
 }

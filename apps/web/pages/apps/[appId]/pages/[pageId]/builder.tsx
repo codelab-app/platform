@@ -48,9 +48,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       const [elementTree, providerTree, storeTree] = await Promise.all([
         store.elementService.getTree(page.rootElementId),
         store.providerElementService.getTree(page.providerElementId),
-        app?.store?.id
-          ? store.storeService.getTree({ rootId: app?.store?.id })
-          : null,
+        app?.store?.id ? store.storeService.getOne(app?.store?.id) : null,
       ])
 
       // initialize renderer
@@ -58,7 +56,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
         store.elementService.elementTree,
         store.providerElementService.elementTree,
         app?.store?.id
-          ? store.storeService.store(app?.store?.id).toMobxObservable()
+          ? store.storeService.store(app?.store?.id)?.toMobxObservable()
           : null,
       )
 

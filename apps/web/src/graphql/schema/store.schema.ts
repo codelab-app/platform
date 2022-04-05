@@ -27,29 +27,22 @@ export const storeSchema = gql`
         properties: "ParentOfStore"
         direction: OUT
       )
+
+    descendants: [Store!]!
+      @cypher(
+        statement: """
+        CALL apoc.path.subgraphAll(
+          this,
+          { relationshipFilter: 'PARENT_OF_STORE>' }
+        ) YIELD nodes
+        UNWIND nodes as descendants
+        return descendants
+        """
+      )
   }
 
   interface ParentOfStore @relationshipProperties {
     storeKey: String!
-  }
-
-  type StoreEdge {
-    source: ID!
-    target: ID!
-    storeKey: String!
-  }
-
-  type StoreGraph @exclude {
-    vertices: [Store!]!
-    edges: [StoreEdge!]!
-  }
-
-  input GetStoresGraphsInput {
-    rootId: String
-  }
-
-  type Query {
-    storesGraphs(input: GetStoresGraphsInput): StoreGraph!
   }
 
   type DeleteInfo @exclude {

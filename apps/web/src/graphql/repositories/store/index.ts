@@ -1,1 +1,1 @@
-export * from './storeRepository'
+export * from './store.repository'

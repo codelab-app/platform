@@ -1,74 +1,50 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { BaseModel } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
-import { makeAutoObservable } from 'mobx'
+import { computed, makeAutoObservable } from 'mobx'
 import {
   detach,
-  ExtendedModel,
+  idProp,
+  Model,
   model,
   modelAction,
-  modelClass,
   prop,
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  StoreEdgeFragment,
-  StoreFragment,
-} from '../graphql/Store.fragment.v2.1.graphql.gen'
+import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { Action, actionRef } from './action.model'
 
 @model('codelab/Store')
-export class Store extends ExtendedModel(() => ({
-  baseModel: modelClass<BaseModel<Store, StoreEdgeFragment>>(BaseModel),
-  props: {
-    parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
-    // PARENT_OF_STORE relation property
-    storeKey: prop<Nullable<string>>(null).withSetter(),
-    name: prop<string>(),
-    actions: prop<Array<Ref<Action>>>().withSetter(),
-    initialState: prop<PropsData>(),
-    state: prop<Ref<InterfaceType>>().withSetter(),
-  },
+export class Store extends Model(() => ({
+  id: idProp,
+  parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
+  children: prop<Array<Ref<Store>>>().withSetter(),
+  // PARENT_OF_STORE relation property
+  storeKey: prop<Nullable<string>>(null).withSetter(),
+  name: prop<string>(),
+  actions: prop<Array<Ref<Action>>>().withSetter(),
+  initialState: prop<PropsData>(),
+  state: prop<Ref<InterfaceType>>().withSetter(),
 })) {
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id
   }
 
-  getParent(): Nullable<Store> {
-    return this.parentStore?.current ? this.parentStore?.current : null
+  @computed
+  get isRoot(): boolean {
+    return !this.parentStore
   }
 
   @modelAction
-  addChild(child: Store): void {
-    this.children.push(storeRef(child.id))
-  }
-
-  hasParent(): boolean {
-    return !!this.parentStore
-  }
-
-  @modelAction
-  setParent(parent: Store): void {
-    this.setParentStore(storeRef(parent.id))
-  }
-
-  @modelAction
-  setEdgeInfo(edge: StoreEdgeFragment): void {
-    this.setStoreKey(edge.storeKey)
-  }
-
-  static toTreeNode(store: Store): TreeDataNode {
+  toTreeNode(): TreeDataNode {
     return {
-      key: store.id,
-      title: store.name,
-      children: store.children
-        ? store.children.map((x) => Store.toTreeNode(x.current))
-        : undefined,
+      key: this.id,
+      title: this.name,
+      children: this.children.map((child) => child.current.toTreeNode()),
     }
   }
 
@@ -97,6 +73,7 @@ export class Store extends ExtendedModel(() => ({
   static fromFragment(store: StoreFragment): Store {
     return new Store({
       id: store.id,
+      children: store.children.map((x) => storeRef(x.id)),
       name: store.name,
       parentStore: store.parentStore?.id
         ? storeRef(store.parentStore.id)

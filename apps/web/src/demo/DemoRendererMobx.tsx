@@ -151,6 +151,7 @@ const counterStore = new Store({
   name: 'counterStore',
   state: typeRef(counterState.id) as Ref<InterfaceType>,
   actions: [],
+  children: [],
   storeKey: '',
   initialState: {
     count: 2.0,
