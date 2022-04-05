@@ -2,12 +2,7 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import { Element, ElementProps } from '@codelab/frontend/modules/element'
-import {
-  Action,
-  actionRef,
-  Store,
-  storeRef,
-} from '@codelab/frontend/modules/store'
+import { Action, actionRef, Store } from '@codelab/frontend/modules/store'
 import {
   Field,
   InterfaceType,
@@ -165,14 +160,14 @@ const counterStore = new Store({
 const incrementAction = new Action({
   name: 'increment',
   body: `function increment(){ this.count++ }`,
-  store: storeRef(counterStore.id),
+  storeId: counterStore.id,
   id: v4(),
 })
 
 const decrementAction = new Action({
   name: 'decrement',
   body: `function decrement(){ this.count-- }`,
-  store: storeRef(counterStore.id),
+  storeId: counterStore.id,
   id: v4(),
 })
 
