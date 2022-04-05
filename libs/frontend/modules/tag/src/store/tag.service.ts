@@ -161,14 +161,6 @@ export class TagService extends Model({
   getTags = _async(function* (this: TagService) {
     const { tags } = yield* _await(tagApi.GetTags())
 
-    tags.sort((a, b) => {
-      if (a.children.length > b.children.length) {
-        return 1
-      } else {
-        return -1
-      }
-    })
-
     tags.forEach((tag) => {
       const tagModel = Tag.fromFragment(tag)
       this.tags.set(tag.id, tagModel)
