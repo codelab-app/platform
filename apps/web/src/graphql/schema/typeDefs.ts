@@ -7,6 +7,7 @@ import { commonSchema } from './common.schema'
 import { componentSchema } from './component.schema'
 import { elementSchema } from './element.schema'
 import { pageSchema } from './page.schema'
+import { storeSchema } from './store.schema'
 import { tagSchema } from './tag.schema'
 import { typeSchema } from './type'
 import { userSchema } from './user.schema'
@@ -35,4 +36,6 @@ export default print(gql`
   ${componentSchema}
 
   ${adminSchema}
+
+  ${storeSchema}
 `)

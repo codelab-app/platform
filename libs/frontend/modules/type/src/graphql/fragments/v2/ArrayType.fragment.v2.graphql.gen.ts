@@ -14,8 +14,6 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type ArrayTypeWithItemTypeFragment = {
   itemType: Array<
     | TypeBase_AppType_Fragment
@@ -49,25 +47,3 @@ export type ArrayTypeFragment = {
     | { id: string }
   >
 } & TypeBase_ArrayType_Fragment
-
-export const ArrayTypeFragmentDoc = gql`
-  fragment ArrayType on ArrayType {
-    ...TypeBase
-    itemType {
-      id
-    }
-  }
-  ${TypeBaseFragmentDoc}
-`
-export const ArrayTypeWithItemTypeFragmentDoc = gql`
-  fragment ArrayTypeWithItemType on ArrayType {
-    ...ArrayType
-    itemType {
-      ... on TypeBase {
-        ...TypeBase
-      }
-    }
-  }
-  ${ArrayTypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-`

@@ -1,0 +1,25 @@
+fragment Store on Store {
+  __typename
+  id
+  name
+  state {
+    id
+    name
+  }
+  initialState
+  actions {
+    ...Action
+  }
+  parentStore {
+    id
+    name
+  }
+  parentStoreConnection {
+    edges {
+      storeKey
+    }
+  }
+  children {
+    id
+  }
+}

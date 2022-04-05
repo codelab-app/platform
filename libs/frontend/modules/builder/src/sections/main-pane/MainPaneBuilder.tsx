@@ -17,12 +17,14 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import { BuilderService, WithBuilderService } from '../../store/BuilderService'
 import { BuilderTab } from '../../store/BuilderTab'
+import { MainPaneBuilderMobxStateTab } from './tabs/MainPaneBuilderMobxStateTab'
 import { MainPaneBuilderToolboxTab } from './tabs/MainPaneBuilderToolboxTab'
 import { MainPaneBuilderTreeTab } from './tabs/MainPaneBuilderTreeTab'
 
 const { Search } = Input
 
 const paneTitles: Record<BuilderTab, string> = {
+  [BuilderTab.MobxState]: 'Mobx State',
   [BuilderTab.Toolbox]: 'Toolbox',
   [BuilderTab.Tree]: 'Element Tree',
 }
@@ -98,6 +100,15 @@ export const MainPaneBuilder = observer<MainPaneBuilderProps>(
           <MainPaneBuilderTreeTab
             builderService={builderService}
             elementService={elementService}
+          />
+        </EqualityConditionalView>
+
+        <EqualityConditionalView
+          expectedValue={BuilderTab.MobxState}
+          value={builderTab}
+        >
+          <MainPaneBuilderMobxStateTab
+            renderService={builderService.builderRenderer}
           />
         </EqualityConditionalView>
 

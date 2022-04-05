@@ -36,6 +36,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
 
   const [, { isLoading, error, data }] = useLoadingState(
     async () => {
+      const app = await store.appService.getOne(currentAppId)
       // Load the page we're rendering
       const page = await store.pageService.getOne(currentPageId)
 
@@ -44,19 +45,22 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       }
 
       // Get element tree and provider tree
-      const [elementTree, providerTree] = await Promise.all([
+      const [elementTree, providerTree, storeTree] = await Promise.all([
         store.elementService.getTree(page.rootElementId),
         store.providerElementService.getTree(page.providerElementId),
+        app?.store?.id ? store.storeService.getOne(app?.store?.id) : null,
       ])
 
       // initialize renderer
       await store.builderService.builderRenderer.init(
         store.elementService.elementTree,
         store.providerElementService.elementTree,
-        null,
+        app?.store?.id
+          ? store.storeService.store(app?.store?.id)?.toMobxObservable()
+          : null,
       )
 
-      return { page, elementTree, providerTree }
+      return { page, elementTree, providerTree, storeTree }
     },
     { executeOnMount: true },
   )
@@ -64,7 +68,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
   return (
     <>
       <Head>
-        <title>{data?.page.name} | Builder | Codelab</title>
+        <title>{data?.page?.name} | Builder | Codelab</title>
       </Head>
 
       {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}

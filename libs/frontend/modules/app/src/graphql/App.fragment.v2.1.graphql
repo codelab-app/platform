@@ -10,4 +10,7 @@ fragment App on App {
   rootProviderElement {
     id
   }
+  store {
+    id
+  }
 }

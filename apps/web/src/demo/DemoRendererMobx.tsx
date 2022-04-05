@@ -2,13 +2,38 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import { Element, ElementProps } from '@codelab/frontend/modules/element'
-import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
-import { action, makeObservable, observable } from 'mobx'
-import { frozen, objectMap } from 'mobx-keystone'
+import { Action, actionRef, Store } from '@codelab/frontend/modules/store'
+import {
+  Field,
+  InterfaceType,
+  PrimitiveType,
+  typeRef,
+} from '@codelab/frontend/modules/type'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
+import { frozen, ObjectMap, objectMap, Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { v4 } from 'uuid'
+
+const integerType = new PrimitiveType({
+  name: 'Integer',
+  primitiveKind: PrimitiveTypeKind.Integer,
+})
+
+const counterState = new InterfaceType({
+  name: 'Counter State',
+  _fields: new ObjectMap({
+    items: {
+      [v4()]: new Field({
+        key: 'count',
+        name: 'Count',
+        type: typeRef(integerType.id),
+      }),
+    },
+  }),
+  typeKind: TypeKind.InterfaceType,
+})
 
 const emptyApi = new InterfaceType({ id: v4(), name: 'Empty api' }) // not relevant, just an empty type
 
@@ -89,7 +114,7 @@ const counterText = new Element({
   props: new ElementProps({
     id: v4(),
     data: frozen({
-      text: '{{root.counter}}',
+      text: '{{root.count}}',
     }),
   }),
 })
@@ -114,6 +139,7 @@ const root = new Element({
 const demoStore = initializeStore()
 
 demoStore.typeService.addTypeLocal(emptyApi)
+demoStore.typeService.addTypeLocal(counterState)
 
 demoStore.atomService.addAtom(divAtom)
 demoStore.atomService.addAtom(buttonAtom)
@@ -121,30 +147,41 @@ demoStore.atomService.addAtom(textAtom)
 
 demoStore.elementService.elementTree.setRoot(root)
 
-class PlatformState {
-  counter = 0
+const counterStore = new Store({
+  name: 'counterStore',
+  state: typeRef(counterState.id) as Ref<InterfaceType>,
+  actions: [],
+  children: [],
+  storeKey: '',
+  initialState: {
+    count: 2.0,
+  },
+})
 
-  constructor() {
-    makeObservable(this, {
-      counter: observable,
-      decrement: action,
-      increment: action,
-    })
-  }
+const incrementAction = new Action({
+  name: 'increment',
+  body: `function increment(){ this.count++ }`,
+  storeId: counterStore.id,
+  id: v4(),
+})
 
-  increment() {
-    this.counter += 1
-  }
+const decrementAction = new Action({
+  name: 'decrement',
+  body: `function decrement(){ this.count-- }`,
+  storeId: counterStore.id,
+  id: v4(),
+})
 
-  decrement() {
-    this.counter -= 1
-  }
-}
+counterStore.setActions([incrementAction, decrementAction].map(actionRef))
+
+demoStore.actionService.addAction(incrementAction)
+demoStore.actionService.addAction(decrementAction)
+demoStore.storeService.addStore(counterStore)
 
 demoStore.renderService.init(
   demoStore.elementService.elementTree,
   undefined,
-  new PlatformState() as any,
+  counterStore.toMobxObservable(),
 )
 
 export const DemoRendererMobx = observer(() => {

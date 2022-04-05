@@ -1,3 +1,278 @@
+type Action {
+  body: String!
+  id: ID!
+  name: String!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): ActionStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ActionStoreConnectionSort!]
+    where: ActionStoreConnectionWhere
+  ): ActionStoreConnection!
+}
+
+type ActionAggregateSelection {
+  body: StringAggregateSelectionNonNullable!
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ActionConnectInput {
+  store: ActionStoreConnectFieldInput
+}
+
+input ActionConnectOrCreateInput {
+  store: ActionStoreConnectOrCreateFieldInput
+}
+
+input ActionConnectOrCreateWhere {
+  node: ActionUniqueWhere!
+}
+
+input ActionConnectWhere {
+  node: ActionWhere!
+}
+
+input ActionCreateInput {
+  body: String!
+  name: String!
+  store: ActionStoreFieldInput
+}
+
+input ActionDeleteInput {
+  store: ActionStoreDeleteFieldInput
+}
+
+input ActionDisconnectInput {
+  store: ActionStoreDisconnectFieldInput
+}
+
+input ActionOnCreateInput {
+  body: String!
+  name: String!
+}
+
+input ActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ActionSort objects to sort Actions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ActionSort!]
+}
+
+input ActionRelationInput {
+  store: ActionStoreCreateFieldInput
+}
+
+"""
+Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object.
+"""
+input ActionSort {
+  body: SortDirection
+  id: SortDirection
+  name: SortDirection
+}
+
+input ActionStoreAggregateInput {
+  AND: [ActionStoreAggregateInput!]
+  OR: [ActionStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ActionStoreNodeAggregationWhereInput
+}
+
+input ActionStoreConnectFieldInput {
+  connect: StoreConnectInput
+  where: StoreConnectWhere
+}
+
+input ActionStoreConnectOrCreateFieldInput {
+  onCreate: ActionStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input ActionStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
+type ActionStoreConnection {
+  edges: [ActionStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ActionStoreConnectionSort {
+  node: StoreSort
+}
+
+input ActionStoreConnectionWhere {
+  AND: [ActionStoreConnectionWhere!]
+  OR: [ActionStoreConnectionWhere!]
+  node: StoreWhere
+  node_NOT: StoreWhere
+}
+
+input ActionStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input ActionStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: ActionStoreConnectionWhere
+}
+
+input ActionStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: ActionStoreConnectionWhere
+}
+
+input ActionStoreFieldInput {
+  connect: ActionStoreConnectFieldInput
+  connectOrCreate: ActionStoreConnectOrCreateFieldInput
+  create: ActionStoreCreateFieldInput
+}
+
+input ActionStoreNodeAggregationWhereInput {
+  AND: [ActionStoreNodeAggregationWhereInput!]
+  OR: [ActionStoreNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ActionStoreRelationship {
+  cursor: String!
+  node: Store!
+}
+
+type ActionStoreStoreAggregationSelection {
+  count: Int!
+  node: ActionStoreStoreNodeAggregateSelection
+}
+
+type ActionStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ActionStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input ActionStoreUpdateFieldInput {
+  connect: ActionStoreConnectFieldInput
+  connectOrCreate: ActionStoreConnectOrCreateFieldInput
+  create: ActionStoreCreateFieldInput
+  delete: ActionStoreDeleteFieldInput
+  disconnect: ActionStoreDisconnectFieldInput
+  update: ActionStoreUpdateConnectionInput
+  where: ActionStoreConnectionWhere
+}
+
+input ActionUniqueWhere {
+  id: ID
+}
+
+input ActionUpdateInput {
+  body: String
+  name: String
+  store: ActionStoreUpdateFieldInput
+}
+
+input ActionWhere {
+  AND: [ActionWhere!]
+  OR: [ActionWhere!]
+  body: String
+  body_CONTAINS: String
+  body_ENDS_WITH: String
+  body_IN: [String!]
+  body_NOT: String
+  body_NOT_CONTAINS: String
+  body_NOT_ENDS_WITH: String
+  body_NOT_IN: [String!]
+  body_NOT_STARTS_WITH: String
+  body_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  store: StoreWhere
+  storeAggregate: ActionStoreAggregateInput
+  storeConnection: ActionStoreConnectionWhere
+  storeConnection_NOT: ActionStoreConnectionWhere
+  store_NOT: StoreWhere
+}
+
 union AnyType =
     AppType
   | ArrayType
@@ -63,6 +338,22 @@ type App {
     sort: [AppRootProviderElementConnectionSort!]
     where: AppRootProviderElementConnectionWhere
   ): AppRootProviderElementConnection!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): AppStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AppStoreConnectionSort!]
+    where: AppStoreConnectionWhere
+  ): AppStoreConnection!
 }
 
 type AppAggregateSelection {
@@ -75,12 +366,14 @@ input AppConnectInput {
   owner: [AppOwnerConnectFieldInput!]
   pages: [AppPagesConnectFieldInput!]
   rootProviderElement: AppRootProviderElementConnectFieldInput
+  store: AppStoreConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
   owner: [AppOwnerConnectOrCreateFieldInput!]
   pages: [AppPagesConnectOrCreateFieldInput!]
   rootProviderElement: AppRootProviderElementConnectOrCreateFieldInput
+  store: AppStoreConnectOrCreateFieldInput
 }
 
 input AppConnectOrCreateWhere {
@@ -96,18 +389,21 @@ input AppCreateInput {
   owner: AppOwnerFieldInput
   pages: AppPagesFieldInput
   rootProviderElement: AppRootProviderElementFieldInput
+  store: AppStoreFieldInput
 }
 
 input AppDeleteInput {
   owner: [AppOwnerDeleteFieldInput!]
   pages: [AppPagesDeleteFieldInput!]
   rootProviderElement: AppRootProviderElementDeleteFieldInput
+  store: AppStoreDeleteFieldInput
 }
 
 input AppDisconnectInput {
   owner: [AppOwnerDisconnectFieldInput!]
   pages: [AppPagesDisconnectFieldInput!]
   rootProviderElement: AppRootProviderElementDisconnectFieldInput
+  store: AppStoreDisconnectFieldInput
 }
 
 type AppElementRootProviderElementAggregationSelection {
@@ -125,8 +421,7 @@ type AppElementRootProviderElementNodeAggregateSelection {
 }
 
 input AppOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input AppOptions {
@@ -387,6 +682,7 @@ input AppRelationInput {
   owner: [AppOwnerCreateFieldInput!]
   pages: [AppPagesCreateFieldInput!]
   rootProviderElement: AppRootProviderElementCreateFieldInput
+  store: AppStoreCreateFieldInput
 }
 
 input AppRootProviderElementAggregateInput {
@@ -582,6 +878,144 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   id: SortDirection
   name: SortDirection
+}
+
+input AppStoreAggregateInput {
+  AND: [AppStoreAggregateInput!]
+  OR: [AppStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppStoreNodeAggregationWhereInput
+}
+
+input AppStoreConnectFieldInput {
+  connect: StoreConnectInput
+  where: StoreConnectWhere
+}
+
+input AppStoreConnectOrCreateFieldInput {
+  onCreate: AppStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input AppStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
+type AppStoreConnection {
+  edges: [AppStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AppStoreConnectionSort {
+  node: StoreSort
+}
+
+input AppStoreConnectionWhere {
+  AND: [AppStoreConnectionWhere!]
+  OR: [AppStoreConnectionWhere!]
+  node: StoreWhere
+  node_NOT: StoreWhere
+}
+
+input AppStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input AppStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: AppStoreConnectionWhere
+}
+
+input AppStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: AppStoreConnectionWhere
+}
+
+input AppStoreFieldInput {
+  connect: AppStoreConnectFieldInput
+  connectOrCreate: AppStoreConnectOrCreateFieldInput
+  create: AppStoreCreateFieldInput
+}
+
+input AppStoreNodeAggregationWhereInput {
+  AND: [AppStoreNodeAggregationWhereInput!]
+  OR: [AppStoreNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type AppStoreRelationship {
+  cursor: String!
+  node: Store!
+}
+
+type AppStoreStoreAggregationSelection {
+  count: Int!
+  node: AppStoreStoreNodeAggregateSelection
+}
+
+type AppStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input AppStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input AppStoreUpdateFieldInput {
+  connect: AppStoreConnectFieldInput
+  connectOrCreate: AppStoreConnectOrCreateFieldInput
+  create: AppStoreCreateFieldInput
+  delete: AppStoreDeleteFieldInput
+  disconnect: AppStoreDisconnectFieldInput
+  update: AppStoreUpdateConnectionInput
+  where: AppStoreConnectionWhere
 }
 
 """
@@ -790,6 +1224,7 @@ input AppUpdateInput {
   owner: [AppOwnerUpdateFieldInput!]
   pages: [AppPagesUpdateFieldInput!]
   rootProviderElement: AppRootProviderElementUpdateFieldInput
+  store: AppStoreUpdateFieldInput
 }
 
 type AppUserOwnerAggregationSelection {
@@ -881,6 +1316,11 @@ input AppWhere {
   rootProviderElementConnection: AppRootProviderElementConnectionWhere
   rootProviderElementConnection_NOT: AppRootProviderElementConnectionWhere
   rootProviderElement_NOT: ElementWhere
+  store: StoreWhere
+  storeAggregate: AppStoreAggregateInput
+  storeConnection: AppStoreConnectionWhere
+  storeConnection_NOT: AppStoreConnectionWhere
+  store_NOT: StoreWhere
 }
 
 """
@@ -1356,8 +1796,7 @@ type AtomInterfaceTypeApiNodeAggregateSelection {
 }
 
 input AtomOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input AtomOptions {
@@ -2028,8 +2467,7 @@ type ComponentElementRootElementNodeAggregateSelection {
 }
 
 input ComponentOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input ComponentOptions {
@@ -2425,6 +2863,11 @@ input ComponentWhere {
   rootElement_NOT: ElementWhere
 }
 
+type CreateActionsMutationResponse {
+  actions: [Action!]!
+  info: CreateInfo!
+}
+
 type CreateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: CreateInfo!
@@ -2628,6 +3071,11 @@ type CreateRenderPropsTypesMutationResponse {
 type CreateResetDatabaseMutationResponsesMutationResponse {
   info: CreateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
+type CreateStoresMutationResponse {
+  info: CreateInfo!
+  stores: [Store!]!
 }
 
 type CreateTagGraphOptionsMutationResponse {
@@ -3716,7 +4164,6 @@ input ElementInstanceOfComponentUpdateFieldInput {
 
 input ElementOnCreateInput {
   css: String
-  id: ID
   name: String
   propTransformationJs: String
   renderForEachPropKey: String
@@ -4866,8 +5313,7 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
 }
 
 input EnumTypeOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input EnumTypeOptions {
@@ -5769,7 +6215,10 @@ input HookElementUpdateFieldInput {
 }
 
 input HookOnCreateInput {
-  id: ID
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
 }
 
 input HookOptions {
@@ -6208,8 +6657,7 @@ input InterfaceTypeFieldsUpdateFieldInput {
 }
 
 input InterfaceTypeOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input InterfaceTypeOptions {
@@ -6811,6 +7259,7 @@ input MonacoTypeWhere {
 }
 
 type Mutation {
+  createActions(input: [ActionCreateInput!]!): CreateActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createArrayTypes(
@@ -6873,6 +7322,7 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
+  createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
   createTagGraphOptions(
     input: [TagGraphOptionsCreateInput!]!
   ): CreateTagGraphOptionsMutationResponse!
@@ -6883,6 +7333,7 @@ type Mutation {
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
+  deleteActions(delete: ActionDeleteInput, where: ActionWhere): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteArrayTypes(
@@ -6959,6 +7410,8 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
+  deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
+  deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
@@ -6970,6 +7423,15 @@ type Mutation {
   importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
+  updateActions(
+    connect: ActionConnectInput
+    connectOrCreate: ActionConnectOrCreateInput
+    create: ActionRelationInput
+    delete: ActionDeleteInput
+    disconnect: ActionDisconnectInput
+    update: ActionUpdateInput
+    where: ActionWhere
+  ): UpdateActionsMutationResponse!
   updateAppTypes(
     connect: AppTypeConnectInput
     connectOrCreate: AppTypeConnectOrCreateInput
@@ -7169,6 +7631,15 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
+  updateStores(
+    connect: StoreConnectInput
+    connectOrCreate: StoreConnectOrCreateInput
+    create: StoreRelationInput
+    delete: StoreDeleteInput
+    disconnect: StoreDisconnectInput
+    update: StoreUpdateInput
+    where: StoreWhere
+  ): UpdateStoresMutationResponse!
   updateTagGraphOptions(
     update: TagGraphOptionsUpdateInput
     where: TagGraphOptionsWhere
@@ -7416,8 +7887,7 @@ type PageInfo {
 }
 
 input PageOnCreateInput {
-  id: ID
-  name: String
+  name: String!
 }
 
 input PageOptions {
@@ -7899,6 +8369,37 @@ input ParentOfElementWhere {
   order_LTE: Int
   order_NOT: Int
   order_NOT_IN: [Int]
+}
+
+interface ParentOfStore {
+  storeKey: String!
+}
+
+input ParentOfStoreCreateInput {
+  storeKey: String!
+}
+
+input ParentOfStoreSort {
+  storeKey: SortDirection
+}
+
+input ParentOfStoreUpdateInput {
+  storeKey: String
+}
+
+input ParentOfStoreWhere {
+  AND: [ParentOfStoreWhere!]
+  OR: [ParentOfStoreWhere!]
+  storeKey: String
+  storeKey_CONTAINS: String
+  storeKey_ENDS_WITH: String
+  storeKey_IN: [String!]
+  storeKey_NOT: String
+  storeKey_NOT_CONTAINS: String
+  storeKey_NOT_ENDS_WITH: String
+  storeKey_NOT_IN: [String!]
+  storeKey_NOT_STARTS_WITH: String
+  storeKey_STARTS_WITH: String
 }
 
 """
@@ -8432,9 +8933,8 @@ input PropMapBindingElementUpdateFieldInput {
 }
 
 input PropMapBindingOnCreateInput {
-  id: ID
-  sourceKey: String
-  targetKey: String
+  sourceKey: String!
+  targetKey: String!
 }
 
 input PropMapBindingOptions {
@@ -8705,8 +9205,7 @@ input PropMapBindingWhere {
 }
 
 input PropOnCreateInput {
-  data: String = "{}"
-  id: ID
+  data: String! = "{}"
 }
 
 input PropOptions {
@@ -8761,6 +9260,8 @@ input PropWhere {
 }
 
 type Query {
+  actions(options: ActionOptions, where: ActionWhere): [Action!]!
+  actionsAggregate(where: ActionWhere): ActionAggregateSelection!
   appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
   appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
   apps(options: AppOptions, where: AppWhere): [App!]!
@@ -8890,6 +9391,8 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
+  stores(options: StoreOptions, where: StoreWhere): [Store!]!
+  storesAggregate(where: StoreWhere): StoreAggregateSelection!
   tagGraphOptions(
     options: TagGraphOptionsOptions
     where: TagGraphOptionsWhere
@@ -9374,6 +9877,877 @@ enum SortDirection {
   DESC
 }
 
+type Store {
+  actions(
+    directed: Boolean = true
+    options: ActionOptions
+    where: ActionWhere
+  ): [Action!]!
+  actionsAggregate(
+    directed: Boolean = true
+    where: ActionWhere
+  ): StoreActionActionsAggregationSelection
+  actionsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreActionsConnectionSort!]
+    where: StoreActionsConnectionWhere
+  ): StoreActionsConnection!
+  children(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): [Store!]!
+  childrenAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): StoreStoreChildrenAggregationSelection
+  childrenConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreChildrenConnectionSort!]
+    where: StoreChildrenConnectionWhere
+  ): StoreChildrenConnection!
+  descendants: [Store!]!
+  id: ID!
+  initialState: String!
+  name: String!
+  parentStore(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store
+  parentStoreAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): StoreStoreParentStoreAggregationSelection
+  parentStoreConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreParentStoreConnectionSort!]
+    where: StoreParentStoreConnectionWhere
+  ): StoreParentStoreConnection!
+  state(
+    directed: Boolean = true
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
+  stateAggregate(
+    directed: Boolean = true
+    where: InterfaceTypeWhere
+  ): StoreInterfaceTypeStateAggregationSelection
+  stateConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreStateConnectionSort!]
+    where: StoreStateConnectionWhere
+  ): StoreStateConnection!
+}
+
+type StoreActionActionsAggregationSelection {
+  count: Int!
+  node: StoreActionActionsNodeAggregateSelection
+}
+
+type StoreActionActionsNodeAggregateSelection {
+  body: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreActionsAggregateInput {
+  AND: [StoreActionsAggregateInput!]
+  OR: [StoreActionsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreActionsNodeAggregationWhereInput
+}
+
+input StoreActionsConnectFieldInput {
+  connect: [ActionConnectInput!]
+  where: ActionConnectWhere
+}
+
+input StoreActionsConnectOrCreateFieldInput {
+  onCreate: StoreActionsConnectOrCreateFieldInputOnCreate!
+  where: ActionConnectOrCreateWhere!
+}
+
+input StoreActionsConnectOrCreateFieldInputOnCreate {
+  node: ActionOnCreateInput!
+}
+
+type StoreActionsConnection {
+  edges: [StoreActionsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreActionsConnectionSort {
+  node: ActionSort
+}
+
+input StoreActionsConnectionWhere {
+  AND: [StoreActionsConnectionWhere!]
+  OR: [StoreActionsConnectionWhere!]
+  node: ActionWhere
+  node_NOT: ActionWhere
+}
+
+input StoreActionsCreateFieldInput {
+  node: ActionCreateInput!
+}
+
+input StoreActionsDeleteFieldInput {
+  delete: ActionDeleteInput
+  where: StoreActionsConnectionWhere
+}
+
+input StoreActionsDisconnectFieldInput {
+  disconnect: ActionDisconnectInput
+  where: StoreActionsConnectionWhere
+}
+
+input StoreActionsFieldInput {
+  connect: [StoreActionsConnectFieldInput!]
+  connectOrCreate: [StoreActionsConnectOrCreateFieldInput!]
+  create: [StoreActionsCreateFieldInput!]
+}
+
+input StoreActionsNodeAggregationWhereInput {
+  AND: [StoreActionsNodeAggregationWhereInput!]
+  OR: [StoreActionsNodeAggregationWhereInput!]
+  body_AVERAGE_EQUAL: Float
+  body_AVERAGE_GT: Float
+  body_AVERAGE_GTE: Float
+  body_AVERAGE_LT: Float
+  body_AVERAGE_LTE: Float
+  body_EQUAL: String
+  body_GT: Int
+  body_GTE: Int
+  body_LONGEST_EQUAL: Int
+  body_LONGEST_GT: Int
+  body_LONGEST_GTE: Int
+  body_LONGEST_LT: Int
+  body_LONGEST_LTE: Int
+  body_LT: Int
+  body_LTE: Int
+  body_SHORTEST_EQUAL: Int
+  body_SHORTEST_GT: Int
+  body_SHORTEST_GTE: Int
+  body_SHORTEST_LT: Int
+  body_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreActionsRelationship {
+  cursor: String!
+  node: Action!
+}
+
+input StoreActionsUpdateConnectionInput {
+  node: ActionUpdateInput
+}
+
+input StoreActionsUpdateFieldInput {
+  connect: [StoreActionsConnectFieldInput!]
+  connectOrCreate: [StoreActionsConnectOrCreateFieldInput!]
+  create: [StoreActionsCreateFieldInput!]
+  delete: [StoreActionsDeleteFieldInput!]
+  disconnect: [StoreActionsDisconnectFieldInput!]
+  update: StoreActionsUpdateConnectionInput
+  where: StoreActionsConnectionWhere
+}
+
+type StoreAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreChildrenAggregateInput {
+  AND: [StoreChildrenAggregateInput!]
+  OR: [StoreChildrenAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: StoreChildrenEdgeAggregationWhereInput
+  node: StoreChildrenNodeAggregationWhereInput
+}
+
+input StoreChildrenConnectFieldInput {
+  connect: [StoreConnectInput!]
+  edge: ParentOfStoreCreateInput!
+  where: StoreConnectWhere
+}
+
+input StoreChildrenConnectOrCreateFieldInput {
+  onCreate: StoreChildrenConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input StoreChildrenConnectOrCreateFieldInputOnCreate {
+  edge: ParentOfStoreCreateInput!
+  node: StoreOnCreateInput!
+}
+
+type StoreChildrenConnection {
+  edges: [StoreChildrenRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreChildrenConnectionSort {
+  edge: ParentOfStoreSort
+  node: StoreSort
+}
+
+input StoreChildrenConnectionWhere {
+  AND: [StoreChildrenConnectionWhere!]
+  OR: [StoreChildrenConnectionWhere!]
+  edge: ParentOfStoreWhere
+  edge_NOT: ParentOfStoreWhere
+  node: StoreWhere
+  node_NOT: StoreWhere
+}
+
+input StoreChildrenCreateFieldInput {
+  edge: ParentOfStoreCreateInput!
+  node: StoreCreateInput!
+}
+
+input StoreChildrenDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: StoreChildrenConnectionWhere
+}
+
+input StoreChildrenDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: StoreChildrenConnectionWhere
+}
+
+input StoreChildrenEdgeAggregationWhereInput {
+  AND: [StoreChildrenEdgeAggregationWhereInput!]
+  OR: [StoreChildrenEdgeAggregationWhereInput!]
+  storeKey_AVERAGE_EQUAL: Float
+  storeKey_AVERAGE_GT: Float
+  storeKey_AVERAGE_GTE: Float
+  storeKey_AVERAGE_LT: Float
+  storeKey_AVERAGE_LTE: Float
+  storeKey_EQUAL: String
+  storeKey_GT: Int
+  storeKey_GTE: Int
+  storeKey_LONGEST_EQUAL: Int
+  storeKey_LONGEST_GT: Int
+  storeKey_LONGEST_GTE: Int
+  storeKey_LONGEST_LT: Int
+  storeKey_LONGEST_LTE: Int
+  storeKey_LT: Int
+  storeKey_LTE: Int
+  storeKey_SHORTEST_EQUAL: Int
+  storeKey_SHORTEST_GT: Int
+  storeKey_SHORTEST_GTE: Int
+  storeKey_SHORTEST_LT: Int
+  storeKey_SHORTEST_LTE: Int
+}
+
+input StoreChildrenFieldInput {
+  connect: [StoreChildrenConnectFieldInput!]
+  connectOrCreate: [StoreChildrenConnectOrCreateFieldInput!]
+  create: [StoreChildrenCreateFieldInput!]
+}
+
+input StoreChildrenNodeAggregationWhereInput {
+  AND: [StoreChildrenNodeAggregationWhereInput!]
+  OR: [StoreChildrenNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreChildrenRelationship implements ParentOfStore {
+  cursor: String!
+  node: Store!
+  storeKey: String!
+}
+
+input StoreChildrenUpdateConnectionInput {
+  edge: ParentOfStoreUpdateInput
+  node: StoreUpdateInput
+}
+
+input StoreChildrenUpdateFieldInput {
+  connect: [StoreChildrenConnectFieldInput!]
+  connectOrCreate: [StoreChildrenConnectOrCreateFieldInput!]
+  create: [StoreChildrenCreateFieldInput!]
+  delete: [StoreChildrenDeleteFieldInput!]
+  disconnect: [StoreChildrenDisconnectFieldInput!]
+  update: StoreChildrenUpdateConnectionInput
+  where: StoreChildrenConnectionWhere
+}
+
+input StoreConnectInput {
+  actions: [StoreActionsConnectFieldInput!]
+  children: [StoreChildrenConnectFieldInput!]
+  parentStore: StoreParentStoreConnectFieldInput
+  state: StoreStateConnectFieldInput
+}
+
+input StoreConnectOrCreateInput {
+  actions: [StoreActionsConnectOrCreateFieldInput!]
+  children: [StoreChildrenConnectOrCreateFieldInput!]
+  parentStore: StoreParentStoreConnectOrCreateFieldInput
+  state: StoreStateConnectOrCreateFieldInput
+}
+
+input StoreConnectOrCreateWhere {
+  node: StoreUniqueWhere!
+}
+
+input StoreConnectWhere {
+  node: StoreWhere!
+}
+
+input StoreCreateInput {
+  actions: StoreActionsFieldInput
+  children: StoreChildrenFieldInput
+  initialState: String! = "{}"
+  name: String!
+  parentStore: StoreParentStoreFieldInput
+  state: StoreStateFieldInput
+}
+
+input StoreDeleteInput {
+  actions: [StoreActionsDeleteFieldInput!]
+  children: [StoreChildrenDeleteFieldInput!]
+  parentStore: StoreParentStoreDeleteFieldInput
+  state: StoreStateDeleteFieldInput
+}
+
+input StoreDisconnectInput {
+  actions: [StoreActionsDisconnectFieldInput!]
+  children: [StoreChildrenDisconnectFieldInput!]
+  parentStore: StoreParentStoreDisconnectFieldInput
+  state: StoreStateDisconnectFieldInput
+}
+
+type StoreInterfaceTypeStateAggregationSelection {
+  count: Int!
+  node: StoreInterfaceTypeStateNodeAggregateSelection
+}
+
+type StoreInterfaceTypeStateNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreOnCreateInput {
+  initialState: String! = "{}"
+  name: String!
+}
+
+input StoreOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more StoreSort objects to sort Stores by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [StoreSort!]
+}
+
+input StoreParentStoreAggregateInput {
+  AND: [StoreParentStoreAggregateInput!]
+  OR: [StoreParentStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: StoreParentStoreEdgeAggregationWhereInput
+  node: StoreParentStoreNodeAggregationWhereInput
+}
+
+input StoreParentStoreConnectFieldInput {
+  connect: StoreConnectInput
+  edge: ParentOfStoreCreateInput!
+  where: StoreConnectWhere
+}
+
+input StoreParentStoreConnectOrCreateFieldInput {
+  onCreate: StoreParentStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input StoreParentStoreConnectOrCreateFieldInputOnCreate {
+  edge: ParentOfStoreCreateInput!
+  node: StoreOnCreateInput!
+}
+
+type StoreParentStoreConnection {
+  edges: [StoreParentStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreParentStoreConnectionSort {
+  edge: ParentOfStoreSort
+  node: StoreSort
+}
+
+input StoreParentStoreConnectionWhere {
+  AND: [StoreParentStoreConnectionWhere!]
+  OR: [StoreParentStoreConnectionWhere!]
+  edge: ParentOfStoreWhere
+  edge_NOT: ParentOfStoreWhere
+  node: StoreWhere
+  node_NOT: StoreWhere
+}
+
+input StoreParentStoreCreateFieldInput {
+  edge: ParentOfStoreCreateInput!
+  node: StoreCreateInput!
+}
+
+input StoreParentStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: StoreParentStoreConnectionWhere
+}
+
+input StoreParentStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: StoreParentStoreConnectionWhere
+}
+
+input StoreParentStoreEdgeAggregationWhereInput {
+  AND: [StoreParentStoreEdgeAggregationWhereInput!]
+  OR: [StoreParentStoreEdgeAggregationWhereInput!]
+  storeKey_AVERAGE_EQUAL: Float
+  storeKey_AVERAGE_GT: Float
+  storeKey_AVERAGE_GTE: Float
+  storeKey_AVERAGE_LT: Float
+  storeKey_AVERAGE_LTE: Float
+  storeKey_EQUAL: String
+  storeKey_GT: Int
+  storeKey_GTE: Int
+  storeKey_LONGEST_EQUAL: Int
+  storeKey_LONGEST_GT: Int
+  storeKey_LONGEST_GTE: Int
+  storeKey_LONGEST_LT: Int
+  storeKey_LONGEST_LTE: Int
+  storeKey_LT: Int
+  storeKey_LTE: Int
+  storeKey_SHORTEST_EQUAL: Int
+  storeKey_SHORTEST_GT: Int
+  storeKey_SHORTEST_GTE: Int
+  storeKey_SHORTEST_LT: Int
+  storeKey_SHORTEST_LTE: Int
+}
+
+input StoreParentStoreFieldInput {
+  connect: StoreParentStoreConnectFieldInput
+  connectOrCreate: StoreParentStoreConnectOrCreateFieldInput
+  create: StoreParentStoreCreateFieldInput
+}
+
+input StoreParentStoreNodeAggregationWhereInput {
+  AND: [StoreParentStoreNodeAggregationWhereInput!]
+  OR: [StoreParentStoreNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  initialState_AVERAGE_EQUAL: Float
+  initialState_AVERAGE_GT: Float
+  initialState_AVERAGE_GTE: Float
+  initialState_AVERAGE_LT: Float
+  initialState_AVERAGE_LTE: Float
+  initialState_EQUAL: String
+  initialState_GT: Int
+  initialState_GTE: Int
+  initialState_LONGEST_EQUAL: Int
+  initialState_LONGEST_GT: Int
+  initialState_LONGEST_GTE: Int
+  initialState_LONGEST_LT: Int
+  initialState_LONGEST_LTE: Int
+  initialState_LT: Int
+  initialState_LTE: Int
+  initialState_SHORTEST_EQUAL: Int
+  initialState_SHORTEST_GT: Int
+  initialState_SHORTEST_GTE: Int
+  initialState_SHORTEST_LT: Int
+  initialState_SHORTEST_LTE: Int
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreParentStoreRelationship implements ParentOfStore {
+  cursor: String!
+  node: Store!
+  storeKey: String!
+}
+
+input StoreParentStoreUpdateConnectionInput {
+  edge: ParentOfStoreUpdateInput
+  node: StoreUpdateInput
+}
+
+input StoreParentStoreUpdateFieldInput {
+  connect: StoreParentStoreConnectFieldInput
+  connectOrCreate: StoreParentStoreConnectOrCreateFieldInput
+  create: StoreParentStoreCreateFieldInput
+  delete: StoreParentStoreDeleteFieldInput
+  disconnect: StoreParentStoreDisconnectFieldInput
+  update: StoreParentStoreUpdateConnectionInput
+  where: StoreParentStoreConnectionWhere
+}
+
+input StoreRelationInput {
+  actions: [StoreActionsCreateFieldInput!]
+  children: [StoreChildrenCreateFieldInput!]
+  parentStore: StoreParentStoreCreateFieldInput
+  state: StoreStateCreateFieldInput
+}
+
+"""
+Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object.
+"""
+input StoreSort {
+  id: SortDirection
+  initialState: SortDirection
+  name: SortDirection
+}
+
+input StoreStateAggregateInput {
+  AND: [StoreStateAggregateInput!]
+  OR: [StoreStateAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreStateNodeAggregationWhereInput
+}
+
+input StoreStateConnectFieldInput {
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input StoreStateConnectOrCreateFieldInput {
+  onCreate: StoreStateConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input StoreStateConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeOnCreateInput!
+}
+
+type StoreStateConnection {
+  edges: [StoreStateRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreStateConnectionSort {
+  node: InterfaceTypeSort
+}
+
+input StoreStateConnectionWhere {
+  AND: [StoreStateConnectionWhere!]
+  OR: [StoreStateConnectionWhere!]
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
+}
+
+input StoreStateCreateFieldInput {
+  node: InterfaceTypeCreateInput!
+}
+
+input StoreStateDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
+  where: StoreStateConnectionWhere
+}
+
+input StoreStateDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
+  where: StoreStateConnectionWhere
+}
+
+input StoreStateFieldInput {
+  connect: StoreStateConnectFieldInput
+  connectOrCreate: StoreStateConnectOrCreateFieldInput
+  create: StoreStateCreateFieldInput
+}
+
+input StoreStateNodeAggregationWhereInput {
+  AND: [StoreStateNodeAggregationWhereInput!]
+  OR: [StoreStateNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreStateRelationship {
+  cursor: String!
+  node: InterfaceType!
+}
+
+input StoreStateUpdateConnectionInput {
+  node: InterfaceTypeUpdateInput
+}
+
+input StoreStateUpdateFieldInput {
+  connect: StoreStateConnectFieldInput
+  connectOrCreate: StoreStateConnectOrCreateFieldInput
+  create: StoreStateCreateFieldInput
+  delete: StoreStateDeleteFieldInput
+  disconnect: StoreStateDisconnectFieldInput
+  update: StoreStateUpdateConnectionInput
+  where: StoreStateConnectionWhere
+}
+
+type StoreStoreChildrenAggregationSelection {
+  count: Int!
+  edge: StoreStoreChildrenEdgeAggregateSelection
+  node: StoreStoreChildrenNodeAggregateSelection
+}
+
+type StoreStoreChildrenEdgeAggregateSelection {
+  storeKey: StringAggregateSelectionNonNullable!
+}
+
+type StoreStoreChildrenNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+type StoreStoreParentStoreAggregationSelection {
+  count: Int!
+  edge: StoreStoreParentStoreEdgeAggregateSelection
+  node: StoreStoreParentStoreNodeAggregateSelection
+}
+
+type StoreStoreParentStoreEdgeAggregateSelection {
+  storeKey: StringAggregateSelectionNonNullable!
+}
+
+type StoreStoreParentStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  initialState: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreUniqueWhere {
+  id: ID
+}
+
+input StoreUpdateInput {
+  actions: [StoreActionsUpdateFieldInput!]
+  children: [StoreChildrenUpdateFieldInput!]
+  initialState: String
+  name: String
+  parentStore: StoreParentStoreUpdateFieldInput
+  state: StoreStateUpdateFieldInput
+}
+
+input StoreWhere {
+  AND: [StoreWhere!]
+  OR: [StoreWhere!]
+  actionsAggregate: StoreActionsAggregateInput
+  actionsConnection_ALL: StoreActionsConnectionWhere
+  actionsConnection_NONE: StoreActionsConnectionWhere
+  actionsConnection_SINGLE: StoreActionsConnectionWhere
+  actionsConnection_SOME: StoreActionsConnectionWhere
+
+  """
+  Return Stores where all of the related Actions match this filter
+  """
+  actions_ALL: ActionWhere
+
+  """
+  Return Stores where none of the related Actions match this filter
+  """
+  actions_NONE: ActionWhere
+
+  """
+  Return Stores where one of the related Actions match this filter
+  """
+  actions_SINGLE: ActionWhere
+
+  """
+  Return Stores where some of the related Actions match this filter
+  """
+  actions_SOME: ActionWhere
+  childrenAggregate: StoreChildrenAggregateInput
+  childrenConnection_ALL: StoreChildrenConnectionWhere
+  childrenConnection_NONE: StoreChildrenConnectionWhere
+  childrenConnection_SINGLE: StoreChildrenConnectionWhere
+  childrenConnection_SOME: StoreChildrenConnectionWhere
+
+  """
+  Return Stores where all of the related Stores match this filter
+  """
+  children_ALL: StoreWhere
+
+  """
+  Return Stores where none of the related Stores match this filter
+  """
+  children_NONE: StoreWhere
+
+  """
+  Return Stores where one of the related Stores match this filter
+  """
+  children_SINGLE: StoreWhere
+
+  """
+  Return Stores where some of the related Stores match this filter
+  """
+  children_SOME: StoreWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  initialState: String
+  initialState_CONTAINS: String
+  initialState_ENDS_WITH: String
+  initialState_IN: [String!]
+  initialState_NOT: String
+  initialState_NOT_CONTAINS: String
+  initialState_NOT_ENDS_WITH: String
+  initialState_NOT_IN: [String!]
+  initialState_NOT_STARTS_WITH: String
+  initialState_STARTS_WITH: String
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  parentStore: StoreWhere
+  parentStoreAggregate: StoreParentStoreAggregateInput
+  parentStoreConnection: StoreParentStoreConnectionWhere
+  parentStoreConnection_NOT: StoreParentStoreConnectionWhere
+  parentStore_NOT: StoreWhere
+  state: InterfaceTypeWhere
+  stateAggregate: StoreStateAggregateInput
+  stateConnection: StoreStateConnectionWhere
+  stateConnection_NOT: StoreStateConnectionWhere
+  state_NOT: InterfaceTypeWhere
+}
+
 type StringAggregateSelectionNonNullable {
   longest: String!
   shortest: String!
@@ -9633,9 +11007,8 @@ input TagGraphOptionsWhere {
 }
 
 input TagOnCreateInput {
-  id: ID
   isRoot: Boolean
-  name: String
+  name: String!
 }
 
 input TagOptions {
@@ -10548,6 +11921,11 @@ input UnionTypeWhere {
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
 }
 
+type UpdateActionsMutationResponse {
+  actions: [Action!]!
+  info: UpdateInfo!
+}
+
 type UpdateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: UpdateInfo!
@@ -10684,6 +12062,11 @@ type UpdateRenderPropsTypesMutationResponse {
 type UpdateResetDatabaseMutationResponsesMutationResponse {
   info: UpdateInfo!
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
+type UpdateStoresMutationResponse {
+  info: UpdateInfo!
+  stores: [Store!]!
 }
 
 type UpdateTagGraphOptionsMutationResponse {
@@ -11037,9 +12420,8 @@ input UserDisconnectInput {
 }
 
 input UserOnCreateInput {
-  auth0Id: String
-  email: String
-  id: ID
+  auth0Id: String!
+  email: String!
 }
 
 input UserOptions {
@@ -11121,6 +12503,7 @@ input UserTypesUpdateFieldInput {
 }
 
 input UserUniqueWhere {
+  auth0Id: String
   id: ID
 }
 

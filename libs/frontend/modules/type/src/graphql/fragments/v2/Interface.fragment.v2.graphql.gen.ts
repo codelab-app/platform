@@ -14,8 +14,6 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './TypeBase.fragment.v2.graphql.gen'
-import { gql } from 'graphql-request'
-import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type InterfaceTypeFragment = {
   descendantTypesIds: Array<string>
   fieldsConnection: { edges: Array<InterfaceTypeFieldEdgeFragment> }
@@ -40,28 +38,3 @@ export type InterfaceTypeFieldEdgeFragment = {
     | { id: string }
     | { id: string }
 }
-
-export const InterfaceTypeFieldEdgeFragmentDoc = gql`
-  fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
-    key
-    description
-    cursor
-    name
-    node {
-      id
-    }
-  }
-`
-export const InterfaceTypeFragmentDoc = gql`
-  fragment InterfaceType on InterfaceType {
-    ...TypeBase
-    fieldsConnection {
-      edges {
-        ...InterfaceTypeFieldEdge
-      }
-    }
-    descendantTypesIds
-  }
-  ${TypeBaseFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-`

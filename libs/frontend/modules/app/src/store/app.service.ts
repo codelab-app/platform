@@ -61,13 +61,16 @@ export class AppService extends Model({
   update = _async(function* (
     this: AppService,
     app: App,
-    { name }: UpdateAppInput,
+    { name, storeId }: UpdateAppInput,
   ) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { name },
+        update: {
+          name,
+          store: { connect: { where: { node: { id: storeId } } } },
+        },
         where: { id: app.id },
       }),
     )
@@ -109,16 +112,13 @@ export class AppService extends Model({
     } = yield* _await(
       appApi.CreateApps({
         input: {
-          ...input,
-          owner: {
-            connect: [{ where: { node: { auth0Id: ownerId } } }],
-          },
+          name: input.name,
+          owner: { connect: [{ where: { node: { auth0Id: ownerId } } }] },
+          store: input.storeId
+            ? { connect: { where: { node: { id: input.storeId } } } }
+            : undefined,
           rootProviderElement: {
-            create: {
-              node: {
-                name: PROVIDER_ROOT_ELEMENT_NAME,
-              },
-            },
+            create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME } },
           },
         },
       }),

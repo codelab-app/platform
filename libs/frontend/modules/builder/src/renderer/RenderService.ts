@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   deepReplaceObjectValues,
   deepReplaceObjectValuesAndKeys,
@@ -16,11 +16,13 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  AnyModel,
   detach,
   getSnapshot,
   Model,
   model,
   modelAction,
+  ModelClass,
   modelFlow,
   prop,
   Ref,
@@ -94,14 +96,14 @@ export class RenderService extends Model(
   },
 ) {
   /** Set to any observable that will act as a source for the state of the rendered app */
-  private platformState?: any
+  public platformState?: any
 
   @modelFlow
   init = _async(function* (
     this: RenderService,
     tree: ElementTree,
     providerTree?: Nullable<ElementTree>,
-    platformState?: any,
+    platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
     this.treeRef = elementTreeRef(tree)
     this.providerTreeRef = providerTree ? elementTreeRef(providerTree) : null
