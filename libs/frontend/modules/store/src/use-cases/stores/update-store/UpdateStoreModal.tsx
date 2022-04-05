@@ -48,7 +48,10 @@ export const UpdateStoreModal = observer<WithStoreService>(
           schema={updateStoreSchema}
         >
           <AutoFields omitFields={['parentStore', 'initialState']} />
-          <AutoField name="parentStore.id" />
+          <AutoField
+            name="parentStore.id"
+            where={{ id_NOT: updateStore?.id }}
+          />
           <DisplayIfParent>
             <AutoField name="parentStore.key" />
           </DisplayIfParent>

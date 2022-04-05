@@ -1,18 +1,21 @@
+import { StoreWhere } from '@codelab/shared/abstract/codegen-v2'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectStoreProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectStoreProps = HTMLFieldProps<string, SelectFieldProps> & {
+  where: StoreWhere
+}
 
-export const SelectStore = ({ name, error }: SelectStoreProps) => {
+export const SelectStore = ({ name, error, where }: SelectStoreProps) => {
   const {
     data,
     isLoading,
     error: queryError,
   } = useQuery('interface-form/select-store', () =>
-    interfaceFormApi.InterfaceForm_GetStores(),
+    interfaceFormApi.InterfaceForm_GetStores({ where }),
   )
 
   const componentOptions =

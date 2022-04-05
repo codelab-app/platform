@@ -2,7 +2,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithAppService } from '../../store'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
@@ -36,7 +36,12 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
       >
-        <AutoFields />
+        <AutoFields omitFields={['storeId']} />
+        <AutoField
+          name="storeId"
+          // get root stores only
+          where={{ parentStoreAggregate: { count: 0 } }}
+        />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
