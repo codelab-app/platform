@@ -5,7 +5,6 @@ import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
 import { createTagSchema } from './createTagSchema'
-import { DisplayIfNotRoot } from './DisplayIfNotRoot'
 import { CreateTagInput } from './types'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
@@ -14,7 +13,7 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   //   label: tag.name,
   //   value: tag.id,
   // }))
-  const options = tagService.TagsListOptions
+  const options = tagService.tagsListOptions
   const closeModal = () => tagService.createModal.close()
 
   return (
