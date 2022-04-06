@@ -14,7 +14,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/Action.fragment.v2.1.graphql.gen'
+import { ActionFragment } from '../graphql/action.fragment.v2.1.graphql.gen'
 import type { CreateActionInput, UpdateActionInput } from '../use-cases'
 import { actionApi } from './action.api'
 import { Action } from './action.model'

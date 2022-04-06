@@ -22,7 +22,7 @@ import {
 import {
   ElementFragment,
   ElementGraphFragment,
-} from '../graphql/Element.fragment.v2.1.graphql.gen'
+} from '../graphql/element.fragment.v2.1.graphql.gen'
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
 

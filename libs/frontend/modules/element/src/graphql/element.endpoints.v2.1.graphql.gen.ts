@@ -8,8 +8,8 @@ import {
   HookFragment,
   HookPropFragment,
   PropMapBindingFragment,
-} from './Element.fragment.v2.1.graphql.gen'
-import { ComponentFragment } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
+} from './element.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../../../component/src/graphql/component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -21,8 +21,8 @@ import {
   HookFragmentDoc,
   HookPropFragmentDoc,
   PropMapBindingFragmentDoc,
-} from './Element.fragment.v2.1.graphql.gen'
-import { ComponentFragmentDoc } from '../../../component/src/graphql/Component.fragment.v2.1.graphql.gen'
+} from './element.fragment.v2.1.graphql.gen'
+import { ComponentFragmentDoc } from '../../../component/src/graphql/component.fragment.v2.1.graphql.gen'
 export type GetElementsGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>

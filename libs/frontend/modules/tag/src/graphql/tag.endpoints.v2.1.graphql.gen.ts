@@ -1,10 +1,9 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
-import { TagFragment } from './Tag.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TagFragmentDoc } from './Tag.fragment.v2.1.graphql.gen'
+import { TagFragment, TagFragmentDoc } from './tag.fragment.v2.1.graphql.gen'
+
 export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>
@@ -171,4 +170,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

@@ -6,19 +6,16 @@ import {
   _await,
   createContext,
   detach,
-  ExtendedModel,
   Model,
   model,
   modelAction,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
-  Ref,
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/Component.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../graphql/component.fragment.v2.1.graphql.gen'
 import type { CreateComponentInput } from '../use-cases/create-component/types'
 import type { UpdateComponentInput } from '../use-cases/update-component/types'
 import { mapCreateInput } from './api.utils'

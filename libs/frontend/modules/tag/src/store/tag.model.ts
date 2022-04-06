@@ -1,5 +1,5 @@
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { TagFragment } from '../graphql/Tag.fragment.v2.1.graphql.gen'
+import { TagFragment } from '../graphql/tag.fragment.v2.1.graphql.gen'
 
 @model('codelab/Tag')
 export class Tag extends Model({

@@ -1,5 +1,5 @@
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/Action.fragment.v2.1.graphql.gen'
+import { ActionFragment } from '../graphql/action.fragment.v2.1.graphql.gen'
 
 @model('codelab/Action')
 export class Action extends Model({

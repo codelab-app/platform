@@ -17,10 +17,10 @@ export const codelabAtoms: AtomsRecord = {
         (mod) => mod.Text,
       ) as any,
   ),
-  [AtomType.State]: dynamic(
-    () =>
-      import('@codelab/frontend/view/components').then(
-        (mod) => mod.State,
-      ) as any,
-  ),
+  // [AtomType.State]: dynamic(
+  //   () =>
+  //     import('@codelab/frontend/view/components').then(
+  //       (mod) => mod.State,
+  //     ) as any,
+  // ),
 }

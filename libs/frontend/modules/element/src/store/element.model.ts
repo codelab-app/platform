@@ -18,7 +18,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { ElementFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
+import { ElementFragment } from '../graphql/element.fragment.v2.1.graphql.gen'
 import { ElementProps } from './element-props.model'
 import { PropMapBinding } from './prop-map-binding.model'
 

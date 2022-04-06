@@ -1,4 +1,4 @@
-import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { LambdaFragment } from '../../graphql/lambda.fragment.graphql.gen'
 import { ActionColumn } from './colums/ActionColumn'
 
 export const useLambdaTable = () => {

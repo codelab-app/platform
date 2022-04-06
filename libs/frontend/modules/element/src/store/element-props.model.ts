@@ -2,7 +2,7 @@ import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { PropFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
+import { PropFragment } from '../graphql/element.fragment.v2.1.graphql.gen'
 
 @model('@codelab/ElementProps')
 export class ElementProps extends Model({

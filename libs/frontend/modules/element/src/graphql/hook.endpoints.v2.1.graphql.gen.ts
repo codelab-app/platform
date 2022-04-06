@@ -1,16 +1,14 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
-import {
-  HookFragment,
-  HookPropFragment,
-} from './Element.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
+  HookFragment,
   HookFragmentDoc,
+  HookPropFragment,
   HookPropFragmentDoc,
-} from './Element.fragment.v2.1.graphql.gen'
+} from './element.fragment.v2.1.graphql.gen'
+
 export type CreateHooksMutationVariables = Types.Exact<{
   input: Array<Types.HookCreateInput> | Types.HookCreateInput
 }>
@@ -91,4 +89,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

@@ -1,5 +1,55 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
+import { GraphQLClient } from 'graphql-request'
+import * as Dom from 'graphql-request/dist/types.dom'
+import { gql } from 'graphql-tag'
+import {
+  AppTypeFragment,
+  AppTypeFragmentDoc,
+} from './fragments/app-type.fragment.v2.1.graphql.gen'
+import {
+  ArrayTypeFragment,
+  ArrayTypeFragmentDoc,
+  ArrayTypeWithItemTypeFragment,
+  ArrayTypeWithItemTypeFragmentDoc,
+} from './fragments/array-type.fragment.v2.1.graphql.gen'
+import {
+  ElementTypeFragment,
+  ElementTypeFragmentDoc,
+} from './fragments/element-type.fragment.v2.1.graphql.gen'
+import {
+  EnumTypeFragment,
+  EnumTypeFragmentDoc,
+} from './fragments/enum-type.fragment.v2.1.graphql.gen'
+import {
+  EnumTypeValueFragment,
+  EnumTypeValueFragmentDoc,
+} from './fragments/enum-type-value.fragment.v2.1.graphql.gen'
+import {
+  InterfaceTypeFieldEdgeFragment,
+  InterfaceTypeFieldEdgeFragmentDoc,
+  InterfaceTypeFragment,
+  InterfaceTypeFragmentDoc,
+} from './fragments/interface.fragment.v2.1.graphql.gen'
+import {
+  LambdaTypeFragment,
+  LambdaTypeFragmentDoc,
+} from './fragments/lambda-type.fragment.v2.1.graphql.gen'
+import {
+  MonacoTypeFragment,
+  MonacoTypeFragmentDoc,
+} from './fragments/monaco-type.fragment.v2.1.graphql.gen'
+import {
+  PageTypeFragment,
+  PageTypeFragmentDoc,
+} from './fragments/page-type.fragment.v2.1.graphql.gen'
+import {
+  PrimitiveTypeFragment,
+  PrimitiveTypeFragmentDoc,
+} from './fragments/primitive-type.fragment.v2.1.graphql.gen'
+import {
+  RenderPropsTypeFragment,
+  RenderPropsTypeFragmentDoc,
+} from './fragments/render-props.fragment.v2.1.graphql.gen'
 import {
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
@@ -13,7 +63,8 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-} from './fragments/Type.fragment.v2.1.graphql.gen'
+  TypeFragmentDoc,
+} from './fragments/type.fragment.v2.1.graphql.gen'
 import {
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
@@ -27,54 +78,15 @@ import {
   TypeBase_ReactNodeType_Fragment,
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
-} from './fragments/TypeBase.fragment.v2.1.graphql.gen'
+  TypeBaseFragmentDoc,
+} from './fragments/type-base.fragment.v2.1.graphql.gen'
 import {
-  ArrayTypeWithItemTypeFragment,
-  ArrayTypeFragment,
-} from './fragments/ArrayType.fragment.v2.1.graphql.gen'
-import { EnumTypeFragment } from './fragments/EnumType.fragment.v2.1.graphql.gen'
-import { EnumTypeValueFragment } from './fragments/EnumTypeValue.fragment.v2.1.graphql.gen'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from './fragments/Interface.fragment.v2.1.graphql.gen'
-import { PrimitiveTypeFragment } from './fragments/PrimitiveType.fragment.v2.1.graphql.gen'
-import { ElementTypeFragment } from './fragments/ElementType.fragment.v2.1.graphql.gen'
-import { LambdaTypeFragment } from './fragments/LambdaType.fragment.v2.1.graphql.gen'
-import { RenderPropsTypeFragment } from './fragments/RenderProps.fragment.v2.1.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragment,
   UnionTypeFragment,
-} from './fragments/UnionType.fragment.v2.1.graphql.gen'
-import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
-import { PageTypeFragment } from './fragments/PageType.fragment.v2.1.graphql.gen'
-import { AppTypeFragment } from './fragments/AppType.fragment.v2.1.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
-import { gql } from 'graphql-tag'
-import { TypeFragmentDoc } from './fragments/Type.fragment.v2.1.graphql.gen'
-import { TypeBaseFragmentDoc } from './fragments/TypeBase.fragment.v2.1.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragmentDoc,
-  ArrayTypeFragmentDoc,
-} from './fragments/ArrayType.fragment.v2.1.graphql.gen'
-import { EnumTypeFragmentDoc } from './fragments/EnumType.fragment.v2.1.graphql.gen'
-import { EnumTypeValueFragmentDoc } from './fragments/EnumTypeValue.fragment.v2.1.graphql.gen'
-import {
-  InterfaceTypeFragmentDoc,
-  InterfaceTypeFieldEdgeFragmentDoc,
-} from './fragments/Interface.fragment.v2.1.graphql.gen'
-import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.1.graphql.gen'
-import { ElementTypeFragmentDoc } from './fragments/ElementType.fragment.v2.1.graphql.gen'
-import { LambdaTypeFragmentDoc } from './fragments/LambdaType.fragment.v2.1.graphql.gen'
-import { RenderPropsTypeFragmentDoc } from './fragments/RenderProps.fragment.v2.1.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragmentDoc,
   UnionTypeFragmentDoc,
-} from './fragments/UnionType.fragment.v2.1.graphql.gen'
-import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.1.graphql.gen'
-import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.1.graphql.gen'
-import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.1.graphql.gen'
+  UnionTypeWithInnerTypesFragment,
+  UnionTypeWithInnerTypesFragmentDoc,
+} from './fragments/union-type.fragment.v2.1.graphql.gen'
+
 export type CreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
@@ -685,4 +697,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

@@ -13,7 +13,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
+import { StoreFragment } from '../graphql/store.fragment.v2.1.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
 import { getActionService } from './action.service'

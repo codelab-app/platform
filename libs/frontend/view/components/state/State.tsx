@@ -1,7 +1,7 @@
 import { isFunction } from 'lodash'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useExecuteLambdaForStateMutation } from './ExecuteLambdaForState.web.graphql.gen'
+import { useExecuteLambdaForStateMutation } from './execute-lambda-for-state.graphql.gen'
 import { stateAtomFamily } from './stateAtomFamily'
 import { StateProps } from './StateProps'
 
@@ -30,6 +30,9 @@ const eventSafeStringify = (e: any) => {
   )
 }
 
+/**
+ * @deprecated Saving it for an example of how to integrate custom components
+ */
 export const State = ({
   eventKey,
   propKey,

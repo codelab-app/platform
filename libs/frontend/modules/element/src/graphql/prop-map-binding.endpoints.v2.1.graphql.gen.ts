@@ -1,10 +1,12 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
-import { PropMapBindingFragment } from './Element.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { PropMapBindingFragmentDoc } from './Element.fragment.v2.1.graphql.gen'
+import {
+  PropMapBindingFragment,
+  PropMapBindingFragmentDoc,
+} from './element.fragment.v2.1.graphql.gen'
+
 export type CreatePropMapBindingsMutationVariables = Types.Exact<{
   input:
     | Array<Types.PropMapBindingCreateInput>
@@ -162,4 +164,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

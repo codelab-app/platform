@@ -1,5 +1,5 @@
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/Component.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../graphql/component.fragment.v2.1.graphql.gen'
 
 const fromFragment = (component: ComponentFragment) => {
   return new Component({

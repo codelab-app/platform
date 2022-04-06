@@ -1,17 +1,15 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
-import {
-  InterfaceTypeEdgeFragment,
-  Field_InterfaceTypeEdge_Fragment,
-  Field_InterfaceTypeFieldsRelationship_Fragment,
-} from './fragments/Field.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
-  InterfaceTypeEdgeFragmentDoc,
+  Field_InterfaceTypeEdge_Fragment,
+  Field_InterfaceTypeFieldsRelationship_Fragment,
   FieldFragmentDoc,
-} from './fragments/Field.fragment.v2.1.graphql.gen'
+  InterfaceTypeEdgeFragment,
+  InterfaceTypeEdgeFragmentDoc,
+} from './fragments/field.fragment.v2.1.graphql.gen'
+
 export type CreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
@@ -119,4 +117,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

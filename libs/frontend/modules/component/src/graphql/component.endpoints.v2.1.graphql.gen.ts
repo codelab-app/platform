@@ -1,10 +1,12 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
-
-import { ComponentFragment } from './Component.fragment.v2.1.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ComponentFragmentDoc } from './Component.fragment.v2.1.graphql.gen'
+import {
+  ComponentFragment,
+  ComponentFragmentDoc,
+} from './component.fragment.v2.1.graphql.gen'
+
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
@@ -158,4 +160,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>

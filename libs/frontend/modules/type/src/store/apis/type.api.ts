@@ -5,7 +5,7 @@ import { UnboxArray } from '@codelab/shared/abstract/types'
 import { flatten } from 'lodash'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.v2.1.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.v2.1.graphql.gen'
-import { TypeFragment } from '../../graphql/fragments/Type.fragment.v2.1.graphql.gen'
+import { TypeFragment } from '../../graphql/fragments/type.fragment.v2.1.graphql.gen'
 import {
   getSdk as getGetSdk,
   GetTypesQuery,

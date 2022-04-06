@@ -5156,6 +5156,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ls-lint/ls-lint@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "@ls-lint/ls-lint@npm:1.11.0"
+  bin:
+    ls-lint: bin/cli.js
+  checksum: d94df05c3bb3ed29e0cceab61af4c8f439920ebadd889c7bcaefe99328c3e32ebcad4e58e7ed284af512361290d3ba2bce33226344e95e65175d14b5b5666484
+  conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64)
+  languageName: node
+  linkType: hard
+
 "@mdx-js/loader@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/loader@npm:1.6.22"
@@ -14466,6 +14476,7 @@ __metadata:
     "@graphql-eslint/eslint-plugin": 3.6.0
     "@graphql-tools/load-files": 6.5.3
     "@hon2a/cypress-antd": ^0.4.10
+    "@ls-lint/ls-lint": ^1.11.0
     "@monaco-editor/react": ^4.3.1
     "@mui/core": 5.0.0-alpha.54
     "@mui/lab": 5.0.0-alpha.69
