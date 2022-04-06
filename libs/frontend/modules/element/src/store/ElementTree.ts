@@ -1,10 +1,10 @@
 import {
   AtomFromFragmentInput,
-  getAtomServiceFromContext,
+  getAtomService,
 } from '@codelab/frontend/modules/atom'
 import {
   ComponentFragment,
-  getComponentServiceFromContext,
+  getComponentService,
 } from '@codelab/frontend/modules/component'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -207,7 +207,7 @@ export class ElementTree extends Model({
   @modelAction
   private ensureAllAtomsAreAdded(elements: Array<ElementFragment>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-    const atomService = getAtomServiceFromContext(this)
+    const atomService = getAtomService(this)
 
     const allAtoms = elements
       .map((v) => v.atom)
@@ -219,7 +219,7 @@ export class ElementTree extends Model({
   @modelAction
   private ensureAllComponentsAreAdded(elements: Array<ElementFragment>) {
     // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
-    const componentService = getComponentServiceFromContext(this)
+    const componentService = getComponentService(this)
 
     const allComponents = elements
       .map((v) => v.component)

@@ -1,4 +1,4 @@
-import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
+import { getTypeService } from '@codelab/frontend/modules/type'
 import { StoreWhere } from '@codelab/shared/abstract/codegen-v2'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -16,7 +16,7 @@ import {
 import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
-import { getActionServiceFromContext } from './action.service'
+import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './apiUtils'
 import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
@@ -47,12 +47,12 @@ export class StoreService extends Model({
   @modelAction
   async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
     // loading state interface within store fragment is hard so we load it separately
-    return await getTypeServiceFromContext(this).getAll(state.map((x) => x.id))
+    return await getTypeService(this).getAll(state.map((x) => x.id))
   }
 
   @modelAction
   ensureAllActionsAdded(actions: StoreFragment['actions']) {
-    getActionServiceFromContext(this).addOrUpdateAll(actions)
+    getActionService(this).addOrUpdateAll(actions)
   }
 
   @modelFlow

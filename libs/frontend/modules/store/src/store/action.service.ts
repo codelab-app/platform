@@ -166,7 +166,7 @@ export class ActionService extends Model({
 
 export const actionServiceContext = createContext<ActionService>()
 
-export const getActionServiceFromContext = (thisModel: object) => {
+export const getActionService = (thisModel: object) => {
   const actionStore = actionServiceContext.get(thisModel)
 
   if (!actionStore) {

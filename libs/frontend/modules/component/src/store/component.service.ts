@@ -197,7 +197,7 @@ export class ComponentService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext = createContext<ComponentService>()
 
-export const getComponentServiceFromContext = (thisModel: any) => {
+export const getComponentService = (thisModel: any) => {
   const componentService = componentServiceContext.get(thisModel)
 
   if (!componentService) {

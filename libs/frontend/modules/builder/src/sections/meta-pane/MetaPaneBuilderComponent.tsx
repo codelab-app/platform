@@ -34,11 +34,9 @@ export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
               element={element}
               elementService={elementService}
               key={element.id + '_update_form'}
-              model={{}}
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
-              submitRef={undefined}
               trackPromises={trackPromises}
             />
 
@@ -46,8 +44,6 @@ export const MetaPaneBuilderComponent = observer<MetaPaneBuilderComponentProps>(
               element={element}
               elementService={elementService}
               key={element.id + '_move_form'}
-              model={{}}
-              submitRef={undefined}
               trackPromises={trackPromises}
             />
 

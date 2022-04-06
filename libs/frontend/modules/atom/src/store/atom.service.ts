@@ -205,7 +205,7 @@ export class AtomService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const atomServiceContext = createContext<AtomService>()
 
-export const getAtomServiceFromContext = (thisModel: any) => {
+export const getAtomService = (thisModel: any) => {
   const atomStore = atomServiceContext.get(thisModel)
 
   if (!atomStore) {

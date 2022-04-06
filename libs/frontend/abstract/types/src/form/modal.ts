@@ -1,6 +1,6 @@
 import { ModalProps } from 'antd/lib/modal'
 import React, { ReactElement } from 'react'
-import { FormProps, SubmitRef } from './form/form'
+import { FormProps, SubmitRef } from './form'
 
 export type FormModalProps<TData> = {
   /**

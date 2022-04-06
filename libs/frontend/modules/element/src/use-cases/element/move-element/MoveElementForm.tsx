@@ -1,4 +1,4 @@
-import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
+import { FormProps } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -13,18 +13,14 @@ import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
 
-export type MoveElementFormProps = Omit<
-  UseCaseFormWithRef<MoveData>,
-  'onSubmit'
-> &
-  WithElementService & {
-    element: Element
-    trackPromises?: UseTrackLoadingPromises
-  }
+export type MoveElementFormProps = WithElementService & {
+  element: Element
+  trackPromises?: UseTrackLoadingPromises
+}
 
 /** Not intended to be used in a modal */
-export const MoveElementForm = observer(
-  ({ element, elementService, trackPromises }: MoveElementFormProps) => {
+export const MoveElementForm = observer<MoveElementFormProps>(
+  ({ element, elementService, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving

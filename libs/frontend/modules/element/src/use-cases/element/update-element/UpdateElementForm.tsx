@@ -1,4 +1,3 @@
-import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -12,24 +11,15 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { Element, WithElementService } from '../../../store'
 import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
 
-export type UpdateElementFormProps = Omit<
-  UseCaseFormWithRef<UpdateElementInput>,
-  'onSubmit'
-> &
-  WithElementService & {
-    element: Element
-    providePropCompletion?: (searchValue: string) => Array<string>
-    trackPromises?: UseTrackLoadingPromises
-  }
+export type UpdateElementFormProps = WithElementService & {
+  element: Element
+  providePropCompletion?: (searchValue: string) => Array<string>
+  trackPromises?: UseTrackLoadingPromises
+}
 
 /** Not intended to be used in a modal */
-export const UpdateElementForm = observer(
-  ({
-    elementService,
-    element,
-    trackPromises,
-    providePropCompletion,
-  }: UpdateElementFormProps) => {
+export const UpdateElementForm = observer<UpdateElementFormProps>(
+  ({ elementService, element, trackPromises, providePropCompletion }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [propCompleteOptions, setPropCompleteOptions] = useState<

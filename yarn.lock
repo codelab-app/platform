@@ -6711,26 +6711,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reduxjs/toolkit@npm:1.8.0":
-  version: 1.8.0
-  resolution: "@reduxjs/toolkit@npm:1.8.0"
-  dependencies:
-    immer: ^9.0.7
-    redux: ^4.1.2
-    redux-thunk: ^2.4.1
-    reselect: ^4.1.5
-  peerDependencies:
-    react: ^16.9.0 || ^17.0.0 || 18.0.0-beta
-    react-redux: ^7.2.1 || ^8.0.0-beta
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-redux:
-      optional: true
-  checksum: e229571b80d7f5c4407af2050ac2a26a22472541fef1705d5e8b73b93bfb2884072d79e1cea2cd81d89939cc6b6073ef3ddf1680950aac66ba34cd202a6cf371
-  languageName: node
-  linkType: hard
-
 "@rollup/plugin-babel@npm:^5.3.0":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -9643,16 +9623,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:^3.3.0":
-  version: 3.3.1
-  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
-  dependencies:
-    "@types/react": "*"
-    hoist-non-react-statics: ^3.3.0
-  checksum: 2c0778570d9a01d05afabc781b32163f28409bb98f7245c38d5eaf082416fdb73034003f5825eb5e21313044e8d2d9e1f3fe2831e345d3d1b1d20bcd12270719
-  languageName: node
-  linkType: hard
-
 "@types/html-minifier-terser@npm:^5.0.0":
   version: 5.1.2
   resolution: "@types/html-minifier-terser@npm:5.1.2"
@@ -10138,18 +10108,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 6abb7c47d54f012272650df8a962a28bd82f219291e5ef8b4dfa7fe0bb98ae243b060bf9fbe8ceff6213141794855a006db194b490b00ffd15842ae19d0ce1f0
-  languageName: node
-  linkType: hard
-
-"@types/react-redux@npm:^7.1.20":
-  version: 7.1.23
-  resolution: "@types/react-redux@npm:7.1.23"
-  dependencies:
-    "@types/hoist-non-react-statics": ^3.3.0
-    "@types/react": "*"
-    hoist-non-react-statics: ^3.3.0
-    redux: ^4.0.0
-  checksum: 7cedb0f20806ce67255f676fab2d4d9534c12705d43636df95224cfa77fdf5a2e792dc76c6e072c02cad1c88030aea822c14f36fe85d459b898ee68fcff6f05c
   languageName: node
   linkType: hard
 
@@ -14535,7 +14493,6 @@ __metadata:
     "@nrwl/storybook": 13.9.5
     "@nrwl/web": 13.9.5
     "@nrwl/workspace": 13.9.5
-    "@reduxjs/toolkit": 1.8.0
     "@slack/web-api": 6.5.1
     "@storybook/addon-essentials": 6.4.19
     "@storybook/addon-knobs": 6.4.0
@@ -14712,7 +14669,6 @@ __metadata:
     next-auth: ^4.2.1
     next-compose-plugins: 2.2.1
     next-global-css: ^1.2.0
-    next-redux-wrapper: 7.0.5
     node-fetch: 3.1.0
     nx: 13.9.5
     postcss: 7
@@ -14727,7 +14683,6 @@ __metadata:
     react-json-view: 1.21.3
     react-monaco-editor: ^0.47.0
     react-query: 3.34.7
-    react-redux: 7.2.6
     react-resizable: 3.0.4
     react-slick: 0.28.1
     react-test-renderer: 17.0.2
@@ -21836,13 +21791,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immer@npm:^9.0.7":
-  version: 9.0.12
-  resolution: "immer@npm:9.0.12"
-  checksum: bcbec6d76dac65e49068eb67ece4d407116e62b8cde3126aa89c801e408f5047763ba0aeb62f1938c1aa704bb6612f1d8302bb2a86fa1fc60fcc12d8b25dc895
-  languageName: node
-  linkType: hard
-
 "immutable@npm:^3.7.4":
   version: 3.8.2
   resolution: "immutable@npm:3.8.2"
@@ -26354,17 +26302,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-redux-wrapper@npm:7.0.5":
-  version: 7.0.5
-  resolution: "next-redux-wrapper@npm:7.0.5"
-  peerDependencies:
-    next: ">=10.0.3"
-    react: "*"
-    react-redux: "*"
-  checksum: 064e3d562954a13128f94fec6420c802f819f763db8157bd57108e2549ef8597db72e77f3e53a36cfb3c661a3d370227578ec86d1aeca1b3ebfa9009db680c69
-  languageName: node
-  linkType: hard
-
 "next@npm:12.1.0":
   version: 12.1.0
   resolution: "next@npm:12.1.0"
@@ -30234,27 +30171,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-redux@npm:7.2.6":
-  version: 7.2.6
-  resolution: "react-redux@npm:7.2.6"
-  dependencies:
-    "@babel/runtime": ^7.15.4
-    "@types/react-redux": ^7.1.20
-    hoist-non-react-statics: ^3.3.2
-    loose-envify: ^1.4.0
-    prop-types: ^15.7.2
-    react-is: ^17.0.2
-  peerDependencies:
-    react: ^16.8.3 || ^17
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 0bf142ce0d0b80aef955650fd5e9489fca32d94f19ee23893b332f1b01ceee7bd3623337c942cbda642667d1dc9de5ac869c3c1946afa6cf2046407b57d24741
-  languageName: node
-  linkType: hard
-
 "react-refresh@npm:^0.10.0":
   version: 0.10.0
   resolution: "react-refresh@npm:0.10.0"
@@ -30622,16 +30538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "redux-thunk@npm:2.4.1"
-  peerDependencies:
-    redux: ^4
-  checksum: af5abb425fb9dccda02e5f387d6f3003997f62d906542a3d35fc9420088f550dc1a018bdc246c7d23ee852b4d4ab8b5c64c5be426e45a328d791c4586a3c6b6e
-  languageName: node
-  linkType: hard
-
-"redux@npm:4.1.2, redux@npm:^4.0.0, redux@npm:^4.1.2":
+"redux@npm:4.1.2":
   version: 4.1.2
   resolution: "redux@npm:4.1.2"
   dependencies:

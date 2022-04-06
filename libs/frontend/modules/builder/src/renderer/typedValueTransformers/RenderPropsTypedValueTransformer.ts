@@ -1,4 +1,4 @@
-import { getComponentServiceFromContext } from '@codelab/frontend/modules/component'
+import { getComponentService } from '@codelab/frontend/modules/component'
 import { Element } from '@codelab/frontend/modules/element'
 import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
@@ -32,7 +32,7 @@ export class RenderPropsTypedValueTransformer
 
   canHandleValue(value: TypedValue<any>): boolean {
     const renderer = getRenderContext(this)
-    const componentService = getComponentServiceFromContext(this)
+    const componentService = getComponentService(this)
 
     return (
       typeof value.value === 'string' &&
@@ -42,7 +42,7 @@ export class RenderPropsTypedValueTransformer
 
   public transform(value: TypedValue<any>): any {
     const renderer = getRenderContext(this)
-    const componentService = getComponentServiceFromContext(this)
+    const componentService = getComponentService(this)
 
     const rootElement = getComponentRootElementFromProp(
       value,
