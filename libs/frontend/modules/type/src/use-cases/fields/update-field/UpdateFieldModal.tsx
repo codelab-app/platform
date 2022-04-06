@@ -5,13 +5,9 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import {
-  InterfaceType,
-  TypeService,
-  UpdateFieldInput,
-  WithTypeService,
-} from '../../../store'
+import { InterfaceType, TypeService, WithTypeService } from '../../../store'
 import { createFieldSchema } from '../create-field'
+import { UpdateFieldData } from './types'
 
 export type UpdateFieldModalProps = {
   interfaceType: InterfaceType
@@ -41,7 +37,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Update field</span>}
         visible={typeService.fieldUpdateModal.isOpen}
       >
-        <ModalForm.Form<UpdateFieldInput>
+        <ModalForm.Form<UpdateFieldData>
           model={model}
           onSubmit={(input) =>
             typeService.updateField(interfaceType, field.key, input)

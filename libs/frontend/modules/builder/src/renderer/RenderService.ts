@@ -3,7 +3,7 @@ import {
   ElementTree,
   elementTreeRef,
 } from '@codelab/frontend/modules/element'
-import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
+import { getTypeService } from '@codelab/frontend/modules/type'
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -116,7 +116,7 @@ export class RenderService extends Model(
     // Make sure all types are fetched first, because we need
     // them when transforming the rendered props. We could cache
     // the common types in the browser later on
-    const typeStore = getTypeServiceFromContext(this)
+    const typeStore = getTypeService(this)
 
     if (typeStore?.types.size <= 1) {
       yield* _await(typeStore.getAll())
@@ -364,7 +364,7 @@ export class RenderService extends Model(
     })
 
   private getTypeKindById(typeId: string): TypeKind | undefined {
-    return getTypeServiceFromContext(this).type(typeId)?.typeKind
+    return getTypeService(this).type(typeId)?.typeKind
   }
 }
 

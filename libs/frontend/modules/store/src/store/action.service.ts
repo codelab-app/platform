@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ActionWhere } from '@codelab/shared/abstract/codegen-v2'
+import { ActionWhere } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -14,11 +14,11 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/Action.fragment.v2.1.graphql.gen'
+import { ActionFragment } from '../graphql/action.fragment.graphql.gen'
 import type { CreateActionInput, UpdateActionInput } from '../use-cases'
+import { actionApi } from './action.api'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
-import { actionApi } from './actionApi'
 
 export type WithActionService = {
   actionService: ActionService
@@ -166,7 +166,7 @@ export class ActionService extends Model({
 
 export const actionServiceContext = createContext<ActionService>()
 
-export const getActionServiceFromContext = (thisModel: object) => {
+export const getActionService = (thisModel: object) => {
   const actionStore = actionServiceContext.get(thisModel)
 
   if (!actionStore) {

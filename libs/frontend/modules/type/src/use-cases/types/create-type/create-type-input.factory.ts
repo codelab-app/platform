@@ -1,4 +1,4 @@
-import * as cg from '@codelab/shared/abstract/codegen-v2'
+import * as cg from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'

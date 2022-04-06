@@ -1,12 +1,11 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { WithElementService } from '../../../store'
-import { deleteElementSchema } from './deleteElementSchema'
+import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
 
 export type DeleteElementModalProps = WithElementService
 
@@ -14,7 +13,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
   ({ elementService }) => {
     const closeModal = () => elementService.deleteModal.close()
 
-    const onSubmit = async ({ elementId }: DeleteElementInput) => {
+    const onSubmit = async ({ elementId }: DeleteElementData) => {
       await elementService.deleteElementsSubgraph(elementId)
       closeModal()
     }
@@ -37,7 +36,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
         title={<span css={tw`font-semibold`}>Delete element</span>}
         visible={elementService.deleteModal.isOpen}
       >
-        <ModalForm.Form<DeleteElementInput>
+        <ModalForm.Form<DeleteElementData>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

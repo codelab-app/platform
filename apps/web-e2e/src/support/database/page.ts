@@ -1,11 +1,11 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen-v2'
+import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPage } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
   E2eCreatePageDocument,
   E2eGetPageDocument,
-} from './graphql/page.api.v2.1.graphql.gen'
+} from './graphql/page.endpoints.graphql.gen'
 
 export const getPages = (input: PageWhere) =>
   cy

@@ -1,9 +1,11 @@
 {
   "name": "Codelab API",
   "projects": {
-    "v2": {
-      "schemaPath": "schema.api.v2.graphql",
-      "includes": ["libs/**/modules/**/*.v2.graphql"],
+    "v1": {
+      "schemaPath": "schema.api.graphql",
+      "includes": [
+        "**/*.graphql"
+      ],
       "extensions": {
         "endpoints": {
           "Default GraphQL Endpoint": {

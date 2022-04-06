@@ -1,13 +1,8 @@
-import { AppActionType } from '@codelab/frontend/abstract/core'
-import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { ImportAppSchema } from './importAppSchema'
 
-export const useImportAppForm: UseUseCaseForm<
-  ImportAppSchema,
-  AppActionType
-> = () => {
+export const useImportAppForm = () => {
   // const { resetModal } = useAppActions()
   // const { actionType } = useAppState()
   const mutate: any = () => null

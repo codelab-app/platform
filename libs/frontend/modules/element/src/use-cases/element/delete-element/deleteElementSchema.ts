@@ -1,7 +1,10 @@
-import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
-export const deleteElementSchema: JSONSchemaType<DeleteElementInput> = {
+export type DeleteElementData = {
+  elementId: string
+}
+
+export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
   title: 'Delete Element',
   type: 'object',
   properties: {

@@ -1,4 +1,4 @@
-import { StoreWhere } from '@codelab/shared/abstract/codegen-v2'
+import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { HTMLFieldProps } from 'uniforms'

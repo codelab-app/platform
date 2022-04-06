@@ -1,3 +1,3 @@
-export * from './graphql/Component.fragment.v2.1.graphql.gen'
+export type { ComponentFragment } from './graphql/component.fragment.graphql.gen'
 export * from './store'
 export * from './use-cases'

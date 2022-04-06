@@ -1,16 +1,8 @@
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { IMonacoType, TypeKind } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { MonacoTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 @model('codelab/MonacoType')

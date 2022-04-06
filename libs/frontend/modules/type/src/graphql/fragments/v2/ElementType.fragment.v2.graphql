@@ -1,4 +1,0 @@
-fragment ElementType on ElementType {
-  ...TypeBase
-  elementKind
-}

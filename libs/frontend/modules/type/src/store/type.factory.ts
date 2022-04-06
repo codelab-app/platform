@@ -1,5 +1,5 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { TypeNonRecursiveFragment } from '../graphql/fragments/Type.fragment.v2.1.graphql.gen'
+import { TypeNonRecursiveFragment } from '../graphql/fragments/type.fragment.graphql.gen'
 import {
   AppType,
   ArrayType,

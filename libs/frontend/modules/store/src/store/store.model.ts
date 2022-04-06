@@ -14,7 +14,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
+import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
 import { Action, actionRef } from './action.model'
 
 @model('codelab/Store')

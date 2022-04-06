@@ -10,12 +10,7 @@
           "libs/frontend/abstract/types/**/*.{ts,tsx,js,jsx}"
         ]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/abstract/types/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["type:abstract", "scope:frontend"]

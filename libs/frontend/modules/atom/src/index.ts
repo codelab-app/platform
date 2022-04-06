@@ -1,3 +1,3 @@
-export * from './graphql/Atom.fragment.v2.graphql.gen'
+export type { AtomFragment } from './graphql/atom.fragment.graphql.gen'
 export * from './store'
 export * from './use-cases'

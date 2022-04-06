@@ -4,14 +4,16 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
-import { UpdatePropMapBindingData } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithElementService } from '../../../store'
 import { TargetKeyField } from '../create-prop-map-binding/TargetKeyField'
-import { updatePropMapBindingSchema } from './updatePropMapBindingSchema'
+import {
+  UpdatePropMapBindingData,
+  updatePropMapBindingSchema,
+} from './updatePropMapBindingSchema'
 
 export interface UpdatePropMapBindingModalProps extends WithElementService {
   providePropCompletion?: (searchValue: string) => Array<string>

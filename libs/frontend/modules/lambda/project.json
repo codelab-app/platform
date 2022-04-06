@@ -10,12 +10,7 @@
           "libs/frontend/modules/lambda/**/*.{ts,tsx,js,jsx}"
         ]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/modules/lambda/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["layer:domain:frontend", "scope:frontend"]

@@ -49,11 +49,13 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
     case Tasks.Lint:
       if (env === TaskEnv.Test) {
         execCommand(`yarn cross-env TIMING=1 lint-staged --verbose`)
+        execCommand(`npx ls-lint`)
       }
 
       if (env === TaskEnv.Ci) {
         execCommand(`npx nx affected:lint`)
         execCommand(`npx prettier --check ./**/*.{graphql,yaml,json}`)
+        execCommand(`npx ls-lint`)
       }
 
       break

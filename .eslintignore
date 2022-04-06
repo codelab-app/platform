@@ -12,5 +12,4 @@ public
 !.*
 **/deprecated
 
-# Graphql codegen files
 **/*.gen.ts

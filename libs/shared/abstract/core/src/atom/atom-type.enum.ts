@@ -290,7 +290,7 @@ export enum AtomType {
   //
   // Custom:
   //
-  Query = 'Query',
+  Query = 'Query', // TODO: need to remove
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',

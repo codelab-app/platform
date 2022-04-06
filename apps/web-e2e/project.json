@@ -84,12 +84,7 @@
       "options": {
         "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "apps/web-e2e/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["scope:e2e"],

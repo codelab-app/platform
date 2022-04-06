@@ -1,5 +1,10 @@
-import { UpdatePropMapBindingData } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+
+export type UpdatePropMapBindingData = {
+  sourceKey: string
+  targetKey: string
+  targetElementId: string
+}
 
 export const updatePropMapBindingSchema: JSONSchemaType<UpdatePropMapBindingData> =
   {

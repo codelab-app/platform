@@ -4,7 +4,7 @@ import {
   AtomType,
   ComponentCreateInput,
   PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
 import { BaseTypeKind } from '@codelab/shared/abstract/core'
 
 /**

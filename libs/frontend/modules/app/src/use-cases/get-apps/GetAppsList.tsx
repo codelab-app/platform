@@ -33,7 +33,7 @@ export const GetAppsList = observer<WithAppService>(({ appService }) => {
     <>
       <ConditionalView condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
-          <CreateAppButton appService={appService} text="Create Now" />
+          <CreateAppButton appService={appService}>Create Now</CreateAppButton>
         </Empty>
       </ConditionalView>
 

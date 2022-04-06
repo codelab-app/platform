@@ -16,9 +16,10 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
+import { CreateFieldData } from '../../use-cases/fields'
 import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
 import { createTypeBase } from './base-type.model'
-import { CreateFieldInput, Field } from './field.model'
+import { Field } from './field.model'
 import { typeRef } from './union-type.model'
 
 @model('codelab/InterfaceType')
@@ -44,7 +45,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     key,
     ...fragment
   }:
-    | CreateFieldInput
+    | CreateFieldData
     | InterfaceTypeEdgeFragment
     | InterfaceTypeFieldEdgeFragment): Field {
     this.validateUniqueFieldKey(key)
@@ -52,7 +53,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     const target =
       (fragment as InterfaceTypeEdgeFragment).target ||
       (fragment as InterfaceTypeFieldEdgeFragment).node?.id ||
-      (fragment as CreateFieldInput).existingTypeId
+      (fragment as CreateFieldData).existingTypeId
 
     const field = new Field({
       id: Field.fieldId(this.id, key),

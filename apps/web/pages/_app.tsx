@@ -17,7 +17,6 @@ import { AppProps } from 'next/app'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { GlobalStyles } from 'twin.macro'
-import { reduxStoreWrapper } from '../src/store/reduxStoreWrapper'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
@@ -69,4 +68,4 @@ const App = ({ pageProps, Component, ...props }: AppProps<unknown>) => {
   )
 }
 
-export default reduxStoreWrapper.withRedux(App)
+export default App

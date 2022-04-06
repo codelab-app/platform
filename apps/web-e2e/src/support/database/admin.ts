@@ -3,7 +3,7 @@ import {
   E2eExportAdminDataDocument,
   E2eImportAdminDataDocument,
   E2eResetDatabaseDocument,
-} from './graphql/admin.api.v2.1.graphql.gen'
+} from './graphql/admin.endpoints.graphql.gen'
 
 export const resetDatabase = () =>
   cy

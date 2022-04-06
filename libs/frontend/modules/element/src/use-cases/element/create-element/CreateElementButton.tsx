@@ -5,14 +5,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef, WithElementService } from '../../../store'
 
-export interface CreateElementButtonProps
-  extends Omit<ButtonProps, 'onClick' | 'icon'>,
-    WithElementService {
+export interface CreateElementButtonProps extends WithElementService {
   parentElementId?: string
 }
 
-export const CreateElementButton = observer(
-  ({ parentElementId, elementService }: CreateElementButtonProps) => {
+export const CreateElementButton = observer<CreateElementButtonProps>(
+  ({ parentElementId, elementService }) => {
     return (
       <Button
         icon={<PlusOutlined data-testid="create-page-element-button" />}

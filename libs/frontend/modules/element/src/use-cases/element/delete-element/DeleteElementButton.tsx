@@ -7,8 +7,8 @@ interface DeleteElementProps extends WithElementService {
   element: Element
 }
 
-export const DeleteElementButton = observer(
-  ({ elementService, element }: DeleteElementProps) => {
+export const DeleteElementButton = observer<DeleteElementProps>(
+  ({ elementService, element }) => {
     const onClick = () => elementService.deleteModal.open(elementRef(element))
 
     return (

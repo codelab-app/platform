@@ -37,11 +37,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/cli/**/*.ts"]
-      },
-      "configurations": {
-        "ci": {
-          "eslintConfig": "apps/cli/.eslintrc.ci.json"
-        }
       }
     }
   },
