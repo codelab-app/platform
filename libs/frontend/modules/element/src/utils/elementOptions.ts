@@ -1,4 +1,4 @@
-import { Element } from '../store/Element'
+import { Element } from '../store/element.model'
 
 export const mapElementOption = (e: Element) => ({
   value: e.id,

@@ -19,8 +19,8 @@ import {
   Ref,
 } from 'mobx-keystone'
 import { ElementFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import { ElementProps } from './ElementProps'
-import { PropMapBinding } from './PropMapBinding'
+import { ElementProps } from './element-props.model'
+import { PropMapBinding } from './prop-map-binding.model'
 
 type TransformFn = (props: PropsData) => PropsData
 

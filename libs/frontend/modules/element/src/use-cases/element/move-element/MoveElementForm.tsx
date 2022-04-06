@@ -13,7 +13,7 @@ import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
 
-export type MoveElementFormProps = WithElementService & {
+export interface MoveElementFormProps extends WithElementService {
   element: Element
   trackPromises?: UseTrackLoadingPromises
 }

@@ -8,7 +8,7 @@ import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Element, elementRef, WithElementService } from '../../../store'
-import { propMapBindingRef } from '../../../store/propMapBindingRef'
+import { propMapBindingRef } from '../../../store/prop-map-binding.ref'
 
 export interface PropMapBindingsTableProps extends WithElementService {
   element: Element

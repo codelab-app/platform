@@ -21,20 +21,19 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
+import { CreateElementInput, UpdateElementInput } from '../use-cases'
 import { MoveData } from '../use-cases/element/move-element/types'
-import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
-import { elementApi, propMapBindingApi } from './apis'
 import {
   makeCreateInput,
   makeDuplicateInput,
   makeUpdateInput,
-} from './apiUtils'
-import { Element } from './Element'
-import { ElementTree } from './ElementTree'
-import { PropMapBinding } from './PropMapBinding'
+} from './api.utils'
+import { elementApi, propMapBindingApi } from './apis'
+import { Element } from './element.model'
+import { ElementTree } from './element-tree.model'
+import { PropMapBinding } from './prop-map-binding.model'
 
-export type WithElementService = {
+export interface WithElementService {
   elementService: ElementService
 }
 

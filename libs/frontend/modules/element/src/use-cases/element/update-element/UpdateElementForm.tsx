@@ -11,7 +11,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { Element, WithElementService } from '../../../store'
 import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
 
-export type UpdateElementFormProps = WithElementService & {
+export interface UpdateElementFormProps extends WithElementService {
   element: Element
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises

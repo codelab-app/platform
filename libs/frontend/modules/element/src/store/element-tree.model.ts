@@ -23,8 +23,8 @@ import {
   ElementFragment,
   ElementGraphFragment,
 } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import { Element } from './Element'
-import { elementRef } from './elementRef'
+import { Element } from './element.model'
+import { elementRef } from './element.ref'
 
 const fromFragment = (fragment: ElementGraphFragment, rootId: string) => {
   const tree = new ElementTree({})

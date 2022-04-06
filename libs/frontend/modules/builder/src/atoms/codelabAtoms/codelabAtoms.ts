@@ -5,12 +5,6 @@ import { AtomsRecord } from '../types'
 // Custom atom components
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: AtomsRecord = {
-  [AtomType.Query]: dynamic(
-    () =>
-      import('@codelab/frontend/view/components').then(
-        (mod) => mod.Query,
-      ) as any,
-  ),
   [AtomType.TextList]: dynamic(
     () =>
       import('@codelab/frontend/view/components').then(

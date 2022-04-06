@@ -9,9 +9,7 @@ import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { ComponentColumnData } from './columns/types'
 
-export type GetComponentsTableProps = WithComponentService
-
-export const GetComponentsTable = observer<GetComponentsTableProps>(
+export const GetComponentsTable = observer<WithComponentService>(
   ({ componentService }) => {
     const [getComponents, { isLoading }] = useLoadingState(() =>
       componentService.getAll(),

@@ -16,9 +16,9 @@ import {
 } from 'mobx-keystone'
 import { ActionFragment } from '../graphql/Action.fragment.v2.1.graphql.gen'
 import type { CreateActionInput, UpdateActionInput } from '../use-cases'
+import { actionApi } from './action.api'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
-import { actionApi } from './actionApi'
 
 export type WithActionService = {
   actionService: ActionService

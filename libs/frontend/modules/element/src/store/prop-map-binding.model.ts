@@ -4,8 +4,8 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { PropMapBindingFragment } from '../graphql/Element.fragment.v2.1.graphql.gen'
-import type { Element } from './Element'
-import { elementRef } from './elementRef'
+import type { Element } from './element.model'
+import { elementRef } from './element.ref'
 
 @model('@codelab/PropMapBinding')
 export class PropMapBinding extends Model({

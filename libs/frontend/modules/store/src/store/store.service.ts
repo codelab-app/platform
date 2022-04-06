@@ -17,10 +17,10 @@ import { StoreFragment } from '../graphql/Store.fragment.v2.1.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, makeStoreUpdateInput } from './apiUtils'
+import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
+import { storeApi } from './store.api'
 import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
-import { storeApi } from './storeApi'
 
 export type WithStoreService = {
   storeService: StoreService
