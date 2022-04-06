@@ -1,10 +1,10 @@
-import * as Types from '@codelab/shared/abstract/codegen-v2'
+import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.1.graphql.gen'
+import { AtomFragment } from '../../../atom/src/graphql/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.1.graphql.gen'
+import { AtomFragmentDoc } from '../../../atom/src/graphql/atom.fragment.graphql.gen'
 export type ResourceFragment = {
   __typename: 'Resource'
   id: string

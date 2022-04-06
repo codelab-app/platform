@@ -2414,6 +2414,8 @@ export enum AtomType {
   MuiZoom = 'MuiZoom',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
+  ResourceGraphQL = 'ResourceGraphQL',
+  ResourceREST = 'ResourceREST',
   State = 'State',
   Text = 'Text',
   TextList = 'TextList',
@@ -3226,6 +3228,12 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
   info: CreateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
+export type CreateResourcesMutationResponse = {
+  __typename?: 'CreateResourcesMutationResponse'
+  info: CreateInfo
+  resources: Array<Resource>
 }
 
 export type CreateStoresMutationResponse = {
@@ -7450,6 +7458,7 @@ export type Mutation = {
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
+  createResources: CreateResourcesMutationResponse
   createStores: CreateStoresMutationResponse
   createTagGraphOptions: CreateTagGraphOptionsMutationResponse
   createTags: CreateTagsMutationResponse
@@ -7479,6 +7488,7 @@ export type Mutation = {
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
   deleteResetDatabaseMutationResponses: DeleteInfo
+  deleteResources: DeleteInfo
   deleteStores: DeleteInfo
   deleteStoresSubgraph: DeleteInfo
   deleteTagGraphOptions: DeleteInfo
@@ -7510,6 +7520,7 @@ export type Mutation = {
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
+  updateResources: UpdateResourcesMutationResponse
   updateStores: UpdateStoresMutationResponse
   updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   updateTags: UpdateTagsMutationResponse
@@ -7607,6 +7618,10 @@ export type MutationCreateRenderPropsTypesArgs = {
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
   input: Array<ResetDatabaseMutationResponseCreateInput>
+}
+
+export type MutationCreateResourcesArgs = {
+  input: Array<ResourceCreateInput>
 }
 
 export type MutationCreateStoresArgs = {
@@ -7744,6 +7759,11 @@ export type MutationDeleteRenderPropsTypesArgs = {
 
 export type MutationDeleteResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationDeleteResourcesArgs = {
+  delete?: InputMaybe<ResourceDeleteInput>
+  where?: InputMaybe<ResourceWhere>
 }
 
 export type MutationDeleteStoresArgs = {
@@ -7992,6 +8012,16 @@ export type MutationUpdateRenderPropsTypesArgs = {
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type MutationUpdateResourcesArgs = {
+  connect?: InputMaybe<ResourceConnectInput>
+  connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
+  create?: InputMaybe<ResourceRelationInput>
+  delete?: InputMaybe<ResourceDeleteInput>
+  disconnect?: InputMaybe<ResourceDisconnectInput>
+  update?: InputMaybe<ResourceUpdateInput>
+  where?: InputMaybe<ResourceWhere>
 }
 
 export type MutationUpdateStoresArgs = {
@@ -13099,6 +13129,12 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
   info: UpdateInfo
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
+export type UpdateResourcesMutationResponse = {
+  __typename?: 'UpdateResourcesMutationResponse'
+  info: UpdateInfo
+  resources: Array<Resource>
 }
 
 export type UpdateStoresMutationResponse = {

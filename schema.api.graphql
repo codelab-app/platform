@@ -3064,6 +3064,11 @@ type CreateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
+type CreateResourcesMutationResponse {
+  info: CreateInfo!
+  resources: [Resource!]!
+}
+
 type CreateStoresMutationResponse {
   info: CreateInfo!
   stores: [Store!]!
@@ -3072,16 +3077,6 @@ type CreateStoresMutationResponse {
 type CreateTagGraphOptionsMutationResponse {
   info: CreateInfo!
   tagGraphOptions: [TagGraphOptions!]!
-}
-
-type CreateResourcesMutationResponse {
-  info: CreateInfo!
-  resources: [Resource!]!
-}
-
-type CreateTagEdgesMutationResponse {
-  info: CreateInfo!
-  tagEdges: [TagEdge!]!
 }
 
 type CreateTagsMutationResponse {
@@ -7108,17 +7103,13 @@ type Mutation {
   createResetDatabaseMutationResponses(
     input: [ResetDatabaseMutationResponseCreateInput!]!
   ): CreateResetDatabaseMutationResponsesMutationResponse!
+  createResources(
+    input: [ResourceCreateInput!]!
+  ): CreateResourcesMutationResponse!
   createStores(input: [StoreCreateInput!]!): CreateStoresMutationResponse!
   createTagGraphOptions(
     input: [TagGraphOptionsCreateInput!]!
   ): CreateTagGraphOptionsMutationResponse!
-  createResources(
-    input: [ResourceCreateInput!]!
-  ): CreateResourcesMutationResponse!
-  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
-  createResources(
-    input: [ResourceCreateInput!]!
-  ): CreateResourcesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
     input: [TypeReferenceCreateInput!]!
@@ -7194,14 +7185,13 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
-  deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
-  deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteResources(
     delete: ResourceDeleteInput
     where: ResourceWhere
   ): DeleteInfo!
-  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
+  deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
+  deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
+  deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(
@@ -7402,6 +7392,15 @@ type Mutation {
     update: ResetDatabaseMutationResponseUpdateInput
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
+  updateResources(
+    connect: ResourceConnectInput
+    connectOrCreate: ResourceConnectOrCreateInput
+    create: ResourceRelationInput
+    delete: ResourceDeleteInput
+    disconnect: ResourceDisconnectInput
+    update: ResourceUpdateInput
+    where: ResourceWhere
+  ): UpdateResourcesMutationResponse!
   updateStores(
     connect: StoreConnectInput
     connectOrCreate: StoreConnectOrCreateInput
@@ -7415,19 +7414,6 @@ type Mutation {
     update: TagGraphOptionsUpdateInput
     where: TagGraphOptionsWhere
   ): UpdateTagGraphOptionsMutationResponse!
-  updateResources(
-    connect: ResourceConnectInput
-    connectOrCreate: ResourceConnectOrCreateInput
-    create: ResourceRelationInput
-    delete: ResourceDeleteInput
-    disconnect: ResourceDisconnectInput
-    update: ResourceUpdateInput
-    where: ResourceWhere
-  ): UpdateResourcesMutationResponse!
-  updateTagEdges(
-    update: TagEdgeUpdateInput
-    where: TagEdgeWhere
-  ): UpdateTagEdgesMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -9327,14 +9313,6 @@ type Query {
     sort: [TagGraphOptionsSort]
     where: TagGraphOptionsWhere
   ): TagGraphOptionsConnection!
-  tagGraphs: [TagGraph!]!
-  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
-  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
-  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
-  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
-  tagGraphs: TagGraph!
-  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
-  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
   tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
@@ -12028,6 +12006,11 @@ type UpdateResetDatabaseMutationResponsesMutationResponse {
   resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
+type UpdateResourcesMutationResponse {
+  info: UpdateInfo!
+  resources: [Resource!]!
+}
+
 type UpdateStoresMutationResponse {
   info: UpdateInfo!
   stores: [Store!]!
@@ -12036,16 +12019,6 @@ type UpdateStoresMutationResponse {
 type UpdateTagGraphOptionsMutationResponse {
   info: UpdateInfo!
   tagGraphOptions: [TagGraphOptions!]!
-}
-
-type UpdateResourcesMutationResponse {
-  info: UpdateInfo!
-  resources: [Resource!]!
-}
-
-type UpdateTagEdgesMutationResponse {
-  info: UpdateInfo!
-  tagEdges: [TagEdge!]!
 }
 
 type UpdateTagsMutationResponse {
