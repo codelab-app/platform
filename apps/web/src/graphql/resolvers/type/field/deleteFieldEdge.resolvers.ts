@@ -1,4 +1,3 @@
-import { DeleteFieldInput } from '@codelab/shared/abstract/codegen-v2'
 import { MutationDeleteFieldEdgeArgs } from '../../../ogm-types.gen'
 import { typeRepository } from '../../../repositories'
 import { IRxTxnResolver } from '../../abstract/withRxTransaction'

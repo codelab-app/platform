@@ -1,12 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   CreatePropMapBindingInput,
-  UpdatePropMapBindingData,
-} from '@codelab/shared/abstract/codegen'
-import {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen-v2'
+  UpdatePropMapBindingData,
+} from '@codelab/shared/abstract/codegen'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {

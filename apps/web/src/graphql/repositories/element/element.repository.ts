@@ -1,4 +1,4 @@
-import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen-v2'
+import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen'
 import { IElement, IElementGraph } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { uuidRegex } from '@codelab/shared/utils'

@@ -1,4 +1,4 @@
-import { Field, InterfaceTypeEdge } from '@codelab/shared/abstract/codegen-v2'
+import { Field, InterfaceTypeEdge } from '@codelab/shared/abstract/codegen'
 import { IAnyType, ITypeGraph, TypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { throwIfNullish } from '@codelab/shared/utils'

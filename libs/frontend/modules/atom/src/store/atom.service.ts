@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { AtomWhere } from '@codelab/shared/abstract/codegen-v2'
+import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'

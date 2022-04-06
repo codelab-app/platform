@@ -1,6 +1,6 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { PageFragment } from '../graphql/page.fragment.v2.1.graphql.gen'
+import { PageFragment } from '../graphql/page.fragment.graphql.gen'
 
 @model('codelab/Page')
 export class Page extends Model({

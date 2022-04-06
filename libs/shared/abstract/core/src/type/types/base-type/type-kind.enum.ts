@@ -1,4 +1,4 @@
-import * as cg from '@codelab/shared/abstract/codegen-v2'
+import * as cg from '@codelab/shared/abstract/codegen'
 
 type AnyType = Required<
   | cg.AppType

@@ -6,7 +6,7 @@ import {
   InterfaceTypeCreateInput,
   StoreCreateInput,
   StoreUpdateInput,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
 import { capitalize } from 'lodash'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 

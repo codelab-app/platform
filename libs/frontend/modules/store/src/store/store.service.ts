@@ -1,5 +1,5 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { StoreWhere } from '@codelab/shared/abstract/codegen-v2'
+import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -13,7 +13,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/store.fragment.v2.1.graphql.gen'
+import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
 import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
 import { getActionService } from './action.service'

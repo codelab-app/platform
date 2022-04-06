@@ -1,8 +1,8 @@
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtom } from '@codelab/shared/abstract/core'
 import { MaybeArray } from '@codelab/shared/abstract/types'
 import { print } from 'graphql'
-import { E2eCreateAtomDocument } from './graphql/atom.api.v2.1.graphql.gen'
+import { E2eCreateAtomDocument } from './graphql/atom.endpoints.graphql.gen'
 
 export const createAtom = (input: MaybeArray<AtomCreateInput>) =>
   cy

@@ -10,7 +10,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { AtomFragment } from '../graphql/atom.fragment.v2.1.graphql.gen'
+import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
 export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
   api: { id: string }

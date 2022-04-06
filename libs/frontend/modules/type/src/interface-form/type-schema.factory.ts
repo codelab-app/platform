@@ -1,4 +1,4 @@
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAnyType,
   IAppType,

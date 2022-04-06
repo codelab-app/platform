@@ -9,7 +9,7 @@ import {
   PrimitiveType,
   typeRef,
 } from '@codelab/frontend/modules/type'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
 import { frozen, ObjectMap, objectMap, Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'

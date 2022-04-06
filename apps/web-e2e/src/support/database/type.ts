@@ -1,4 +1,4 @@
-import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
@@ -14,7 +14,7 @@ import {
   E2eCreateReactNodeTypesDocument,
   E2eCreateRenderPropsTypesDocument,
   E2eCreateUnionTypesDocument,
-} from './graphql/type.api.v2.1.graphql.gen'
+} from './graphql/type.endpoints.graphql.gen'
 
 const createTypeQuery: { [key in TypeKind]: DocumentNode } = {
   [TypeKind.PrimitiveType]: E2eCreatePrimitiveTypesDocument,

@@ -1,7 +1,7 @@
 import {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
 import { Element } from '../store'
 import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
 import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'

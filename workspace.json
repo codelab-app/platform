@@ -23,7 +23,6 @@
     "frontend-shared-utils": "libs/frontend/shared/utils",
     "frontend-view": "libs/frontend/view",
     "shared-abstract-codegen": "libs/shared/abstract/codegen",
-    "shared-abstract-codegen-v2": "libs/shared/abstract/codegen-v2",
     "shared-abstract-core": "libs/shared/abstract/core",
     "shared-abstract-types": "libs/shared/abstract/types",
     "shared-core": "libs/shared/core",

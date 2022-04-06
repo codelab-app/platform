@@ -1,16 +1,15 @@
 {
-  "name": "Codelab API",
-  "projects": {
-    "v2": {
-      "schemaPath": "schema.api.v2.graphql",
-      "includes": ["libs/**/modules/**/*.v2.graphql"],
-      "extensions": {
-        "endpoints": {
-          "Default GraphQL Endpoint": {
-            "url": "http://localhost:3000/api/graphql",
-            "introspect": true
-          }
-        }
+  // Used by WebStorm
+  "name": "Codelab",
+  "schemaPath": "schema.api.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://127.0.0.1:3000/api/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
       }
     }
   }

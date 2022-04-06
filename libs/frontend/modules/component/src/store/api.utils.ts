@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import { CreateComponentInput } from '../use-cases'
 
 export const mapCreateInput = (

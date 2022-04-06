@@ -1,1 +1,1 @@
-export * from './page.endpoints.v2.1.graphql.gen'
+export * from './page.endpoints.graphql.gen'

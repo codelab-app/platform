@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ActionWhere } from '@codelab/shared/abstract/codegen-v2'
+import { ActionWhere } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -14,7 +14,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/action.fragment.v2.1.graphql.gen'
+import { ActionFragment } from '../graphql/action.fragment.graphql.gen'
 import type { CreateActionInput, UpdateActionInput } from '../use-cases'
 import { actionApi } from './action.api'
 import { Action } from './action.model'

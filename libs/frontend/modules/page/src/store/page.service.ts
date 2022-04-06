@@ -1,6 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { PageWhere } from '@codelab/shared/abstract/codegen-v2'
+import { PageWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,

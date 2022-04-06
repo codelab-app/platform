@@ -4,7 +4,7 @@ import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
+import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useEffect } from 'react'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'

@@ -1,4 +1,4 @@
-import { ImportAdminDataInput } from '@codelab/shared/abstract/codegen-v2'
+import { ImportAdminDataInput } from '@codelab/shared/abstract/codegen'
 import {
   _async,
   _await,

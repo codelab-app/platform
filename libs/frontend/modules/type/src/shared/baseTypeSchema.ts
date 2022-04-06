@@ -1,7 +1,7 @@
 import {
   MonacoLanguage,
   PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
 import { ElementTypeKind, IEnumTypeValue } from '@codelab/shared/abstract/core'
 import { TypeSelect } from './TypeSelect'
 

@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ComponentWhere } from '@codelab/shared/abstract/codegen-v2'
+import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,
@@ -15,7 +15,7 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/component.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../graphql/component.fragment.graphql.gen'
 import type { CreateComponentInput } from '../use-cases/create-component/types'
 import type { UpdateComponentInput } from '../use-cases/update-component/types'
 import { mapCreateInput } from './api.utils'

@@ -1,13 +1,13 @@
 import {
   ElementCreateInput,
   ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
 import { IElement } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
   E2eCreateElementDocument,
   E2eUpdateElementDocument,
-} from './graphql/element.api.v2.1.graphql.gen'
+} from './graphql/element.endpoints.graphql.gen'
 
 export const createElement = (input: ElementCreateInput) =>
   cy

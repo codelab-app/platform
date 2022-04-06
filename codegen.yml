@@ -6,7 +6,7 @@ hooks:
 
 # If you're in the bind of not being able to run the app because of a codegen error
 # but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
-#schema: schema.api.v2.graphql
+#schema: schema.api.graphql
 schema: http://127.0.0.1:3000/api/graphql
 
 config:
@@ -20,13 +20,13 @@ config:
     Void: void
 
 generates:
-  schema.api.v2.graphql:
+  schema.api.graphql:
     plugins:
       - schema-ast
   # Generate Typescript types to be imported by other generators
-  libs/shared/abstract/codegen-v2/src/types.api.v2.graphql.gen.ts:
+  libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
     documents:
-      - '{apps,libs}/**/*.v2.graphql'
+      - '{apps,libs}/**/*.graphql'
     plugins:
       - typescript
     config:
@@ -36,43 +36,43 @@ generates:
         dedupeFragments: true
 
   # This somehow generates for web-e2e as well, even if ./libs
-  ./:
-    documents:
-      - '**/*.{endpoints,api,fragment}.v2.1.graphql'
-    preset: near-operation-file
-    presetConfig:
-      extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
-    plugins:
-      - typescript-operations
-      - typescript-graphql-request
-    config:
-      inlineFragmentTypes: combine
-      # documentVariableSuffix: Gql
-      # We want to parse to ASTNode
-      gqlImport: 'graphql-tag#gql'
-      # gqlImport: 'graphql-request#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-      dedupeFragments: true
+#  ./:
+#    documents:
+#      - '{apps,libs}/**/*.{endpoints,fragments}.graphql'
+#    preset: near-operation-file
+#    presetConfig:
+#      extension: .graphql.gen.ts
+#      baseTypesPath: ~@codelab/shared/abstract/codegen
+#    plugins:
+#      - typescript-operations
+#      - typescript-graphql-request
+#    config:
+#      inlineFragmentTypes: combine
+#      # documentVariableSuffix: Gql
+#      # We want to parse to ASTNode
+#      gqlImport: 'graphql-tag#gql'
+#      # gqlImport: 'graphql-request#gql'
+#      skipTypename: true
+#      strictScalars: true
+#      defaultScalarType: unknown
+#      withRefetchFn: true
+#      dedupeFragments: true
 
-  ./libs/frontend/:
-    documents:
-      - '**/*.{endpoints,fragment}.v2.graphql'
-    preset: near-operation-file
-    presetConfig:
-      extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
-    plugins:
-      - typescript-operations
-    config:
-      inlineFragmentTypes: combine
-      documentVariableSuffix: Gql
-      gqlImport: 'graphql-request#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-      dedupeFragments: false
+#  ./libs/frontend/:
+#    documents:
+#      - '**/*.{endpoints,fragment}.v2.graphql'
+#    preset: near-operation-file
+#    presetConfig:
+#      extension: .graphql.gen.ts
+#      baseTypesPath: ~@codelab/shared/abstract/codegen
+#    plugins:
+#      - typescript-operations
+#    config:
+#      inlineFragmentTypes: combine
+#      documentVariableSuffix: Gql
+#      gqlImport: 'graphql-request#gql'
+#      skipTypename: true
+#      strictScalars: true
+#      defaultScalarType: unknown
+#      withRefetchFn: true
+#      dedupeFragments: false

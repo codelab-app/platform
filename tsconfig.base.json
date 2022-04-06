@@ -101,9 +101,6 @@
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
-      "@codelab/shared/abstract/codegen-v2": [
-        "libs/shared/abstract/codegen-v2/src/index.ts"
-      ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
