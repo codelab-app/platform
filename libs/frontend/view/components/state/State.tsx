@@ -1,7 +1,6 @@
 import { isFunction } from 'lodash'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useExecuteLambdaForStateMutation } from './execute-lambda-for-state.graphql.gen'
 import { stateAtomFamily } from './stateAtomFamily'
 import { StateProps } from './StateProps'
 
@@ -41,8 +40,8 @@ export const State = ({
   children,
   ...props
 }: React.PropsWithChildren<StateProps> & Record<string, any>) => {
-  const [executeLambda] = useExecuteLambdaForStateMutation()
   const [state, setState] = useRecoilState(stateAtomFamily(identifier))
+  const executeLambda: any = () => Promise.resolve()
 
   const childProps: Record<string, any> = {
     // Pass all props down to the children, so that we can stack State elements
@@ -65,7 +64,7 @@ export const State = ({
             },
           },
         })
-          .then((r) => {
+          .then((r: any) => {
             const payload = r.data?.executeLambda?.payload
 
             if (payload !== undefined) {
@@ -77,7 +76,7 @@ export const State = ({
               }
             }
           })
-          .catch((err) => console.error(err))
+          .catch((err: any) => console.error(err))
       } else {
         // If not - directly set the state
         setState(e)

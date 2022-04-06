@@ -1,11 +1,11 @@
 import { JSONSchemaType } from 'ajv'
 
-export type CreatePageInput = {
+export type CreatePageData = {
   name: string
   appId: string
 }
 
-export const createPageSchema: JSONSchemaType<CreatePageInput> = {
+export const createPageSchema: JSONSchemaType<CreatePageData> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {

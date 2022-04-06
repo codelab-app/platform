@@ -1,10 +1,10 @@
 import { DisplayIfField } from '@codelab/frontend/view/components'
-import { CreateTagInput } from '@codelab/shared/abstract/codegen'
+import { CreateTagData } from './createTagSchema'
 
 export const DisplayIfNotRoot = ({
   children,
 }: React.PropsWithChildren<unknown>) => (
-  <DisplayIfField<CreateTagInput> condition={(c) => !!c.model.parentTagId}>
+  <DisplayIfField<CreateTagData> condition={(c) => !!c.model.parentTagId}>
     {children}
   </DisplayIfField>
 )

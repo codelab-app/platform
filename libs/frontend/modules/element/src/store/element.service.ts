@@ -1,9 +1,9 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
-  CreatePropMapBindingInput,
   ElementCreateInput,
   ElementUpdateInput,
-  UpdatePropMapBindingData,
+  PropMapBindingCreateInput,
+  PropMapBindingUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -21,6 +21,8 @@ import {
 } from 'mobx-keystone'
 import { CreateElementInput, UpdateElementInput } from '../use-cases'
 import { MoveData } from '../use-cases/element/move-element/types'
+import { CreatePropMapBindingData } from '../use-cases/prop-mapping/create-prop-map-binding/createPropMapBindingSchema'
+import { UpdatePropMapBindingData } from '../use-cases/prop-mapping/update-prop-map-binding/updatePropMapBindingSchema'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -357,7 +359,7 @@ export class ElementService extends Model({
   createPropMapBinding = _async(function* (
     this: ElementService,
     element: Element,
-    createInput: CreatePropMapBindingInput,
+    createInput: CreatePropMapBindingData,
   ) {
     const {
       createPropMapBindings: {

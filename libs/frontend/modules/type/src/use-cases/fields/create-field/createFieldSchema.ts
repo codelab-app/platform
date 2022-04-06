@@ -1,7 +1,13 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateFieldInput } from '../../../store'
 
-export const createFieldSchema: JSONSchemaType<CreateFieldInput> = {
+export type CreateFieldData = {
+  key: string
+  name: string | null
+  description?: string | null
+  existingTypeId: string
+}
+
+export const createFieldSchema: JSONSchemaType<CreateFieldData> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {

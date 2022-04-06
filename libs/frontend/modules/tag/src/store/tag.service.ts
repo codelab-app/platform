@@ -10,8 +10,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { CreateTagInput } from '../use-cases/create-tag/types'
-import { UpdateTagInput } from '../use-cases/update-tag/updateTagSchema'
+import { CreateTagData } from '../use-cases/create-tag/createTagSchema'
+import { UpdateTagData } from '../use-cases/update-tag/updateTagSchema'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
@@ -34,7 +34,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: CreateTagInput) {
+  create = _async(function* (this: TagService, input: CreateTagData) {
     const {
       createTags: { tags },
     } = yield* _await(
@@ -53,11 +53,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: TagService,
-    tag: Tag,
-    input: UpdateTagInput,
-  ) {
+  update = _async(function* (this: TagService, tag: Tag, input: UpdateTagData) {
     const {
       updateTags: { tags },
     } = yield* _await(

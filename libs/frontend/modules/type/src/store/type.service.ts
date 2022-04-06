@@ -15,6 +15,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { CreateFieldData } from '../use-cases/fields'
+import { UpdateFieldData } from '../use-cases/fields/update-field/types'
 import { IBaseType } from './abstract'
 import { fieldApi } from './apis/field.api'
 import {
@@ -27,12 +29,7 @@ import {
   UpdateTypeInput,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import {
-  AnyType,
-  CreateFieldInput,
-  InterfaceType,
-  UpdateFieldInput,
-} from './models'
+import { AnyType, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -228,9 +225,9 @@ export class TypeService extends Model({
   addField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    input: CreateFieldInput,
+    data: CreateFieldData,
   ) {
-    const { existingTypeId, name, description, key } = input
+    const { existingTypeId, name, description, key } = data
 
     const createInput = {
       interfaceTypeId: interfaceType.id,
@@ -254,7 +251,7 @@ export class TypeService extends Model({
     this: TypeService,
     interfaceType: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: UpdateFieldInput,
+    { key, name, existingTypeId, description }: UpdateFieldData,
   ) {
     const field = interfaceType.fieldByKey(targetKey)
 

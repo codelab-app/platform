@@ -1,3 +1,2 @@
 export * from './constant'
-export * from './IElement'
-export * from './RenderNode'
+export * from './props'

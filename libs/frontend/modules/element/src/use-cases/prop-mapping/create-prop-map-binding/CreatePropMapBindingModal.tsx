@@ -4,13 +4,15 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
-import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithElementService } from '../../../store'
-import { createPropMapBindingSchema } from './createPropMapBindingSchema'
+import {
+  CreatePropMapBindingData,
+  createPropMapBindingSchema,
+} from './createPropMapBindingSchema'
 import { TargetKeyField } from './TargetKeyField'
 
 export interface CreatePropMapBindingModalProps extends WithElementService {
@@ -63,7 +65,7 @@ export const CreatePropMapBindingModal = observer(
         title={<span css={tw`font-semibold`}>Create prop binding</span>}
         visible={elementService.createPropMapBindingModal.isOpen}
       >
-        <ModalForm.Form<CreatePropMapBindingInput>
+        <ModalForm.Form<CreatePropMapBindingData>
           model={{ elementId: element?.id }}
           onSubmit={(data) => {
             if (!element) {

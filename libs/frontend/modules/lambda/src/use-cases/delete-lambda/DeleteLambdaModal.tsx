@@ -1,5 +1,4 @@
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { DeleteLambdaInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { deleteLambdaSchema } from './deleteLambdaSchema'
 

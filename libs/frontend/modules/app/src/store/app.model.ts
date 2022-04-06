@@ -1,6 +1,6 @@
 import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { AppFragment } from '../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../graphql/app.fragment.graphql.gen'
 
 @model('codelab/App')
 export class App extends Model({

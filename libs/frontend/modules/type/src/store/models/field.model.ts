@@ -1,4 +1,3 @@
-import { CreateFieldInput as _CreateFieldInput } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -53,10 +52,3 @@ export const fieldRef = rootRef<Field>('codealb/FieldRef', {
     }
   },
 })
-
-export type CreateFieldInput = Omit<
-  _CreateFieldInput,
-  'type' | 'interfaceId'
-> & { existingTypeId: string }
-
-export type UpdateFieldInput = CreateFieldInput

@@ -4,12 +4,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
-import { createTagSchema } from './createTagSchema'
+import { CreateTagData, createTagSchema } from './createTagSchema'
 import { DisplayIfNotRoot } from './DisplayIfNotRoot'
-import { CreateTagInput } from './types'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
-  const onSubmit = (input: CreateTagInput) => tagService.create({ ...input })
+  const onSubmit = (input: CreateTagData) => tagService.create({ ...input })
   // const options = tagService.getAll.map((tag) => ({
   //   label: tag.name,
   //   value: tag.id,

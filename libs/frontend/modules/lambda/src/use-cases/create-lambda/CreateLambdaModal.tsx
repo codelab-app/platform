@@ -1,5 +1,4 @@
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateLambdaInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createLambdaSchema } from './createLambdaSchema'
