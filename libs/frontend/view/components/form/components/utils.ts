@@ -4,7 +4,7 @@ import { MouseEvent } from 'react'
 
 export type SetIsLoading = (isLoading: boolean) => void
 
-export const handleAsyncFormSubmit =
+export const handleFormSubmit =
   <T>(
     onSubmit: (values: T) => any | Promise<any>,
     setIsLoading?: SetIsLoading,

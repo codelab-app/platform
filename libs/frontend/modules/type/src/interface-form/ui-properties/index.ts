@@ -3,11 +3,10 @@ import { UiPropertiesFn } from '../types'
 import { appTypeUiProperties } from './appTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
 import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
+import { monacoTypeUiProperties } from './monacoTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
 import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
-import { IType, TypeKind } from '@codelab/shared/abstract/core'
-import { monacoTypeUiProperties } from './monacoTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
   [TKind in ITypeKind]: UiPropertiesFn<IType<TKind>>
@@ -22,7 +21,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.ReactNodeType]: selectComponentUiProperties,
   [ITypeKind.RenderPropsType]: selectComponentUiProperties,
   [ITypeKind.ElementType]: elementTypeUiProperties,
-
+  [ITypeKind.MonacoType]: monacoTypeUiProperties,
   [ITypeKind.LambdaType]: lambdaTypeUiProperties,
   [ITypeKind.AppType]: appTypeUiProperties,
   [ITypeKind.PageType]: pageTypeUiProperties,
