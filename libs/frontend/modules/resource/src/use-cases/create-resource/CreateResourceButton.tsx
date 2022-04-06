@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { WithResourceService } from '../..'
+import { WithResourceService } from '../../store'
 
 export const CreateResourceButton = observer(
   ({ resourceService }: WithResourceService) => {
