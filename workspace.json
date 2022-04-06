@@ -25,7 +25,6 @@
     "shared-abstract-codegen": "libs/shared/abstract/codegen",
     "shared-abstract-core": "libs/shared/abstract/core",
     "shared-abstract-types": "libs/shared/abstract/types",
-    "shared-core": "libs/shared/core",
     "shared-utils": "libs/shared/utils",
     "tools-plugins-codelab": "libs/tools/plugins/codelab",
     "ui-d3": "libs/ui/d3",
