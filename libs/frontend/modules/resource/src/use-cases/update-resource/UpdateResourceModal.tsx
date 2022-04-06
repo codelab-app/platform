@@ -1,26 +1,31 @@
 import { TypeService } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
-import { AutoFields } from 'uniforms-antd'
-import { Resource, ResourceService, WithResourceService } from '../..'
 import { ResourceModalInterfaceForm } from '../../components/ResourceModalInterfaceForm'
 import { initialResourceSchema } from '../../schema/initialResourceSchema'
-import { UpdateResourceInput, updateResourceSchema } from './updateResourceSchema'
-import { getSnapshot } from 'mobx-keystone'
+import { Resource, WithResourceService } from '../../store'
+import { UpdateResourceInput } from './updateResourceSchema'
 
 export const UpdateResourceModal = observer(
-  ({ resourceService, typeService }: WithResourceService<{ typeService: TypeService }>) => {
-
+  ({
+    resourceService,
+    typeService,
+  }: WithResourceService<{ typeService: TypeService }>) => {
     const resource = resourceService.updateModal.resource
+
     const deserializedResource = useMemo(() => {
-      if (!resource) return {}
-      const deserializedResource = getSnapshot(resource)
+      if (!resource) {
+        return {}
+      }
+
+      const resourcesSnapshot = getSnapshot(resource)
 
       return {
-        ...deserializedResource,
-        ...(JSON.parse(deserializedResource.data) || {}),
+        ...resourcesSnapshot,
+        ...(JSON.parse(resourcesSnapshot.data) || {}),
       }
     }, [resource])
 
@@ -34,7 +39,6 @@ export const UpdateResourceModal = observer(
       return resourceService.update(resource as Resource, input)
     }
 
-
     return (
       <ModalForm.Modal
         okText="Update"
@@ -42,12 +46,12 @@ export const UpdateResourceModal = observer(
         visible={Boolean(resource && resourceService.updateModal.isOpen)}
       >
         <ResourceModalInterfaceForm
-          typeService={typeService}
+          initialSchema={initialResourceSchema}
+          model={deserializedResource}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={closeModal}
-          initialSchema={initialResourceSchema}
-          model={deserializedResource}
+          typeService={typeService}
         />
       </ModalForm.Modal>
     )

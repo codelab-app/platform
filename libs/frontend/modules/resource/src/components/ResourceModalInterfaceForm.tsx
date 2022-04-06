@@ -1,9 +1,9 @@
-import { SelectResourceAtom } from '@codelab/frontend/modules/type'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   ModalInterfaceForm,
-  SpinnerWrapper,
-} from '@codelab/frontend/view/components'
+  SelectResourceAtom,
+} from '@codelab/frontend/modules/type'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { AtomType } from '@codelab/shared/abstract/codegen'
 import { useEffect, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
