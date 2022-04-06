@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/shared/utils/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/shared/utils/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

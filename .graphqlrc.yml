@@ -1,12 +1,2 @@
 schema: 'schema.api.graphql'
-documents:
-  - '**/*.graphql'
-#projects:
-#  v1:
-#    schema: 'schema.api.graphql'
-#    documents:
-#      - '**/*.graphql'
-#  v2:
-#    schema: 'schema.api.graphql'
-#    documents:
-#      - libs/**/modules/**/*[!.v2].graphql
+documents: '**/*.graphql'
