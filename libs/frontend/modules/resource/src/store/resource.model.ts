@@ -1,18 +1,7 @@
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
-import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { AtomType } from '@codelab/shared/abstract/core'
-import {
-  detach,
-  Model,
-  model,
-  Ref,
-  rootRef,
-  tProp,
-  types,
-  prop,
-  idProp,
-} from 'mobx-keystone'
-import { ResourceFragment } from '../graphql/Resource.fragment.v2.1.graphql.gen'
+import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
+import { ResourceFragment } from '../graphql/resource.fragment.graphql.gen'
 
 @model('codelab/Resource')
 export class Resource extends Model({

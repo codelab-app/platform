@@ -1,1 +1,1 @@
-export * from './resource.interface.ts'
+export * from './resource.interface'

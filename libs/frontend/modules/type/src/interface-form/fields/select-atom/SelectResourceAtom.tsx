@@ -1,14 +1,14 @@
-import { filterNotHookType, filterResourceType } from '@codelab/shared/abstract/core'
+import { filterResourceType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectResourceAtomProps = HTMLFieldProps<string, SelectFieldProps>
 
 const useResourceAtom = () => {
-  const data = useQuery('resource-atom', () =>
+  const data = useQuery('interface-form/resource-atom', () =>
     interfaceFormApi.InterfaceForm_GetAtomsWithApi({
       where: { name_CONTAINS: 'Resource' },
     }),
@@ -17,12 +17,11 @@ const useResourceAtom = () => {
   return data
 }
 
-export const SelectResourceAtom = ({ name, error }: SelectAtomProps) => {
-  const {
-    data,
-    isLoading,
-    error: queryError,
-  } = useResourceAtom()
+export const SelectResourceAtom = ({
+  name,
+  error,
+}: SelectResourceAtomProps) => {
+  const { data, isLoading, error: queryError } = useResourceAtom()
 
   const componentOptions =
     data?.atoms

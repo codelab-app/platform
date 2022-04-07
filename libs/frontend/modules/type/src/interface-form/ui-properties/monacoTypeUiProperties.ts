@@ -1,8 +1,9 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { IMonacoType } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 
-const languageMap = {
+const languageMap: { [key in MonacoLanguage]?: string } = {
   graphqlDev: 'graphql',
 }
 

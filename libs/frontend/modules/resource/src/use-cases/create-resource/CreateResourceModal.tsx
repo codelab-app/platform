@@ -1,4 +1,4 @@
-import { TypeService } from '@codelab/frontend/modules/type'
+import { WithTypeService } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -9,10 +9,7 @@ import { WithResourceService } from '../../store'
 import { createResourceSchema } from './createResourceSchema'
 
 export const CreateResourceModal = observer(
-  ({
-    resourceService,
-    typeService,
-  }: WithResourceService<{ typeService: TypeService }>) => {
+  ({ resourceService, typeService }: WithResourceService & WithTypeService) => {
     const closeModal = () => resourceService.createModal.close()
 
     const onSubmitError = createNotificationHandler({

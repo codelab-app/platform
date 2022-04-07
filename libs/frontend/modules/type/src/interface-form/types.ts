@@ -9,7 +9,7 @@ export type InterfaceFormProps<TData> = Assign<
   {
     interfaceType: InterfaceType
     initialSchema?: any
-    setIsLoading: SetIsLoading
+    setIsLoading?: SetIsLoading
   } & SubmitRef
 >
 

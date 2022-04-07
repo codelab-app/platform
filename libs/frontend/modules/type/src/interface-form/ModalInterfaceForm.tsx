@@ -1,9 +1,10 @@
-import { InterfaceForm } from '@codelab/frontend/modules/type'
-import { ModalFormContext } from '@codelab/frontend/view/components'
+import { ModalForm } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
+import { InterfaceForm } from './InterfaceForm'
+import { InterfaceFormProps } from './types'
 
-export const ModalInterfaceForm = (props: any) => {
-  const { submitRef, setIsLoading } = useContext(ModalFormContext)
+export const ModalInterfaceForm = (props: InterfaceFormProps<any>) => {
+  const { submitRef, setIsLoading } = useContext(ModalForm.ModalFormContext)
 
   return (
     <InterfaceForm

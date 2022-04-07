@@ -3,16 +3,14 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { setClientAuthHeaders } from '@codelab/frontend/model/infra/graphql'
-import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateResourceButton,
   CreateResourceModal,
   DeleteResourceModal,
   GetResourcesTable,
-  UpdateResourceModal
+  UpdateResourceModal,
 } from '@codelab/frontend/modules/resource'
-import { TypeService } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -20,9 +18,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { resourceTypes } from '@codelab/shared/abstract/core'
 import { PageHeader } from 'antd'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 import tw from 'twin.macro'
@@ -44,8 +40,14 @@ export const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(
         </Head>
 
         <DeleteResourceModal resourceService={resourceService} />
-        <CreateResourceModal typeService={store.typeService} resourceService={resourceService} />
-        <UpdateResourceModal typeService={store.typeService} resourceService={resourceService} />
+        <CreateResourceModal
+          resourceService={resourceService}
+          typeService={store.typeService}
+        />
+        <UpdateResourceModal
+          resourceService={resourceService}
+          typeService={store.typeService}
+        />
 
         <ContentSection>
           <GetResourcesTable resourceService={resourceService} />
@@ -58,13 +60,15 @@ export const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(
 const Header = observer(() => {
   const store = useStore()
 
-
   const pageHeaderButtons = [
     <div
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <CreateResourceButton key="create" resourceService={store.resourceService} />
+      <CreateResourceButton
+        key="create"
+        resourceService={store.resourceService}
+      />
     </div>,
   ]
 

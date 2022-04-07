@@ -4,10 +4,13 @@ import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { WithResourceService } from '../../store'
-import { columns } from './columns'
+import { useResourcesTable } from './useResourcesTable'
 
 export const GetResourcesTable = observer(
   ({ resourceService }: WithResourceService) => {
+    const { columns, pagination, rowSelection } =
+      useResourcesTable(resourceService)
+
     const [getResources, { isLoading }] = useLoadingState(() =>
       resourceService.getAll(),
     )
@@ -21,8 +24,9 @@ export const GetResourcesTable = observer(
         <Table
           columns={columns}
           dataSource={resourceService.resourceList}
-          pagination={{ position: ['bottomCenter'] }}
+          pagination={pagination}
           rowKey={(component) => component.id}
+          rowSelection={rowSelection}
         />
       </SpinnerWrapper>
     )

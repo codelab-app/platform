@@ -1,4 +1,4 @@
-import { TypeService } from '@codelab/frontend/modules/type'
+import { WithTypeService } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { getSnapshot } from 'mobx-keystone'
@@ -9,11 +9,10 @@ import { initialResourceSchema } from '../../schema/initialResourceSchema'
 import { Resource, WithResourceService } from '../../store'
 import { UpdateResourceInput } from './updateResourceSchema'
 
-export const UpdateResourceModal = observer(
-  ({
-    resourceService,
-    typeService,
-  }: WithResourceService<{ typeService: TypeService }>) => {
+type UpdateResourceModalProps = WithResourceService & WithTypeService
+
+export const UpdateResourceModal = observer<UpdateResourceModalProps>(
+  ({ resourceService, typeService }) => {
     const resource = resourceService.updateModal.resource
 
     const deserializedResource = useMemo(() => {

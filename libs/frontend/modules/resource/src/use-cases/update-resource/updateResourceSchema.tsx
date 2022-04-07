@@ -6,7 +6,7 @@ export type UpdateResourceInput = {
   type: AtomType
 }
 
-export const updateResourceSchema: JSONSchemaType<CreateResourceInput> = {
+export const updateResourceSchema: JSONSchemaType<UpdateResourceInput> = {
   title: 'Update Resource',
   type: 'object',
   properties: {
@@ -16,9 +16,7 @@ export const updateResourceSchema: JSONSchemaType<CreateResourceInput> = {
     },
     type: {
       type: 'string',
-      enum: Object.keys(AtomType).filter(
-        filterResourceType
-      ) as Array<AtomType>,
+      enum: Object.keys(AtomType).filter(filterResourceType) as Array<AtomType>,
     },
   },
   required: ['name', 'type'],

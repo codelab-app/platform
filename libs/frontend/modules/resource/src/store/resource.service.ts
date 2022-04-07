@@ -2,32 +2,30 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/abstract/codegen-v2'
+} from '@codelab/shared/abstract/codegen'
+import { omit } from 'lodash'
 import { computed } from 'mobx'
 import {
+  _async,
+  _await,
   Model,
   model,
-  modelAction,
   modelFlow,
   objectMap,
   prop,
-  tProp,
+  Ref,
   transaction,
-  types,
-  _async,
-  _await,
 } from 'mobx-keystone'
 import { CreateResourceInput } from '../schema/initialResourceSchema'
-import { Resource } from './resource.model'
+import { UpdateResourceInput } from '../use-cases/update-resource/updateResourceSchema'
 import { resourceApi } from './resource.api'
+import { Resource } from './resource.model'
 import {
   ResourceModalService,
   ResourcesModalService,
 } from './resource-modal.service'
-import { UpdateResourceInput } from '../use-cases/update-resource/updateResourceSchema'
-import { omit } from 'lodash'
 
-export type WithResourceService<T = {}> = T & {
+export type WithResourceService = {
   resourceService: ResourceService
 }
 
@@ -37,6 +35,7 @@ export class ResourceService extends Model({
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new ResourceModalService({})),
   deleteModal: prop(() => new ResourcesModalService({})),
+  selectedResources: prop(() => Array<Ref<Resource>>()).withSetter(),
 }) {
   @computed
   get resourceList() {
@@ -131,7 +130,10 @@ export class ResourceService extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, resources: Resource[]) {
+  delete = _async(function* (
+    this: ResourceService,
+    resources: Array<Resource>,
+  ) {
     const ids = resources.map((resource) => resource.id)
 
     for (const id of ids) {
