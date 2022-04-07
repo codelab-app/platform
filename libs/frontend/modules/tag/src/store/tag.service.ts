@@ -1,4 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -8,6 +9,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { CreateTagInput } from '../use-cases/create-tag/types'
@@ -23,6 +25,10 @@ export interface WithTagService {
 @model('codelab/TagService')
 export class TagService extends Model({
   tags: prop(() => objectMap<Tag>()),
+
+  selectedTag: prop<Nullish<Ref<Tag>>>(() => null).withSetter(),
+  checkedTags: prop(() => Array<Ref<Tag>>()).withSetter(),
+
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new TagModalService({})),
   deleteModal: prop(() => new TagsModalService({})),
@@ -38,6 +44,14 @@ export class TagService extends Model({
       label: tag.name,
       value: tag.id,
     }))
+  }
+
+  @computed
+  get seletedTagOption() {
+    return {
+      lable: this.selectedTag?.current.name,
+      value: this.selectedTag?.current.id,
+    }
   }
 
   @modelFlow
@@ -135,25 +149,20 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
+  deleteCheckedTags = _async(function* (this: TagService) {
+    const checkedTags = this.checkedTags.map(
+      (checkedTag) => checkedTag?.current,
+    )
+
+    checkedTags.length && (yield* _await(this.delete(checkedTags)))
+  })
+
+  @modelFlow
+  @transaction
   getTagGraphs = _async(function* (this: TagService) {
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
 
-    const tagIds = tagGraphs.reduce<any>((ids, tagGraph) => {
-      return [...ids, ...tagGraph.descendants]
-    }, [])
-
-    const { tags } = yield* _await(
-      tagApi.GetTags({
-        where: {
-          id_IN: tagIds,
-        },
-      }),
-    )
-
-    tags.forEach((tag) => {
-      const tagModel = Tag.fromFragment(tag)
-      this.tags.set(tag.id, tagModel)
-    })
+    return tagGraphs
   })
 
   @modelFlow

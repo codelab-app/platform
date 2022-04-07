@@ -14,6 +14,7 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   //   value: tag.id,
   // }))
   const options = tagService.tagsListOptions
+  const defaultOption = tagService.seletedTagOption
   const closeModal = () => tagService.createModal.close()
 
   return (
@@ -23,7 +24,9 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
       visible={tagService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{}}
+        model={{
+          parentTagId: defaultOption?.value,
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating tag',
@@ -38,7 +41,6 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
           name="parentTagId"
           optionFilterProp="label"
           options={options}
-          // required
           showSearch
         />
         {/* </DisplayIfNotRoot>*/}

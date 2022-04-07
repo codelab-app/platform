@@ -11,7 +11,7 @@ export const DeleteTagsButton = observer<WithTagService & DeleteButtonProps>(
         danger
         disabled={disabled}
         icon={<DeleteOutlined />}
-        onClick={() => null}
+        onClick={() => tagService.deleteCheckedTags()}
         type="primary"
       >
         Delete Tags

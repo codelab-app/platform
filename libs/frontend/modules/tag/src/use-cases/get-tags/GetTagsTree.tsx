@@ -1,58 +1,49 @@
 import { CheckedKeys } from '@codelab/frontend/abstract/types'
-import { css, SerializedStyles } from '@emotion/react'
-import { Tree, TreeProps, Typography } from 'antd'
+import { Tree, TreeProps } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
+import useDeepCompareEffect from 'use-deep-compare-effect'
 import { WithTagService } from '../../store'
-import { UpdateTagIconButton } from '../update-tag/UpdateTagIconButton'
-
-const tagNodeStyle: SerializedStyles = css({
-  '&:hover': {
-    button: {
-      display: 'inline-block !important',
-    },
-  },
-})
+import { tagRef } from '../../store/tag.model'
+import { TreeService } from '../../store/tree.service'
 
 export const GetTagsTree = observer<WithTagService>(({ tagService }) => {
-  const tagsList = tagService.tagsList
-  // const tree = TreeService.init({ nodes: tagsList })
+  const [tree, setTree] = useState<Array<DataNode>>()
 
-  // console.log(Array.from(tree.nodes.entries()))
+  useDeepCompareEffect(() => {
+    tagService.getTagGraphs().then((response) => {
+      const makeupResponse = response.map((tag) => ({
+        id: tag.id,
+        label: tag.name,
+        children: tag.descendants,
+        isRoot: tag.isRoot,
+      }))
+
+      const treeService = TreeService.init({ nodes: makeupResponse })
+      const dataNode = TreeService.generateTreeDataNodes(treeService.roots)
+
+      setTree(dataNode)
+    })
+  }, [tagService.tagsList])
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    // setSelectedTag({ key: selectedKeys[0] })
+    tagService.setSelectedTag(tagRef(selectedKeys[0] as string))
   }
 
   const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
     const { checked } = checkedKeys as CheckedKeys
-    // setCheckedTags({ keys: checked })
-  }
-
-  const makeCustomTag: TreeProps['titleRender'] = (node: DataNode) => {
-    return (
-      <Typography.Text css={tagNodeStyle}>
-        {node.title}
-        <UpdateTagIconButton id={node.key.toString()} />
-      </Typography.Text>
-    )
+    tagService.setCheckedTags(checked.map((check) => tagRef(check as string)))
   }
 
   return (
     <Tree
       checkStrictly
-      // defaultExpandedKeys={['0-0-0', '0-0-1']}
-      // defaultSelectedKeys={['0-0-0', '0-0-1']}
-      // defaultCheckedKeys={['0-0-0', '0-0-1']}
       checkable
-      checkedKeys={[]}
+      checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
       onCheck={onCheck}
       onSelect={onSelect}
-      /**
-       * The root is a system root & shouldn't be shown
-       */
-      titleRender={(node: DataNode) => makeCustomTag(node)}
-      treeData={[]}
+      treeData={tree}
     />
   )
 })
