@@ -17,7 +17,7 @@ export const CreateResourceModal = observer(
     })
 
     const onSubmit = (input: CreateResourceInput) => {
-      return resourceService.add(input)
+      return resourceService.create(input)
     }
 
     return (

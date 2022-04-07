@@ -64,7 +64,10 @@ export class ResourceService extends Model({
 
   @modelFlow
   @transaction
-  add = _async(function* (this: ResourceService, input: CreateResourceInput) {
+  create = _async(function* (
+    this: ResourceService,
+    input: CreateResourceInput,
+  ) {
     const {
       createResources: { resources },
     } = yield* _await(
@@ -84,12 +87,8 @@ export class ResourceService extends Model({
     }
 
     const resourceModel = Resource.fromFragment(resource)
-    console.log({ resourceModel })
 
     this.resourceMap.set(resourceModel.id, resourceModel)
-    console.log({
-      resourceMap: this.resourceMap,
-    })
 
     return resources
   })

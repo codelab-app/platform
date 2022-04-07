@@ -3,7 +3,9 @@ import React, { useContext } from 'react'
 import { InterfaceForm } from './InterfaceForm'
 import { InterfaceFormProps } from './types'
 
-export const ModalInterfaceForm = (props: InterfaceFormProps<any>) => {
+type ModalInterfaceFormProps = React.PropsWithChildren<InterfaceFormProps<any>>
+
+export const ModalInterfaceForm = (props: ModalInterfaceFormProps) => {
   const { submitRef, setIsLoading } = useContext(ModalForm.ModalFormContext)
 
   return (

@@ -1,4 +1,4 @@
-import { AtomType, filterResourceType } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
 export type CreateResourceInput = {
