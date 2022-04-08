@@ -12,6 +12,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
+import { CreateTagData } from '../use-cases/create-tag/createTagSchema'
 import { UpdateTagData } from '../use-cases/update-tag/updateTagSchema'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
@@ -55,7 +56,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: CreateTagInput) {
+  create = _async(function* (this: TagService, input: CreateTagData) {
     const connectParentWhere = input?.parentTagId && {
       parent: {
         connect: {
