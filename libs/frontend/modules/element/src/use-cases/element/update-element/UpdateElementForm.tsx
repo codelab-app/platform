@@ -5,11 +5,12 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IUpdateElementDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { Element, WithElementService } from '../../../store'
-import { UpdateElementInput, updateElementSchema } from './updateElementSchema'
+import { updateElementSchema } from './updateElementSchema'
 
 export interface UpdateElementFormProps extends WithElementService {
   element: Element
@@ -33,7 +34,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       renderIfPropKey: element.renderIfPropKey,
     }) // Cache the initial element model, because when it updates it will interfere with what the user is typing
 
-    const onSubmit = (input: UpdateElementInput) => {
+    const onSubmit = (input: IUpdateElementDTO) => {
       const promise = elementService.updateElement(element, input)
 
       if (trackPromise) {
@@ -56,7 +57,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     return (
       <div>
-        <Form<UpdateElementInput>
+        <Form<IUpdateElementDTO>
           autosave
           key={element.id}
           model={model}

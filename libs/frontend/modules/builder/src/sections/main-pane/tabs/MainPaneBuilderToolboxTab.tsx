@@ -4,9 +4,9 @@ import {
   Component,
   ComponentService,
 } from '@codelab/frontend/modules/component'
-import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
@@ -22,7 +22,7 @@ export interface ToolboxItem {
   id: string
   name: string
   createElementInputFactory: () => Omit<
-    CreateElementInput,
+    ICreateElementDTO,
     'parentElementId' | 'order'
   >
 }

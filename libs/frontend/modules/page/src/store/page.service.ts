@@ -1,6 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
+import { ICreatePageDTO, IUpdatePageDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -14,8 +15,6 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import type { CreatePageData } from '../use-cases/create-page/createPageSchema'
-import { UpdatePageData } from '../use-cases/update-page/updatePageSchema'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
@@ -53,7 +52,7 @@ export class PageService extends Model({
   update = _async(function* (
     this: PageService,
     page: Page,
-    { name, appId }: UpdatePageData,
+    { name, appId }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(
       pageApi.UpdatePages({
@@ -111,7 +110,7 @@ export class PageService extends Model({
   @transaction
   create = _async(function* (
     this: PageService,
-    { name, appId }: CreatePageData,
+    { name, appId }: ICreatePageDTO,
   ) {
     const {
       createPages: { pages },

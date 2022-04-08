@@ -1,5 +1,6 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
+import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -14,7 +15,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
-import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
@@ -113,7 +113,7 @@ export class StoreService extends Model({
   @transaction
   createStore = _async(function* (
     this: StoreService,
-    input: CreateStoreInput,
+    input: ICreateStoreDTO,
     ownerId: Nullish<string>,
   ) {
     if (!ownerId) {
@@ -160,7 +160,7 @@ export class StoreService extends Model({
   updateStore = _async(function* (
     this: StoreService,
     store: Store,
-    input: UpdateStoreInput,
+    input: IUpdateStoreDTO,
   ) {
     const { updateStores } = yield* _await(
       storeApi.UpdateStores({

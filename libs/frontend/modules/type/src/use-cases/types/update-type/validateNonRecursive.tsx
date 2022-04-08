@@ -1,7 +1,7 @@
+import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 import { typeApi } from '../../../store'
-import { UpdateTypeInputFactory } from './update-type-input.factory'
 
-const getInnerTypeIds = (submitData: UpdateTypeInputFactory) => [
+const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
   ...(submitData.typeIdsOfUnionType ?? []),
 ]
 
@@ -9,7 +9,7 @@ const getInnerTypeIds = (submitData: UpdateTypeInputFactory) => [
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
   updateId: string,
-  submitData: UpdateTypeInputFactory,
+  submitData: IUpdateTypeDTO,
 ) => {
   const innerTypes = getInnerTypeIds(submitData)
 

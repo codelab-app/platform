@@ -1,9 +1,9 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import { CreateComponentInput } from '../use-cases'
+import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
 
 export const mapCreateInput = (
-  input: CreateComponentInput,
+  input: ICreateComponentDTO,
   auth0Id: string,
 ): ComponentCreateInput => {
   const { name } = input

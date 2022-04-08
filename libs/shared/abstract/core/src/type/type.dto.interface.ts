@@ -1,0 +1,60 @@
+import {
+  ElementTypeKind,
+  MonacoLanguage,
+  PrimitiveTypeKind,
+} from '@codelab/shared/abstract/codegen'
+import * as cg from '@codelab/shared/abstract/codegen'
+import { TypeKind } from './types/base-type/type-kind.enum'
+import { IEnumTypeValue } from './types/enum-type/enum-type.interface'
+
+export interface IBaseTypeDTO {
+  name: string
+  primitiveKind?: PrimitiveTypeKind
+  elementKind?: ElementTypeKind
+  language?: MonacoLanguage
+  allowedValues?: Array<IEnumTypeValue>
+  typeIdsOfUnionType?: Array<string>
+}
+
+/**
+ * Create
+ */
+export interface ICreateTypeDTO extends IBaseTypeDTO {
+  kind: TypeKind
+  typeIdsOfUnionType?: Array<string>
+  arrayItemTypeId?: string
+  typesOfUnionType?: string
+}
+
+export type ICreateTypeInput =
+  | cg.AppTypeCreateInput
+  | cg.ArrayTypeCreateInput
+  | cg.ElementTypeCreateInput
+  | cg.EnumTypeCreateInput
+  | cg.InterfaceTypeCreateInput
+  | cg.LambdaTypeCreateInput
+  | cg.MonacoTypeCreateInput
+  | cg.PageTypeCreateInput
+  | cg.PrimitiveTypeCreateInput
+  | cg.ReactNodeTypeCreateInput
+  | cg.RenderPropsTypeCreateInput
+  | cg.UnionTypeCreateInput
+
+/**
+ * Update
+ */
+export type IUpdateTypeDTO = IBaseTypeDTO
+
+export type IUpdateTypeInput =
+  | cg.AppTypeUpdateInput
+  | cg.ArrayTypeUpdateInput
+  | cg.ElementTypeUpdateInput
+  | cg.EnumTypeUpdateInput
+  | cg.InterfaceTypeUpdateInput
+  | cg.LambdaTypeUpdateInput
+  | cg.MonacoTypeUpdateInput
+  | cg.PageTypeUpdateInput
+  | cg.PrimitiveTypeUpdateInput
+  | cg.ReactNodeTypeUpdateInput
+  | cg.RenderPropsTypeUpdateInput
+  | cg.UnionTypeUpdateInput

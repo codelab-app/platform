@@ -1,12 +1,8 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
+import { ICreateAppDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateAppInput = {
-  name: string
-  storeId: string
-}
-
-export const createAppSchema: JSONSchemaType<CreateAppInput> = {
+export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
   title: 'Create App Input',
   type: 'object',
   properties: {

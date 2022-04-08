@@ -1,5 +1,6 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
+import { ICreateAtomDTO, IUpdateAtomDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
@@ -16,7 +17,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom, AtomFromFragmentInput } from './atom.model'
@@ -48,7 +48,7 @@ export class AtomService extends Model({
   update = _async(function* (
     this: AtomService,
     atom: Atom,
-    { name, type, tags }: UpdateAtomInputSchema,
+    { name, type, tags }: IUpdateAtomDTO,
   ) {
     const existingTagIds = atom.tags.map((tag) => tag.id)
     const connect = makeTagConnectData(difference(tags, existingTagIds))
@@ -135,7 +135,7 @@ export class AtomService extends Model({
   @transaction
   create = _async(function* (
     this: AtomService,
-    input: CreateAtomInputSchema,
+    input: ICreateAtomDTO,
     ownerId: Nullish<string>,
   ) {
     const apiOwner = ownerId

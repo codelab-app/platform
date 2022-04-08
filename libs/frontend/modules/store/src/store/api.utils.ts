@@ -7,11 +7,11 @@ import {
   StoreCreateInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { capitalize } from 'lodash'
-import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 
 export const makeStoreCreateInput = (
-  input: CreateStoreInput,
+  input: ICreateStoreDTO,
   ownerId: string,
 ): StoreCreateInput => {
   const { name, parentStore } = input
@@ -39,7 +39,7 @@ export const makeStoreCreateInput = (
 }
 
 export const makeStoreUpdateInput = (
-  input: UpdateStoreInput,
+  input: IUpdateStoreDTO,
 ): StoreUpdateInput => {
   const { name, parentStore, initialState } = input
 

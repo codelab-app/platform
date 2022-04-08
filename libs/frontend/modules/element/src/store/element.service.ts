@@ -3,7 +3,11 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { PropsData } from '@codelab/shared/abstract/core'
+import {
+  ICreateElementDTO,
+  IUpdateElementDTO,
+  PropsData,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -17,7 +21,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateElementInput, UpdateElementInput } from '../use-cases'
 import { MoveData } from '../use-cases/element/move-element/types'
 import { CreatePropMapBindingData } from '../use-cases/prop-mapping/create-prop-map-binding/createPropMapBindingSchema'
 import { UpdatePropMapBindingData } from '../use-cases/prop-mapping/update-prop-map-binding/updatePropMapBindingSchema'
@@ -66,7 +69,7 @@ export class ElementService extends Model({
   @transaction
   createElement = _async(function* (
     this: ElementService,
-    input: CreateElementInput,
+    input: ICreateElementDTO,
   ) {
     input = {
       ...input,
@@ -95,7 +98,7 @@ export class ElementService extends Model({
   updateElement = _async(function* (
     this: ElementService,
     element: Element,
-    input: UpdateElementInput,
+    input: IUpdateElementDTO,
   ) {
     const updateInput = makeUpdateInput(input)
 

@@ -1,12 +1,13 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType, WithTypeService } from '../../../store'
-import { CreateFieldData, createFieldSchema } from './createFieldSchema'
+import { InterfaceType, TypeService, WithTypeService } from '../../../store'
+import { createFieldSchema } from './createFieldSchema'
 
 export type CreateFieldModalProps = {
   interfaceType: InterfaceType
@@ -24,7 +25,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Create field</span>}
         visible={typeService.fieldCreateModal.isOpen}
       >
-        <ModalForm.Form<CreateFieldData>
+        <ModalForm.Form<ICreateFieldDTO>
           model={{}}
           onSubmit={(input) => typeService.addField(interfaceType, input)}
           onSubmitError={createNotificationHandler({

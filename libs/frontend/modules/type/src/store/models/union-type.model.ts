@@ -1,4 +1,4 @@
-import { IUnionType, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, IUnionType, TypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
@@ -14,14 +14,13 @@ import {
 import { TypeFragment, UnionTypeFragment } from '../../graphql'
 import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
 import { createTypeBase } from './base-type.model'
-import type { AnyType } from './types'
 
 @model('codelab/UnionType')
 export class UnionType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.UnionType),
     props: {
-      typesOfUnionType: prop<Array<Ref<AnyType>>>(() => []),
+      typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
     },
   }))
   implements IUnionType
@@ -52,7 +51,7 @@ export class UnionType
   }
 }
 
-export const typeRef = rootRef<AnyType>('codelab/TypeRef', {
+export const typeRef = rootRef<IAnyType>('codelab/TypeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

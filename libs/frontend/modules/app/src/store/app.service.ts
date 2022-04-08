@@ -1,6 +1,11 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen'
+import {
+  IAppService,
+  ICreateAppDTO,
+  IUpdateAppDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -13,8 +18,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
-import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
 import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
@@ -24,12 +27,15 @@ export type WithAppService = {
 }
 
 @model('codelab/AppService')
-export class AppService extends Model({
-  apps: prop(() => objectMap<App>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new AppModalService({})),
-  deleteModal: prop(() => new AppModalService({})),
-}) {
+export class AppService
+  extends Model({
+    apps: prop(() => objectMap<App>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new AppModalService({})),
+    deleteModal: prop(() => new AppModalService({})),
+  })
+  implements IAppService
+{
   @computed
   get appsList() {
     return [...this.apps.values()]
@@ -45,14 +51,14 @@ export class AppService extends Model({
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
     return apps.map((app) => {
-      if (this.apps.get(app.id)) {
-        return this.apps.get(app.id)
-      } else {
-        const appModel = App.fromFragment(app)
-        this.apps.set(app.id, appModel)
-
-        return appModel
+      if (this.apps.has(app.id)) {
+        return throwIfUndefined(this.apps.get(app.id))
       }
+
+      const appModel = App.fromFragment(app)
+      this.apps.set(app.id, appModel)
+
+      return appModel
     })
   })
 
@@ -61,7 +67,7 @@ export class AppService extends Model({
   update = _async(function* (
     this: AppService,
     app: App,
-    { name, storeId }: UpdateAppInput,
+    { name, storeId }: IUpdateAppDTO,
   ) {
     const {
       updateApps: { apps },
@@ -104,8 +110,8 @@ export class AppService extends Model({
   @transaction
   create = _async(function* (
     this: AppService,
-    input: CreateAppInput,
-    ownerId: Nullish<string>,
+    input: ICreateAppDTO,
+    ownerId: string,
   ) {
     const {
       createApps: { apps },

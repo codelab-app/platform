@@ -18,6 +18,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "unused-imports/no-unused-imports-ts": "error",
         // "prefer-destructuring": [
         //   "error",
         //   {

@@ -1,12 +1,8 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
+import { IUpdateAppDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type UpdateAppInput = {
-  name: string
-  storeId: string
-}
-
-export const updateAppSchema: JSONSchemaType<UpdateAppInput> = {
+export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {

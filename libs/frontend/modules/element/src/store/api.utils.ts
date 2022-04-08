@@ -2,16 +2,18 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateElementDTO,
+  IUpdateElementDTO,
+} from '@codelab/shared/abstract/core'
 import { Element } from '../store'
-import { CreateElementInput } from '../use-cases/element/create-element/createElementSchema'
-import { UpdateElementInput } from '../use-cases/element/update-element/updateElementSchema'
 
 //
 // Utilities for transforming the form inputs to api inputs
 //
 
 export const makeCreateInput = (
-  input: CreateElementInput,
+  input: ICreateElementDTO,
 ): ElementCreateInput => {
   const {
     parentElementId,
@@ -106,7 +108,7 @@ export const makeDuplicateInput = (
 }
 
 export const makeUpdateInput = (
-  input: UpdateElementInput,
+  input: IUpdateElementDTO,
 ): ElementUpdateInput => {
   const atom = input.atomId
     ? { connect: { where: { node: { id: input.atomId } } } }

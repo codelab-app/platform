@@ -3,16 +3,8 @@ import {
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { ElementTypeKind, IEnumTypeValue } from '@codelab/shared/abstract/core'
+import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from './TypeSelect'
-
-export interface BaseTypeMutationSchema {
-  name: string
-  primitiveKind?: PrimitiveTypeKind
-  elementKind?: ElementTypeKind
-  language?: MonacoLanguage
-  allowedValues?: Array<IEnumTypeValue>
-  typeIdsOfUnionType?: Array<string>
-}
 
 export const baseTypeMutationSchemaProperties = {
   typeIdsOfUnionType: {

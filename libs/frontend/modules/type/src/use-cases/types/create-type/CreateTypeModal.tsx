@@ -1,7 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ICreateTypeDTO, TypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -12,7 +12,6 @@ import {
 } from '../../../shared'
 import { WithTypeService } from '../../../store'
 import {
-  CreateTypeSchema,
   createTypeSchema,
   mapCreateTypeSchemaToInput,
 } from './create-type-input.factory'
@@ -30,7 +29,7 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
       title={<span css={tw`font-semibold`}>Create type</span>}
       visible={typeService.createModal.isOpen}
     >
-      <ModalForm.Form<CreateTypeSchema>
+      <ModalForm.Form<ICreateTypeDTO>
         model={{}}
         onSubmit={(data) => {
           const input = mapCreateTypeSchemaToInput(data, user.user?.sub) as any

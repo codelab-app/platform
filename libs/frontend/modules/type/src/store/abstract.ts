@@ -1,14 +1,13 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { _async, _await, idProp, prop } from 'mobx-keystone'
 import { TypeFragment } from '../graphql'
-import { updateTypeApi, UpdateTypeInput } from './apis/type.api'
+import { updateTypeApi } from './apis/type.api'
 
 export interface IBaseType {
   typeKind: TypeKind
   id: string
   name: string
-
-  updateFromFragment: (fragment: TypeFragment) => void
+  // updateFromFragment: (fragment: TypeFragment) => void
 }
 
 // Using ExtendedModel with a BaseType produced a weird error that I couldn't figure out.

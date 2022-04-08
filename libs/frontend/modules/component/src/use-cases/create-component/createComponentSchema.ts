@@ -1,7 +1,7 @@
+import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateComponentInput } from './types'
 
-export const createComponentSchema: JSONSchemaType<CreateComponentInput> = {
+export const createComponentSchema: JSONSchemaType<ICreateComponentDTO> = {
   title: 'Create Component Input',
   type: 'object',
   properties: {
