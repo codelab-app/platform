@@ -13,10 +13,8 @@ import { WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { CreateElementInput, createElementSchema } from './createElementSchema'
 
-export type CreateElementModalProps = WithElementService
-
-export const CreateElementModal = observer(
-  ({ elementService }: CreateElementModalProps) => {
+export const CreateElementModal = observer<WithElementService>(
+  ({ elementService }) => {
     const onSubmit = (submitData: CreateElementInput) =>
       elementService.createElement(submitData)
 

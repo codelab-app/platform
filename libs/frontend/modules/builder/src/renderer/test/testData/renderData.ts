@@ -22,7 +22,7 @@ import {
   typeRef,
   TypeService,
 } from '@codelab/frontend/modules/type'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'

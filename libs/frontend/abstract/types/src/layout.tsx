@@ -9,7 +9,7 @@ export type CodelabPage<T, P = any, IP = P> = NextPage<P, IP> & PageProps<T>
  */
 export type PageProps<P> = {
   getLayout?: (
-    page: NextComponentType<NextPageContext<any>, any, P>,
+    page: NextComponentType<NextPageContext, any, P>,
   ) => JSX.Element | JSXElementConstructor<any>
   Layout?: JSXElementConstructor<any>
 }

@@ -1,7 +1,11 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateTagInput } from './types'
 
-export const createTagSchema: JSONSchemaType<CreateTagInput> = {
+export type CreateTagData = {
+  name: string
+  parentTagId?: string
+}
+
+export const createTagSchema: JSONSchemaType<CreateTagData> = {
   title: 'Create Tag Input',
   type: 'object',
   properties: {

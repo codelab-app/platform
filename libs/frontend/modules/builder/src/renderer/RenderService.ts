@@ -3,9 +3,9 @@ import {
   ElementTree,
   elementTreeRef,
 } from '@codelab/frontend/modules/element'
-import { getTypeServiceFromContext } from '@codelab/frontend/modules/type'
+import { getTypeService } from '@codelab/frontend/modules/type'
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   deepReplaceObjectValues,
   deepReplaceObjectValuesAndKeys,
@@ -16,11 +16,13 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  AnyModel,
   detach,
   getSnapshot,
   Model,
   model,
   modelAction,
+  ModelClass,
   modelFlow,
   prop,
   Ref,
@@ -94,14 +96,14 @@ export class RenderService extends Model(
   },
 ) {
   /** Set to any observable that will act as a source for the state of the rendered app */
-  private platformState?: any
+  public platformState?: any
 
   @modelFlow
   init = _async(function* (
     this: RenderService,
     tree: ElementTree,
     providerTree?: Nullable<ElementTree>,
-    platformState?: any,
+    platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
     this.treeRef = elementTreeRef(tree)
     this.providerTreeRef = providerTree ? elementTreeRef(providerTree) : null
@@ -114,7 +116,7 @@ export class RenderService extends Model(
     // Make sure all types are fetched first, because we need
     // them when transforming the rendered props. We could cache
     // the common types in the browser later on
-    const typeStore = getTypeServiceFromContext(this)
+    const typeStore = getTypeService(this)
 
     if (typeStore?.types.size <= 1) {
       yield* _await(typeStore.getAll())
@@ -362,7 +364,7 @@ export class RenderService extends Model(
     })
 
   private getTypeKindById(typeId: string): TypeKind | undefined {
-    return getTypeServiceFromContext(this).type(typeId)?.typeKind
+    return getTypeService(this).type(typeId)?.typeKind
   }
 }
 

@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/view/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/view/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["scope:frontend"]

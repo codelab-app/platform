@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/modules/type/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/modules/type/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

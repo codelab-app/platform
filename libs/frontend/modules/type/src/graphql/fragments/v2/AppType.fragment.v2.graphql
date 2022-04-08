@@ -1,3 +1,0 @@
-fragment AppType on AppType {
-  ...TypeBase
-}

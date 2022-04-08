@@ -7,9 +7,7 @@ import { WithComponentService } from '../../store'
 import { deleteComponentSchema } from './deleteComponentSchema'
 import { DeleteComponentInput } from './types'
 
-export type DeleteComponentModal = WithComponentService
-
-export const DeleteComponentModal = observer<DeleteComponentModal>(
+export const DeleteComponentModal = observer<WithComponentService>(
   ({ componentService }) => {
     const closeModal = () => componentService.deleteModal.close()
 

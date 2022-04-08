@@ -19,8 +19,8 @@ export interface ActionColumnProps {
   componentStore: ComponentService
 }
 
-export const ActionColumn = observer(
-  ({ component, componentStore }: ActionColumnProps) => {
+export const ActionColumn = observer<ActionColumnProps>(
+  ({ component, componentStore }) => {
     const router = useRouter()
 
     const onEdit = () => {

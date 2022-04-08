@@ -5,13 +5,8 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import {
-  CreateFieldInput,
-  InterfaceType,
-  TypeService,
-  WithTypeService,
-} from '../../../store'
-import { createFieldSchema } from './createFieldSchema'
+import { InterfaceType, WithTypeService } from '../../../store'
+import { CreateFieldData, createFieldSchema } from './createFieldSchema'
 
 export type CreateFieldModalProps = {
   interfaceType: InterfaceType
@@ -29,7 +24,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Create field</span>}
         visible={typeService.fieldCreateModal.isOpen}
       >
-        <ModalForm.Form<CreateFieldInput>
+        <ModalForm.Form<CreateFieldData>
           model={{}}
           onSubmit={(input) => typeService.addField(interfaceType, input)}
           onSubmitError={createNotificationHandler({

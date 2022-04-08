@@ -3,7 +3,6 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
 import { Space } from 'antd'
-import { modelIdPropertyNameSymbol } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { atomRef } from '../../../store'
 import { ActionColumnProps } from './types'

@@ -33,17 +33,11 @@
         "libs/frontend/abstract/types/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
-      "@codelab/frontend/model/infra/apollo": [
-        "libs/frontend/model/infra/apollo/src/index.ts"
-      ],
       "@codelab/frontend/model/infra/graphql": [
         "libs/frontend/model/infra/graphql/src/index.ts"
       ],
       "@codelab/frontend/model/infra/mobx": [
         "libs/frontend/model/infra/mobx/src/index.ts"
-      ],
-      "@codelab/frontend/model/infra/redux": [
-        "libs/frontend/model/infra/redux/src/index.ts"
       ],
       "@codelab/frontend/modules/admin": [
         "libs/frontend/modules/admin/src/index.ts"
@@ -71,6 +65,9 @@
       ],
       "@codelab/frontend/modules/props": [
         "libs/frontend/modules/prop/src/index.ts"
+      ],
+      "@codelab/frontend/modules/store": [
+        "libs/frontend/modules/store/src/index.ts"
       ],
       "@codelab/frontend/modules/style": [
         "libs/frontend/modules/style/src/index.ts"
@@ -104,16 +101,12 @@
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
-      "@codelab/shared/abstract/codegen-v2": [
-        "libs/shared/abstract/codegen-v2/src/index.ts"
-      ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
-      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"

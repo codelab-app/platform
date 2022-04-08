@@ -16,6 +16,7 @@ import {
   PrimitiveTypeModel,
   ReactNodeTypeModel,
   RenderPropsTypeModel,
+  StoreModel,
   TagModel,
   UnionTypeModel,
   UserModel,
@@ -33,6 +34,10 @@ let elementInst: ElementModel
 
 export const Element = async () =>
   (elementInst ??= (await getOgm()).model('Element'))
+
+let storeInst: StoreModel
+
+export const Store = async () => (storeInst ??= (await getOgm()).model('Store'))
 
 let pageInst: PageModel
 

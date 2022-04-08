@@ -3,17 +3,15 @@
   "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
+    "@typescript-eslint",
     "import",
     "unused-imports",
     "react",
     // "react-hooks",
-    "graphql",
     "@emotion",
     "prettier",
     "jest-formatting",
     "simple-import-sort"
-    // "@graphql-eslint",
-    // "eslint-plugin-graphql"
   ],
   "extends": ["plugin:prettier/recommended"],
   "overrides": [
@@ -404,34 +402,10 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
-      "parser": "@graphql-eslint/eslint-plugin",
-      "plugins": ["@graphql-eslint"],
-      "parserOptions": {
-        "schema": "./schema.api.graphql"
-      },
-      // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
-      // after https://github.com/prettier/eslint-plugin-prettier/pull/413
-      // been merged and released, it can be deleted safely
-      "rules": {
-        "prettier/prettier": [
-          "error",
-          {
-            "parser": "graphql"
-          }
-        ]
-      }
-    },
-    // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
-    // after https://github.com/prettier/eslint-plugin-prettier/pull/415
-    // been merged and released, it can be deleted safely
-    {
-      "files": ["*.js/*.graphql"],
-      "rules": {
-        "prettier/prettier": "off"
-      }
     }
+    // {
+    //   "files": ["*.graphql"],
+    //   "extends": "plugin:@graphql-eslint/schema-recommended"
+    // }
   ]
 }

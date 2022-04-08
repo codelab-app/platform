@@ -1,6 +1,0 @@
-fragment EnumType on EnumType {
-  ...TypeBase
-  allowedValues {
-    ...EnumTypeValue
-  }
-}

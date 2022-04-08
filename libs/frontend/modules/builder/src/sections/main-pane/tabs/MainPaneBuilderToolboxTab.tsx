@@ -57,68 +57,65 @@ export interface MainPaneBuilderToolboxTabProps {
   componentService: ComponentService
 }
 
-export const MainPaneBuilderToolboxTab = observer(
-  ({
-    searchQuery,
-    atomService,
-    componentService,
-  }: MainPaneBuilderToolboxTabProps) => {
-    const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
-    const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])
-    const fuseRef = useRef(new Fuse<ToolboxItem>([], { keys: ['name'] }))
+export const MainPaneBuilderToolboxTab =
+  observer<MainPaneBuilderToolboxTabProps>(
+    ({ searchQuery, atomService, componentService }) => {
+      const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
+      const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])
+      const fuseRef = useRef(new Fuse<ToolboxItem>([], { keys: ['name'] }))
 
-    const [, { isLoading: isLoadingAtoms }] = useLoadingState(
-      () => atomService.getAll(),
-      { executeOnMount: true },
-    )
+      const [, { isLoading: isLoadingAtoms }] = useLoadingState(
+        () => atomService.getAll(),
+        { executeOnMount: true },
+      )
 
-    const [, { isLoading: isLoadingComponents }] = useLoadingState(
-      () => componentService.getAll(),
-      { executeOnMount: true },
-    )
+      const [, { isLoading: isLoadingComponents }] = useLoadingState(
+        () => componentService.getAll(),
+        { executeOnMount: true },
+      )
 
-    useEffect(() => {
-      return autorun(() => {
-        const componentsList = componentService.componentsList
-        const atomsList = atomService.atomsList
+      useEffect(() => {
+        return autorun(() => {
+          const componentsList = componentService.componentsList
+          const atomsList = atomService.atomsList
 
-        const toolboxItems: Array<ToolboxItem> = [
-          ...atomsList.map(atomToolboxItemFactory),
-          ...componentsList.map(componentToolboxItemFactory),
-        ]
+          const toolboxItems: Array<ToolboxItem> = [
+            ...atomsList.map(atomToolboxItemFactory),
+            ...componentsList.map(componentToolboxItemFactory),
+          ]
 
-        fuseRef.current.setCollection(toolboxItems)
+          fuseRef.current.setCollection(toolboxItems)
 
-        if (searchQuery) {
-          const results = fuseRef.current.search(searchQuery)
-          setFilteredItems(results.map((r) => r.item))
-        } else {
-          setFilteredItems(toolboxItems)
-        }
-      })
-    }, [searchQuery])
+          if (searchQuery) {
+            const results = fuseRef.current.search(searchQuery)
+            setFilteredItems(results.map((r) => r.item))
+          } else {
+            setFilteredItems(toolboxItems)
+          }
+        })
+      }, [searchQuery])
 
-    return (
-      <div
-        css={css`
-          max-height: 100%;
-          height: 100%;
-          overflow-y: hidden;
-          display: grid;
-          grid-auto-rows: auto;
-          gap: 0.25rem;
-        `}
-        ref={setNodeRef}
-      >
-        <SpinnerWrapper isLoading={isLoadingAtoms || isLoadingComponents}>
-          {filteredItems.map((item) => (
-            <ToolboxItemView key={item.id} toolboxItem={item} />
-          ))}
-        </SpinnerWrapper>
-      </div>
-    )
-  },
-)
+      return (
+        <div
+          css={css`
+            max-height: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            display: grid;
+            grid-auto-rows: auto;
+            gap: 0.25rem;
+          `}
+          ref={setNodeRef}
+        >
+          <SpinnerWrapper isLoading={isLoadingAtoms || isLoadingComponents}>
+            {filteredItems.map((item) => (
+              <ToolboxItemView key={item.id} toolboxItem={item} />
+            ))}
+          </SpinnerWrapper>
+        </div>
+      )
+    },
+  )
 
 const ToolboxItemView = ({ toolboxItem }: { toolboxItem: ToolboxItem }) => {
   const { attributes, listeners, setNodeRef } = useCreateElementDraggable(

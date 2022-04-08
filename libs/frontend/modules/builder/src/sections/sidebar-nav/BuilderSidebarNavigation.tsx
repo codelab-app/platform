@@ -1,4 +1,8 @@
-import { AppstoreAddOutlined, PartitionOutlined } from '@ant-design/icons'
+import {
+  AppstoreAddOutlined,
+  DatabaseOutlined,
+  PartitionOutlined,
+} from '@ant-design/icons'
 import {
   sidebarNavContainerStyle,
   SidebarNavigation,
@@ -31,6 +35,13 @@ export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
             onClick={() => builderService.setBuilderTab(BuilderTab.Tree)}
           >
             Tree
+          </Menu.Item>
+          <Menu.Item
+            icon={<DatabaseOutlined title="State" />}
+            key={BuilderTab.MobxState}
+            onClick={() => builderService.setBuilderTab(BuilderTab.MobxState)}
+          >
+            Mobx State
           </Menu.Item>
           <Menu.Item
             icon={<AppstoreAddOutlined title="Toolbox" />}

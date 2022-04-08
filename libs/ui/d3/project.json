@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/ui/d3/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/ui/d3/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

@@ -1,17 +1,17 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
-import * as cg from '@codelab/shared/abstract/codegen-v2'
+import * as cg from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { flatten } from 'lodash'
-import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.v2.1.graphql.gen'
-import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.v2.1.graphql.gen'
-import { TypeFragment } from '../../graphql/fragments/Type.fragment.v2.1.graphql.gen'
+import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
+import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
+import { TypeFragment } from '../../graphql/fragments/type.fragment.graphql.gen'
 import {
   getSdk as getGetSdk,
   GetTypesQuery,
-} from '../../graphql/get-type.endpoints.v2.1.graphql.gen'
-import { getSdk } from '../../graphql/type.endpoints.v2.1.graphql.gen'
-import { getSdk as getUpdateSdk } from '../../graphql/update-type.endpoints.v2.1.graphql.gen'
+} from '../../graphql/get-type.endpoints.graphql.gen'
+import { getSdk } from '../../graphql/type.endpoints.graphql.gen'
+import { getSdk as getUpdateSdk } from '../../graphql/update-type.endpoints.graphql.gen'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
 // so here are a collection of helper functions that allow us to universally query/mutate a type, based on its type kind

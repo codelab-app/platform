@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/tools/plugins/codelab/**/*.ts"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/tools/plugins/codelab/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

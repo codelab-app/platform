@@ -67,8 +67,6 @@ export const SelectElement = ({
     }
   }
 
-  console.log(elements)
-
   return (
     <SelectField
       name={name}
@@ -76,7 +74,7 @@ export const SelectElement = ({
       options={elements}
       showSearch
       {...(props as any)}
-      disabled={!elements.length}
+      disabled={elements.length === 1 || !elements.length}
     />
   )
 }

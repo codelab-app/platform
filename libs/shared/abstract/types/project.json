@@ -8,12 +8,7 @@
       "options": {
         "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/shared/abstract/types/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["scope:shared", "type:abstract"]

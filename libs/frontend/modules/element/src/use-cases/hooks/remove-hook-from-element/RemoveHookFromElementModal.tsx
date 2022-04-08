@@ -1,4 +1,3 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -36,7 +35,7 @@ export const RemoveHookFromElementModal = ({
       okText="Remove"
       onCancel={() => reset()}
       title={<span css={tw`font-semibold`}>Remove hook</span>}
-      visible={actionType === CRUDActionType.Delete}
+      visible={actionType === 'DELETE'}
     >
       {({ submitRef }) => (
         <Form<EmptyJsonSchemaType>

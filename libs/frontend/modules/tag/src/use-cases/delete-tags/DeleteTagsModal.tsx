@@ -1,12 +1,11 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
 import { WithTagService } from '../../store'
-import { deleteTagsSchema } from './deleteTagsSchema'
+import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
   // const deleteTags = data?.tags
@@ -25,7 +24,7 @@ export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
       title={<span css={tw`font-semibold`}>Delete tags</span>}
       visible={tagService.deleteModal.isOpen}
     >
-      <ModalForm.Form<DeleteTagsInput>
+      <ModalForm.Form<DeleteTagsData>
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

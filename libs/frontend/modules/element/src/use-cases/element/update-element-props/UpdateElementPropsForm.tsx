@@ -16,13 +16,8 @@ export interface UpdateElementPropsFormProps
   trackPromises?: UseTrackLoadingPromises
 }
 
-export const UpdateElementPropsForm = observer(
-  ({
-    elementService,
-    element,
-    trackPromises,
-    typeService,
-  }: UpdateElementPropsFormProps) => {
+export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
+  ({ elementService, element, trackPromises, typeService }) => {
     const { trackPromise } = trackPromises ?? {}
     const initialPropsRef = useRef(element?.props?.propsData ?? {}) // cache it to not confuse the user when auto-saving
 

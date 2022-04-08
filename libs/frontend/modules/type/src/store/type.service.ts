@@ -1,5 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
+import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -15,6 +15,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { CreateFieldData } from '../use-cases/fields'
+import { UpdateFieldData } from '../use-cases/fields/update-field/types'
 import { IBaseType } from './abstract'
 import { fieldApi } from './apis/field.api'
 import {
@@ -27,12 +29,7 @@ import {
   UpdateTypeInput,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import {
-  AnyType,
-  CreateFieldInput,
-  InterfaceType,
-  UpdateFieldInput,
-} from './models'
+import { AnyType, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -44,16 +41,16 @@ export type WithTypeService = {
 }
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
-export const typeStoreContext = createContext<TypeService>()
+export const typeServiceContext = createContext<TypeService>()
 
-export const getTypeStoreFromContext = (thisModel: object) => {
-  const typeStore = typeStoreContext.get(thisModel)
+export const getTypeService = (thisModel: object) => {
+  const typeService = typeServiceContext.get(thisModel)
 
-  if (!typeStore) {
-    throw new Error('TypeStore is not defined')
+  if (!typeService) {
+    throw new Error('TypeService is not defined')
   }
 
-  return typeStore
+  return typeService
 }
 
 @model('codelab/TypeService')
@@ -228,9 +225,9 @@ export class TypeService extends Model({
   addField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    input: CreateFieldInput,
+    data: CreateFieldData,
   ) {
-    const { existingTypeId, name, description, key } = input
+    const { existingTypeId, name, description, key } = data
 
     const createInput = {
       interfaceTypeId: interfaceType.id,
@@ -254,7 +251,7 @@ export class TypeService extends Model({
     this: TypeService,
     interfaceType: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: UpdateFieldInput,
+    { key, name, existingTypeId, description }: UpdateFieldData,
   ) {
     const field = interfaceType.fieldByKey(targetKey)
 

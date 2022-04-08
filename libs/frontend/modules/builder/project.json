@@ -10,12 +10,7 @@
           "libs/frontend/modules/builder/**/*.{ts,tsx,js,jsx}"
         ]
       },
-      "outputs": ["{options.outputFile}"],
-      "configurations": {
-        "ci": {
-          "eslintConfig": "libs/frontend/modules/builder/.eslintrc.ci.json"
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

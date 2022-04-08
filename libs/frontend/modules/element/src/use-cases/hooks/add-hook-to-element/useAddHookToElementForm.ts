@@ -1,12 +1,10 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { AtomService } from '@codelab/frontend/modules/atom'
 import { TypeService } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen-v2'
+import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useEffect } from 'react'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
@@ -15,8 +13,7 @@ type UseAddHookToElementForm = (
   elementId: string,
   typeStore: TypeService,
   atomStore: AtomService,
-) => ReturnType<UseUseCaseForm<any, CRUDActionType, unknown, string>> &
-  InterfaceProps
+) => any & InterfaceProps
 
 export const useAddHookToElementForm: UseAddHookToElementForm = (
   elementId,
@@ -104,7 +101,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
       }),
     ],
     model: {}, // { typeId: selectedType },
-    actionType: CRUDActionType.Create,
+    actionType: 'CREATE',
     isLoading: false,
     interfaceLoading,
   }

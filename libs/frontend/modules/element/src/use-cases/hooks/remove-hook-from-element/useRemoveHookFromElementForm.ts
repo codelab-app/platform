@@ -1,16 +1,6 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
-import { IHook } from '@codelab/shared/abstract/core'
 
-export const useRemoveHookFromElementForm: UseEntityUseCaseForm<
-  EmptyJsonSchemaType,
-  CRUDActionType,
-  IHook,
-  unknown,
-  string
-> = (elementId) => {
+export const useRemoveHookFromElementForm = (elementId: string) => {
   // const { deleteIds, entity, actionType } = useHookState()
   // const { resetModal } = useHookDispatch()
   //
@@ -35,7 +25,7 @@ export const useRemoveHookFromElementForm: UseEntityUseCaseForm<
       }),
     ],
     model: {},
-    actionType: CRUDActionType.Delete,
+    actionType: 'DELETE',
     entity: {} as any,
     onSubmitSuccess: () => {
       //

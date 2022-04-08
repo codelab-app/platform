@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { WithPageService } from '../../store'
-import { UpdatePageInput, updatePageSchema } from './updatePageSchema'
+import { UpdatePageData, updatePageSchema } from './updatePageSchema'
 
 export const UpdatePageModal = observer<WithPageService>(({ pageService }) => {
   const closeModal = () => pageService.updateModal.close()
@@ -14,7 +14,7 @@ export const UpdatePageModal = observer<WithPageService>(({ pageService }) => {
     return null
   }
 
-  const onSubmit = (input: UpdatePageInput) => pageService.update(page, input)
+  const onSubmit = (input: UpdatePageData) => pageService.update(page, input)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while updating page',
@@ -31,7 +31,7 @@ export const UpdatePageModal = observer<WithPageService>(({ pageService }) => {
       onCancel={closeModal}
       visible={pageService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdatePageInput>
+      <ModalForm.Form<UpdatePageData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

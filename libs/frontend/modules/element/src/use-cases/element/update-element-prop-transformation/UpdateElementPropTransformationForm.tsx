@@ -23,76 +23,72 @@ function transform(props){
   }
 }`
 
-export const UpdateElementPropTransformationForm = observer(
-  ({
-    element,
-    elementService,
-    trackPromises,
-    monacoProps,
-  }: UpdateElementPropTransformationFormProp) => {
-    const { trackPromise } = trackPromises ?? {}
+export const UpdateElementPropTransformationForm =
+  observer<UpdateElementPropTransformationFormProp>(
+    ({ element, elementService, trackPromises, monacoProps }) => {
+      const { trackPromise } = trackPromises ?? {}
 
-    const [value, setValue] = useState(
-      element.propTransformationJs || defaultFn,
-    )
+      const [value, setValue] = useState(
+        element.propTransformationJs || defaultFn,
+      )
 
-    // Keep the value string value in a ref so we can access it when unmounting the component
-    const valueRef = useRef(value)
-    valueRef.current = value
+      // Keep the value string value in a ref so we can access it when unmounting the component
+      const valueRef = useRef(value)
+      valueRef.current = value
 
-    const updateValue = useCallback(
-      (newValue: string) => {
-        if (newValue === defaultFn) {
-          return
+      const updateValue = useCallback(
+        (newValue: string) => {
+          if (newValue === defaultFn) {
+            return
+          }
+
+          const promise = elementService.updateElementsPropTransformationJs(
+            element,
+            newValue,
+          )
+
+          return trackPromise?.(promise) ?? promise
+        },
+        [element, elementService, trackPromise],
+      )
+
+      useEffect(() => {
+        // Make sure the new string is saved when unmounting the component
+        // because if the panel is closed too quickly, the autosave won't catch the latest changes
+        return () => {
+          updateValue(valueRef.current)
         }
+      }, [updateValue])
 
-        const promise = elementService.updateElementsPropTransformationJs(
-          element,
-          newValue,
-        )
+      // Debounce autosave
+      const [valueDebounced, setValueDebounced] = useDebouncedState(500, value)
 
-        return trackPromise?.(promise) ?? promise
-      },
-      [element, elementService, trackPromise],
-    )
+      useEffect(() => {
+        setValueDebounced(value)
+      }, [value, setValueDebounced])
 
-    useEffect(() => {
-      // Make sure the new string is saved when unmounting the component
-      // because if the panel is closed too quickly, the autosave won't catch the latest changes
-      return () => {
-        updateValue(valueRef.current)
-      }
-    }, [updateValue])
+      useEffect(() => {
+        if (isString(valueDebounced)) {
+          updateValue(valueDebounced)
+        }
+      }, [valueDebounced, updateValue])
 
-    // Debounce autosave
-    const [valueDebounced, setValueDebounced] = useDebouncedState(500, value)
-
-    useEffect(() => {
-      setValueDebounced(value)
-    }, [value, setValueDebounced])
-
-    useEffect(() => {
-      if (isString(valueDebounced)) {
-        updateValue(valueDebounced)
-      }
-    }, [valueDebounced, updateValue])
-
-    return (
-      <MonacoEditor
-        containerProps={{
-          style: { height: '100%' },
-          ...(monacoProps?.containerProps || {}),
-        }}
-        editorOptions={{
-          language: 'javascript',
-          lineNumbers: 'off',
-          ...(monacoProps?.editorOptions || {}),
-        }}
-        onChange={(v) => setValue(v || '')}
-        value={value}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...monacoProps}
-      />
-    )
-  },
-)
+      return (
+        <MonacoEditor
+          containerProps={{
+            style: { height: '100%' },
+            ...(monacoProps?.containerProps || {}),
+          }}
+          editorOptions={{
+            language: 'javascript',
+            lineNumbers: 'off',
+            ...(monacoProps?.editorOptions || {}),
+          }}
+          onChange={(v) => setValue(v || '')}
+          value={value}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...monacoProps}
+        />
+      )
+    },
+  )

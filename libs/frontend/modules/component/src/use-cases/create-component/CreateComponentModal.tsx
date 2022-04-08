@@ -8,9 +8,7 @@ import { WithComponentService } from '../../store'
 import { createComponentSchema } from './createComponentSchema'
 import { CreateComponentInput } from './types'
 
-export type CreateComponentModalProps = WithComponentService
-
-export const CreateComponentModal = observer<CreateComponentModalProps>(
+export const CreateComponentModal = observer<WithComponentService>(
   ({ componentService }) => {
     const { user } = useUser()
 

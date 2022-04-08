@@ -1,9 +1,7 @@
-import { Maybe } from '@codelab/shared/abstract/types'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { GraphQLResolveInfo } from 'graphql'
-import { RxSession, RxTransaction } from 'neo4j-driver'
+import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
-import { catchError } from 'rxjs/operators'
 import { getDriver } from '../../infra/driver'
 
 const driver = getDriver()

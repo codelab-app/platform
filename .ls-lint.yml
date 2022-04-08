@@ -1,0 +1,21 @@
+ls:
+  #  .api.v2.1.graphql: kebab-case
+  #  .endpoints.v2.1.graphql: kebab-case
+  #  .fragments.v2.1.graphql: kebab-case
+
+  # kebab-case regex until the first period
+  # any number of alphabets or number ([a-z][a-z0-9]*)
+  # and 0 or more dashed alphabets/number (-[a-z0-9]+)*
+  # then 1 dot followed by anything *(\..*)
+  .graphql: regex:^([a-z][a-z0-9]*)(-[a-z0-9]+)*(\.[a-z0-9]*)*$
+
+  # lower camel case
+#  .graphql: regex:^([a-z][a-z0-9]*)([A-Za-z0-9]+)*(\..*)$
+
+# .js: snake_case
+# .ts: snake_case | camelCase
+# .d.ts: PascalCase
+# .html: regex:[a-z0-9]+
+
+ignore:
+  - node_modules

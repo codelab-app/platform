@@ -1,10 +1,5 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
-import {
-  InterfaceForm,
-  TypeService,
-  WithTypeService,
-} from '@codelab/frontend/modules/type'
+import { WithAtomService } from '@codelab/frontend/modules/atom'
+import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -20,6 +15,7 @@ export type AddHookToElementModalProps = {
 
 export const AddHookToElementModal = observer<AddHookToElementModalProps>(
   ({ elementId, typeService, atomService }) => {
+    // TODO: Refactor to use mobx
     const {
       onSubmitSuccess,
       onSubmit,
@@ -38,7 +34,7 @@ export const AddHookToElementModal = observer<AddHookToElementModalProps>(
         okText="Add hook"
         onCancel={reset}
         title={<span css={tw`font-semibold`}>Add hook to element</span>}
-        visible={actionType === CRUDActionType.Create}
+        visible={actionType === 'CREATE'}
       >
         {interfaceType && (
           <InterfaceForm

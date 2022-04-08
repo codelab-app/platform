@@ -1,5 +1,4 @@
 import { InboxOutlined } from '@ant-design/icons'
-import { ImportAppActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal, UploadField } from '@codelab/frontend/view/components'
 import React from 'react'
 import { ImportAppSchema, importAppSchema } from './importAppSchema'
@@ -24,7 +23,8 @@ export const ImportAppModal = () => {
       okButtonProps={{ loading: isLoading }}
       okText="Import App"
       onCancel={reset}
-      visible={actionType === ImportAppActionType.Import}
+      visible={false}
+      // visible={actionType === ImportAppActionType.Import}
     >
       {({ submitRef }) => (
         <Form<ImportAppSchema>

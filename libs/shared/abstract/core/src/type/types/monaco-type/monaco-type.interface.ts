@@ -1,4 +1,4 @@
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { z } from 'zod'
 import { BaseTypeSchema } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'

@@ -3,7 +3,7 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { AppService, WithAppService } from '../../store'
+import { WithAppService } from '../../store'
 
 export const DeleteAppModal = observer<WithAppService>(({ appService }) => {
   const app = appService.deleteModal.app

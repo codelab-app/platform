@@ -2,13 +2,10 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   ExtendedModel,
-  Model,
   model,
   modelAction,
-  modelFlow,
   objectMap,
   prop,
-  transaction,
 } from 'mobx-keystone'
 import {
   InterfaceTypeEdgeFragment,
@@ -16,9 +13,10 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { CreateFieldData } from '../../use-cases/fields'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
-import { CreateFieldInput, Field } from './field.model'
+import { Field } from './field.model'
 import { typeRef } from './union-type.model'
 
 @model('codelab/InterfaceType')
@@ -44,7 +42,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     key,
     ...fragment
   }:
-    | CreateFieldInput
+    | CreateFieldData
     | InterfaceTypeEdgeFragment
     | InterfaceTypeFieldEdgeFragment): Field {
     this.validateUniqueFieldKey(key)
@@ -52,7 +50,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     const target =
       (fragment as InterfaceTypeEdgeFragment).target ||
       (fragment as InterfaceTypeFieldEdgeFragment).node?.id ||
-      (fragment as CreateFieldInput).existingTypeId
+      (fragment as CreateFieldData).existingTypeId
 
     const field = new Field({
       id: Field.fieldId(this.id, key),

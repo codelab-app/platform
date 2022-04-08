@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { TagFragment } from '../graphql/Tag.fragment.v2.1.graphql.gen'
+import { TagFragment } from '../graphql/tag.fragment.graphql.gen'
 import { INode } from './tree.service'
 
 @model('codelab/Tag')

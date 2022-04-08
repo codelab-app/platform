@@ -7,9 +7,7 @@ import { WithComponentService } from '../../store'
 import { updateComponentSchema } from './createComponentSchema'
 import { UpdateComponentInput } from './types'
 
-export type UpdateComponentModalProps = WithComponentService
-
-export const UpdateComponentModal = observer<UpdateComponentModalProps>(
+export const UpdateComponentModal = observer<WithComponentService>(
   ({ componentService }) => {
     const updatedComponent = componentService.updateModal.component
 

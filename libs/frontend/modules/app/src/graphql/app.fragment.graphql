@@ -1,0 +1,16 @@
+fragment App on App {
+  id
+  owner {
+    id
+  }
+  name
+  pages {
+    id
+  }
+  rootProviderElement {
+    id
+  }
+  store {
+    id
+  }
+}

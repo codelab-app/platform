@@ -1,29 +1,27 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ComponentWhere } from '@codelab/shared/abstract/codegen-v2'
+import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
   createContext,
   detach,
-  ExtendedModel,
   Model,
   model,
   modelAction,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
-  Ref,
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/Component.fragment.v2.1.graphql.gen'
+import { ComponentFragment } from '../graphql/component.fragment.graphql.gen'
 import type { CreateComponentInput } from '../use-cases/create-component/types'
 import type { UpdateComponentInput } from '../use-cases/update-component/types'
-import { mapCreateInput } from './apiUtils'
+import { mapCreateInput } from './api.utils'
 import { Component } from './component'
-import { componentApi } from './componentApi'
+import { componentApi } from './component.api'
+import { ComponentModalService } from './component-modal.service'
 
 export const componentRef = rootRef<Component>('ComponentRef', {
   onResolvedValueChange(ref, newComponent, oldComponent) {
@@ -32,17 +30,6 @@ export const componentRef = rootRef<Component>('ComponentRef', {
     }
   },
 })
-
-@model('codelab/ComponentModalService')
-class ComponentModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalService<Ref<Component>>>(ModalService),
-  props: {},
-})) {
-  @computed
-  get component() {
-    return this.metadata?.current ?? null
-  }
-}
 
 export interface WithComponentService {
   componentService: ComponentService
@@ -197,7 +184,7 @@ export class ComponentService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext = createContext<ComponentService>()
 
-export const getComponentServiceFromContext = (thisModel: any) => {
+export const getComponentService = (thisModel: any) => {
   const componentService = componentServiceContext.get(thisModel)
 
   if (!componentService) {

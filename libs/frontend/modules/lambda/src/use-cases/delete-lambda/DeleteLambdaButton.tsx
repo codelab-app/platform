@@ -1,17 +1,10 @@
 import { Button } from 'antd'
 import React from 'react'
-import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
-import { useLambdaDispatch } from '../../hooks'
+import { LambdaFragment } from '../../graphql/lambda.fragment.graphql.gen'
 
 export const DeleteLambdaButton = (Lambda: LambdaFragment) => {
-  const { openDeleteModal } = useLambdaDispatch()
-
-  const onClick = () => {
-    openDeleteModal({ deleteIds: [Lambda.id], entity: Lambda })
-  }
-
   return (
-    <Button danger onClick={onClick} type="primary">
+    <Button danger onClick={() => null} type="primary">
       Delete
     </Button>
   )
