@@ -17,7 +17,7 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'

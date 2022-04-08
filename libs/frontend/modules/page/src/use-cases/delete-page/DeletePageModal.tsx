@@ -3,7 +3,7 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PageService, WithPageService } from '../../store'
+import { WithPageService } from '../../store'
 
 export const DeletePageModal = observer<WithPageService>(({ pageService }) => {
   const deletingPage = pageService.deleteModal.page

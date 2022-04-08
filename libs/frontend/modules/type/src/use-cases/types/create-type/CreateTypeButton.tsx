@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { TypeService, WithTypeService } from '../../../store'
+import { WithTypeService } from '../../../store'
 
 export const CreateTypeButton = observer<WithTypeService>(({ typeService }) => {
   return (

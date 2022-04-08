@@ -1,7 +1,6 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { _async, _await, idProp, prop } from 'mobx-keystone'
+import { idProp, prop } from 'mobx-keystone'
 import { TypeFragment } from '../graphql'
-import { updateTypeApi } from './apis/type.api'
 
 export interface IBaseType {
   typeKind: TypeKind

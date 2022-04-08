@@ -1,9 +1,4 @@
-import {
-  handleAuth,
-  handleCallback,
-  HandlerError,
-  Session,
-} from '@auth0/nextjs-auth0'
+import { handleAuth, Session } from '@auth0/nextjs-auth0'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const afterCallback = async (

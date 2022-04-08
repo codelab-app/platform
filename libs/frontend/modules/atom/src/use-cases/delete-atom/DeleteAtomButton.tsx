@@ -3,7 +3,7 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef, AtomService, WithAtomService } from '../../store'
+import { atomRef, WithAtomService } from '../../store'
 
 export type DeleteAtomButton = DeleteButtonProps & WithAtomService
 

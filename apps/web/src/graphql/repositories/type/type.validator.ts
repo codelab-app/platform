@@ -2,7 +2,7 @@ import { throwIfNullish, throwIfTruthy } from '@codelab/shared/utils'
 import { InterfaceType } from 'apps/web/src/graphql/ogm-types.gen'
 import { RxTransaction } from 'neo4j-driver'
 import { forkJoin, from, Observable } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { InterfaceType as InterfaceTypeModel } from '../../model'
 import { UpsertFieldInput } from '../../ogm-types.gen'
 import {

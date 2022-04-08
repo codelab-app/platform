@@ -2,17 +2,14 @@ import { IAnyType, IUnionType, TypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
-  Model,
   model,
   modelAction,
-  modelFlow,
   prop,
   Ref,
   rootRef,
-  transaction,
 } from 'mobx-keystone'
 import { TypeFragment, UnionTypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 @model('codelab/UnionType')

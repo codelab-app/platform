@@ -1,5 +1,4 @@
 import { IUpdateElementDTO } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateElementDTO> = {

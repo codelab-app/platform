@@ -6,7 +6,6 @@ import {
   ICreateAppDTO,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,

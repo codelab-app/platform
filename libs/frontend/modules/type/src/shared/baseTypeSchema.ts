@@ -2,8 +2,7 @@ import {
   MonacoLanguage,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import { ElementTypeKind, IEnumTypeValue } from '@codelab/shared/abstract/core'
-import { JSONSchemaType } from 'ajv'
+import { ElementTypeKind } from '@codelab/shared/abstract/core'
 import { TypeSelect } from './TypeSelect'
 
 export const baseTypeMutationSchemaProperties = {

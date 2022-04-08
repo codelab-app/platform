@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { PageSchema } from '../page'
 
 export interface IApp {
   id: string

@@ -6,7 +6,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType, TypeService, WithTypeService } from '../../../store'
+import { InterfaceType, WithTypeService } from '../../../store'
 import { createFieldSchema } from './createFieldSchema'
 
 export type CreateFieldModalProps = {

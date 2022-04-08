@@ -1,6 +1,5 @@
-import { IAnyType, TypeKind } from '@codelab/shared/abstract/core'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { TypeFragment } from '../../graphql/fragments'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 
 export const createTypeBase = <T extends TypeKind>(typeKind: T) => {
   @model('codelab/TypeBase')

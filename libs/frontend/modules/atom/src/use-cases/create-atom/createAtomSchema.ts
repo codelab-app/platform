@@ -3,7 +3,6 @@ import {
   filterNotHookType,
   ICreateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {

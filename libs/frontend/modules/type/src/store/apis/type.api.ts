@@ -1,5 +1,4 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
-import * as cg from '@codelab/shared/abstract/codegen'
 import {
   ICreateTypeInput,
   ITypeWhere,
