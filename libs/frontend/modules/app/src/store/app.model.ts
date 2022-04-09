@@ -1,5 +1,5 @@
 import { IApp } from '@codelab/shared/abstract/core'
-import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
+import { IIdentifiable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { AppFragment } from '../graphql/app.fragment.graphql.gen'
 
@@ -9,8 +9,8 @@ export class App
     id: idProp,
     ownerId: prop<string>(),
     name: prop<string>(),
-    rootProviderElement: prop<Nullish<EntityLike>>(),
-    store: prop<Nullish<EntityLike>>(),
+    rootProviderElement: prop<Nullish<IIdentifiable>>(),
+    store: prop<Nullish<IIdentifiable>>(),
   })
   implements IApp
 {

@@ -2,6 +2,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAnyType,
+  IBaseType,
   ICreateFieldDTO,
   ICreateTypeInput,
   IUpdateFieldDTO,
@@ -22,7 +23,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { IBaseType } from './abstract'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,

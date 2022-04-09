@@ -157,6 +157,6 @@ export class AppService
       throw new Error('App was not deleted')
     }
 
-    return deleteApps
+    return throwIfUndefined(this.apps.get(id))
   })
 }

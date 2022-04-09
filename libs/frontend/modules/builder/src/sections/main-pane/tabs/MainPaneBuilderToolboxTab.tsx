@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/modules/component'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
-import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import { IAtom, ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
@@ -27,7 +27,7 @@ export interface ToolboxItem {
   >
 }
 
-const atomToolboxItemFactory = (atom: Atom): ToolboxItem => ({
+const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
   name: atom.name,
   id: atom.id,
   createElementInputFactory: () => ({

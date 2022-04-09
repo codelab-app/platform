@@ -1,5 +1,5 @@
 import { SubmitController } from '@codelab/frontend/abstract/types'
-import { EntityRecord, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { Children, MutableRefObject, ReactElement } from 'react'
 import { Context, useForm } from 'uniforms'
@@ -23,7 +23,7 @@ const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 export const createValidator = <T = unknown>(schema: any) => {
   const validator = ajv.compile(schema)
 
-  return (model: EntityRecord) => {
+  return (model: Record<string, unknown>) => {
     validator(model)
 
     return validator.errors?.length ? { details: validator.errors } : null

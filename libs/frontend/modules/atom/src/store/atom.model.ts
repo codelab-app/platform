@@ -1,5 +1,5 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import {
@@ -14,11 +14,11 @@ import {
 } from 'mobx-keystone'
 import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
-export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
-  api: { id: string }
-}
+// export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
+//   api: { id: string }
+// }
 
-const fromFragment = (atom: AtomFromFragmentInput) => {
+const fromFragment = (atom: AtomFragment) => {
   return new Atom({
     id: atom.id,
     name: atom.name,
@@ -39,7 +39,7 @@ export class Atom extends Model({
   api: prop<Ref<InterfaceType>>(),
 }) {
   @modelAction
-  updateFromFragment(atom: AtomFromFragmentInput) {
+  updateFromFragment(atom: AtomFragment) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>

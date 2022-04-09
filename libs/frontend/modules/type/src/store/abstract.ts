@@ -1,13 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IBaseType, TypeKind } from '@codelab/shared/abstract/core'
 import { idProp, prop } from 'mobx-keystone'
 import { TypeFragment } from '../graphql'
-
-export interface IBaseType {
-  typeKind: TypeKind
-  id: string
-  name: string
-  // updateFromFragment: (fragment: TypeFragment) => void
-}
 
 // Using ExtendedModel with a BaseType produced a weird error that I couldn't figure out.
 // This is a workaround - just call this when defining a type model as the props object

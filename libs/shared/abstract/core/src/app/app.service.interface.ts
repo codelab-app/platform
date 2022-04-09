@@ -1,7 +1,7 @@
 import { AppWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap } from 'mobx-keystone'
-import { ICreateAppDTO } from './app.dto.interface'
+import { ICreateAppDTO, IUpdateAppDTO } from './app.dto.interface'
 import { IApp } from './app.interface'
 
 export interface IAppService {
@@ -21,5 +21,7 @@ export interface IAppService {
   /**
    * Mutation
    */
-  create(input: ICreateAppDTO, ownerId: string): Promise<IApp>
+  create(data: ICreateAppDTO, ownerId: string): Promise<IApp>
+  update(existing: IApp, data: IUpdateAppDTO): Promise<IApp>
+  delete(id: string): Promise<IApp>
 }

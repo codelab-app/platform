@@ -1,6 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
-import { ICreateAtomDTO, IUpdateAtomDTO } from '@codelab/shared/abstract/core'
+import {
+  IAtom,
+  ICreateAtomDTO,
+  IUpdateAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
@@ -28,11 +32,11 @@ export type WithAtomService = {
 
 @model('codelab/AtomService')
 export class AtomService extends Model({
-  atoms: prop(() => objectMap<Atom>()),
+  atoms: prop(() => objectMap<IAtom>()),
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new AtomModalService({})),
   deleteModal: prop(() => new AtomsModalService({})),
-  selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
+  selectedAtoms: prop(() => Array<Ref<IAtom>>()).withSetter(),
 }) {
   @computed
   get atomsList() {

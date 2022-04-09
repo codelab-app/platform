@@ -12,3 +12,17 @@ fragment Atom on Atom {
     name
   }
 }
+
+# Data used to hydrate an Atom model
+fragment AtomDTO on Atom {
+  id
+  name
+  type
+  tags {
+    id
+    name
+  }
+  api {
+    id
+  }
+}
