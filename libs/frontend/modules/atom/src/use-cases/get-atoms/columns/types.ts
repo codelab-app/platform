@@ -1,11 +1,13 @@
 import { AtomType } from '@codelab/shared/abstract/core'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import { WithAtomService } from '../../../store'
 
 export interface AtomRecord {
   id: string
   name: string
   type: AtomType
-  tagIds: Array<string>
+  tags: Array<Tag>
   apiId: string
 }
 
@@ -22,5 +24,5 @@ export type ActionColumnProps = {
 } & WithAtomService
 
 export type TagsColumnProps = {
-  tags: [object]
+  tags: Array<Tag>
 }
