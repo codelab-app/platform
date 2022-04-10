@@ -1,7 +1,11 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
-import { ICreatePageDTO, IUpdatePageDTO } from '@codelab/shared/abstract/core'
+import {
+  ICreatePageDTO,
+  IPageService,
+  IUpdatePageDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -32,12 +36,15 @@ export type WithPageService = {
 }
 
 @model('codelab/PageService')
-export class PageService extends Model({
-  pages: prop(() => objectMap<Page>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new PageModalService({})),
-  deleteModal: prop(() => new PageModalService({})),
-}) {
+export class PageService
+  extends Model({
+    pages: prop(() => objectMap<Page>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new PageModalService({})),
+    deleteModal: prop(() => new PageModalService({})),
+  })
+  implements IPageService
+{
   @computed
   get pagesList() {
     return [...this.pages.values()]
@@ -84,7 +91,7 @@ export class PageService extends Model({
 
     return pages.map((page) => {
       if (this.pages.get(page.id)) {
-        return this.pages.get(page.id)
+        return throwIfUndefined(this.pages.get(page.id))
       } else {
         const pageModel = Page.fromFragment(page)
         this.pages.set(page.id, pageModel)
@@ -154,6 +161,6 @@ export class PageService extends Model({
       throw new Error('Page was not deleted')
     }
 
-    return deletePages
+    return throwIfUndefined(this.pages.get(id))
   })
 }

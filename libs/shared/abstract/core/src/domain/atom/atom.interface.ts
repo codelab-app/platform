@@ -1,7 +1,7 @@
-import { IEntity, IIdentifiable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { z } from 'zod'
-import { IInterfaceType, TypeKind } from '../type'
+import { IInterfaceType } from '../type'
 import { AtomType } from './atom-type.enum'
 
 export const AtomSchema = z.object({
@@ -18,5 +18,6 @@ export interface IAtom extends IEntity {
   type: AtomType
   tagIds: Array<string>
   api: Ref<IInterfaceType>
+  updateFromFragment(atom: any): void
   // typeKind: TypeKind
 }

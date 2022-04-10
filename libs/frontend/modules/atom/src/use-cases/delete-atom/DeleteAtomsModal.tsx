@@ -7,7 +7,7 @@ import { WithAtomService } from '../../store'
 
 export const DeleteAtomsModal = observer<WithAtomService>(({ atomService }) => {
   const atoms = atomService.deleteModal.atoms
-  const onSubmit = () => atomService.delete(atoms)
+  const onSubmit = () => atomService.deleteMany(atoms)
   const closeModal = () => atomService.deleteModal.close()
 
   return (

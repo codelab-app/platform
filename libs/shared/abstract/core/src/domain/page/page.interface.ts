@@ -1,3 +1,4 @@
+import { IEntity } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
 
 export const PageSchema = z.object({
@@ -12,4 +13,11 @@ export const PageSchema = z.object({
   }),
 })
 
-export type IPage = z.infer<typeof PageSchema>
+// export type IPage = z.infer<typeof PageSchema>
+
+export interface IPage extends IEntity {
+  appId: string
+  name: string
+  rootElementId: string
+  providerElementId: string
+}

@@ -14,10 +14,6 @@ import {
 } from 'mobx-keystone'
 import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
-// export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
-//   api: { id: string }
-// }
-
 const fromFragment = (atom: AtomFragment) => {
   return new Atom({
     id: atom.id,
