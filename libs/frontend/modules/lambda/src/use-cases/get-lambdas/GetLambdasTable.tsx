@@ -1,4 +1,3 @@
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Table } from 'antd'
 import React from 'react'
 import { useLambdaTable } from './useLambdasTable'

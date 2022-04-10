@@ -2,13 +2,10 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   ExtendedModel,
-  Model,
   model,
   modelAction,
-  modelFlow,
   objectMap,
   prop,
-  transaction,
 } from 'mobx-keystone'
 import {
   InterfaceTypeEdgeFragment,
@@ -17,7 +14,7 @@ import {
   TypeFragment,
 } from '../../graphql'
 import { CreateFieldData } from '../../use-cases/fields'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'

@@ -1,8 +1,3 @@
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import React from 'react'
-import { AutoFields } from 'uniforms-antd'
-import { updateLambdaSchema } from './updateLambdaSchema'
-
 export const UpdateLambdaModal = () => {
   return null
   // <FormModal

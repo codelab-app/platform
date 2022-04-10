@@ -6,7 +6,7 @@ import {
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { atomRef, AtomService } from '../../store'
-import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
+import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
@@ -38,19 +38,13 @@ export const useAtomTable = (atomService: AtomService) => {
       onFilter: onLibraryFilter,
       render: (library) => <LibraryColumn library={library} />,
     },
-    // {
-    //   title: 'Tags',
-    //   dataIndex: 'tags',
-    //   key: 'tags',
-    //   filters: filterTreeData,
-    //   filterMode: 'tree',
-    //   filterSearch: true,
-    //   onFilter: (value: string | number | boolean, atom: AtomCellData) => {
-    //     return !!atom.tagIds?.includes(value.toString())
-    //   },
-    //   onHeaderCell: headerCellProps,
-    //   render: (tags) => <TagsColumn tags={tags} />,
-    // },
+    {
+      title: 'Tags',
+      dataIndex: 'tags',
+      key: 'tags',
+      onHeaderCell: headerCellProps,
+      render: (tags) => <TagsColumn tags={tags} />,
+    },
     {
       title: 'Props API',
       dataIndex: 'props',

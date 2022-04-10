@@ -35,7 +35,7 @@ export const tagRepository = {
           const descendants = record.get(1)
 
           const tagGraph = {
-            ...tag.properties,
+            ...tag,
             descendants,
           }
 

@@ -10,6 +10,7 @@ export const updateTagSchema: JSONSchemaType<UpdateTagData> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
   },
   required: ['name'],

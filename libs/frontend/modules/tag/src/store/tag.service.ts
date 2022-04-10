@@ -1,4 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -8,6 +9,7 @@ import {
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
 import { CreateTagData } from '../use-cases/create-tag/createTagSchema'
@@ -23,6 +25,10 @@ export interface WithTagService {
 @model('codelab/TagService')
 export class TagService extends Model({
   tags: prop(() => objectMap<Tag>()),
+
+  selectedTag: prop<Nullish<Ref<Tag>>>(() => null).withSetter(),
+  checkedTags: prop(() => Array<Ref<Tag>>()).withSetter(),
+
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new TagModalService({})),
   deleteModal: prop(() => new TagsModalService({})),
@@ -32,14 +38,45 @@ export class TagService extends Model({
     return [...this.tags.values()]
   }
 
+  @computed
+  get tagsListOptions() {
+    return this.tagsList.map((tag) => ({
+      label: tag.name,
+      value: tag.id,
+    }))
+  }
+
+  @computed
+  get seletedTagOption() {
+    return {
+      lable: this.selectedTag?.current.name,
+      value: this.selectedTag?.current.id,
+    }
+  }
+
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, input: CreateTagData) {
+    const connectParentWhere = input?.parentTagId && {
+      parent: {
+        connect: {
+          where: {
+            node: {
+              id: input.parentTagId,
+            },
+          },
+        },
+      },
+    }
+
     const {
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input,
+        input: {
+          name: input.name,
+          ...connectParentWhere,
+        },
       }),
     )
 
@@ -80,15 +117,22 @@ export class TagService extends Model({
   @transaction
   delete = _async(function* (this: TagService, tags: Array<Tag>) {
     const ids = tags.map((tag) => tag.id)
+    const descendantsIds: Array<string> = []
 
     for (const id of ids) {
       if (this.tags.has(id)) {
+        const DescendantsOfTag = yield* _await(this.getTagDescendants(id))
+        DescendantsOfTag?.forEach((descendantsId) => {
+          descendantsIds.push(descendantsId)
+          this.tags.delete(descendantsId)
+        })
+
         this.tags.delete(id)
       }
     }
 
     const { deleteTags } = yield* _await(
-      tagApi.DeleteTags({ where: { id_IN: ids } }),
+      tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
     )
 
     if (deleteTags.nodesDeleted === 0) {
@@ -96,7 +140,17 @@ export class TagService extends Model({
       throw new Error('App was not deleted')
     }
 
-    return
+    return deleteTags
+  })
+
+  @modelFlow
+  @transaction
+  deleteCheckedTags = _async(function* (this: TagService) {
+    const checkedTags = this.checkedTags.map(
+      (checkedTag) => checkedTag?.current,
+    )
+
+    checkedTags.length && (yield* _await(this.delete(checkedTags)))
   })
 
   @modelFlow
@@ -104,21 +158,29 @@ export class TagService extends Model({
   getTagGraphs = _async(function* (this: TagService) {
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
 
-    const tagIds = tagGraphs.reduce<any>((ids, tagGraph) => {
-      return [...ids, ...tagGraph.descendants]
-    }, [])
+    return tagGraphs
+  })
 
-    const { tags } = yield* _await(
-      tagApi.GetTags({
-        where: {
-          id_IN: tagIds,
-        },
-      }),
-    )
+  @modelFlow
+  @transaction
+  getTags = _async(function* (this: TagService) {
+    const { tags } = yield* _await(tagApi.GetTags())
 
     tags.forEach((tag) => {
       const tagModel = Tag.fromFragment(tag)
       this.tags.set(tag.id, tagModel)
     })
+  })
+
+  @modelFlow
+  @transaction
+  getTagDescendants = _async(function* (this: TagService, tagId: string) {
+    const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
+
+    const tagWithDescendants = tagGraphs.find(
+      (tagGraph) => tagGraph.id == tagId,
+    )
+
+    return tagWithDescendants?.descendants
   })
 }

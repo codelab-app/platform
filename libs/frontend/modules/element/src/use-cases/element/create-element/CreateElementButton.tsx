@@ -1,6 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import { ButtonProps } from 'antd/lib/button/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef, WithElementService } from '../../../store'

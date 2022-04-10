@@ -5,7 +5,6 @@ import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
 import { CreateTagData, createTagSchema } from './createTagSchema'
-import { DisplayIfNotRoot } from './DisplayIfNotRoot'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   const onSubmit = (input: CreateTagData) => tagService.create({ ...input })
@@ -13,7 +12,8 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   //   label: tag.name,
   //   value: tag.id,
   // }))
-  const options = [{ label: '', value: '' }]
+  const options = tagService.tagsListOptions
+  const defaultOption = tagService.seletedTagOption
   const closeModal = () => tagService.createModal.close()
 
   return (
@@ -23,7 +23,9 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
       visible={tagService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{}}
+        model={{
+          parentTagId: defaultOption?.value,
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating tag',
@@ -32,16 +34,15 @@ export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
         schema={createTagSchema}
       >
         <AutoFields omitFields={['parentTagId']} />
-        <DisplayIfNotRoot>
-          <SelectField
-            label="Parent Tag"
-            name="parentTagId"
-            optionFilterProp="label"
-            options={options}
-            required
-            showSearch={true}
-          />
-        </DisplayIfNotRoot>
+        {/* <DisplayIfNotRoot>*/}
+        <SelectField
+          label="Parent Tag"
+          name="parentTagId"
+          optionFilterProp="label"
+          options={options}
+          showSearch
+        />
+        {/* </DisplayIfNotRoot>*/}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

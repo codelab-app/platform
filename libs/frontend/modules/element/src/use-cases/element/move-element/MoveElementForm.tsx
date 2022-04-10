@@ -1,4 +1,3 @@
-import { FormProps } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {

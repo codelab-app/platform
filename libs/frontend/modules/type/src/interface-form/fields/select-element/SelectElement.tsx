@@ -73,7 +73,6 @@ export const SelectElement = ({
       optionFilterProp="label"
       options={elements}
       showSearch
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...(props as any)}
       disabled={elements.length === 1 || !elements.length}
     />

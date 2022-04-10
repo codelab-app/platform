@@ -3,12 +3,19 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-export type TagFragment = { id: string; name: string }
+export type TagFragment = {
+  id: string
+  name: string
+  children: Array<{ id: string }>
+}
 
 export const TagFragmentDoc = gql`
   fragment Tag on Tag {
     id
     name
+    children {
+      id
+    }
   }
 `
 

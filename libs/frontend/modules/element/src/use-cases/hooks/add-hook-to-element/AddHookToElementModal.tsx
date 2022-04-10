@@ -1,9 +1,5 @@
-import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
-import {
-  InterfaceForm,
-  TypeService,
-  WithTypeService,
-} from '@codelab/frontend/modules/type'
+import { WithAtomService } from '@codelab/frontend/modules/atom'
+import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -1,59 +1,64 @@
+import { WithTagService } from '@codelab/frontend/modules/tag'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithAtomService } from '../../store'
 import { UpdateAtomInputSchema, updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomModal = observer<WithAtomService>(({ atomService }) => {
-  const atom = atomService.updateModal.atom
-  const closeModal = () => atomService.updateModal.close()
+type UpdateAtomModalProps = WithAtomService & WithTagService
 
-  const onSubmit = (data: UpdateAtomInputSchema) => {
-    if (!atom) {
-      throw new Error('Updated atom is not set')
+export const UpdateAtomModal = observer<UpdateAtomModalProps>(
+  ({ atomService, tagService }) => {
+    const atom = atomService.updateModal.atom
+    const closeModal = () => atomService.updateModal.close()
+
+    const onSubmit = (data: UpdateAtomInputSchema) => {
+      if (!atom) {
+        throw new Error('Updated atom is not set')
+      }
+
+      return atomService.update(atom, data)
     }
 
-    return atomService.update(atom, data)
-  }
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while updating atom',
+    })
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updating atom',
-  })
+    const model = {
+      name: atom?.name,
+      type: atom?.type,
+      tags: atom?.tags.map((tag) => tag.id),
+    }
 
-  const model = {
-    name: atom?.name,
-    type: atom?.type,
-    tags: atom?.tagIds,
-  }
+    const tagListOption = tagService.tagsListOptions
 
-  const tagModel = model.tags as Array<string>
-  // const { data } = useGetTagGraphsQuery()
-  // const tagTree = useTagTree(data?.tagGraphs)
-  // const tagTreeData = tagTree.getAntdTrees()
-
-  return (
-    <ModalForm.Modal
-      okText="Update Atom"
-      onCancel={closeModal}
-      visible={atomService.updateModal.isOpen}
-    >
-      <ModalForm.Form<UpdateAtomInputSchema>
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        onSubmitSuccess={closeModal}
-        schema={updateAtomSchema}
+    return (
+      <ModalForm.Modal
+        okText="Update Atom"
+        onCancel={closeModal}
+        visible={atomService.updateModal.isOpen}
       >
-        <AutoFields omitFields={['tags']} />
-        {/* <TreeSelectField
-          label="Tags"
-          name="tags"
-          treeData={tagTreeData}
-          value={tagModel}
-        /> */}
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form<UpdateAtomInputSchema>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={closeModal}
+          schema={updateAtomSchema}
+        >
+          <AutoFields omitFields={['tags']} />
+
+          <SelectField
+            label="Connecte Tag"
+            mode="multiple"
+            name="tags"
+            optionFilterProp="label"
+            options={tagListOption}
+            showSearch={true}
+          />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

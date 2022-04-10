@@ -11,6 +11,7 @@ import {
   GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
+import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -24,14 +25,24 @@ import tw from 'twin.macro'
 const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
+  const [, { isLoading }] = useLoadingState(() => store.tagService.getTags(), {
+    executeOnMount: true,
+  })
+
   return (
     <>
       <Head>
         <title>Atoms | Codelab</title>
       </Head>
 
-      <CreateAtomModal atomService={store.atomService} />
-      <UpdateAtomModal atomService={store.atomService} />
+      <CreateAtomModal
+        atomService={store.atomService}
+        tagService={store.tagService}
+      />
+      <UpdateAtomModal
+        atomService={store.atomService}
+        tagService={store.tagService}
+      />
       <DeleteAtomsModal atomService={store.atomService} />
       <ContentSection>
         <GetAtomsTable atomService={store.atomService} />

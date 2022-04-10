@@ -1,7 +1,3 @@
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import React from 'react'
-import { deleteLambdaSchema } from './deleteLambdaSchema'
-
 export const DeleteLambdaModal = () => {
   return null
   // <FormModal

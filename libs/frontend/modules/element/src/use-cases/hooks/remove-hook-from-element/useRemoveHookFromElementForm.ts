@@ -1,6 +1,4 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
-import { IHook } from '@codelab/shared/abstract/core'
 
 export const useRemoveHookFromElementForm = (elementId: string) => {
   // const { deleteIds, entity, actionType } = useHookState()

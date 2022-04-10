@@ -1,14 +1,6 @@
-import { AtomService, WithAtomService } from '@codelab/frontend/modules/atom'
-import { TypeService, WithTypeService } from '@codelab/frontend/modules/type'
+import { WithAtomService } from '@codelab/frontend/modules/atom'
+import { WithTypeService } from '@codelab/frontend/modules/type'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import tw from 'twin.macro'
-import {
-  AddHookToElementButton,
-  AddHookToElementModal,
-  HooksList,
-  RemoveHookFromElementModal,
-} from '../use-cases'
 
 export type ElementHookSectionProps = {
   elementId: string

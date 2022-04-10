@@ -1,7 +1,6 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
 import { UpdateTagData, updateTagSchema } from './updateTagSchema'
@@ -23,11 +22,10 @@ export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
     <ModalForm.Modal
       okText="Update Tag"
       onCancel={closeModal}
-      title={<span css={tw`font-semibold`}>Update Tag</span>}
       visible={tagService.updateModal.isOpen}
     >
       <ModalForm.Form<UpdateTagData>
-        model={{ ...tag }}
+        model={{ name: tag?.name }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating tag',
