@@ -24,5 +24,5 @@ export type ActionColumnProps = {
 } & WithAtomService
 
 export type TagsColumnProps = {
-  tags: Tag
+  tags: Array<Tag>
 }
