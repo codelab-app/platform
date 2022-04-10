@@ -30,7 +30,10 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
         <title>Atoms | Codelab</title>
       </Head>
 
-      <CreateAtomModal atomService={store.atomService} />
+      <CreateAtomModal
+        atomService={store.atomService}
+        tagService={store.tagService}
+      />
       <UpdateAtomModal atomService={store.atomService} />
       <DeleteAtomsModal atomService={store.atomService} />
       <ContentSection>
