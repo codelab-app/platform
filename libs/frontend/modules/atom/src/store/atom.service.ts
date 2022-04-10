@@ -50,7 +50,7 @@ export class AtomService extends Model({
     atom: Atom,
     { name, type, tags }: UpdateAtomInputSchema,
   ) {
-    const existingTagIds = atom.tagIds
+    const existingTagIds = atom.tags.map((tag) => tag.id)
     const connect = makeTagConnectData(difference(tags, existingTagIds))
 
     const disconnect = makeTagConnectData(

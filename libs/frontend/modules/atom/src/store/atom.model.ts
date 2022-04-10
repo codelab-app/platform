@@ -1,5 +1,7 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { AtomType } from '@codelab/shared/abstract/core'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import {
   detach,
   idProp,
@@ -22,7 +24,9 @@ const fromFragment = (atom: AtomFromFragmentInput) => {
     name: atom.name,
     type: atom.type,
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
-    tagIds: atom.tags.map((tag) => tag.id),
+    tags: atom.tags.map(
+      (tag) => new Tag({ id: tag.id, name: tag.name, children: [] }),
+    ),
   })
 }
 
@@ -31,9 +35,7 @@ export class Atom extends Model({
   id: idProp,
   type: prop<AtomType>(),
   name: prop<string>(),
-  tagIds: prop<Array<string>>(() => []),
-  // TODO add tags to atom after refactoring tag module to mobx. 1. in props, 2. in Atom.update() 3. in AtomStore.createAtom()
-  // tags: prop<Tag[]>(),
+  tags: prop<Array<Tag>>(),
   api: prop<Ref<InterfaceType>>(),
 }) {
   @modelAction
@@ -41,7 +43,9 @@ export class Atom extends Model({
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
-    this.tagIds = atom.tags.map((tag) => tag.id)
+    this.tags = atom.tags.map(
+      (tag) => new Tag({ id: tag.id, name: tag.name, children: [] }),
+    )
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
