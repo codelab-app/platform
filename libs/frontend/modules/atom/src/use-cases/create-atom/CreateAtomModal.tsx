@@ -14,9 +14,6 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
   ({ atomService, tagService }) => {
     const closeModal = () => atomService.createModal.close()
     const { user } = useUser()
-    // const { data } = useGetTagGraphsQuery()
-    // const tagTree = useTagTree(data?.tagGraphs)
-    // const tagTreeData = tagTree.getAntdTrees()
 
     const onSubmit = (input: CreateAtomInputSchema) => {
       return atomService.create(input, user?.sub)
@@ -26,12 +23,7 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
       title: 'Error while creating atom',
     })
 
-    // TODO: need to replace with tagService.selectOption
-    const tagListOption = [
-      { label: 'root-11', value: 'ca59fe32-f408-4bef-9b99-1647bd1412ea' },
-      { label: 'level-2', value: '4a67380b-dd5b-4fc3-9ef8-51a8b13b8036' },
-      { label: 'sdf', value: '4be3ac25-7f01-4ab5-b3d9-7dc7fe285b6b' },
-    ]
+    const tagListOption = tagService.tagsListOptions
 
     return (
       <ModalForm.Modal
