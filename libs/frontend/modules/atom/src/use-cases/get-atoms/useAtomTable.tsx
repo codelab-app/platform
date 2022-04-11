@@ -5,8 +5,9 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { atomRef, AtomService } from '../../store'
-import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
+import { arraySet } from 'mobx-keystone'
+import { AtomService } from '../../store'
+import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
 import { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
@@ -67,7 +68,7 @@ export const useAtomTable = (atomService: AtomService) => {
   const rowSelection: TableRowSelection<AtomRecord> = {
     type: 'checkbox',
     onChange: (_: Array<React.Key>, selectedRows: Array<AtomRecord>) => {
-      atomService.setSelectedAtoms(selectedRows.map((a) => atomRef(a.id)))
+      atomService.setSelectedIds(arraySet(selectedRows.map((a) => a.id)))
     },
   }
 

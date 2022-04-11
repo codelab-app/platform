@@ -1,8 +1,18 @@
 import { IAppType, TypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { AppTypeFragment, TypeFragment } from '../../graphql'
+import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
+
+const fromFragment = ({
+  id,
+  typeKind,
+  name,
+  owner,
+}: AppTypeFragment): AppType => {
+  return new AppType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
+}
 
 @model('codelab/AppType')
 export class AppType
@@ -17,7 +27,10 @@ export class AppType
     baseUpdateFromFragment(this, fragment)
   }
 
-  public static fromFragment({ id, typeKind, name }: AppTypeFragment): AppType {
-    return new AppType({ id, typeKind, name })
+  @modelAction
+  override applyUpdateData(input: UpdateTypeSchema) {
+    super.applyUpdateData(input)
   }
+
+  public static fromFragment = fromFragment
 }

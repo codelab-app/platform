@@ -1,14 +1,7 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
-import {
-  IAnyType,
-  IBaseType,
-  ICreateFieldDTO,
-  ICreateTypeInput,
-  IUpdateFieldDTO,
-  IUpdateTypeInput,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { entityMapById } from '@codelab/shared/utils'
+import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -23,6 +16,9 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { TypeFragment } from '../graphql'
+import { CreateFieldData } from '../use-cases/fields'
+import { UpdateFieldData } from '../use-cases/fields/update-field/types'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -84,44 +80,60 @@ export class TypeService extends Model({
     this.types.set(type.id, type)
   }
 
+  @modelAction
+  addOrUpdateLocal(fragment: TypeFragment) {
+    let typeModel = this.types.get(fragment.id)
+
+    if (typeModel) {
+      typeModel.updateFromFragment(fragment)
+    } else {
+      typeModel = typeFactory(fragment)
+      this.types.set(fragment.id, typeModel)
+    }
+
+    return typeModel
+  }
+
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: TypeService,
-    type: IBaseType,
-    input: IUpdateTypeInput,
-  ) {
+  update = _async(function* (this: TypeService, type: AnyType) {
     const [updatedType] = yield* _await(
       updateTypeApi[type.typeKind]({
         where: { id: type.id },
-        update: { name: input.name },
+        ...type.makeUpdateInput(),
       }),
     )
 
     if (!updatedType) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Type was not created')
+      throw new Error('Type was not updated')
     }
 
-    const typeModel = typeFactory(updatedType)
-
-    this.types.set(type.id, typeModel)
-
-    return typeModel
+    return this.addOrUpdateLocal(updatedType)
   })
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, ids?: Array<string>) {
-    const types = yield* _await(getAllTypes(ids))
+    const idsToFetch = ids?.filter((id) => !this.types.has(id))
+    const types = yield* _await(getAllTypes(idsToFetch))
+    const typesMap = entityMapById(types)
 
-    return types.map((type) => {
-      if (this.types.has(type.id)) {
-        return this.types.get(type.id)
+    if (!ids) {
+      ids = types.map((t) => t.id)
+    }
+
+    // remove duplicates
+    ids = [...new Set(ids)]
+
+    return ids.map((id) => {
+      if (this.types.has(id)) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.types.get(id)!
       }
 
-      const typeModel = typeFactory(type)
-      this.types.set(type.id, typeModel)
+      const typeModel = typeFactory(typesMap.get(id)!)
+
+      this.types.set(id, typeModel)
 
       return typeModel
     })
@@ -131,7 +143,8 @@ export class TypeService extends Model({
   @transaction
   getOne = _async(function* (this: TypeService, id: string) {
     if (this.types.has(id)) {
-      return this.types.get(id)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.types.get(id)!
     }
 
     const all = yield* _await(this.getAll([id]))
@@ -141,58 +154,61 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  getInterfaceAndDescendants = _async(function* (
+  getAllWithDescendants = _async(function* (
     this: TypeService,
-    where: InterfaceTypeWhere,
+    ids: Array<string>,
   ) {
-    const {
-      types: [interfaceType],
-    } = yield* _await(getTypeApi.GetInterfaceTypes({ where }))
-
-    if (!interfaceType) {
-      return null
+    if (!ids?.length) {
+      return []
     }
 
-    if (interfaceType?.typeKind !== TypeKind.InterfaceType) {
-      throw new Error(`Type is not an interface`)
-    }
-
-    // Get all descendant types so that we don't get unknown references
-    const ids = interfaceType.descendantTypesIds.filter(
-      (id) => !this.types.has(id),
+    const descendantsResponse = yield* _await(
+      getTypeApi.GetDescendants({ ids }),
     )
 
-    yield* _await(this.getAll(ids))
+    const allDescendantIds = Object.values(descendantsResponse).reduce(
+      (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
+      [] as Array<string>,
+    )
 
-    let itModel = this.types.get(interfaceType.id) as InterfaceType | undefined
+    // remove duplicates
+    const allIds = [...new Set([...ids, ...allDescendantIds])]
 
-    if (!itModel) {
-      itModel = InterfaceType.fromFragment(interfaceType)
-      this.types.set(interfaceType.id, itModel)
-    }
-
-    return itModel
+    return yield* _await(this.getAll(allIds))
   })
 
   @modelFlow
   @transaction
-  create = _async(function* (
+  getInterfaceAndDescendants = _async(function* (
     this: TypeService,
-    typeKind: TypeKind,
-    input: ICreateTypeInput,
+    id: string,
   ) {
-    const [type] = yield* _await(createTypeApi[typeKind](input))
+    const [intface] = yield* _await(this.getAllWithDescendants([id]))
+
+    if (intface.typeKind !== TypeKind.InterfaceType) {
+      throw new Error('Type is not an interface')
+    }
+
+    return intface as InterfaceType
+  })
+
+  @modelFlow
+  @transaction
+  create = _async(function* (this: TypeService, type: AnyType) {
+    const [typeFragment] = yield* _await(
+      createTypeApi[type.typeKind](type.makeCreateInput(type.ownerAuth0Id)),
+    )
 
     if (!type) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    const typeModel = typeFactory(type)
+    type.updateFromFragment(typeFragment)
 
-    this.types.set(type.id, typeModel)
+    this.types.set(type.id, type)
 
-    return typeModel
+    return type
   })
 
   @modelFlow
@@ -222,7 +238,6 @@ export class TypeService extends Model({
   //  The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   //
-
   @modelFlow
   @transaction
   addField = _async(function* (

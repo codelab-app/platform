@@ -19,38 +19,38 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
 export type InterfaceTypeFragment = {
-  descendantTypesIds: Array<string>
   fieldsConnection: { edges: Array<InterfaceTypeFieldEdgeFragment> }
 } & TypeBase_InterfaceType_Fragment
 
 export type InterfaceTypeFieldEdgeFragment = {
   key: string
   description?: string | null
-  cursor: string
   name?: string | null
   node:
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
-    | { id: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
+    | { id: string; name: string }
 }
 
 export const InterfaceTypeFieldEdgeFragmentDoc = gql`
   fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
     key
     description
-    cursor
     name
     node {
-      id
+      ... on TypeBase {
+        id
+        name
+      }
     }
   }
 `
@@ -62,8 +62,9 @@ export const InterfaceTypeFragmentDoc = gql`
         ...InterfaceTypeFieldEdge
       }
     }
-    descendantTypesIds
   }
+  ${TypeBaseFragmentDoc}
+  ${InterfaceTypeFieldEdgeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -7,7 +7,7 @@ import { PropMapBindingFragment } from '../graphql/element.fragment.graphql.gen'
 import type { Element } from './element.model'
 import { elementRef } from './element.ref'
 
-@model('@codelab/PropMapBinding')
+@model('codelab/PropMapBinding')
 export class PropMapBinding extends Model({
   id: idProp,
   targetElement: prop<Nullable<Ref<Element>>>(), // if null -> target is current element

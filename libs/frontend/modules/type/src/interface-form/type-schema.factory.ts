@@ -173,7 +173,10 @@ export class TypeSchemaFactory {
     const extra = this.getExtraProperties(type)
 
     const uniforms = {
-      options: type.allowedValues?.map((v) => ({ value: v.id, label: v.name })),
+      options: type.allowedValues?.map((v) => ({
+        value: v.id,
+        label: v.name || v.value,
+      })),
       ...extra?.uniforms,
     }
 

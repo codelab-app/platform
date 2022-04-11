@@ -1,17 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  InterfaceTypeEdgeFragment,
-  Field_InterfaceTypeEdge_Fragment,
-  Field_InterfaceTypeFieldsRelationship_Fragment,
-} from './fragments/field.fragment.graphql.gen'
+import { InterfaceTypeEdgeFragment } from './fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  InterfaceTypeEdgeFragmentDoc,
-  FieldFragmentDoc,
-} from './fragments/field.fragment.graphql.gen'
+import { InterfaceTypeEdgeFragmentDoc } from './fragments/field.fragment.graphql.gen'
 export type CreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
@@ -39,7 +32,6 @@ export const CreateFieldDocument = gql`
     }
   }
   ${InterfaceTypeEdgeFragmentDoc}
-  ${FieldFragmentDoc}
 `
 export const UpdateFieldDocument = gql`
   mutation UpdateField($input: UpsertFieldInput!) {
@@ -48,7 +40,6 @@ export const UpdateFieldDocument = gql`
     }
   }
   ${InterfaceTypeEdgeFragmentDoc}
-  ${FieldFragmentDoc}
 `
 export const DeleteFieldDocument = gql`
   mutation DeleteField($input: DeleteFieldInput!) {

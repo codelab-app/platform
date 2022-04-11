@@ -27,6 +27,7 @@ export const PrimitiveTypeFragmentDoc = gql`
     ...TypeBase
     primitiveKind
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

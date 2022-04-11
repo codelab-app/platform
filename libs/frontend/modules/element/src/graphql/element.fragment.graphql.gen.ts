@@ -95,6 +95,7 @@ export const HookFragmentDoc = gql`
       name
     }
   }
+  ${HookPropFragmentDoc}
 `
 export const PropMapBindingFragmentDoc = gql`
   fragment PropMapBinding on PropMapBinding {
@@ -162,6 +163,10 @@ export const ElementFragmentDoc = gql`
       }
     }
   }
+  ${ComponentFragmentDoc}
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
@@ -172,6 +177,8 @@ export const ElementGraphFragmentDoc = gql`
       ...Element
     }
   }
+  ${ElementEdgeFragmentDoc}
+  ${ElementFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

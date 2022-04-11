@@ -9,7 +9,7 @@ import { RenderOutput } from '../abstract/RenderOutput'
 import type { RenderService } from '../RenderService'
 import { getRenderContext } from '../renderServiceContext'
 
-@model('@codelab/ComponentRenderPipe')
+@model('codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe

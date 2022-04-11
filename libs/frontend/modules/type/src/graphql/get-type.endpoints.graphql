@@ -34,6 +34,18 @@ query GetTypes($ids: [ID!]) {
   }
 }
 
+query GetDescendants($ids: [ID!]) {
+  arrayTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+  unionTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+  interfaceTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+}
+
 query GetPrimitiveTypes(
   $options: PrimitiveTypeOptions
   $where: PrimitiveTypeWhere

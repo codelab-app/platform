@@ -13,7 +13,7 @@ import {
 import { WithTypeService } from '../../../store'
 import {
   createTypeSchema,
-  mapCreateTypeSchemaToInput,
+  typeFactory,
 } from './create-type-input.factory'
 import { DisplayIfKind } from './DisplayIfKind'
 
@@ -31,10 +31,16 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
     >
       <ModalForm.Form<ICreateTypeDTO>
         model={{}}
-        onSubmit={(data) => {
-          const input = mapCreateTypeSchemaToInput(data, user.user?.sub) as any
+        onSubmit={async (data) => {
+          if (!user.user?.sub) {
+            console.warn('User not logged in')
 
-          return typeService.create(data.kind, input)
+            return
+          }
+
+          const type = typeFactory(data, user.user.sub)
+
+          return typeService.create(type)
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',

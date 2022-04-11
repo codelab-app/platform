@@ -43,6 +43,7 @@ export const StoreFragmentDoc = gql`
       id
     }
   }
+  ${ActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

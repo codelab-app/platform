@@ -16,8 +16,6 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSONObject: Record<string, any>
 }
 
 export type Action = {
@@ -301,20 +299,6 @@ export type ActionWhere = {
   storeConnection_NOT?: InputMaybe<ActionStoreConnectionWhere>
   store_NOT?: InputMaybe<StoreWhere>
 }
-
-export type AnyType =
-  | AppType
-  | ArrayType
-  | ElementType
-  | EnumType
-  | InterfaceType
-  | LambdaType
-  | MonacoType
-  | PageType
-  | PrimitiveType
-  | ReactNodeType
-  | RenderPropsType
-  | UnionType
 
 export type App = {
   __typename?: 'App'
@@ -1085,10 +1069,9 @@ export type AppStoreUpdateFieldInput = {
 /** Allows picking a app from the list of apps */
 export type AppType = TypeBase & {
   __typename?: 'AppType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -1123,24 +1106,25 @@ export type AppTypeAggregateSelection = {
 }
 
 export type AppTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type AppTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type AppTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type AppTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type AppTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type AppTypeOptions = {
@@ -1208,7 +1192,7 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type AppTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object. */
@@ -1218,8 +1202,9 @@ export type AppTypeSort = {
 }
 
 export type AppTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type AppTypeUserOwnerAggregationSelection = {
@@ -1258,19 +1243,11 @@ export type AppTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return AppTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return AppTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return AppTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return AppTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type AppUniqueWhere = {
@@ -1367,12 +1344,11 @@ export type ArrayType = TypeBase &
   WithDescendants & {
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
-    graph: TypeGraph
     id: Scalars['ID']
     itemType: Array<TypeBase>
     itemTypeConnection: ArrayTypeItemTypeConnection
     name: Scalars['String']
-    owner: Array<User>
+    owner: User
     ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
     ownerConnection: TypeBaseOwnerConnection
   }
@@ -1439,14 +1415,15 @@ export type ArrayTypeAggregateSelection = {
 
 export type ArrayTypeConnectInput = {
   itemType?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type ArrayTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ArrayTypeCreateInput = {
+  id: Scalars['ID']
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
@@ -1454,12 +1431,12 @@ export type ArrayTypeCreateInput = {
 
 export type ArrayTypeDeleteInput = {
   itemType?: InputMaybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
   itemType?: InputMaybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
@@ -1589,7 +1566,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 
 export type ArrayTypeRelationInput = {
   itemType?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object. */
@@ -1599,9 +1576,10 @@ export type ArrayTypeSort = {
 }
 
 export type ArrayTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   itemType?: InputMaybe<Array<ArrayTypeItemTypeUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
@@ -1644,19 +1622,11 @@ export type ArrayTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return ArrayTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return ArrayTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return ArrayTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return ArrayTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type Atom = {
@@ -1846,6 +1816,7 @@ export type AtomConnectWhere = {
 
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
@@ -1874,6 +1845,7 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
 }
 
 export type AtomOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -2392,6 +2364,7 @@ export type AtomUniqueWhere = {
 
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
@@ -3027,21 +3000,9 @@ export type CreateEnumTypesMutationResponse = {
   info: CreateInfo
 }
 
-export type CreateExportAdminDataResponsesMutationResponse = {
-  __typename?: 'CreateExportAdminDataResponsesMutationResponse'
-  exportAdminDataResponses: Array<ExportAdminDataResponse>
-  info: CreateInfo
-}
-
 export type CreateHooksMutationResponse = {
   __typename?: 'CreateHooksMutationResponse'
   hooks: Array<Hook>
-  info: CreateInfo
-}
-
-export type CreateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
-  importDataMutationResponses: Array<ImportDataMutationResponse>
   info: CreateInfo
 }
 
@@ -4901,10 +4862,9 @@ export type ElementType = TypeBase & {
   __typename?: 'ElementType'
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<ElementTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -4966,25 +4926,26 @@ export type ElementTypeAggregateSelection = {
 }
 
 export type ElementTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type ElementTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ElementTypeCreateInput = {
   elementKind: ElementTypeKind
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type ElementTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ElementTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export enum ElementTypeKind {
@@ -5063,7 +5024,7 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ElementTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object. */
@@ -5075,8 +5036,9 @@ export type ElementTypeSort = {
 
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type ElementTypeUserOwnerAggregationSelection = {
@@ -5119,19 +5081,11 @@ export type ElementTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return ElementTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return ElementTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return ElementTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return ElementTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ElementUniqueWhere = {
@@ -5293,10 +5247,9 @@ export type EnumType = TypeBase & {
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<EnumTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -5496,11 +5449,11 @@ export type EnumTypeAllowedValuesUpdateFieldInput = {
 
 export type EnumTypeConnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type EnumTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type EnumTypeConnectOrCreateWhere = {
@@ -5513,18 +5466,19 @@ export type EnumTypeConnectWhere = {
 
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type EnumTypeDeleteInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type EnumTypeDisconnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
@@ -5541,6 +5495,7 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
 }
 
 export type EnumTypeOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -5610,7 +5565,7 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
 
 export type EnumTypeRelationInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object. */
@@ -5625,8 +5580,9 @@ export type EnumTypeUniqueWhere = {
 
 export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type EnumTypeUserOwnerAggregationSelection = {
@@ -5928,55 +5884,11 @@ export type EnumTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return EnumTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return EnumTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return EnumTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return EnumTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
-}
-
-export type ExportAdminDataResponse = {
-  __typename?: 'ExportAdminDataResponse'
-  result: Scalars['JSONObject']
-}
-
-export type ExportAdminDataResponseAggregateSelection = {
-  __typename?: 'ExportAdminDataResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type ExportAdminDataResponseCreateInput = {
-  result: Scalars['JSONObject']
-}
-
-export type ExportAdminDataResponseOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more ExportAdminDataResponseSort objects to sort ExportAdminDataResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ExportAdminDataResponseSort>>
-}
-
-/** Fields to sort ExportAdminDataResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExportAdminDataResponseSort object. */
-export type ExportAdminDataResponseSort = {
-  result?: InputMaybe<SortDirection>
-}
-
-export type ExportAdminDataResponseUpdateInput = {
-  result?: InputMaybe<Scalars['JSONObject']>
-}
-
-export type ExportAdminDataResponseWhere = {
-  AND?: InputMaybe<Array<ExportAdminDataResponseWhere>>
-  OR?: InputMaybe<Array<ExportAdminDataResponseWhere>>
-  result?: InputMaybe<Scalars['JSONObject']>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type Field = {
@@ -6524,47 +6436,6 @@ export type IEdge = {
   target: Scalars['String']
 }
 
-export type ImportAdminDataInput = {
-  payload: Scalars['JSONObject']
-}
-
-export type ImportDataMutationResponse = {
-  __typename?: 'ImportDataMutationResponse'
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseAggregateSelection = {
-  __typename?: 'ImportDataMutationResponseAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type ImportDataMutationResponseCreateInput = {
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ImportDataMutationResponseSort>>
-}
-
-/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
-export type ImportDataMutationResponseSort = {
-  result?: InputMaybe<SortDirection>
-}
-
-export type ImportDataMutationResponseUpdateInput = {
-  result?: InputMaybe<Scalars['Boolean']>
-}
-
-export type ImportDataMutationResponseWhere = {
-  AND?: InputMaybe<Array<ImportDataMutationResponseWhere>>
-  OR?: InputMaybe<Array<ImportDataMutationResponseWhere>>
-  result?: InputMaybe<Scalars['Boolean']>
-  result_NOT?: InputMaybe<Scalars['Boolean']>
-}
-
 export type IntAggregateSelectionNonNullable = {
   __typename?: 'IntAggregateSelectionNonNullable'
   average: Scalars['Float']
@@ -6591,10 +6462,9 @@ export type InterfaceType = TypeBase &
     descendantTypesIds: Array<Scalars['ID']>
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
-    graph: TypeGraph
     id: Scalars['ID']
     name: Scalars['String']
-    owner: Array<User>
+    owner: User
     ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
     ownerConnection: TypeBaseOwnerConnection
   }
@@ -6794,14 +6664,14 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 export type InterfaceTypeConnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type InterfaceTypeConnectOrCreateInput = {
   apiOfAtoms?: InputMaybe<
     Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type InterfaceTypeConnectOrCreateWhere = {
@@ -6815,6 +6685,7 @@ export type InterfaceTypeConnectWhere = {
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -6822,19 +6693,16 @@ export type InterfaceTypeCreateInput = {
 export type InterfaceTypeDeleteInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type InterfaceTypeDisconnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
-/**
- * Connection between an Interface Type and its fields types.
- * The field data is stored as relationship properties and we retreive them along with the relation itself.
- */
+/** Concrete Field type implementation */
 export type InterfaceTypeEdge = Field &
   IEdge & {
     __typename?: 'InterfaceTypeEdge'
@@ -6916,6 +6784,7 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
 }
 
 export type InterfaceTypeOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -6986,7 +6855,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 export type InterfaceTypeRelationInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
@@ -7002,8 +6871,9 @@ export type InterfaceTypeUniqueWhere = {
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
@@ -7059,28 +6929,19 @@ export type InterfaceTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return InterfaceTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return InterfaceTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return InterfaceTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return InterfaceTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 /** Allows picking a lambda */
 export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -7115,24 +6976,25 @@ export type LambdaTypeAggregateSelection = {
 }
 
 export type LambdaTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type LambdaTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type LambdaTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type LambdaTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type LambdaTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type LambdaTypeOptions = {
@@ -7200,7 +7062,7 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type LambdaTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object. */
@@ -7210,8 +7072,9 @@ export type LambdaTypeSort = {
 }
 
 export type LambdaTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type LambdaTypeUserOwnerAggregationSelection = {
@@ -7250,19 +7113,11 @@ export type LambdaTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<LambdaTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return LambdaTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return LambdaTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return LambdaTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return LambdaTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export enum MonacoLanguage {
@@ -7277,11 +7132,10 @@ export enum MonacoLanguage {
 /** Allows editing the value using a monaco editor */
 export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
-  graph: TypeGraph
   id: Scalars['ID']
   language: MonacoLanguage
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -7316,25 +7170,26 @@ export type MonacoTypeAggregateSelection = {
 }
 
 export type MonacoTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type MonacoTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type MonacoTypeCreateInput = {
+  id: Scalars['ID']
   language: MonacoLanguage
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type MonacoTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type MonacoTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type MonacoTypeOptions = {
@@ -7402,7 +7257,7 @@ export type MonacoTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type MonacoTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object. */
@@ -7413,9 +7268,10 @@ export type MonacoTypeSort = {
 }
 
 export type MonacoTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   language?: InputMaybe<MonacoLanguage>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type MonacoTypeUserOwnerAggregationSelection = {
@@ -7458,19 +7314,11 @@ export type MonacoTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<MonacoTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return MonacoTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return MonacoTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return MonacoTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return MonacoTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type Mutation = {
@@ -7488,9 +7336,7 @@ export type Mutation = {
   createElements: CreateElementsMutationResponse
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
-  createExportAdminDataResponses: CreateExportAdminDataResponsesMutationResponse
   createHooks: CreateHooksMutationResponse
-  createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
   createMonacoTypes: CreateMonacoTypesMutationResponse
@@ -7521,10 +7367,8 @@ export type Mutation = {
   deleteElementsSubgraph: DeleteElementsInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
-  deleteExportAdminDataResponses: DeleteInfo
   deleteFieldEdge: DeleteFieldResponse
   deleteHooks: DeleteInfo
-  deleteImportDataMutationResponses: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
   deleteMonacoTypes: DeleteInfo
@@ -7543,8 +7387,6 @@ export type Mutation = {
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
   deleteUsers: DeleteInfo
-  importAdminData?: Maybe<ImportDataMutationResponse>
-  importTypeGraph: TypeGraph
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateActions: UpdateActionsMutationResponse
   updateAppTypes: UpdateAppTypesMutationResponse
@@ -7559,9 +7401,7 @@ export type Mutation = {
   updateElements: UpdateElementsMutationResponse
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
-  updateExportAdminDataResponses: UpdateExportAdminDataResponsesMutationResponse
   updateHooks: UpdateHooksMutationResponse
-  updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
   updateMonacoTypes: UpdateMonacoTypesMutationResponse
@@ -7633,16 +7473,8 @@ export type MutationCreateEnumTypesArgs = {
   input: Array<EnumTypeCreateInput>
 }
 
-export type MutationCreateExportAdminDataResponsesArgs = {
-  input: Array<ExportAdminDataResponseCreateInput>
-}
-
 export type MutationCreateHooksArgs = {
   input: Array<HookCreateInput>
-}
-
-export type MutationCreateImportDataMutationResponsesArgs = {
-  input: Array<ImportDataMutationResponseCreateInput>
 }
 
 export type MutationCreateInterfaceTypesArgs = {
@@ -7776,10 +7608,6 @@ export type MutationDeleteEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
-export type MutationDeleteExportAdminDataResponsesArgs = {
-  where?: InputMaybe<ExportAdminDataResponseWhere>
-}
-
 export type MutationDeleteFieldEdgeArgs = {
   input: DeleteFieldInput
 }
@@ -7787,10 +7615,6 @@ export type MutationDeleteFieldEdgeArgs = {
 export type MutationDeleteHooksArgs = {
   delete?: InputMaybe<HookDeleteInput>
   where?: InputMaybe<HookWhere>
-}
-
-export type MutationDeleteImportDataMutationResponsesArgs = {
-  where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
 export type MutationDeleteInterfaceTypesArgs = {
@@ -7877,14 +7701,6 @@ export type MutationDeleteUnionTypesArgs = {
 export type MutationDeleteUsersArgs = {
   delete?: InputMaybe<UserDeleteInput>
   where?: InputMaybe<UserWhere>
-}
-
-export type MutationImportAdminDataArgs = {
-  input: ImportAdminDataInput
-}
-
-export type MutationImportTypeGraphArgs = {
-  payload: Scalars['JSONObject']
 }
 
 export type MutationUpdateActionsArgs = {
@@ -8002,11 +7818,6 @@ export type MutationUpdateEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
-export type MutationUpdateExportAdminDataResponsesArgs = {
-  update?: InputMaybe<ExportAdminDataResponseUpdateInput>
-  where?: InputMaybe<ExportAdminDataResponseWhere>
-}
-
 export type MutationUpdateHooksArgs = {
   connect?: InputMaybe<HookConnectInput>
   connectOrCreate?: InputMaybe<HookConnectOrCreateInput>
@@ -8015,11 +7826,6 @@ export type MutationUpdateHooksArgs = {
   disconnect?: InputMaybe<HookDisconnectInput>
   update?: InputMaybe<HookUpdateInput>
   where?: InputMaybe<HookWhere>
-}
-
-export type MutationUpdateImportDataMutationResponsesArgs = {
-  update?: InputMaybe<ImportDataMutationResponseUpdateInput>
-  where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
 export type MutationUpdateInterfaceTypesArgs = {
@@ -8618,10 +8424,9 @@ export type PageSort = {
 /** Allows picking a page from the list of pages */
 export type PageType = TypeBase & {
   __typename?: 'PageType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -8656,24 +8461,25 @@ export type PageTypeAggregateSelection = {
 }
 
 export type PageTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type PageTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type PageTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type PageTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PageTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type PageTypeOptions = {
@@ -8741,7 +8547,7 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type PageTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object. */
@@ -8751,8 +8557,9 @@ export type PageTypeSort = {
 }
 
 export type PageTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type PageTypeUserOwnerAggregationSelection = {
@@ -8791,19 +8598,11 @@ export type PageTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PageTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return PageTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return PageTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return PageTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return PageTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type PageUniqueWhere = {
@@ -8914,10 +8713,9 @@ export type ParentOfStoreWhere = {
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
   primitiveKind: PrimitiveTypeKind
@@ -8953,25 +8751,26 @@ export type PrimitiveTypeAggregateSelection = {
 }
 
 export type PrimitiveTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type PrimitiveTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type PrimitiveTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
   primitiveKind: PrimitiveTypeKind
 }
 
 export type PrimitiveTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PrimitiveTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export enum PrimitiveTypeKind {
@@ -9046,7 +8845,7 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type PrimitiveTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object. */
@@ -9057,8 +8856,9 @@ export type PrimitiveTypeSort = {
 }
 
 export type PrimitiveTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
 }
 
@@ -9098,19 +8898,11 @@ export type PrimitiveTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<PrimitiveTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return PrimitiveTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return PrimitiveTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return PrimitiveTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return PrimitiveTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
   primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
   primitiveKind_NOT?: InputMaybe<PrimitiveTypeKind>
@@ -9805,10 +9597,6 @@ export type Query = {
   enumTypeValuesAggregate: EnumTypeValueAggregateSelection
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
-  exportAdminData: ExportAdminDataResponse
-  exportAdminDataResponses: Array<ExportAdminDataResponse>
-  exportAdminDataResponsesAggregate: ExportAdminDataResponseAggregateSelection
-  exportGraph?: Maybe<Scalars['JSONObject']>
   getField: InterfaceTypeEdge
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
@@ -9817,8 +9605,6 @@ export type Query = {
   getTypeReferences?: Maybe<Array<TypeReference>>
   hooks: Array<Hook>
   hooksAggregate: HookAggregateSelection
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-  importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
   interfaceTypes: Array<InterfaceType>
   interfaceTypesAggregate: InterfaceTypeAggregateSelection
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
@@ -9979,19 +9765,6 @@ export type QueryEnumTypesAggregateArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
-export type QueryExportAdminDataResponsesArgs = {
-  options?: InputMaybe<ExportAdminDataResponseOptions>
-  where?: InputMaybe<ExportAdminDataResponseWhere>
-}
-
-export type QueryExportAdminDataResponsesAggregateArgs = {
-  where?: InputMaybe<ExportAdminDataResponseWhere>
-}
-
-export type QueryExportGraphArgs = {
-  typeId: Scalars['ID']
-}
-
 export type QueryGetFieldArgs = {
   interfaceId: Scalars['ID']
   key: Scalars['String']
@@ -10008,15 +9781,6 @@ export type QueryHooksArgs = {
 
 export type QueryHooksAggregateArgs = {
   where?: InputMaybe<HookWhere>
-}
-
-export type QueryImportDataMutationResponsesArgs = {
-  options?: InputMaybe<ImportDataMutationResponseOptions>
-  where?: InputMaybe<ImportDataMutationResponseWhere>
-}
-
-export type QueryImportDataMutationResponsesAggregateArgs = {
-  where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
 export type QueryInterfaceTypesArgs = {
@@ -10189,10 +9953,9 @@ export type QueryUsersAggregateArgs = {
  */
 export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -10254,24 +10017,25 @@ export type ReactNodeTypeAggregateSelection = {
 }
 
 export type ReactNodeTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type ReactNodeTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type ReactNodeTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type ReactNodeTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ReactNodeTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type ReactNodeTypeOptions = {
@@ -10339,7 +10103,7 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ReactNodeTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object. */
@@ -10349,8 +10113,9 @@ export type ReactNodeTypeSort = {
 }
 
 export type ReactNodeTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type ReactNodeTypeUserOwnerAggregationSelection = {
@@ -10389,19 +10154,11 @@ export type ReactNodeTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ReactNodeTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return ReactNodeTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return ReactNodeTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return ReactNodeTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return ReactNodeTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 /**
@@ -10417,10 +10174,9 @@ export type ReactNodeTypeWhere = {
  */
 export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
-  graph: TypeGraph
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
 }
@@ -10485,24 +10241,25 @@ export type RenderPropsTypeAggregateSelection = {
 }
 
 export type RenderPropsTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type RenderPropsTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type RenderPropsTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type RenderPropsTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type RenderPropsTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type RenderPropsTypeOptions = {
@@ -10570,7 +10327,7 @@ export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type RenderPropsTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 /** Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object. */
@@ -10580,8 +10337,9 @@ export type RenderPropsTypeSort = {
 }
 
 export type RenderPropsTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type RenderPropsTypeUserOwnerAggregationSelection = {
@@ -10620,19 +10378,11 @@ export type RenderPropsTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return RenderPropsTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return RenderPropsTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return RenderPropsTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return RenderPropsTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type ResetDatabaseMutationResponse = {
@@ -12056,7 +11806,7 @@ export type TagWhere = {
 export type TypeBase = {
   id: Scalars['ID']
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerConnection: TypeBaseOwnerConnection
 }
 
@@ -12076,7 +11826,7 @@ export type TypeBaseOwnerConnectionArgs = {
 
 export type TypeBaseConnectInput = {
   _on?: InputMaybe<TypeBaseImplementationsConnectInput>
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type TypeBaseConnectWhere = {
@@ -12100,12 +11850,12 @@ export type TypeBaseCreateInput = {
 
 export type TypeBaseDeleteInput = {
   _on?: InputMaybe<TypeBaseImplementationsDeleteInput>
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type TypeBaseDisconnectInput = {
   _on?: InputMaybe<TypeBaseImplementationsDisconnectInput>
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
 export type TypeBaseImplementationsConnectInput = {
@@ -12202,7 +11952,7 @@ export type TypeBaseOwnerAggregateInput = {
 }
 
 export type TypeBaseOwnerConnectFieldInput = {
-  connect?: InputMaybe<Array<UserConnectInput>>
+  connect?: InputMaybe<UserConnectInput>
   where?: InputMaybe<UserConnectWhere>
 }
 
@@ -12248,9 +11998,9 @@ export type TypeBaseOwnerDisconnectFieldInput = {
 }
 
 export type TypeBaseOwnerFieldInput = {
-  connect?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
 export type TypeBaseOwnerNodeAggregationWhereInput = {
@@ -12310,11 +12060,11 @@ export type TypeBaseOwnerUpdateConnectionInput = {
 }
 
 export type TypeBaseOwnerUpdateFieldInput = {
-  connect?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
-  delete?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+  delete?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+  disconnect?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
   update?: InputMaybe<TypeBaseOwnerUpdateConnectionInput>
   where?: InputMaybe<TypeBaseOwnerConnectionWhere>
 }
@@ -12327,8 +12077,9 @@ export type TypeBaseSort = {
 
 export type TypeBaseUpdateInput = {
   _on?: InputMaybe<TypeBaseImplementationsUpdateInput>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
 
 export type TypeBaseWhere = {
@@ -12353,34 +12104,11 @@ export type TypeBaseWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<TypeBaseOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return TypeBases where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return TypeBases where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return TypeBases where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return TypeBases where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
-}
-
-/**
- * Connection between two types in a TypeGraph.
- * Can be:
- * Array -> ArrayItem (Edge)
- * Interface -> Field type - (InterfaceTypeEdge)
- * Union -> Union member (Edge)
- */
-export type TypeEdge = Edge | InterfaceTypeEdge
-
-export type TypeGraph = {
-  __typename?: 'TypeGraph'
-  edges: Array<TypeEdge>
-  vertices: Array<AnyType>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
 }
 
 export type TypeReference = {
@@ -12451,10 +12179,9 @@ export type UnionType = TypeBase &
   WithDescendants & {
     __typename?: 'UnionType'
     descendantTypesIds: Array<Scalars['ID']>
-    graph: TypeGraph
     id: Scalars['ID']
     name: Scalars['String']
-    owner: Array<User>
+    owner: User
     ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
     ownerConnection: TypeBaseOwnerConnection
     typesOfUnionType: Array<TypeBase>
@@ -12507,31 +12234,32 @@ export type UnionTypeAggregateSelection = {
 }
 
 export type UnionTypeConnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeConnectFieldInput>
   >
 }
 
 export type UnionTypeConnectOrCreateInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
 export type UnionTypeCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>
 }
 
 export type UnionTypeDeleteInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>
   >
 }
 
 export type UnionTypeDisconnectInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>
   >
@@ -12602,7 +12330,7 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type UnionTypeRelationInput = {
-  owner?: InputMaybe<Array<TypeBaseOwnerCreateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCreateFieldInput>
   >
@@ -12676,8 +12404,9 @@ export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
 }
 
 export type UnionTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TypeBaseOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>
   >
@@ -12719,19 +12448,11 @@ export type UnionTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  /** Return UnionTypes where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return UnionTypes where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return UnionTypes where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return UnionTypes where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
   typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
   typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
@@ -12816,21 +12537,9 @@ export type UpdateEnumTypesMutationResponse = {
   info: UpdateInfo
 }
 
-export type UpdateExportAdminDataResponsesMutationResponse = {
-  __typename?: 'UpdateExportAdminDataResponsesMutationResponse'
-  exportAdminDataResponses: Array<ExportAdminDataResponse>
-  info: UpdateInfo
-}
-
 export type UpdateHooksMutationResponse = {
   __typename?: 'UpdateHooksMutationResponse'
   hooks: Array<Hook>
-  info: UpdateInfo
-}
-
-export type UpdateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
-  importDataMutationResponses: Array<ImportDataMutationResponse>
   info: UpdateInfo
 }
 

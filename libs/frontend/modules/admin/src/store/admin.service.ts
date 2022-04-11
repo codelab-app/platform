@@ -1,4 +1,12 @@
-import { ImportAdminDataInput } from '@codelab/shared/abstract/codegen'
+import {
+  AtomExportPayload,
+  getAtomImportServiceContext,
+  getAtomService,
+} from '@codelab/frontend/modules/atom'
+import {
+  getTypeImportService,
+  getTypeService,
+} from '@codelab/frontend/modules/type'
 import {
   _async,
   _await,
@@ -26,21 +34,34 @@ export class AdminService extends Model({}) {
   @modelFlow
   @transaction
   exportData = _async(function* (this: AdminService) {
-    const { exportAdminData } = yield* _await(adminApi.exportAdminData())
+    const atomService = getAtomService(this)
+    const atomImportService = getAtomImportServiceContext(this)
+    const typeImportService = getTypeImportService(this)
+    const typeService = getTypeService(this)
+    const allAtoms = yield* _await(atomService.getAll())
+    const atomSnapshots = atomImportService.makeAtomsExportPayload(allAtoms)
+    const allTypes = yield* _await(typeService.getAll())
+    const typesSnapshots = typeImportService.makeTypesExportPayload(allTypes)
 
-    return exportAdminData.result
+    const payloadData: AtomExportPayload = {
+      atoms: atomSnapshots,
+      types: typesSnapshots,
+    }
+
+    return JSON.stringify(payloadData)
   })
 
   @modelFlow
   @transaction
   importData = _async(function* (
     this: AdminService,
-    data: ImportAdminDataInput,
+    payloadString: string, // should be the result of exportData or AtomImportService.exportAtoms
+    currentUserAuth0Id: string,
   ) {
-    const { importAdminData } = yield* _await(
-      adminApi.importAdminData({ input: data }),
-    )
+    const atomImportService = getAtomImportServiceContext(this)
 
-    return importAdminData?.result
+    return yield* _await(
+      atomImportService.importAtoms(payloadString, currentUserAuth0Id),
+    )
   })
 }

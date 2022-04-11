@@ -27,6 +27,7 @@ export const MonacoTypeFragmentDoc = gql`
     ...TypeBase
     language
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

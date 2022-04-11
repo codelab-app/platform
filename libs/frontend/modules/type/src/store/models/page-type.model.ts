@@ -1,8 +1,17 @@
 import { IPageType, TypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { PageTypeFragment, TypeFragment } from '../../graphql'
+import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
+
+const fromFragment = ({
+  id,
+  typeKind,
+  name,
+  owner,
+}: PageTypeFragment): PageType =>
+  new PageType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
 
 @model('codelab/PageType')
 export class PageType
@@ -17,11 +26,10 @@ export class PageType
     baseUpdateFromFragment(this, fragment)
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-  }: PageTypeFragment): PageType {
-    return new PageType({ id, typeKind, name })
+  @modelAction
+  override applyUpdateData(input: UpdateTypeSchema) {
+    super.applyUpdateData(input)
   }
+
+  public static fromFragment = fromFragment
 }

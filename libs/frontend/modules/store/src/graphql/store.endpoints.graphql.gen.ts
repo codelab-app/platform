@@ -1,12 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { StoreFragment } from './store.fragment.graphql.gen'
-import { ActionFragment } from './action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { StoreFragmentDoc } from './store.fragment.graphql.gen'
-import { ActionFragmentDoc } from './action.fragment.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
@@ -57,7 +55,6 @@ export const CreateStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${ActionFragmentDoc}
 `
 export const DeleteStoresSubgraphDocument = gql`
   mutation DeleteStoresSubgraph($where: StoreWhere!) {
@@ -77,7 +74,6 @@ export const GetStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${ActionFragmentDoc}
 `
 export const UpdateStoresDocument = gql`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
@@ -88,7 +84,6 @@ export const UpdateStoresDocument = gql`
     }
   }
   ${StoreFragmentDoc}
-  ${ActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

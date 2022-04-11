@@ -24,6 +24,7 @@ export const AppTypeFragmentDoc = gql`
   fragment AppType on AppType {
     ...TypeBase
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

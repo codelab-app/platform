@@ -24,6 +24,7 @@ export const PageTypeFragmentDoc = gql`
   fragment PageType on PageType {
     ...TypeBase
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

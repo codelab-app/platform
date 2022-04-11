@@ -273,20 +273,6 @@ input ActionWhere {
   store_NOT: StoreWhere
 }
 
-union AnyType =
-    AppType
-  | ArrayType
-  | ElementType
-  | EnumType
-  | InterfaceType
-  | LambdaType
-  | MonacoType
-  | PageType
-  | PrimitiveType
-  | ReactNodeType
-  | RenderPropsType
-  | UnionType
-
 type App {
   id: ID!
   name: String!
@@ -1022,14 +1008,9 @@ input AppStoreUpdateFieldInput {
 Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -1050,24 +1031,25 @@ type AppTypeAggregateSelection {
 }
 
 input AppTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input AppTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input AppTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input AppTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input AppTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input AppTypeOptions {
@@ -1138,7 +1120,7 @@ input AppTypeOwnerNodeAggregationWhereInput {
 }
 
 input AppTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -1150,8 +1132,9 @@ input AppTypeSort {
 }
 
 input AppTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type AppTypeUserOwnerAggregationSelection {
@@ -1188,31 +1171,11 @@ input AppTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: AppTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return AppTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return AppTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return AppTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return AppTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 input AppUniqueWhere {
@@ -1329,7 +1292,6 @@ Contains a reference to another type which is the array item type.
 """
 type ArrayType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
-  graph: TypeGraph!
   id: ID!
   itemType(
     directed: Boolean = true
@@ -1344,11 +1306,7 @@ type ArrayType implements TypeBase & WithDescendants {
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -1370,14 +1328,15 @@ type ArrayTypeAggregateSelection {
 
 input ArrayTypeConnectInput {
   itemType: [ArrayTypeItemTypeConnectFieldInput!]
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input ArrayTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input ArrayTypeCreateInput {
+  id: ID!
   itemType: ArrayTypeItemTypeFieldInput
   name: String!
   owner: TypeBaseOwnerFieldInput
@@ -1385,12 +1344,12 @@ input ArrayTypeCreateInput {
 
 input ArrayTypeDeleteInput {
   itemType: [ArrayTypeItemTypeDeleteFieldInput!]
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
   itemType: [ArrayTypeItemTypeDisconnectFieldInput!]
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input ArrayTypeItemTypeConnectFieldInput {
@@ -1521,7 +1480,7 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 
 input ArrayTypeRelationInput {
   itemType: [ArrayTypeItemTypeCreateFieldInput!]
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -1533,9 +1492,10 @@ input ArrayTypeSort {
 }
 
 input ArrayTypeUpdateInput {
+  id: ID
   itemType: [ArrayTypeItemTypeUpdateFieldInput!]
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type ArrayTypeUserOwnerAggregationSelection {
@@ -1576,31 +1536,11 @@ input ArrayTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ArrayTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return ArrayTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return ArrayTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return ArrayTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return ArrayTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type Atom {
@@ -1770,6 +1710,7 @@ input AtomConnectWhere {
 
 input AtomCreateInput {
   api: AtomApiFieldInput
+  id: ID!
   name: String!
   tags: AtomTagsFieldInput
   type: AtomType!
@@ -1796,6 +1737,7 @@ type AtomInterfaceTypeApiNodeAggregateSelection {
 }
 
 input AtomOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -2315,6 +2257,7 @@ input AtomUniqueWhere {
 
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
+  id: ID
   name: String
   tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
@@ -2928,18 +2871,8 @@ type CreateEnumTypesMutationResponse {
   info: CreateInfo!
 }
 
-type CreateExportAdminDataResponsesMutationResponse {
-  exportAdminDataResponses: [ExportAdminDataResponse!]!
-  info: CreateInfo!
-}
-
 type CreateHooksMutationResponse {
   hooks: [Hook!]!
-  info: CreateInfo!
-}
-
-type CreateImportDataMutationResponsesMutationResponse {
-  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: CreateInfo!
 }
 
@@ -4696,14 +4629,9 @@ type ElementType implements TypeBase {
   Allows scoping the type of element to only descendants, children or all elements
   """
   elementKind: ElementTypeKind!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -4724,25 +4652,26 @@ type ElementTypeAggregateSelection {
 }
 
 input ElementTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input ElementTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input ElementTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ElementTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 enum ElementTypeKind {
@@ -4835,7 +4764,7 @@ input ElementTypeOwnerNodeAggregationWhereInput {
 }
 
 input ElementTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -4849,8 +4778,9 @@ input ElementTypeSort {
 
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type ElementTypeUserOwnerAggregationSelection {
@@ -4891,31 +4821,11 @@ input ElementTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ElementTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return ElementTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return ElementTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return ElementTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return ElementTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 input ElementUniqueWhere {
@@ -5125,14 +5035,9 @@ type EnumType implements TypeBase {
     sort: [EnumTypeAllowedValuesConnectionSort!]
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -5270,11 +5175,11 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input EnumTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input EnumTypeConnectOrCreateWhere {
@@ -5287,18 +5192,19 @@ input EnumTypeConnectWhere {
 
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
@@ -5313,6 +5219,7 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
 }
 
 input EnumTypeOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -5385,7 +5292,7 @@ input EnumTypeOwnerNodeAggregationWhereInput {
 
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -5402,8 +5309,9 @@ input EnumTypeUniqueWhere {
 
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type EnumTypeUserOwnerAggregationSelection {
@@ -5708,70 +5616,11 @@ input EnumTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: EnumTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return EnumTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return EnumTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return EnumTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return EnumTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
-}
-
-type ExportAdminDataResponse {
-  result: JSONObject!
-}
-
-type ExportAdminDataResponseAggregateSelection {
-  count: Int!
-}
-
-input ExportAdminDataResponseCreateInput {
-  result: JSONObject!
-}
-
-input ExportAdminDataResponseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ExportAdminDataResponseSort objects to sort ExportAdminDataResponses by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ExportAdminDataResponseSort!]
-}
-
-"""
-Fields to sort ExportAdminDataResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExportAdminDataResponseSort object.
-"""
-input ExportAdminDataResponseSort {
-  result: SortDirection
-}
-
-input ExportAdminDataResponseUpdateInput {
-  result: JSONObject
-}
-
-input ExportAdminDataResponseWhere {
-  AND: [ExportAdminDataResponseWhere!]
-  OR: [ExportAdminDataResponseWhere!]
-  result: JSONObject
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 interface Field {
@@ -6303,50 +6152,6 @@ interface IEdge {
   target: String!
 }
 
-input ImportAdminDataInput {
-  payload: JSONObject!
-}
-
-type ImportDataMutationResponse {
-  result: Boolean!
-}
-
-type ImportDataMutationResponseAggregateSelection {
-  count: Int!
-}
-
-input ImportDataMutationResponseCreateInput {
-  result: Boolean!
-}
-
-input ImportDataMutationResponseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ImportDataMutationResponseSort!]
-}
-
-"""
-Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object.
-"""
-input ImportDataMutationResponseSort {
-  result: SortDirection
-}
-
-input ImportDataMutationResponseUpdateInput {
-  result: Boolean
-}
-
-input ImportDataMutationResponseWhere {
-  AND: [ImportDataMutationResponseWhere!]
-  OR: [ImportDataMutationResponseWhere!]
-  result: Boolean
-  result_NOT: Boolean
-}
-
 type IntAggregateSelectionNonNullable {
   average: Float!
   max: Int!
@@ -6394,14 +6199,9 @@ type InterfaceType implements TypeBase & WithDescendants {
     sort: [InterfaceTypeFieldsConnectionSort!]
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -6541,12 +6341,12 @@ type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input InterfaceTypeConnectOrCreateWhere {
@@ -6560,6 +6360,7 @@ input InterfaceTypeConnectWhere {
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fields: InterfaceTypeFieldsFieldInput
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -6567,18 +6368,17 @@ input InterfaceTypeCreateInput {
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 """
-Connection between an Interface Type and its fields types.
-The field data is stored as relationship properties and we retreive them along with the relation itself.
+Concrete Field type implementation
 """
 type InterfaceTypeEdge implements Field & IEdge {
   description: String
@@ -6657,6 +6457,7 @@ input InterfaceTypeFieldsUpdateFieldInput {
 }
 
 input InterfaceTypeOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -6730,7 +6531,7 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -6748,8 +6549,9 @@ input InterfaceTypeUniqueWhere {
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type InterfaceTypeUserOwnerAggregationSelection {
@@ -6815,50 +6617,20 @@ input InterfaceTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: InterfaceTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return InterfaceTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return InterfaceTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return InterfaceTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return InterfaceTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject
 
 """
 Allows picking a lambda
 """
 type LambdaType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -6879,24 +6651,25 @@ type LambdaTypeAggregateSelection {
 }
 
 input LambdaTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input LambdaTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input LambdaTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input LambdaTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input LambdaTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input LambdaTypeOptions {
@@ -6967,7 +6740,7 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
 }
 
 input LambdaTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -6979,8 +6752,9 @@ input LambdaTypeSort {
 }
 
 input LambdaTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type LambdaTypeUserOwnerAggregationSelection {
@@ -7017,31 +6791,11 @@ input LambdaTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: LambdaTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return LambdaTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return LambdaTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return LambdaTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return LambdaTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 enum MonacoLanguage {
@@ -7057,15 +6811,10 @@ enum MonacoLanguage {
 Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   language: MonacoLanguage!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -7086,25 +6835,26 @@ type MonacoTypeAggregateSelection {
 }
 
 input MonacoTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input MonacoTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input MonacoTypeCreateInput {
+  id: ID!
   language: MonacoLanguage!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input MonacoTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input MonacoTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input MonacoTypeOptions {
@@ -7175,7 +6925,7 @@ input MonacoTypeOwnerNodeAggregationWhereInput {
 }
 
 input MonacoTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -7188,9 +6938,10 @@ input MonacoTypeSort {
 }
 
 input MonacoTypeUpdateInput {
+  id: ID
   language: MonacoLanguage
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type MonacoTypeUserOwnerAggregationSelection {
@@ -7231,31 +6982,11 @@ input MonacoTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: MonacoTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return MonacoTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return MonacoTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return MonacoTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return MonacoTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type Mutation {
@@ -7286,13 +7017,7 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
-  createExportAdminDataResponses(
-    input: [ExportAdminDataResponseCreateInput!]!
-  ): CreateExportAdminDataResponsesMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
-  createImportDataMutationResponses(
-    input: [ImportDataMutationResponseCreateInput!]!
-  ): CreateImportDataMutationResponsesMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
   ): CreateInterfaceTypesMutationResponse!
@@ -7365,14 +7090,8 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
-  deleteExportAdminDataResponses(
-    where: ExportAdminDataResponseWhere
-  ): DeleteInfo!
   deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
-  deleteImportDataMutationResponses(
-    where: ImportDataMutationResponseWhere
-  ): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
     where: InterfaceTypeWhere
@@ -7420,8 +7139,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
-  importTypeGraph(payload: JSONObject!): TypeGraph!
   resetDatabase: ResetDatabaseMutationResponse
   updateActions(
     connect: ActionConnectInput
@@ -7525,10 +7242,6 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
-  updateExportAdminDataResponses(
-    update: ExportAdminDataResponseUpdateInput
-    where: ExportAdminDataResponseWhere
-  ): UpdateExportAdminDataResponsesMutationResponse!
   updateHooks(
     connect: HookConnectInput
     connectOrCreate: HookConnectOrCreateInput
@@ -7538,10 +7251,6 @@ type Mutation {
     update: HookUpdateInput
     where: HookWhere
   ): UpdateHooksMutationResponse!
-  updateImportDataMutationResponses(
-    update: ImportDataMutationResponseUpdateInput
-    where: ImportDataMutationResponseWhere
-  ): UpdateImportDataMutationResponsesMutationResponse!
   updateInterfaceTypes(
     connect: InterfaceTypeConnectInput
     connectOrCreate: InterfaceTypeConnectOrCreateInput
@@ -8104,14 +7813,9 @@ input PageSort {
 Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -8132,24 +7836,25 @@ type PageTypeAggregateSelection {
 }
 
 input PageTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input PageTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input PageTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input PageTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input PageTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input PageTypeOptions {
@@ -8220,7 +7925,7 @@ input PageTypeOwnerNodeAggregationWhereInput {
 }
 
 input PageTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -8232,8 +7937,9 @@ input PageTypeSort {
 }
 
 input PageTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type PageTypeUserOwnerAggregationSelection {
@@ -8270,31 +7976,11 @@ input PageTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: PageTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return PageTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return PageTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return PageTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return PageTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 input PageUniqueWhere {
@@ -8406,14 +8092,9 @@ input ParentOfStoreWhere {
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
 type PrimitiveType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -8435,25 +8116,26 @@ type PrimitiveTypeAggregateSelection {
 }
 
 input PrimitiveTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input PrimitiveTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input PrimitiveTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
   primitiveKind: PrimitiveTypeKind!
 }
 
 input PrimitiveTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input PrimitiveTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 enum PrimitiveTypeKind {
@@ -8531,7 +8213,7 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
 }
 
 input PrimitiveTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -8544,8 +8226,9 @@ input PrimitiveTypeSort {
 }
 
 input PrimitiveTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
   primitiveKind: PrimitiveTypeKind
 }
 
@@ -8583,31 +8266,11 @@ input PrimitiveTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: PrimitiveTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return PrimitiveTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return PrimitiveTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return PrimitiveTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return PrimitiveTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
   primitiveKind: PrimitiveTypeKind
   primitiveKind_IN: [PrimitiveTypeKind!]
   primitiveKind_NOT: PrimitiveTypeKind
@@ -9303,15 +8966,6 @@ type Query {
   ): EnumTypeValueAggregateSelection!
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
-  exportAdminData: ExportAdminDataResponse!
-  exportAdminDataResponses(
-    options: ExportAdminDataResponseOptions
-    where: ExportAdminDataResponseWhere
-  ): [ExportAdminDataResponse!]!
-  exportAdminDataResponsesAggregate(
-    where: ExportAdminDataResponseWhere
-  ): ExportAdminDataResponseAggregateSelection!
-  exportGraph(typeId: ID!): JSONObject
   getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
 
   """
@@ -9321,13 +8975,6 @@ type Query {
   getTypeReferences(typeId: ID!): [TypeReference!]
   hooks(options: HookOptions, where: HookWhere): [Hook!]!
   hooksAggregate(where: HookWhere): HookAggregateSelection!
-  importDataMutationResponses(
-    options: ImportDataMutationResponseOptions
-    where: ImportDataMutationResponseWhere
-  ): [ImportDataMutationResponse!]!
-  importDataMutationResponsesAggregate(
-    where: ImportDataMutationResponseWhere
-  ): ImportDataMutationResponseAggregateSelection!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -9427,14 +9074,9 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ReactNodeType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -9455,24 +9097,25 @@ type ReactNodeTypeAggregateSelection {
 }
 
 input ReactNodeTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input ReactNodeTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input ReactNodeTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input ReactNodeTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ReactNodeTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input ReactNodeTypeOptions {
@@ -9543,7 +9186,7 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
 }
 
 input ReactNodeTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -9555,8 +9198,9 @@ input ReactNodeTypeSort {
 }
 
 input ReactNodeTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type ReactNodeTypeUserOwnerAggregationSelection {
@@ -9593,31 +9237,11 @@ input ReactNodeTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: ReactNodeTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return ReactNodeTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return ReactNodeTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return ReactNodeTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return ReactNodeTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 """
@@ -9632,14 +9256,9 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type RenderPropsType implements TypeBase {
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -9660,24 +9279,25 @@ type RenderPropsTypeAggregateSelection {
 }
 
 input RenderPropsTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input RenderPropsTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input RenderPropsTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input RenderPropsTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input RenderPropsTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input RenderPropsTypeOptions {
@@ -9748,7 +9368,7 @@ input RenderPropsTypeOwnerNodeAggregationWhereInput {
 }
 
 input RenderPropsTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
 }
 
 """
@@ -9760,8 +9380,9 @@ input RenderPropsTypeSort {
 }
 
 input RenderPropsTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 type RenderPropsTypeUserOwnerAggregationSelection {
@@ -9798,31 +9419,11 @@ input RenderPropsTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: RenderPropsTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return RenderPropsTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return RenderPropsTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return RenderPropsTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return RenderPropsTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type ResetDatabaseMutationResponse {
@@ -11230,11 +10831,7 @@ input TagWhere {
 interface TypeBase {
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerConnection(
     after: String
     directed: Boolean = true
@@ -11246,7 +10843,7 @@ interface TypeBase {
 
 input TypeBaseConnectInput {
   _on: TypeBaseImplementationsConnectInput
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
 }
 
 input TypeBaseConnectWhere {
@@ -11270,12 +10867,12 @@ input TypeBaseCreateInput {
 
 input TypeBaseDeleteInput {
   _on: TypeBaseImplementationsDeleteInput
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input TypeBaseDisconnectInput {
   _on: TypeBaseImplementationsDisconnectInput
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 input TypeBaseImplementationsConnectInput {
@@ -11375,7 +10972,7 @@ input TypeBaseOwnerAggregateInput {
 }
 
 input TypeBaseOwnerConnectFieldInput {
-  connect: [UserConnectInput!]
+  connect: UserConnectInput
   where: UserConnectWhere
 }
 
@@ -11420,9 +11017,9 @@ input TypeBaseOwnerDisconnectFieldInput {
 }
 
 input TypeBaseOwnerFieldInput {
-  connect: [TypeBaseOwnerConnectFieldInput!]
-  connectOrCreate: [TypeBaseOwnerConnectOrCreateFieldInput!]
-  create: [TypeBaseOwnerCreateFieldInput!]
+  connect: TypeBaseOwnerConnectFieldInput
+  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
+  create: TypeBaseOwnerCreateFieldInput
 }
 
 input TypeBaseOwnerNodeAggregationWhereInput {
@@ -11481,11 +11078,11 @@ input TypeBaseOwnerUpdateConnectionInput {
 }
 
 input TypeBaseOwnerUpdateFieldInput {
-  connect: [TypeBaseOwnerConnectFieldInput!]
-  connectOrCreate: [TypeBaseOwnerConnectOrCreateFieldInput!]
-  create: [TypeBaseOwnerCreateFieldInput!]
-  delete: [TypeBaseOwnerDeleteFieldInput!]
-  disconnect: [TypeBaseOwnerDisconnectFieldInput!]
+  connect: TypeBaseOwnerConnectFieldInput
+  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
+  create: TypeBaseOwnerCreateFieldInput
+  delete: TypeBaseOwnerDeleteFieldInput
+  disconnect: TypeBaseOwnerDisconnectFieldInput
   update: TypeBaseOwnerUpdateConnectionInput
   where: TypeBaseOwnerConnectionWhere
 }
@@ -11500,8 +11097,9 @@ input TypeBaseSort {
 
 input TypeBaseUpdateInput {
   _on: TypeBaseImplementationsUpdateInput
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
 }
 
 input TypeBaseWhere {
@@ -11526,45 +11124,11 @@ input TypeBaseWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: TypeBaseOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return TypeBases where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return TypeBases where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return TypeBases where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return TypeBases where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
-}
-
-"""
-Connection between two types in a TypeGraph.
-Can be:
-Array -> ArrayItem (Edge)
-Interface -> Field type - (InterfaceTypeEdge)
-Union -> Union member (Edge)
-"""
-union TypeEdge = Edge | InterfaceTypeEdge
-
-type TypeGraph {
-  edges: [TypeEdge!]!
-  vertices: [AnyType!]!
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 type TypeReference {
@@ -11643,14 +11207,9 @@ Allows picking one of a set of types
 """
 type UnionType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
-  graph: TypeGraph!
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -11683,27 +11242,28 @@ type UnionTypeAggregateSelection {
 }
 
 input UnionTypeConnectInput {
-  owner: [TypeBaseOwnerConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
 }
 
 input UnionTypeConnectOrCreateInput {
-  owner: [TypeBaseOwnerConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
 input UnionTypeCreateInput {
+  id: ID!
   name: String!
   owner: TypeBaseOwnerFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeFieldInput
 }
 
 input UnionTypeDeleteInput {
-  owner: [TypeBaseOwnerDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDeleteFieldInput!]
 }
 
 input UnionTypeDisconnectInput {
-  owner: [TypeBaseOwnerDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
 }
 
@@ -11775,7 +11335,7 @@ input UnionTypeOwnerNodeAggregationWhereInput {
 }
 
 input UnionTypeRelationInput {
-  owner: [TypeBaseOwnerCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
 
@@ -11847,8 +11407,9 @@ input UnionTypeTypesOfUnionTypeUpdateFieldInput {
 }
 
 input UnionTypeUpdateInput {
+  id: ID
   name: String
-  owner: [TypeBaseOwnerUpdateFieldInput!]
+  owner: TypeBaseOwnerUpdateFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeUpdateFieldInput!]
 }
 
@@ -11886,31 +11447,11 @@ input UnionTypeWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: UnionTypeOwnerAggregateInput
-  ownerConnection_ALL: TypeBaseOwnerConnectionWhere
-  ownerConnection_NONE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SINGLE: TypeBaseOwnerConnectionWhere
-  ownerConnection_SOME: TypeBaseOwnerConnectionWhere
-
-  """
-  Return UnionTypes where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return UnionTypes where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return UnionTypes where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return UnionTypes where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
   typesOfUnionTypeConnection_ALL: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_SINGLE: UnionTypeTypesOfUnionTypeConnectionWhere
@@ -11982,18 +11523,8 @@ type UpdateEnumTypesMutationResponse {
   info: UpdateInfo!
 }
 
-type UpdateExportAdminDataResponsesMutationResponse {
-  exportAdminDataResponses: [ExportAdminDataResponse!]!
-  info: UpdateInfo!
-}
-
 type UpdateHooksMutationResponse {
   hooks: [Hook!]!
-  info: UpdateInfo!
-}
-
-type UpdateImportDataMutationResponsesMutationResponse {
-  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: UpdateInfo!
 }
 

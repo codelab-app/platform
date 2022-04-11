@@ -5,14 +5,6 @@ export const adminSchema = gql`
     success: Boolean
   }
 
-  type ImportDataMutationResponse {
-    result: Boolean!
-  }
-
-  input ImportAdminDataInput {
-    payload: JSONObject!
-  }
-
   type Mutation {
     resetDatabase: ResetDatabaseMutationResponse
       @cypher(
@@ -20,14 +12,5 @@ export const adminSchema = gql`
         MATCH (n) DETACH DELETE n RETURN { success:true }
         """
       )
-    importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
-  }
-
-  type ExportAdminDataResponse {
-    result: JSONObject!
-  }
-
-  type Query {
-    exportAdminData: ExportAdminDataResponse!
   }
 `

@@ -17,10 +17,33 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
+import { CreateFieldData } from '../../use-cases/fields'
+import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'
+
+const fromFragment = ({
+  id,
+  typeKind,
+  name,
+  fieldsConnection,
+  owner,
+}: InterfaceTypeFragment): InterfaceType => {
+  const it = new InterfaceType({
+    id,
+    typeKind,
+    name,
+    ownerAuth0Id: owner?.auth0Id,
+  })
+
+  for (const edge of fieldsConnection.edges) {
+    it.addFieldLocal(edge)
+  }
+
+  return it
+}
 
 @model('codelab/InterfaceType')
 export class InterfaceType
@@ -104,24 +127,16 @@ export class InterfaceType
     }
   }
 
+  @modelAction
+  override applyUpdateData(input: UpdateTypeSchema) {
+    super.applyUpdateData(input)
+  }
+
   validateUniqueFieldKey(key: string): void {
     if (this.fieldByKey(key)) {
       throw new Error(`Field with key ${key} already exists`)
     }
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    fieldsConnection,
-  }: InterfaceTypeFragment): InterfaceType {
-    const it = new InterfaceType({ id, typeKind, name })
-
-    for (const edge of fieldsConnection.edges) {
-      it.addFieldLocal(edge)
-    }
-
-    return it
-  }
+  public static fromFragment = fromFragment
 }

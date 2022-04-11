@@ -89,10 +89,55 @@ const _updateApi = getUpdateSdk(client)
 type UpdateTypesRecord = Record<
   TypeKind,
   (vars: {
-    where: ITypeWhere
-    update: IUpdateTypeInput
+    where: AllTypesWhere
+    update: UpdateTypeInput
+    delete?: UpdateTypeDeleteInput
+    disconnect?: DisconnectTypeInput
+    connect?: ConnectTypeInput
   }) => Promise<Array<TypeFragment>>
 >
+
+export type DisconnectTypeInput =
+  | cg.AppTypeDisconnectInput
+  | cg.ArrayTypeDisconnectInput
+  | cg.ElementTypeDisconnectInput
+  | cg.EnumTypeDisconnectInput
+  | cg.InterfaceTypeDisconnectInput
+  | cg.LambdaTypeDisconnectInput
+  | cg.MonacoTypeDisconnectInput
+  | cg.PageTypeDisconnectInput
+  | cg.PrimitiveTypeDisconnectInput
+  | cg.ReactNodeTypeDisconnectInput
+  | cg.RenderPropsTypeDisconnectInput
+  | cg.UnionTypeDisconnectInput
+
+export type UpdateTypeDeleteInput =
+  | cg.AppTypeDeleteInput
+  | cg.ArrayTypeDeleteInput
+  | cg.ElementTypeDeleteInput
+  | cg.EnumTypeDeleteInput
+  | cg.InterfaceTypeDeleteInput
+  | cg.LambdaTypeDeleteInput
+  | cg.MonacoTypeDeleteInput
+  | cg.PageTypeDeleteInput
+  | cg.PrimitiveTypeDeleteInput
+  | cg.ReactNodeTypeDeleteInput
+  | cg.RenderPropsTypeDeleteInput
+  | cg.UnionTypeDeleteInput
+
+export type ConnectTypeInput =
+  | cg.AppTypeConnectInput
+  | cg.ArrayTypeConnectInput
+  | cg.ElementTypeConnectInput
+  | cg.EnumTypeConnectInput
+  | cg.InterfaceTypeConnectInput
+  | cg.LambdaTypeConnectInput
+  | cg.MonacoTypeConnectInput
+  | cg.PageTypeConnectInput
+  | cg.PrimitiveTypeConnectInput
+  | cg.ReactNodeTypeConnectInput
+  | cg.RenderPropsTypeConnectInput
+  | cg.UnionTypeConnectInput
 
 export const updateTypeApi: UpdateTypesRecord = {
   [TypeKind.AppType]: (vars) =>

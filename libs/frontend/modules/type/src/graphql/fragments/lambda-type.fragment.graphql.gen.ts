@@ -24,6 +24,7 @@ export const LambdaTypeFragmentDoc = gql`
   fragment LambdaType on LambdaType {
     ...TypeBase
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

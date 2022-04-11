@@ -36,7 +36,7 @@ const fromFragment = (fragment: ElementGraphFragment, rootId: string) => {
  * It is used as a local observable store for a tree of elements.
  * It doesn't handle remote data, use elementService for that
  */
-@model('@codelab/ElementTree')
+@model('codelab/ElementTree')
 export class ElementTree extends Model({
   id: idProp,
 

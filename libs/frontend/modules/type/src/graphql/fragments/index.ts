@@ -1,8 +1,5 @@
 export type { AppTypeFragment } from './app-type.fragment.graphql.gen'
-export type {
-  ArrayTypeFragment,
-  ArrayTypeWithItemTypeFragment,
-} from './array-type.fragment.graphql.gen'
+export type { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 export type { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 export type { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
 export type { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'

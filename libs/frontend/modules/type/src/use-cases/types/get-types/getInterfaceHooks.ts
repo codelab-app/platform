@@ -22,7 +22,7 @@ export const useGetCurrentInterfaceWithFields = (typeStore: TypeService) => {
 
   const [getOne, { isLoading, error }] = useLoadingState((_id: string) =>
     // We need the whole graph, not just the interface, because we need to reference all the field types
-    typeStore.getInterfaceAndDescendants({ id: _id }),
+    typeStore.getInterfaceAndDescendants(_id),
   )
 
   useEffect(() => {

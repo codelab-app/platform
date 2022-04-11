@@ -3,14 +3,3 @@ mutation E2eResetDatabase {
     success
   }
 }
-mutation E2eImportAdminData($input: ImportAdminDataInput!) {
-  importAdminData(input: $input) {
-    result
-  }
-}
-
-query E2eExportAdminData {
-  exportAdminData {
-    result
-  }
-}

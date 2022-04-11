@@ -42,7 +42,7 @@ export interface WithElementService {
  * Element stores a tree of elements locally using an ElementTree
  * and handles the communication with the server.
  */
-@model('@codelab/ElementService')
+@model('codelab/ElementService')
 export class ElementService extends Model({
   elementTree: prop(() => new ElementTree({})),
 
