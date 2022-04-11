@@ -18,9 +18,7 @@ const hydrate = (atom: IAtomDTO) => {
     name: atom.name,
     type: atom.type,
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
-    tags: atom.tags.map(
-      (tag) => new Tag({ id: tag.id, name: tag.name, children: [] }),
-    ),
+    tags: atom.tags.map((tag) => tagRef(tag.id)),
   })
 }
 
@@ -40,9 +38,7 @@ export class Atom
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
-    this.tags = atom.tags.map(
-      (tag) => new Tag({ id: tag.id, name: tag.name, children: [] }),
-    )
+    this.tags = atom.tags.map((tag) => tagRef(tag.id))
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

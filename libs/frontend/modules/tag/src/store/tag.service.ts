@@ -5,8 +5,10 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -171,6 +173,18 @@ export class TagService extends Model({
     })
   })
 
+  @modelAction
+  getOrCreateNew(tag: TagFragment) {
+    if (this.tags.has(tag.id)) {
+      return this.tags.get(tag.id)
+    }
+
+    const tagModel = Tag.fromFragment(tag)
+    this.tags.set(tag.id, tagModel)
+
+    return tagModel
+  }
+
   @modelFlow
   @transaction
   getTagDescendants = _async(function* (this: TagService, tagId: string) {
@@ -182,4 +196,17 @@ export class TagService extends Model({
 
     return tagWithDescendants?.descendants
   })
+}
+
+// This can be used to access the type store from anywhere inside the mobx-keystone tree
+export const tagServiceContext = createContext<TagService>()
+
+export const getTagService = (thisModel: any) => {
+  const tagStore = tagServiceContext.get(thisModel)
+
+  if (!tagStore) {
+    throw new Error('tagServiceContext is not defined')
+  }
+
+  return tagStore
 }

@@ -113,6 +113,7 @@ export class AtomService extends Model({
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
+    const tagService = getTagService(this)
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
     return this.updateCache(atoms)

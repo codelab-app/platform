@@ -1,6 +1,7 @@
 import { AtomType, ITag } from '@codelab/shared/abstract/core'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
+import { Ref } from 'mobx-keystone'
 import { WithAtomService } from '../../../store'
 
 export interface AtomRecord {
@@ -24,5 +25,5 @@ export type ActionColumnProps = {
 } & WithAtomService
 
 export type TagsColumnProps = {
-  tags: Array<Tag>
+  tags: Array<Ref<Tag>>
 }
