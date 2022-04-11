@@ -19,7 +19,7 @@
           "record": true
         },
         "test": {
-          "cypressConfig": "apps/web-e2e/cypress.ci.json",
+          "cypressConfig": "apps/web-e2e/cypress.test.json",
           "devServerTarget": "web-e2e:serve:test",
           "record": false
         },
