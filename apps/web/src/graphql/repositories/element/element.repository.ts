@@ -165,7 +165,7 @@ export const elementRepository = {
           )
 
           const componentIds = elementRepository.getMissingComponentIds(
-            vertices,
+            vertices as Array<IElement>,
             existingComponentsIds,
           )
 

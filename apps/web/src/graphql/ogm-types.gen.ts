@@ -2755,7 +2755,7 @@ export type Element = {
   renderIfPropKey?: Maybe<Scalars["String"]>;
   children: Array<Element>;
   childrenAggregate?: Maybe<ElementElementChildrenAggregationSelection>;
-  props: Prop;
+  props?: Maybe<Prop>;
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>;
   parentElement?: Maybe<Element>;
   parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>;

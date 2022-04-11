@@ -48,6 +48,6 @@ import { IProp } from '../prop'
 
 export interface IElement {
   id: string
-  props: IProp
+  props?: IProp
   hooks: Array<IHook>
 }
