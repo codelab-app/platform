@@ -43,11 +43,11 @@ export class RootStore extends Model({
   componentService: prop(() => new ComponentService({})),
   actionService: prop(() => new ActionService({})),
   storeService: prop(() => new StoreService({})),
-
-  elementService: prop(() => new ElementService({})), // default regular service that holds the element tree
-  providerElementService: prop(() => new ElementService({})), // element service that is used by the provider tree
+  // default regular service that holds the element tree
+  elementService: prop(() => new ElementService({})),
+  // element service that is used by the provider tree
+  providerElementService: prop(() => new ElementService({})),
   builderService: prop(() => new BuilderService({})),
-
   // This is the default render service used for rendering apps.
   // do not confuse it with the builder-specific render service in builderService.builderRenderer
   renderService: prop(() => new RenderService({})),

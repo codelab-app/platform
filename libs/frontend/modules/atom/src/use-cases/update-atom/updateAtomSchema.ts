@@ -1,9 +1,8 @@
+import { IUpdateAtomDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateAtomInputSchema, createAtomSchema } from '../create-atom'
+import { createAtomSchema } from '../create-atom'
 
-export type UpdateAtomInputSchema = CreateAtomInputSchema
-
-export const updateAtomSchema: JSONSchemaType<UpdateAtomInputSchema> = {
+export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
   ...createAtomSchema,
   title: 'Update Atom Input',
 } as const

@@ -1,14 +1,7 @@
 import { IRenderPropsType, TypeKind } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { RenderPropsTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 @model('codelab/RenderPropsType')

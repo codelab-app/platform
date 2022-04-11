@@ -1,4 +1,4 @@
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -7,7 +7,7 @@ import { PropFragment } from '../graphql/element.fragment.graphql.gen'
 @model('@codelab/ElementProps')
 export class ElementProps extends Model({
   id: idProp,
-  data: prop(() => frozen<PropsData>({})),
+  data: prop(() => frozen<IPropData>({})),
 }) {
   @computed
   get propsData() {

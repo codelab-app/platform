@@ -38,15 +38,25 @@
           "memoryLimit": 8192,
           "port": 3001
         },
-        "dev": {
-          "buildTarget": "web:build:test",
-          "memoryLimit": 8192,
-          "port": 3001
-        },
         "production": {
           "buildTarget": "web:build:production",
           "dev": false
         }
+      }
+    },
+    "codegen": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY",
+        "commands": [
+          {
+            "command": "npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && echo 'READY'"
+          },
+          {
+            "command": "nx serve web -c test"
+          }
+        ]
       }
     },
     "export": {

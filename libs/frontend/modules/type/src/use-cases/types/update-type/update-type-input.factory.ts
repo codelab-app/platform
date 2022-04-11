@@ -1,18 +1,17 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IUpdateTypeDTO,
+  IUpdateTypeInput,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { groupItemsByArrayDiff } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { getSnapshot } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import {
-  BaseTypeMutationSchema,
-  baseTypeMutationSchemaProperties,
-} from '../../../shared'
-import { AnyType, UpdateTypeInput } from '../../../store'
+import { baseTypeMutationSchemaProperties } from '../../../shared'
 
-export type UpdateTypeInputFactory = BaseTypeMutationSchema
-
-export const updateTypeSchema: JSONSchemaType<UpdateTypeInputFactory> = {
+export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
   title: 'Update Type Input',
   type: 'object',
   properties: {
@@ -25,11 +24,11 @@ export const updateTypeSchema: JSONSchemaType<UpdateTypeInputFactory> = {
  * This is similar to the one for create, but has a couple of important differences (we don't assign uuids, we diff the old and new enum values, etc.), so it's not a good candidate for a generic function.
  */
 export const mapUpdateTypeSchemaToInput = (
-  formData: UpdateTypeInputFactory,
-  originalType: AnyType,
+  formData: IUpdateTypeDTO,
+  originalType: IAnyType,
   currentUserId: Nullish<string>,
-): UpdateTypeInput => {
-  const common: Partial<UpdateTypeInput> = {
+): IUpdateTypeInput => {
+  const common: Partial<IUpdateTypeInput> = {
     name: formData.name,
     owner: [
       {

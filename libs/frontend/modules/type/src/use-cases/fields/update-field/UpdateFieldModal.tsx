@@ -1,5 +1,6 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IUpdateFieldDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -7,7 +8,6 @@ import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { InterfaceType, WithTypeService } from '../../../store'
 import { createFieldSchema } from '../create-field'
-import { UpdateFieldData } from './types'
 
 export type UpdateFieldModalProps = {
   interfaceType: InterfaceType
@@ -37,7 +37,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Update field</span>}
         visible={typeService.fieldUpdateModal.isOpen}
       >
-        <ModalForm.Form<UpdateFieldData>
+        <ModalForm.Form<IUpdateFieldDTO>
           model={model}
           onSubmit={(input) =>
             typeService.updateField(interfaceType, field.key, input)

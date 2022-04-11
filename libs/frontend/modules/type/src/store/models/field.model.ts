@@ -1,3 +1,4 @@
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -13,7 +14,6 @@ import {
   InterfaceTypeEdgeFragment,
   InterfaceTypeFieldEdgeFragment,
 } from '../../graphql'
-import type { AnyType } from './types'
 import { typeRef } from './union-type.model'
 
 @model('codelab/Field')
@@ -22,7 +22,7 @@ export class Field extends Model(() => ({
   name: prop<Nullish<string>>(),
   description: prop<Nullish<string>>(),
   key: prop<string>(),
-  type: prop<Ref<AnyType>>(),
+  type: prop<Ref<IAnyType>>(),
 })) {
   public static fieldId(interfaceId: string, fieldKey: string) {
     return `${interfaceId}:fields:${fieldKey}`

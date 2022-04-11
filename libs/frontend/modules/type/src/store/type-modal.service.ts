@@ -1,11 +1,11 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { IAnyType, IInterfaceType } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
-import { AnyType, InterfaceType } from './models'
 
 @model('codelab/TypeModalService')
 export class TypeModalService extends ExtendedModel(
-  modelClass<ModalService<Ref<AnyType>>>(ModalService),
+  modelClass<ModalService<Ref<IAnyType>>>(ModalService),
   {},
 ) {
   @computed
@@ -16,7 +16,7 @@ export class TypeModalService extends ExtendedModel(
 
 @model('codelab/InterfaceTypeModalService')
 export class InterfaceTypeModalService extends ExtendedModel(
-  modelClass<ModalService<Ref<InterfaceType>>>(ModalService),
+  modelClass<ModalService<Ref<IInterfaceType>>>(ModalService),
   {},
 ) {
   @computed

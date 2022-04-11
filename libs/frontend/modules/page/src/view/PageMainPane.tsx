@@ -2,7 +2,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import React, { useRouter } from 'next/router'
-import { PageService, WithPageService } from '../store'
+import { WithPageService } from '../store'
 import {
   CreatePageButton,
   CreatePageModal,

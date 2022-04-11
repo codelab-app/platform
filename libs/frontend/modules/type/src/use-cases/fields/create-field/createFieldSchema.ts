@@ -1,13 +1,7 @@
+import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateFieldData = {
-  key: string
-  name: string | null
-  description?: string | null
-  existingTypeId: string
-}
-
-export const createFieldSchema: JSONSchemaType<CreateFieldData> = {
+export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {

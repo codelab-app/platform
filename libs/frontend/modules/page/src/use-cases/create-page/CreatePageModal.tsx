@@ -1,17 +1,18 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreatePageDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { WithPageService } from '../../store'
-import { CreatePageData, createPageSchema } from './createPageSchema'
+import { createPageSchema } from './createPageSchema'
 
 export const CreatePageModal = observer<WithPageService>(({ pageService }) => {
   const currentAppId = useCurrentAppId()
   const isOpen = pageService.createModal.isOpen
   const model = { appId: currentAppId }
-  const onSubmit = (input: CreatePageData) => pageService.create(input)
+  const onSubmit = (input: ICreatePageDTO) => pageService.create(input)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating page',

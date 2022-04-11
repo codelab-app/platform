@@ -1,11 +1,12 @@
 import { WithTagService } from '@codelab/frontend/modules/tag'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IUpdateAtomDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithAtomService } from '../../store'
-import { UpdateAtomInputSchema, updateAtomSchema } from './updateAtomSchema'
+import { updateAtomSchema } from './updateAtomSchema'
 
 type UpdateAtomModalProps = WithAtomService & WithTagService
 
@@ -14,7 +15,7 @@ export const UpdateAtomModal = observer<UpdateAtomModalProps>(
     const atom = atomService.updateModal.atom
     const closeModal = () => atomService.updateModal.close()
 
-    const onSubmit = (data: UpdateAtomInputSchema) => {
+    const onSubmit = (data: IUpdateAtomDTO) => {
       if (!atom) {
         throw new Error('Updated atom is not set')
       }
@@ -40,7 +41,7 @@ export const UpdateAtomModal = observer<UpdateAtomModalProps>(
         onCancel={closeModal}
         visible={atomService.updateModal.isOpen}
       >
-        <ModalForm.Form<UpdateAtomInputSchema>
+        <ModalForm.Form<IUpdateAtomDTO>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -48,7 +49,6 @@ export const UpdateAtomModal = observer<UpdateAtomModalProps>(
           schema={updateAtomSchema}
         >
           <AutoFields omitFields={['tags']} />
-
           <SelectField
             label="Connecte Tag"
             mode="multiple"

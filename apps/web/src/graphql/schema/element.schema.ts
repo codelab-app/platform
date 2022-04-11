@@ -47,7 +47,7 @@ export const elementSchema = gql`
         direction: OUT
       )
 
-    props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
+    props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
 
     parentElement: Element
       @relationship(

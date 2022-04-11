@@ -3,17 +3,9 @@ import {
   IElementType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { ElementTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 @model('codelab/ElementType')

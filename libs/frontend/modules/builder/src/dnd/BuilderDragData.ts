@@ -1,7 +1,7 @@
-import { CreateElementInput } from '@codelab/frontend/modules/element'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { BuilderDndType } from './BuilderDndType'
 
 export type BuilderDragData = {
   type: BuilderDndType.CreateElement
-  createElementInput: CreateElementInput
+  createElementInput: ICreateElementDTO
 }

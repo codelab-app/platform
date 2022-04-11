@@ -1,10 +1,8 @@
-import { RxTransaction } from 'neo4j-driver'
-import { forkJoin, from, Observable } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 import {
   InterfaceTypeEdge,
   MutationUpsertFieldEdgeArgs,
-  UpsertFieldInput,
 } from '../../../../ogm-types.gen'
 import { typeRepository } from '../../../../repositories'
 import { typeValidator } from '../../../../repositories/type/type.validator'

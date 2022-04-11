@@ -1,4 +1,8 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICreateFieldDTO,
+  IInterfaceType,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   ExtendedModel,
@@ -13,19 +17,21 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
-import { CreateFieldData } from '../../use-cases/fields'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'
 
 @model('codelab/InterfaceType')
-export class InterfaceType extends ExtendedModel(() => ({
-  baseModel: createTypeBase(TypeKind.InterfaceType),
-  props: {
-    _fields: prop(() => objectMap<Field>()),
-  },
-})) {
+export class InterfaceType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(TypeKind.InterfaceType),
+    props: {
+      _fields: prop(() => objectMap<Field>()),
+    },
+  }))
+  implements IInterfaceType
+{
   @computed
   get fields(): Array<Field> {
     return Array.from(this._fields.values())
@@ -42,7 +48,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     key,
     ...fragment
   }:
-    | CreateFieldData
+    | ICreateFieldDTO
     | InterfaceTypeEdgeFragment
     | InterfaceTypeFieldEdgeFragment): Field {
     this.validateUniqueFieldKey(key)
@@ -50,7 +56,7 @@ export class InterfaceType extends ExtendedModel(() => ({
     const target =
       (fragment as InterfaceTypeEdgeFragment).target ||
       (fragment as InterfaceTypeFieldEdgeFragment).node?.id ||
-      (fragment as CreateFieldData).existingTypeId
+      (fragment as ICreateFieldDTO).existingTypeId
 
     const field = new Field({
       id: Field.fieldId(this.id, key),

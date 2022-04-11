@@ -1,15 +1,7 @@
-import { IApp, IAppType, TypeKind } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelClass,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
+import { IAppType, TypeKind } from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { AppTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 @model('codelab/AppType')

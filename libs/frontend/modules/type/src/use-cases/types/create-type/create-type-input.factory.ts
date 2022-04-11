@@ -1,21 +1,15 @@
 import * as cg from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICreateTypeDTO,
+  ICreateTypeInput,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import { v4 } from 'uuid'
-import {
-  BaseTypeMutationSchema,
-  baseTypeMutationSchemaProperties,
-} from '../../../shared'
+import { baseTypeMutationSchemaProperties } from '../../../shared'
 
-export interface CreateTypeSchema extends BaseTypeMutationSchema {
-  kind: TypeKind
-  typeIdsOfUnionType?: Array<string>
-  arrayItemTypeId?: string
-  typesOfUnionType?: string
-}
-
-export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
+export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
@@ -26,24 +20,10 @@ export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
   required: ['name', 'kind'],
 }
 
-type AnyTypeCreateInput =
-  | cg.AppTypeCreateInput
-  | cg.ArrayTypeCreateInput
-  | cg.ElementTypeCreateInput
-  | cg.EnumTypeCreateInput
-  | cg.InterfaceTypeCreateInput
-  | cg.LambdaTypeCreateInput
-  | cg.MonacoTypeCreateInput
-  | cg.PageTypeCreateInput
-  | cg.PrimitiveTypeCreateInput
-  | cg.ReactNodeTypeCreateInput
-  | cg.RenderPropsTypeCreateInput
-  | cg.UnionTypeCreateInput
-
 export const mapCreateTypeSchemaToInput = (
-  formData: CreateTypeSchema,
+  formData: ICreateTypeDTO,
   currentUserId: Nullish<string>,
-): AnyTypeCreateInput => {
+): ICreateTypeInput => {
   const common = {
     name: formData.name,
     owner: { connect: [{ where: { node: { auth0Id: currentUserId } } }] },

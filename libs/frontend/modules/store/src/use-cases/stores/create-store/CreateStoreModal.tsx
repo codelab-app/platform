@@ -1,11 +1,12 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithStoreService } from '../../../store'
-import { CreateStoreInput, createStoreSchema } from './createStoreSchema'
+import { createStoreSchema } from './createStoreSchema'
 import { DisplayIfParent } from './DisplayIfParent'
 
 export const CreateStoreModal = observer<WithStoreService>(
@@ -13,7 +14,7 @@ export const CreateStoreModal = observer<WithStoreService>(
     const { user } = useUser()
     const closeModal = () => storeService.createModal.close()
 
-    const onSubmit = (input: CreateStoreInput) =>
+    const onSubmit = (input: ICreateStoreDTO) =>
       storeService.createStore(input, user?.sub)
 
     const onSubmitError = createNotificationHandler({

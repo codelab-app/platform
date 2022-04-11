@@ -4,7 +4,7 @@ import {
   SpinnerWrapper,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { Element, WithElementService } from '../../../store'
@@ -34,7 +34,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       }
     }, [getInterfaceType, apiId])
 
-    const onSubmit = (data: PropsData) => {
+    const onSubmit = (data: IPropData) => {
       const promise = elementService.updateElementProps(element, data)
 
       return trackPromise?.(promise) ?? promise

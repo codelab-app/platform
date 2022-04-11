@@ -1,6 +1,10 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
-import * as cg from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICreateTypeInput,
+  ITypeWhere,
+  IUpdateTypeInput,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { flatten } from 'lodash'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
@@ -25,7 +29,7 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   TypeKind,
-  (input: CreateTypeInput) => Promise<Array<TypeFragment>>
+  (input: ICreateTypeInput) => Promise<Array<TypeFragment>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -67,49 +71,6 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
 }
 
-export type CreateTypeInput =
-  | cg.PrimitiveTypeCreateInput
-  | cg.ArrayTypeCreateInput
-  | cg.InterfaceTypeCreateInput
-  | cg.EnumTypeCreateInput
-  | cg.LambdaTypeCreateInput
-  | cg.ElementTypeCreateInput
-  | cg.RenderPropsTypeCreateInput
-  | cg.ReactNodeTypeCreateInput
-  | cg.UnionTypeCreateInput
-  | cg.MonacoTypeCreateInput
-  | cg.PageTypeCreateInput
-  | cg.AppTypeCreateInput
-
-//
-// Get
-//
-export type AllTypesOptions = cg.AppTypeOptions &
-  cg.ArrayTypeOptions &
-  cg.ElementTypeOptions &
-  cg.EnumTypeOptions &
-  cg.InterfaceTypeOptions &
-  cg.LambdaTypeOptions &
-  cg.MonacoTypeOptions &
-  cg.PageTypeOptions &
-  cg.PrimitiveTypeOptions &
-  cg.ReactNodeTypeOptions &
-  cg.RenderPropsTypeOptions &
-  cg.UnionTypeOptions
-
-export type AllTypesWhere = cg.AppTypeWhere &
-  cg.ArrayTypeWhere &
-  cg.ElementTypeWhere &
-  cg.EnumTypeWhere &
-  cg.InterfaceTypeWhere &
-  cg.LambdaTypeWhere &
-  cg.MonacoTypeWhere &
-  cg.PageTypeWhere &
-  cg.PrimitiveTypeWhere &
-  cg.ReactNodeTypeWhere &
-  cg.RenderPropsTypeWhere &
-  cg.UnionTypeWhere
-
 export const getTypeApi = getGetSdk(client)
 
 export const getAllTypes = async (
@@ -128,23 +89,10 @@ const _updateApi = getUpdateSdk(client)
 type UpdateTypesRecord = Record<
   TypeKind,
   (vars: {
-    where: AllTypesWhere
-    update: UpdateTypeInput
+    where: ITypeWhere
+    update: IUpdateTypeInput
   }) => Promise<Array<TypeFragment>>
 >
-export type UpdateTypeInput =
-  | cg.AppTypeUpdateInput
-  | cg.ArrayTypeUpdateInput
-  | cg.ElementTypeUpdateInput
-  | cg.EnumTypeUpdateInput
-  | cg.InterfaceTypeUpdateInput
-  | cg.LambdaTypeUpdateInput
-  | cg.MonacoTypeUpdateInput
-  | cg.PageTypeUpdateInput
-  | cg.PrimitiveTypeUpdateInput
-  | cg.ReactNodeTypeUpdateInput
-  | cg.RenderPropsTypeUpdateInput
-  | cg.UnionTypeUpdateInput
 
 export const updateTypeApi: UpdateTypesRecord = {
   [TypeKind.AppType]: (vars) =>
@@ -183,7 +131,7 @@ const _deleteApi = getDeleteSdk(client)
 type DeleteTypesRecord = Record<
   TypeKind,
   (vars: {
-    where: AllTypesWhere
+    where: ITypeWhere
   }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
 >
 

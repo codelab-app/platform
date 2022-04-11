@@ -1,7 +1,4 @@
-import {
-  AtomFromFragmentInput,
-  getAtomService,
-} from '@codelab/frontend/modules/atom'
+import { AtomFragment, getAtomService } from '@codelab/frontend/modules/atom'
 import {
   ComponentFragment,
   getComponentService,
@@ -211,7 +208,7 @@ export class ElementTree extends Model({
 
     const allAtoms = elements
       .map((v) => v.atom)
-      .filter(Boolean) as Array<AtomFromFragmentInput>
+      .filter(Boolean) as Array<AtomFragment>
 
     atomService.addOrUpdateAll(allAtoms)
   }

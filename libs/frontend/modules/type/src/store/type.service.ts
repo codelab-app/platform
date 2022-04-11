@@ -1,6 +1,14 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IBaseType,
+  ICreateFieldDTO,
+  ICreateTypeInput,
+  IUpdateFieldDTO,
+  IUpdateTypeInput,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -15,21 +23,16 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { CreateFieldData } from '../use-cases/fields'
-import { UpdateFieldData } from '../use-cases/fields/update-field/types'
-import { IBaseType } from './abstract'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
-  CreateTypeInput,
   deleteTypeApi,
   getAllTypes,
   getTypeApi,
   updateTypeApi,
-  UpdateTypeInput,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, InterfaceType } from './models'
+import { InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -55,7 +58,7 @@ export const getTypeService = (thisModel: object) => {
 
 @model('codelab/TypeService')
 export class TypeService extends Model({
-  types: prop(() => objectMap<AnyType>()),
+  types: prop(() => objectMap<IAnyType>()),
 
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new TypeModalService({})),
@@ -77,7 +80,7 @@ export class TypeService extends Model({
   }
 
   @modelAction
-  addTypeLocal(type: AnyType) {
+  addTypeLocal(type: IAnyType) {
     this.types.set(type.id, type)
   }
 
@@ -86,7 +89,7 @@ export class TypeService extends Model({
   update = _async(function* (
     this: TypeService,
     type: IBaseType,
-    input: UpdateTypeInput,
+    input: IUpdateTypeInput,
   ) {
     const [updatedType] = yield* _await(
       updateTypeApi[type.typeKind]({
@@ -176,7 +179,7 @@ export class TypeService extends Model({
   create = _async(function* (
     this: TypeService,
     typeKind: TypeKind,
-    input: CreateTypeInput,
+    input: ICreateTypeInput,
   ) {
     const [type] = yield* _await(createTypeApi[typeKind](input))
 
@@ -225,7 +228,7 @@ export class TypeService extends Model({
   addField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    data: CreateFieldData,
+    data: ICreateFieldDTO,
   ) {
     const { existingTypeId, name, description, key } = data
 
@@ -251,7 +254,7 @@ export class TypeService extends Model({
     this: TypeService,
     interfaceType: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: UpdateFieldData,
+    { key, name, existingTypeId, description }: IUpdateFieldDTO,
   ) {
     const field = interfaceType.fieldByKey(targetKey)
 

@@ -36,9 +36,9 @@ export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetTagGraphsQuery = {
   tagGraphs: Array<{
     id: string
+    isRoot: boolean
     name: string
     descendants: Array<string>
-    isRoot: boolean
   }>
 }
 
@@ -81,9 +81,9 @@ export const GetTagGraphsDocument = gql`
   query GetTagGraphs {
     tagGraphs {
       id
+      isRoot
       name
       descendants
-      isRoot
     }
   }
 `

@@ -1,4 +1,4 @@
-import { EntityLike } from '@codelab/shared/abstract/types'
+import { IIdentifiable } from '@codelab/shared/abstract/types'
 import * as R from 'ramda'
 import { entityIdSet, entityMapById } from '../entity'
 
@@ -8,7 +8,7 @@ interface ItemsByArrayDiff<T> {
   toCreate: Array<T>
 }
 
-export const groupItemsByArrayDiff = <T extends EntityLike>(
+export const groupItemsByArrayDiff = <T extends IIdentifiable>(
   arrayA: Array<T>,
   arrayB: Array<T>,
 ): ItemsByArrayDiff<T> => {

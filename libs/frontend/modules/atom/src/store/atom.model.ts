@@ -1,5 +1,5 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, IAtom, ITag } from '@codelab/shared/abstract/core'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import {
@@ -14,11 +14,7 @@ import {
 } from 'mobx-keystone'
 import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
-export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
-  api: { id: string }
-}
-
-const fromFragment = (atom: AtomFromFragmentInput) => {
+const fromFragment = (atom: AtomFragment) => {
   return new Atom({
     id: atom.id,
     name: atom.name,
@@ -31,15 +27,18 @@ const fromFragment = (atom: AtomFromFragmentInput) => {
 }
 
 @model('codelab/Atom')
-export class Atom extends Model({
-  id: idProp,
-  type: prop<AtomType>(),
-  name: prop<string>(),
-  tags: prop<Array<Tag>>(),
-  api: prop<Ref<InterfaceType>>(),
-}) {
+export class Atom
+  extends Model({
+    id: idProp,
+    name: prop<string>(),
+    type: prop<AtomType>(),
+    tags: prop<Array<ITag>>(),
+    api: prop<Ref<InterfaceType>>(),
+  })
+  implements IAtom
+{
   @modelAction
-  updateFromFragment(atom: AtomFromFragmentInput) {
+  updateFromFragment(atom: AtomFragment) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>

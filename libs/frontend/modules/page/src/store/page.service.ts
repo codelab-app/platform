@@ -1,6 +1,11 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ICreatePageDTO,
+  IPageService,
+  IUpdatePageDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -14,8 +19,6 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import type { CreatePageData } from '../use-cases/create-page/createPageSchema'
-import { UpdatePageData } from '../use-cases/update-page/updatePageSchema'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
@@ -33,12 +36,15 @@ export type WithPageService = {
 }
 
 @model('codelab/PageService')
-export class PageService extends Model({
-  pages: prop(() => objectMap<Page>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new PageModalService({})),
-  deleteModal: prop(() => new PageModalService({})),
-}) {
+export class PageService
+  extends Model({
+    pages: prop(() => objectMap<Page>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new PageModalService({})),
+    deleteModal: prop(() => new PageModalService({})),
+  })
+  implements IPageService
+{
   @computed
   get pagesList() {
     return [...this.pages.values()]
@@ -53,7 +59,7 @@ export class PageService extends Model({
   update = _async(function* (
     this: PageService,
     page: Page,
-    { name, appId }: UpdatePageData,
+    { name, appId }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(
       pageApi.UpdatePages({
@@ -85,7 +91,7 @@ export class PageService extends Model({
 
     return pages.map((page) => {
       if (this.pages.get(page.id)) {
-        return this.pages.get(page.id)
+        return throwIfUndefined(this.pages.get(page.id))
       } else {
         const pageModel = Page.fromFragment(page)
         this.pages.set(page.id, pageModel)
@@ -111,7 +117,7 @@ export class PageService extends Model({
   @transaction
   create = _async(function* (
     this: PageService,
-    { name, appId }: CreatePageData,
+    { name, appId }: ICreatePageDTO,
   ) {
     const {
       createPages: { pages },
@@ -155,6 +161,6 @@ export class PageService extends Model({
       throw new Error('Page was not deleted')
     }
 
-    return deletePages
+    return throwIfUndefined(this.pages.get(id))
   })
 }

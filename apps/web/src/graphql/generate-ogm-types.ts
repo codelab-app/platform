@@ -19,8 +19,8 @@ export const generateOgmTypes = async () => {
   // const results = await getEslint().lintFiles(outFile)
   // await ESLint.outputFixes(results)
 
-  console.log('OGM type generated, exiting!')
-  process.exit(0)
+  console.log('OGM type generated!')
+  // process.exit(0)
 }
 
 let eslint: ESLint

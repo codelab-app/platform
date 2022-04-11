@@ -1,9 +1,9 @@
 import { Props } from '@codelab/frontend/abstract/types'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 
 // Reduce the array of key value css props to a simple object
 export const reduceStyleProps = (props?: Array<any>) => {
-  return props?.reduce((prev: PropsData, prop: PropsData) => {
+  return props?.reduce((prev: IPropData, prop: IPropData) => {
     const key = prop.cssProps
 
     if (!key) {

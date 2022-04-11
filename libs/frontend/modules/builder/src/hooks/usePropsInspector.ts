@@ -1,6 +1,6 @@
 import { Element, ElementService } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { autorun } from 'mobx'
@@ -27,7 +27,7 @@ export const usePropsInspector = (
     : renderOutput.props
 
   const setExtraProps = useCallback(
-    (props: PropsData) =>
+    (props: IPropData) =>
       builderService.builderRenderer.extraElementProps.setForElement(
         element.id,
         props,

@@ -1,7 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IUpdateTypeDTO, TypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -9,7 +9,6 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithTypeService } from '../../../store'
 import {
   mapUpdateTypeSchemaToInput,
-  UpdateTypeInputFactory,
   updateTypeSchema,
 } from './update-type-input.factory'
 import { validateNonRecursive } from './validateNonRecursive'
@@ -19,7 +18,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.updateModal.close()
   const typeToUpdate = typeService.updateModal.type
 
-  const handleSubmit = async (submitData: UpdateTypeInputFactory) => {
+  const handleSubmit = async (submitData: IUpdateTypeDTO) => {
     if (!typeToUpdate) {
       throw new Error('Type not set for typeStore.updateModal.')
     }
@@ -63,7 +62,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
       title={<span css={tw`font-semibold`}>Update type</span>}
       visible={typeService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTypeInputFactory>
+      <ModalForm.Form<IUpdateTypeDTO>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({

@@ -122,7 +122,7 @@ export const elementRepository = {
       .filter((x) => x.props?.data)
       .flatMap((element) =>
         Array.from(
-          (element.props?.data as string).matchAll(uuidRegex),
+          (element.props?.data as unknown as string).matchAll(uuidRegex),
           (x) => x[0], // return only the uuid (for other values reference
         ),
       )

@@ -7,7 +7,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { typeApi, TypeService, WithTypeService } from '../../../store'
+import { typeApi, WithTypeService } from '../../../store'
 
 export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.deleteModal.close()

@@ -21,8 +21,8 @@ interface CellData {
   id: string
 }
 
-export const PropMapBindingsTable = observer(
-  ({ element, elementService }: PropMapBindingsTableProps) => {
+export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
+  ({ element, elementService }) => {
     const columns: Array<TableColumnProps<CellData>> = [
       {
         title: 'Source key',

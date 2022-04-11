@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, ITag } from '@codelab/shared/abstract/core'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import { WithAtomService } from '../../../store'
@@ -7,7 +7,7 @@ export interface AtomRecord {
   id: string
   name: string
   type: AtomType
-  tags: Array<Tag>
+  tags: Array<ITag>
   apiId: string
 }
 

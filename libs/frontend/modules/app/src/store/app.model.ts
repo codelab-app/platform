@@ -1,15 +1,19 @@
-import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
+import { IApp } from '@codelab/shared/abstract/core'
+import { IIdentifiable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { AppFragment } from '../graphql/app.fragment.graphql.gen'
 
 @model('codelab/App')
-export class App extends Model({
-  id: idProp,
-  ownerId: prop<Nullish<string>>(),
-  name: prop<string>(),
-  rootProviderElement: prop<Nullish<EntityLike>>(),
-  store: prop<Nullish<EntityLike>>(),
-}) {
+export class App
+  extends Model({
+    id: idProp,
+    ownerId: prop<string>(),
+    name: prop<string>(),
+    rootProviderElement: prop<Nullish<IIdentifiable>>(),
+    store: prop<Nullish<IIdentifiable>>(),
+  })
+  implements IApp
+{
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id

@@ -1,11 +1,7 @@
+import { ICreatePageDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreatePageData = {
-  name: string
-  appId: string
-}
-
-export const createPageSchema: JSONSchemaType<CreatePageData> = {
+export const createPageSchema: JSONSchemaType<ICreatePageDTO> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {

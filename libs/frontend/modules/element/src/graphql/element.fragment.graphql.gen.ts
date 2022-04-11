@@ -23,7 +23,7 @@ export type ElementFragment = {
     tags: Array<{ id: string; name: string }>
     api: { id: string; name: string }
   } | null
-  props?: PropFragment | null
+  props: PropFragment
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
   parentElementConnection: {

@@ -1,5 +1,9 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateComponentDTO,
+  IUpdateComponentDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -16,8 +20,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { ComponentFragment } from '../graphql/component.fragment.graphql.gen'
-import type { CreateComponentInput } from '../use-cases/create-component/types'
-import type { UpdateComponentInput } from '../use-cases/update-component/types'
 import { mapCreateInput } from './api.utils'
 import { Component } from './component'
 import { componentApi } from './component.api'
@@ -84,7 +86,7 @@ export class ComponentService extends Model({
   @transaction
   createComponent = _async(function* (
     this: ComponentService,
-    input: CreateComponentInput,
+    input: ICreateComponentDTO,
     ownerId: string,
   ) {
     const createComponentInput = mapCreateInput(input, ownerId)
@@ -116,7 +118,7 @@ export class ComponentService extends Model({
   update = _async(function* (
     this: ComponentService,
     component: Component,
-    { name }: UpdateComponentInput,
+    { name }: IUpdateComponentDTO,
   ) {
     component.setName(name)
 

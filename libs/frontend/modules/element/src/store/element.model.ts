@@ -1,7 +1,7 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Component, componentRef } from '@codelab/frontend/modules/component'
-import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { IPropData, IPropDataByElementId } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { DataNode } from 'antd/lib/tree'
@@ -22,7 +22,7 @@ import { ElementFragment } from '../graphql/element.fragment.graphql.gen'
 import { ElementProps } from './element-props.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
-type TransformFn = (props: PropsData) => PropsData
+type TransformFn = (props: IPropData) => IPropData
 
 /**
  * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
@@ -236,11 +236,11 @@ export class Element extends Model({
    * - those that are bound this element
    * - those that are bound to other elements
    */
-  applyPropMapBindings = (sourceProps: PropsData) => {
+  applyPropMapBindings = (sourceProps: IPropData) => {
     // those are the props that are bound to the element
     let selfBoundProps = { ...sourceProps }
     // Those are the props that are bound to the element's descendants
-    const descendantBoundProps: PropsDataByElementId = {}
+    const descendantBoundProps: IPropDataByElementId = {}
 
     for (const pmb of this.propMapBindings.values()) {
       const appliedProps = pmb.applyBindings(selfBoundProps)
@@ -290,7 +290,7 @@ export class Element extends Model({
    * If successful, merges the result with the original props and returns it
    * If failed, returns the original props
    */
-  executePropTransformJs = (props: PropsData): PropsData => {
+  executePropTransformJs = (props: IPropData): IPropData => {
     const transformFn = this.transformFn
 
     if (!transformFn) {

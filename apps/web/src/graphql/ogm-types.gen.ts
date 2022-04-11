@@ -2755,7 +2755,7 @@ export type Element = {
   renderIfPropKey?: Maybe<Scalars["String"]>;
   children: Array<Element>;
   childrenAggregate?: Maybe<ElementElementChildrenAggregationSelection>;
-  props?: Maybe<Prop>;
+  props: Prop;
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>;
   parentElement?: Maybe<Element>;
   parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>;
@@ -4755,6 +4755,7 @@ export type TagGraph = {
   id: Scalars["ID"];
   name: Scalars["String"];
   descendants: Array<Scalars["ID"]>;
+  isRoot: Scalars["Boolean"];
 };
 
 export type TagGraphAggregateSelection = {
@@ -13030,7 +13031,6 @@ export type TagConnectWhere = {
 
 export type TagCreateInput = {
   name: Scalars["String"];
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
   parent?: InputMaybe<TagParentFieldInput>;
   children?: InputMaybe<TagChildrenFieldInput>;
 };
@@ -13049,6 +13049,7 @@ export type TagGraphCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
   descendants: Array<Scalars["ID"]>;
+  isRoot: Scalars["Boolean"];
 };
 
 export type TagGraphOptionsCreateInput = {
@@ -13099,6 +13100,7 @@ export type TagGraphUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   descendants?: InputMaybe<Array<Scalars["ID"]>>;
+  isRoot?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type TagGraphWhere = {
@@ -13128,11 +13130,12 @@ export type TagGraphWhere = {
   descendants_NOT?: InputMaybe<Array<Scalars["ID"]>>;
   descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
   descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
+  isRoot?: InputMaybe<Scalars["Boolean"]>;
+  isRoot_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type TagOnCreateInput = {
   name: Scalars["String"];
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type TagOptions = {
@@ -13257,7 +13260,6 @@ export type TagUniqueWhere = {
 
 export type TagUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
   parent?: InputMaybe<TagParentUpdateFieldInput>;
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>;
 };
@@ -13285,8 +13287,6 @@ export type TagWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  isRoot?: InputMaybe<Scalars["Boolean"]>;
-  isRoot_NOT?: InputMaybe<Scalars["Boolean"]>;
   parent?: InputMaybe<TagWhere>;
   parent_NOT?: InputMaybe<TagWhere>;
   parentAggregate?: InputMaybe<TagParentAggregateInput>;

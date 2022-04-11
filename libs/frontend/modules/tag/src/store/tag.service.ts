@@ -1,4 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { ICreateTagDTO, IUpdateTagDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -12,8 +13,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateTagData } from '../use-cases/create-tag/createTagSchema'
-import { UpdateTagData } from '../use-cases/update-tag/updateTagSchema'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
@@ -56,7 +55,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: CreateTagData) {
+  create = _async(function* (this: TagService, input: ICreateTagDTO) {
     const connectParentWhere = input?.parentTagId && {
       parent: {
         connect: {
@@ -90,7 +89,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TagService, tag: Tag, input: UpdateTagData) {
+  update = _async(function* (this: TagService, tag: Tag, input: IUpdateTagDTO) {
     const {
       updateTags: { tags },
     } = yield* _await(

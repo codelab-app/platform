@@ -1,5 +1,11 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
+import {
+  IAtom,
+  IAtomService,
+  ICreateAtomDTO,
+  IUpdateAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
@@ -16,10 +22,10 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
+import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
-import { Atom, AtomFromFragmentInput } from './atom.model'
+import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 export type WithAtomService = {
@@ -27,13 +33,16 @@ export type WithAtomService = {
 }
 
 @model('codelab/AtomService')
-export class AtomService extends Model({
-  atoms: prop(() => objectMap<Atom>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new AtomModalService({})),
-  deleteModal: prop(() => new AtomsModalService({})),
-  selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
-}) {
+export class AtomService
+  extends Model({
+    atoms: prop(() => objectMap<IAtom>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new AtomModalService({})),
+    deleteModal: prop(() => new AtomsModalService({})),
+    selectedAtoms: prop(() => Array<Ref<IAtom>>()).withSetter(),
+  })
+  implements IAtomService
+{
   @computed
   get atomsList() {
     return [...this.atoms.values()]
@@ -48,7 +57,7 @@ export class AtomService extends Model({
   update = _async(function* (
     this: AtomService,
     atom: Atom,
-    { name, type, tags }: UpdateAtomInputSchema,
+    { name, type, tags }: IUpdateAtomDTO,
   ) {
     const existingTagIds = atom.tags.map((tag) => tag.id)
     const connect = makeTagConnectData(difference(tags, existingTagIds))
@@ -85,7 +94,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdate(atom: AtomFromFragmentInput) {
+  addOrUpdate(atom: AtomFragment) {
     const existing = this.atom(atom.id)
 
     if (existing) {
@@ -96,7 +105,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<AtomFromFragmentInput>) {
+  addOrUpdateAll(atoms: Array<AtomFragment>) {
     for (const atom of atoms) {
       this.addOrUpdate(atom)
     }
@@ -109,7 +118,7 @@ export class AtomService extends Model({
 
     return atoms.map((atom) => {
       if (this.atoms.get(atom.id)) {
-        return this.atoms.get(atom.id)
+        return throwIfUndefined(this.atoms.get(atom.id))
       } else {
         const atomModel = Atom.fromFragment(atom)
         this.atoms.set(atom.id, atomModel)
@@ -135,7 +144,7 @@ export class AtomService extends Model({
   @transaction
   create = _async(function* (
     this: AtomService,
-    input: CreateAtomInputSchema,
+    input: ICreateAtomDTO,
     ownerId: Nullish<string>,
   ) {
     const apiOwner = ownerId
@@ -180,7 +189,7 @@ export class AtomService extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AtomService, atoms: Array<Atom>) {
+  deleteMany = _async(function* (this: IAtomService, atoms: Array<IAtom>) {
     const ids = atoms.map((atom) => atom.id)
 
     for (const id of ids) {
@@ -199,6 +208,25 @@ export class AtomService extends Model({
     }
 
     return deleteAtoms
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: IAtomService, id: string) {
+    if (this.atoms.has(id)) {
+      this.atoms.delete(id)
+    }
+
+    const { deleteAtoms } = yield* _await(
+      atomApi.DeleteAtoms({ where: { id } }),
+    )
+
+    if (deleteAtoms.nodesDeleted === 0) {
+      // throw error so that the atomic middleware rolls back the changes
+      throw new Error('Atom was not deleted')
+    }
+
+    return throwIfUndefined(this.atoms.get(id))
   })
 }
 

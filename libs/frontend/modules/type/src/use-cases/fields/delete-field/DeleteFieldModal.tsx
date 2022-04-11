@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceType, TypeService, WithTypeService } from '../../../store'
+import { InterfaceType, WithTypeService } from '../../../store'
 
 type DeleteFieldModalProps = {
   interfaceType: InterfaceType

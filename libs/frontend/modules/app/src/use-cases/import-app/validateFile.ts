@@ -1,5 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { ExportAppSchema } from '@codelab/shared/abstract/core'
+// import { ExportAppSchema } from '@codelab/shared/abstract/core'
 import { Upload } from 'antd'
 import type { RcFile } from 'antd/es/upload'
 
@@ -34,7 +34,8 @@ export const validateFile = async (file: RcFile): Promise<string | boolean> => {
   }
 
   try {
-    ExportAppSchema.parse(data)
+    // TODO: make sure mobx class is validating data
+    // ExportAppSchema.parse(data)
   } catch (e) {
     notify(
       {
