@@ -1,5 +1,5 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
@@ -24,7 +24,7 @@ export class PropMapBinding extends Model({
       : null
   }
 
-  applyBindings(sourceProps: PropsData): PropsData {
+  applyBindings(sourceProps: IPropData): IPropData {
     const value =
       this.sourceKey === BINDING_WILDCARD
         ? sourceProps

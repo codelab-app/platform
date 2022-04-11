@@ -1,3 +1,4 @@
+import { IHook } from '../hook'
 import { IProp } from '../prop'
 // import { AtomSchema } from '../atom'
 // import { HookSchema } from '../hook'
@@ -46,5 +47,7 @@ import { IProp } from '../prop'
 // export const ElementsSchema = z.array(ElementSchema)
 
 export interface IElement {
+  id: string
   props: IProp
+  hooks: Array<IHook>
 }

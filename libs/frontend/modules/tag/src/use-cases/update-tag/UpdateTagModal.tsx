@@ -25,7 +25,7 @@ export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
       onCancel={closeModal}
       visible={tagService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTagData>
+      <ModalForm.Form<IUpdateTagDTO>
         model={{ name: tag?.name }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

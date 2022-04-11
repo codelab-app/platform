@@ -11,7 +11,7 @@ import {
   ConditionalView,
   SpinnerWrapper,
 } from '@codelab/frontend/view/components'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -34,7 +34,7 @@ export const UpdateInitialStateForm = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSubmit = (initialState: PropsData) => {
+  const onSubmit = (initialState: IPropData) => {
     if (!store) {
       throw new Error('Updated store is not set')
     }
@@ -73,7 +73,7 @@ export const UpdateInitialStateForm = observer<
 })
 
 /**
- * 
+ *
  *  <Form
         autosave
         model={model}

@@ -29,6 +29,7 @@ query GetTags($options: TagOptions, $where: TagWhere) {
 query GetTagGraphs {
   tagGraphs {
     id
+    isRoot
     name
     descendants
   }

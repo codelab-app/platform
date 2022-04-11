@@ -4,16 +4,14 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
+import { IUpdatePropMapBindingDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithElementService } from '../../../store'
 import { TargetKeyField } from '../create-prop-map-binding/TargetKeyField'
-import {
-  UpdatePropMapBindingData,
-  updatePropMapBindingSchema,
-} from './updatePropMapBindingSchema'
+import { updatePropMapBindingSchema } from './updatePropMapBindingSchema'
 
 export interface UpdatePropMapBindingModalProps extends WithElementService {
   providePropCompletion?: (searchValue: string) => Array<string>
@@ -55,7 +53,7 @@ export const UpdatePropMapBindingModal =
           title={<span css={tw`font-semibold`}>Update prop binding</span>}
           visible={elementService.updatePropMapBindingModal.isOpen}
         >
-          <ModalForm.Form<UpdatePropMapBindingData>
+          <ModalForm.Form<IUpdatePropMapBindingDTO>
             model={{
               sourceKey: pmb?.sourceKey,
               targetKey: pmb?.targetKey,

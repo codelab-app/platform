@@ -10,3 +10,16 @@ export interface IQueryService<Entity, EntityWhere> {
   getOne(id: string): Promise<Maybe<Entity>>
   getAll(where?: EntityWhere): Promise<Array<Entity>>
 }
+
+export interface ICRUDModalService<Entity> {
+  createModal: IModalService<Entity>
+  updateModal: IModalService<Entity>
+  deleteModal: IModalService<Entity>
+}
+
+export type IModalService<Entity = never, Fields = unknown> = {
+  isOpen: boolean
+  metadata: any
+  open(...args: Entity extends never ? [] : [Entity]): void
+  close(): void
+} & { [K in keyof Fields]: Fields[K] }

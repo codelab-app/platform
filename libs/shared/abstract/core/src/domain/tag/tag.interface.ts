@@ -12,6 +12,7 @@
 // export type ITag = z.infer<typeof TagSchema>
 
 export interface ITag {
+  id: string
   name: string
   children: Array<string>
 }

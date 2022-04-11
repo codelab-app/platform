@@ -1,4 +1,4 @@
-import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { IPropData, IPropDataByElementId } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import {
   Frozen,
@@ -12,8 +12,8 @@ import {
 
 @model('@codelab/ExtraElementProps')
 export class ExtraElementProps extends Model({
-  elementPropMap: prop(() => objectMap<Frozen<PropsData>>()),
-  global: prop<Frozen<PropsData>>(() => frozen({})).withSetter(),
+  elementPropMap: prop(() => objectMap<Frozen<IPropData>>()),
+  global: prop<Frozen<IPropData>>(() => frozen({})).withSetter(),
 }) {
   getForElement(elementId: string) {
     return mergeProps(
@@ -23,7 +23,7 @@ export class ExtraElementProps extends Model({
   }
 
   @modelAction
-  addForElement(elementId: string, props: PropsData) {
+  addForElement(elementId: string, props: IPropData) {
     this.elementPropMap.set(
       elementId,
       frozen(mergeProps(this.getForElement(elementId), props)),
@@ -31,21 +31,21 @@ export class ExtraElementProps extends Model({
   }
 
   @modelAction
-  addAll(props: PropsDataByElementId) {
+  addAll(props: IPropDataByElementId) {
     for (const [key, value] of Object.entries(props)) {
       this.addForElement(key, value)
     }
   }
 
   @modelAction
-  setAll(props: PropsDataByElementId) {
+  setAll(props: IPropDataByElementId) {
     for (const [key, value] of Object.entries(props)) {
       this.setForElement(key, value)
     }
   }
 
   @modelAction
-  setForElement(elementId: string, props: PropsData) {
+  setForElement(elementId: string, props: IPropData) {
     this.elementPropMap.set(elementId, frozen(props))
   }
 }

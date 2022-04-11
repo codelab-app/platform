@@ -1,5 +1,5 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType, IAtom } from '@codelab/shared/abstract/core'
+import { AtomType, IAtom, ITag } from '@codelab/shared/abstract/core'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import {
@@ -32,7 +32,7 @@ export class Atom
     id: idProp,
     name: prop<string>(),
     type: prop<AtomType>(),
-    tags: prop<Array<Tag>>(),
+    tags: prop<Array<ITag>>(),
     api: prop<Ref<InterfaceType>>(),
   })
   implements IAtom

@@ -1,5 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
 import { Model, model, prop } from 'mobx-keystone'
@@ -13,7 +13,7 @@ export class LoopingRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+  render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     if (!element.renderForEachPropKey) {
       return this.next.render(element, props)
     }
@@ -50,7 +50,7 @@ export class LoopingRenderPipe
       .filter((ro): ro is RenderOutput => !!ro)
   }
 
-  private static evaluateRenderForEach(element: Element, props: PropsData) {
+  private static evaluateRenderForEach(element: Element, props: IPropData) {
     if (!element.renderForEachPropKey) {
       return null
     }

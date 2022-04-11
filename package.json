@@ -12,6 +12,7 @@
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
+    "codegen": "echo 'DEPRECATED! use `nx codegen web` instead'",
     "ogmgen": "cross-env GENERATE_OGM_TYPES=true nx serve web",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --parallel=3",

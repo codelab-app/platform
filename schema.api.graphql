@@ -3342,7 +3342,7 @@ type Element {
     where: ElementPropMapBindingsConnectionWhere
   ): ElementPropMapBindingsConnection!
   propTransformationJs: String
-  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   propsAggregate(
     directed: Boolean = true
     where: PropWhere

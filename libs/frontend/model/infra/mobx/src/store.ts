@@ -19,7 +19,6 @@ import {
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
-import { IAtomService } from '@codelab/shared/abstract/core'
 import {
   fromSnapshot,
   Model,
@@ -38,7 +37,7 @@ export class RootStore extends Model({
   appService: prop(() => new AppService({})),
   pageService: prop(() => new PageService({})),
   typeService: prop(() => new TypeService({})),
-  atomService: prop<IAtomService>(() => new AtomService({})),
+  atomService: prop(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
   componentService: prop(() => new ComponentService({})),

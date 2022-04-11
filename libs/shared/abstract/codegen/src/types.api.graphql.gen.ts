@@ -3365,7 +3365,7 @@ export type Element = {
   propMapBindingsAggregate?: Maybe<ElementPropMapBindingPropMapBindingsAggregationSelection>
   propMapBindingsConnection: ElementPropMapBindingsConnection
   propTransformationJs?: Maybe<Scalars['String']>
-  props?: Maybe<Prop>
+  props: Prop
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
   propsConnection: ElementPropsConnection
   renderForEachPropKey?: Maybe<Scalars['String']>

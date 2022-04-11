@@ -29,7 +29,7 @@ import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 export type WithAtomService = {
-  atomService: IAtomService
+  atomService: AtomService
 }
 
 @model('codelab/AtomService')
@@ -231,7 +231,7 @@ export class AtomService
 }
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
-export const atomServiceContext = createContext<IAtomService>()
+export const atomServiceContext = createContext<AtomService>()
 
 export const getAtomService = (thisModel: any) => {
   const atomStore = atomServiceContext.get(thisModel)

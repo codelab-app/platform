@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons'
 import { copyTextToClipboard } from '@codelab/frontend/shared/utils'
 import { ConditionalView } from '@codelab/frontend/view/components'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Button, Card, message, Tag } from 'antd'
 import { keys } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -14,7 +14,7 @@ type MainPaneBuilderMobxStateTabProps = {
 }
 
 type StateItemProps = {
-  state: PropsData
+  state: IPropData
   parentPath: string
 }
 

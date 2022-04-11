@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
-import { CreateTagData, createTagSchema } from './createTagSchema'
+import { createTagSchema } from './createTagSchema'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
   const onSubmit = (input: ICreateTagDTO) => tagService.create({ ...input })

@@ -17,7 +17,13 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
     const { user } = useUser()
 
     const onSubmit = (input: ICreateAtomDTO) => {
-      return atomService.create(input, user?.sub)
+      const ownerId = user?.sub
+
+      if (!ownerId) {
+        throw new Error('Invalid ownerId')
+      }
+
+      return atomService.create(input, ownerId)
     }
 
     const onSubmitError = createNotificationHandler({

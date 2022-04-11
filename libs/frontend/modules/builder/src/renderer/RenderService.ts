@@ -4,7 +4,7 @@ import {
   elementTreeRef,
 } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
+import { IPropData, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   deepReplaceObjectValues,
@@ -189,7 +189,7 @@ export class RenderService extends Model(
   /**
    * Renders a single Element using the provided RenderAdapter
    */
-  renderElement = (element: Element, extraProps?: PropsData): ReactElement => {
+  renderElement = (element: Element, extraProps?: IPropData): ReactElement => {
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,
       renderService: this,
@@ -205,7 +205,7 @@ export class RenderService extends Model(
    */
   renderElementIntermediate = (
     element: Element,
-    extraProps?: PropsData,
+    extraProps?: IPropData,
   ): ArrayOrSingle<RenderOutput> => {
     let props = mergeProps(
       element.baseProps,
@@ -288,7 +288,7 @@ export class RenderService extends Model(
   /**
    * Parses and transforms the props for a given element, so they are ready for rendering
    */
-  private processPropsForRender = (props: PropsData, element: Element) => {
+  private processPropsForRender = (props: IPropData, element: Element) => {
     props = this.applyTypedValuedTransformers(props)
     props = element.executePropTransformJs(props)
     props = this.replaceStateInProps(props)
@@ -300,7 +300,7 @@ export class RenderService extends Model(
   }
 
   // Proof of concept implementation of state replacement
-  private replaceStateInProps = (props: PropsData) => {
+  private replaceStateInProps = (props: IPropData) => {
     if (!this.platformState) {
       return props
     }
@@ -339,7 +339,7 @@ export class RenderService extends Model(
   /**
    * Applies all the typed value transformers to the props
    */
-  private applyTypedValuedTransformers = (props: PropsData): PropsData =>
+  private applyTypedValuedTransformers = (props: IPropData): IPropData =>
     deepReplaceObjectValues(props, (value, key, innerObj) => {
       if (!isTypedValue(value)) {
         return value

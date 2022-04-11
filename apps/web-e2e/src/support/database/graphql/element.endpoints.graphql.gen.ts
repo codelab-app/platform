@@ -33,7 +33,7 @@ export type E2eElementFragment = {
   instanceOfComponent?: { id: string; name: string } | null
   parentElement?: { id: string; name?: string | null } | null
   atom?: E2eAtomFragment | null
-  props?: E2ePropFragment | null
+  props: E2ePropFragment
   hooks: Array<E2eHookFragment>
   propMapBindings: Array<E2ePropMapBindingFragment>
   parentElementConnection: {

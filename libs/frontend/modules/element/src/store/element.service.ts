@@ -5,8 +5,10 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateElementDTO,
+  ICreatePropMapBindingDTO,
+  IPropData,
   IUpdateElementDTO,
-  PropsData,
+  IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -22,8 +24,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { MoveData } from '../use-cases/element/move-element/types'
-import { CreatePropMapBindingData } from '../use-cases/prop-mapping/create-prop-map-binding/createPropMapBindingSchema'
-import { UpdatePropMapBindingData } from '../use-cases/prop-mapping/update-prop-map-binding/updatePropMapBindingSchema'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -163,7 +163,7 @@ export class ElementService extends Model({
   updateElementProps = _async(function* (
     this: ElementService,
     element: Element,
-    data: PropsData,
+    data: IPropData,
   ) {
     const createOrUpdate = element.props ? 'update' : 'create'
 
@@ -360,7 +360,7 @@ export class ElementService extends Model({
   createPropMapBinding = _async(function* (
     this: ElementService,
     element: Element,
-    createInput: CreatePropMapBindingData,
+    createInput: ICreatePropMapBindingDTO,
   ) {
     const {
       createPropMapBindings: {
@@ -402,7 +402,7 @@ export class ElementService extends Model({
     this: ElementService,
     element: Element,
     propMapBinding: PropMapBinding,
-    updateData: UpdatePropMapBindingData,
+    updateData: IUpdatePropMapBindingDTO,
   ) {
     const {
       updatePropMapBindings: {

@@ -1,5 +1,5 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
@@ -26,7 +26,7 @@ export class Store extends Model(() => ({
   storeKey: prop<Nullable<string>>(null).withSetter(),
   name: prop<string>(),
   actions: prop<Array<Ref<Action>>>().withSetter(),
-  initialState: prop<PropsData>(),
+  initialState: prop<IPropData>(),
   state: prop<Ref<InterfaceType>>().withSetter(),
 })) {
   getRefId() {
