@@ -29,7 +29,7 @@ import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 export type WithAtomService = {
-  atomService: AtomService
+  atomService: IAtomService
 }
 
 @model('codelab/AtomService')

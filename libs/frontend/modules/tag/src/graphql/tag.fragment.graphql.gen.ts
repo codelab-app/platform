@@ -6,6 +6,7 @@ import { gql } from 'graphql-tag'
 export type TagFragment = {
   id: string
   name: string
+  isRoot?: boolean | null
   children: Array<{ id: string }>
 }
 
@@ -16,6 +17,7 @@ export const TagFragmentDoc = gql`
     children {
       id
     }
+    isRoot
   }
 `
 

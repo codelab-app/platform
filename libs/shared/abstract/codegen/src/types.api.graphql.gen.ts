@@ -11764,7 +11764,6 @@ export type TagConnectWhere = {
 
 export type TagCreateInput = {
   children?: InputMaybe<TagChildrenFieldInput>
-  isRoot?: InputMaybe<Scalars['Boolean']>
   name: Scalars['String']
   parent?: InputMaybe<TagParentFieldInput>
 }
@@ -11783,6 +11782,7 @@ export type TagGraph = {
   __typename?: 'TagGraph'
   descendants: Array<Scalars['ID']>
   id: Scalars['ID']
+  isRoot: Scalars['Boolean']
   name: Scalars['String']
 }
 
@@ -11844,7 +11844,6 @@ export type TagGraphOptionsWhere = {
 }
 
 export type TagOnCreateInput = {
-  isRoot?: InputMaybe<Scalars['Boolean']>
   name: Scalars['String']
 }
 
@@ -12007,7 +12006,6 @@ export type TagUniqueWhere = {
 
 export type TagUpdateInput = {
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
-  isRoot?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   parent?: InputMaybe<TagParentUpdateFieldInput>
 }
@@ -12038,8 +12036,6 @@ export type TagWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  isRoot?: InputMaybe<Scalars['Boolean']>
-  isRoot_NOT?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>

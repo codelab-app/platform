@@ -27,13 +27,16 @@ const fromFragment = (atom: AtomFragment) => {
 }
 
 @model('codelab/Atom')
-export class Atom extends Model({
-  id: idProp,
-  type: prop<AtomType>(),
-  name: prop<string>(),
-  tags: prop<Array<Tag>>(),
-  api: prop<Ref<InterfaceType>>(),
-}) {
+export class Atom
+  extends Model({
+    id: idProp,
+    name: prop<string>(),
+    type: prop<AtomType>(),
+    tags: prop<Array<Tag>>(),
+    api: prop<Ref<InterfaceType>>(),
+  })
+  implements IAtom
+{
   @modelAction
   updateFromFragment(atom: AtomFragment) {
     this.name = atom.name

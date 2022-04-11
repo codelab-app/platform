@@ -12,14 +12,6 @@ export type AtomFragment = {
   api: { id: string; name: string }
 }
 
-export type AtomDtoFragment = {
-  id: string
-  name: string
-  type: Types.AtomType
-  tags: Array<{ id: string; name: string }>
-  api: { id: string }
-}
-
 export const AtomFragmentDoc = gql`
   fragment Atom on Atom {
     __typename
@@ -33,20 +25,6 @@ export const AtomFragmentDoc = gql`
     api {
       id
       name
-    }
-  }
-`
-export const AtomDtoFragmentDoc = gql`
-  fragment AtomDTO on Atom {
-    id
-    name
-    type
-    tags {
-      id
-      name
-    }
-    api {
-      id
     }
   }
 `

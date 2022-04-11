@@ -19,6 +19,7 @@ import {
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
+import { IAtomService } from '@codelab/shared/abstract/core'
 import {
   fromSnapshot,
   Model,
@@ -37,17 +38,17 @@ export class RootStore extends Model({
   appService: prop(() => new AppService({})),
   pageService: prop(() => new PageService({})),
   typeService: prop(() => new TypeService({})),
-  atomService: prop(() => new AtomService({})),
+  atomService: prop<IAtomService>(() => new AtomService({})),
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
   componentService: prop(() => new ComponentService({})),
   actionService: prop(() => new ActionService({})),
   storeService: prop(() => new StoreService({})),
-
-  elementService: prop(() => new ElementService({})), // default regular service that holds the element tree
-  providerElementService: prop(() => new ElementService({})), // element service that is used by the provider tree
+  // default regular service that holds the element tree
+  elementService: prop(() => new ElementService({})),
+  // element service that is used by the provider tree
+  providerElementService: prop(() => new ElementService({})),
   builderService: prop(() => new BuilderService({})),
-
   // This is the default render service used for rendering apps.
   // do not confuse it with the builder-specific render service in builderService.builderRenderer
   renderService: prop(() => new RenderService({})),

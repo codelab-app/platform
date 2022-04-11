@@ -1,5 +1,3 @@
-import { z } from 'zod'
-
 export interface IApp {
   id: string
   ownerId: string
@@ -7,11 +5,11 @@ export interface IApp {
   // pages: Array<IPage>
 }
 
-export const AppSchema = z.object({
-  id: z.string().default(''),
-  ownerId: z.string(),
-  name: z.string(),
-  // pages: z.array(PageSchema).default([]),
-})
+// export const AppSchema = z.object({
+//   id: z.string().default(''),
+//   ownerId: z.string(),
+//   name: z.string(),
+//   // pages: z.array(PageSchema).default([]),
+// })
 
 // export type IApp = z.infer<typeof AppSchema>

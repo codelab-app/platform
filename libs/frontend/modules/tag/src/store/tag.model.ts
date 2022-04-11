@@ -1,3 +1,4 @@
+import { ITag } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { TagFragment } from '../graphql/tag.fragment.graphql.gen'
@@ -10,7 +11,7 @@ export class Tag
     name: prop<string>(),
     children: prop<Array<string>>(),
   })
-  implements INode
+  implements INode, ITag
 {
   @computed
   get label() {

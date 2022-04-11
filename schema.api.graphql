@@ -10925,7 +10925,6 @@ input TagConnectWhere {
 
 input TagCreateInput {
   children: TagChildrenFieldInput
-  isRoot: Boolean
   name: String!
   parent: TagParentFieldInput
 }
@@ -10943,6 +10942,7 @@ input TagDisconnectInput {
 type TagGraph {
   descendants: [ID!]!
   id: ID!
+  isRoot: Boolean!
   name: String!
 }
 
@@ -11007,7 +11007,6 @@ input TagGraphOptionsWhere {
 }
 
 input TagOnCreateInput {
-  isRoot: Boolean
   name: String!
 }
 
@@ -11169,7 +11168,6 @@ input TagUniqueWhere {
 
 input TagUpdateInput {
   children: [TagChildrenUpdateFieldInput!]
-  isRoot: Boolean
   name: String
   parent: TagParentUpdateFieldInput
 }
@@ -11212,8 +11210,6 @@ input TagWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  isRoot: Boolean
-  isRoot_NOT: Boolean
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
