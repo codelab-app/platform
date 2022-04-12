@@ -256,10 +256,14 @@
                 "sourceTag": "type:abstract",
                 "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
               },
-              // {
-              //   "sourceTag": "scope:backend",
-              //   "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
-              // },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": [
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract"
+                ]
+              },
               // {
               //   "sourceTag": "layer:domain:frontend",
               //   "onlyDependOnLibsWithTags": [

@@ -1,12 +1,14 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
+import {
+  generateOgmTypes,
+  getDriver,
+  getSchema,
+  UserModel,
+} from '@codelab/backend'
 import { ApolloServer } from 'apollo-server-micro'
 import { get } from 'env-var'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
-import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
-import { getDriver } from '../../src/graphql/infra/driver'
-import { User } from '../../src/graphql/model'
-import { getSchema } from '../../src/graphql/schema/neoSchema'
 
 const driver = getDriver()
 const neoSchema = getSchema(driver)
@@ -87,9 +89,9 @@ const handler: NextApiHandler = async (req, res) => {
    */
   if (session?.user) {
     const user = session.user
-    const UserModel = await User()
+    const User = await UserModel()
 
-    const [existing] = await UserModel.find({
+    const [existing] = await User.find({
       where: {
         auth0Id: user.sub,
       },
@@ -99,7 +101,9 @@ const handler: NextApiHandler = async (req, res) => {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
       try {
-        const { users } = await UserModel.create({
+        const { users } = await (
+          await UserModel()
+        ).create({
           input: [
             {
               auth0Id: user.sub,

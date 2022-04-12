@@ -12,7 +12,7 @@ interface Config {
   }
 }
 
-export const Config: Config = {
+export const Config = (): Config => ({
   neo4j: {
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),
@@ -22,4 +22,4 @@ export const Config: Config = {
     issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
     secret: env.get('AUTH0_SECRET').required().asString(),
   },
-}
+})

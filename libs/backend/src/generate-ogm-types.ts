@@ -7,8 +7,8 @@ export const generateOgmTypes = async () => {
   // Only generate types when you make a schema change
   const outFile = path.resolve(
     process.cwd(),
-    'apps/web/src/graphql',
-    'ogm-types.gen.ts',
+    'libs/backend',
+    'src/graphql/ogm-types.gen.ts',
   )
 
   await generate({
