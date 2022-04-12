@@ -10,19 +10,6 @@ export class ResourceModalService extends ExtendedModel(() => ({
 })) {
   @computed
   get resource() {
-    console.log(this.metadata?.current)
-
     return this.metadata?.current ?? null
-  }
-}
-
-@model('codelab/ResourcesModalService')
-export class ResourcesModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalService<Array<Ref<Resource>>>>(ModalService),
-  props: {},
-})) {
-  @computed
-  get resources() {
-    return this.metadata?.map((a) => a.current) ?? []
   }
 }

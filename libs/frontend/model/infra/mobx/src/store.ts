@@ -19,7 +19,10 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
-import { ResourceService } from '@codelab/frontend/modules/resource'
+import {
+  OperationService,
+  ResourceService,
+} from '@codelab/frontend/modules/resource'
 import {
   ActionService,
   actionServiceContext,

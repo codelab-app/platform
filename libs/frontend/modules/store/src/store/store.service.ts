@@ -18,11 +18,10 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { storeRef } from '.'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
 import { storeApi } from './store.api'
-import { Store } from './store.model'
+import { Store, storeRef } from './store.model'
 import { StoreModalService } from './store-modal.service'
 
 export type WithStoreService = {
@@ -48,13 +47,13 @@ export class StoreService extends Model({
   }
 
   @modelAction
-  async ensureAllStateInterfacesAdded(state: Array<IStoreDTO['state']>) {
+  async fetchStates(state: Array<IStoreDTO['state']>) {
     // loading state interface within store fragment is hard so we load it separately
     return await getTypeService(this).getAll(state.map((x) => x.id))
   }
 
   @modelAction
-  ensureAllActionsAdded(actions: IStoreDTO['actions']) {
+  fetchActions(actions: IStoreDTO['actions']) {
     getActionService(this).updateCache(actions)
   }
 
@@ -76,8 +75,8 @@ export class StoreService extends Model({
     const states = stores.map((x) => x.state)
     const actions = stores.flatMap((x) => x.actions)
 
-    yield* _await(this.ensureAllStateInterfacesAdded(states))
-    this.ensureAllActionsAdded(actions)
+    yield* _await(this.fetchStates(states))
+    this.fetchActions(actions)
 
     const descendants = stores.flatMap((x) => x.descendants)
 

@@ -3,7 +3,8 @@ fragment Resource on Resource {
   id
   name
   data
-  atom {
-    ...Atom
+  api {
+    id
+    name
   }
 }

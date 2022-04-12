@@ -30,18 +30,13 @@ export type InterfaceForm_GetStoresQuery = {
   stores: Array<{ id: string; name: string }>
 }
 
-export type InterfaceForm_GetAtomsWithApiQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.AtomOptions>
-  where?: Types.InputMaybe<Types.AtomWhere>
+export type InterfaceForm_GetResourceApiQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.InterfaceTypeOptions>
+  where?: Types.InputMaybe<Types.InterfaceTypeWhere>
 }>
 
-export type InterfaceForm_GetAtomsWithApiQuery = {
-  atoms: Array<{
-    id: string
-    name: string
-    type: Types.AtomType
-    api: { id: string }
-  }>
+export type InterfaceForm_GetResourceApiQuery = {
+  interfaceTypes: Array<{ id: string; name: string }>
 }
 
 export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
@@ -87,18 +82,14 @@ export const InterfaceForm_GetStoresDocument = gql`
     }
   }
 `
-export const InterfaceForm_GetAtomsWithApiDocument = gql`
-  query InterfaceForm_GetAtomsWithApi(
-    $options: AtomOptions
-    $where: AtomWhere
+export const InterfaceForm_GetResourceApiDocument = gql`
+  query InterfaceForm_GetResourceApi(
+    $options: InterfaceTypeOptions
+    $where: InterfaceTypeWhere
   ) {
-    atoms(options: $options, where: $where) {
+    interfaceTypes(options: $options, where: $where) {
       id
       name
-      type
-      api {
-        id
-      }
     }
   }
 `
@@ -184,18 +175,18 @@ export function getSdk(
         'query',
       )
     },
-    InterfaceForm_GetAtomsWithApi(
-      variables?: InterfaceForm_GetAtomsWithApiQueryVariables,
+    InterfaceForm_GetResourceApi(
+      variables?: InterfaceForm_GetResourceApiQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<InterfaceForm_GetAtomsWithApiQuery> {
+    ): Promise<InterfaceForm_GetResourceApiQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<InterfaceForm_GetAtomsWithApiQuery>(
-            InterfaceForm_GetAtomsWithApiDocument,
+          client.request<InterfaceForm_GetResourceApiQuery>(
+            InterfaceForm_GetResourceApiDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'InterfaceForm_GetAtomsWithApi',
+        'InterfaceForm_GetResourceApi',
         'query',
       )
     },

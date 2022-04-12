@@ -1,29 +1,23 @@
+import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import {
-  ResourceOptions,
-  ResourceWhere,
-} from '@codelab/shared/abstract/codegen'
-import { omit } from 'lodash'
+import { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateResourceInput } from '../schema/initialResourceSchema'
-import { UpdateResourceInput } from '../use-cases/update-resource/updateResourceSchema'
+import { ResourceFragment } from '../graphql/resource.fragment.graphql.gen'
+import { CreateResourceInput, UpdateResourceInput } from '../use-cases'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
-import {
-  ResourceModalService,
-  ResourcesModalService,
-} from './resource-modal.service'
+import { ResourceModalService } from './resource-modal.service'
 
 export type WithResourceService = {
   resourceService: ResourceService
@@ -31,32 +25,39 @@ export type WithResourceService = {
 
 @model('codelab/Resource')
 export class ResourceService extends Model({
-  resourceMap: prop(() => objectMap<Resource>()),
+  resources: prop(() => objectMap<Resource>()),
+
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new ResourceModalService({})),
-  deleteModal: prop(() => new ResourcesModalService({})),
-  selectedResources: prop(() => Array<Ref<Resource>>()).withSetter(),
+  deleteModal: prop(() => new ResourceModalService({})),
 }) {
   @computed
   get resourceList() {
-    return [...this.resourceMap.values()]
+    return [...this.resources.values()]
+  }
+
+  resource(id: string) {
+    return this.resources.get(id)
+  }
+
+  @modelAction
+  async fetchApis(api: Array<ResourceFragment['api']>) {
+    // loading api interface within resource fragment is hard so we load it separately
+    return await getTypeService(this).getAll(api.map((x) => x.id))
   }
 
   @modelFlow
   @transaction
-  getAll = _async(function* (
-    this: ResourceService,
-    options: ResourceOptions = {},
-    where: ResourceWhere = {},
-  ) {
-    const { resources } = yield* _await(
-      resourceApi.GetResources({ where, options }),
-    )
+  getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
+    const { resources } = yield* _await(resourceApi.GetResources({ where }))
+    const apis = resources.map((x) => x.api)
+
+    yield* _await(this.fetchApis(apis))
 
     const formattedResources = resources.map((r) => Resource.fromFragment(r))
 
     formattedResources.forEach((r) => {
-      this.resourceMap.set(r.id, r)
+      this.resources.set(r.id, r)
     })
 
     return formattedResources
@@ -64,7 +65,15 @@ export class ResourceService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (
+  getOne = _async(function* (this: ResourceService, id: string) {
+    const [resource] = yield* _await(this.getAll({ id }))
+
+    return resource
+  })
+
+  @modelFlow
+  @transaction
+  createResource = _async(function* (
     this: ResourceService,
     input: CreateResourceInput,
   ) {
@@ -74,8 +83,7 @@ export class ResourceService extends Model({
       resourceApi.CreateResources({
         input: {
           name: input.name,
-          atom: { connect: { where: { node: { type: input.type } } } },
-          data: JSON.stringify(omit(input, ['type', 'name'])),
+          api: { connect: { where: { node: { id: input.apiId } } } },
         },
       }),
     )
@@ -88,7 +96,7 @@ export class ResourceService extends Model({
 
     const resourceModel = Resource.fromFragment(resource)
 
-    this.resourceMap.set(resourceModel.id, resourceModel)
+    this.resources.set(resourceModel.id, resourceModel)
 
     return resources
   })
@@ -100,15 +108,14 @@ export class ResourceService extends Model({
     resource: Resource,
     input: UpdateResourceInput,
   ) {
+    const { apiId, name, data } = input
+
     const { updateResources } = yield* _await(
       resourceApi.UpdateResource({
         update: {
-          name: input.name,
-          atom: {
-            disconnect: { where: { node: { type: resource.type } } },
-            connect: { where: { node: { type: input.type } } },
-          },
-          data: JSON.stringify(omit(input, ['type', 'name'])),
+          name,
+          api: { connect: { where: { node: { id: apiId } } } },
+          data: data,
         },
         where: { id: resource.id },
       }),
@@ -122,27 +129,18 @@ export class ResourceService extends Model({
 
     const resourceModel = Resource.fromFragment(updateResource)
 
-    this.resourceMap.set(resource.id, resourceModel)
+    this.resources.set(resource.id, resourceModel)
 
     return resourceModel
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (
-    this: ResourceService,
-    resources: Array<Resource>,
-  ) {
-    const ids = resources.map((resource) => resource.id)
-
-    for (const id of ids) {
-      if (this.resourceMap.has(id)) {
-        this.resourceMap.delete(id)
-      }
-    }
+  delete = _async(function* (this: ResourceService, id: string) {
+    this.resources.delete(id)
 
     const { deleteResources } = yield* _await(
-      resourceApi.DeleteResources({ where: { id_IN: ids } }),
+      resourceApi.DeleteResources({ where: { id } }),
     )
 
     return deleteResources

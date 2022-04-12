@@ -1,7 +1,4 @@
 export enum AtomType {
-  // Resources
-  ResourceGraphQL = 'ResourceGraphQL',
-  ResourceREST = 'ResourceREST',
   // Hooks
   HookQueryLambda = 'HookQueryLambda',
   HookQueryConfig = 'HookQueryConfig',

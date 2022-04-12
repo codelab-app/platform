@@ -12,6 +12,7 @@ query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
     type
   }
 }
+
 query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
   stores(options: $options, where: $where) {
     id
@@ -19,14 +20,13 @@ query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
   }
 }
 
-query InterfaceForm_GetAtomsWithApi($options: AtomOptions, $where: AtomWhere) {
-  atoms(options: $options, where: $where) {
+query InterfaceForm_GetResourceApi(
+  $options: InterfaceTypeOptions
+  $where: InterfaceTypeWhere
+) {
+  interfaceTypes(options: $options, where: $where) {
     id
     name
-    type
-    api {
-      id
-    }
   }
 }
 

@@ -1,0 +1,10 @@
+fragment Operation on Operation {
+  __typename
+  id
+  name
+  data
+  resource {
+    id
+    name
+  }
+}

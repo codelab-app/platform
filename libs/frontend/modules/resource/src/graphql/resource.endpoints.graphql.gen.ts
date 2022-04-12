@@ -1,12 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ResourceFragment } from './resource.fragment.graphql.gen'
-import { AtomFragment } from '../../../atom/src/graphql/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ResourceFragmentDoc } from './resource.fragment.graphql.gen'
-import { AtomFragmentDoc } from '../../../atom/src/graphql/atom.fragment.graphql.gen'
 export type GetResourcesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ResourceOptions>
   where?: Types.InputMaybe<Types.ResourceWhere>
@@ -47,7 +45,6 @@ export const GetResourcesDocument = gql`
     }
   }
   ${ResourceFragmentDoc}
-  ${AtomFragmentDoc}
 `
 export const CreateResourcesDocument = gql`
   mutation CreateResources($input: [ResourceCreateInput!]!) {
@@ -58,7 +55,6 @@ export const CreateResourcesDocument = gql`
     }
   }
   ${ResourceFragmentDoc}
-  ${AtomFragmentDoc}
 `
 export const UpdateResourceDocument = gql`
   mutation UpdateResource($update: ResourceUpdateInput, $where: ResourceWhere) {
@@ -69,7 +65,6 @@ export const UpdateResourceDocument = gql`
     }
   }
   ${ResourceFragmentDoc}
-  ${AtomFragmentDoc}
 `
 export const DeleteResourcesDocument = gql`
   mutation DeleteResources(

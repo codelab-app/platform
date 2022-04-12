@@ -1,1 +1,1 @@
-export * from './useResourceAtom'
+export * from './useCurrentResource'

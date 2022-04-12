@@ -2414,8 +2414,6 @@ export enum AtomType {
   MuiZoom = 'MuiZoom',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
-  ResourceGraphQL = 'ResourceGraphQL',
-  ResourceREST = 'ResourceREST',
   State = 'State',
   Text = 'Text',
   TextList = 'TextList',
@@ -3180,6 +3178,12 @@ export type CreateMonacoTypesMutationResponse = {
   __typename?: 'CreateMonacoTypesMutationResponse'
   info: CreateInfo
   monacoTypes: Array<MonacoType>
+}
+
+export type CreateOperationsMutationResponse = {
+  __typename?: 'CreateOperationsMutationResponse'
+  info: CreateInfo
+  operations: Array<Operation>
 }
 
 export type CreatePageTypesMutationResponse = {
@@ -6521,6 +6525,7 @@ export type InterfaceType = TypeBase &
     apiOfAtoms: Array<Atom>
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
+    apiOfResource?: Maybe<Scalars['Boolean']>
     descendantTypesIds: Array<Scalars['ID']>
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
@@ -6747,6 +6752,7 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
+  apiOfResource?: InputMaybe<Scalars['Boolean']>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
@@ -6920,6 +6926,7 @@ export type InterfaceTypeRelationInput = {
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
 export type InterfaceTypeSort = {
+  apiOfResource?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
@@ -6931,6 +6938,7 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
+  apiOfResource?: InputMaybe<Scalars['Boolean']>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
@@ -6966,6 +6974,8 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  apiOfResource?: InputMaybe<Scalars['Boolean']>
+  apiOfResource_NOT?: InputMaybe<Scalars['Boolean']>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
@@ -7450,6 +7460,7 @@ export type Mutation = {
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
   createMonacoTypes: CreateMonacoTypesMutationResponse
+  createOperations: CreateOperationsMutationResponse
   createPageTypes: CreatePageTypesMutationResponse
   createPages: CreatePagesMutationResponse
   createPrimitiveTypes: CreatePrimitiveTypesMutationResponse
@@ -7480,6 +7491,7 @@ export type Mutation = {
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
   deleteMonacoTypes: DeleteInfo
+  deleteOperations: DeleteInfo
   deletePageTypes: DeleteInfo
   deletePages: DeleteInfo
   deletePrimitiveTypes: DeleteInfo
@@ -7512,6 +7524,7 @@ export type Mutation = {
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
   updateMonacoTypes: UpdateMonacoTypesMutationResponse
+  updateOperations: UpdateOperationsMutationResponse
   updatePageTypes: UpdatePageTypesMutationResponse
   updatePages: UpdatePagesMutationResponse
   updatePrimitiveTypes: UpdatePrimitiveTypesMutationResponse
@@ -7586,6 +7599,10 @@ export type MutationCreateLambdaTypesArgs = {
 
 export type MutationCreateMonacoTypesArgs = {
   input: Array<MonacoTypeCreateInput>
+}
+
+export type MutationCreateOperationsArgs = {
+  input: Array<OperationCreateInput>
 }
 
 export type MutationCreatePageTypesArgs = {
@@ -7721,6 +7738,11 @@ export type MutationDeleteLambdaTypesArgs = {
 export type MutationDeleteMonacoTypesArgs = {
   delete?: InputMaybe<MonacoTypeDeleteInput>
   where?: InputMaybe<MonacoTypeWhere>
+}
+
+export type MutationDeleteOperationsArgs = {
+  delete?: InputMaybe<OperationDeleteInput>
+  where?: InputMaybe<OperationWhere>
 }
 
 export type MutationDeletePageTypesArgs = {
@@ -7942,6 +7964,16 @@ export type MutationUpdateMonacoTypesArgs = {
   disconnect?: InputMaybe<MonacoTypeDisconnectInput>
   update?: InputMaybe<MonacoTypeUpdateInput>
   where?: InputMaybe<MonacoTypeWhere>
+}
+
+export type MutationUpdateOperationsArgs = {
+  connect?: InputMaybe<OperationConnectInput>
+  connectOrCreate?: InputMaybe<OperationConnectOrCreateInput>
+  create?: InputMaybe<OperationRelationInput>
+  delete?: InputMaybe<OperationDeleteInput>
+  disconnect?: InputMaybe<OperationDisconnectInput>
+  update?: InputMaybe<OperationUpdateInput>
+  where?: InputMaybe<OperationWhere>
 }
 
 export type MutationUpdatePageTypesArgs = {
@@ -13081,6 +13113,12 @@ export type UpdateMonacoTypesMutationResponse = {
   __typename?: 'UpdateMonacoTypesMutationResponse'
   info: UpdateInfo
   monacoTypes: Array<MonacoType>
+}
+
+export type UpdateOperationsMutationResponse = {
+  __typename?: 'UpdateOperationsMutationResponse'
+  info: UpdateInfo
+  operations: Array<Operation>
 }
 
 export type UpdatePageTypesMutationResponse = {
