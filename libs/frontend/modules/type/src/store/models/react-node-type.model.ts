@@ -1,10 +1,11 @@
 import {
   IReactNodeType,
+  IReactNodeTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { ReactNodeTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -13,7 +14,7 @@ const fromFragment = ({
   typeKind,
   name,
   owner,
-}: ReactNodeTypeFragment): ReactNodeType =>
+}: IReactNodeTypeDTO): ReactNodeType =>
   new ReactNodeType({
     id,
     typeKind,
@@ -30,7 +31,7 @@ export class ReactNodeType
   implements IReactNodeType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

@@ -1,6 +1,5 @@
-import { IPage } from '@codelab/shared/abstract/core'
+import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { PageFragment } from '../graphql/page.fragment.graphql.gen'
 
 @model('codelab/Page')
 export class Page
@@ -18,7 +17,7 @@ export class Page
     return this.id
   }
 
-  static fromFragment(page: PageFragment) {
+  static fromFragment(page: IPageDTO) {
     return new Page({
       id: page.id,
       name: page.name,

@@ -1,7 +1,13 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Component, componentRef } from '@codelab/frontend/modules/component'
-import { IPropData, IPropDataByElementId } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IElementDTO,
+  IHook,
+  IPropData,
+  IPropDataByElementId,
+} from '@codelab/shared/abstract/core'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { DataNode } from 'antd/lib/tree'
@@ -18,8 +24,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { ElementFragment } from '../graphql/element.fragment.graphql.gen'
-import { ElementProps } from './element-props.model'
+import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
 type TransformFn = (props: IPropData) => IPropData
@@ -44,13 +49,13 @@ export const elementFromFragment = ({
   renderIfPropKey,
   renderForEachPropKey,
   parentElementConnection,
-}: Omit<ElementFragment, '__typename'>) =>
+}: Omit<IElementDTO, '__typename'>) =>
   new Element({
     id,
     name,
     css,
     atom: atom ? atomRef(atom.id) : null,
-    props: props ? ElementProps.fromFragment(props) : null,
+    props: props ? Prop.fromFragment(props) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -67,27 +72,31 @@ export const elementFromFragment = ({
   })
 
 @model('codelab/Element')
-export class Element extends Model({
-  id: idProp.withSetter(),
+export class Element
+  extends Model({
+    id: idProp.withSetter(),
 
-  children: prop(() => objectMap<Element>()),
-  orderInParent: prop<Nullable<number>>(null).withSetter(),
+    children: prop(() => objectMap<Element>()),
+    orderInParent: prop<Nullable<number>>(null).withSetter(),
 
-  name: prop<Nullish<string>>(() => null).withSetter(),
-  css: prop<Nullish<string>>(() => null).withSetter(),
-  atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
-  props: prop<Nullish<ElementProps>>(() => null),
-  propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
-  renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
-  renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
-  propMapBindings: prop(() => objectMap<PropMapBinding>()),
+    name: prop<Nullish<string>>(() => null).withSetter(),
+    css: prop<Nullish<string>>(() => null).withSetter(),
+    atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
+    props: prop<Nullish<Prop>>(() => null),
+    propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
+    renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
+    renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
+    propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
-  // component which has this element as rootElement
-  component: prop<Nullish<Ref<Component>>>().withSetter(),
+    // component which has this element as rootElement
+    component: prop<Nullish<Ref<Component>>>().withSetter(),
 
-  // Marks the element as an instance of a specific component
-  instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
-}) {
+    // Marks the element as an instance of a specific component
+    instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
+    hooks: prop<Array<IHook>>(() => []),
+  })
+  implements IElement
+{
   @computed
   get childrenSorted(): Array<Element> {
     return [...this.children.values()].sort(compareOrder)
@@ -329,7 +338,7 @@ export class Element extends Model({
     renderForEachPropKey,
     parentElementConnection,
     parentElement,
-  }: Omit<ElementFragment, '__typename'>) {
+  }: Omit<IElementDTO, '__typename'>) {
     this.id = id
     this.name = name
     this.css = css
@@ -338,7 +347,7 @@ export class Element extends Model({
     this.renderForEachPropKey = renderForEachPropKey
     this.atom = atom ? atomRef(atom.id) : null
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
-    this.props = props ? new ElementProps({ id: props.id }) : null
+    this.props = props ? new Prop({ id: props.id }) : null
 
     if (props) {
       this.props?.updateFromFragment(props)

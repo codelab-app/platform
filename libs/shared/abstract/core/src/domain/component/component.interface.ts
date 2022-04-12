@@ -1,5 +1,8 @@
 export interface IComponent {
+  id: string
   name: string
+  rootElementId: string
+  ownerId: string
 }
 
 // export const ComponentSchema = z.object({

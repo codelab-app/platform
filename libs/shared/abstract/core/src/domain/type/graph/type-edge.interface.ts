@@ -1,16 +1,7 @@
+import { IEdge } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { z } from 'zod'
-import { EdgeSchema } from '../../graph'
 import type { IAnyType } from '../types/type.interface'
-
-const FieldDataSchema = z.object({
-  name: z.string().optional().nullable(),
-  key: z.string(),
-  description: z.string().optional().nullable(),
-})
-
-export const FieldSchema = z.intersection(EdgeSchema, FieldDataSchema)
 
 /**
  * Type edge can be:
@@ -18,7 +9,7 @@ export const FieldSchema = z.intersection(EdgeSchema, FieldDataSchema)
  * - Array -> Array Item Type relation - IEdge
  * - Union -> Union Item Type relation - IEdge
  */
-export const TypeEdgeSchema = z.union([FieldSchema, EdgeSchema])
+export type ITypeEdge = IField | IEdge
 
 export interface IField {
   id: string
@@ -27,5 +18,3 @@ export interface IField {
   key: string
   type: Ref<IAnyType>
 }
-
-export type ITypeEdge = z.infer<typeof TypeEdgeSchema>

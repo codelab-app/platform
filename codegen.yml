@@ -6,7 +6,7 @@ hooks:
 
 # If you're in the bind of not being able to run the app because of a codegen error
 # but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
-#schema: schema.api.graphql
+# schema: schema.api.graphql
 schema: http://127.0.0.1:3000/api/graphql
 
 config:
@@ -44,6 +44,8 @@ generates:
     presetConfig:
       extension: .graphql.gen.ts
       baseTypesPath: ~@codelab/shared/abstract/codegen
+      # This forces us to export fragment types, we want to export our own DTO naming instead
+      # importAllFragmentsFrom: ~@codelab/shared/abstract/core
     plugins:
       - typescript-operations
       - typescript-graphql-request

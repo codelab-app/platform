@@ -1,7 +1,6 @@
-import { IApp } from '@codelab/shared/abstract/core'
+import { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import { IIdentifiable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { AppFragment } from '../graphql/app.fragment.graphql.gen'
 
 @model('codelab/App')
 export class App
@@ -19,7 +18,7 @@ export class App
     return this.id
   }
 
-  static fromFragment(app: AppFragment) {
+  static fromFragment(app: IAppDTO) {
     return new App({
       id: app.id,
       name: app.name,

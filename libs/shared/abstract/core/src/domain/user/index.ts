@@ -1,4 +1,5 @@
 export * from './jwt.interface'
 export * from './role.enum'
 export * from './roles'
+export * from './user.fragment.graphql.gen'
 export * from './user.interface'

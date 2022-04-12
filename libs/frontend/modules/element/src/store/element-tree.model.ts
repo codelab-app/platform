@@ -1,8 +1,11 @@
-import { AtomFragment, getAtomService } from '@codelab/frontend/modules/atom'
+import { getAtomService } from '@codelab/frontend/modules/atom'
+import { getComponentService } from '@codelab/frontend/modules/component'
 import {
-  ComponentFragment,
-  getComponentService,
-} from '@codelab/frontend/modules/component'
+  IComponentDTO,
+  IElementDTO,
+  IElementGraphDTO,
+  isAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -16,14 +19,10 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  ElementFragment,
-  ElementGraphFragment,
-} from '../graphql/element.fragment.graphql.gen'
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
 
-const fromFragment = (fragment: ElementGraphFragment, rootId: string) => {
+const fromFragment = (fragment: IElementGraphDTO, rootId: string) => {
   const tree = new ElementTree({})
 
   tree.updateFromFragment(fragment, rootId)
@@ -78,9 +77,9 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(elementFragments: Array<ElementFragment>, rootId?: string) {
-    this.ensureAllAtomsAreAdded(elementFragments)
-    this.ensureAllComponentsAreAdded(elementFragments)
+  addOrUpdateAll(elementFragments: Array<IElementDTO>, rootId?: string) {
+    this.updateAtomsCache(elementFragments)
+    this.updateComponentsCache(elementFragments)
 
     // Create all elements first. Keep them in a temp map. Then after all are created, assign parent/children
     const elements = new Map<string, Element>()
@@ -185,7 +184,7 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  updateFromFragment({ vertices }: ElementGraphFragment, rootId: string) {
+  updateFromFragment({ vertices }: IElementGraphDTO, rootId: string) {
     return this.addOrUpdateAll(vertices, rootId)
   }
 
@@ -202,27 +201,24 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  private ensureAllAtomsAreAdded(elements: Array<ElementFragment>) {
+  private updateAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
-
-    const allAtoms = elements
-      .map((v) => v.atom)
-      .filter(Boolean) as Array<AtomFragment>
+    const allAtoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
     atomService.addOrUpdateAll(allAtoms)
   }
 
   @modelAction
-  private ensureAllComponentsAreAdded(elements: Array<ElementFragment>) {
+  private updateComponentsCache(elements: Array<IElementDTO>) {
     // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
     const componentService = getComponentService(this)
 
     const allComponents = elements
       .map((v) => v.component)
-      .filter(Boolean) as Array<ComponentFragment>
+      .filter(Boolean) as Array<IComponentDTO>
 
-    componentService.addOrUpdateAll(allComponents)
+    componentService.updateCaches(allComponents)
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

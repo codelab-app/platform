@@ -1,16 +1,17 @@
 import {
   IAnyType,
   IArrayType,
+  IArrayTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { ArrayTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
-const fromFragment = (fragment: ArrayTypeFragment): ArrayType => {
+const fromFragment = (fragment: IArrayTypeDTO): ArrayType => {
   const itemId = fragment.itemType.id
   const itemType = typeRef(itemId)
 
@@ -38,7 +39,7 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment) {
+  updateFromFragment(fragment: ITypeDTO) {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.ArrayType) {

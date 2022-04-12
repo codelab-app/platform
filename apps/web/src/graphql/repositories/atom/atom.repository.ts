@@ -1,4 +1,4 @@
-import { AtomFragment } from '@codelab/frontend/modules/atom'
+import { IAtomDTO } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
@@ -15,13 +15,13 @@ import {
 import exportAtom from './exportAtom.cypher'
 
 export const atomRepository = {
-  exportAtom: (txn: RxTransaction): Observable<Maybe<Array<AtomFragment>>> =>
+  exportAtom: (txn: RxTransaction): Observable<Maybe<Array<IAtomDTO>>> =>
     txn
       .run(exportAtom)
       .records()
       .pipe(
         first(() => true, undefined),
-        map((r) => r?.get('graph') as Maybe<Array<AtomFragment>>),
+        map((r) => r?.get('graph') as Maybe<Array<IAtomDTO>>),
       ),
 
   importAtomFromJson: async (

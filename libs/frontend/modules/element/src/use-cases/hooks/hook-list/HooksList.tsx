@@ -1,7 +1,11 @@
+import { IElement } from '@codelab/shared/abstract/core'
 import { List } from 'antd'
 import React from 'react'
 import { HooksListItem } from './HooksListItem'
-import { HooksListProps } from './types'
+
+export type HooksListProps = {
+  element: IElement
+}
 
 export const HooksList = ({ element }: HooksListProps) => {
   return (

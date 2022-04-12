@@ -1,11 +1,12 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IPrimitiveType,
+  IPrimitiveTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { PrimitiveTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -15,7 +16,7 @@ const fromFragment = ({
   name,
   primitiveKind,
   owner,
-}: PrimitiveTypeFragment): PrimitiveType =>
+}: IPrimitiveTypeDTO): PrimitiveType =>
   new PrimitiveType({
     id,
     typeKind,
@@ -35,7 +36,7 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.PrimitiveType) {

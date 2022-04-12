@@ -2,6 +2,7 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAtom,
+  IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
   IUpdateAtomDTO,
@@ -23,7 +24,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
@@ -92,7 +92,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdate(atom: AtomFragment) {
+  addOrUpdate(atom: IAtomDTO) {
     let atomModel = this.atom(atom.id)
 
     if (atomModel) {
@@ -106,7 +106,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<AtomFragment>) {
+  addOrUpdateAll(atoms: Array<IAtomDTO>) {
     return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
@@ -227,8 +227,8 @@ export class AtomService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const atomServiceContext = createContext<AtomService>()
 
-export const getAtomService = (thisModel: any) => {
-  const atomStore = atomServiceContext.get(thisModel)
+export const getAtomService = (self: any) => {
+  const atomStore = atomServiceContext.get(self)
 
   if (!atomStore) {
     throw new Error('atomServiceContext is not defined')

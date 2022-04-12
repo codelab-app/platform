@@ -214,8 +214,8 @@ export class TypeImportService extends Model({}) {
 
 export const typeImportServiceContext = createContext<TypeImportService>()
 
-export const getTypeImportService = (thisModel: object) => {
-  const typeService = typeImportServiceContext.get(thisModel)
+export const getTypeImportService = (self: object) => {
+  const typeService = typeImportServiceContext.get(self)
 
   if (!typeService) {
     throw new Error('TypeImportService is not defined')

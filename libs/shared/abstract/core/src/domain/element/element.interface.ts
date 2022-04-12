@@ -1,3 +1,6 @@
+import { Nullish } from '@codelab/shared/abstract/types'
+import { Ref } from 'mobx-keystone'
+import { IAtom } from '../atom'
 import { IHook } from '../hook'
 import { IProp } from '../prop'
 // import { AtomSchema } from '../atom'
@@ -48,6 +51,7 @@ import { IProp } from '../prop'
 
 export interface IElement {
   id: string
-  props?: IProp
+  props?: Nullish<IProp>
+  atom: Nullish<Ref<IAtom>>
   hooks: Array<IHook>
 }

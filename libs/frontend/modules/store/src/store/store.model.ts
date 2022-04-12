@@ -1,5 +1,5 @@
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData, IStoreDTO } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
@@ -14,7 +14,6 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
 import { Action, actionRef } from './action.model'
 
 @model('codelab/Store')
@@ -70,7 +69,7 @@ export class Store extends Model(() => ({
     return makeAutoObservable(merge({}, storeState, storeActions, childStores))
   }
 
-  static fromFragment(store: StoreFragment): Store {
+  static fromFragment(store: IStoreDTO): Store {
     return new Store({
       id: store.id,
       children: store.children.map((x) => storeRef(x.id)),

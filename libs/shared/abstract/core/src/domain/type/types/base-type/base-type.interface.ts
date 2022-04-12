@@ -1,7 +1,4 @@
-import type {
-  ICreateTypeInput,
-  IUpdateTypeArgs,
-} from '../../type.dto.interface'
+import { ICreateTypeInput, IUpdateTypeArgs } from '../../type.input.interface'
 import type { TypeKind } from './type-kind.enum'
 
 export interface IBaseType {

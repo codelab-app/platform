@@ -177,7 +177,7 @@ export class TagService extends Model({
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
 
     const tagWithDescendants = tagGraphs.find(
-      (tagGraph) => tagGraph.id == tagId,
+      (tagGraph) => tagGraph.id === tagId,
     )
 
     return tagWithDescendants?.descendants

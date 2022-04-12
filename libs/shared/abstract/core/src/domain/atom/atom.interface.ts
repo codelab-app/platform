@@ -1,7 +1,8 @@
-import { IEntity } from '@codelab/shared/abstract/types'
+import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ITag } from '../tag'
 import { IInterfaceType } from '../type'
+import { IAtomDTO } from './atom.dto.interface'
 import { AtomType } from './atom-type.enum'
 
 export interface IAtom extends IEntity {
@@ -12,11 +13,6 @@ export interface IAtom extends IEntity {
   updateFromFragment(atom: any): void
 }
 
-// export const AtomSchema = z.object({
-//   id: z.string().default(''),
-//   type: z.nativeEnum(AtomType),
-//   name: z.string(),
-//   api: z.object({ id: z.string() }),
-// })
-
-// export type IAtom = z.infer<typeof AtomSchema>
+export const isAtomDTO = (atom: Nullish<IAtomDTO>): atom is IAtomDTO => {
+  return atom !== undefined && atom !== null
+}

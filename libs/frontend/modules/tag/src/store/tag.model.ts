@@ -1,7 +1,6 @@
-import { ITag } from '@codelab/shared/abstract/core'
+import { ITag, ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { TagFragment } from '../graphql/tag.fragment.graphql.gen'
 import { INode } from './tree.service'
 
 @model('codelab/Tag')
@@ -18,7 +17,7 @@ export class Tag
     return this.name
   }
 
-  static fromFragment(tag: TagFragment) {
+  static fromFragment(tag: ITagDTO) {
     return new Tag({
       id: tag.id,
       name: tag.name,

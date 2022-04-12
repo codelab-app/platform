@@ -1,11 +1,12 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateActionDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useCurrentStore } from '../../../hooks'
 import { WithActionService, WithStoreService } from '../../../store'
-import { CreateActionInput, createActionSchema } from './createActionSchema'
+import { createActionSchema } from './createActionSchema'
 
 type CreateActionModalProp = WithActionService & WithStoreService
 
@@ -14,7 +15,7 @@ export const CreateActionModal = observer<CreateActionModalProp>(
     const { store } = useCurrentStore(storeService)
     const closeModal = () => actionService.createModal.close()
 
-    const onSubmit = (input: CreateActionInput) =>
+    const onSubmit = (input: ICreateActionDTO) =>
       actionService.createAction(input, store?.id)
 
     const onSubmitError = createNotificationHandler({

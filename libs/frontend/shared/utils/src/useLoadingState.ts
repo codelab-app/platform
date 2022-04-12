@@ -37,20 +37,20 @@ export const useLoadingState = <TArgs extends Array<any>, TOut>(
   })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const notifyFactoryCallbacked = useMemo(
+  const notifyFactoryCallback = useMemo(
     () => options?.notifyFactory || defaultNotifyFactory,
     [options?.notifyFactory],
   )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const executorCallbacked = useMemo(() => executor, [])
+  const executorCallback = useMemo(() => executor, [])
 
   const statefulExecutor = useCallback(
     async (...args: TArgs) => {
       setState({ isLoading: true, error: null, data: null })
 
       try {
-        const data = await executorCallbacked(...args)
+        const data = await executorCallback(...args)
         setState({ isLoading: false, error: null, data })
 
         return data
@@ -63,14 +63,14 @@ export const useLoadingState = <TArgs extends Array<any>, TOut>(
 
         console.error(e)
 
-        if (notifyFactoryCallbacked) {
-          notify(notifyFactoryCallbacked(e))
+        if (notifyFactoryCallback) {
+          notify(notifyFactoryCallback(e))
         }
 
         return null
       }
     },
-    [executorCallbacked, notifyFactoryCallbacked],
+    [executorCallback, notifyFactoryCallback],
   )
 
   useEffect(() => {

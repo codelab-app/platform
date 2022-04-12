@@ -1,12 +1,8 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
+import { ICreateActionDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateActionInput = {
-  name: string
-  body: string
-}
-
-export const createActionSchema: JSONSchemaType<CreateActionInput> = {
+export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',
   properties: {

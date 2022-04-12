@@ -1,19 +1,15 @@
 import {
   IAppType,
+  IAppTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { AppTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
-  id,
-  typeKind,
-  name,
-  owner,
-}: AppTypeFragment): AppType => {
+const fromFragment = ({ id, typeKind, name, owner }: IAppTypeDTO): AppType => {
   return new AppType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
 }
 
@@ -26,7 +22,7 @@ export class AppType
   implements IAppType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

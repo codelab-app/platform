@@ -1,6 +1,6 @@
 import { Tag } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType, IAtom, ITag } from '@codelab/shared/abstract/core'
+import { AtomType, IAtom, IAtomDTO, ITag } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,
@@ -11,9 +11,8 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
-const fromFragment = (atom: AtomFragment) => {
+const fromFragment = (atom: IAtomDTO) => {
   return new Atom({
     id: atom.id,
     name: atom.name,
@@ -37,7 +36,7 @@ export class Atom
   implements IAtom
 {
   @modelAction
-  updateFromFragment(atom: AtomFragment) {
+  updateFromFragment(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>

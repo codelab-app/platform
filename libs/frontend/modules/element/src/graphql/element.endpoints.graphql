@@ -1,8 +1,14 @@
-query GetElementsGraph($input: ElementGraphInput!) {
+query GetElementGraph($input: ElementGraphInput!) {
   elementGraph(input: $input) {
     ...ElementGraph
   }
 }
+
+# query GetElementGraphV2($input: ElementGraphInput!) {
+#   elementGraph(input: $input) {
+#     ...ElementGraph
+#   }
+# }
 
 mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {

@@ -1,10 +1,11 @@
 import {
   IRenderPropsType,
+  IRenderPropsTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { RenderPropsTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -13,7 +14,7 @@ const fromFragment = ({
   typeKind,
   name,
   owner,
-}: RenderPropsTypeFragment): RenderPropsType =>
+}: IRenderPropsTypeDTO): RenderPropsType =>
   new RenderPropsType({
     id,
     typeKind,
@@ -30,7 +31,7 @@ export class RenderPropsType
   implements IRenderPropsType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

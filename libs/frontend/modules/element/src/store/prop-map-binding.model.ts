@@ -1,9 +1,8 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData, IPropMapBindingDTO } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { PropMapBindingFragment } from '../graphql/element.fragment.graphql.gen'
 import type { Element } from './element.model'
 import { elementRef } from './element.ref'
 
@@ -15,7 +14,7 @@ export class PropMapBinding extends Model({
   targetKey: prop<string>(), // '*' spreads all props
 }) {
   @modelAction
-  public updateFromFragment(fragment: PropMapBindingFragment) {
+  public updateFromFragment(fragment: IPropMapBindingDTO) {
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey
@@ -44,7 +43,7 @@ export class PropMapBinding extends Model({
     return newProps
   }
 
-  public static fromFragment(fragment: PropMapBindingFragment) {
+  public static fromFragment(fragment: IPropMapBindingDTO) {
     return new PropMapBinding({
       id: fragment.id,
       targetElement: fragment.targetElement

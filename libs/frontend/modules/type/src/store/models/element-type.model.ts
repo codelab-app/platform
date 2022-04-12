@@ -1,11 +1,12 @@
 import {
   ElementTypeKind,
   IElementType,
+  IElementTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { ElementTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -15,7 +16,7 @@ const fromFragment = ({
   name,
   elementKind,
   owner,
-}: ElementTypeFragment): ElementType =>
+}: IElementTypeDTO): ElementType =>
   new ElementType({
     id,
     typeKind,
@@ -35,7 +36,7 @@ export class ElementType
   implements IElementType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.ElementType) {

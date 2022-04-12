@@ -3,19 +3,19 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   ElementGraphFragment,
   ElementFragment,
-} from './element.fragment.graphql.gen'
+} from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
   ElementGraphFragmentDoc,
   ElementFragmentDoc,
-} from './element.fragment.graphql.gen'
-export type GetElementsGraphQueryVariables = Types.Exact<{
+} from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
+export type GetElementGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>
 
-export type GetElementsGraphQuery = { elementGraph: ElementGraphFragment }
+export type GetElementGraphQuery = { elementGraph: ElementGraphFragment }
 
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
@@ -59,8 +59,8 @@ export type GetElementsQueryVariables = Types.Exact<{
 
 export type GetElementsQuery = { elements: Array<ElementFragment> }
 
-export const GetElementsGraphDocument = gql`
-  query GetElementsGraph($input: ElementGraphInput!) {
+export const GetElementGraphDocument = gql`
+  query GetElementGraph($input: ElementGraphInput!) {
     elementGraph(input: $input) {
       ...ElementGraph
     }
@@ -134,18 +134,18 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetElementsGraph(
-      variables: GetElementsGraphQueryVariables,
+    GetElementGraph(
+      variables: GetElementGraphQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetElementsGraphQuery> {
+    ): Promise<GetElementGraphQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetElementsGraphQuery>(
-            GetElementsGraphDocument,
+          client.request<GetElementGraphQuery>(
+            GetElementGraphDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetElementsGraph',
+        'GetElementGraph',
         'query',
       )
     },

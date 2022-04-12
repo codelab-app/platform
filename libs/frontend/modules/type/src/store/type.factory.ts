@@ -1,5 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { TypeFragment } from '../graphql'
+import { ITypeDTO, TypeKind } from '@codelab/shared/abstract/core'
 import {
   AppType,
   ArrayType,
@@ -57,6 +56,6 @@ export const typeClassFactory = (typeKind: TypeKind) => {
   throw new Error(`Unknown type kind: ${typeKind}`)
 }
 
-export const typeFactory = (type: TypeFragment) => {
+export const typeFactory = (type: ITypeDTO) => {
   return typeClassFactory(type.typeKind).fromFragment(type as any)
 }

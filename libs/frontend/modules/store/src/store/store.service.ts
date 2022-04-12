@@ -1,6 +1,10 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
-import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
+import {
+  ICreateStoreDTO,
+  IStoreDTO,
+  IUpdateStoreDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -14,7 +18,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
 import { storeRef } from '.'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
@@ -45,13 +48,13 @@ export class StoreService extends Model({
   }
 
   @modelAction
-  async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
+  async ensureAllStateInterfacesAdded(state: Array<IStoreDTO['state']>) {
     // loading state interface within store fragment is hard so we load it separately
     return await getTypeService(this).getAll(state.map((x) => x.id))
   }
 
   @modelAction
-  ensureAllActionsAdded(actions: StoreFragment['actions']) {
+  ensureAllActionsAdded(actions: IStoreDTO['actions']) {
     getActionService(this).addOrUpdateAll(actions)
   }
 

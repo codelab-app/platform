@@ -1,19 +1,15 @@
 import {
   IPageType,
+  IPageTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { PageTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
-  id,
-  typeKind,
-  name,
-  owner,
-}: PageTypeFragment): PageType =>
+const fromFragment = ({ id, typeKind, name, owner }: IPageTypeDTO): PageType =>
   new PageType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
 
 @model('codelab/PageType')
@@ -25,7 +21,7 @@ export class PageType
   implements IPageType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

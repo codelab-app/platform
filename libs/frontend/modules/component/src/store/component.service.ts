@@ -1,6 +1,7 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IComponentDTO,
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
@@ -19,10 +20,9 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/component.fragment.graphql.gen'
 import { mapCreateInput } from './api.utils'
-import { Component } from './component'
 import { componentApi } from './component.api'
+import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
 export const componentRef = rootRef<Component>('ComponentRef', {
@@ -160,25 +160,21 @@ export class ComponentService extends Model({
   })
 
   @modelAction
-  addComponent(component: Component) {
-    this.components.set(component.id, component)
-  }
-
-  @modelAction
-  addOrUpdate(componentFragment: ComponentFragment) {
+  updateCache(componentFragment: IComponentDTO) {
     const existing = this.component(componentFragment.id)
 
     if (existing) {
       existing.updateFromFragment(componentFragment)
     } else {
-      this.addComponent(Component.fromFragment(componentFragment))
+      const component = Component.fromFragment(componentFragment)
+      this.components.set(component.id, component)
     }
   }
 
   @modelAction
-  addOrUpdateAll(components: Array<ComponentFragment>) {
+  updateCaches(components: Array<IComponentDTO>) {
     for (const component of components) {
-      this.addOrUpdate(component)
+      this.updateCache(component)
     }
   }
 }
@@ -186,8 +182,8 @@ export class ComponentService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext = createContext<ComponentService>()
 
-export const getComponentService = (thisModel: any) => {
-  const componentService = componentServiceContext.get(thisModel)
+export const getComponentService = (self: any) => {
+  const componentService = componentServiceContext.get(self)
 
   if (!componentService) {
     throw new Error('componentServiceContext is not set')

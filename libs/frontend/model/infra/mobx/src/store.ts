@@ -14,7 +14,10 @@ import {
   ComponentService,
   componentServiceContext,
 } from '@codelab/frontend/modules/component'
-import { ElementService } from '@codelab/frontend/modules/element'
+import {
+  ElementService,
+  elementServiceContext,
+} from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
 import {
   ActionService,
@@ -73,6 +76,7 @@ export class RootStore extends Model({
     renderServiceContext.set(this, this.renderService)
     actionServiceContext.set(this, this.actionService)
     typeImportServiceContext.set(this, this.typeImportService)
+    elementServiceContext.set(this, this.elementService)
   }
 }
 

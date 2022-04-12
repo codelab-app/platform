@@ -1,8 +1,12 @@
+import { IHook } from '@codelab/shared/abstract/core'
 import { List } from 'antd'
 import tw from 'twin.macro'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
 import { HooksListItemDescription } from './HooksListItemDescription'
-import { HooksListItemProps } from './types'
+
+export type HooksListItemProps = {
+  hook: IHook
+}
 
 export const HooksListItem = ({ hook }: HooksListItemProps) => {
   const actions = [

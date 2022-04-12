@@ -2,7 +2,7 @@ import { IElement } from '../element/element.interface'
 
 export interface IProp {
   id: string
-  data: string
+  data: IPropData
 }
 
 export interface IPropData {

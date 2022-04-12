@@ -1,10 +1,11 @@
 import {
   ILambdaType,
+  ILambdaTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { LambdaTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -13,7 +14,7 @@ const fromFragment = ({
   typeKind,
   name,
   owner,
-}: LambdaTypeFragment): LambdaType =>
+}: ILambdaTypeDTO): LambdaType =>
   new LambdaType({
     id,
     typeKind,
@@ -30,7 +31,7 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

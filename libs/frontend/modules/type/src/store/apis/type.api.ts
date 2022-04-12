@@ -4,6 +4,7 @@ import {
   ICreateTypeInput,
   IDeleteTypeInput,
   IDisconnectTypeInput,
+  ITypeDTO,
   ITypeWhere,
   IUpdateTypeInput,
   TypeKind,
@@ -12,7 +13,6 @@ import { UnboxArray } from '@codelab/shared/abstract/types'
 import { flatten } from 'lodash'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
-import { TypeFragment } from '../../graphql/fragments/type.fragment.graphql.gen'
 import {
   getSdk as getGetSdk,
   GetTypesQuery,
@@ -32,7 +32,7 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   TypeKind,
-  (input: ICreateTypeInput) => Promise<Array<TypeFragment>>
+  (input: ICreateTypeInput) => Promise<Array<ITypeDTO>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -97,7 +97,7 @@ type UpdateTypesRecord = Record<
     delete?: IDeleteTypeInput
     disconnect?: IDisconnectTypeInput
     connect?: IConnectTypeInput
-  }) => Promise<Array<TypeFragment>>
+  }) => Promise<Array<ITypeDTO>>
 >
 
 export const updateTypeApi: UpdateTypesRecord = {

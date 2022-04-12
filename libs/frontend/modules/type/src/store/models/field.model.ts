@@ -1,4 +1,9 @@
-import { IAnyType, IField } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IField,
+  IInterfaceTypeEdgeDTO,
+  IInterfaceTypeFieldEdgeDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -10,10 +15,6 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  InterfaceTypeEdgeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from '../../graphql'
 import { typeRef } from './union-type.model'
 
 @model('codelab/Field')
@@ -33,12 +34,12 @@ export class Field
 
   @modelAction
   updateFromFragment(
-    fragment: InterfaceTypeEdgeFragment | InterfaceTypeFieldEdgeFragment,
+    fragment: IInterfaceTypeEdgeDTO | IInterfaceTypeFieldEdgeDTO,
     interfaceId: string,
   ) {
     const target =
-      (fragment as InterfaceTypeEdgeFragment).target ||
-      (fragment as InterfaceTypeFieldEdgeFragment).node?.id
+      (fragment as IInterfaceTypeEdgeDTO).target ||
+      (fragment as IInterfaceTypeFieldEdgeDTO).node?.id
 
     this.id = Field.fieldId(interfaceId, fragment.key)
     this.name = fragment.name

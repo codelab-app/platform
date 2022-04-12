@@ -1,17 +1,15 @@
-Match (element:Element {id: $rootId})
-
-// For root Element, we get all descendants
+MATCH (rootNode:Element {id: $rootId})
 CALL apoc.path.subgraphAll(
-  element,
+  rootNode,
   { relationshipFilter: 'PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>|COMPONENT_ROOT<' }
-) YIELD nodes AS descendants
+) YIELD nodes, relationships
 
-// Get isRoot by checking if parent exists
-// CALL {
-//   WITH element
-//   RETURN NOT exists( (:Tag)-[:CHILDREN]->(tag:Tag { id: tag.id }) ) as has_no_parent
-// }
-
-// Need to filter out root node by getting disjunction
-RETURN element {.*},
-  apoc.coll.disjunction([node IN descendants | node.id], [element.id])
+RETURN [
+  rel in relationships |
+  {
+    source: startNode(rel).id,
+    target: endNode(rel).id,
+    order: properties(rel).order,
+    type: type(rel)
+  }
+] as edges

@@ -1,3 +1,5 @@
+import { FieldFragment } from './fragments'
+
 export interface ICreateFieldDTO {
   key: string
   name: string | null
@@ -6,3 +8,5 @@ export interface ICreateFieldDTO {
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO
+
+export type IFieldDTO = FieldFragment

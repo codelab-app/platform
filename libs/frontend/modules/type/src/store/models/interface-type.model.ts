@@ -1,6 +1,10 @@
 import {
   ICreateFieldDTO,
   IInterfaceType,
+  IInterfaceTypeDTO,
+  IInterfaceTypeEdgeDTO,
+  IInterfaceTypeFieldEdgeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -12,12 +16,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import {
-  InterfaceTypeEdgeFragment,
-  InterfaceTypeFieldEdgeFragment,
-  InterfaceTypeFragment,
-  TypeFragment,
-} from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
@@ -29,7 +27,7 @@ const fromFragment = ({
   name,
   fieldsConnection,
   owner,
-}: InterfaceTypeFragment): InterfaceType => {
+}: IInterfaceTypeDTO): InterfaceType => {
   const it = new InterfaceType({
     id,
     typeKind,
@@ -71,13 +69,13 @@ export class InterfaceType
     ...fragment
   }:
     | ICreateFieldDTO
-    | InterfaceTypeEdgeFragment
-    | InterfaceTypeFieldEdgeFragment): Field {
+    | IInterfaceTypeEdgeDTO
+    | IInterfaceTypeFieldEdgeDTO): Field {
     this.validateUniqueFieldKey(key)
 
     const target =
-      (fragment as InterfaceTypeEdgeFragment).target ||
-      (fragment as InterfaceTypeFieldEdgeFragment).node?.id ||
+      (fragment as IInterfaceTypeEdgeDTO).target ||
+      (fragment as IInterfaceTypeFieldEdgeDTO).node?.id ||
       (fragment as ICreateFieldDTO).existingTypeId
 
     const field = new Field({
@@ -99,7 +97,7 @@ export class InterfaceType
   }
 
   @modelAction
-  updateFromFragment(fragment: TypeFragment) {
+  updateFromFragment(fragment: ITypeDTO) {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.InterfaceType) {

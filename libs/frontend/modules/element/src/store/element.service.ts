@@ -19,6 +19,7 @@ import {
   model,
   modelClass,
   modelFlow,
+  objectMap,
   prop,
   Ref,
   transaction,
@@ -45,6 +46,7 @@ export interface WithElementService {
 @model('codelab/ElementService')
 export class ElementService extends Model({
   elementTree: prop(() => new ElementTree({})),
+  elements: prop(() => objectMap<Element>()),
 
   createModal: prop(() => new CreateElementModalService({})),
   updateModal: prop(() => new ElementModalService({})),
@@ -57,12 +59,51 @@ export class ElementService extends Model({
   @modelFlow
   getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraph } = yield* _await(
-      elementApi.GetElementsGraph({ input: { rootId } }),
+      elementApi.GetElementGraph({ input: { rootId } }),
     )
 
     this.elementTree.updateFromFragment(elementGraph, rootId)
 
     return this.elementTree
+  })
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: ElementService, ids: Array<string> = []) {
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    return elements.map((element) => {
+      if (this.elements.has(element.id)) {
+        // return throwIfUndefined(this.elements.get(element.id))
+        return element
+      }
+
+      const elementModel = Element.fromFragment(element)
+      this.elements.set(element.id, elementModel)
+
+      // return elementModel
+      return element
+    })
+  })
+
+  @modelFlow
+  @transaction
+  getElementGraph = _async(function* (this: ElementService, rootId: string) {
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({
+        input: {
+          rootId,
+        },
+      }),
+    )
+
+    return elementGraph
   })
 
   @modelFlow

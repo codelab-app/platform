@@ -1,11 +1,12 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IMonacoType,
+  IMonacoTypeDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { MonacoTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -15,7 +16,7 @@ const fromFragment = ({
   name,
   language,
   owner,
-}: MonacoTypeFragment): MonacoType =>
+}: IMonacoTypeDTO): MonacoType =>
   new MonacoType({
     id,
     typeKind,
@@ -35,7 +36,7 @@ export class MonacoType
   implements IMonacoType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.MonacoType) {

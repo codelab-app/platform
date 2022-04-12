@@ -1,6 +1,8 @@
 import {
   IAnyType,
+  ITypeDTO,
   IUnionType,
+  IUnionTypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -13,7 +15,6 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { TypeFragment, UnionTypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -23,7 +24,7 @@ const fromFragment = ({
   name,
   typesOfUnionType,
   owner,
-}: UnionTypeFragment): UnionType =>
+}: IUnionTypeDTO): UnionType =>
   new UnionType({
     id,
     typeKind,
@@ -43,7 +44,7 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.UnionType) {

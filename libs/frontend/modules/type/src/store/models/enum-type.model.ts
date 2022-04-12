@@ -1,5 +1,8 @@
 import {
   IEnumType,
+  IEnumTypeDTO,
+  IEnumTypeValueDTO,
+  ITypeDTO,
   IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -13,15 +16,10 @@ import {
   prop,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import {
-  EnumTypeFragment,
-  EnumTypeValueFragment,
-  TypeFragment,
-} from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragmentValue = (fragment: EnumTypeValueFragment): EnumTypeValue =>
+const fromFragmentValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
   new EnumTypeValue({
     ...fragment,
     name: fragment.name,
@@ -46,7 +44,7 @@ const fromFragmentEnumType = ({
   typeKind,
   name,
   owner,
-}: EnumTypeFragment): EnumType =>
+}: IEnumTypeDTO): EnumType =>
   new EnumType({
     id,
     typeKind,
@@ -66,7 +64,7 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
+  updateFromFragment(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.EnumType) {

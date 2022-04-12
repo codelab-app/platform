@@ -1,4 +1,8 @@
 import { Nullable } from '@codelab/shared/abstract/types'
+import {
+  ElementFragment,
+  ElementGraphFragment,
+} from './element.fragment.graphql.gen'
 
 export interface ICreateElementDTO {
   name?: Nullable<string>
@@ -17,3 +21,10 @@ export type IUpdateElementDTO = {
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
 }
+
+/**
+ * This is the graphql fragment equivalent, used for hydrating object
+ */
+export type IElementDTO = ElementFragment
+
+export type IElementGraphDTO = ElementGraphFragment

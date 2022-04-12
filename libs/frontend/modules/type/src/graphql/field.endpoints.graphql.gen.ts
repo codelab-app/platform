@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { InterfaceTypeEdgeFragment } from './fragments/field.fragment.graphql.gen'
+import { InterfaceTypeEdgeFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { InterfaceTypeEdgeFragmentDoc } from './fragments/field.fragment.graphql.gen'
+import { InterfaceTypeEdgeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>

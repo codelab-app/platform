@@ -129,8 +129,6 @@ const handler: NextApiHandler = async (req, res) => {
     .default('false')
     .asBoolStrict()
 
-  console.log(devGenerateOgmTypes)
-
   if (devGenerateOgmTypes) {
     await generateOgmTypes()
   }

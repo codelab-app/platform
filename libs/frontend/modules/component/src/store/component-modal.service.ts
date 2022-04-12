@@ -1,7 +1,7 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
-import { Component } from './component'
+import { Component } from './component.model'
 
 @model('codelab/ComponentModalService')
 export class ComponentModalService extends ExtendedModel(() => ({

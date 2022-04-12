@@ -2,6 +2,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   IAnyType,
   ICreateFieldDTO,
+  ITypeDTO,
   IUpdateFieldDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -21,7 +22,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { TypeFragment } from '../graphql'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -45,8 +45,8 @@ export type WithTypeService = {
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const typeServiceContext = createContext<TypeService>()
 
-export const getTypeService = (thisModel: object) => {
-  const typeService = typeServiceContext.get(thisModel)
+export const getTypeService = (self: object) => {
+  const typeService = typeServiceContext.get(self)
 
   if (!typeService) {
     throw new Error('TypeService is not defined')
@@ -84,7 +84,7 @@ export class TypeService extends Model({
   }
 
   @modelAction
-  addOrUpdateLocal(fragment: TypeFragment) {
+  addOrUpdateLocal(fragment: ITypeDTO) {
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {

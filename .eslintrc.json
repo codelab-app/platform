@@ -256,36 +256,51 @@
                 "sourceTag": "type:abstract",
                 "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
               },
-              {
-                "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
-              },
+              // {
+              //   "sourceTag": "scope:backend",
+              //   "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              // },
+              // {
+              //   "sourceTag": "layer:domain:frontend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "scope:shared",
+              //     "layer:domain:frontend",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
               {
                 "sourceTag": "scope:e2e",
                 "onlyDependOnLibsWithTags": [
                   "scope:frontend",
-                  "scope:backend",
-                  "scope:shared"
+                  "scope:codegen",
+                  "scope:shared",
+                  "type:abstract"
                 ]
               },
               {
                 "sourceTag": "scope:frontend",
-                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:frontend",
+                  "scope:shared",
+                  "scope:codegen",
+                  "type:abstract"
+                ]
               },
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
-              {
-                "sourceTag": "layer:domain:backend",
-                "onlyDependOnLibsWithTags": [
-                  "layer:domain:backend",
-                  "layer:application:backend",
-                  "scope:shared",
-                  "layer:infra",
-                  "type:abstract"
-                ]
-              },
+              // {
+              //   "sourceTag": "layer:domain:backend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "layer:domain:backend",
+              //     "layer:application:backend",
+              //     "scope:shared",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
               {
                 "sourceTag": "scope:publishable",
                 "onlyDependOnLibsWithTags": ["scope:publishable"]

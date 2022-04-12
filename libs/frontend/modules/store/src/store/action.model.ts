@@ -1,5 +1,5 @@
+import { IActionDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/action.fragment.graphql.gen'
 
 @model('codelab/Action')
 export class Action extends Model({
@@ -8,7 +8,7 @@ export class Action extends Model({
   body: prop<string>(),
   storeId: prop<string>(),
 }) {
-  static fromFragment(action: ActionFragment) {
+  static fromFragment(action: IActionDTO) {
     return new Action({
       body: action.body,
       name: action.name,
