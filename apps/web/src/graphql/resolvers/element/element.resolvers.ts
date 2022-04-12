@@ -3,30 +3,16 @@ import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import {
   MutationDeleteElementsArgs,
-  QueryElementGraphArgs,
+  QueryElementGraphV2Args,
 } from '../../ogm-types.gen'
 import { elementRepository } from '../../repositories'
 
 const driver = getDriver()
 
-export const elementGraph: IFieldResolver<
-  any,
-  any,
-  QueryElementGraphArgs
-> = async (parent, args) => {
-  const session = driver.rxSession()
-
-  const $elementGraph = session.readTransaction((txn) =>
-    elementRepository.getElementGraph(txn, args.input.rootId),
-  )
-
-  return await $elementGraph.toPromise()
-}
-
 export const elementGraphV2: IFieldResolver<
   any,
   any,
-  QueryElementGraphArgs
+  QueryElementGraphV2Args
 > = async (parent, args) => {
   const session = driver.rxSession()
 

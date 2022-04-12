@@ -57,17 +57,6 @@ export class ElementService extends Model({
   deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
 }) {
   @modelFlow
-  getTreeV1 = _async(function* (this: ElementService, rootId: string) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({ input: { rootId } }),
-    )
-
-    this.elementTree.updateFromFragment(elementGraph, rootId)
-
-    return this.elementTree
-  })
-
-  @modelFlow
   getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraphV2 } = yield* _await(
       elementApi.GetElementGraphV2({ input: { rootId } }),
@@ -114,20 +103,6 @@ export class ElementService extends Model({
       // return elementModel
       return element
     })
-  })
-
-  @modelFlow
-  @transaction
-  getElementGraph = _async(function* (this: ElementService, rootId: string) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({
-        input: {
-          rootId,
-        },
-      }),
-    )
-
-    return elementGraph
   })
 
   @modelFlow

@@ -1,9 +1,3 @@
-query GetElementGraph($input: ElementGraphInput!) {
-  elementGraph(input: $input) {
-    ...ElementGraph
-  }
-}
-
 query GetElementGraphV2($input: ElementGraphInput!) {
   elementGraphV2(input: $input) {
     ...ElementGraphV2

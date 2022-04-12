@@ -50,21 +50,6 @@ fragment Element on Element {
   }
 }
 
-fragment ElementEdge on ElementEdge {
-  source
-  target
-  order
-}
-
-fragment ElementGraph on ElementGraph {
-  edges {
-    ...ElementEdge
-  }
-  vertices {
-    ...Element
-  }
-}
-
 fragment ElementGraphV2 on ElementGraphV2 {
   id
   descendants

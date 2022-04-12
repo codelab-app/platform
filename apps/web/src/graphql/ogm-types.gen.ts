@@ -26,7 +26,6 @@ export type Scalars = {
 
 export type Query = {
   __typename?: "Query";
-  elementGraph: ElementGraph;
   elementGraphV2: ElementGraphV2;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection;
@@ -80,10 +79,6 @@ export type Query = {
   tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection;
   tagGraphs: Array<TagGraph>;
   tagGraphsAggregate: TagGraphAggregateSelection;
-  elementEdges: Array<ElementEdge>;
-  elementEdgesAggregate: ElementEdgeAggregateSelection;
-  elementGraphs: Array<ElementGraph>;
-  elementGraphsAggregate: ElementGraphAggregateSelection;
   elementGraphV2s: Array<ElementGraphV2>;
   elementGraphV2sAggregate: ElementGraphV2AggregateSelection;
   elements: Array<Element>;
@@ -112,10 +107,6 @@ export type Query = {
    * This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
    */
   getTypeReferences?: Maybe<Array<TypeReference>>;
-};
-
-export type QueryElementGraphArgs = {
-  input: ElementGraphInput;
 };
 
 export type QueryElementGraphV2Args = {
@@ -351,24 +342,6 @@ export type QueryTagGraphsAggregateArgs = {
   where?: InputMaybe<TagGraphWhere>;
 };
 
-export type QueryElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-  options?: InputMaybe<ElementEdgeOptions>;
-};
-
-export type QueryElementEdgesAggregateArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-};
-
-export type QueryElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>;
-  options?: InputMaybe<ElementGraphOptions>;
-};
-
-export type QueryElementGraphsAggregateArgs = {
-  where?: InputMaybe<ElementGraphWhere>;
-};
-
 export type QueryElementGraphV2sArgs = {
   where?: InputMaybe<ElementGraphV2Where>;
   options?: InputMaybe<ElementGraphV2Options>;
@@ -557,12 +530,6 @@ export type Mutation = {
   createTagGraphs: CreateTagGraphsMutationResponse;
   deleteTagGraphs: DeleteInfo;
   updateTagGraphs: UpdateTagGraphsMutationResponse;
-  createElementEdges: CreateElementEdgesMutationResponse;
-  deleteElementEdges: DeleteInfo;
-  updateElementEdges: UpdateElementEdgesMutationResponse;
-  createElementGraphs: CreateElementGraphsMutationResponse;
-  deleteElementGraphs: DeleteInfo;
-  updateElementGraphs: UpdateElementGraphsMutationResponse;
   createElementGraphV2s: CreateElementGraphV2sMutationResponse;
   deleteElementGraphV2s: DeleteInfo;
   updateElementGraphV2s: UpdateElementGraphV2sMutationResponse;
@@ -1059,32 +1026,6 @@ export type MutationDeleteTagGraphsArgs = {
 export type MutationUpdateTagGraphsArgs = {
   where?: InputMaybe<TagGraphWhere>;
   update?: InputMaybe<TagGraphUpdateInput>;
-};
-
-export type MutationCreateElementEdgesArgs = {
-  input: Array<ElementEdgeCreateInput>;
-};
-
-export type MutationDeleteElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-};
-
-export type MutationUpdateElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-  update?: InputMaybe<ElementEdgeUpdateInput>;
-};
-
-export type MutationCreateElementGraphsArgs = {
-  input: Array<ElementGraphCreateInput>;
-};
-
-export type MutationDeleteElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>;
-};
-
-export type MutationUpdateElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>;
-  update?: InputMaybe<ElementGraphUpdateInput>;
 };
 
 export type MutationCreateElementGraphV2sArgs = {
@@ -2410,18 +2351,6 @@ export type CreateEdgesMutationResponse = {
   edges: Array<Edge>;
 };
 
-export type CreateElementEdgesMutationResponse = {
-  __typename?: "CreateElementEdgesMutationResponse";
-  info: CreateInfo;
-  elementEdges: Array<ElementEdge>;
-};
-
-export type CreateElementGraphsMutationResponse = {
-  __typename?: "CreateElementGraphsMutationResponse";
-  info: CreateInfo;
-  elementGraphs: Array<ElementGraph>;
-};
-
 export type CreateElementGraphV2sMutationResponse = {
   __typename?: "CreateElementGraphV2sMutationResponse";
   info: CreateInfo;
@@ -2914,21 +2843,6 @@ export type ElementComponentRelationship = {
   node: Component;
 };
 
-export type ElementEdge = {
-  __typename?: "ElementEdge";
-  source: Scalars["String"];
-  target: Scalars["String"];
-  order?: Maybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeAggregateSelection = {
-  __typename?: "ElementEdgeAggregateSelection";
-  count: Scalars["Int"];
-  source: StringAggregateSelectionNonNullable;
-  target: StringAggregateSelectionNonNullable;
-  order: IntAggregateSelectionNullable;
-};
-
 export type ElementElementChildrenAggregationSelection = {
   __typename?: "ElementElementChildrenAggregationSelection";
   count: Scalars["Int"];
@@ -2971,17 +2885,6 @@ export type ElementElementParentElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
-};
-
-export type ElementGraph = {
-  __typename?: "ElementGraph";
-  edges: Array<ElementEdge>;
-  vertices: Array<Element>;
-};
-
-export type ElementGraphAggregateSelection = {
-  __typename?: "ElementGraphAggregateSelection";
-  count: Scalars["Int"];
 };
 
 export type ElementGraphV2 = {
@@ -4868,18 +4771,6 @@ export type UpdateEdgesMutationResponse = {
   __typename?: "UpdateEdgesMutationResponse";
   info: UpdateInfo;
   edges: Array<Edge>;
-};
-
-export type UpdateElementEdgesMutationResponse = {
-  __typename?: "UpdateElementEdgesMutationResponse";
-  info: UpdateInfo;
-  elementEdges: Array<ElementEdge>;
-};
-
-export type UpdateElementGraphsMutationResponse = {
-  __typename?: "UpdateElementGraphsMutationResponse";
-  info: UpdateInfo;
-  elementGraphs: Array<ElementGraph>;
 };
 
 export type UpdateElementGraphV2sMutationResponse = {
@@ -7808,82 +7699,8 @@ export type ElementDisconnectInput = {
   >;
 };
 
-export type ElementEdgeCreateInput = {
-  source: Scalars["String"];
-  target: Scalars["String"];
-  order?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeOptions = {
-  /** Specify one or more ElementEdgeSort objects to sort ElementEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ElementEdgeSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort ElementEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementEdgeSort object. */
-export type ElementEdgeSort = {
-  source?: InputMaybe<SortDirection>;
-  target?: InputMaybe<SortDirection>;
-  order?: InputMaybe<SortDirection>;
-};
-
-export type ElementEdgeUpdateInput = {
-  source?: InputMaybe<Scalars["String"]>;
-  target?: InputMaybe<Scalars["String"]>;
-  order?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeWhere = {
-  OR?: InputMaybe<Array<ElementEdgeWhere>>;
-  AND?: InputMaybe<Array<ElementEdgeWhere>>;
-  source?: InputMaybe<Scalars["String"]>;
-  source_NOT?: InputMaybe<Scalars["String"]>;
-  source_IN?: InputMaybe<Array<Scalars["String"]>>;
-  source_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  source_CONTAINS?: InputMaybe<Scalars["String"]>;
-  source_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  source_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  source_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  source_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  source_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  target?: InputMaybe<Scalars["String"]>;
-  target_NOT?: InputMaybe<Scalars["String"]>;
-  target_IN?: InputMaybe<Array<Scalars["String"]>>;
-  target_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  target_CONTAINS?: InputMaybe<Scalars["String"]>;
-  target_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  target_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  target_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  target_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  target_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  order?: InputMaybe<Scalars["Int"]>;
-  order_NOT?: InputMaybe<Scalars["Int"]>;
-  order_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_LT?: InputMaybe<Scalars["Int"]>;
-  order_LTE?: InputMaybe<Scalars["Int"]>;
-  order_GT?: InputMaybe<Scalars["Int"]>;
-  order_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
-};
-
 export type ElementGraphInput = {
   rootId: Scalars["String"];
-};
-
-export type ElementGraphOptions = {
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type ElementGraphV2CreateInput = {
@@ -7925,11 +7742,6 @@ export type ElementGraphV2Where = {
   descendants_NOT?: InputMaybe<Array<Scalars["ID"]>>;
   descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
   descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
-};
-
-export type ElementGraphWhere = {
-  OR?: InputMaybe<Array<ElementGraphWhere>>;
-  AND?: InputMaybe<Array<ElementGraphWhere>>;
 };
 
 export type ElementHooksAggregateInput = {
@@ -15684,147 +15496,6 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface ElementEdgeAggregateSelectionInput {
-  count?: boolean;
-  source?: StringAggregateInputNonNullable;
-  target?: StringAggregateInputNonNullable;
-  order?: IntAggregateInputNullable;
-}
-
-export declare class ElementEdgeModel {
-  public find(args?: {
-    where?: ElementEdgeWhere;
-
-    options?: ElementEdgeOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementEdge[]>;
-  public create(args: {
-    input: ElementEdgeCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateElementEdgesMutationResponse>;
-  public update(args: {
-    where?: ElementEdgeWhere;
-    update?: ElementEdgeUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateElementEdgesMutationResponse>;
-  public delete(args: {
-    where?: ElementEdgeWhere;
-
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: ElementEdgeWhere;
-
-    aggregate: ElementEdgeAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementEdgeAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface ElementGraphAggregateSelectionInput {
-  count?: boolean;
-}
-
-export declare class ElementGraphModel {
-  public find(args?: {
-    where?: ElementGraphWhere;
-
-    options?: ElementGraphOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementGraph[]>;
-  public create(args: {
-    input: ElementGraphCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateElementGraphsMutationResponse>;
-  public update(args: {
-    where?: ElementGraphWhere;
-    update?: ElementGraphUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateElementGraphsMutationResponse>;
-  public delete(args: {
-    where?: ElementGraphWhere;
-
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: ElementGraphWhere;
-
-    aggregate: ElementGraphAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementGraphAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface ElementGraphV2AggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -16562,8 +16233,6 @@ export interface ModelMap {
   Tag: TagModel;
   TagGraphOptions: TagGraphOptionsModel;
   TagGraph: TagGraphModel;
-  ElementEdge: ElementEdgeModel;
-  ElementGraph: ElementGraphModel;
   ElementGraphV2: ElementGraphV2Model;
   Element: ElementModel;
   DeleteElementsInfo: DeleteElementsInfoModel;
