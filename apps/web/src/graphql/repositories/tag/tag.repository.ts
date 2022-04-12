@@ -5,26 +5,7 @@ import { map, reduce } from 'rxjs/operators'
 import { Tag as TagType, TagGraph } from '../../ogm-types.gen'
 import getTagGraphs from './getTagGraphs.cypher'
 
-type CreateTagOperation = (
-  map: Map<string, TagType>,
-) => Promise<Map<string, TagType>>
-
-type CreateTagArgs = {
-  name: string
-  isRoot: boolean
-  parent: Maybe<{ name: string; isRoot: boolean }>
-}
-
 export const tagRepository = {
-  // getTagsGraph: (txn: RxTransaction): Observable<Maybe<TagGraph>> =>
-  //   txn
-  //     .run(getTagsGraph)
-  //     .records()
-  //     .pipe(
-  //       first(() => true, undefined),
-  //       map((r) => r?.get('graph') as Maybe<TagGraph>),
-  //     ),
-
   getTagGraphs: (txn: RxTransaction): Observable<Array<TagGraph>> =>
     txn
       .run(getTagGraphs)
@@ -45,6 +26,4 @@ export const tagRepository = {
           return [...tagGraphs, tagGraph]
         }, []),
       ),
-
-  importTagsFromJson: async (tags: TagGraph) => null,
 }

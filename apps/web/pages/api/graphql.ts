@@ -1,5 +1,6 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
+import { get } from 'env-var'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
@@ -124,7 +125,13 @@ const handler: NextApiHandler = async (req, res) => {
   await startServer
   await apolloServer.createHandler({ path })(req, res)
 
-  if (process.env.DEV_GENERATE_OGM_TYPES) {
+  const devGenerateOgmTypes = get('DEV_GENERATE_OGM_TYPES')
+    .default('false')
+    .asBoolStrict()
+
+  console.log(devGenerateOgmTypes)
+
+  if (devGenerateOgmTypes) {
     await generateOgmTypes()
   }
 }

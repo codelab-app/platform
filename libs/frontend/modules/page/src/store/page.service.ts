@@ -148,7 +148,9 @@ export class PageService
   @modelFlow
   @transaction
   delete = _async(function* (this: PageService, id: string) {
-    if (this.pages.has(id)) {
+    const existing = throwIfUndefined(this.pages.get(id))
+
+    if (existing) {
       this.pages.delete(id)
     }
 
@@ -161,6 +163,6 @@ export class PageService
       throw new Error('Page was not deleted')
     }
 
-    return throwIfUndefined(this.pages.get(id))
+    return existing
   })
 }

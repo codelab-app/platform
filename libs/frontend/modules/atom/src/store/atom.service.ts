@@ -205,7 +205,9 @@ export class AtomService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, id: string) {
-    if (this.atoms.has(id)) {
+    const existing = throwIfUndefined(this.atoms.get(id))
+
+    if (existing) {
       this.atoms.delete(id)
     }
 
@@ -218,7 +220,7 @@ export class AtomService extends Model({
       throw new Error('Atom was not deleted')
     }
 
-    return throwIfUndefined(this.atoms.get(id))
+    return existing
   })
 }
 

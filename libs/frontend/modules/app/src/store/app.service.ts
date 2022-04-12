@@ -146,7 +146,9 @@ export class AppService
   @modelFlow
   @transaction
   delete = _async(function* (this: AppService, id: string) {
-    if (this.apps.has(id)) {
+    const existing = throwIfUndefined(this.apps.get(id))
+
+    if (existing) {
       this.apps.delete(id)
     }
 
@@ -157,6 +159,6 @@ export class AppService
       throw new Error('App was not deleted')
     }
 
-    return throwIfUndefined(this.apps.get(id))
+    return existing
   })
 }

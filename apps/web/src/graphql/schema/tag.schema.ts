@@ -18,11 +18,6 @@ export const tagSchema = gql`
     limit: Int
   }
 
-  # type TagEdge {
-  #   source: ID!
-  #   target: ID!
-  # }
-
   # We represent the TagGraph as a root node
   type TagGraph @exclude {
     id: ID!

@@ -79,20 +79,16 @@ export type Query = {
   tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection;
   tagGraphs: Array<TagGraph>;
   tagGraphsAggregate: TagGraphAggregateSelection;
-  elementEdges: Array<ElementEdge>;
-  elementEdgesAggregate: ElementEdgeAggregateSelection;
   elementGraphs: Array<ElementGraph>;
   elementGraphsAggregate: ElementGraphAggregateSelection;
-  props: Array<Prop>;
-  propsAggregate: PropAggregateSelection;
-  hooks: Array<Hook>;
-  hooksAggregate: HookAggregateSelection;
-  propMapBindings: Array<PropMapBinding>;
-  propMapBindingsAggregate: PropMapBindingAggregateSelection;
   elements: Array<Element>;
   elementsAggregate: ElementAggregateSelection;
-  deleteElementsInfos: Array<DeleteElementsInfo>;
-  deleteElementsInfosAggregate: DeleteElementsInfoAggregateSelection;
+  props: Array<Prop>;
+  propsAggregate: PropAggregateSelection;
+  propMapBindings: Array<PropMapBinding>;
+  propMapBindingsAggregate: PropMapBindingAggregateSelection;
+  hooks: Array<Hook>;
+  hooksAggregate: HookAggregateSelection;
   components: Array<Component>;
   componentsAggregate: ComponentAggregateSelection;
   actions: Array<Action>;
@@ -344,15 +340,6 @@ export type QueryTagGraphsAggregateArgs = {
   where?: InputMaybe<TagGraphWhere>;
 };
 
-export type QueryElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-  options?: InputMaybe<ElementEdgeOptions>;
-};
-
-export type QueryElementEdgesAggregateArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-};
-
 export type QueryElementGraphsArgs = {
   where?: InputMaybe<ElementGraphWhere>;
   options?: InputMaybe<ElementGraphOptions>;
@@ -360,33 +347,6 @@ export type QueryElementGraphsArgs = {
 
 export type QueryElementGraphsAggregateArgs = {
   where?: InputMaybe<ElementGraphWhere>;
-};
-
-export type QueryPropsArgs = {
-  where?: InputMaybe<PropWhere>;
-  options?: InputMaybe<PropOptions>;
-};
-
-export type QueryPropsAggregateArgs = {
-  where?: InputMaybe<PropWhere>;
-};
-
-export type QueryHooksArgs = {
-  where?: InputMaybe<HookWhere>;
-  options?: InputMaybe<HookOptions>;
-};
-
-export type QueryHooksAggregateArgs = {
-  where?: InputMaybe<HookWhere>;
-};
-
-export type QueryPropMapBindingsArgs = {
-  where?: InputMaybe<PropMapBindingWhere>;
-  options?: InputMaybe<PropMapBindingOptions>;
-};
-
-export type QueryPropMapBindingsAggregateArgs = {
-  where?: InputMaybe<PropMapBindingWhere>;
 };
 
 export type QueryElementsArgs = {
@@ -398,13 +358,31 @@ export type QueryElementsAggregateArgs = {
   where?: InputMaybe<ElementWhere>;
 };
 
-export type QueryDeleteElementsInfosArgs = {
-  where?: InputMaybe<DeleteElementsInfoWhere>;
-  options?: InputMaybe<DeleteElementsInfoOptions>;
+export type QueryPropsArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
 };
 
-export type QueryDeleteElementsInfosAggregateArgs = {
-  where?: InputMaybe<DeleteElementsInfoWhere>;
+export type QueryPropsAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
+};
+
+export type QueryPropMapBindingsArgs = {
+  where?: InputMaybe<PropMapBindingWhere>;
+  options?: InputMaybe<PropMapBindingOptions>;
+};
+
+export type QueryPropMapBindingsAggregateArgs = {
+  where?: InputMaybe<PropMapBindingWhere>;
+};
+
+export type QueryHooksArgs = {
+  where?: InputMaybe<HookWhere>;
+  options?: InputMaybe<HookOptions>;
+};
+
+export type QueryHooksAggregateArgs = {
+  where?: InputMaybe<HookWhere>;
 };
 
 export type QueryComponentsArgs = {
@@ -461,7 +439,7 @@ export type Mutation = {
   __typename?: "Mutation";
   upsertFieldEdge: InterfaceTypeEdge;
   deleteFieldEdge: DeleteFieldResponse;
-  deleteElementsSubgraph: DeleteElementsInfo;
+  importTypeGraph: TypeGraph;
   deleteStoresSubgraph: DeleteInfo;
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse;
   deleteResetDatabaseMutationResponses: DeleteInfo;
@@ -541,27 +519,21 @@ export type Mutation = {
   createTagGraphs: CreateTagGraphsMutationResponse;
   deleteTagGraphs: DeleteInfo;
   updateTagGraphs: UpdateTagGraphsMutationResponse;
-  createElementEdges: CreateElementEdgesMutationResponse;
-  deleteElementEdges: DeleteInfo;
-  updateElementEdges: UpdateElementEdgesMutationResponse;
   createElementGraphs: CreateElementGraphsMutationResponse;
   deleteElementGraphs: DeleteInfo;
   updateElementGraphs: UpdateElementGraphsMutationResponse;
-  createProps: CreatePropsMutationResponse;
-  deleteProps: DeleteInfo;
-  updateProps: UpdatePropsMutationResponse;
-  createHooks: CreateHooksMutationResponse;
-  deleteHooks: DeleteInfo;
-  updateHooks: UpdateHooksMutationResponse;
-  createPropMapBindings: CreatePropMapBindingsMutationResponse;
-  deletePropMapBindings: DeleteInfo;
-  updatePropMapBindings: UpdatePropMapBindingsMutationResponse;
   createElements: CreateElementsMutationResponse;
   deleteElements: DeleteInfo;
   updateElements: UpdateElementsMutationResponse;
-  createDeleteElementsInfos: CreateDeleteElementsInfosMutationResponse;
-  deleteDeleteElementsInfos: DeleteInfo;
-  updateDeleteElementsInfos: UpdateDeleteElementsInfosMutationResponse;
+  createProps: CreatePropsMutationResponse;
+  deleteProps: DeleteInfo;
+  updateProps: UpdatePropsMutationResponse;
+  createPropMapBindings: CreatePropMapBindingsMutationResponse;
+  deletePropMapBindings: DeleteInfo;
+  updatePropMapBindings: UpdatePropMapBindingsMutationResponse;
+  createHooks: CreateHooksMutationResponse;
+  deleteHooks: DeleteInfo;
+  updateHooks: UpdateHooksMutationResponse;
   createComponents: CreateComponentsMutationResponse;
   deleteComponents: DeleteInfo;
   updateComponents: UpdateComponentsMutationResponse;
@@ -586,9 +558,8 @@ export type MutationDeleteFieldEdgeArgs = {
   input: DeleteFieldInput;
 };
 
-export type MutationDeleteElementsSubgraphArgs = {
-  delete?: InputMaybe<ElementDeleteInput>;
-  where?: InputMaybe<ElementWhere>;
+export type MutationImportTypeGraphArgs = {
+  payload: Scalars["JSONObject"];
 };
 
 export type MutationDeleteStoresSubgraphArgs = {
@@ -1042,19 +1013,6 @@ export type MutationUpdateTagGraphsArgs = {
   update?: InputMaybe<TagGraphUpdateInput>;
 };
 
-export type MutationCreateElementEdgesArgs = {
-  input: Array<ElementEdgeCreateInput>;
-};
-
-export type MutationDeleteElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-};
-
-export type MutationUpdateElementEdgesArgs = {
-  where?: InputMaybe<ElementEdgeWhere>;
-  update?: InputMaybe<ElementEdgeUpdateInput>;
-};
-
 export type MutationCreateElementGraphsArgs = {
   input: Array<ElementGraphCreateInput>;
 };
@@ -1066,57 +1024,6 @@ export type MutationDeleteElementGraphsArgs = {
 export type MutationUpdateElementGraphsArgs = {
   where?: InputMaybe<ElementGraphWhere>;
   update?: InputMaybe<ElementGraphUpdateInput>;
-};
-
-export type MutationCreatePropsArgs = {
-  input: Array<PropCreateInput>;
-};
-
-export type MutationDeletePropsArgs = {
-  where?: InputMaybe<PropWhere>;
-};
-
-export type MutationUpdatePropsArgs = {
-  where?: InputMaybe<PropWhere>;
-  update?: InputMaybe<PropUpdateInput>;
-};
-
-export type MutationCreateHooksArgs = {
-  input: Array<HookCreateInput>;
-};
-
-export type MutationDeleteHooksArgs = {
-  where?: InputMaybe<HookWhere>;
-  delete?: InputMaybe<HookDeleteInput>;
-};
-
-export type MutationUpdateHooksArgs = {
-  where?: InputMaybe<HookWhere>;
-  update?: InputMaybe<HookUpdateInput>;
-  connect?: InputMaybe<HookConnectInput>;
-  disconnect?: InputMaybe<HookDisconnectInput>;
-  create?: InputMaybe<HookRelationInput>;
-  delete?: InputMaybe<HookDeleteInput>;
-  connectOrCreate?: InputMaybe<HookConnectOrCreateInput>;
-};
-
-export type MutationCreatePropMapBindingsArgs = {
-  input: Array<PropMapBindingCreateInput>;
-};
-
-export type MutationDeletePropMapBindingsArgs = {
-  where?: InputMaybe<PropMapBindingWhere>;
-  delete?: InputMaybe<PropMapBindingDeleteInput>;
-};
-
-export type MutationUpdatePropMapBindingsArgs = {
-  where?: InputMaybe<PropMapBindingWhere>;
-  update?: InputMaybe<PropMapBindingUpdateInput>;
-  connect?: InputMaybe<PropMapBindingConnectInput>;
-  disconnect?: InputMaybe<PropMapBindingDisconnectInput>;
-  create?: InputMaybe<PropMapBindingRelationInput>;
-  delete?: InputMaybe<PropMapBindingDeleteInput>;
-  connectOrCreate?: InputMaybe<PropMapBindingConnectOrCreateInput>;
 };
 
 export type MutationCreateElementsArgs = {
@@ -1138,17 +1045,55 @@ export type MutationUpdateElementsArgs = {
   connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>;
 };
 
-export type MutationCreateDeleteElementsInfosArgs = {
-  input: Array<DeleteElementsInfoCreateInput>;
+export type MutationCreatePropsArgs = {
+  input: Array<PropCreateInput>;
 };
 
-export type MutationDeleteDeleteElementsInfosArgs = {
-  where?: InputMaybe<DeleteElementsInfoWhere>;
+export type MutationDeletePropsArgs = {
+  where?: InputMaybe<PropWhere>;
 };
 
-export type MutationUpdateDeleteElementsInfosArgs = {
-  where?: InputMaybe<DeleteElementsInfoWhere>;
-  update?: InputMaybe<DeleteElementsInfoUpdateInput>;
+export type MutationUpdatePropsArgs = {
+  where?: InputMaybe<PropWhere>;
+  update?: InputMaybe<PropUpdateInput>;
+};
+
+export type MutationCreatePropMapBindingsArgs = {
+  input: Array<PropMapBindingCreateInput>;
+};
+
+export type MutationDeletePropMapBindingsArgs = {
+  where?: InputMaybe<PropMapBindingWhere>;
+  delete?: InputMaybe<PropMapBindingDeleteInput>;
+};
+
+export type MutationUpdatePropMapBindingsArgs = {
+  where?: InputMaybe<PropMapBindingWhere>;
+  update?: InputMaybe<PropMapBindingUpdateInput>;
+  connect?: InputMaybe<PropMapBindingConnectInput>;
+  disconnect?: InputMaybe<PropMapBindingDisconnectInput>;
+  create?: InputMaybe<PropMapBindingRelationInput>;
+  delete?: InputMaybe<PropMapBindingDeleteInput>;
+  connectOrCreate?: InputMaybe<PropMapBindingConnectOrCreateInput>;
+};
+
+export type MutationCreateHooksArgs = {
+  input: Array<HookCreateInput>;
+};
+
+export type MutationDeleteHooksArgs = {
+  where?: InputMaybe<HookWhere>;
+  delete?: InputMaybe<HookDeleteInput>;
+};
+
+export type MutationUpdateHooksArgs = {
+  where?: InputMaybe<HookWhere>;
+  update?: InputMaybe<HookUpdateInput>;
+  connect?: InputMaybe<HookConnectInput>;
+  disconnect?: InputMaybe<HookDisconnectInput>;
+  create?: InputMaybe<HookRelationInput>;
+  delete?: InputMaybe<HookDeleteInput>;
+  connectOrCreate?: InputMaybe<HookConnectOrCreateInput>;
 };
 
 export type MutationCreateComponentsArgs = {
@@ -2354,12 +2299,6 @@ export type CreateCreateInfosMutationResponse = {
   createInfos: Array<CreateInfo>;
 };
 
-export type CreateDeleteElementsInfosMutationResponse = {
-  __typename?: "CreateDeleteElementsInfosMutationResponse";
-  info: CreateInfo;
-  deleteElementsInfos: Array<DeleteElementsInfo>;
-};
-
 export type CreateDeleteFieldResponsesMutationResponse = {
   __typename?: "CreateDeleteFieldResponsesMutationResponse";
   info: CreateInfo;
@@ -2376,12 +2315,6 @@ export type CreateEdgesMutationResponse = {
   __typename?: "CreateEdgesMutationResponse";
   info: CreateInfo;
   edges: Array<Edge>;
-};
-
-export type CreateElementEdgesMutationResponse = {
-  __typename?: "CreateElementEdgesMutationResponse";
-  info: CreateInfo;
-  elementEdges: Array<ElementEdge>;
 };
 
 export type CreateElementGraphsMutationResponse = {
@@ -2547,20 +2480,6 @@ export type CreateUsersMutationResponse = {
   __typename?: "CreateUsersMutationResponse";
   info: CreateInfo;
   users: Array<User>;
-};
-
-export type DeleteElementsInfo = {
-  __typename?: "DeleteElementsInfo";
-  nodesDeleted: Scalars["Int"];
-  relationshipsDeleted: Scalars["Int"];
-  deletedIds: Array<Scalars["String"]>;
-};
-
-export type DeleteElementsInfoAggregateSelection = {
-  __typename?: "DeleteElementsInfoAggregateSelection";
-  count: Scalars["Int"];
-  nodesDeleted: IntAggregateSelectionNonNullable;
-  relationshipsDeleted: IntAggregateSelectionNonNullable;
 };
 
 export type DeleteFieldResponse = {
@@ -2876,21 +2795,6 @@ export type ElementComponentRelationship = {
   node: Component;
 };
 
-export type ElementEdge = {
-  __typename?: "ElementEdge";
-  source: Scalars["String"];
-  target: Scalars["String"];
-  order?: Maybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeAggregateSelection = {
-  __typename?: "ElementEdgeAggregateSelection";
-  count: Scalars["Int"];
-  source: StringAggregateSelectionNonNullable;
-  target: StringAggregateSelectionNonNullable;
-  order: IntAggregateSelectionNullable;
-};
-
 export type ElementElementChildrenAggregationSelection = {
   __typename?: "ElementElementChildrenAggregationSelection";
   count: Scalars["Int"];
@@ -2937,8 +2841,7 @@ export type ElementElementParentElementNodeAggregateSelection = {
 
 export type ElementGraph = {
   __typename?: "ElementGraph";
-  edges: Array<ElementEdge>;
-  vertices: Array<Element>;
+  descendants: Array<Scalars["ID"]>;
 };
 
 export type ElementGraphAggregateSelection = {
@@ -4796,12 +4699,6 @@ export type UpdateCreateInfosMutationResponse = {
   createInfos: Array<CreateInfo>;
 };
 
-export type UpdateDeleteElementsInfosMutationResponse = {
-  __typename?: "UpdateDeleteElementsInfosMutationResponse";
-  info: UpdateInfo;
-  deleteElementsInfos: Array<DeleteElementsInfo>;
-};
-
 export type UpdateDeleteFieldResponsesMutationResponse = {
   __typename?: "UpdateDeleteFieldResponsesMutationResponse";
   info: UpdateInfo;
@@ -4818,12 +4715,6 @@ export type UpdateEdgesMutationResponse = {
   __typename?: "UpdateEdgesMutationResponse";
   info: UpdateInfo;
   edges: Array<Edge>;
-};
-
-export type UpdateElementEdgesMutationResponse = {
-  __typename?: "UpdateElementEdgesMutationResponse";
-  info: UpdateInfo;
-  elementEdges: Array<ElementEdge>;
 };
 
 export type UpdateElementGraphsMutationResponse = {
@@ -7081,56 +6972,6 @@ export type CreateInfoWhere = {
   relationshipsCreated_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type DeleteElementsInfoCreateInput = {
-  nodesDeleted: Scalars["Int"];
-  relationshipsDeleted: Scalars["Int"];
-  deletedIds: Array<Scalars["String"]>;
-};
-
-export type DeleteElementsInfoOptions = {
-  /** Specify one or more DeleteElementsInfoSort objects to sort DeleteElementsInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<DeleteElementsInfoSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort DeleteElementsInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteElementsInfoSort object. */
-export type DeleteElementsInfoSort = {
-  nodesDeleted?: InputMaybe<SortDirection>;
-  relationshipsDeleted?: InputMaybe<SortDirection>;
-};
-
-export type DeleteElementsInfoUpdateInput = {
-  nodesDeleted?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted?: InputMaybe<Scalars["Int"]>;
-  deletedIds?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type DeleteElementsInfoWhere = {
-  OR?: InputMaybe<Array<DeleteElementsInfoWhere>>;
-  AND?: InputMaybe<Array<DeleteElementsInfoWhere>>;
-  nodesDeleted?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_NOT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  nodesDeleted_NOT_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  nodesDeleted_LT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_LTE?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_GT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_GTE?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_NOT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  relationshipsDeleted_NOT_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  relationshipsDeleted_LT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_LTE?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_GT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_GTE?: InputMaybe<Scalars["Int"]>;
-  deletedIds?: InputMaybe<Array<Scalars["String"]>>;
-  deletedIds_NOT?: InputMaybe<Array<Scalars["String"]>>;
-  deletedIds_INCLUDES?: InputMaybe<Scalars["String"]>;
-  deletedIds_NOT_INCLUDES?: InputMaybe<Scalars["String"]>;
-};
-
 export type DeleteFieldInput = {
   interfaceId: Scalars["ID"];
   key: Scalars["String"];
@@ -7752,68 +7593,8 @@ export type ElementDisconnectInput = {
   >;
 };
 
-export type ElementEdgeCreateInput = {
-  source: Scalars["String"];
-  target: Scalars["String"];
-  order?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeOptions = {
-  /** Specify one or more ElementEdgeSort objects to sort ElementEdges by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ElementEdgeSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort ElementEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementEdgeSort object. */
-export type ElementEdgeSort = {
-  source?: InputMaybe<SortDirection>;
-  target?: InputMaybe<SortDirection>;
-  order?: InputMaybe<SortDirection>;
-};
-
-export type ElementEdgeUpdateInput = {
-  source?: InputMaybe<Scalars["String"]>;
-  target?: InputMaybe<Scalars["String"]>;
-  order?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ElementEdgeWhere = {
-  OR?: InputMaybe<Array<ElementEdgeWhere>>;
-  AND?: InputMaybe<Array<ElementEdgeWhere>>;
-  source?: InputMaybe<Scalars["String"]>;
-  source_NOT?: InputMaybe<Scalars["String"]>;
-  source_IN?: InputMaybe<Array<Scalars["String"]>>;
-  source_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  source_CONTAINS?: InputMaybe<Scalars["String"]>;
-  source_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  source_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  source_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  source_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  source_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  target?: InputMaybe<Scalars["String"]>;
-  target_NOT?: InputMaybe<Scalars["String"]>;
-  target_IN?: InputMaybe<Array<Scalars["String"]>>;
-  target_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  target_CONTAINS?: InputMaybe<Scalars["String"]>;
-  target_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  target_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  target_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  target_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  target_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  order?: InputMaybe<Scalars["Int"]>;
-  order_NOT?: InputMaybe<Scalars["Int"]>;
-  order_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
-  order_LT?: InputMaybe<Scalars["Int"]>;
-  order_LTE?: InputMaybe<Scalars["Int"]>;
-  order_GT?: InputMaybe<Scalars["Int"]>;
-  order_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
 export type ElementGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
+  descendants: Array<Scalars["ID"]>;
 };
 
 export type ElementGraphInput = {
@@ -7826,13 +7607,16 @@ export type ElementGraphOptions = {
 };
 
 export type ElementGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars["Boolean"]>;
+  descendants?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type ElementGraphWhere = {
   OR?: InputMaybe<Array<ElementGraphWhere>>;
   AND?: InputMaybe<Array<ElementGraphWhere>>;
+  descendants?: InputMaybe<Array<Scalars["ID"]>>;
+  descendants_NOT?: InputMaybe<Array<Scalars["ID"]>>;
+  descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
+  descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
 };
 
 export type ElementHooksAggregateInput = {
@@ -15587,78 +15371,6 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface ElementEdgeAggregateSelectionInput {
-  count?: boolean;
-  source?: StringAggregateInputNonNullable;
-  target?: StringAggregateInputNonNullable;
-  order?: IntAggregateInputNullable;
-}
-
-export declare class ElementEdgeModel {
-  public find(args?: {
-    where?: ElementEdgeWhere;
-
-    options?: ElementEdgeOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementEdge[]>;
-  public create(args: {
-    input: ElementEdgeCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateElementEdgesMutationResponse>;
-  public update(args: {
-    where?: ElementEdgeWhere;
-    update?: ElementEdgeUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateElementEdgesMutationResponse>;
-  public delete(args: {
-    where?: ElementEdgeWhere;
-
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: ElementEdgeWhere;
-
-    aggregate: ElementEdgeAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ElementEdgeAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface ElementGraphAggregateSelectionInput {
   count?: boolean;
 }
@@ -15702,225 +15414,6 @@ export declare class ElementGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<ElementGraphAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface PropAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  data?: StringAggregateInputNonNullable;
-}
-
-export declare class PropModel {
-  public find(args?: {
-    where?: PropWhere;
-
-    options?: PropOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<Prop[]>;
-  public create(args: {
-    input: PropCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreatePropsMutationResponse>;
-  public update(args: {
-    where?: PropWhere;
-    update?: PropUpdateInput;
-
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdatePropsMutationResponse>;
-  public delete(args: {
-    where?: PropWhere;
-
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: PropWhere;
-
-    aggregate: PropAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<PropAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface HookAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-}
-
-export declare class HookModel {
-  public find(args?: {
-    where?: HookWhere;
-
-    options?: HookOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<Hook[]>;
-  public create(args: {
-    input: HookCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateHooksMutationResponse>;
-  public update(args: {
-    where?: HookWhere;
-    update?: HookUpdateInput;
-    connect?: HookConnectInput;
-    disconnect?: HookDisconnectInput;
-    create?: HookCreateInput;
-    connectOrCreate?: HookConnectOrCreateInput;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateHooksMutationResponse>;
-  public delete(args: {
-    where?: HookWhere;
-    delete?: HookDeleteInput;
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: HookWhere;
-
-    aggregate: HookAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<HookAggregateSelection>;
-}
-
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface PropMapBindingAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  sourceKey?: StringAggregateInputNonNullable;
-  targetKey?: StringAggregateInputNonNullable;
-}
-
-export declare class PropMapBindingModel {
-  public find(args?: {
-    where?: PropMapBindingWhere;
-
-    options?: PropMapBindingOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<PropMapBinding[]>;
-  public create(args: {
-    input: PropMapBindingCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreatePropMapBindingsMutationResponse>;
-  public update(args: {
-    where?: PropMapBindingWhere;
-    update?: PropMapBindingUpdateInput;
-    connect?: PropMapBindingConnectInput;
-    disconnect?: PropMapBindingDisconnectInput;
-    create?: PropMapBindingCreateInput;
-    connectOrCreate?: PropMapBindingConnectOrCreateInput;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdatePropMapBindingsMutationResponse>;
-  public delete(args: {
-    where?: PropMapBindingWhere;
-    delete?: PropMapBindingDeleteInput;
-    context?: any;
-    rootValue: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: PropMapBindingWhere;
-
-    aggregate: PropMapBindingAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<PropMapBindingAggregateSelection>;
 }
 
 export interface StringAggregateInputNonNullable {
@@ -16025,51 +15518,199 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface DeleteElementsInfoAggregateSelectionInput {
+export interface PropAggregateSelectionInput {
   count?: boolean;
-  nodesDeleted?: IntAggregateInputNonNullable;
-  relationshipsDeleted?: IntAggregateInputNonNullable;
+  id?: IdAggregateInputNonNullable;
+  data?: StringAggregateInputNonNullable;
 }
 
-export declare class DeleteElementsInfoModel {
+export declare class PropModel {
   public find(args?: {
-    where?: DeleteElementsInfoWhere;
+    where?: PropWhere;
 
-    options?: DeleteElementsInfoOptions;
+    options?: PropOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<DeleteElementsInfo[]>;
+  }): Promise<Prop[]>;
   public create(args: {
-    input: DeleteElementsInfoCreateInput[];
+    input: PropCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<CreateDeleteElementsInfosMutationResponse>;
+  }): Promise<CreatePropsMutationResponse>;
   public update(args: {
-    where?: DeleteElementsInfoWhere;
-    update?: DeleteElementsInfoUpdateInput;
+    where?: PropWhere;
+    update?: PropUpdateInput;
 
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<UpdateDeleteElementsInfosMutationResponse>;
+  }): Promise<UpdatePropsMutationResponse>;
   public delete(args: {
-    where?: DeleteElementsInfoWhere;
+    where?: PropWhere;
 
     context?: any;
     rootValue: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
   public aggregate(args: {
-    where?: DeleteElementsInfoWhere;
+    where?: PropWhere;
 
-    aggregate: DeleteElementsInfoAggregateSelectionInput;
+    aggregate: PropAggregateSelectionInput;
     context?: any;
     rootValue?: any;
-  }): Promise<DeleteElementsInfoAggregateSelection>;
+  }): Promise<PropAggregateSelection>;
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PropMapBindingAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  sourceKey?: StringAggregateInputNonNullable;
+  targetKey?: StringAggregateInputNonNullable;
+}
+
+export declare class PropMapBindingModel {
+  public find(args?: {
+    where?: PropMapBindingWhere;
+
+    options?: PropMapBindingOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PropMapBinding[]>;
+  public create(args: {
+    input: PropMapBindingCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePropMapBindingsMutationResponse>;
+  public update(args: {
+    where?: PropMapBindingWhere;
+    update?: PropMapBindingUpdateInput;
+    connect?: PropMapBindingConnectInput;
+    disconnect?: PropMapBindingDisconnectInput;
+    create?: PropMapBindingCreateInput;
+    connectOrCreate?: PropMapBindingConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePropMapBindingsMutationResponse>;
+  public delete(args: {
+    where?: PropMapBindingWhere;
+    delete?: PropMapBindingDeleteInput;
+    context?: any;
+    rootValue: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PropMapBindingWhere;
+
+    aggregate: PropMapBindingAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PropMapBindingAggregateSelection>;
+}
+
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface HookAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+}
+
+export declare class HookModel {
+  public find(args?: {
+    where?: HookWhere;
+
+    options?: HookOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Hook[]>;
+  public create(args: {
+    input: HookCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateHooksMutationResponse>;
+  public update(args: {
+    where?: HookWhere;
+    update?: HookUpdateInput;
+    connect?: HookConnectInput;
+    disconnect?: HookDisconnectInput;
+    create?: HookCreateInput;
+    connectOrCreate?: HookConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateHooksMutationResponse>;
+  public delete(args: {
+    where?: HookWhere;
+    delete?: HookDeleteInput;
+    context?: any;
+    rootValue: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: HookWhere;
+
+    aggregate: HookAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<HookAggregateSelection>;
 }
 
 export interface StringAggregateInputNonNullable {
@@ -16395,13 +16036,11 @@ export interface ModelMap {
   Tag: TagModel;
   TagGraphOptions: TagGraphOptionsModel;
   TagGraph: TagGraphModel;
-  ElementEdge: ElementEdgeModel;
   ElementGraph: ElementGraphModel;
-  Prop: PropModel;
-  Hook: HookModel;
-  PropMapBinding: PropMapBindingModel;
   Element: ElementModel;
-  DeleteElementsInfo: DeleteElementsInfoModel;
+  Prop: PropModel;
+  PropMapBinding: PropMapBindingModel;
+  Hook: HookModel;
   Component: ComponentModel;
   Action: ActionModel;
   Store: StoreModel;
