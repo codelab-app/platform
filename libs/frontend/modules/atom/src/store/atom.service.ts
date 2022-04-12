@@ -23,7 +23,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
+import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
@@ -92,7 +92,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdate(atom: AtomFromFragmentInput) {
+  addOrUpdate(atom: AtomFragment) {
     let atomModel = this.atom(atom.id)
 
     if (atomModel) {
@@ -106,7 +106,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<AtomFromFragmentInput>) {
+  addOrUpdateAll(atoms: Array<AtomFragment>) {
     return atoms.map((atom) => this.addOrUpdate(atom))
   }
 

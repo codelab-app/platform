@@ -1,7 +1,10 @@
-import { IReactNodeType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IReactNodeType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { ReactNodeTypeFragment, TypeFragment } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -32,7 +35,7 @@ export class ReactNodeType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
   }
 

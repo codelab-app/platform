@@ -1,8 +1,11 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IPrimitiveType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { PrimitiveTypeFragment, TypeFragment } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -43,7 +46,7 @@ export class PrimitiveType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
 
     if (!input.primitiveKind) {

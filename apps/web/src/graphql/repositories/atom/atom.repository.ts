@@ -3,6 +3,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'
+import { v4 } from 'uuid'
 import { Atom } from '../../model'
 import {
   Atom as AtomInput,
@@ -39,6 +40,7 @@ export const atomRepository = {
           )
 
           const atomCreateInput: AtomCreateInput = {
+            id: v4(),
             name: atom.name,
             type: atom.type,
             tags: {

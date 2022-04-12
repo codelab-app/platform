@@ -1,4 +1,9 @@
-import { IAnyType, IUnionType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IUnionType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
@@ -9,7 +14,6 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { TypeFragment, UnionTypeFragment } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -50,7 +54,7 @@ export class UnionType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
 
     if (!input.typeIdsOfUnionType) {

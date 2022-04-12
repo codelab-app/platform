@@ -11,10 +11,7 @@ import {
   TypeSelect,
 } from '../../../shared'
 import { WithTypeService } from '../../../store'
-import {
-  createTypeSchema,
-  typeFactory,
-} from './create-type-input.factory'
+import { createTypeSchema, typeFactory } from './create-type-input.factory'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {

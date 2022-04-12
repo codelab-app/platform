@@ -1,7 +1,10 @@
-import { ILambdaType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  ILambdaType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { LambdaTypeFragment, TypeFragment } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -32,7 +35,7 @@ export class LambdaType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
   }
 

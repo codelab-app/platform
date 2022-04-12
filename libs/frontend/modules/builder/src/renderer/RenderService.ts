@@ -163,7 +163,7 @@ export class RenderService extends Model(
     const providerRoot = this.providerTreeRef?.current?.root
 
     const providerElements = providerRoot
-      ? [providerRoot, ...providerRoot?.leftHandDescendants]
+      ? [providerRoot, ...(providerRoot?.leftHandDescendants ?? [])]
       : []
 
     const providerOutputsMaybeArray = providerElements.map((element) =>

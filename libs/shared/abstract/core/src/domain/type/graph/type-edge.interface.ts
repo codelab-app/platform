@@ -1,5 +1,8 @@
+import { Nullish } from '@codelab/shared/abstract/types'
+import { Ref } from 'mobx-keystone'
 import { z } from 'zod'
-import { EdgeSchema, IEdge } from '../../graph'
+import { EdgeSchema } from '../../graph'
+import type { IAnyType } from '../types/type.interface'
 
 const FieldDataSchema = z.object({
   name: z.string().optional().nullable(),
@@ -17,10 +20,12 @@ export const FieldSchema = z.intersection(EdgeSchema, FieldDataSchema)
  */
 export const TypeEdgeSchema = z.union([FieldSchema, EdgeSchema])
 
-export type IField = z.infer<typeof FieldSchema>
+export interface IField {
+  id: string
+  name: Nullish<string>
+  description: Nullish<string>
+  key: string
+  type: Ref<IAnyType>
+}
 
 export type ITypeEdge = z.infer<typeof TypeEdgeSchema>
-
-export const typeEdgeIsField = (edge: IEdge): edge is IField => {
-  return edge && ((edge as IField).key as any)
-}

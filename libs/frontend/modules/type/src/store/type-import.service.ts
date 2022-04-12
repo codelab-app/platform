@@ -1,5 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -14,7 +14,6 @@ import {
   SnapshotOutOf,
   transaction,
 } from 'mobx-keystone'
-import { AnyType } from './models'
 import { getTypeService } from './type.service'
 
 export type WithTypeImportService = {
@@ -34,7 +33,7 @@ export class TypeImportService extends Model({}) {
     return this.makeTypesExportPayload(types)
   })
 
-  public makeTypesExportPayload(atoms: Array<AnyType>) {
+  public makeTypesExportPayload(atoms: Array<IAnyType>) {
     return atoms.map((t) => getSnapshot(t))
   }
 
@@ -52,7 +51,7 @@ export class TypeImportService extends Model({}) {
   @transaction
   public importTypes = _async(function* (
     this: TypeImportService,
-    payloadString: string, // should be an array of AnyType snapshots
+    payloadString: string, // should be an array of IAnyType snapshots
     currentUserAuth0Id: string,
   ) {
     const payload = this.parsePayload(payloadString)
@@ -68,7 +67,7 @@ export class TypeImportService extends Model({}) {
   @transaction
   public importTypesPayload = _async(function* (
     this: TypeImportService,
-    payload: Array<SnapshotOutOf<AnyType>>,
+    payload: Array<SnapshotOutOf<IAnyType>>,
     currentUserAuth0Id: string,
   ) {
     const typeService = getTypeService(this)
@@ -77,7 +76,7 @@ export class TypeImportService extends Model({}) {
     yield* _await(typeService.getAll())
 
     // keep a queue of types to create, so we can check for types that depend on other types
-    const queue: Array<SnapshotOutOf<AnyType>> = payload
+    const queue: Array<SnapshotOutOf<IAnyType>> = payload
     const isInQueue = (id: string) => queue.some((t) => t.id === id)
     let i = 0
 
@@ -114,12 +113,12 @@ export class TypeImportService extends Model({}) {
   })
 
   /** Returns the type ids which must be imported before this type is imported */
-  private getTypeDependantIds(type: SnapshotOutOf<AnyType>): Array<string> {
+  private getTypeDependantIds(type: SnapshotOutOf<IAnyType>): Array<string> {
     switch (type.typeKind) {
       case TypeKind.UnionType:
         return type.typesOfUnionType.map((t) => t.id)
       case TypeKind.InterfaceType:
-        return Object.values(type._fields?.items ?? {}).map((f) => f.type.id)
+        return Object.values(type.fields).map((f) => f.type.id)
 
       case TypeKind.ArrayType: {
         const itemId = type.itemType?.id
@@ -135,7 +134,7 @@ export class TypeImportService extends Model({}) {
   @transaction
   private upsertType = _async(function* (
     this: TypeImportService,
-    importedType: SnapshotOutOf<AnyType>,
+    importedType: SnapshotOutOf<IAnyType>,
     currentUserAuth0Id: string,
   ) {
     const typeService = getTypeService(this)
@@ -159,14 +158,14 @@ export class TypeImportService extends Model({}) {
     }
 
     // Not owned by current user, create it with the current user as owner
-    const createdType = fromSnapshot<AnyType>(importedType)
-    createdType.setOwnerAuth0Id(currentUserAuth0Id)
+    const createdType = fromSnapshot<IAnyType>(importedType)
+    createdType.ownerAuth0Id = currentUserAuth0Id
     yield* _await(typeService.create(createdType))
   })
 
   private getExistingType(
     this: TypeImportService,
-    importedType: SnapshotOutOf<AnyType>,
+    importedType: SnapshotOutOf<IAnyType>,
   ) {
     const typeService = getTypeService(this)
 
@@ -193,10 +192,10 @@ export class TypeImportService extends Model({}) {
 
   private parsePayload(
     payloadString: string,
-  ): Nullable<Array<SnapshotOutOf<AnyType>>> {
+  ): Nullable<Array<SnapshotOutOf<IAnyType>>> {
     try {
       return JSON.parse(payloadString).map((item: any) =>
-        fromSnapshot<SnapshotOutOf<AnyType>>(item),
+        fromSnapshot<SnapshotOutOf<IAnyType>>(item),
       )
     } catch (e) {
       console.error('Error while parsing payload: ', e)

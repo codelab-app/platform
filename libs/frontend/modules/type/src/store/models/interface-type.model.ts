@@ -1,6 +1,7 @@
 import {
   ICreateFieldDTO,
   IInterfaceType,
+  IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -17,8 +18,6 @@ import {
   InterfaceTypeFragment,
   TypeFragment,
 } from '../../graphql'
-import { CreateFieldData } from '../../use-cases/fields'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
@@ -128,7 +127,7 @@ export class InterfaceType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
   }
 

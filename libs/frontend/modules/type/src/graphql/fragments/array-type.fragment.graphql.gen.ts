@@ -19,7 +19,7 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
 export type ArrayTypeFragment = {
-  itemType: Array<
+  itemType:
     | { id: string; name: string }
     | { id: string; name: string }
     | { id: string; name: string }
@@ -32,7 +32,6 @@ export type ArrayTypeFragment = {
     | { id: string; name: string }
     | { id: string; name: string }
     | { id: string; name: string }
-  >
 } & TypeBase_ArrayType_Fragment
 
 export const ArrayTypeFragmentDoc = gql`

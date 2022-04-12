@@ -6,14 +6,14 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithTypeService } from '../../../store'
-import { UpdateTypeSchema, updateTypeSchema } from './update-type.schema'
+import { updateTypeSchema } from './update-type.schema'
 import { validateNonRecursive } from './validateNonRecursive'
 
 export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.updateModal.close()
   const typeToUpdate = typeService.updateModal.type
 
-  const handleSubmit = async (submitData: UpdateTypeSchema) => {
+  const handleSubmit = async (submitData: IUpdateTypeDTO) => {
     if (!typeToUpdate) {
       throw new Error('Type not set for typeStore.updateModal.')
     }
@@ -53,7 +53,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
       title={<span css={tw`font-semibold`}>Update type</span>}
       visible={typeService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTypeSchema>
+      <ModalForm.Form<IUpdateTypeDTO>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({

@@ -1,8 +1,8 @@
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { TypeFragment } from '../graphql'
-import { AnyType } from './models'
 
 export const baseUpdateFromFragment = function (
-  self: AnyType,
+  self: IAnyType,
   type: TypeFragment,
 ) {
   self.name = type.name

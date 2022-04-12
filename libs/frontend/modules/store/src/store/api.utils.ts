@@ -10,7 +10,6 @@ import {
 import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { capitalize } from 'lodash'
 import { v4 } from 'uuid'
-import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 
 export const makeStoreCreateInput = (
   input: ICreateStoreDTO,

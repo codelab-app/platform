@@ -6,7 +6,6 @@ import { omit } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable, of } from 'rxjs'
 import { first, map, tap } from 'rxjs/operators'
-import { AnyType } from '../../ogm-types.gen'
 import disconnectFieldCypher from './disconnectField.cypher'
 import getFieldCypher from './getField.cypher'
 import getTypeByIdCypher from './getTypeById.cypher'
@@ -249,7 +248,11 @@ export const typeRepository = {
       .pipe(map((r) => r?.get('nodes') as Array<IAnyType>))
   },
 
-  upsertTypes: (txn: RxTransaction, types: Array<AnyType>, auth0Id: string) => {
+  upsertTypes: (
+    txn: RxTransaction,
+    types: Array<IAnyType>,
+    auth0Id: string,
+  ) => {
     if (types.length === 0) {
       return of([])
     }

@@ -7,7 +7,7 @@ import {
 } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
 import { AtomService } from '../../store'
-import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
+import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {

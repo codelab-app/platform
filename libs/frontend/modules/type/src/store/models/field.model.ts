@@ -1,4 +1,4 @@
-import { IAnyType } from '@codelab/shared/abstract/core'
+import { IAnyType, IField } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -17,13 +17,16 @@ import {
 import { typeRef } from './union-type.model'
 
 @model('codelab/Field')
-export class Field extends Model(() => ({
-  id: idProp, // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
-  name: prop<Nullish<string>>(),
-  description: prop<Nullish<string>>(),
-  key: prop<string>(),
-  type: prop<Ref<IAnyType>>(),
-})) {
+export class Field
+  extends Model(() => ({
+    id: idProp, // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
+    name: prop<Nullish<string>>(),
+    description: prop<Nullish<string>>(),
+    key: prop<string>(),
+    type: prop<Ref<IAnyType>>(),
+  }))
+  implements IField
+{
   public static fieldId(interfaceId: string, fieldKey: string) {
     return `${interfaceId}:fields:${fieldKey}`
   }

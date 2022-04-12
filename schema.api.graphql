@@ -1297,7 +1297,7 @@ type ArrayType implements TypeBase & WithDescendants {
     directed: Boolean = true
     options: TypeBaseOptions
     where: TypeBaseWhere
-  ): [TypeBase!]!
+  ): TypeBase!
   itemTypeConnection(
     after: String
     directed: Boolean = true
@@ -1327,7 +1327,7 @@ type ArrayTypeAggregateSelection {
 }
 
 input ArrayTypeConnectInput {
-  itemType: [ArrayTypeItemTypeConnectFieldInput!]
+  itemType: ArrayTypeItemTypeConnectFieldInput
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -1343,12 +1343,12 @@ input ArrayTypeCreateInput {
 }
 
 input ArrayTypeDeleteInput {
-  itemType: [ArrayTypeItemTypeDeleteFieldInput!]
+  itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
-  itemType: [ArrayTypeItemTypeDisconnectFieldInput!]
+  itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
@@ -1389,8 +1389,8 @@ input ArrayTypeItemTypeDisconnectFieldInput {
 }
 
 input ArrayTypeItemTypeFieldInput {
-  connect: [ArrayTypeItemTypeConnectFieldInput!]
-  create: [ArrayTypeItemTypeCreateFieldInput!]
+  connect: ArrayTypeItemTypeConnectFieldInput
+  create: ArrayTypeItemTypeCreateFieldInput
 }
 
 type ArrayTypeItemTypeRelationship {
@@ -1403,10 +1403,10 @@ input ArrayTypeItemTypeUpdateConnectionInput {
 }
 
 input ArrayTypeItemTypeUpdateFieldInput {
-  connect: [ArrayTypeItemTypeConnectFieldInput!]
-  create: [ArrayTypeItemTypeCreateFieldInput!]
-  delete: [ArrayTypeItemTypeDeleteFieldInput!]
-  disconnect: [ArrayTypeItemTypeDisconnectFieldInput!]
+  connect: ArrayTypeItemTypeConnectFieldInput
+  create: ArrayTypeItemTypeCreateFieldInput
+  delete: ArrayTypeItemTypeDeleteFieldInput
+  disconnect: ArrayTypeItemTypeDisconnectFieldInput
   update: ArrayTypeItemTypeUpdateConnectionInput
   where: ArrayTypeItemTypeConnectionWhere
 }
@@ -1479,7 +1479,7 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 }
 
 input ArrayTypeRelationInput {
-  itemType: [ArrayTypeItemTypeCreateFieldInput!]
+  itemType: ArrayTypeItemTypeCreateFieldInput
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -1493,7 +1493,7 @@ input ArrayTypeSort {
 
 input ArrayTypeUpdateInput {
   id: ID
-  itemType: [ArrayTypeItemTypeUpdateFieldInput!]
+  itemType: ArrayTypeItemTypeUpdateFieldInput
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
 }
@@ -1522,10 +1522,8 @@ input ArrayTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  itemTypeConnection_ALL: ArrayTypeItemTypeConnectionWhere
-  itemTypeConnection_NONE: ArrayTypeItemTypeConnectionWhere
-  itemTypeConnection_SINGLE: ArrayTypeItemTypeConnectionWhere
-  itemTypeConnection_SOME: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -3275,7 +3273,7 @@ type Element {
     where: ElementPropMapBindingsConnectionWhere
   ): ElementPropMapBindingsConnection!
   propTransformationJs: String
-  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
   propsAggregate(
     directed: Boolean = true
     where: PropWhere

@@ -1,15 +1,22 @@
-import { IAnyType, IArrayType, TypeKind } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import {
+  IAnyType,
+  IArrayType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { ArrayTypeFragment, TypeFragment } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
 const fromFragment = (fragment: ArrayTypeFragment): ArrayType => {
-  const itemId = fragment.itemType?.[0]?.id
-  const itemType = itemId ? typeRef(itemId) : null
+  const itemId = fragment.itemType.id
+  const itemType = typeRef(itemId)
+
+  if (!itemType) {
+    throw new Error('Item type is invalid')
+  }
 
   return new ArrayType({
     id: fragment.id,
@@ -25,7 +32,7 @@ export class ArrayType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.ArrayType),
     props: {
-      itemType: prop<Nullish<Ref<IAnyType>>>(),
+      itemType: prop<Ref<IAnyType>>(),
     },
   }))
   implements IArrayType
@@ -38,12 +45,12 @@ export class ArrayType
       return
     }
 
-    const itemId = fragment.itemType?.[0]?.id
-    this.itemType = itemId ? typeRef(itemId) : null
+    const itemId = fragment.itemType.id
+    this.itemType = typeRef(itemId)
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
   }
 

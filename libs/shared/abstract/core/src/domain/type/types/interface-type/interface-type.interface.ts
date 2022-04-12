@@ -1,15 +1,13 @@
-import { z } from 'zod'
-import { BaseTypeSchema } from '../base-type/base-type.interface'
+import { IField } from '../../graph/type-edge.interface'
+import { IBaseType } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'
-
-export const InterfaceTypeSchema = BaseTypeSchema.extend({
-  typeKind: z.literal(TypeKind.InterfaceType).default(TypeKind.InterfaceType),
-  fields: z.array(z.any()),
-})
 
 /**
  * Represent an object type with multiple fields
  *
  * @property fields {@link IField[]} - Fields of the object type
  */
-export type IInterfaceType = z.infer<typeof InterfaceTypeSchema>
+export interface IInterfaceType extends IBaseType {
+  typeKind: typeof TypeKind.InterfaceType
+  fields: Array<IField>
+}

@@ -1,10 +1,9 @@
-import { z } from 'zod'
-import { BaseTypeSchema } from '../base-type/base-type.interface'
+import { Ref } from 'mobx-keystone'
+import { IBaseType } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'
+import { IAnyType } from '../type.interface'
 
-export const UnionTypeSchema = BaseTypeSchema.extend({
-  typeKind: z.literal(TypeKind.UnionType).default(TypeKind.UnionType),
-  typesOfUnionType: z.array(z.any()),
-})
-
-export type IUnionType = z.infer<typeof UnionTypeSchema>
+export interface IUnionType extends IBaseType {
+  typeKind: typeof TypeKind.UnionType
+  typesOfUnionType: Array<Ref<IAnyType>>
+}

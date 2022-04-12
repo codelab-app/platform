@@ -1,5 +1,9 @@
-import { IEnumType, TypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import {
+  IEnumType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   ExtendedModel,
   idProp,
@@ -14,7 +18,6 @@ import {
   EnumTypeValueFragment,
   TypeFragment,
 } from '../../graphql'
-import { UpdateTypeSchema } from '../../use-cases/types'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
@@ -75,7 +78,7 @@ export class EnumType
   }
 
   @modelAction
-  override applyUpdateData(input: UpdateTypeSchema) {
+  override applyUpdateData(input: IUpdateTypeDTO) {
     super.applyUpdateData(input)
 
     if (!input.allowedValues) {

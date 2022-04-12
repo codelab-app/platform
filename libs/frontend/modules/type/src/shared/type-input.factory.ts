@@ -1,19 +1,16 @@
 import { EnumTypeAllowedValuesUpdateFieldInput } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
 import {
-  AnyType,
-  ArrayType,
-  ConnectTypeInput,
-  CreateTypeInput,
-  DisconnectTypeInput,
-  EnumType,
-  InterfaceType,
-  UnionType,
-  UpdateTypeDeleteInput,
-  UpdateTypeInput,
-} from '../store'
+  IAnyType,
+  IArrayType,
+  ICreateTypeInput,
+  IEnumType,
+  IInterfaceType,
+  IUnionType,
+  IUpdateTypeArgs,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 
-const makeTypesOfUnionTypeCreateInput = (type: UnionType) => {
+const makeTypesOfUnionTypeCreateInput = (type: IUnionType) => {
   return {
     connect: type.typesOfUnionType.map((ut) => ({
       where: { node: { id: ut.id } },
@@ -22,7 +19,7 @@ const makeTypesOfUnionTypeCreateInput = (type: UnionType) => {
 }
 
 const makeAllowedValuesCreateInput = (
-  type: EnumType,
+  type: IEnumType,
 ): EnumTypeAllowedValuesUpdateFieldInput => {
   return {
     create: type.allowedValues.map((av) => ({
@@ -31,13 +28,13 @@ const makeAllowedValuesCreateInput = (
   }
 }
 
-const makeItemTypeCreateInput = (type: ArrayType) => {
+const makeItemTypeCreateInput = (type: IArrayType) => {
   return type.itemType
-    ? { connect: [{ where: { node: { id: type.itemType.id } } }] }
+    ? { connect: { where: { node: { id: type.itemType.id } } } }
     : {}
 }
 
-const makeFieldsCreateInput = (type: InterfaceType) => {
+const makeFieldsCreateInput = (type: IInterfaceType) => {
   return {
     connect: type.fields.map((f) => ({
       where: { node: { id: f.type.id } },
@@ -47,9 +44,9 @@ const makeFieldsCreateInput = (type: InterfaceType) => {
 }
 
 export const typeCreateInputFactory = (
-  type: AnyType,
+  type: IAnyType,
   currentUserAuth0Id: string,
-): CreateTypeInput => {
+): ICreateTypeInput => {
   return {
     id: type.id,
     name: type.name,
@@ -58,10 +55,7 @@ export const typeCreateInputFactory = (
     },
     primitiveKind:
       type.typeKind === TypeKind.PrimitiveType ? type.primitiveKind : undefined,
-    language:
-      type.typeKind === TypeKind.MonacoType
-        ? type.language
-        : (undefined as any),
+    language: type.typeKind === TypeKind.MonacoType ? type.language : undefined,
     elementKind:
       type.typeKind === TypeKind.ElementType ? type.elementKind : undefined,
     allowedValues:
@@ -83,14 +77,7 @@ export const typeCreateInputFactory = (
   }
 }
 
-export const typeUpdateInputFactory = (
-  type: AnyType,
-): {
-  update: UpdateTypeInput
-  disconnect?: DisconnectTypeInput
-  connect?: ConnectTypeInput
-  delete?: UpdateTypeDeleteInput
-} => {
+export const typeUpdateInputFactory = (type: IAnyType): IUpdateTypeArgs => {
   // For some reason if the disconnect and delete are in the update section it throws an error
   return {
     update: {
@@ -100,14 +87,12 @@ export const typeUpdateInputFactory = (
           ? type.primitiveKind
           : undefined,
       language:
-        type.typeKind === TypeKind.MonacoType
-          ? type.language
-          : (undefined as any),
+        type.typeKind === TypeKind.MonacoType ? type.language : undefined,
       elementKind:
         type.typeKind === TypeKind.ElementType ? type.elementKind : undefined,
       itemType:
         type.typeKind === TypeKind.ArrayType
-          ? [makeItemTypeCreateInput(type)]
+          ? makeItemTypeCreateInput(type)
           : undefined,
       typesOfUnionType:
         type.typeKind === TypeKind.UnionType
@@ -125,7 +110,7 @@ export const typeUpdateInputFactory = (
     disconnect: {
       itemType:
         type.typeKind === TypeKind.ArrayType && type.itemType
-          ? [{ where: { node: { id_NOT: type.itemType.id } } }]
+          ? { where: { node: { id_NOT: type.itemType.id } } }
           : undefined,
       typesOfUnionType:
         type.typeKind === TypeKind.UnionType

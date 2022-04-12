@@ -1,5 +1,6 @@
-import { AnyType, getTypeImportService } from '@codelab/frontend/modules/type'
+import { getTypeImportService } from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -22,7 +23,7 @@ export interface WithAtomImportService {
 
 export interface AtomExportPayload {
   atoms: Array<SnapshotOutOf<Atom>>
-  types: Array<SnapshotOutOf<AnyType>>
+  types: Array<SnapshotOutOf<IAnyType>>
 }
 
 @model('codelab/AtomImportService')
@@ -73,7 +74,7 @@ export class AtomImportService extends Model({}) {
 
     // Import all types so we can reference them in the atom
     const typeImportService = getTypeImportService(this)
-    const importedTypes: Array<SnapshotOutOf<AnyType>> = payload.types
+    const importedTypes: Array<SnapshotOutOf<IAnyType>> = payload.types
 
     yield* _await(
       typeImportService.importTypesPayload(importedTypes, currentUserAuth0Id),
@@ -114,8 +115,8 @@ export class AtomImportService extends Model({}) {
   ) {
     const atomService = getAtomService(this)
 
-    const tagsConnect = importedAtom.tagIds?.map((tagId) => ({
-      where: { node: { id: tagId } },
+    const tagsConnect = importedAtom.tags?.map((tag) => ({
+      where: { node: { id: tag.id } },
     }))
 
     const input = {
@@ -151,7 +152,7 @@ export class AtomImportService extends Model({}) {
       atomService.update(existing, {
         name: importedAtom.name,
         type: importedAtom.type,
-        tags: importedAtom.tagIds,
+        tags: importedAtom.tags.map((tag) => tag.id),
       }),
     )
   })

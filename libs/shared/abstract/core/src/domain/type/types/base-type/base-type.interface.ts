@@ -1,11 +1,16 @@
-import { z } from 'zod'
-import { TypeKind } from './type-kind.enum'
+import type {
+  ICreateTypeInput,
+  IUpdateTypeArgs,
+} from '../../type.dto.interface'
+import type { TypeKind } from './type-kind.enum'
 
-export const BaseTypeSchema = z.object({
-  id: z.string().default(''),
-  name: z.string(),
-  typeKind: z.nativeEnum(TypeKind),
-  // owner: z.object({ id: z.string() }).nullish().optional(),
-})
-
-export type IBaseType = z.infer<typeof BaseTypeSchema>
+export interface IBaseType {
+  id: string
+  name: string
+  typeKind: TypeKind
+  ownerAuth0Id: string
+  makeCreateInput(id: string): ICreateTypeInput
+  makeUpdateInput(): IUpdateTypeArgs
+  updateFromFragment(fragment: any): void
+  applyUpdateData(data: any): void
+}

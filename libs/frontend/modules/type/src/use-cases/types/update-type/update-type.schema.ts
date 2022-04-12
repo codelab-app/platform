@@ -1,12 +1,8 @@
+import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import {
-  BaseTypeMutationSchema,
-  baseTypeMutationSchemaProperties,
-} from '../../../shared'
+import { baseTypeMutationSchemaProperties } from '../../../shared'
 
-export type UpdateTypeSchema = BaseTypeMutationSchema
-
-export const updateTypeSchema: JSONSchemaType<UpdateTypeSchema> = {
+export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
   title: 'Update Type Input',
   type: 'object',
   properties: {

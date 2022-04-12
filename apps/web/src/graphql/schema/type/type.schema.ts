@@ -5,26 +5,6 @@ import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.c
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
 export const typeSchema = gql`
-  input UpsertFieldInput {
-    interfaceTypeId: ID!,
-    targetTypeId: ID!,
-    # This is the original key of the field you want to update. Applicable only for update.
-    targetKey: String,
-    # This is the new, updated key
-    key: String!
-    name: String
-    description: String
-  }
-
-  input DeleteFieldInput {
-    interfaceId: ID!
-    key: String!
-  }
-
-  type DeleteFieldResponse {
-    deletedEdgesCount: Int!
-  }
-
   type TypeReference {
     """
     The name of the resource referencing the type
@@ -116,10 +96,7 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-    # The reason this is an array is that there is a bug with neo4j graphql that appears
-    # when referencing a single interface relationship
-    # https://github.com/neo4j/graphql/pull/701/files after this is merged we can replace it with a single value
-    itemType: [TypeBase!]!
+    itemType: TypeBase!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,
@@ -163,12 +140,6 @@ export const typeSchema = gql`
         direction: OUT
         properties: "Field"
       )
-  }
-
-  interface Field @relationshipProperties {
-    key: String!
-    name: String
-    description: String
   }
 
   """
@@ -273,7 +244,6 @@ export const typeSchema = gql`
     id: ID!
     name: String!
     owner: User!
-
   }
 
   """

@@ -1,4 +1,3 @@
-import { PrimitiveTypeKind as CodegenPrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind as _PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 
-/** @deprecated Use the one from @codelab/shared/abstract/codegen */
-export const PrimitiveTypeKind = CodegenPrimitiveTypeKind
+export { _PrimitiveTypeKind as PrimitiveTypeKind }

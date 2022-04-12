@@ -1,5 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  ICreateFieldDTO,
+  IUpdateFieldDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { entityMapById } from '@codelab/shared/utils'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
@@ -17,8 +22,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { TypeFragment } from '../graphql'
-import { CreateFieldData } from '../use-cases/fields'
-import { UpdateFieldData } from '../use-cases/fields/update-field/types'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -96,7 +99,7 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, type: AnyType) {
+  update = _async(function* (this: TypeService, type: IAnyType) {
     const [updatedType] = yield* _await(
       updateTypeApi[type.typeKind]({
         where: { id: type.id },
@@ -194,7 +197,7 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, type: AnyType) {
+  create = _async(function* (this: TypeService, type: IAnyType) {
     const [typeFragment] = yield* _await(
       createTypeApi[type.typeKind](type.makeCreateInput(type.ownerAuth0Id)),
     )

@@ -1,10 +1,7 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ICreateTypeDTO, TypeKind } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { v4 } from 'uuid'
-import {
-  BaseTypeMutationSchema,
-  baseTypeMutationSchemaProperties,
-} from '../../../shared'
+import { baseTypeMutationSchemaProperties } from '../../../shared'
 import {
   AppType,
   ArrayType,
@@ -34,7 +31,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
 }
 
 export const typeFactory = (
-  formData: CreateTypeSchema,
+  formData: ICreateTypeDTO,
   currentUserId: string,
 ) => {
   const id = v4()

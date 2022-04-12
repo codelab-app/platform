@@ -1345,7 +1345,7 @@ export type ArrayType = TypeBase &
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
     id: Scalars['ID']
-    itemType: Array<TypeBase>
+    itemType: TypeBase
     itemTypeConnection: ArrayTypeItemTypeConnection
     name: Scalars['String']
     owner: User
@@ -1414,7 +1414,7 @@ export type ArrayTypeAggregateSelection = {
 }
 
 export type ArrayTypeConnectInput = {
-  itemType?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
+  itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -1430,12 +1430,12 @@ export type ArrayTypeCreateInput = {
 }
 
 export type ArrayTypeDeleteInput = {
-  itemType?: InputMaybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
+  itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
-  itemType?: InputMaybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
+  itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -1477,8 +1477,8 @@ export type ArrayTypeItemTypeDisconnectFieldInput = {
 }
 
 export type ArrayTypeItemTypeFieldInput = {
-  connect?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
-  create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
+  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
+  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
 }
 
 export type ArrayTypeItemTypeRelationship = {
@@ -1492,10 +1492,10 @@ export type ArrayTypeItemTypeUpdateConnectionInput = {
 }
 
 export type ArrayTypeItemTypeUpdateFieldInput = {
-  connect?: InputMaybe<Array<ArrayTypeItemTypeConnectFieldInput>>
-  create?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
-  delete?: InputMaybe<Array<ArrayTypeItemTypeDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<ArrayTypeItemTypeDisconnectFieldInput>>
+  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
+  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
+  delete?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
+  disconnect?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   update?: InputMaybe<ArrayTypeItemTypeUpdateConnectionInput>
   where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
@@ -1565,7 +1565,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ArrayTypeRelationInput = {
-  itemType?: InputMaybe<Array<ArrayTypeItemTypeCreateFieldInput>>
+  itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -1577,7 +1577,7 @@ export type ArrayTypeSort = {
 
 export type ArrayTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
-  itemType?: InputMaybe<Array<ArrayTypeItemTypeUpdateFieldInput>>
+  itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
 }
@@ -1608,10 +1608,8 @@ export type ArrayTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  itemTypeConnection_ALL?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-  itemTypeConnection_NONE?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-  itemTypeConnection_SINGLE?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-  itemTypeConnection_SOME?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -3326,7 +3324,7 @@ export type Element = {
   propMapBindingsAggregate?: Maybe<ElementPropMapBindingPropMapBindingsAggregationSelection>
   propMapBindingsConnection: ElementPropMapBindingsConnection
   propTransformationJs?: Maybe<Scalars['String']>
-  props: Prop
+  props?: Maybe<Prop>
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
   propsConnection: ElementPropsConnection
   renderForEachPropKey?: Maybe<Scalars['String']>

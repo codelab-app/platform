@@ -1,19 +1,12 @@
-import { z } from 'zod'
-import { BaseTypeSchema } from '../base-type/base-type.interface'
+import { Nullish } from '@codelab/shared/abstract/types'
+import { IBaseType } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'
 
-export const EnumTypeValue = z.object({
-  id: z.string().default(''),
-  name: z.string().optional().nullable(),
-  value: z.string(),
-})
-
-export type IEnumTypeValue = z.infer<typeof EnumTypeValue>
-
-export const EnumTypeSchema = BaseTypeSchema.extend({
-  typeKind: z.literal(TypeKind.EnumType).default(TypeKind.EnumType),
-  allowedValues: z.array(EnumTypeValue).nullish(),
-})
+export interface IEnumTypeValue {
+  id: string
+  name: Nullish<string>
+  value: string
+}
 
 /**
  * Allows choosing one of a set of allowed values.
@@ -22,4 +15,7 @@ export const EnumTypeSchema = BaseTypeSchema.extend({
  *
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
-export type IEnumType = z.infer<typeof EnumTypeSchema>
+export interface IEnumType extends IBaseType {
+  typeKind: typeof TypeKind.EnumType
+  allowedValues: Array<IEnumTypeValue>
+}

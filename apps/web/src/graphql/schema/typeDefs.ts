@@ -9,7 +9,7 @@ import { elementSchema } from './element.schema'
 import { pageSchema } from './page.schema'
 import { storeSchema } from './store.schema'
 import { tagSchema } from './tag.schema'
-import { typeSchema } from './type'
+import { fieldSchema, typeSchema } from './type'
 import { userSchema } from './user.schema'
 
 export default print(gql`
@@ -28,6 +28,8 @@ export default print(gql`
   ${pageSchema}
 
   ${typeSchema}
+
+  ${fieldSchema}
 
   ${tagSchema}
 
