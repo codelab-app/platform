@@ -4,7 +4,6 @@ import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useEffect } from 'react'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
@@ -32,9 +31,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   assertIsDefined(elementId)
 
   const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
-    useLoadingState((where: InterfaceTypeWhere) =>
-      typeStore.getInterfaceAndDescendants(where),
-    )
+    useLoadingState((id: string) => typeStore.getInterfaceAndDescendants(id))
   //
   // const [mutate, { isLoading }] = useCreateHooksMutation({
   //   selectFromResult: (r) => ({

@@ -37,6 +37,7 @@ export const InterfaceTypeEdgeFragmentDoc = gql`
     target
     source
   }
+  ${FieldFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

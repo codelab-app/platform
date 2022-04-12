@@ -34,6 +34,7 @@ export const PageFullFragmentDoc = gql`
   fragment PageFull on Page {
     ...Page
   }
+  ${PageFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

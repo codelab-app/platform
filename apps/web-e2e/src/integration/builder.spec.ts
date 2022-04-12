@@ -1,6 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 
 const atoms = [
@@ -59,14 +60,16 @@ describe('Elements CRUD', () => {
         cy.createPageFromScratch().then((data: any) => {
           cy.getCurrentUserId().then((userId) => {
             const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
+              id: v4(),
               name: atom.name,
               type: atom.type,
               api: {
                 create: {
                   node: {
+                    id: v4(),
                     name: `${atom.name} API`,
                     owner: userId
-                      ? { connect: [{ where: { node: { auth0Id: userId } } }] }
+                      ? { connect: { where: { node: { auth0Id: userId } } } }
                       : undefined,
                   },
                 },

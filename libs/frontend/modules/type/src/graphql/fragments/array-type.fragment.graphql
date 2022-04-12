@@ -1,16 +1,9 @@
-fragment ArrayTypeWithItemType on ArrayType {
-  ...ArrayType
-  itemType {
-    ... on TypeBase {
-      ...TypeBase
-    }
-  }
-}
-
-# Array type without the whole item type
 fragment ArrayType on ArrayType {
   ...TypeBase
   itemType {
-    id
+    ... on TypeBase {
+      id
+      name
+    }
   }
 }

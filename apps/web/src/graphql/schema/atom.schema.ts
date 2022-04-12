@@ -9,7 +9,7 @@ export const atomSchema = gql`
   ${atomTypeSchema}
 
   type Atom {
-    id: ID! @id
+    id: ID! @id(autogenerate: false)
     type: AtomType! @unique
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)

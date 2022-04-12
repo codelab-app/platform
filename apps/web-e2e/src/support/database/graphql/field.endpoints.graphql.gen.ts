@@ -45,6 +45,7 @@ export const E2eInterfaceTypeEdgeFragmentDoc = gql`
     target
     source
   }
+  ${E2eFieldFragmentDoc}
 `
 export const E2eCreateFieldDocument = gql`
   mutation E2eCreateField($input: UpsertFieldInput!) {
@@ -53,7 +54,6 @@ export const E2eCreateFieldDocument = gql`
     }
   }
   ${E2eInterfaceTypeEdgeFragmentDoc}
-  ${E2eFieldFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

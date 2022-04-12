@@ -10,7 +10,7 @@ import {
   prop,
 } from 'mobx-keystone'
 
-@model('@codelab/ExtraElementProps')
+@model('codelab/ExtraElementProps')
 export class ExtraElementProps extends Model({
   elementPropMap: prop(() => objectMap<Frozen<IPropData>>()),
   global: prop<Frozen<IPropData>>(() => frozen({})).withSetter(),

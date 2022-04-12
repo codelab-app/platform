@@ -1,9 +1,28 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
-import { IMonacoType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IMonacoType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { MonacoTypeFragment, TypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
+
+const fromFragment = ({
+  id,
+  typeKind,
+  name,
+  language,
+  owner,
+}: MonacoTypeFragment): MonacoType =>
+  new MonacoType({
+    id,
+    typeKind,
+    name,
+    language,
+    ownerAuth0Id: owner?.auth0Id,
+  })
 
 @model('codelab/MonacoType')
 export class MonacoType
@@ -26,12 +45,16 @@ export class MonacoType
     this.language = fragment.language
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    language,
-  }: MonacoTypeFragment): MonacoType {
-    return new MonacoType({ id, typeKind, name, language })
+  @modelAction
+  override applyUpdateData(input: IUpdateTypeDTO) {
+    super.applyUpdateData(input)
+
+    if (!input.language) {
+      throw new Error('MonacoType must have a language')
+    }
+
+    this.language = input.language
   }
+
+  public static fromFragment = fromFragment
 }

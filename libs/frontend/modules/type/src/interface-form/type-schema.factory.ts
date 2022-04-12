@@ -5,6 +5,7 @@ import {
   IArrayType,
   IElementType,
   IEnumType,
+  IField,
   IInterfaceType,
   ILambdaType,
   IMonacoType,
@@ -18,7 +19,6 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
-import { Field } from '../store'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
@@ -83,14 +83,14 @@ export class TypeSchemaFactory {
   }
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
-    const makeFieldSchema = (field: Field) => ({
+    const makeFieldSchema = (field: IField) => ({
       ...this.transform(field.type.current),
       label: field.name || pascalCaseToWords(field.key),
     })
 
     const makeFieldProperties = (
       acc: JsonSchema['properties'],
-      field: Field,
+      field: IField,
     ) => {
       acc = acc || {}
       acc[field.key] = makeFieldSchema(field)
@@ -173,7 +173,10 @@ export class TypeSchemaFactory {
     const extra = this.getExtraProperties(type)
 
     const uniforms = {
-      options: type.allowedValues?.map((v) => ({ value: v.id, label: v.name })),
+      options: type.allowedValues?.map((v) => ({
+        value: v.id,
+        label: v.name || v.value,
+      })),
       ...extra?.uniforms,
     }
 

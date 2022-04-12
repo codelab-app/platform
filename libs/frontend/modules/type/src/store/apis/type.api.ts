@@ -1,6 +1,9 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
+  IConnectTypeInput,
   ICreateTypeInput,
+  IDeleteTypeInput,
+  IDisconnectTypeInput,
   ITypeWhere,
   IUpdateTypeInput,
   TypeKind,
@@ -91,6 +94,9 @@ type UpdateTypesRecord = Record<
   (vars: {
     where: ITypeWhere
     update: IUpdateTypeInput
+    delete?: IDeleteTypeInput
+    disconnect?: IDisconnectTypeInput
+    connect?: IConnectTypeInput
   }) => Promise<Array<TypeFragment>>
 >
 

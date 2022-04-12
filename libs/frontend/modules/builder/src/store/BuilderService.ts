@@ -16,7 +16,7 @@ export type WithBuilderService = {
 
 const globalProps = { onClick: voidClick }
 
-@model('@codelab/BuilderService')
+@model('codelab/BuilderService')
 export class BuilderService extends Model({
   selectedElement: prop<Nullable<Ref<Element>>>(() => null).withSetter(),
   hoveredElement: prop<Nullable<Ref<Element>>>(() => null).withSetter(),

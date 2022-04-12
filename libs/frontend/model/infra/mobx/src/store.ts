@@ -1,6 +1,10 @@
 import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService } from '@codelab/frontend/modules/app'
-import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
+import {
+  AtomImportService,
+  AtomService,
+  atomServiceContext,
+} from '@codelab/frontend/modules/atom'
 import {
   BuilderService,
   RenderService,
@@ -18,7 +22,12 @@ import {
   StoreService,
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
-import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
+import {
+  TypeImportService,
+  typeImportServiceContext,
+  TypeService,
+  typeServiceContext,
+} from '@codelab/frontend/modules/type'
 import {
   fromSnapshot,
   Model,
@@ -36,8 +45,13 @@ export type Snapshot<T = any> = {
 export class RootStore extends Model({
   appService: prop(() => new AppService({})),
   pageService: prop(() => new PageService({})),
+
   typeService: prop(() => new TypeService({})),
+  typeImportService: prop(() => new TypeImportService({})),
+
   atomService: prop(() => new AtomService({})),
+  atomImportService: prop(() => new AtomImportService({})),
+
   tagService: prop(() => new TagService({})),
   adminService: prop(() => new AdminService({})),
   componentService: prop(() => new ComponentService({})),
@@ -58,6 +72,7 @@ export class RootStore extends Model({
     componentServiceContext.set(this, this.componentService)
     renderServiceContext.set(this, this.renderService)
     actionServiceContext.set(this, this.actionService)
+    typeImportServiceContext.set(this, this.typeImportService)
   }
 }
 

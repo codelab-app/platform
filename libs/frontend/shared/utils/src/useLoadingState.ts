@@ -61,6 +61,8 @@ export const useLoadingState = <TArgs extends Array<any>, TOut>(
           data: null,
         })
 
+        console.error(e)
+
         if (notifyFactoryCallbacked) {
           notify(notifyFactoryCallbacked(e))
         }

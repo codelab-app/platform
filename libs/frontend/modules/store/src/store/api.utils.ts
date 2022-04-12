@@ -9,6 +9,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { capitalize } from 'lodash'
+import { v4 } from 'uuid'
 
 export const makeStoreCreateInput = (
   input: ICreateStoreDTO,
@@ -17,9 +18,10 @@ export const makeStoreCreateInput = (
   const { name, parentStore } = input
 
   const interfaceCreateInput: InterfaceTypeCreateInput = {
+    id: v4(),
     name: `${capitalize(name)} State`,
     owner: {
-      connect: [{ where: { node: { auth0Id: ownerId } } }],
+      connect: { where: { node: { auth0Id: ownerId } } },
     },
   }
 

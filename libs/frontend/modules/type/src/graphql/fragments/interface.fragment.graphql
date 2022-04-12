@@ -5,16 +5,17 @@ fragment InterfaceType on InterfaceType {
       ...InterfaceTypeFieldEdge
     }
   }
-  descendantTypesIds
 }
 
 fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
   # ...Field doesn't work here
   key
   description
-  cursor
   name
   node {
-    id
+    ... on TypeBase {
+      id
+      name
+    }
   }
 }

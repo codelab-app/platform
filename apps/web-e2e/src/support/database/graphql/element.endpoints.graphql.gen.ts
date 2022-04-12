@@ -33,7 +33,7 @@ export type E2eElementFragment = {
   instanceOfComponent?: { id: string; name: string } | null
   parentElement?: { id: string; name?: string | null } | null
   atom?: E2eAtomFragment | null
-  props: E2ePropFragment
+  props?: E2ePropFragment | null
   hooks: Array<E2eHookFragment>
   propMapBindings: Array<E2ePropMapBindingFragment>
   parentElementConnection: {
@@ -79,6 +79,7 @@ export const E2eHookFragmentDoc = gql`
       name
     }
   }
+  ${E2ePropFragmentDoc}
 `
 export const E2ePropMapBindingFragmentDoc = gql`
   fragment E2ePropMapBinding on PropMapBinding {
@@ -138,6 +139,10 @@ export const E2eElementFragmentDoc = gql`
       }
     }
   }
+  ${E2eAtomFragmentDoc}
+  ${E2ePropFragmentDoc}
+  ${E2eHookFragmentDoc}
+  ${E2ePropMapBindingFragmentDoc}
 `
 export const E2eCreateElementDocument = gql`
   mutation E2eCreateElement($input: [ElementCreateInput!]!) {
@@ -148,10 +153,6 @@ export const E2eCreateElementDocument = gql`
     }
   }
   ${E2eElementFragmentDoc}
-  ${E2eAtomFragmentDoc}
-  ${E2ePropFragmentDoc}
-  ${E2eHookFragmentDoc}
-  ${E2ePropMapBindingFragmentDoc}
 `
 export const E2eUpdateElementDocument = gql`
   mutation E2eUpdateElement($update: ElementUpdateInput!) {
@@ -162,10 +163,6 @@ export const E2eUpdateElementDocument = gql`
     }
   }
   ${E2eElementFragmentDoc}
-  ${E2eAtomFragmentDoc}
-  ${E2ePropFragmentDoc}
-  ${E2eHookFragmentDoc}
-  ${E2ePropMapBindingFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

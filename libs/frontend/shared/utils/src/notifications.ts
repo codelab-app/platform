@@ -68,12 +68,14 @@ export const useNotify = (
 ): UseNotifyReturnType => {
   const onSuccess = () => notify({ ...success, type: 'success' })
 
-  const onError = (e: any) =>
+  const onError = (e: any) => {
+    console.error(e)
     notify({
       ...error,
       type: 'error',
       content: error.content || extractErrorMessage(e),
     })
+  }
 
   return { onSuccess, onError }
 }

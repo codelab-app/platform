@@ -15,11 +15,14 @@ type AnyType = Required<
   | cg.UnionType
 >
 
-// This emulates a TS enum, but ties the values to the __typename of the graphql types
-// that way we keep the graphql schema as the truth, but still keep typeKind anywhere
-// in the app where we need an enum to distinguish between types.
-//
-// In essence TypeKind is the name of any specific type we add to the graphql schema.
+/**
+ * This emulates a TS enum, but ties the values to the __typename of the graphql types that way we keep the graphql schema as the truth, but still keep typeKind anywhere in the app where we need an enum to distinguish between types.
+ *
+ * In essence TypeKind is the name of any specific type we add to the graphql schema.
+ *
+ * Unfortunately using neo4j @default() value for type doesn't resolve the codegen type to the specific enum
+ *
+ */
 export type TypeKind = AnyType['__typename']
 
 export const TypeKind: { [key in TypeKind]: key } = {
@@ -36,3 +39,20 @@ export const TypeKind: { [key in TypeKind]: key } = {
   PageType: 'PageType',
   AppType: 'AppType',
 }
+
+// export const TypeKindLiterals = {}
+
+// export enum TypeKind {
+//   PrimitiveType = 'PrimitiveType',
+//   ArrayType = 'ArrayType',
+//   InterfaceType = 'InterfaceType',
+//   EnumType = 'EnumType',
+//   LambdaType = 'LambdaType',
+//   ElementType = 'ElementType',
+//   RenderPropsType = 'RenderPropsType',
+//   ReactNodeType = 'ReactNodeType',
+//   UnionType = 'UnionType',
+//   MonacoType = 'MonacoType',
+//   PageType = 'PageType',
+//   AppType = 'AppType',
+// }

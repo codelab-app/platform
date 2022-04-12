@@ -4,7 +4,7 @@ import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { PropFragment } from '../graphql/element.fragment.graphql.gen'
 
-@model('@codelab/ElementProps')
+@model('codelab/ElementProps')
 export class ElementProps extends Model({
   id: idProp,
   data: prop(() => frozen<IPropData>({})),

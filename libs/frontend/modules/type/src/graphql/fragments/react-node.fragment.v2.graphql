@@ -1,3 +1,0 @@
-fragment ReactNodeType on ReactNodeType {
-  ...TypeBase
-}

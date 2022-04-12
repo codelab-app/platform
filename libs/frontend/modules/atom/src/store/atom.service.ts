@@ -12,6 +12,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  arraySet,
   createContext,
   Model,
   model,
@@ -19,9 +20,9 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
@@ -33,16 +34,13 @@ export type WithAtomService = {
 }
 
 @model('codelab/AtomService')
-export class AtomService
-  extends Model({
-    atoms: prop(() => objectMap<IAtom>()),
-    createModal: prop(() => new ModalService({})),
-    updateModal: prop(() => new AtomModalService({})),
-    deleteModal: prop(() => new AtomsModalService({})),
-    selectedAtoms: prop(() => Array<Ref<IAtom>>()).withSetter(),
-  })
-  implements IAtomService
-{
+export class AtomService extends Model({
+  atoms: prop(() => objectMap<Atom>()),
+  createModal: prop(() => new ModalService({})),
+  updateModal: prop(() => new AtomModalService({})),
+  deleteModal: prop(() => new AtomsModalService({})),
+  selectedIds: prop(() => arraySet<string>()).withSetter(),
+}) {
   @computed
   get atomsList() {
     return [...this.atoms.values()]
@@ -95,20 +93,21 @@ export class AtomService
 
   @modelAction
   addOrUpdate(atom: AtomFragment) {
-    const existing = this.atom(atom.id)
+    let atomModel = this.atom(atom.id)
 
-    if (existing) {
-      existing.updateFromFragment(atom)
+    if (atomModel) {
+      atomModel.updateFromFragment(atom)
     } else {
-      this.addAtom(Atom.fromFragment(atom))
+      atomModel = Atom.fromFragment(atom)
+      this.addAtom(atomModel)
     }
+
+    return atomModel
   }
 
   @modelAction
   addOrUpdateAll(atoms: Array<AtomFragment>) {
-    for (const atom of atoms) {
-      this.addOrUpdate(atom)
-    }
+    return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
   @modelFlow
@@ -116,16 +115,7 @@ export class AtomService
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return atoms.map((atom) => {
-      if (this.atoms.get(atom.id)) {
-        return throwIfUndefined(this.atoms.get(atom.id))
-      } else {
-        const atomModel = Atom.fromFragment(atom)
-        this.atoms.set(atom.id, atomModel)
-
-        return atomModel
-      }
-    })
+    return this.addOrUpdateAll(atoms)
   })
 
   @modelFlow
@@ -148,10 +138,11 @@ export class AtomService
     ownerId: Nullish<string>,
   ) {
     const apiOwner = ownerId
-      ? { connect: [{ where: { node: { auth0Id: ownerId } } }] }
+      ? { connect: { where: { node: { auth0Id: ownerId } } } }
       : undefined
 
     const apiNode = {
+      id: v4(),
       name: `${input.name} API`,
       owner: apiOwner,
     }
@@ -165,6 +156,7 @@ export class AtomService
     } = yield* _await(
       atomApi.CreateAtoms({
         input: {
+          id: v4(),
           name: input.name,
           type: input.type,
           tags: { connect: tagsConnect },

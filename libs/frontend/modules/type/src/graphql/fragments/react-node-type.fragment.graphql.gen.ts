@@ -24,6 +24,7 @@ export const ReactNodeTypeFragmentDoc = gql`
   fragment ReactNodeType on ReactNodeType {
     ...TypeBase
   }
+  ${TypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

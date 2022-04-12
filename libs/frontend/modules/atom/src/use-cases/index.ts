@@ -1,4 +1,6 @@
 export * from './create-atom'
 export * from './delete-atom'
+export * from './export-atoms'
 export * from './get-atoms'
+export * from './import-atoms'
 export * from './update-atom'

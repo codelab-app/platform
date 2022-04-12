@@ -7,84 +7,84 @@ export type TypeBase_AppType_Fragment = {
   id: string
   name: string
   typeKind: 'AppType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_ArrayType_Fragment = {
   id: string
   name: string
   typeKind: 'ArrayType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_ElementType_Fragment = {
   id: string
   name: string
   typeKind: 'ElementType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_EnumType_Fragment = {
   id: string
   name: string
   typeKind: 'EnumType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_InterfaceType_Fragment = {
   id: string
   name: string
   typeKind: 'InterfaceType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_LambdaType_Fragment = {
   id: string
   name: string
   typeKind: 'LambdaType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_MonacoType_Fragment = {
   id: string
   name: string
   typeKind: 'MonacoType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_PageType_Fragment = {
   id: string
   name: string
   typeKind: 'PageType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_PrimitiveType_Fragment = {
   id: string
   name: string
   typeKind: 'PrimitiveType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_ReactNodeType_Fragment = {
   id: string
   name: string
   typeKind: 'ReactNodeType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_RenderPropsType_Fragment = {
   id: string
   name: string
   typeKind: 'RenderPropsType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBase_UnionType_Fragment = {
   id: string
   name: string
   typeKind: 'UnionType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { auth0Id: string }
 }
 
 export type TypeBaseFragment =
@@ -106,7 +106,6 @@ export const TypeBaseFragmentDoc = gql`
     typeKind: __typename
     id
     owner {
-      id
       auth0Id
     }
     name

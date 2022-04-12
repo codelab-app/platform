@@ -23,7 +23,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
       useLoadingState((_id: string) =>
-        typeService.getInterfaceAndDescendants({ id: _id }),
+        typeService.getInterfaceAndDescendants(_id),
       )
 
     const apiId = element.atom?.current.api.id

@@ -66,7 +66,7 @@ export const elementFromFragment = ({
     ),
   })
 
-@model('@codelab/Element')
+@model('codelab/Element')
 export class Element extends Model({
   id: idProp.withSetter(),
 

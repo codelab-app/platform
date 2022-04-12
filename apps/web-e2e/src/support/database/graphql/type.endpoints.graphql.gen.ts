@@ -107,84 +107,84 @@ export type E2eTypeBase_AppType_Fragment = {
   id: string
   name: string
   typeKind: 'AppType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_ArrayType_Fragment = {
   id: string
   name: string
   typeKind: 'ArrayType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_ElementType_Fragment = {
   id: string
   name: string
   typeKind: 'ElementType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_EnumType_Fragment = {
   id: string
   name: string
   typeKind: 'EnumType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_InterfaceType_Fragment = {
   id: string
   name: string
   typeKind: 'InterfaceType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_LambdaType_Fragment = {
   id: string
   name: string
   typeKind: 'LambdaType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_MonacoType_Fragment = {
   id: string
   name: string
   typeKind: 'MonacoType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_PageType_Fragment = {
   id: string
   name: string
   typeKind: 'PageType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_PrimitiveType_Fragment = {
   id: string
   name: string
   typeKind: 'PrimitiveType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_ReactNodeType_Fragment = {
   id: string
   name: string
   typeKind: 'ReactNodeType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_RenderPropsType_Fragment = {
   id: string
   name: string
   typeKind: 'RenderPropsType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBase_UnionType_Fragment = {
   id: string
   name: string
   typeKind: 'UnionType'
-  owner: Array<{ id: string; auth0Id: string }>
+  owner: { id: string; auth0Id: string }
 }
 
 export type E2eTypeBaseFragment =
@@ -249,63 +249,75 @@ export const E2ePrimitiveTypeFragmentDoc = gql`
     ...E2eTypeBase
     primitiveKind
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eArrayTypeFragmentDoc = gql`
   fragment E2eArrayType on ArrayType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eUnionTypeFragmentDoc = gql`
   fragment E2eUnionType on UnionType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eInterfaceTypeFragmentDoc = gql`
   fragment E2eInterfaceType on InterfaceType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eElementTypeFragmentDoc = gql`
   fragment E2eElementType on ElementType {
     ...E2eTypeBase
     elementKind
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eRenderPropsTypeFragmentDoc = gql`
   fragment E2eRenderPropsType on RenderPropsType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eEnumTypeFragmentDoc = gql`
   fragment E2eEnumType on EnumType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eLambdaTypeFragmentDoc = gql`
   fragment E2eLambdaType on LambdaType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2ePageTypeFragmentDoc = gql`
   fragment E2ePageType on PageType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eAppTypeFragmentDoc = gql`
   fragment E2eAppType on AppType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eMonacoTypeFragmentDoc = gql`
   fragment E2eMonacoType on MonacoType {
     ...E2eTypeBase
     language
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eReactNodeFragmentDoc = gql`
   fragment E2eReactNode on ReactNodeType {
     ...E2eTypeBase
   }
+  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreatePrimitiveTypesDocument = gql`
   mutation E2eCreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
@@ -316,7 +328,6 @@ export const E2eCreatePrimitiveTypesDocument = gql`
     }
   }
   ${E2ePrimitiveTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateArrayTypesDocument = gql`
   mutation E2eCreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
@@ -327,7 +338,6 @@ export const E2eCreateArrayTypesDocument = gql`
     }
   }
   ${E2eArrayTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateUnionTypesDocument = gql`
   mutation E2eCreateUnionTypes($input: [UnionTypeCreateInput!]!) {
@@ -338,7 +348,6 @@ export const E2eCreateUnionTypesDocument = gql`
     }
   }
   ${E2eUnionTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateInterfaceTypesDocument = gql`
   mutation E2eCreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
@@ -349,7 +358,6 @@ export const E2eCreateInterfaceTypesDocument = gql`
     }
   }
   ${E2eInterfaceTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateElementTypesDocument = gql`
   mutation E2eCreateElementTypes($input: [ElementTypeCreateInput!]!) {
@@ -360,7 +368,6 @@ export const E2eCreateElementTypesDocument = gql`
     }
   }
   ${E2eElementTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateRenderPropsTypesDocument = gql`
   mutation E2eCreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
@@ -371,7 +378,6 @@ export const E2eCreateRenderPropsTypesDocument = gql`
     }
   }
   ${E2eRenderPropsTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateEnumTypesDocument = gql`
   mutation E2eCreateEnumTypes($input: [EnumTypeCreateInput!]!) {
@@ -382,7 +388,6 @@ export const E2eCreateEnumTypesDocument = gql`
     }
   }
   ${E2eEnumTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateLambdaTypesDocument = gql`
   mutation E2eCreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
@@ -393,7 +398,6 @@ export const E2eCreateLambdaTypesDocument = gql`
     }
   }
   ${E2eLambdaTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreatePageTypesDocument = gql`
   mutation E2eCreatePageTypes($input: [PageTypeCreateInput!]!) {
@@ -404,7 +408,6 @@ export const E2eCreatePageTypesDocument = gql`
     }
   }
   ${E2ePageTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateAppTypesDocument = gql`
   mutation E2eCreateAppTypes($input: [AppTypeCreateInput!]!) {
@@ -415,7 +418,6 @@ export const E2eCreateAppTypesDocument = gql`
     }
   }
   ${E2eAppTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateMonacoTypesDocument = gql`
   mutation E2eCreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
@@ -426,7 +428,6 @@ export const E2eCreateMonacoTypesDocument = gql`
     }
   }
   ${E2eMonacoTypeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 export const E2eCreateReactNodeTypesDocument = gql`
   mutation E2eCreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
@@ -437,7 +438,6 @@ export const E2eCreateReactNodeTypesDocument = gql`
     }
   }
   ${E2eReactNodeFragmentDoc}
-  ${E2eTypeBaseFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -24,7 +24,7 @@ export const UpdateInitialStateForm = observer<
   const { store } = useCurrentStore(storeService)
 
   const [getInterfaceType, { data, isLoading }] = useLoadingState(
-    (id: string) => typeService.getInterfaceAndDescendants({ id }),
+    (id: string) => typeService.getInterfaceAndDescendants(id),
   )
 
   useEffect(() => {

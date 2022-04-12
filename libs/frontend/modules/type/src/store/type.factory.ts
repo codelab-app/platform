@@ -1,5 +1,5 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { TypeNonRecursiveFragment } from '../graphql/fragments/type.fragment.graphql.gen'
+import { TypeFragment } from '../graphql'
 import {
   AppType,
   ArrayType,
@@ -15,42 +15,48 @@ import {
   UnionType,
 } from './models'
 
-export const typeFactory = (type: TypeNonRecursiveFragment) => {
-  switch (type.typeKind) {
+export const typeClassFactory = (typeKind: TypeKind) => {
+  switch (typeKind) {
     case TypeKind.AppType:
-      return AppType.fromFragment(type)
+      return AppType
 
     case TypeKind.ElementType:
-      return ElementType.fromFragment(type)
+      return ElementType
 
     case TypeKind.EnumType:
-      return EnumType.fromFragment(type)
+      return EnumType
 
     case TypeKind.LambdaType:
-      return LambdaType.fromFragment(type)
+      return LambdaType
 
     case TypeKind.MonacoType:
-      return MonacoType.fromFragment(type)
+      return MonacoType
 
     case TypeKind.PageType:
-      return PageType.fromFragment(type)
+      return PageType
 
     case TypeKind.PrimitiveType:
-      return PrimitiveType.fromFragment(type)
+      return PrimitiveType
 
     case TypeKind.ReactNodeType:
-      return ReactNodeType.fromFragment(type)
+      return ReactNodeType
 
     case TypeKind.RenderPropsType:
-      return RenderPropsType.fromFragment(type)
+      return RenderPropsType
 
     case TypeKind.ArrayType:
-      return ArrayType.fromFragment(type)
+      return ArrayType
 
     case TypeKind.InterfaceType:
-      return InterfaceType.fromFragment(type)
+      return InterfaceType
 
     case TypeKind.UnionType:
-      return UnionType.fromFragment(type)
+      return UnionType
   }
+
+  throw new Error(`Unknown type kind: ${typeKind}`)
+}
+
+export const typeFactory = (type: TypeFragment) => {
+  return typeClassFactory(type.typeKind).fromFragment(type as any)
 }

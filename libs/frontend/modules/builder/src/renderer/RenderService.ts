@@ -60,7 +60,7 @@ import { mapOutput } from './utils/renderOutputUtils'
  * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
-@model('@codelab/RenderService')
+@model('codelab/RenderService')
 export class RenderService extends Model(
   {
     /** The tree that's being rendered */
@@ -163,7 +163,7 @@ export class RenderService extends Model(
     const providerRoot = this.providerTreeRef?.current?.root
 
     const providerElements = providerRoot
-      ? [providerRoot, ...providerRoot?.leftHandDescendants]
+      ? [providerRoot, ...(providerRoot?.leftHandDescendants ?? [])]
       : []
 
     const providerOutputsMaybeArray = providerElements.map((element) =>

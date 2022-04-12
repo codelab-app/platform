@@ -14,24 +14,14 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './type-base.fragment.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragment,
-  ArrayTypeFragment,
-} from './array-type.fragment.graphql.gen'
+import { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 import { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
-import { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from './interface.fragment.graphql.gen'
+import { InterfaceTypeFragment } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragment } from './render-props.fragment.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragment,
-  UnionTypeFragment,
-} from './union-type.fragment.graphql.gen'
+import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
 import { MonacoTypeFragment } from './monaco-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
@@ -39,31 +29,21 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragmentDoc,
-  ArrayTypeFragmentDoc,
-} from './array-type.fragment.graphql.gen'
+import { ArrayTypeFragmentDoc } from './array-type.fragment.graphql.gen'
 import { EnumTypeFragmentDoc } from './enum-type.fragment.graphql.gen'
-import { EnumTypeValueFragmentDoc } from './enum-type-value.fragment.graphql.gen'
-import {
-  InterfaceTypeFragmentDoc,
-  InterfaceTypeFieldEdgeFragmentDoc,
-} from './interface.fragment.graphql.gen'
+import { InterfaceTypeFragmentDoc } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragmentDoc } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragmentDoc } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragmentDoc } from './render-props.fragment.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragmentDoc,
-  UnionTypeFragmentDoc,
-} from './union-type.fragment.graphql.gen'
+import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
 import { MonacoTypeFragmentDoc } from './monaco-type.fragment.graphql.gen'
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
 export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 
 export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
-  ArrayTypeWithItemTypeFragment
+  ArrayTypeFragment
 
 export type Type_ElementType_Fragment = TypeBase_ElementType_Fragment &
   ElementTypeFragment
@@ -92,7 +72,7 @@ export type Type_RenderPropsType_Fragment = TypeBase_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
 export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment &
-  UnionTypeWithInnerTypesFragment
+  UnionTypeFragment
 
 export type TypeFragment =
   | Type_AppType_Fragment
@@ -108,74 +88,8 @@ export type TypeFragment =
   | Type_RenderPropsType_Fragment
   | Type_UnionType_Fragment
 
-export type TypeNonRecursive_AppType_Fragment = TypeBase_AppType_Fragment &
-  AppTypeFragment
-
-export type TypeNonRecursive_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
-  ArrayTypeFragment
-
-export type TypeNonRecursive_ElementType_Fragment =
-  TypeBase_ElementType_Fragment & ElementTypeFragment
-
-export type TypeNonRecursive_EnumType_Fragment = TypeBase_EnumType_Fragment &
-  EnumTypeFragment
-
-export type TypeNonRecursive_InterfaceType_Fragment =
-  TypeBase_InterfaceType_Fragment & InterfaceTypeFragment
-
-export type TypeNonRecursive_LambdaType_Fragment =
-  TypeBase_LambdaType_Fragment & LambdaTypeFragment
-
-export type TypeNonRecursive_MonacoType_Fragment =
-  TypeBase_MonacoType_Fragment & MonacoTypeFragment
-
-export type TypeNonRecursive_PageType_Fragment = TypeBase_PageType_Fragment &
-  PageTypeFragment
-
-export type TypeNonRecursive_PrimitiveType_Fragment =
-  TypeBase_PrimitiveType_Fragment & PrimitiveTypeFragment
-
-export type TypeNonRecursive_ReactNodeType_Fragment =
-  TypeBase_ReactNodeType_Fragment
-
-export type TypeNonRecursive_RenderPropsType_Fragment =
-  TypeBase_RenderPropsType_Fragment & RenderPropsTypeFragment
-
-export type TypeNonRecursive_UnionType_Fragment = TypeBase_UnionType_Fragment &
-  UnionTypeFragment
-
-export type TypeNonRecursiveFragment =
-  | TypeNonRecursive_AppType_Fragment
-  | TypeNonRecursive_ArrayType_Fragment
-  | TypeNonRecursive_ElementType_Fragment
-  | TypeNonRecursive_EnumType_Fragment
-  | TypeNonRecursive_InterfaceType_Fragment
-  | TypeNonRecursive_LambdaType_Fragment
-  | TypeNonRecursive_MonacoType_Fragment
-  | TypeNonRecursive_PageType_Fragment
-  | TypeNonRecursive_PrimitiveType_Fragment
-  | TypeNonRecursive_ReactNodeType_Fragment
-  | TypeNonRecursive_RenderPropsType_Fragment
-  | TypeNonRecursive_UnionType_Fragment
-
 export const TypeFragmentDoc = gql`
   fragment Type on TypeBase {
-    ...TypeBase
-    ...ArrayTypeWithItemType
-    ...EnumType
-    ...InterfaceType
-    ...PrimitiveType
-    ...ElementType
-    ...LambdaType
-    ...RenderPropsType
-    ...UnionTypeWithInnerTypes
-    ...MonacoType
-    ...PageType
-    ...AppType
-  }
-`
-export const TypeNonRecursiveFragmentDoc = gql`
-  fragment TypeNonRecursive on TypeBase {
     ...TypeBase
     ...ArrayType
     ...EnumType
@@ -189,6 +103,18 @@ export const TypeNonRecursiveFragmentDoc = gql`
     ...PageType
     ...AppType
   }
+  ${TypeBaseFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${EnumTypeFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ElementTypeFragmentDoc}
+  ${LambdaTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
+  ${UnionTypeFragmentDoc}
+  ${MonacoTypeFragmentDoc}
+  ${PageTypeFragmentDoc}
+  ${AppTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

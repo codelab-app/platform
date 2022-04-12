@@ -31,6 +31,8 @@ export const EnumTypeFragmentDoc = gql`
       ...EnumTypeValue
     }
   }
+  ${TypeBaseFragmentDoc}
+  ${EnumTypeValueFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

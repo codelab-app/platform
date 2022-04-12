@@ -1,18 +1,15 @@
 import { Field, InterfaceTypeEdge } from '@codelab/shared/abstract/codegen'
-import { IAnyType, ITypeGraph, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, TypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { throwIfNullish } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable, of } from 'rxjs'
-import { first, map, switchMap, tap } from 'rxjs/operators'
-import { AnyType } from '../../ogm-types.gen'
+import { first, map, tap } from 'rxjs/operators'
 import disconnectFieldCypher from './disconnectField.cypher'
-import getAllTypeGraphCypher from './getAllTypeGraph.cypher'
 import getFieldCypher from './getField.cypher'
 import getTypeByIdCypher from './getTypeById.cypher'
 import getTypeByIdsCypher from './getTypeByIds.cypher'
-import getTypeGraphCypher from './getTypeGraph.cypher'
 import isTypeDescendantOfCypher from './isTypeDescendantOf.cypher'
 
 export interface GetTypeByIdResponse {
@@ -200,30 +197,6 @@ export const typeRepository = {
         map((r) => r?.get('field') ?? (undefined as Maybe<Field>)),
       ),
 
-  // Notes on the cypher query, since commenting inside it gives syntax errors if parsed here:
-  // __resolveType is needed for graphql to recognize the correct concrete type
-  // I'm not sure why it doesn't do it automatically, but this seems to work well for now
-  // We collect two 'types' of edges - 1 are the interface fields, which need the field properties.
-  // Interface fields result in InterfaceTypeEdge graphql type.
-  // And then there's the rest which don't have it. Here we filter out the interface fields and then concatenate them with the rest. They result in a Edge graphql type.
-  getTypeGraph: (txn: RxTransaction, rootIds: Array<string>) =>
-    txn
-      .run(`MATCH (this) WHERE this.id IN $rootIds  ${getTypeGraphCypher}`, {
-        rootIds,
-      })
-      .records()
-      .pipe(
-        // first(() => true, undefined),
-        switchMap((r) => of(r?.get('graph') as Maybe<ITypeGraph>)),
-      ),
-
-  // get all types graph
-  getAllTypesGraph: (txn: RxTransaction) =>
-    txn
-      .run(`${getAllTypeGraphCypher}`)
-      .records()
-      .pipe(switchMap((r) => of(r?.get('graph') as Maybe<ITypeGraph>))),
-
   // The cypher here must be dynamic because we can't have the label as parameter
   // https://community.neo4j.com/t/having-a-label-as-a-parameter-in-a-cypher-query-efficiently/26555/4
   createTypes: (
@@ -275,7 +248,11 @@ export const typeRepository = {
       .pipe(map((r) => r?.get('nodes') as Array<IAnyType>))
   },
 
-  upsertTypes: (txn: RxTransaction, types: Array<AnyType>, auth0Id: string) => {
+  upsertTypes: (
+    txn: RxTransaction,
+    types: Array<IAnyType>,
+    auth0Id: string,
+  ) => {
     if (types.length === 0) {
       return of([])
     }

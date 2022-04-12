@@ -1,5 +1,5 @@
 import { DragOutlined } from '@ant-design/icons'
-import { Atom, AtomService } from '@codelab/frontend/modules/atom'
+import { AtomService } from '@codelab/frontend/modules/atom'
 import {
   Component,
   ComponentService,

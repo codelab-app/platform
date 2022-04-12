@@ -74,7 +74,7 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (e) {
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
-      process.env.NODE_ENV === 'development' &&
+      process.env.NODE_ENV !== 'development' ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
       console.error(e)
@@ -117,7 +117,9 @@ const handler: NextApiHandler = async (req, res) => {
   /**
    * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
    */
-  req.headers.authorization = `Bearer ${accessToken}`
+  if (accessToken) {
+    req.headers.authorization = `Bearer ${accessToken}`
+  }
 
   await startServer
   await apolloServer.createHandler({ path })(req, res)

@@ -1,4 +1,9 @@
-import { IAnyType, IUnionType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IUnionType,
+  IUpdateTypeDTO,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
@@ -11,6 +16,21 @@ import {
 import { TypeFragment, UnionTypeFragment } from '../../graphql'
 import { baseUpdateFromFragment } from '../abstract'
 import { createTypeBase } from './base-type.model'
+
+const fromFragment = ({
+  id,
+  typeKind,
+  name,
+  typesOfUnionType,
+  owner,
+}: UnionTypeFragment): UnionType =>
+  new UnionType({
+    id,
+    typeKind,
+    name,
+    typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
+    ownerAuth0Id: owner?.auth0Id,
+  })
 
 @model('codelab/UnionType')
 export class UnionType
@@ -33,19 +53,18 @@ export class UnionType
     this.typesOfUnionType = fragment.typesOfUnionType.map((t) => typeRef(t.id))
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    typesOfUnionType,
-  }: UnionTypeFragment): UnionType {
-    return new UnionType({
-      id,
-      typeKind,
-      name,
-      typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
-    })
+  @modelAction
+  override applyUpdateData(input: IUpdateTypeDTO) {
+    super.applyUpdateData(input)
+
+    if (!input.typeIdsOfUnionType) {
+      throw new Error('UnionType must have a typesOfUnionType array')
+    }
+
+    this.typesOfUnionType = input.typeIdsOfUnionType.map((tId) => typeRef(tId))
   }
+
+  public static fromFragment = fromFragment
 }
 
 export const typeRef = rootRef<IAnyType>('codelab/TypeRef', {

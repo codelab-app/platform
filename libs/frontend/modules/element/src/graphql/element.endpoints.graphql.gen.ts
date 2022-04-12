@@ -2,27 +2,15 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   ElementGraphFragment,
-  ElementEdgeFragment,
   ElementFragment,
-  PropFragment,
-  HookFragment,
-  HookPropFragment,
-  PropMapBindingFragment,
 } from './element.fragment.graphql.gen'
-import { ComponentFragment } from '../../../component/src/graphql/component.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
   ElementGraphFragmentDoc,
-  ElementEdgeFragmentDoc,
   ElementFragmentDoc,
-  PropFragmentDoc,
-  HookFragmentDoc,
-  HookPropFragmentDoc,
-  PropMapBindingFragmentDoc,
 } from './element.fragment.graphql.gen'
-import { ComponentFragmentDoc } from '../../../component/src/graphql/component.fragment.graphql.gen'
 export type GetElementsGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>
@@ -78,13 +66,6 @@ export const GetElementsGraphDocument = gql`
     }
   }
   ${ElementGraphFragmentDoc}
-  ${ElementEdgeFragmentDoc}
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
@@ -95,11 +76,6 @@ export const CreateElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const DeleteElementsSubgraphDocument = gql`
   mutation DeleteElementsSubgraph(
@@ -121,11 +97,6 @@ export const UpdateElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const MoveElementsDocument = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
@@ -136,11 +107,6 @@ export const MoveElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
@@ -149,11 +115,6 @@ export const GetElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
