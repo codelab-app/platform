@@ -261,7 +261,8 @@
                 "onlyDependOnLibsWithTags": [
                   "scope:backend",
                   "scope:shared",
-                  "type:abstract"
+                  "type:abstract",
+                  "scope:codegen"
                 ]
               },
               // {
