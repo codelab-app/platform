@@ -23,6 +23,20 @@ export const elementGraph: IFieldResolver<
   return await $elementGraph.toPromise()
 }
 
+export const elementGraphV2: IFieldResolver<
+  any,
+  any,
+  QueryElementGraphArgs
+> = async (parent, args) => {
+  const session = driver.rxSession()
+
+  const $elementGraph = session.readTransaction((txn) =>
+    elementRepository.getElementGraphV2(txn, args.input.rootId),
+  )
+
+  return await $elementGraph.toPromise()
+}
+
 export const deleteElementsSubgraph: IFieldResolver<
   any,
   any,

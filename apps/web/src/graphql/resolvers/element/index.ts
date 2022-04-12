@@ -1,5 +1,9 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { deleteElementsSubgraph, elementGraph } from './element.resolvers'
+import {
+  deleteElementsSubgraph,
+  elementGraph,
+  elementGraphV2,
+} from './element.resolvers'
 
 export const elementResolver: IResolvers = {
   Mutation: {
@@ -7,5 +11,6 @@ export const elementResolver: IResolvers = {
   },
   Query: {
     elementGraph,
+    elementGraphV2,
   },
 }

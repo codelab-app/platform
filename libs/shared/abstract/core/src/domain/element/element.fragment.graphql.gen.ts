@@ -51,6 +51,8 @@ export type ElementGraphFragment = {
   vertices: Array<ElementFragment>
 }
 
+export type ElementGraphV2Fragment = { id: string; descendants: Array<string> }
+
 export const ElementEdgeFragmentDoc = gql`
   fragment ElementEdge on ElementEdge {
     source
@@ -116,6 +118,12 @@ export const ElementGraphFragmentDoc = gql`
   }
   ${ElementEdgeFragmentDoc}
   ${ElementFragmentDoc}
+`
+export const ElementGraphV2FragmentDoc = gql`
+  fragment ElementGraphV2 on ElementGraphV2 {
+    id
+    descendants
+  }
 `
 
 export type SdkFunctionWrapper = <T>(

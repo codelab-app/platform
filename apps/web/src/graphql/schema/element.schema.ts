@@ -60,6 +60,7 @@ export const elementSchema = gql`
 
   type Query {
     elementGraph(input: ElementGraphInput!): ElementGraph!
+    elementGraphV2(input: ElementGraphInput!): ElementGraphV2!
   }
 
   type DeleteElementsInfo @exclude {

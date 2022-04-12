@@ -3890,6 +3890,11 @@ input ElementGraphInput {
   rootId: String!
 }
 
+type ElementGraphV2 {
+  descendants: [ID!]!
+  id: ID!
+}
+
 type ElementHookHooksAggregationSelection {
   count: Int!
   node: ElementHookHooksNodeAggregateSelection
@@ -8948,6 +8953,7 @@ type Query {
   edges(options: EdgeOptions, where: EdgeWhere): [Edge!]!
   edgesAggregate(where: EdgeWhere): EdgeAggregateSelection!
   elementGraph(input: ElementGraphInput!): ElementGraph!
+  elementGraphV2(input: ElementGraphInput!): ElementGraphV2!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere

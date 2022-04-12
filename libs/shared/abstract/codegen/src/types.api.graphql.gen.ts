@@ -4109,6 +4109,12 @@ export type ElementGraphInput = {
   rootId: Scalars['String']
 }
 
+export type ElementGraphV2 = {
+  __typename?: 'ElementGraphV2'
+  descendants: Array<Scalars['ID']>
+  id: Scalars['ID']
+}
+
 export type ElementHookHooksAggregationSelection = {
   __typename?: 'ElementHookHooksAggregationSelection'
   count: Scalars['Int']
@@ -9587,6 +9593,7 @@ export type Query = {
   edges: Array<Edge>
   edgesAggregate: EdgeAggregateSelection
   elementGraph: ElementGraph
+  elementGraphV2: ElementGraphV2
   elementTypes: Array<ElementType>
   elementTypesAggregate: ElementTypeAggregateSelection
   elements: Array<Element>
@@ -9724,6 +9731,10 @@ export type QueryEdgesAggregateArgs = {
 }
 
 export type QueryElementGraphArgs = {
+  input: ElementGraphInput
+}
+
+export type QueryElementGraphV2Args = {
   input: ElementGraphInput
 }
 

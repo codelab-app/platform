@@ -27,6 +27,7 @@ export type Scalars = {
 export type Query = {
   __typename?: "Query";
   elementGraph: ElementGraph;
+  elementGraphV2: ElementGraphV2;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection;
   edges: Array<Edge>;
@@ -114,6 +115,10 @@ export type Query = {
 };
 
 export type QueryElementGraphArgs = {
+  input: ElementGraphInput;
+};
+
+export type QueryElementGraphV2Args = {
   input: ElementGraphInput;
 };
 

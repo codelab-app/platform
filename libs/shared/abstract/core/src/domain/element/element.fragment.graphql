@@ -65,7 +65,7 @@ fragment ElementGraph on ElementGraph {
   }
 }
 
-# fragment ElementGraphV2 on ElementGraphV2 {
-#   id
-#   descendants
-# }
+fragment ElementGraphV2 on ElementGraphV2 {
+  id
+  descendants
+}

@@ -10,6 +10,7 @@ import { Element, ElementGraph } from '../../ogm-types.gen'
 import { componentSelectionSet, elementSelectionSet } from '../../selectionSets'
 import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
 import getElementGraphCypher from './getElementGraph.cypher'
+import getElementGraphV2Cypher from './getElementGraphV2.cypher'
 
 // contains edges for three relations PARENT_OF_ELEMENT>|INSTANCE_OF_COMPONENT>|COMPONENT_ROOT>
 type RawGraphEdge = {
@@ -223,7 +224,7 @@ export const elementRepository = {
     console.log(rootId)
 
     return txn
-      .run(getElementGraphCypher, { rootId })
+      .run(getElementGraphV2Cypher, { rootId })
       .records()
       .pipe(
         map((record) => {
