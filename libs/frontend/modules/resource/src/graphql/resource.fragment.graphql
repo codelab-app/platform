@@ -1,10 +1,6 @@
 fragment Resource on Resource {
   __typename
   id
-  name
-  data
-  api {
-    id
-    name
-  }
+  type
+  config
 }

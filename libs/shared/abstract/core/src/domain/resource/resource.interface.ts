@@ -1,6 +1,6 @@
-enum ResourceType {
-  GraphQL,
-  REST,
+export enum ResourceType {
+  GraphQL = 'GraphQl',
+  REST = 'REST',
 }
 
 export interface IResource {

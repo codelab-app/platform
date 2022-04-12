@@ -2,7 +2,7 @@ fragment Operation on Operation {
   __typename
   id
   name
-  data
+  config
   resource {
     id
     name
