@@ -58,11 +58,11 @@ export class ElementService extends Model({
 }) {
   @modelFlow
   getTree = _async(function* (this: ElementService, rootId: string) {
-    const { elementGraphV2 } = yield* _await(
-      elementApi.GetElementGraphV2({ input: { rootId } }),
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({ input: { rootId } }),
     )
 
-    const ids = [elementGraphV2.id, ...elementGraphV2.descendants]
+    const ids = [elementGraph.id, ...elementGraph.descendants]
 
     const { elements } = yield* _await(
       elementApi.GetElements({
@@ -72,10 +72,7 @@ export class ElementService extends Model({
       }),
     )
 
-    this.elementTree.updateFromFragment(
-      { vertices: elements, edges: [] },
-      rootId,
-    )
+    this.elementTree.updateFromFragment(elements, rootId)
 
     return this.elementTree
   })

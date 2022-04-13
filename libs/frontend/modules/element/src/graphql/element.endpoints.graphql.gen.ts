@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   ElementGraphFragment,
   ElementFragment,
-  ElementGraphV2Fragment,
 } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
@@ -11,19 +10,12 @@ import { gql } from 'graphql-tag'
 import {
   ElementGraphFragmentDoc,
   ElementFragmentDoc,
-  ElementGraphV2FragmentDoc,
 } from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
 export type GetElementGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>
 
 export type GetElementGraphQuery = { elementGraph: ElementGraphFragment }
-
-export type GetElementGraphV2QueryVariables = Types.Exact<{
-  input: Types.ElementGraphInput
-}>
-
-export type GetElementGraphV2Query = { elementGraphV2: ElementGraphV2Fragment }
 
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
@@ -74,14 +66,6 @@ export const GetElementGraphDocument = gql`
     }
   }
   ${ElementGraphFragmentDoc}
-`
-export const GetElementGraphV2Document = gql`
-  query GetElementGraphV2($input: ElementGraphInput!) {
-    elementGraphV2(input: $input) {
-      ...ElementGraphV2
-    }
-  }
-  ${ElementGraphV2FragmentDoc}
 `
 export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
@@ -162,21 +146,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetElementGraph',
-        'query',
-      )
-    },
-    GetElementGraphV2(
-      variables: GetElementGraphV2QueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetElementGraphV2Query> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetElementGraphV2Query>(
-            GetElementGraphV2Document,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetElementGraphV2',
         'query',
       )
     },

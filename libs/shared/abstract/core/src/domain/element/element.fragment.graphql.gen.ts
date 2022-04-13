@@ -40,26 +40,8 @@ export type ElementFragment = {
   }
 }
 
-export type ElementEdgeFragment = {
-  source: string
-  target: string
-  order?: number | null
-}
+export type ElementGraphFragment = { id: string; descendants: Array<string> }
 
-export type ElementGraphFragment = {
-  edges: Array<ElementEdgeFragment>
-  vertices: Array<ElementFragment>
-}
-
-export type ElementGraphV2Fragment = { id: string; descendants: Array<string> }
-
-export const ElementEdgeFragmentDoc = gql`
-  fragment ElementEdge on ElementEdge {
-    source
-    target
-    order
-  }
-`
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
@@ -109,18 +91,6 @@ export const ElementFragmentDoc = gql`
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
-    edges {
-      ...ElementEdge
-    }
-    vertices {
-      ...Element
-    }
-  }
-  ${ElementEdgeFragmentDoc}
-  ${ElementFragmentDoc}
-`
-export const ElementGraphV2FragmentDoc = gql`
-  fragment ElementGraphV2 on ElementGraphV2 {
     id
     descendants
   }

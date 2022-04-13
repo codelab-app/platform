@@ -9,7 +9,7 @@ import { elementRepository } from '../../repositories'
 
 const driver = getDriver()
 
-export const elementGraphV2: IFieldResolver<
+export const elementGraph: IFieldResolver<
   any,
   any,
   QueryElementGraphV2Args
@@ -17,7 +17,7 @@ export const elementGraphV2: IFieldResolver<
   const session = driver.rxSession()
 
   const $elementGraph = session.readTransaction((txn) =>
-    elementRepository.getElementGraphV2(txn, args.input.rootId),
+    elementRepository.getElementGraph(txn, args.input.rootId),
   )
 
   return await $elementGraph.toPromise()

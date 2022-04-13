@@ -50,7 +50,7 @@ fragment Element on Element {
   }
 }
 
-fragment ElementGraphV2 on ElementGraphV2 {
+fragment ElementGraph on ElementGraph {
   id
   descendants
 }

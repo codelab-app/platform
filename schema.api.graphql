@@ -3837,12 +3837,6 @@ input ElementDisconnectInput {
   props: ElementPropsDisconnectFieldInput
 }
 
-type ElementEdge {
-  order: Int
-  source: String!
-  target: String!
-}
-
 type ElementElementChildrenAggregationSelection {
   count: Int!
   edge: ElementElementChildrenEdgeAggregateSelection
@@ -3882,17 +3876,12 @@ type ElementElementParentElementNodeAggregateSelection {
 }
 
 type ElementGraph {
-  edges: [ElementEdge!]!
-  vertices: [Element!]!
+  descendants: [ID!]!
+  id: ID!
 }
 
 input ElementGraphInput {
   rootId: String!
-}
-
-type ElementGraphV2 {
-  descendants: [ID!]!
-  id: ID!
 }
 
 type ElementHookHooksAggregationSelection {
@@ -8953,7 +8942,6 @@ type Query {
   edges(options: EdgeOptions, where: EdgeWhere): [Edge!]!
   edgesAggregate(where: EdgeWhere): EdgeAggregateSelection!
   elementGraph(input: ElementGraphInput!): ElementGraph!
-  elementGraphV2(input: ElementGraphInput!): ElementGraphV2!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere

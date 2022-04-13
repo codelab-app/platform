@@ -4048,13 +4048,6 @@ export type ElementDisconnectInput = {
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
 }
 
-export type ElementEdge = {
-  __typename?: 'ElementEdge'
-  order?: Maybe<Scalars['Int']>
-  source: Scalars['String']
-  target: Scalars['String']
-}
-
 export type ElementElementChildrenAggregationSelection = {
   __typename?: 'ElementElementChildrenAggregationSelection'
   count: Scalars['Int']
@@ -4101,18 +4094,12 @@ export type ElementElementParentElementNodeAggregateSelection = {
 
 export type ElementGraph = {
   __typename?: 'ElementGraph'
-  edges: Array<ElementEdge>
-  vertices: Array<Element>
+  descendants: Array<Scalars['ID']>
+  id: Scalars['ID']
 }
 
 export type ElementGraphInput = {
   rootId: Scalars['String']
-}
-
-export type ElementGraphV2 = {
-  __typename?: 'ElementGraphV2'
-  descendants: Array<Scalars['ID']>
-  id: Scalars['ID']
 }
 
 export type ElementHookHooksAggregationSelection = {
@@ -9593,7 +9580,6 @@ export type Query = {
   edges: Array<Edge>
   edgesAggregate: EdgeAggregateSelection
   elementGraph: ElementGraph
-  elementGraphV2: ElementGraphV2
   elementTypes: Array<ElementType>
   elementTypesAggregate: ElementTypeAggregateSelection
   elements: Array<Element>
@@ -9731,10 +9717,6 @@ export type QueryEdgesAggregateArgs = {
 }
 
 export type QueryElementGraphArgs = {
-  input: ElementGraphInput
-}
-
-export type QueryElementGraphV2Args = {
   input: ElementGraphInput
 }
 

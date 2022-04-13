@@ -3,7 +3,6 @@ import { getComponentService } from '@codelab/frontend/modules/component'
 import {
   IComponentDTO,
   IElementDTO,
-  IElementGraphDTO,
   isAtomDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -22,10 +21,10 @@ import {
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
 
-const fromFragment = (fragment: IElementGraphDTO, rootId: string) => {
+const fromFragment = (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
 
-  tree.updateFromFragment(fragment, rootId)
+  tree.updateFromFragment(elements, rootId)
 
   return tree
 }
@@ -184,8 +183,8 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  updateFromFragment({ vertices }: IElementGraphDTO, rootId: string) {
-    return this.addOrUpdateAll(vertices, rootId)
+  updateFromFragment(elements: Array<IElementDTO>, rootId: string) {
+    return this.addOrUpdateAll(elements, rootId)
   }
 
   getPathFromRoot(selectedElement: Element): Array<Element> {

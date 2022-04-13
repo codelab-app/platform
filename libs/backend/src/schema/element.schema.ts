@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-micro'
 
 export const elementSchema = gql`
-  type ElementGraphV2 @exclude {
+  type ElementGraph @exclude {
     id: ID!
     descendants: [ID!]!
   }
@@ -48,7 +48,7 @@ export const elementSchema = gql`
   }
 
   type Query {
-    elementGraphV2(input: ElementGraphInput!): ElementGraphV2!
+    elementGraph(input: ElementGraphInput!): ElementGraph!
   }
 
   type DeleteElementsInfo @exclude {
