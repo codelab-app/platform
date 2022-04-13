@@ -77,7 +77,7 @@ export class TypeImportService extends Model({}) {
     yield* _await(typeService.getAll())
 
     // keep a queue of types to create, so we can check for types that depend on other types
-    const queue: Array<AnyType> = payload as Array<AnyType>
+    const queue: Array<SnapshotOutOf<AnyType>> = payload
     const isInQueue = (id: string) => queue.some((t) => t.id === id)
     let i = 0
 
