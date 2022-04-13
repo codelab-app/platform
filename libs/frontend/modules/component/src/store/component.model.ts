@@ -23,7 +23,7 @@ export class Component
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static fromFragment = fromFragment
 
-  updateFromFragment(componentFragment: IComponentDTO): void {
+  hydrate(componentFragment: IComponentDTO): void {
     this.name = componentFragment.name
     this.rootElementId = componentFragment.rootElement.id
     this.ownerId = componentFragment.owner?.id

@@ -24,7 +24,7 @@ import { elementRef } from './element.ref'
 const fromFragment = (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
 
-  tree.updateFromFragment(elements, rootId)
+  tree.hydrate(elements, rootId)
 
   return tree
 }
@@ -76,7 +76,7 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(elementFragments: Array<IElementDTO>, rootId?: string) {
+  updateCache(elementFragments: Array<IElementDTO>, rootId?: string) {
     this.updateAtomsCache(elementFragments)
     this.updateComponentsCache(elementFragments)
 
@@ -88,7 +88,7 @@ export class ElementTree extends Model({
       let element = this.element(fragment.id)
 
       if (element) {
-        element.updateFromFragment(fragment)
+        element.hydrate(fragment)
       } else {
         element = Element.fromFragment(fragment)
       }
@@ -183,8 +183,8 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  updateFromFragment(elements: Array<IElementDTO>, rootId: string) {
-    return this.addOrUpdateAll(elements, rootId)
+  hydrate(elements: Array<IElementDTO>, rootId: string) {
+    return this.updateCache(elements, rootId)
   }
 
   getPathFromRoot(selectedElement: Element): Array<Element> {

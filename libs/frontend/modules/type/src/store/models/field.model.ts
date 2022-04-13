@@ -33,7 +33,7 @@ export class Field
   }
 
   @modelAction
-  updateFromFragment(
+  hydrate(
     fragment: IInterfaceTypeEdgeDTO | IInterfaceTypeFieldEdgeDTO,
     interfaceId: string,
   ) {

@@ -88,7 +88,7 @@ export class TypeService extends Model({
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      typeModel.updateFromFragment(fragment)
+      typeModel.hydrate(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
@@ -207,7 +207,7 @@ export class TypeService extends Model({
       throw new Error('Type was not created')
     }
 
-    type.updateFromFragment(typeFragment)
+    type.hydrate(typeFragment)
 
     this.types.set(type.id, type)
 
@@ -261,7 +261,7 @@ export class TypeService extends Model({
     const res = yield* _await(fieldApi.CreateField({ input: createInput }))
     const field = interfaceType.addFieldLocal(res.upsertFieldEdge)
 
-    field.updateFromFragment(res.upsertFieldEdge, interfaceType.id)
+    field.hydrate(res.upsertFieldEdge, interfaceType.id)
 
     return field
   })
@@ -284,8 +284,8 @@ export class TypeService extends Model({
       interfaceType.validateUniqueFieldKey(key)
     }
 
-    // Reusing updateFromFragment with a made up fragment from the optimistic data
-    field.updateFromFragment(
+    // Reusing hydrate with a made up fragment from the optimistic data
+    field.hydrate(
       {
         key,
         name,
@@ -307,7 +307,7 @@ export class TypeService extends Model({
 
     const res = yield* _await(fieldApi.UpdateField({ input }))
 
-    field.updateFromFragment(res.upsertFieldEdge, interfaceType.id)
+    field.hydrate(res.upsertFieldEdge, interfaceType.id)
 
     return field
   })

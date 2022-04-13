@@ -32,7 +32,7 @@ export const createTypeBase = <T extends TypeKind>(typeKind: T) => {
       this.name = name
     }
 
-    updateFromFragment(fragment: any) {
+    hydrate(fragment: any) {
       throw new Error('Need to implement!')
     }
   }

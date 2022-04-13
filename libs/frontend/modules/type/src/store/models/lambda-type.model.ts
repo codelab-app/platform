@@ -31,7 +31,7 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

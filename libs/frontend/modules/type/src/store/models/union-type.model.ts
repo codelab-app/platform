@@ -44,7 +44,7 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.UnionType) {

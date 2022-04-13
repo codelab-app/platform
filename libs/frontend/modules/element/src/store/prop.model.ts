@@ -31,7 +31,7 @@ export class Prop
   }
 
   @modelAction
-  updateFromFragment({ id, data }: IPropDTO) {
+  hydrate({ id, data }: IPropDTO) {
     this.id = id
     this.data = frozen(JSON.parse(data))
   }

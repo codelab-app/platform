@@ -64,7 +64,7 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.EnumType) {

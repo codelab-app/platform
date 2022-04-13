@@ -164,7 +164,7 @@ export class ComponentService extends Model({
     const existing = this.component(componentFragment.id)
 
     if (existing) {
-      existing.updateFromFragment(componentFragment)
+      existing.hydrate(componentFragment)
     } else {
       const component = Component.fromFragment(componentFragment)
       this.components.set(component.id, component)

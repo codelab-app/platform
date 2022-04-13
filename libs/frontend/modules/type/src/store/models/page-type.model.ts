@@ -21,7 +21,7 @@ export class PageType
   implements IPageType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

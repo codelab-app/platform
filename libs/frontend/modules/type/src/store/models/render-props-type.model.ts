@@ -31,7 +31,7 @@ export class RenderPropsType
   implements IRenderPropsType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

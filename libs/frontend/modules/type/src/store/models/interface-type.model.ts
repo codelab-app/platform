@@ -97,7 +97,7 @@ export class InterfaceType
   }
 
   @modelAction
-  updateFromFragment(fragment: ITypeDTO) {
+  hydrate(fragment: ITypeDTO) {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.InterfaceType) {
@@ -108,7 +108,7 @@ export class InterfaceType
       let field = this.fieldByKey(edge.key)
 
       if (field) {
-        field.updateFromFragment(edge, this.id)
+        field.hydrate(edge, this.id)
       } else {
         field = this.addFieldLocal(edge)
         this._fields.set(field.id, field)

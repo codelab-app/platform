@@ -72,7 +72,7 @@ export class ElementService extends Model({
       }),
     )
 
-    this.elementTree.updateFromFragment(elements, rootId)
+    this.elementTree.hydrate(elements, rootId)
 
     return this.elementTree
   })
@@ -125,7 +125,7 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const [element] = this.elementTree.addOrUpdateAll([createdElement])
+    const [element] = this.elementTree.updateCache([createdElement])
 
     return element
   })
@@ -236,7 +236,7 @@ export class ElementService extends Model({
       throw new Error('No elements updated')
     }
 
-    element.updateFromFragment(updatedElement)
+    element.hydrate(updatedElement)
 
     return element
   })
@@ -298,7 +298,7 @@ export class ElementService extends Model({
         throw new Error('No elements created')
       }
 
-      const [elementModel] = this.elementTree.addOrUpdateAll([createdElement])
+      const [elementModel] = this.elementTree.updateCache([createdElement])
 
       oldToNewIdMap.set(element.id, elementModel.id)
 
@@ -463,7 +463,7 @@ export class ElementService extends Model({
       throw new Error('No prop map bindings updated')
     }
 
-    propMapBinding.updateFromFragment(updatedPropMapBinding)
+    propMapBinding.hydrate(updatedPropMapBinding)
 
     return propMapBinding
   })

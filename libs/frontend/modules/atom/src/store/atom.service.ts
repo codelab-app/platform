@@ -81,7 +81,7 @@ export class AtomService extends Model({
       throw new Error('Failed to update atom')
     }
 
-    atom.updateFromFragment(updatedAtom)
+    atom.hydrate(updatedAtom)
 
     return atom
   })
@@ -96,7 +96,7 @@ export class AtomService extends Model({
     let atomModel = this.atom(atom.id)
 
     if (atomModel) {
-      atomModel.updateFromFragment(atom)
+      atomModel.hydrate(atom)
     } else {
       atomModel = Atom.fromFragment(atom)
       this.addAtom(atomModel)

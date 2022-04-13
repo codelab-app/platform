@@ -36,7 +36,7 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.PrimitiveType) {

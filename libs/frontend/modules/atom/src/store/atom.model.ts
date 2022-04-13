@@ -36,7 +36,7 @@ export class Atom
   implements IAtom
 {
   @modelAction
-  updateFromFragment(atom: IAtomDTO) {
+  hydrate(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>

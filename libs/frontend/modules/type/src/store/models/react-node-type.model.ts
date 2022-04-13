@@ -31,7 +31,7 @@ export class ReactNodeType
   implements IReactNodeType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

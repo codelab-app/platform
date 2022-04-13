@@ -14,7 +14,7 @@ export class PropMapBinding extends Model({
   targetKey: prop<string>(), // '*' spreads all props
 }) {
   @modelAction
-  public updateFromFragment(fragment: IPropMapBindingDTO) {
+  public hydrate(fragment: IPropMapBindingDTO) {
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey

@@ -323,7 +323,7 @@ export class Element
   }
 
   @modelAction
-  updateFromFragment({
+  hydrate({
     id,
     name,
     css,
@@ -350,14 +350,14 @@ export class Element
     this.props = props ? new Prop({ id: props.id }) : null
 
     if (props) {
-      this.props?.updateFromFragment(props)
+      this.props?.hydrate(props)
     } else {
       this.props = null
     }
 
     for (const pmb of propMapBindings) {
       if (this.propMapBindings.has(pmb.id)) {
-        this.propMapBindings.get(pmb.id)?.updateFromFragment(pmb)
+        this.propMapBindings.get(pmb.id)?.hydrate(pmb)
       } else {
         this.propMapBindings.set(pmb.id, PropMapBinding.fromFragment(pmb))
       }

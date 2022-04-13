@@ -22,7 +22,7 @@ export class AppType
   implements IAppType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
   }
 

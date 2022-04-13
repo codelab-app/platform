@@ -36,7 +36,7 @@ export class MonacoType
   implements IMonacoType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
+  hydrate(fragment: ITypeDTO): void {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.MonacoType) {

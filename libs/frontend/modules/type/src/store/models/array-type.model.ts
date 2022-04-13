@@ -39,7 +39,7 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO) {
+  hydrate(fragment: ITypeDTO) {
     baseUpdateFromFragment(this, fragment)
 
     if (fragment.typeKind !== TypeKind.ArrayType) {
