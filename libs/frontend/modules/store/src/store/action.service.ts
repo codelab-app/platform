@@ -63,7 +63,7 @@ export class ActionService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(actions: Array<IActionDTO>) {
+  updateCache(actions: Array<IActionDTO>) {
     for (const action of actions) {
       this.addOrUpdate(action)
     }

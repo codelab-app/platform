@@ -203,9 +203,9 @@ export class ElementTree extends Model({
   private updateAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
-    const allAtoms = elements.map((element) => element.atom).filter(isAtomDTO)
+    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
-    atomService.addOrUpdateAll(allAtoms)
+    atomService.updateCache(atoms)
   }
 
   @modelAction

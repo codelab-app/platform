@@ -55,7 +55,7 @@ export class StoreService extends Model({
 
   @modelAction
   ensureAllActionsAdded(actions: IStoreDTO['actions']) {
-    getActionService(this).addOrUpdateAll(actions)
+    getActionService(this).updateCache(actions)
   }
 
   @modelFlow

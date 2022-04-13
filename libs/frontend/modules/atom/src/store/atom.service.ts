@@ -106,7 +106,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<IAtomDTO>) {
+  updateCache(atoms: Array<IAtomDTO>) {
     return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
@@ -115,7 +115,7 @@ export class AtomService extends Model({
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return this.addOrUpdateAll(atoms)
+    return this.updateCache(atoms)
   })
 
   @modelFlow

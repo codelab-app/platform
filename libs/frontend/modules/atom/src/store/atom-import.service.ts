@@ -131,7 +131,7 @@ export class AtomImportService extends Model({}) {
       createAtoms: { atoms },
     } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    atomService.addOrUpdateAll(atoms)
+    atomService.updateCache(atoms)
   })
 
   @modelFlow
