@@ -20,6 +20,7 @@ export type UpdateAppsMutation = { updateApps: { apps: Array<AppFragment> } }
 
 export type DeleteAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
+  delete: Types.AppDeleteInput
 }>
 
 export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
@@ -52,8 +53,8 @@ export const UpdateAppsDocument = gql`
   ${AppFragmentDoc}
 `
 export const DeleteAppsDocument = gql`
-  mutation DeleteApps($where: AppWhere!) {
-    deleteApps(where: $where) {
+  mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+    deleteApps(where: $where, delete: $delete) {
       nodesDeleted
     }
   }

@@ -152,7 +152,35 @@ export class AppService
       this.apps.delete(id)
     }
 
-    const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
+    const deleteCondition = {
+      where: {
+        id,
+      },
+      delete: {
+        pages: [
+          {
+            where: {},
+            delete: {
+              rootElement: {
+                where: {},
+                delete: {
+                  children: [
+                    {
+                      where: {},
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
+        rootProviderElement: {
+          where: {},
+        },
+      },
+    }
+
+    const { deleteApps } = yield* _await(appApi.DeleteApps(deleteCondition))
 
     if (deleteApps.nodesDeleted === 0) {
       // throw error so that the atomic middleware rolls back the changes
