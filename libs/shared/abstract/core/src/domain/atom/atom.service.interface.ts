@@ -14,7 +14,7 @@ export interface IAtomService
   // ICRUDModalService<Ref<IAtom>>
   atoms: ObjectMap<IAtom>
   deleteMany(atoms: Array<IAtom>): any
-  addOrUpdateAll(atoms: any): void
+  updateCache(atoms: any): void
 
   createModal: IModalService
   updateModal: IModalService<Ref<IAtom>>

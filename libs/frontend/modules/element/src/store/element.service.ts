@@ -43,7 +43,7 @@ export interface WithElementService {
  * Element stores a tree of elements locally using an ElementTree
  * and handles the communication with the server.
  */
-@model('codelab/ElementService')
+@model('@codelab/ElementService')
 export class ElementService extends Model({
   elementTree: prop(() => new ElementTree({})),
   elements: prop(() => objectMap<Element>()),
@@ -62,10 +62,45 @@ export class ElementService extends Model({
       elementApi.GetElementGraph({ input: { rootId } }),
     )
 
-    this.elementTree.updateFromFragment(elementGraph, rootId)
+    const ids = [elementGraph.id, ...elementGraph.descendants]
+
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    this.elementTree.updateCaches(elements, rootId)
 
     return this.elementTree
   })
+
+  // @modelFlow
+  // @transaction
+  // getAll = _async(function* (this: ElementService, ids: Array<string> = []) {
+  //   const { elements } = yield* _await(
+  //     elementApi.GetElements({
+  //       where: {
+  //         id_IN: ids,
+  //       },
+  //     }),
+  //   )
+
+  //   return elements.map((element) => {
+  //     if (this.elements.has(element.id)) {
+  //       // return throwIfUndefined(this.elements.get(element.id))
+  //       return element
+  //     }
+
+  //     const elementModel = Element.hydrate(element)
+  //     this.elements.set(element.id, elementModel)
+
+  //     // return elementModel
+  //     return element
+  //   })
+  // })
 
   @modelFlow
   @transaction
@@ -84,7 +119,7 @@ export class ElementService extends Model({
         return element
       }
 
-      const elementModel = Element.fromFragment(element)
+      const elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
 
       // return elementModel
@@ -129,7 +164,7 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const [element] = this.elementTree.addOrUpdateAll([createdElement])
+    const [element] = this.elementTree.updateCache([createdElement])
 
     return element
   })
@@ -240,7 +275,7 @@ export class ElementService extends Model({
       throw new Error('No elements updated')
     }
 
-    element.updateFromFragment(updatedElement)
+    element.updateCache(updatedElement)
 
     return element
   })
@@ -302,7 +337,7 @@ export class ElementService extends Model({
         throw new Error('No elements created')
       }
 
-      const [elementModel] = this.elementTree.addOrUpdateAll([createdElement])
+      const [elementModel] = this.elementTree.updateCache([createdElement])
 
       oldToNewIdMap.set(element.id, elementModel.id)
 
@@ -430,7 +465,7 @@ export class ElementService extends Model({
       throw new Error('No prop map bindings created')
     }
 
-    const propMapBinding = PropMapBinding.fromFragment(createdPropMapBinding)
+    const propMapBinding = PropMapBinding.hydrate(createdPropMapBinding)
 
     element.addPropMapBinding(propMapBinding)
 
@@ -467,7 +502,7 @@ export class ElementService extends Model({
       throw new Error('No prop map bindings updated')
     }
 
-    propMapBinding.updateFromFragment(updatedPropMapBinding)
+    propMapBinding.updateCache(updatedPropMapBinding)
 
     return propMapBinding
   })
@@ -497,7 +532,7 @@ export class ElementService extends Model({
   })
 }
 
-@model('codelab/ElementModalService')
+@model('@codelab/ElementModalService')
 class ElementModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Ref<Element>>>(ModalService),
   props: {},
@@ -508,7 +543,7 @@ class ElementModalService extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/CreateElementModalService')
+@model('@codelab/CreateElementModalService')
 class CreateElementModalService extends ExtendedModel(() => ({
   baseModel:
     modelClass<ModalService<{ parentElement?: Ref<Element> }>>(ModalService),
@@ -520,7 +555,7 @@ class CreateElementModalService extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/PropMapBindingModalService')
+@model('@codelab/PropMapBindingModalService')
 class PropMapBindingModalService extends ExtendedModel(() => ({
   baseModel: modelClass<
     ModalService<{

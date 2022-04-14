@@ -25,7 +25,7 @@ export type WithAppService = {
   appService: AppService
 }
 
-@model('codelab/AppService')
+@model('@codelab/AppService')
 export class AppService
   extends Model({
     apps: prop(() => objectMap<App>()),
@@ -54,7 +54,7 @@ export class AppService
         return throwIfUndefined(this.apps.get(app.id))
       }
 
-      const appModel = App.fromFragment(app)
+      const appModel = App.hydrate(app)
       this.apps.set(app.id, appModel)
 
       return appModel
@@ -86,7 +86,7 @@ export class AppService
       throw new Error('Failed to update app')
     }
 
-    const appModel = App.fromFragment(updatedApp)
+    const appModel = App.hydrate(updatedApp)
 
     this.apps.set(app.id, appModel)
 
@@ -136,7 +136,7 @@ export class AppService
       throw new Error('App was not created')
     }
 
-    const appModel = App.fromFragment(app)
+    const appModel = App.hydrate(app)
 
     this.apps.set(appModel.id, appModel)
 

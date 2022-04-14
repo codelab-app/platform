@@ -3,7 +3,7 @@ import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-@model('codelab/Prop')
+@model('@codelab/Prop')
 export class Prop
   extends Model({
     id: idProp,
@@ -31,12 +31,12 @@ export class Prop
   }
 
   @modelAction
-  updateFromFragment({ id, data }: IPropDTO) {
+  updateCache({ id, data }: IPropDTO) {
     this.id = id
     this.data = frozen(JSON.parse(data))
   }
 
-  public static fromFragment({ id, data }: IPropDTO): Prop {
+  public static hydrate({ id, data }: IPropDTO): Prop {
     return new Prop({ id, data: frozen(JSON.parse(data)) })
   }
 

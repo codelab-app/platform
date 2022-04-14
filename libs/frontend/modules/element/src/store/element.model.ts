@@ -32,7 +32,7 @@ type TransformFn = (props: IPropData) => IPropData
 /**
  * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
  */
-export const elementFromFragment = ({
+export const hydrateElement = ({
   id,
   name,
   css,
@@ -40,6 +40,7 @@ export const elementFromFragment = ({
 
   component,
   instanceOfComponent,
+  parentElement,
 
   hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
   propMapBindings,
@@ -54,8 +55,9 @@ export const elementFromFragment = ({
     id,
     name,
     css,
+    parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
-    props: props ? Prop.fromFragment(props) : null,
+    props: props ? Prop.hydrate(props) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -66,17 +68,21 @@ export const elementFromFragment = ({
       : null,
     propMapBindings: objectMap(
       propMapBindings
-        ? propMapBindings.map((b) => [b.id, PropMapBinding.fromFragment(b)])
+        ? propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)])
         : [],
     ),
   })
 
-@model('codelab/Element')
+@model('@codelab/Element')
 export class Element
   extends Model({
     id: idProp.withSetter(),
-
     children: prop(() => objectMap<Element>()),
+    // parent: prop<Nullish<Element>>(null).withSetter(),
+
+    // Data used for tree initializing, before our Element model is ready
+    parentId: prop<Nullish<string>>(),
+
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<Nullish<string>>(() => null).withSetter(),
@@ -323,7 +329,7 @@ export class Element
   }
 
   @modelAction
-  updateFromFragment({
+  updateCache({
     id,
     name,
     css,
@@ -350,16 +356,16 @@ export class Element
     this.props = props ? new Prop({ id: props.id }) : null
 
     if (props) {
-      this.props?.updateFromFragment(props)
+      this.props?.updateCache(props)
     } else {
       this.props = null
     }
 
     for (const pmb of propMapBindings) {
       if (this.propMapBindings.has(pmb.id)) {
-        this.propMapBindings.get(pmb.id)?.updateFromFragment(pmb)
+        this.propMapBindings.get(pmb.id)?.updateCache(pmb)
       } else {
-        this.propMapBindings.set(pmb.id, PropMapBinding.fromFragment(pmb))
+        this.propMapBindings.set(pmb.id, PropMapBinding.hydrate(pmb))
       }
     }
 
@@ -370,7 +376,7 @@ export class Element
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static fromFragment = elementFromFragment
+  public static hydrate = hydrateElement
 }
 
 export const compareOrder = (a: Element, b: Element) =>

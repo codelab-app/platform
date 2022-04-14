@@ -3,7 +3,7 @@ import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 import { Tag } from './tag.model'
 
-@model('codelab/TagModalService')
+@model('@codelab/TagModalService')
 export class TagModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Ref<Tag>>>(ModalService),
   props: {},
@@ -14,7 +14,7 @@ export class TagModalService extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/TagsModalService')
+@model('@codelab/TagsModalService')
 export class TagsModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Array<Ref<Tag>>>>(ModalService),
   props: {},

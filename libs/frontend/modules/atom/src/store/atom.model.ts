@@ -12,7 +12,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const fromFragment = (atom: IAtomDTO) => {
+const hydrate = (atom: IAtomDTO) => {
   return new Atom({
     id: atom.id,
     name: atom.name,
@@ -24,7 +24,7 @@ const fromFragment = (atom: IAtomDTO) => {
   })
 }
 
-@model('codelab/Atom')
+@model('@codelab/Atom')
 export class Atom
   extends Model({
     id: idProp,
@@ -36,7 +36,7 @@ export class Atom
   implements IAtom
 {
   @modelAction
-  updateFromFragment(atom: IAtomDTO) {
+  updateCache(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
@@ -46,7 +46,7 @@ export class Atom
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static fromFragment = fromFragment
+  static hydrate = hydrate
 }
 
 export const atomRef = rootRef<Atom>('AtomRef', {

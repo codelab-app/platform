@@ -17,7 +17,7 @@ import { getRenderContext } from '../renderServiceContext'
  *   [$propName]: <ReactNode - Rendered element from the same tree with id - $elementId>
  * }
  */
-@model('codelab/ElementTypedValueTransformer')
+@model('@codelab/ElementTypedValueTransformer')
 export class ElementTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer

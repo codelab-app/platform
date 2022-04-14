@@ -14,8 +14,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
     const closeModal = () => elementService.deleteModal.close()
 
     const onSubmit = async ({ elementId }: DeleteElementData) => {
-      await elementService.deleteElementsSubgraph(elementId)
-      closeModal()
+      return await elementService.deleteElementsSubgraph(elementId)
     }
 
     const onSubmitError = createNotificationHandler({

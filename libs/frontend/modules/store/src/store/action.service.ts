@@ -27,7 +27,7 @@ export type WithActionService = {
   actionService: ActionService
 }
 
-@model('codelab/ActionService')
+@model('@codelab/ActionService')
 export class ActionService extends Model({
   actions: prop(() => objectMap<Action>()),
   createModal: prop(() => new ModalService({})),
@@ -58,12 +58,12 @@ export class ActionService extends Model({
       existing.name = action.name
       existing.body = action.body
     } else {
-      this.addAction(Action.fromFragment(action))
+      this.addAction(Action.hydrate(action))
     }
   }
 
   @modelAction
-  addOrUpdateAll(actions: Array<IActionDTO>) {
+  updateCache(actions: Array<IActionDTO>) {
     for (const action of actions) {
       this.addOrUpdate(action)
     }
@@ -87,7 +87,7 @@ export class ActionService extends Model({
     )
 
     const updatedAction = updateActions.actions[0]
-    const actionModel = Action.fromFragment(updatedAction)
+    const actionModel = Action.hydrate(updatedAction)
     this.actions.set(updatedAction.id, actionModel)
 
     return actionModel
@@ -101,7 +101,7 @@ export class ActionService extends Model({
     const { actions } = yield* _await(actionApi.GetActions({ where }))
 
     return actions.map((action) => {
-      const actionModel = Action.fromFragment(action)
+      const actionModel = Action.hydrate(action)
       this.actions.set(action.id, actionModel)
 
       return actionModel
@@ -140,7 +140,7 @@ export class ActionService extends Model({
       throw new Error('Action was not created')
     }
 
-    const actionModel = Action.fromFragment(action)
+    const actionModel = Action.hydrate(action)
 
     this.actions.set(action.id, actionModel)
 

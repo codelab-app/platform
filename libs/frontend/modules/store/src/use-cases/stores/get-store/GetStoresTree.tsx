@@ -1,6 +1,6 @@
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/view/components'
 import { Tree, TreeDataNode } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -22,7 +22,7 @@ export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
   const storesTrees: Array<TreeDataNode> = storeService.antdTree
 
   return (
-    <SpinnerWrapper isLoading={isLoading}>
+    <Spinner isLoading={isLoading}>
       <Tree
         activeKey={currentStoreId}
         blockNode
@@ -32,6 +32,6 @@ export const GetStoresTree = observer<WithStoreService>(({ storeService }) => {
         )}
         treeData={storesTrees ? storesTrees : []}
       />
-    </SpinnerWrapper>
+    </Spinner>
   )
 })

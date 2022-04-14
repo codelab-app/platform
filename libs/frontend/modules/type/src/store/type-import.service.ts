@@ -20,7 +20,7 @@ export type WithTypeImportService = {
   typeImportService: TypeImportService
 }
 
-@model('codelab/TypeImportService')
+@model('@codelab/TypeImportService')
 export class TypeImportService extends Model({}) {
   @modelFlow
   public exportTypesPayload = _async(function* (

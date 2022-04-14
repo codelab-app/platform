@@ -7,11 +7,11 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
-const fromFragment = (fragment: IArrayTypeDTO): ArrayType => {
+const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
   const itemId = fragment.itemType.id
   const itemType = typeRef(itemId)
 
@@ -28,7 +28,7 @@ const fromFragment = (fragment: IArrayTypeDTO): ArrayType => {
   })
 }
 
-@model('codelab/ArrayType')
+@model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.ArrayType),
@@ -39,8 +39,8 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO) {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO) {
+    updateFromDTO(this, fragment)
 
     if (fragment.typeKind !== TypeKind.ArrayType) {
       return
@@ -55,5 +55,5 @@ export class ArrayType
     super.applyUpdateData(input)
   }
 
-  static fromFragment = fromFragment
+  static hydrate = hydrate
 }

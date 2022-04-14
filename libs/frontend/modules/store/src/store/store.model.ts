@@ -16,7 +16,7 @@ import {
 } from 'mobx-keystone'
 import { Action, actionRef } from './action.model'
 
-@model('codelab/Store')
+@model('@codelab/Store')
 export class Store extends Model(() => ({
   id: idProp,
   parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
@@ -69,7 +69,7 @@ export class Store extends Model(() => ({
     return makeAutoObservable(merge({}, storeState, storeActions, childStores))
   }
 
-  static fromFragment(store: IStoreDTO): Store {
+  static hydrate(store: IStoreDTO): Store {
     return new Store({
       id: store.id,
       children: store.children.map((x) => storeRef(x.id)),

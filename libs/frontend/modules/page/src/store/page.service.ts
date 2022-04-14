@@ -35,7 +35,7 @@ export type WithPageService = {
   pageService: PageService
 }
 
-@model('codelab/PageService')
+@model('@codelab/PageService')
 export class PageService
   extends Model({
     pages: prop(() => objectMap<Page>()),
@@ -77,7 +77,7 @@ export class PageService
       throw new Error('Failed to update page')
     }
 
-    const pageModel = Page.fromFragment(updatedPage)
+    const pageModel = Page.hydrate(updatedPage)
 
     this.pages.set(page.id, pageModel)
 
@@ -93,7 +93,7 @@ export class PageService
       if (this.pages.get(page.id)) {
         return throwIfUndefined(this.pages.get(page.id))
       } else {
-        const pageModel = Page.fromFragment(page)
+        const pageModel = Page.hydrate(page)
         this.pages.set(page.id, pageModel)
 
         return pageModel
@@ -138,7 +138,7 @@ export class PageService
       throw new Error('Page was not created')
     }
 
-    const pageModel = Page.fromFragment(page)
+    const pageModel = Page.hydrate(page)
 
     this.pages.set(pageModel.id, pageModel)
 

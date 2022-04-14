@@ -9,7 +9,7 @@ import { getRenderContext } from '../renderServiceContext'
 /**
  * Render pipe that renders whatever you give it - useful for unit testing
  */
-@model('codelab/PassThroughRenderPipe')
+@model('@codelab/PassThroughRenderPipe')
 export class PassThroughRenderPipe extends Model({}) implements IRenderPipe {
   render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const renderer = getRenderContext(this)

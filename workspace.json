@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "backend": "libs/backend",
     "cli": "apps/cli",
     "frontend-abstract-core": "libs/frontend/abstract/core",
     "frontend-abstract-types": "libs/frontend/abstract/types",

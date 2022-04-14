@@ -21,7 +21,7 @@ export interface WithTagService {
   tagService: TagService
 }
 
-@model('codelab/TagService')
+@model('@codelab/TagService')
 export class TagService extends Model({
   tags: prop(() => objectMap<Tag>()),
 
@@ -80,7 +80,7 @@ export class TagService extends Model({
     )
 
     const tag = tags[0]
-    const tagModel = Tag.fromFragment(tag)
+    const tagModel = Tag.hydrate(tag)
 
     this.tags.set(tagModel.id, tagModel)
 
@@ -105,7 +105,7 @@ export class TagService extends Model({
       throw new Error('Failed to update tag')
     }
 
-    const tagModel = Tag.fromFragment(updatedTag)
+    const tagModel = Tag.hydrate(updatedTag)
 
     this.tags.set(tag.id, tagModel)
 
@@ -166,7 +166,7 @@ export class TagService extends Model({
     const { tags } = yield* _await(tagApi.GetTags())
 
     tags.forEach((tag) => {
-      const tagModel = Tag.fromFragment(tag)
+      const tagModel = Tag.hydrate(tag)
       this.tags.set(tag.id, tagModel)
     })
   })

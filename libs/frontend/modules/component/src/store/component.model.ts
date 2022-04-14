@@ -1,7 +1,7 @@
 import { IComponent, IComponentDTO } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const fromFragment = (component: IComponentDTO) => {
+const hydrate = (component: IComponentDTO) => {
   return new Component({
     id: component.id,
     name: component.name,
@@ -10,7 +10,7 @@ const fromFragment = (component: IComponentDTO) => {
   })
 }
 
-@model('codelab/Component')
+@model('@codelab/Component')
 export class Component
   extends Model({
     id: idProp,
@@ -21,9 +21,9 @@ export class Component
   implements IComponent
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static fromFragment = fromFragment
+  static hydrate = hydrate
 
-  updateFromFragment(componentFragment: IComponentDTO): void {
+  updateCache(componentFragment: IComponentDTO): void {
     this.name = componentFragment.name
     this.rootElementId = componentFragment.rootElement.id
     this.ownerId = componentFragment.owner?.id

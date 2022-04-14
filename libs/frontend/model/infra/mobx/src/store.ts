@@ -44,7 +44,7 @@ export type Snapshot<T = any> = {
   snapshot: SnapshotOutOf<T>
 }
 
-@model('codelab/RootStore')
+@model('@codelab/RootStore')
 export class RootStore extends Model({
   appService: prop(() => new AppService({})),
   pageService: prop(() => new PageService({})),

@@ -4,7 +4,7 @@ import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 import { Store } from './store.model'
 
-@model('codelab/StoreModalService')
+@model('@codelab/StoreModalService')
 export class StoreModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Maybe<Ref<Store>>>>(ModalService),
   props: {},

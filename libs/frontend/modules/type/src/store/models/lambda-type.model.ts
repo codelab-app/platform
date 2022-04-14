@@ -6,15 +6,10 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
-  id,
-  typeKind,
-  name,
-  owner,
-}: ILambdaTypeDTO): LambdaType =>
+const hydrate = ({ id, typeKind, name, owner }: ILambdaTypeDTO): LambdaType =>
   new LambdaType({
     id,
     typeKind,
@@ -22,7 +17,7 @@ const fromFragment = ({
     ownerAuth0Id: owner?.auth0Id,
   })
 
-@model('codelab/LambdaType')
+@model('@codelab/LambdaType')
 export class LambdaType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.LambdaType),
@@ -31,8 +26,8 @@ export class LambdaType
   implements ILambdaType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateFromDTO(this, fragment)
   }
 
   @modelAction
@@ -40,5 +35,5 @@ export class LambdaType
     super.applyUpdateData(input)
   }
 
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }

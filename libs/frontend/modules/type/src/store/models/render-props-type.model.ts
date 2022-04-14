@@ -6,10 +6,10 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
+const hydrate = ({
   id,
   typeKind,
   name,
@@ -22,7 +22,7 @@ const fromFragment = ({
     ownerAuth0Id: owner?.auth0Id,
   })
 
-@model('codelab/RenderPropsType')
+@model('@codelab/RenderPropsType')
 export class RenderPropsType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.RenderPropsType),
@@ -31,8 +31,8 @@ export class RenderPropsType
   implements IRenderPropsType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateFromDTO(this, fragment)
   }
 
   @modelAction
@@ -40,5 +40,5 @@ export class RenderPropsType
     super.applyUpdateData(input)
   }
 
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }

@@ -1,7 +1,7 @@
 import { IModalService } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
-@model('codelab/ModelService')
+@model('@codelab/ModelService')
 export class ModalService<TMetadata = never>
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow

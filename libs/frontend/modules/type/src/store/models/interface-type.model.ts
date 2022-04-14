@@ -16,12 +16,12 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'
 
-const fromFragment = ({
+const hydrate = ({
   id,
   typeKind,
   name,
@@ -42,7 +42,7 @@ const fromFragment = ({
   return it
 }
 
-@model('codelab/InterfaceType')
+@model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.InterfaceType),
@@ -97,8 +97,8 @@ export class InterfaceType
   }
 
   @modelAction
-  updateFromFragment(fragment: ITypeDTO) {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO) {
+    updateFromDTO(this, fragment)
 
     if (fragment.typeKind !== TypeKind.InterfaceType) {
       return
@@ -108,7 +108,7 @@ export class InterfaceType
       let field = this.fieldByKey(edge.key)
 
       if (field) {
-        field.updateFromFragment(edge, this.id)
+        field.hydrate(edge, this.id)
       } else {
         field = this.addFieldLocal(edge)
         this._fields.set(field.id, field)
@@ -135,5 +135,5 @@ export class InterfaceType
     }
   }
 
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }
