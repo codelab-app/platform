@@ -10,13 +10,16 @@ export const appSchema = gql`
     store: Store @relationship(type: "STORE_OF_APP", direction: IN)
   }
 
-  # extend type App
-  #   @auth(
-  #     rules: [
-  #       {
-  #         operations: [CONNECT, DISCONNECT]
-  #         bind: { owner: { id: "$jwt.sub" } }
-  #       }
-  #     ]
-  #   )
+  extend type App
+    @auth(
+      rules: [
+        {
+          operations: [READ, UPDATE, CREATE]
+          roles: ["User", "Guest"]
+          where: { owner: { auth0Id: "$jwt.sub" } }
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+        { operations: [READ, UPDATE, CREATE], roles: ["Admin"] }
+      ]
+    )
 `
