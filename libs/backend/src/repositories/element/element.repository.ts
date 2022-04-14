@@ -28,8 +28,6 @@ export const elementRepository = {
       ),
 
   getElementGraph: (txn: RxTransaction, rootId: string): Observable<any> => {
-    console.log(rootId)
-
     return txn
       .run(getElementGraphCypher, { rootId })
       .records()

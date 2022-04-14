@@ -7,7 +7,7 @@ export const tagSchema = gql`
     id: ID! @id
     name: String! @unique
     isRoot: Boolean
-        @cypher(statement: """${tagIsRoot}""")
+      @cypher(statement: """${tagIsRoot}""")
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
   }
