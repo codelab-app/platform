@@ -3,7 +3,7 @@ import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
-import getElementGraphV2Cypher from './getElementGraph.cypher'
+import getElementGraphCypher from './getElementGraph.cypher'
 
 export type DeleteElementsResponse = {
   deletedIds?: Array<string>
@@ -31,7 +31,7 @@ export const elementRepository = {
     console.log(rootId)
 
     return txn
-      .run(getElementGraphV2Cypher, { rootId })
+      .run(getElementGraphCypher, { rootId })
       .records()
       .pipe(
         map((record) => {
