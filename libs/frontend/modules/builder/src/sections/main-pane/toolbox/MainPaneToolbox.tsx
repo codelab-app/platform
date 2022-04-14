@@ -5,7 +5,7 @@ import {
   ComponentService,
 } from '@codelab/frontend/modules/component'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/view/components'
 import { IAtom, ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
@@ -106,11 +106,11 @@ export const MainPaneToolbox = observer<MainPaneToolboxProps>(
         `}
         ref={setNodeRef}
       >
-        <SpinnerWrapper isLoading={isLoadingAtoms || isLoadingComponents}>
+        <Spinner isLoading={isLoadingAtoms || isLoadingComponents}>
           {filteredItems.map((item) => (
             <ToolboxItemView key={item.id} toolboxItem={item} />
           ))}
-        </SpinnerWrapper>
+        </Spinner>
       </div>
     )
   },

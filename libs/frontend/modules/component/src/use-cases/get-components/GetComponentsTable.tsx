@@ -1,5 +1,5 @@
 import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/view/components'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
@@ -55,14 +55,14 @@ export const GetComponentsTable = observer<WithComponentService>(
     }))
 
     return (
-      <SpinnerWrapper isLoading={isLoading}>
+      <Spinner isLoading={isLoading}>
         <Table
           columns={getComponentsTableColumns}
           dataSource={dataSource}
           pagination={{ position: ['bottomCenter'] }}
           rowKey={(component) => component.id}
         />
-      </SpinnerWrapper>
+      </Spinner>
     )
   },
 )

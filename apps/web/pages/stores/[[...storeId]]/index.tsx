@@ -18,7 +18,7 @@ import {
   WithStoreService,
 } from '@codelab/frontend/modules/store'
 import { WithTypeService } from '@codelab/frontend/modules/type'
-import { DisplayIf, SpinnerWrapper } from '@codelab/frontend/view/components'
+import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -77,7 +77,7 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Head>
         <title>Stores | Codelab</title>
       </Head>
-      <SpinnerWrapper isLoading={isLoading}>
+      <Spinner isLoading={isLoading}>
         <DisplayIf condition={Boolean(store)}>
           <ContentSection>
             <InitialStatePage
@@ -91,7 +91,7 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
             />
           </ContentSection>
         </DisplayIf>
-      </SpinnerWrapper>
+      </Spinner>
     </>
   )
 })

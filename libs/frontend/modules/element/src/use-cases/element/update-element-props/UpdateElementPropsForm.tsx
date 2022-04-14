@@ -1,7 +1,7 @@
 import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
-  SpinnerWrapper,
+  Spinner,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { IPropData } from '@codelab/shared/abstract/core'
@@ -41,7 +41,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }
 
     return (
-      <SpinnerWrapper isLoading={isLoading}>
+      <Spinner isLoading={isLoading}>
         {interfaceType && (
           <InterfaceForm
             autosave
@@ -52,7 +52,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             submitRef={undefined}
           />
         )}
-      </SpinnerWrapper>
+      </Spinner>
     )
   },
 )
