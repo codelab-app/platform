@@ -15,10 +15,10 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
+const hydrate = ({
   id,
   typeKind,
   name,
@@ -33,7 +33,7 @@ const fromFragment = ({
     ownerAuth0Id: owner?.auth0Id,
   })
 
-@model('codelab/UnionType')
+@model('@codelab/UnionType')
 export class UnionType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.UnionType),
@@ -44,8 +44,8 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateFromDTO(this, fragment)
 
     if (fragment.typeKind !== TypeKind.UnionType) {
       return
@@ -65,7 +65,7 @@ export class UnionType
     this.typesOfUnionType = input.typeIdsOfUnionType.map((tId) => typeRef(tId))
   }
 
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }
 
 export const typeRef = rootRef<IAnyType>('codelab/TypeRef', {

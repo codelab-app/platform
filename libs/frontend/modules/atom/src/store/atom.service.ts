@@ -33,7 +33,7 @@ export type WithAtomService = {
   atomService: AtomService
 }
 
-@model('codelab/AtomService')
+@model('@codelab/AtomService')
 export class AtomService extends Model({
   atoms: prop(() => objectMap<Atom>()),
   createModal: prop(() => new ModalService({})),
@@ -81,7 +81,7 @@ export class AtomService extends Model({
       throw new Error('Failed to update atom')
     }
 
-    atom.updateFromFragment(updatedAtom)
+    atom.updateCache(updatedAtom)
 
     return atom
   })
@@ -96,9 +96,9 @@ export class AtomService extends Model({
     let atomModel = this.atom(atom.id)
 
     if (atomModel) {
-      atomModel.updateFromFragment(atom)
+      atomModel.updateCache(atom)
     } else {
-      atomModel = Atom.fromFragment(atom)
+      atomModel = Atom.hydrate(atom)
       this.addAtom(atomModel)
     }
 
@@ -106,7 +106,7 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<IAtomDTO>) {
+  updateCache(atoms: Array<IAtomDTO>) {
     return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
@@ -115,7 +115,7 @@ export class AtomService extends Model({
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return this.addOrUpdateAll(atoms)
+    return this.updateCache(atoms)
   })
 
   @modelFlow
@@ -172,7 +172,7 @@ export class AtomService extends Model({
       throw new Error('Atom was not created')
     }
 
-    const atomModel = Atom.fromFragment(atom)
+    const atomModel = Atom.hydrate(atom)
 
     this.atoms.set(atomModel.id, atomModel)
 

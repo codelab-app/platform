@@ -7,7 +7,7 @@ import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { getRenderContext } from '../renderServiceContext'
 
-@model('codelab/ConditionalRenderPipe')
+@model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe

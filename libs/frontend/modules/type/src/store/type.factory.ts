@@ -57,5 +57,5 @@ export const typeClassFactory = (typeKind: TypeKind) => {
 }
 
 export const typeFactory = (type: ITypeDTO) => {
-  return typeClassFactory(type.typeKind).fromFragment(type as any)
+  return typeClassFactory(type.typeKind).hydrate(type as any)
 }

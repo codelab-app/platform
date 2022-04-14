@@ -3,7 +3,7 @@ import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 import { Component } from './component.model'
 
-@model('codelab/ComponentModalService')
+@model('@codelab/ComponentModalService')
 export class ComponentModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Ref<Component>>>(ModalService),
   props: {},

@@ -10,7 +10,7 @@ export interface IAtom extends IEntity {
   type: AtomType
   tags: Array<ITag>
   api: Ref<IInterfaceType>
-  updateFromFragment(atom: any): void
+  updateCache(atom: any): void
 }
 
 export const isAtomDTO = (atom: Nullish<IAtomDTO>): atom is IAtomDTO => {

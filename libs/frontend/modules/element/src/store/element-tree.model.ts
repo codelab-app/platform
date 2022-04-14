@@ -3,7 +3,6 @@ import { getComponentService } from '@codelab/frontend/modules/component'
 import {
   IComponentDTO,
   IElementDTO,
-  IElementGraphDTO,
   isAtomDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -22,10 +21,10 @@ import {
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
 
-const fromFragment = (fragment: IElementGraphDTO, rootId: string) => {
+const hydrate = (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
 
-  tree.updateFromFragment(fragment, rootId)
+  tree.updateCaches(elements, rootId)
 
   return tree
 }
@@ -35,17 +34,20 @@ const fromFragment = (fragment: IElementGraphDTO, rootId: string) => {
  * It is used as a local observable store for a tree of elements.
  * It doesn't handle remote data, use elementService for that
  */
-@model('codelab/ElementTree')
+@model('@codelab/ElementTree')
 export class ElementTree extends Model({
   id: idProp,
 
   /** The root tree element */
   root: prop<Nullable<Element>>(null).withSetter(),
 
+  /**
+   * A flat list of elements in the tree
+   */
+  elements: prop(() => objectMap<Ref<Element>>()),
+
   /** All root elements of the components in the main tree */
   componentRoots: prop(() => objectMap<Element>()),
-
-  elementCache: prop(() => objectMap<Ref<Element>>()),
 }) {
   @computed
   get elementsList() {
@@ -57,69 +59,50 @@ export class ElementTree extends Model({
       return this.componentRoots.get(id)
     }
 
-    if (this.elementCache.has(id)) {
-      return this.elementCache.get(id)?.maybeCurrent
-    }
-
-    const allRoots = [this.root, ...this.componentRoots.values()]
-
-    for (const value of allRoots) {
-      const element = value?.findDescendant(id)
-
-      if (element) {
-        this.elementCache.set(id, elementRef(element))
-
-        return element
-      }
-    }
-
-    return undefined
+    return this.elements?.get(id)?.current
   }
 
   @modelAction
-  addOrUpdateAll(elementFragments: Array<IElementDTO>, rootId?: string) {
-    this.updateAtomsCache(elementFragments)
-    this.updateComponentsCache(elementFragments)
+  updateCache(elementsDTO: Array<IElementDTO>, rootId?: string) {
+    this.updateAtomsCache(elementsDTO)
+    this.updateComponentsCache(elementsDTO)
 
     // Create all elements first. Keep them in a temp map. Then after all are created, assign parent/children
     const elements = new Map<string, Element>()
-    const childToParentMap = new Map<string, string>()
 
-    for (const fragment of elementFragments) {
-      let element = this.element(fragment.id)
+    for (const elementDTO of elementsDTO) {
+      let element = this.element(elementDTO.id)
 
-      if (element) {
-        element.updateFromFragment(fragment)
-      } else {
-        element = Element.fromFragment(fragment)
-      }
+      // Update cache if exists, other create new
+      element
+        ? element.updateCache(elementDTO)
+        : (element = Element.hydrate(elementDTO))
 
-      elements.set(fragment.id, element)
+      elements.set(elementDTO.id, element)
+      this.elements.set(elementDTO.id, elementRef(element))
 
-      if (fragment.id === rootId) {
+      if (!elementDTO.parentElement?.id) {
         this.root = element
-      } else if (fragment.parentElement?.id) {
-        childToParentMap.set(fragment.id, fragment.parentElement.id)
-      } else if (fragment.component) {
-        this.componentRoots.set(fragment.id, element)
+      } else if (elementDTO.component) {
+        this.componentRoots.set(elementDTO.id, element)
       }
     }
 
-    // Assign parent/children
-    for (const addedElement of elements.values()) {
-      const parentId = childToParentMap.get(addedElement.id)
+    // Assign relationships
+    for (const [_, element] of elements) {
+      const parentId = element.parentId
 
       if (!parentId) {
         continue
       }
 
-      const parent = elements.get(parentId) || this.element(parentId)
+      const parent = elements.get(parentId) ?? this.element(parentId)
 
       if (!parent) {
         continue
       }
 
-      parent.addChild(addedElement)
+      parent?.addChild(element)
     }
 
     return [...elements.values()]
@@ -133,8 +116,8 @@ export class ElementTree extends Model({
     ]
 
     for (const id of elementAndDescendantIds) {
-      if (this.elementCache.has(id)) {
-        this.elementCache.delete(id)
+      if (this.elements.has(id)) {
+        this.elements.delete(id)
       }
     }
 
@@ -184,8 +167,8 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  updateFromFragment({ vertices }: IElementGraphDTO, rootId: string) {
-    return this.addOrUpdateAll(vertices, rootId)
+  updateCaches(elements: Array<IElementDTO>, rootId: string) {
+    return this.updateCache(elements, rootId)
   }
 
   getPathFromRoot(selectedElement: Element): Array<Element> {
@@ -204,9 +187,9 @@ export class ElementTree extends Model({
   private updateAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
-    const allAtoms = elements.map((element) => element.atom).filter(isAtomDTO)
+    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
-    atomService.addOrUpdateAll(allAtoms)
+    atomService.updateCache(atoms)
   }
 
   @modelAction
@@ -222,7 +205,7 @@ export class ElementTree extends Model({
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }
 
 export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {

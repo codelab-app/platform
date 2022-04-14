@@ -11,21 +11,9 @@ fragment Element on Element {
   }
   parentElement {
     id
-    name
   }
   atom {
     ...Atom
-    # id
-    # type
-    # name
-    # tags {
-    #   id
-    #   name
-    # }
-    # api {
-    #   id
-    #   name
-    # }
   }
   props {
     ...Prop
@@ -50,22 +38,7 @@ fragment Element on Element {
   }
 }
 
-fragment ElementEdge on ElementEdge {
-  source
-  target
-  order
-}
-
 fragment ElementGraph on ElementGraph {
-  edges {
-    ...ElementEdge
-  }
-  vertices {
-    ...Element
-  }
+  id
+  descendants
 }
-
-# fragment ElementGraphV2 on ElementGraphV2 {
-#   id
-#   descendants
-# }

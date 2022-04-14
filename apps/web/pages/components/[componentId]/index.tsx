@@ -9,7 +9,7 @@ import {
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
-  MainPaneBuilder,
+  MainPane,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
 import {
@@ -83,7 +83,7 @@ ComponentDetail.Layout = observer((page) => {
     >
       <BuilderDashboardTemplate
         MainPane={observer(() => (
-          <MainPaneBuilder
+          <MainPane
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}

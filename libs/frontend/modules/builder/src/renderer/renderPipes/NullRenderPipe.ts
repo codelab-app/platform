@@ -9,7 +9,7 @@ import { getRenderContext } from '../renderServiceContext'
 /**
  * Fallback render pipe, returns null
  */
-@model('codelab/NullRenderPipe')
+@model('@codelab/NullRenderPipe')
 export class NullRenderPipe extends Model({}) implements IRenderPipe {
   render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const renderer = getRenderContext(this)

@@ -21,7 +21,7 @@ import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
  *   [$propName]: <(...args) => ReactNode - A function that renders the component with id: $componentId>
  * }
  */
-@model('codelab/RenderPropsTypedValueTransformer')
+@model('@codelab/RenderPropsTypedValueTransformer')
 export class RenderPropsTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer

@@ -9,7 +9,7 @@ import { RenderOutput } from '../abstract/RenderOutput'
 import type { RenderService } from '../RenderService'
 import { getRenderContext } from '../renderServiceContext'
 
-@model('codelab/ComponentRenderPipe')
+@model('@codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
@@ -42,12 +42,9 @@ export class ComponentRenderPipe
   }
 
   private static makeOverrideProps(props: IPropData, component: Component) {
-    const {
-      key,
-      [DATA_COMPONENT_ID]: cid,
-      [DATA_ID]: id,
-      ...overrideProps
-    } = { ...props } as any
+    const { key, [DATA_ID]: id, ...overrideProps } = { ...props } as any
+
+    console.log(component)
 
     return {
       [DATA_COMPONENT_ID]: component.id,

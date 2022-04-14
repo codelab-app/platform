@@ -4,7 +4,7 @@ import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 import { Atom } from './atom.model'
 
-@model('codelab/AtomModalService')
+@model('@codelab/AtomModalService')
 export class AtomModalService
   extends ExtendedModel(() => ({
     baseModel: modelClass<ModalService<Ref<Atom>>>(ModalService),
@@ -18,7 +18,7 @@ export class AtomModalService
   }
 }
 
-@model('codelab/AtomsModalService')
+@model('@codelab/AtomsModalService')
 export class AtomsModalService
   extends ExtendedModel(() => ({
     baseModel: modelClass<ModalService<Array<Ref<Atom>>>>(ModalService),

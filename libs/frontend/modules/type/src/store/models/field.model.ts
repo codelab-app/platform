@@ -17,7 +17,7 @@ import {
 } from 'mobx-keystone'
 import { typeRef } from './union-type.model'
 
-@model('codelab/Field')
+@model('@codelab/Field')
 export class Field
   extends Model(() => ({
     id: idProp, // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
@@ -33,7 +33,7 @@ export class Field
   }
 
   @modelAction
-  updateFromFragment(
+  hydrate(
     fragment: IInterfaceTypeEdgeDTO | IInterfaceTypeFieldEdgeDTO,
     interfaceId: string,
   ) {

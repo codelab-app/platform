@@ -13,15 +13,16 @@ export const handleFormSubmit =
     setIsLoading?.(true)
 
     try {
-      const r = await onSubmit(formData as T)
+      const results = await onSubmit(formData as T)
 
-      callbackWithParams(onSubmitSuccess, r as any)
+      await callbackWithParams(onSubmitSuccess, results as any)
 
-      return r
+      setIsLoading?.(false)
+
+      return results
     } catch (err: any) {
       console.error(err)
-      callbackWithParams(onSubmitError, err)
-    } finally {
+      await callbackWithParams(onSubmitError, err)
       setIsLoading?.(false)
     }
   }

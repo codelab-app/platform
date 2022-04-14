@@ -3837,12 +3837,6 @@ input ElementDisconnectInput {
   props: ElementPropsDisconnectFieldInput
 }
 
-type ElementEdge {
-  order: Int
-  source: String!
-  target: String!
-}
-
 type ElementElementChildrenAggregationSelection {
   count: Int!
   edge: ElementElementChildrenEdgeAggregateSelection
@@ -3882,8 +3876,8 @@ type ElementElementParentElementNodeAggregateSelection {
 }
 
 type ElementGraph {
-  edges: [ElementEdge!]!
-  vertices: [Element!]!
+  descendants: [ID!]!
+  id: ID!
 }
 
 input ElementGraphInput {

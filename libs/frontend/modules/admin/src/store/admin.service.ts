@@ -21,7 +21,7 @@ export interface WithAdminService {
   adminService: AdminService
 }
 
-@model('codelab/AdminService')
+@model('@codelab/AdminService')
 export class AdminService extends Model({}) {
   @modelFlow
   @transaction

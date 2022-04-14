@@ -26,7 +26,7 @@ export interface AtomExportPayload {
   types: Array<SnapshotOutOf<IAnyType>>
 }
 
-@model('codelab/AtomImportService')
+@model('@codelab/AtomImportService')
 export class AtomImportService extends Model({}) {
   /**
    * Produces a payload of type {@see AtomExportPayload},
@@ -131,7 +131,7 @@ export class AtomImportService extends Model({}) {
       createAtoms: { atoms },
     } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    atomService.addOrUpdateAll(atoms)
+    atomService.updateCache(atoms)
   })
 
   @modelFlow

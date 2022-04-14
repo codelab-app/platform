@@ -2,7 +2,7 @@ import { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import { IIdentifiable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
-@model('codelab/App')
+@model('@codelab/App')
 export class App
   extends Model({
     id: idProp,
@@ -18,7 +18,7 @@ export class App
     return this.id
   }
 
-  static fromFragment(app: IAppDTO) {
+  static hydrate(app: IAppDTO) {
     return new App({
       id: app.id,
       name: app.name,

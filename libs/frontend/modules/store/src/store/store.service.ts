@@ -28,7 +28,7 @@ import { StoreModalService } from './store-modal.service'
 export type WithStoreService = {
   storeService: StoreService
 }
-@model('codelab/StoreService')
+@model('@codelab/StoreService')
 export class StoreService extends Model({
   stores: prop(() => objectMap<Store>()),
 
@@ -55,7 +55,7 @@ export class StoreService extends Model({
 
   @modelAction
   ensureAllActionsAdded(actions: IStoreDTO['actions']) {
-    getActionService(this).addOrUpdateAll(actions)
+    getActionService(this).updateCache(actions)
   }
 
   @modelFlow
@@ -82,7 +82,7 @@ export class StoreService extends Model({
     const descendants = stores.flatMap((x) => x.descendants)
 
     descendants.concat(stores).forEach((store) => {
-      this.stores.set(store.id, Store.fromFragment(store))
+      this.stores.set(store.id, Store.hydrate(store))
     })
 
     return this.stores
@@ -135,7 +135,7 @@ export class StoreService extends Model({
       throw new Error('No stores created')
     }
 
-    const store = Store.fromFragment(createdStore)
+    const store = Store.hydrate(createdStore)
 
     this.addStore(store)
     this.attachToParent(store)
@@ -173,7 +173,7 @@ export class StoreService extends Model({
     )
 
     const updatedStore = updateStores.stores[0]
-    const storeModel = Store.fromFragment(updatedStore)
+    const storeModel = Store.hydrate(updatedStore)
 
     this.detachFromParent(store) // detach from old parent
     this.attachToParent(storeModel) // attach to new parent

@@ -7,10 +7,7 @@ import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
-import {
-  ConditionalView,
-  SpinnerWrapper,
-} from '@codelab/frontend/view/components'
+import { DisplayIf, SpinnerWrapper } from '@codelab/frontend/view/components'
 import { IPropData } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -55,7 +52,7 @@ export const UpdateInitialStateForm = observer<
 
   return (
     <SpinnerWrapper isLoading={isLoading}>
-      <ConditionalView condition={Boolean(data)}>
+      <DisplayIf condition={Boolean(data)}>
         <Card>
           <InterfaceForm
             autosave
@@ -67,7 +64,7 @@ export const UpdateInitialStateForm = observer<
             submitRef={undefined}
           />
         </Card>
-      </ConditionalView>
+      </DisplayIf>
     </SpinnerWrapper>
   )
 })

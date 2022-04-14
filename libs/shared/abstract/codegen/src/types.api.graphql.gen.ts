@@ -4048,13 +4048,6 @@ export type ElementDisconnectInput = {
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
 }
 
-export type ElementEdge = {
-  __typename?: 'ElementEdge'
-  order?: Maybe<Scalars['Int']>
-  source: Scalars['String']
-  target: Scalars['String']
-}
-
 export type ElementElementChildrenAggregationSelection = {
   __typename?: 'ElementElementChildrenAggregationSelection'
   count: Scalars['Int']
@@ -4101,8 +4094,8 @@ export type ElementElementParentElementNodeAggregateSelection = {
 
 export type ElementGraph = {
   __typename?: 'ElementGraph'
-  edges: Array<ElementEdge>
-  vertices: Array<Element>
+  descendants: Array<Scalars['ID']>
+  id: Scalars['ID']
 }
 
 export type ElementGraphInput = {

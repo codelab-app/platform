@@ -1,7 +1,7 @@
 import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
-@model('codelab/Page')
+@model('@codelab/Page')
 export class Page
   extends Model({
     id: idProp,
@@ -17,7 +17,7 @@ export class Page
     return this.id
   }
 
-  static fromFragment(page: IPageDTO) {
+  static hydrate(page: IPageDTO) {
     return new Page({
       id: page.id,
       name: page.name,
