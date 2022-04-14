@@ -119,7 +119,7 @@ export class ElementService extends Model({
         return element
       }
 
-      const elementModel = Element.fromFragment(element)
+      const elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
 
       // return elementModel
