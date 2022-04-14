@@ -7,10 +7,10 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
-const fromFragment = ({
+const hydrate = ({
   id,
   typeKind,
   name,
@@ -25,7 +25,7 @@ const fromFragment = ({
     ownerAuth0Id: owner?.auth0Id,
   })
 
-@model('codelab/MonacoType')
+@model('@codelab/MonacoType')
 export class MonacoType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.MonacoType),
@@ -36,8 +36,8 @@ export class MonacoType
   implements IMonacoType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateFromDTO(this, fragment)
 
     if (fragment.typeKind !== TypeKind.MonacoType) {
       return
@@ -57,5 +57,5 @@ export class MonacoType
     this.language = input.language
   }
 
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }

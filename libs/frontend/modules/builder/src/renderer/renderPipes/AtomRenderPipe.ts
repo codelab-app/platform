@@ -10,7 +10,7 @@ import { RenderOutput } from '../abstract/RenderOutput'
 import { getRenderContext } from '../renderServiceContext'
 import { evalCss } from '../utils/evalCss'
 
-@model('codelab/AtomRenderPipe')
+@model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe

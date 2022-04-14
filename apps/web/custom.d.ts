@@ -5,11 +5,6 @@ declare module '*.svg' {
   export default content
 }
 
-declare module '*.cypher' {
-  const content: string
-  export default content
-}
-
 interface Window {
   jQuery: JQueryStatic
   Morphtext: any

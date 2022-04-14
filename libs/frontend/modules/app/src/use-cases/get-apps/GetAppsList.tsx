@@ -1,4 +1,4 @@
-import { ConditionalView } from '@codelab/frontend/view/components'
+import { DisplayIf } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -12,30 +12,15 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetAppsList = observer<WithAppService>(({ appService }) => {
-  // const [load, { isLoading, error }] = useLoadingState(() =>
-  //   appService.getAll(),
-  // )
-
-  // useEffect(() => {
-  //   load()
-  // }, [load])
-
-  // appService.getAll()
-
   const appList = appService.appsList
 
   return (
-    // <SpinnerWrapper isLoading={isLoading}>
-    // <ConditionalView condition={!!error}>
-    //   <Alert type="error">{error}</Alert>
-    // </ConditionalView>
-
     <>
-      <ConditionalView condition={!appList || !appList.length}>
+      <DisplayIf condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
           <CreateAppButton appService={appService}>Create Now</CreateAppButton>
         </Empty>
-      </ConditionalView>
+      </DisplayIf>
 
       <Row gutter={[padding.sm, padding.sm]}>
         {appList?.map((app) => (
@@ -46,6 +31,5 @@ export const GetAppsList = observer<WithAppService>(({ appService }) => {
         ))}
       </Row>
     </>
-    // </SpinnerWrapper>
   )
 })

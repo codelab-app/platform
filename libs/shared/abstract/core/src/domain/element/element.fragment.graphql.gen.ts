@@ -27,7 +27,7 @@ export type ElementFragment = {
   propTransformationJs?: string | null
   component?: ComponentFragment | null
   instanceOfComponent?: ComponentFragment | null
-  parentElement?: { id: string; name?: string | null } | null
+  parentElement?: { id: string } | null
   atom?: AtomFragment | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
@@ -40,24 +40,8 @@ export type ElementFragment = {
   }
 }
 
-export type ElementEdgeFragment = {
-  source: string
-  target: string
-  order?: number | null
-}
+export type ElementGraphFragment = { id: string; descendants: Array<string> }
 
-export type ElementGraphFragment = {
-  edges: Array<ElementEdgeFragment>
-  vertices: Array<ElementFragment>
-}
-
-export const ElementEdgeFragmentDoc = gql`
-  fragment ElementEdge on ElementEdge {
-    source
-    target
-    order
-  }
-`
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
@@ -72,7 +56,6 @@ export const ElementFragmentDoc = gql`
     }
     parentElement {
       id
-      name
     }
     atom {
       ...Atom
@@ -107,15 +90,9 @@ export const ElementFragmentDoc = gql`
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
-    edges {
-      ...ElementEdge
-    }
-    vertices {
-      ...Element
-    }
+    id
+    descendants
   }
-  ${ElementEdgeFragmentDoc}
-  ${ElementFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

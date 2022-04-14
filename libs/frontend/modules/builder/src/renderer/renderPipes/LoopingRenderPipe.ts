@@ -8,7 +8,7 @@ import { IRenderPipe } from '../abstract/IRenderPipe'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { getRenderContext } from '../renderServiceContext'
 
-@model('codelab/LoopingRenderPipe')
+@model('@codelab/LoopingRenderPipe')
 export class LoopingRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe

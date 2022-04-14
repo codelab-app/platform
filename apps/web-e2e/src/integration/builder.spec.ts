@@ -90,7 +90,7 @@ describe('Elements CRUD', () => {
   })
 
   describe(`create`, () => {
-    it.only(`should be able to create elements`, () => {
+    it(`should be able to create elements`, () => {
       cy.wrap(elements).each(
         (element: { name: string; atom: string; parentElement: string }) => {
           const { atom, name, parentElement } = element

@@ -37,7 +37,7 @@ export interface WithComponentService {
   componentService: ComponentService
 }
 
-@model('codelab/ComponentStore')
+@model('@codelab/ComponentStore')
 export class ComponentService extends Model({
   components: prop(() => objectMap<Component>()),
   createModal: prop(() => new ModalService({})),
@@ -62,7 +62,7 @@ export class ComponentService extends Model({
       if (this.components.get(component.id)) {
         return this.components.get(component.id)
       } else {
-        const componentModel = Component.fromFragment(component)
+        const componentModel = Component.hydrate(component)
         this.components.set(component.id, componentModel)
 
         return componentModel
@@ -106,7 +106,7 @@ export class ComponentService extends Model({
       throw new Error('Component was not created')
     }
 
-    const componentModel = Component.fromFragment(component)
+    const componentModel = Component.hydrate(component)
 
     this.components.set(componentModel.id, componentModel)
 
@@ -164,9 +164,9 @@ export class ComponentService extends Model({
     const existing = this.component(componentFragment.id)
 
     if (existing) {
-      existing.updateFromFragment(componentFragment)
+      existing.updateCache(componentFragment)
     } else {
-      const component = Component.fromFragment(componentFragment)
+      const component = Component.hydrate(componentFragment)
       this.components.set(component.id, component)
     }
   }

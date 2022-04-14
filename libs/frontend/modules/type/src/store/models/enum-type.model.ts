@@ -16,7 +16,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateFromDTO } from '../abstract'
 import { createTypeBase } from './base-type.model'
 
 const fromFragmentValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
@@ -25,7 +25,7 @@ const fromFragmentValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
     name: fragment.name,
   })
 
-@model('codelab/EnumTypeValue')
+@model('@codelab/EnumTypeValue')
 export class EnumTypeValue extends Model({
   id: idProp,
   name: prop<Nullish<string>>(),
@@ -35,7 +35,7 @@ export class EnumTypeValue extends Model({
     return this.name || this.value
   }
 
-  public static fromFragment = fromFragmentValue
+  public static hydrate = fromFragmentValue
 }
 
 const fromFragmentEnumType = ({
@@ -49,11 +49,11 @@ const fromFragmentEnumType = ({
     id,
     typeKind,
     name,
-    allowedValues: allowedValues.map(EnumTypeValue.fromFragment),
+    allowedValues: allowedValues.map(EnumTypeValue.hydrate),
     ownerAuth0Id: owner?.auth0Id,
   })
 
-@model('codelab/EnumType')
+@model('@codelab/EnumType')
 export class EnumType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(TypeKind.EnumType),
@@ -64,15 +64,15 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  updateFromFragment(fragment: ITypeDTO): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateFromDTO(this, fragment)
 
     if (fragment.typeKind !== TypeKind.EnumType) {
       return
     }
 
     this.allowedValues =
-      fragment.allowedValues?.map(EnumTypeValue.fromFragment) ?? []
+      fragment.allowedValues?.map(EnumTypeValue.hydrate) ?? []
   }
 
   @modelAction
@@ -84,9 +84,9 @@ export class EnumType
     }
 
     this.allowedValues = input.allowedValues?.map((v) =>
-      EnumTypeValue.fromFragment({ value: v.value, name: v.name, id: v4() }),
+      EnumTypeValue.hydrate({ value: v.value, name: v.name, id: v4() }),
     )
   }
 
-  public static fromFragment = fromFragmentEnumType
+  public static hydrate = fromFragmentEnumType
 }

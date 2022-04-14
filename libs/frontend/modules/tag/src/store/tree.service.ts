@@ -21,7 +21,7 @@ export interface INode {
   children: Array<string>
 }
 
-@model('codelab/Node')
+@model('@codelab/Node')
 export class Node extends Model({
   id: idProp,
   label: prop<string>(),
@@ -40,7 +40,7 @@ export const nodeRef = rootRef<Node>('NodeRef', {
   },
 })
 
-@model('codelab/TreeService')
+@model('@codelab/TreeService')
 export class TreeService<TNode extends INode, TEdge> extends Model(<
   // eslint-disable-next-line @typescript-eslint/no-shadow
   TNode extends INode,

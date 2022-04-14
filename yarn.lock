@@ -3711,6 +3711,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@es-joy/jsdoccomment@npm:~0.22.1":
+  version: 0.22.1
+  resolution: "@es-joy/jsdoccomment@npm:0.22.1"
+  dependencies:
+    comment-parser: 1.3.1
+    esquery: ^1.4.0
+    jsdoc-type-pratt-parser: ~2.2.5
+  checksum: c12963d60e197914edb33fc81011d3183259b9510d07f0f402d8b4bf1cc7220555be433d1f61c6c43f0fa79c6138dfb614c2a7bed61ecdb541d793e2648869fe
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^1.2.1":
   version: 1.2.1
   resolution: "@eslint/eslintrc@npm:1.2.1"
@@ -11979,9 +11990,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:4.19.3":
-  version: 4.19.3
-  resolution: "antd@npm:4.19.3"
+"antd@npm:4.19.5":
+  version: 4.19.5
+  resolution: "antd@npm:4.19.5"
   dependencies:
     "@ant-design/colors": ^6.0.0
     "@ant-design/icons": ^4.7.0
@@ -11999,7 +12010,7 @@ __metadata:
     rc-dialog: ~8.6.0
     rc-drawer: ~4.4.2
     rc-dropdown: ~3.3.2
-    rc-field-form: ~1.24.0
+    rc-field-form: ~1.25.0
     rc-image: ~5.2.5
     rc-input: ~0.0.1-alpha.5
     rc-input-number: ~7.3.0
@@ -12029,7 +12040,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 214da2c2b4c4b85834fc2775f63d7f6fe64fe83806838e9adcd10e480770f6b462c97354a9b80a9a697d60b52fc5dbb27c3aa2696286d95c0a10f1dacfa09918
+  checksum: 08f543da4712fc069d04f69295ac4d0088138a0e27d14692f4c6a8f9bdfa592eb4e239a0208fcd63871ea4bc84896e3e8fa39ab2c975ac5719a9efdf072332dd
   languageName: node
   linkType: hard
 
@@ -14679,7 +14690,7 @@ __metadata:
     adm-zip: 0.5.9
     ajv: 8.8.2
     animate.css: 4.1.1
-    antd: 4.19.3
+    antd: 4.19.5
     apollo-server-micro: ^3.6.2
     auth0: 2.37.0
     autoprefixer: 9
@@ -14728,6 +14739,7 @@ __metadata:
     eslint-plugin-deprecate-import: 2.0.0
     eslint-plugin-import: 2.25.4
     eslint-plugin-jest-formatting: 3.1.0
+    eslint-plugin-jsdoc: ^39.2.1
     eslint-plugin-jsx-a11y: 6.5.1
     eslint-plugin-prettier: 4.0.0
     eslint-plugin-react: 7.29.4
@@ -15002,6 +15014,13 @@ __metadata:
   version: 8.3.0
   resolution: "commander@npm:8.3.0"
   checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
+  languageName: node
+  linkType: hard
+
+"comment-parser@npm:1.3.1":
+  version: 1.3.1
+  resolution: "comment-parser@npm:1.3.1"
+  checksum: 421e6a113a3afd548500e7174ab46a2049dccf92e82bbaa3b209031b1bdf97552aabfa1ae2a120c0b62df17e1ba70e0d8b05d68504fee78e1ef974c59bcfe718
   languageName: node
   linkType: hard
 
@@ -16604,7 +16623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.3.4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3":
+"debug@npm:4, debug@npm:4.3.4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -18294,6 +18313,23 @@ __metadata:
   peerDependencies:
     eslint: ">=0.8.0"
   checksum: 350f6f3f46eefcbc3df003049e35776786829977a4da077f1793885664dfd0f34b5e8814dd29e52b2f44384df03e688454a3b905586c3cdbede83860a80cba89
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-jsdoc@npm:^39.2.1":
+  version: 39.2.1
+  resolution: "eslint-plugin-jsdoc@npm:39.2.1"
+  dependencies:
+    "@es-joy/jsdoccomment": ~0.22.1
+    comment-parser: 1.3.1
+    debug: ^4.3.4
+    escape-string-regexp: ^4.0.0
+    esquery: ^1.4.0
+    semver: ^7.3.6
+    spdx-expression-parse: ^3.0.1
+  peerDependencies:
+    eslint: ^7.0.0 || ^8.0.0
+  checksum: 5c35e23dcd5da020a7d875a57e9a116f2617b980977412991379ebb413dae4df107902cecdd23e4e3c258627a07524b0506ff251371e12d78f9af98cdf840640
   languageName: node
   linkType: hard
 
@@ -23886,6 +23922,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsdoc-type-pratt-parser@npm:~2.2.5":
+  version: 2.2.5
+  resolution: "jsdoc-type-pratt-parser@npm:2.2.5"
+  checksum: 47d68147fae7fe4343e0c1d47cbf55d2d963696e0583a1d398846be06df2df8e149e34a6304e04b6c148839600234e99a860bc712af829fac557fe7e5cd82141
+  languageName: node
+  linkType: hard
+
 "jsdom@npm:^16.6.0":
   version: 16.7.0
   resolution: "jsdom@npm:16.7.0"
@@ -29349,9 +29392,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-field-form@npm:~1.24.0":
-  version: 1.24.0
-  resolution: "rc-field-form@npm:1.24.0"
+"rc-field-form@npm:~1.25.0":
+  version: 1.25.2
+  resolution: "rc-field-form@npm:1.25.2"
   dependencies:
     "@babel/runtime": ^7.8.4
     async-validator: ^4.0.2
@@ -29359,7 +29402,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 9df11592fb9c736170ee1ef33b64a9d8cfc790f3f6a72457f2a1d805939b1f3bc3a161590962bd772fd96e97029d4c3ea36cb202fc5000097719194b6fafe261
+  checksum: 5c2072d1b335e035ba80a982bf3e38f23a327394f5219f9615a72f755de1b45608ae06b77d14277135b559c61532b0dc523fe276cfaf4325b29a0b1aab7c4874
   languageName: node
   linkType: hard
 
@@ -31685,6 +31728,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.3.6":
+  version: 7.3.7
+  resolution: "semver@npm:7.3.7"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
+  languageName: node
+  linkType: hard
+
 "send@npm:0.17.2":
   version: 0.17.2
   resolution: "send@npm:0.17.2"
@@ -32249,7 +32303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spdx-expression-parse@npm:^3.0.0":
+"spdx-expression-parse@npm:^3.0.0, spdx-expression-parse@npm:^3.0.1":
   version: 3.0.1
   resolution: "spdx-expression-parse@npm:3.0.1"
   dependencies:

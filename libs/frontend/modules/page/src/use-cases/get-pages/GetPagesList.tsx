@@ -1,6 +1,6 @@
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/view/components'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -24,7 +24,7 @@ export const GetPagesList = observer<WithPageService>(({ pageService }) => {
   const results = pagesList.concat([{ name: providerTreePageName }] as any)
 
   return (
-    <SpinnerWrapper isLoading={isLoading}>
+    <Spinner isLoading={isLoading}>
       <List
         dataSource={results}
         renderItem={(page) => (
@@ -32,6 +32,6 @@ export const GetPagesList = observer<WithPageService>(({ pageService }) => {
         )}
         size="small"
       />
-    </SpinnerWrapper>
+    </Spinner>
   )
 })

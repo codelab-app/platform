@@ -19,7 +19,7 @@ import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
  *        [$propName] : $value
  *     }
  */
-@model('codelab/RawTypedValuePropsTransformer')
+@model('@codelab/RawTypedValuePropsTransformer')
 export class RawTypedValuePropsTransformer
   extends Model({})
   implements ITypedValueTransformer

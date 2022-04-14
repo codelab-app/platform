@@ -8,6 +8,6 @@ export interface IBaseType {
   ownerAuth0Id: string
   makeCreateInput(id: string): ICreateTypeInput
   makeUpdateInput(): IUpdateTypeArgs
-  updateFromFragment(fragment: any): void
+  updateCache(fragment: any): void
   applyUpdateData(data: any): void
 }

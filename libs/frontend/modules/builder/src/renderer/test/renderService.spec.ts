@@ -47,7 +47,7 @@ describe('RenderService', () => {
     })
   })
 
-  it('should render component instance', () => {
+  it.only('should render component instance', () => {
     const { props, atomType, elementId } =
       data.renderService.renderElementIntermediate(
         data.componentInstanceElementToRender,

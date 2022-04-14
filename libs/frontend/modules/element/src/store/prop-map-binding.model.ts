@@ -6,7 +6,18 @@ import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 import type { Element } from './element.model'
 import { elementRef } from './element.ref'
 
-@model('codelab/PropMapBinding')
+const hydrate = (fragment: IPropMapBindingDTO) => {
+  return new PropMapBinding({
+    id: fragment.id,
+    targetElement: fragment.targetElement
+      ? elementRef(fragment.targetElement.id)
+      : null,
+    sourceKey: fragment.sourceKey,
+    targetKey: fragment.targetKey,
+  })
+}
+
+@model('@codelab/PropMapBinding')
 export class PropMapBinding extends Model({
   id: idProp,
   targetElement: prop<Nullable<Ref<Element>>>(), // if null -> target is current element
@@ -14,7 +25,7 @@ export class PropMapBinding extends Model({
   targetKey: prop<string>(), // '*' spreads all props
 }) {
   @modelAction
-  public updateFromFragment(fragment: IPropMapBindingDTO) {
+  updateCache(fragment: IPropMapBindingDTO) {
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey
@@ -43,14 +54,5 @@ export class PropMapBinding extends Model({
     return newProps
   }
 
-  public static fromFragment(fragment: IPropMapBindingDTO) {
-    return new PropMapBinding({
-      id: fragment.id,
-      targetElement: fragment.targetElement
-        ? elementRef(fragment.targetElement.id)
-        : null,
-      sourceKey: fragment.sourceKey,
-      targetKey: fragment.targetKey,
-    })
-  }
+  public static hydrate = hydrate
 }

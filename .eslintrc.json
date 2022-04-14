@@ -270,6 +270,24 @@
               //   ]
               // },
               {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": [
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract",
+                  "scope:codegen"
+                ]
+              },
+              // {
+              //   "sourceTag": "layer:domain:frontend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "scope:shared",
+              //     "layer:domain:frontend",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
+              {
                 "sourceTag": "scope:e2e",
                 "onlyDependOnLibsWithTags": [
                   "scope:frontend",
