@@ -13005,9 +13005,34 @@ export type TagConnectWhere = {
 }
 
 export type TagCreateInput = {
+  owner?: InputMaybe<TagOwnerFieldInput>
   children?: InputMaybe<TagChildrenFieldInput>
   name: Scalars['String']
   parent?: InputMaybe<TagParentFieldInput>
+}
+
+export type TagOwnerFieldInput = {
+  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
+}
+
+export type TagOwnerConnectFieldInput = {
+  connect?: InputMaybe<Array<UserConnectInput>>
+  where?: InputMaybe<UserConnectWhere>
+}
+
+export type TagOwnerConnectOrCreateFieldInput = {
+  onCreate: TagOwnerConnectOrCreateFieldInputOnCreate
+  where: UserConnectOrCreateWhere
+}
+
+export type TagOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserOnCreateInput
+}
+
+export type TagOwnerCreateFieldInput = {
+  node: UserCreateInput
 }
 
 export type TagDeleteInput = {

@@ -84,7 +84,11 @@ export class TagService
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input,
+        input: {
+          name: input.name,
+          owner: { connect: [{ where: { node: { auth0Id: ownerId } } }] },
+          ...connectParentWhere,
+        },
       }),
     )
 
