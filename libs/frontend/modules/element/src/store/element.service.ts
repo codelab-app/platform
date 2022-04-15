@@ -268,12 +268,24 @@ export class ElementService
 
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
 
+<<<<<<< HEAD
     for (const id of idsToDelete.reverse()) {
       const ele = this.elements.get(id)
       this.elements.delete(id)
       // ele?.parentElement?.removeChild(ele)
     }
 
+<<<<<<< HEAD
+=======
+    console.log('after delete')
+
+=======
+    if (deletedRoot) {
+      this.elementTree.removeElementAndDescendants(deletedRoot)
+    }
+
+>>>>>>> feat: delete app works now with its dependencies
+>>>>>>> feat: delete app works now with its dependencies
     const {
       deleteElements: { nodesDeleted },
     } = yield* _await(

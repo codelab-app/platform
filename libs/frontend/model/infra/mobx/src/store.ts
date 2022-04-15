@@ -148,6 +148,7 @@ export const createRootStore = (
       operationServiceContext.set(this, this.operationService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)
+      pageServiceContext.set(this, this.pageService)
     }
   }
 
