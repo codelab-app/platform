@@ -6,12 +6,13 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import {
   createNonUnionTypeOptionsForTypeSelect,
   TypeSelect,
 } from '../../../shared'
 import { WithTypeService } from '../../../store'
-import { createTypeSchema, typeFactory } from './create-type-input.factory'
+import { createTypeSchema } from './create-type-input.factory'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
@@ -27,7 +28,9 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
       visible={typeService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateTypeDTO>
-        model={{}}
+        model={{
+          id: v4(),
+        }}
         onSubmit={async (data) => {
           if (!user.user?.sub) {
             console.warn('User not logged in')
@@ -35,9 +38,9 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
             return
           }
 
-          const type = typeFactory(data, user.user.sub)
+          // const typeInput = createTypeInput(data, user.user.sub)
 
-          return typeService.create(type)
+          return typeService.create(data)
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',

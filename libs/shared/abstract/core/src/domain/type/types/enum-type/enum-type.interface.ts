@@ -1,6 +1,6 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { ITypeKind } from '../base-type/type-kind.enum'
 
 export interface IEnumTypeValue {
   id: string
@@ -16,6 +16,6 @@ export interface IEnumTypeValue {
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
 export interface IEnumType extends IBaseType {
-  typeKind: typeof TypeKind.EnumType
+  kind: ITypeKind.EnumType
   allowedValues: Array<IEnumTypeValue>
 }

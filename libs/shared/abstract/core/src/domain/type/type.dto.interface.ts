@@ -4,8 +4,7 @@ import {
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
-import { TypeKind } from './types/base-type/type-kind.enum'
-import { IEnumTypeValue } from './types/enum-type/enum-type.interface'
+import { IEnumTypeValue, TypeKind } from './types'
 
 export interface IBaseTypeDTO {
   name: string
@@ -20,6 +19,7 @@ export interface IBaseTypeDTO {
  * Create
  */
 export interface ICreateTypeDTO extends IBaseTypeDTO {
+  id: string
   kind: TypeKind
   typeIdsOfUnionType?: Array<string>
   arrayItemTypeId?: string

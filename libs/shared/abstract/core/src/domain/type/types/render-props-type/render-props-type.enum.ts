@@ -1,5 +1,5 @@
 import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { ITypeKind } from '../base-type/type-kind.enum'
 
 /**
  * Prop values for this type have the shape of {@see TypedValue} in order to
@@ -11,5 +11,5 @@ import { TypeKind } from '../base-type/type-kind.enum'
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
 export interface IRenderPropsType extends IBaseType {
-  typeKind: typeof TypeKind.RenderPropsType
+  kind: ITypeKind.RenderPropsType
 }

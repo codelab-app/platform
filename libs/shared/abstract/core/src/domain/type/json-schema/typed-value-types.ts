@@ -1,14 +1,14 @@
-import { TypeKind } from '../types/base-type/type-kind.enum'
+import { ITypeKind } from '../types/base-type/type-kind.enum'
 
 /**
  * All types that result in a value with shape of {@see TypedValue}
  */
-export const typedValueTypes: Set<TypeKind> = new Set([
-  TypeKind.ElementType,
-  TypeKind.RenderPropsType,
-  TypeKind.ReactNodeType,
-  TypeKind.UnionType,
+export const typedValueTypes: Set<ITypeKind> = new Set([
+  ITypeKind.ElementType,
+  ITypeKind.RenderPropsType,
+  ITypeKind.ReactNodeType,
+  ITypeKind.UnionType,
 ])
 
-export const isTypedValueType = (type: TypeKind): boolean =>
+export const isTypedValueType = (type: ITypeKind): boolean =>
   typedValueTypes.has(type)

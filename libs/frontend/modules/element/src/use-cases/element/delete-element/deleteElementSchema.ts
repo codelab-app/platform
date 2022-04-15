@@ -10,6 +10,7 @@ export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
   properties: {
     elementId: {
       type: 'string',
+      disabled: true,
     },
   },
   required: ['elementId'],

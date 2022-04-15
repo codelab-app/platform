@@ -1,5 +1,4 @@
 import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
   E2eCreateAppTypesDocument,

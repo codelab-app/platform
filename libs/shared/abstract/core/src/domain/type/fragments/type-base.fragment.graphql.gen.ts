@@ -4,87 +4,87 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type TypeBase_AppType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'AppType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_ArrayType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'ArrayType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_ElementType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'ElementType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_EnumType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'EnumType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_InterfaceType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'InterfaceType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_LambdaType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'LambdaType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_MonacoType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'MonacoType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_PageType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'PageType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_PrimitiveType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'PrimitiveType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_ReactNodeType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'ReactNodeType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_RenderPropsType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'RenderPropsType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBase_UnionType_Fragment = {
+  kind: Types.TypeKind
   id: string
   name: string
-  typeKind: 'UnionType'
-  owner: { auth0Id: string }
+  owner: { id: string; auth0Id: string }
 }
 
 export type TypeBaseFragment =
@@ -103,9 +103,10 @@ export type TypeBaseFragment =
 
 export const TypeBaseFragmentDoc = gql`
   fragment TypeBase on TypeBase {
-    typeKind: __typename
+    kind
     id
     owner {
+      id
       auth0Id
     }
     name

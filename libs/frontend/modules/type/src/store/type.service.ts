@@ -1,10 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
-  IAnyType,
   ICreateFieldDTO,
+  ICreateTypeDTO,
   ITypeDTO,
   IUpdateFieldDTO,
-  TypeKind,
+  IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { entityMapById } from '@codelab/shared/utils'
 import { flatMap } from 'lodash'
@@ -22,6 +22,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { createTypeInput } from '../use-cases/types/create-type/createTypeFactory'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -31,7 +32,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { InterfaceType } from './models'
+import { AnyType, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -57,7 +58,7 @@ export const getTypeService = (self: object) => {
 
 @model('@codelab/TypeService')
 export class TypeService extends Model({
-  types: prop(() => objectMap<IAnyType>()),
+  types: prop(() => objectMap<AnyType>()),
 
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new TypeModalService({})),
@@ -79,12 +80,12 @@ export class TypeService extends Model({
   }
 
   @modelAction
-  addTypeLocal(type: IAnyType) {
+  addTypeLocal(type: AnyType) {
     this.types.set(type.id, type)
   }
 
   @modelAction
-  addOrUpdateLocal(fragment: ITypeDTO) {
+  updateCache(fragment: ITypeDTO) {
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
@@ -99,19 +100,19 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, type: IAnyType) {
-    const [updatedType] = yield* _await(
-      updateTypeApi[type.typeKind]({
-        where: { id: type.id },
-        ...type.makeUpdateInput(),
-      }),
-    )
+  update = _async(function* (this: TypeService, type: IUpdateTypeDTO) {
+    const args = {
+      where: { id: type.id },
+      ...type.makeUpdateInput(),
+    }
+
+    const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
 
     if (!updatedType) {
       throw new Error('Type was not updated')
     }
 
-    return this.addOrUpdateLocal(updatedType)
+    return this.updateCache(updatedType)
   })
 
   @modelFlow
@@ -197,9 +198,11 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, type: IAnyType) {
+  create = _async(function* (this: TypeService, data: ICreateTypeDTO) {
+    const typeInput = createTypeInput(data)
+
     const [typeFragment] = yield* _await(
-      createTypeApi[type.typeKind](type.makeCreateInput(type.ownerAuth0Id)),
+      createTypeApi[typeInput.typeKind](typeInput),
     )
 
     if (!type) {
@@ -238,7 +241,7 @@ export class TypeService extends Model({
   })
 
   //
-  //  The field actions are here because if I put them in InterfaceType
+  // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   //
   @modelFlow

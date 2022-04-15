@@ -6,7 +6,6 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { TypeKind } from '@codelab/shared/abstract/core'
 import { Space, Table } from 'antd'
 import { ColumnsType, TableRowSelection } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'

@@ -29,7 +29,7 @@ export class App
   }
 }
 
-export const appRef = rootRef<App>('AppRef', {
+export const appRef = rootRef<App>('@codelab/AppRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)

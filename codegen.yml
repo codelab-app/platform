@@ -32,9 +32,9 @@ generates:
       - typescript
     config:
       namingConvention:
-        # enumsAsConst: true
         enumValues: keep
   #        dedupeFragments: true
+      constEnums: true
 
   # This somehow generates for web-e2e as well, even if ./libs
   ./:

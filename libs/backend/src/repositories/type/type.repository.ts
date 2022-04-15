@@ -1,5 +1,5 @@
 import { Field, InterfaceTypeEdge } from '@codelab/shared/abstract/codegen'
-import { IAnyType, TypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, ITypeKind } from '@codelab/shared/abstract/core'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { throwIfNullish } from '@codelab/shared/utils'
 import { omit } from 'lodash'
@@ -17,9 +17,9 @@ export interface GetTypeByIdResponse {
   name: string
 }
 
-export type ITypeKind = TypeKind & {
-  EnumTypeValue: 'EnumTypeValue'
-}
+// export type ITypeKind = ITypeKind & {
+//   EnumTypeValue: 'EnumTypeValue'
+// }
 
 export type ExtraEdgeCreateArgs = {
   __resolveType: string
@@ -33,10 +33,10 @@ export type ExtraEdgeCreateResult = {
   target: string
 }
 
-export const ITypeKind = {
-  ...TypeKind,
-  EnumTypeValue: 'EnumTypeValue',
-}
+// export const typeKind = {
+//   ...ITypeKind,
+//   EnumTypeValue: 'EnumTypeValue',
+// }
 
 export interface DisconnectFieldResponse {
   deletedEdgesCount: number
@@ -223,7 +223,7 @@ export const typeRepository = {
       ]) // assign the type array to a parameter we will pass later to the query
 
       // sanitize labels, since they can be passed in from the user
-      if (!allowedLabels.has(type.typeKind as TypeKind)) {
+      if (!allowedLabels.has(type.typeKind)) {
         throw new Error(
           `Invalid type kind: ${type.typeKind} is not in allowed ones: ${allowedLabels}`,
         )

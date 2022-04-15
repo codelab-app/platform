@@ -5,7 +5,7 @@ import {
   IInterfaceTypeEdgeDTO,
   IInterfaceTypeFieldEdgeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
+  ITypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -16,23 +16,23 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
 import { typeRef } from './union-type.model'
 
 const hydrate = ({
   id,
-  typeKind,
+  kind,
   name,
   fieldsConnection,
   owner,
 }: IInterfaceTypeDTO): InterfaceType => {
   const it = new InterfaceType({
     id,
-    typeKind,
+    kind,
     name,
-    ownerAuth0Id: owner?.auth0Id,
+    ownerId: owner?.id,
   })
 
   for (const edge of fieldsConnection.edges) {
@@ -45,7 +45,7 @@ const hydrate = ({
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.InterfaceType),
+    baseModel: createTypeBase(ITypeKind.InterfaceType),
     props: {
       _fields: prop(() => objectMap<Field>()),
     },
@@ -98,7 +98,7 @@ export class InterfaceType
 
   @modelAction
   updateCache(fragment: ITypeDTO) {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
 
     if (fragment.typeKind !== TypeKind.InterfaceType) {
       return
@@ -124,10 +124,10 @@ export class InterfaceType
     }
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   validateUniqueFieldKey(key: string): void {
     if (this.fieldByKey(key)) {

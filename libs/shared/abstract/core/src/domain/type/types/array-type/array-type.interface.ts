@@ -1,6 +1,6 @@
 import { Ref } from 'mobx-keystone'
-import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { IBaseType } from '../base-type'
+import { ITypeKind } from '../base-type/type-kind.enum'
 import type { IAnyType } from '../type.interface'
 
 /**
@@ -9,6 +9,6 @@ import type { IAnyType } from '../type.interface'
  * @property itemType - reference to the type of items in the array
  */
 export interface IArrayType extends IBaseType {
-  typeKind: typeof TypeKind.ArrayType
+  kind: ITypeKind.ArrayType
   itemType: Ref<IAnyType>
 }

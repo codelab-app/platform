@@ -1,5 +1,5 @@
 import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { ITypeKind } from '../base-type/type-kind.enum'
 import { PrimitiveTypeKind } from './primitive-type.enum'
 
 /**
@@ -9,6 +9,6 @@ import { PrimitiveTypeKind } from './primitive-type.enum'
  * @property {PrimitiveTypeKind} primitiveKind - concrete primitive kind
  */
 export interface IPrimitiveType extends IBaseType {
-  typeKind: typeof TypeKind.PrimitiveType
+  kind: ITypeKind.PrimitiveType
   primitiveKind: PrimitiveTypeKind
 }

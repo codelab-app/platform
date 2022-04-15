@@ -5,6 +5,21 @@ import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.c
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
 export const typeSchema = gql`
+  enum TypeKind {
+    PrimitiveType
+    ArrayType
+    InterfaceType
+    EnumType
+    LambdaType
+    ElementType
+    RenderPropsType
+    ReactNodeType
+    UnionType
+    MonacoType
+    PageType
+    AppType
+  }
+
   type TypeReference {
     """
     The name of the resource referencing the type
@@ -42,15 +57,15 @@ export const typeSchema = gql`
   interface TypeBase
   {
     id: ID! @id(autogenerate: false)
+    kind: TypeKind! @readonly
     name: String!
-    owner: User! # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
+    # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
+    owner: User!
       @relationship(
         type: "OWNED_BY",
         direction: OUT
       )
   }
-
-
 
   # Adding @cypher here doesn't seem to work
   interface WithDescendants {
@@ -74,6 +89,7 @@ export const typeSchema = gql`
   """
   type PrimitiveType implements TypeBase  {
     id: ID!
+    kind: TypeKind! @default(value: PrimitiveType)
     name: String!
     owner: User!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
@@ -93,6 +109,7 @@ export const typeSchema = gql`
   """
   type ArrayType implements TypeBase & WithDescendants {
     id: ID!
+    kind: TypeKind! @default(value: ArrayType)
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
@@ -108,6 +125,7 @@ export const typeSchema = gql`
   """
   type UnionType implements TypeBase & WithDescendants {
     id: ID!
+    kind: TypeKind! @default(value: UnionType)
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
@@ -123,6 +141,7 @@ export const typeSchema = gql`
   """
   type InterfaceType implements TypeBase & WithDescendants {
     id: ID!
+    kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
@@ -154,6 +173,7 @@ export const typeSchema = gql`
   """
   type ElementType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: ElementType)
     name: String!
     owner: User!
     """
@@ -175,6 +195,7 @@ export const typeSchema = gql`
   """
   type RenderPropsType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: RenderPropsType)
     name: String!
     owner: User!
   }
@@ -191,6 +212,7 @@ export const typeSchema = gql`
   """
   type ReactNodeType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: ReactNodeType)
     name: String!
     owner: User!
   }
@@ -221,6 +243,7 @@ export const typeSchema = gql`
   """
   type EnumType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
     allowedValues: [EnumTypeValue!]!
@@ -242,6 +265,7 @@ export const typeSchema = gql`
   """
   type LambdaType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: LambdaType)
     name: String!
     owner: User!
   }
@@ -251,6 +275,7 @@ export const typeSchema = gql`
   """
   type PageType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: PageType)
     name: String!
     owner: User!
   }
@@ -260,6 +285,7 @@ export const typeSchema = gql`
   """
   type AppType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: AppType)
     name: String!
     owner: User!
   }
@@ -269,6 +295,7 @@ export const typeSchema = gql`
   """
   type MonacoType implements TypeBase {
     id: ID!
+    kind: TypeKind! @default(value: MonacoType)
     name: String!
     owner: User!
     language: MonacoLanguage!

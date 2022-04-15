@@ -1,7 +1,8 @@
 fragment TypeBase on TypeBase {
-  typeKind: __typename
+  kind
   id
   owner {
+    id
     auth0Id
   }
   name

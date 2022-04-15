@@ -31,6 +31,8 @@ import {
   TypeService,
   typeServiceContext,
 } from '@codelab/frontend/modules/type'
+import { UserService } from '@codelab/frontend/modules/user'
+import { IPageProps, IUserDTO } from '@codelab/shared/abstract/core'
 import {
   fromSnapshot,
   Model,
@@ -44,47 +46,79 @@ export type Snapshot<T = any> = {
   snapshot: SnapshotOutOf<T>
 }
 
-@model('@codelab/RootStore')
-export class RootStore extends Model({
-  appService: prop(() => new AppService({})),
-  pageService: prop(() => new PageService({})),
-
-  typeService: prop(() => new TypeService({})),
-  typeImportService: prop(() => new TypeImportService({})),
-
-  atomService: prop(() => new AtomService({})),
-  atomImportService: prop(() => new AtomImportService({})),
-
-  tagService: prop(() => new TagService({})),
-  adminService: prop(() => new AdminService({})),
-  componentService: prop(() => new ComponentService({})),
-  actionService: prop(() => new ActionService({})),
-  storeService: prop(() => new StoreService({})),
-  // default regular service that holds the element tree
-  elementService: prop(() => new ElementService({})),
-  // element service that is used by the provider tree
-  providerElementService: prop(() => new ElementService({})),
-  builderService: prop(() => new BuilderService({})),
-  // This is the default render service used for rendering apps.
-  // do not confuse it with the builder-specific render service in builderService.builderRenderer
-  renderService: prop(() => new RenderService({})),
-}) {
-  protected onInit(): void {
-    typeServiceContext.set(this, this.typeService)
-    atomServiceContext.set(this, this.atomService)
-    componentServiceContext.set(this, this.componentService)
-    renderServiceContext.set(this, this.renderService)
-    actionServiceContext.set(this, this.actionService)
-    typeImportServiceContext.set(this, this.typeImportService)
-    elementServiceContext.set(this, this.elementService)
-  }
+interface RootStoreProps {
+  user: IUserDTO
 }
 
-let _store: RootStore | null = null
+export type IRootStore = {
+  userService: UserService
+  appService: AppService
+  pageService: PageService
+  typeService: TypeService
+  typeImportService: TypeImportService
+  atomService: AtomService
+  atomImportService: AtomImportService
+  tagService: TagService
+  adminService: AdminService
+  componentService: ComponentService
+  actionService: ActionService
+  storeService: StoreService
+  elementService: ElementService
+  providerElementService: ElementService
+  builderService: BuilderService
+  renderService: RenderService
+}
 
-export const initializeStore = (snapshot: any = null) => {
-  const store =
-    _store ?? snapshot ? fromSnapshot<RootStore>(snapshot) : new RootStore({})
+export const createRootStore = ({ user }: RootStoreProps) => {
+  @model('@codelab/RootStore')
+  class RootStore
+    extends Model({
+      userService: prop(() => UserService.init(user)),
+      appService: prop(() => new AppService({})),
+      pageService: prop(() => new PageService({})),
+      typeService: prop(() => new TypeService({})),
+      typeImportService: prop(() => new TypeImportService({})),
+      atomService: prop(() => new AtomService({})),
+      atomImportService: prop(() => new AtomImportService({})),
+      tagService: prop(() => new TagService({})),
+      adminService: prop(() => new AdminService({})),
+      componentService: prop(() => new ComponentService({})),
+      actionService: prop(() => new ActionService({})),
+      storeService: prop(() => new StoreService({})),
+      // default regular service that holds the element tree
+      elementService: prop(() => new ElementService({})),
+      // element service that is used by the provider tree
+      providerElementService: prop(() => new ElementService({})),
+      builderService: prop(() => new BuilderService({})),
+      // This is the default render service used for rendering apps.
+      // do not confuse it with the builder-specific render service in builderService.builderRenderer
+      renderService: prop(() => new RenderService({})),
+    })
+    implements IRootStore
+  {
+    protected onInit(): void {
+      typeServiceContext.set(this, this.typeService)
+      atomServiceContext.set(this, this.atomService)
+      componentServiceContext.set(this, this.componentService)
+      renderServiceContext.set(this, this.renderService)
+      actionServiceContext.set(this, this.actionService)
+      typeImportServiceContext.set(this, this.typeImportService)
+      elementServiceContext.set(this, this.elementService)
+    }
+  }
+
+  return RootStore as unknown as IRootStore
+}
+
+let _store: IRootStore | null = null
+
+export const initializeStore = (pageProps: IPageProps) => {
+  const { snapshot, user } = pageProps
+
+  const store: IRootStore =
+    _store ?? snapshot
+      ? fromSnapshot<IRootStore>(snapshot)
+      : createRootStore({ user })
 
   if (!_store) {
     registerRootStore(store)

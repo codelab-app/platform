@@ -3,11 +3,10 @@ import {
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
@@ -24,7 +23,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
     typeKind: fragment.typeKind,
     name: fragment.name,
     itemType,
-    ownerAuth0Id: fragment.owner?.auth0Id,
+    ownerId: fragment.owner.id,
   })
 }
 
@@ -40,7 +39,7 @@ export class ArrayType
 {
   @modelAction
   updateCache(fragment: ITypeDTO) {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
 
     if (fragment.typeKind !== TypeKind.ArrayType) {
       return
@@ -50,10 +49,10 @@ export class ArrayType
     this.itemType = typeRef(itemId)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   static hydrate = hydrate
 }

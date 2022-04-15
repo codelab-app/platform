@@ -1,9 +1,8 @@
-import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { IBaseType, ITypeKind } from '../base-type'
 
 /**
  * Allows choosing an app from the list of apps.
  */
 export interface IAppType extends IBaseType {
-  typeKind: typeof TypeKind.AppType
+  kind: ITypeKind.AppType
 }

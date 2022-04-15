@@ -1070,6 +1070,7 @@ export type AppStoreUpdateFieldInput = {
 export type AppType = TypeBase & {
   __typename?: 'AppType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>
@@ -1115,6 +1116,7 @@ export type AppTypeConnectOrCreateInput = {
 
 export type AppTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -1198,6 +1200,7 @@ export type AppTypeRelationInput = {
 /** Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object. */
 export type AppTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -1233,6 +1236,10 @@ export type AppTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -1347,6 +1354,7 @@ export type ArrayType = TypeBase &
     id: Scalars['ID']
     itemType: TypeBase
     itemTypeConnection: ArrayTypeItemTypeConnection
+    kind: TypeKind
     name: Scalars['String']
     owner: User
     ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
@@ -1425,6 +1433,7 @@ export type ArrayTypeConnectOrCreateInput = {
 export type ArrayTypeCreateInput = {
   id: Scalars['ID']
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -1572,6 +1581,7 @@ export type ArrayTypeRelationInput = {
 /** Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object. */
 export type ArrayTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -1610,6 +1620,10 @@ export type ArrayTypeWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -1987,7 +2001,7 @@ export type AtomTagsUpdateFieldInput = {
   where?: InputMaybe<AtomTagsConnectionWhere>
 }
 
-export enum AtomType {
+export const enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
   AntDesignAnchor = 'AntDesignAnchor',
@@ -4854,6 +4868,7 @@ export type ElementType = TypeBase & {
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ElementTypeUserOwnerAggregationSelection>
@@ -4927,6 +4942,7 @@ export type ElementTypeConnectOrCreateInput = {
 export type ElementTypeCreateInput = {
   elementKind: ElementTypeKind
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -4939,7 +4955,7 @@ export type ElementTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
-export enum ElementTypeKind {
+export const enum ElementTypeKind {
   /** Pick any element in the current tree */
   AllElements = 'AllElements',
   /** Pick any element from the children of the current element */
@@ -5022,6 +5038,7 @@ export type ElementTypeRelationInput = {
 export type ElementTypeSort = {
   elementKind?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -5062,6 +5079,10 @@ export type ElementTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -5239,6 +5260,7 @@ export type EnumType = TypeBase & {
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<EnumTypeUserOwnerAggregationSelection>
@@ -5458,6 +5480,7 @@ export type EnumTypeConnectWhere = {
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -5562,6 +5585,7 @@ export type EnumTypeRelationInput = {
 /** Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object. */
 export type EnumTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -5865,6 +5889,10 @@ export type EnumTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -6454,6 +6482,7 @@ export type InterfaceType = TypeBase &
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
     id: Scalars['ID']
+    kind: TypeKind
     name: Scalars['String']
     owner: User
     ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
@@ -6677,6 +6706,7 @@ export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -6852,6 +6882,7 @@ export type InterfaceTypeRelationInput = {
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
 export type InterfaceTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -6910,6 +6941,10 @@ export type InterfaceTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -6931,6 +6966,7 @@ export type InterfaceTypeWhere = {
 export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>
@@ -6976,6 +7012,7 @@ export type LambdaTypeConnectOrCreateInput = {
 
 export type LambdaTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -7059,6 +7096,7 @@ export type LambdaTypeRelationInput = {
 /** Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object. */
 export type LambdaTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -7094,6 +7132,10 @@ export type LambdaTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -7111,7 +7153,7 @@ export type LambdaTypeWhere = {
   owner_NOT?: InputMaybe<UserWhere>
 }
 
-export enum MonacoLanguage {
+export const enum MonacoLanguage {
   css = 'css',
   cssInJs = 'cssInJs',
   graphqlDev = 'graphqlDev',
@@ -7124,6 +7166,7 @@ export enum MonacoLanguage {
 export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
   id: Scalars['ID']
+  kind: TypeKind
   language: MonacoLanguage
   name: Scalars['String']
   owner: User
@@ -7170,6 +7213,7 @@ export type MonacoTypeConnectOrCreateInput = {
 
 export type MonacoTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   language: MonacoLanguage
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
@@ -7254,6 +7298,7 @@ export type MonacoTypeRelationInput = {
 /** Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object. */
 export type MonacoTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   language?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
@@ -7291,6 +7336,10 @@ export type MonacoTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   language?: InputMaybe<MonacoLanguage>
   language_IN?: InputMaybe<Array<MonacoLanguage>>
   language_NOT?: InputMaybe<MonacoLanguage>
@@ -8416,6 +8465,7 @@ export type PageSort = {
 export type PageType = TypeBase & {
   __typename?: 'PageType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>
@@ -8461,6 +8511,7 @@ export type PageTypeConnectOrCreateInput = {
 
 export type PageTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -8544,6 +8595,7 @@ export type PageTypeRelationInput = {
 /** Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object. */
 export type PageTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -8579,6 +8631,10 @@ export type PageTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -8705,6 +8761,7 @@ export type ParentOfStoreWhere = {
 export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>
@@ -8751,6 +8808,7 @@ export type PrimitiveTypeConnectOrCreateInput = {
 
 export type PrimitiveTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
   primitiveKind: PrimitiveTypeKind
@@ -8764,7 +8822,7 @@ export type PrimitiveTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
-export enum PrimitiveTypeKind {
+export const enum PrimitiveTypeKind {
   Boolean = 'Boolean',
   Float = 'Float',
   Integer = 'Integer',
@@ -8842,6 +8900,7 @@ export type PrimitiveTypeRelationInput = {
 /** Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object. */
 export type PrimitiveTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   primitiveKind?: InputMaybe<SortDirection>
 }
@@ -8879,6 +8938,10 @@ export type PrimitiveTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -9945,6 +10008,7 @@ export type QueryUsersAggregateArgs = {
 export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>
@@ -10017,6 +10081,7 @@ export type ReactNodeTypeConnectOrCreateInput = {
 
 export type ReactNodeTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -10100,6 +10165,7 @@ export type ReactNodeTypeRelationInput = {
 /** Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object. */
 export type ReactNodeTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -10135,6 +10201,10 @@ export type ReactNodeTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -10166,6 +10236,7 @@ export type ReactNodeTypeWhere = {
 export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
@@ -10241,6 +10312,7 @@ export type RenderPropsTypeConnectOrCreateInput = {
 
 export type RenderPropsTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
@@ -10324,6 +10396,7 @@ export type RenderPropsTypeRelationInput = {
 /** Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object. */
 export type RenderPropsTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -10359,6 +10432,10 @@ export type RenderPropsTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -10413,7 +10490,12 @@ export type ResetDatabaseMutationResponseWhere = {
   success_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
-export enum SortDirection {
+export const enum Role {
+  Admin = 'Admin',
+  User = 'User',
+}
+
+export const enum SortDirection {
   /** Sort by field values in ascending order. */
   ASC = 'ASC',
   /** Sort by field values in descending order. */
@@ -11796,6 +11878,7 @@ export type TagWhere = {
 
 export type TypeBase = {
   id: Scalars['ID']
+  kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerConnection: TypeBaseOwnerConnection
@@ -12063,6 +12146,7 @@ export type TypeBaseOwnerUpdateFieldInput = {
 /** Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object. */
 export type TypeBaseSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -12085,6 +12169,10 @@ export type TypeBaseWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -12100,6 +12188,21 @@ export type TypeBaseWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+}
+
+export const enum TypeKind {
+  AppType = 'AppType',
+  ArrayType = 'ArrayType',
+  ElementType = 'ElementType',
+  EnumType = 'EnumType',
+  InterfaceType = 'InterfaceType',
+  LambdaType = 'LambdaType',
+  MonacoType = 'MonacoType',
+  PageType = 'PageType',
+  PrimitiveType = 'PrimitiveType',
+  ReactNodeType = 'ReactNodeType',
+  RenderPropsType = 'RenderPropsType',
+  UnionType = 'UnionType',
 }
 
 export type TypeReference = {
@@ -12171,6 +12274,7 @@ export type UnionType = TypeBase &
     __typename?: 'UnionType'
     descendantTypesIds: Array<Scalars['ID']>
     id: Scalars['ID']
+    kind: TypeKind
     name: Scalars['String']
     owner: User
     ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
@@ -12237,6 +12341,7 @@ export type UnionTypeConnectOrCreateInput = {
 
 export type UnionTypeCreateInput = {
   id: Scalars['ID']
+  kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>
@@ -12330,6 +12435,7 @@ export type UnionTypeRelationInput = {
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
 export type UnionTypeSort = {
   id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -12429,6 +12535,10 @@ export type UnionTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -12659,6 +12769,7 @@ export type User = {
   componentsConnection: UserComponentsConnection
   email: Scalars['String']
   id: Scalars['ID']
+  roles: Array<Role>
   types: Array<TypeBase>
   typesConnection: UserTypesConnection
 }
@@ -12984,6 +13095,7 @@ export type UserCreateInput = {
   auth0Id: Scalars['String']
   components?: InputMaybe<UserComponentsFieldInput>
   email: Scalars['String']
+  roles: Array<Role>
   types?: InputMaybe<UserTypesFieldInput>
 }
 
@@ -13089,6 +13201,7 @@ export type UserUpdateInput = {
   auth0Id?: InputMaybe<Scalars['String']>
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']>
+  roles?: InputMaybe<Array<Role>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
 }
 
@@ -13151,6 +13264,10 @@ export type UserWhere = {
   id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  roles?: InputMaybe<Array<Role>>
+  roles_INCLUDES?: InputMaybe<Role>
+  roles_NOT?: InputMaybe<Array<Role>>
+  roles_NOT_INCLUDES?: InputMaybe<Role>
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>

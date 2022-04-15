@@ -3,12 +3,17 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-export type __UserFragment = { id: string; auth0Id: string }
+export type __UserFragment = {
+  id: string
+  auth0Id: string
+  roles: Array<Types.Role>
+}
 
 export const __UserFragmentDoc = gql`
   fragment __User on User {
     id
     auth0Id
+    roles
   }
 `
 

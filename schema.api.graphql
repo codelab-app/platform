@@ -1009,6 +1009,7 @@ Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -1040,6 +1041,7 @@ input AppTypeConnectOrCreateInput {
 
 input AppTypeCreateInput {
   id: ID!
+  kind: TypeKind! = AppType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -1128,6 +1130,7 @@ Fields to sort AppTypes by. The order in which sorts are applied is not guarante
 """
 input AppTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -1161,6 +1164,10 @@ input AppTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -1305,6 +1312,7 @@ type ArrayType implements TypeBase & WithDescendants {
     sort: [ArrayTypeItemTypeConnectionSort!]
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -1338,6 +1346,7 @@ input ArrayTypeConnectOrCreateInput {
 input ArrayTypeCreateInput {
   id: ID!
   itemType: ArrayTypeItemTypeFieldInput
+  kind: TypeKind! = ArrayType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -1488,6 +1497,7 @@ Fields to sort ArrayTypes by. The order in which sorts are applied is not guaran
 """
 input ArrayTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -1524,6 +1534,10 @@ input ArrayTypeWhere {
   id_STARTS_WITH: ID
   itemTypeConnection: ArrayTypeItemTypeConnectionWhere
   itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -4622,6 +4636,7 @@ type ElementType implements TypeBase {
   """
   elementKind: ElementTypeKind!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -4654,6 +4669,7 @@ input ElementTypeConnectOrCreateInput {
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   id: ID!
+  kind: TypeKind! = ElementType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -4765,6 +4781,7 @@ Fields to sort ElementTypes by. The order in which sorts are applied is not guar
 input ElementTypeSort {
   elementKind: SortDirection
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -4803,6 +4820,10 @@ input ElementTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -5028,6 +5049,7 @@ type EnumType implements TypeBase {
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -5185,6 +5207,7 @@ input EnumTypeConnectWhere {
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
   id: ID!
+  kind: TypeKind! = EnumType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -5292,6 +5315,7 @@ Fields to sort EnumTypes by. The order in which sorts are applied is not guarant
 """
 input EnumTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -5598,6 +5622,10 @@ input EnumTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -6192,6 +6220,7 @@ type InterfaceType implements TypeBase & WithDescendants {
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -6353,6 +6382,7 @@ input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fields: InterfaceTypeFieldsFieldInput
   id: ID!
+  kind: TypeKind! = InterfaceType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -6531,6 +6561,7 @@ Fields to sort InterfaceTypes by. The order in which sorts are applied is not gu
 """
 input InterfaceTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -6599,6 +6630,10 @@ input InterfaceTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -6621,6 +6656,7 @@ Allows picking a lambda
 """
 type LambdaType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -6652,6 +6688,7 @@ input LambdaTypeConnectOrCreateInput {
 
 input LambdaTypeCreateInput {
   id: ID!
+  kind: TypeKind! = LambdaType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -6740,6 +6777,7 @@ Fields to sort LambdaTypes by. The order in which sorts are applied is not guara
 """
 input LambdaTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -6773,6 +6811,10 @@ input LambdaTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -6804,6 +6846,7 @@ Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   language: MonacoLanguage!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -6836,6 +6879,7 @@ input MonacoTypeConnectOrCreateInput {
 
 input MonacoTypeCreateInput {
   id: ID!
+  kind: TypeKind! = MonacoType
   language: MonacoLanguage!
   name: String!
   owner: TypeBaseOwnerFieldInput
@@ -6925,6 +6969,7 @@ Fields to sort MonacoTypes by. The order in which sorts are applied is not guara
 """
 input MonacoTypeSort {
   id: SortDirection
+  kind: SortDirection
   language: SortDirection
   name: SortDirection
 }
@@ -6960,6 +7005,10 @@ input MonacoTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   language: MonacoLanguage
   language_IN: [MonacoLanguage!]
   language_NOT: MonacoLanguage
@@ -7806,6 +7855,7 @@ Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -7837,6 +7887,7 @@ input PageTypeConnectOrCreateInput {
 
 input PageTypeCreateInput {
   id: ID!
+  kind: TypeKind! = PageType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -7925,6 +7976,7 @@ Fields to sort PageTypes by. The order in which sorts are applied is not guarant
 """
 input PageTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -7958,6 +8010,10 @@ input PageTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -8085,6 +8141,7 @@ Base atomic building block of the type system. Represents primitive types - Stri
 """
 type PrimitiveType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -8117,6 +8174,7 @@ input PrimitiveTypeConnectOrCreateInput {
 
 input PrimitiveTypeCreateInput {
   id: ID!
+  kind: TypeKind! = PrimitiveType
   name: String!
   owner: TypeBaseOwnerFieldInput
   primitiveKind: PrimitiveTypeKind!
@@ -8213,6 +8271,7 @@ Fields to sort PrimitiveTypes by. The order in which sorts are applied is not gu
 """
 input PrimitiveTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
   primitiveKind: SortDirection
 }
@@ -8248,6 +8307,10 @@ input PrimitiveTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -9067,6 +9130,7 @@ Comparison between different element types:
 """
 type ReactNodeType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -9098,6 +9162,7 @@ input ReactNodeTypeConnectOrCreateInput {
 
 input ReactNodeTypeCreateInput {
   id: ID!
+  kind: TypeKind! = ReactNodeType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -9186,6 +9251,7 @@ Fields to sort ReactNodeTypes by. The order in which sorts are applied is not gu
 """
 input ReactNodeTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -9219,6 +9285,10 @@ input ReactNodeTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -9249,6 +9319,7 @@ Comparison between different element types:
 """
 type RenderPropsType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -9280,6 +9351,7 @@ input RenderPropsTypeConnectOrCreateInput {
 
 input RenderPropsTypeCreateInput {
   id: ID!
+  kind: TypeKind! = RenderPropsType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -9368,6 +9440,7 @@ Fields to sort RenderPropsTypes by. The order in which sorts are applied is not 
 """
 input RenderPropsTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -9401,6 +9474,10 @@ input RenderPropsTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -9456,6 +9533,11 @@ input ResetDatabaseMutationResponseWhere {
   OR: [ResetDatabaseMutationResponseWhere!]
   success: Boolean
   success_NOT: Boolean
+}
+
+enum Role {
+  Admin
+  User
 }
 
 enum SortDirection {
@@ -10822,6 +10904,7 @@ input TagWhere {
 
 interface TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerConnection(
@@ -11084,6 +11167,7 @@ Fields to sort TypeBases by. The order in which sorts are applied is not guarant
 """
 input TypeBaseSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -11106,6 +11190,10 @@ input TypeBaseWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -11121,6 +11209,21 @@ input TypeBaseWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+enum TypeKind {
+  AppType
+  ArrayType
+  ElementType
+  EnumType
+  InterfaceType
+  LambdaType
+  MonacoType
+  PageType
+  PrimitiveType
+  ReactNodeType
+  RenderPropsType
+  UnionType
 }
 
 type TypeReference {
@@ -11200,6 +11303,7 @@ Allows picking one of a set of types
 type UnionType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -11244,6 +11348,7 @@ input UnionTypeConnectOrCreateInput {
 
 input UnionTypeCreateInput {
   id: ID!
+  kind: TypeKind! = UnionType
   name: String!
   owner: TypeBaseOwnerFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeFieldInput
@@ -11336,6 +11441,7 @@ Fields to sort UnionTypes by. The order in which sorts are applied is not guaran
 """
 input UnionTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -11429,6 +11535,10 @@ input UnionTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -11649,6 +11759,7 @@ type User {
   ): UserComponentsConnection!
   email: String!
   id: ID!
+  roles: [Role!]!
   types(
     directed: Boolean = true
     options: TypeBaseOptions
@@ -11923,6 +12034,7 @@ input UserCreateInput {
   auth0Id: String!
   components: UserComponentsFieldInput
   email: String!
+  roles: [Role!]!
   types: UserTypesFieldInput
 }
 
@@ -12031,6 +12143,7 @@ input UserUpdateInput {
   auth0Id: String
   components: [UserComponentsUpdateFieldInput!]
   email: String
+  roles: [Role!]
   types: [UserTypesUpdateFieldInput!]
 }
 
@@ -12117,6 +12230,10 @@ input UserWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  roles: [Role!]
+  roles_INCLUDES: Role
+  roles_NOT: [Role!]
+  roles_NOT_INCLUDES: Role
   typesConnection_ALL: UserTypesConnectionWhere
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere

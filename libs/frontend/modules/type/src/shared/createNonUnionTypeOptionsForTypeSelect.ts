@@ -1,4 +1,3 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
 import { CreateTypeSelectOptions } from './TypeSelect'
 
 export const createNonUnionTypeOptionsForTypeSelect: CreateTypeSelectOptions = (

@@ -2,11 +2,10 @@ import {
   IRenderPropsType,
   IRenderPropsTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
@@ -19,7 +18,7 @@ const hydrate = ({
     id,
     typeKind,
     name,
-    ownerAuth0Id: owner?.auth0Id,
+    ownerId: owner?.id,
   })
 
 @model('@codelab/RenderPropsType')
@@ -32,13 +31,13 @@ export class RenderPropsType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   public static hydrate = hydrate
 }

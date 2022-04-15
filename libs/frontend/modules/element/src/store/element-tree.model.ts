@@ -208,7 +208,7 @@ export class ElementTree extends Model({
   public static hydrate = hydrate
 }
 
-export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {
+export const elementTreeRef = rootRef<ElementTree>('@codelab/ElementTreeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

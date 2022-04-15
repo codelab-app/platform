@@ -93,4 +93,15 @@ export const defaultDirectives = gql`
     """
     constraintName: String
   ) on FIELD_DEFINITION
+
+  enum DIRECTION {
+    IN
+    OUT
+  }
+
+  directive @relationship(
+    type: String
+    properties: String
+    direction: DIRECTION
+  ) on FIELD_DEFINITION
 `

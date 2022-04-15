@@ -3,7 +3,6 @@ import {
   IEnumTypeDTO,
   IEnumTypeValueDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -15,8 +14,7 @@ import {
   modelAction,
   prop,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
 const fromFragmentValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
@@ -50,7 +48,7 @@ const fromFragmentEnumType = ({
     typeKind,
     name,
     allowedValues: allowedValues.map(EnumTypeValue.hydrate),
-    ownerAuth0Id: owner?.auth0Id,
+    ownerId: owner?.id,
   })
 
 @model('@codelab/EnumType')
@@ -65,7 +63,7 @@ export class EnumType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
 
     if (fragment.typeKind !== TypeKind.EnumType) {
       return
@@ -75,18 +73,18 @@ export class EnumType
       fragment.allowedValues?.map(EnumTypeValue.hydrate) ?? []
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-
-    if (!input.allowedValues) {
-      throw new Error('EnumType must have an allowedValues array')
-    }
-
-    this.allowedValues = input.allowedValues?.map((v) =>
-      EnumTypeValue.hydrate({ value: v.value, name: v.name, id: v4() }),
-    )
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  //
+  //   if (!input.allowedValues) {
+  //     throw new Error('EnumType must have an allowedValues array')
+  //   }
+  //
+  //   this.allowedValues = input.allowedValues?.map((v) =>
+  //     EnumTypeValue.hydrate({ value: v.value, name: v.name, id: v4() }),
+  //   )
+  // }
 
   public static hydrate = fromFragmentEnumType
 }

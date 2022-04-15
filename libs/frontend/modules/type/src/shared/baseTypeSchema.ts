@@ -17,6 +17,10 @@ export const baseTypeMutationSchemaProperties = {
     },
     uniforms: { component: TypeSelect, isUnionTypeInput: true },
   },
+  id: {
+    type: 'string',
+    disabled: true,
+  },
   name: {
     type: 'string',
     autoFocus: true,
@@ -52,7 +56,7 @@ export const baseTypeMutationSchemaProperties = {
         name: { type: 'string', nullable: true },
         value: { type: 'string' },
       },
-      required: ['value'],
+      required: ['id', 'value'],
     },
   },
 }

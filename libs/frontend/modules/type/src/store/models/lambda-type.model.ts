@@ -2,11 +2,10 @@ import {
   ILambdaType,
   ILambdaTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
 const hydrate = ({ id, typeKind, name, owner }: ILambdaTypeDTO): LambdaType =>
@@ -14,7 +13,7 @@ const hydrate = ({ id, typeKind, name, owner }: ILambdaTypeDTO): LambdaType =>
     id,
     typeKind,
     name,
-    ownerAuth0Id: owner?.auth0Id,
+    ownerId: owner?.id,
   })
 
 @model('@codelab/LambdaType')
@@ -27,13 +26,13 @@ export class LambdaType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   public static hydrate = hydrate
 }

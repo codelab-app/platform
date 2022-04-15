@@ -85,7 +85,7 @@ export class Store extends Model(() => ({
   }
 }
 
-export const storeRef = rootRef<Store>('StoreRef', {
+export const storeRef = rootRef<Store>('@codelab/StoreRef', {
   onResolvedValueChange(ref, newStore, oldStore) {
     if (oldStore && !newStore) {
       detach(ref)

@@ -1,4 +1,5 @@
 import * as cg from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
 
 type AnyType = Required<
   | cg.AppType
@@ -23,19 +24,43 @@ type AnyType = Required<
  * Unfortunately using neo4j @default() value for type doesn't resolve the codegen type to the specific enum
  *
  */
-export type TypeKind = AnyType['__typename']
+// export type TypeKind = AnyType['__typename']
+//
+// export const TypeKind: { [key in TypeKind]: key } = {
+//   PrimitiveType: 'PrimitiveType',
+//   ArrayType: 'ArrayType',
+//   InterfaceType: 'InterfaceType',
+//   EnumType: 'EnumType',
+//   LambdaType: 'LambdaType',
+//   ElementType: 'ElementType',
+//   RenderPropsType: 'RenderPropsType',
+//   ReactNodeType: 'ReactNodeType',
+//   UnionType: 'UnionType',
+//   MonacoType: 'MonacoType',
+//   PageType: 'PageType',
+//   AppType: 'AppType',
+// }
 
-export const TypeKind: { [key in TypeKind]: key } = {
-  PrimitiveType: 'PrimitiveType',
-  ArrayType: 'ArrayType',
-  InterfaceType: 'InterfaceType',
-  EnumType: 'EnumType',
-  LambdaType: 'LambdaType',
-  ElementType: 'ElementType',
-  RenderPropsType: 'RenderPropsType',
-  ReactNodeType: 'ReactNodeType',
-  UnionType: 'UnionType',
-  MonacoType: 'MonacoType',
-  PageType: 'PageType',
-  AppType: 'AppType',
+export { TypeKind as ITypeKind }
+
+interface AssertIsTypeKind<T extends TypeKind> {
+  (val: TypeKind): asserts val is T
+}
+
+const throwTypeKindError = (condition: boolean) => {
+  if (!condition) {
+    throw new Error('TypeKind does not match')
+  }
+}
+
+export const isPrimitiveTypeKind: AssertIsTypeKind<TypeKind.PrimitiveType> = (
+  kind: TypeKind,
+) => {
+  throwTypeKindError(kind === TypeKind.PrimitiveType)
+}
+
+export const assertIsAppType: AssertIsTypeKind<TypeKind.AppType> = (
+  kind: TypeKind,
+) => {
+  throwTypeKindError(kind === TypeKind.AppType)
 }
