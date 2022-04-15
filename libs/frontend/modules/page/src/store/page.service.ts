@@ -1,4 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/modules/element'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -10,6 +11,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   detach,
   Model,
   model,
@@ -165,4 +167,51 @@ export class PageService
 
     return existing
   })
+
+  @modelFlow
+  @transaction
+  deleteManyByAppId = _async(function* (this: PageService, appId: string) {
+    const { pages } = yield* _await(
+      pageApi.GetPages({ where: { app: { id: appId } } }),
+    )
+
+    const elementService = getElementService(this)
+    const pageIds: Array<string> = []
+
+    pages.map((page) => {
+      pageIds.push(page.id)
+      elementService.deleteElementsSubgraph(page.rootElement.id)
+    })
+
+    this.deleteMany(pageIds)
+  })
+
+  @modelFlow
+  @transaction
+  deleteMany = _async(function* (this: PageService, ids: Array<string>) {
+    for (const id in ids) {
+      this.pages.delete(id)
+    }
+
+    const { deletePages } = yield* _await(
+      pageApi.DeletePages({ where: { id_IN: ids } }),
+    )
+
+    if (deletePages.nodesDeleted === 0) {
+      // throw error so that the atomic middleware rolls back the changes
+      throw new Error('Page was not deleted')
+    }
+  })
+}
+
+export const pageServiceContext = createContext<PageService>()
+
+export const getPageService = (self: any) => {
+  const pageService = pageServiceContext.get(self)
+
+  if (!pageService) {
+    throw new Error('pageServiceContext is not set')
+  }
+
+  return pageService
 }

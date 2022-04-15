@@ -288,11 +288,9 @@ export class ElementService extends Model({
   ) {
     const deletedRoot = this.elementTree.element(rootId)
 
-    if (!deletedRoot) {
-      throw new Error('Deleted element not found')
+    if (deletedRoot) {
+      this.elementTree.removeElementAndDescendants(deletedRoot)
     }
-
-    this.elementTree.removeElementAndDescendants(deletedRoot)
 
     const {
       deleteElementsSubgraph: { nodesDeleted },

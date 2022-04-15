@@ -1,4 +1,6 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/modules/element'
+import { getPageService } from '@codelab/frontend/modules/page'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -150,34 +152,23 @@ export class AppService
 
     if (existing) {
       this.apps.delete(id)
+
+      const elementService = getElementService(this)
+
+      elementService.deleteElementsSubgraph(
+        existing.rootProviderElement?.id as string,
+      )
     }
+
+    const pageService = getPageService(this)
+
+    pageService.deleteManyByAppId(id)
 
     const deleteCondition = {
       where: {
         id,
       },
-      delete: {
-        pages: [
-          {
-            where: {},
-            delete: {
-              rootElement: {
-                where: {},
-                delete: {
-                  children: [
-                    {
-                      where: {},
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        ],
-        rootProviderElement: {
-          where: {},
-        },
-      },
+      delete: {},
     }
 
     const { deleteApps } = yield* _await(appApi.DeleteApps(deleteCondition))
