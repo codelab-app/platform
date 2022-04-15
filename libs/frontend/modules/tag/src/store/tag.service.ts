@@ -55,7 +55,11 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: ICreateTagDTO) {
+  create = _async(function* (
+    this: TagService,
+    input: ICreateTagDTO,
+    ownerId: string,
+  ) {
     const connectParentWhere = input?.parentTagId && {
       parent: {
         connect: {
@@ -74,6 +78,7 @@ export class TagService extends Model({
       tagApi.CreateTags({
         input: {
           name: input.name,
+          owner: { connect: [{ where: { node: { auth0Id: ownerId } } }] },
           ...connectParentWhere,
         },
       }),

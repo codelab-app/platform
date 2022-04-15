@@ -14,12 +14,12 @@ export const appSchema = gql`
     @auth(
       rules: [
         {
-          operations: [READ, UPDATE, CREATE]
+          operations: [READ, UPDATE, CREATE, DELETE]
           roles: ["User", "Guest"]
           where: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }
-        { operations: [READ, UPDATE, CREATE], roles: ["Admin"] }
+        { operations: [READ, UPDATE, CREATE, DELETE], roles: ["Admin"] }
       ]
     )
 `

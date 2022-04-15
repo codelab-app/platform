@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateTagDTO } from '@codelab/shared/abstract/core'
@@ -8,7 +9,16 @@ import { WithTagService } from '../../store/tag.service'
 import { createTagSchema } from './createTagSchema'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
-  const onSubmit = (input: ICreateTagDTO) => tagService.create({ ...input })
+  const { user } = useUser()
+
+  const onSubmit = (input: ICreateTagDTO) => {
+    if (!user?.sub) {
+      throw new Error('Missing user sub')
+    }
+
+    return tagService.create({ ...input }, user?.sub)
+  }
+
   // const options = tagService.getAll.map((tag) => ({
   //   label: tag.name,
   //   value: tag.id,
