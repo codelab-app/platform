@@ -1,9 +1,8 @@
+import { IUpdateResourceDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateResourceInput, createResourceSchema } from '../create-resource'
+import { createResourceSchema } from '../create-resource'
 
-export type UpdateResourceInput = CreateResourceInput
-
-export const updateResourceSchema: JSONSchemaType<UpdateResourceInput> = {
+export const updateResourceSchema: JSONSchemaType<IUpdateResourceDTO> = {
   ...createResourceSchema,
   title: 'Update Resource Input',
-} as const
+}

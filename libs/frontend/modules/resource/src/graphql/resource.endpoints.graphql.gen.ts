@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ResourceFragment } from './resource.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ResourceFragmentDoc } from './resource.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../../shared/abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 export type GetResourcesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ResourceOptions>
   where?: Types.InputMaybe<Types.ResourceWhere>
@@ -21,8 +21,8 @@ export type CreateResourcesMutation = {
 }
 
 export type UpdateResourceMutationVariables = Types.Exact<{
-  update?: Types.InputMaybe<Types.ResourceUpdateInput>
   where?: Types.InputMaybe<Types.ResourceWhere>
+  update?: Types.InputMaybe<Types.ResourceUpdateInput>
 }>
 
 export type UpdateResourceMutation = {
@@ -30,7 +30,6 @@ export type UpdateResourceMutation = {
 }
 
 export type DeleteResourcesMutationVariables = Types.Exact<{
-  delete?: Types.InputMaybe<Types.ResourceDeleteInput>
   where?: Types.InputMaybe<Types.ResourceWhere>
 }>
 
@@ -57,7 +56,7 @@ export const CreateResourcesDocument = gql`
   ${ResourceFragmentDoc}
 `
 export const UpdateResourceDocument = gql`
-  mutation UpdateResource($update: ResourceUpdateInput, $where: ResourceWhere) {
+  mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
     updateResources(update: $update, where: $where) {
       resources {
         ...Resource
@@ -67,11 +66,8 @@ export const UpdateResourceDocument = gql`
   ${ResourceFragmentDoc}
 `
 export const DeleteResourcesDocument = gql`
-  mutation DeleteResources(
-    $delete: ResourceDeleteInput
-    $where: ResourceWhere
-  ) {
-    deleteResources(delete: $delete, where: $where) {
+  mutation DeleteResources($where: ResourceWhere) {
+    deleteResources(where: $where) {
       nodesDeleted
     }
   }

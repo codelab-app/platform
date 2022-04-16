@@ -7,7 +7,7 @@ export type OperationFragment = {
   __typename: 'Operation'
   id: string
   name: string
-  data: string
+  config: string
   resource: { id: string; name: string }
 }
 
@@ -16,11 +16,11 @@ export const OperationFragmentDoc = gql`
     __typename
     id
     name
-    data
     resource {
       id
       name
     }
+    config
   }
 `
 

@@ -1,20 +1,20 @@
+import { IOperation, IOperationDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
-import { OperationFragment } from '../graphql/operation.fragment.graphql.gen'
 import { Resource, resourceRef } from './resource.model'
 
 @model('codelab/Operation')
 export class Operation extends Model({
   id: idProp,
   name: prop<string>(),
-  data: prop<string>(),
+  config: prop<IOperation['config']>(),
   resource: prop<Ref<Resource>>(),
 }) {
-  static fromFragment(operation: OperationFragment) {
+  static fromFragment(operation: IOperationDTO) {
     return new Operation({
       id: operation.id,
       name: operation.name,
       resource: resourceRef(operation.resource.id),
-      data: operation.data,
+      config: JSON.parse(operation.config),
     })
   }
 }

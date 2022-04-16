@@ -39,7 +39,7 @@ export const UpdateResourceData = observer<
       throw new Error('Updated resource is not set')
     }
 
-    return resourceService.update(resource, {
+    return resourceService.updateResource(resource, {
       data: JSON.stringify(input),
       apiId: resource.api.current.id,
       name: resource.name,

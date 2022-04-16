@@ -6,7 +6,7 @@ import {
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { Operation, operationRef, OperationService } from '../../../store'
-import { ActionColumn } from './columns'
+import { ActionColumn, ConfigColumn } from './columns'
 
 export const useOperationTable = (operationService: OperationService) => {
   const columns: Array<TableColumnProps<Operation>> = [
@@ -18,15 +18,16 @@ export const useOperationTable = (operationService: OperationService) => {
       ...useColumnSearchProps('name'),
     },
     {
-      title: 'Body',
-      dataIndex: 'body',
-      key: 'body',
+      title: 'Config',
+      dataIndex: 'config',
+      key: 'config',
       onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('body'),
+      fixed: true,
+      render: (text, operation) => <ConfigColumn operation={operation} />,
     },
     {
-      title: 'Operation',
-      key: 'operation',
+      title: 'Action',
+      key: 'action',
       onHeaderCell: headerCellProps,
       width: 100,
       render: (text, operation) => (

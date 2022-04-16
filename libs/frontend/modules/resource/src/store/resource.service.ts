@@ -1,20 +1,20 @@
-import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateResourceDTO,
+  IUpdateResourceDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
   Model,
   model,
-  modelAction,
   modelFlow,
   objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
-import { ResourceFragment } from '../graphql/resource.fragment.graphql.gen'
-import { CreateResourceInput, UpdateResourceInput } from '../use-cases'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
 import { ResourceModalService } from './resource-modal.service'
@@ -40,27 +40,16 @@ export class ResourceService extends Model({
     return this.resources.get(id)
   }
 
-  @modelAction
-  async fetchApis(api: Array<ResourceFragment['api']>) {
-    // loading api interface within resource fragment is hard so we load it separately
-    return await getTypeService(this).getAll(api.map((x) => x.id))
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
-    const apis = resources.map((x) => x.api)
 
-    yield* _await(this.fetchApis(apis))
-
-    const formattedResources = resources.map((r) => Resource.fromFragment(r))
-
-    formattedResources.forEach((r) => {
-      this.resources.set(r.id, r)
+    resources.forEach((r) => {
+      this.resources.set(r.id, Resource.fromFragment(r))
     })
 
-    return formattedResources
+    return this.resources
   })
 
   @modelFlow
@@ -75,20 +64,17 @@ export class ResourceService extends Model({
   @transaction
   createResource = _async(function* (
     this: ResourceService,
-    input: CreateResourceInput,
+    input: ICreateResourceDTO,
   ) {
-    const {
-      createResources: { resources },
-    } = yield* _await(
+    const { name, type, config } = input
+
+    const { createResources } = yield* _await(
       resourceApi.CreateResources({
-        input: {
-          name: input.name,
-          api: { connect: { where: { node: { id: input.apiId } } } },
-        },
+        input: { type, name, config: JSON.stringify(config) },
       }),
     )
 
-    const resource = resources[0]
+    const resource = createResources.resources[0]
 
     if (!resource) {
       throw new Error('Atom was not created')
@@ -98,24 +84,24 @@ export class ResourceService extends Model({
 
     this.resources.set(resourceModel.id, resourceModel)
 
-    return resources
+    return resource
   })
 
   @modelFlow
   @transaction
-  update = _async(function* (
+  updateResource = _async(function* (
     this: ResourceService,
     resource: Resource,
-    input: UpdateResourceInput,
+    input: IUpdateResourceDTO,
   ) {
-    const { apiId, name, data } = input
+    const { config, name, type } = input
 
     const { updateResources } = yield* _await(
       resourceApi.UpdateResource({
         update: {
           name,
-          api: { connect: { where: { node: { id: apiId } } } },
-          data: data,
+          type,
+          config: JSON.stringify(config),
         },
         where: { id: resource.id },
       }),
@@ -136,7 +122,7 @@ export class ResourceService extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, id: string) {
+  deleteResource = _async(function* (this: ResourceService, id: string) {
     this.resources.delete(id)
 
     const { deleteResources } = yield* _await(

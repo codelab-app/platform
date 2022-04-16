@@ -18,7 +18,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
         throw new Error('Updated store is not set')
       }
 
-      return storeService.updateStore(updateStore, data)
+      return storeService.update(updateStore, data)
     }
 
     const onSubmitError = createNotificationHandler({

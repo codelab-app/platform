@@ -27,7 +27,7 @@ export const DeleteResourcesModal = observer<WithResourceService>(
         throw new Error('Resource to delete not found')
       }
 
-      return resourceService.delete(resource?.id)
+      return resourceService.deleteResource(resource?.id)
     }
 
     const onSubmitError = createNotificationHandler({

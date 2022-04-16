@@ -6205,7 +6205,6 @@ type InterfaceType implements TypeBase & WithDescendants {
     sort: [InterfaceTypeApiOfAtomsConnectionSort!]
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
-  apiOfResource: Boolean
   descendantTypesIds: [ID!]!
   fields(
     directed: Boolean = true
@@ -6380,7 +6379,6 @@ input InterfaceTypeConnectWhere {
 
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
-  apiOfResource: Boolean = false
   fields: InterfaceTypeFieldsFieldInput
   id: ID!
   kind: TypeKind! = InterfaceType
@@ -6556,7 +6554,6 @@ input InterfaceTypeRelationInput {
 Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object.
 """
 input InterfaceTypeSort {
-  apiOfResource: SortDirection
   id: SortDirection
   kind: SortDirection
   name: SortDirection
@@ -6568,7 +6565,6 @@ input InterfaceTypeUniqueWhere {
 
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
-  apiOfResource: Boolean
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   id: ID
   name: String
@@ -6614,8 +6610,6 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
-  apiOfResource: Boolean
-  apiOfResource_NOT: Boolean
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
@@ -7201,10 +7195,7 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteResources(
-    delete: ResourceDeleteInput
-    where: ResourceWhere
-  ): DeleteInfo!
+  deleteResources(where: ResourceWhere): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
@@ -7418,11 +7409,6 @@ type Mutation {
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
   updateResources(
-    connect: ResourceConnectInput
-    connectOrCreate: ResourceConnectOrCreateInput
-    create: ResourceRelationInput
-    delete: ResourceDeleteInput
-    disconnect: ResourceDisconnectInput
     update: ResourceUpdateInput
     where: ResourceWhere
   ): UpdateResourcesMutationResponse!
@@ -7464,7 +7450,7 @@ type Mutation {
 }
 
 type Operation {
-  data: String!
+  config: String!
   id: ID!
   name: String!
   resource(
@@ -7486,8 +7472,8 @@ type Operation {
 }
 
 type OperationAggregateSelection {
+  config: StringAggregateSelectionNonNullable!
   count: Int!
-  data: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -7501,7 +7487,7 @@ input OperationConnectOrCreateInput {
 }
 
 input OperationCreateInput {
-  data: String! = "{}"
+  config: String! = "{}"
   name: String!
   resource: OperationResourceFieldInput
 }
@@ -7540,7 +7526,6 @@ input OperationResourceAggregateInput {
 }
 
 input OperationResourceConnectFieldInput {
-  connect: ResourceConnectInput
   where: ResourceConnectWhere
 }
 
@@ -7575,12 +7560,10 @@ input OperationResourceCreateFieldInput {
 }
 
 input OperationResourceDeleteFieldInput {
-  delete: ResourceDeleteInput
   where: OperationResourceConnectionWhere
 }
 
 input OperationResourceDisconnectFieldInput {
-  disconnect: ResourceDisconnectInput
   where: OperationResourceConnectionWhere
 }
 
@@ -7593,26 +7576,26 @@ input OperationResourceFieldInput {
 input OperationResourceNodeAggregationWhereInput {
   AND: [OperationResourceNodeAggregationWhereInput!]
   OR: [OperationResourceNodeAggregationWhereInput!]
-  data_AVERAGE_EQUAL: Float
-  data_AVERAGE_GT: Float
-  data_AVERAGE_GTE: Float
-  data_AVERAGE_LT: Float
-  data_AVERAGE_LTE: Float
-  data_EQUAL: String
-  data_GT: Int
-  data_GTE: Int
-  data_LONGEST_EQUAL: Int
-  data_LONGEST_GT: Int
-  data_LONGEST_GTE: Int
-  data_LONGEST_LT: Int
-  data_LONGEST_LTE: Int
-  data_LT: Int
-  data_LTE: Int
-  data_SHORTEST_EQUAL: Int
-  data_SHORTEST_GT: Int
-  data_SHORTEST_GTE: Int
-  data_SHORTEST_LT: Int
-  data_SHORTEST_LTE: Int
+  config_AVERAGE_EQUAL: Float
+  config_AVERAGE_GT: Float
+  config_AVERAGE_GTE: Float
+  config_AVERAGE_LT: Float
+  config_AVERAGE_LTE: Float
+  config_EQUAL: String
+  config_GT: Int
+  config_GTE: Int
+  config_LONGEST_EQUAL: Int
+  config_LONGEST_GT: Int
+  config_LONGEST_GTE: Int
+  config_LONGEST_LT: Int
+  config_LONGEST_LTE: Int
+  config_LT: Int
+  config_LTE: Int
+  config_SHORTEST_EQUAL: Int
+  config_SHORTEST_GT: Int
+  config_SHORTEST_GTE: Int
+  config_SHORTEST_LT: Int
+  config_SHORTEST_LTE: Int
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -7647,7 +7630,7 @@ type OperationResourceResourceAggregationSelection {
 }
 
 type OperationResourceResourceNodeAggregateSelection {
-  data: StringAggregateSelectionNonNullable!
+  config: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -7670,13 +7653,13 @@ input OperationResourceUpdateFieldInput {
 Fields to sort Operations by. The order in which sorts are applied is not guaranteed when specifying many fields in one OperationSort object.
 """
 input OperationSort {
-  data: SortDirection
+  config: SortDirection
   id: SortDirection
   name: SortDirection
 }
 
 input OperationUpdateInput {
-  data: String
+  config: String
   name: String
   resource: OperationResourceUpdateFieldInput
 }
@@ -7684,16 +7667,16 @@ input OperationUpdateInput {
 input OperationWhere {
   AND: [OperationWhere!]
   OR: [OperationWhere!]
-  data: String
-  data_CONTAINS: String
-  data_ENDS_WITH: String
-  data_IN: [String!]
-  data_NOT: String
-  data_NOT_CONTAINS: String
-  data_NOT_ENDS_WITH: String
-  data_NOT_IN: [String!]
-  data_NOT_STARTS_WITH: String
-  data_STARTS_WITH: String
+  config: String
+  config_CONTAINS: String
+  config_ENDS_WITH: String
+  config_IN: [String!]
+  config_NOT: String
+  config_NOT_CONTAINS: String
+  config_NOT_ENDS_WITH: String
+  config_NOT_IN: [String!]
+  config_NOT_STARTS_WITH: String
+  config_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

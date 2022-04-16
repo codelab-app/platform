@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { OperationFragment } from './operation.fragment.graphql.gen'
+import { OperationFragment } from '../../../../../shared/abstract/core/src/domain/resource/operation.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { OperationFragmentDoc } from './operation.fragment.graphql.gen'
+import { OperationFragmentDoc } from '../../../../../shared/abstract/core/src/domain/resource/operation.fragment.graphql.gen'
 export type GetOperationsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.OperationOptions>
   where?: Types.InputMaybe<Types.OperationWhere>

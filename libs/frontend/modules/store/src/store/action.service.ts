@@ -71,14 +71,14 @@ export class ActionService extends Model({
 
   @modelFlow
   @transaction
-  updateAction = _async(function* (
+  update = _async(function* (
     this: ActionService,
-    store: Action,
+    action: Action,
     input: IUpdateActionDTO,
   ) {
     const { updateActions } = yield* _await(
       actionApi.UpdateActions({
-        where: { id: store.id },
+        where: { id: action.id },
         update: {
           body: input.body,
           name: input.name,
@@ -118,7 +118,7 @@ export class ActionService extends Model({
 
   @modelFlow
   @transaction
-  createAction = _async(function* (
+  create = _async(function* (
     this: ActionService,
     input: ICreateActionDTO,
     storeId: Nullish<string>,

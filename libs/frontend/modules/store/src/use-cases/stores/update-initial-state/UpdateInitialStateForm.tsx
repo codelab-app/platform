@@ -36,7 +36,7 @@ export const UpdateInitialStateForm = observer<
       throw new Error('Updated store is not set')
     }
 
-    return storeService.updateStore(store, {
+    return storeService.update(store, {
       name: store?.name,
       parentStore: {
         id: store.parentStore?.id as string,

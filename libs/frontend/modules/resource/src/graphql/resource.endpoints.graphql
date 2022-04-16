@@ -12,7 +12,7 @@ mutation CreateResources($input: [ResourceCreateInput!]!) {
   }
 }
 
-mutation UpdateResource($update: ResourceUpdateInput, $where: ResourceWhere) {
+mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
   updateResources(update: $update, where: $where) {
     resources {
       ...Resource
@@ -20,8 +20,8 @@ mutation UpdateResource($update: ResourceUpdateInput, $where: ResourceWhere) {
   }
 }
 
-mutation DeleteResources($delete: ResourceDeleteInput, $where: ResourceWhere) {
-  deleteResources(delete: $delete, where: $where) {
+mutation DeleteResources($where: ResourceWhere) {
+  deleteResources(where: $where) {
     nodesDeleted
   }
 }

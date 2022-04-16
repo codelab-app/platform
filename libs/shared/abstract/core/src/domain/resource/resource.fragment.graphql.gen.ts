@@ -7,8 +7,8 @@ export type ResourceFragment = {
   __typename: 'Resource'
   id: string
   name: string
-  data: string
-  api: { id: string; name: string }
+  type: Types.ResourceType
+  config: string
 }
 
 export const ResourceFragmentDoc = gql`
@@ -16,11 +16,8 @@ export const ResourceFragmentDoc = gql`
     __typename
     id
     name
-    data
-    api {
-      id
-      name
-    }
+    type
+    config
   }
 `
 

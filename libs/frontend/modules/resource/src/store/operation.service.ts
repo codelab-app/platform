@@ -1,21 +1,21 @@
-import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { OperationWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateOperationDTO,
+  IUpdateOperationDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { omit } from 'lodash'
 import {
   _async,
   _await,
   Model,
   model,
-  modelAction,
   modelFlow,
   objectMap,
   prop,
+  Ref,
   transaction,
 } from 'mobx-keystone'
-import { OperationFragment } from '../graphql/operation.fragment.graphql.gen'
-import { CreateOperationInput, UpdateOperationInput } from '../use-cases'
 import { operationApi } from './operation.api'
 import { Operation } from './operation.model'
 import { OperationModalService } from './operation-modal.service'
@@ -31,57 +31,49 @@ export class OperationService extends Model({
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new OperationModalService({})),
   deleteModal: prop(() => new OperationModalService({})),
+  selectedOperations: prop(() => Array<Ref<Operation>>()).withSetter(),
 }) {
   operationList(resourceId: Nullish<string>) {
-    return [...this.operations.values()].filter(
-      (operation) => operation.id === resourceId,
-    )
+    const operations = [...this.operations.values()]
+
+    return resourceId
+      ? operations.filter(
+          (operation) => operation.resource.current.id === resourceId,
+        )
+      : operations
   }
 
   operation(id: string) {
     return this.operations.get(id)
   }
 
-  @modelAction
-  async fetchResource(resource: Array<OperationFragment['resource']>) {
-    // loading api interface within operation fragment is hard so we load it separately
-    return await getTypeService(this).getAll(resource.map((x) => x.id))
-  }
-
   @modelFlow
   @transaction
-  getAll = _async(function* (
-    this: OperationService,
-    where: OperationWhere = {},
-  ) {
+  getAll = _async(function* (this: OperationService, where?: OperationWhere) {
     const { operations } = yield* _await(operationApi.GetOperations({ where }))
-    const resources = operations.map((x) => x.resource)
 
-    yield* _await(this.fetchResource(resources))
-
-    const formattedOperations = operations.map((r) => Operation.fromFragment(r))
-
-    formattedOperations.forEach((r) => {
-      this.operations.set(r.id, r)
-    })
-
-    return formattedOperations
+    return operations.map((r) =>
+      this.operations.set(r.id, Operation.fromFragment(r)),
+    )
   })
 
   @modelFlow
   @transaction
   create = _async(function* (
     this: OperationService,
-    input: CreateOperationInput,
+    input: ICreateOperationDTO,
     resourceId: Nullish<string>,
   ) {
+    const { name, config } = input
+
     const {
       createOperations: { operations },
     } = yield* _await(
       operationApi.CreateOperations({
         input: {
-          name: input.name,
-          data: JSON.stringify(omit(input, ['type', 'name'])),
+          name,
+          resource: { connect: { where: { node: { id: resourceId } } } },
+          config: JSON.stringify(config),
         },
       }),
     )
@@ -104,14 +96,13 @@ export class OperationService extends Model({
   update = _async(function* (
     this: OperationService,
     operation: Operation,
-    input: UpdateOperationInput,
+    input: IUpdateOperationDTO,
   ) {
+    const { name, config } = input
+
     const { updateOperations } = yield* _await(
       operationApi.UpdateOperation({
-        update: {
-          name: input.name,
-          data: JSON.stringify(omit(input, ['type', 'name'])),
-        },
+        update: { name, config: JSON.stringify(config) },
         where: { id: operation.id },
       }),
     )
@@ -132,6 +123,10 @@ export class OperationService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: OperationService, id: string) {
+    if (this.operations.has(id)) {
+      this.operations.delete(id)
+    }
+
     const { deleteOperations } = yield* _await(
       operationApi.DeleteOperations({ where: { id } }),
     )

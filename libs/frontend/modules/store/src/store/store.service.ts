@@ -113,7 +113,7 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  createStore = _async(function* (
+  create = _async(function* (
     this: StoreService,
     input: ICreateStoreDTO,
     ownerId: Nullish<string>,
@@ -159,7 +159,7 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  updateStore = _async(function* (
+  update = _async(function* (
     this: StoreService,
     store: Store,
     input: IUpdateStoreDTO,

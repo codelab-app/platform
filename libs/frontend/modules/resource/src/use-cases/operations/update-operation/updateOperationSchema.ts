@@ -1,12 +1,8 @@
+import { IUpdateOperationDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import {
-  CreateOperationInput,
-  createOperationSchema,
-} from '../create-operation'
+import { createOperationSchema } from '../create-operation'
 
-export type UpdateOperationInput = CreateOperationInput
-
-export const updateOperationSchema: JSONSchemaType<UpdateOperationInput> = {
+export const updateOperationSchema: JSONSchemaType<IUpdateOperationDTO> = {
   ...createOperationSchema,
   title: 'Update Operation Input',
 } as const

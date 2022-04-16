@@ -10,8 +10,6 @@ export class OperationModalService extends ExtendedModel(() => ({
 })) {
   @computed
   get operation() {
-    console.log(this.metadata?.current)
-
     return this.metadata?.current ?? null
   }
 }

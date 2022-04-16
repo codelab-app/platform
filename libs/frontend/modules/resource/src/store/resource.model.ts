@@ -1,20 +1,19 @@
-import { IResource } from '@codelab/shared/abstract/core'
+import { ResourceType } from '@codelab/shared/abstract/codegen'
+import { IResource, IResourceDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { ResourceFragment } from '../graphql/resource.fragment.graphql.gen'
 
 @model('codelab/Resource')
-export class Resource
-  extends Model({
-    id: idProp,
-    name: prop<string>(),
-    config: prop<JSON>(),
-  })
-  implements IResource
-{
-  static fromFragment(resource: ResourceFragment) {
+export class Resource extends Model({
+  id: idProp,
+  name: prop<string>(),
+  config: prop<IResource['config']>(),
+  type: prop<ResourceType>(),
+}) {
+  static fromFragment(resource: IResourceDTO) {
     return new Resource({
       id: resource.id,
       name: resource.name,
+      type: resource.type,
       config: JSON.parse(resource.config),
     })
   }

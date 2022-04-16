@@ -6525,7 +6525,6 @@ export type InterfaceType = TypeBase &
     apiOfAtoms: Array<Atom>
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
-    apiOfResource?: Maybe<Scalars['Boolean']>
     descendantTypesIds: Array<Scalars['ID']>
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
@@ -6752,7 +6751,6 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
-  apiOfResource?: InputMaybe<Scalars['Boolean']>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
@@ -6926,7 +6924,6 @@ export type InterfaceTypeRelationInput = {
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
 export type InterfaceTypeSort = {
-  apiOfResource?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
@@ -6938,7 +6935,6 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
-  apiOfResource?: InputMaybe<Scalars['Boolean']>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
@@ -6974,8 +6970,6 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
-  apiOfResource?: InputMaybe<Scalars['Boolean']>
-  apiOfResource_NOT?: InputMaybe<Scalars['Boolean']>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
@@ -7485,6 +7479,7 @@ export type Mutation = {
   deleteElementSubgraph: DeleteElementsInfo
   deleteElementTypes: DeleteInfo
   deleteElements: DeleteInfo
+  deleteElementsSubgraph: DeleteElementsInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
   deleteHooks: DeleteInfo
@@ -7784,7 +7779,6 @@ export type MutationDeleteResetDatabaseMutationResponsesArgs = {
 }
 
 export type MutationDeleteResourcesArgs = {
-  delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<ResourceWhere>
 }
 
@@ -8047,11 +8041,6 @@ export type MutationUpdateResetDatabaseMutationResponsesArgs = {
 }
 
 export type MutationUpdateResourcesArgs = {
-  connect?: InputMaybe<ResourceConnectInput>
-  connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
-  create?: InputMaybe<ResourceRelationInput>
-  delete?: InputMaybe<ResourceDeleteInput>
-  disconnect?: InputMaybe<ResourceDisconnectInput>
   update?: InputMaybe<ResourceUpdateInput>
   where?: InputMaybe<ResourceWhere>
 }

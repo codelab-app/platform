@@ -9,7 +9,7 @@ import { useOperationTable } from './useOperationTable'
 type GetOperationsTableProps = WithOperationService & WithResourceService
 
 export const GetOperationsTable = observer<GetOperationsTableProps>(
-  ({ operationService, resourceService }) => {
+  ({ operationService }) => {
     const { columns, rowSelection, pagination } =
       useOperationTable(operationService)
 

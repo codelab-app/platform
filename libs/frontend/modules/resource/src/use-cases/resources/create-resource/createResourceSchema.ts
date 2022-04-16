@@ -1,13 +1,15 @@
-import { SelectResourcesApi } from '@codelab/frontend/modules/type'
+import { monacoFieldFactory } from '@codelab/frontend/view/components'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
+import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
+import { keys } from 'lodash'
 
-export type CreateResourceInput = {
-  name: string
-  apiId: string
-  data: string
-}
+const monacoFieldJson = monacoFieldFactory({
+  editorOptions: { language: MonacoLanguage.json },
+  containerProps: { style: { height: '240px' } },
+})
 
-export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
+export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
   title: 'Create Resource',
   type: 'object',
   properties: {
@@ -15,11 +17,21 @@ export const createResourceSchema: JSONSchemaType<CreateResourceInput> = {
       type: 'string',
       autoFocus: true,
     },
-    apiId: {
+    type: {
       type: 'string',
-      uniforms: { component: SelectResourcesApi },
+      enum: keys(ResourceType) as Array<ResourceType>,
+      showSearch: true,
     },
-    data: { type: 'string' },
+    config: {
+      type: 'object',
+      properties: {
+        url: { type: 'string' },
+        headers: { type: 'string', uniforms: { component: monacoFieldJson } },
+        cookies: { type: 'string', uniforms: { component: monacoFieldJson } },
+      },
+      label: '',
+      required: ['url'],
+    },
   },
-  required: ['name'],
+  required: ['name', 'type'],
 } as const

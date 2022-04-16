@@ -1,21 +1,17 @@
-import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
+import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithResourceService } from '../../../store'
-import {
-  CreateResourceInput,
-  createResourceSchema,
-} from './createResourceSchema'
+import { createResourceSchema } from './createResourceSchema'
 
 export const CreateResourceModal = observer<WithResourceService>(
   ({ resourceService }) => {
-    const { user } = useUser()
     const closeModal = () => resourceService.createModal.close()
 
-    const onSubmit = (input: CreateResourceInput) =>
+    const onSubmit = (input: ICreateResourceDTO) =>
       resourceService.createResource(input)
 
     const onSubmitError = createNotificationHandler({
@@ -35,7 +31,33 @@ export const CreateResourceModal = observer<WithResourceService>(
           onSubmitSuccess={closeModal}
           schema={createResourceSchema}
         >
-          <AutoFields omitFields={['data']} />
+          <AutoFields omitFields={['config']} />
+
+          {/**
+           *
+           *  GraphQL Resource Config Form
+           *
+           */}
+          <DisplayIfField<ICreateResourceDTO>
+            condition={(c) => c.model.type === ResourceType.GraphQL}
+          >
+            <AutoField name="config.url" />
+            <AutoField name="config.headers" />
+            <AutoField name="config.cookies" />
+          </DisplayIfField>
+
+          {/**
+           *
+           *  Rest Resource Config Form
+           *
+           */}
+          <DisplayIfField<ICreateResourceDTO>
+            condition={(c) => c.model.type === ResourceType.Rest}
+          >
+            <AutoField name="config.url" />
+            <AutoField name="config.headers" />
+            <AutoField name="config.cookies" />
+          </DisplayIfField>
         </ModalForm.Form>
       </ModalForm.Modal>
     )

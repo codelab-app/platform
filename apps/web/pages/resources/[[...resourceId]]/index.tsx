@@ -11,12 +11,10 @@ import {
   GetOperationsTable,
   ResourceMainPane,
   UpdateOperationModal,
-  UpdateResourceData,
   useCurrentResource,
   WithOperationService,
   WithResourceService,
 } from '@codelab/frontend/modules/resource'
-import { WithTypeService } from '@codelab/frontend/modules/type'
 import {
   ConditionalView,
   SpinnerWrapper,
@@ -30,19 +28,6 @@ import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
-
-const ResourceDataPage = observer<WithResourceService & WithTypeService>(
-  ({ resourceService, typeService }) => (
-    <>
-      <PageHeader extra={[]} ghost={false} title="Resource Data" />
-      <UpdateResourceData
-        resourceService={resourceService}
-        typeService={typeService}
-      />
-    </>
-  ),
-)
 
 const OperationPage = observer<WithResourceService & WithOperationService>(
   ({ operationService, resourceService }) => (
@@ -56,7 +41,10 @@ const OperationPage = observer<WithResourceService & WithOperationService>(
         operationService={operationService}
         resourceService={resourceService}
       />
-      <UpdateOperationModal operationService={operationService} />
+      <UpdateOperationModal
+        operationService={operationService}
+        resourceService={resourceService}
+      />
       <DeleteOperationsModal operationService={operationService} />
       <GetOperationsTable
         operationService={operationService}
@@ -78,11 +66,6 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <SpinnerWrapper isLoading={isLoading}>
         <ConditionalView condition={Boolean(resource)}>
           <ContentSection>
-            <ResourceDataPage
-              resourceService={resourceService}
-              typeService={typeService}
-            />
-            <div css={tw`mb-5`} />
             <OperationPage
               operationService={operationService}
               resourceService={resourceService}

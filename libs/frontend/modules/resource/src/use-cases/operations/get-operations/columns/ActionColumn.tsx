@@ -4,19 +4,23 @@ import {
 } from '@codelab/frontend/view/components'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Action, actionRef, WithActionService } from '../../../../store'
+import {
+  Operation,
+  operationRef,
+  WithOperationService,
+} from '../../../../store'
 
-type ActionColumnProps = WithActionService & {
-  action: Action
+type ActionColumnProps = WithOperationService & {
+  operation: Operation
 }
 
 export const ActionColumn = observer<ActionColumnProps>(
-  ({ action, actionService }) => {
+  ({ operation, operationService }) => {
     const onClickEdit = () =>
-      actionService.updateModal.open(actionRef(action.id))
+      operationService.updateModal.open(operationRef(operation.id))
 
     const onClickDelete = () =>
-      actionService.deleteModal.open(actionRef(action.id))
+      operationService.deleteModal.open(operationRef(operation.id))
 
     return (
       <Space size="middle">

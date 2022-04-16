@@ -17,7 +17,7 @@ export const UpdateActionModal = observer<WithActionService>(
         throw new Error('Updated action is not set')
       }
 
-      return actionService.updateAction(updateAction, data)
+      return actionService.update(updateAction, data)
     }
 
     const onSubmitError = createNotificationHandler({

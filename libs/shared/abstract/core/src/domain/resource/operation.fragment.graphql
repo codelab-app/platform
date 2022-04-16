@@ -2,9 +2,9 @@ fragment Operation on Operation {
   __typename
   id
   name
-  config
   resource {
     id
     name
   }
+  config
 }

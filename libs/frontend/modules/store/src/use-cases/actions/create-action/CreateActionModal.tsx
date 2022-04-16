@@ -16,7 +16,7 @@ export const CreateActionModal = observer<CreateActionModalProp>(
     const closeModal = () => actionService.createModal.close()
 
     const onSubmit = (input: ICreateActionDTO) =>
-      actionService.createAction(input, store?.id)
+      actionService.create(input, store?.id)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating action',

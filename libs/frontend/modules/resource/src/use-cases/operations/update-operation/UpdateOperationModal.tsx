@@ -1,51 +1,80 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
+import {
+  IUpdateOperationDTO,
+  ResourceType,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
-import { WithOperationService } from '../../../store'
-import {
-  UpdateOperationInput,
-  updateOperationSchema,
-} from './updateOperationSchema'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { useCurrentResource } from '../../../hooks'
+import { WithOperationService, WithResourceService } from '../../../store'
+import { updateOperationSchema } from './updateOperationSchema'
 
-export const UpdateOperationModal = observer<WithOperationService>(
-  ({ operationService }) => {
-    const closeModal = () => operationService.updateModal.close()
-    const updateOperation = operationService.updateModal.operation
+export const UpdateOperationModal = observer<
+  WithOperationService & WithResourceService
+>(({ operationService, resourceService }) => {
+  const closeModal = () => operationService.updateModal.close()
+  const updateOperation = operationService.updateModal.operation
+  const { resource } = useCurrentResource(resourceService)
 
-    const onSubmit = (data: UpdateOperationInput) => {
-      if (!updateOperation) {
-        throw new Error('Updated operation is not set')
-      }
-
-      return operationService.update(updateOperation, data)
+  const onSubmit = (data: IUpdateOperationDTO) => {
+    if (!updateOperation) {
+      throw new Error('Updated operation is not set')
     }
 
-    const onSubmitError = createNotificationHandler({
-      title: 'Error while updating operation',
-    })
+    return operationService.update(updateOperation, data)
+  }
 
-    const model = {
-      name: operationService.updateModal.operation?.name,
-    }
+  const onSubmitError = createNotificationHandler({
+    title: 'Error while updating operation',
+  })
 
-    return (
-      <ModalForm.Modal
-        okText="Update Operation"
-        onCancel={closeModal}
-        visible={operationService.updateModal.isOpen}
+  const model = {
+    name: operationService.updateModal.operation?.name,
+    config: operationService.updateModal.operation?.config,
+  }
+
+  return (
+    <ModalForm.Modal
+      okText="Update Operation"
+      onCancel={closeModal}
+      visible={operationService.updateModal.isOpen}
+    >
+      <ModalForm.Form
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeModal}
+        schema={updateOperationSchema}
       >
-        <ModalForm.Form<UpdateOperationInput>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={closeModal}
-          schema={updateOperationSchema}
+        <AutoFields omitFields={['config']} />
+
+        {/**
+         *
+         *  GraphQL Operation Config Form
+         *
+         */}
+        <DisplayIfField<IUpdateOperationDTO>
+          condition={(c) => resource?.type === ResourceType.GraphQL}
         >
-          <AutoFields />
-        </ModalForm.Form>
-      </ModalForm.Modal>
-    )
-  },
-)
+          <AutoField name="config.query" />
+          <AutoField name="config.variables" />
+        </DisplayIfField>
+
+        {/**
+         *
+         *  Rest Operation Config Form
+         *
+         */}
+        <DisplayIfField<IUpdateOperationDTO>
+          condition={(c) => resource?.type === ResourceType.Rest}
+        >
+          <AutoField name="config.method" />
+          <AutoField name="config.body" />
+          <AutoField name="config.queryParams" />
+        </DisplayIfField>
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})
