@@ -151,7 +151,6 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
       @relationship(
