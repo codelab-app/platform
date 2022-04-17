@@ -73,6 +73,16 @@ export class Store extends Model(() => ({
       .map((field) => ({ [field.key]: this.localState[field.key] }))
       .reduce(merge, {})
 
+    const resources = this.resources
+      .map((r) => {
+        const key =
+          this.resourcesKeys.find((k) => k.resourceId === r.current.id)?.key ||
+          ''
+
+        return { [key]: r.current.toMobxObservable() }
+      })
+      .reduce(merge, {})
+
     const storeActions = this.actions
       .map((action) => ({
         // eslint-disable-next-line no-eval
@@ -86,7 +96,9 @@ export class Store extends Model(() => ({
       }))
       .reduce(merge, {})
 
-    return makeAutoObservable(merge({}, storeState, storeActions, childStores))
+    return makeAutoObservable(
+      merge({}, storeState, storeActions, resources, childStores),
+    )
   }
 
   static hydrate(store: IStoreDTO): Store {

@@ -17,6 +17,11 @@ export const storeSelectionSet = `{
       id
       name
       type
+      operations {
+        id
+        name
+        config
+      }
     }
     parentStoreConnection {
       edges {

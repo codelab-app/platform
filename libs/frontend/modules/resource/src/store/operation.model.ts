@@ -1,20 +1,19 @@
-import { IOperationDTO, IPropData } from '@codelab/shared/abstract/core'
-import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
-import { Resource, resourceRef } from './resource.model'
+import { IOperation, IOperationDTO } from '@codelab/shared/abstract/core'
+import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 @model('codelab/Operation')
 export class Operation extends Model({
   id: idProp,
   name: prop<string>(),
-  config: prop<IPropData>(),
-  resource: prop<Ref<Resource>>(),
+  config: prop<IOperation['config']>(),
+  resourceId: prop<string>(),
 }) {
-  static fromFragment(operation: IOperationDTO) {
+  static hydrate(operation: IOperationDTO) {
     return new Operation({
       id: operation.id,
       name: operation.name,
-      resource: resourceRef(operation.resource.id),
       config: JSON.parse(operation.config),
+      resourceId: operation.resource.id,
     })
   }
 }

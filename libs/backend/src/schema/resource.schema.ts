@@ -12,12 +12,15 @@ export const resourceSchema = gql`
     type: ResourceType!
     name: String!
     config: String! @default(value: "{}")
+    operations: [Operation!]!
+      @relationship(type: "RESOURCE_OPERATION", direction: IN)
   }
 
   type Operation {
     id: ID! @id
     name: String!
-    resource: Resource! @relationship(type: "QUERY_RESOURCE", direction: OUT)
+    resource: Resource!
+      @relationship(type: "RESOURCE_OPERATION", direction: OUT)
     config: String! @default(value: "{}")
   }
 `

@@ -1,14 +1,17 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { OperationFragment } from './operation.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { OperationFragmentDoc } from './operation.fragment.graphql.gen'
 export type ResourceFragment = {
   __typename: 'Resource'
   id: string
   name: string
   type: Types.ResourceType
   config: string
+  operations: Array<OperationFragment>
 }
 
 export const ResourceFragmentDoc = gql`
@@ -18,7 +21,11 @@ export const ResourceFragmentDoc = gql`
     name
     type
     config
+    operations {
+      ...Operation
+    }
   }
+  ${OperationFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

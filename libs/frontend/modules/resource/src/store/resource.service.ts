@@ -18,6 +18,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { getOperationService } from './operation.service'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
 import { ResourceModalService } from './resource-modal.service'
@@ -43,10 +44,17 @@ export class ResourceService extends Model({
     return this.resources.get(id)
   }
 
+  @modelAction
+  fetchOperations(operations: IResourceDTO['operations']) {
+    getOperationService(this).updateCache(operations)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
+
+    this.fetchOperations(resources.flatMap((x) => x.operations))
 
     resources.forEach((r) => {
       this.resources.set(r.id, Resource.hydrate(r))
@@ -139,6 +147,8 @@ export class ResourceService extends Model({
   updateCache(resources: Array<IResourceDTO>) {
     for (const resource of resources) {
       this.addOrUpdate(resource)
+      // when loading the store we load operations inside resources too
+      getOperationService(this).updateCache(resource.operations)
     }
   }
 

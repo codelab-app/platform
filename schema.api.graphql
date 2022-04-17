@@ -7195,7 +7195,10 @@ type Mutation {
   deleteResetDatabaseMutationResponses(
     where: ResetDatabaseMutationResponseWhere
   ): DeleteInfo!
-  deleteResources(where: ResourceWhere): DeleteInfo!
+  deleteResources(
+    delete: ResourceDeleteInput
+    where: ResourceWhere
+  ): DeleteInfo!
   deleteStores(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteStoresSubgraph(delete: StoreDeleteInput, where: StoreWhere): DeleteInfo!
   deleteTagGraphOptions(where: TagGraphOptionsWhere): DeleteInfo!
@@ -7409,6 +7412,11 @@ type Mutation {
     where: ResetDatabaseMutationResponseWhere
   ): UpdateResetDatabaseMutationResponsesMutationResponse!
   updateResources(
+    connect: ResourceConnectInput
+    connectOrCreate: ResourceConnectOrCreateInput
+    create: ResourceRelationInput
+    delete: ResourceDeleteInput
+    disconnect: ResourceDisconnectInput
     update: ResourceUpdateInput
     where: ResourceWhere
   ): UpdateResourcesMutationResponse!
@@ -7486,6 +7494,14 @@ input OperationConnectOrCreateInput {
   resource: OperationResourceConnectOrCreateFieldInput
 }
 
+input OperationConnectOrCreateWhere {
+  node: OperationUniqueWhere!
+}
+
+input OperationConnectWhere {
+  node: OperationWhere!
+}
+
 input OperationCreateInput {
   config: String! = "{}"
   name: String!
@@ -7498,6 +7514,11 @@ input OperationDeleteInput {
 
 input OperationDisconnectInput {
   resource: OperationResourceDisconnectFieldInput
+}
+
+input OperationOnCreateInput {
+  config: String! = "{}"
+  name: String!
 }
 
 input OperationOptions {
@@ -7526,6 +7547,7 @@ input OperationResourceAggregateInput {
 }
 
 input OperationResourceConnectFieldInput {
+  connect: ResourceConnectInput
   where: ResourceConnectWhere
 }
 
@@ -7560,10 +7582,12 @@ input OperationResourceCreateFieldInput {
 }
 
 input OperationResourceDeleteFieldInput {
+  delete: ResourceDeleteInput
   where: OperationResourceConnectionWhere
 }
 
 input OperationResourceDisconnectFieldInput {
+  disconnect: ResourceDisconnectInput
   where: OperationResourceConnectionWhere
 }
 
@@ -7656,6 +7680,10 @@ input OperationSort {
   config: SortDirection
   id: SortDirection
   name: SortDirection
+}
+
+input OperationUniqueWhere {
+  id: ID
 }
 
 input OperationUpdateInput {
@@ -10788,6 +10816,7 @@ input StoreResourcesAggregateInput {
 }
 
 input StoreResourcesConnectFieldInput {
+  connect: [ResourceConnectInput!]
   edge: StoreResourceCreateInput!
   where: ResourceConnectWhere
 }
@@ -10828,10 +10857,12 @@ input StoreResourcesCreateFieldInput {
 }
 
 input StoreResourcesDeleteFieldInput {
+  delete: ResourceDeleteInput
   where: StoreResourcesConnectionWhere
 }
 
 input StoreResourcesDisconnectFieldInput {
+  disconnect: ResourceDisconnectInput
   where: StoreResourcesConnectionWhere
 }
 

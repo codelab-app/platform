@@ -2,14 +2,17 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { OperationWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateOperationDTO,
+  IOperationDTO,
   IUpdateOperationDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
+  createContext,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -37,9 +40,7 @@ export class OperationService extends Model({
     const operations = [...this.operations.values()]
 
     return resourceId
-      ? operations.filter(
-          (operation) => operation.resource.current.id === resourceId,
-        )
+      ? operations.filter((operation) => operation.resourceId === resourceId)
       : operations
   }
 
@@ -53,7 +54,7 @@ export class OperationService extends Model({
     const { operations } = yield* _await(operationApi.GetOperations({ where }))
 
     return operations.map((r) =>
-      this.operations.set(r.id, Operation.fromFragment(r)),
+      this.operations.set(r.id, Operation.hydrate(r)),
     )
   })
 
@@ -84,7 +85,7 @@ export class OperationService extends Model({
       throw new Error('Atom was not created')
     }
 
-    const operationModel = Operation.fromFragment(operation)
+    const operationModel = Operation.hydrate(operation)
 
     this.operations.set(operationModel.id, operationModel)
 
@@ -113,12 +114,37 @@ export class OperationService extends Model({
       throw new Error('Failed to update operation')
     }
 
-    const operationModel = Operation.fromFragment(updateOperation)
+    const operationModel = Operation.hydrate(updateOperation)
 
     this.operations.set(operation.id, operationModel)
 
     return operationModel
   })
+
+  @modelAction
+  addOperation(operation: Operation) {
+    this.operations.set(operation.id, operation)
+  }
+
+  @modelAction
+  addOrUpdate(operation: IOperationDTO) {
+    const existing = this.operation(operation.id)
+
+    if (existing) {
+      existing.name = operation.name
+      existing.config = JSON.parse(operation.config)
+      existing.resourceId = operation.resource.id
+    } else {
+      this.addOperation(Operation.hydrate(operation))
+    }
+  }
+
+  @modelAction
+  updateCache(operations: Array<IOperationDTO>) {
+    for (const operation of operations) {
+      this.addOrUpdate(operation)
+    }
+  }
 
   @modelFlow
   @transaction
@@ -133,4 +159,16 @@ export class OperationService extends Model({
 
     return deleteOperations
   })
+}
+
+export const operationServiceContext = createContext<OperationService>()
+
+export const getOperationService = (self: object) => {
+  const operationStore = operationServiceContext.get(self)
+
+  if (!operationStore) {
+    throw new Error('OperationService context is not defined')
+  }
+
+  return operationStore
 }

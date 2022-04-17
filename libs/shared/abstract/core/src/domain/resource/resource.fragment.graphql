@@ -4,4 +4,7 @@ fragment Resource on Resource {
   name
   type
   config
+  operations {
+    ...Operation
+  }
 }

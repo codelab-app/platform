@@ -7779,6 +7779,7 @@ export type MutationDeleteResetDatabaseMutationResponsesArgs = {
 }
 
 export type MutationDeleteResourcesArgs = {
+  delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<ResourceWhere>
 }
 
@@ -8041,6 +8042,11 @@ export type MutationUpdateResetDatabaseMutationResponsesArgs = {
 }
 
 export type MutationUpdateResourcesArgs = {
+  connect?: InputMaybe<ResourceConnectInput>
+  connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>
+  create?: InputMaybe<ResourceRelationInput>
+  delete?: InputMaybe<ResourceDeleteInput>
+  disconnect?: InputMaybe<ResourceDisconnectInput>
   update?: InputMaybe<ResourceUpdateInput>
   where?: InputMaybe<ResourceWhere>
 }
@@ -11627,6 +11633,7 @@ export type StoreResourcesAggregateInput = {
 }
 
 export type StoreResourcesConnectFieldInput = {
+  connect?: InputMaybe<Array<ResourceConnectInput>>
   edge: StoreResourceCreateInput
   where?: InputMaybe<ResourceConnectWhere>
 }
@@ -11668,10 +11675,12 @@ export type StoreResourcesCreateFieldInput = {
 }
 
 export type StoreResourcesDeleteFieldInput = {
+  delete?: InputMaybe<ResourceDeleteInput>
   where?: InputMaybe<StoreResourcesConnectionWhere>
 }
 
 export type StoreResourcesDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceDisconnectInput>
   where?: InputMaybe<StoreResourcesConnectionWhere>
 }
 
