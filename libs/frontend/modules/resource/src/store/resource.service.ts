@@ -2,14 +2,17 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
+  IResourceDTO,
   IUpdateResourceDTO,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
+  createContext,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -46,7 +49,7 @@ export class ResourceService extends Model({
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
     resources.forEach((r) => {
-      this.resources.set(r.id, Resource.fromFragment(r))
+      this.resources.set(r.id, Resource.hydrate(r))
     })
 
     return this.resources
@@ -80,7 +83,7 @@ export class ResourceService extends Model({
       throw new Error('Atom was not created')
     }
 
-    const resourceModel = Resource.fromFragment(resource)
+    const resourceModel = Resource.hydrate(resource)
 
     this.resources.set(resourceModel.id, resourceModel)
 
@@ -113,7 +116,7 @@ export class ResourceService extends Model({
       throw new Error('Failed to update resource')
     }
 
-    const resourceModel = Resource.fromFragment(updateResource)
+    const resourceModel = Resource.hydrate(updateResource)
 
     this.resources.set(resource.id, resourceModel)
 
@@ -131,4 +134,41 @@ export class ResourceService extends Model({
 
     return deleteResources
   })
+
+  @modelAction
+  updateCache(resources: Array<IResourceDTO>) {
+    for (const resource of resources) {
+      this.addOrUpdate(resource)
+    }
+  }
+
+  @modelAction
+  addOrUpdate(resource: IResourceDTO) {
+    const existing = this.resource(resource.id)
+
+    if (existing) {
+      existing.name = resource.name
+      existing.config = JSON.parse(resource.config)
+      existing.type = resource.type
+    } else {
+      this.addResource(Resource.hydrate(resource))
+    }
+  }
+
+  @modelAction
+  addResource(resource: Resource) {
+    this.resources.set(resource.id, resource)
+  }
+}
+
+export const resourceServiceContext = createContext<ResourceService>()
+
+export const getResourceService = (self: object) => {
+  const resourceStore = resourceServiceContext.get(self)
+
+  if (!resourceStore) {
+    throw new Error('ResourceService context is not defined')
+  }
+
+  return resourceStore
 }

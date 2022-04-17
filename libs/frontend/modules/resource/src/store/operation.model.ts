@@ -1,4 +1,4 @@
-import { IOperation, IOperationDTO } from '@codelab/shared/abstract/core'
+import { IOperationDTO, IPropData } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
 import { Resource, resourceRef } from './resource.model'
 
@@ -6,7 +6,7 @@ import { Resource, resourceRef } from './resource.model'
 export class Operation extends Model({
   id: idProp,
   name: prop<string>(),
-  config: prop<IOperation['config']>(),
+  config: prop<IPropData>(),
   resource: prop<Ref<Resource>>(),
 }) {
   static fromFragment(operation: IOperationDTO) {

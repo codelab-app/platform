@@ -15,10 +15,7 @@ import {
   WithOperationService,
   WithResourceService,
 } from '@codelab/frontend/modules/resource'
-import {
-  ConditionalView,
-  SpinnerWrapper,
-} from '@codelab/frontend/view/components'
+import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -55,7 +52,7 @@ const OperationPage = observer<WithResourceService & WithOperationService>(
 )
 
 const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { operationService, resourceService, typeService } = useStore()
+  const { operationService, resourceService } = useStore()
   const { resource, isLoading } = useCurrentResource(resourceService)
 
   return (
@@ -63,16 +60,16 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Head>
         <title>Resources | Codelab</title>
       </Head>
-      <SpinnerWrapper isLoading={isLoading}>
-        <ConditionalView condition={Boolean(resource)}>
+      <Spinner isLoading={isLoading}>
+        <DisplayIf condition={Boolean(resource)}>
           <ContentSection>
             <OperationPage
               operationService={operationService}
               resourceService={resourceService}
             />
           </ContentSection>
-        </ConditionalView>
-      </SpinnerWrapper>
+        </DisplayIf>
+      </Spinner>
     </>
   )
 })

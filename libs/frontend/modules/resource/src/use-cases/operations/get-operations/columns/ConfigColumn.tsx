@@ -11,9 +11,7 @@ export const ConfigColumn = observer<ConfigColumnProps>(({ operation }) => {
   return (
     <Descriptions column={1} size="small">
       {keys(operation.config).map((x) => (
-        <Descriptions.Item label={x}>
-          {(operation.config as Record<string, any>)[x]}
-        </Descriptions.Item>
+        <Descriptions.Item label={x}>{operation.config[x]}</Descriptions.Item>
       ))}
     </Descriptions>
   )

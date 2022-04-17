@@ -156,26 +156,26 @@ input ActionStoreNodeAggregationWhereInput {
   AND: [ActionStoreNodeAggregationWhereInput!]
   OR: [ActionStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
-  initialState_AVERAGE_EQUAL: Float
-  initialState_AVERAGE_GT: Float
-  initialState_AVERAGE_GTE: Float
-  initialState_AVERAGE_LT: Float
-  initialState_AVERAGE_LTE: Float
-  initialState_EQUAL: String
-  initialState_GT: Int
-  initialState_GTE: Int
-  initialState_LONGEST_EQUAL: Int
-  initialState_LONGEST_GT: Int
-  initialState_LONGEST_GTE: Int
-  initialState_LONGEST_LT: Int
-  initialState_LONGEST_LTE: Int
-  initialState_LT: Int
-  initialState_LTE: Int
-  initialState_SHORTEST_EQUAL: Int
-  initialState_SHORTEST_GT: Int
-  initialState_SHORTEST_GTE: Int
-  initialState_SHORTEST_LT: Int
-  initialState_SHORTEST_LTE: Int
+  localState_AVERAGE_EQUAL: Float
+  localState_AVERAGE_GT: Float
+  localState_AVERAGE_GTE: Float
+  localState_AVERAGE_LT: Float
+  localState_AVERAGE_LTE: Float
+  localState_EQUAL: String
+  localState_GT: Int
+  localState_GTE: Int
+  localState_LONGEST_EQUAL: Int
+  localState_LONGEST_GT: Int
+  localState_LONGEST_GTE: Int
+  localState_LONGEST_LT: Int
+  localState_LONGEST_LTE: Int
+  localState_LT: Int
+  localState_LTE: Int
+  localState_SHORTEST_EQUAL: Int
+  localState_SHORTEST_GT: Int
+  localState_SHORTEST_GTE: Int
+  localState_SHORTEST_LT: Int
+  localState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -210,7 +210,7 @@ type ActionStoreStoreAggregationSelection {
 
 type ActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
-  initialState: StringAggregateSelectionNonNullable!
+  localState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -944,26 +944,26 @@ input AppStoreNodeAggregationWhereInput {
   AND: [AppStoreNodeAggregationWhereInput!]
   OR: [AppStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
-  initialState_AVERAGE_EQUAL: Float
-  initialState_AVERAGE_GT: Float
-  initialState_AVERAGE_GTE: Float
-  initialState_AVERAGE_LT: Float
-  initialState_AVERAGE_LTE: Float
-  initialState_EQUAL: String
-  initialState_GT: Int
-  initialState_GTE: Int
-  initialState_LONGEST_EQUAL: Int
-  initialState_LONGEST_GT: Int
-  initialState_LONGEST_GTE: Int
-  initialState_LONGEST_LT: Int
-  initialState_LONGEST_LTE: Int
-  initialState_LT: Int
-  initialState_LTE: Int
-  initialState_SHORTEST_EQUAL: Int
-  initialState_SHORTEST_GT: Int
-  initialState_SHORTEST_GTE: Int
-  initialState_SHORTEST_LT: Int
-  initialState_SHORTEST_LTE: Int
+  localState_AVERAGE_EQUAL: Float
+  localState_AVERAGE_GT: Float
+  localState_AVERAGE_GTE: Float
+  localState_AVERAGE_LT: Float
+  localState_AVERAGE_LTE: Float
+  localState_EQUAL: String
+  localState_GT: Int
+  localState_GTE: Int
+  localState_LONGEST_EQUAL: Int
+  localState_LONGEST_GT: Int
+  localState_LONGEST_GTE: Int
+  localState_LONGEST_LT: Int
+  localState_LONGEST_LTE: Int
+  localState_LT: Int
+  localState_LTE: Int
+  localState_SHORTEST_EQUAL: Int
+  localState_SHORTEST_GT: Int
+  localState_SHORTEST_GTE: Int
+  localState_SHORTEST_LT: Int
+  localState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -998,7 +998,7 @@ type AppStoreStoreAggregationSelection {
 
 type AppStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
-  initialState: StringAggregateSelectionNonNullable!
+  localState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10121,7 +10121,7 @@ type Store {
   ): StoreChildrenConnection!
   descendants: [Store!]!
   id: ID!
-  initialState: String!
+  localState: String!
   name: String!
   parentStore(
     directed: Boolean = true
@@ -10139,6 +10139,22 @@ type Store {
     sort: [StoreParentStoreConnectionSort!]
     where: StoreParentStoreConnectionWhere
   ): StoreParentStoreConnection!
+  resources(
+    directed: Boolean = true
+    options: ResourceOptions
+    where: ResourceWhere
+  ): [Resource!]!
+  resourcesAggregate(
+    directed: Boolean = true
+    where: ResourceWhere
+  ): StoreResourceResourcesAggregationSelection
+  resourcesConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreResourcesConnectionSort!]
+    where: StoreResourcesConnectionWhere
+  ): StoreResourcesConnection!
   state(
     directed: Boolean = true
     options: InterfaceTypeOptions
@@ -10298,7 +10314,7 @@ input StoreActionsUpdateFieldInput {
 type StoreAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
-  initialState: StringAggregateSelectionNonNullable!
+  localState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10400,26 +10416,26 @@ input StoreChildrenNodeAggregationWhereInput {
   AND: [StoreChildrenNodeAggregationWhereInput!]
   OR: [StoreChildrenNodeAggregationWhereInput!]
   id_EQUAL: ID
-  initialState_AVERAGE_EQUAL: Float
-  initialState_AVERAGE_GT: Float
-  initialState_AVERAGE_GTE: Float
-  initialState_AVERAGE_LT: Float
-  initialState_AVERAGE_LTE: Float
-  initialState_EQUAL: String
-  initialState_GT: Int
-  initialState_GTE: Int
-  initialState_LONGEST_EQUAL: Int
-  initialState_LONGEST_GT: Int
-  initialState_LONGEST_GTE: Int
-  initialState_LONGEST_LT: Int
-  initialState_LONGEST_LTE: Int
-  initialState_LT: Int
-  initialState_LTE: Int
-  initialState_SHORTEST_EQUAL: Int
-  initialState_SHORTEST_GT: Int
-  initialState_SHORTEST_GTE: Int
-  initialState_SHORTEST_LT: Int
-  initialState_SHORTEST_LTE: Int
+  localState_AVERAGE_EQUAL: Float
+  localState_AVERAGE_GT: Float
+  localState_AVERAGE_GTE: Float
+  localState_AVERAGE_LT: Float
+  localState_AVERAGE_LTE: Float
+  localState_EQUAL: String
+  localState_GT: Int
+  localState_GTE: Int
+  localState_LONGEST_EQUAL: Int
+  localState_LONGEST_GT: Int
+  localState_LONGEST_GTE: Int
+  localState_LONGEST_LT: Int
+  localState_LONGEST_LTE: Int
+  localState_LT: Int
+  localState_LTE: Int
+  localState_SHORTEST_EQUAL: Int
+  localState_SHORTEST_GT: Int
+  localState_SHORTEST_GTE: Int
+  localState_SHORTEST_LT: Int
+  localState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -10467,6 +10483,7 @@ input StoreConnectInput {
   actions: [StoreActionsConnectFieldInput!]
   children: [StoreChildrenConnectFieldInput!]
   parentStore: StoreParentStoreConnectFieldInput
+  resources: [StoreResourcesConnectFieldInput!]
   state: StoreStateConnectFieldInput
 }
 
@@ -10474,6 +10491,7 @@ input StoreConnectOrCreateInput {
   actions: [StoreActionsConnectOrCreateFieldInput!]
   children: [StoreChildrenConnectOrCreateFieldInput!]
   parentStore: StoreParentStoreConnectOrCreateFieldInput
+  resources: [StoreResourcesConnectOrCreateFieldInput!]
   state: StoreStateConnectOrCreateFieldInput
 }
 
@@ -10488,9 +10506,10 @@ input StoreConnectWhere {
 input StoreCreateInput {
   actions: StoreActionsFieldInput
   children: StoreChildrenFieldInput
-  initialState: String! = "{}"
+  localState: String! = "{}"
   name: String!
   parentStore: StoreParentStoreFieldInput
+  resources: StoreResourcesFieldInput
   state: StoreStateFieldInput
 }
 
@@ -10498,6 +10517,7 @@ input StoreDeleteInput {
   actions: [StoreActionsDeleteFieldInput!]
   children: [StoreChildrenDeleteFieldInput!]
   parentStore: StoreParentStoreDeleteFieldInput
+  resources: [StoreResourcesDeleteFieldInput!]
   state: StoreStateDeleteFieldInput
 }
 
@@ -10505,6 +10525,7 @@ input StoreDisconnectInput {
   actions: [StoreActionsDisconnectFieldInput!]
   children: [StoreChildrenDisconnectFieldInput!]
   parentStore: StoreParentStoreDisconnectFieldInput
+  resources: [StoreResourcesDisconnectFieldInput!]
   state: StoreStateDisconnectFieldInput
 }
 
@@ -10524,7 +10545,7 @@ type StoreInterfaceTypeStateNodeAggregateSelection {
 }
 
 input StoreOnCreateInput {
-  initialState: String! = "{}"
+  localState: String! = "{}"
   name: String!
 }
 
@@ -10636,26 +10657,26 @@ input StoreParentStoreNodeAggregationWhereInput {
   AND: [StoreParentStoreNodeAggregationWhereInput!]
   OR: [StoreParentStoreNodeAggregationWhereInput!]
   id_EQUAL: ID
-  initialState_AVERAGE_EQUAL: Float
-  initialState_AVERAGE_GT: Float
-  initialState_AVERAGE_GTE: Float
-  initialState_AVERAGE_LT: Float
-  initialState_AVERAGE_LTE: Float
-  initialState_EQUAL: String
-  initialState_GT: Int
-  initialState_GTE: Int
-  initialState_LONGEST_EQUAL: Int
-  initialState_LONGEST_GT: Int
-  initialState_LONGEST_GTE: Int
-  initialState_LONGEST_LT: Int
-  initialState_LONGEST_LTE: Int
-  initialState_LT: Int
-  initialState_LTE: Int
-  initialState_SHORTEST_EQUAL: Int
-  initialState_SHORTEST_GT: Int
-  initialState_SHORTEST_GTE: Int
-  initialState_SHORTEST_LT: Int
-  initialState_SHORTEST_LTE: Int
+  localState_AVERAGE_EQUAL: Float
+  localState_AVERAGE_GT: Float
+  localState_AVERAGE_GTE: Float
+  localState_AVERAGE_LT: Float
+  localState_AVERAGE_LTE: Float
+  localState_EQUAL: String
+  localState_GT: Int
+  localState_GTE: Int
+  localState_LONGEST_EQUAL: Int
+  localState_LONGEST_GT: Int
+  localState_LONGEST_GTE: Int
+  localState_LONGEST_LT: Int
+  localState_LONGEST_LTE: Int
+  localState_LT: Int
+  localState_LTE: Int
+  localState_SHORTEST_EQUAL: Int
+  localState_SHORTEST_GT: Int
+  localState_SHORTEST_GTE: Int
+  localState_SHORTEST_LT: Int
+  localState_SHORTEST_LTE: Int
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
   name_AVERAGE_GTE: Float
@@ -10703,7 +10724,213 @@ input StoreRelationInput {
   actions: [StoreActionsCreateFieldInput!]
   children: [StoreChildrenCreateFieldInput!]
   parentStore: StoreParentStoreCreateFieldInput
+  resources: [StoreResourcesCreateFieldInput!]
   state: StoreStateCreateFieldInput
+}
+
+interface StoreResource {
+  resourceKey: String!
+}
+
+input StoreResourceCreateInput {
+  resourceKey: String!
+}
+
+type StoreResourceResourcesAggregationSelection {
+  count: Int!
+  edge: StoreResourceResourcesEdgeAggregateSelection
+  node: StoreResourceResourcesNodeAggregateSelection
+}
+
+type StoreResourceResourcesEdgeAggregateSelection {
+  resourceKey: StringAggregateSelectionNonNullable!
+}
+
+type StoreResourceResourcesNodeAggregateSelection {
+  config: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreResourceSort {
+  resourceKey: SortDirection
+}
+
+input StoreResourceUpdateInput {
+  resourceKey: String
+}
+
+input StoreResourceWhere {
+  AND: [StoreResourceWhere!]
+  OR: [StoreResourceWhere!]
+  resourceKey: String
+  resourceKey_CONTAINS: String
+  resourceKey_ENDS_WITH: String
+  resourceKey_IN: [String!]
+  resourceKey_NOT: String
+  resourceKey_NOT_CONTAINS: String
+  resourceKey_NOT_ENDS_WITH: String
+  resourceKey_NOT_IN: [String!]
+  resourceKey_NOT_STARTS_WITH: String
+  resourceKey_STARTS_WITH: String
+}
+
+input StoreResourcesAggregateInput {
+  AND: [StoreResourcesAggregateInput!]
+  OR: [StoreResourcesAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  edge: StoreResourcesEdgeAggregationWhereInput
+  node: StoreResourcesNodeAggregationWhereInput
+}
+
+input StoreResourcesConnectFieldInput {
+  edge: StoreResourceCreateInput!
+  where: ResourceConnectWhere
+}
+
+input StoreResourcesConnectOrCreateFieldInput {
+  onCreate: StoreResourcesConnectOrCreateFieldInputOnCreate!
+  where: ResourceConnectOrCreateWhere!
+}
+
+input StoreResourcesConnectOrCreateFieldInputOnCreate {
+  edge: StoreResourceCreateInput!
+  node: ResourceOnCreateInput!
+}
+
+type StoreResourcesConnection {
+  edges: [StoreResourcesRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreResourcesConnectionSort {
+  edge: StoreResourceSort
+  node: ResourceSort
+}
+
+input StoreResourcesConnectionWhere {
+  AND: [StoreResourcesConnectionWhere!]
+  OR: [StoreResourcesConnectionWhere!]
+  edge: StoreResourceWhere
+  edge_NOT: StoreResourceWhere
+  node: ResourceWhere
+  node_NOT: ResourceWhere
+}
+
+input StoreResourcesCreateFieldInput {
+  edge: StoreResourceCreateInput!
+  node: ResourceCreateInput!
+}
+
+input StoreResourcesDeleteFieldInput {
+  where: StoreResourcesConnectionWhere
+}
+
+input StoreResourcesDisconnectFieldInput {
+  where: StoreResourcesConnectionWhere
+}
+
+input StoreResourcesEdgeAggregationWhereInput {
+  AND: [StoreResourcesEdgeAggregationWhereInput!]
+  OR: [StoreResourcesEdgeAggregationWhereInput!]
+  resourceKey_AVERAGE_EQUAL: Float
+  resourceKey_AVERAGE_GT: Float
+  resourceKey_AVERAGE_GTE: Float
+  resourceKey_AVERAGE_LT: Float
+  resourceKey_AVERAGE_LTE: Float
+  resourceKey_EQUAL: String
+  resourceKey_GT: Int
+  resourceKey_GTE: Int
+  resourceKey_LONGEST_EQUAL: Int
+  resourceKey_LONGEST_GT: Int
+  resourceKey_LONGEST_GTE: Int
+  resourceKey_LONGEST_LT: Int
+  resourceKey_LONGEST_LTE: Int
+  resourceKey_LT: Int
+  resourceKey_LTE: Int
+  resourceKey_SHORTEST_EQUAL: Int
+  resourceKey_SHORTEST_GT: Int
+  resourceKey_SHORTEST_GTE: Int
+  resourceKey_SHORTEST_LT: Int
+  resourceKey_SHORTEST_LTE: Int
+}
+
+input StoreResourcesFieldInput {
+  connect: [StoreResourcesConnectFieldInput!]
+  connectOrCreate: [StoreResourcesConnectOrCreateFieldInput!]
+  create: [StoreResourcesCreateFieldInput!]
+}
+
+input StoreResourcesNodeAggregationWhereInput {
+  AND: [StoreResourcesNodeAggregationWhereInput!]
+  OR: [StoreResourcesNodeAggregationWhereInput!]
+  config_AVERAGE_EQUAL: Float
+  config_AVERAGE_GT: Float
+  config_AVERAGE_GTE: Float
+  config_AVERAGE_LT: Float
+  config_AVERAGE_LTE: Float
+  config_EQUAL: String
+  config_GT: Int
+  config_GTE: Int
+  config_LONGEST_EQUAL: Int
+  config_LONGEST_GT: Int
+  config_LONGEST_GTE: Int
+  config_LONGEST_LT: Int
+  config_LONGEST_LTE: Int
+  config_LT: Int
+  config_LTE: Int
+  config_SHORTEST_EQUAL: Int
+  config_SHORTEST_GT: Int
+  config_SHORTEST_GTE: Int
+  config_SHORTEST_LT: Int
+  config_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type StoreResourcesRelationship implements StoreResource {
+  cursor: String!
+  node: Resource!
+  resourceKey: String!
+}
+
+input StoreResourcesUpdateConnectionInput {
+  edge: StoreResourceUpdateInput
+  node: ResourceUpdateInput
+}
+
+input StoreResourcesUpdateFieldInput {
+  connect: [StoreResourcesConnectFieldInput!]
+  connectOrCreate: [StoreResourcesConnectOrCreateFieldInput!]
+  create: [StoreResourcesCreateFieldInput!]
+  delete: [StoreResourcesDeleteFieldInput!]
+  disconnect: [StoreResourcesDisconnectFieldInput!]
+  update: StoreResourcesUpdateConnectionInput
+  where: StoreResourcesConnectionWhere
 }
 
 """
@@ -10711,7 +10938,7 @@ Fields to sort Stores by. The order in which sorts are applied is not guaranteed
 """
 input StoreSort {
   id: SortDirection
-  initialState: SortDirection
+  localState: SortDirection
   name: SortDirection
 }
 
@@ -10834,7 +11061,7 @@ type StoreStoreChildrenEdgeAggregateSelection {
 
 type StoreStoreChildrenNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
-  initialState: StringAggregateSelectionNonNullable!
+  localState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10850,7 +11077,7 @@ type StoreStoreParentStoreEdgeAggregateSelection {
 
 type StoreStoreParentStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
-  initialState: StringAggregateSelectionNonNullable!
+  localState: StringAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -10861,9 +11088,10 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: [StoreActionsUpdateFieldInput!]
   children: [StoreChildrenUpdateFieldInput!]
-  initialState: String
+  localState: String
   name: String
   parentStore: StoreParentStoreUpdateFieldInput
+  resources: [StoreResourcesUpdateFieldInput!]
   state: StoreStateUpdateFieldInput
 }
 
@@ -10930,16 +11158,16 @@ input StoreWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
-  initialState: String
-  initialState_CONTAINS: String
-  initialState_ENDS_WITH: String
-  initialState_IN: [String!]
-  initialState_NOT: String
-  initialState_NOT_CONTAINS: String
-  initialState_NOT_ENDS_WITH: String
-  initialState_NOT_IN: [String!]
-  initialState_NOT_STARTS_WITH: String
-  initialState_STARTS_WITH: String
+  localState: String
+  localState_CONTAINS: String
+  localState_ENDS_WITH: String
+  localState_IN: [String!]
+  localState_NOT: String
+  localState_NOT_CONTAINS: String
+  localState_NOT_ENDS_WITH: String
+  localState_NOT_IN: [String!]
+  localState_NOT_STARTS_WITH: String
+  localState_STARTS_WITH: String
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -10955,6 +11183,31 @@ input StoreWhere {
   parentStoreConnection: StoreParentStoreConnectionWhere
   parentStoreConnection_NOT: StoreParentStoreConnectionWhere
   parentStore_NOT: StoreWhere
+  resourcesAggregate: StoreResourcesAggregateInput
+  resourcesConnection_ALL: StoreResourcesConnectionWhere
+  resourcesConnection_NONE: StoreResourcesConnectionWhere
+  resourcesConnection_SINGLE: StoreResourcesConnectionWhere
+  resourcesConnection_SOME: StoreResourcesConnectionWhere
+
+  """
+  Return Stores where all of the related Resources match this filter
+  """
+  resources_ALL: ResourceWhere
+
+  """
+  Return Stores where none of the related Resources match this filter
+  """
+  resources_NONE: ResourceWhere
+
+  """
+  Return Stores where one of the related Resources match this filter
+  """
+  resources_SINGLE: ResourceWhere
+
+  """
+  Return Stores where some of the related Resources match this filter
+  """
+  resources_SOME: ResourceWhere
   state: InterfaceTypeWhere
   stateAggregate: StoreStateAggregateInput
   stateConnection: StoreStateConnectionWhere

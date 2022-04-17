@@ -5,16 +5,22 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
+  AddResourceButton,
+  AddResourceModal,
   CreateActionButton,
   CreateActionModal,
   DeleteActionsModal,
   EditStateButton,
   GetActionsTable,
+  GetStoreResourcesTable,
+  RemoveResourceModal,
+  Store,
   StoreMainPane,
   UpdateActionModal,
-  UpdateInitialStateForm,
+  UpdateLocalStateForm,
   useCurrentStore,
   WithActionService,
+  WithStoreResourceService,
   WithStoreService,
 } from '@codelab/frontend/modules/store'
 import { WithTypeService } from '@codelab/frontend/modules/type'
@@ -30,20 +36,56 @@ import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const InitialStatePage = observer<WithStoreService & WithTypeService>(
+const LocalStatePage = observer<WithStoreService & WithTypeService>(
   ({ storeService, typeService }) => (
     <>
       <PageHeader
         extra={[<EditStateButton storeService={storeService} />]}
         ghost={false}
-        title="Initial State"
+        title="Local State"
       />
-      <UpdateInitialStateForm
+      <UpdateLocalStateForm
         storeService={storeService}
         typeService={typeService}
       />
     </>
   ),
+)
+
+type StoreResourcePage = WithStoreService &
+  WithStoreResourceService & { store: Store }
+
+const StoreResourcePage = observer<StoreResourcePage>(
+  ({ storeService, storeResourceService, store }) => {
+    return (
+      <>
+        <PageHeader
+          extra={[
+            <AddResourceButton storeResourceService={storeResourceService} />,
+          ]}
+          ghost={false}
+          title="Store Resource"
+        />
+
+        <AddResourceModal
+          store={store}
+          storeResourceService={storeResourceService}
+          storeService={storeService}
+        />
+
+        <RemoveResourceModal
+          store={store}
+          storeResourceService={storeResourceService}
+          storeService={storeService}
+        />
+
+        <GetStoreResourcesTable
+          storeResourceService={storeResourceService}
+          storeService={storeService}
+        />
+      </>
+    )
+  },
 )
 
 const ActionPage = observer<WithStoreService & WithActionService>(
@@ -69,7 +111,9 @@ const ActionPage = observer<WithStoreService & WithActionService>(
 )
 
 const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { actionService, storeService, typeService } = useStore()
+  const { actionService, storeService, typeService, storeResourceService } =
+    useStore()
+
   const { store, isLoading } = useCurrentStore(storeService)
 
   return (
@@ -80,9 +124,15 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Spinner isLoading={isLoading}>
         <DisplayIf condition={Boolean(store)}>
           <ContentSection>
-            <InitialStatePage
+            <LocalStatePage
               storeService={storeService}
               typeService={typeService}
+            />
+            <div css={tw`mb-5`} />
+            <StoreResourcePage
+              store={store as Store}
+              storeResourceService={storeResourceService}
+              storeService={storeService}
             />
             <div css={tw`mb-5`} />
             <ActionPage

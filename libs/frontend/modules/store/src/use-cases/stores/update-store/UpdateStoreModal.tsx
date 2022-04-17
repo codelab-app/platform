@@ -48,7 +48,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
           onSubmitSuccess={closeModal}
           schema={updateStoreSchema}
         >
-          <AutoFields omitFields={['parentStore', 'initialState']} />
+          <AutoFields omitFields={['parentStore', 'localState']} />
           <AutoField
             name="parentStore.id"
             where={{ id_NOT: updateStore?.id }}

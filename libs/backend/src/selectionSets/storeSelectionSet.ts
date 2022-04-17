@@ -4,22 +4,34 @@ export const storeSelectionSet = `{
   state {
     id
     name
-  }
-  initialState
-  parentStore {
-    id
-    name
-  }
-  parentStoreConnection {
-    edges {
-      storeKey
+    state {
+      id
+      name
     }
-  }
-  actions {
-    id
-    name
-    body
-    store {
+    localState
+    parentStore {
+      id
+      name
+    }
+    resources {
+      id
+      name
+      type
+    }
+    parentStoreConnection {
+      edges {
+          storeKey
+      }
+    }
+    resourcesConnection {
+      edges {
+        node {
+          id
+        }
+        resourceKey
+      }
+    }
+    actions {
       id
       name
     }

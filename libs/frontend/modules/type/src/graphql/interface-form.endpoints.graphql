@@ -20,11 +20,11 @@ query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
   }
 }
 
-query InterfaceForm_GetResourceApi(
-  $options: InterfaceTypeOptions
-  $where: InterfaceTypeWhere
+query InterfaceForm_GetResource(
+  $options: ResourceOptions
+  $where: ResourceWhere
 ) {
-  interfaceTypes(options: $options, where: $where) {
+  resources(options: $options, where: $where) {
     id
     name
   }

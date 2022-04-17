@@ -19,12 +19,8 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
+import { ResourceService } from '@codelab/frontend/modules/resource'
 import {
-  OperationService,
-  ResourceService,
-} from '@codelab/frontend/modules/resource'
-import {
-  ActionService,
   actionServiceContext,
   StoreService,
 } from '@codelab/frontend/modules/store'
@@ -89,6 +85,8 @@ export const createRootStore = ({ user }: RootStoreProps) => {
       componentService: prop(() => new ComponentService({})),
       actionService: prop(() => new ActionService({})),
       storeService: prop(() => new StoreService({})),
+      resourceService: prop(() => new ResourceService({})),
+      storeResourceService: prop(() => new StoreResourceService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
       // element service that is used by the provider tree
@@ -106,6 +104,7 @@ export const createRootStore = ({ user }: RootStoreProps) => {
       componentServiceContext.set(this, this.componentService)
       renderServiceContext.set(this, this.renderService)
       actionServiceContext.set(this, this.actionService)
+      resourceServiceContext.set(this, this.resourceService)
       typeImportServiceContext.set(this, this.typeImportService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)

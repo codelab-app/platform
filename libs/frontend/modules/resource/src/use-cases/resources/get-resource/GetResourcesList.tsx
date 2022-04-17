@@ -1,6 +1,5 @@
-import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
-import { List, SpinnerWrapper } from '@codelab/frontend/view/components'
+import { List, Spinner } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { WithResourceService } from '../../../store'
@@ -8,8 +7,6 @@ import { GetResourcesItem } from './GetResourcesItem'
 
 export const GetResourcesList = observer<WithResourceService>(
   ({ resourceService }) => {
-    const currentResourceId = useCurrentResourceId()
-
     const [getResources, { isLoading }] = useLoadingState(() =>
       resourceService.getAll(),
     )
@@ -20,7 +17,7 @@ export const GetResourcesList = observer<WithResourceService>(
     }, [])
 
     return (
-      <SpinnerWrapper isLoading={isLoading}>
+      <Spinner isLoading={isLoading}>
         <List
           dataSource={resourceService.resourceList}
           renderItem={(resource) => (
@@ -32,7 +29,7 @@ export const GetResourcesList = observer<WithResourceService>(
           )}
           size="small"
         />
-      </SpinnerWrapper>
+      </Spinner>
     )
   },
 )

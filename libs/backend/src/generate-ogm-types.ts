@@ -8,7 +8,7 @@ export const generateOgmTypes = async () => {
   const outFile = path.resolve(
     process.cwd(),
     'libs/backend',
-    'src/graphql/ogm-types.gen.ts',
+    'src/ogm-types.gen.ts',
   )
 
   await generate({

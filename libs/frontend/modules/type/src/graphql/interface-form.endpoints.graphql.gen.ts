@@ -30,13 +30,13 @@ export type InterfaceForm_GetStoresQuery = {
   stores: Array<{ id: string; name: string }>
 }
 
-export type InterfaceForm_GetResourceApiQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.InterfaceTypeOptions>
-  where?: Types.InputMaybe<Types.InterfaceTypeWhere>
+export type InterfaceForm_GetResourceQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ResourceOptions>
+  where?: Types.InputMaybe<Types.ResourceWhere>
 }>
 
-export type InterfaceForm_GetResourceApiQuery = {
-  interfaceTypes: Array<{ id: string; name: string }>
+export type InterfaceForm_GetResourceQuery = {
+  resources: Array<{ id: string; name: string }>
 }
 
 export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
@@ -82,12 +82,12 @@ export const InterfaceForm_GetStoresDocument = gql`
     }
   }
 `
-export const InterfaceForm_GetResourceApiDocument = gql`
-  query InterfaceForm_GetResourceApi(
-    $options: InterfaceTypeOptions
-    $where: InterfaceTypeWhere
+export const InterfaceForm_GetResourceDocument = gql`
+  query InterfaceForm_GetResource(
+    $options: ResourceOptions
+    $where: ResourceWhere
   ) {
-    interfaceTypes(options: $options, where: $where) {
+    resources(options: $options, where: $where) {
       id
       name
     }
@@ -175,18 +175,18 @@ export function getSdk(
         'query',
       )
     },
-    InterfaceForm_GetResourceApi(
-      variables?: InterfaceForm_GetResourceApiQueryVariables,
+    InterfaceForm_GetResource(
+      variables?: InterfaceForm_GetResourceQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<InterfaceForm_GetResourceApiQuery> {
+    ): Promise<InterfaceForm_GetResourceQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<InterfaceForm_GetResourceApiQuery>(
-            InterfaceForm_GetResourceApiDocument,
+          client.request<InterfaceForm_GetResourceQuery>(
+            InterfaceForm_GetResourceDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'InterfaceForm_GetResourceApi',
+        'InterfaceForm_GetResource',
         'query',
       )
     },

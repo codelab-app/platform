@@ -6,24 +6,19 @@ import { interfaceFormApi } from '../../../store'
 
 export type SelectResourcesApiProps = HTMLFieldProps<string, SelectFieldProps>
 
-export const SelectResourcesApi = ({
-  name,
-  error,
-}: SelectResourcesApiProps) => {
+export const SelectResources = ({ name, error }: SelectResourcesApiProps) => {
   const {
     data,
     isLoading,
     error: queryError,
-  } = useQuery('interface-form/select-resource-api', () =>
-    interfaceFormApi.InterfaceForm_GetResourceApi({
-      where: { apiOfResource: true },
-    }),
+  } = useQuery('interface-form/select-resource', () =>
+    interfaceFormApi.InterfaceForm_GetResource(),
   )
 
   const options =
-    data?.interfaceTypes.map((store) => ({
-      label: store.name.replace('Resource API', ''),
-      value: store.id,
+    data?.resources.map((resource) => ({
+      label: resource.name,
+      value: resource.id,
     })) ?? []
 
   return (

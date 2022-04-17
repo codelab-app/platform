@@ -15,7 +15,7 @@ import React, { useEffect } from 'react'
 import { useCurrentStore } from '../../../hooks'
 import { WithStoreService } from '../../../store'
 
-export const UpdateInitialStateForm = observer<
+export const UpdateLocalStateForm = observer<
   WithStoreService & WithTypeService
 >(({ storeService, typeService }) => {
   const { store } = useCurrentStore(storeService)
@@ -31,7 +31,7 @@ export const UpdateInitialStateForm = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSubmit = (initialState: IPropData) => {
+  const onSubmit = (localState: IPropData) => {
     if (!store) {
       throw new Error('Updated store is not set')
     }
@@ -42,7 +42,7 @@ export const UpdateInitialStateForm = observer<
         id: store.parentStore?.id as string,
         key: store.storeKey as string,
       },
-      initialState: JSON.stringify(initialState),
+      localState: JSON.stringify(localState),
     })
   }
 
@@ -58,7 +58,7 @@ export const UpdateInitialStateForm = observer<
             autosave
             interfaceType={data as InterfaceType}
             key={store?.id}
-            model={store?.initialState || {}}
+            model={store?.localState || {}}
             onSubmit={onSubmit}
             onSubmitError={onSubmitError}
             submitRef={undefined}
@@ -68,17 +68,3 @@ export const UpdateInitialStateForm = observer<
     </Spinner>
   )
 })
-
-/**
- *
- *  <Form
-        autosave
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        schema={updateStoreSchema}
-      >
-        <AutoFields omitFields={['name', 'parentStore']} />
-    </Form>
-
- */

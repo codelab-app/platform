@@ -10,7 +10,7 @@ export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
       type: 'string',
       autoFocus: true,
     },
-    initialState: {
+    localState: {
       type: 'string',
       label: '',
     },

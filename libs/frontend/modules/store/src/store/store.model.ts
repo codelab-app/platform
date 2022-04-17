@@ -1,5 +1,10 @@
+import { Resource, resourceRef } from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { IPropData, IStoreDTO } from '@codelab/shared/abstract/core'
+import {
+  IPropData,
+  IStoreDTO,
+  IStoreResource,
+} from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
@@ -23,9 +28,13 @@ export class Store extends Model(() => ({
   children: prop<Array<Ref<Store>>>().withSetter(),
   // PARENT_OF_STORE relation property
   storeKey: prop<Nullable<string>>(null).withSetter(),
+
+  resources: prop<Array<Ref<Resource>>>(() => []),
+  resourcesKeys: prop<Array<IStoreResource>>(() => []),
+
   name: prop<string>(),
   actions: prop<Array<Ref<Action>>>().withSetter(),
-  initialState: prop<IPropData>(),
+  localState: prop<IPropData>(),
   state: prop<Ref<InterfaceType>>().withSetter(),
 })) {
   getRefId() {
@@ -36,6 +45,17 @@ export class Store extends Model(() => ({
   @computed
   get isRoot(): boolean {
     return !this.parentStore
+  }
+
+  @computed
+  get resourcesList() {
+    return this.resources.map((x) => ({
+      id: x.current?.id,
+      name: x.current?.name,
+      config: x.current?.config,
+      type: x.current?.type,
+      key: this.resourcesKeys.find((y) => y.resourceId === x.id)?.key,
+    }))
   }
 
   @modelAction
@@ -50,7 +70,7 @@ export class Store extends Model(() => ({
   @modelAction
   toMobxObservable() {
     const storeState = [...this.state.current.fields.values()]
-      .map((field) => ({ [field.key]: this.initialState[field.key] }))
+      .map((field) => ({ [field.key]: this.localState[field.key] }))
       .reduce(merge, {})
 
     const storeActions = this.actions
@@ -77,9 +97,14 @@ export class Store extends Model(() => ({
       parentStore: store.parentStore?.id
         ? storeRef(store.parentStore.id)
         : null,
+      resources: store.resources.map((x) => resourceRef(x.id)),
+      resourcesKeys: store.resourcesConnection.edges.map((x) => ({
+        key: x.resourceKey,
+        resourceId: x.node.id,
+      })),
       actions: store.actions.map((action) => actionRef(action.id)),
       storeKey: store.parentStoreConnection?.edges?.[0]?.storeKey,
-      initialState: JSON.parse(store.initialState),
+      localState: JSON.parse(store.localState),
       state: typeRef(store.state.id) as Ref<InterfaceType>,
     })
   }

@@ -5,3 +5,6 @@ export * from './action.service'
 export * from './store.api'
 export * from './store.model'
 export * from './store.service'
+
+// store resource
+export * from './store-resource.service'

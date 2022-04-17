@@ -49,10 +49,7 @@ export const DeleteResourcesModal = observer<WithResourceService>(
           onSubmitSuccess={onSubmitSuccess}
           schema={emptyJsonSchema}
         >
-          <h4>
-            Are you sure you want to delete resources "
-            {resourceService.deleteModal.resource?.name}"?
-          </h4>
+          <h4>Are you sure you want to delete resource {resource?.name}"</h4>
           <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>
