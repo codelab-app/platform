@@ -1,23 +1,20 @@
+import { createAppWithCypress } from '../support/helpers/createPage'
+
 describe('Pages CRUD', () => {
   let appId: string
+  const appName = 'new app'
   const pageName = 'new useful page'
   const updatedPageName = 'updated page'
 
   before(() => {
     cy.resetDatabase().then(() => {
       cy.login().then(() => {
-        cy.createApp().then((apps) => {
-          appId = apps[0].id
-        })
+        createAppWithCypress(appName)
       })
     })
   })
 
   describe('create', () => {
-    before(() => {
-      cy.visit(`/apps/${appId}/pages`)
-    })
-
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
