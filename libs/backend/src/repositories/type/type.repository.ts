@@ -223,9 +223,9 @@ export const typeRepository = {
       ]) // assign the type array to a parameter we will pass later to the query
 
       // sanitize labels, since they can be passed in from the user
-      if (!allowedLabels.has(type.typeKind)) {
+      if (!allowedLabels.has(type.kind)) {
         throw new Error(
-          `Invalid type kind: ${type.typeKind} is not in allowed ones: ${allowedLabels}`,
+          `Invalid type kind: ${type.kind} is not in allowed ones: ${allowedLabels}`,
         )
       }
 
@@ -238,7 +238,7 @@ export const typeRepository = {
       n++
 
       return `${cypherAgg}${unionAll}
-      CREATE (${nodeKey}:${type.typeKind} $${paramKey}) with ${nodeKey}
+      CREATE (${nodeKey}:${type.kind} $${paramKey}) with ${nodeKey}
       ${ownerCy} return ${nodeKey} as nodes`
     }, '')
 
@@ -282,9 +282,9 @@ export const typeRepository = {
       )
 
       // sanitize labels, since they can be passed in from the user
-      if (!allowedLabels.has(type.typeKind as ITypeKind)) {
+      if (!allowedLabels.has(type.kind as ITypeKind)) {
         throw new Error(
-          `Invalid type kind: ${type.typeKind} is not in allowed ones: ${allowedLabels}`,
+          `Invalid type kind: ${type.kind} is not in allowed ones: ${allowedLabels}`,
         )
       }
 
@@ -298,7 +298,7 @@ export const typeRepository = {
       n++
 
       return `${cypherAgg}${unionAll}
-        MERGE (${nodeKey}:${type.typeKind} {id: '${type.id}'})
+        MERGE (${nodeKey}:${type.kind} {id: '${type.id}'})
           ON CREATE
             SET
               ${parameters.join(', ')}

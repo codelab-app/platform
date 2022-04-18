@@ -6,6 +6,6 @@ fragment Field on Field {
 
 fragment InterfaceTypeEdge on InterfaceTypeEdge {
   ...Field
-  target
   source
+  target
 }

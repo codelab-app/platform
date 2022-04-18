@@ -1,4 +1,5 @@
 import { IUserDTO } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import {
   createContext,
   Model,
@@ -12,9 +13,13 @@ import { User, userRef } from './user.model'
 @model('@codelab/UserService')
 export class UserService extends Model({
   users: prop(() => objectMap<User>()),
-  authenticatedUser: prop<Ref<User>>(),
+  authenticatedUser: prop<Nullable<Ref<User>>>(null),
 }) {
-  static init = (data: IUserDTO) => {
+  static init = (data?: IUserDTO) => {
+    if (!data) {
+      return new UserService({})
+    }
+
     const user = User.hydrate(data)
     const users = objectMap([[user.id, user]])
 

@@ -1,9 +1,10 @@
 import {
+  assertIsTypeKind,
   IAnyType,
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -18,9 +19,11 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
     throw new Error('Item type is invalid')
   }
 
+  assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
+
   return new ArrayType({
     id: fragment.id,
-    typeKind: fragment.typeKind,
+    kind: fragment.kind,
     name: fragment.name,
     itemType,
     ownerId: fragment.owner.id,
@@ -30,7 +33,7 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
 @model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ArrayType),
+    baseModel: createTypeBase(ITypeKind.ArrayType),
     props: {
       itemType: prop<Ref<IAnyType>>(),
     },
@@ -41,7 +44,7 @@ export class ArrayType
   updateCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.ArrayType) {
+    if (fragment.__typename !== ITypeKind.ArrayType) {
       return
     }
 

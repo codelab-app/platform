@@ -39,7 +39,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
           <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
         </Head>
 
-        {type && type.type === ITypeKind.InterfaceType && (
+        {type && type.kind === ITypeKind.InterfaceType && (
           <>
             <CreateFieldModal
               interfaceType={type}
@@ -59,7 +59,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         <ContentSection>
           {isLoading && <Spin />}
           {!type ||
-            (type.type === ITypeKind.InterfaceType && (
+            (type.kind === ITypeKind.InterfaceType && (
               <FieldsTable
                 interfaceType={type}
                 isLoading={isLoading}

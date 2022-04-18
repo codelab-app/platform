@@ -5124,20 +5124,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql-ogm@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@neo4j/graphql-ogm@npm:3.0.4"
+"@neo4j/graphql-ogm@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@neo4j/graphql-ogm@npm:3.1.0"
   dependencies:
     "@graphql-codegen/core": ^2.4.0
     "@graphql-codegen/plugin-helpers": ^2.3.2
     "@graphql-codegen/typescript": ^2.4.2
     "@graphql-tools/merge": ^8.2.1
-    "@neo4j/graphql": ^3.0.4
+    "@neo4j/graphql": ^3.1.0
     prettier: ^2.5.1
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0
-  checksum: 248b40b74a3b71e6d79d53ee8a8dd93b06ab7304196a1e2217a15ee7111c68af7f7425803311cd8ea10e0c2a02f178aabd6a7ee32bea078522050f97cfdfdbf4
+  checksum: 1f82560d30f6534b325c32c4a167501512f18385e784f3213e77c9c4dbd15dc174214890dbdffb3ca319b87983fcb7a88297c96cd642cfeec04e4653d6445a1b
   languageName: node
   linkType: hard
 
@@ -5153,9 +5153,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@neo4j/graphql@npm:3.0.4"
+"@neo4j/graphql@npm:3.1.0, @neo4j/graphql@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@neo4j/graphql@npm:3.1.0"
   dependencies:
     "@graphql-tools/merge": ^8.2.1
     "@graphql-tools/resolvers-composition": ^6.4.1
@@ -5173,7 +5173,7 @@ __metadata:
   peerDependencies:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0
-  checksum: e10a291cf62d564a931499451d32bca96e8fac72772b5e4ee7dd0ec378face9b19226f1b9a16656e5403cc54a53a29b90e0fd13e3da12f778ed977460dfa3825
+  checksum: 23e13bf3cebbccf273598064df8f19d44a1f95cd80f86d52238cedc05da05d0112dbec5de2f9ae6596597fcaf74c3399cf1b4cfdc556dcf17b8bbe138bc0c48c
   languageName: node
   linkType: hard
 
@@ -14591,8 +14591,8 @@ __metadata:
     "@mui/lab": 5.0.0-alpha.69
     "@mui/material": 5.4.2
     "@mui/x-data-grid": 5.5.1
-    "@neo4j/graphql": ^3.0.4
-    "@neo4j/graphql-ogm": ^3.0.4
+    "@neo4j/graphql": 3.1.0
+    "@neo4j/graphql-ogm": 3.1.0
     "@neo4j/graphql-plugin-auth": ^1.0.0
     "@next/bundle-analyzer": 12.0.7
     "@nrwl/angular": 13.10.1

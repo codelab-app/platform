@@ -49,7 +49,7 @@ export class Field
   }
 }
 
-export const fieldRef = rootRef<Field>('codealb/FieldRef', {
+export const fieldRef = rootRef<Field>('@codelab/FieldRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

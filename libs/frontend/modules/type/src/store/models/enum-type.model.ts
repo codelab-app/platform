@@ -1,9 +1,10 @@
 import {
+  assertIsTypeKind,
   IEnumType,
   IEnumTypeDTO,
   IEnumTypeValueDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -39,22 +40,25 @@ export class EnumTypeValue extends Model({
 const fromFragmentEnumType = ({
   id,
   allowedValues,
-  typeKind,
+  kind,
   name,
   owner,
-}: IEnumTypeDTO): EnumType =>
-  new EnumType({
+}: IEnumTypeDTO): EnumType => {
+  assertIsTypeKind(kind, ITypeKind.EnumType)
+
+  return new EnumType({
     id,
-    typeKind,
+    kind,
     name,
     allowedValues: allowedValues.map(EnumTypeValue.hydrate),
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/EnumType')
 export class EnumType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.EnumType),
+    baseModel: createTypeBase(ITypeKind.EnumType),
     props: {
       allowedValues: prop<Array<EnumTypeValue>>(() => []),
     },
@@ -65,7 +69,7 @@ export class EnumType
   updateCache(fragment: ITypeDTO): void {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.EnumType) {
+    if (fragment.__typename !== ITypeKind.EnumType) {
       return
     }
 

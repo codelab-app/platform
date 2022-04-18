@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-micro'
+import getFieldCypher from '../../repositories/type/getField.cypher'
 
 export const fieldSchema = gql`
   input UpsertFieldInput {
@@ -25,5 +26,31 @@ export const fieldSchema = gql`
     key: String!
     name: String
     description: String
+    source: String!
+    target: String!
+  }
+
+  """
+  Concrete Field type implementation
+  """
+  type InterfaceTypeEdge implements Field @exclude {
+    source: String!
+    target: String!
+    key: String!
+    name: String
+    description: String
+  }
+
+  type Mutation {
+    upsertFieldEdge(
+      input: UpsertFieldInput!
+      isCreating: Boolean!
+    ): InterfaceTypeEdge!
+    deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
+  }
+
+  type Query {
+    getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
+        @cypher(statement: """${getFieldCypher}""")
   }
 `

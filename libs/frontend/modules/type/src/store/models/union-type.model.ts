@@ -1,9 +1,10 @@
 import {
+  assertIsTypeKind,
   IAnyType,
   ITypeDTO,
+  ITypeKind,
   IUnionType,
   IUnionTypeDTO,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import {
   detach,
@@ -20,23 +21,26 @@ import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
   id,
-  typeKind,
+  kind,
   name,
   typesOfUnionType,
   owner,
-}: IUnionTypeDTO): UnionType =>
-  new UnionType({
+}: IUnionTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.UnionType)
+
+  return new UnionType({
     id,
-    typeKind,
+    kind,
     name,
     typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/UnionType')
 export class UnionType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.UnionType),
+    baseModel: createTypeBase(ITypeKind.UnionType),
     props: {
       typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
     },
@@ -47,7 +51,7 @@ export class UnionType
   updateCache(fragment: ITypeDTO): void {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.UnionType) {
+    if (fragment.__typename !== ITypeKind.UnionType) {
       return
     }
 

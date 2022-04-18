@@ -3,6 +3,7 @@ import {
   ICreateFieldDTO,
   ICreateTypeDTO,
   ITypeDTO,
+  ITypeKind,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
@@ -22,7 +23,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { createTypeInput } from '../use-cases/types/create-type/createTypeFactory'
+import { createTypeInputFactory } from '../use-cases/types/create-type/create-type.factory'
+import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -103,7 +105,7 @@ export class TypeService extends Model({
   update = _async(function* (this: TypeService, type: IUpdateTypeDTO) {
     const args = {
       where: { id: type.id },
-      ...type.makeUpdateInput(),
+      ...updateTypeInputFactory(type),
     }
 
     const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
@@ -187,32 +189,33 @@ export class TypeService extends Model({
     this: TypeService,
     id: string,
   ) {
-    const [intface] = yield* _await(this.getAllWithDescendants([id]))
+    const [type] = yield* _await(this.getAllWithDescendants([id]))
 
-    if (intface.typeKind !== TypeKind.InterfaceType) {
+    if (type.kind !== ITypeKind.InterfaceType) {
       throw new Error('Type is not an interface')
     }
 
-    return intface as InterfaceType
+    return type as InterfaceType
   })
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: ICreateTypeDTO) {
-    const typeInput = createTypeInput(data)
-
-    const [typeFragment] = yield* _await(
-      createTypeApi[typeInput.typeKind](typeInput),
-    )
+  create = _async(function* (
+    this: TypeService,
+    type: ICreateTypeDTO,
+    auth0Id: string,
+  ) {
+    const typeInput = createTypeInputFactory(type, auth0Id)
+    const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
 
     if (!type) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    type.updateCache(typeFragment)
+    const typeModel = typeFactory(typeFragment)
 
-    this.types.set(type.id, type)
+    this.types.set(type.id, typeModel)
 
     return type
   })
@@ -229,7 +232,7 @@ export class TypeService extends Model({
     }
 
     const { nodesDeleted } = yield* _await(
-      deleteTypeApi[type.typeKind]({ where: { id } }),
+      deleteTypeApi[type.kind]({ where: { id } }),
     )
 
     if (nodesDeleted === 0) {

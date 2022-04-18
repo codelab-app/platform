@@ -1,7 +1,7 @@
-import { Role } from './role.enum'
+import { IRole } from './role.enum'
 
 export interface IUser {
   id: string
   auth0Id: string
-  roles: Array<Role>
+  roles: Array<IRole>
 }

@@ -1,11 +1,11 @@
 import { gql } from 'apollo-server-micro'
 
 export const elementSchema = gql`
-  type ElementEdge @exclude {
-    source: String!
-    target: String!
-    order: Int
-  }
+  #  type ElementEdge @exclude {
+  #    source: String!
+  #    target: String!
+  #    order: Int
+  #  }
 
   type ElementGraph @exclude {
     id: ID!

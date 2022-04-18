@@ -1,5 +1,5 @@
 import {
-  assertIsAppType,
+  assertIsTypeKind,
   IAppType,
   IAppTypeDTO,
   ITypeDTO,
@@ -10,7 +10,7 @@ import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
 const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
-  assertIsAppType(kind)
+  assertIsTypeKind(kind, ITypeKind.AppType)
 
   return new AppType({ id, kind, name, ownerId: owner.id })
 }

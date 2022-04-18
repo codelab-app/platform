@@ -5,9 +5,9 @@ import {
   IDeleteTypeInput,
   IDisconnectTypeInput,
   ITypeDTO,
+  ITypeKind,
   ITypeWhere,
   IUpdateTypeInput,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { flatten } from 'lodash'
@@ -31,46 +31,46 @@ export const typeApi = getSdk(client)
 const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
-  TypeKind,
+  ITypeKind,
   (input: ICreateTypeInput) => Promise<Array<ITypeDTO>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
-  [TypeKind.AppType]: (input) =>
+  [ITypeKind.AppType]: (input) =>
     _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
-  [TypeKind.PrimitiveType]: (input) =>
+  [ITypeKind.PrimitiveType]: (input) =>
     _createApi
       .CreatePrimitiveTypes({ input: input as any })
       .then((r) => r.types.types),
-  [TypeKind.ArrayType]: (input) =>
+  [ITypeKind.ArrayType]: (input) =>
     _createApi.CreateArrayTypes({ input }).then((r) => r.types.types),
-  [TypeKind.InterfaceType]: (input) =>
+  [ITypeKind.InterfaceType]: (input) =>
     _createApi
       .CreateInterfaceTypes({ input: input as any })
       .then((r) => r.types.types),
-  [TypeKind.EnumType]: (input) =>
+  [ITypeKind.EnumType]: (input) =>
     _createApi.CreateEnumTypes({ input }).then((r) => r.types.types),
-  [TypeKind.LambdaType]: (input) =>
+  [ITypeKind.LambdaType]: (input) =>
     _createApi.CreateLambdaTypes({ input }).then((r) => r.types.types),
-  [TypeKind.ElementType]: (input) =>
+  [ITypeKind.ElementType]: (input) =>
     _createApi
       .CreateElementTypes({ input: input as any })
       .then((r) => r.types.types),
-  [TypeKind.RenderPropsType]: (input) =>
+  [ITypeKind.RenderPropsType]: (input) =>
     _createApi.CreateRenderPropsTypes({ input }).then((r) => r.types.types),
-  [TypeKind.ReactNodeType]: (input) =>
+  [ITypeKind.ReactNodeType]: (input) =>
     _createApi
       .CreateReactNodeTypes({ input: input as any })
       .then((r) => r.types.types),
-  [TypeKind.UnionType]: (input) =>
+  [ITypeKind.UnionType]: (input) =>
     _createApi.CreateUnionTypes({ input }).then((r) => r.types.types),
-  [TypeKind.MonacoType]: (input) =>
+  [ITypeKind.MonacoType]: (input) =>
     _createApi
       .CreateMonacoTypes({ input: input as any })
       .then((r) => r.types.types),
-  [TypeKind.PageType]: (input) =>
+  [ITypeKind.PageType]: (input) =>
     _createApi.CreatePageTypes({ input }).then((r) => r.types.types),
-  [TypeKind.AppType]: (input) =>
+  [ITypeKind.AppType]: (input) =>
     _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
 }
 
@@ -90,7 +90,7 @@ export const getAllTypes = async (
 const _updateApi = getUpdateSdk(client)
 
 type UpdateTypesRecord = Record<
-  TypeKind,
+  ITypeKind,
   (vars: {
     where: ITypeWhere
     update: IUpdateTypeInput
@@ -101,31 +101,31 @@ type UpdateTypesRecord = Record<
 >
 
 export const updateTypeApi: UpdateTypesRecord = {
-  [TypeKind.AppType]: (vars) =>
+  [ITypeKind.AppType]: (vars) =>
     _updateApi.UpdateAppTypes(vars).then((r) => r.types.types),
-  [TypeKind.PrimitiveType]: (vars) =>
+  [ITypeKind.PrimitiveType]: (vars) =>
     _updateApi.UpdatePrimitiveTypes(vars).then((r) => r.types.types),
-  [TypeKind.ArrayType]: (vars) =>
+  [ITypeKind.ArrayType]: (vars) =>
     _updateApi.UpdateArrayTypes(vars).then((r) => r.types.types),
-  [TypeKind.InterfaceType]: (vars) =>
+  [ITypeKind.InterfaceType]: (vars) =>
     _updateApi.UpdateInterfaceTypes(vars).then((r) => r.types.types),
-  [TypeKind.EnumType]: (vars) =>
+  [ITypeKind.EnumType]: (vars) =>
     _updateApi.UpdateEnumTypes(vars).then((r) => r.types.types),
-  [TypeKind.LambdaType]: (vars) =>
+  [ITypeKind.LambdaType]: (vars) =>
     _updateApi.UpdateLambdaTypes(vars).then((r) => r.types.types),
-  [TypeKind.ElementType]: (vars) =>
+  [ITypeKind.ElementType]: (vars) =>
     _updateApi.UpdateElementTypes(vars).then((r) => r.types.types),
-  [TypeKind.RenderPropsType]: (vars) =>
+  [ITypeKind.RenderPropsType]: (vars) =>
     _updateApi.UpdateRenderPropsTypes(vars).then((r) => r.types.types),
-  [TypeKind.ReactNodeType]: (vars) =>
+  [ITypeKind.ReactNodeType]: (vars) =>
     _updateApi.UpdateReactNodeTypes(vars).then((r) => r.types.types),
-  [TypeKind.UnionType]: (vars) =>
+  [ITypeKind.UnionType]: (vars) =>
     _updateApi.UpdateUnionTypes(vars).then((r) => r.types.types),
-  [TypeKind.MonacoType]: (vars) =>
+  [ITypeKind.MonacoType]: (vars) =>
     _updateApi.UpdateMonacoTypes(vars).then((r) => r.types.types),
-  [TypeKind.PageType]: (vars) =>
+  [ITypeKind.PageType]: (vars) =>
     _updateApi.UpdatePageTypes(vars).then((r) => r.types.types),
-  [TypeKind.AppType]: (vars) =>
+  [ITypeKind.AppType]: (vars) =>
     _updateApi.UpdateAppTypes(vars).then((r) => r.types.types),
 }
 
@@ -135,39 +135,39 @@ export const updateTypeApi: UpdateTypesRecord = {
 const _deleteApi = getDeleteSdk(client)
 
 type DeleteTypesRecord = Record<
-  TypeKind,
+  ITypeKind,
   (vars: {
     where: ITypeWhere
   }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
 >
 
 export const deleteTypeApi: DeleteTypesRecord = {
-  [TypeKind.AppType]: (vars) =>
+  [ITypeKind.AppType]: (vars) =>
     _deleteApi.DeleteAppTypes(vars).then((r) => r.deleteAppTypes),
-  [TypeKind.PrimitiveType]: (vars) =>
+  [ITypeKind.PrimitiveType]: (vars) =>
     _deleteApi.DeletePrimitiveTypes(vars).then((r) => r.deletePrimitiveTypes),
-  [TypeKind.ArrayType]: (vars) =>
+  [ITypeKind.ArrayType]: (vars) =>
     _deleteApi.DeleteArrayTypes(vars).then((r) => r.deleteArrayTypes),
-  [TypeKind.InterfaceType]: (vars) =>
+  [ITypeKind.InterfaceType]: (vars) =>
     _deleteApi.DeleteInterfaceTypes(vars).then((r) => r.deleteInterfaceTypes),
-  [TypeKind.EnumType]: (vars) =>
+  [ITypeKind.EnumType]: (vars) =>
     _deleteApi.DeleteEnumTypes(vars).then((r) => r.deleteEnumTypes),
-  [TypeKind.LambdaType]: (vars) =>
+  [ITypeKind.LambdaType]: (vars) =>
     _deleteApi.DeleteLambdaTypes(vars).then((r) => r.deleteLambdaTypes),
-  [TypeKind.ElementType]: (vars) =>
+  [ITypeKind.ElementType]: (vars) =>
     _deleteApi.DeleteElementTypes(vars).then((r) => r.deleteElementTypes),
-  [TypeKind.RenderPropsType]: (vars) =>
+  [ITypeKind.RenderPropsType]: (vars) =>
     _deleteApi
       .DeleteRenderPropsTypes(vars)
       .then((r) => r.deleteRenderPropsTypes),
-  [TypeKind.ReactNodeType]: (vars) =>
+  [ITypeKind.ReactNodeType]: (vars) =>
     _deleteApi.DeleteReactNodeTypes(vars).then((r) => r.deleteReactNodeTypes),
-  [TypeKind.UnionType]: (vars) =>
+  [ITypeKind.UnionType]: (vars) =>
     _deleteApi.DeleteUnionTypes(vars).then((r) => r.deleteUnionTypes),
-  [TypeKind.MonacoType]: (vars) =>
+  [ITypeKind.MonacoType]: (vars) =>
     _deleteApi.DeleteMonacoTypes(vars).then((r) => r.deleteMonacoTypes),
-  [TypeKind.PageType]: (vars) =>
+  [ITypeKind.PageType]: (vars) =>
     _deleteApi.DeletePageTypes(vars).then((r) => r.deletePageTypes),
-  [TypeKind.AppType]: (vars) =>
+  [ITypeKind.AppType]: (vars) =>
     _deleteApi.DeleteAppTypes(vars).then((r) => r.deleteAppTypes),
 }

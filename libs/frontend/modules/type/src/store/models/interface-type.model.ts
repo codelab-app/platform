@@ -1,4 +1,5 @@
 import {
+  assertIsTypeKind,
   ICreateFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
@@ -6,7 +7,6 @@ import {
   IInterfaceTypeFieldEdgeDTO,
   ITypeDTO,
   ITypeKind,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -28,7 +28,9 @@ const hydrate = ({
   fieldsConnection,
   owner,
 }: IInterfaceTypeDTO): InterfaceType => {
-  const it = new InterfaceType({
+  assertIsTypeKind(kind, ITypeKind.InterfaceType)
+
+  const interfaceType = new InterfaceType({
     id,
     kind,
     name,
@@ -36,10 +38,10 @@ const hydrate = ({
   })
 
   for (const edge of fieldsConnection.edges) {
-    it.addFieldLocal(edge)
+    interfaceType.addFieldLocal(edge)
   }
 
-  return it
+  return interfaceType
 }
 
 @model('@codelab/InterfaceType')
@@ -100,7 +102,7 @@ export class InterfaceType
   updateCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.InterfaceType) {
+    if (fragment.__typename !== ITypeKind.InterfaceType) {
       return
     }
 

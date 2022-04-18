@@ -2,7 +2,7 @@ import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 import { typeApi } from '../../../store'
 
 const getInnerTypeIds = (submitData: IUpdateTypeDTO) => [
-  ...(submitData.typeIdsOfUnionType ?? []),
+  ...(submitData.unionTypeIds ?? []),
 ]
 
 // Check if the updated type is not a descendant of any of the inner types

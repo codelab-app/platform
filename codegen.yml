@@ -31,10 +31,10 @@ generates:
     plugins:
       - typescript
     config:
+#      constEnums: true
       namingConvention:
         enumValues: keep
-  #        dedupeFragments: true
-      constEnums: true
+#        dedupeFragments: true
 
   # This somehow generates for web-e2e as well, even if ./libs
   ./:

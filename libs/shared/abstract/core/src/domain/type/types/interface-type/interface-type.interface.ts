@@ -1,4 +1,4 @@
-import { IField } from '../../graph'
+import { IField } from '../../field'
 import { IBaseType } from '../base-type'
 import { ITypeKind } from '../base-type/type-kind.enum'
 

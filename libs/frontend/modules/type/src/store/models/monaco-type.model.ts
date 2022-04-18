@@ -1,9 +1,10 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
+  assertIsTypeKind,
   IMonacoType,
   IMonacoTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -11,23 +12,26 @@ import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
   id,
-  typeKind,
+  kind,
   name,
   language,
   owner,
-}: IMonacoTypeDTO): MonacoType =>
-  new MonacoType({
+}: IMonacoTypeDTO): MonacoType => {
+  assertIsTypeKind(kind, ITypeKind.MonacoType)
+
+  return new MonacoType({
     id,
-    typeKind,
+    kind,
     name,
     language,
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/MonacoType')
 export class MonacoType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.MonacoType),
+    baseModel: createTypeBase(ITypeKind.MonacoType),
     props: {
       language: prop<MonacoLanguage>(),
     },
@@ -38,7 +42,7 @@ export class MonacoType
   updateCache(fragment: ITypeDTO): void {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.MonacoType) {
+    if (fragment.__typename !== ITypeKind.MonacoType) {
       return
     }
 

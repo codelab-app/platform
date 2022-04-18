@@ -1,8 +1,9 @@
 import {
+  assertIsTypeKind,
   IReactNodeType,
   IReactNodeTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -10,21 +11,24 @@ import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
   id,
-  typeKind,
+  kind,
   name,
   owner,
-}: IReactNodeTypeDTO): ReactNodeType =>
-  new ReactNodeType({
+}: IReactNodeTypeDTO): ReactNodeType => {
+  assertIsTypeKind(kind, ITypeKind.ReactNodeType)
+
+  return new ReactNodeType({
     id,
-    typeKind,
+    kind,
     name,
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/ReactNodeType')
 export class ReactNodeType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ReactNodeType),
+    baseModel: createTypeBase(ITypeKind.ReactNodeType),
     props: {},
   }))
   implements IReactNodeType

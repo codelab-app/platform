@@ -4,6 +4,25 @@ mutation CreateField($input: UpsertFieldInput!) {
   }
 }
 
+fragment InterfaceTypeFieldsRelationship on InterfaceTypeFieldsRelationship {
+  name
+  key
+#  source
+#  target
+}
+
+mutation CreateField2($input: [InterfaceTypeCreateInput!]!) {
+  createInterfaceTypes(input: $input) {
+    interfaceTypes {
+      fieldsConnection {
+        edges {
+          ...InterfaceTypeFieldsRelationship
+        }
+      }
+    }
+  }
+}
+
 mutation UpdateField($input: UpsertFieldInput!) {
   upsertFieldEdge(input: $input, isCreating: false) {
     ...InterfaceTypeEdge

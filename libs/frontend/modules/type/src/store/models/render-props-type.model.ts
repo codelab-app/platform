@@ -1,36 +1,35 @@
 import {
+  assertIsTypeKind,
   IRenderPropsType,
   IRenderPropsTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({
-  id,
-  typeKind,
-  name,
-  owner,
-}: IRenderPropsTypeDTO): RenderPropsType =>
-  new RenderPropsType({
+const hydrate = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.RenderPropsType)
+
+  return new RenderPropsType({
     id,
-    typeKind,
+    kind,
     name,
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/RenderPropsType')
 export class RenderPropsType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.RenderPropsType),
+    baseModel: createTypeBase(ITypeKind.RenderPropsType),
     props: {},
   }))
   implements IRenderPropsType
 {
   @modelAction
-  updateCache(fragment: ITypeDTO): void {
+  updateCache(fragment: ITypeDTO) {
     updateBaseTypeCache(this, fragment)
   }
 

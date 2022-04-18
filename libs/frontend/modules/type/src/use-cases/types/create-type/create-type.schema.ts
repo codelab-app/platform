@@ -1,15 +1,20 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
+  ICreateTypeDTO,
   ITypeKind,
-  IUpdateTypeDTO,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
-export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
-  title: 'Update Type Input',
+/**
+ * We favor type safety over re-usability in this case
+ *
+ * https://github.com/ajv-validator/ajv/issues/1838
+ */
+export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
+  title: 'Create Type Input',
   type: 'object',
   properties: {
     // Base types
@@ -71,5 +76,5 @@ export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
     // ...typeSchemaProperties,
     arrayTypeId: { type: 'string', nullable: true },
   },
-  required: ['name'],
+  required: ['kind', 'name'],
 }

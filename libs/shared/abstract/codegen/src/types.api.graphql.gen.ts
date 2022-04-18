@@ -2001,7 +2001,7 @@ export type AtomTagsUpdateFieldInput = {
   where?: InputMaybe<AtomTagsConnectionWhere>
 }
 
-export const enum AtomType {
+export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
   AntDesignAnchor = 'AntDesignAnchor',
@@ -4955,7 +4955,7 @@ export type ElementTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
-export const enum ElementTypeKind {
+export enum ElementTypeKind {
   /** Pick any element in the current tree */
   AllElements = 'AllElements',
   /** Pick any element from the children of the current element */
@@ -7153,7 +7153,7 @@ export type LambdaTypeWhere = {
   owner_NOT?: InputMaybe<UserWhere>
 }
 
-export const enum MonacoLanguage {
+export enum MonacoLanguage {
   css = 'css',
   cssInJs = 'cssInJs',
   graphqlDev = 'graphqlDev',
@@ -8822,7 +8822,7 @@ export type PrimitiveTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
-export const enum PrimitiveTypeKind {
+export enum PrimitiveTypeKind {
   Boolean = 'Boolean',
   Float = 'Float',
   Integer = 'Integer',
@@ -10490,12 +10490,12 @@ export type ResetDatabaseMutationResponseWhere = {
   success_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
-export const enum Role {
+export enum Role {
   Admin = 'Admin',
   User = 'User',
 }
 
-export const enum SortDirection {
+export enum SortDirection {
   /** Sort by field values in ascending order. */
   ASC = 'ASC',
   /** Sort by field values in descending order. */
@@ -12190,7 +12190,7 @@ export type TypeBaseWhere = {
   owner_NOT?: InputMaybe<UserWhere>
 }
 
-export const enum TypeKind {
+export enum TypeKind {
   AppType = 'AppType',
   ArrayType = 'ArrayType',
   ElementType = 'ElementType',

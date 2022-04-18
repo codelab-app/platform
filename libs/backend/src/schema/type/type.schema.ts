@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-micro'
-import getFieldCypher from '../../repositories/type/getField.cypher'
 import getTypeDescendantIds from '../../repositories/type/getTypeDescendantIds.cypher'
 import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.cypher'
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
@@ -31,20 +30,12 @@ export const typeSchema = gql`
     label: String!
   }
 
-  type Mutation {
-    upsertFieldEdge(input: UpsertFieldInput!, isCreating: Boolean!): InterfaceTypeEdge!
-    deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
-  }
-
   type Query {
     """
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
     """
     isTypeDescendantOf(parentTypeId: ID!, descendantTypeId: ID!): Boolean
       @cypher(statement: """${isTypeDescendantOfCypher}""")
-
-    getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
-      @cypher(statement: """${getFieldCypher}""")
 
     """
     Returns a list of all Type and Atom entities that reference the type with the given id
@@ -60,12 +51,36 @@ export const typeSchema = gql`
     kind: TypeKind! @readonly
     name: String!
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
-    owner: User!
+    owner: [User!]!
       @relationship(
         type: "OWNED_BY",
         direction: OUT
       )
   }
+
+  # https://github.com/neo4j/graphql/issues/1105
+  extend interface TypeBase
+  @auth(
+    rules: [
+      {
+        operations: [READ]
+      }
+      {
+        operations: [UPDATE, CREATE, DELETE]
+        roles: ["User"]
+        where: { owner: { auth0Id: "$jwt.sub" } }
+        bind: { owner: { auth0Id: "$jwt.sub" } }
+      }
+      {
+        operations: [UPDATE, CREATE, DELETE]
+        roles: ["Admin"]
+        # For where clause, we must use where in GraphQL query
+        where: { owner: { auth0Id: "$jwt.sub" } }
+        bind: { owner: { auth0Id: "$jwt.sub" } }
+      }
+    ]
+  )
+
 
   # Adding @cypher here doesn't seem to work
   interface WithDescendants {
@@ -73,16 +88,7 @@ export const typeSchema = gql`
       @cypher(statement: """${getTypeDescendantIds}""")
   }
 
-  """
-  Concrete Field type implementation
-  """
-  type InterfaceTypeEdge implements Field & IEdge @exclude {
-    source: String!
-    target: String!
-    key: String!
-    name: String
-    description: String
-  }
+
 
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
@@ -91,7 +97,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String!
-    owner: User!
+    owner: [User!]!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -111,7 +117,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
-    owner: User!
+    owner: [User!]!
     descendantTypesIds: [ID!]!
     itemType: TypeBase!
       @relationship(
@@ -127,7 +133,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String!
-    owner: User!
+    owner: [User!]!
     descendantTypesIds: [ID!]!
     typesOfUnionType: [TypeBase!]!
       @relationship(
@@ -143,7 +149,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
-    owner: User!
+    owner: [User!]!
     descendantTypesIds: [ID!]!
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
@@ -175,7 +181,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
-    owner: User!
+    owner: [User!]!
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -197,7 +203,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
-    owner: User!
+    owner: [User!]!
   }
 
   """
@@ -214,7 +220,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
-    owner: User!
+    owner: [User!]!
   }
 
   enum ElementTypeKind {
@@ -245,7 +251,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
-    owner: User!
+    owner: [User!]!
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
@@ -267,7 +273,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
-    owner: User!
+    owner: [User!]!
   }
 
   """
@@ -277,7 +283,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
-    owner: User!
+    owner: [User!]!
   }
 
   """
@@ -287,7 +293,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
-    owner: User!
+    owner: [User!]!
   }
 
   """
@@ -297,7 +303,7 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: MonacoType)
     name: String!
-    owner: User!
+    owner: [User!]!
     language: MonacoLanguage!
   }
 

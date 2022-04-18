@@ -1,45 +1,44 @@
 import {
   ICreateTypeDTO,
   ICreateTypeInput,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import {
   makeAllowedValuesCreateInput,
-  makeFieldsCreateInput,
   makeItemTypeCreateInput,
   makeTypesOfUnionTypeCreateInput,
 } from '../../../shared/type-input.factory'
 
-export const createTypeInput = (
+export const createTypeInputFactory = (
   type: ICreateTypeDTO,
-  currentUserAuth0Id: string,
+  auth0Id: string,
 ): ICreateTypeInput => {
   return {
     id: type.id,
     name: type.name,
     owner: {
-      connect: { where: { node: { auth0Id: currentUserAuth0Id } } },
+      connect: { where: { node: { auth0Id: auth0Id } } },
     },
     primitiveKind:
-      type.kind === TypeKind.PrimitiveType ? type.primitiveKind : undefined,
-    language: type.kind === TypeKind.MonacoType ? type.language : undefined,
+      type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,
+    language: type.kind === ITypeKind.MonacoType ? type.language : undefined,
     elementKind:
-      type.kind === TypeKind.ElementType ? type.elementKind : undefined,
+      type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
     allowedValues:
-      type.kind === TypeKind.EnumType
+      type.kind === ITypeKind.EnumType
         ? makeAllowedValuesCreateInput(type)
         : undefined,
     itemType:
-      type.kind === TypeKind.ArrayType
+      type.kind === ITypeKind.ArrayType
         ? makeItemTypeCreateInput(type)
         : undefined,
     typesOfUnionType:
-      type.kind === TypeKind.UnionType
+      type.kind === ITypeKind.UnionType
         ? makeTypesOfUnionTypeCreateInput(type)
         : undefined,
-    fields:
-      type.kind === TypeKind.InterfaceType
-        ? makeFieldsCreateInput(type)
-        : undefined,
+    // fields:
+    //   type.kind === ITypeKind.InterfaceType
+    //     ? makeFieldsCreateInput(type)
+    //     : undefined,
   }
 }

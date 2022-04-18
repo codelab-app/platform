@@ -13,8 +13,8 @@ import {
   IPrimitiveType,
   IReactNodeType,
   IRenderPropsType,
+  ITypeKind,
   IUnionType,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
@@ -42,30 +42,30 @@ export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
   transform(type: IAnyType) {
-    switch (type.typeKind) {
-      case TypeKind.AppType:
+    switch (type.kind) {
+      case ITypeKind.AppType:
         return this.fromAppType(type)
-      case TypeKind.LambdaType:
+      case ITypeKind.LambdaType:
         return this.fromLambdaType(type)
-      case TypeKind.PageType:
+      case ITypeKind.PageType:
         return this.fromPageType(type)
-      case TypeKind.RenderPropsType:
+      case ITypeKind.RenderPropsType:
         return this.fromRenderPropsType(type)
-      case TypeKind.PrimitiveType:
+      case ITypeKind.PrimitiveType:
         return this.fromPrimitiveType(type)
-      case TypeKind.ReactNodeType:
+      case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
-      case TypeKind.MonacoType:
+      case ITypeKind.MonacoType:
         return this.fromMonacoType(type)
-      case TypeKind.ElementType:
+      case ITypeKind.ElementType:
         return this.fromElementType(type)
-      case TypeKind.EnumType:
+      case ITypeKind.EnumType:
         return this.fromEnumType(type)
-      case TypeKind.UnionType:
+      case ITypeKind.UnionType:
         return this.fromUnionType(type)
-      case TypeKind.InterfaceType:
+      case ITypeKind.InterfaceType:
         return this.fromInterfaceType(type)
-      case TypeKind.ArrayType:
+      case ITypeKind.ArrayType:
         return this.fromArrayType(type)
     }
   }

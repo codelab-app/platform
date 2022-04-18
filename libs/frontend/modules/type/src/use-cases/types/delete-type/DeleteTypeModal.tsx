@@ -23,7 +23,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={async () => {
-          const kind = typeToDelete?.typeKind
+          const kind = typeToDelete?.kind
 
           if (!kind) {
             throw new Error('useDeleteTypeForm: TypeKind is not defined')

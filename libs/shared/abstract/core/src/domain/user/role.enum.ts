@@ -5,4 +5,4 @@
  */
 import { Role } from '@codelab/shared/abstract/codegen'
 
-export type IRole = Role
+export { Role as IRole }

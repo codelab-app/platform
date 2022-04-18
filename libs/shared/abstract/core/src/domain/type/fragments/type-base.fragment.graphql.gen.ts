@@ -4,6 +4,7 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type TypeBase_AppType_Fragment = {
+  __typename: 'AppType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -11,6 +12,7 @@ export type TypeBase_AppType_Fragment = {
 }
 
 export type TypeBase_ArrayType_Fragment = {
+  __typename: 'ArrayType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -18,6 +20,7 @@ export type TypeBase_ArrayType_Fragment = {
 }
 
 export type TypeBase_ElementType_Fragment = {
+  __typename: 'ElementType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -25,6 +28,7 @@ export type TypeBase_ElementType_Fragment = {
 }
 
 export type TypeBase_EnumType_Fragment = {
+  __typename: 'EnumType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -32,6 +36,7 @@ export type TypeBase_EnumType_Fragment = {
 }
 
 export type TypeBase_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -39,6 +44,7 @@ export type TypeBase_InterfaceType_Fragment = {
 }
 
 export type TypeBase_LambdaType_Fragment = {
+  __typename: 'LambdaType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -46,6 +52,7 @@ export type TypeBase_LambdaType_Fragment = {
 }
 
 export type TypeBase_MonacoType_Fragment = {
+  __typename: 'MonacoType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -53,6 +60,7 @@ export type TypeBase_MonacoType_Fragment = {
 }
 
 export type TypeBase_PageType_Fragment = {
+  __typename: 'PageType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -60,6 +68,7 @@ export type TypeBase_PageType_Fragment = {
 }
 
 export type TypeBase_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -67,6 +76,7 @@ export type TypeBase_PrimitiveType_Fragment = {
 }
 
 export type TypeBase_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -74,6 +84,7 @@ export type TypeBase_ReactNodeType_Fragment = {
 }
 
 export type TypeBase_RenderPropsType_Fragment = {
+  __typename: 'RenderPropsType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -81,6 +92,7 @@ export type TypeBase_RenderPropsType_Fragment = {
 }
 
 export type TypeBase_UnionType_Fragment = {
+  __typename: 'UnionType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -103,6 +115,7 @@ export type TypeBaseFragment =
 
 export const TypeBaseFragmentDoc = gql`
   fragment TypeBase on TypeBase {
+    __typename
     kind
     id
     owner {

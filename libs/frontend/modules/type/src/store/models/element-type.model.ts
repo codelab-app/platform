@@ -1,9 +1,10 @@
 import {
+  assertIsTypeKind,
   ElementTypeKind,
   IElementType,
   IElementTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
@@ -11,23 +12,26 @@ import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
   id,
-  typeKind,
+  kind,
   name,
   elementKind,
   owner,
-}: IElementTypeDTO): ElementType =>
-  new ElementType({
+}: IElementTypeDTO): ElementType => {
+  assertIsTypeKind(kind, ITypeKind.ElementType)
+
+  return new ElementType({
     id,
-    typeKind,
+    kind,
     name,
     elementKind,
     ownerId: owner?.id,
   })
+}
 
 @model('@codelab/ElementType')
 export class ElementType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ElementType),
+    baseModel: createTypeBase(ITypeKind.ElementType),
     props: {
       elementKind: prop<ElementTypeKind>(),
     },
@@ -38,7 +42,7 @@ export class ElementType
   updateCache(fragment: ITypeDTO): void {
     updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.ElementType) {
+    if (fragment.__typename !== ITypeKind.ElementType) {
       return
     }
 

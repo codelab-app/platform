@@ -1,10 +1,10 @@
-import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 
 /**
  * Transforms a typed value prop to a specific value
  */
 export interface ITypedValueTransformer {
-  canHandleTypeKind(typeKind: TypeKind): boolean
+  canHandleTypeKind(typeKind: ITypeKind): boolean
   canHandleValue(value: TypedValue<any>): boolean
-  transform(typedValue: TypedValue<any>, typeKind: TypeKind): any
+  transform(typedValue: TypedValue<any>, typeKind: ITypeKind): any
 }

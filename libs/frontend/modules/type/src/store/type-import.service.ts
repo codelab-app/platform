@@ -1,4 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -114,13 +115,13 @@ export class TypeImportService extends Model({}) {
 
   /** Returns the type ids which must be imported before this type is imported */
   private getTypeDependantIds(type: AnyType): Array<string> {
-    switch (type.typeKind) {
-      case TypeKind.UnionType:
+    switch (type.kind) {
+      case ITypeKind.UnionType:
         return type.typesOfUnionType.map((t) => t.id)
-      case TypeKind.InterfaceType:
+      case ITypeKind.InterfaceType:
         return Object.values(type.fields).map((f) => f.type.id)
 
-      case TypeKind.ArrayType: {
+      case ITypeKind.ArrayType: {
         const itemId = type.itemType?.id
 
         return itemId ? [itemId] : []
@@ -135,11 +136,11 @@ export class TypeImportService extends Model({}) {
   private upsertType = _async(function* (
     this: TypeImportService,
     importedType: AnyType,
-    currentUserAuth0Id: string,
+    auth0Id: string,
   ) {
     const typeService = getTypeService(this)
     const existingType = this.getExistingType(importedType)
-    const isOwned = existingType?.ownerId === currentUserAuth0Id
+    const isOwned = existingType?.ownerId === auth0Id
 
     // Create or update the type
     if (existingType && !isOwned) {
@@ -163,7 +164,7 @@ export class TypeImportService extends Model({}) {
     // Not owned by current user, create it with the current user as owner
     // const createdType = fromSnapshot<AnyType>(importedType)
     // createdType.ownerAuth0Id = currentUserAuth0Id
-    yield* _await(typeService.create(importedType))
+    yield* _await(typeService.create(importedType, auth0Id))
   })
 
   private getExistingType(
@@ -173,10 +174,10 @@ export class TypeImportService extends Model({}) {
     const typeService = getTypeService(this)
 
     // if it's a primitive - check for the same primitiveKind
-    if (importedType.typeKind === TypeKind.PrimitiveType) {
+    if (importedType.kind === ITypeKind.PrimitiveType) {
       const foundPrimitive = typeService.typesList.find(
         (t) =>
-          t.typeKind === TypeKind.PrimitiveType &&
+          t.kind === ITypeKind.PrimitiveType &&
           t.primitiveKind === importedType.primitiveKind,
       )
 

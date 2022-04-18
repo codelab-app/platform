@@ -13,7 +13,7 @@ export const userSchema = gql`
     types: [TypeBase!]! @relationship(type: "OWNED_BY", direction: IN)
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
     components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
-    roles: [Role!]!
+    roles: [Role!]
   }
 
   extend type User

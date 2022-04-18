@@ -1,20 +1,24 @@
 import {
+  assertIsTypeKind,
   IPageType,
   IPageTypeDTO,
   ITypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({ id, typeKind, name, owner }: IPageTypeDTO): PageType =>
-  new PageType({ id, typeKind, name, ownerId: owner?.id })
+const hydrate = ({ id, kind, name, owner }: IPageTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.PageType)
+
+  return new PageType({ id, kind, name, ownerId: owner?.id })
+}
 
 @model('@codelab/PageType')
 export class PageType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.PageType),
+    baseModel: createTypeBase(ITypeKind.PageType),
     props: {},
   }))
   implements IPageType

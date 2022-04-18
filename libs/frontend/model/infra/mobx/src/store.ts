@@ -31,7 +31,7 @@ import {
   TypeService,
   typeServiceContext,
 } from '@codelab/frontend/modules/type'
-import { UserService } from '@codelab/frontend/modules/user'
+import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import { IPageProps, IUserDTO } from '@codelab/shared/abstract/core'
 import {
   fromSnapshot,
@@ -47,7 +47,7 @@ export type Snapshot<T = any> = {
 }
 
 interface RootStoreProps {
-  user: IUserDTO
+  user?: IUserDTO
 }
 
 export type IRootStore = {
@@ -104,16 +104,20 @@ export const createRootStore = ({ user }: RootStoreProps) => {
       actionServiceContext.set(this, this.actionService)
       typeImportServiceContext.set(this, this.typeImportService)
       elementServiceContext.set(this, this.elementService)
+      userServiceContext.set(this, this.userService)
     }
   }
 
-  return RootStore as unknown as IRootStore
+  return new RootStore({}) as unknown as IRootStore
 }
 
 let _store: IRootStore | null = null
 
 export const initializeStore = (pageProps: IPageProps) => {
-  const { snapshot, user } = pageProps
+  const snapshot = pageProps?.snapshot
+  const user = pageProps?.user
+
+  console.log(pageProps)
 
   const store: IRootStore =
     _store ?? snapshot
