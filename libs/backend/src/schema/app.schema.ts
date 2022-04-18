@@ -13,6 +13,7 @@ export const appSchema = gql`
   extend type App
     @auth(
       rules: [
+        { operations: [READ], roles: [] }
         {
           operations: [READ, UPDATE, CREATE, DELETE]
           roles: ["User", "Guest"]

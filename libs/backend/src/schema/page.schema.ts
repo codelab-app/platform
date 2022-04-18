@@ -12,9 +12,10 @@ export const pageSchema = gql`
   extend type Page
     @auth(
       rules: [
+        { operations: [READ], roles: [] }
         {
           operations: [READ, CREATE, UPDATE]
-          roles: ["User", "Guest"]
+          roles: ["User"]
           where: { app: { owner: { auth0Id: "$jwt.sub" } } }
           bind: { app: { owner: { auth0Id: "$jwt.sub" } } }
         }
