@@ -16,7 +16,7 @@ export const appSchema = gql`
         { operations: [READ], roles: [] }
         {
           operations: [READ, UPDATE, CREATE, DELETE]
-          roles: ["User", "Guest"]
+          roles: ["User"]
           where: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }
