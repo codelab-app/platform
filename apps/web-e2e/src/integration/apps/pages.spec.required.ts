@@ -1,7 +1,7 @@
-import {  updatedAppName, updatedPageName } from './app.data'
 import { createAppWithCypress } from '../support/helpers/createPage'
 
 describe('Pages CRUD', () => {
+  let appId: string
   const appName = 'new app'
   const pageName = 'new useful page'
   const updatedPageName = 'updated page'
@@ -14,14 +14,7 @@ describe('Pages CRUD', () => {
     })
   })
 
-describe('Page CRUD', () => {
   describe('create', () => {
-    before(() => {
-      cy.getCard({ title: updatedAppName }).find('a').click()
-
-      cy.url({ timeout: 5000 }).should('include', 'pages')
-    })
-
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
@@ -62,10 +55,6 @@ describe('Page CRUD', () => {
   require('./builder.spec.required')
 
   describe('delete', () => {
-    before(() => {
-      cy.go('back')
-    })
-
     it('should be able to delete page', () => {
       cy.getListItem(updatedPageName)
         .getButton({

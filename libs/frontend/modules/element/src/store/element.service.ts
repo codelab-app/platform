@@ -268,7 +268,6 @@ export class ElementService
 
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
 
-<<<<<<< HEAD
     for (const id of idsToDelete.reverse()) {
       const ele = this.elements.get(id)
       this.elements.delete(id)
@@ -279,6 +278,7 @@ export class ElementService
 =======
     console.log('after delete')
 
+<<<<<<< HEAD
 =======
     if (deletedRoot) {
       this.elementTree.removeElementAndDescendants(deletedRoot)
@@ -286,6 +286,8 @@ export class ElementService
 
 >>>>>>> feat: delete app works now with its dependencies
 >>>>>>> feat: delete app works now with its dependencies
+=======
+>>>>>>> fix: remove 'Guest'
     const {
       deleteElements: { nodesDeleted },
     } = yield* _await(

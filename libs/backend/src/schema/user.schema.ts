@@ -22,7 +22,7 @@ export const userSchema = gql`
       rules: [
         {
           operations: [READ]
-          roles: ["User", "Guest"]
+          roles: ["User"]
           where: { auth0Id: "$jwt.sub" }
           bind: { auth0Id: "$jwt.sub" }
         }

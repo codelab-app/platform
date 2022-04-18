@@ -146,7 +146,7 @@ export class AppService
 
       const elementService = getElementService(this)
 
-      elementService.deleteElementsSubgraph(
+      elementService.deleteElementSubgraph(
         existing.rootProviderElement?.id as string,
       )
     }

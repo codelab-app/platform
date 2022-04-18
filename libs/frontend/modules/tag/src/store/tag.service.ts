@@ -221,7 +221,6 @@ export class TagService
   })
 }
 
-// This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const tagServiceContext = createContext<TagService>()
 
 export const getTagService = (thisModel: any) => {

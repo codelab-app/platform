@@ -183,7 +183,7 @@ export class PageService
 
     pages.map((page) => {
       pageIds.push(page.id)
-      elementService.deleteElementsSubgraph(page.rootElement.id)
+      elementService.deleteElementSubgraph(page.rootElement.id)
     })
 
     this.deleteMany(pageIds)
