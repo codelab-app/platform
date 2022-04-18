@@ -1,4 +1,18 @@
-import { pageName, updatedAppName, updatedPageName } from './app.data'
+import {  updatedAppName, updatedPageName } from './app.data'
+import { createAppWithCypress } from '../support/helpers/createPage'
+
+describe('Pages CRUD', () => {
+  const appName = 'new app'
+  const pageName = 'new useful page'
+  const updatedPageName = 'updated page'
+
+  before(() => {
+    cy.resetDatabase().then(() => {
+      cy.login().then(() => {
+        createAppWithCypress(appName)
+      })
+    })
+  })
 
 describe('Page CRUD', () => {
   describe('create', () => {
