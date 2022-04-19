@@ -8,7 +8,7 @@ import { AtomType } from './atom-type.enum'
 export interface IAtom extends IEntity {
   name: string
   type: AtomType
-  tags: Array<ITag>
+  tags: Array<Ref<ITag>>
   api: Ref<IInterfaceType>
   updateCache(atom: any): void
 }

@@ -1,6 +1,5 @@
+import { Tag } from '@codelab/frontend/modules/tag'
 import { AtomType, ITag } from '@codelab/shared/abstract/core'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
 import { Ref } from 'mobx-keystone'
 import { WithAtomService } from '../../../store'
 

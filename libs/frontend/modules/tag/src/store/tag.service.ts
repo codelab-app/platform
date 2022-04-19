@@ -1,5 +1,9 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ICreateTagDTO, IUpdateTagDTO } from '@codelab/shared/abstract/core'
+import {
+  ICreateTagDTO,
+  ITagDTO,
+  IUpdateTagDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -174,12 +178,12 @@ export class TagService extends Model({
   })
 
   @modelAction
-  getOrCreateNew(tag: TagFragment) {
+  getOrCreateNew(tag: ITagDTO) {
     if (this.tags.has(tag.id)) {
       return this.tags.get(tag.id)
     }
 
-    const tagModel = Tag.fromFragment(tag)
+    const tagModel = Tag.hydrate(tag)
     this.tags.set(tag.id, tagModel)
 
     return tagModel

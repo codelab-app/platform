@@ -1,4 +1,4 @@
-import { Tag } from '@codelab/frontend/modules/tag'
+import { tagRef } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { AtomType, IAtom, IAtomDTO, ITag } from '@codelab/shared/abstract/core'
 import {
@@ -28,7 +28,7 @@ export class Atom
     id: idProp,
     name: prop<string>(),
     type: prop<AtomType>(),
-    tags: prop<Array<ITag>>(),
+    tags: prop<Array<Ref<ITag>>>(),
     api: prop<Ref<InterfaceType>>(),
   })
   implements IAtom
