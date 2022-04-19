@@ -5,7 +5,7 @@
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
 import { exportAppCommand } from './commands/export/export-app.command'
-import { importAppCommand } from './commands/export/import-app.command'
+import { importAppCommand } from './commands/import/import-app.command'
 import { Env } from './utils/env'
 import { requireEnvOptions, requireTestEnvOptions } from './utils/options'
 import { runCli } from './utils/run-cli'

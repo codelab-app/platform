@@ -1,32 +1,20 @@
-import {
-  App as IAppModel,
-  AppModel,
-  ComponentModel,
-  componentSelectionSet,
-  elementGraph,
-  ElementModel,
-  elementSelectionSet,
-  Page as IPageModel,
-  PageModel,
-  pageSelectionSet,
-} from '@codelab/backend'
+import { AppModel, appSelectionSet } from '@codelab/backend'
 import { config } from 'dotenv'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
-import { flatMap, flatten } from 'lodash'
+import path from 'path'
 import yargs, { CommandModule } from 'yargs'
+import { getAppData } from './export-app'
 
-const appSelectionSet = `{ id, name, rootProviderElement { id } }`
+config({ path: `${process.cwd()}/.env` })
 
 export const exportAppCommand: CommandModule<any, any> = {
   command: 'export-app',
 
   handler: async () => {
-    config({ path: `${process.cwd()}/.env` })
+    const App = await AppModel()
 
-    const Apps = await AppModel()
-
-    const apps: Array<IAppModel> = await Apps.find({
+    const apps = await App.find({
       selectionSet: appSelectionSet,
     })
 
@@ -34,7 +22,7 @@ export const exportAppCommand: CommandModule<any, any> = {
       {
         type: 'list',
         name: 'app',
-        message: 'Select app to export',
+        message: 'Select an App to export',
         choices: apps.map((app) => ({
           name: app.name,
           value: app.id,
@@ -64,76 +52,8 @@ export const exportAppCommand: CommandModule<any, any> = {
     const data = await getAppData(app)
     const json = JSON.stringify(data, null, 2)
 
-    fs.writeFileSync(outputPath, json)
+    fs.writeFileSync(path.resolve('data', outputPath), json)
 
     yargs.exit(0, null!)
   },
-}
-
-const getAppData = async (app: IAppModel) => {
-  // gather all pages, elements and components
-
-  const Pages = await PageModel()
-
-  const pages = await Pages.find({
-    where: { app: { id: app.id } },
-    selectionSet: pageSelectionSet,
-  })
-
-  const pagesData = await Promise.all(
-    pages.map(async (page) => {
-      const { elements, components } = await getPageData(page)
-
-      return { page, elements, components }
-    }),
-  )
-
-  const providerElements = await getElementAndDescendants(
-    app.rootProviderElement.id,
-  )
-
-  return { app, pages: pagesData, providerElements }
-}
-
-const getPageData = async (page: IPageModel) => {
-  const Components = await ComponentModel()
-  const elements = await getElementAndDescendants(page.rootElement.id)
-
-  const componentIds = flatMap(elements, (e) => [
-    e.component?.id,
-    e.instanceOfComponent?.id,
-  ]).filter(Boolean) as Array<string>
-
-  const components = await Components.find({
-    where: { id_IN: componentIds },
-    selectionSet: componentSelectionSet,
-  })
-
-  const componentRootIds = components.map((c) => c.rootElement.id)
-
-  const componentElements = await Promise.all(
-    componentRootIds.map((id) => getElementAndDescendants(id)),
-  )
-
-  return {
-    elements: [...elements, ...flatten(componentElements)],
-    components,
-  }
-}
-
-const getElementAndDescendants = async (rootId: string) => {
-  const { id, descendants } = await elementGraph(
-    null,
-    { input: { rootId } },
-    null,
-    null as any,
-  )
-
-  const elementIds = [id, ...descendants]
-  const Elements = await ElementModel()
-
-  return await Elements.find({
-    where: { id_IN: elementIds },
-    selectionSet: elementSelectionSet,
-  })
 }
