@@ -13,8 +13,8 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
   ({ elementService }) => {
     const closeModal = () => elementService.deleteModal.close()
 
-    const onSubmit = async ({ elementId }: DeleteElementData) => {
-      return await elementService.deleteElementsSubgraph(elementId)
+    const onSubmit = ({ elementId }: DeleteElementData) => {
+      return elementService.deleteElementSubgraph(elementId)
     }
 
     const onSubmitError = createNotificationHandler({
@@ -26,7 +26,7 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
     }
 
     const model = { elementId: elementService.deleteModal.element.id }
-    const deletedElement = elementService.deleteModal.element
+    const elementToDelete = elementService.deleteModal.element
 
     return (
       <ModalForm.Modal
@@ -44,8 +44,8 @@ export const DeleteElementModal = observer<DeleteElementModalProps>(
         >
           <h4>
             Are you sure you want to delete
-            {deletedElement?.name
-              ? `the element "${deletedElement?.name}"`
+            {elementToDelete?.name
+              ? `the element "${elementToDelete?.name}"`
               : 'that element'}
             ?
           </h4>

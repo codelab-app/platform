@@ -7120,15 +7120,15 @@ type Mutation {
     where: ComponentWhere
   ): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
+  deleteElementSubgraph(
+    delete: ElementDeleteInput
+    where: ElementWhere
+  ): DeleteElementsInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
     where: ElementTypeWhere
   ): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
-  deleteElementsSubgraph(
-    delete: ElementDeleteInput
-    where: ElementWhere
-  ): DeleteElementsInfo!
   deleteEnumTypeValues(
     delete: EnumTypeValueDeleteInput
     where: EnumTypeValueWhere

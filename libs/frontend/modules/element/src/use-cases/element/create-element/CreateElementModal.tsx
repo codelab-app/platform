@@ -62,7 +62,7 @@ export const CreateElementModal = observer<WithElementService>(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
                 allElementOptions={elementService.elementTree.elementsList
-                  .filter((e) => !e.instanceOfComponent && !e.component)
+                  .filter((e) => !e?.instanceOfComponent && !e?.component)
                   .map(mapElementOption)}
               />
             ))}

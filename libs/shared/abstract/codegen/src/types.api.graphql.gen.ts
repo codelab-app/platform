@@ -7462,9 +7462,9 @@ export type Mutation = {
   deleteAtoms: DeleteInfo
   deleteComponents: DeleteInfo
   deleteCreateInfos: DeleteInfo
+  deleteElementSubgraph: DeleteElementsInfo
   deleteElementTypes: DeleteInfo
   deleteElements: DeleteInfo
-  deleteElementsSubgraph: DeleteElementsInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
   deleteHooks: DeleteInfo
@@ -7663,17 +7663,17 @@ export type MutationDeleteCreateInfosArgs = {
   where?: InputMaybe<CreateInfoWhere>
 }
 
+export type MutationDeleteElementSubgraphArgs = {
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<ElementWhere>
+}
+
 export type MutationDeleteElementTypesArgs = {
   delete?: InputMaybe<ElementTypeDeleteInput>
   where?: InputMaybe<ElementTypeWhere>
 }
 
 export type MutationDeleteElementsArgs = {
-  delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type MutationDeleteElementsSubgraphArgs = {
   delete?: InputMaybe<ElementDeleteInput>
   where?: InputMaybe<ElementWhere>
 }

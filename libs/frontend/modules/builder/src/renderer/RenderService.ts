@@ -146,7 +146,7 @@ export class RenderService extends Model(
   }
 
   renderRoot() {
-    const root = this.tree?.root
+    const root = this.tree?.root?.maybeCurrent
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -163,7 +163,10 @@ export class RenderService extends Model(
     const providerRoot = this.providerTreeRef?.current?.root
 
     const providerElements = providerRoot
-      ? [providerRoot, ...(providerRoot?.leftHandDescendants ?? [])]
+      ? [
+          providerRoot.current,
+          ...(providerRoot?.current.leftHandDescendants ?? []),
+        ]
       : []
 
     const providerOutputsMaybeArray = providerElements.map((element) =>

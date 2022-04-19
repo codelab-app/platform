@@ -24,6 +24,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
@@ -77,7 +78,7 @@ export const hydrateElement = ({
 export class Element
   extends Model({
     id: idProp.withSetter(),
-    children: prop(() => objectMap<Element>()),
+    children: prop(() => objectMap<Ref<Element>>()),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
@@ -105,12 +106,17 @@ export class Element
 {
   @computed
   get childrenSorted(): Array<Element> {
-    return [...this.children.values()].sort(compareOrder)
+    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
   @modelAction
   addChild(child: Element) {
-    this.children.set(child.id, child)
+    this.children.set(child.id, elementRef(child))
+  }
+
+  @modelAction
+  hasChild(child: Element) {
+    return this.children.has(child.id)
   }
 
   @modelAction
@@ -226,7 +232,7 @@ export class Element
     }
 
     if (this.children.has(id)) {
-      return this.children.get(id)
+      return this.children.get(id)?.current
     }
 
     for (const child of this.childrenSorted) {
@@ -354,6 +360,7 @@ export class Element
     this.atom = atom ? atomRef(atom.id) : null
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
+    this.parentId = parentElement?.id
 
     if (props) {
       this.props?.updateCache(props)

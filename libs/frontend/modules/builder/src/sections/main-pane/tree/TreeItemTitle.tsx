@@ -18,8 +18,6 @@ export const TreeItemTitle = observer<TreeItemTitleProps>(
 
     const element = elementService.elementTree.element(node.key.toString())
 
-    console.log(node, element)
-
     if (!element) {
       return null
     }

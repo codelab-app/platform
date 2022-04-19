@@ -25,13 +25,21 @@ export type CreateElementsMutation = {
   createElements: { elements: Array<ElementFragment> }
 }
 
-export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
+export type DeleteElementsMutationVariables = Types.Exact<{
+  where: Types.ElementWhere
+}>
+
+export type DeleteElementsMutation = {
+  deleteElements: { nodesDeleted: number }
+}
+
+export type DeleteElementSubgraphMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
   delete?: Types.InputMaybe<Types.ElementDeleteInput>
 }>
 
-export type DeleteElementsSubgraphMutation = {
-  deleteElementsSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
+export type DeleteElementSubgraphMutation = {
+  deleteElementSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
 }
 
 export type UpdateElementsMutationVariables = Types.Exact<{
@@ -77,12 +85,19 @@ export const CreateElementsDocument = gql`
   }
   ${ElementFragmentDoc}
 `
-export const DeleteElementsSubgraphDocument = gql`
-  mutation DeleteElementsSubgraph(
+export const DeleteElementsDocument = gql`
+  mutation DeleteElements($where: ElementWhere!) {
+    deleteElements(where: $where) {
+      nodesDeleted
+    }
+  }
+`
+export const DeleteElementSubgraphDocument = gql`
+  mutation DeleteElementSubgraph(
     $where: ElementWhere
     $delete: ElementDeleteInput
   ) {
-    deleteElementsSubgraph(where: $where, delete: $delete) {
+    deleteElementSubgraph(where: $where, delete: $delete) {
       nodesDeleted
       deletedIds
     }
@@ -164,18 +179,33 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteElementsSubgraph(
-      variables?: DeleteElementsSubgraphMutationVariables,
+    DeleteElements(
+      variables: DeleteElementsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteElementsSubgraphMutation> {
+    ): Promise<DeleteElementsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteElementsSubgraphMutation>(
-            DeleteElementsSubgraphDocument,
+          client.request<DeleteElementsMutation>(
+            DeleteElementsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteElementsSubgraph',
+        'DeleteElements',
+        'mutation',
+      )
+    },
+    DeleteElementSubgraph(
+      variables?: DeleteElementSubgraphMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<DeleteElementSubgraphMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteElementSubgraphMutation>(
+            DeleteElementSubgraphDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteElementSubgraph',
         'mutation',
       )
     },

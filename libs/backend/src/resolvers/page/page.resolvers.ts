@@ -28,7 +28,7 @@ export const deletePages: IFieldResolver<any, any> = async (
 
   await session
     .writeTransaction((txn) =>
-      elementRepository.deleteElementsSubgraph(txn, rootElementIds),
+      elementRepository.deleteElementSubgraph(txn, rootElementIds),
     )
     .toPromise()
     .finally(() => session.close())

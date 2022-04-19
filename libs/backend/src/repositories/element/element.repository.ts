@@ -1,26 +1,9 @@
-import { DeleteElementsInfo } from '@codelab/shared/abstract/codegen'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
 import getElementGraphCypher from './getElementGraph.cypher'
 
 export const elementRepository = {
-  deleteElementsSubgraph: (
-    txn: RxTransaction,
-    ids: Array<string>,
-  ): Observable<DeleteElementsInfo> =>
-    txn
-      .run(deleteElementsSubGraphCypher, { ids })
-      .records()
-      .pipe(
-        map((response) => ({
-          nodesDeleted: response.get('nodesDeleted').toString(),
-          relationshipsDeleted: response.get('relationshipsDeleted').toString(),
-          deletedIds: response.get('deletedIds'),
-        })),
-      ),
-
   getElementGraph: (txn: RxTransaction, rootId: string): Observable<any> => {
     return txn
       .run(getElementGraphCypher, { rootId })

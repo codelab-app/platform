@@ -9,11 +9,13 @@ import {
 } from '@codelab/frontend/modules/component'
 import {
   Element,
+  elementRef,
   ElementService,
   ElementTree,
   Prop,
 } from '@codelab/frontend/modules/element'
 import {
+  AnyType,
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
@@ -22,7 +24,7 @@ import {
   TypeService,
 } from '@codelab/frontend/modules/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { AtomType, IAnyType } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { IRenderPipe } from '../../abstract/IRenderPipe'
@@ -45,38 +47,38 @@ export const setupTestRenderData = (
     elementToRender: Element
     elementToRender02: Element
     componentInstanceElementToRender: Element
-    renderPropsType: IAnyType
-    reactNodeType: IAnyType
-    primitiveType: IAnyType
+    renderPropsType: AnyType
+    reactNodeType: AnyType
+    primitiveType: AnyType
     divAtom: Atom
     textAtom: Atom
   } = {} as any
 
   beforeEach(() => {
-    const ownerAuth0Id = v4()
+    const ownerId = v4()
 
     const emptyInterface = new InterfaceType({
       name: 'Empty interface',
-      ownerAuth0Id,
+      ownerId,
     })
 
     data.primitiveType = new PrimitiveType({
       id: v4(),
       name: 'primitiveType',
       primitiveKind: PrimitiveTypeKind.Integer,
-      ownerAuth0Id,
+      ownerId,
     })
 
     data.renderPropsType = new RenderPropsType({
       id: v4(),
       name: 'renderPropsType',
-      ownerAuth0Id,
+      ownerId,
     })
 
     data.reactNodeType = new ReactNodeType({
       id: v4(),
       name: 'reactNodeType',
-      ownerAuth0Id,
+      ownerId,
     })
 
     data.divAtom = new Atom({
@@ -154,10 +156,10 @@ export const setupTestRenderData = (
         }),
       }),
       children: objectMap([
-        [data.elementToRender02.id, data.elementToRender02],
+        [data.elementToRender02.id, elementRef(data.elementToRender02)],
         [
           data.componentInstanceElementToRender.id,
-          data.componentInstanceElementToRender,
+          elementRef(data.componentInstanceElementToRender),
         ],
       ]),
       propTransformationJs: `
@@ -179,8 +181,8 @@ export const setupTestRenderData = (
       typeService: new TypeService({
         types: objectMap([
           [data.primitiveType.id, data.primitiveType],
-          [data.renderPropsType.id, data.renderPropsType as IAnyType],
-          [data.reactNodeType.id, data.reactNodeType as IAnyType],
+          [data.renderPropsType.id, data.renderPropsType as AnyType],
+          [data.reactNodeType.id, data.reactNodeType],
         ]),
       }),
       componentService: new ComponentService({
@@ -199,10 +201,22 @@ export const setupTestRenderData = (
         renderPipe: pipeFactory(new PassThroughRenderPipe({})),
       }),
       elementService: new ElementService({
+        elements: objectMap([
+          [data.elementToRender.id, data.elementToRender],
+          [data.elementToRender02.id, data.elementToRender02],
+          [
+            data.componentInstanceElementToRender.id,
+            data.componentInstanceElementToRender,
+          ],
+          [data.componentRootElement.id, data.componentRootElement],
+        ]),
         elementTree: new ElementTree({
-          root: data.elementToRender,
+          root: elementRef(data.elementToRender),
           componentRoots: objectMap([
-            [data.componentRootElement.id, data.componentRootElement],
+            [
+              data.componentRootElement.id,
+              elementRef(data.componentRootElement),
+            ],
           ]),
         }),
       }),

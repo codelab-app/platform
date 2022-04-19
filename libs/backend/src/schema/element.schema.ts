@@ -1,12 +1,6 @@
 import { gql } from 'apollo-server-micro'
 
 export const elementSchema = gql`
-  #  type ElementEdge @exclude {
-  #    source: String!
-  #    target: String!
-  #    order: Int
-  #  }
-
   type ElementGraph @exclude {
     id: ID!
     descendants: [ID!]!
@@ -55,18 +49,5 @@ export const elementSchema = gql`
 
   type Query {
     elementGraph(input: ElementGraphInput!): ElementGraph!
-  }
-
-  type DeleteElementsInfo @exclude {
-    nodesDeleted: Int!
-    relationshipsDeleted: Int!
-    deletedIds: [String!]!
-  }
-
-  type Mutation {
-    deleteElementsSubgraph(
-      delete: ElementDeleteInput
-      where: ElementWhere
-    ): DeleteElementsInfo!
   }
 `
