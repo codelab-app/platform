@@ -34,7 +34,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, InterfaceType } from './models'
+import { AnyType, Field, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -254,28 +254,26 @@ export class TypeService extends Model({
     type: InterfaceType,
     data: ICreateFieldDTO,
   ) {
-    // const { interfaceType, name, description, key } = data
-
     const input = {
       interfaceId: type.id,
-      fieldTypeId: data.interfaceType,
-      field: data,
-      // id: data.id,
-      // interfaceTypeId: interfaceType,
-      // key,
-      // name,
-      // description,
-      // targetTypeId: interfaceType,
+      fieldTypeId: data.fieldType,
+      field: {
+        description: data.description,
+        id: data.id,
+        key: data.key,
+        name: data.name,
+      },
     }
 
     const res = yield* _await(fieldApi.CreateField(input))
-    console.log(res)
 
-    // const field = type.addFieldLocal(res.updateInterfaceTypes.interfaceTypes)
-    //
-    // field.updateCache(res.upsertFieldEdge, interfaceType.id)
-    //
-    // return field
+    const field =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+
+    const fieldModel = Field.hydrate(field)
+    type.fields.set(fieldModel.id, fieldModel)
+
+    return fieldModel
   })
 
   @modelFlow
@@ -287,19 +285,15 @@ export class TypeService extends Model({
     data: IUpdateFieldDTO,
   ) {
     const { key, name, description } = data
-    const field = type.fieldByKey(data.key)
+    const field = type.field(data.id)
 
     if (!field) {
       throw new Error(`Field with key ${targetKey} not found`)
     }
 
-    if (field.key !== key) {
-      type.validateUniqueFieldKey(key)
-    }
-
     const input = {
       interfaceId: type.id,
-      fieldTypeId: data.interfaceType,
+      fieldTypeId: data.fieldType,
       field: data,
     }
 
@@ -318,22 +312,26 @@ export class TypeService extends Model({
   deleteField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    fieldKey: string,
+    fieldId: string,
   ) {
-    const field = interfaceType.fieldByKey(fieldKey)
+    const field = interfaceType.field(fieldId)
 
     if (!field) {
       return
     }
 
-    interfaceType.deleteFieldLocal(field)
-
-    const input = { where: { key: fieldKey }, interfaceId: interfaceType.id }
+    const input = { where: { id: fieldId }, interfaceId: interfaceType.id }
     const res = yield* _await(fieldApi.DeleteField(input))
 
-    if (res.updateInterfaceTypes.interfaceTypes) {
-      throw new Error(`Failed to delete field with key ${fieldKey}`)
-    }
+    // Returns current edges, not deleted edges
+    // const deletedField =
+    //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    //
+    // if (!deletedField) {
+    //   throw new Error(`Failed to delete field with id ${fieldId}`)
+    // }
+
+    interfaceType.deleteFieldLocal(field)
 
     return field
   })

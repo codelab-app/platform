@@ -7,9 +7,13 @@ export interface ICreateFieldDTO {
   name: string | null
   description?: string | null
   // Type of field specified by an interface id
-  interfaceType: IFieldRef
+  fieldType: IFieldRef
 }
 
 export type IUpdateFieldDTO = ICreateFieldDTO
+
+export type IDeleteFieldDTO = {
+  id: IFieldRef
+}
 
 export type IFieldDTO = FieldFragment

@@ -17,10 +17,21 @@ export const getButton = (
       Cypress.Shadow
   >,
 ): CypressElement => {
+  Cypress.log({
+    displayName: 'Get Button',
+    // message: name,
+    name: 'Add new board',
+  })
+
   if (icon) {
-    return wrapSubject(subject)
-      .find(`button.ant-btn .anticon.anticon-${icon}`)
-      .closest('button.ant-btn')
+    return subject
+      ? cy
+          .wrap(subject)
+          .find(`button.ant-btn .anticon.anticon-${icon}`)
+          .closest('button.ant-btn')
+      : cy
+          .get(`button.ant-btn .anticon.anticon-${icon}`)
+          .closest('button.ant-btn')
   }
 
   if (label) {

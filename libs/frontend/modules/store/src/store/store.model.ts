@@ -49,7 +49,7 @@ export class Store extends Model(() => ({
 
   @modelAction
   toMobxObservable() {
-    const storeState = this.state.current.fields
+    const storeState = [...this.state.current.fields.values()]
       .map((field) => ({ [field.key]: this.initialState[field.key] }))
       .reduce(merge, {})
 

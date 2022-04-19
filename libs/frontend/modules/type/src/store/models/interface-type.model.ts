@@ -6,7 +6,6 @@ import {
   ITypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import {
   ExtendedModel,
   model,
@@ -35,7 +34,7 @@ const hydrate = ({
   })
 
   for (const edge of fieldsConnection.edges) {
-    interfaceType.addFieldLocal(edge)
+    interfaceType.updateFieldCache(edge)
   }
 
   return interfaceType
@@ -46,41 +45,28 @@ export class InterfaceType
   extends ExtendedModel(() => ({
     baseModel: createTypeBase(ITypeKind.InterfaceType),
     props: {
-      _fields: prop(() => objectMap<Field>()),
+      fields: prop(() => objectMap<Field>()),
     },
   }))
   implements IInterfaceType
 {
-  @computed
-  get fields(): Array<Field> {
-    return Array.from(this._fields.values())
-  }
-
-  fieldByKey(key: string): Field | undefined {
-    return this._fields.get(Field.fieldId(this.id, key))
+  field(id: string): Field | undefined {
+    return this.fields.get(id)
   }
 
   @modelAction
-  addFieldLocal(fragment: IFieldDTO): Field {
+  updateFieldCache(fragment: IFieldDTO): Field {
     const { id, key, name, description } = fragment
-
-    this.validateUniqueFieldKey(key)
-
-    // const target =
-    //   (fragment as IInterfaceTypeEdgeDTO).target ||
-    //   (fragment as IInterfaceTypeFieldEdgeDTO).node?.id ||
-    //   (fragment as ICreateFieldDTO).existingTypeId
-
     const field = Field.hydrate(fragment)
 
-    this._fields.set(field.id, field)
+    this.fields.set(field.id, field)
 
     return field
   }
 
   @modelAction
   deleteFieldLocal(field: Field) {
-    this._fields.delete(field.id)
+    this.fields.delete(field.id)
   }
 
   @modelAction
@@ -91,35 +77,24 @@ export class InterfaceType
       return
     }
 
-    for (const edge of fragment.fieldsConnection.edges) {
-      let field = this.fieldByKey(edge.key)
+    for (const fieldEdge of fragment.fieldsConnection.edges) {
+      let field = this.field(fieldEdge.id)
 
       if (field) {
-        field.updateCache(edge, this.id)
+        field.updateCache(fieldEdge, this.id)
       } else {
-        field = this.addFieldLocal(edge)
-        this._fields.set(field.id, field)
+        field = this.updateFieldCache(fieldEdge)
+        this.fields.set(field.id, field)
       }
     }
 
-    const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
-
-    for (const [key, field] of this._fields) {
-      if (!newFieldsKeySet.has(key)) {
-        this._fields.delete(field.id)
-      }
-    }
-  }
-
-  // @modelAction
-  // override applyUpdateData(input: IUpdateTypeDTO) {
-  //   super.applyUpdateData(input)
-  // }
-
-  validateUniqueFieldKey(key: string): void {
-    if (this.fieldByKey(key)) {
-      throw new Error(`Field with key ${key} already exists`)
-    }
+    // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
+    //
+    // for (const [key, field] of this._fields) {
+    //   if (!newFieldsKeySet.has(key)) {
+    //     this._fields.delete(field.id)
+    //   }
+    // }
   }
 
   public static hydrate = hydrate

@@ -1,3 +1,4 @@
+import { ObjectMap } from 'mobx-keystone'
 import { IField } from '../../field'
 import { IBaseType } from '../base-type'
 import { ITypeKind } from '../base-type/type-kind.enum'
@@ -9,5 +10,5 @@ import { ITypeKind } from '../base-type/type-kind.enum'
  */
 export interface IInterfaceType extends IBaseType {
   kind: ITypeKind.InterfaceType
-  fields: Array<IField>
+  fields: ObjectMap<IField>
 }

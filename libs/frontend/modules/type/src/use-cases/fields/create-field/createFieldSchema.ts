@@ -13,7 +13,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldDTO> = {
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
      */
-    interfaceType: { type: 'string', nullable: true },
+    fieldType: { type: 'string', nullable: true },
   },
-  required: ['id', 'key', 'interfaceType'],
+  required: ['id', 'key', 'fieldType'],
 }

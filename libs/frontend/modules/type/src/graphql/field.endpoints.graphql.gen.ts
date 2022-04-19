@@ -92,7 +92,7 @@ export const DeleteFieldDocument = gql`
   mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
     updateInterfaceTypes(
       where: { id: $interfaceId }
-      delete: { fields: [{ where: { edge: $where } }] }
+      disconnect: { fields: [{ where: { edge: $where } }] }
     ) {
       interfaceTypes {
         fieldsConnection {

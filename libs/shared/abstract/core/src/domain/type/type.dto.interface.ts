@@ -13,7 +13,6 @@ export interface IBaseTypeDTO {
   elementKind?: ElementTypeKind
   language?: MonacoLanguage
   allowedValues?: Array<IEnumTypeValue>
-  // unionTypeIds?: Array<string>
 }
 
 /**
@@ -22,7 +21,6 @@ export interface IBaseTypeDTO {
 export interface ICreateTypeDTO extends IBaseTypeDTO {
   unionTypeIds?: Array<string>
   arrayTypeId?: string
-  kind: ITypeKind
 }
 
 /**

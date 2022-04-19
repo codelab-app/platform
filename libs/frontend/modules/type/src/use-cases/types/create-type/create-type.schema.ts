@@ -17,7 +17,6 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
-    // Base types
     id: {
       type: 'string',
       disabled: true,
@@ -61,6 +60,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
         properties: {
           id: {
             type: 'string',
+            // value: v4(),
             nullable: true,
             uniforms: {
               component: () => null,
@@ -69,11 +69,13 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
           name: { type: 'string', nullable: true },
           value: { type: 'string' },
         },
-        required: ['id', 'value'],
+        required: [
+          // Does not submit for because ref not updated
+          // 'id',
+          'value',
+        ],
       },
     },
-    // ...baseTypeSchemaProperties,
-    // ...typeSchemaProperties,
     arrayTypeId: { type: 'string', nullable: true },
   },
   required: ['kind', 'name'],

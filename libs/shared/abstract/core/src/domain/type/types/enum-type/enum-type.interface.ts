@@ -1,5 +1,5 @@
 import { Nullish } from '@codelab/shared/abstract/types'
-import { IBaseType } from '../base-type/base-type.interface'
+import { IBaseType } from '../base-type'
 import { ITypeKind } from '../base-type/type-kind.enum'
 
 export interface IEnumTypeValue {

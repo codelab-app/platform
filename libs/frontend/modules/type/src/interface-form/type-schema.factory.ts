@@ -103,7 +103,7 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       type: 'object',
-      properties: type.fields.reduce(makeFieldProperties, {}),
+      properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
     }
   }
 

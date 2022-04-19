@@ -29,7 +29,7 @@ export class Field
 
   @modelAction
   updateCache(fragment: IFieldDTO, interfaceId: string) {
-    const target = fragment.node.id
+    const target = fragment.fieldType.id
 
     this.id = Field.fieldId(interfaceId, fragment.key)
     this.name = fragment.name
@@ -40,11 +40,11 @@ export class Field
 
   @modelAction
   static hydrate(data: IFieldDTO) {
-    const { id, key, name, description, node } = data
+    const { id, key, name, description, fieldType } = data
 
     return new Field({
       id,
-      type: typeRef(node.id),
+      type: typeRef(fieldType.id),
       name,
       description,
       key,

@@ -8,19 +8,19 @@ export type FieldFragment = {
   key: string
   name?: string | null
   description?: string | null
-  node:
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
+  fieldType:
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
 }
 
 export const FieldFragmentDoc = gql`
@@ -29,10 +29,9 @@ export const FieldFragmentDoc = gql`
     key
     name
     description
-    node {
+    fieldType: node {
       ... on TypeBase {
         id
-        name
       }
     }
   }

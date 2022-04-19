@@ -117,8 +117,6 @@ export const initializeStore = (pageProps: IPageProps) => {
   const snapshot = pageProps?.snapshot
   const user = pageProps?.user
 
-  console.log(pageProps)
-
   const store: IRootStore =
     _store ?? snapshot
       ? fromSnapshot<IRootStore>(snapshot)

@@ -46,6 +46,8 @@ const fromFragmentEnumType = ({
 }: IEnumTypeDTO): EnumType => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
+  console.log(allowedValues)
+
   return new EnumType({
     id,
     kind,

@@ -38,12 +38,8 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           onSubmitSuccess={closeModal}
           schema={createFieldSchema}
         >
-          <AutoFields omitFields={['existingTypeId', 'interfaceId']} />
-          <TypeSelect
-            label="Type"
-            name="existingTypeId"
-            typeService={typeService}
-          />
+          <AutoFields omitFields={['fieldType']} />
+          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

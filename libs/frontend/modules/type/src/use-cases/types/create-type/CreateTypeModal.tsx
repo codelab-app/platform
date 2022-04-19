@@ -28,12 +28,23 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
         model={{
           id: v4(),
         }}
-        onSubmit={async (data) => {
+        onSubmit={(data) => {
+          console.log(data)
+
           if (!user?.sub) {
             throw new Error('Missing error')
           }
 
-          return typeService.create(data, user?.sub)
+          // Here we want to append ids to enum
+          const processedData = {
+            ...data,
+            allowedValues: data.allowedValues?.map((val) => ({
+              ...val,
+              id: v4(),
+            })),
+          }
+
+          return typeService.create(processedData, user?.sub)
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',
@@ -44,30 +55,36 @@ export const CreateTypeModal = observer<WithTypeService>(({ typeService }) => {
       >
         <AutoFields fields={['name']} />
         <SelectField name="kind" showSearch />
+
         <DisplayIfKind kind={ITypeKind.PrimitiveType}>
           <SelectField name="primitiveKind" showSearch />
         </DisplayIfKind>
+
         <DisplayIfKind kind={ITypeKind.UnionType}>
           <AutoField
             createTypeOptions={typeSelectOptions}
-            name="typeIdsOfUnionType"
+            name="unionTypeIds"
             typeService={typeService}
           />
         </DisplayIfKind>
         {/* <ListField name="unionTypes" />; */}
+
         <DisplayIfKind kind={ITypeKind.EnumType}>
           <AutoField name="allowedValues" />
         </DisplayIfKind>
+
         <DisplayIfKind kind={ITypeKind.ArrayType}>
           <TypeSelect
             label="Array item type"
-            name="arrayItemTypeId"
+            name="arrayTypeId"
             typeService={typeService}
           />
         </DisplayIfKind>
+
         <DisplayIfKind kind={ITypeKind.ElementType}>
           <SelectField label="Element kind" name="elementKind" showSearch />
         </DisplayIfKind>
+
         <DisplayIfKind kind={ITypeKind.MonacoType}>
           <AutoField label="Language" name="language" />
         </DisplayIfKind>

@@ -3,10 +3,9 @@ fragment Field on InterfaceTypeFieldsRelationship {
   key
   name
   description
-  node {
+  fieldType: node {
     ... on TypeBase {
       id
-      name
     }
   }
 }
