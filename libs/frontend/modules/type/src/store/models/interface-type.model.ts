@@ -56,7 +56,6 @@ export class InterfaceType
 
   @modelAction
   updateFieldCache(fragment: IFieldDTO): Field {
-    const { id, key, name, description } = fragment
     const field = Field.hydrate(fragment)
 
     this.fields.set(field.id, field)

@@ -89,7 +89,7 @@ interfaceWithUnionField.updateFieldCache({
   name: 'union field',
   key: 'unionField',
   fieldType: {
-    id: stringType.id,
+    id: unionType.id,
   },
 })
 

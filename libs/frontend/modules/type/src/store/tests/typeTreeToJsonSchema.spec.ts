@@ -24,10 +24,10 @@ new TypeService({
   ]),
 })
 
-describe('Type tree to json schema', function () {
+describe('Type tree to json schema', () => {
   const transformer = new TypeSchemaFactory()
 
-  it('should transform union type', function () {
+  it('should transform union type', () => {
     const jsonSchema = transformer.transform(unionType)
 
     expect(jsonSchema).toEqual(unionTypeExpectedSchema)
