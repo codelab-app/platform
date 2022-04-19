@@ -5,12 +5,6 @@ import { map } from 'rxjs/operators'
 import deleteElementsSubGraphCypher from './deleteElementsSubGraph.cypher'
 import getElementGraphCypher from './getElementGraph.cypher'
 
-export type DeleteElementsResponse = {
-  deletedIds?: Array<string>
-  nodesDeleted: number
-  relationshipsDeleted: number
-}
-
 export const elementRepository = {
   deleteElementsSubgraph: (
     txn: RxTransaction,
