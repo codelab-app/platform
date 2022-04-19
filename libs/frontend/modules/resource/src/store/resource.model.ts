@@ -1,8 +1,9 @@
-import { ResourceType } from '@codelab/shared/abstract/codegen'
 import {
   IGraphQLOperationConfig,
   IResource,
   IResourceDTO,
+  IRestOperationConfig,
+  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 import {
@@ -15,10 +16,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  GraphQlOperation,
-  GraphQLResource,
-} from '../integrations/graphql-resource'
+import { createGraphQLOperation, createRestOperation } from '../integrations'
 import { Operation, operationRef } from './operation.model'
 
 @model('codelab/Resource')
@@ -43,12 +41,27 @@ export class Resource extends Model(() => ({
   toMobxObservable() {
     return this.operations
       .map((o) => {
-        const resource = new GraphQLResource(this.config)
-        const operationConfig = o.current.config as IGraphQLOperationConfig
-        const operation = new GraphQlOperation(resource, operationConfig)
-        const operationName = o.current.name
+        const { name, config } = o.current
+        let operationInstance = null
 
-        return { [operationName]: operation }
+        switch (this.type) {
+          case ResourceType.GraphQL:
+            operationInstance = createGraphQLOperation(
+              this.config,
+              config as IGraphQLOperationConfig,
+            )
+            break
+          case ResourceType.Rest:
+            operationInstance = createRestOperation(
+              this.config,
+              config as IRestOperationConfig,
+            )
+            break
+          default:
+            throw new Error('Resource is not integrated yet')
+        }
+
+        return { [name]: operationInstance }
       })
       .reduce(merge, {})
   }
