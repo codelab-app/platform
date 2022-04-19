@@ -3,7 +3,7 @@ import { mergeMap } from 'rxjs/operators'
 import { Store } from '../../model'
 import { DeleteInfo, MutationDeleteStoresArgs } from '../../ogm-types.gen'
 import { storeRepository } from '../../repositories'
-import { IRxTxnResolver } from '../abstract'
+import { IRxTxnResolver } from '../common'
 
 export const deleteStoresSubgraph: IRxTxnResolver<
   MutationDeleteStoresArgs,

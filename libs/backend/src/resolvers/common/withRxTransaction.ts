@@ -44,16 +44,6 @@ export const withRxTransaction = <
         throw error
       })
       .finally(() => session.close())
-
-    // return session
-    //   .writeTransaction(rxTxnResolver(parent, args, context, info))
-    //   .pipe(
-    //     catchError((error) => {
-    //       console.error(`${name ? name + ':' : ''}`, error)
-    //       throw error
-    //     }),
-    //   )
-    //   .subscribe(() => session.close())
   }
 
   return resolver
