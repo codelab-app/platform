@@ -76,7 +76,7 @@ export const MainPane = observer<MainPaneProps>(
       [],
     )
 
-    const root = elementService.elementTree?.root?.maybeCurrent
+    const root = elementService.elementTree?.root?.current
 
     console.log(root)
 

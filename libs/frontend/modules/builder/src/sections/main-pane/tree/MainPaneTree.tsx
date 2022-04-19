@@ -17,7 +17,7 @@ export const MainPaneTree = observer<MainPaneTreeProps>(
       useExpandedNodes(builderService)
 
     const { isMoving, handleDrop } = useElementTreeDrop(elementService)
-    const antdTree = elementService.elementTree.root?.maybeCurrent?.antdNode
+    const antdTree = elementService.elementTree.root?.current?.antdNode
 
     console.log(elementService.elementTree.root)
 

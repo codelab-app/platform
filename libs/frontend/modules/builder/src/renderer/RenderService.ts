@@ -146,7 +146,7 @@ export class RenderService extends Model(
   }
 
   renderRoot() {
-    const root = this.tree?.root?.maybeCurrent
+    const root = this.tree?.root?.current
 
     if (!root) {
       console.warn('Renderer: No root element found')

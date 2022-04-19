@@ -23,7 +23,7 @@ export const BuilderDashboardTemplate = observer(
         Header={Header}
         MainPane={MainPane}
         MetaPane={
-          builderService.selectedElement?.maybeCurrent ? MetaPane : undefined
+          builderService.selectedElement?.current ? MetaPane : undefined
         }
         SidebarNavigation={SidebarNavigation}
         contentStyles={{ paddingTop: '3rem' }}
