@@ -1,0 +1,62 @@
+{
+  "app": {
+    "id": "cfba7669-6582-467e-8952-595cdafb241f",
+    "name": "Codelab",
+    "rootProviderElement": {
+      "id": "24ee5f15-8989-4af9-b526-d5c7d9b9f92f"
+    }
+  },
+  "pages": [
+    {
+      "page": {
+        "id": "f24aad1b-c276-4aa2-9bbd-3d5e76d0009b",
+        "name": "Home",
+        "rootElement": {
+          "id": "6dc57b70-b70d-41c1-9522-07ff444b73c7",
+          "name": "Root element"
+        }
+      },
+      "elements": [
+        {
+          "id": "6dc57b70-b70d-41c1-9522-07ff444b73c7",
+          "name": "Root element",
+          "css": null,
+          "component": null,
+          "instanceOfComponent": null,
+          "parentElement": null,
+          "atom": null,
+          "props": null,
+          "hooks": [],
+          "renderForEachPropKey": null,
+          "renderIfPropKey": null,
+          "propMapBindings": [],
+          "propTransformationJs": null,
+          "parentElementConnection": {
+            "edges": []
+          }
+        }
+      ],
+      "components": []
+    }
+  ],
+  "providerElements": [
+    {
+      "id": "24ee5f15-8989-4af9-b526-d5c7d9b9f92f",
+      "name": "Provider Root Element",
+      "css": null,
+      "component": null,
+      "instanceOfComponent": null,
+      "parentElement": null,
+      "atom": null,
+      "props": null,
+      "hooks": [],
+      "renderForEachPropKey": null,
+      "renderIfPropKey": null,
+      "propMapBindings": [],
+      "propTransformationJs": null,
+      "parentElementConnection": {
+        "edges": []
+      }
+    }
+  ]
+}

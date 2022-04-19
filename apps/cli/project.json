@@ -10,7 +10,8 @@
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
-        "assets": ["apps/cli/src/assets"]
+        "assets": ["apps/cli/src/assets"],
+        "webpackConfig": ["apps/cli/webpack.config.js"]
       },
       "configurations": {
         "production": {
@@ -40,5 +41,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:cli"]
 }

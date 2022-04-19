@@ -1,4 +1,4 @@
-import { Callback } from '@codelab/frontend/abstract/types'
+import type { Callback } from '@codelab/frontend/abstract/types'
 import { isFunction, isObjectLike } from 'lodash'
 import { ArrayOrSingle } from 'ts-essentials'
 

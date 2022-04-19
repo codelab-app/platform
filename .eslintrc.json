@@ -296,6 +296,16 @@
               //   ]
               // },
               {
+                "sourceTag": "scope:cli",
+                "onlyDependOnLibsWithTags": [
+                  "scope:frontend",
+                  "scope:codegen",
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract"
+                ]
+              },
+              {
                 "sourceTag": "scope:e2e",
                 "onlyDependOnLibsWithTags": [
                   "scope:frontend",
