@@ -1,21 +1,11 @@
-describe('Pages CRUD', () => {
-  let appId: string
-  const pageName = 'new useful page'
-  const updatedPageName = 'updated page'
+import { pageName, updatedAppName, updatedPageName } from './app.data'
 
-  before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.createApp().then((apps) => {
-          appId = apps[0].id
-        })
-      })
-    })
-  })
-
+describe('Page CRUD', () => {
   describe('create', () => {
     before(() => {
-      cy.visit(`/apps/${appId}/pages`)
+      cy.getCard({ title: updatedAppName }).find('a').click()
+
+      cy.url({ timeout: 5000 }).should('include', 'pages')
     })
 
     it('should be able to create page', () => {
@@ -53,6 +43,9 @@ describe('Pages CRUD', () => {
       cy.findByText(updatedPageName).should('exist')
     })
   })
+
+  // Run builder spec here
+  require('./builder.spec.ignore')
 
   describe('delete', () => {
     it('should be able to delete page', () => {

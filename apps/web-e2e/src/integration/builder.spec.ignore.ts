@@ -3,6 +3,7 @@ import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
+import { updatedAppName, updatedPageName } from './app.data'
 
 const atoms = [
   { name: AtomType.AntDesignGridCol, type: AtomType.AntDesignGridCol },
@@ -55,36 +56,39 @@ const updatedElementName = 'Container updated'
 
 describe('Elements CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.createPageFromScratch().then((data: any) => {
-          cy.getCurrentUserId().then((userId) => {
-            const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
+    cy.getCurrentUserId().then((userId) => {
+      const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
+        id: v4(),
+        name: atom.name,
+        type: atom.type,
+        api: {
+          create: {
+            node: {
               id: v4(),
-              name: atom.name,
-              type: atom.type,
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${atom.name} API`,
-                    owner: userId
-                      ? { connect: { where: { node: { auth0Id: userId } } } }
-                      : undefined,
-                  },
-                },
-              },
-            }))
+              name: `${atom.name} API`,
+              owner: userId
+                ? { connect: { where: { node: { auth0Id: userId } } } }
+                : undefined,
+            },
+          },
+        },
+      }))
 
-            cy.createAtom(atomsInput).then(() => {
-              cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
+      cy.createAtom(atomsInput).then(() => {
+        // cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
 
-              // select root now so we can update its child later
-              // there is an issue with tree interaction
-              cy.findByText(ROOT_ELEMENT_NAME, { timeout: 10000 }).click()
-            })
-          })
-        })
+        cy.visit('/apps')
+
+        cy.getCard({ title: updatedAppName }).find('a').click()
+
+        cy.url({ timeout: 5000 }).should('include', 'pages')
+
+        cy.contains('a', updatedPageName).click()
+
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 5000 }).click()
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 5000 }).should('exist')
       })
     })
   })

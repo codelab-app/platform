@@ -1,6 +1,6 @@
 {
   "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
-  "plugins": ["react"],
+  "plugins": [],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {

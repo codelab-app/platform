@@ -160,15 +160,11 @@ describe('Types CRUD', () => {
         .getIcon('right-circle')
         .click()
 
-      cy.location('pathname', { timeout: 5000 }).should(
-        'include',
-        'types/interfaces',
-      )
+      cy.url({ timeout: 5000 }).should('include', 'types/interfaces')
 
       cy.getButton({
         icon: 'plus',
       }).click()
-      // cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getModal().setFormFieldValue({
         label: 'Key',
