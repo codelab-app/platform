@@ -1,8 +1,8 @@
-export const componentSelectionSet = `{ 
+export const componentSelectionSet = `{
+  id
+  name
+  rootElement {
     id
     name
-    rootElement {
-        id
-        name
-    }
+  }
 }`
