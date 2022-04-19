@@ -3,14 +3,8 @@ export type { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 export type { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 export type { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
 export type { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
-export type {
-  FieldFragment,
-  InterfaceTypeEdgeFragment,
-} from './field.fragment.graphql.gen'
-export type {
-  InterfaceTypeFieldEdgeFragment,
-  InterfaceTypeFragment,
-} from './interface.fragment.graphql.gen'
+export type { FieldFragment } from './field.fragment.graphql.gen'
+export type { InterfaceTypeFragment } from './interface.fragment.graphql.gen'
 export type { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
 export type { MonacoTypeFragment } from './monaco-type.fragment.graphql.gen'
 export type { PageTypeFragment } from './page-type.fragment.graphql.gen'

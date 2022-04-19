@@ -6,7 +6,7 @@ import { gql } from 'graphql-tag'
 export type AppFragment = {
   id: string
   name: string
-  owner: Array<{ id: string }>
+  owner: { id: string }
   pages: Array<{ id: string }>
   rootProviderElement: { id: string }
   store?: { id: string } | null

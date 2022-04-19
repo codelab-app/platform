@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { InterfaceType, WithTypeService } from '../../../store'
 import { createFieldSchema } from './createFieldSchema'
@@ -26,7 +27,9 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         visible={typeService.fieldCreateModal.isOpen}
       >
         <ModalForm.Form<ICreateFieldDTO>
-          model={{}}
+          model={{
+            id: v4(),
+          }}
           onSubmit={(input) => typeService.addField(interfaceType, input)}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',

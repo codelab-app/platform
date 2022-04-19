@@ -1,10 +1,8 @@
 import {
   assertIsTypeKind,
-  ICreateFieldDTO,
+  IFieldDTO,
   IInterfaceType,
   IInterfaceTypeDTO,
-  IInterfaceTypeEdgeDTO,
-  IInterfaceTypeFieldEdgeDTO,
   ITypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -19,7 +17,6 @@ import {
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
-import { typeRef } from './union-type.model'
 
 const hydrate = ({
   id,
@@ -34,7 +31,7 @@ const hydrate = ({
     id,
     kind,
     name,
-    ownerId: owner?.id,
+    ownerId: owner.id,
   })
 
   for (const edge of fieldsConnection.edges) {
@@ -64,29 +61,17 @@ export class InterfaceType
   }
 
   @modelAction
-  addFieldLocal({
-    name,
-    description,
-    key,
-    ...fragment
-  }:
-    | ICreateFieldDTO
-    | IInterfaceTypeEdgeDTO
-    | IInterfaceTypeFieldEdgeDTO): Field {
+  addFieldLocal(fragment: IFieldDTO): Field {
+    const { id, key, name, description } = fragment
+
     this.validateUniqueFieldKey(key)
 
-    const target =
-      (fragment as IInterfaceTypeEdgeDTO).target ||
-      (fragment as IInterfaceTypeFieldEdgeDTO).node?.id ||
-      (fragment as ICreateFieldDTO).existingTypeId
+    // const target =
+    //   (fragment as IInterfaceTypeEdgeDTO).target ||
+    //   (fragment as IInterfaceTypeFieldEdgeDTO).node?.id ||
+    //   (fragment as ICreateFieldDTO).existingTypeId
 
-    const field = new Field({
-      id: Field.fieldId(this.id, key),
-      type: typeRef(target),
-      name,
-      description,
-      key,
-    })
+    const field = Field.hydrate(fragment)
 
     this._fields.set(field.id, field)
 
@@ -110,7 +95,7 @@ export class InterfaceType
       let field = this.fieldByKey(edge.key)
 
       if (field) {
-        field.hydrate(edge, this.id)
+        field.updateCache(edge, this.id)
       } else {
         field = this.addFieldLocal(edge)
         this._fields.set(field.id, field)

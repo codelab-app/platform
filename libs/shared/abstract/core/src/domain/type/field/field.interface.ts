@@ -9,3 +9,5 @@ export interface IField {
   key: string
   type: Ref<IAnyType>
 }
+
+export type IFieldRef = string

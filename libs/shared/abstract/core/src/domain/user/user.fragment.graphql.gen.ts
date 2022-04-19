@@ -6,7 +6,7 @@ import { gql } from 'graphql-tag'
 export type __UserFragment = {
   id: string
   auth0Id: string
-  roles: Array<Types.Role>
+  roles?: Array<Types.Role> | null
 }
 
 export const __UserFragmentDoc = gql`

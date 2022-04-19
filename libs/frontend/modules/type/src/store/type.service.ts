@@ -251,69 +251,64 @@ export class TypeService extends Model({
   @transaction
   addField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    type: InterfaceType,
     data: ICreateFieldDTO,
   ) {
-    const { existingTypeId, name, description, key } = data
+    // const { interfaceType, name, description, key } = data
 
-    const createInput = {
-      interfaceTypeId: interfaceType.id,
-      key,
-      name,
-      description,
-      targetTypeId: existingTypeId,
+    const input = {
+      interfaceId: type.id,
+      fieldTypeId: data.interfaceType,
+      field: data,
+      // id: data.id,
+      // interfaceTypeId: interfaceType,
+      // key,
+      // name,
+      // description,
+      // targetTypeId: interfaceType,
     }
 
-    const res = yield* _await(fieldApi.CreateField({ input: createInput }))
-    const field = interfaceType.addFieldLocal(res.upsertFieldEdge)
+    const res = yield* _await(fieldApi.CreateField(input))
+    console.log(res)
 
-    field.hydrate(res.upsertFieldEdge, interfaceType.id)
-
-    return field
+    // const field = type.addFieldLocal(res.updateInterfaceTypes.interfaceTypes)
+    //
+    // field.updateCache(res.upsertFieldEdge, interfaceType.id)
+    //
+    // return field
   })
 
   @modelFlow
   @transaction
   updateField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    type: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: IUpdateFieldDTO,
+    data: IUpdateFieldDTO,
   ) {
-    const field = interfaceType.fieldByKey(targetKey)
+    const { key, name, description } = data
+    const field = type.fieldByKey(data.key)
 
     if (!field) {
       throw new Error(`Field with key ${targetKey} not found`)
     }
 
     if (field.key !== key) {
-      interfaceType.validateUniqueFieldKey(key)
+      type.validateUniqueFieldKey(key)
     }
-
-    // Reusing hydrate with a made up fragment from the optimistic data
-    field.hydrate(
-      {
-        key,
-        name,
-        description,
-        target: existingTypeId,
-        source: interfaceType.id,
-      },
-      interfaceType.id,
-    )
 
     const input = {
-      key,
-      name,
-      description,
-      interfaceTypeId: interfaceType.id,
-      targetTypeId: existingTypeId,
-      targetKey,
+      interfaceId: type.id,
+      fieldTypeId: data.interfaceType,
+      field: data,
     }
 
-    const res = yield* _await(fieldApi.UpdateField({ input }))
+    const res = yield* _await(fieldApi.UpdateField(input))
 
-    field.hydrate(res.upsertFieldEdge, interfaceType.id)
+    const updatedField =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+
+    field.updateCache(updatedField, type.id)
 
     return field
   })
@@ -333,10 +328,10 @@ export class TypeService extends Model({
 
     interfaceType.deleteFieldLocal(field)
 
-    const input = { key: fieldKey, interfaceId: interfaceType.id }
-    const res = yield* _await(fieldApi.DeleteField({ input }))
+    const input = { where: { key: fieldKey }, interfaceId: interfaceType.id }
+    const res = yield* _await(fieldApi.DeleteField(input))
 
-    if (res.deleteFieldEdge.deletedEdgesCount === 0) {
+    if (res.updateInterfaceTypes.interfaceTypes) {
       throw new Error(`Failed to delete field with key ${fieldKey}`)
     }
 

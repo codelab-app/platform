@@ -1,11 +1,7 @@
 import { AppWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  ICRUDModalService,
-  ICRUDService,
-  IQueryService,
-} from '../../service/service.interface'
+import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import { ICreateAppDTO, IUpdateAppDTO } from './app.dto.interface'
 import { IApp } from './app.interface'
 

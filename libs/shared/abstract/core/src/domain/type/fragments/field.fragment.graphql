@@ -1,11 +1,12 @@
-fragment Field on Field {
+fragment Field on InterfaceTypeFieldsRelationship {
+  id
   key
   name
   description
-}
-
-fragment InterfaceTypeEdge on InterfaceTypeEdge {
-  ...Field
-  source
-  target
+  node {
+    ... on TypeBase {
+      id
+      name
+    }
+  }
 }

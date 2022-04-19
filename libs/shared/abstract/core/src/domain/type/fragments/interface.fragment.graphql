@@ -2,20 +2,7 @@ fragment InterfaceType on InterfaceType {
   ...TypeBase
   fieldsConnection {
     edges {
-      ...InterfaceTypeFieldEdge
-    }
-  }
-}
-
-fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
-  # ...Field doesn't work here
-  key
-  description
-  name
-  node {
-    ... on TypeBase {
-      id
-      name
+      ...Field
     }
   }
 }
