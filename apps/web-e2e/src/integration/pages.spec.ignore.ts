@@ -48,6 +48,10 @@ describe('Page CRUD', () => {
   require('./builder.spec.ignore')
 
   describe('delete', () => {
+    before(() => {
+      cy.go('back')
+    })
+
     it('should be able to delete page', () => {
       cy.getListItem(updatedPageName)
         .getButton({
