@@ -26,7 +26,7 @@ export class Tag
   }
 }
 
-export const tagRef = rootRef<Tag>('TagRef', {
+export const tagRef = rootRef<Tag>('@codelab/TagRef', {
   onResolvedValueChange(ref, newTag, oldTag) {
     if (oldTag && !newTag) {
       detach(ref)

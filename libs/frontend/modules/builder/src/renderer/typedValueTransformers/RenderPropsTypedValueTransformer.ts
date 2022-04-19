@@ -1,6 +1,6 @@
 import { getComponentService } from '@codelab/frontend/modules/component'
 import { Element } from '@codelab/frontend/modules/element'
-import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
@@ -26,8 +26,8 @@ export class RenderPropsTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer
 {
-  canHandleTypeKind(typeKind: TypeKind): boolean {
-    return typeKind === TypeKind.RenderPropsType
+  canHandleTypeKind(typeKind: ITypeKind): boolean {
+    return typeKind === ITypeKind.RenderPropsType
   }
 
   canHandleValue(value: TypedValue<any>): boolean {

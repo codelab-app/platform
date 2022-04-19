@@ -1,9 +1,8 @@
 import { Ref } from 'mobx-keystone'
-import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { IBaseType, ITypeKind } from '../base-type'
 import { IAnyType } from '../type.interface'
 
 export interface IUnionType extends IBaseType {
-  typeKind: typeof TypeKind.UnionType
+  kind: ITypeKind.UnionType
   typesOfUnionType: Array<Ref<IAnyType>>
 }

@@ -49,7 +49,7 @@ export class Atom
   static hydrate = hydrate
 }
 
-export const atomRef = rootRef<Atom>('AtomRef', {
+export const atomRef = rootRef<Atom>('@codelab/AtomRef', {
   onResolvedValueChange(ref, newAtom, oldAtom) {
     if (oldAtom && !newAtom) {
       detach(ref)

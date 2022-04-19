@@ -1,34 +1,31 @@
 import {
   ElementTypeKind,
   MonacoLanguage,
-  PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
-import { TypeKind } from './types/base-type/type-kind.enum'
-import { IEnumTypeValue } from './types/enum-type/enum-type.interface'
+import { IEnumTypeValue, ITypeKind, PrimitiveTypeKind } from './types'
 
 export interface IBaseTypeDTO {
+  id: string
   name: string
+  kind: ITypeKind
   primitiveKind?: PrimitiveTypeKind
   elementKind?: ElementTypeKind
   language?: MonacoLanguage
   allowedValues?: Array<IEnumTypeValue>
-  typeIdsOfUnionType?: Array<string>
 }
 
 /**
  * Create
  */
 export interface ICreateTypeDTO extends IBaseTypeDTO {
-  kind: TypeKind
-  typeIdsOfUnionType?: Array<string>
-  arrayItemTypeId?: string
-  typesOfUnionType?: string
+  unionTypeIds?: Array<string>
+  arrayTypeId?: string
 }
 
 /**
  * Update
  */
-export type IUpdateTypeDTO = IBaseTypeDTO
+export type IUpdateTypeDTO = ICreateTypeDTO
 
 export type ITypeDTO = TypeFragment

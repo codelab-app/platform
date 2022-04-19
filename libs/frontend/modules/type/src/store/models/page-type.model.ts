@@ -1,34 +1,37 @@
 import {
+  assertIsTypeKind,
   IPageType,
   IPageTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({ id, typeKind, name, owner }: IPageTypeDTO): PageType =>
-  new PageType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
+const hydrate = ({ id, kind, name, owner }: IPageTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.PageType)
+
+  return new PageType({ id, kind, name, ownerId: owner?.id })
+}
 
 @model('@codelab/PageType')
 export class PageType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.PageType),
+    baseModel: createTypeBase(ITypeKind.PageType),
     props: {},
   }))
   implements IPageType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   public static hydrate = hydrate
 }

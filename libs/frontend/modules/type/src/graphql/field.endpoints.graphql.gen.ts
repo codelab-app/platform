@@ -1,52 +1,109 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { InterfaceTypeEdgeFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { InterfaceTypeEdgeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldMutationVariables = Types.Exact<{
-  input: Types.UpsertFieldInput
+  interfaceId: Types.Scalars['ID']
+  fieldTypeId: Types.Scalars['ID']
+  field: Types.FieldCreateInput
 }>
 
-export type CreateFieldMutation = { upsertFieldEdge: InterfaceTypeEdgeFragment }
+export type CreateFieldMutation = {
+  updateInterfaceTypes: {
+    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
+  }
+}
 
 export type UpdateFieldMutationVariables = Types.Exact<{
-  input: Types.UpsertFieldInput
+  interfaceId: Types.Scalars['ID']
+  fieldTypeId: Types.Scalars['ID']
+  field: Types.FieldUpdateInput
 }>
 
-export type UpdateFieldMutation = { upsertFieldEdge: InterfaceTypeEdgeFragment }
+export type UpdateFieldMutation = {
+  updateInterfaceTypes: {
+    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
+  }
+}
 
 export type DeleteFieldMutationVariables = Types.Exact<{
-  input: Types.DeleteFieldInput
+  interfaceId: Types.Scalars['ID']
+  where: Types.FieldWhere
 }>
 
 export type DeleteFieldMutation = {
-  deleteFieldEdge: { deletedEdgesCount: number }
+  updateInterfaceTypes: {
+    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
+  }
 }
 
 export const CreateFieldDocument = gql`
-  mutation CreateField($input: UpsertFieldInput!) {
-    upsertFieldEdge(input: $input, isCreating: true) {
-      ...InterfaceTypeEdge
+  mutation CreateField(
+    $interfaceId: ID!
+    $fieldTypeId: ID!
+    $field: FieldCreateInput!
+  ) {
+    updateInterfaceTypes(
+      where: { id: $interfaceId }
+      connect: {
+        fields: [{ edge: $field, where: { node: { id: $fieldTypeId } } }]
+      }
+    ) {
+      interfaceTypes {
+        fieldsConnection {
+          edges {
+            ...Field
+          }
+        }
+      }
     }
   }
-  ${InterfaceTypeEdgeFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const UpdateFieldDocument = gql`
-  mutation UpdateField($input: UpsertFieldInput!) {
-    upsertFieldEdge(input: $input, isCreating: false) {
-      ...InterfaceTypeEdge
+  mutation UpdateField(
+    $interfaceId: ID!
+    $fieldTypeId: ID!
+    $field: FieldUpdateInput!
+  ) {
+    updateInterfaceTypes(
+      where: { id: $interfaceId }
+      update: {
+        fields: [
+          { where: { node: { id: $fieldTypeId } }, update: { edge: $field } }
+        ]
+      }
+    ) {
+      interfaceTypes {
+        fieldsConnection {
+          edges {
+            ...Field
+          }
+        }
+      }
     }
   }
-  ${InterfaceTypeEdgeFragmentDoc}
+  ${FieldFragmentDoc}
 `
 export const DeleteFieldDocument = gql`
-  mutation DeleteField($input: DeleteFieldInput!) {
-    deleteFieldEdge(input: $input) {
-      deletedEdgesCount
+  mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
+    updateInterfaceTypes(
+      where: { id: $interfaceId }
+      disconnect: { fields: [{ where: { edge: $where } }] }
+    ) {
+      interfaceTypes {
+        fieldsConnection {
+          edges {
+            ...Field
+          }
+        }
+      }
     }
   }
+  ${FieldFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

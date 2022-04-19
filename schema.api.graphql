@@ -57,6 +57,11 @@ input ActionDisconnectInput {
   store: ActionStoreDisconnectFieldInput
 }
 
+type ActionEdge {
+  cursor: String!
+  node: Action!
+}
+
 input ActionOnCreateInput {
   body: String!
   name: String!
@@ -273,14 +278,16 @@ input ActionWhere {
   store_NOT: StoreWhere
 }
 
+type ActionsConnection {
+  edges: [ActionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type App {
   id: ID!
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -349,14 +356,14 @@ type AppAggregateSelection {
 }
 
 input AppConnectInput {
-  owner: [AppOwnerConnectFieldInput!]
+  owner: AppOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
   rootProviderElement: AppRootProviderElementConnectFieldInput
   store: AppStoreConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
-  owner: [AppOwnerConnectOrCreateFieldInput!]
+  owner: AppOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
   rootProviderElement: AppRootProviderElementConnectOrCreateFieldInput
   store: AppStoreConnectOrCreateFieldInput
@@ -379,17 +386,22 @@ input AppCreateInput {
 }
 
 input AppDeleteInput {
-  owner: [AppOwnerDeleteFieldInput!]
+  owner: AppOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
   rootProviderElement: AppRootProviderElementDeleteFieldInput
   store: AppStoreDeleteFieldInput
 }
 
 input AppDisconnectInput {
-  owner: [AppOwnerDisconnectFieldInput!]
+  owner: AppOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
   rootProviderElement: AppRootProviderElementDisconnectFieldInput
   store: AppStoreDisconnectFieldInput
+}
+
+type AppEdge {
+  cursor: String!
+  node: App!
 }
 
 type AppElementRootProviderElementAggregationSelection {
@@ -432,7 +444,7 @@ input AppOwnerAggregateInput {
 }
 
 input AppOwnerConnectFieldInput {
-  connect: [UserConnectInput!]
+  connect: UserConnectInput
   where: UserConnectWhere
 }
 
@@ -477,9 +489,9 @@ input AppOwnerDisconnectFieldInput {
 }
 
 input AppOwnerFieldInput {
-  connect: [AppOwnerConnectFieldInput!]
-  connectOrCreate: [AppOwnerConnectOrCreateFieldInput!]
-  create: [AppOwnerCreateFieldInput!]
+  connect: AppOwnerConnectFieldInput
+  connectOrCreate: AppOwnerConnectOrCreateFieldInput
+  create: AppOwnerCreateFieldInput
 }
 
 input AppOwnerNodeAggregationWhereInput {
@@ -538,11 +550,11 @@ input AppOwnerUpdateConnectionInput {
 }
 
 input AppOwnerUpdateFieldInput {
-  connect: [AppOwnerConnectFieldInput!]
-  connectOrCreate: [AppOwnerConnectOrCreateFieldInput!]
-  create: [AppOwnerCreateFieldInput!]
-  delete: [AppOwnerDeleteFieldInput!]
-  disconnect: [AppOwnerDisconnectFieldInput!]
+  connect: AppOwnerConnectFieldInput
+  connectOrCreate: AppOwnerConnectOrCreateFieldInput
+  create: AppOwnerCreateFieldInput
+  delete: AppOwnerDeleteFieldInput
+  disconnect: AppOwnerDisconnectFieldInput
   update: AppOwnerUpdateConnectionInput
   where: AppOwnerConnectionWhere
 }
@@ -665,7 +677,7 @@ input AppPagesUpdateFieldInput {
 }
 
 input AppRelationInput {
-  owner: [AppOwnerCreateFieldInput!]
+  owner: AppOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
   rootProviderElement: AppRootProviderElementCreateFieldInput
   store: AppStoreCreateFieldInput
@@ -1009,6 +1021,7 @@ Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -1040,6 +1053,7 @@ input AppTypeConnectOrCreateInput {
 
 input AppTypeCreateInput {
   id: ID!
+  kind: TypeKind! = AppType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -1050,6 +1064,11 @@ input AppTypeDeleteInput {
 
 input AppTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type AppTypeEdge {
+  cursor: String!
+  node: AppType!
 }
 
 input AppTypeOptions {
@@ -1128,6 +1147,7 @@ Fields to sort AppTypes by. The order in which sorts are applied is not guarante
 """
 input AppTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -1161,6 +1181,10 @@ input AppTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -1178,13 +1202,19 @@ input AppTypeWhere {
   owner_NOT: UserWhere
 }
 
+type AppTypesConnection {
+  edges: [AppTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input AppUniqueWhere {
   id: ID
 }
 
 input AppUpdateInput {
   name: String
-  owner: [AppOwnerUpdateFieldInput!]
+  owner: AppOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
   rootProviderElement: AppRootProviderElementUpdateFieldInput
   store: AppStoreUpdateFieldInput
@@ -1224,31 +1254,11 @@ input AppWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: AppOwnerAggregateInput
-  ownerConnection_ALL: AppOwnerConnectionWhere
-  ownerConnection_NONE: AppOwnerConnectionWhere
-  ownerConnection_SINGLE: AppOwnerConnectionWhere
-  ownerConnection_SOME: AppOwnerConnectionWhere
-
-  """
-  Return Apps where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return Apps where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return Apps where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return Apps where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: AppOwnerConnectionWhere
+  ownerConnection_NOT: AppOwnerConnectionWhere
+  owner_NOT: UserWhere
   pagesAggregate: AppPagesAggregateInput
   pagesConnection_ALL: AppPagesConnectionWhere
   pagesConnection_NONE: AppPagesConnectionWhere
@@ -1286,6 +1296,12 @@ input AppWhere {
   store_NOT: StoreWhere
 }
 
+type AppsConnection {
+  edges: [AppEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 """
 ArrayType Allows defining a variable number of items of a given type.
 Contains a reference to another type which is the array item type.
@@ -1305,6 +1321,7 @@ type ArrayType implements TypeBase & WithDescendants {
     sort: [ArrayTypeItemTypeConnectionSort!]
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -1338,6 +1355,7 @@ input ArrayTypeConnectOrCreateInput {
 input ArrayTypeCreateInput {
   id: ID!
   itemType: ArrayTypeItemTypeFieldInput
+  kind: TypeKind! = ArrayType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -1350,6 +1368,11 @@ input ArrayTypeDeleteInput {
 input ArrayTypeDisconnectInput {
   itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type ArrayTypeEdge {
+  cursor: String!
+  node: ArrayType!
 }
 
 input ArrayTypeItemTypeConnectFieldInput {
@@ -1488,6 +1511,7 @@ Fields to sort ArrayTypes by. The order in which sorts are applied is not guaran
 """
 input ArrayTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -1524,6 +1548,10 @@ input ArrayTypeWhere {
   id_STARTS_WITH: ID
   itemTypeConnection: ArrayTypeItemTypeConnectionWhere
   itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -1539,6 +1567,12 @@ input ArrayTypeWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+type ArrayTypesConnection {
+  edges: [ArrayTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type Atom {
@@ -1722,6 +1756,11 @@ input AtomDeleteInput {
 input AtomDisconnectInput {
   api: AtomApiDisconnectFieldInput
   tags: [AtomTagsDisconnectFieldInput!]
+}
+
+type AtomEdge {
+  cursor: String!
+  node: Atom!
 }
 
 type AtomInterfaceTypeApiAggregationSelection {
@@ -2251,6 +2290,7 @@ enum AtomType {
 input AtomUniqueWhere {
   id: ID
   name: String
+  type: AtomType
 }
 
 input AtomUpdateInput {
@@ -2318,6 +2358,12 @@ input AtomWhere {
   type_IN: [AtomType!]
   type_NOT: AtomType
   type_NOT_IN: [AtomType!]
+}
+
+type AtomsConnection {
+  edges: [AtomEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type Component {
@@ -2391,6 +2437,11 @@ input ComponentDeleteInput {
 input ComponentDisconnectInput {
   owner: ComponentOwnerDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
+}
+
+type ComponentEdge {
+  cursor: String!
+  node: Component!
 }
 
 type ComponentElementRootElementAggregationSelection {
@@ -2804,6 +2855,12 @@ input ComponentWhere {
   rootElement_NOT: ElementWhere
 }
 
+type ComponentsConnection {
+  edges: [ComponentEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type CreateActionsMutationResponse {
   actions: [Action!]!
   info: CreateInfo!
@@ -2836,16 +2893,6 @@ type CreateComponentsMutationResponse {
 
 type CreateCreateInfosMutationResponse {
   createInfos: [CreateInfo!]!
-  info: CreateInfo!
-}
-
-type CreateDeleteFieldResponsesMutationResponse {
-  deleteFieldResponses: [DeleteFieldResponse!]!
-  info: CreateInfo!
-}
-
-type CreateEdgesMutationResponse {
-  edges: [Edge!]!
   info: CreateInfo!
 }
 
@@ -2891,6 +2938,11 @@ input CreateInfoCreateInput {
   bookmark: String
   nodesCreated: Int!
   relationshipsCreated: Int!
+}
+
+type CreateInfoEdge {
+  cursor: String!
+  node: CreateInfo!
 }
 
 input CreateInfoOptions {
@@ -2947,6 +2999,12 @@ input CreateInfoWhere {
   relationshipsCreated_LTE: Int
   relationshipsCreated_NOT: Int
   relationshipsCreated_NOT_IN: [Int!]
+}
+
+type CreateInfosConnection {
+  edges: [CreateInfoEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type CreateInterfaceTypesMutationResponse {
@@ -3035,129 +3093,10 @@ type DeleteElementsInfo {
   relationshipsDeleted: Int!
 }
 
-input DeleteFieldInput {
-  interfaceId: ID!
-  key: String!
-}
-
-type DeleteFieldResponse {
-  deletedEdgesCount: Int!
-}
-
-type DeleteFieldResponseAggregateSelection {
-  count: Int!
-  deletedEdgesCount: IntAggregateSelectionNonNullable!
-}
-
-input DeleteFieldResponseCreateInput {
-  deletedEdgesCount: Int!
-}
-
-input DeleteFieldResponseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more DeleteFieldResponseSort objects to sort DeleteFieldResponses by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [DeleteFieldResponseSort!]
-}
-
-"""
-Fields to sort DeleteFieldResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteFieldResponseSort object.
-"""
-input DeleteFieldResponseSort {
-  deletedEdgesCount: SortDirection
-}
-
-input DeleteFieldResponseUpdateInput {
-  deletedEdgesCount: Int
-}
-
-input DeleteFieldResponseWhere {
-  AND: [DeleteFieldResponseWhere!]
-  OR: [DeleteFieldResponseWhere!]
-  deletedEdgesCount: Int
-  deletedEdgesCount_GT: Int
-  deletedEdgesCount_GTE: Int
-  deletedEdgesCount_IN: [Int!]
-  deletedEdgesCount_LT: Int
-  deletedEdgesCount_LTE: Int
-  deletedEdgesCount_NOT: Int
-  deletedEdgesCount_NOT_IN: [Int!]
-}
-
 type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
   relationshipsDeleted: Int!
-}
-
-"""
-Simplest implementation of an IEdge with no additional fields
-"""
-type Edge implements IEdge {
-  source: String!
-  target: String!
-}
-
-type EdgeAggregateSelection {
-  count: Int!
-  source: StringAggregateSelectionNonNullable!
-  target: StringAggregateSelectionNonNullable!
-}
-
-input EdgeCreateInput {
-  source: String!
-  target: String!
-}
-
-input EdgeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more EdgeSort objects to sort Edges by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [EdgeSort!]
-}
-
-"""
-Fields to sort Edges by. The order in which sorts are applied is not guaranteed when specifying many fields in one EdgeSort object.
-"""
-input EdgeSort {
-  source: SortDirection
-  target: SortDirection
-}
-
-input EdgeUpdateInput {
-  source: String
-  target: String
-}
-
-input EdgeWhere {
-  AND: [EdgeWhere!]
-  OR: [EdgeWhere!]
-  source: String
-  source_CONTAINS: String
-  source_ENDS_WITH: String
-  source_IN: [String!]
-  source_NOT: String
-  source_NOT_CONTAINS: String
-  source_NOT_ENDS_WITH: String
-  source_NOT_IN: [String!]
-  source_NOT_STARTS_WITH: String
-  source_STARTS_WITH: String
-  target: String
-  target_CONTAINS: String
-  target_ENDS_WITH: String
-  target_IN: [String!]
-  target_NOT: String
-  target_NOT_CONTAINS: String
-  target_NOT_ENDS_WITH: String
-  target_NOT_IN: [String!]
-  target_NOT_STARTS_WITH: String
-  target_STARTS_WITH: String
 }
 
 type Element {
@@ -3835,6 +3774,11 @@ input ElementDisconnectInput {
   parentElement: ElementParentElementDisconnectFieldInput
   propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
   props: ElementPropsDisconnectFieldInput
+}
+
+type ElementEdge {
+  cursor: String!
+  node: Element!
 }
 
 type ElementElementChildrenAggregationSelection {
@@ -4622,6 +4566,7 @@ type ElementType implements TypeBase {
   """
   elementKind: ElementTypeKind!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -4654,6 +4599,7 @@ input ElementTypeConnectOrCreateInput {
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   id: ID!
+  kind: TypeKind! = ElementType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -4664,6 +4610,11 @@ input ElementTypeDeleteInput {
 
 input ElementTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type ElementTypeEdge {
+  cursor: String!
+  node: ElementType!
 }
 
 enum ElementTypeKind {
@@ -4765,6 +4716,7 @@ Fields to sort ElementTypes by. The order in which sorts are applied is not guar
 input ElementTypeSort {
   elementKind: SortDirection
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -4803,6 +4755,10 @@ input ElementTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -4818,6 +4774,12 @@ input ElementTypeWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+type ElementTypesConnection {
+  edges: [ElementTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 input ElementUniqueWhere {
@@ -5005,6 +4967,12 @@ input ElementWhere {
   renderIfPropKey_STARTS_WITH: String
 }
 
+type ElementsConnection {
+  edges: [ElementEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 """
 Allows choosing one of a set of allowed values.
 The value gets passed to the render pipe as a Enum Type Value id.
@@ -5028,6 +4996,7 @@ type EnumType implements TypeBase {
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -5185,6 +5154,7 @@ input EnumTypeConnectWhere {
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
   id: ID!
+  kind: TypeKind! = EnumType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -5197,6 +5167,11 @@ input EnumTypeDeleteInput {
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type EnumTypeEdge {
+  cursor: String!
+  node: EnumType!
 }
 
 type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
@@ -5292,6 +5267,7 @@ Fields to sort EnumTypes by. The order in which sorts are applied is not guarant
 """
 input EnumTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -5371,6 +5347,11 @@ input EnumTypeValueDeleteInput {
 
 input EnumTypeValueDisconnectInput {
   enumType: EnumTypeValueEnumTypeDisconnectFieldInput
+}
+
+type EnumTypeValueEdge {
+  cursor: String!
+  node: EnumTypeValue!
 }
 
 input EnumTypeValueEnumTypeAggregateInput {
@@ -5560,6 +5541,12 @@ input EnumTypeValueWhere {
   value_STARTS_WITH: String
 }
 
+type EnumTypeValuesConnection {
+  edges: [EnumTypeValueEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input EnumTypeWhere {
   AND: [EnumTypeWhere!]
   OR: [EnumTypeWhere!]
@@ -5598,6 +5585,10 @@ input EnumTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -5615,26 +5606,36 @@ input EnumTypeWhere {
   owner_NOT: UserWhere
 }
 
+type EnumTypesConnection {
+  edges: [EnumTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 interface Field {
   description: String
+  id: ID!
   key: String!
   name: String
 }
 
 input FieldCreateInput {
   description: String
+  id: ID!
   key: String!
   name: String
 }
 
 input FieldSort {
   description: SortDirection
+  id: SortDirection
   key: SortDirection
   name: SortDirection
 }
 
 input FieldUpdateInput {
   description: String
+  id: ID
   key: String
   name: String
 }
@@ -5652,6 +5653,16 @@ input FieldWhere {
   description_NOT_IN: [String]
   description_NOT_STARTS_WITH: String
   description_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
   key: String
   key_CONTAINS: String
   key_ENDS_WITH: String
@@ -5852,6 +5863,11 @@ input HookDeleteInput {
 input HookDisconnectInput {
   config: HookConfigDisconnectFieldInput
   element: HookElementDisconnectFieldInput
+}
+
+type HookEdge {
+  cursor: String!
+  node: Hook!
 }
 
 input HookElementAggregateInput {
@@ -6134,14 +6150,15 @@ input HookWhere {
   type_NOT_IN: [AtomType!]
 }
 
+type HooksConnection {
+  edges: [HookEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type IDAggregateSelectionNonNullable {
   longest: ID!
   shortest: ID!
-}
-
-interface IEdge {
-  source: String!
-  target: String!
 }
 
 type IntAggregateSelectionNonNullable {
@@ -6192,6 +6209,7 @@ type InterfaceType implements TypeBase & WithDescendants {
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -6353,6 +6371,7 @@ input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fields: InterfaceTypeFieldsFieldInput
   id: ID!
+  kind: TypeKind! = InterfaceType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -6369,15 +6388,9 @@ input InterfaceTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
-"""
-Concrete Field type implementation
-"""
-type InterfaceTypeEdge implements Field & IEdge {
-  description: String
-  key: String!
-  name: String
-  source: String!
-  target: String!
+type InterfaceTypeEdge {
+  cursor: String!
+  node: InterfaceType!
 }
 
 input InterfaceTypeFieldsConnectFieldInput {
@@ -6429,6 +6442,7 @@ input InterfaceTypeFieldsFieldInput {
 type InterfaceTypeFieldsRelationship implements Field {
   cursor: String!
   description: String
+  id: ID!
   key: String!
   name: String
   node: TypeBase!
@@ -6531,6 +6545,7 @@ Fields to sort InterfaceTypes by. The order in which sorts are applied is not gu
 """
 input InterfaceTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -6599,6 +6614,10 @@ input InterfaceTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -6616,11 +6635,18 @@ input InterfaceTypeWhere {
   owner_NOT: UserWhere
 }
 
+type InterfaceTypesConnection {
+  edges: [InterfaceTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 """
 Allows picking a lambda
 """
 type LambdaType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -6652,6 +6678,7 @@ input LambdaTypeConnectOrCreateInput {
 
 input LambdaTypeCreateInput {
   id: ID!
+  kind: TypeKind! = LambdaType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -6662,6 +6689,11 @@ input LambdaTypeDeleteInput {
 
 input LambdaTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type LambdaTypeEdge {
+  cursor: String!
+  node: LambdaType!
 }
 
 input LambdaTypeOptions {
@@ -6740,6 +6772,7 @@ Fields to sort LambdaTypes by. The order in which sorts are applied is not guara
 """
 input LambdaTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -6773,6 +6806,10 @@ input LambdaTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -6790,6 +6827,12 @@ input LambdaTypeWhere {
   owner_NOT: UserWhere
 }
 
+type LambdaTypesConnection {
+  edges: [LambdaTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 enum MonacoLanguage {
   css
   cssInJs
@@ -6804,6 +6847,7 @@ Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   language: MonacoLanguage!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -6836,6 +6880,7 @@ input MonacoTypeConnectOrCreateInput {
 
 input MonacoTypeCreateInput {
   id: ID!
+  kind: TypeKind! = MonacoType
   language: MonacoLanguage!
   name: String!
   owner: TypeBaseOwnerFieldInput
@@ -6847,6 +6892,11 @@ input MonacoTypeDeleteInput {
 
 input MonacoTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type MonacoTypeEdge {
+  cursor: String!
+  node: MonacoType!
 }
 
 input MonacoTypeOptions {
@@ -6925,6 +6975,7 @@ Fields to sort MonacoTypes by. The order in which sorts are applied is not guara
 """
 input MonacoTypeSort {
   id: SortDirection
+  kind: SortDirection
   language: SortDirection
   name: SortDirection
 }
@@ -6960,6 +7011,10 @@ input MonacoTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   language: MonacoLanguage
   language_IN: [MonacoLanguage!]
   language_NOT: MonacoLanguage
@@ -6981,6 +7036,12 @@ input MonacoTypeWhere {
   owner_NOT: UserWhere
 }
 
+type MonacoTypesConnection {
+  edges: [MonacoTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Mutation {
   createActions(input: [ActionCreateInput!]!): CreateActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
@@ -6995,10 +7056,6 @@ type Mutation {
   createCreateInfos(
     input: [CreateInfoCreateInput!]!
   ): CreateCreateInfosMutationResponse!
-  createDeleteFieldResponses(
-    input: [DeleteFieldResponseCreateInput!]!
-  ): CreateDeleteFieldResponsesMutationResponse!
-  createEdges(input: [EdgeCreateInput!]!): CreateEdgesMutationResponse!
   createElementTypes(
     input: [ElementTypeCreateInput!]!
   ): CreateElementTypesMutationResponse!
@@ -7063,17 +7120,15 @@ type Mutation {
     where: ComponentWhere
   ): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
-  deleteDeleteFieldResponses(where: DeleteFieldResponseWhere): DeleteInfo!
-  deleteEdges(where: EdgeWhere): DeleteInfo!
+  deleteElementSubgraph(
+    delete: ElementDeleteInput
+    where: ElementWhere
+  ): DeleteElementsInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
     where: ElementTypeWhere
   ): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
-  deleteElementsSubgraph(
-    delete: ElementDeleteInput
-    where: ElementWhere
-  ): DeleteElementsInfo!
   deleteEnumTypeValues(
     delete: EnumTypeValueDeleteInput
     where: EnumTypeValueWhere
@@ -7082,7 +7137,6 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
-  deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
@@ -7190,14 +7244,6 @@ type Mutation {
     update: CreateInfoUpdateInput
     where: CreateInfoWhere
   ): UpdateCreateInfosMutationResponse!
-  updateDeleteFieldResponses(
-    update: DeleteFieldResponseUpdateInput
-    where: DeleteFieldResponseWhere
-  ): UpdateDeleteFieldResponsesMutationResponse!
-  updateEdges(
-    update: EdgeUpdateInput
-    where: EdgeWhere
-  ): UpdateEdgesMutationResponse!
   updateElementTypes(
     connect: ElementTypeConnectInput
     connectOrCreate: ElementTypeConnectOrCreateInput
@@ -7367,10 +7413,6 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
-  upsertFieldEdge(
-    input: UpsertFieldInput!
-    isCreating: Boolean!
-  ): InterfaceTypeEdge!
 }
 
 type Page {
@@ -7561,6 +7603,11 @@ input PageDeleteInput {
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
+}
+
+type PageEdge {
+  cursor: String!
+  node: Page!
 }
 
 type PageElementRootElementAggregationSelection {
@@ -7806,6 +7853,7 @@ Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -7837,6 +7885,7 @@ input PageTypeConnectOrCreateInput {
 
 input PageTypeCreateInput {
   id: ID!
+  kind: TypeKind! = PageType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -7847,6 +7896,11 @@ input PageTypeDeleteInput {
 
 input PageTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type PageTypeEdge {
+  cursor: String!
+  node: PageType!
 }
 
 input PageTypeOptions {
@@ -7925,6 +7979,7 @@ Fields to sort PageTypes by. The order in which sorts are applied is not guarant
 """
 input PageTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -7958,6 +8013,10 @@ input PageTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -7973,6 +8032,12 @@ input PageTypeWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+type PageTypesConnection {
+  edges: [PageTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 input PageUniqueWhere {
@@ -8018,6 +8083,12 @@ input PageWhere {
   rootElementConnection: PageRootElementConnectionWhere
   rootElementConnection_NOT: PageRootElementConnectionWhere
   rootElement_NOT: ElementWhere
+}
+
+type PagesConnection {
+  edges: [PageEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 interface ParentOfElement {
@@ -8085,6 +8156,7 @@ Base atomic building block of the type system. Represents primitive types - Stri
 """
 type PrimitiveType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -8117,6 +8189,7 @@ input PrimitiveTypeConnectOrCreateInput {
 
 input PrimitiveTypeCreateInput {
   id: ID!
+  kind: TypeKind! = PrimitiveType
   name: String!
   owner: TypeBaseOwnerFieldInput
   primitiveKind: PrimitiveTypeKind!
@@ -8128,6 +8201,11 @@ input PrimitiveTypeDeleteInput {
 
 input PrimitiveTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type PrimitiveTypeEdge {
+  cursor: String!
+  node: PrimitiveType!
 }
 
 enum PrimitiveTypeKind {
@@ -8213,6 +8291,7 @@ Fields to sort PrimitiveTypes by. The order in which sorts are applied is not gu
 """
 input PrimitiveTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
   primitiveKind: SortDirection
 }
@@ -8248,6 +8327,10 @@ input PrimitiveTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -8267,6 +8350,12 @@ input PrimitiveTypeWhere {
   primitiveKind_IN: [PrimitiveTypeKind!]
   primitiveKind_NOT: PrimitiveTypeKind
   primitiveKind_NOT_IN: [PrimitiveTypeKind!]
+}
+
+type PrimitiveTypesConnection {
+  edges: [PrimitiveTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type Prop {
@@ -8290,6 +8379,11 @@ input PropConnectWhere {
 
 input PropCreateInput {
   data: String! = "{}"
+}
+
+type PropEdge {
+  cursor: String!
+  node: Prop!
 }
 
 type PropMapBinding {
@@ -8370,6 +8464,11 @@ input PropMapBindingDeleteInput {
 input PropMapBindingDisconnectInput {
   element: PropMapBindingElementDisconnectFieldInput
   targetElement: PropMapBindingTargetElementDisconnectFieldInput
+}
+
+type PropMapBindingEdge {
+  cursor: String!
+  node: PropMapBinding!
 }
 
 input PropMapBindingElementAggregateInput {
@@ -8859,6 +8958,12 @@ input PropMapBindingWhere {
   targetKey_STARTS_WITH: String
 }
 
+type PropMapBindingsConnection {
+  edges: [PropMapBindingEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input PropOnCreateInput {
   data: String! = "{}"
 }
@@ -8914,41 +9019,92 @@ input PropWhere {
   id_STARTS_WITH: ID
 }
 
+type PropsConnection {
+  edges: [PropEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Query {
   actions(options: ActionOptions, where: ActionWhere): [Action!]!
   actionsAggregate(where: ActionWhere): ActionAggregateSelection!
+  actionsConnection(
+    after: String
+    first: Int
+    sort: [ActionSort]
+    where: ActionWhere
+  ): ActionsConnection!
   appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
   appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
+  appTypesConnection(
+    after: String
+    first: Int
+    sort: [AppTypeSort]
+    where: AppTypeWhere
+  ): AppTypesConnection!
   apps(options: AppOptions, where: AppWhere): [App!]!
   appsAggregate(where: AppWhere): AppAggregateSelection!
+  appsConnection(
+    after: String
+    first: Int
+    sort: [AppSort]
+    where: AppWhere
+  ): AppsConnection!
   arrayTypes(options: ArrayTypeOptions, where: ArrayTypeWhere): [ArrayType!]!
   arrayTypesAggregate(where: ArrayTypeWhere): ArrayTypeAggregateSelection!
+  arrayTypesConnection(
+    after: String
+    first: Int
+    sort: [ArrayTypeSort]
+    where: ArrayTypeWhere
+  ): ArrayTypesConnection!
   atoms(options: AtomOptions, where: AtomWhere): [Atom!]!
   atomsAggregate(where: AtomWhere): AtomAggregateSelection!
+  atomsConnection(
+    after: String
+    first: Int
+    sort: [AtomSort]
+    where: AtomWhere
+  ): AtomsConnection!
   components(options: ComponentOptions, where: ComponentWhere): [Component!]!
   componentsAggregate(where: ComponentWhere): ComponentAggregateSelection!
+  componentsConnection(
+    after: String
+    first: Int
+    sort: [ComponentSort]
+    where: ComponentWhere
+  ): ComponentsConnection!
   createInfos(
     options: CreateInfoOptions
     where: CreateInfoWhere
   ): [CreateInfo!]!
   createInfosAggregate(where: CreateInfoWhere): CreateInfoAggregateSelection!
-  deleteFieldResponses(
-    options: DeleteFieldResponseOptions
-    where: DeleteFieldResponseWhere
-  ): [DeleteFieldResponse!]!
-  deleteFieldResponsesAggregate(
-    where: DeleteFieldResponseWhere
-  ): DeleteFieldResponseAggregateSelection!
-  edges(options: EdgeOptions, where: EdgeWhere): [Edge!]!
-  edgesAggregate(where: EdgeWhere): EdgeAggregateSelection!
+  createInfosConnection(
+    after: String
+    first: Int
+    sort: [CreateInfoSort]
+    where: CreateInfoWhere
+  ): CreateInfosConnection!
   elementGraph(input: ElementGraphInput!): ElementGraph!
   elementTypes(
     options: ElementTypeOptions
     where: ElementTypeWhere
   ): [ElementType!]!
   elementTypesAggregate(where: ElementTypeWhere): ElementTypeAggregateSelection!
+  elementTypesConnection(
+    after: String
+    first: Int
+    sort: [ElementTypeSort]
+    where: ElementTypeWhere
+  ): ElementTypesConnection!
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
+  elementsConnection(
+    after: String
+    first: Int
+    sort: [ElementSort]
+    where: ElementWhere
+  ): ElementsConnection!
   enumTypeValues(
     options: EnumTypeValueOptions
     where: EnumTypeValueWhere
@@ -8956,9 +9112,20 @@ type Query {
   enumTypeValuesAggregate(
     where: EnumTypeValueWhere
   ): EnumTypeValueAggregateSelection!
+  enumTypeValuesConnection(
+    after: String
+    first: Int
+    sort: [EnumTypeValueSort]
+    where: EnumTypeValueWhere
+  ): EnumTypeValuesConnection!
   enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
   enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
-  getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
+  enumTypesConnection(
+    after: String
+    first: Int
+    sort: [EnumTypeSort]
+    where: EnumTypeWhere
+  ): EnumTypesConnection!
 
   """
   Returns a list of all Type and Atom entities that reference the type with the given id
@@ -8967,6 +9134,12 @@ type Query {
   getTypeReferences(typeId: ID!): [TypeReference!]
   hooks(options: HookOptions, where: HookWhere): [Hook!]!
   hooksAggregate(where: HookWhere): HookAggregateSelection!
+  hooksConnection(
+    after: String
+    first: Int
+    sort: [HookSort]
+    where: HookWhere
+  ): HooksConnection!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -8974,6 +9147,12 @@ type Query {
   interfaceTypesAggregate(
     where: InterfaceTypeWhere
   ): InterfaceTypeAggregateSelection!
+  interfaceTypesConnection(
+    after: String
+    first: Int
+    sort: [InterfaceTypeSort]
+    where: InterfaceTypeWhere
+  ): InterfaceTypesConnection!
 
   """
   Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
@@ -8984,15 +9163,39 @@ type Query {
     where: LambdaTypeWhere
   ): [LambdaType!]!
   lambdaTypesAggregate(where: LambdaTypeWhere): LambdaTypeAggregateSelection!
+  lambdaTypesConnection(
+    after: String
+    first: Int
+    sort: [LambdaTypeSort]
+    where: LambdaTypeWhere
+  ): LambdaTypesConnection!
   monacoTypes(
     options: MonacoTypeOptions
     where: MonacoTypeWhere
   ): [MonacoType!]!
   monacoTypesAggregate(where: MonacoTypeWhere): MonacoTypeAggregateSelection!
+  monacoTypesConnection(
+    after: String
+    first: Int
+    sort: [MonacoTypeSort]
+    where: MonacoTypeWhere
+  ): MonacoTypesConnection!
   pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
   pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
+  pageTypesConnection(
+    after: String
+    first: Int
+    sort: [PageTypeSort]
+    where: PageTypeWhere
+  ): PageTypesConnection!
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
+  pagesConnection(
+    after: String
+    first: Int
+    sort: [PageSort]
+    where: PageWhere
+  ): PagesConnection!
   primitiveTypes(
     options: PrimitiveTypeOptions
     where: PrimitiveTypeWhere
@@ -9000,6 +9203,12 @@ type Query {
   primitiveTypesAggregate(
     where: PrimitiveTypeWhere
   ): PrimitiveTypeAggregateSelection!
+  primitiveTypesConnection(
+    after: String
+    first: Int
+    sort: [PrimitiveTypeSort]
+    where: PrimitiveTypeWhere
+  ): PrimitiveTypesConnection!
   propMapBindings(
     options: PropMapBindingOptions
     where: PropMapBindingWhere
@@ -9007,8 +9216,20 @@ type Query {
   propMapBindingsAggregate(
     where: PropMapBindingWhere
   ): PropMapBindingAggregateSelection!
+  propMapBindingsConnection(
+    after: String
+    first: Int
+    sort: [PropMapBindingSort]
+    where: PropMapBindingWhere
+  ): PropMapBindingsConnection!
   props(options: PropOptions, where: PropWhere): [Prop!]!
   propsAggregate(where: PropWhere): PropAggregateSelection!
+  propsConnection(
+    after: String
+    first: Int
+    sort: [PropSort]
+    where: PropWhere
+  ): PropsConnection!
   reactNodeTypes(
     options: ReactNodeTypeOptions
     where: ReactNodeTypeWhere
@@ -9016,6 +9237,12 @@ type Query {
   reactNodeTypesAggregate(
     where: ReactNodeTypeWhere
   ): ReactNodeTypeAggregateSelection!
+  reactNodeTypesConnection(
+    after: String
+    first: Int
+    sort: [ReactNodeTypeSort]
+    where: ReactNodeTypeWhere
+  ): ReactNodeTypesConnection!
   renderPropsTypes(
     options: RenderPropsTypeOptions
     where: RenderPropsTypeWhere
@@ -9023,6 +9250,12 @@ type Query {
   renderPropsTypesAggregate(
     where: RenderPropsTypeWhere
   ): RenderPropsTypeAggregateSelection!
+  renderPropsTypesConnection(
+    after: String
+    first: Int
+    sort: [RenderPropsTypeSort]
+    where: RenderPropsTypeWhere
+  ): RenderPropsTypesConnection!
   resetDatabaseMutationResponses(
     options: ResetDatabaseMutationResponseOptions
     where: ResetDatabaseMutationResponseWhere
@@ -9030,8 +9263,20 @@ type Query {
   resetDatabaseMutationResponsesAggregate(
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponseAggregateSelection!
+  resetDatabaseMutationResponsesConnection(
+    after: String
+    first: Int
+    sort: [ResetDatabaseMutationResponseSort]
+    where: ResetDatabaseMutationResponseWhere
+  ): ResetDatabaseMutationResponsesConnection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
+  storesConnection(
+    after: String
+    first: Int
+    sort: [StoreSort]
+    where: StoreWhere
+  ): StoresConnection!
   tagGraphOptions(
     options: TagGraphOptionsOptions
     where: TagGraphOptionsWhere
@@ -9039,9 +9284,21 @@ type Query {
   tagGraphOptionsAggregate(
     where: TagGraphOptionsWhere
   ): TagGraphOptionsAggregateSelection!
+  tagGraphOptionsConnection(
+    after: String
+    first: Int
+    sort: [TagGraphOptionsSort]
+    where: TagGraphOptionsWhere
+  ): TagGraphOptionsConnection!
   tagGraphs: [TagGraph!]!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
+  tagsConnection(
+    after: String
+    first: Int
+    sort: [TagSort]
+    where: TagWhere
+  ): TagsConnection!
   typeReferences(
     options: TypeReferenceOptions
     where: TypeReferenceWhere
@@ -9049,10 +9306,28 @@ type Query {
   typeReferencesAggregate(
     where: TypeReferenceWhere
   ): TypeReferenceAggregateSelection!
+  typeReferencesConnection(
+    after: String
+    first: Int
+    sort: [TypeReferenceSort]
+    where: TypeReferenceWhere
+  ): TypeReferencesConnection!
   unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
+  unionTypesConnection(
+    after: String
+    first: Int
+    sort: [UnionTypeSort]
+    where: UnionTypeWhere
+  ): UnionTypesConnection!
   users(options: UserOptions, where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
+  usersConnection(
+    after: String
+    first: Int
+    sort: [UserSort]
+    where: UserWhere
+  ): UsersConnection!
 }
 
 """
@@ -9067,6 +9342,7 @@ Comparison between different element types:
 """
 type ReactNodeType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -9098,6 +9374,7 @@ input ReactNodeTypeConnectOrCreateInput {
 
 input ReactNodeTypeCreateInput {
   id: ID!
+  kind: TypeKind! = ReactNodeType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -9108,6 +9385,11 @@ input ReactNodeTypeDeleteInput {
 
 input ReactNodeTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type ReactNodeTypeEdge {
+  cursor: String!
+  node: ReactNodeType!
 }
 
 input ReactNodeTypeOptions {
@@ -9186,6 +9468,7 @@ Fields to sort ReactNodeTypes by. The order in which sorts are applied is not gu
 """
 input ReactNodeTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -9219,6 +9502,10 @@ input ReactNodeTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -9236,6 +9523,12 @@ input ReactNodeTypeWhere {
   owner_NOT: UserWhere
 }
 
+type ReactNodeTypesConnection {
+  edges: [ReactNodeTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 """
 Allows picking a Component from the list of components.
 It is passed to the rendered element as a function that takes props as input
@@ -9249,6 +9542,7 @@ Comparison between different element types:
 """
 type RenderPropsType implements TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -9280,6 +9574,7 @@ input RenderPropsTypeConnectOrCreateInput {
 
 input RenderPropsTypeCreateInput {
   id: ID!
+  kind: TypeKind! = RenderPropsType
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
@@ -9290,6 +9585,11 @@ input RenderPropsTypeDeleteInput {
 
 input RenderPropsTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type RenderPropsTypeEdge {
+  cursor: String!
+  node: RenderPropsType!
 }
 
 input RenderPropsTypeOptions {
@@ -9368,6 +9668,7 @@ Fields to sort RenderPropsTypes by. The order in which sorts are applied is not 
 """
 input RenderPropsTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -9401,6 +9702,10 @@ input RenderPropsTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -9418,6 +9723,12 @@ input RenderPropsTypeWhere {
   owner_NOT: UserWhere
 }
 
+type RenderPropsTypesConnection {
+  edges: [RenderPropsTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type ResetDatabaseMutationResponse {
   success: Boolean
 }
@@ -9428,6 +9739,11 @@ type ResetDatabaseMutationResponseAggregateSelection {
 
 input ResetDatabaseMutationResponseCreateInput {
   success: Boolean
+}
+
+type ResetDatabaseMutationResponseEdge {
+  cursor: String!
+  node: ResetDatabaseMutationResponse!
 }
 
 input ResetDatabaseMutationResponseOptions {
@@ -9456,6 +9772,17 @@ input ResetDatabaseMutationResponseWhere {
   OR: [ResetDatabaseMutationResponseWhere!]
   success: Boolean
   success_NOT: Boolean
+}
+
+type ResetDatabaseMutationResponsesConnection {
+  edges: [ResetDatabaseMutationResponseEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+enum Role {
+  Admin
+  User
 }
 
 enum SortDirection {
@@ -9890,6 +10217,11 @@ input StoreDisconnectInput {
   children: [StoreChildrenDisconnectFieldInput!]
   parentStore: StoreParentStoreDisconnectFieldInput
   state: StoreStateDisconnectFieldInput
+}
+
+type StoreEdge {
+  cursor: String!
+  node: Store!
 }
 
 type StoreInterfaceTypeStateAggregationSelection {
@@ -10341,6 +10673,12 @@ input StoreWhere {
   state_NOT: InterfaceTypeWhere
 }
 
+type StoresConnection {
+  edges: [StoreEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type StringAggregateSelectionNonNullable {
   longest: String!
   shortest: String!
@@ -10532,6 +10870,11 @@ input TagDisconnectInput {
   parent: TagParentDisconnectFieldInput
 }
 
+type TagEdge {
+  cursor: String!
+  node: Tag!
+}
+
 type TagGraph {
   descendants: [ID!]!
   id: ID!
@@ -10550,9 +10893,20 @@ type TagGraphOptionsAggregateSelection {
   sort: IntAggregateSelectionNullable!
 }
 
+type TagGraphOptionsConnection {
+  edges: [TagGraphOptionsEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input TagGraphOptionsCreateInput {
   limit: Int
   sort: Int
+}
+
+type TagGraphOptionsEdge {
+  cursor: String!
+  node: TagGraphOptions!
 }
 
 input TagGraphOptionsOptions {
@@ -10820,8 +11174,15 @@ input TagWhere {
   parent_NOT: TagWhere
 }
 
+type TagsConnection {
+  edges: [TagEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 interface TypeBase {
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerConnection(
@@ -11084,6 +11445,7 @@ Fields to sort TypeBases by. The order in which sorts are applied is not guarant
 """
 input TypeBaseSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -11106,6 +11468,10 @@ input TypeBaseWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -11121,6 +11487,21 @@ input TypeBaseWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+enum TypeKind {
+  AppType
+  ArrayType
+  ElementType
+  EnumType
+  InterfaceType
+  LambdaType
+  MonacoType
+  PageType
+  PrimitiveType
+  ReactNodeType
+  RenderPropsType
+  UnionType
 }
 
 type TypeReference {
@@ -11144,6 +11525,11 @@ type TypeReferenceAggregateSelection {
 input TypeReferenceCreateInput {
   label: String!
   name: String!
+}
+
+type TypeReferenceEdge {
+  cursor: String!
+  node: TypeReference!
 }
 
 input TypeReferenceOptions {
@@ -11194,12 +11580,19 @@ input TypeReferenceWhere {
   name_STARTS_WITH: String
 }
 
+type TypeReferencesConnection {
+  edges: [TypeReferenceEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 """
 Allows picking one of a set of types
 """
 type UnionType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
   id: ID!
+  kind: TypeKind!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -11244,6 +11637,7 @@ input UnionTypeConnectOrCreateInput {
 
 input UnionTypeCreateInput {
   id: ID!
+  kind: TypeKind! = UnionType
   name: String!
   owner: TypeBaseOwnerFieldInput
   typesOfUnionType: UnionTypeTypesOfUnionTypeFieldInput
@@ -11257,6 +11651,11 @@ input UnionTypeDeleteInput {
 input UnionTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
+}
+
+type UnionTypeEdge {
+  cursor: String!
+  node: UnionType!
 }
 
 input UnionTypeOptions {
@@ -11336,6 +11735,7 @@ Fields to sort UnionTypes by. The order in which sorts are applied is not guaran
 """
 input UnionTypeSort {
   id: SortDirection
+  kind: SortDirection
   name: SortDirection
 }
 
@@ -11429,6 +11829,10 @@ input UnionTypeWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
@@ -11448,6 +11852,12 @@ input UnionTypeWhere {
   typesOfUnionTypeConnection_NONE: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_SINGLE: UnionTypeTypesOfUnionTypeConnectionWhere
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+type UnionTypesConnection {
+  edges: [UnionTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type UpdateActionsMutationResponse {
@@ -11482,16 +11892,6 @@ type UpdateComponentsMutationResponse {
 
 type UpdateCreateInfosMutationResponse {
   createInfos: [CreateInfo!]!
-  info: UpdateInfo!
-}
-
-type UpdateDeleteFieldResponsesMutationResponse {
-  deleteFieldResponses: [DeleteFieldResponse!]!
-  info: UpdateInfo!
-}
-
-type UpdateEdgesMutationResponse {
-  edges: [Edge!]!
   info: UpdateInfo!
 }
 
@@ -11608,15 +12008,6 @@ type UpdateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
-input UpsertFieldInput {
-  description: String
-  interfaceTypeId: ID!
-  key: String!
-  name: String
-  targetKey: String
-  targetTypeId: ID!
-}
-
 type User {
   apps(directed: Boolean = true, options: AppOptions, where: AppWhere): [App!]!
   appsAggregate(
@@ -11649,6 +12040,7 @@ type User {
   ): UserComponentsConnection!
   email: String!
   id: ID!
+  roles: [Role!]
   types(
     directed: Boolean = true
     options: TypeBaseOptions
@@ -11923,6 +12315,7 @@ input UserCreateInput {
   auth0Id: String!
   components: UserComponentsFieldInput
   email: String!
+  roles: [Role!]
   types: UserTypesFieldInput
 }
 
@@ -11936,6 +12329,11 @@ input UserDisconnectInput {
   apps: [UserAppsDisconnectFieldInput!]
   components: [UserComponentsDisconnectFieldInput!]
   types: [UserTypesDisconnectFieldInput!]
+}
+
+type UserEdge {
+  cursor: String!
+  node: User!
 }
 
 input UserOnCreateInput {
@@ -12031,6 +12429,7 @@ input UserUpdateInput {
   auth0Id: String
   components: [UserComponentsUpdateFieldInput!]
   email: String
+  roles: [Role!]
   types: [UserTypesUpdateFieldInput!]
 }
 
@@ -12117,10 +12516,20 @@ input UserWhere {
   id_NOT_IN: [ID!]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  roles: [Role!]
+  roles_INCLUDES: Role
+  roles_NOT: [Role!]
+  roles_NOT_INCLUDES: Role
   typesConnection_ALL: UserTypesConnectionWhere
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere
   typesConnection_SOME: UserTypesConnectionWhere
+}
+
+type UsersConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 interface WithDescendants {

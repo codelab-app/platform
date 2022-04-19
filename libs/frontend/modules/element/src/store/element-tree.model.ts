@@ -9,6 +9,7 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   detach,
+  getParent,
   idProp,
   Model,
   model,
@@ -20,11 +21,12 @@ import {
 } from 'mobx-keystone'
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
+import type { ElementService } from './element.service'
 
 const hydrate = (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
 
-  tree.updateCaches(elements, rootId)
+  tree.updateCache(elements, rootId)
 
   return tree
 }
@@ -39,36 +41,50 @@ export class ElementTree extends Model({
   id: idProp,
 
   /** The root tree element */
-  root: prop<Nullable<Element>>(null).withSetter(),
-
-  /**
-   * A flat list of elements in the tree
-   */
-  elements: prop(() => objectMap<Ref<Element>>()),
+  root: prop<Nullable<Ref<Element>>>(null).withSetter(),
 
   /** All root elements of the components in the main tree */
-  componentRoots: prop(() => objectMap<Element>()),
+  componentRoots: prop(() => objectMap<Ref<Element>>()),
 }) {
   @computed
   get elementsList() {
-    return this.root ? [this.root, ...this.root.descendants] : []
+    return this.root
+      ? [this.root.current, ...(this.root.current?.descendants ?? [])]
+      : []
+  }
+
+  // Need to use get parent to get the ElementService, otherwise getElementService may get the wrong service depending on who's calling
+  @computed
+  get elements() {
+    const parent = getParent<ElementService>(this)
+
+    if (!parent) {
+      throw new Error('Missing ElementService')
+    }
+
+    if (parent.$modelType === '@codelab/ElementService') {
+      return parent.elements
+    }
+
+    throw new Error('Missing ElementService')
   }
 
   element(id: string) {
     if (this.componentRoots.has(id)) {
-      return this.componentRoots.get(id)
+      return this.componentRoots.get(id)?.current
     }
 
-    return this.elements?.get(id)?.current
+    return this.elements?.get(id)
   }
 
   @modelAction
   updateCache(elementsDTO: Array<IElementDTO>, rootId?: string) {
+    for (const element of elementsDTO) {
+      this.elements.set(element.id, Element.hydrate(element))
+    }
+
     this.updateAtomsCache(elementsDTO)
     this.updateComponentsCache(elementsDTO)
-
-    // Create all elements first. Keep them in a temp map. Then after all are created, assign parent/children
-    const elements = new Map<string, Element>()
 
     for (const elementDTO of elementsDTO) {
       let element = this.element(elementDTO.id)
@@ -78,54 +94,37 @@ export class ElementTree extends Model({
         ? element.updateCache(elementDTO)
         : (element = Element.hydrate(elementDTO))
 
-      elements.set(elementDTO.id, element)
-      this.elements.set(elementDTO.id, elementRef(element))
+      // this.elements.set(elementDTO.id, element)
 
       if (!elementDTO.parentElement?.id) {
-        this.root = element
+        this.setRoot(elementRef(element))
       } else if (elementDTO.component) {
-        this.componentRoots.set(elementDTO.id, element)
+        this.componentRoots.set(elementDTO.id, elementRef(element))
       }
     }
 
     // Assign relationships
-    for (const [_, element] of elements) {
+    for (const [_, element] of this.elements) {
+      console.log(element)
+
       const parentId = element.parentId
 
       if (!parentId) {
         continue
       }
 
-      const parent = elements.get(parentId) ?? this.element(parentId)
+      const parent = this.element(parentId)
 
-      if (!parent) {
+      if (!parent || parent.hasChild(element)) {
         continue
       }
+
+      console.log(parent, element)
 
       parent?.addChild(element)
     }
 
-    return [...elements.values()]
-  }
-
-  @modelAction
-  removeElementAndDescendants(element: Element) {
-    const elementAndDescendantIds = [
-      element.id,
-      ...element.descendants.map((e) => e.id),
-    ]
-
-    for (const id of elementAndDescendantIds) {
-      if (this.elements.has(id)) {
-        this.elements.delete(id)
-      }
-    }
-
-    if (element.id === this.root?.id) {
-      this.root = null
-    } else {
-      element.parentElement?.removeChild(element)
-    }
+    return [...this.elements.values()]
   }
 
   /**
@@ -166,11 +165,6 @@ export class ElementTree extends Model({
     return element
   }
 
-  @modelAction
-  updateCaches(elements: Array<IElementDTO>, rootId: string) {
-    return this.updateCache(elements, rootId)
-  }
-
   getPathFromRoot(selectedElement: Element): Array<Element> {
     const path = []
     let current: Element | undefined = selectedElement
@@ -208,7 +202,7 @@ export class ElementTree extends Model({
   public static hydrate = hydrate
 }
 
-export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {
+export const elementTreeRef = rootRef<ElementTree>('@codelab/ElementTreeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

@@ -32,7 +32,7 @@ export class Node extends Model({
   }
 }
 
-export const nodeRef = rootRef<Node>('NodeRef', {
+export const nodeRef = rootRef<Node>('@codelab/NodeRef', {
   onResolvedValueChange(ref, newNode, oldNode) {
     if (oldNode && !newNode) {
       detach(ref)

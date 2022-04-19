@@ -40,7 +40,7 @@ export interface BuilderClickOverlayProps
 
 export const BuilderClickOverlay = observer<BuilderClickOverlayProps>(
   ({ builderService, elementService }) => {
-    const selectedElement = builderService.selectedElement?.maybeCurrent
+    const selectedElement = builderService.selectedElement?.current
 
     if (!selectedElement) {
       return null

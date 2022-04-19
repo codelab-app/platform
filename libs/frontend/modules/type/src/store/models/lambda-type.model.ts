@@ -1,39 +1,42 @@
 import {
+  assertIsTypeKind,
   ILambdaType,
   ILambdaTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({ id, typeKind, name, owner }: ILambdaTypeDTO): LambdaType =>
-  new LambdaType({
+const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
+  assertIsTypeKind(kind, ITypeKind.LambdaType)
+
+  return new LambdaType({
     id,
-    typeKind,
+    kind,
     name,
-    ownerAuth0Id: owner?.auth0Id,
+    ownerId: owner?.id,
   })
+}
 
 @model('@codelab/LambdaType')
 export class LambdaType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.LambdaType),
+    baseModel: createTypeBase(ITypeKind.LambdaType),
     props: {},
   }))
   implements ILambdaType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   public static hydrate = hydrate
 }

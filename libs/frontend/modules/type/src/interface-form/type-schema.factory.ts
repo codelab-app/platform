@@ -13,12 +13,13 @@ import {
   IPrimitiveType,
   IReactNodeType,
   IRenderPropsType,
+  ITypeKind,
   IUnionType,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
+import { getSnapshot } from 'mobx-keystone'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
@@ -42,30 +43,30 @@ export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
   transform(type: IAnyType) {
-    switch (type.typeKind) {
-      case TypeKind.AppType:
+    switch (type.kind) {
+      case ITypeKind.AppType:
         return this.fromAppType(type)
-      case TypeKind.LambdaType:
+      case ITypeKind.LambdaType:
         return this.fromLambdaType(type)
-      case TypeKind.PageType:
+      case ITypeKind.PageType:
         return this.fromPageType(type)
-      case TypeKind.RenderPropsType:
+      case ITypeKind.RenderPropsType:
         return this.fromRenderPropsType(type)
-      case TypeKind.PrimitiveType:
+      case ITypeKind.PrimitiveType:
         return this.fromPrimitiveType(type)
-      case TypeKind.ReactNodeType:
+      case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
-      case TypeKind.MonacoType:
+      case ITypeKind.MonacoType:
         return this.fromMonacoType(type)
-      case TypeKind.ElementType:
+      case ITypeKind.ElementType:
         return this.fromElementType(type)
-      case TypeKind.EnumType:
+      case ITypeKind.EnumType:
         return this.fromEnumType(type)
-      case TypeKind.UnionType:
+      case ITypeKind.UnionType:
         return this.fromUnionType(type)
-      case TypeKind.InterfaceType:
+      case ITypeKind.InterfaceType:
         return this.fromInterfaceType(type)
-      case TypeKind.ArrayType:
+      case ITypeKind.ArrayType:
         return this.fromArrayType(type)
     }
   }
@@ -83,6 +84,10 @@ export class TypeSchemaFactory {
   }
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
+    console.log(getSnapshot(type))
+
+    console.log(type.fields.toString())
+
     const makeFieldSchema = (field: IField) => ({
       ...this.transform(field.type.current),
       label: field.name || pascalCaseToWords(field.key),
@@ -93,6 +98,7 @@ export class TypeSchemaFactory {
       field: IField,
     ) => {
       acc = acc || {}
+      console.log(getSnapshot(field))
       acc[field.key] = makeFieldSchema(field)
 
       return acc
@@ -103,7 +109,7 @@ export class TypeSchemaFactory {
     return {
       ...extra,
       type: 'object',
-      properties: type.fields.reduce(makeFieldProperties, {}),
+      properties: [...type.fields.values()].reduce(makeFieldProperties, {}),
     }
   }
 

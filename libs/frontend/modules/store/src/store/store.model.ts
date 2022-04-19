@@ -49,7 +49,7 @@ export class Store extends Model(() => ({
 
   @modelAction
   toMobxObservable() {
-    const storeState = this.state.current.fields
+    const storeState = [...this.state.current.fields.values()]
       .map((field) => ({ [field.key]: this.initialState[field.key] }))
       .reduce(merge, {})
 
@@ -85,7 +85,7 @@ export class Store extends Model(() => ({
   }
 }
 
-export const storeRef = rootRef<Store>('StoreRef', {
+export const storeRef = rootRef<Store>('@codelab/StoreRef', {
   onResolvedValueChange(ref, newStore, oldStore) {
     if (oldStore && !newStore) {
       detach(ref)

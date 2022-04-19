@@ -1,5 +1,5 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { withRxTransaction } from '../abstract'
+import { withRxTransaction } from '../common'
 import { deleteStoresSubgraph } from './store.resolvers'
 
 export const storeResolver: IResolvers = {

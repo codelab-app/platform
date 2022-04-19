@@ -25,7 +25,7 @@ import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
-export const componentRef = rootRef<Component>('ComponentRef', {
+export const componentRef = rootRef<Component>('@codelab/ComponentRef', {
   onResolvedValueChange(ref, newComponent, oldComponent) {
     if (oldComponent && !newComponent) {
       detach(ref)

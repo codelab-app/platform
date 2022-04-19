@@ -1,4 +1,5 @@
-import { ITypeDTO, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   AppType,
   ArrayType,
@@ -14,48 +15,45 @@ import {
   UnionType,
 } from './models'
 
-export const typeClassFactory = (typeKind: TypeKind) => {
-  switch (typeKind) {
-    case TypeKind.AppType:
-      return AppType
+export const typeFactory = (type: ITypeDTO) => {
+  switch (type.__typename) {
+    case ITypeKind.AppType:
+      return AppType.hydrate(type)
 
-    case TypeKind.ElementType:
-      return ElementType
+    case ITypeKind.ElementType:
+      return ElementType.hydrate(type)
 
-    case TypeKind.EnumType:
-      return EnumType
+    case ITypeKind.EnumType:
+      return EnumType.hydrate(type)
 
-    case TypeKind.LambdaType:
-      return LambdaType
+    case ITypeKind.LambdaType:
+      return LambdaType.hydrate(type)
 
-    case TypeKind.MonacoType:
-      return MonacoType
+    case ITypeKind.MonacoType:
+      return MonacoType.hydrate(type)
 
-    case TypeKind.PageType:
-      return PageType
+    case ITypeKind.PageType:
+      return PageType.hydrate(type)
 
-    case TypeKind.PrimitiveType:
-      return PrimitiveType
+    case ITypeKind.PrimitiveType:
+      return PrimitiveType.hydrate(type)
 
-    case TypeKind.ReactNodeType:
-      return ReactNodeType
+    case ITypeKind.ReactNodeType:
+      return ReactNodeType.hydrate(type)
 
-    case TypeKind.RenderPropsType:
-      return RenderPropsType
+    case ITypeKind.RenderPropsType:
+      return RenderPropsType.hydrate(type)
 
-    case TypeKind.ArrayType:
-      return ArrayType
+    case ITypeKind.ArrayType:
+      return ArrayType.hydrate(type)
 
     case TypeKind.InterfaceType:
-      return InterfaceType
+      return InterfaceType.hydrate(type)
 
     case TypeKind.UnionType:
-      return UnionType
+      return UnionType.hydrate(type)
+
+    default:
+      throw new Error(`Unknown type kind: ${type.kind}`)
   }
-
-  throw new Error(`Unknown type kind: ${typeKind}`)
-}
-
-export const typeFactory = (type: ITypeDTO) => {
-  return typeClassFactory(type.typeKind).hydrate(type as any)
 }

@@ -1,6 +1,5 @@
-import { getTypeImportService } from '@codelab/frontend/modules/type'
+import { AnyType, getTypeImportService } from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
-import { IAnyType } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -23,7 +22,7 @@ export interface WithAtomImportService {
 
 export interface AtomExportPayload {
   atoms: Array<SnapshotOutOf<Atom>>
-  types: Array<SnapshotOutOf<IAnyType>>
+  types: Array<SnapshotOutOf<AnyType>>
 }
 
 @model('@codelab/AtomImportService')
@@ -74,7 +73,7 @@ export class AtomImportService extends Model({}) {
 
     // Import all types so we can reference them in the atom
     const typeImportService = getTypeImportService(this)
-    const importedTypes: Array<SnapshotOutOf<IAnyType>> = payload.types
+    const importedTypes: Array<SnapshotOutOf<AnyType>> = payload.types
 
     yield* _await(
       typeImportService.importTypesPayload(importedTypes, currentUserAuth0Id),

@@ -15,15 +15,17 @@ export const handleFormSubmit =
     try {
       const results = await onSubmit(formData as T)
 
-      await callbackWithParams(onSubmitSuccess, results as any)
-
       setIsLoading?.(false)
+
+      await callbackWithParams(onSubmitSuccess, results as any)
 
       return results
     } catch (err: any) {
       console.error(err)
-      await callbackWithParams(onSubmitError, err)
+
       setIsLoading?.(false)
+
+      await callbackWithParams(onSubmitError, err)
     }
   }
 

@@ -8,12 +8,4 @@ export const commonSchema = gql`
     source: String!
     target: String!
   }
-
-  """
-  Simplest implementation of an IEdge with no additional fields
-  """
-  type Edge implements IEdge {
-    source: String!
-    target: String!
-  }
 `

@@ -10,10 +10,18 @@
     // "react-hooks",
     "@emotion",
     "prettier",
+    "jest",
     "jest-formatting",
     "simple-import-sort"
   ],
-  "extends": ["plugin:prettier/recommended"],
+  "env": {
+    "jest/globals": true
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

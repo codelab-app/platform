@@ -14,7 +14,7 @@ export type E2eCreateAppMutation = {
 export type E2eAppFragment = {
   id: string
   name: string
-  owner: Array<{ id: string }>
+  owner: { id: string }
   pages: Array<{
     id: string
     name: string

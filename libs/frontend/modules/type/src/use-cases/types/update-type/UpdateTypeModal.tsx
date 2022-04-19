@@ -1,13 +1,13 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateTypeDTO, TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithTypeService } from '../../../store'
 import { updateTypeSchema } from './update-type.schema'
-import { validateNonRecursive } from './validateNonRecursive'
+import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.updateModal.close()
@@ -19,24 +19,24 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
     }
 
     await validateNonRecursive(typeToUpdate.id, submitData)
+    // typeToUpdate.applyUpdateData(submitData)
 
-    typeToUpdate.applyUpdateData(submitData)
-
-    return typeService.update(typeToUpdate)
+    return typeService.update(submitData)
   }
 
   const model = {
     name: typeToUpdate?.name,
+    kind: typeToUpdate?.kind,
     primitiveKind:
-      typeToUpdate?.typeKind === TypeKind.PrimitiveType
+      typeToUpdate?.kind === ITypeKind.PrimitiveType
         ? typeToUpdate?.primitiveKind
         : undefined,
     allowedValues:
-      typeToUpdate?.typeKind === TypeKind.EnumType
+      typeToUpdate?.kind === ITypeKind.EnumType
         ? typeToUpdate?.allowedValues ?? undefined
         : undefined,
     typeIdsOfUnionType:
-      typeToUpdate?.typeKind === TypeKind.UnionType
+      typeToUpdate?.kind === ITypeKind.UnionType
         ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
         : undefined,
   }
@@ -64,13 +64,13 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
         schema={updateTypeSchema}
       >
         <AutoFields fields={['name']} />
-        {typeToUpdate.typeKind === TypeKind.UnionType && (
+        {typeToUpdate.kind === ITypeKind.UnionType && (
           <AutoField name="typeIdsOfUnionType" />
         )}
-        {typeToUpdate.typeKind === TypeKind.PrimitiveType && (
+        {typeToUpdate.kind === ITypeKind.PrimitiveType && (
           <AutoField name="primitiveKind" />
         )}
-        {typeToUpdate.typeKind === TypeKind.EnumType && (
+        {typeToUpdate.kind === ITypeKind.EnumType && (
           <AutoField name="allowedValues" />
         )}
       </ModalForm.Form>

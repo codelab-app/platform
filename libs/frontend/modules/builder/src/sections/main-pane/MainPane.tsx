@@ -76,7 +76,9 @@ export const MainPane = observer<MainPaneProps>(
       [],
     )
 
-    const root = elementService.elementTree?.root
+    const root = elementService.elementTree?.root?.current
+
+    console.log(root)
 
     return (
       <MainPaneTemplate

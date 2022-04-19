@@ -1,13 +1,13 @@
 import {
+  assertIsTypeKind,
   IAnyType,
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 import { typeRef } from './union-type.model'
 
@@ -19,19 +19,21 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
     throw new Error('Item type is invalid')
   }
 
+  assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
+
   return new ArrayType({
     id: fragment.id,
-    typeKind: fragment.typeKind,
+    kind: fragment.kind,
     name: fragment.name,
     itemType,
-    ownerAuth0Id: fragment.owner?.auth0Id,
+    ownerId: fragment.owner.id,
   })
 }
 
 @model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ArrayType),
+    baseModel: createTypeBase(ITypeKind.ArrayType),
     props: {
       itemType: prop<Ref<IAnyType>>(),
     },
@@ -40,9 +42,9 @@ export class ArrayType
 {
   @modelAction
   updateCache(fragment: ITypeDTO) {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.ArrayType) {
+    if (fragment.__typename !== ITypeKind.ArrayType) {
       return
     }
 
@@ -50,10 +52,10 @@ export class ArrayType
     this.itemType = typeRef(itemId)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   static hydrate = hydrate
 }

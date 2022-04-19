@@ -1,8 +1,8 @@
-export const pageSelectionSet = `{ 
+export const pageSelectionSet = `{
+  id
+  name
+  rootElement {
     id
     name
-    rootElement {
-        id
-        name
-    }
+  }
 }`

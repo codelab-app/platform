@@ -1,5 +1,4 @@
-import { IBaseType } from '../base-type/base-type.interface'
-import { TypeKind } from '../base-type/type-kind.enum'
+import { IBaseType, ITypeKind } from '../base-type'
 import { ElementTypeKind } from './element-type.enum'
 
 /**
@@ -18,6 +17,6 @@ import { ElementTypeKind } from './element-type.enum'
  *
  */
 export interface IElementType extends IBaseType {
-  typeKind: typeof TypeKind.ElementType
+  kind: ITypeKind.ElementType
   elementKind: ElementTypeKind
 }

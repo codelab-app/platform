@@ -72,35 +72,10 @@ export class ElementService extends Model({
       }),
     )
 
-    this.elementTree.updateCaches(elements, rootId)
+    this.elementTree.updateCache(elements, rootId)
 
     return this.elementTree
   })
-
-  // @modelFlow
-  // @transaction
-  // getAll = _async(function* (this: ElementService, ids: Array<string> = []) {
-  //   const { elements } = yield* _await(
-  //     elementApi.GetElements({
-  //       where: {
-  //         id_IN: ids,
-  //       },
-  //     }),
-  //   )
-
-  //   return elements.map((element) => {
-  //     if (this.elements.has(element.id)) {
-  //       // return throwIfUndefined(this.elements.get(element.id))
-  //       return element
-  //     }
-
-  //     const elementModel = Element.hydrate(element)
-  //     this.elements.set(element.id, elementModel)
-
-  //     // return elementModel
-  //     return element
-  //   })
-  // })
 
   @modelFlow
   @transaction
@@ -115,14 +90,12 @@ export class ElementService extends Model({
 
     return elements.map((element) => {
       if (this.elements.has(element.id)) {
-        // return throwIfUndefined(this.elements.get(element.id))
         return element
       }
 
       const elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
 
-      // return elementModel
       return element
     })
   })
@@ -147,11 +120,6 @@ export class ElementService extends Model({
     this: ElementService,
     input: ICreateElementDTO,
   ) {
-    input = {
-      ...input,
-      parentElementId: input.parentElementId || this.elementTree.root?.id, // default to the root element if not parent is set
-    }
-
     const createInput: ElementCreateInput = makeCreateInput(input)
 
     const {
@@ -282,29 +250,39 @@ export class ElementService extends Model({
 
   @modelFlow
   @transaction
-  deleteElementsSubgraph = _async(function* (
+  deleteElementSubgraph = _async(function* (
     this: ElementService,
     rootId: string,
   ) {
-    const deletedRoot = this.elementTree.element(rootId)
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({ input: { rootId } }),
+    )
 
-    if (!deletedRoot) {
-      throw new Error('Deleted element not found')
+    const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
+
+    for (const id of idsToDelete.reverse()) {
+      const ele = this.elements.get(id)
+      this.elements.delete(id)
+      // ele?.parentElement?.removeChild(ele)
     }
 
-    this.elementTree.removeElementAndDescendants(deletedRoot)
+    console.log('after delete')
 
     const {
-      deleteElementsSubgraph: { nodesDeleted },
+      deleteElements: { nodesDeleted },
     } = yield* _await(
-      elementApi.DeleteElementsSubgraph({ where: { id: rootId } }),
+      elementApi.DeleteElements({
+        where: {
+          id_IN: idsToDelete,
+        },
+      }),
     )
 
     if (nodesDeleted === 0) {
       throw new Error('No elements deleted')
     }
 
-    return deletedRoot
+    return idsToDelete
   })
 
   @modelFlow

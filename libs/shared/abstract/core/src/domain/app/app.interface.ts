@@ -1,5 +1,7 @@
 export interface IApp {
-  id: string
+  id: IAppRef
   ownerId: string
   name: string
 }
+
+export type IAppRef = string

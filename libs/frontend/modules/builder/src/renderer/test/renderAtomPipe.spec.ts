@@ -6,7 +6,7 @@ import { setupTestRenderData } from './testData/renderData'
 describe('RenderAtomPipe', () => {
   const data = setupTestRenderData((next) => new AtomRenderPipe({ next }))
 
-  it('should render element atom ', async () => {
+  it('should render element atom', async () => {
     const text = 'a text to render'
     data.elementToRender.setAtom(atomRef(data.textAtom))
     data.elementToRender.props?.set('text', text)

@@ -1,9 +1,4 @@
-import {
-  IAnyType,
-  IField,
-  IInterfaceTypeEdgeDTO,
-  IInterfaceTypeFieldEdgeDTO,
-} from '@codelab/shared/abstract/core'
+import { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -33,13 +28,8 @@ export class Field
   }
 
   @modelAction
-  hydrate(
-    fragment: IInterfaceTypeEdgeDTO | IInterfaceTypeFieldEdgeDTO,
-    interfaceId: string,
-  ) {
-    const target =
-      (fragment as IInterfaceTypeEdgeDTO).target ||
-      (fragment as IInterfaceTypeFieldEdgeDTO).node?.id
+  updateCache(fragment: IFieldDTO, interfaceId: string) {
+    const target = fragment.fieldType.id
 
     this.id = Field.fieldId(interfaceId, fragment.key)
     this.name = fragment.name
@@ -47,9 +37,22 @@ export class Field
     this.key = fragment.key
     this.type = typeRef(target)
   }
+
+  @modelAction
+  static hydrate(data: IFieldDTO) {
+    const { id, key, name, description, fieldType } = data
+
+    return new Field({
+      id,
+      type: typeRef(fieldType.id),
+      name,
+      description,
+      key,
+    })
+  }
 }
 
-export const fieldRef = rootRef<Field>('codealb/FieldRef', {
+export const fieldRef = rootRef<Field>('@codelab/FieldRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

@@ -1,4 +1,4 @@
-import { ApolloError } from '@apollo/client'
+import { ApolloError } from 'apollo-server-micro'
 import { isObjectLike, isString } from 'lodash'
 
 export const extractErrorMessage = (e: any): string => {

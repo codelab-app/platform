@@ -1,7 +1,10 @@
 fragment TypeBase on TypeBase {
-  typeKind: __typename
+  # Need this to narrow down type on frontend
+  __typename
+  kind
   id
   owner {
+    id
     auth0Id
   }
   name

@@ -22,14 +22,14 @@ export class App
     return new App({
       id: app.id,
       name: app.name,
-      ownerId: app.owner?.[0]?.id,
+      ownerId: app.owner?.id,
       rootProviderElement: { id: app.rootProviderElement.id },
       store: app.store?.id ? { id: app.store?.id as string } : undefined,
     })
   }
 }
 
-export const appRef = rootRef<App>('AppRef', {
+export const appRef = rootRef<App>('@codelab/AppRef', {
   onResolvedValueChange(ref, newApp, oldApp) {
     if (oldApp && !newApp) {
       detach(ref)

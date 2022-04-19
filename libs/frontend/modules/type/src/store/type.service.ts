@@ -1,10 +1,11 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import {
-  IAnyType,
   ICreateFieldDTO,
+  ICreateTypeDTO,
   ITypeDTO,
+  ITypeKind,
   IUpdateFieldDTO,
-  TypeKind,
+  IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { entityMapById } from '@codelab/shared/utils'
 import { flatMap } from 'lodash'
@@ -22,6 +23,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { createTypeInputFactory } from '../use-cases/types/create-type/create-type.factory'
+import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -31,7 +34,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { InterfaceType } from './models'
+import { AnyType, Field, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -57,7 +60,7 @@ export const getTypeService = (self: object) => {
 
 @model('@codelab/TypeService')
 export class TypeService extends Model({
-  types: prop(() => objectMap<IAnyType>()),
+  types: prop(() => objectMap<AnyType>()),
 
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new TypeModalService({})),
@@ -79,12 +82,12 @@ export class TypeService extends Model({
   }
 
   @modelAction
-  addTypeLocal(type: IAnyType) {
+  addTypeLocal(type: AnyType) {
     this.types.set(type.id, type)
   }
 
   @modelAction
-  addOrUpdateLocal(fragment: ITypeDTO) {
+  updateCache(fragment: ITypeDTO) {
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
@@ -99,19 +102,19 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, type: IAnyType) {
-    const [updatedType] = yield* _await(
-      updateTypeApi[type.typeKind]({
-        where: { id: type.id },
-        ...type.makeUpdateInput(),
-      }),
-    )
+  update = _async(function* (this: TypeService, type: IUpdateTypeDTO) {
+    const args = {
+      where: { id: type.id },
+      ...updateTypeInputFactory(type),
+    }
+
+    const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
 
     if (!updatedType) {
       throw new Error('Type was not updated')
     }
 
-    return this.addOrUpdateLocal(updatedType)
+    return this.updateCache(updatedType)
   })
 
   @modelFlow
@@ -186,30 +189,33 @@ export class TypeService extends Model({
     this: TypeService,
     id: string,
   ) {
-    const [intface] = yield* _await(this.getAllWithDescendants([id]))
+    const [type] = yield* _await(this.getAllWithDescendants([id]))
 
-    if (intface.typeKind !== TypeKind.InterfaceType) {
+    if (type.kind !== ITypeKind.InterfaceType) {
       throw new Error('Type is not an interface')
     }
 
-    return intface as InterfaceType
+    return type as InterfaceType
   })
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, type: IAnyType) {
-    const [typeFragment] = yield* _await(
-      createTypeApi[type.typeKind](type.makeCreateInput(type.ownerAuth0Id)),
-    )
+  create = _async(function* (
+    this: TypeService,
+    type: ICreateTypeDTO,
+    auth0Id: string,
+  ) {
+    const typeInput = createTypeInputFactory(type, auth0Id)
+    const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
 
     if (!type) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    type.updateCache(typeFragment)
+    const typeModel = typeFactory(typeFragment)
 
-    this.types.set(type.id, type)
+    this.types.set(type.id, typeModel)
 
     return type
   })
@@ -226,7 +232,7 @@ export class TypeService extends Model({
     }
 
     const { nodesDeleted } = yield* _await(
-      deleteTypeApi[type.typeKind]({ where: { id } }),
+      deleteTypeApi[type.kind]({ where: { id } }),
     )
 
     if (nodesDeleted === 0) {
@@ -238,76 +244,65 @@ export class TypeService extends Model({
   })
 
   //
-  //  The field actions are here because if I put them in InterfaceType
+  // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   //
   @modelFlow
   @transaction
   addField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    type: InterfaceType,
     data: ICreateFieldDTO,
   ) {
-    const { existingTypeId, name, description, key } = data
-
-    const createInput = {
-      interfaceTypeId: interfaceType.id,
-      key,
-      name,
-      description,
-      targetTypeId: existingTypeId,
+    const input = {
+      interfaceId: type.id,
+      fieldTypeId: data.fieldType,
+      field: {
+        description: data.description,
+        id: data.id,
+        key: data.key,
+        name: data.name,
+      },
     }
 
-    const res = yield* _await(fieldApi.CreateField({ input: createInput }))
-    const field = interfaceType.addFieldLocal(res.upsertFieldEdge)
+    const res = yield* _await(fieldApi.CreateField(input))
 
-    field.hydrate(res.upsertFieldEdge, interfaceType.id)
+    const field =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
 
-    return field
+    const fieldModel = Field.hydrate(field)
+    type.fields.set(fieldModel.id, fieldModel)
+
+    return fieldModel
   })
 
   @modelFlow
   @transaction
   updateField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    type: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: IUpdateFieldDTO,
+    data: IUpdateFieldDTO,
   ) {
-    const field = interfaceType.fieldByKey(targetKey)
+    const { key, name, description } = data
+    const field = type.field(data.id)
 
     if (!field) {
       throw new Error(`Field with key ${targetKey} not found`)
     }
 
-    if (field.key !== key) {
-      interfaceType.validateUniqueFieldKey(key)
-    }
-
-    // Reusing hydrate with a made up fragment from the optimistic data
-    field.hydrate(
-      {
-        key,
-        name,
-        description,
-        target: existingTypeId,
-        source: interfaceType.id,
-      },
-      interfaceType.id,
-    )
-
     const input = {
-      key,
-      name,
-      description,
-      interfaceTypeId: interfaceType.id,
-      targetTypeId: existingTypeId,
-      targetKey,
+      interfaceId: type.id,
+      fieldTypeId: data.fieldType,
+      field: data,
     }
 
-    const res = yield* _await(fieldApi.UpdateField({ input }))
+    const res = yield* _await(fieldApi.UpdateField(input))
 
-    field.hydrate(res.upsertFieldEdge, interfaceType.id)
+    const updatedField =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+
+    field.updateCache(updatedField, type.id)
 
     return field
   })
@@ -317,22 +312,26 @@ export class TypeService extends Model({
   deleteField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    fieldKey: string,
+    fieldId: string,
   ) {
-    const field = interfaceType.fieldByKey(fieldKey)
+    const field = interfaceType.field(fieldId)
 
     if (!field) {
       return
     }
 
+    const input = { where: { id: fieldId }, interfaceId: interfaceType.id }
+    const res = yield* _await(fieldApi.DeleteField(input))
+
+    // Returns current edges, not deleted edges
+    // const deletedField =
+    //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    //
+    // if (!deletedField) {
+    //   throw new Error(`Failed to delete field with id ${fieldId}`)
+    // }
+
     interfaceType.deleteFieldLocal(field)
-
-    const input = { key: fieldKey, interfaceId: interfaceType.id }
-    const res = yield* _await(fieldApi.DeleteField({ input }))
-
-    if (res.deleteFieldEdge.deletedEdgesCount === 0) {
-      throw new Error(`Failed to delete field with key ${fieldKey}`)
-    }
 
     return field
   })

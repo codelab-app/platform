@@ -4,7 +4,7 @@ import {
   elementTreeRef,
 } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { IPropData, TypeKind } from '@codelab/shared/abstract/core'
+import { IPropData, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   deepReplaceObjectValues,
@@ -146,7 +146,7 @@ export class RenderService extends Model(
   }
 
   renderRoot() {
-    const root = this.tree?.root
+    const root = this.tree?.root?.current
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -163,7 +163,10 @@ export class RenderService extends Model(
     const providerRoot = this.providerTreeRef?.current?.root
 
     const providerElements = providerRoot
-      ? [providerRoot, ...(providerRoot?.leftHandDescendants ?? [])]
+      ? [
+          providerRoot.current,
+          ...(providerRoot?.current.leftHandDescendants ?? []),
+        ]
       : []
 
     const providerOutputsMaybeArray = providerElements.map((element) =>
@@ -363,13 +366,13 @@ export class RenderService extends Model(
       }
     })
 
-  private getTypeKindById(typeId: string): TypeKind | undefined {
-    return getTypeService(this).type(typeId)?.typeKind
+  private getTypeKindById(typeId: string): ITypeKind | undefined {
+    return getTypeService(this).type(typeId)?.kind
   }
 }
 
 export const renderServiceRef = rootRef<RenderService>(
-  'codelab/RenderServiceRef',
+  '@codelab/RenderServiceRef',
   {
     onResolvedValueChange(ref, newType, oldType) {
       if (oldType && !newType) {

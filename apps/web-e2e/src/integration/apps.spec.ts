@@ -1,5 +1,4 @@
-const appName = 'new app'
-const updatedAppName = 'updated app'
+import { appName, updatedAppName } from './app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
@@ -46,7 +45,14 @@ describe('Apps CRUD', () => {
     })
   })
 
+  // Insert page test here
+  require('./pages.spec.ignore')
+
   describe('delete', () => {
+    before(() => {
+      cy.visit('/apps')
+    })
+
     it('should be able to delete app', () => {
       cy.getCard({
         title: updatedAppName,

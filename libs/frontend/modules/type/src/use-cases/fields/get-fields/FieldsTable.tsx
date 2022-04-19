@@ -106,14 +106,15 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const dataSource: Array<CellData> =
-      interfaceType?.fields?.map((f) => ({
-        id: f.id,
-        name: f.name || '',
-        key: f.key,
-        typeKind: f.type.current ? f.type.current.typeKind : '',
-        description: f.description || '',
-      })) ?? []
+    const dataSource: Array<CellData> = [
+      ...(interfaceType?.fields.values() ?? []),
+    ].map((f) => ({
+      id: f.id,
+      name: f.name || '',
+      key: f.key,
+      typeKind: f.type.current ? f.type.current.kind : '',
+      description: f.description || '',
+    }))
 
     return (
       <Table

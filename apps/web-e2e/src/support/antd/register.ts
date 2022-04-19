@@ -1,7 +1,7 @@
 import { antButtonCommands } from './button'
 import { antCardCommands } from './card'
-import { antDrawerCommands } from './drawer/drawer.register'
-import { antDropdownCommands } from './dropdown/dropdown.register'
+import { antDrawerCommands } from './drawer'
+import { antDropdownCommands } from './dropdown'
 import { antFormCommands } from './form'
 import { antIconCommands } from './icon'
 import { antLayoutCommands } from './layout'
@@ -13,7 +13,7 @@ import { antPaginationCommands } from './pagination'
 import { antPopconfirmCommands } from './popconfirm'
 import { antPopoverCommands } from './popover'
 import { antSpinCommands } from './spin'
-import { antTableCommands } from './table/table.register'
+import { antTableCommands } from './table'
 import { antTooltipCommands } from './tooltip'
 
 const antCommands = [

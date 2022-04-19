@@ -6,12 +6,12 @@ export type CustomTreeSelectProps = FieldProps<Array<string>, TreeSelectProps>
 
 const { SHOW_PARENT } = TreeSelect
 
-const TreeSelectComponent = function ({
+const TreeSelectComponent = ({
   label,
   treeData,
   onChange,
   value = [],
-}: CustomTreeSelectProps) {
+}: CustomTreeSelectProps) => {
   const [tagIds, setTagIds] = useState(value)
 
   const onValueChange = (ids: Array<string>) => {

@@ -1,35 +1,37 @@
 import {
+  assertIsTypeKind,
   IAppType,
   IAppTypeDTO,
   ITypeDTO,
-  IUpdateTypeDTO,
-  TypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateFromDTO } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const hydrate = ({ id, typeKind, name, owner }: IAppTypeDTO): AppType => {
-  return new AppType({ id, typeKind, name, ownerAuth0Id: owner?.auth0Id })
+const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
+  assertIsTypeKind(kind, ITypeKind.AppType)
+
+  return new AppType({ id, kind, name, ownerId: owner.id })
 }
 
 @model('@codelab/AppType')
 export class AppType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.AppType),
+    baseModel: createTypeBase(ITypeKind.AppType),
     props: {},
   }))
   implements IAppType
 {
   @modelAction
   updateCache(fragment: ITypeDTO): void {
-    updateFromDTO(this, fragment)
+    updateBaseTypeCache(this, fragment)
   }
 
-  @modelAction
-  override applyUpdateData(input: IUpdateTypeDTO) {
-    super.applyUpdateData(input)
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
   public static hydrate = hydrate
 }

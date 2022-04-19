@@ -18,7 +18,7 @@ export class Action extends Model({
   }
 }
 
-export const actionRef = rootRef<Action>('ActionRef', {
+export const actionRef = rootRef<Action>('@codelab/ActionRef', {
   onResolvedValueChange(ref, newAction, oldAction) {
     if (oldAction && !newAction) {
       detach(ref)
