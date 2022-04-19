@@ -3160,9 +3160,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/react@npm:5.12.3":
-  version: 5.12.3
-  resolution: "@cypress/react@npm:5.12.3"
+"@cypress/react@npm:5.12.4":
+  version: 5.12.4
+  resolution: "@cypress/react@npm:5.12.4"
   dependencies:
     "@cypress/mount-utils": 1.0.2
     debug: ^4.3.2
@@ -3194,7 +3194,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 8c0ebd300ae71c6af2a955386e6f0794076cbc7861ad17854c58a7f83abd4437d659bcfeb702025358299c96f5a9026eaffeda5ec195e6b2011a483d35f67c58
+  checksum: fe62e028d27ec7521db60a3a08e3ace97524c7f629e784c602db3950cc436ccae1f1abcb569e5cf863bac2645d1b4e9848e81a7e641e3779e5c35cfb117239bb
   languageName: node
   linkType: hard
 
@@ -12690,7 +12690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0-js@npm:^9.14.3":
+"auth0-js@npm:^9.19.0":
   version: 9.19.0
   resolution: "auth0-js@npm:9.19.0"
   dependencies:
@@ -14604,7 +14604,7 @@ __metadata:
     "@babel/runtime": 7.17.2
     "@commitlint/cli": 16.0.2
     "@commitlint/config-conventional": 16.0.0
-    "@cypress/react": 5.12.3
+    "@cypress/react": 5.12.4
     "@cypress/webpack-preprocessor": 5.11.1
     "@dnd-kit/core": 5.0.1
     "@emotion/babel-plugin": 11.7.2
@@ -14753,8 +14753,8 @@ __metadata:
     cross-env: 7.0.3
     cross-fetch: 3.1.4
     css-loader: 5.2.6
-    cypress: 9.5.2
-    cypress-nextjs-auth0: 2.0.1
+    cypress: 9.5.4
+    cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
     d3: 7.3.0
     d3-force: 3.0.0
@@ -15374,7 +15374,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.4.2, cookie@npm:^0.4.1":
+"cookie@npm:0.4.2, cookie@npm:^0.4.1, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
@@ -16071,14 +16071,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress-nextjs-auth0@npm:2.0.1":
-  version: 2.0.1
-  resolution: "cypress-nextjs-auth0@npm:2.0.1"
+"cypress-nextjs-auth0@npm:2.1.0":
+  version: 2.1.0
+  resolution: "cypress-nextjs-auth0@npm:2.1.0"
   dependencies:
-    auth0-js: ^9.14.3
-    futoin-hkdf: ^1.3.3
-    jose: ^2.0.4
-  checksum: ca71160ed19aee91d3fcd50bc3055f6ea9c58443d6bed5a03359eeec1e698c399d1607231ba69dd9df225c7e1cb8f50308dc02bad0e67648bf1106e158d51bae
+    auth0-js: ^9.19.0
+    cookie: ^0.4.2
+    futoin-hkdf: ^1.4.3
+    jose: ^2.0.5
+  checksum: 8b79ef233d2bf5fbb70ecaedf0728c29955a68a8ef95de77819a7a836414a11ef655a94c97d540f8bb5fac2a827a380f5e481ef17f027439fe4d3edc4add2108
   languageName: node
   linkType: hard
 
@@ -16134,9 +16135,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:9.5.2":
-  version: 9.5.2
-  resolution: "cypress@npm:9.5.2"
+"cypress@npm:9.5.4":
+  version: 9.5.4
+  resolution: "cypress@npm:9.5.4"
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -16170,7 +16171,7 @@ __metadata:
     listr2: ^3.8.3
     lodash: ^4.17.21
     log-symbols: ^4.0.0
-    minimist: ^1.2.5
+    minimist: ^1.2.6
     ospath: ^1.2.2
     pretty-bytes: ^5.6.0
     proxy-from-env: 1.0.0
@@ -16182,7 +16183,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: d19a183df25adcb87ba4914fb177a2b8bf2f004c8364fa21abb6bf66f2462d6f586bf09b58480e804f6b499281d931712a3e262f09880859e3170d513c5c9227
+  checksum: 55c61f33db5658da8e5af5c6de64f40a85aeb7cba1219f2772675406f6431b7aa7512e13173d0f475af026fffe9878289229b4f5c74d307eac22d8f51fc29f77
   languageName: node
   linkType: hard
 
@@ -20029,7 +20030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"futoin-hkdf@npm:^1.3.3, futoin-hkdf@npm:^1.4.2":
+"futoin-hkdf@npm:^1.4.2, futoin-hkdf@npm:^1.4.3":
   version: 1.5.0
   resolution: "futoin-hkdf@npm:1.5.0"
   checksum: c0819311f68ec1ba00d35b78ea6b825910def70a5fd330f2cc66e914e7ddb0b9ff267911286062324b120ad5f06fca5a1b09591473c553ac0bf0585a87fc9c72
@@ -23790,7 +23791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^2.0.4, jose@npm:^2.0.5":
+"jose@npm:^2.0.5":
   version: 2.0.5
   resolution: "jose@npm:2.0.5"
   dependencies:
