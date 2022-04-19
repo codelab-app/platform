@@ -10,7 +10,7 @@
     // "react-hooks",
     "@emotion",
     "prettier",
-    // "jest",
+    "jest",
     "jest-formatting",
     "simple-import-sort"
   ],
