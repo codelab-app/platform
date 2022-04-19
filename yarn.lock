@@ -9967,6 +9967,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/inquirer@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "@types/inquirer@npm:8.2.1"
+  dependencies:
+    "@types/through": "*"
+    rxjs: ^7.2.0
+  checksum: 5362d0b1cbec3887c9d5a671a0b19c58cf54066456c8967dd7ee799dfcc242cc8cd8959440c0f2fe7768becaf721b45fd30c222e6b9bcca378f45c68af43bab5
+  languageName: node
+  linkType: hard
+
 "@types/invariant@npm:2.2.35":
   version: 2.2.35
   resolution: "@types/invariant@npm:2.2.35"
@@ -10601,6 +10611,15 @@ __metadata:
   dependencies:
     "@types/jest": "*"
   checksum: 203443d0e7e5929fbc9e441146f92d85efa033b4697e427ed0164df1c40b720b6bb9bbd96a3171ea5fd8d9301b538fd0f49d4f35594d142afd0f6d2ecac25785
+  languageName: node
+  linkType: hard
+
+"@types/through@npm:*":
+  version: 0.0.30
+  resolution: "@types/through@npm:0.0.30"
+  dependencies:
+    "@types/node": "*"
+  checksum: 9578470db0b527c26e246a1220ae9bffc6bf47f20f89c54aac467c083ab1f7e16c00d9a7b4bb6cb4e2dfae465027270827e5908a6236063f6214625e50585d78
   languageName: node
   linkType: hard
 
@@ -14696,6 +14715,7 @@ __metadata:
     "@types/findup-sync": 4.0.2
     "@types/google-protobuf": 3.15.5
     "@types/graphql-iso-date": 3.4.0
+    "@types/inquirer": ^8.2.1
     "@types/invariant": 2.2.35
     "@types/jest": 27.4.0
     "@types/jquery": 3.5.13
@@ -14799,6 +14819,7 @@ __metadata:
     graphql-tools: 8.2.0
     graphql-type-json: 0.3.2
     husky: 7.0.4
+    inquirer: ^8.2.2
     io-ts: 2.2.16
     jest: 27.5.1
     jquery: 3.6.0
@@ -14869,6 +14890,7 @@ __metadata:
     voca: 1.4.0
     vscode-css-languageservice: 5.1.9
     wait-on: 6.0.0
+    webpack-merge: ^5.8.0
     why-is-node-running: 2.2.0
     worker-loader: 3.0.8
     yargs: 17.3.1
@@ -22019,7 +22041,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.0.0":
+"inquirer@npm:^8.0.0, inquirer@npm:^8.2.2":
   version: 8.2.2
   resolution: "inquirer@npm:8.2.2"
   dependencies:
@@ -31418,7 +31440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.1.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5":
+"rxjs@npm:^7.1.0, rxjs@npm:^7.2.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5":
   version: 7.5.5
   resolution: "rxjs@npm:7.5.5"
   dependencies:

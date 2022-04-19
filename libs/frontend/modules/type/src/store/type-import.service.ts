@@ -114,7 +114,7 @@ export class TypeImportService extends Model({}) {
   })
 
   /** Returns the type ids which must be imported before this type is imported */
-  private getTypeDependantIds(type: AnyType): Array<string> {
+  private getTypeDependantIds(type: SnapshotOutOf<AnyType>): Array<string> {
     switch (type.kind) {
       case ITypeKind.UnionType:
         return type.typesOfUnionType.map((t) => t.id)
@@ -135,7 +135,7 @@ export class TypeImportService extends Model({}) {
   @transaction
   private upsertType = _async(function* (
     this: TypeImportService,
-    importedType: AnyType,
+    importedType: SnapshotOutOf<AnyType>,
     auth0Id: string,
   ) {
     const typeService = getTypeService(this)

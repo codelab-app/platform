@@ -2,9 +2,7 @@ import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { GraphQLResolveInfo } from 'graphql'
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
-import { getDriver } from '../../infra/driver'
-
-const driver = getDriver()
+import { getDriver } from '../../infra'
 
 export type IRxTxnResolver<
   TParent = any,
@@ -34,6 +32,7 @@ export const withRxTransaction = <
     context,
     info,
   ) => {
+    const driver = getDriver()
     const session = driver.rxSession()
 
     return session

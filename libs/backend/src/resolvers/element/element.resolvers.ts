@@ -3,13 +3,12 @@ import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { getDriver } from '../../infra/driver'
 import { elementRepository } from '../../repositories'
 
-const driver = getDriver()
-
 export const elementGraph: IFieldResolver<
   any,
   any,
   QueryElementGraphArgs
 > = async (parent, args) => {
+  const driver = getDriver()
   const session = driver.rxSession()
 
   const $elementGraph = session.readTransaction((txn) =>
