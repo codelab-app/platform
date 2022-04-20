@@ -14059,7 +14059,7 @@ __metadata:
     mobx-keystone: ^0.67.2
     mobx-react-lite: ^3.3.0
     mobx-utils: ^6.0.4
-    monaco-editor: 0.30.1
+    monaco-editor: ^0.33.0
     monaco-graphql: 0.5.1
     morphext: ^2.4.7
     neo4j-driver: ^4.4.3
@@ -25211,10 +25211,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.30.1":
-  version: 0.30.1
-  resolution: "monaco-editor@npm:0.30.1"
-  checksum: 474b8b2f252eaa9d0c02a9b3b9ff587abfbe7e39bb825441e9277d983a80807eca049a26900706113139e0f8c1d664ad346aa25f3c3a30aab0ac3518943e1bed
+"monaco-editor@npm:^0.33.0":
+  version: 0.33.0
+  resolution: "monaco-editor@npm:0.33.0"
+  checksum: f88fd1c9be0d6845436aa92ee7f7bcc49f9e9bf452f73bb5efbbe52e50678d1c2aec4d612a943310f5e2282c1d9fcc41b792b65a5b9008e6054908e7e10311ea
   languageName: node
   linkType: hard
 

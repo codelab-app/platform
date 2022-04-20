@@ -3,6 +3,8 @@ import {
   LanguageServiceDefaults,
   ModeConfiguration,
   Options,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
 } from 'monaco-editor/esm/vs/language/css/monaco.contribution'
 import * as cssInJsLang from './cssInJsLang'
 import type * as mode from './cssInJsMode'

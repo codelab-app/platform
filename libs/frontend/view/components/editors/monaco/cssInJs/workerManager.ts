@@ -1,10 +1,9 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Uri } from 'monaco-editor'
-import {
-  editor,
-  IDisposable,
-} from 'monaco-editor/esm/vs/language/css/fillers/monaco-editor-core'
-import { LanguageServiceDefaults } from 'monaco-editor/esm/vs/language/css/monaco.contribution'
+import { editor, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { LanguageServiceDefaults } from 'monaco-editor/esm/vs/language/css/monaco.contribution'
 import { CSSInJsWorker } from './CSSInJsWorker'
 
 const STOP_WHEN_IDLE_FOR = 2 * 60 * 1000 // 2min
