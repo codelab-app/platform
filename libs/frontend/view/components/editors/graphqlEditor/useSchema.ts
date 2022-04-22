@@ -11,7 +11,7 @@ export type SchemaState = {
   errors: Nullable<Array<Error>>
 }
 
-const localState: SchemaState = {
+const initialState: SchemaState = {
   isLoading: false,
   schema: null,
   errors: null,
@@ -23,7 +23,7 @@ export type SchemaHandlers = {
 }
 
 export const useSchema = (): SchemaState & SchemaHandlers => {
-  const [state, setState] = useState({ ...localState })
+  const [state, setState] = useState({ ...initialState })
   const [config, setConfig] = useState<SchemaConfig>({ uri: '' })
 
   const loadCurrentSchema = useCallback(async () => {
