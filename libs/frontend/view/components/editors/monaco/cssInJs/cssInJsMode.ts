@@ -1,4 +1,6 @@
 import { IDisposable, languages, Uri } from 'monaco-editor'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import type { LanguageServiceDefaults } from 'monaco-editor/esm/vs/language/css/monaco.contribution'
 import type { CSSInJsWorker } from './CSSInJsWorker'
 import * as languageFeatures from './languageFeatures'
