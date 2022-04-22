@@ -1,11 +1,7 @@
+import { ICreateTagDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateTagData = {
-  name: string
-  parentTagId?: string
-}
-
-export const createTagSchema: JSONSchemaType<CreateTagData> = {
+export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
   title: 'Create Tag Input',
   type: 'object',
   properties: {

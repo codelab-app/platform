@@ -1,5 +1,11 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
+import {
+  assertIsTypeKind,
+  IFieldDTO,
+  IInterfaceType,
+  IInterfaceTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import {
   ExtendedModel,
   model,
@@ -7,115 +13,88 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import {
-  InterfaceTypeEdgeFragment,
-  InterfaceTypeFieldEdgeFragment,
-  InterfaceTypeFragment,
-  TypeFragment,
-} from '../../graphql'
-import { CreateFieldData } from '../../use-cases/fields'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 import { Field } from './field.model'
-import { typeRef } from './union-type.model'
 
-@model('codelab/InterfaceType')
-export class InterfaceType extends ExtendedModel(() => ({
-  baseModel: createTypeBase(TypeKind.InterfaceType),
-  props: {
-    _fields: prop(() => objectMap<Field>()),
-  },
-})) {
-  @computed
-  get fields(): Array<Field> {
-    return Array.from(this._fields.values())
+const hydrate = ({
+  id,
+  kind,
+  name,
+  fieldsConnection,
+  owner,
+}: IInterfaceTypeDTO): InterfaceType => {
+  assertIsTypeKind(kind, ITypeKind.InterfaceType)
+
+  const interfaceType = new InterfaceType({
+    id,
+    kind,
+    name,
+    ownerId: owner.id,
+  })
+
+  for (const edge of fieldsConnection.edges) {
+    interfaceType.updateFieldCache(edge)
   }
 
-  fieldByKey(key: string): Field | undefined {
-    return this._fields.get(Field.fieldId(this.id, key))
+  return interfaceType
+}
+
+@model('@codelab/InterfaceType')
+export class InterfaceType
+  extends ExtendedModel(() => ({
+    baseModel: createTypeBase(ITypeKind.InterfaceType),
+    props: {
+      fields: prop(() => objectMap<Field>()),
+    },
+  }))
+  implements IInterfaceType
+{
+  field(id: string): Field | undefined {
+    return this.fields.get(id)
   }
 
   @modelAction
-  addFieldLocal({
-    name,
-    description,
-    key,
-    ...fragment
-  }:
-    | CreateFieldData
-    | InterfaceTypeEdgeFragment
-    | InterfaceTypeFieldEdgeFragment): Field {
-    this.validateUniqueFieldKey(key)
+  updateFieldCache(fragment: IFieldDTO): Field {
+    const field = Field.hydrate(fragment)
 
-    const target =
-      (fragment as InterfaceTypeEdgeFragment).target ||
-      (fragment as InterfaceTypeFieldEdgeFragment).node?.id ||
-      (fragment as CreateFieldData).existingTypeId
-
-    const field = new Field({
-      id: Field.fieldId(this.id, key),
-      type: typeRef(target),
-      name,
-      description,
-      key,
-    })
-
-    this._fields.set(field.id, field)
+    this.fields.set(field.id, field)
 
     return field
   }
 
   @modelAction
   deleteFieldLocal(field: Field) {
-    this._fields.delete(field.id)
+    this.fields.delete(field.id)
   }
 
   @modelAction
-  updateFromFragment(fragment: TypeFragment) {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO) {
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.InterfaceType) {
+    if (fragment.__typename !== ITypeKind.InterfaceType) {
       return
     }
 
-    for (const edge of fragment.fieldsConnection.edges) {
-      let field = this.fieldByKey(edge.key)
+    for (const fieldEdge of fragment.fieldsConnection.edges) {
+      let field = this.field(fieldEdge.id)
 
       if (field) {
-        field.updateFromFragment(edge, this.id)
+        field.updateCache(fieldEdge, this.id)
       } else {
-        field = this.addFieldLocal(edge)
-        this._fields.set(field.id, field)
+        field = this.updateFieldCache(fieldEdge)
+        this.fields.set(field.id, field)
       }
     }
 
-    const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
-
-    for (const [key, field] of this._fields) {
-      if (!newFieldsKeySet.has(key)) {
-        this._fields.delete(field.id)
-      }
-    }
+    // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
+    //
+    // for (const [key, field] of this._fields) {
+    //   if (!newFieldsKeySet.has(key)) {
+    //     this._fields.delete(field.id)
+    //   }
+    // }
   }
 
-  validateUniqueFieldKey(key: string): void {
-    if (this.fieldByKey(key)) {
-      throw new Error(`Field with key ${key} already exists`)
-    }
-  }
-
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    fieldsConnection,
-  }: InterfaceTypeFragment): InterfaceType {
-    const it = new InterfaceType({ id, typeKind, name })
-
-    for (const edge of fieldsConnection.edges) {
-      it.addFieldLocal(edge)
-    }
-
-    return it
-  }
+  public static hydrate = hydrate
 }

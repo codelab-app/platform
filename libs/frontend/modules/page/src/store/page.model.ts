@@ -1,21 +1,23 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { PageFragment } from '../graphql/page.fragment.graphql.gen'
 
-@model('codelab/Page')
-export class Page extends Model({
-  id: idProp,
-  appId: prop<Nullish<string>>(),
-  name: prop<string>(),
-  rootElementId: prop<string>(),
-  providerElementId: prop<string>(),
-}) {
+@model('@codelab/Page')
+export class Page
+  extends Model({
+    id: idProp,
+    appId: prop<string>(),
+    name: prop<string>(),
+    rootElementId: prop<string>(),
+    providerElementId: prop<string>(),
+  })
+  implements IPage
+{
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id
   }
 
-  static fromFragment(page: PageFragment) {
+  static hydrate(page: IPageDTO) {
     return new Page({
       id: page.id,
       name: page.name,

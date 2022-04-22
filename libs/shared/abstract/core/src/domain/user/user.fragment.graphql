@@ -1,0 +1,5 @@
+fragment __User on User {
+  id
+  auth0Id
+  roles
+}

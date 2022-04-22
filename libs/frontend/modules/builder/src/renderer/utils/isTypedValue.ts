@@ -1,7 +1,7 @@
-import { PropsData, TypedValue } from '@codelab/shared/abstract/core'
+import { IPropData, TypedValue } from '@codelab/shared/abstract/core'
 import { isPlainObject } from 'lodash'
 
-export const isTypedValue = (props: PropsData): props is TypedValue<any> => {
+export const isTypedValue = (props: IPropData): props is TypedValue<any> => {
   if (!props) {
     return false
   }

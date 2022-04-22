@@ -1,0 +1,8 @@
+fragment InterfaceType on InterfaceType {
+  ...TypeBase
+  fieldsConnection {
+    edges {
+      ...Field
+    }
+  }
+}

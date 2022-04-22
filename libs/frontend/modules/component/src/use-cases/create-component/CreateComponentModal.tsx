@@ -1,18 +1,18 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { WithComponentService } from '../../store'
 import { createComponentSchema } from './createComponentSchema'
-import { CreateComponentInput } from './types'
 
 export const CreateComponentModal = observer<WithComponentService>(
   ({ componentService }) => {
     const { user } = useUser()
 
-    const handleSubmit = (input: CreateComponentInput) =>
+    const handleSubmit = (input: ICreateComponentDTO) =>
       componentService.createComponent(input, user?.sub ?? '')
 
     const closeModal = () => componentService.createModal.close()
@@ -28,7 +28,7 @@ export const CreateComponentModal = observer<WithComponentService>(
         title={<span css={tw`font-semibold`}>Create component</span>}
         visible={componentService.createModal.isOpen}
       >
-        <ModalForm.Form<CreateComponentInput>
+        <ModalForm.Form<ICreateComponentDTO>
           model={{}}
           onSubmit={handleSubmit}
           onSubmitError={onSubmitError}

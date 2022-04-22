@@ -1,5 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
@@ -12,7 +12,7 @@ export class ConditionalRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+  render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const renderer = getRenderContext(this)
 
     if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
@@ -31,7 +31,7 @@ export class ConditionalRenderPipe
     return this.next.render(element, props)
   }
 
-  private static shouldStopRendering(element: Element, props: PropsData) {
+  private static shouldStopRendering(element: Element, props: IPropData) {
     if (!element.renderIfPropKey) {
       return false
     }

@@ -1,17 +1,7 @@
-import { Nullable } from '@codelab/shared/abstract/types'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateElementInput = {
-  name?: Nullable<string>
-  order?: number
-  instanceOfComponentId?: Nullable<string>
-  atomId?: Nullable<string>
-  parentElementId?: string
-  css?: string
-  propsData?: string
-}
-
-export const createElementSchema: JSONSchemaType<CreateElementInput> = {
+export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
   title: 'Create Element Input',
   type: 'object',
   properties: {

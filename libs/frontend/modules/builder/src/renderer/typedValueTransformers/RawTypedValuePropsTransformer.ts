@@ -1,4 +1,4 @@
-import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 
@@ -24,20 +24,20 @@ export class RawTypedValuePropsTransformer
   extends Model({})
   implements ITypedValueTransformer
 {
-  public readonly handledKinds: ReadonlySet<TypeKind> = new Set([
-    TypeKind.AppType,
-    TypeKind.ArrayType,
-    TypeKind.EnumType,
-    TypeKind.ElementType,
-    TypeKind.InterfaceType,
-    TypeKind.LambdaType,
-    TypeKind.MonacoType,
-    TypeKind.PageType,
-    TypeKind.PrimitiveType,
+  public readonly handledKinds: ReadonlySet<ITypeKind> = new Set([
+    ITypeKind.AppType,
+    ITypeKind.ArrayType,
+    ITypeKind.EnumType,
+    ITypeKind.ElementType,
+    ITypeKind.InterfaceType,
+    ITypeKind.LambdaType,
+    ITypeKind.MonacoType,
+    ITypeKind.PageType,
+    ITypeKind.PrimitiveType,
   ])
 
-  canHandleTypeKind(typeKind: TypeKind): boolean {
-    return this.handledKinds.has(typeKind)
+  canHandleTypeKind(kind: ITypeKind): boolean {
+    return this.handledKinds.has(kind)
   }
 
   canHandleValue(value: TypedValue<any>): boolean {

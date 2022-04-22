@@ -1,9 +1,11 @@
 import { detach, rootRef } from 'mobx-keystone'
 import type { Element } from './element.model'
 
-export const elementRef = rootRef<Element>('ElementRef', {
-  onResolvedValueChange(ref, newApp, oldApp) {
-    if (oldApp && !newApp) {
+export const elementRef = rootRef<Element>('@codelab/ElementRef', {
+  onResolvedValueChange(ref, newElement, oldElement) {
+    // console.log(ref, newElement, oldElement)
+
+    if (oldElement && !newElement) {
       detach(ref)
     }
   },

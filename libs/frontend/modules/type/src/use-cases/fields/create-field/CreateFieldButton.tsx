@@ -4,12 +4,7 @@ import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import {
-  InterfaceType,
-  typeRef,
-  TypeService,
-  WithTypeService,
-} from '../../../store'
+import { InterfaceType, typeRef, WithTypeService } from '../../../store'
 
 export type CreateFieldButtonProps = {
   interfaceId: string

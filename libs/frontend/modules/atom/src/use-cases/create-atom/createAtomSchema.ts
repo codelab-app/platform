@@ -1,14 +1,11 @@
-import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import {
+  AtomType,
+  filterNotHookType,
+  ICreateAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateAtomInputSchema = {
-  name: string
-  type: AtomType
-  tags: Nullish<Array<string>>
-}
-
-export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
+export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
   title: 'Create Atom',
   type: 'object',
   properties: {

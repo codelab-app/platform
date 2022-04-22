@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "lib": ["es2021"],
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
+    "types": ["node", "worker-loader", "window", "@fancyapps/ui", "cypher"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,

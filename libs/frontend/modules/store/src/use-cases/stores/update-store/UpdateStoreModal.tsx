@@ -1,18 +1,19 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithStoreService } from '../../../store'
 import { DisplayIfParent } from '../create-store/DisplayIfParent'
-import { UpdateStoreInput, updateStoreSchema } from './updateStoreSchema'
+import { updateStoreSchema } from './updateStoreSchema'
 
 export const UpdateStoreModal = observer<WithStoreService>(
   ({ storeService }) => {
     const closeModal = () => storeService.updateModal.close()
     const updateStore = storeService.updateModal.store
 
-    const onSubmit = async (data: UpdateStoreInput) => {
+    const onSubmit = async (data: IUpdateStoreDTO) => {
       if (!updateStore) {
         throw new Error('Updated store is not set')
       }
@@ -40,7 +41,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
         onCancel={closeModal}
         visible={storeService.updateModal.isOpen}
       >
-        <ModalForm.Form<UpdateStoreInput>
+        <ModalForm.Form<IUpdateStoreDTO>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

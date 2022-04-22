@@ -1,5 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { Model, model, prop } from 'mobx-keystone'
@@ -15,7 +15,7 @@ export class AtomRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+  render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const renderer = getRenderContext(this)
 
     if (!element.atom?.current) {

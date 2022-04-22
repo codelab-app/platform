@@ -14,7 +14,7 @@ export const useBuilderHotkeys = (
   useHotkeys(
     'del,backspace',
     () => {
-      if (builderService.selectedElement?.maybeCurrent) {
+      if (builderService.selectedElement?.current) {
         elementService.deleteModal.open(
           elementRef(builderService.selectedElement.current),
         )
@@ -26,7 +26,7 @@ export const useBuilderHotkeys = (
   useHotkeys(
     'esc',
     () => {
-      if (builderService.selectedElement?.maybeCurrent) {
+      if (builderService.selectedElement?.current) {
         builderService.setSelectedElement(null)
       }
     },

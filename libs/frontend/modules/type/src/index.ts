@@ -1,4 +1,3 @@
-export * from './graphql'
 export * from './hooks'
 export * from './interface-form'
 export * from './shared'

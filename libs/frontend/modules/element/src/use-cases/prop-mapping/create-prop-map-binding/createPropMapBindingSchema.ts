@@ -1,14 +1,8 @@
+import { ICreatePropMapBindingDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { HiddenField } from 'uniforms-antd'
 
-export type CreatePropMapBindingData = {
-  elementId: string
-  sourceKey: string
-  targetKey: string
-  targetElementId?: string
-}
-
-export const createPropMapBindingSchema: JSONSchemaType<CreatePropMapBindingData> =
+export const createPropMapBindingSchema: JSONSchemaType<ICreatePropMapBindingDTO> =
   {
     title: 'Create Prop Map Binding Input',
     type: 'object',

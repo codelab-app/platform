@@ -1,5 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import {
+  IComponentDTO,
+  ICreateComponentDTO,
+  IUpdateComponentDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -15,15 +20,12 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
-import { ComponentFragment } from '../graphql/component.fragment.graphql.gen'
-import type { CreateComponentInput } from '../use-cases/create-component/types'
-import type { UpdateComponentInput } from '../use-cases/update-component/types'
 import { mapCreateInput } from './api.utils'
-import { Component } from './component'
 import { componentApi } from './component.api'
+import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
-export const componentRef = rootRef<Component>('ComponentRef', {
+export const componentRef = rootRef<Component>('@codelab/ComponentRef', {
   onResolvedValueChange(ref, newComponent, oldComponent) {
     if (oldComponent && !newComponent) {
       detach(ref)
@@ -35,7 +37,7 @@ export interface WithComponentService {
   componentService: ComponentService
 }
 
-@model('codelab/ComponentStore')
+@model('@codelab/ComponentStore')
 export class ComponentService extends Model({
   components: prop(() => objectMap<Component>()),
   createModal: prop(() => new ModalService({})),
@@ -60,7 +62,7 @@ export class ComponentService extends Model({
       if (this.components.get(component.id)) {
         return this.components.get(component.id)
       } else {
-        const componentModel = Component.fromFragment(component)
+        const componentModel = Component.hydrate(component)
         this.components.set(component.id, componentModel)
 
         return componentModel
@@ -84,7 +86,7 @@ export class ComponentService extends Model({
   @transaction
   createComponent = _async(function* (
     this: ComponentService,
-    input: CreateComponentInput,
+    input: ICreateComponentDTO,
     ownerId: string,
   ) {
     const createComponentInput = mapCreateInput(input, ownerId)
@@ -104,7 +106,7 @@ export class ComponentService extends Model({
       throw new Error('Component was not created')
     }
 
-    const componentModel = Component.fromFragment(component)
+    const componentModel = Component.hydrate(component)
 
     this.components.set(componentModel.id, componentModel)
 
@@ -116,7 +118,7 @@ export class ComponentService extends Model({
   update = _async(function* (
     this: ComponentService,
     component: Component,
-    { name }: UpdateComponentInput,
+    { name }: IUpdateComponentDTO,
   ) {
     component.setName(name)
 
@@ -158,25 +160,21 @@ export class ComponentService extends Model({
   })
 
   @modelAction
-  addComponent(component: Component) {
-    this.components.set(component.id, component)
-  }
-
-  @modelAction
-  addOrUpdate(componentFragment: ComponentFragment) {
+  updateCache(componentFragment: IComponentDTO) {
     const existing = this.component(componentFragment.id)
 
     if (existing) {
-      existing.updateFromFragment(componentFragment)
+      existing.updateCache(componentFragment)
     } else {
-      this.addComponent(Component.fromFragment(componentFragment))
+      const component = Component.hydrate(componentFragment)
+      this.components.set(component.id, component)
     }
   }
 
   @modelAction
-  addOrUpdateAll(components: Array<ComponentFragment>) {
+  updateCaches(components: Array<IComponentDTO>) {
     for (const component of components) {
-      this.addOrUpdate(component)
+      this.updateCache(component)
     }
   }
 }
@@ -184,8 +182,8 @@ export class ComponentService extends Model({
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const componentServiceContext = createContext<ComponentService>()
 
-export const getComponentService = (thisModel: any) => {
-  const componentService = componentServiceContext.get(thisModel)
+export const getComponentService = (self: any) => {
+  const componentService = componentServiceContext.get(self)
 
   if (!componentService) {
     throw new Error('componentServiceContext is not set')

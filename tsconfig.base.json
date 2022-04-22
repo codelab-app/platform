@@ -26,13 +26,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@codelab/backend": ["libs/backend/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
       "@codelab/frontend/model/infra/graphql": [
         "libs/frontend/model/infra/graphql/src/index.ts"
       ],
@@ -62,6 +62,9 @@
       ],
       "@codelab/frontend/modules/page": [
         "libs/frontend/modules/page/src/index.ts"
+      ],
+      "@codelab/frontend/modules/prop": [
+        "libs/frontend/modules/prop/src/index.ts"
       ],
       "@codelab/frontend/modules/props": [
         "libs/frontend/modules/prop/src/index.ts"

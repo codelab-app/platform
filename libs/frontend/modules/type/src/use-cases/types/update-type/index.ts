@@ -1,2 +1,2 @@
-export * from './update-type-input.factory'
+export * from './update-type.schema'
 export * from './UpdateTypeModal'

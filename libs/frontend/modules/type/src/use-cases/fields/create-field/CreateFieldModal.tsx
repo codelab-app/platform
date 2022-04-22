@@ -1,12 +1,14 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { InterfaceType, WithTypeService } from '../../../store'
-import { CreateFieldData, createFieldSchema } from './createFieldSchema'
+import { createFieldSchema } from './createFieldSchema'
 
 export type CreateFieldModalProps = {
   interfaceType: InterfaceType
@@ -24,8 +26,10 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
         title={<span css={tw`font-semibold`}>Create field</span>}
         visible={typeService.fieldCreateModal.isOpen}
       >
-        <ModalForm.Form<CreateFieldData>
-          model={{}}
+        <ModalForm.Form<ICreateFieldDTO>
+          model={{
+            id: v4(),
+          }}
           onSubmit={(input) => typeService.addField(interfaceType, input)}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
@@ -34,12 +38,8 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           onSubmitSuccess={closeModal}
           schema={createFieldSchema}
         >
-          <AutoFields omitFields={['existingTypeId', 'interfaceId']} />
-          <TypeSelect
-            label="Type"
-            name="existingTypeId"
-            typeService={typeService}
-          />
+          <AutoFields omitFields={['fieldType']} />
+          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

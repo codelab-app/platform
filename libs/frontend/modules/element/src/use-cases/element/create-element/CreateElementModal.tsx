@@ -5,17 +5,18 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
-import { CreateElementInput, createElementSchema } from './createElementSchema'
+import { createElementSchema } from './createElementSchema'
 
 export const CreateElementModal = observer<WithElementService>(
   ({ elementService }) => {
-    const onSubmit = (submitData: CreateElementInput) =>
+    const onSubmit = (submitData: ICreateElementDTO) =>
       elementService.createElement(submitData)
 
     const onSubmitError = createNotificationHandler({
@@ -38,7 +39,7 @@ export const CreateElementModal = observer<WithElementService>(
         title={<span css={tw`font-semibold`}>Create element</span>}
         visible={elementService.createModal.isOpen}
       >
-        <ModalForm.Form<CreateElementInput>
+        <ModalForm.Form<ICreateElementDTO>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -61,7 +62,7 @@ export const CreateElementModal = observer<WithElementService>(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
                 allElementOptions={elementService.elementTree.elementsList
-                  .filter((e) => !e.instanceOfComponent && !e.component)
+                  .filter((e) => !e?.instanceOfComponent && !e?.component)
                   .map(mapElementOption)}
               />
             ))}

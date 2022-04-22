@@ -1,14 +1,15 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IUpdateTagDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
-import { WithTagService } from '../../store/tag.service'
-import { UpdateTagData, updateTagSchema } from './updateTagSchema'
+import { WithTagService } from '../../store'
+import { updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
   const tag = tagService.updateModal.tag
 
-  const onSubmit = (input: UpdateTagData) => {
+  const onSubmit = (input: IUpdateTagDTO) => {
     if (!tag) {
       throw new Error('Updated tag is not set')
     }
@@ -24,7 +25,7 @@ export const UpdateTagModal = observer<WithTagService>(({ tagService }) => {
       onCancel={closeModal}
       visible={tagService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTagData>
+      <ModalForm.Form<IUpdateTagDTO>
         model={{ name: tag?.name }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({

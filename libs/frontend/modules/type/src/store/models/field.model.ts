@@ -1,3 +1,4 @@
+import { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -9,33 +10,26 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  InterfaceTypeEdgeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from '../../graphql'
-import type { AnyType } from './types'
 import { typeRef } from './union-type.model'
 
-@model('codelab/Field')
-export class Field extends Model(() => ({
-  id: idProp, // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
-  name: prop<Nullish<string>>(),
-  description: prop<Nullish<string>>(),
-  key: prop<string>(),
-  type: prop<Ref<AnyType>>(),
-})) {
+@model('@codelab/Field')
+export class Field
+  extends Model(() => ({
+    id: idProp, // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
+    name: prop<Nullish<string>>(),
+    description: prop<Nullish<string>>(),
+    key: prop<string>(),
+    type: prop<Ref<IAnyType>>(),
+  }))
+  implements IField
+{
   public static fieldId(interfaceId: string, fieldKey: string) {
     return `${interfaceId}:fields:${fieldKey}`
   }
 
   @modelAction
-  updateFromFragment(
-    fragment: InterfaceTypeEdgeFragment | InterfaceTypeFieldEdgeFragment,
-    interfaceId: string,
-  ) {
-    const target =
-      (fragment as InterfaceTypeEdgeFragment).target ||
-      (fragment as InterfaceTypeFieldEdgeFragment).node?.id
+  updateCache(fragment: IFieldDTO, interfaceId: string) {
+    const target = fragment.fieldType.id
 
     this.id = Field.fieldId(interfaceId, fragment.key)
     this.name = fragment.name
@@ -43,9 +37,22 @@ export class Field extends Model(() => ({
     this.key = fragment.key
     this.type = typeRef(target)
   }
+
+  @modelAction
+  static hydrate(data: IFieldDTO) {
+    const { id, key, name, description, fieldType } = data
+
+    return new Field({
+      id,
+      type: typeRef(fieldType.id),
+      name,
+      description,
+      key,
+    })
+  }
 }
 
-export const fieldRef = rootRef<Field>('codealb/FieldRef', {
+export const fieldRef = rootRef<Field>('@codelab/FieldRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

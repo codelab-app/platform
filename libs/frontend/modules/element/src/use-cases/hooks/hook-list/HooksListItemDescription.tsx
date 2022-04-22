@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, IHook } from '@codelab/shared/abstract/core'
 import React from 'react'
 import {
   GraphqlDescription,
@@ -7,13 +7,14 @@ import {
   RecoilStateDescription,
   RouterDescription,
 } from './hook-description'
-import { HooksListItemDescriptionProps } from './types'
+
+export type HooksListItemDescriptionProps = { hook: IHook }
 
 export const HooksListItemDescription = ({
   hook,
 }: HooksListItemDescriptionProps) => {
   const { config, type } = hook
-  const configJson = JSON.parse(config.data)
+  const configJson = JSON.parse(config.data as unknown as string)
 
   switch (type) {
     case AtomType.HookQueryLambda:

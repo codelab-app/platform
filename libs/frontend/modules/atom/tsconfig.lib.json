@@ -13,5 +13,11 @@
     "../../../../node_modules/@nrwl/react/typings/image.d.ts"
   ],
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "../../../shared/abstract/core/src/domain/atom/atom.fragment.graphql.gen.ts"
+  ]
 }

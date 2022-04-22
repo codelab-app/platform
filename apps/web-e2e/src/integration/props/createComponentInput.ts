@@ -5,7 +5,8 @@ import {
   ComponentCreateInput,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import { BaseTypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 
 /**
  * Create List Atom
@@ -26,7 +27,8 @@ export const createListAtomInput = (userId: string): AtomCreateInput => ({
             {
               node: {
                 ReactNodeType: {
-                  name: BaseTypeKind.ReactNode,
+                  id: v4(),
+                  name: ITypeKind.ReactNodeType,
                   owner: { connect: { where: { node: { auth0Id: userId } } } },
                 },
               },
@@ -38,7 +40,8 @@ export const createListAtomInput = (userId: string): AtomCreateInput => ({
             {
               node: {
                 RenderPropsType: {
-                  name: BaseTypeKind.RenderProps,
+                  id: v4(),
+                  name: ITypeKind.RenderPropsType,
                   owner: { connect: { where: { node: { auth0Id: userId } } } },
                 },
               },
@@ -88,6 +91,7 @@ export const createTextAtomInput = (userId: string): AtomCreateInput => ({
             {
               node: {
                 PrimitiveType: {
+                  id: v4(),
                   name: 'String',
                   primitiveKind: PrimitiveTypeKind.String,
                   owner: { connect: { where: { node: { auth0Id: userId } } } },

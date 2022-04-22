@@ -1,15 +1,15 @@
+import { getAtomService } from '@codelab/frontend/modules/atom'
+import { getComponentService } from '@codelab/frontend/modules/component'
 import {
-  AtomFromFragmentInput,
-  getAtomService,
-} from '@codelab/frontend/modules/atom'
-import {
-  ComponentFragment,
-  getComponentService,
-} from '@codelab/frontend/modules/component'
+  IComponentDTO,
+  IElementDTO,
+  isAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   detach,
+  getParent,
   idProp,
   Model,
   model,
@@ -19,17 +19,14 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import {
-  ElementFragment,
-  ElementGraphFragment,
-} from '../graphql/element.fragment.graphql.gen'
 import { Element } from './element.model'
 import { elementRef } from './element.ref'
+import type { ElementService } from './element.service'
 
-const fromFragment = (fragment: ElementGraphFragment, rootId: string) => {
+const hydrate = (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
 
-  tree.updateFromFragment(fragment, rootId)
+  tree.updateCache(elements, rootId)
 
   return tree
 }
@@ -44,109 +41,90 @@ export class ElementTree extends Model({
   id: idProp,
 
   /** The root tree element */
-  root: prop<Nullable<Element>>(null).withSetter(),
+  root: prop<Nullable<Ref<Element>>>(null).withSetter(),
 
   /** All root elements of the components in the main tree */
-  componentRoots: prop(() => objectMap<Element>()),
-
-  elementCache: prop(() => objectMap<Ref<Element>>()),
+  componentRoots: prop(() => objectMap<Ref<Element>>()),
 }) {
   @computed
   get elementsList() {
-    return this.root ? [this.root, ...this.root.descendants] : []
+    return this.root
+      ? [this.root.current, ...(this.root.current?.descendants ?? [])]
+      : []
+  }
+
+  // Need to use get parent to get the ElementService, otherwise getElementService may get the wrong service depending on who's calling
+  @computed
+  get elements() {
+    const parent = getParent<ElementService>(this)
+
+    if (!parent) {
+      throw new Error('Missing ElementService')
+    }
+
+    if (parent.$modelType === '@codelab/ElementService') {
+      return parent.elements
+    }
+
+    throw new Error('Missing ElementService')
   }
 
   element(id: string) {
     if (this.componentRoots.has(id)) {
-      return this.componentRoots.get(id)
+      return this.componentRoots.get(id)?.current
     }
 
-    if (this.elementCache.has(id)) {
-      return this.elementCache.get(id)?.maybeCurrent
-    }
-
-    const allRoots = [this.root, ...this.componentRoots.values()]
-
-    for (const value of allRoots) {
-      const element = value?.findDescendant(id)
-
-      if (element) {
-        this.elementCache.set(id, elementRef(element))
-
-        return element
-      }
-    }
-
-    return undefined
+    return this.elements?.get(id)
   }
 
   @modelAction
-  addOrUpdateAll(elementFragments: Array<ElementFragment>, rootId?: string) {
-    this.ensureAllAtomsAreAdded(elementFragments)
-    this.ensureAllComponentsAreAdded(elementFragments)
+  updateCache(elementsDTO: Array<IElementDTO>, rootId?: string) {
+    for (const element of elementsDTO) {
+      this.elements.set(element.id, Element.hydrate(element))
+    }
 
-    // Create all elements first. Keep them in a temp map. Then after all are created, assign parent/children
-    const elements = new Map<string, Element>()
-    const childToParentMap = new Map<string, string>()
+    this.updateAtomsCache(elementsDTO)
+    this.updateComponentsCache(elementsDTO)
 
-    for (const fragment of elementFragments) {
-      let element = this.element(fragment.id)
+    for (const elementDTO of elementsDTO) {
+      let element = this.element(elementDTO.id)
 
-      if (element) {
-        element.updateFromFragment(fragment)
-      } else {
-        element = Element.fromFragment(fragment)
-      }
+      // Update cache if exists, other create new
+      element
+        ? element.updateCache(elementDTO)
+        : (element = Element.hydrate(elementDTO))
 
-      elements.set(fragment.id, element)
+      // this.elements.set(elementDTO.id, element)
 
-      if (fragment.id === rootId) {
-        this.root = element
-      } else if (fragment.parentElement?.id) {
-        childToParentMap.set(fragment.id, fragment.parentElement.id)
-      } else if (fragment.component) {
-        this.componentRoots.set(fragment.id, element)
+      if (!elementDTO.parentElement?.id) {
+        this.setRoot(elementRef(element))
+      } else if (elementDTO.component) {
+        this.componentRoots.set(elementDTO.id, elementRef(element))
       }
     }
 
-    // Assign parent/children
-    for (const addedElement of elements.values()) {
-      const parentId = childToParentMap.get(addedElement.id)
+    // Assign relationships
+    for (const [_, element] of this.elements) {
+      console.log(element)
+
+      const parentId = element.parentId
 
       if (!parentId) {
         continue
       }
 
-      const parent = elements.get(parentId) || this.element(parentId)
+      const parent = this.element(parentId)
 
-      if (!parent) {
+      if (!parent || parent.hasChild(element)) {
         continue
       }
 
-      parent.addChild(addedElement)
+      console.log(parent, element)
+
+      parent?.addChild(element)
     }
 
-    return [...elements.values()]
-  }
-
-  @modelAction
-  removeElementAndDescendants(element: Element) {
-    const elementAndDescendantIds = [
-      element.id,
-      ...element.descendants.map((e) => e.id),
-    ]
-
-    for (const id of elementAndDescendantIds) {
-      if (this.elementCache.has(id)) {
-        this.elementCache.delete(id)
-      }
-    }
-
-    if (element.id === this.root?.id) {
-      this.root = null
-    } else {
-      element.parentElement?.removeChild(element)
-    }
+    return [...this.elements.values()]
   }
 
   /**
@@ -187,11 +165,6 @@ export class ElementTree extends Model({
     return element
   }
 
-  @modelAction
-  updateFromFragment({ vertices }: ElementGraphFragment, rootId: string) {
-    return this.addOrUpdateAll(vertices, rootId)
-  }
-
   getPathFromRoot(selectedElement: Element): Array<Element> {
     const path = []
     let current: Element | undefined = selectedElement
@@ -205,34 +178,31 @@ export class ElementTree extends Model({
   }
 
   @modelAction
-  private ensureAllAtomsAreAdded(elements: Array<ElementFragment>) {
+  private updateAtomsCache(elements: Array<IElementDTO>) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
+    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
-    const allAtoms = elements
-      .map((v) => v.atom)
-      .filter(Boolean) as Array<AtomFromFragmentInput>
-
-    atomService.addOrUpdateAll(allAtoms)
+    atomService.updateCache(atoms)
   }
 
   @modelAction
-  private ensureAllComponentsAreAdded(elements: Array<ElementFragment>) {
+  private updateComponentsCache(elements: Array<IElementDTO>) {
     // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
     const componentService = getComponentService(this)
 
     const allComponents = elements
       .map((v) => v.component)
-      .filter(Boolean) as Array<ComponentFragment>
+      .filter(Boolean) as Array<IComponentDTO>
 
-    componentService.addOrUpdateAll(allComponents)
+    componentService.updateCaches(allComponents)
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static fromFragment = fromFragment
+  public static hydrate = hydrate
 }
 
-export const elementTreeRef = rootRef<ElementTree>('codelab/ElementTreeRef', {
+export const elementTreeRef = rootRef<ElementTree>('@codelab/ElementTreeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

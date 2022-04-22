@@ -1,5 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { IPropData, IPropDataByElementId } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isEmpty } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +12,7 @@ import { mapOutput } from './utils/renderOutputUtils'
 export interface ElementWrapperProps {
   renderService: RenderService
   element: Element
-  extraProps?: PropsData
+  extraProps?: IPropData
 }
 
 // An observer element wrapper - this makes sure that each element is self-contained and observers only the data it needs
@@ -65,7 +65,7 @@ const removePropsForFragment = (
 
 const wrapperFactory = (
   renderOutput: RenderOutput,
-  extraPropsContext: PropsDataByElementId,
+  extraPropsContext: IPropDataByElementId,
 ) =>
   // wrap it in a descendant bound props context if it has any descendant bound props
   isEmpty(renderOutput.descendantBoundProps)
@@ -78,7 +78,7 @@ const getReactComponent = (renderOutput: RenderOutput) =>
   // Render the atom if it exists, otherwise use fragment
   renderOutput.atomType ? atoms[renderOutput.atomType] ?? Fragment : Fragment
 
-const makeChildrenPropElenment = (props: PropsData) =>
+const makeChildrenPropElenment = (props: IPropData) =>
   React.createElement(Fragment, {}, props['children'])
 
 const childrenAreEmpty = (children: any) =>
@@ -87,11 +87,11 @@ const childrenAreEmpty = (children: any) =>
 // Keep a context of descendant bound props
 // that way we can pass props from a parent to any child
 // without affecting any other elements in the tree
-const DescendantBoundPropsContext = createContext<PropsDataByElementId>({})
+const DescendantBoundPropsContext = createContext<IPropDataByElementId>({})
 const noWrapper = () => (children: ReactElement) => children
 
 const withDescendantBoundProps =
-  (extraProps: PropsDataByElementId) => (children: ReactElement) =>
+  (extraProps: IPropDataByElementId) => (children: ReactElement) =>
     React.createElement(
       DescendantBoundPropsContext.Provider,
       { value: extraProps },

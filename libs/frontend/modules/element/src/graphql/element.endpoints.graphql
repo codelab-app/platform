@@ -1,4 +1,4 @@
-query GetElementsGraph($input: ElementGraphInput!) {
+query GetElementGraph($input: ElementGraphInput!) {
   elementGraph(input: $input) {
     ...ElementGraph
   }
@@ -12,11 +12,17 @@ mutation CreateElements($input: [ElementCreateInput!]!) {
   }
 }
 
-mutation DeleteElementsSubgraph(
+mutation DeleteElements($where: ElementWhere!) {
+  deleteElements(where: $where) {
+    nodesDeleted
+  }
+}
+
+mutation DeleteElementSubgraph(
   $where: ElementWhere
   $delete: ElementDeleteInput
 ) {
-  deleteElementsSubgraph(where: $where, delete: $delete) {
+  deleteElementSubgraph(where: $where, delete: $delete) {
     nodesDeleted
     deletedIds
   }

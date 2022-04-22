@@ -1,17 +1,11 @@
-mutation E2eCreateField($input: UpsertFieldInput!) {
-  upsertFieldEdge(input: $input, isCreating: true) {
-    ...E2eInterfaceTypeEdge
-  }
-}
+#mutation E2eCreateField($input: UpsertFieldInput!) {
+#  upsertFieldEdge(input: $input, isCreating: true) {
+#    ...E2eField
+#  }
+#}
 
-fragment E2eField on Field {
+fragment E2eField on InterfaceTypeFieldsRelationship {
   key
   name
   description
-}
-
-fragment E2eInterfaceTypeEdge on InterfaceTypeEdge {
-  ...E2eField
-  target
-  source
 }

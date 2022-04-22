@@ -1,9 +1,8 @@
+import { IUpdateActionDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateActionInput, createActionSchema } from '../create-action'
+import { createActionSchema } from '../create-action'
 
-export type UpdateActionInput = CreateActionInput
-
-export const updateActionSchema: JSONSchemaType<UpdateActionInput> = {
+export const updateActionSchema: JSONSchemaType<IUpdateActionDTO> = {
   ...createActionSchema,
   title: 'Update Action Input',
 } as const

@@ -1,53 +1,61 @@
-import { IArrayType, TypeKind } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelClass,
-  modelFlow,
-  prop,
-  Ref,
-  transaction,
-} from 'mobx-keystone'
-import { ArrayTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  IAnyType,
+  IArrayType,
+  IArrayTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
-import type { AnyType } from './types'
 import { typeRef } from './union-type.model'
 
-@model('codelab/ArrayType')
+const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
+  const itemId = fragment.itemType.id
+  const itemType = typeRef(itemId)
+
+  if (!itemType) {
+    throw new Error('Item type is invalid')
+  }
+
+  assertIsTypeKind(fragment.kind, ITypeKind.ArrayType)
+
+  return new ArrayType({
+    id: fragment.id,
+    kind: fragment.kind,
+    name: fragment.name,
+    itemType,
+    ownerId: fragment.owner.id,
+  })
+}
+
+@model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ArrayType),
+    baseModel: createTypeBase(ITypeKind.ArrayType),
     props: {
-      itemType: prop<Nullish<Ref<AnyType>>>(),
+      itemType: prop<Ref<IAnyType>>(),
     },
   }))
   implements IArrayType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment) {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO) {
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.ArrayType) {
+    if (fragment.__typename !== ITypeKind.ArrayType) {
       return
     }
 
-    const itemId = fragment.itemType?.[0].id
-    this.itemType = itemId ? typeRef(itemId) : null
+    const itemId = fragment.itemType.id
+    this.itemType = typeRef(itemId)
   }
 
-  static fromFragment(fragment: ArrayTypeFragment): ArrayType {
-    const itemId = fragment.itemType?.[0].id
-    const itemType = itemId ? typeRef(itemId) : null
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
 
-    return new ArrayType({
-      id: fragment.id,
-      typeKind: fragment.typeKind,
-      name: fragment.name,
-      itemType,
-    })
-  }
+  static hydrate = hydrate
 }

@@ -47,15 +47,26 @@ const BuilderDropHandler = observer(
 export const ElementDropHandlers = observer(
   ({ builderService }: BuilderDropHandlersProps) => {
     return (
+      // eslint-disable-next-line react/jsx-no-useless-fragment
       <>
-        {builderService.builderRenderer.tree?.elementsList.map((e) => {
-          const target = queryRenderedElementById(e.id)
+        {builderService.builderRenderer.tree?.elementsList.map((element) => {
+          if (!element) {
+            return null
+          }
+
+          const target = queryRenderedElementById(element?.id)
 
           if (!target) {
             return null
           }
 
-          return <BuilderDropHandler element={e} key={e.id} target={target} />
+          return (
+            <BuilderDropHandler
+              element={element}
+              key={element.id}
+              target={target}
+            />
+          )
         })}
       </>
     )

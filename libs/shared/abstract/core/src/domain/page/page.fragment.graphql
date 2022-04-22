@@ -1,0 +1,20 @@
+fragment Page on Page {
+  id
+  name
+  app {
+    id
+  }
+  app {
+    rootProviderElement {
+      id
+    }
+  }
+  rootElement {
+    id
+    name
+  }
+}
+
+fragment PageFull on Page {
+  ...Page
+}

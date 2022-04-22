@@ -13,68 +13,11 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-} from './fragments/type.fragment.graphql.gen'
-import {
-  TypeBase_AppType_Fragment,
-  TypeBase_ArrayType_Fragment,
-  TypeBase_ElementType_Fragment,
-  TypeBase_EnumType_Fragment,
-  TypeBase_InterfaceType_Fragment,
-  TypeBase_LambdaType_Fragment,
-  TypeBase_MonacoType_Fragment,
-  TypeBase_PageType_Fragment,
-  TypeBase_PrimitiveType_Fragment,
-  TypeBase_ReactNodeType_Fragment,
-  TypeBase_RenderPropsType_Fragment,
-  TypeBase_UnionType_Fragment,
-} from './fragments/type-base.fragment.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragment,
-  ArrayTypeFragment,
-} from './fragments/array-type.fragment.graphql.gen'
-import { EnumTypeFragment } from './fragments/enum-type.fragment.graphql.gen'
-import { EnumTypeValueFragment } from './fragments/enum-type-value.fragment.graphql.gen'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeFieldEdgeFragment,
-} from './fragments/interface.fragment.graphql.gen'
-import { PrimitiveTypeFragment } from './fragments/primitive-type.fragment.graphql.gen'
-import { ElementTypeFragment } from './fragments/element-type.fragment.graphql.gen'
-import { LambdaTypeFragment } from './fragments/lambda-type.fragment.graphql.gen'
-import { RenderPropsTypeFragment } from './fragments/render-props.fragment.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragment,
-  UnionTypeFragment,
-} from './fragments/union-type.fragment.graphql.gen'
-import { MonacoTypeFragment } from './fragments/monaco-type.fragment.graphql.gen'
-import { PageTypeFragment } from './fragments/page-type.fragment.graphql.gen'
-import { AppTypeFragment } from './fragments/app-type.fragment.graphql.gen'
+} from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TypeFragmentDoc } from './fragments/type.fragment.graphql.gen'
-import { TypeBaseFragmentDoc } from './fragments/type-base.fragment.graphql.gen'
-import {
-  ArrayTypeWithItemTypeFragmentDoc,
-  ArrayTypeFragmentDoc,
-} from './fragments/array-type.fragment.graphql.gen'
-import { EnumTypeFragmentDoc } from './fragments/enum-type.fragment.graphql.gen'
-import { EnumTypeValueFragmentDoc } from './fragments/enum-type-value.fragment.graphql.gen'
-import {
-  InterfaceTypeFragmentDoc,
-  InterfaceTypeFieldEdgeFragmentDoc,
-} from './fragments/interface.fragment.graphql.gen'
-import { PrimitiveTypeFragmentDoc } from './fragments/primitive-type.fragment.graphql.gen'
-import { ElementTypeFragmentDoc } from './fragments/element-type.fragment.graphql.gen'
-import { LambdaTypeFragmentDoc } from './fragments/lambda-type.fragment.graphql.gen'
-import { RenderPropsTypeFragmentDoc } from './fragments/render-props.fragment.graphql.gen'
-import {
-  UnionTypeWithInnerTypesFragmentDoc,
-  UnionTypeFragmentDoc,
-} from './fragments/union-type.fragment.graphql.gen'
-import { MonacoTypeFragmentDoc } from './fragments/monaco-type.fragment.graphql.gen'
-import { PageTypeFragmentDoc } from './fragments/page-type.fragment.graphql.gen'
-import { AppTypeFragmentDoc } from './fragments/app-type.fragment.graphql.gen'
+import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
   create?: Types.InputMaybe<Types.PrimitiveTypeRelationInput>
@@ -254,22 +197,6 @@ export const UpdatePrimitiveTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateArrayTypesDocument = gql`
   mutation UpdateArrayTypes(
@@ -294,22 +221,6 @@ export const UpdateArrayTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateUnionTypesDocument = gql`
   mutation UpdateUnionTypes(
@@ -334,22 +245,6 @@ export const UpdateUnionTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateInterfaceTypesDocument = gql`
   mutation UpdateInterfaceTypes(
@@ -374,22 +269,6 @@ export const UpdateInterfaceTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateReactNodeTypesDocument = gql`
   mutation UpdateReactNodeTypes(
@@ -414,22 +293,6 @@ export const UpdateReactNodeTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateElementTypesDocument = gql`
   mutation UpdateElementTypes(
@@ -454,22 +317,6 @@ export const UpdateElementTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateRenderPropsTypesDocument = gql`
   mutation UpdateRenderPropsTypes(
@@ -494,22 +341,6 @@ export const UpdateRenderPropsTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateEnumTypesDocument = gql`
   mutation UpdateEnumTypes(
@@ -534,22 +365,6 @@ export const UpdateEnumTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateLambdaTypesDocument = gql`
   mutation UpdateLambdaTypes(
@@ -574,22 +389,6 @@ export const UpdateLambdaTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdatePageTypesDocument = gql`
   mutation UpdatePageTypes(
@@ -614,22 +413,6 @@ export const UpdatePageTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateAppTypesDocument = gql`
   mutation UpdateAppTypes(
@@ -654,22 +437,6 @@ export const UpdateAppTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 export const UpdateMonacoTypesDocument = gql`
   mutation UpdateMonacoTypes(
@@ -694,22 +461,6 @@ export const UpdateMonacoTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
-  ${TypeBaseFragmentDoc}
-  ${ArrayTypeWithItemTypeFragmentDoc}
-  ${ArrayTypeFragmentDoc}
-  ${EnumTypeFragmentDoc}
-  ${EnumTypeValueFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-  ${InterfaceTypeFieldEdgeFragmentDoc}
-  ${PrimitiveTypeFragmentDoc}
-  ${ElementTypeFragmentDoc}
-  ${LambdaTypeFragmentDoc}
-  ${RenderPropsTypeFragmentDoc}
-  ${UnionTypeWithInnerTypesFragmentDoc}
-  ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
-  ${PageTypeFragmentDoc}
-  ${AppTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

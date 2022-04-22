@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { TagFragment } from './tag.fragment.graphql.gen'
+import { TagFragment } from '../../../../../shared/abstract/core/src/domain/tag/tag.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TagFragmentDoc } from './tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../../../shared/abstract/core/src/domain/tag/tag.fragment.graphql.gen'
 export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>
@@ -36,9 +36,9 @@ export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetTagGraphsQuery = {
   tagGraphs: Array<{
     id: string
+    isRoot: boolean
     name: string
     descendants: Array<string>
-    isRoot: boolean
   }>
 }
 
@@ -81,9 +81,9 @@ export const GetTagGraphsDocument = gql`
   query GetTagGraphs {
     tagGraphs {
       id
+      isRoot
       name
       descendants
-      isRoot
     }
   }
 `

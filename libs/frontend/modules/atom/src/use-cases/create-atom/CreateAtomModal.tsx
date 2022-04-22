@@ -2,11 +2,12 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { WithTagService } from '@codelab/frontend/modules/tag'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateAtomDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithAtomService } from '../../store'
-import { CreateAtomInputSchema, createAtomSchema } from './createAtomSchema'
+import { createAtomSchema } from './createAtomSchema'
 
 type CreateAtomModalProps = WithAtomService & WithTagService
 
@@ -15,8 +16,14 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
     const closeModal = () => atomService.createModal.close()
     const { user } = useUser()
 
-    const onSubmit = (input: CreateAtomInputSchema) => {
-      return atomService.create(input, user?.sub)
+    const onSubmit = (input: ICreateAtomDTO) => {
+      const ownerId = user?.sub
+
+      if (!ownerId) {
+        throw new Error('Invalid ownerId')
+      }
+
+      return atomService.create(input, ownerId)
     }
 
     const onSubmitError = createNotificationHandler({
@@ -31,7 +38,7 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
         onCancel={closeModal}
         visible={atomService.createModal.isOpen}
       >
-        <ModalForm.Form<CreateAtomInputSchema>
+        <ModalForm.Form<ICreateAtomDTO>
           model={{}}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
@@ -39,7 +46,6 @@ export const CreateAtomModal = observer<CreateAtomModalProps>(
           schema={createAtomSchema}
         >
           <AutoFields omitFields={['tags']} />
-
           <SelectField
             label="Connecte Tag"
             mode="multiple"

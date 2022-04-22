@@ -1,25 +1,37 @@
 import {
+  assertIsTypeKind,
   ElementTypeKind,
   IElementType,
-  TypeKind,
+  IElementTypeDTO,
+  ITypeDTO,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import { ElementTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/ElementType')
+const hydrate = ({
+  id,
+  kind,
+  name,
+  elementKind,
+  owner,
+}: IElementTypeDTO): ElementType => {
+  assertIsTypeKind(kind, ITypeKind.ElementType)
+
+  return new ElementType({
+    id,
+    kind,
+    name,
+    elementKind,
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/ElementType')
 export class ElementType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ElementType),
+    baseModel: createTypeBase(ITypeKind.ElementType),
     props: {
       elementKind: prop<ElementTypeKind>(),
     },
@@ -27,22 +39,26 @@ export class ElementType
   implements IElementType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.ElementType) {
+    if (fragment.__typename !== ITypeKind.ElementType) {
       return
     }
 
     this.elementKind = fragment.elementKind
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    elementKind,
-  }: ElementTypeFragment): ElementType {
-    return new ElementType({ id, typeKind, name, elementKind })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  //
+  //   if (!input.elementKind) {
+  //     throw new Error('ElementType must have an elementKind')
+  //   }
+  //
+  //   this.elementKind = input.elementKind
+  // }
+
+  public static hydrate = hydrate
 }

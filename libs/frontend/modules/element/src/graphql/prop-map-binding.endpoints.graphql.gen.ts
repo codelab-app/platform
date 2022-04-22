@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PropMapBindingFragment } from './element.fragment.graphql.gen'
+import { PropMapBindingFragment } from '../../../../../shared/abstract/core/src/domain/prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { PropMapBindingFragmentDoc } from './element.fragment.graphql.gen'
+import { PropMapBindingFragmentDoc } from '../../../../../shared/abstract/core/src/domain/prop/prop.fragment.graphql.gen'
 export type CreatePropMapBindingsMutationVariables = Types.Exact<{
   input:
     | Array<Types.PropMapBindingCreateInput>

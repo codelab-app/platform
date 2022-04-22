@@ -1,9 +1,7 @@
+import { IUpdatePageDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreatePageData } from '../create-page/createPageSchema'
 
-export type UpdatePageData = CreatePageData
-
-export const updatePageSchema: JSONSchemaType<UpdatePageData> = {
+export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
   title: 'Update Page Input',
   type: 'object',
   properties: {

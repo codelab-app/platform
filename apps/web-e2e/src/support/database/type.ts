@@ -1,5 +1,5 @@
 import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
   E2eCreateAppTypesDocument,
@@ -16,22 +16,22 @@ import {
   E2eCreateUnionTypesDocument,
 } from './graphql/type.endpoints.graphql.gen'
 
-const createTypeQuery: { [key in TypeKind]: DocumentNode } = {
-  [TypeKind.PrimitiveType]: E2eCreatePrimitiveTypesDocument,
-  [TypeKind.ArrayType]: E2eCreateArrayTypesDocument,
-  [TypeKind.ElementType]: E2eCreateElementTypesDocument,
-  [TypeKind.EnumType]: E2eCreateEnumTypesDocument,
-  [TypeKind.InterfaceType]: E2eCreateInterfaceTypesDocument,
-  [TypeKind.RenderPropsType]: E2eCreateRenderPropsTypesDocument,
-  [TypeKind.PageType]: E2eCreatePageTypesDocument,
-  [TypeKind.AppType]: E2eCreateAppTypesDocument,
-  [TypeKind.UnionType]: E2eCreateUnionTypesDocument,
-  [TypeKind.ReactNodeType]: E2eCreateReactNodeTypesDocument,
-  [TypeKind.MonacoType]: E2eCreateMonacoTypesDocument,
-  [TypeKind.LambdaType]: E2eCreateLambdaTypesDocument,
+const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
+  [ITypeKind.PrimitiveType]: E2eCreatePrimitiveTypesDocument,
+  [ITypeKind.ArrayType]: E2eCreateArrayTypesDocument,
+  [ITypeKind.ElementType]: E2eCreateElementTypesDocument,
+  [ITypeKind.EnumType]: E2eCreateEnumTypesDocument,
+  [ITypeKind.InterfaceType]: E2eCreateInterfaceTypesDocument,
+  [ITypeKind.RenderPropsType]: E2eCreateRenderPropsTypesDocument,
+  [ITypeKind.PageType]: E2eCreatePageTypesDocument,
+  [ITypeKind.AppType]: E2eCreateAppTypesDocument,
+  [ITypeKind.UnionType]: E2eCreateUnionTypesDocument,
+  [ITypeKind.ReactNodeType]: E2eCreateReactNodeTypesDocument,
+  [ITypeKind.MonacoType]: E2eCreateMonacoTypesDocument,
+  [ITypeKind.LambdaType]: E2eCreateLambdaTypesDocument,
 }
 
-export const createType = (input: TypeBaseCreateInput, typeKind: TypeKind) =>
+export const createType = (input: TypeBaseCreateInput, typeKind: ITypeKind) =>
   cy
     .graphqlRequest({
       query: print(createTypeQuery[typeKind]),

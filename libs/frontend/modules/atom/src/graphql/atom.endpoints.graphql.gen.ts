@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AtomFragment } from './atom.fragment.graphql.gen'
+import { AtomFragment } from '../../../../../shared/abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { AtomFragmentDoc } from './atom.fragment.graphql.gen'
+import { AtomFragmentDoc } from '../../../../../shared/abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 export type CreateAtomsMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>

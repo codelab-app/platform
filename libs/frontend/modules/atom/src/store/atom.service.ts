@@ -1,11 +1,19 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
+import {
+  IAtom,
+  IAtomDTO,
+  IAtomService,
+  ICreateAtomDTO,
+  IUpdateAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
+  arraySet,
   createContext,
   Model,
   model,
@@ -13,26 +21,25 @@ import {
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
-import type { CreateAtomInputSchema, UpdateAtomInputSchema } from '../use-cases'
+import { v4 } from 'uuid'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
-import { Atom, AtomFromFragmentInput } from './atom.model'
+import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 export type WithAtomService = {
   atomService: AtomService
 }
 
-@model('codelab/AtomService')
+@model('@codelab/AtomService')
 export class AtomService extends Model({
   atoms: prop(() => objectMap<Atom>()),
   createModal: prop(() => new ModalService({})),
   updateModal: prop(() => new AtomModalService({})),
   deleteModal: prop(() => new AtomsModalService({})),
-  selectedAtoms: prop(() => Array<Ref<Atom>>()).withSetter(),
+  selectedIds: prop(() => arraySet<string>()).withSetter(),
 }) {
   @computed
   get atomsList() {
@@ -48,7 +55,7 @@ export class AtomService extends Model({
   update = _async(function* (
     this: AtomService,
     atom: Atom,
-    { name, type, tags }: UpdateAtomInputSchema,
+    { name, type, tags }: IUpdateAtomDTO,
   ) {
     const existingTagIds = atom.tags.map((tag) => tag.id)
     const connect = makeTagConnectData(difference(tags, existingTagIds))
@@ -74,7 +81,7 @@ export class AtomService extends Model({
       throw new Error('Failed to update atom')
     }
 
-    atom.updateFromFragment(updatedAtom)
+    atom.updateCache(updatedAtom)
 
     return atom
   })
@@ -85,21 +92,22 @@ export class AtomService extends Model({
   }
 
   @modelAction
-  addOrUpdate(atom: AtomFromFragmentInput) {
-    const existing = this.atom(atom.id)
+  addOrUpdate(atom: IAtomDTO) {
+    let atomModel = this.atom(atom.id)
 
-    if (existing) {
-      existing.updateFromFragment(atom)
+    if (atomModel) {
+      atomModel.updateCache(atom)
     } else {
-      this.addAtom(Atom.fromFragment(atom))
+      atomModel = Atom.hydrate(atom)
+      this.addAtom(atomModel)
     }
+
+    return atomModel
   }
 
   @modelAction
-  addOrUpdateAll(atoms: Array<AtomFromFragmentInput>) {
-    for (const atom of atoms) {
-      this.addOrUpdate(atom)
-    }
+  updateCache(atoms: Array<IAtomDTO>) {
+    return atoms.map((atom) => this.addOrUpdate(atom))
   }
 
   @modelFlow
@@ -107,16 +115,7 @@ export class AtomService extends Model({
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return atoms.map((atom) => {
-      if (this.atoms.get(atom.id)) {
-        return this.atoms.get(atom.id)
-      } else {
-        const atomModel = Atom.fromFragment(atom)
-        this.atoms.set(atom.id, atomModel)
-
-        return atomModel
-      }
-    })
+    return this.updateCache(atoms)
   })
 
   @modelFlow
@@ -135,14 +134,15 @@ export class AtomService extends Model({
   @transaction
   create = _async(function* (
     this: AtomService,
-    input: CreateAtomInputSchema,
+    input: ICreateAtomDTO,
     ownerId: Nullish<string>,
   ) {
     const apiOwner = ownerId
-      ? { connect: [{ where: { node: { auth0Id: ownerId } } }] }
+      ? { connect: { where: { node: { auth0Id: ownerId } } } }
       : undefined
 
     const apiNode = {
+      id: v4(),
       name: `${input.name} API`,
       owner: apiOwner,
     }
@@ -156,6 +156,7 @@ export class AtomService extends Model({
     } = yield* _await(
       atomApi.CreateAtoms({
         input: {
+          id: v4(),
           name: input.name,
           type: input.type,
           tags: { connect: tagsConnect },
@@ -171,7 +172,7 @@ export class AtomService extends Model({
       throw new Error('Atom was not created')
     }
 
-    const atomModel = Atom.fromFragment(atom)
+    const atomModel = Atom.hydrate(atom)
 
     this.atoms.set(atomModel.id, atomModel)
 
@@ -180,7 +181,7 @@ export class AtomService extends Model({
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AtomService, atoms: Array<Atom>) {
+  deleteMany = _async(function* (this: IAtomService, atoms: Array<IAtom>) {
     const ids = atoms.map((atom) => atom.id)
 
     for (const id of ids) {
@@ -200,13 +201,34 @@ export class AtomService extends Model({
 
     return deleteAtoms
   })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: IAtomService, id: string) {
+    const existing = throwIfUndefined(this.atoms.get(id))
+
+    if (existing) {
+      this.atoms.delete(id)
+    }
+
+    const { deleteAtoms } = yield* _await(
+      atomApi.DeleteAtoms({ where: { id } }),
+    )
+
+    if (deleteAtoms.nodesDeleted === 0) {
+      // throw error so that the atomic middleware rolls back the changes
+      throw new Error('Atom was not deleted')
+    }
+
+    return existing
+  })
 }
 
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const atomServiceContext = createContext<AtomService>()
 
-export const getAtomService = (thisModel: any) => {
-  const atomStore = atomServiceContext.get(thisModel)
+export const getAtomService = (self: any) => {
+  const atomStore = atomServiceContext.get(self)
 
   if (!atomStore) {
     throw new Error('atomServiceContext is not defined')

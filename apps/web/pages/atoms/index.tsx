@@ -8,7 +8,9 @@ import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
+  ExportAtomsButton,
   GetAtomsTable,
+  ImportAtomsUpload,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
@@ -59,6 +61,11 @@ const Header = () => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
+      <ExportAtomsButton
+        atomImportService={store.atomImportService}
+        atomService={store.atomService}
+      />
+      <ImportAtomsUpload atomImportService={store.atomImportService} />
       <CreateAtomButton atomService={store.atomService} key="create" />
     </div>,
   ]

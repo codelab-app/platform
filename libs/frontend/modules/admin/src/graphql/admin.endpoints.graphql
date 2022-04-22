@@ -3,15 +3,3 @@ mutation ResetDatabase {
     success
   }
 }
-
-mutation importAdminData($input: ImportAdminDataInput!) {
-  importAdminData(input: $input) {
-    result
-  }
-}
-
-query exportAdminData {
-  exportAdminData {
-    result
-  }
-}

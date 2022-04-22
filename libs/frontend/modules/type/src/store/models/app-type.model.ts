@@ -1,31 +1,37 @@
-import { IApp, IAppType, TypeKind } from '@codelab/shared/abstract/core'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelClass,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { AppTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  IAppType,
+  IAppTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/AppType')
+const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
+  assertIsTypeKind(kind, ITypeKind.AppType)
+
+  return new AppType({ id, kind, name, ownerId: owner.id })
+}
+
+@model('@codelab/AppType')
 export class AppType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.AppType),
+    baseModel: createTypeBase(ITypeKind.AppType),
     props: {},
   }))
   implements IAppType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
   }
 
-  public static fromFragment({ id, typeKind, name }: AppTypeFragment): AppType {
-    return new AppType({ id, typeKind, name })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
+
+  public static hydrate = hydrate
 }

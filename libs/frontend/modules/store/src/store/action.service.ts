@@ -1,5 +1,10 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { ActionWhere } from '@codelab/shared/abstract/codegen'
+import {
+  IActionDTO,
+  ICreateActionDTO,
+  IUpdateActionDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -14,8 +19,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/action.fragment.graphql.gen'
-import type { CreateActionInput, UpdateActionInput } from '../use-cases'
 import { actionApi } from './action.api'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
@@ -24,7 +27,7 @@ export type WithActionService = {
   actionService: ActionService
 }
 
-@model('codelab/ActionService')
+@model('@codelab/ActionService')
 export class ActionService extends Model({
   actions: prop(() => objectMap<Action>()),
   createModal: prop(() => new ModalService({})),
@@ -48,19 +51,19 @@ export class ActionService extends Model({
   }
 
   @modelAction
-  addOrUpdate(action: ActionFragment) {
+  addOrUpdate(action: IActionDTO) {
     const existing = this.action(action.id)
 
     if (existing) {
       existing.name = action.name
       existing.body = action.body
     } else {
-      this.addAction(Action.fromFragment(action))
+      this.addAction(Action.hydrate(action))
     }
   }
 
   @modelAction
-  addOrUpdateAll(actions: Array<ActionFragment>) {
+  updateCache(actions: Array<IActionDTO>) {
     for (const action of actions) {
       this.addOrUpdate(action)
     }
@@ -71,7 +74,7 @@ export class ActionService extends Model({
   updateAction = _async(function* (
     this: ActionService,
     store: Action,
-    input: UpdateActionInput,
+    input: IUpdateActionDTO,
   ) {
     const { updateActions } = yield* _await(
       actionApi.UpdateActions({
@@ -84,7 +87,7 @@ export class ActionService extends Model({
     )
 
     const updatedAction = updateActions.actions[0]
-    const actionModel = Action.fromFragment(updatedAction)
+    const actionModel = Action.hydrate(updatedAction)
     this.actions.set(updatedAction.id, actionModel)
 
     return actionModel
@@ -98,7 +101,7 @@ export class ActionService extends Model({
     const { actions } = yield* _await(actionApi.GetActions({ where }))
 
     return actions.map((action) => {
-      const actionModel = Action.fromFragment(action)
+      const actionModel = Action.hydrate(action)
       this.actions.set(action.id, actionModel)
 
       return actionModel
@@ -117,7 +120,7 @@ export class ActionService extends Model({
   @transaction
   createAction = _async(function* (
     this: ActionService,
-    input: CreateActionInput,
+    input: ICreateActionDTO,
     storeId: Nullish<string>,
   ) {
     const { createActions } = yield* _await(
@@ -137,7 +140,7 @@ export class ActionService extends Model({
       throw new Error('Action was not created')
     }
 
-    const actionModel = Action.fromFragment(action)
+    const actionModel = Action.hydrate(action)
 
     this.actions.set(action.id, actionModel)
 
@@ -166,8 +169,8 @@ export class ActionService extends Model({
 
 export const actionServiceContext = createContext<ActionService>()
 
-export const getActionService = (thisModel: object) => {
-  const actionStore = actionServiceContext.get(thisModel)
+export const getActionService = (self: object) => {
+  const actionStore = actionServiceContext.get(self)
 
   if (!actionStore) {
     throw new Error('ActionService context is not defined')

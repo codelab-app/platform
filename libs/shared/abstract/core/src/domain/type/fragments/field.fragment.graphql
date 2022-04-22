@@ -1,0 +1,11 @@
+fragment Field on InterfaceTypeFieldsRelationship {
+  id
+  key
+  name
+  description
+  fieldType: node {
+    ... on TypeBase {
+      id
+    }
+  }
+}

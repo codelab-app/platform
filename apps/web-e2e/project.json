@@ -19,7 +19,7 @@
           "record": true
         },
         "test": {
-          "cypressConfig": "apps/web-e2e/cypress.ci.json",
+          "cypressConfig": "apps/web-e2e/cypress.test.json",
           "devServerTarget": "web-e2e:serve:test",
           "record": false
         },
@@ -50,7 +50,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve web --configuration test",
+              "command": "npx env-cmd -f .env.test nx serve web -c test",
               "forwardAllArgs": false
             }
           ]

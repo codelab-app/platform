@@ -2,32 +2,20 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   ElementGraphFragment,
-  ElementEdgeFragment,
   ElementFragment,
-  PropFragment,
-  HookFragment,
-  HookPropFragment,
-  PropMapBindingFragment,
-} from './element.fragment.graphql.gen'
-import { ComponentFragment } from '../../../component/src/graphql/component.fragment.graphql.gen'
+} from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import {
   ElementGraphFragmentDoc,
-  ElementEdgeFragmentDoc,
   ElementFragmentDoc,
-  PropFragmentDoc,
-  HookFragmentDoc,
-  HookPropFragmentDoc,
-  PropMapBindingFragmentDoc,
-} from './element.fragment.graphql.gen'
-import { ComponentFragmentDoc } from '../../../component/src/graphql/component.fragment.graphql.gen'
-export type GetElementsGraphQueryVariables = Types.Exact<{
+} from '../../../../../shared/abstract/core/src/domain/element/element.fragment.graphql.gen'
+export type GetElementGraphQueryVariables = Types.Exact<{
   input: Types.ElementGraphInput
 }>
 
-export type GetElementsGraphQuery = { elementGraph: ElementGraphFragment }
+export type GetElementGraphQuery = { elementGraph: ElementGraphFragment }
 
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
@@ -37,13 +25,21 @@ export type CreateElementsMutation = {
   createElements: { elements: Array<ElementFragment> }
 }
 
-export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
+export type DeleteElementsMutationVariables = Types.Exact<{
+  where: Types.ElementWhere
+}>
+
+export type DeleteElementsMutation = {
+  deleteElements: { nodesDeleted: number }
+}
+
+export type DeleteElementSubgraphMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
   delete?: Types.InputMaybe<Types.ElementDeleteInput>
 }>
 
-export type DeleteElementsSubgraphMutation = {
-  deleteElementsSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
+export type DeleteElementSubgraphMutation = {
+  deleteElementSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
 }
 
 export type UpdateElementsMutationVariables = Types.Exact<{
@@ -71,20 +67,13 @@ export type GetElementsQueryVariables = Types.Exact<{
 
 export type GetElementsQuery = { elements: Array<ElementFragment> }
 
-export const GetElementsGraphDocument = gql`
-  query GetElementsGraph($input: ElementGraphInput!) {
+export const GetElementGraphDocument = gql`
+  query GetElementGraph($input: ElementGraphInput!) {
     elementGraph(input: $input) {
       ...ElementGraph
     }
   }
   ${ElementGraphFragmentDoc}
-  ${ElementEdgeFragmentDoc}
-  ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
@@ -95,18 +84,20 @@ export const CreateElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
-export const DeleteElementsSubgraphDocument = gql`
-  mutation DeleteElementsSubgraph(
+export const DeleteElementsDocument = gql`
+  mutation DeleteElements($where: ElementWhere!) {
+    deleteElements(where: $where) {
+      nodesDeleted
+    }
+  }
+`
+export const DeleteElementSubgraphDocument = gql`
+  mutation DeleteElementSubgraph(
     $where: ElementWhere
     $delete: ElementDeleteInput
   ) {
-    deleteElementsSubgraph(where: $where, delete: $delete) {
+    deleteElementSubgraph(where: $where, delete: $delete) {
       nodesDeleted
       deletedIds
     }
@@ -121,11 +112,6 @@ export const UpdateElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const MoveElementsDocument = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
@@ -136,11 +122,6 @@ export const MoveElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
@@ -149,11 +130,6 @@ export const GetElementsDocument = gql`
     }
   }
   ${ElementFragmentDoc}
-  ${ComponentFragmentDoc}
-  ${PropFragmentDoc}
-  ${HookFragmentDoc}
-  ${HookPropFragmentDoc}
-  ${PropMapBindingFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -173,18 +149,18 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetElementsGraph(
-      variables: GetElementsGraphQueryVariables,
+    GetElementGraph(
+      variables: GetElementGraphQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetElementsGraphQuery> {
+    ): Promise<GetElementGraphQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetElementsGraphQuery>(
-            GetElementsGraphDocument,
+          client.request<GetElementGraphQuery>(
+            GetElementGraphDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetElementsGraph',
+        'GetElementGraph',
         'query',
       )
     },
@@ -203,18 +179,33 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteElementsSubgraph(
-      variables?: DeleteElementsSubgraphMutationVariables,
+    DeleteElements(
+      variables: DeleteElementsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteElementsSubgraphMutation> {
+    ): Promise<DeleteElementsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteElementsSubgraphMutation>(
-            DeleteElementsSubgraphDocument,
+          client.request<DeleteElementsMutation>(
+            DeleteElementsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteElementsSubgraph',
+        'DeleteElements',
+        'mutation',
+      )
+    },
+    DeleteElementSubgraph(
+      variables?: DeleteElementSubgraphMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<DeleteElementSubgraphMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteElementSubgraphMutation>(
+            DeleteElementSubgraphDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteElementSubgraph',
         'mutation',
       )
     },

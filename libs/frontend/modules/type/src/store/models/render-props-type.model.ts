@@ -1,34 +1,42 @@
-import { IRenderPropsType, TypeKind } from '@codelab/shared/abstract/core'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { RenderPropsTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  IRenderPropsType,
+  IRenderPropsTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/RenderPropsType')
+const hydrate = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.RenderPropsType)
+
+  return new RenderPropsType({
+    id,
+    kind,
+    name,
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/RenderPropsType')
 export class RenderPropsType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.RenderPropsType),
+    baseModel: createTypeBase(ITypeKind.RenderPropsType),
     props: {},
   }))
   implements IRenderPropsType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO) {
+    updateBaseTypeCache(this, fragment)
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-  }: RenderPropsTypeFragment): RenderPropsType {
-    return new RenderPropsType({ id, typeKind, name })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
+
+  public static hydrate = hydrate
 }

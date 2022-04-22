@@ -1,34 +1,42 @@
-import { ILambdaType, TypeKind } from '@codelab/shared/abstract/core'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { LambdaTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  ILambdaType,
+  ILambdaTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/LambdaType')
+const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
+  assertIsTypeKind(kind, ITypeKind.LambdaType)
+
+  return new LambdaType({
+    id,
+    kind,
+    name,
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/LambdaType')
 export class LambdaType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.LambdaType),
+    baseModel: createTypeBase(ITypeKind.LambdaType),
     props: {},
   }))
   implements ILambdaType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-  }: LambdaTypeFragment): LambdaType {
-    return new LambdaType({ id, typeKind, name })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
+
+  public static hydrate = hydrate
 }

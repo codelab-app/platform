@@ -1,4 +1,3 @@
-import React from 'react'
 /**
  * Children as a function
  */

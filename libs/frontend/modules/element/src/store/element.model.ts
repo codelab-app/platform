@@ -1,7 +1,13 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { Component, componentRef } from '@codelab/frontend/modules/component'
-import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IElementDTO,
+  IHook,
+  IPropData,
+  IPropDataByElementId,
+} from '@codelab/shared/abstract/core'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { DataNode } from 'antd/lib/tree'
@@ -18,16 +24,16 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { ElementFragment } from '../graphql/element.fragment.graphql.gen'
-import { ElementProps } from './element-props.model'
+import { elementRef } from './element.ref'
+import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
-type TransformFn = (props: PropsData) => PropsData
+type TransformFn = (props: IPropData) => IPropData
 
 /**
  * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
  */
-export const elementFromFragment = ({
+export const hydrateElement = ({
   id,
   name,
   css,
@@ -35,6 +41,7 @@ export const elementFromFragment = ({
 
   component,
   instanceOfComponent,
+  parentElement,
 
   hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
   propMapBindings,
@@ -44,13 +51,14 @@ export const elementFromFragment = ({
   renderIfPropKey,
   renderForEachPropKey,
   parentElementConnection,
-}: Omit<ElementFragment, '__typename'>) =>
+}: Omit<IElementDTO, '__typename'>) =>
   new Element({
     id,
     name,
     css,
+    parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
-    props: props ? ElementProps.fromFragment(props) : null,
+    props: props ? Prop.hydrate(props) : null,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -61,41 +69,54 @@ export const elementFromFragment = ({
       : null,
     propMapBindings: objectMap(
       propMapBindings
-        ? propMapBindings.map((b) => [b.id, PropMapBinding.fromFragment(b)])
+        ? propMapBindings.map((b) => [b.id, PropMapBinding.hydrate(b)])
         : [],
     ),
   })
 
 @model('@codelab/Element')
-export class Element extends Model({
-  id: idProp.withSetter(),
+export class Element
+  extends Model({
+    id: idProp.withSetter(),
+    children: prop(() => objectMap<Ref<Element>>()),
+    // parent: prop<Nullish<Element>>(null).withSetter(),
 
-  children: prop(() => objectMap<Element>()),
-  orderInParent: prop<Nullable<number>>(null).withSetter(),
+    // Data used for tree initializing, before our Element model is ready
+    parentId: prop<Nullish<string>>(),
 
-  name: prop<Nullish<string>>(() => null).withSetter(),
-  css: prop<Nullish<string>>(() => null).withSetter(),
-  atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
-  props: prop<Nullish<ElementProps>>(() => null),
-  propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
-  renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
-  renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
-  propMapBindings: prop(() => objectMap<PropMapBinding>()),
+    orderInParent: prop<Nullable<number>>(null).withSetter(),
 
-  // component which has this element as rootElement
-  component: prop<Nullish<Ref<Component>>>().withSetter(),
+    name: prop<Nullish<string>>(() => null).withSetter(),
+    css: prop<Nullish<string>>(() => null).withSetter(),
+    atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
+    props: prop<Nullish<Prop>>(() => null),
+    propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
+    renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
+    renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
+    propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
-  // Marks the element as an instance of a specific component
-  instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
-}) {
+    // component which has this element as rootElement
+    component: prop<Nullish<Ref<Component>>>().withSetter(),
+
+    // Marks the element as an instance of a specific component
+    instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
+    hooks: prop<Array<IHook>>(() => []),
+  })
+  implements IElement
+{
   @computed
   get childrenSorted(): Array<Element> {
-    return [...this.children.values()].sort(compareOrder)
+    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
   @modelAction
   addChild(child: Element) {
-    this.children.set(child.id, child)
+    this.children.set(child.id, elementRef(child))
+  }
+
+  @modelAction
+  hasChild(child: Element) {
+    return this.children.has(child.id)
   }
 
   @modelAction
@@ -211,7 +232,7 @@ export class Element extends Model({
     }
 
     if (this.children.has(id)) {
-      return this.children.get(id)
+      return this.children.get(id)?.current
     }
 
     for (const child of this.childrenSorted) {
@@ -236,11 +257,11 @@ export class Element extends Model({
    * - those that are bound this element
    * - those that are bound to other elements
    */
-  applyPropMapBindings = (sourceProps: PropsData) => {
+  applyPropMapBindings = (sourceProps: IPropData) => {
     // those are the props that are bound to the element
     let selfBoundProps = { ...sourceProps }
     // Those are the props that are bound to the element's descendants
-    const descendantBoundProps: PropsDataByElementId = {}
+    const descendantBoundProps: IPropDataByElementId = {}
 
     for (const pmb of this.propMapBindings.values()) {
       const appliedProps = pmb.applyBindings(selfBoundProps)
@@ -290,7 +311,7 @@ export class Element extends Model({
    * If successful, merges the result with the original props and returns it
    * If failed, returns the original props
    */
-  executePropTransformJs = (props: PropsData): PropsData => {
+  executePropTransformJs = (props: IPropData): IPropData => {
     const transformFn = this.transformFn
 
     if (!transformFn) {
@@ -314,7 +335,7 @@ export class Element extends Model({
   }
 
   @modelAction
-  updateFromFragment({
+  updateCache({
     id,
     name,
     css,
@@ -329,7 +350,7 @@ export class Element extends Model({
     renderForEachPropKey,
     parentElementConnection,
     parentElement,
-  }: Omit<ElementFragment, '__typename'>) {
+  }: Omit<IElementDTO, '__typename'>) {
     this.id = id
     this.name = name
     this.css = css
@@ -338,19 +359,20 @@ export class Element extends Model({
     this.renderForEachPropKey = renderForEachPropKey
     this.atom = atom ? atomRef(atom.id) : null
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
-    this.props = props ? new ElementProps({ id: props.id }) : null
+    this.props = props ? new Prop({ id: props.id }) : null
+    this.parentId = parentElement?.id
 
     if (props) {
-      this.props?.updateFromFragment(props)
+      this.props?.updateCache(props)
     } else {
       this.props = null
     }
 
     for (const pmb of propMapBindings) {
       if (this.propMapBindings.has(pmb.id)) {
-        this.propMapBindings.get(pmb.id)?.updateFromFragment(pmb)
+        this.propMapBindings.get(pmb.id)?.updateCache(pmb)
       } else {
-        this.propMapBindings.set(pmb.id, PropMapBinding.fromFragment(pmb))
+        this.propMapBindings.set(pmb.id, PropMapBinding.hydrate(pmb))
       }
     }
 
@@ -361,7 +383,7 @@ export class Element extends Model({
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static fromFragment = elementFromFragment
+  public static hydrate = hydrateElement
 }
 
 export const compareOrder = (a: Element, b: Element) =>

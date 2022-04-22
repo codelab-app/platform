@@ -1,5 +1,3 @@
-# Other type endpoints that are not CRUD-related
-
 query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {
   isTypeDescendantOf(
     descendantTypeId: $descendantTypeId
@@ -13,55 +11,3 @@ query GetTypeReferences($typeId: ID!) {
     label
   }
 }
-
-#mutation ImportTypes($input: ImportTypesInput!) {
-#  importTypes(input: $input) {
-#    id
-#  }
-#}
-
-#query ExportTypes($input: GetTypesInput) {
-#  getTypes(input: $input) {
-#    ...Export__Types
-#  }
-#}
-
-#
-#query GetLambdasForSelect {
-#  getLambdas {
-#    id
-#    name
-#  }
-#}
-#
-#fragment ComponentForSelect on Element {
-#  id
-#  name
-#  componentTag {
-#    name
-#  }
-#}
-
-#query GetComponentsForSelect($input: GetComponentsInput) {
-#  getComponents(input: $input) {
-#    ...ComponentForSelect
-#  }
-#}
-
-#fragment AtomForSelect on Atom {
-#  id
-#  name
-#  type
-#}
-#
-#query GetAtomsForSelect($input: GetAtomsInput) {
-#  getAtoms(input: $input) {
-#    ...AtomForSelect
-#  }
-#}
-#
-#query GetAtomsTypeHookForSelect {
-#  getAtomsTypeHook {
-#    ...AtomForSelect
-#  }
-#}

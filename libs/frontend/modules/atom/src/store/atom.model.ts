@@ -1,7 +1,6 @@
+import { Tag } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Tag } from 'libs/frontend/modules/tag/src/store/tag.model'
+import { AtomType, IAtom, IAtomDTO, ITag } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,
@@ -12,13 +11,8 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { AtomFragment } from '../graphql/atom.fragment.graphql.gen'
 
-export type AtomFromFragmentInput = Omit<AtomFragment, 'api' | '__typename'> & {
-  api: { id: string }
-}
-
-const fromFragment = (atom: AtomFromFragmentInput) => {
+const hydrate = (atom: IAtomDTO) => {
   return new Atom({
     id: atom.id,
     name: atom.name,
@@ -30,16 +24,19 @@ const fromFragment = (atom: AtomFromFragmentInput) => {
   })
 }
 
-@model('codelab/Atom')
-export class Atom extends Model({
-  id: idProp,
-  type: prop<AtomType>(),
-  name: prop<string>(),
-  tags: prop<Array<Tag>>(),
-  api: prop<Ref<InterfaceType>>(),
-}) {
+@model('@codelab/Atom')
+export class Atom
+  extends Model({
+    id: idProp,
+    name: prop<string>(),
+    type: prop<AtomType>(),
+    tags: prop<Array<ITag>>(),
+    api: prop<Ref<InterfaceType>>(),
+  })
+  implements IAtom
+{
   @modelAction
-  updateFromFragment(atom: AtomFromFragmentInput) {
+  updateCache(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
@@ -49,10 +46,10 @@ export class Atom extends Model({
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  static fromFragment = fromFragment
+  static hydrate = hydrate
 }
 
-export const atomRef = rootRef<Atom>('AtomRef', {
+export const atomRef = rootRef<Atom>('@codelab/AtomRef', {
   onResolvedValueChange(ref, newAtom, oldAtom) {
     if (oldAtom && !newAtom) {
       detach(ref)

@@ -7,19 +7,21 @@ import {
   StoreCreateInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import { ICreateStoreDTO, IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { capitalize } from 'lodash'
-import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
+import { v4 } from 'uuid'
 
 export const makeStoreCreateInput = (
-  input: CreateStoreInput,
+  input: ICreateStoreDTO,
   ownerId: string,
 ): StoreCreateInput => {
   const { name, parentStore } = input
 
   const interfaceCreateInput: InterfaceTypeCreateInput = {
+    id: v4(),
     name: `${capitalize(name)} State`,
     owner: {
-      connect: [{ where: { node: { auth0Id: ownerId } } }],
+      connect: { where: { node: { auth0Id: ownerId } } },
     },
   }
 
@@ -39,7 +41,7 @@ export const makeStoreCreateInput = (
 }
 
 export const makeStoreUpdateInput = (
-  input: UpdateStoreInput,
+  input: IUpdateStoreDTO,
 ): StoreUpdateInput => {
   const { name, parentStore, initialState } = input
 

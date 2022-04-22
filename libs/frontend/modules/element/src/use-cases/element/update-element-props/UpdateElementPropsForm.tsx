@@ -1,10 +1,10 @@
 import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
-  SpinnerWrapper,
+  Spinner,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { Element, WithElementService } from '../../../store'
@@ -23,7 +23,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
       useLoadingState((_id: string) =>
-        typeService.getInterfaceAndDescendants({ id: _id }),
+        typeService.getInterfaceAndDescendants(_id),
       )
 
     const apiId = element.atom?.current.api.id
@@ -34,14 +34,14 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       }
     }, [getInterfaceType, apiId])
 
-    const onSubmit = (data: PropsData) => {
+    const onSubmit = (data: IPropData) => {
       const promise = elementService.updateElementProps(element, data)
 
       return trackPromise?.(promise) ?? promise
     }
 
     return (
-      <SpinnerWrapper isLoading={isLoading}>
+      <Spinner isLoading={isLoading}>
         {interfaceType && (
           <InterfaceForm
             autosave
@@ -52,7 +52,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             submitRef={undefined}
           />
         )}
-      </SpinnerWrapper>
+      </Spinner>
     )
   },
 )

@@ -1,4 +1,5 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { ICreateTagDTO, IUpdateTagDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -12,8 +13,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateTagData } from '../use-cases/create-tag/createTagSchema'
-import { UpdateTagData } from '../use-cases/update-tag/updateTagSchema'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
@@ -22,7 +21,7 @@ export interface WithTagService {
   tagService: TagService
 }
 
-@model('codelab/TagService')
+@model('@codelab/TagService')
 export class TagService extends Model({
   tags: prop(() => objectMap<Tag>()),
 
@@ -56,7 +55,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: CreateTagData) {
+  create = _async(function* (this: TagService, input: ICreateTagDTO) {
     const connectParentWhere = input?.parentTagId && {
       parent: {
         connect: {
@@ -81,7 +80,7 @@ export class TagService extends Model({
     )
 
     const tag = tags[0]
-    const tagModel = Tag.fromFragment(tag)
+    const tagModel = Tag.hydrate(tag)
 
     this.tags.set(tagModel.id, tagModel)
 
@@ -90,7 +89,7 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TagService, tag: Tag, input: UpdateTagData) {
+  update = _async(function* (this: TagService, tag: Tag, input: IUpdateTagDTO) {
     const {
       updateTags: { tags },
     } = yield* _await(
@@ -106,7 +105,7 @@ export class TagService extends Model({
       throw new Error('Failed to update tag')
     }
 
-    const tagModel = Tag.fromFragment(updatedTag)
+    const tagModel = Tag.hydrate(updatedTag)
 
     this.tags.set(tag.id, tagModel)
 
@@ -167,7 +166,7 @@ export class TagService extends Model({
     const { tags } = yield* _await(tagApi.GetTags())
 
     tags.forEach((tag) => {
-      const tagModel = Tag.fromFragment(tag)
+      const tagModel = Tag.hydrate(tag)
       this.tags.set(tag.id, tagModel)
     })
   })
@@ -178,7 +177,7 @@ export class TagService extends Model({
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
 
     const tagWithDescendants = tagGraphs.find(
-      (tagGraph) => tagGraph.id == tagId,
+      (tagGraph) => tagGraph.id === tagId,
     )
 
     return tagWithDescendants?.descendants

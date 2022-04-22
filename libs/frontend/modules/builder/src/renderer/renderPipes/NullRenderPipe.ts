@@ -1,5 +1,5 @@
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
@@ -11,7 +11,7 @@ import { getRenderContext } from '../renderServiceContext'
  */
 @model('@codelab/NullRenderPipe')
 export class NullRenderPipe extends Model({}) implements IRenderPipe {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+  render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const renderer = getRenderContext(this)
 
     if (renderer.debugMode) {

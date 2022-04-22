@@ -1,10 +1,14 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
+import {
+  generateOgmTypes,
+  getDriver,
+  getSchema,
+  UserModel,
+} from '@codelab/backend'
 import { ApolloServer } from 'apollo-server-micro'
+import { get } from 'env-var'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
-import { getDriver } from '../../src/graphql/infra/driver'
-import { User } from '../../src/graphql/model'
-import { getSchema } from '../../src/graphql/schema/neoSchema'
 
 const driver = getDriver()
 const neoSchema = getSchema(driver)
@@ -73,7 +77,7 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (e) {
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
-      process.env.NODE_ENV === 'development' &&
+      process.env.NODE_ENV !== 'development' ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
       console.error(e)
@@ -85,9 +89,9 @@ const handler: NextApiHandler = async (req, res) => {
    */
   if (session?.user) {
     const user = session.user
-    const UserModel = await User()
+    const User = await UserModel()
 
-    const [existing] = await UserModel.find({
+    const [existing] = await User.find({
       where: {
         auth0Id: user.sub,
       },
@@ -97,7 +101,9 @@ const handler: NextApiHandler = async (req, res) => {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
       try {
-        const { users } = await UserModel.create({
+        const { users } = await (
+          await UserModel()
+        ).create({
           input: [
             {
               auth0Id: user.sub,
@@ -116,17 +122,20 @@ const handler: NextApiHandler = async (req, res) => {
   /**
    * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
    */
-  req.headers.authorization = `Bearer ${accessToken}`
+  if (accessToken) {
+    req.headers.authorization = `Bearer ${accessToken}`
+  }
 
   await startServer
   await apolloServer.createHandler({ path })(req, res)
 
-  /**
-   * Uncomment this if you want to run codegen, codegen will run then exit the whole process. Server won't run successfully unless this is commented
-   *
-   * Keep in mind you'll need to access a web page that loads this api graphql route, otherwise this won't be triggered
-   */
-  // await generateOgmTypes()
+  const devGenerateOgmTypes = get('DEV_GENERATE_OGM_TYPES')
+    .default('false')
+    .asBoolStrict()
+
+  if (devGenerateOgmTypes) {
+    await generateOgmTypes()
+  }
 }
 
 export default handler

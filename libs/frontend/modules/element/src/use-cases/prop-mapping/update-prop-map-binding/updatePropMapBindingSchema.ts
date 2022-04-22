@@ -1,12 +1,7 @@
+import { IUpdatePropMapBindingDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type UpdatePropMapBindingData = {
-  sourceKey: string
-  targetKey: string
-  targetElementId: string
-}
-
-export const updatePropMapBindingSchema: JSONSchemaType<UpdatePropMapBindingData> =
+export const updatePropMapBindingSchema: JSONSchemaType<IUpdatePropMapBindingDTO> =
   {
     title: 'Update Prop Map Binding Input',
     type: 'object',

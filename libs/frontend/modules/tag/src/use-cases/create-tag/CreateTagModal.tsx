@@ -1,13 +1,14 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ICreateTagDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { WithTagService } from '../../store/tag.service'
-import { CreateTagData, createTagSchema } from './createTagSchema'
+import { createTagSchema } from './createTagSchema'
 
 export const CreateTagModal = observer<WithTagService>(({ tagService }) => {
-  const onSubmit = (input: CreateTagData) => tagService.create({ ...input })
+  const onSubmit = (input: ICreateTagDTO) => tagService.create({ ...input })
   // const options = tagService.getAll.map((tag) => ({
   //   label: tag.name,
   //   value: tag.id,

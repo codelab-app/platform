@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PageFragment } from './page.fragment.graphql.gen'
+import { PageFragment } from '../../../../../shared/abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { PageFragmentDoc } from './page.fragment.graphql.gen'
+import { PageFragmentDoc } from '../../../../../shared/abstract/core/src/domain/page/page.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>

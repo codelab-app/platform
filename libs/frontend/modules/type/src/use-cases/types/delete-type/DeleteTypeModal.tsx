@@ -7,7 +7,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { typeApi, TypeService, WithTypeService } from '../../../store'
+import { typeApi, WithTypeService } from '../../../store'
 
 export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
   const closeModal = () => typeService.deleteModal.close()
@@ -23,7 +23,7 @@ export const DeleteTypeModal = observer<WithTypeService>(({ typeService }) => {
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={async () => {
-          const kind = typeToDelete?.typeKind
+          const kind = typeToDelete?.kind
 
           if (!kind) {
             throw new Error('useDeleteTypeForm: TypeKind is not defined')

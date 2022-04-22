@@ -9,11 +9,11 @@ import {
   initializeStore,
   StoreProvider,
 } from '@codelab/frontend/model/infra/mobx'
+import { IAppProps } from '@codelab/shared/abstract/core'
 import { css, Global } from '@emotion/react'
 import DateFnsAdapter from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { ConfigProvider } from 'antd'
-import { AppProps } from 'next/app'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { GlobalStyles } from 'twin.macro'
@@ -26,7 +26,7 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 
 const queryClient = new QueryClient()
 
-const App = ({ pageProps, Component, ...props }: AppProps<unknown>) => {
+const App = ({ pageProps, Component }: IAppProps) => {
   const store = useMemo(
     () => initializeStore(pageProps.snapshot),
     [pageProps.snapshot],

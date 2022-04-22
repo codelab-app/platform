@@ -1,10 +1,10 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form/form.types'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { FIELD_TYPE } from '../support/antd/form'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
-const primitiveTypeKind = TypeKind.PrimitiveType
+const primitiveTypeKind = ITypeKind.PrimitiveType
 const primitiveTypePrimitiveKind = PrimitiveTypeKind.String
 // Enum Type use case
 const enumTypeName = 'COLORS'
@@ -17,12 +17,14 @@ const enumTypeAllowedValues = [
 
 // Array Type use case
 const arrayTypeName = 'TextArray'
-const arrayTypeKind = TypeKind.ArrayType
+const arrayTypeKind = ITypeKind.ArrayType
 const arrayItemType = 'Text'
 const updatedArrayTypeName = 'Updated TextArray'
 // Interface Type use case
 const interfaceTypeName = 'New Interface'
-const interfaceTypeKind = TypeKind.InterfaceType
+const interfaceTypeKind = ITypeKind.InterfaceType
+// Field
+const fieldName = 'Name'
 
 describe('Types CRUD', () => {
   before(() => {
@@ -149,10 +151,42 @@ describe('Types CRUD', () => {
       cy.getModal().should('not.exist')
       cy.findByText(interfaceTypeName).should('exist')
     })
+
+    it('should be able to add fields', () => {
+      cy.searchTableRow({
+        header: 'Name',
+        row: interfaceTypeName,
+      })
+        .getIcon('right-circle')
+        .click()
+
+      cy.url({ timeout: 5000 }).should('include', 'types/interfaces')
+
+      cy.getButton({
+        icon: 'plus',
+      }).click()
+
+      cy.getModal().setFormFieldValue({
+        label: 'Key',
+        value: fieldName,
+      })
+
+      cy.getModal().setFormFieldValue({
+        label: 'Type',
+        value: primitiveTypeName,
+        type: FIELD_TYPE.SELECT,
+      })
+
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+    })
   })
 
   describe('update type', () => {
     it('should be able to update array', () => {
+      cy.visit(`/types`)
+
       cy.findAllByText(arrayTypeName, { exact: true, timeout: 3000 }).should(
         'exist',
       )

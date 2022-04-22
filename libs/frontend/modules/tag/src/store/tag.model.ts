@@ -1,23 +1,23 @@
+import { ITag, ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { TagFragment } from '../graphql/tag.fragment.graphql.gen'
 import { INode } from './tree.service'
 
-@model('codelab/Tag')
+@model('@codelab/Tag')
 export class Tag
   extends Model({
     id: idProp,
     name: prop<string>(),
     children: prop<Array<string>>(),
   })
-  implements INode
+  implements INode, ITag
 {
   @computed
   get label() {
     return this.name
   }
 
-  static fromFragment(tag: TagFragment) {
+  static hydrate(tag: ITagDTO) {
     return new Tag({
       id: tag.id,
       name: tag.name,
@@ -26,7 +26,7 @@ export class Tag
   }
 }
 
-export const tagRef = rootRef<Tag>('TagRef', {
+export const tagRef = rootRef<Tag>('@codelab/TagRef', {
   onResolvedValueChange(ref, newTag, oldTag) {
     if (oldTag && !newTag) {
       detach(ref)

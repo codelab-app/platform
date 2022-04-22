@@ -1,10 +1,7 @@
+import { IUpdateTagDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type UpdateTagData = {
-  name: string
-}
-
-export const updateTagSchema: JSONSchemaType<UpdateTagData> = {
+export const updateTagSchema: JSONSchemaType<IUpdateTagDTO> = {
   title: 'Update Tag Input',
   type: 'object',
   properties: {

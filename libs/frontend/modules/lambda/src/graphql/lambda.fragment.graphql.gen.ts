@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { gql } from '@apollo/client'
+import { gql } from 'graphql-request'
 export type LambdaFragment = { id: string; name: string; body: string }
 
 export type LambdaPayloadFragment = { payload: string }

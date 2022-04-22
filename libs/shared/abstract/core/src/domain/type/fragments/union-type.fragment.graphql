@@ -1,0 +1,9 @@
+fragment UnionType on UnionType {
+  ...TypeBase
+  typesOfUnionType {
+    ... on TypeBase {
+      id
+      name
+    }
+  }
+}

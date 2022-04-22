@@ -1,7 +1,7 @@
 import { DATA_COMPONENT_ID, DATA_ID } from '@codelab/frontend/abstract/core'
 import { Component } from '@codelab/frontend/modules/component'
 import { Element } from '@codelab/frontend/modules/element'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IRenderPipe } from '../abstract/IRenderPipe'
@@ -14,7 +14,7 @@ export class ComponentRenderPipe
   extends Model({ next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
-  render(element: Element, props: PropsData): ArrayOrSingle<RenderOutput> {
+  render(element: Element, props: IPropData): ArrayOrSingle<RenderOutput> {
     const component = element.instanceOfComponent?.current
 
     if (!component) {
@@ -41,13 +41,10 @@ export class ComponentRenderPipe
     return renderer.renderElementIntermediate(rootElement, overrideProps)
   }
 
-  private static makeOverrideProps(props: PropsData, component: Component) {
-    const {
-      key,
-      [DATA_COMPONENT_ID]: cid,
-      [DATA_ID]: id,
-      ...overrideProps
-    } = { ...props } as any
+  private static makeOverrideProps(props: IPropData, component: Component) {
+    const { key, [DATA_ID]: id, ...overrideProps } = { ...props } as any
+
+    console.log(component)
 
     return {
       [DATA_COMPONENT_ID]: component.id,

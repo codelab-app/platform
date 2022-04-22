@@ -1,5 +1,10 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ICreateStoreDTO,
+  IStoreDTO,
+  IUpdateStoreDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -13,8 +18,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { StoreFragment } from '../graphql/store.fragment.graphql.gen'
-import { CreateStoreInput, UpdateStoreInput } from '../use-cases'
 import { storeRef } from '.'
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
@@ -25,7 +28,7 @@ import { StoreModalService } from './store-modal.service'
 export type WithStoreService = {
   storeService: StoreService
 }
-@model('codelab/StoreService')
+@model('@codelab/StoreService')
 export class StoreService extends Model({
   stores: prop(() => objectMap<Store>()),
 
@@ -45,14 +48,14 @@ export class StoreService extends Model({
   }
 
   @modelAction
-  async ensureAllStateInterfacesAdded(state: Array<StoreFragment['state']>) {
+  async ensureAllStateInterfacesAdded(state: Array<IStoreDTO['state']>) {
     // loading state interface within store fragment is hard so we load it separately
     return await getTypeService(this).getAll(state.map((x) => x.id))
   }
 
   @modelAction
-  ensureAllActionsAdded(actions: StoreFragment['actions']) {
-    getActionService(this).addOrUpdateAll(actions)
+  ensureAllActionsAdded(actions: IStoreDTO['actions']) {
+    getActionService(this).updateCache(actions)
   }
 
   @modelFlow
@@ -79,7 +82,7 @@ export class StoreService extends Model({
     const descendants = stores.flatMap((x) => x.descendants)
 
     descendants.concat(stores).forEach((store) => {
-      this.stores.set(store.id, Store.fromFragment(store))
+      this.stores.set(store.id, Store.hydrate(store))
     })
 
     return this.stores
@@ -113,7 +116,7 @@ export class StoreService extends Model({
   @transaction
   createStore = _async(function* (
     this: StoreService,
-    input: CreateStoreInput,
+    input: ICreateStoreDTO,
     ownerId: Nullish<string>,
   ) {
     if (!ownerId) {
@@ -132,7 +135,7 @@ export class StoreService extends Model({
       throw new Error('No stores created')
     }
 
-    const store = Store.fromFragment(createdStore)
+    const store = Store.hydrate(createdStore)
 
     this.addStore(store)
     this.attachToParent(store)
@@ -160,7 +163,7 @@ export class StoreService extends Model({
   updateStore = _async(function* (
     this: StoreService,
     store: Store,
-    input: UpdateStoreInput,
+    input: IUpdateStoreDTO,
   ) {
     const { updateStores } = yield* _await(
       storeApi.UpdateStores({
@@ -170,7 +173,7 @@ export class StoreService extends Model({
     )
 
     const updatedStore = updateStores.stores[0]
-    const storeModel = Store.fromFragment(updatedStore)
+    const storeModel = Store.hydrate(updatedStore)
 
     this.detachFromParent(store) // detach from old parent
     this.attachToParent(storeModel) // attach to new parent

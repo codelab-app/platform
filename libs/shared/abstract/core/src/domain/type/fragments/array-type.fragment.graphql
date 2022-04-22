@@ -1,0 +1,9 @@
+fragment ArrayType on ArrayType {
+  ...TypeBase
+  itemType {
+    ... on TypeBase {
+      id
+      name
+    }
+  }
+}

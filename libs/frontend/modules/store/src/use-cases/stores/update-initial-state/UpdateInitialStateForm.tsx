@@ -7,11 +7,8 @@ import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
-import {
-  ConditionalView,
-  SpinnerWrapper,
-} from '@codelab/frontend/view/components'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -24,7 +21,7 @@ export const UpdateInitialStateForm = observer<
   const { store } = useCurrentStore(storeService)
 
   const [getInterfaceType, { data, isLoading }] = useLoadingState(
-    (id: string) => typeService.getInterfaceAndDescendants({ id }),
+    (id: string) => typeService.getInterfaceAndDescendants(id),
   )
 
   useEffect(() => {
@@ -34,7 +31,7 @@ export const UpdateInitialStateForm = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSubmit = (initialState: PropsData) => {
+  const onSubmit = (initialState: IPropData) => {
     if (!store) {
       throw new Error('Updated store is not set')
     }
@@ -54,8 +51,8 @@ export const UpdateInitialStateForm = observer<
   })
 
   return (
-    <SpinnerWrapper isLoading={isLoading}>
-      <ConditionalView condition={Boolean(data)}>
+    <Spinner isLoading={isLoading}>
+      <DisplayIf condition={Boolean(data)}>
         <Card>
           <InterfaceForm
             autosave
@@ -67,13 +64,13 @@ export const UpdateInitialStateForm = observer<
             submitRef={undefined}
           />
         </Card>
-      </ConditionalView>
-    </SpinnerWrapper>
+      </DisplayIf>
+    </Spinner>
   )
 })
 
 /**
- * 
+ *
  *  <Form
         autosave
         model={model}

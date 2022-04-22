@@ -10,14 +10,23 @@
     // "react-hooks",
     "@emotion",
     "prettier",
+    "jest",
     "jest-formatting",
     "simple-import-sort"
   ],
-  "extends": ["plugin:prettier/recommended"],
+  "env": {
+    "jest/globals": true
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "unused-imports/no-unused-imports-ts": "error",
         // "prefer-destructuring": [
         //   "error",
         //   {
@@ -255,36 +264,79 @@
                 "sourceTag": "type:abstract",
                 "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
               },
+              // {
+              //   "sourceTag": "scope:backend",
+              //   "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              // },
+              // {
+              //   "sourceTag": "layer:domain:frontend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "scope:shared",
+              //     "layer:domain:frontend",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
               {
                 "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract",
+                  "scope:codegen"
+                ]
+              },
+              // {
+              //   "sourceTag": "layer:domain:frontend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "scope:shared",
+              //     "layer:domain:frontend",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
+              {
+                "sourceTag": "scope:cli",
+                "onlyDependOnLibsWithTags": [
+                  "scope:frontend",
+                  "scope:codegen",
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract"
+                ]
               },
               {
                 "sourceTag": "scope:e2e",
                 "onlyDependOnLibsWithTags": [
                   "scope:frontend",
-                  "scope:backend",
-                  "scope:shared"
+                  "scope:codegen",
+                  "scope:shared",
+                  "type:abstract"
                 ]
               },
               {
                 "sourceTag": "scope:frontend",
-                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:frontend",
+                  "scope:shared",
+                  "scope:codegen",
+                  "type:abstract"
+                ]
               },
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
-              {
-                "sourceTag": "layer:domain:backend",
-                "onlyDependOnLibsWithTags": [
-                  "layer:domain:backend",
-                  "layer:application:backend",
-                  "scope:shared",
-                  "layer:infra",
-                  "type:abstract"
-                ]
-              },
+              // {
+              //   "sourceTag": "layer:domain:backend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "layer:domain:backend",
+              //     "layer:application:backend",
+              //     "scope:shared",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
               {
                 "sourceTag": "scope:publishable",
                 "onlyDependOnLibsWithTags": ["scope:publishable"]

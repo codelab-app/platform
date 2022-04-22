@@ -7,6 +7,6 @@ describe('Build Executor', () => {
   it('should run', async () => {
     const output = await executor(options)
 
-    expect(output.success).toStrictEqual(true)
+    expect(output.success).toBe(true)
   })
 })

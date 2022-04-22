@@ -9,7 +9,7 @@ import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { RenderService } from '../../RenderService'
 import { renderServiceContext } from '../../renderServiceContext'
 
-@model('codelab/RenderTestRootStore')
+@model('@codelab/RenderTestRootStore')
 export class RenderTestRootStore extends Model({
   typeService: prop<TypeService>(),
   atomService: prop<AtomService>(),

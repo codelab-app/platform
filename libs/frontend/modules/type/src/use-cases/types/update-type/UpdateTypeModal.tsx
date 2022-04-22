@@ -1,52 +1,42 @@
-import { useUser } from '@auth0/nextjs-auth0'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { WithTypeService } from '../../../store'
-import {
-  mapUpdateTypeSchemaToInput,
-  UpdateTypeInputFactory,
-  updateTypeSchema,
-} from './update-type-input.factory'
-import { validateNonRecursive } from './validateNonRecursive'
+import { updateTypeSchema } from './update-type.schema'
+import { validateNonRecursive } from './validate-non-recursive'
 
 export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
-  const { user } = useUser()
   const closeModal = () => typeService.updateModal.close()
   const typeToUpdate = typeService.updateModal.type
 
-  const handleSubmit = async (submitData: UpdateTypeInputFactory) => {
+  const handleSubmit = async (submitData: IUpdateTypeDTO) => {
     if (!typeToUpdate) {
       throw new Error('Type not set for typeStore.updateModal.')
     }
 
     await validateNonRecursive(typeToUpdate.id, submitData)
+    // typeToUpdate.applyUpdateData(submitData)
 
-    const input = mapUpdateTypeSchemaToInput(
-      submitData,
-      typeToUpdate,
-      user?.sub,
-    )
-
-    return typeService.update(typeToUpdate, input)
+    return typeService.update(submitData)
   }
 
   const model = {
     name: typeToUpdate?.name,
+    kind: typeToUpdate?.kind,
     primitiveKind:
-      typeToUpdate?.typeKind === TypeKind.PrimitiveType
+      typeToUpdate?.kind === ITypeKind.PrimitiveType
         ? typeToUpdate?.primitiveKind
         : undefined,
     allowedValues:
-      typeToUpdate?.typeKind === TypeKind.EnumType
+      typeToUpdate?.kind === ITypeKind.EnumType
         ? typeToUpdate?.allowedValues ?? undefined
         : undefined,
     typeIdsOfUnionType:
-      typeToUpdate?.typeKind === TypeKind.UnionType
+      typeToUpdate?.kind === ITypeKind.UnionType
         ? typeToUpdate?.typesOfUnionType?.map((t) => t.id) ?? []
         : undefined,
   }
@@ -63,7 +53,7 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
       title={<span css={tw`font-semibold`}>Update type</span>}
       visible={typeService.updateModal.isOpen}
     >
-      <ModalForm.Form<UpdateTypeInputFactory>
+      <ModalForm.Form<IUpdateTypeDTO>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createNotificationHandler({
@@ -74,13 +64,13 @@ export const UpdateTypeModal = observer<WithTypeService>(({ typeService }) => {
         schema={updateTypeSchema}
       >
         <AutoFields fields={['name']} />
-        {typeToUpdate.typeKind === TypeKind.UnionType && (
+        {typeToUpdate.kind === ITypeKind.UnionType && (
           <AutoField name="typeIdsOfUnionType" />
         )}
-        {typeToUpdate.typeKind === TypeKind.PrimitiveType && (
+        {typeToUpdate.kind === ITypeKind.PrimitiveType && (
           <AutoField name="primitiveKind" />
         )}
-        {typeToUpdate.typeKind === TypeKind.EnumType && (
+        {typeToUpdate.kind === ITypeKind.EnumType && (
           <AutoField name="allowedValues" />
         )}
       </ModalForm.Form>

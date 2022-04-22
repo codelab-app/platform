@@ -18,7 +18,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -39,7 +39,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
           <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
         </Head>
 
-        {type && type.typeKind === TypeKind.InterfaceType && (
+        {type && type.kind === ITypeKind.InterfaceType && (
           <>
             <CreateFieldModal
               interfaceType={type}
@@ -59,7 +59,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         <ContentSection>
           {isLoading && <Spin />}
           {!type ||
-            (type.typeKind === TypeKind.InterfaceType && (
+            (type.kind === ITypeKind.InterfaceType && (
               <FieldsTable
                 interfaceType={type}
                 isLoading={isLoading}

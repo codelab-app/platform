@@ -9,9 +9,10 @@ import {
 } from '@codelab/frontend/modules/component'
 import {
   Element,
-  ElementProps,
+  elementRef,
   ElementService,
   ElementTree,
+  Prop,
 } from '@codelab/frontend/modules/element'
 import {
   AnyType,
@@ -54,22 +55,30 @@ export const setupTestRenderData = (
   } = {} as any
 
   beforeEach(() => {
-    const emptyInterface = new InterfaceType({ name: 'Empty interface' })
+    const ownerId = v4()
+
+    const emptyInterface = new InterfaceType({
+      name: 'Empty interface',
+      ownerId,
+    })
 
     data.primitiveType = new PrimitiveType({
       id: v4(),
       name: 'primitiveType',
       primitiveKind: PrimitiveTypeKind.Integer,
+      ownerId,
     })
 
     data.renderPropsType = new RenderPropsType({
       id: v4(),
       name: 'renderPropsType',
+      ownerId,
     })
 
     data.reactNodeType = new ReactNodeType({
       id: v4(),
       name: 'reactNodeType',
+      ownerId,
     })
 
     data.divAtom = new Atom({
@@ -77,6 +86,7 @@ export const setupTestRenderData = (
       id: v4(),
       type: AtomType.HtmlDiv,
       api: typeRef(emptyInterface),
+      tags: [],
     })
 
     data.textAtom = new Atom({
@@ -84,12 +94,13 @@ export const setupTestRenderData = (
       id: v4(),
       type: AtomType.Text,
       api: typeRef(emptyInterface),
+      tags: [],
     })
 
     data.elementToRender02 = new Element({
       id: v4(),
       name: '02',
-      props: new ElementProps({}),
+      props: new Prop({}),
     })
 
     const compRootElementId = v4()
@@ -107,7 +118,7 @@ export const setupTestRenderData = (
       css: '',
       atom: atomRef(data.textAtom),
       component: componentRef(data.componentToRender),
-      props: new ElementProps({
+      props: new Prop({
         id: v4(),
         data: frozen({
           componentProp: 'original',
@@ -120,7 +131,7 @@ export const setupTestRenderData = (
       id: v4(),
       name: '01',
       instanceOfComponent: componentRef(data.componentToRender),
-      props: new ElementProps({
+      props: new Prop({
         id: v4(),
         data: frozen({
           componentProp: 'instance',
@@ -133,7 +144,7 @@ export const setupTestRenderData = (
       name: ROOT_ELEMENT_NAME,
       css: '',
       atom: atomRef(data.divAtom),
-      props: new ElementProps({
+      props: new Prop({
         id: v4(),
         data: frozen({
           prop01: 'prop01Value',
@@ -145,10 +156,10 @@ export const setupTestRenderData = (
         }),
       }),
       children: objectMap([
-        [data.elementToRender02.id, data.elementToRender02],
+        [data.elementToRender02.id, elementRef(data.elementToRender02)],
         [
           data.componentInstanceElementToRender.id,
-          data.componentInstanceElementToRender,
+          elementRef(data.componentInstanceElementToRender),
         ],
       ]),
       propTransformationJs: `
@@ -171,7 +182,7 @@ export const setupTestRenderData = (
         types: objectMap([
           [data.primitiveType.id, data.primitiveType],
           [data.renderPropsType.id, data.renderPropsType as AnyType],
-          [data.reactNodeType.id, data.reactNodeType as AnyType],
+          [data.reactNodeType.id, data.reactNodeType],
         ]),
       }),
       componentService: new ComponentService({
@@ -190,10 +201,22 @@ export const setupTestRenderData = (
         renderPipe: pipeFactory(new PassThroughRenderPipe({})),
       }),
       elementService: new ElementService({
+        elements: objectMap([
+          [data.elementToRender.id, data.elementToRender],
+          [data.elementToRender02.id, data.elementToRender02],
+          [
+            data.componentInstanceElementToRender.id,
+            data.componentInstanceElementToRender,
+          ],
+          [data.componentRootElement.id, data.componentRootElement],
+        ]),
         elementTree: new ElementTree({
-          root: data.elementToRender,
+          root: elementRef(data.elementToRender),
           componentRoots: objectMap([
-            [data.componentRootElement.id, data.componentRootElement],
+            [
+              data.componentRootElement.id,
+              elementRef(data.componentRootElement),
+            ],
           ]),
         }),
       }),

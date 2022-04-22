@@ -1,0 +1,14 @@
+fragment Type on TypeBase {
+  ...TypeBase
+  ...ArrayType
+  ...EnumType
+  ...InterfaceType
+  ...PrimitiveType
+  ...ElementType
+  ...LambdaType
+  ...RenderPropsType
+  ...UnionType
+  ...MonacoType
+  ...PageType
+  ...AppType
+}

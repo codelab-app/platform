@@ -51,7 +51,7 @@ before(() => {
 })
 
 describe('Update props', () => {
-  it(`should update props `, () => {
+  it(`should update props`, () => {
     // Select button props tab
     selectPropsTab()
 

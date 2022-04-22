@@ -29,8 +29,11 @@ const Header = observer(() => {
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <ExportTypesButton typeService={store.typeService} />
-      <ImportTypesUpload />
+      <ExportTypesButton
+        typeImportService={store.typeImportService}
+        typeService={store.typeService}
+      />
+      <ImportTypesUpload typeImportService={store.typeImportService} />
       <CreateTypeButton key={0} typeService={store.typeService} />
     </div>,
   ]

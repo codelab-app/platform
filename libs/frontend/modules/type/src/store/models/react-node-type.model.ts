@@ -1,34 +1,47 @@
-import { IReactNodeType, TypeKind } from '@codelab/shared/abstract/core'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { ReactNodeTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  IReactNodeType,
+  IReactNodeTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/ReactNodeType')
+const hydrate = ({
+  id,
+  kind,
+  name,
+  owner,
+}: IReactNodeTypeDTO): ReactNodeType => {
+  assertIsTypeKind(kind, ITypeKind.ReactNodeType)
+
+  return new ReactNodeType({
+    id,
+    kind,
+    name,
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/ReactNodeType')
 export class ReactNodeType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.ReactNodeType),
+    baseModel: createTypeBase(ITypeKind.ReactNodeType),
     props: {},
   }))
   implements IReactNodeType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-  }: ReactNodeTypeFragment): ReactNodeType {
-    return new ReactNodeType({ id, typeKind, name })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
+
+  public static hydrate = hydrate
 }

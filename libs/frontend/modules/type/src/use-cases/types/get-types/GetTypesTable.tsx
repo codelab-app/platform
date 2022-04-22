@@ -6,7 +6,7 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space, Table } from 'antd'
 import { ColumnsType, TableRowSelection } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
@@ -17,7 +17,7 @@ import { typeRef, WithTypeService } from '../../../store'
 
 interface CellData {
   name: string
-  typeKind: TypeKind
+  typeKind: ITypeKind
   id: string
 }
 
@@ -55,14 +55,12 @@ export const GetTypesTable = observer<WithTypeService>(({ typeService }) => {
             >
               <RightCircleOutlined />
             </Link>
-          ) : (
-            <ListItemEditButton
-              onClick={() => {
-                typeService.updateModal.open(typeRef(record.id))
-              }}
-            />
-          )}
-
+          ) : null}
+          <ListItemEditButton
+            onClick={() => {
+              typeService.updateModal.open(typeRef(record.id))
+            }}
+          />
           <ListItemDeleteButton
             onClick={() => typeService.deleteModal.open(typeRef(record.id))}
           />
@@ -84,7 +82,7 @@ export const GetTypesTable = observer<WithTypeService>(({ typeService }) => {
     data?.map((t) => ({
       id: t.id,
       name: t.name,
-      typeKind: t.typeKind,
+      typeKind: t.kind,
     })) ?? []
 
   return (

@@ -1,5 +1,5 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { TypeNonRecursiveFragment } from '../graphql/fragments/type.fragment.graphql.gen'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   AppType,
   ArrayType,
@@ -15,42 +15,45 @@ import {
   UnionType,
 } from './models'
 
-export const typeFactory = (type: TypeNonRecursiveFragment) => {
-  switch (type.typeKind) {
-    case TypeKind.AppType:
-      return AppType.fromFragment(type)
+export const typeFactory = (type: ITypeDTO) => {
+  switch (type.__typename) {
+    case ITypeKind.AppType:
+      return AppType.hydrate(type)
 
-    case TypeKind.ElementType:
-      return ElementType.fromFragment(type)
+    case ITypeKind.ElementType:
+      return ElementType.hydrate(type)
 
-    case TypeKind.EnumType:
-      return EnumType.fromFragment(type)
+    case ITypeKind.EnumType:
+      return EnumType.hydrate(type)
 
-    case TypeKind.LambdaType:
-      return LambdaType.fromFragment(type)
+    case ITypeKind.LambdaType:
+      return LambdaType.hydrate(type)
 
-    case TypeKind.MonacoType:
-      return MonacoType.fromFragment(type)
+    case ITypeKind.MonacoType:
+      return MonacoType.hydrate(type)
 
-    case TypeKind.PageType:
-      return PageType.fromFragment(type)
+    case ITypeKind.PageType:
+      return PageType.hydrate(type)
 
-    case TypeKind.PrimitiveType:
-      return PrimitiveType.fromFragment(type)
+    case ITypeKind.PrimitiveType:
+      return PrimitiveType.hydrate(type)
 
-    case TypeKind.ReactNodeType:
-      return ReactNodeType.fromFragment(type)
+    case ITypeKind.ReactNodeType:
+      return ReactNodeType.hydrate(type)
 
-    case TypeKind.RenderPropsType:
-      return RenderPropsType.fromFragment(type)
+    case ITypeKind.RenderPropsType:
+      return RenderPropsType.hydrate(type)
 
-    case TypeKind.ArrayType:
-      return ArrayType.fromFragment(type)
+    case ITypeKind.ArrayType:
+      return ArrayType.hydrate(type)
 
     case TypeKind.InterfaceType:
-      return InterfaceType.fromFragment(type)
+      return InterfaceType.hydrate(type)
 
     case TypeKind.UnionType:
-      return UnionType.fromFragment(type)
+      return UnionType.hydrate(type)
+
+    default:
+      throw new Error(`Unknown type kind: ${type.kind}`)
   }
 }

@@ -1,14 +1,14 @@
+import { IActionDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { ActionFragment } from '../graphql/action.fragment.graphql.gen'
 
-@model('codelab/Action')
+@model('@codelab/Action')
 export class Action extends Model({
   id: idProp,
   name: prop<string>(),
   body: prop<string>(),
   storeId: prop<string>(),
 }) {
-  static fromFragment(action: ActionFragment) {
+  static hydrate(action: IActionDTO) {
     return new Action({
       body: action.body,
       name: action.name,
@@ -18,7 +18,7 @@ export class Action extends Model({
   }
 }
 
-export const actionRef = rootRef<Action>('ActionRef', {
+export const actionRef = rootRef<Action>('@codelab/ActionRef', {
   onResolvedValueChange(ref, newAction, oldAction) {
     if (oldAction && !newAction) {
       detach(ref)

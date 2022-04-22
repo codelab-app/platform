@@ -3,7 +3,13 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { PropsData } from '@codelab/shared/abstract/core'
+import {
+  ICreateElementDTO,
+  ICreatePropMapBindingDTO,
+  IPropData,
+  IUpdateElementDTO,
+  IUpdatePropMapBindingDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -13,14 +19,12 @@ import {
   model,
   modelClass,
   modelFlow,
+  objectMap,
   prop,
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { CreateElementInput, UpdateElementInput } from '../use-cases'
 import { MoveData } from '../use-cases/element/move-element/types'
-import { CreatePropMapBindingData } from '../use-cases/prop-mapping/create-prop-map-binding/createPropMapBindingSchema'
-import { UpdatePropMapBindingData } from '../use-cases/prop-mapping/update-prop-map-binding/updatePropMapBindingSchema'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -42,6 +46,7 @@ export interface WithElementService {
 @model('@codelab/ElementService')
 export class ElementService extends Model({
   elementTree: prop(() => new ElementTree({})),
+  elements: prop(() => objectMap<Element>()),
 
   createModal: prop(() => new CreateElementModalService({})),
   updateModal: prop(() => new ElementModalService({})),
@@ -54,25 +59,67 @@ export class ElementService extends Model({
   @modelFlow
   getTree = _async(function* (this: ElementService, rootId: string) {
     const { elementGraph } = yield* _await(
-      elementApi.GetElementsGraph({ input: { rootId } }),
+      elementApi.GetElementGraph({ input: { rootId } }),
     )
 
-    this.elementTree.updateFromFragment(elementGraph, rootId)
+    const ids = [elementGraph.id, ...elementGraph.descendants]
+
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    this.elementTree.updateCache(elements, rootId)
 
     return this.elementTree
   })
 
   @modelFlow
   @transaction
+  getAll = _async(function* (this: ElementService, ids: Array<string> = []) {
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    return elements.map((element) => {
+      if (this.elements.has(element.id)) {
+        return element
+      }
+
+      const elementModel = Element.hydrate(element)
+      this.elements.set(element.id, elementModel)
+
+      return element
+    })
+  })
+
+  @modelFlow
+  @transaction
+  getElementGraph = _async(function* (this: ElementService, rootId: string) {
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({
+        input: {
+          rootId,
+        },
+      }),
+    )
+
+    return elementGraph
+  })
+
+  @modelFlow
+  @transaction
   createElement = _async(function* (
     this: ElementService,
-    input: CreateElementInput,
+    input: ICreateElementDTO,
   ) {
-    input = {
-      ...input,
-      parentElementId: input.parentElementId || this.elementTree.root?.id, // default to the root element if not parent is set
-    }
-
     const createInput: ElementCreateInput = makeCreateInput(input)
 
     const {
@@ -85,7 +132,7 @@ export class ElementService extends Model({
       throw new Error('No elements created')
     }
 
-    const [element] = this.elementTree.addOrUpdateAll([createdElement])
+    const [element] = this.elementTree.updateCache([createdElement])
 
     return element
   })
@@ -95,7 +142,7 @@ export class ElementService extends Model({
   updateElement = _async(function* (
     this: ElementService,
     element: Element,
-    input: UpdateElementInput,
+    input: IUpdateElementDTO,
   ) {
     const updateInput = makeUpdateInput(input)
 
@@ -160,7 +207,7 @@ export class ElementService extends Model({
   updateElementProps = _async(function* (
     this: ElementService,
     element: Element,
-    data: PropsData,
+    data: IPropData,
   ) {
     const createOrUpdate = element.props ? 'update' : 'create'
 
@@ -196,36 +243,46 @@ export class ElementService extends Model({
       throw new Error('No elements updated')
     }
 
-    element.updateFromFragment(updatedElement)
+    element.updateCache(updatedElement)
 
     return element
   })
 
   @modelFlow
   @transaction
-  deleteElementsSubgraph = _async(function* (
+  deleteElementSubgraph = _async(function* (
     this: ElementService,
     rootId: string,
   ) {
-    const deletedRoot = this.elementTree.element(rootId)
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({ input: { rootId } }),
+    )
 
-    if (!deletedRoot) {
-      throw new Error('Deleted element not found')
+    const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
+
+    for (const id of idsToDelete.reverse()) {
+      const ele = this.elements.get(id)
+      this.elements.delete(id)
+      // ele?.parentElement?.removeChild(ele)
     }
 
-    this.elementTree.removeElementAndDescendants(deletedRoot)
+    console.log('after delete')
 
     const {
-      deleteElementsSubgraph: { nodesDeleted },
+      deleteElements: { nodesDeleted },
     } = yield* _await(
-      elementApi.DeleteElementsSubgraph({ where: { id: rootId } }),
+      elementApi.DeleteElements({
+        where: {
+          id_IN: idsToDelete,
+        },
+      }),
     )
 
     if (nodesDeleted === 0) {
       throw new Error('No elements deleted')
     }
 
-    return deletedRoot
+    return idsToDelete
   })
 
   @modelFlow
@@ -258,7 +315,7 @@ export class ElementService extends Model({
         throw new Error('No elements created')
       }
 
-      const [elementModel] = this.elementTree.addOrUpdateAll([createdElement])
+      const [elementModel] = this.elementTree.updateCache([createdElement])
 
       oldToNewIdMap.set(element.id, elementModel.id)
 
@@ -357,7 +414,7 @@ export class ElementService extends Model({
   createPropMapBinding = _async(function* (
     this: ElementService,
     element: Element,
-    createInput: CreatePropMapBindingData,
+    createInput: ICreatePropMapBindingDTO,
   ) {
     const {
       createPropMapBindings: {
@@ -386,7 +443,7 @@ export class ElementService extends Model({
       throw new Error('No prop map bindings created')
     }
 
-    const propMapBinding = PropMapBinding.fromFragment(createdPropMapBinding)
+    const propMapBinding = PropMapBinding.hydrate(createdPropMapBinding)
 
     element.addPropMapBinding(propMapBinding)
 
@@ -399,7 +456,7 @@ export class ElementService extends Model({
     this: ElementService,
     element: Element,
     propMapBinding: PropMapBinding,
-    updateData: UpdatePropMapBindingData,
+    updateData: IUpdatePropMapBindingDTO,
   ) {
     const {
       updatePropMapBindings: {
@@ -423,7 +480,7 @@ export class ElementService extends Model({
       throw new Error('No prop map bindings updated')
     }
 
-    propMapBinding.updateFromFragment(updatedPropMapBinding)
+    propMapBinding.updateCache(updatedPropMapBinding)
 
     return propMapBinding
   })
@@ -453,7 +510,7 @@ export class ElementService extends Model({
   })
 }
 
-@model('codelab/ElementModalService')
+@model('@codelab/ElementModalService')
 class ElementModalService extends ExtendedModel(() => ({
   baseModel: modelClass<ModalService<Ref<Element>>>(ModalService),
   props: {},
@@ -464,7 +521,7 @@ class ElementModalService extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/CreateElementModalService')
+@model('@codelab/CreateElementModalService')
 class CreateElementModalService extends ExtendedModel(() => ({
   baseModel:
     modelClass<ModalService<{ parentElement?: Ref<Element> }>>(ModalService),
@@ -476,7 +533,7 @@ class CreateElementModalService extends ExtendedModel(() => ({
   }
 }
 
-@model('codelab/PropMapBindingModalService')
+@model('@codelab/PropMapBindingModalService')
 class PropMapBindingModalService extends ExtendedModel(() => ({
   baseModel: modelClass<
     ModalService<{

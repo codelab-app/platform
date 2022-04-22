@@ -6,20 +6,14 @@ import sanitizeFilename from 'sanitize-filename'
 import { WithAdminService } from '../../store'
 
 export const ExportButton = observer<WithAdminService>(({ adminService }) => {
-  // All Types Data
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const downloadFile = (data: Record<string, any>) => {
-    fileDownload(JSON.stringify(data), sanitizeFilename(`data.codelab.json`))
-  }
 
   const onClickExport = () => {
     setIsLoading(true)
     adminService
       .exportData()
-      .then((response) => {
-        const exportedResources = response
-        downloadFile(exportedResources)
+      .then((exportedResources) => {
+        fileDownload(exportedResources, sanitizeFilename(`data.codelab.json`))
       })
       .finally(() => setIsLoading(false))
   }

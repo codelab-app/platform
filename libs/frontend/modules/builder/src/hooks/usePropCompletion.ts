@@ -1,4 +1,4 @@
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isObjectLike } from 'lodash'
 import { BuilderService } from '../store'
@@ -27,7 +27,7 @@ export const usePropCompletion = (builderService: BuilderService) => {
     const allRenderedProps = Array.isArray(renderOutput)
       ? renderOutput
           .map((r) => r.props)
-          .reduce((acc, next) => mergeProps(acc, next), {} as PropsData)
+          .reduce((acc, next) => mergeProps(acc, next), {} as IPropData)
       : renderOutput.props
 
     const keys: Array<string> = []

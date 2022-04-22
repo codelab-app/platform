@@ -1,4 +1,4 @@
-import { TypedValue, TypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { getRenderContext } from '../renderServiceContext'
@@ -22,8 +22,8 @@ export class ElementTypedValueTransformer
   extends Model({})
   implements ITypedValueTransformer
 {
-  canHandleTypeKind(typeKind: TypeKind): boolean {
-    return typeKind === TypeKind.ElementType
+  canHandleTypeKind(kind: ITypeKind): boolean {
+    return kind === ITypeKind.ElementType
   }
 
   canHandleValue(value: TypedValue<any>): boolean {

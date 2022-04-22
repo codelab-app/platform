@@ -1,34 +1,37 @@
-import { IPageType, TypeKind } from '@codelab/shared/abstract/core'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { PageTypeFragment, TypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+  assertIsTypeKind,
+  IPageType,
+  IPageTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/PageType')
+const hydrate = ({ id, kind, name, owner }: IPageTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.PageType)
+
+  return new PageType({ id, kind, name, ownerId: owner?.id })
+}
+
+@model('@codelab/PageType')
 export class PageType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.PageType),
+    baseModel: createTypeBase(ITypeKind.PageType),
     props: {},
   }))
   implements IPageType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-  }: PageTypeFragment): PageType {
-    return new PageType({ id, typeKind, name })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  // }
+
+  public static hydrate = hydrate
 }

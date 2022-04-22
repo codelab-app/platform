@@ -1,58 +1,78 @@
-import { IUnionType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  assertIsTypeKind,
+  IAnyType,
+  ITypeDTO,
+  ITypeKind,
+  IUnionType,
+  IUnionTypeDTO,
+} from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
-  Model,
   model,
   modelAction,
-  modelFlow,
   prop,
   Ref,
   rootRef,
-  transaction,
 } from 'mobx-keystone'
-import { TypeFragment, UnionTypeFragment } from '../../graphql'
-import { baseTypeProps, baseUpdateFromFragment, IBaseType } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
+import { AnyType } from './any-type.model'
 import { createTypeBase } from './base-type.model'
-import type { AnyType } from './types'
 
-@model('codelab/UnionType')
+const hydrate = ({
+  id,
+  kind,
+  name,
+  typesOfUnionType,
+  owner,
+}: IUnionTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.UnionType)
+
+  return new UnionType({
+    id,
+    kind,
+    name,
+    typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/UnionType')
 export class UnionType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.UnionType),
+    baseModel: createTypeBase(ITypeKind.UnionType),
     props: {
-      typesOfUnionType: prop<Array<Ref<AnyType>>>(() => []),
+      typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
     },
   }))
   implements IUnionType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.UnionType) {
+    if (fragment.__typename !== ITypeKind.UnionType) {
       return
     }
 
     this.typesOfUnionType = fragment.typesOfUnionType.map((t) => typeRef(t.id))
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    typesOfUnionType,
-  }: UnionTypeFragment): UnionType {
-    return new UnionType({
-      id,
-      typeKind,
-      name,
-      typesOfUnionType: typesOfUnionType.map((t) => typeRef(t.id)),
-    })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  //
+  //   if (!input.typeIdsOfUnionType) {
+  //     throw new Error('UnionType must have a typesOfUnionType array')
+  //   }
+  //
+  //   this.typesOfUnionType = input.typeIdsOfUnionType.map((tId) => typeRef(tId))
+  // }
+
+  public static hydrate = hydrate
 }
 
-export const typeRef = rootRef<AnyType>('codelab/TypeRef', {
+export const typeRef = rootRef<AnyType>('@codelab/TypeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

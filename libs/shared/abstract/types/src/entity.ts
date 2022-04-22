@@ -1,11 +1,5 @@
-export type EntityLike = {
+export interface IIdentifiable {
   id: string
 }
 
-export type DgraphEntityLike = {
-  uid: string
-}
-
-export type EntityRecord = Record<string, unknown>
-
-export type Entity<T extends EntityLike> = Pick<T, 'id'>
+export type IEntity = IIdentifiable

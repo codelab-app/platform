@@ -1,6 +1,14 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { InterfaceTypeWhere } from '@codelab/shared/abstract/codegen'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICreateFieldDTO,
+  ICreateTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+  IUpdateFieldDTO,
+  IUpdateTypeDTO,
+} from '@codelab/shared/abstract/core'
+import { entityMapById } from '@codelab/shared/utils'
+import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -15,21 +23,18 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { CreateFieldData } from '../use-cases/fields'
-import { UpdateFieldData } from '../use-cases/fields/update-field/types'
-import { IBaseType } from './abstract'
+import { createTypeInputFactory } from '../use-cases/types/create-type/create-type.factory'
+import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
-  CreateTypeInput,
   deleteTypeApi,
   getAllTypes,
   getTypeApi,
   updateTypeApi,
-  UpdateTypeInput,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, InterfaceType } from './models'
+import { AnyType, Field, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -43,8 +48,8 @@ export type WithTypeService = {
 // This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const typeServiceContext = createContext<TypeService>()
 
-export const getTypeService = (thisModel: object) => {
-  const typeService = typeServiceContext.get(thisModel)
+export const getTypeService = (self: object) => {
+  const typeService = typeServiceContext.get(self)
 
   if (!typeService) {
     throw new Error('TypeService is not defined')
@@ -53,7 +58,7 @@ export const getTypeService = (thisModel: object) => {
   return typeService
 }
 
-@model('codelab/TypeService')
+@model('@codelab/TypeService')
 export class TypeService extends Model({
   types: prop(() => objectMap<AnyType>()),
 
@@ -81,44 +86,60 @@ export class TypeService extends Model({
     this.types.set(type.id, type)
   }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: TypeService,
-    type: IBaseType,
-    input: UpdateTypeInput,
-  ) {
-    const [updatedType] = yield* _await(
-      updateTypeApi[type.typeKind]({
-        where: { id: type.id },
-        update: { name: input.name },
-      }),
-    )
+  @modelAction
+  updateCache(fragment: ITypeDTO) {
+    let typeModel = this.types.get(fragment.id)
 
-    if (!updatedType) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Type was not created')
+    if (typeModel) {
+      typeModel.updateCache(fragment)
+    } else {
+      typeModel = typeFactory(fragment)
+      this.types.set(fragment.id, typeModel)
     }
 
-    const typeModel = typeFactory(updatedType)
-
-    this.types.set(type.id, typeModel)
-
     return typeModel
+  }
+
+  @modelFlow
+  @transaction
+  update = _async(function* (this: TypeService, type: IUpdateTypeDTO) {
+    const args = {
+      where: { id: type.id },
+      ...updateTypeInputFactory(type),
+    }
+
+    const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
+
+    if (!updatedType) {
+      throw new Error('Type was not updated')
+    }
+
+    return this.updateCache(updatedType)
   })
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, ids?: Array<string>) {
-    const types = yield* _await(getAllTypes(ids))
+    const idsToFetch = ids?.filter((id) => !this.types.has(id))
+    const types = yield* _await(getAllTypes(idsToFetch))
+    const typesMap = entityMapById(types)
 
-    return types.map((type) => {
-      if (this.types.has(type.id)) {
-        return this.types.get(type.id)
+    if (!ids) {
+      ids = types.map((t) => t.id)
+    }
+
+    // remove duplicates
+    ids = [...new Set(ids)]
+
+    return ids.map((id) => {
+      if (this.types.has(id)) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.types.get(id)!
       }
 
-      const typeModel = typeFactory(type)
-      this.types.set(type.id, typeModel)
+      const typeModel = typeFactory(typesMap.get(id)!)
+
+      this.types.set(id, typeModel)
 
       return typeModel
     })
@@ -128,7 +149,8 @@ export class TypeService extends Model({
   @transaction
   getOne = _async(function* (this: TypeService, id: string) {
     if (this.types.has(id)) {
-      return this.types.get(id)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.types.get(id)!
     }
 
     const all = yield* _await(this.getAll([id]))
@@ -138,58 +160,64 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  getInterfaceAndDescendants = _async(function* (
+  getAllWithDescendants = _async(function* (
     this: TypeService,
-    where: InterfaceTypeWhere,
+    ids: Array<string>,
   ) {
-    const {
-      types: [interfaceType],
-    } = yield* _await(getTypeApi.GetInterfaceTypes({ where }))
-
-    if (!interfaceType) {
-      return null
+    if (!ids?.length) {
+      return []
     }
 
-    if (interfaceType?.typeKind !== TypeKind.InterfaceType) {
-      throw new Error(`Type is not an interface`)
-    }
-
-    // Get all descendant types so that we don't get unknown references
-    const ids = interfaceType.descendantTypesIds.filter(
-      (id) => !this.types.has(id),
+    const descendantsResponse = yield* _await(
+      getTypeApi.GetDescendants({ ids }),
     )
 
-    yield* _await(this.getAll(ids))
+    const allDescendantIds = Object.values(descendantsResponse).reduce(
+      (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
+      [] as Array<string>,
+    )
 
-    let itModel = this.types.get(interfaceType.id) as InterfaceType | undefined
+    // remove duplicates
+    const allIds = [...new Set([...ids, ...allDescendantIds])]
 
-    if (!itModel) {
-      itModel = InterfaceType.fromFragment(interfaceType)
-      this.types.set(interfaceType.id, itModel)
+    return yield* _await(this.getAll(allIds))
+  })
+
+  @modelFlow
+  @transaction
+  getInterfaceAndDescendants = _async(function* (
+    this: TypeService,
+    id: string,
+  ) {
+    const [type] = yield* _await(this.getAllWithDescendants([id]))
+
+    if (type.kind !== ITypeKind.InterfaceType) {
+      throw new Error('Type is not an interface')
     }
 
-    return itModel
+    return type as InterfaceType
   })
 
   @modelFlow
   @transaction
   create = _async(function* (
     this: TypeService,
-    typeKind: TypeKind,
-    input: CreateTypeInput,
+    type: ICreateTypeDTO,
+    auth0Id: string,
   ) {
-    const [type] = yield* _await(createTypeApi[typeKind](input))
+    const typeInput = createTypeInputFactory(type, auth0Id)
+    const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
 
     if (!type) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    const typeModel = typeFactory(type)
+    const typeModel = typeFactory(typeFragment)
 
     this.types.set(type.id, typeModel)
 
-    return typeModel
+    return type
   })
 
   @modelFlow
@@ -204,7 +232,7 @@ export class TypeService extends Model({
     }
 
     const { nodesDeleted } = yield* _await(
-      deleteTypeApi[type.typeKind]({ where: { id } }),
+      deleteTypeApi[type.kind]({ where: { id } }),
     )
 
     if (nodesDeleted === 0) {
@@ -216,77 +244,65 @@ export class TypeService extends Model({
   })
 
   //
-  //  The field actions are here because if I put them in InterfaceType
+  // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
   //
-
   @modelFlow
   @transaction
   addField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
-    data: CreateFieldData,
+    type: InterfaceType,
+    data: ICreateFieldDTO,
   ) {
-    const { existingTypeId, name, description, key } = data
-
-    const createInput = {
-      interfaceTypeId: interfaceType.id,
-      key,
-      name,
-      description,
-      targetTypeId: existingTypeId,
+    const input = {
+      interfaceId: type.id,
+      fieldTypeId: data.fieldType,
+      field: {
+        description: data.description,
+        id: data.id,
+        key: data.key,
+        name: data.name,
+      },
     }
 
-    const res = yield* _await(fieldApi.CreateField({ input: createInput }))
-    const field = interfaceType.addFieldLocal(res.upsertFieldEdge)
+    const res = yield* _await(fieldApi.CreateField(input))
 
-    field.updateFromFragment(res.upsertFieldEdge, interfaceType.id)
+    const field =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
 
-    return field
+    const fieldModel = Field.hydrate(field)
+    type.fields.set(fieldModel.id, fieldModel)
+
+    return fieldModel
   })
 
   @modelFlow
   @transaction
   updateField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    type: InterfaceType,
     targetKey: string,
-    { key, name, existingTypeId, description }: UpdateFieldData,
+    data: IUpdateFieldDTO,
   ) {
-    const field = interfaceType.fieldByKey(targetKey)
+    const { key, name, description } = data
+    const field = type.field(data.id)
 
     if (!field) {
       throw new Error(`Field with key ${targetKey} not found`)
     }
 
-    if (field.key !== key) {
-      interfaceType.validateUniqueFieldKey(key)
-    }
-
-    // Reusing updateFromFragment with a made up fragment from the optimistic data
-    field.updateFromFragment(
-      {
-        key,
-        name,
-        description,
-        target: existingTypeId,
-        source: interfaceType.id,
-      },
-      interfaceType.id,
-    )
-
     const input = {
-      key,
-      name,
-      description,
-      interfaceTypeId: interfaceType.id,
-      targetTypeId: existingTypeId,
-      targetKey,
+      interfaceId: type.id,
+      fieldTypeId: data.fieldType,
+      field: data,
     }
 
-    const res = yield* _await(fieldApi.UpdateField({ input }))
+    const res = yield* _await(fieldApi.UpdateField(input))
 
-    field.updateFromFragment(res.upsertFieldEdge, interfaceType.id)
+    const updatedField =
+      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+
+    field.updateCache(updatedField, type.id)
 
     return field
   })
@@ -296,22 +312,26 @@ export class TypeService extends Model({
   deleteField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    fieldKey: string,
+    fieldId: string,
   ) {
-    const field = interfaceType.fieldByKey(fieldKey)
+    const field = interfaceType.field(fieldId)
 
     if (!field) {
       return
     }
 
+    const input = { where: { id: fieldId }, interfaceId: interfaceType.id }
+    const res = yield* _await(fieldApi.DeleteField(input))
+
+    // Returns current edges, not deleted edges
+    // const deletedField =
+    //   res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    //
+    // if (!deletedField) {
+    //   throw new Error(`Failed to delete field with id ${fieldId}`)
+    // }
+
     interfaceType.deleteFieldLocal(field)
-
-    const input = { key: fieldKey, interfaceId: interfaceType.id }
-    const res = yield* _await(fieldApi.DeleteField({ input }))
-
-    if (res.deleteFieldEdge.deletedEdgesCount === 0) {
-      throw new Error(`Failed to delete field with key ${fieldKey}`)
-    }
 
     return field
   })

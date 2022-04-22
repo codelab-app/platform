@@ -1,11 +1,21 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropData, IPropMapBindingDTO } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
-import { PropMapBindingFragment } from '../graphql/element.fragment.graphql.gen'
 import type { Element } from './element.model'
 import { elementRef } from './element.ref'
+
+const hydrate = (fragment: IPropMapBindingDTO) => {
+  return new PropMapBinding({
+    id: fragment.id,
+    targetElement: fragment.targetElement
+      ? elementRef(fragment.targetElement.id)
+      : null,
+    sourceKey: fragment.sourceKey,
+    targetKey: fragment.targetKey,
+  })
+}
 
 @model('@codelab/PropMapBinding')
 export class PropMapBinding extends Model({
@@ -15,7 +25,7 @@ export class PropMapBinding extends Model({
   targetKey: prop<string>(), // '*' spreads all props
 }) {
   @modelAction
-  public updateFromFragment(fragment: PropMapBindingFragment) {
+  updateCache(fragment: IPropMapBindingDTO) {
     this.id = fragment.id
     this.sourceKey = fragment.sourceKey
     this.targetKey = fragment.targetKey
@@ -24,7 +34,7 @@ export class PropMapBinding extends Model({
       : null
   }
 
-  applyBindings(sourceProps: PropsData): PropsData {
+  applyBindings(sourceProps: IPropData): IPropData {
     const value =
       this.sourceKey === BINDING_WILDCARD
         ? sourceProps
@@ -44,14 +54,5 @@ export class PropMapBinding extends Model({
     return newProps
   }
 
-  public static fromFragment(fragment: PropMapBindingFragment) {
-    return new PropMapBinding({
-      id: fragment.id,
-      targetElement: fragment.targetElement
-        ? elementRef(fragment.targetElement.id)
-        : null,
-      sourceKey: fragment.sourceKey,
-      targetKey: fragment.targetKey,
-    })
-  }
+  public static hydrate = hydrate
 }

@@ -1,14 +1,9 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
+import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateStoreInput = {
-  name: string
-  parentStore: { id: string; key: string }
-  initialState: string
-}
-
-export const createStoreSchema: JSONSchemaType<CreateStoreInput> = {
+export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
   title: 'Create Store',
   type: 'object',
   properties: {

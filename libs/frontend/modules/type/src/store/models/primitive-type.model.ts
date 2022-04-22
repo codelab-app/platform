@@ -1,14 +1,37 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  assertIsTypeKind,
+  IPrimitiveType,
+  IPrimitiveTypeDTO,
+  ITypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { PrimitiveTypeFragment, TypeFragment } from '../../graphql'
-import { baseUpdateFromFragment } from '../abstract'
+import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-@model('codelab/PrimitiveType')
+const hydrate = ({
+  id,
+  kind,
+  name,
+  primitiveKind,
+  owner,
+}: IPrimitiveTypeDTO) => {
+  assertIsTypeKind(kind, ITypeKind.PrimitiveType)
+
+  return new PrimitiveType({
+    id,
+    kind,
+    name,
+    primitiveKind,
+    ownerId: owner?.id,
+  })
+}
+
+@model('@codelab/PrimitiveType')
 export class PrimitiveType
   extends ExtendedModel(() => ({
-    baseModel: createTypeBase(TypeKind.PrimitiveType),
+    baseModel: createTypeBase(ITypeKind.PrimitiveType),
     props: {
       primitiveKind: prop<PrimitiveTypeKind>(),
     },
@@ -16,22 +39,26 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  updateFromFragment(fragment: TypeFragment): void {
-    baseUpdateFromFragment(this, fragment)
+  updateCache(fragment: ITypeDTO): void {
+    updateBaseTypeCache(this, fragment)
 
-    if (fragment.typeKind !== TypeKind.PrimitiveType) {
+    if (fragment.__typename !== ITypeKind.PrimitiveType) {
       return
     }
 
     this.primitiveKind = fragment.primitiveKind
   }
 
-  public static fromFragment({
-    id,
-    typeKind,
-    name,
-    primitiveKind,
-  }: PrimitiveTypeFragment): PrimitiveType {
-    return new PrimitiveType({ id, typeKind, name, primitiveKind })
-  }
+  // @modelAction
+  // override applyUpdateData(input: IUpdateTypeDTO) {
+  //   super.applyUpdateData(input)
+  //
+  //   if (!input.primitiveKind) {
+  //     throw new Error('PrimitiveType must have a primitiveKind')
+  //   }
+  //
+  //   this.primitiveKind = input.primitiveKind
+  // }
+
+  public static hydrate = hydrate
 }
