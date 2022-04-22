@@ -16,7 +16,7 @@ export const GetAtomsTable = observer<WithAtomService>(({ atomService }) => {
     type: a.type,
     apiId: a.api.id,
     name: a.name,
-    tags: a.tags,
+    tags: a.tags.map((tag) => tag.current),
   }))
 
   useEffect(() => {

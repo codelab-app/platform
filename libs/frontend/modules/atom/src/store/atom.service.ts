@@ -1,3 +1,4 @@
+import { getTagService } from '@codelab/frontend/modules/tag'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -113,6 +114,7 @@ export class AtomService extends Model({
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
+    const tagService = getTagService(this)
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
     return this.updateCache(atoms)
