@@ -6,5 +6,6 @@ fragment Operation on Operation {
     id
     name
   }
+  runOnInit
   config
 }

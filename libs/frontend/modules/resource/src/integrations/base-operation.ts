@@ -15,7 +15,11 @@ export abstract class BaseOperation<
 
   isLoading: boolean
 
-  constructor(protected _resource: Resource, protected _config: Config) {
+  constructor(
+    protected _resource: Resource,
+    protected _config: Config,
+    protected runOnInit: boolean,
+  ) {
     this.data = null
     this.error = null
     this.isLoading = false
@@ -24,15 +28,17 @@ export abstract class BaseOperation<
       data: observable,
       error: observable,
       isLoading: observable,
-      execute: flow,
+      run: flow.bound,
     })
 
-    this.execute()
+    if (this.runOnInit) {
+      this.run()
+    }
   }
 
   abstract fetch(): Promise<DATA>
 
-  *execute() {
+  *run() {
     this.isLoading = true
 
     try {

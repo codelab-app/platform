@@ -4,6 +4,7 @@ import { IRestOperationConfig } from './rest-resource'
 
 export type ICreateOperationDTO = {
   name: string
+  runOnInit: boolean
   config: IGraphQLOperationConfig | IRestOperationConfig
 }
 

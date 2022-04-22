@@ -41,7 +41,7 @@ export class Resource extends Model(() => ({
   toMobxObservable() {
     return this.operations
       .map((o) => {
-        const { name, config } = o.current
+        const { name, config, runOnInit } = o.current
         let operationInstance = null
 
         switch (this.type) {
@@ -49,12 +49,14 @@ export class Resource extends Model(() => ({
             operationInstance = createGraphQLOperation(
               this.config,
               config as IGraphQLOperationConfig,
+              runOnInit,
             )
             break
           case ResourceType.Rest:
             operationInstance = createRestOperation(
               this.config,
               config as IRestOperationConfig,
+              runOnInit,
             )
             break
           default:

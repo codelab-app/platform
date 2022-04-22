@@ -7,6 +7,7 @@ export type OperationFragment = {
   __typename: 'Operation'
   id: string
   name: string
+  runOnInit?: boolean | null
   config: string
   resource: { id: string; name: string }
 }
@@ -20,6 +21,7 @@ export const OperationFragmentDoc = gql`
       id
       name
     }
+    runOnInit
     config
   }
 `

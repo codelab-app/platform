@@ -22,6 +22,9 @@ export const createOperationSchema: JSONSchemaType<ICreateOperationDTO> = {
       type: 'string',
       autoFocus: true,
     },
+    runOnInit: {
+      type: 'boolean',
+    },
     config: {
       type: 'object',
       properties: {

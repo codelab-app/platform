@@ -99,11 +99,11 @@ export class OperationService extends Model({
     operation: Operation,
     input: IUpdateOperationDTO,
   ) {
-    const { name, config } = input
+    const { name, config, runOnInit } = input
 
     const { updateOperations } = yield* _await(
       operationApi.UpdateOperation({
-        update: { name, config: JSON.stringify(config) },
+        update: { name, config: JSON.stringify(config), runOnInit },
         where: { id: operation.id },
       }),
     )
@@ -134,6 +134,7 @@ export class OperationService extends Model({
       existing.name = operation.name
       existing.config = JSON.parse(operation.config)
       existing.resourceId = operation.resource.id
+      existing.runOnInit = Boolean(operation.runOnInit)
     } else {
       this.addOperation(Operation.hydrate(operation))
     }

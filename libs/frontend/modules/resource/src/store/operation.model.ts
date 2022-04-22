@@ -7,6 +7,7 @@ export class Operation extends Model({
   name: prop<string>(),
   config: prop<IOperation['config']>(),
   resourceId: prop<string>(),
+  runOnInit: prop<boolean>(false),
 }) {
   static hydrate(operation: IOperationDTO) {
     return new Operation({
@@ -14,6 +15,7 @@ export class Operation extends Model({
       name: operation.name,
       config: JSON.parse(operation.config),
       resourceId: operation.resource.id,
+      runOnInit: operation.runOnInit,
     })
   }
 }

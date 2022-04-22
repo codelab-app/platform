@@ -1,3 +1,4 @@
+import { PROVIDER_TREE_PAGE_NAME } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
@@ -5,7 +6,6 @@ import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { WithPageService } from '../../store'
-import { providerTreePageName } from './consts'
 import { GetPagesItem } from './GetPagesItem'
 
 export const GetPagesList = observer<WithPageService>(({ pageService }) => {
@@ -21,7 +21,7 @@ export const GetPagesList = observer<WithPageService>(({ pageService }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const results = pagesList.concat([{ name: providerTreePageName }] as any)
+  const results = pagesList.concat([{ name: PROVIDER_TREE_PAGE_NAME }] as any)
 
   return (
     <Spinner isLoading={isLoading}>

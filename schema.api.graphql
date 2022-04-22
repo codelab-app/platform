@@ -7477,6 +7477,7 @@ type Operation {
     sort: [OperationResourceConnectionSort!]
     where: OperationResourceConnectionWhere
   ): OperationResourceConnection!
+  runOnInit: Boolean
 }
 
 type OperationAggregateSelection {
@@ -7506,6 +7507,7 @@ input OperationCreateInput {
   config: String! = "{}"
   name: String!
   resource: OperationResourceFieldInput
+  runOnInit: Boolean = false
 }
 
 input OperationDeleteInput {
@@ -7519,6 +7521,7 @@ input OperationDisconnectInput {
 input OperationOnCreateInput {
   config: String! = "{}"
   name: String!
+  runOnInit: Boolean = false
 }
 
 input OperationOptions {
@@ -7680,6 +7683,7 @@ input OperationSort {
   config: SortDirection
   id: SortDirection
   name: SortDirection
+  runOnInit: SortDirection
 }
 
 input OperationUniqueWhere {
@@ -7690,6 +7694,7 @@ input OperationUpdateInput {
   config: String
   name: String
   resource: OperationResourceUpdateFieldInput
+  runOnInit: Boolean
 }
 
 input OperationWhere {
@@ -7730,6 +7735,8 @@ input OperationWhere {
   resourceConnection: OperationResourceConnectionWhere
   resourceConnection_NOT: OperationResourceConnectionWhere
   resource_NOT: ResourceWhere
+  runOnInit: Boolean
+  runOnInit_NOT: Boolean
 }
 
 type Page {

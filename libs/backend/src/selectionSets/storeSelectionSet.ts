@@ -20,6 +20,7 @@ export const storeSelectionSet = `{
       operations {
         id
         name
+        runOnInit
         config
       }
     }
