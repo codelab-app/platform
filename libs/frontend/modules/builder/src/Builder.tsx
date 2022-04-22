@@ -25,6 +25,7 @@ export const Builder = observer<BuilderProps>(
     return (
       <StyledBuilderContainer
         id="Builder"
+        key={builderService.builderRenderer.tree?.id}
         onClick={handleContainerClick}
         onMouseLeave={handleMouseLeave}
         onMouseOver={handleMouseOver}

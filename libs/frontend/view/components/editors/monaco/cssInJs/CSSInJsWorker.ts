@@ -4,7 +4,7 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import * as worker from 'monaco-editor/esm/vs/editor/editor.worker'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { CSSWorker } from 'monaco-editor/esm/vs/language/css/cssWorker'
+import { CSSWorker } from 'monaco-editor/min/vs/language/css/cssWorker'
 import * as cssService from 'vscode-css-languageservice'
 
 export class CSSInJsWorker extends CSSWorker {

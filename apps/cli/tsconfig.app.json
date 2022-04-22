@@ -3,11 +3,23 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["node"],
     "esModuleInterop": true,
     "strict": true,
+    "types": ["node", "worker-loader", "window", "@fancyapps/ui", "cypher"],
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "preserve",
+    "allowJs": true,
+    "jsxImportSource": "@emotion/react",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "useDefineForClassFields": true
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

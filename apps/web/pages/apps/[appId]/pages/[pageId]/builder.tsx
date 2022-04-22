@@ -125,6 +125,7 @@ PageBuilder.Layout = observer((page) => {
         ))}
         builderService={store.builderService}
         headerHeight={38}
+        key={store.builderService.builderRenderer.tree?.id}
       >
         {page.children}
       </BuilderDashboardTemplate>

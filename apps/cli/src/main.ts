@@ -4,6 +4,8 @@
  */
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
+import { exportAppCommand } from './commands/export/export-app.command'
+import { importAppCommand } from './commands/import/import-app.command'
 import { Env } from './utils/env'
 import { requireEnvOptions, requireTestEnvOptions } from './utils/options'
 import { runCli } from './utils/run-cli'
@@ -124,4 +126,9 @@ yargs(hideBin(process.argv))
       (argv) => runCli(Env.Dev, `parse-ts mui -d ${argv.dir}`),
     )
   })
+  //
+  // Export/import app
+  //
+  .command(exportAppCommand)
+  .command(importAppCommand)
   .demandCommand(1, 'Please provide a command').argv
