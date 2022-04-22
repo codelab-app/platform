@@ -32,7 +32,6 @@ export const InterfaceTypeFragmentDoc = gql`
         ...Field
       }
     }
-    descendantTypesIds
   }
   ${TypeBaseFragmentDoc}
   ${FieldFragmentDoc}

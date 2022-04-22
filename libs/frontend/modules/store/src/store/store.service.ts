@@ -56,7 +56,9 @@ export class StoreService extends Model({
   @modelAction
   async fetchStates(state: Array<IStoreDTO['state']>) {
     // loading state interface within store fragment is hard so we load it separately
-    return await getTypeService(this).getAll(state.map((x) => x.id))
+    return await getTypeService(this).getAllWithDescendants(
+      state.map((x) => x.id),
+    )
   }
 
   @modelAction

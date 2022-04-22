@@ -19,9 +19,16 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/modules/element'
 import { PageService } from '@codelab/frontend/modules/page'
-import { ResourceService } from '@codelab/frontend/modules/resource'
 import {
+  OperationService,
+  operationServiceContext,
+  ResourceService,
+  resourceServiceContext,
+} from '@codelab/frontend/modules/resource'
+import {
+  ActionService,
   actionServiceContext,
+  StoreResourceService,
   StoreService,
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
@@ -67,6 +74,9 @@ export type IRootStore = {
   providerElementService: ElementService
   builderService: BuilderService
   renderService: RenderService
+  operationService: OperationService
+  resourceService: ResourceService
+  storeResourceService: StoreResourceService
 }
 
 export const createRootStore = ({ user }: RootStoreProps) => {
@@ -86,6 +96,7 @@ export const createRootStore = ({ user }: RootStoreProps) => {
       actionService: prop(() => new ActionService({})),
       storeService: prop(() => new StoreService({})),
       resourceService: prop(() => new ResourceService({})),
+      operationService: prop(() => new OperationService({})),
       storeResourceService: prop(() => new StoreResourceService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
@@ -105,6 +116,7 @@ export const createRootStore = ({ user }: RootStoreProps) => {
       renderServiceContext.set(this, this.renderService)
       actionServiceContext.set(this, this.actionService)
       resourceServiceContext.set(this, this.resourceService)
+      operationServiceContext.set(this, this.operationService)
       typeImportServiceContext.set(this, this.typeImportService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)

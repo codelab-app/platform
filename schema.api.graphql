@@ -3097,12 +3097,6 @@ type CreateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
-type DeleteElementsInfo {
-  deletedIds: [String!]!
-  nodesDeleted: Int!
-  relationshipsDeleted: Int!
-}
-
 type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
@@ -7136,10 +7130,6 @@ type Mutation {
     where: ComponentWhere
   ): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
-  deleteElementSubgraph(
-    delete: ElementDeleteInput
-    where: ElementWhere
-  ): DeleteElementsInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
     where: ElementTypeWhere
@@ -7518,6 +7508,11 @@ input OperationDisconnectInput {
   resource: OperationResourceDisconnectFieldInput
 }
 
+type OperationEdge {
+  cursor: String!
+  node: Operation!
+}
+
 input OperationOnCreateInput {
   config: String! = "{}"
   name: String!
@@ -7737,6 +7732,12 @@ input OperationWhere {
   resource_NOT: ResourceWhere
   runOnInit: Boolean
   runOnInit_NOT: Boolean
+}
+
+type OperationsConnection {
+  edges: [OperationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type Page {
@@ -9504,6 +9505,14 @@ type Query {
     sort: [MonacoTypeSort]
     where: MonacoTypeWhere
   ): MonacoTypesConnection!
+  operations(options: OperationOptions, where: OperationWhere): [Operation!]!
+  operationsAggregate(where: OperationWhere): OperationAggregateSelection!
+  operationsConnection(
+    after: String
+    first: Int
+    sort: [OperationSort]
+    where: OperationWhere
+  ): OperationsConnection!
   pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
   pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
   pageTypesConnection(
@@ -9593,6 +9602,14 @@ type Query {
     sort: [ResetDatabaseMutationResponseSort]
     where: ResetDatabaseMutationResponseWhere
   ): ResetDatabaseMutationResponsesConnection!
+  resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
+  resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
+  resourcesConnection(
+    after: String
+    first: Int
+    sort: [ResourceSort]
+    where: ResourceWhere
+  ): ResourcesConnection!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
   storesConnection(
@@ -10100,6 +10117,325 @@ input ResetDatabaseMutationResponseWhere {
 
 type ResetDatabaseMutationResponsesConnection {
   edges: [ResetDatabaseMutationResponseEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Resource {
+  config: String!
+  id: ID!
+  name: String!
+  operations(
+    directed: Boolean = true
+    options: OperationOptions
+    where: OperationWhere
+  ): [Operation!]!
+  operationsAggregate(
+    directed: Boolean = true
+    where: OperationWhere
+  ): ResourceOperationOperationsAggregationSelection
+  operationsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ResourceOperationsConnectionSort!]
+    where: ResourceOperationsConnectionWhere
+  ): ResourceOperationsConnection!
+  type: ResourceType!
+}
+
+type ResourceAggregateSelection {
+  config: StringAggregateSelectionNonNullable!
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ResourceConnectInput {
+  operations: [ResourceOperationsConnectFieldInput!]
+}
+
+input ResourceConnectOrCreateInput {
+  operations: [ResourceOperationsConnectOrCreateFieldInput!]
+}
+
+input ResourceConnectOrCreateWhere {
+  node: ResourceUniqueWhere!
+}
+
+input ResourceConnectWhere {
+  node: ResourceWhere!
+}
+
+input ResourceCreateInput {
+  config: String! = "{}"
+  name: String!
+  operations: ResourceOperationsFieldInput
+  type: ResourceType!
+}
+
+input ResourceDeleteInput {
+  operations: [ResourceOperationsDeleteFieldInput!]
+}
+
+input ResourceDisconnectInput {
+  operations: [ResourceOperationsDisconnectFieldInput!]
+}
+
+type ResourceEdge {
+  cursor: String!
+  node: Resource!
+}
+
+input ResourceOnCreateInput {
+  config: String! = "{}"
+  name: String!
+}
+
+type ResourceOperationOperationsAggregationSelection {
+  count: Int!
+  node: ResourceOperationOperationsNodeAggregateSelection
+}
+
+type ResourceOperationOperationsNodeAggregateSelection {
+  config: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ResourceOperationsAggregateInput {
+  AND: [ResourceOperationsAggregateInput!]
+  OR: [ResourceOperationsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ResourceOperationsNodeAggregationWhereInput
+}
+
+input ResourceOperationsConnectFieldInput {
+  connect: [OperationConnectInput!]
+  where: OperationConnectWhere
+}
+
+input ResourceOperationsConnectOrCreateFieldInput {
+  onCreate: ResourceOperationsConnectOrCreateFieldInputOnCreate!
+  where: OperationConnectOrCreateWhere!
+}
+
+input ResourceOperationsConnectOrCreateFieldInputOnCreate {
+  node: OperationOnCreateInput!
+}
+
+type ResourceOperationsConnection {
+  edges: [ResourceOperationsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ResourceOperationsConnectionSort {
+  node: OperationSort
+}
+
+input ResourceOperationsConnectionWhere {
+  AND: [ResourceOperationsConnectionWhere!]
+  OR: [ResourceOperationsConnectionWhere!]
+  node: OperationWhere
+  node_NOT: OperationWhere
+}
+
+input ResourceOperationsCreateFieldInput {
+  node: OperationCreateInput!
+}
+
+input ResourceOperationsDeleteFieldInput {
+  delete: OperationDeleteInput
+  where: ResourceOperationsConnectionWhere
+}
+
+input ResourceOperationsDisconnectFieldInput {
+  disconnect: OperationDisconnectInput
+  where: ResourceOperationsConnectionWhere
+}
+
+input ResourceOperationsFieldInput {
+  connect: [ResourceOperationsConnectFieldInput!]
+  connectOrCreate: [ResourceOperationsConnectOrCreateFieldInput!]
+  create: [ResourceOperationsCreateFieldInput!]
+}
+
+input ResourceOperationsNodeAggregationWhereInput {
+  AND: [ResourceOperationsNodeAggregationWhereInput!]
+  OR: [ResourceOperationsNodeAggregationWhereInput!]
+  config_AVERAGE_EQUAL: Float
+  config_AVERAGE_GT: Float
+  config_AVERAGE_GTE: Float
+  config_AVERAGE_LT: Float
+  config_AVERAGE_LTE: Float
+  config_EQUAL: String
+  config_GT: Int
+  config_GTE: Int
+  config_LONGEST_EQUAL: Int
+  config_LONGEST_GT: Int
+  config_LONGEST_GTE: Int
+  config_LONGEST_LT: Int
+  config_LONGEST_LTE: Int
+  config_LT: Int
+  config_LTE: Int
+  config_SHORTEST_EQUAL: Int
+  config_SHORTEST_GT: Int
+  config_SHORTEST_GTE: Int
+  config_SHORTEST_LT: Int
+  config_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ResourceOperationsRelationship {
+  cursor: String!
+  node: Operation!
+}
+
+input ResourceOperationsUpdateConnectionInput {
+  node: OperationUpdateInput
+}
+
+input ResourceOperationsUpdateFieldInput {
+  connect: [ResourceOperationsConnectFieldInput!]
+  connectOrCreate: [ResourceOperationsConnectOrCreateFieldInput!]
+  create: [ResourceOperationsCreateFieldInput!]
+  delete: [ResourceOperationsDeleteFieldInput!]
+  disconnect: [ResourceOperationsDisconnectFieldInput!]
+  update: ResourceOperationsUpdateConnectionInput
+  where: ResourceOperationsConnectionWhere
+}
+
+input ResourceOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ResourceSort objects to sort Resources by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ResourceSort!]
+}
+
+input ResourceRelationInput {
+  operations: [ResourceOperationsCreateFieldInput!]
+}
+
+"""
+Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object.
+"""
+input ResourceSort {
+  config: SortDirection
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+enum ResourceType {
+  GraphQL
+  Rest
+}
+
+input ResourceUniqueWhere {
+  id: ID
+}
+
+input ResourceUpdateInput {
+  config: String
+  name: String
+  operations: [ResourceOperationsUpdateFieldInput!]
+  type: ResourceType
+}
+
+input ResourceWhere {
+  AND: [ResourceWhere!]
+  OR: [ResourceWhere!]
+  config: String
+  config_CONTAINS: String
+  config_ENDS_WITH: String
+  config_IN: [String!]
+  config_NOT: String
+  config_NOT_CONTAINS: String
+  config_NOT_ENDS_WITH: String
+  config_NOT_IN: [String!]
+  config_NOT_STARTS_WITH: String
+  config_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  operationsAggregate: ResourceOperationsAggregateInput
+  operationsConnection_ALL: ResourceOperationsConnectionWhere
+  operationsConnection_NONE: ResourceOperationsConnectionWhere
+  operationsConnection_SINGLE: ResourceOperationsConnectionWhere
+  operationsConnection_SOME: ResourceOperationsConnectionWhere
+
+  """
+  Return Resources where all of the related Operations match this filter
+  """
+  operations_ALL: OperationWhere
+
+  """
+  Return Resources where none of the related Operations match this filter
+  """
+  operations_NONE: OperationWhere
+
+  """
+  Return Resources where one of the related Operations match this filter
+  """
+  operations_SINGLE: OperationWhere
+
+  """
+  Return Resources where some of the related Operations match this filter
+  """
+  operations_SOME: OperationWhere
+  type: ResourceType
+  type_IN: [ResourceType!]
+  type_NOT: ResourceType
+  type_NOT_IN: [ResourceType!]
+}
+
+type ResourcesConnection {
+  edges: [ResourceEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }

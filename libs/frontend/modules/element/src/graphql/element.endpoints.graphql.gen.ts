@@ -33,15 +33,6 @@ export type DeleteElementsMutation = {
   deleteElements: { nodesDeleted: number }
 }
 
-export type DeleteElementSubgraphMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.ElementWhere>
-  delete?: Types.InputMaybe<Types.ElementDeleteInput>
-}>
-
-export type DeleteElementSubgraphMutation = {
-  deleteElementSubgraph: { nodesDeleted: number; deletedIds: Array<string> }
-}
-
 export type UpdateElementsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
   update?: Types.InputMaybe<Types.ElementUpdateInput>
@@ -89,17 +80,6 @@ export const DeleteElementsDocument = gql`
   mutation DeleteElements($where: ElementWhere!) {
     deleteElements(where: $where) {
       nodesDeleted
-    }
-  }
-`
-export const DeleteElementSubgraphDocument = gql`
-  mutation DeleteElementSubgraph(
-    $where: ElementWhere
-    $delete: ElementDeleteInput
-  ) {
-    deleteElementSubgraph(where: $where, delete: $delete) {
-      nodesDeleted
-      deletedIds
     }
   }
 `
@@ -191,21 +171,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'DeleteElements',
-        'mutation',
-      )
-    },
-    DeleteElementSubgraph(
-      variables?: DeleteElementSubgraphMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteElementSubgraphMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<DeleteElementSubgraphMutation>(
-            DeleteElementSubgraphDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'DeleteElementSubgraph',
         'mutation',
       )
     },
