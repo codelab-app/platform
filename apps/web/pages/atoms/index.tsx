@@ -20,6 +20,7 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
@@ -27,7 +28,7 @@ import tw from 'twin.macro'
 const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(() => store.tagService.getTags(), {
+  const [, { isLoading }] = useLoadingState(() => store.tagService.getAll(), {
     executeOnMount: true,
   })
 
@@ -40,6 +41,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
       <CreateAtomModal
         atomService={store.atomService}
         tagService={store.tagService}
+        userService={store.userService}
       />
       <UpdateAtomModal
         atomService={store.atomService}
@@ -62,10 +64,10 @@ const Header = () => {
       key="export_import"
     >
       <ExportAtomsButton
-        atomImportService={store.atomImportService}
         atomService={store.atomService}
+        importAtomService={store.importAtomService}
       />
-      <ImportAtomsUpload atomImportService={store.atomImportService} />
+      <ImportAtomsUpload importAtomService={store.importAtomService} />
       <CreateAtomButton atomService={store.atomService} key="create" />
     </div>,
   ]
@@ -75,7 +77,16 @@ const Header = () => {
 
 export default AtomsPage
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async ({ req, res }: GetServerSidePropsContext) => {
+    // const store = initializeStore({ user })
+
+    return {
+      // props: { snapshot: getSnapshot(store) },
+      props: {},
+    }
+  },
+})
 
 AtomsPage.Layout = (page) => {
   return (

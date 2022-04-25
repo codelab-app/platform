@@ -1,4 +1,6 @@
-module.exports = {
+const { modifyJestConfig } = require('../../scripts/jest/modifyJestConfig')
+
+module.exports = modifyJestConfig({
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
@@ -10,4 +12,4 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/apps/web',
   displayName: 'web',
-}
+})

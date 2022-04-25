@@ -40,8 +40,6 @@ describe('D3 Graph Nodes', () => {
   //   const C_D = await findByText('C_D')
   //   const C_E = await findByText('C_E')
 
-  //   console.log(nodeA.nodeName)
-
   //   screen.debug(nodeA)
   // })
 })

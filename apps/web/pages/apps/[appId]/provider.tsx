@@ -92,7 +92,7 @@ AppProviderBuilder.Layout = observer((page) => {
       elementService={store.providerElementService}
     >
       <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pages={store.pageService} />}
+        Header={() => <PageDetailHeader pageService={store.pageService} />}
         MainPane={observer(() => (
           <MainPane
             atomService={store.atomService}

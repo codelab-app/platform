@@ -1,3 +1,4 @@
+import { BuilderDndType, BuilderDragData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import {
   closestCorners,
@@ -5,8 +6,6 @@ import {
   DroppableContainer,
   rectIntersection,
 } from '@dnd-kit/core'
-import { BuilderDndType } from './BuilderDndType'
-import { BuilderDragData } from './BuilderDragData'
 import { BuilderDropId } from './BuilderDropId'
 
 // There is an issue with collision detection where it doesn't recognize the targets

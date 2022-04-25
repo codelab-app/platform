@@ -1,10 +1,10 @@
-import { Component as IComponentModel, ComponentModel } from '@codelab/backend'
+import { ComponentOGM, IComponentModel } from '@codelab/backend'
 
 export const importComponent = async (
   component: IComponentModel,
   selectedUser: string,
 ): Promise<IComponentModel> => {
-  const Components = await ComponentModel()
+  const Components = await ComponentOGM()
 
   const {
     components: [newComponent],

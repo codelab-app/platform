@@ -1,4 +1,4 @@
-import { AtomType, IHook } from '@codelab/shared/abstract/core'
+import { IAtomType, IHook } from '@codelab/shared/abstract/core'
 import React from 'react'
 import {
   GraphqlDescription,
@@ -17,16 +17,16 @@ export const HooksListItemDescription = ({
   const configJson = JSON.parse(config.data as unknown as string)
 
   switch (type) {
-    case AtomType.HookQueryLambda:
+    case IAtomType.HookQueryLambda:
       return <QueryLambdaDescription config={configJson} />
-    case AtomType.HookQueryConfig:
+    case IAtomType.HookQueryConfig:
       return <QueryConfigDescription config={configJson} />
-    case AtomType.HookGraphqlMutation:
-    case AtomType.HookGraphqlQuery:
+    case IAtomType.HookGraphqlMutation:
+    case IAtomType.HookGraphqlQuery:
       return <GraphqlDescription config={configJson} />
-    case AtomType.HookRecoilState:
+    case IAtomType.HookRecoilState:
       return <RecoilStateDescription config={configJson} />
-    case AtomType.HookRouter:
+    case IAtomType.HookRouter:
       return <RouterDescription config={configJson} />
     default:
       return null

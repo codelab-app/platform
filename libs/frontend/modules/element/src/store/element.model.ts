@@ -33,7 +33,7 @@ type TransformFn = (props: IPropData) => IPropData
 /**
  * Creates a new element from a GraphQL fragment object. Doesn't attach any children or parent
  */
-export const hydrateElement = ({
+export const hydrate = ({
   id,
   name,
   css,
@@ -43,7 +43,8 @@ export const hydrateElement = ({
   instanceOfComponent,
   parentElement,
 
-  hooks, // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
+  // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
+  hooks,
   propMapBindings,
 
   props,
@@ -86,13 +87,13 @@ export class Element
 
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
-    name: prop<Nullish<string>>(() => null).withSetter(),
-    css: prop<Nullish<string>>(() => null).withSetter(),
-    atom: prop<Nullish<Ref<Atom>>>(() => null).withSetter(),
-    props: prop<Nullish<Prop>>(() => null),
-    propTransformationJs: prop<Nullish<string>>(() => null).withSetter(),
-    renderIfPropKey: prop<Nullish<string>>(() => null).withSetter(),
-    renderForEachPropKey: prop<Nullish<string>>(() => null).withSetter(),
+    name: prop<Nullish<string>>(null).withSetter(),
+    css: prop<Nullish<string>>(null).withSetter(),
+    atom: prop<Nullish<Ref<Atom>>>(null).withSetter(),
+    props: prop<Nullish<Prop>>(null),
+    propTransformationJs: prop<Nullish<string>>(null).withSetter(),
+    renderIfPropKey: prop<Nullish<string>>(null).withSetter(),
+    renderForEachPropKey: prop<Nullish<string>>(null).withSetter(),
     propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
     // component which has this element as rootElement
@@ -186,15 +187,18 @@ export class Element
   }
 
   @computed
-  get parentElement(): Maybe<Element> {
+  get parentElement() {
     let parent: any = getParent(this)
 
     if (parent?.$modelType === '@codelab/ElementTree') {
-      return undefined // This is the root of the tree
+      // This is the root of the tree
+      return undefined
     }
 
-    // usually the first parent will be the 'children' objectMap. To get to the parent element, we need to get the parent of the objectMap
-    // For some reason it's two levels deep
+    /*
+     * usually the first parent will be the 'children' objectMap. To get to the parent element, we need to get the parent of the objectMap
+     * For some reason it's two levels deep
+     */
     parent = getParent(parent)
     parent = getParent(parent)
 
@@ -212,8 +216,11 @@ export class Element
     return childrenSorted[childrenSorted.length - 1]?.orderInParent ?? 0
   }
 
+  /**
+   * Internal system props for meta data, use double underline for system-defined identifiers.
+   */
   @computed
-  get baseProps() {
+  get __metadataProps() {
     return { [DATA_ID]: this.id, key: this.id }
   }
 
@@ -254,29 +261,30 @@ export class Element
   /**
    * Parses the prop map bindings with the given source props as input
    * and separates them into two categories:
+   *
    * - those that are bound this element
    * - those that are bound to other elements
    */
   applyPropMapBindings = (sourceProps: IPropData) => {
     // those are the props that are bound to the element
-    let selfBoundProps = { ...sourceProps }
+    let localProps = { ...sourceProps }
     // Those are the props that are bound to the element's descendants
-    const descendantBoundProps: IPropDataByElementId = {}
+    const globalProps: IPropDataByElementId = {}
 
     for (const pmb of this.propMapBindings.values()) {
-      const appliedProps = pmb.applyBindings(selfBoundProps)
+      const appliedProps = pmb.applyBindings(localProps)
 
       if (pmb.targetElement && pmb.targetElement.id !== this.id) {
-        descendantBoundProps[pmb.targetElement.id] = mergeProps(
-          descendantBoundProps[pmb.targetElement.id],
+        globalProps[pmb.targetElement.id] = mergeProps(
+          globalProps[pmb.targetElement.id],
           appliedProps,
         )
       } else {
-        selfBoundProps = mergeProps(selfBoundProps, appliedProps)
+        localProps = mergeProps(localProps, appliedProps)
       }
     }
 
-    return { selfBoundProps, descendantBoundProps }
+    return { localProps, globalProps }
   }
 
   /**
@@ -289,7 +297,8 @@ export class Element
     }
 
     // eslint-disable-next-line no-eval
-    const result = attempt(eval, `(${this.propTransformationJs})`) // the parentheses allow us to return a function from eval
+    // the parentheses allow us to return a function from eval
+    const result = attempt(eval, `(${this.propTransformationJs})`)
 
     if (isError(result)) {
       console.warn('Error while evaluating prop transformation', result)
@@ -383,7 +392,7 @@ export class Element
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  public static hydrate = hydrateElement
+  public static hydrate = hydrate
 }
 
 export const compareOrder = (a: Element, b: Element) =>

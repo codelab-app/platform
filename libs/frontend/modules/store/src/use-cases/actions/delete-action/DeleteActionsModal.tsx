@@ -1,11 +1,11 @@
+import { ACTION_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithActionService } from '../../../store'
 
-export const DeleteActionsModal = observer<WithActionService>(
+export const DeleteActionsModal = observer<WithServices<ACTION_SERVICE>>(
   ({ actionService }) => {
     const action = actionService.deleteModal.action
     const closeModal = () => actionService.deleteModal.close()

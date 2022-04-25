@@ -1,4 +1,6 @@
-module.exports = {
+const { modifyJestConfig } = require('../../../scripts/jest/modifyJestConfig')
+
+module.exports = modifyJestConfig({
   displayName: 'shared-utils',
   preset: '../../../jest.preset.js',
   globals: {
@@ -12,4 +14,4 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/shared/utils',
-}
+})

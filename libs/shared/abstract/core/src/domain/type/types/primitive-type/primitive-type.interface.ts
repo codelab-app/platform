@@ -1,6 +1,6 @@
 import { IBaseType } from '../base-type/base-type.interface'
 import { ITypeKind } from '../base-type/type-kind.enum'
-import { PrimitiveTypeKind } from './primitive-type.enum'
+import { IPrimitiveTypeKind } from './primitive-type.enum'
 
 /**
  * Base atomic building block of the type system.
@@ -10,5 +10,5 @@ import { PrimitiveTypeKind } from './primitive-type.enum'
  */
 export interface IPrimitiveType extends IBaseType {
   kind: ITypeKind.PrimitiveType
-  primitiveKind: PrimitiveTypeKind
+  primitiveKind: IPrimitiveTypeKind
 }

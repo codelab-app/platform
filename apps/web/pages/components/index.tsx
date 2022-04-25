@@ -36,7 +36,10 @@ const Components: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Components | Codelab</title>
       </Head>
 
-      <CreateComponentModal componentService={store.componentService} />
+      <CreateComponentModal
+        componentService={store.componentService}
+        userService={store.userService}
+      />
       <UpdateComponentModal componentService={store.componentService} />
       <DeleteComponentModal componentService={store.componentService} />
       <ContentSection>

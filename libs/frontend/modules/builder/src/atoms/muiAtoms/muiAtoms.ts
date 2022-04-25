@@ -1,319 +1,345 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import Input from '@mui/material/Input'
 import dynamic from 'next/dynamic'
 import { AtomsRecord } from '../types'
 
 export const muiAtoms: AtomsRecord = {
-  [AtomType.MuiAccordion]: dynamic(() => import('@mui/material/Accordion')),
-  [AtomType.MuiAccordionActions]: dynamic(
+  [IAtomType.MuiAccordion]: dynamic(() => import('@mui/material/Accordion')),
+  [IAtomType.MuiAccordionActions]: dynamic(
     () => import('@mui/material/AccordionActions'),
   ),
-  [AtomType.MuiAccordionDetails]: dynamic(
+  [IAtomType.MuiAccordionDetails]: dynamic(
     () => import('@mui/material/AccordionDetails'),
   ),
-  [AtomType.MuiAccordionSummary]: dynamic(
+  [IAtomType.MuiAccordionSummary]: dynamic(
     () => import('@mui/material/AccordionSummary'),
   ),
-  [AtomType.MuiAlert]: dynamic(() => import('@mui/material/Alert')),
-  [AtomType.MuiAlertTitle]: dynamic(() => import('@mui/material/AlertTitle')),
-  [AtomType.MuiAppBar]: dynamic(() => import('@mui/material/AppBar')),
-  [AtomType.MuiAutocomplete]: dynamic(
+  [IAtomType.MuiAlert]: dynamic(() => import('@mui/material/Alert')),
+  [IAtomType.MuiAlertTitle]: dynamic(() => import('@mui/material/AlertTitle')),
+  [IAtomType.MuiAppBar]: dynamic(() => import('@mui/material/AppBar')),
+  [IAtomType.MuiAutocomplete]: dynamic(
     () => import('@mui/material/Autocomplete'),
   ),
-  [AtomType.MuiAvatar]: dynamic(() => import('@mui/material/Avatar')),
-  [AtomType.MuiAvatarGroup]: dynamic(() => import('@mui/material/AvatarGroup')),
-  [AtomType.MuiBackdrop]: dynamic(() => import('@mui/material/Backdrop')),
-  [AtomType.MuiBackdropUnstyled]: dynamic(
+  [IAtomType.MuiAvatar]: dynamic(() => import('@mui/material/Avatar')),
+  [IAtomType.MuiAvatarGroup]: dynamic(
+    () => import('@mui/material/AvatarGroup'),
+  ),
+  [IAtomType.MuiBackdrop]: dynamic(() => import('@mui/material/Backdrop')),
+  [IAtomType.MuiBackdropUnstyled]: dynamic(
     () => import('@mui/core/BackdropUnstyled'),
   ),
-  [AtomType.MuiBadge]: dynamic(() => import('@mui/material/Badge')),
-  [AtomType.MuiBadgeUnstyled]: dynamic(() => import('@mui/core/BadgeUnstyled')),
-  [AtomType.MuiBottomNavigation]: dynamic(
+  [IAtomType.MuiBadge]: dynamic(() => import('@mui/material/Badge')),
+  [IAtomType.MuiBadgeUnstyled]: dynamic(
+    () => import('@mui/core/BadgeUnstyled'),
+  ),
+  [IAtomType.MuiBottomNavigation]: dynamic(
     () => import('@mui/material/BottomNavigation'),
   ),
-  [AtomType.MuiBottomNavigationAction]: dynamic(
+  [IAtomType.MuiBottomNavigationAction]: dynamic(
     () => import('@mui/material/BottomNavigationAction'),
   ),
-  [AtomType.MuiBox]: dynamic(() => import('@mui/material/Box')),
-  [AtomType.MuiBreadcrumbs]: dynamic(() => import('@mui/material/Breadcrumbs')),
-  [AtomType.MuiButton]: dynamic(() => import('@mui/material/Button')),
-  [AtomType.MuiButtonBase]: dynamic(() => import('@mui/material/ButtonBase')),
-  [AtomType.MuiButtonGroup]: dynamic(() => import('@mui/material/ButtonGroup')),
-  [AtomType.MuiButtonUnstyled]: dynamic(
+  [IAtomType.MuiBox]: dynamic(() => import('@mui/material/Box')),
+  [IAtomType.MuiBreadcrumbs]: dynamic(
+    () => import('@mui/material/Breadcrumbs'),
+  ),
+  [IAtomType.MuiButton]: dynamic(() => import('@mui/material/Button')),
+  [IAtomType.MuiButtonBase]: dynamic(() => import('@mui/material/ButtonBase')),
+  [IAtomType.MuiButtonGroup]: dynamic(
+    () => import('@mui/material/ButtonGroup'),
+  ),
+  [IAtomType.MuiButtonUnstyled]: dynamic(
     () => import('@mui/core/ButtonUnstyled'),
   ),
-  [AtomType.MuiCalendarPicker]: dynamic(
+  [IAtomType.MuiCalendarPicker]: dynamic(
     () => import('@mui/lab/CalendarPicker'),
   ),
-  [AtomType.MuiCalendarPickerSkeleton]: dynamic(
+  [IAtomType.MuiCalendarPickerSkeleton]: dynamic(
     () => import('@mui/lab/CalendarPickerSkeleton'),
   ),
-  [AtomType.MuiCard]: dynamic(() => import('@mui/material/Card')),
-  [AtomType.MuiCardActionArea]: dynamic(
+  [IAtomType.MuiCard]: dynamic(() => import('@mui/material/Card')),
+  [IAtomType.MuiCardActionArea]: dynamic(
     () => import('@mui/material/CardActionArea'),
   ),
-  [AtomType.MuiCardActions]: dynamic(() => import('@mui/material/CardActions')),
-  [AtomType.MuiCardContent]: dynamic(() => import('@mui/material/CardContent')),
-  [AtomType.MuiCardHeader]: dynamic(() => import('@mui/material/CardHeader')),
-  [AtomType.MuiCardMedia]: dynamic(() => import('@mui/material/CardMedia')),
-  [AtomType.MuiCheckbox]: dynamic(() => import('@mui/material/Checkbox')),
-  [AtomType.MuiChip]: dynamic(() => import('@mui/material/Chip')),
-  [AtomType.MuiCircularProgress]: dynamic(
+  [IAtomType.MuiCardActions]: dynamic(
+    () => import('@mui/material/CardActions'),
+  ),
+  [IAtomType.MuiCardContent]: dynamic(
+    () => import('@mui/material/CardContent'),
+  ),
+  [IAtomType.MuiCardHeader]: dynamic(() => import('@mui/material/CardHeader')),
+  [IAtomType.MuiCardMedia]: dynamic(() => import('@mui/material/CardMedia')),
+  [IAtomType.MuiCheckbox]: dynamic(() => import('@mui/material/Checkbox')),
+  [IAtomType.MuiChip]: dynamic(() => import('@mui/material/Chip')),
+  [IAtomType.MuiCircularProgress]: dynamic(
     () => import('@mui/material/CircularProgress'),
   ),
-  [AtomType.MuiClickAwayListener]: dynamic(
+  [IAtomType.MuiClickAwayListener]: dynamic(
     () => import('@mui/material/ClickAwayListener'),
   ),
   // [AtomType.MuiClockPicker]: dynamic(() => import('@mui/material/ClockPicker')), ??
-  [AtomType.MuiCollapse]: dynamic(() => import('@mui/material/Collapse')),
-  [AtomType.MuiContainer]: dynamic(() => import('@mui/material/Container')),
-  [AtomType.MuiCssBaseline]: dynamic(() => import('@mui/material/CssBaseline')),
+  [IAtomType.MuiCollapse]: dynamic(() => import('@mui/material/Collapse')),
+  [IAtomType.MuiContainer]: dynamic(() => import('@mui/material/Container')),
+  [IAtomType.MuiCssBaseline]: dynamic(
+    () => import('@mui/material/CssBaseline'),
+  ),
   // [AtomType.MuiDataGrid]: dynamic(() => import('@mui/x-data-grid')), // not working for some reason ,can't find @material-ui/core/badge?
-  [AtomType.MuiDatePicker]: dynamic(() => import('@mui/lab/DatePicker')),
-  [AtomType.MuiDateRangePicker]: dynamic(
+  [IAtomType.MuiDatePicker]: dynamic(() => import('@mui/lab/DatePicker')),
+  [IAtomType.MuiDateRangePicker]: dynamic(
     () => import('@mui/lab/DateRangePicker') as any,
   ),
-  [AtomType.MuiDateRangePickerDay]: dynamic(
+  [IAtomType.MuiDateRangePickerDay]: dynamic(
     () => import('@mui/lab/DateRangePickerDay'),
   ),
-  [AtomType.MuiDateTimePicker]: dynamic(
+  [IAtomType.MuiDateTimePicker]: dynamic(
     () => import('@mui/lab/DateTimePicker'),
   ),
-  [AtomType.MuiDesktopDatePicker]: dynamic(
+  [IAtomType.MuiDesktopDatePicker]: dynamic(
     () => import('@mui/lab/DesktopDatePicker'),
   ),
-  [AtomType.MuiDesktopDateRangePicker]: dynamic(
+  [IAtomType.MuiDesktopDateRangePicker]: dynamic(
     () => import('@mui/lab/DesktopDateRangePicker') as any,
   ),
-  [AtomType.MuiDesktopDateTimePicker]: dynamic(
+  [IAtomType.MuiDesktopDateTimePicker]: dynamic(
     () => import('@mui/lab/DesktopDateTimePicker'),
   ),
-  [AtomType.MuiDesktopTimePicker]: dynamic(
+  [IAtomType.MuiDesktopTimePicker]: dynamic(
     () => import('@mui/lab/DesktopTimePicker'),
   ),
-  [AtomType.MuiDialog]: dynamic(() => import('@mui/material/Dialog')),
-  [AtomType.MuiDialogActions]: dynamic(
+  [IAtomType.MuiDialog]: dynamic(() => import('@mui/material/Dialog')),
+  [IAtomType.MuiDialogActions]: dynamic(
     () => import('@mui/material/DialogActions'),
   ),
-  [AtomType.MuiDialogContent]: dynamic(
+  [IAtomType.MuiDialogContent]: dynamic(
     () => import('@mui/material/DialogContent'),
   ),
-  [AtomType.MuiDialogContentText]: dynamic(
+  [IAtomType.MuiDialogContentText]: dynamic(
     () => import('@mui/material/DialogContentText'),
   ),
-  [AtomType.MuiDialogTitle]: dynamic(() => import('@mui/material/DialogTitle')),
-  [AtomType.MuiDivider]: dynamic(() => import('@mui/material/Divider')),
-  [AtomType.MuiDrawer]: dynamic(() => import('@mui/material/Drawer')),
-  [AtomType.MuiFab]: dynamic(() => import('@mui/material/Fab')),
-  [AtomType.MuiFade]: dynamic(() => import('@mui/material/Fade')),
-  [AtomType.MuiFilledInput]: dynamic(() => import('@mui/material/FilledInput')),
-  [AtomType.MuiFormControl]: dynamic(() => import('@mui/material/FormControl')),
-  [AtomType.MuiFormControlLabel]: dynamic(
+  [IAtomType.MuiDialogTitle]: dynamic(
+    () => import('@mui/material/DialogTitle'),
+  ),
+  [IAtomType.MuiDivider]: dynamic(() => import('@mui/material/Divider')),
+  [IAtomType.MuiDrawer]: dynamic(() => import('@mui/material/Drawer')),
+  [IAtomType.MuiFab]: dynamic(() => import('@mui/material/Fab')),
+  [IAtomType.MuiFade]: dynamic(() => import('@mui/material/Fade')),
+  [IAtomType.MuiFilledInput]: dynamic(
+    () => import('@mui/material/FilledInput'),
+  ),
+  [IAtomType.MuiFormControl]: dynamic(
+    () => import('@mui/material/FormControl'),
+  ),
+  [IAtomType.MuiFormControlLabel]: dynamic(
     () => import('@mui/material/FormControlLabel'),
   ),
-  [AtomType.MuiFormControlUnstyled]: dynamic(
+  [IAtomType.MuiFormControlUnstyled]: dynamic(
     () => import('@mui/core/FormControlUnstyled'),
   ),
-  [AtomType.MuiFormGroup]: dynamic(() => import('@mui/material/FormGroup')),
-  [AtomType.MuiFormHelperText]: dynamic(
+  [IAtomType.MuiFormGroup]: dynamic(() => import('@mui/material/FormGroup')),
+  [IAtomType.MuiFormHelperText]: dynamic(
     () => import('@mui/material/FormHelperText'),
   ),
-  [AtomType.MuiFormLabel]: dynamic(() => import('@mui/material/FormLabel')),
-  [AtomType.MuiGlobalStyles]: dynamic(
+  [IAtomType.MuiFormLabel]: dynamic(() => import('@mui/material/FormLabel')),
+  [IAtomType.MuiGlobalStyles]: dynamic(
     () => import('@mui/material/GlobalStyles'),
   ),
-  [AtomType.MuiGrid]: dynamic(() => import('@mui/material/Grid')),
-  [AtomType.MuiGrow]: dynamic(() => import('@mui/material/Grow')),
-  [AtomType.MuiHidden]: dynamic(() => import('@mui/material/Hidden')),
-  [AtomType.MuiIcon]: dynamic(() => import('@mui/material/Icon')),
-  [AtomType.MuiIconButton]: dynamic(() => import('@mui/material/IconButton')),
-  [AtomType.MuiImageList]: dynamic(() => import('@mui/material/ImageList')),
-  [AtomType.MuiImageListItem]: dynamic(
+  [IAtomType.MuiGrid]: dynamic(() => import('@mui/material/Grid')),
+  [IAtomType.MuiGrow]: dynamic(() => import('@mui/material/Grow')),
+  [IAtomType.MuiHidden]: dynamic(() => import('@mui/material/Hidden')),
+  [IAtomType.MuiIcon]: dynamic(() => import('@mui/material/Icon')),
+  [IAtomType.MuiIconButton]: dynamic(() => import('@mui/material/IconButton')),
+  [IAtomType.MuiImageList]: dynamic(() => import('@mui/material/ImageList')),
+  [IAtomType.MuiImageListItem]: dynamic(
     () => import('@mui/material/ImageListItem'),
   ),
-  [AtomType.MuiImageListItemBar]: dynamic(
+  [IAtomType.MuiImageListItemBar]: dynamic(
     () => import('@mui/material/ImageListItemBar'),
   ),
-  [AtomType.MuiInput]: Input,
-  [AtomType.MuiInputAdornment]: dynamic(
+  [IAtomType.MuiInput]: Input,
+  [IAtomType.MuiInputAdornment]: dynamic(
     () => import('@mui/material/InputAdornment'),
   ),
-  [AtomType.MuiInputBase]: dynamic(() => import('@mui/material/InputBase')),
-  [AtomType.MuiInputLabel]: dynamic(() => import('@mui/material/InputLabel')),
-  [AtomType.MuiLinearProgress]: dynamic(
+  [IAtomType.MuiInputBase]: dynamic(() => import('@mui/material/InputBase')),
+  [IAtomType.MuiInputLabel]: dynamic(() => import('@mui/material/InputLabel')),
+  [IAtomType.MuiLinearProgress]: dynamic(
     () => import('@mui/material/LinearProgress'),
   ),
-  [AtomType.MuiLink]: dynamic(() => import('@mui/material/Link')),
-  [AtomType.MuiList]: dynamic(() => import('@mui/material/List')),
-  [AtomType.MuiListItem]: dynamic(() => import('@mui/material/ListItem')),
-  [AtomType.MuiListItemAvatar]: dynamic(
+  [IAtomType.MuiLink]: dynamic(() => import('@mui/material/Link')),
+  [IAtomType.MuiList]: dynamic(() => import('@mui/material/List')),
+  [IAtomType.MuiListItem]: dynamic(() => import('@mui/material/ListItem')),
+  [IAtomType.MuiListItemAvatar]: dynamic(
     () => import('@mui/material/ListItemAvatar'),
   ),
-  [AtomType.MuiListItemButton]: dynamic(
+  [IAtomType.MuiListItemButton]: dynamic(
     () => import('@mui/material/ListItemButton'),
   ),
-  [AtomType.MuiListItemIcon]: dynamic(
+  [IAtomType.MuiListItemIcon]: dynamic(
     () => import('@mui/material/ListItemIcon'),
   ),
-  [AtomType.MuiListItemSecondaryAction]: dynamic(
+  [IAtomType.MuiListItemSecondaryAction]: dynamic(
     () => import('@mui/material/ListItemSecondaryAction'),
   ),
-  [AtomType.MuiListItemText]: dynamic(
+  [IAtomType.MuiListItemText]: dynamic(
     () => import('@mui/material/ListItemText'),
   ),
-  [AtomType.MuiListSubheader]: dynamic(
+  [IAtomType.MuiListSubheader]: dynamic(
     () => import('@mui/material/ListSubheader'),
   ),
-  [AtomType.MuiLoadingButton]: dynamic(() => import('@mui/lab/LoadingButton')),
-  [AtomType.MuiMasonry]: dynamic(() => import('@mui/lab/Masonry')),
-  [AtomType.MuiMenu]: dynamic(() => import('@mui/material/Menu')),
-  [AtomType.MuiMenuItem]: dynamic(() => import('@mui/material/MenuItem')),
-  [AtomType.MuiMenuList]: dynamic(() => import('@mui/material/MenuList')),
-  [AtomType.MuiMobileDatePicker]: dynamic(
+  [IAtomType.MuiLoadingButton]: dynamic(() => import('@mui/lab/LoadingButton')),
+  [IAtomType.MuiMasonry]: dynamic(() => import('@mui/lab/Masonry')),
+  [IAtomType.MuiMenu]: dynamic(() => import('@mui/material/Menu')),
+  [IAtomType.MuiMenuItem]: dynamic(() => import('@mui/material/MenuItem')),
+  [IAtomType.MuiMenuList]: dynamic(() => import('@mui/material/MenuList')),
+  [IAtomType.MuiMobileDatePicker]: dynamic(
     () => import('@mui/lab/MobileDatePicker'),
   ),
-  [AtomType.MuiMobileDateRangePicker]: dynamic(
+  [IAtomType.MuiMobileDateRangePicker]: dynamic(
     () => import('@mui/lab/MobileDateRangePicker') as any,
   ),
-  [AtomType.MuiMobileDateTimePicker]: dynamic(
+  [IAtomType.MuiMobileDateTimePicker]: dynamic(
     () => import('@mui/lab/MobileDateTimePicker'),
   ),
-  [AtomType.MuiMobileStepper]: dynamic(
+  [IAtomType.MuiMobileStepper]: dynamic(
     () => import('@mui/material/MobileStepper'),
   ),
-  [AtomType.MuiMobileTimePicker]: dynamic(
+  [IAtomType.MuiMobileTimePicker]: dynamic(
     () => import('@mui/lab/MobileTimePicker'),
   ),
-  [AtomType.MuiModal]: dynamic(() => import('@mui/material/Modal')),
-  [AtomType.MuiModalUnstyled]: dynamic(() => import('@mui/core/ModalUnstyled')),
-  [AtomType.MuiMonthPicker]: dynamic(() => import('@mui/lab/MonthPicker')),
-  [AtomType.MuiNativeSelect]: dynamic(
+  [IAtomType.MuiModal]: dynamic(() => import('@mui/material/Modal')),
+  [IAtomType.MuiModalUnstyled]: dynamic(
+    () => import('@mui/core/ModalUnstyled'),
+  ),
+  [IAtomType.MuiMonthPicker]: dynamic(() => import('@mui/lab/MonthPicker')),
+  [IAtomType.MuiNativeSelect]: dynamic(
     () => import('@mui/material/NativeSelect'),
   ),
-  [AtomType.MuiNoSsr]: dynamic(() => import('@mui/material/NoSsr')),
-  [AtomType.MuiOutlinedInput]: dynamic(
+  [IAtomType.MuiNoSsr]: dynamic(() => import('@mui/material/NoSsr')),
+  [IAtomType.MuiOutlinedInput]: dynamic(
     () => import('@mui/material/OutlinedInput'),
   ),
-  [AtomType.MuiPagination]: dynamic(() => import('@mui/material/Pagination')),
-  [AtomType.MuiPaginationItem]: dynamic(
+  [IAtomType.MuiPagination]: dynamic(() => import('@mui/material/Pagination')),
+  [IAtomType.MuiPaginationItem]: dynamic(
     () => import('@mui/material/PaginationItem'),
   ),
-  [AtomType.MuiPaper]: dynamic(() => import('@mui/material/Paper')),
-  [AtomType.MuiPickersDay]: dynamic(() => import('@mui/lab/PickersDay')),
-  [AtomType.MuiPopover]: dynamic(() => import('@mui/material/Popover')),
-  [AtomType.MuiPopper]: dynamic(() => import('@mui/material/Popper')),
-  [AtomType.MuiPortal]: dynamic(() => import('@mui/material/Portal')),
-  [AtomType.MuiRadio]: dynamic(() => import('@mui/material/Radio')),
-  [AtomType.MuiRadioGroup]: dynamic(() => import('@mui/material/RadioGroup')),
-  [AtomType.MuiRating]: dynamic(() => import('@mui/material/Rating')),
-  [AtomType.MuiScopedCssBaseline]: dynamic(
+  [IAtomType.MuiPaper]: dynamic(() => import('@mui/material/Paper')),
+  [IAtomType.MuiPickersDay]: dynamic(() => import('@mui/lab/PickersDay')),
+  [IAtomType.MuiPopover]: dynamic(() => import('@mui/material/Popover')),
+  [IAtomType.MuiPopper]: dynamic(() => import('@mui/material/Popper')),
+  [IAtomType.MuiPortal]: dynamic(() => import('@mui/material/Portal')),
+  [IAtomType.MuiRadio]: dynamic(() => import('@mui/material/Radio')),
+  [IAtomType.MuiRadioGroup]: dynamic(() => import('@mui/material/RadioGroup')),
+  [IAtomType.MuiRating]: dynamic(() => import('@mui/material/Rating')),
+  [IAtomType.MuiScopedCssBaseline]: dynamic(
     () => import('@mui/material/ScopedCssBaseline'),
   ),
-  [AtomType.MuiSelect]: dynamic(() => import('@mui/material/Select')),
-  [AtomType.MuiSkeleton]: dynamic(() => import('@mui/material/Skeleton')),
-  [AtomType.MuiSlide]: dynamic(() => import('@mui/material/Slide')),
-  [AtomType.MuiSlider]: dynamic(() => import('@mui/material/Slider')),
-  [AtomType.MuiSliderUnstyled]: dynamic(
+  [IAtomType.MuiSelect]: dynamic(() => import('@mui/material/Select')),
+  [IAtomType.MuiSkeleton]: dynamic(() => import('@mui/material/Skeleton')),
+  [IAtomType.MuiSlide]: dynamic(() => import('@mui/material/Slide')),
+  [IAtomType.MuiSlider]: dynamic(() => import('@mui/material/Slider')),
+  [IAtomType.MuiSliderUnstyled]: dynamic(
     () => import('@mui/core/SliderUnstyled'),
   ),
-  [AtomType.MuiSnackbar]: dynamic(() => import('@mui/material/Snackbar')),
-  [AtomType.MuiSnackbarContent]: dynamic(
+  [IAtomType.MuiSnackbar]: dynamic(() => import('@mui/material/Snackbar')),
+  [IAtomType.MuiSnackbarContent]: dynamic(
     () => import('@mui/material/SnackbarContent'),
   ),
-  [AtomType.MuiSpeedDial]: dynamic(() => import('@mui/material/SpeedDial')),
-  [AtomType.MuiSpeedDialAction]: dynamic(
+  [IAtomType.MuiSpeedDial]: dynamic(() => import('@mui/material/SpeedDial')),
+  [IAtomType.MuiSpeedDialAction]: dynamic(
     () => import('@mui/material/SpeedDialAction'),
   ),
-  [AtomType.MuiSpeedDialIcon]: dynamic(
+  [IAtomType.MuiSpeedDialIcon]: dynamic(
     () => import('@mui/material/SpeedDialIcon'),
   ),
-  [AtomType.MuiStack]: dynamic(() => import('@mui/material/Stack')),
-  [AtomType.MuiStaticDatePicker]: dynamic(
+  [IAtomType.MuiStack]: dynamic(() => import('@mui/material/Stack')),
+  [IAtomType.MuiStaticDatePicker]: dynamic(
     () => import('@mui/lab/StaticDatePicker'),
   ),
-  [AtomType.MuiStaticDateRangePicker]: dynamic(
+  [IAtomType.MuiStaticDateRangePicker]: dynamic(
     () => import('@mui/lab/StaticDateRangePicker') as any,
   ),
-  [AtomType.MuiStaticDateTimePicker]: dynamic(
+  [IAtomType.MuiStaticDateTimePicker]: dynamic(
     () => import('@mui/lab/StaticDateTimePicker'),
   ),
-  [AtomType.MuiStaticTimePicker]: dynamic(
+  [IAtomType.MuiStaticTimePicker]: dynamic(
     () => import('@mui/lab/StaticTimePicker'),
   ),
-  [AtomType.MuiStep]: dynamic(() => import('@mui/material/Step')),
-  [AtomType.MuiStepButton]: dynamic(() => import('@mui/material/StepButton')),
-  [AtomType.MuiStepConnector]: dynamic(
+  [IAtomType.MuiStep]: dynamic(() => import('@mui/material/Step')),
+  [IAtomType.MuiStepButton]: dynamic(() => import('@mui/material/StepButton')),
+  [IAtomType.MuiStepConnector]: dynamic(
     () => import('@mui/material/StepConnector'),
   ),
-  [AtomType.MuiStepContent]: dynamic(() => import('@mui/material/StepContent')),
-  [AtomType.MuiStepIcon]: dynamic(() => import('@mui/material/StepIcon')),
-  [AtomType.MuiStepLabel]: dynamic(() => import('@mui/material/StepLabel')),
-  [AtomType.MuiStepper]: dynamic(() => import('@mui/material/Stepper')),
-  [AtomType.MuiSvgIcon]: dynamic(() => import('@mui/material/SvgIcon')),
-  [AtomType.MuiSwipeableDrawer]: dynamic(
+  [IAtomType.MuiStepContent]: dynamic(
+    () => import('@mui/material/StepContent'),
+  ),
+  [IAtomType.MuiStepIcon]: dynamic(() => import('@mui/material/StepIcon')),
+  [IAtomType.MuiStepLabel]: dynamic(() => import('@mui/material/StepLabel')),
+  [IAtomType.MuiStepper]: dynamic(() => import('@mui/material/Stepper')),
+  [IAtomType.MuiSvgIcon]: dynamic(() => import('@mui/material/SvgIcon')),
+  [IAtomType.MuiSwipeableDrawer]: dynamic(
     () => import('@mui/material/SwipeableDrawer'),
   ),
-  [AtomType.MuiSwitch]: dynamic(() => import('@mui/material/Switch')),
-  [AtomType.MuiSwitchUnstyled]: dynamic(
+  [IAtomType.MuiSwitch]: dynamic(() => import('@mui/material/Switch')),
+  [IAtomType.MuiSwitchUnstyled]: dynamic(
     () => import('@mui/core/SwitchUnstyled'),
   ),
-  [AtomType.MuiTab]: dynamic(() => import('@mui/material/Tab')),
-  [AtomType.MuiTabContext]: dynamic(() => import('@mui/lab/TabContext')),
-  [AtomType.MuiTabList]: dynamic(() => import('@mui/lab/TabList')),
-  [AtomType.MuiTabPanel]: dynamic(() => import('@mui/lab/TabPanel')),
-  [AtomType.MuiTabScrollButton]: dynamic(
+  [IAtomType.MuiTab]: dynamic(() => import('@mui/material/Tab')),
+  [IAtomType.MuiTabContext]: dynamic(() => import('@mui/lab/TabContext')),
+  [IAtomType.MuiTabList]: dynamic(() => import('@mui/lab/TabList')),
+  [IAtomType.MuiTabPanel]: dynamic(() => import('@mui/lab/TabPanel')),
+  [IAtomType.MuiTabScrollButton]: dynamic(
     () => import('@mui/material/TabScrollButton'),
   ),
-  [AtomType.MuiTable]: dynamic(() => import('@mui/material/Table')),
-  [AtomType.MuiTableBody]: dynamic(() => import('@mui/material/TableBody')),
-  [AtomType.MuiTableCell]: dynamic(() => import('@mui/material/TableCell')),
-  [AtomType.MuiTableContainer]: dynamic(
+  [IAtomType.MuiTable]: dynamic(() => import('@mui/material/Table')),
+  [IAtomType.MuiTableBody]: dynamic(() => import('@mui/material/TableBody')),
+  [IAtomType.MuiTableCell]: dynamic(() => import('@mui/material/TableCell')),
+  [IAtomType.MuiTableContainer]: dynamic(
     () => import('@mui/material/TableContainer'),
   ),
-  [AtomType.MuiTableFooter]: dynamic(() => import('@mui/material/TableFooter')),
-  [AtomType.MuiTableHead]: dynamic(() => import('@mui/material/TableHead')),
-  [AtomType.MuiTablePagination]: dynamic(
+  [IAtomType.MuiTableFooter]: dynamic(
+    () => import('@mui/material/TableFooter'),
+  ),
+  [IAtomType.MuiTableHead]: dynamic(() => import('@mui/material/TableHead')),
+  [IAtomType.MuiTablePagination]: dynamic(
     () => import('@mui/material/TablePagination'),
   ),
-  [AtomType.MuiTableRow]: dynamic(() => import('@mui/material/TableRow')),
-  [AtomType.MuiTableSortLabel]: dynamic(
+  [IAtomType.MuiTableRow]: dynamic(() => import('@mui/material/TableRow')),
+  [IAtomType.MuiTableSortLabel]: dynamic(
     () => import('@mui/material/TableSortLabel'),
   ),
-  [AtomType.MuiTabs]: dynamic(() => import('@mui/material/Tabs')),
-  [AtomType.MuiTextField]: dynamic(() => import('@mui/material/TextField')),
-  [AtomType.MuiTextareaAutosize]: dynamic(
+  [IAtomType.MuiTabs]: dynamic(() => import('@mui/material/Tabs')),
+  [IAtomType.MuiTextField]: dynamic(() => import('@mui/material/TextField')),
+  [IAtomType.MuiTextareaAutosize]: dynamic(
     () => import('@mui/material/TextareaAutosize'),
   ),
-  [AtomType.MuiTimePicker]: dynamic(() => import('@mui/lab/TimePicker')),
-  [AtomType.MuiTimeline]: dynamic(() => import('@mui/lab/Timeline')),
-  [AtomType.MuiTimelineConnector]: dynamic(
+  [IAtomType.MuiTimePicker]: dynamic(() => import('@mui/lab/TimePicker')),
+  [IAtomType.MuiTimeline]: dynamic(() => import('@mui/lab/Timeline')),
+  [IAtomType.MuiTimelineConnector]: dynamic(
     () => import('@mui/lab/TimelineConnector'),
   ),
-  [AtomType.MuiTimelineContent]: dynamic(
+  [IAtomType.MuiTimelineContent]: dynamic(
     () => import('@mui/lab/TimelineContent'),
   ),
-  [AtomType.MuiTimelineDot]: dynamic(() => import('@mui/lab/TimelineDot')),
-  [AtomType.MuiTimelineItem]: dynamic(() => import('@mui/lab/TimelineItem')),
-  [AtomType.MuiTimelineOppositeContent]: dynamic(
+  [IAtomType.MuiTimelineDot]: dynamic(() => import('@mui/lab/TimelineDot')),
+  [IAtomType.MuiTimelineItem]: dynamic(() => import('@mui/lab/TimelineItem')),
+  [IAtomType.MuiTimelineOppositeContent]: dynamic(
     () => import('@mui/lab/TimelineOppositeContent'),
   ),
-  [AtomType.MuiTimelineSeparator]: dynamic(
+  [IAtomType.MuiTimelineSeparator]: dynamic(
     () => import('@mui/lab/TimelineSeparator'),
   ),
-  [AtomType.MuiToggleButton]: dynamic(
+  [IAtomType.MuiToggleButton]: dynamic(
     () => import('@mui/material/ToggleButton'),
   ),
-  [AtomType.MuiToggleButtonGroup]: dynamic(
+  [IAtomType.MuiToggleButtonGroup]: dynamic(
     () => import('@mui/material/ToggleButtonGroup'),
   ),
-  [AtomType.MuiToolbar]: dynamic(() => import('@mui/material/Toolbar')),
-  [AtomType.MuiTooltip]: dynamic(() => import('@mui/material/Tooltip')),
-  [AtomType.MuiTreeItem]: dynamic(() => import('@mui/lab/TreeItem')),
-  [AtomType.MuiTreeView]: dynamic(() => import('@mui/lab/TreeView')),
-  [AtomType.MuiTypography]: dynamic(() => import('@mui/material/Typography')),
-  [AtomType.MuiUnstableTrapFocus]: dynamic(
+  [IAtomType.MuiToolbar]: dynamic(() => import('@mui/material/Toolbar')),
+  [IAtomType.MuiTooltip]: dynamic(() => import('@mui/material/Tooltip')),
+  [IAtomType.MuiTreeItem]: dynamic(() => import('@mui/lab/TreeItem')),
+  [IAtomType.MuiTreeView]: dynamic(() => import('@mui/lab/TreeView')),
+  [IAtomType.MuiTypography]: dynamic(() => import('@mui/material/Typography')),
+  [IAtomType.MuiUnstableTrapFocus]: dynamic(
     () => import('@mui/core/Unstable_TrapFocus'),
   ),
-  [AtomType.MuiYearPicker]: dynamic(() => import('@mui/lab/YearPicker')),
-  [AtomType.MuiZoom]: dynamic(() => import('@mui/material/Zoom')),
+  [IAtomType.MuiYearPicker]: dynamic(() => import('@mui/lab/YearPicker')),
+  [IAtomType.MuiZoom]: dynamic(() => import('@mui/material/Zoom')),
 }

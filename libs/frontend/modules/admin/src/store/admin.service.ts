@@ -4,9 +4,10 @@ import {
   getAtomService,
 } from '@codelab/frontend/modules/atom'
 import {
-  getTypeImportService,
+  getImportTypeService,
   getTypeService,
 } from '@codelab/frontend/modules/type'
+import { IAdminService } from '@codelab/shared/abstract/core'
 import {
   _async,
   _await,
@@ -17,12 +18,8 @@ import {
 } from 'mobx-keystone'
 import { adminApi } from './admin.api'
 
-export interface WithAdminService {
-  adminService: AdminService
-}
-
 @model('@codelab/AdminService')
-export class AdminService extends Model({}) {
+export class AdminService extends Model({}) implements IAdminService {
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
@@ -36,7 +33,7 @@ export class AdminService extends Model({}) {
   exportData = _async(function* (this: AdminService) {
     const atomService = getAtomService(this)
     const atomImportService = getAtomImportServiceContext(this)
-    const typeImportService = getTypeImportService(this)
+    const typeImportService = getImportTypeService(this)
     const typeService = getTypeService(this)
     const allAtoms = yield* _await(atomService.getAll())
     const atomSnapshots = atomImportService.makeAtomsExportPayload(allAtoms)
@@ -55,7 +52,8 @@ export class AdminService extends Model({}) {
   @transaction
   importData = _async(function* (
     this: AdminService,
-    payloadString: string, // should be the result of exportData or AtomImportService.exportAtoms
+    // should be the result of exportData or AtomImportService.exportAtoms
+    payloadString: string,
     currentUserAuth0Id: string,
   ) {
     const atomImportService = getAtomImportServiceContext(this)

@@ -1,12 +1,16 @@
 import { DragOutlined } from '@ant-design/icons'
-import { AtomService } from '@codelab/frontend/modules/atom'
 import {
-  Component,
-  ComponentService,
-} from '@codelab/frontend/modules/component'
+  ATOM_SERVICE,
+  COMPONENT_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
-import { IAtom, ICreateElementDTO } from '@codelab/shared/abstract/core'
+import {
+  IAtom,
+  IComponent,
+  ICreateElementDTO,
+} from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
@@ -38,7 +42,7 @@ const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
   }),
 })
 
-const componentToolboxItemFactory = (component: Component): ToolboxItem => {
+const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
   const { name, id } = component
 
   return {
@@ -51,10 +55,10 @@ const componentToolboxItemFactory = (component: Component): ToolboxItem => {
   }
 }
 
-export interface MainPaneToolboxProps {
+export type MainPaneToolboxProps = WithServices<
+  ATOM_SERVICE | COMPONENT_SERVICE
+> & {
   searchQuery?: string
-  atomService: AtomService
-  componentService: ComponentService
 }
 
 export const MainPaneToolbox = observer<MainPaneToolboxProps>(
@@ -75,8 +79,8 @@ export const MainPaneToolbox = observer<MainPaneToolboxProps>(
 
     useEffect(() => {
       return autorun(() => {
-        const componentsList = componentService.componentsList
-        const atomsList = atomService.atomsList
+        const componentsList = componentService.components
+        const atomsList = atomService.atoms
 
         const toolboxItems: Array<ToolboxItem> = [
           ...atomsList.map(atomToolboxItemFactory),

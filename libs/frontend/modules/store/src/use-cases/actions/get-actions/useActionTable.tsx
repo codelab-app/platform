@@ -1,15 +1,16 @@
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { IAction, IActionService } from '@codelab/shared/abstract/core'
 import { TableColumnProps } from 'antd'
 import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { Action, actionRef, ActionService } from '../../../store'
+import { actionRef } from '../../../store'
 import { ActionColumn } from './columns'
 
-export const useActionTable = (actionService: ActionService) => {
-  const columns: Array<TableColumnProps<Action>> = [
+export const useActionTable = (actionService: IActionService) => {
+  const columns: Array<TableColumnProps<IAction>> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -35,9 +36,9 @@ export const useActionTable = (actionService: ActionService) => {
     },
   ]
 
-  const rowSelection: TableRowSelection<Action> = {
+  const rowSelection: TableRowSelection<IAction> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<Action>) => {
+    onChange: (_: Array<React.Key>, selectedRows: Array<IAction>) => {
       actionService.setSelectedActions(selectedRows.map((a) => actionRef(a.id)))
     },
   }

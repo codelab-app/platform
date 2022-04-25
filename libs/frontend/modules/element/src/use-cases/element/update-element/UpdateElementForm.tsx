@@ -1,3 +1,4 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -5,15 +6,14 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IUpdateElementDTO } from '@codelab/shared/abstract/core'
+import { IElement, IUpdateElementDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { Element, WithElementService } from '../../../store'
 import { updateElementSchema } from './updateElementSchema'
 
-export interface UpdateElementFormProps extends WithElementService {
-  element: Element
+export type UpdateElementFormProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
 }
@@ -27,15 +27,16 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       Array<{ label: string; value: string }>
     >([])
 
+    // Cache the initial element model, because when it updates it will interfere with what the user is typing
     const { current: model } = useRef({
       atomId: element.atom?.id,
       name: element.name,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfPropKey: element.renderIfPropKey,
-    }) // Cache the initial element model, because when it updates it will interfere with what the user is typing
+    })
 
     const onSubmit = (input: IUpdateElementDTO) => {
-      const promise = elementService.updateElement(element, input)
+      const promise = elementService.update(element, input)
 
       if (trackPromise) {
         trackPromise(promise)
@@ -76,7 +77,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               'renderForEachPropKey',
               'propTransformationJs',
               'instanceOfComponentId',
-              'css', // We edit it in the css tab
+              // We edit it in the css tab
+              'css',
             ]}
           />
           <AutoField component={SelectComponent} name="instanceOfComponentId" />

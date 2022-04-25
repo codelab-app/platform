@@ -447,10 +447,11 @@ export const setDatePickerValue =
     if (value) {
       on($el).click().type(`{selectall}${value}{enter}`, options)
     } else {
+      // button is shown only on hover
       on($el)
         .siblings('.ant-picker-clear', options)
         .click({ ...options, force: true })
-    } // button is shown only on hover
+    }
 
     return on($el)
   }

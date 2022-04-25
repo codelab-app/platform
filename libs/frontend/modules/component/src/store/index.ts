@@ -1,2 +1,5 @@
 export * from './component.model'
 export * from './component.service'
+export { getComponentService } from './component.service.context'
+export { componentServiceContext } from './component.service.context'
+export { componentRef } from './component.service.context'

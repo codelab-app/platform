@@ -1,7 +1,8 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import {
   IComponentDTO,
+  IComponentService,
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
@@ -9,15 +10,12 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  createContext,
-  detach,
   Model,
   model,
   modelAction,
   modelFlow,
   objectMap,
   prop,
-  rootRef,
   transaction,
 } from 'mobx-keystone'
 import { mapCreateInput } from './api.utils'
@@ -25,32 +23,23 @@ import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
-export const componentRef = rootRef<Component>('@codelab/ComponentRef', {
-  onResolvedValueChange(ref, newComponent, oldComponent) {
-    if (oldComponent && !newComponent) {
-      detach(ref)
-    }
-  },
-})
-
-export interface WithComponentService {
-  componentService: ComponentService
-}
-
 @model('@codelab/ComponentStore')
-export class ComponentService extends Model({
-  components: prop(() => objectMap<Component>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new ComponentModalService({})),
-  deleteModal: prop(() => new ComponentModalService({})),
-}) {
+export class ComponentService
+  extends Model({
+    _components: prop(() => objectMap<Component>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new ComponentModalService({})),
+    deleteModal: prop(() => new ComponentModalService({})),
+  })
+  implements IComponentService
+{
   @computed
-  get componentsList() {
-    return [...this.components.values()]
+  get components() {
+    return [...this._components.values()]
   }
 
   component(id: string) {
-    return this.components.get(id)
+    return this._components.get(id)
   }
 
   @modelFlow
@@ -58,23 +47,25 @@ export class ComponentService extends Model({
   getAll = _async(function* (this: ComponentService, where?: ComponentWhere) {
     const { components } = yield* _await(componentApi.GetComponents({ where }))
 
-    return components.map((component) => {
-      if (this.components.get(component.id)) {
-        return this.components.get(component.id)
-      } else {
-        const componentModel = Component.hydrate(component)
-        this.components.set(component.id, componentModel)
+    return components
+      .map((component) => {
+        if (this._components.get(component.id)) {
+          return this._components.get(component.id)
+        } else {
+          const componentModel = Component.hydrate(component)
+          this._components.set(component.id, componentModel)
 
-        return componentModel
-      }
-    })
+          return componentModel
+        }
+      })
+      .filter((component): component is Component => !component)
   })
 
   @modelFlow
   @transaction
   getOne = _async(function* (this: ComponentService, id: string) {
-    if (this.components.has(id)) {
-      return this.components.get(id)
+    if (this._components.has(id)) {
+      return this._components.get(id)
     }
 
     const all = yield* _await(this.getAll({ id }))
@@ -84,12 +75,11 @@ export class ComponentService extends Model({
 
   @modelFlow
   @transaction
-  createComponent = _async(function* (
+  create = _async(function* (
     this: ComponentService,
     input: ICreateComponentDTO,
-    ownerId: string,
   ) {
-    const createComponentInput = mapCreateInput(input, ownerId)
+    const createComponentInput = mapCreateInput(input)
 
     const {
       createComponents: { components },
@@ -108,7 +98,7 @@ export class ComponentService extends Model({
 
     const componentModel = Component.hydrate(component)
 
-    this.components.set(componentModel.id, componentModel)
+    this._components.set(componentModel.id, componentModel)
 
     return componentModel
   })
@@ -143,8 +133,10 @@ export class ComponentService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: ComponentService, id: string) {
-    if (this.components.has(id)) {
-      this.components.delete(id)
+    const existing = throwIfUndefined(this._components.get(id))
+
+    if (this._components.has(id)) {
+      this._components.delete(id)
     }
 
     const { deleteComponents } = yield* _await(
@@ -156,7 +148,7 @@ export class ComponentService extends Model({
       throw new Error('Component was not deleted')
     }
 
-    return deleteComponents
+    return existing
   })
 
   @modelAction
@@ -167,7 +159,7 @@ export class ComponentService extends Model({
       existing.updateCache(componentFragment)
     } else {
       const component = Component.hydrate(componentFragment)
-      this.components.set(component.id, component)
+      this._components.set(component.id, component)
     }
   }
 
@@ -177,17 +169,4 @@ export class ComponentService extends Model({
       this.updateCache(component)
     }
   }
-}
-
-// This can be used to access the type store from anywhere inside the mobx-keystone tree
-export const componentServiceContext = createContext<ComponentService>()
-
-export const getComponentService = (self: any) => {
-  const componentService = componentServiceContext.get(self)
-
-  if (!componentService) {
-    throw new Error('componentServiceContext is not set')
-  }
-
-  return componentService
 }

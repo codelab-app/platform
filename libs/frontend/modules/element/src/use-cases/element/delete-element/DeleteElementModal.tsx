@@ -1,15 +1,13 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { WithElementService } from '../../../store'
 import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
 
-export type DeleteElementModalProps = WithElementService
-
-export const DeleteElementModal = observer<DeleteElementModalProps>(
+export const DeleteElementModal = observer<WithServices<ELEMENT_SERVICE>>(
   ({ elementService }) => {
     const closeModal = () => elementService.deleteModal.close()
 

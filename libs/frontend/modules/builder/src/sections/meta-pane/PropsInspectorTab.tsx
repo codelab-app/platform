@@ -1,16 +1,20 @@
-import { Element, WithElementService } from '@codelab/frontend/modules/element'
+import {
+  BUILDER_SERVICE,
+  ELEMENT_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { MonacoEditor } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import Button from 'antd/lib/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
-import { WithBuilderService } from '../../store/BuilderService'
 
-export interface ElementPropsSectionProps
-  extends WithBuilderService,
-    WithElementService {
-  element: Element
+export type ElementPropsSectionProps = WithServices<
+  BUILDER_SERVICE | ELEMENT_SERVICE
+> & {
+  element: IElement
 }
 
 const PropsInspectorTab = observer(

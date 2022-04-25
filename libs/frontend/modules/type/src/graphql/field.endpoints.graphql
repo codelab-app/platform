@@ -10,11 +10,7 @@ mutation CreateField(
     }
   ) {
     interfaceTypes {
-      fieldsConnection {
-        edges {
-          ...Field
-        }
-      }
+      ...InterfaceType
     }
   }
 }
@@ -33,11 +29,7 @@ mutation UpdateField(
     }
   ) {
     interfaceTypes {
-      fieldsConnection {
-        edges {
-          ...Field
-        }
-      }
+      ...InterfaceType
     }
   }
 }
@@ -48,11 +40,7 @@ mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
     disconnect: { fields: [{ where: { edge: $where } }] }
   ) {
     interfaceTypes {
-      fieldsConnection {
-        edges {
-          ...Field
-        }
-      }
+      ...InterfaceType
     }
   }
 }

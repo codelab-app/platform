@@ -11,13 +11,12 @@ import {
 
 export const createTypeInputFactory = (
   type: ICreateTypeDTO,
-  auth0Id: string,
 ): ICreateTypeInput => {
   return {
     id: type.id,
     name: type.name,
     owner: {
-      connect: { where: { node: { auth0Id: auth0Id } } },
+      connect: { where: { node: { auth0Id: type.auth0Id } } },
     },
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,

@@ -1,9 +1,14 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
+  IFieldRef,
+  IInterfaceTypeRef,
   ITypeDTO,
   ITypeKind,
+  ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
@@ -14,7 +19,6 @@ import {
   _async,
   _await,
   arraySet,
-  createContext,
   Model,
   model,
   modelAction,
@@ -34,44 +38,30 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, Field, InterfaceType } from './models'
+import { AnyType, InterfaceType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
   TypeModalService,
 } from './type-modal.service'
 
-export type WithTypeService = {
-  typeService: TypeService
-}
-
-// This can be used to access the type store from anywhere inside the mobx-keystone tree
-export const typeServiceContext = createContext<TypeService>()
-
-export const getTypeService = (self: object) => {
-  const typeService = typeServiceContext.get(self)
-
-  if (!typeService) {
-    throw new Error('TypeService is not defined')
-  }
-
-  return typeService
-}
-
 @model('@codelab/TypeService')
-export class TypeService extends Model({
-  types: prop(() => objectMap<AnyType>()),
+export class TypeService
+  extends Model({
+    types: prop(() => objectMap<AnyType>()),
 
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new TypeModalService({})),
-  deleteModal: prop(() => new TypeModalService({})),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new TypeModalService({})),
+    deleteModal: prop(() => new TypeModalService({})),
 
-  selectedIds: prop(() => arraySet<string>()).withSetter(),
+    selectedIds: prop(() => arraySet<string>()).withSetter(),
 
-  fieldCreateModal: prop(() => new InterfaceTypeModalService({})),
-  fieldUpdateModal: prop(() => new FieldModalService({})),
-  fieldDeleteModal: prop(() => new FieldModalService({})),
-}) {
+    fieldCreateModal: prop(() => new InterfaceTypeModalService({})),
+    fieldUpdateModal: prop(() => new FieldModalService({})),
+    fieldDeleteModal: prop(() => new FieldModalService({})),
+  })
+  implements ITypeService
+{
   @computed
   get typesList() {
     return [...this.types.values()]
@@ -102,10 +92,14 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, type: IUpdateTypeDTO) {
+  update = _async(function* (
+    this: TypeService,
+    type: IAnyType,
+    data: IUpdateTypeDTO,
+  ) {
     const args = {
       where: { id: type.id },
-      ...updateTypeInputFactory(type),
+      ...updateTypeInputFactory(data),
     }
 
     const [updatedType] = yield* _await(updateTypeApi[type.kind](args))
@@ -119,19 +113,13 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, ids?: Array<string>) {
+  getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
+    const ids = where?.id_IN
     const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(idsToFetch))
     const typesMap = entityMapById(types)
 
-    if (!ids) {
-      ids = types.map((t) => t.id)
-    }
-
-    // remove duplicates
-    ids = [...new Set(ids)]
-
-    return ids.map((id) => {
+    return Array.from(typesMap).map(([id]) => {
       if (this.types.has(id)) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this.types.get(id)!
@@ -153,7 +141,7 @@ export class TypeService extends Model({
       return this.types.get(id)!
     }
 
-    const all = yield* _await(this.getAll([id]))
+    const all = yield* _await(this.getAll({ id_IN: [id] }))
 
     return all[0]
   })
@@ -180,14 +168,14 @@ export class TypeService extends Model({
     // remove duplicates
     const allIds = [...new Set([...ids, ...allDescendantIds])]
 
-    return yield* _await(this.getAll(allIds))
+    return yield* _await(this.getAll({ id_IN: allIds }))
   })
 
   @modelFlow
   @transaction
   getInterfaceAndDescendants = _async(function* (
     this: TypeService,
-    id: string,
+    id: IInterfaceTypeRef,
   ) {
     const [type] = yield* _await(this.getAllWithDescendants([id]))
 
@@ -200,12 +188,10 @@ export class TypeService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: TypeService,
-    type: ICreateTypeDTO,
-    auth0Id: string,
-  ) {
-    const typeInput = createTypeInputFactory(type, auth0Id)
+  create = _async(function* (this: TypeService, type: ICreateTypeDTO) {
+    const typeInput = createTypeInputFactory(type)
+    console.log(typeInput)
+
     const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
 
     if (!type) {
@@ -217,7 +203,7 @@ export class TypeService extends Model({
 
     this.types.set(type.id, typeModel)
 
-    return type
+    return typeModel
   })
 
   @modelFlow
@@ -225,11 +211,11 @@ export class TypeService extends Model({
   delete = _async(function* (this: TypeService, id: string) {
     const type = this.types.get(id)
 
-    this.types.delete(id)
-
     if (!type) {
       throw new Error('Type does not exist')
     }
+
+    this.types.delete(id)
 
     const { nodesDeleted } = yield* _await(
       deleteTypeApi[type.kind]({ where: { id } }),
@@ -240,7 +226,7 @@ export class TypeService extends Model({
       throw new Error('Type was not deleted')
     }
 
-    return { nodesDeleted }
+    return type
   })
 
   //
@@ -251,11 +237,11 @@ export class TypeService extends Model({
   @transaction
   addField = _async(function* (
     this: TypeService,
-    type: InterfaceType,
+    interfaceType: InterfaceType,
     data: ICreateFieldDTO,
   ) {
     const input = {
-      interfaceId: type.id,
+      interfaceId: interfaceType.id,
       fieldTypeId: data.fieldType,
       field: {
         description: data.description,
@@ -265,15 +251,12 @@ export class TypeService extends Model({
       },
     }
 
-    const res = yield* _await(fieldApi.CreateField(input))
+    const { updateInterfaceTypes } = yield* _await(fieldApi.CreateField(input))
+    const interfaceTypeDTO = updateInterfaceTypes.interfaceTypes[0]
 
-    const field =
-      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    interfaceType.updateCache(interfaceTypeDTO)
 
-    const fieldModel = Field.hydrate(field)
-    type.fields.set(fieldModel.id, fieldModel)
-
-    return fieldModel
+    return interfaceType
   })
 
   @modelFlow
@@ -281,28 +264,28 @@ export class TypeService extends Model({
   updateField = _async(function* (
     this: TypeService,
     type: InterfaceType,
-    targetKey: string,
+    targetKey: IInterfaceTypeRef,
     data: IUpdateFieldDTO,
   ) {
-    const { key, name, description } = data
-    const field = type.field(data.id)
-
-    if (!field) {
-      throw new Error(`Field with key ${targetKey} not found`)
-    }
+    const field = throwIfUndefined(type.field(data.id))
 
     const input = {
       interfaceId: type.id,
       fieldTypeId: data.fieldType,
-      field: data,
+      field: {
+        id: data.id,
+        description: data.description,
+        key: data.key,
+        name: data.name,
+      },
     }
 
-    const res = yield* _await(fieldApi.UpdateField(input))
+    const { updateInterfaceTypes } = yield* _await(fieldApi.UpdateField(input))
 
     const updatedField =
-      res.updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+      updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
 
-    field.updateCache(updatedField, type.id)
+    field.updateCache(updatedField)
 
     return field
   })
@@ -312,7 +295,7 @@ export class TypeService extends Model({
   deleteField = _async(function* (
     this: TypeService,
     interfaceType: InterfaceType,
-    fieldId: string,
+    fieldId: IFieldRef,
   ) {
     const field = interfaceType.field(fieldId)
 

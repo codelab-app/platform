@@ -50,16 +50,15 @@ export default async function update(host: Tree) {
       ? [paths.tsconfigPath, paths.tsconfigStorybookPath]
       : [paths.tsconfigPath]
 
-    console.log(projectName, project)
+    console.info(projectName, project)
 
     const options = {
       project,
     }
 
-    console.log('Checking...', paths.eslintCiConfig)
+    console.info('Checking...', paths.eslintCiConfig)
 
     if (existsSync(paths.eslintCiConfig)) {
-      console.log('Removing!')
       unlinkSync(paths.eslintCiConfig)
     }
 

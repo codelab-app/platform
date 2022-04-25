@@ -1,4 +1,4 @@
-import { Element as IElementModel, ElementModel } from '@codelab/backend'
+import { ElementOGM, IElementModel } from '@codelab/backend'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
@@ -7,7 +7,7 @@ export const importElementInitial = async (
   element: IElementModel,
   idMap: Map<string, string>,
 ): Promise<IElementModel> => {
-  const Elements = await ElementModel()
+  const Elements = await ElementOGM()
 
   const {
     elements: [newElement],
@@ -55,7 +55,7 @@ export const updateImportedElement = async (
   element: IElementModel,
   idMap: Map<string, string>,
 ): Promise<void> => {
-  const Elements = await ElementModel()
+  const Elements = await ElementOGM()
 
   if (element.props) {
     // replace all references in props

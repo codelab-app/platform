@@ -6,6 +6,7 @@
     "declaration": true,
     "types": ["node"],
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

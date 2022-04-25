@@ -5,7 +5,7 @@ const CMD_APP_DIST_PATH = 'dist/apps/cmd'
 
 // `test` is used for pre-push checks. Only `test` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
 export const runCli = (env?: Env, cmd = '') => {
-  console.log(env, cmd)
+  console.info(env, cmd)
 
   switch (env) {
     case Env.Dev:

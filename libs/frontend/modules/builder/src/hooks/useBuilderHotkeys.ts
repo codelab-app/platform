@@ -1,6 +1,6 @@
-import { elementRef, ElementService } from '@codelab/frontend/modules/element'
+import { elementRef } from '@codelab/frontend/modules/element'
+import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { BuilderService } from '../store/BuilderService'
 
 /**
  * Registers keyboard shortcuts for the Builder
@@ -8,15 +8,15 @@ import { BuilderService } from '../store/BuilderService'
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = (
-  builderService: BuilderService,
-  elementService: ElementService,
+  builderService: IBuilderService,
+  elementService: IElementService,
 ) => {
   useHotkeys(
     'del,backspace',
     () => {
-      if (builderService.selectedElement?.current) {
+      if (builderService.selectedElement) {
         elementService.deleteModal.open(
-          elementRef(builderService.selectedElement.current),
+          elementRef(builderService.selectedElement.id),
         )
       }
     },
@@ -26,8 +26,8 @@ export const useBuilderHotkeys = (
   useHotkeys(
     'esc',
     () => {
-      if (builderService.selectedElement?.current) {
-        builderService.setSelectedElement(null)
+      if (builderService.selectedElement) {
+        builderService.set_selectedElement(null)
       }
     },
     { enabled: !!builderService.selectedElement },

@@ -1,14 +1,14 @@
-import { AtomType, IPropData } from '@codelab/shared/abstract/core'
-import { IIdentifiable, Nullable } from '@codelab/shared/abstract/types'
+import { IAtomType, IPropData } from '@codelab/shared/abstract/core'
+import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 
 export type AtomsRecord = Partial<
-  Record<AtomType, React.ComponentType<any> | Nullable<string>>
+  Record<IAtomType, React.ComponentType<any> | Nullable<string>>
 >
 
 export type AtomFactoryInput = {
-  atomType: AtomType
-  node: IIdentifiable
+  atomType: IAtomType
+  node: IEntity
 }
 
 export type AtomFactoryResult = [
@@ -20,4 +20,4 @@ export type PropsCustomizerFn = (
   input: AtomFactoryInput & { props: IPropData },
 ) => any
 
-export type AtomPropsCustomizer = Partial<Record<AtomType, PropsCustomizerFn>>
+export type AtomPropsCustomizer = Partial<Record<IAtomType, PropsCustomizerFn>>

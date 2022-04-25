@@ -3,29 +3,30 @@ import {
   MonacoLanguage,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
-import { IEnumTypeValue, ITypeKind, PrimitiveTypeKind } from './types'
+import { IEnumTypeValue, IPrimitiveTypeKind, ITypeKind } from './types'
 
 export interface IBaseTypeDTO {
   id: string
   name: string
   kind: ITypeKind
-  primitiveKind?: PrimitiveTypeKind
+  primitiveKind?: IPrimitiveTypeKind
   elementKind?: ElementTypeKind
   language?: MonacoLanguage
   allowedValues?: Array<IEnumTypeValue>
+  unionTypeIds?: Array<string>
+  arrayTypeId?: string
 }
 
 /**
  * Create
  */
 export interface ICreateTypeDTO extends IBaseTypeDTO {
-  unionTypeIds?: Array<string>
-  arrayTypeId?: string
+  auth0Id: string
 }
 
 /**
  * Update
  */
-export type IUpdateTypeDTO = ICreateTypeDTO
+export type IUpdateTypeDTO = IBaseTypeDTO
 
 export type ITypeDTO = TypeFragment

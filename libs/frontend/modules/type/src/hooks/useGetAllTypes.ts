@@ -1,13 +1,13 @@
 import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import useDeepCompareEffect from 'use-deep-compare-effect'
-import { TypeService } from '../store'
 
 export const useGetAllTypesQuery = (
   ids: Array<string> | undefined,
-  types: TypeService,
+  types: ITypeService,
 ) => {
   const [getTypes, { data, isLoading, error }] = useLoadingState(
-    (_ids: Array<string> | undefined) => types.getAll(_ids),
+    (_ids: Array<string> | undefined) => types.getAll({ id_IN: _ids }),
   )
 
   useDeepCompareEffect(() => {

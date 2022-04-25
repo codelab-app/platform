@@ -1,15 +1,18 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IElement } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
+import { elementRef } from '../../../store'
 
-interface DeleteElementProps extends WithElementService {
-  element: Element
+type DeleteElementProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
 }
 
 export const DeleteElementButton = observer<DeleteElementProps>(
   ({ elementService, element }) => {
-    const onClick = () => elementService.deleteModal.open(elementRef(element))
+    const onClick = () =>
+      elementService.deleteModal.open(elementRef(element.id))
 
     return (
       <Button danger onClick={onClick}>

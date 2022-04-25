@@ -1,7 +1,7 @@
 import { RxTransaction } from 'neo4j-driver'
 import { Observable } from 'rxjs'
 import { map, reduce } from 'rxjs/operators'
-import { TagGraph } from '../../ogm-types.gen'
+import { TagGraph } from '../../infra/ogm-types.gen'
 import getTagGraphs from './getTagGraphs.cypher'
 
 export const tagRepository = {

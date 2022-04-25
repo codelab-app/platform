@@ -1,10 +1,10 @@
 import { AppProps } from 'next/app'
 import { Overwrite } from 'utility-types'
-import { IUserDTO } from '../domain/user'
+import { JwtPayload } from '../domain/user'
 
 export interface IPageProps {
   snapshot?: any
-  user?: IUserDTO
+  user?: JwtPayload
 }
 
 export type IAppProps = Overwrite<

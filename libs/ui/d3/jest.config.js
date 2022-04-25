@@ -1,3 +1,5 @@
+const { modifyJestConfig } = require('../../../scripts/jest/modifyJestConfig')
+
 module.exports = {
   displayName: 'ui-d3',
   preset: '../../../jest.preset.js',

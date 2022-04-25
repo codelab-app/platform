@@ -271,7 +271,8 @@ export const fromPosition = <T extends Maybe<Position>>(
 
   return {
     character: position.column - 1,
-    line: position.lineNumber, // In the original this was -1, but  here we remove it because we add an extra line. endLineNumber too
+    // In the original this was -1, but  here we remove it because we add an extra line. endLineNumber too
+    line: position.lineNumber,
   } as any
 }
 
@@ -282,7 +283,8 @@ export const fromRange = (range: Maybe<IRange>): Maybe<lsTypes.Range> => {
 
   return {
     start: {
-      line: range.startLineNumber, // In the original this was -1, but  here we remove it because we add an extra line. endLineNumber too
+      // In the original this was -1, but  here we remove it because we add an extra line. endLineNumber too
+      line: range.startLineNumber,
       character: range.startColumn - 1,
     },
     end: { line: range.endLineNumber, character: range.endColumn - 1 },
@@ -297,9 +299,11 @@ export const toRange = <TRange extends Maybe<lsTypes.Range>>(
   }
 
   return new Range(
-    range.start.line, // In the original this was +1, but here we remove it because we add an extra line
+    // In the original this was +1, but here we remove it because we add an extra line
+    range.start.line,
     range.start.character + 1,
-    range.end.line, // In the original this was +1, but here we remove it because we add an extra line
+    // In the original this was +1, but here we remove it because we add an extra line
+    range.end.line,
     range.end.character + 1,
   ) as any
 }

@@ -7,7 +7,8 @@ import { SelectField, SelectFieldProps } from 'uniforms-antd'
 
 export interface SelectElementOption {
   label: string
-  value: string // id
+  // id
+  value: string
   childrenIds?: Array<string>
 }
 
@@ -60,7 +61,9 @@ export const SelectElement = ({
         elements = difference(
           allElementOptions,
           getDescendants(targetElement, elementMap),
-        ).filter((x) => x.value !== targetElement.value) // remove the element itself
+        )
+          // remove the element itself
+          .filter((x) => x.value !== targetElement.value)
         break
       default:
         elements = []

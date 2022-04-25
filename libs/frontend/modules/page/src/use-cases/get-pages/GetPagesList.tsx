@@ -8,30 +8,32 @@ import React, { useEffect } from 'react'
 import { WithPageService } from '../../store'
 import { GetPagesItem } from './GetPagesItem'
 
-export const GetPagesList = observer<WithPageService>(({ pageService }) => {
-  const appId = useCurrentAppId()
+export const GetPagesList = observer<WithServices<PAGE_SERVICE>>(
+  ({ pageService }) => {
+    const appId = useCurrentAppId()
 
-  const [getPages, { isLoading }] = useLoadingState(() =>
-    pageService.getAll({ app: { id: appId } }),
-  )
+    const [getPages, { isLoading }] = useLoadingState(() =>
+      pageService.getAll({ app: { id: appId } }),
+    )
 
-  const pagesList = pageService.pagesList
-  useEffect(() => {
-    getPages()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const pagesList = pageService.pagesList
+    useEffect(() => {
+      getPages()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
   const results = pagesList.concat([{ name: PROVIDER_TREE_PAGE_NAME }] as any)
 
-  return (
-    <Spinner isLoading={isLoading}>
-      <List
-        dataSource={results}
-        renderItem={(page) => (
-          <GetPagesItem key={page.id} page={page} pages={pageService} />
-        )}
-        size="small"
-      />
-    </Spinner>
-  )
-})
+    return (
+      <Spinner isLoading={isLoading}>
+        <List
+          dataSource={results}
+          renderItem={(page) => (
+            <GetPagesItem key={page.id} page={page} pageService={pageService} />
+          )}
+          size="small"
+        />
+      </Spinner>
+    )
+  },
+)

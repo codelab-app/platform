@@ -6,7 +6,8 @@ import { editor, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api'
 import type { LanguageServiceDefaults } from 'monaco-editor/esm/vs/language/css/monaco.contribution'
 import { CSSInJsWorker } from './CSSInJsWorker'
 
-const STOP_WHEN_IDLE_FOR = 2 * 60 * 1000 // 2min
+// 2min
+const STOP_WHEN_IDLE_FOR = 2 * 60 * 1000
 
 export class WorkerManager {
   private _defaults: LanguageServiceDefaults
@@ -67,7 +68,8 @@ export class WorkerManager {
 
     if (!this._client) {
       this._worker = editor.createWebWorker<CSSInJsWorker>({
-        moduleId: 'codelab/editor/cssInJs', // This doesn't matter, because we don't use AMD
+        // This doesn't matter, because we don't use AMD
+        moduleId: 'codelab/editor/cssInJs',
         label: this._defaults.languageId,
         // passed in to the create() method
         createData: {

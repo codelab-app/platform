@@ -15,7 +15,7 @@ import { tagSchema } from './tag.schema'
 import { fieldSchema, typeSchema } from './type'
 import { userSchema } from './user.schema'
 
-export default print(gql`
+export const typeDefs = print(gql`
   ${adminSchema}
   ${commonSchema}
   ${adminSchema}

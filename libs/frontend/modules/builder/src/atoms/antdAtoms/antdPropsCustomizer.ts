@@ -2,7 +2,7 @@ import {
   DATA_GRID,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { AtomPropsCustomizer, PropsCustomizerFn } from '../types'
 
 const antDesignRglItemFn: PropsCustomizerFn = ({ node, props }) => ({
@@ -29,7 +29,8 @@ const antDesignModalFn: PropsCustomizerFn = ({ props }) => ({
 })
 
 export const antdPropsCustomizer: AtomPropsCustomizer = {
-  [AtomType.AntDesignRglItem]: antDesignRglItemFn,
-  [AtomType.AntDesignRglResponsiveContainer]: antDesignRglResponsiveContainerFn,
-  [AtomType.AntDesignModal]: antDesignModalFn,
+  [IAtomType.AntDesignRglItem]: antDesignRglItemFn,
+  [IAtomType.AntDesignRglResponsiveContainer]:
+    antDesignRglResponsiveContainerFn,
+  [IAtomType.AntDesignModal]: antDesignModalFn,
 }

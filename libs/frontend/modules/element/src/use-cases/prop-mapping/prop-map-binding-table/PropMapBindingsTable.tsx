@@ -1,17 +1,19 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { IElement } from '@codelab/shared/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
+import { elementRef } from '../../../store'
 import { propMapBindingRef } from '../../../store/prop-map-binding.ref'
 
-export interface PropMapBindingsTableProps extends WithElementService {
-  element: Element
+export type PropMapBindingsTableProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
 }
 
 interface CellData {
@@ -53,7 +55,7 @@ export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
             <ListItemEditButton
               onClick={() =>
                 elementService.updatePropMapBindingModal.open({
-                  element: elementRef(element),
+                  element: elementRef(element.id),
                   propMapBinding: propMapBindingRef(record.id),
                 })
               }
@@ -62,7 +64,7 @@ export const PropMapBindingsTable = observer<PropMapBindingsTableProps>(
             <ListItemDeleteButton
               onClick={() =>
                 elementService.deletePropMapBindingModal.open({
-                  element: elementRef(element),
+                  element: elementRef(element.id),
                   propMapBinding: propMapBindingRef(record.id),
                 })
               }

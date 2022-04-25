@@ -6,7 +6,7 @@ export const extractErrorMessage = (e: any): string => {
     return ''
   }
 
-  console.log(JSON.stringify(e))
+  console.error(JSON.stringify(e))
 
   if (isString(e)) {
     return e

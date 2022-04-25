@@ -1,9 +1,9 @@
 import { DATA_ID } from '@codelab/frontend/abstract/core'
-import { ConditionalRenderPipe } from '../renderPipes/ConditionalRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
+import { setupTestForRenderer } from './setup/setupTest'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestRenderData(
+  const data = setupTestForRenderer(
     (next) => new ConditionalRenderPipe({ next }),
   )
 
@@ -14,7 +14,7 @@ describe('ConditionalRenderPipe', () => {
   it('should render normally if no key is found', async () => {
     data.elementToRender.setRenderIfPropKey(null)
 
-    const output = data.renderService.renderElementIntermediate(
+    const output = data.renderService.renderIntermediateElement(
       data.elementToRender,
       {
         shouldRender: false,
@@ -31,7 +31,7 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    const output = data.renderService.renderElementIntermediate(
+    const output = data.renderService.renderIntermediateElement(
       data.elementToRender,
       {
         shouldRender: false,
@@ -49,7 +49,7 @@ describe('ConditionalRenderPipe', () => {
       prop01: 'prop01',
     }
 
-    const output = data.renderService.renderElementIntermediate(
+    const output = data.renderService.renderIntermediateElement(
       data.elementToRender,
       initialProps,
     )

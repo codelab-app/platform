@@ -1,11 +1,10 @@
-//
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
-import { exportAppCommand } from './commands/export/export-app.command'
-import { importAppCommand } from './commands/import/import-app.command'
+import { exportCommand } from './commands/export/export.command'
+import { importCommand } from './commands/import/import.command'
 import { Env } from './utils/env'
 import { requireEnvOptions, requireTestEnvOptions } from './utils/options'
 import { runCli } from './utils/run-cli'
@@ -127,8 +126,8 @@ yargs(hideBin(process.argv))
     )
   })
   //
-  // Export/import app
+  // Export/import data
   //
-  .command(exportAppCommand)
-  .command(importAppCommand)
+  .command(exportCommand)
+  .command(importCommand)
   .demandCommand(1, 'Please provide a command').argv

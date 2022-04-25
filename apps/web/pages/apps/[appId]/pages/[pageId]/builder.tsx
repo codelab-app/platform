@@ -95,7 +95,7 @@ PageBuilder.Layout = observer((page) => {
     >
       <BuilderDashboardTemplate
         Header={observer(() => (
-          <PageDetailHeader pages={store.pageService} />
+          <PageDetailHeader pageService={store.pageService} />
         ))}
         MainPane={observer(() => (
           <MainPane

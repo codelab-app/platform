@@ -1,4 +1,8 @@
-module.exports = {
+const {
+  modifyJestConfig,
+} = require('../../../../scripts/jest/modifyJestConfig')
+
+module.exports = modifyJestConfig({
   displayName: 'tools-plugins-codelab',
   preset: '../../../../jest.preset.js',
   globals: {
@@ -12,4 +16,4 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/tools/plugins/codelab',
   testEnvironment: 'node',
-}
+})

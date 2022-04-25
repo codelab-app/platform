@@ -1,15 +1,14 @@
-import { TypedValue } from '@codelab/shared/abstract/core'
+import { IRenderOutput, TypedValue } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
-import { RenderOutput } from '../abstract/RenderOutput'
-import { setupTestRenderData } from './testData/renderData'
+import { setupTestForRenderer } from './setup/setupTest'
 
 describe('RenderService', () => {
-  const data = setupTestRenderData()
+  const data = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
-    const { props } = data.renderService.renderElementIntermediate(
+    const { props } = data.renderService.renderIntermediateElement(
       data.elementToRender,
-    ) as RenderOutput
+    ) as IRenderOutput
 
     expect(props).toMatchObject({
       prop03: 'prop03Value',
@@ -25,10 +24,10 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderElementIntermediate(
+    const { props } = data.renderService.renderIntermediateElement(
       data.elementToRender,
       extraProps,
-    ) as RenderOutput
+    ) as IRenderOutput
 
     const { someNode } = props as any
     const { findByText } = render(someNode)
@@ -46,10 +45,10 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderElementIntermediate(
+    const { props } = data.renderService.renderIntermediateElement(
       data.elementToRender,
       extraProps,
-    ) as RenderOutput
+    ) as IRenderOutput
 
     const { someNode } = props as any
     const { findByText } = render(someNode())
@@ -67,10 +66,10 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderElementIntermediate(
+    const { props } = data.renderService.renderIntermediateElement(
       data.elementToRender,
       extraProps,
-    ) as RenderOutput
+    ) as IRenderOutput
 
     const { someNode } = props as any
     const { findByText } = render(someNode({ text: 'new text' }))

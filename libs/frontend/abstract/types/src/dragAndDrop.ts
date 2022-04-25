@@ -1,10 +1,10 @@
-import { IIdentifiable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 
 export enum DragAndDropTypes {
   Component = 'component',
 }
 
-export interface ComponentItemType extends IIdentifiable {
+export interface ComponentItemType extends IEntity {
   key: string
   label: string
 }

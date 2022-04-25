@@ -1,30 +1,27 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { IModalService } from '@codelab/shared/abstract/core'
+import { IAtom, IModalService } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
-import { Atom } from './atom.model'
 
 @model('@codelab/AtomModalService')
 export class AtomModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<Atom>>>(ModalService),
-    props: {},
-  }))
-  implements IModalService<Ref<Atom>>
+  extends ExtendedModel(modelClass<ModalService<Ref<IAtom>>>(ModalService), {})
+  implements IModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>
 {
   @computed
   get atom() {
-    return this.metadata?.current ?? null
+    return this.metadata?.current
   }
 }
 
 @model('@codelab/AtomsModalService')
 export class AtomsModalService
   extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Array<Ref<Atom>>>>(ModalService),
+    baseModel: modelClass<ModalService<Array<Ref<IAtom>>>>(ModalService),
     props: {},
   }))
-  implements IModalService<Array<Ref<Atom>>>
+  implements IModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
 {
   @computed
   get atoms() {

@@ -1,14 +1,16 @@
-import { Tag } from '@codelab/frontend/modules/tag'
-import { AtomType, ITag } from '@codelab/shared/abstract/core'
-import { Ref } from 'mobx-keystone'
-import { WithAtomService } from '../../../store'
+import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import {
+  IAtomType,
+  IInterfaceTypeRef,
+  ITag,
+} from '@codelab/shared/abstract/core'
 
 export interface AtomRecord {
   id: string
   name: string
-  type: AtomType
+  type: IAtomType
   tags: Array<ITag>
-  apiId: string
+  apiId: IInterfaceTypeRef
 }
 
 export type LibraryColumnProps = {
@@ -21,7 +23,7 @@ export type PropsColumnProps = {
 
 export type ActionColumnProps = {
   atom: AtomRecord
-} & WithAtomService
+} & WithServices<ATOM_SERVICE>
 
 export type TagsColumnProps = {
   tags: Array<Ref<Tag>>

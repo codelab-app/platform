@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { AtomPropsCustomizer, PropsCustomizerFn } from '../types'
 
 const reactFragmentFn: PropsCustomizerFn = ({ props }) => {
@@ -11,6 +11,6 @@ const reactFragmentFn: PropsCustomizerFn = ({ props }) => {
 const htmlImageFn: PropsCustomizerFn = (input) => ({ src: '', alt: '' })
 
 export const htmlPropsCustomizer: AtomPropsCustomizer = {
-  [AtomType.ReactFragment]: reactFragmentFn,
-  [AtomType.HtmlImage]: htmlImageFn,
+  [IAtomType.ReactFragment]: reactFragmentFn,
+  [IAtomType.HtmlImage]: htmlImageFn,
 }

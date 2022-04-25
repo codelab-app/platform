@@ -33,7 +33,8 @@ module.exports = async ({ config, mode }) => {
       test: /\.(png|jpe?g|gif|webp)$/,
       loader: require.resolve('url-loader'),
       options: {
-        limit: 10000, // 10kB
+        // 10kB
+        limit: 10000,
         name: '[name].[hash:7].[ext]',
       },
     },
@@ -57,7 +58,8 @@ module.exports = async ({ config, mode }) => {
             {
               loader: require.resolve('url-loader'),
               options: {
-                limit: 10000, // 10kB
+                // 10kB
+                limit: 10000,
                 name: '[name].[hash:7].[ext]',
                 esModule: false,
               },
@@ -70,7 +72,8 @@ module.exports = async ({ config, mode }) => {
             {
               loader: require.resolve('url-loader'),
               options: {
-                limit: 10000, // 10kB
+                // 10kB
+                limit: 10000,
                 name: '[name].[hash:7].[ext]',
               },
             },

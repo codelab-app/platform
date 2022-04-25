@@ -1,33 +1,27 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { computed } from 'mobx'
 import {
-  ExtendedModel,
-  Model,
-  model,
-  modelClass,
-  prop,
-  Ref,
-} from 'mobx-keystone'
-import { Field, InterfaceType } from './models'
-
-@model('@codelab/FieldModalMetadata')
-export class FieldModalMetadata extends Model({
-  field: prop<Ref<Field>>(),
-  interface: prop<Ref<InterfaceType>>(),
-}) {}
+  IFieldModalMetadata,
+  IFieldModalProperties,
+  IModalService,
+} from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/FieldModalService')
-export class FieldModalService extends ExtendedModel(
-  modelClass<ModalService<FieldModalMetadata>>(ModalService),
-  {},
-) {
+export class FieldModalService
+  extends ExtendedModel(
+    modelClass<ModalService<IFieldModalMetadata>>(ModalService),
+    {},
+  )
+  implements IModalService<IFieldModalMetadata, IFieldModalProperties>
+{
   @computed
   get interface() {
-    return this.metadata?.interface?.current ?? null
+    return this.metadata?.interface?.current
   }
 
   @computed
   get field() {
-    return this.metadata?.field?.current ?? null
+    return this.metadata?.field?.current
   }
 }

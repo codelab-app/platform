@@ -312,6 +312,7 @@
     "glob": "7.2.0",
     "inquirer": "^8.2.2",
     "jest": "27.5.1",
+    "jest-transform-stub": "^2.0.0",
     "json-schema": "0.4.0",
     "lint-staged": "12.1.7",
     "loader-utils": "3.2.0",

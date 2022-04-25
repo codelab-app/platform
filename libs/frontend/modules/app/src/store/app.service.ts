@@ -21,10 +21,6 @@ import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 
-export type WithAppService = {
-  appService: AppService
-}
-
 @model('@codelab/AppService')
 export class AppService
   extends Model({
@@ -107,18 +103,14 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: AppService,
-    input: ICreateAppDTO,
-    ownerId: string,
-  ) {
+  create = _async(function* (this: AppService, input: ICreateAppDTO) {
     const {
       createApps: { apps },
     } = yield* _await(
       appApi.CreateApps({
         input: {
           name: input.name,
-          owner: { connect: { where: { node: { auth0Id: ownerId } } } },
+          owner: { connect: { where: { node: { auth0Id: input.auth0Id } } } },
           store: input.storeId
             ? { connect: { where: { node: { id: input.storeId } } } }
             : undefined,

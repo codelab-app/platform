@@ -3,14 +3,16 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
+import { APP_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IApp } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
-import { App, appRef, WithAppService } from '../../store'
+import { appRef } from '../../store'
 
 export type ItemMenuProps = {
-  app: App
-} & WithAppService
+  app: IApp
+} & WithServices<APP_SERVICE>
 
 const menuItemStyle: CSSProperties = {
   display: 'flex',
@@ -25,8 +27,8 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
-  const onEditClick = () => appService.updateModal.open(appRef(app))
-  const onDeleteClick = () => appService.deleteModal.open(appRef(app))
+  const onEditClick = () => appService.updateModal.open(appRef(app.id))
+  const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
 
   const actionsMenu = (
     <Menu>

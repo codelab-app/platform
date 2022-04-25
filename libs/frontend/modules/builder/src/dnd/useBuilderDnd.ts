@@ -1,11 +1,14 @@
-import { elementRef, ElementService } from '@codelab/frontend/modules/element'
+import { elementRef } from '@codelab/frontend/modules/element'
+import {
+  BuilderDndType,
+  BuilderDragData,
+  IBuilderService,
+  IElementService,
+} from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
 import { useCallback } from 'react'
-import { BuilderService } from '../store/BuilderService'
-import { BuilderDndType } from './BuilderDndType'
-import { BuilderDragData } from './BuilderDragData'
 
 export interface UseBuilderDnd {
   onDragStart: (data: DragStartEvent) => void
@@ -13,8 +16,8 @@ export interface UseBuilderDnd {
 }
 
 export const useBuilderDnd = (
-  builderService: BuilderService,
-  elementService: ElementService,
+  builderService: IBuilderService,
+  elementService: IElementService,
 ): UseBuilderDnd => {
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
@@ -45,8 +48,8 @@ export const useBuilderDnd = (
           ...(overData?.createElementInput ?? {}),
         }
 
-        const el = await elementService.createElement(createElementInput)
-        builderService.setSelectedElement(elementRef(el))
+        const el = await elementService.create(createElementInput)
+        builderService.set_selectedElement(elementRef(el.id))
       }
     },
     [builderService, elementService],

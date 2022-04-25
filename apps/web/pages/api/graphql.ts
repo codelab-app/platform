@@ -3,7 +3,7 @@ import {
   generateOgmTypes,
   getDriver,
   getSchema,
-  UserModel,
+  UserOGM,
 } from '@codelab/backend'
 import { ApolloServer } from 'apollo-server-micro'
 import { get } from 'env-var'
@@ -89,7 +89,7 @@ const handler: NextApiHandler = async (req, res) => {
    */
   if (session?.user) {
     const user = session.user
-    const User = await UserModel()
+    const User = await UserOGM()
 
     const [existing] = await User.find({
       where: {
@@ -102,7 +102,7 @@ const handler: NextApiHandler = async (req, res) => {
     } else {
       try {
         const { users } = await (
-          await UserModel()
+          await UserOGM()
         ).create({
           input: [
             {
@@ -111,11 +111,11 @@ const handler: NextApiHandler = async (req, res) => {
             },
           ],
         })
+
+        console.log('Created', users)
       } catch (e) {
         console.error(e)
       }
-
-      // console.log('Created', users)
     }
   }
 

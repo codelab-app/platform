@@ -1,3 +1,8 @@
+import {
+  ACTION_SERVICE,
+  STORE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateActionDTO } from '@codelab/shared/abstract/core'
@@ -5,39 +10,43 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useCurrentStore } from '../../../hooks'
-import { WithActionService, WithStoreService } from '../../../store'
 import { createActionSchema } from './createActionSchema'
 
-type CreateActionModalProp = WithActionService & WithStoreService
+export const CreateActionModal = observer<
+  WithServices<ACTION_SERVICE | STORE_SERVICE>
+>(({ actionService, storeService }) => {
+  const { store } = useCurrentStore(storeService)
+  const closeModal = () => actionService.createModal.close()
 
-export const CreateActionModal = observer<CreateActionModalProp>(
-  ({ actionService, storeService }) => {
-    const { store } = useCurrentStore(storeService)
-    const closeModal = () => actionService.createModal.close()
+  const onSubmit = (input: ICreateActionDTO) => {
+    const storeId = store?.id
 
-    const onSubmit = (input: ICreateActionDTO) =>
-      actionService.create(input, store?.id)
+    if (!storeId) {
+      throw new Error('Missing storeId')
+    }
 
-    const onSubmitError = createNotificationHandler({
-      title: 'Error while creating action',
-    })
+    return actionService.create({ ...input, storeId: store?.id })
+  }
 
-    return (
-      <ModalForm.Modal
-        okText="Create Action"
-        onCancel={closeModal}
-        visible={actionService.createModal.isOpen}
+  const onSubmitError = createNotificationHandler({
+    title: 'Error while creating action',
+  })
+
+  return (
+    <ModalForm.Modal
+      okText="Create Action"
+      onCancel={closeModal}
+      visible={actionService.createModal.isOpen}
+    >
+      <ModalForm.Form
+        model={{}}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeModal}
+        schema={createActionSchema}
       >
-        <ModalForm.Form
-          model={{}}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={closeModal}
-          schema={createActionSchema}
-        >
-          <AutoFields omitFields={['storeId']} />
-        </ModalForm.Form>
-      </ModalForm.Modal>
-    )
-  },
-)
+        <AutoFields omitFields={['storeId']} />
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})

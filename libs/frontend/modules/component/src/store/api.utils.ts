@@ -4,9 +4,8 @@ import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
 
 export const mapCreateInput = (
   input: ICreateComponentDTO,
-  auth0Id: string,
 ): ComponentCreateInput => {
-  const { name } = input
+  const { name, auth0Id } = input
 
   const rootElement: ComponentCreateInput['rootElement'] = {
     create: { node: { name: ROOT_ELEMENT_NAME } },

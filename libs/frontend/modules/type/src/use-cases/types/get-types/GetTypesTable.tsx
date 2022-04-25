@@ -1,4 +1,5 @@
 import { RightCircleOutlined } from '@ant-design/icons'
+import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
@@ -13,7 +14,7 @@ import { arraySet } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useGetAllTypesQuery } from '../../../hooks'
-import { typeRef, WithTypeService } from '../../../store'
+import { typeRef } from '../../../store'
 
 interface CellData {
   name: string
@@ -21,79 +22,81 @@ interface CellData {
   id: string
 }
 
-export const GetTypesTable = observer<WithTypeService>(({ typeService }) => {
-  const { data, isLoading } = useGetAllTypesQuery(undefined, typeService)
+export const GetTypesTable = observer<WithServices<TYPE_SERVICE>>(
+  ({ typeService }) => {
+    const { data, isLoading } = useGetAllTypesQuery(undefined, typeService)
 
-  const columns: ColumnsType<CellData> = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('name'),
-    },
-    {
-      title: 'Kind',
-      dataIndex: 'typeKind',
-      key: 'typeKind',
-      onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('typeKind'),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      onHeaderCell: headerCellProps,
-      width: 100,
-      render: (text, record) => (
-        <Space size="middle">
-          {record.typeKind === 'InterfaceType' ? (
-            <Link
-              href={PageType.InterfaceDetail.replace(
-                '[interfaceId]',
-                record.id,
-              )}
-            >
-              <RightCircleOutlined />
-            </Link>
-          ) : null}
-          <ListItemEditButton
-            onClick={() => {
-              typeService.updateModal.open(typeRef(record.id))
-            }}
-          />
-          <ListItemDeleteButton
-            onClick={() => typeService.deleteModal.open(typeRef(record.id))}
-          />
-        </Space>
-      ),
-    },
-  ]
+    const columns: ColumnsType<CellData> = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        onHeaderCell: headerCellProps,
+        ...useColumnSearchProps('name'),
+      },
+      {
+        title: 'Kind',
+        dataIndex: 'typeKind',
+        key: 'typeKind',
+        onHeaderCell: headerCellProps,
+        ...useColumnSearchProps('typeKind'),
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        onHeaderCell: headerCellProps,
+        width: 100,
+        render: (text, record) => (
+          <Space size="middle">
+            {record.typeKind === 'InterfaceType' ? (
+              <Link
+                href={PageType.InterfaceDetail.replace(
+                  '[interfaceId]',
+                  record.id,
+                )}
+              >
+                <RightCircleOutlined />
+              </Link>
+            ) : null}
+            <ListItemEditButton
+              onClick={() => {
+                typeService.updateModal.open(typeRef(record.id))
+              }}
+            />
+            <ListItemDeleteButton
+              onClick={() => typeService.deleteModal.open(typeRef(record.id))}
+            />
+          </Space>
+        ),
+      },
+    ]
 
-  const rowSelection: TableRowSelection<CellData> = {
-    type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<CellData>) => {
-      typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
-    },
-  }
+    const rowSelection: TableRowSelection<CellData> = {
+      type: 'checkbox',
+      onChange: (_: Array<React.Key>, selectedRows: Array<CellData>) => {
+        typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
+      },
+    }
 
-  // Manually build the data for the table because Table is not reactive and
-  // this way we ensure it will get re-rendered properly on updates
-  const dataSource: Array<CellData> =
-    data?.map((t) => ({
-      id: t.id,
-      name: t.name,
-      typeKind: t.kind,
-    })) ?? []
+    // Manually build the data for the table because Table is not reactive and
+    // this way we ensure it will get re-rendered properly on updates
+    const dataSource: Array<CellData> =
+      data?.map((t) => ({
+        id: t.id,
+        name: t.name,
+        typeKind: t.kind,
+      })) ?? []
 
-  return (
-    <Table<CellData>
-      columns={columns}
-      dataSource={dataSource}
-      loading={isLoading}
-      pagination={{ position: ['bottomCenter'] }}
-      rowKey={(type) => type.id}
-      rowSelection={rowSelection}
-      size="small"
-    />
-  )
-})
+    return (
+      <Table<CellData>
+        columns={columns}
+        dataSource={dataSource}
+        loading={isLoading}
+        pagination={{ position: ['bottomCenter'] }}
+        rowKey={(type) => type.id}
+        rowSelection={rowSelection}
+        size="small"
+      />
+    )
+  },
+)

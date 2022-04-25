@@ -26,7 +26,6 @@ const UploadFieldInternal = (props: UploadFieldProps) =>
         }
 
         if (status === 'done') {
-          console.log(info.file)
           props.onChange(info.file as any)
         }
       }}

@@ -5,12 +5,10 @@ export const useHookWithRefCallback = () => {
 
   const setRef = useCallback((node) => {
     if (ref.current) {
-      console.log('has current ref')
       // Make sure to cleanup any events/references added to the last instance
     }
 
     if (node) {
-      console.log('has node')
       // Check if a node is actually passed. Otherwise node would be null.
       // You can now do what you need to, addEventListeners, measure, etc.
     }

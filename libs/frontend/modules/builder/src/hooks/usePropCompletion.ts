@@ -1,7 +1,10 @@
-import { IPropData } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElementRef,
+  IPropData,
+} from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isObjectLike } from 'lodash'
-import { BuilderService } from '../store'
 
 /**
  * Provides a callback that takes in a search input value and a target element id
@@ -9,8 +12,8 @@ import { BuilderService } from '../store'
  * If the element hasn't been rendered it returns an empty array
  * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
  */
-export const usePropCompletion = (builderService: BuilderService) => {
-  const providePropCompletion = (value: string, elementId: string) => {
+export const usePropCompletion = (builderService: IBuilderService) => {
+  const providePropCompletion = (value: string, elementId: IElementRef) => {
     const element = builderService.builderRenderer.tree?.element(elementId)
 
     if (!element) {
@@ -18,7 +21,7 @@ export const usePropCompletion = (builderService: BuilderService) => {
     }
 
     const renderOutput =
-      builderService.builderRenderer.renderElementIntermediate(element)
+      builderService.builderRenderer.renderIntermediateElement(element)
 
     if (!renderOutput) {
       return []

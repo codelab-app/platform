@@ -1,5 +1,9 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import { IPropData, IPropMapBindingDTO } from '@codelab/shared/abstract/core'
+import {
+  IPropData,
+  IPropMapBinding,
+  IPropMapBindingDTO,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
@@ -18,12 +22,18 @@ const hydrate = (fragment: IPropMapBindingDTO) => {
 }
 
 @model('@codelab/PropMapBinding')
-export class PropMapBinding extends Model({
-  id: idProp,
-  targetElement: prop<Nullable<Ref<Element>>>(), // if null -> target is current element
-  sourceKey: prop<string>(), // '*' binds all incoming props
-  targetKey: prop<string>(), // '*' spreads all props
-}) {
+export class PropMapBinding
+  extends Model({
+    id: idProp,
+    // if null -> target is current element
+    targetElement: prop<Nullable<Ref<Element>>>(),
+    // '*' binds all incoming props
+    sourceKey: prop<string>(),
+    // '*' spreads all props
+    targetKey: prop<string>(),
+  })
+  implements IPropMapBinding
+{
   @modelAction
   updateCache(fragment: IPropMapBindingDTO) {
     this.id = fragment.id

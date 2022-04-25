@@ -52,15 +52,15 @@ export const useColumnSearchProps = (dataIndex: string) => {
           value={selectedKeys[0]}
         />
         <Space>
-          {/* <Button*/}
-          {/*  type="primary"*/}
-          {/*  onClick={() => handleSearch(selectedKeys, confirm)}*/}
-          {/*  icon={<SearchOutlined />}*/}
-          {/*  size="small"*/}
-          {/*  style={{ width: 90 }}*/}
-          {/* >*/}
-          {/*  Search*/}
-          {/* </Button>*/}
+          {/* <Button */}
+          {/*  type="primary" */}
+          {/*  onClick={() => handleSearch(selectedKeys, confirm)} */}
+          {/*  icon={<SearchOutlined />} */}
+          {/*  size="small" */}
+          {/*  style={{ width: 90 }} */}
+          {/* > */}
+          {/*  Search */}
+          {/* </Button> */}
           <Button
             onClick={() => handleReset(clearFilters)}
             size="small"
@@ -68,19 +68,19 @@ export const useColumnSearchProps = (dataIndex: string) => {
           >
             Reset
           </Button>
-          {/* <Button*/}
-          {/*  type="link"*/}
-          {/*  size="small"*/}
-          {/*  onClick={() => {*/}
-          {/*    confirm({ closeDropdown: false })*/}
-          {/*    setState({*/}
-          {/*      searchText: selectedKeys[0] as string,*/}
-          {/*      searchedColumn: dataIndex,*/}
-          {/*    })*/}
-          {/*  }}*/}
-          {/* >*/}
-          {/*  Filter*/}
-          {/* </Button>*/}
+          {/* <Button */}
+          {/*  type="link" */}
+          {/*  size="small" */}
+          {/*  onClick={() => { */}
+          {/*    confirm({ closeDropdown: false }) */}
+          {/*    setState({ */}
+          {/*      searchText: selectedKeys[0] as string, */}
+          {/*      searchedColumn: dataIndex, */}
+          {/*    }) */}
+          {/*  }} */}
+          {/* > */}
+          {/*  Filter */}
+          {/* </Button> */}
         </Space>
       </div>
     ),

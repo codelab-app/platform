@@ -1,15 +1,16 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   EmotionCssEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Element, WithElementService } from '../store'
 
-export interface ElementCssEditorInternalProps extends WithElementService {
-  element: Element
+export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
   trackPromises?: UseTrackLoadingPromises
 }
 
@@ -35,15 +36,19 @@ export const ElementCssEditor = observer(
     )
 
     useEffect(() => {
-      // Make sure the new string is saved when unmounting the component
-      // because if the panel is closed too quickly, the autosave won't catch the latest changes
+      /*
+       * Make sure the new string is saved when unmounting the component
+       * because if the panel is closed too quickly, the autosave won't catch the latest changes
+       */
       return () => {
         updateCss(cssStringRef.current).then()
       }
     }, [updateCss])
 
-    // Debounce autosave, otherwise it will be too quick
-    // Getting a dgraph  error if this is too fast, like 500ms
+    /*
+     * Debounce autosave, otherwise it will be too quick
+     * Getting a dgraph  error if this is too fast, like 500ms
+     */
     const [cssDebounced, setCssDebounced] = useDebouncedState(1000, cssString)
 
     useEffect(() => {

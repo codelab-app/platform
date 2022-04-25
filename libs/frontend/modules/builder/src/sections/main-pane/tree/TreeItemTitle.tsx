@@ -1,4 +1,4 @@
-import { WithElementService } from '@codelab/frontend/modules/element'
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { DataNode } from 'antd/lib/tree'
@@ -7,7 +7,7 @@ import { useState } from 'react'
 import tw from 'twin.macro'
 import { TreeItemDropDownOverlay } from './TreeItemDropDownOverlay'
 
-interface TreeItemTitleProps extends WithElementService {
+type TreeItemTitleProps = WithServices<ELEMENT_SERVICE> & {
   node: DataNode
 }
 

@@ -1,7 +1,8 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ActionWhere } from '@codelab/shared/abstract/codegen'
 import {
   IActionDTO,
+  IActionService,
   ICreateActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
@@ -23,18 +24,17 @@ import { actionApi } from './action.api'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
 
-export type WithActionService = {
-  actionService: ActionService
-}
-
 @model('@codelab/ActionService')
-export class ActionService extends Model({
-  actions: prop(() => objectMap<Action>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new ActionModalService({})),
-  deleteModal: prop(() => new ActionModalService({})),
-  selectedActions: prop(() => Array<Ref<Action>>()).withSetter(),
-}) {
+export class ActionService
+  extends Model({
+    actions: prop(() => objectMap<Action>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new ActionModalService({})),
+    deleteModal: prop(() => new ActionModalService({})),
+    selectedActions: prop(() => Array<Ref<Action>>()).withSetter(),
+  })
+  implements IActionService
+{
   actionsList(storeId: Nullish<string>) {
     const actions = [...this.actions.values()]
 
@@ -118,11 +118,9 @@ export class ActionService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: ActionService,
-    input: ICreateActionDTO,
-    storeId: Nullish<string>,
-  ) {
+  create = _async(function* (this: ActionService, input: ICreateActionDTO) {
+    const { storeId } = input
+
     const { createActions } = yield* _await(
       actionApi.CreateActions({
         input: {
@@ -150,6 +148,8 @@ export class ActionService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: ActionService, id: string) {
+    const existing = throwIfUndefined(this.actions.get(id))
+
     if (this.actions.has(id)) {
       this.actions.delete(id)
     }
@@ -163,7 +163,7 @@ export class ActionService extends Model({
       throw new Error('Action was not deleted')
     }
 
-    return deleteActions
+    return existing
   })
 }
 

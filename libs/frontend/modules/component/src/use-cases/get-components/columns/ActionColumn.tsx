@@ -5,30 +5,28 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { IComponentService } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import {
-  componentRef,
-  ComponentService,
-} from '../../../store/component.service'
+import { componentRef } from '../../../store'
 import { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {
   component: ComponentColumnData
-  componentStore: ComponentService
+  componentService: IComponentService
 }
 
 export const ActionColumn = observer<ActionColumnProps>(
-  ({ component, componentStore }) => {
+  ({ component, componentService }) => {
     const router = useRouter()
 
     const onEdit = () => {
-      componentStore.updateModal.open(componentRef(component.id))
+      componentService.updateModal.open(componentRef(component.id))
     }
 
     const onDelete = () => {
-      componentStore.deleteModal.open(componentRef(component.id))
+      componentService.deleteModal.open(componentRef(component.id))
     }
 
     const onBuilder = () => {

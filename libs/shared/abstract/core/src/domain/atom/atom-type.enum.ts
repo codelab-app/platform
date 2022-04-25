@@ -1,5 +1,11 @@
-export enum AtomType {
-  // Hooks
+import { AtomType } from '@codelab/shared/abstract/codegen'
+
+/**
+ * We create the enum here then import into Neo4j graphql schema so we can get linting
+ *
+ * @deprecated Don't import this for use, use IAtomType instead
+ */
+export enum __AtomType {
   HookQueryLambda = 'HookQueryLambda',
   HookQueryConfig = 'HookQueryConfig',
   HookGraphqlQuery = 'HookGraphqlQuery',
@@ -291,7 +297,8 @@ export enum AtomType {
   //
   // Custom:
   //
-  Query = 'Query', // TODO: need to remove
+  // TODO: need to remove
+  Query = 'Query',
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',
@@ -380,19 +387,4 @@ export enum AtomType {
   HtmlSup = 'HtmlSup',
 }
 
-export const hookTypes = new Set([
-  AtomType.HookGraphqlQuery,
-  AtomType.HookGraphqlMutation,
-  AtomType.HookQueryPage,
-  AtomType.HookQueryPages,
-  AtomType.HookRecoilState,
-  AtomType.HookQueryConfig,
-  AtomType.HookQueryLambda,
-  AtomType.HookRouter,
-])
-
-export const filterNotHookType = (atom: AtomType | string) =>
-  !hookTypes.has(atom as AtomType)
-
-export const isAtomTypeForTest = (atom: AtomType) =>
-  [AtomType.AntDesignButton, AtomType.AntDesignCard].includes(atom)
+export { AtomType as IAtomType }

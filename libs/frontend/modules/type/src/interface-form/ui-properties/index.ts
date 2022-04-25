@@ -1,4 +1,4 @@
-import { IAnyType, IType, ITypeKind } from '@codelab/shared/abstract/core'
+import { IAnyType, ITypeKind, ITypeOf } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 import { appTypeUiProperties } from './appTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
@@ -9,7 +9,7 @@ import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
 
 type UniformsPropertiesContainer = Partial<{
-  [TKind in ITypeKind]: UiPropertiesFn<IType<TKind>>
+  [TKind in ITypeKind]: UiPropertiesFn<ITypeOf<TKind>>
 }>
 
 // Handles all 'ui' json schema properties that should be added for specific types

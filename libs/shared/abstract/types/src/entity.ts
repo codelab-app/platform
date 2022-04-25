@@ -1,5 +1,3 @@
-export interface IIdentifiable {
+export interface IEntity {
   id: string
 }
-
-export type IEntity = IIdentifiable

@@ -1,8 +1,8 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 
 const atomName = 'Button'
-const atomType = AtomType.AntDesignButton
+const atomType = IAtomType.AntDesignButton
 const updatedAtomName = 'Button updated'
 
 describe('Atoms CRUD', () => {

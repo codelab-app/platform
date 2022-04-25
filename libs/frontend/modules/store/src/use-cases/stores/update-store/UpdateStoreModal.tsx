@@ -1,14 +1,14 @@
+import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { IUpdateStoreDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithStoreService } from '../../../store'
 import { DisplayIfParent } from '../create-store/DisplayIfParent'
 import { updateStoreSchema } from './updateStoreSchema'
 
-export const UpdateStoreModal = observer<WithStoreService>(
+export const UpdateStoreModal = observer<WithServices<STORE_SERVICE>>(
   ({ storeService }) => {
     const closeModal = () => storeService.updateModal.close()
     const updateStore = storeService.updateModal.store

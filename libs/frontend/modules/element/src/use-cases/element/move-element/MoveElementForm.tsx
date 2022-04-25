@@ -1,19 +1,19 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IElement, MoveData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { Element, WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { moveElementSchema } from './moveElementSchema'
-import { MoveData } from './types'
 
-export interface MoveElementFormProps extends WithElementService {
-  element: Element
+export type MoveElementFormProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
   trackPromises?: UseTrackLoadingPromises
 }
 

@@ -1,10 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { elementRef, WithElementService } from '../../../store'
+import { elementRef } from '../../../store'
 
-export interface CreateElementButtonProps extends WithElementService {
+export type CreateElementButtonProps = WithServices<ELEMENT_SERVICE> & {
   parentElementId?: string
 }
 

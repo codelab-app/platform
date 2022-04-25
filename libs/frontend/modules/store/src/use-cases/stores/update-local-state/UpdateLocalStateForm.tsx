@@ -1,8 +1,9 @@
 import {
-  InterfaceForm,
-  InterfaceType,
-  WithTypeService,
-} from '@codelab/frontend/modules/type'
+  STORE_SERVICE,
+  TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
+import { InterfaceForm, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
   useLoadingState,
@@ -13,10 +14,9 @@ import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { useCurrentStore } from '../../../hooks'
-import { WithStoreService } from '../../../store'
 
-export const UpdateLocalStateForm = observer<
-  WithStoreService & WithTypeService
+export const UpdateInitialStateForm = observer<
+  WithServices<STORE_SERVICE | TYPE_SERVICE>
 >(({ storeService, typeService }) => {
   const { store } = useCurrentStore(storeService)
 

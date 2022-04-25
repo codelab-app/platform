@@ -2,7 +2,7 @@ import { getComponentService } from '@codelab/frontend/modules/component'
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderContext } from '../renderServiceContext'
+import { getRenderService } from '../renderServiceContext'
 import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
 
 /**
@@ -29,7 +29,7 @@ export class ReactNodeTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderContext(this)
+    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     return (
@@ -39,7 +39,7 @@ export class ReactNodeTypedValueTransformer
   }
 
   public transform(value: TypedValue<any>): any {
-    const renderer = getRenderContext(this)
+    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     const rootElement = getComponentRootElementFromProp(

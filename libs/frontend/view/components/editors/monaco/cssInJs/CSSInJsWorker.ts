@@ -19,7 +19,8 @@ export class CSSInJsWorker extends CSSWorker {
   protected _languageId: string
 
   constructor(ctx: worker.IWorkerContext, createData: ICreateData) {
-    super(ctx, { ...createData, languageId: 'scss' }) // This loads the correct _languageService
+    // This loads the correct _languageService
+    super(ctx, { ...createData, languageId: 'scss' })
     this._ctx = ctx
     this._languageId = createData.languageId
   }
@@ -52,7 +53,8 @@ ${model.getValue()}
 
 export interface ICreateData {
   languageId: string
-  options: any // Options Don't know where to import this from
+  // Options Don't know where to import this from
+  options: any
 }
 
 export const create = (

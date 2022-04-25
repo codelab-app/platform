@@ -1,26 +1,29 @@
-import { WithAtomService } from '@codelab/frontend/modules/atom'
 import {
-  Element,
+  ATOM_SERVICE,
+  BUILDER_SERVICE,
+  ELEMENT_SERVICE,
+  TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
+import {
   ElementCssEditor,
   ElementHookSection,
   PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
-  WithElementService,
 } from '@codelab/frontend/modules/element'
-import { WithTypeService } from '@codelab/frontend/modules/type'
 import {
   LoadingIndicator,
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
-import { WithBuilderService } from '../../store/BuilderService'
 import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
@@ -65,13 +68,12 @@ const TabContainer = styled.div`
 
 export type MetaPaneBuilderProps = {
   renderUpdateElementContent: (
-    element: Element,
+    element: IElement,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
-} & WithTypeService &
-  WithAtomService &
-  WithBuilderService &
-  WithElementService
+} & WithServices<
+  TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
+>
 
 export const MetaPaneBuilder = observer(
   ({
@@ -81,7 +83,7 @@ export const MetaPaneBuilder = observer(
     atomService,
     elementService,
   }: MetaPaneBuilderProps) => {
-    const selectedElement = builderService.selectedElement?.current
+    const selectedElement = builderService.selectedElement
     const { providePropCompletion } = usePropCompletion(builderService)
     const trackPromises = useTrackLoadingPromises()
 
@@ -113,7 +115,8 @@ export const MetaPaneBuilder = observer(
             destroyInactiveTabPane
             key={selectedElement.id + '_tab2'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Props" // needed to update props if we change them in the prop inspector tab
+            // needed to update props if we change them in the prop inspector tab
+            tab="Props"
           >
             {selectedElement.atom ? (
               <UpdateElementPropsForm

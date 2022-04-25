@@ -1,8 +1,6 @@
 /* eslint-disable no-case-declarations */
 import execa from 'execa'
-import { readFileSync, writeFileSync } from 'fs'
 import { TaskEnv } from './env'
-import { formatCypher } from './format-cypher'
 import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
@@ -36,13 +34,12 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       // Format cypher files
       // Get all `*.cypher` files as input
 
-      const files = args?.split(',')
-
-      files?.forEach((file) => {
-        const content = readFileSync(file, 'utf8')
-
-        writeFileSync(file, formatCypher(content))
-      })
+      // const files = args?.split(',')
+      //
+      // files?.forEach((file) => {
+      //   const content = readFileSync(file, 'utf8')
+      //
+      // })
 
       break
 

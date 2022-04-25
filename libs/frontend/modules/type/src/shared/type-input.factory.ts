@@ -1,7 +1,10 @@
 import { EnumTypeAllowedValuesUpdateFieldInput } from '@codelab/shared/abstract/codegen'
-import { ICreateTypeDTO } from '@codelab/shared/abstract/core'
+import { IUpdateTypeDTO } from '@codelab/shared/abstract/core'
 
-export const makeTypesOfUnionTypeCreateInput = (type: ICreateTypeDTO) => {
+/**
+ * We use IUpdateTypeDTO since auth0Id isn't required here
+ */
+export const makeTypesOfUnionTypeCreateInput = (type: IUpdateTypeDTO) => {
   return {
     connect: type.unionTypeIds?.map((id) => ({
       where: { node: { id } },
@@ -10,7 +13,7 @@ export const makeTypesOfUnionTypeCreateInput = (type: ICreateTypeDTO) => {
 }
 
 export const makeAllowedValuesCreateInput = (
-  type: ICreateTypeDTO,
+  type: IUpdateTypeDTO,
 ): EnumTypeAllowedValuesUpdateFieldInput => {
   return {
     create: type.allowedValues?.map((av) => ({
@@ -19,7 +22,7 @@ export const makeAllowedValuesCreateInput = (
   }
 }
 
-export const makeItemTypeCreateInput = (type: ICreateTypeDTO) => {
+export const makeItemTypeCreateInput = (type: IUpdateTypeDTO) => {
   return type.arrayTypeId
     ? { connect: { where: { node: { id: type.arrayTypeId } } } }
     : {}

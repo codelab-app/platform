@@ -1,8 +1,8 @@
+import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import { useGetAllTypesQuery } from '../hooks'
-import { WithTypeService } from '../store'
 
 export type CreateTypeSelectOptions = (
   getTypesResult?: ReturnType<typeof useGetAllTypesQuery>,
@@ -12,7 +12,7 @@ export type TypeSelectProps = {
   name: string
   label: string
   createTypeOptions?: CreateTypeSelectOptions
-} & WithTypeService
+} & WithServices<TYPE_SERVICE>
 
 const defaultCreateTypeOptions: CreateTypeSelectOptions = (getTypesResult) =>
   getTypesResult?.data?.map((i: any) => ({

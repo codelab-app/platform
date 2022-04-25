@@ -1,7 +1,5 @@
-export * from './generate-ogm-types'
 export * from './infra'
-export * from './model'
-export type { App, Atom, Component, Element, Page } from './ogm-types.gen'
+export * from './repositories'
 export * from './resolvers'
 export * from './schema'
 export * from './selectionSets'

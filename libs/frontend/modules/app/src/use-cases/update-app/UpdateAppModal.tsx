@@ -1,13 +1,19 @@
+import {
+  APP_SERVICE,
+  USER_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { IUpdateAppDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithAppService } from '../../store'
 import { updateAppSchema } from './updateAppSchema'
 
-export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
+export const UpdateAppModal = observer<
+  WithServices<APP_SERVICE | USER_SERVICE>
+>(({ appService, userService }) => {
   const app = appService.updateModal.app
 
   if (!app) {
@@ -17,8 +23,13 @@ export const UpdateAppModal = observer<WithAppService>(({ appService }) => {
   const onSubmit = (input: IUpdateAppDTO) => appService.update(app, input)
   const closeModal = () => appService.updateModal.close()
 
+  if (!userService?.user) {
+    throw new Error('Missing user for update app')
+  }
+
   const model = {
     name: app?.name,
+    ownerId: userService?.user.auth0Id,
     storeId: app?.store?.id,
   }
 

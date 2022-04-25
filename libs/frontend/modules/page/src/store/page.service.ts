@@ -31,10 +31,6 @@ export const pageRef = rootRef<Page>('@codelab/PageRef', {
   },
 })
 
-export type WithPageService = {
-  pageService: PageService
-}
-
 @model('@codelab/PageService')
 export class PageService
   extends Model({

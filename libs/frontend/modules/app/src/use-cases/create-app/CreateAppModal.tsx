@@ -1,22 +1,21 @@
-import { useUser } from '@auth0/nextjs-auth0'
+import type {
+  APP_SERVICE,
+  USER_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateAppDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithAppService } from '../../store'
 import { createAppSchema } from './createAppSchema'
 
-export const CreateAppModal = observer<WithAppService>(({ appService }) => {
-  const { user } = useUser()
-
+export const CreateAppModal = observer<
+  WithServices<APP_SERVICE | USER_SERVICE>
+>(({ appService, userService }) => {
   const onSubmit = (input: ICreateAppDTO) => {
-    if (!user?.sub) {
-      throw new Error('Missing user sub')
-    }
-
-    return appService.create({ ...input }, user?.sub)
+    return appService.create({ ...input })
   }
 
   const closeModal = () => appService.createModal.close()
@@ -28,7 +27,9 @@ export const CreateAppModal = observer<WithAppService>(({ appService }) => {
       visible={appService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{}}
+        model={{
+          auth0Id: userService.user?.auth0Id,
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating app',

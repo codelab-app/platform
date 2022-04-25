@@ -1,41 +1,43 @@
+import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithPageService } from '../../store'
 
-export const DeletePageModal = observer<WithPageService>(({ pageService }) => {
-  const deletingPage = pageService.deleteModal.page
-  const isOpen = pageService.deleteModal.isOpen
-  const closeModal = () => pageService.deleteModal.close()
+export const DeletePageModal = observer<WithServices<PAGE_SERVICE>>(
+  ({ pageService }) => {
+    const deletingPage = pageService.deleteModal.page
+    const isOpen = pageService.deleteModal.isOpen
+    const closeModal = () => pageService.deleteModal.close()
 
-  if (!deletingPage) {
-    return null
-  }
+    if (!deletingPage) {
+      return null
+    }
 
-  const onSubmit = () => pageService.delete(deletingPage.id)
+    const onSubmit = () => pageService.delete(deletingPage.id)
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while deleting page',
-  })
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while deleting page',
+    })
 
-  return (
-    <ModalForm.Modal
-      okText="Delete Page"
-      onCancel={closeModal}
-      visible={isOpen}
-    >
-      <ModalForm.Form
-        model={{}}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        onSubmitSuccess={closeModal}
-        schema={emptyJsonSchema}
+    return (
+      <ModalForm.Modal
+        okText="Delete Page"
+        onCancel={closeModal}
+        visible={isOpen}
       >
-        <h4>Are you sure you want to delete page "{deletingPage.name}"?</h4>
-        <AutoFields />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={closeModal}
+          schema={emptyJsonSchema}
+        >
+          <h4>Are you sure you want to delete page "{deletingPage.name}"?</h4>
+          <AutoFields />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

@@ -3,21 +3,19 @@ import {
   DatabaseOutlined,
   PartitionOutlined,
 } from '@ant-design/icons'
+import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   sidebarNavContainerStyle,
   SidebarNavigation,
   SidebarNavigationContainer,
 } from '@codelab/frontend/view/templates'
+import { BuilderTab } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { WithBuilderService } from '../../store/BuilderService'
-import { BuilderTab } from '../../store/BuilderTab'
 
-export type BuilderSidebarNavigationProps = WithBuilderService
-
-export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
+export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
   ({ builderService }) => {
     return (
       <div

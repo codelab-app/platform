@@ -1,5 +1,11 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
+  ACTION_SERVICE,
+  STORE_SERVICE,
+  TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
+import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
@@ -23,7 +29,6 @@ import {
   WithStoreResourceService,
   WithStoreService,
 } from '@codelab/frontend/modules/store'
-import { WithTypeService } from '@codelab/frontend/modules/type'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -36,6 +41,7 @@ import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
+const LocalStatePage = observer<WithServices<STORE_SERVICE | TYPE_SERVICE>>(
 const LocalStatePage = observer<WithStoreService & WithTypeService>(
   ({ storeService, typeService }) => (
     <>

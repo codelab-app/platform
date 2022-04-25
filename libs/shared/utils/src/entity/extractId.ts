@@ -1,3 +1,3 @@
-import { IIdentifiable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 
-export const extractId = (entity: IIdentifiable) => entity.id
+export const extractId = (entity: IEntity) => entity.id

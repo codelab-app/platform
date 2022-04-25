@@ -1,0 +1,29 @@
+{
+  "presets": [
+    "@nrwl/next/babel",
+    // Need to to use `css` property for tailwind
+    "@emotion/babel-preset-css-prop",
+    [
+      "@babel/preset-typescript",
+      {
+        // For mobx-keystone
+        "allowDeclareFields": true
+      }
+    ]
+  ],
+  "plugins": [
+    "@emotion",
+    "macros",
+    [
+      // For mobx-keystone
+      "@babel/plugin-proposal-decorators",
+      {
+        "version": "legacy"
+      }
+    ],
+    [
+      // For mobx-keystone
+      "@babel/plugin-proposal-class-properties"
+    ]
+  ]
+}

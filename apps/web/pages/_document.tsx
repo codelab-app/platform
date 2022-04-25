@@ -44,10 +44,10 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
           />
-          {/* <style*/}
-          {/*  data-emotion-css={this.props.ids.join(' ')}*/}
-          {/*  dangerouslySetInnerHTML={{ __html: this.props.css }}*/}
-          {/*/ >*/}
+          {/* <style */}
+          {/*  data-emotion-css={this.props.ids.join(' ')} */}
+          {/*  dangerouslySetInnerHTML={{ __html: this.props.css }} */}
+          {/*/ > */}
         </Head>
         <body>
           <Main />

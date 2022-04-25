@@ -1,6 +1,6 @@
-import { RenderOutput } from '../abstract/RenderOutput'
-import { LoopingRenderPipe } from '../renderPipes/LoopingRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { IRenderOutput } from '@codelab/shared/abstract/core'
+import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
+import { setupTestForRenderer } from './setup/setupTest'
 
 const initialProps = {
   data: [
@@ -12,17 +12,17 @@ const initialProps = {
 }
 
 describe('LoopingRenderPipe', () => {
-  const data = setupTestRenderData((next) => new LoopingRenderPipe({ next }))
+  const data = setupTestForRenderer((next) => new LoopingRenderPipe({ next }))
 
   beforeEach(() => {
     data.elementToRender.setRenderForEachPropKey('data')
   })
 
   it('should add renderForEachPropKey props', () => {
-    const output = data.renderService.renderElementIntermediate(
+    const output = data.renderService.renderIntermediateElement(
       data.elementToRender,
       initialProps,
-    ) as Array<RenderOutput>
+    ) as Array<IRenderOutput>
 
     const props = output.map((x) => x.props)
 

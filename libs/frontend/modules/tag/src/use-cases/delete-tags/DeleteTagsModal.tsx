@@ -1,43 +1,41 @@
+import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
-import { WithTagService } from '../../store'
 import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
 
-export const DeleteTagsModal = observer<WithTagService>(({ tagService }) => {
-  // const deleteTags = data?.tags
-  //   .filter((tag) => deleteIds?.includes(tag.id))
-  //   .map((tag) => tag.name)
-  //   .sort()
+export const DeleteTagsModal = observer<WithServices<TAG_SERVICE>>(
+  ({ tagService }) => {
+    const tags = tagService.deleteManyModal.tags
+    const onSubmit = () => tagService.deleteMany(tags.map((tag) => tag.id))
+    const closeModal = () => tagService.deleteManyModal.close()
 
-  const tags = tagService.deleteModal.tags
-  const onSubmit = () => tagService.delete(tags)
-  const closeModal = () => tagService.deleteModal.close()
-
-  return (
-    <ModalForm.Modal
-      okText="Delete Tags"
-      onCancel={closeModal}
-      title={<span css={tw`font-semibold`}>Delete tags</span>}
-      visible={tagService.deleteModal.isOpen}
-    >
-      <ModalForm.Form<DeleteTagsData>
-        model={{}}
-        onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
-          title: 'Error while deleting tags',
-        })}
-        onSubmitSuccess={closeModal}
-        schema={deleteTagsSchema}
+    return (
+      <ModalForm.Modal
+        okText="Delete Tags"
+        onCancel={closeModal}
+        title={<span css={tw`font-semibold`}>Delete tags</span>}
+        visible={tagService.deleteManyModal.isOpen}
       >
-        Are you sure you want to delete {tags.map((tag) => tag.name).join(', ')}
-        ?
-        <AutoFields omitFields={['ids']} />
-        <ListField hidden={true} itemProps={{}} name="ids" />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form<DeleteTagsData>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={createNotificationHandler({
+            title: 'Error while deleting tags',
+          })}
+          onSubmitSuccess={closeModal}
+          schema={deleteTagsSchema}
+        >
+          Are you sure you want to delete{' '}
+          {tags.map((tag) => tag.name).join(', ')}
+          ?
+          <AutoFields omitFields={['ids']} />
+          <ListField hidden={true} itemProps={{}} name="ids" />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

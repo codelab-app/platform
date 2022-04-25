@@ -26,7 +26,9 @@ export type IAnyType =
   | IUnionType
   | IMonacoType
 
-export type IType<TKind extends ITypeKind> = IAnyType extends {
+export type ITypeRef = string
+
+export type ITypeOf<TKind extends ITypeKind> = IAnyType extends {
   typeKind: TKind
 }
   ? IAnyType

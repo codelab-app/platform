@@ -7,19 +7,27 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',
   properties: {
-    name: {
-      type: 'string',
-      autoFocus: true,
-    },
-    body: {
-      type: 'string',
-      uniforms: {
+    ...{
+      name: {
+        type: 'string',
+        autoFocus: true,
+      },
+      body: {
+        type: 'string',
+        uniforms: {
         component: monacoFieldFactory({
-          editorOptions: { language: MonacoLanguage.typescript },
-          containerProps: { style: { height: '240px' } },
+          editorOptions: {
+            language: 'typescript',
+          },
+          containerProps: {
+            style: {
+              height: '240px',
+            },
+          },
         }),
+        }
       },
     },
   },
-  required: ['name', 'body'],
+  required: ['name', 'body', 'storeId'],
 } as const

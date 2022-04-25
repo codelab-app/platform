@@ -4,7 +4,7 @@ import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
 import { Driver } from 'neo4j-driver'
 import { resolvers } from '../resolvers'
-import typeDefs from './typeDefs'
+import { typeDefs } from './typeDefs'
 
 /**
  * `.` -> `\\.`

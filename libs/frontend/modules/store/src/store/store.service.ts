@@ -1,13 +1,14 @@
 import { getResourceService } from '@codelab/frontend/modules/resource'
 import { getTypeService } from '@codelab/frontend/modules/type'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAddStoreResourceDTO,
   ICreateStoreDTO,
   IStoreDTO,
+  IStoreService,
   IUpdateStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -31,17 +32,17 @@ import { storeApi } from './store.api'
 import { Store, storeRef } from './store.model'
 import { StoreModalService } from './store-modal.service'
 
-export type WithStoreService = {
-  storeService: StoreService
-}
 @model('@codelab/StoreService')
-export class StoreService extends Model({
-  stores: prop(() => objectMap<Store>()),
+export class StoreService
+  extends Model({
+    stores: prop(() => objectMap<Store>()),
 
-  createModal: prop(() => new StoreModalService({})),
-  updateModal: prop(() => new StoreModalService({})),
-  deleteModal: prop(() => new StoreModalService({})),
-}) {
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new StoreModalService({})),
+    deleteModal: prop(() => new StoreModalService({})),
+  })
+  implements IStoreService
+{
   @computed
   get antdTree() {
     return [...this.stores.values()]
@@ -101,7 +102,7 @@ export class StoreService extends Model({
       this.stores.set(store.id, Store.hydrate(store))
     })
 
-    return this.stores
+    return [...this.stores.values()]
   })
 
   @modelFlow
@@ -130,12 +131,10 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: StoreService,
-    input: ICreateStoreDTO,
-    ownerId: Nullish<string>,
-  ) {
-    if (!ownerId) {
+  create = _async(function* (this: StoreService, input: ICreateStoreDTO) {
+    const { auth0Id } = input
+
+    if (!auth0Id) {
       throw new Error('No owner id not provided')
     }
 
@@ -144,7 +143,7 @@ export class StoreService extends Model({
         stores: [createdStore],
       },
     } = yield* _await(
-      storeApi.CreateStores({ input: makeStoreCreateInput(input, ownerId) }),
+      storeApi.CreateStores({ input: makeStoreCreateInput(input, auth0Id) }),
     )
 
     if (!createdStore) {
@@ -156,7 +155,7 @@ export class StoreService extends Model({
     this.addStore(store)
     this.attachToParent(store)
 
-    return createdStore
+    return store
   })
 
   @modelAction
@@ -229,8 +228,10 @@ export class StoreService extends Model({
     const updatedStore = stores[0]
     const storeModel = Store.hydrate(updatedStore)
 
-    this.detachFromParent(store) // detach from old parent
-    this.attachToParent(storeModel) // attach to new parent
+    // detach from old parent
+    this.detachFromParent(store)
+    // attach to new parent
+    this.attachToParent(storeModel)
 
     this.stores.set(updatedStore.id, storeModel)
 

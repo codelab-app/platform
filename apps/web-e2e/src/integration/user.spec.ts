@@ -20,7 +20,8 @@ describe('User', () => {
           throw new Error('Email is not valid!')
         }
 
-        cy.findByLabelText('user').click() // the icon has a user label
+        // the icon has a user label
+        cy.findByLabelText('user').click()
         cy.contains('li', email).should('exist')
 
         cy.contains('a', 'Sign Out').click()

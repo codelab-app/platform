@@ -1,17 +1,17 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { updatedAppName, updatedPageName } from './app.data'
 
 const atoms = [
-  { name: AtomType.AntDesignGridCol, type: AtomType.AntDesignGridCol },
-  { name: AtomType.AntDesignGridRow, type: AtomType.AntDesignGridRow },
-  { name: AtomType.AntDesignButton, type: AtomType.AntDesignButton },
+  { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
+  { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
+  { name: IAtomType.AntDesignButton, type: IAtomType.AntDesignButton },
   {
-    name: AtomType.AntDesignTypographyText,
-    type: AtomType.AntDesignTypographyText,
+    name: IAtomType.AntDesignTypographyText,
+    type: IAtomType.AntDesignTypographyText,
   },
 ]
 
@@ -27,27 +27,27 @@ const elements = [
   { name: ELEMENT_ROW, parentElement: ELEMENT_CONTAINER },
   {
     name: ELEMENT_COL_A,
-    atom: AtomType.AntDesignGridCol,
+    atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
   },
   {
     name: ELEMENT_COL_B,
-    atom: AtomType.AntDesignGridCol,
+    atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
   },
   {
     name: ELEMENT_TEXT,
-    atom: AtomType.AntDesignTypographyText,
+    atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_COL_A,
   },
   {
     name: ELEMENT_BUTTON,
-    atom: AtomType.AntDesignButton,
+    atom: IAtomType.AntDesignButton,
     parentElement: ELEMENT_COL_B,
   },
   {
     name: ELEMENT_TEXT,
-    atom: AtomType.AntDesignTypographyText,
+    atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_BUTTON,
   },
 ]

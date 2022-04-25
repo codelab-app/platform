@@ -6,6 +6,10 @@ export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
   title: 'Create Store',
   type: 'object',
   properties: {
+    auth0Id: {
+      type: 'string',
+      format: 'hidden',
+    },
     name: {
       type: 'string',
       autoFocus: true,
@@ -30,5 +34,5 @@ export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
       required: ['key'],
     },
   },
-  required: ['name'],
+  required: ['name', 'auth0Id'],
 } as const

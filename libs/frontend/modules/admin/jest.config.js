@@ -1,4 +1,8 @@
-module.exports = {
+const {
+  modifyJestConfig,
+} = require('../../../../scripts/jest/modifyJestConfig')
+
+module.exports = modifyJestConfig({
   displayName: 'frontend-modules-admin',
   preset: '../../../../jest.preset.js',
   transform: {
@@ -6,4 +10,4 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/modules/admin',
-}
+})
