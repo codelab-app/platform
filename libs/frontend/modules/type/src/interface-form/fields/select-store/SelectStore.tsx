@@ -18,7 +18,7 @@ export const SelectStore = ({ name, error, where }: SelectStoreProps) => {
     interfaceFormApi.InterfaceForm_GetStores({ where }),
   )
 
-  const componentOptions =
+  const options =
     data?.stores.map((store) => ({ label: store.name, value: store.id })) ?? []
 
   return (
@@ -27,7 +27,7 @@ export const SelectStore = ({ name, error, where }: SelectStoreProps) => {
       loading={isLoading}
       name={name}
       optionFilterProp="label"
-      options={componentOptions}
+      options={options}
       showSearch={true}
     />
   )

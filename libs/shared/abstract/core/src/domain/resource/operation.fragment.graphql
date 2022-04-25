@@ -1,0 +1,11 @@
+fragment Operation on Operation {
+  __typename
+  id
+  name
+  resource {
+    id
+    name
+  }
+  runOnInit
+  config
+}

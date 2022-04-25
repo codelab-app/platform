@@ -13,7 +13,7 @@ export const storeSchema = gql`
     name: String!
     state: InterfaceType! @relationship(type: "STATE_OF_STORE", direction: OUT)
     actions: [Action!]! @relationship(type: "ACTION_OF_STORE", direction: OUT)
-    initialState: String! @default(value: "{}")
+    localState: String! @default(value: "{}")
     parentStore: Store
       @relationship(
         type: "PARENT_OF_STORE"
@@ -25,6 +25,13 @@ export const storeSchema = gql`
       @relationship(
         type: "PARENT_OF_STORE"
         properties: "ParentOfStore"
+        direction: OUT
+      )
+
+    resources: [Resource!]!
+      @relationship(
+        type: "STORE_RESOURCE"
+        properties: "StoreResource"
         direction: OUT
       )
 
@@ -43,6 +50,10 @@ export const storeSchema = gql`
 
   interface ParentOfStore @relationshipProperties {
     storeKey: String!
+  }
+
+  interface StoreResource @relationshipProperties {
+    resourceKey: String!
   }
 
   type DeleteInfo @exclude {

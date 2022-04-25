@@ -30,6 +30,15 @@ export type InterfaceForm_GetStoresQuery = {
   stores: Array<{ id: string; name: string }>
 }
 
+export type InterfaceForm_GetResourceQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ResourceOptions>
+  where?: Types.InputMaybe<Types.ResourceWhere>
+}>
+
+export type InterfaceForm_GetResourceQuery = {
+  resources: Array<{ id: string; name: string }>
+}
+
 export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ComponentOptions>
   where?: Types.InputMaybe<Types.ComponentWhere>
@@ -68,6 +77,17 @@ export const InterfaceForm_GetAtomsDocument = gql`
 export const InterfaceForm_GetStoresDocument = gql`
   query InterfaceForm_GetStores($options: StoreOptions, $where: StoreWhere) {
     stores(options: $options, where: $where) {
+      id
+      name
+    }
+  }
+`
+export const InterfaceForm_GetResourceDocument = gql`
+  query InterfaceForm_GetResource(
+    $options: ResourceOptions
+    $where: ResourceWhere
+  ) {
+    resources(options: $options, where: $where) {
       id
       name
     }
@@ -152,6 +172,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'InterfaceForm_GetStores',
+        'query',
+      )
+    },
+    InterfaceForm_GetResource(
+      variables?: InterfaceForm_GetResourceQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<InterfaceForm_GetResourceQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<InterfaceForm_GetResourceQuery>(
+            InterfaceForm_GetResourceDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'InterfaceForm_GetResource',
         'query',
       )
     },

@@ -1,5 +1,4 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
-import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
@@ -11,13 +10,9 @@ export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
       type: 'string',
       autoFocus: true,
     },
-    initialState: {
+    localState: {
       type: 'string',
       label: '',
-      component: monacoFieldFactory({
-        editorOptions: { language: 'json' },
-        containerProps: { style: { height: '240px' } },
-      }),
     },
     parentStore: {
       type: 'object',

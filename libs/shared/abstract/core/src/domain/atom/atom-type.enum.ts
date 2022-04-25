@@ -1,4 +1,5 @@
 export enum AtomType {
+  // Hooks
   HookQueryLambda = 'HookQueryLambda',
   HookQueryConfig = 'HookQueryConfig',
   HookGraphqlQuery = 'HookGraphqlQuery',

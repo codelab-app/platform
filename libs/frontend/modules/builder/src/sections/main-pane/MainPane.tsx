@@ -103,7 +103,7 @@ export const MainPane = observer<MainPaneProps>(
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MainPaneMobxState renderService={builderService.builderRenderer} />
+          <MainPaneMobxState builderService={builderService} />
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.Toolbox}>

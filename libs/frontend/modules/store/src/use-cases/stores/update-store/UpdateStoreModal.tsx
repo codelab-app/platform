@@ -18,7 +18,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
         throw new Error('Updated store is not set')
       }
 
-      return storeService.updateStore(updateStore, data)
+      return storeService.update(updateStore, data)
     }
 
     const onSubmitError = createNotificationHandler({
@@ -48,7 +48,7 @@ export const UpdateStoreModal = observer<WithStoreService>(
           onSubmitSuccess={closeModal}
           schema={updateStoreSchema}
         >
-          <AutoFields omitFields={['parentStore', 'initialState']} />
+          <AutoFields omitFields={['parentStore', 'localState']} />
           <AutoField
             name="parentStore.id"
             where={{ id_NOT: updateStore?.id }}

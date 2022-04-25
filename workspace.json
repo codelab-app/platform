@@ -17,6 +17,7 @@
     "frontend-modules-page": "libs/frontend/modules/page",
     "frontend-modules-prop": "libs/frontend/modules/prop",
     "frontend-modules-store": "libs/frontend/modules/store",
+    "frontend-modules-resource": "libs/frontend/modules/resource",
     "frontend-modules-style": "libs/frontend/modules/style",
     "frontend-modules-tag": "libs/frontend/modules/tag",
     "frontend-modules-type": "libs/frontend/modules/type",

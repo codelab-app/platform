@@ -11,7 +11,7 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
-import { flatMap, isEmpty } from 'lodash'
+import { flatMap, isEmpty, isString } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -41,7 +41,7 @@ import { rootRenderPipeFactory } from './renderPipes/rootRenderPipeFactory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { combineComponents, ComponentTypeLike } from './utils/combineComponents'
 import { isTypedValue } from './utils/isTypedValue'
-import { getTemplateFn } from './utils/platformState'
+import { getState } from './utils/platformState'
 import { mapOutput } from './utils/renderOutputUtils'
 
 /**
@@ -302,41 +302,15 @@ export class RenderService extends Model(
     return props
   }
 
-  // Proof of concept implementation of state replacement
   private replaceStateInProps = (props: IPropData) => {
     if (!this.platformState) {
       return props
     }
 
-    return deepReplaceObjectValuesAndKeys(props, (value, key) => {
-      try {
-        const keyFn = getTemplateFn(key)
-
-        if (keyFn) {
-          key = keyFn(this.platformState)
-        }
-      } catch (e) {
-        console.log("Couldn't parse props template", `${key}`)
-      }
-
-      if (typeof value === 'string') {
-        try {
-          const valueFn = getTemplateFn(value)
-
-          if (valueFn) {
-            value = valueFn(this.platformState)
-
-            if (typeof value === 'function') {
-              value = value.bind(this.platformState)
-            }
-          }
-        } catch (e) {
-          console.log("Couldn't parse props template", `${value}`)
-        }
-      }
-
-      return { key, value }
-    })
+    return deepReplaceObjectValuesAndKeys(props, (value, key) => ({
+      key: getState(key, this.platformState),
+      value: isString(value) ? getState(value, this.platformState) : value,
+    }))
   }
 
   /**

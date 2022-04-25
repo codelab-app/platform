@@ -1,5 +1,5 @@
 export * from './create-store'
 export * from './delete-store'
 export * from './get-store'
-export * from './update-initial-state'
+export * from './update-local-state'
 export * from './update-store'

@@ -1,6 +1,8 @@
+import { getResourceService } from '@codelab/frontend/modules/resource'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IAddStoreResourceDTO,
   ICreateStoreDTO,
   IStoreDTO,
   IUpdateStoreDTO,
@@ -18,11 +20,15 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { storeRef } from '.'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
+import {
+  makeAddResourceInput,
+  makeRemoveResourceInput,
+  makeStoreCreateInput,
+  makeStoreUpdateInput,
+} from './api.utils'
 import { storeApi } from './store.api'
-import { Store } from './store.model'
+import { Store, storeRef } from './store.model'
 import { StoreModalService } from './store-modal.service'
 
 export type WithStoreService = {
@@ -48,13 +54,21 @@ export class StoreService extends Model({
   }
 
   @modelAction
-  async ensureAllStateInterfacesAdded(state: Array<IStoreDTO['state']>) {
+  async fetchStates(state: Array<IStoreDTO['state']>) {
     // loading state interface within store fragment is hard so we load it separately
-    return await getTypeService(this).getAll(state.map((x) => x.id))
+    return await getTypeService(this).getAllWithDescendants(
+      state.map((x) => x.id),
+    )
   }
 
   @modelAction
-  ensureAllActionsAdded(actions: IStoreDTO['actions']) {
+  fetchResources(resources: IStoreDTO['resources']) {
+    // loading state interface within store fragment is hard so we load it separately
+    getResourceService(this).updateCache(resources)
+  }
+
+  @modelAction
+  fetchActions(actions: IStoreDTO['actions']) {
     getActionService(this).updateCache(actions)
   }
 
@@ -75,9 +89,11 @@ export class StoreService extends Model({
 
     const states = stores.map((x) => x.state)
     const actions = stores.flatMap((x) => x.actions)
+    const resources = stores.flatMap((x) => x.resources)
 
-    yield* _await(this.ensureAllStateInterfacesAdded(states))
-    this.ensureAllActionsAdded(actions)
+    yield* _await(this.fetchStates(states))
+    this.fetchActions(actions)
+    this.fetchResources(resources)
 
     const descendants = stores.flatMap((x) => x.descendants)
 
@@ -114,7 +130,7 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  createStore = _async(function* (
+  create = _async(function* (
     this: StoreService,
     input: ICreateStoreDTO,
     ownerId: Nullish<string>,
@@ -160,7 +176,7 @@ export class StoreService extends Model({
 
   @modelFlow
   @transaction
-  updateStore = _async(function* (
+  update = _async(function* (
     this: StoreService,
     store: Store,
     input: IUpdateStoreDTO,
@@ -172,7 +188,45 @@ export class StoreService extends Model({
       }),
     )
 
-    const updatedStore = updateStores.stores[0]
+    return this.afterStoreUpdate(updateStores.stores, store)
+  })
+
+  @modelFlow
+  @transaction
+  addResource = _async(function* (
+    this: StoreService,
+    store: Store,
+    input: IAddStoreResourceDTO,
+  ) {
+    const { updateStores } = yield* _await(
+      storeApi.UpdateStores({
+        where: { id: store.id },
+        update: makeAddResourceInput(input),
+      }),
+    )
+
+    return this.afterStoreUpdate(updateStores.stores, store)
+  })
+
+  @modelFlow
+  @transaction
+  removeResource = _async(function* (
+    this: StoreService,
+    store: Store,
+    resourceId: string,
+  ) {
+    const { updateStores } = yield* _await(
+      storeApi.UpdateStores({
+        where: { id: store.id },
+        update: makeRemoveResourceInput(resourceId),
+      }),
+    )
+
+    return this.afterStoreUpdate(updateStores.stores, store)
+  })
+
+  afterStoreUpdate(stores: Array<IStoreDTO>, store: Store) {
+    const updatedStore = stores[0]
     const storeModel = Store.hydrate(updatedStore)
 
     this.detachFromParent(store) // detach from old parent
@@ -181,7 +235,7 @@ export class StoreService extends Model({
     this.stores.set(updatedStore.id, storeModel)
 
     return storeModel
-  })
+  }
 
   @modelAction
   removeStoreAndDescendants(store: Store) {

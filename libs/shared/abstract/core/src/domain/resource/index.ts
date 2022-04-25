@@ -1,1 +1,7 @@
+export * from './graphql-resource'
+export * from './operation.dto.interface'
+export * from './operation.interface'
+export * from './resource.dto.interface'
 export * from './resource.interface'
+export * from './resource-type.enum'
+export * from './rest-resource'

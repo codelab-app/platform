@@ -1,4 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
+import { PROVIDER_TREE_PAGE_NAME } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
@@ -9,7 +10,6 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Page, pageRef, PageService } from '../../store'
-import { providerTreePageName } from './consts'
 
 export type GetPagesItemProps = {
   page: Page
@@ -18,7 +18,7 @@ export type GetPagesItemProps = {
 
 export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
   const router = useRouter()
-  const isProviderTreePage = page.name === providerTreePageName
+  const isProviderTreePage = page.name === PROVIDER_TREE_PAGE_NAME
 
   const href = isProviderTreePage
     ? { pathname: PageType.AppProviderDetail, query: router.query }

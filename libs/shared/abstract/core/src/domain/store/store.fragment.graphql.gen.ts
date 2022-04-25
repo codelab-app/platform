@@ -1,19 +1,25 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ActionFragment } from './action.fragment.graphql.gen'
+import { ResourceFragment } from '../resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from './action.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../resource/resource.fragment.graphql.gen'
 export type StoreFragment = {
   __typename: 'Store'
   id: string
   name: string
-  initialState: string
+  localState: string
   state: { id: string; name: string }
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
+  resourcesConnection: {
+    edges: Array<{ resourceKey: string; node: { id: string } }>
+  }
+  resources: Array<ResourceFragment>
   children: Array<{ id: string }>
 }
 
@@ -26,7 +32,7 @@ export const StoreFragmentDoc = gql`
       id
       name
     }
-    initialState
+    localState
     actions {
       ...Action
     }
@@ -39,11 +45,23 @@ export const StoreFragmentDoc = gql`
         storeKey
       }
     }
+    resourcesConnection {
+      edges {
+        node {
+          id
+        }
+        resourceKey
+      }
+    }
+    resources {
+      ...Resource
+    }
     children {
       id
     }
   }
   ${ActionFragmentDoc}
+  ${ResourceFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

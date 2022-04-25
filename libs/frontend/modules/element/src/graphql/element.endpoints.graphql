@@ -18,16 +18,6 @@ mutation DeleteElements($where: ElementWhere!) {
   }
 }
 
-mutation DeleteElementSubgraph(
-  $where: ElementWhere
-  $delete: ElementDeleteInput
-) {
-  deleteElementSubgraph(where: $where, delete: $delete) {
-    nodesDeleted
-    deletedIds
-  }
-}
-
 mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   updateElements(where: $where, update: $update) {
     elements {

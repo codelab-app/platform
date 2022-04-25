@@ -6,7 +6,7 @@ fragment Store on Store {
     id
     name
   }
-  initialState
+  localState
   actions {
     ...Action
   }
@@ -18,6 +18,17 @@ fragment Store on Store {
     edges {
       storeKey
     }
+  }
+  resourcesConnection {
+    edges {
+      node {
+        id
+      }
+      resourceKey
+    }
+  }
+  resources {
+    ...Resource
   }
   children {
     id

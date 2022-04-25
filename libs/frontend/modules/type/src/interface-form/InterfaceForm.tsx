@@ -25,6 +25,8 @@ export const InterfaceForm = observer(
     onChange,
     onSubmitError,
     onSubmitSuccess,
+    submitRef,
+    setIsLoading,
   }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
     const initialSchemaRef = useRef(initialSchema)
     const [formSchema, setFormSchema] = useState(initialSchema ?? {})
@@ -50,13 +52,14 @@ export const InterfaceForm = observer(
         onChange={onChange}
         onSubmit={handleFormSubmit<DeepPartial<TData>>(
           onSubmit as any,
-          undefined,
+          setIsLoading,
           onSubmitSuccess as any,
           onSubmitError as any,
         )}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={formSchema}
+        submitRef={submitRef}
       >
         {children}
       </Form>

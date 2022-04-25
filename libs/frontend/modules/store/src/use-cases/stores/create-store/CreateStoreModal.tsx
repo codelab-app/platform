@@ -15,7 +15,7 @@ export const CreateStoreModal = observer<WithStoreService>(
     const closeModal = () => storeService.createModal.close()
 
     const onSubmit = (input: ICreateStoreDTO) =>
-      storeService.createStore(input, user?.sub)
+      storeService.create(input, user?.sub)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating store',
@@ -45,7 +45,7 @@ export const CreateStoreModal = observer<WithStoreService>(
           onSubmitSuccess={closeModal}
           schema={createStoreSchema}
         >
-          <AutoFields omitFields={['parentStore', 'initialState']} />
+          <AutoFields omitFields={['parentStore', 'localState']} />
           <AutoField name="parentStore.id" />
           <DisplayIfParent>
             <AutoField name="parentStore.key" />
