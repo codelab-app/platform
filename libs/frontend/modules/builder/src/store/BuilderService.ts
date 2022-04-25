@@ -5,6 +5,7 @@ import { BuilderDragData } from '../dnd/BuilderDragData'
 import { RenderService, renderServiceContext } from '../renderer'
 import { ExtraElementProps } from '../renderer/ExtraElementProps'
 import { BuilderTab } from './BuilderTab'
+import { StateModalService } from './state-modal.service'
 
 const voidClick = () => {
   //
@@ -25,6 +26,7 @@ export class BuilderService extends Model({
   ).withSetter(),
 
   builderTab: prop<BuilderTab>(() => BuilderTab.Tree).withSetter(),
+  stateModal: prop(() => new StateModalService({})),
 
   // Use a builder-specific render service that overwrites
   // each onClick handler with a void click handler.

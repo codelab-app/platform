@@ -1,18 +1,20 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { RenderService } from '../../../renderer'
 import { toAntd } from '../../../renderer/utils/platformState'
+import { WithBuilderService } from '../../../store/BuilderService'
+import { StateModal } from './StateModal'
 import { StateTree } from './StateTree'
 
-interface MainPaneMobxStateProps {
-  renderService: RenderService
-}
-
-export const MainPaneMobxState = observer<MainPaneMobxStateProps>(
-  ({ renderService }) => {
-    const { platformState } = renderService
+export const MainPaneMobxState = observer<WithBuilderService>(
+  ({ builderService }) => {
+    const { platformState } = builderService.builderRenderer
     const tree = toAntd(platformState, '')
 
-    return <StateTree parentPath="" state={tree} />
+    return (
+      <>
+        <StateModal builderService={builderService} />
+        <StateTree builderService={builderService} parentPath="" state={tree} />
+      </>
+    )
   },
 )

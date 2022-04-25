@@ -9,9 +9,10 @@ export abstract class BaseOperation<
   Config extends IOperation['config'],
   DATA = any,
 > {
-  data: Nullish<DATA>
+  // add $ to identify this when converting to antd Tree
+  $data: Nullish<DATA>
 
-  error: any
+  $error: any
 
   isLoading: boolean
 
@@ -20,13 +21,13 @@ export abstract class BaseOperation<
     protected _config: Config,
     protected runOnInit: boolean,
   ) {
-    this.data = null
-    this.error = null
+    this.$data = null
+    this.$error = null
     this.isLoading = false
 
     makeObservable(this, {
-      data: observable,
-      error: observable,
+      $data: observable,
+      $error: observable,
       isLoading: observable,
       run: flow.bound,
     })
@@ -42,9 +43,9 @@ export abstract class BaseOperation<
     this.isLoading = true
 
     try {
-      this.data = yield* _await(this.fetch())
-    } catch (error) {
-      this.error = error
+      this.$data = yield* _await(this.fetch())
+    } catch (error: any) {
+      this.$error = error.message
     } finally {
       this.isLoading = false
     }

@@ -15,6 +15,8 @@ export interface IStateTreeNode {
   path: string
   type: string
   children: Array<IStateTreeNode>
+  useModal: boolean
+  content: any
 }
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -26,17 +28,23 @@ export const toAntd = (
   state: any,
   parentPath: string,
 ): Array<IStateTreeNode> => {
-  return Object.getOwnPropertyNames(state).map((key) => {
+  return Object.getOwnPropertyNames(state || {}).map((key) => {
     const value = state[key]
     const typeOfValue = typeof value
     const path = parentPath ? `${parentPath}.${key}` : key
+    const useModal = key === '$data' || key === '$error'
 
     return {
       name: key,
       key: path,
+      useModal,
       path,
       type: typeOfValue,
-      children: value && typeOfValue === 'object' ? toAntd(value, path) : [],
+      content: value,
+      children:
+        !useModal && value && typeOfValue === 'object'
+          ? toAntd(value, path)
+          : [],
     }
   })
 }

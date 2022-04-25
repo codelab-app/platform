@@ -1,40 +1,42 @@
-import { CopyOutlined } from '@ant-design/icons'
-import { copyTextToClipboard } from '@codelab/frontend/shared/utils'
-import { Button, message, Tag } from 'antd'
+import { EyeOutlined } from '@ant-design/icons'
+import { Button, Tag } from 'antd'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
 import tw from 'twin.macro'
-import {
-  IStateTreeNode,
-  mobxStateKeyTemplate,
-} from '../../../renderer/utils/platformState'
+import { IStateTreeNode } from '../../../renderer/utils/platformState'
+import { WithBuilderService } from '../../../store/BuilderService'
+import { CopyPathButton } from './CopyPathButton'
 
-interface StateTreeItemProps {
+interface StateTreeItemProps extends WithBuilderService {
   node: IStateTreeNode
 }
 
-export const StateTreeItem = ({ node }: StateTreeItemProps) => {
-  const { type, path, name } = node
-  const { start, end } = mobxStateKeyTemplate
+export const StateTreeItem = observer<StateTreeItemProps>(
+  ({ node, builderService }) => {
+    const { type, path, name, useModal, content } = node
 
-  const success = () => {
-    message.success('Copied to clipboard !', 1)
-  }
+    const onPreview = async () => {
+      builderService.stateModal.open(node)
+    }
 
-  return (
-    <div css={tw`flex flex-row  items-center`}>
-      <div css={tw`flex-grow flex-shrink`}>
-        {name}
-        <span css={tw`ml-2`}>
-          <Tag>{type}</Tag>
-        </span>
+    if (!node) {
+      return null
+    }
+
+    return (
+      <div css={tw`flex flex-row items-center`}>
+        <div css={tw`flex-grow flex-shrink`}>
+          {name}
+          <span css={tw`ml-2`}>
+            <Tag>{type}</Tag>
+          </span>
+        </div>
+        {useModal && content ? (
+          <Button icon={<EyeOutlined />} onClick={onPreview} size="small" />
+        ) : (
+          <CopyPathButton path={path} />
+        )}
       </div>
-      <Button
-        icon={<CopyOutlined />}
-        onClick={async () => {
-          await copyTextToClipboard(`${start}${path}${end}`)
-          success()
-        }}
-        size="small"
-      />
-    </div>
-  )
-}
+    )
+  },
+)
