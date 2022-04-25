@@ -65,7 +65,7 @@ export class OperationService extends Model({
     input: ICreateOperationDTO,
     resourceId: Nullish<string>,
   ) {
-    const { name, config } = input
+    const { name, config, runOnInit } = input
 
     const {
       createOperations: { operations },
@@ -73,6 +73,7 @@ export class OperationService extends Model({
       operationApi.CreateOperations({
         input: {
           name,
+          runOnInit,
           resource: { connect: { where: { node: { id: resourceId } } } },
           config: JSON.stringify(config),
         },
