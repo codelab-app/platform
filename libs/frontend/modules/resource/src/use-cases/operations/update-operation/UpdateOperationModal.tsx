@@ -33,6 +33,7 @@ export const UpdateOperationModal = observer<
   const model = {
     name: operationService.updateModal.operation?.name,
     config: operationService.updateModal.operation?.config,
+    runOnInit: operationService.updateModal.operation?.runOnInit,
   }
 
   return (
