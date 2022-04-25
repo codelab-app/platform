@@ -14240,4 +14240,3229 @@ export type TypeBaseImplementationsDisconnectInput = {
   ElementType?: InputMaybe<Array<ElementTypeDisconnectInput>>;
   RenderPropsType?: InputMaybe<Array<RenderPropsTypeDisconnectInput>>;
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>;
-  EnumType?: InputMaybe<Array<EnumTyp
+  EnumType?: InputMaybe<Array<EnumTypeDisconnectInput>>;
+  LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>;
+  PageType?: InputMaybe<Array<PageTypeDisconnectInput>>;
+  AppType?: InputMaybe<Array<AppTypeDisconnectInput>>;
+  MonacoType?: InputMaybe<Array<MonacoTypeDisconnectInput>>;
+};
+
+export type TypeBaseImplementationsUpdateInput = {
+  PrimitiveType?: InputMaybe<PrimitiveTypeUpdateInput>;
+  ArrayType?: InputMaybe<ArrayTypeUpdateInput>;
+  UnionType?: InputMaybe<UnionTypeUpdateInput>;
+  InterfaceType?: InputMaybe<InterfaceTypeUpdateInput>;
+  ElementType?: InputMaybe<ElementTypeUpdateInput>;
+  RenderPropsType?: InputMaybe<RenderPropsTypeUpdateInput>;
+  ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>;
+  EnumType?: InputMaybe<EnumTypeUpdateInput>;
+  LambdaType?: InputMaybe<LambdaTypeUpdateInput>;
+  PageType?: InputMaybe<PageTypeUpdateInput>;
+  AppType?: InputMaybe<AppTypeUpdateInput>;
+  MonacoType?: InputMaybe<MonacoTypeUpdateInput>;
+};
+
+export type TypeBaseImplementationsWhere = {
+  PrimitiveType?: InputMaybe<PrimitiveTypeWhere>;
+  ArrayType?: InputMaybe<ArrayTypeWhere>;
+  UnionType?: InputMaybe<UnionTypeWhere>;
+  InterfaceType?: InputMaybe<InterfaceTypeWhere>;
+  ElementType?: InputMaybe<ElementTypeWhere>;
+  RenderPropsType?: InputMaybe<RenderPropsTypeWhere>;
+  ReactNodeType?: InputMaybe<ReactNodeTypeWhere>;
+  EnumType?: InputMaybe<EnumTypeWhere>;
+  LambdaType?: InputMaybe<LambdaTypeWhere>;
+  PageType?: InputMaybe<PageTypeWhere>;
+  AppType?: InputMaybe<AppTypeWhere>;
+  MonacoType?: InputMaybe<MonacoTypeWhere>;
+};
+
+export type TypeBaseOptions = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+  /** Specify one or more TypeBaseSort objects to sort TypeBases by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<TypeBaseSort>>>;
+};
+
+export type TypeBaseOwnerAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<TypeBaseOwnerAggregateInput>>;
+  OR?: InputMaybe<Array<TypeBaseOwnerAggregateInput>>;
+  node?: InputMaybe<TypeBaseOwnerNodeAggregationWhereInput>;
+};
+
+export type TypeBaseOwnerConnectFieldInput = {
+  where?: InputMaybe<UserConnectWhere>;
+  connect?: InputMaybe<UserConnectInput>;
+};
+
+export type TypeBaseOwnerConnectionSort = {
+  node?: InputMaybe<UserSort>;
+};
+
+export type TypeBaseOwnerConnectionWhere = {
+  AND?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>;
+  OR?: InputMaybe<Array<TypeBaseOwnerConnectionWhere>>;
+  node?: InputMaybe<UserWhere>;
+  node_NOT?: InputMaybe<UserWhere>;
+};
+
+export type TypeBaseOwnerConnectOrCreateFieldInput = {
+  where: UserConnectOrCreateWhere;
+  onCreate: TypeBaseOwnerConnectOrCreateFieldInputOnCreate;
+};
+
+export type TypeBaseOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserOnCreateInput;
+};
+
+export type TypeBaseOwnerCreateFieldInput = {
+  node: UserCreateInput;
+};
+
+export type TypeBaseOwnerDeleteFieldInput = {
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  delete?: InputMaybe<UserDeleteInput>;
+};
+
+export type TypeBaseOwnerDisconnectFieldInput = {
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  disconnect?: InputMaybe<UserDisconnectInput>;
+};
+
+export type TypeBaseOwnerFieldInput = {
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+};
+
+export type TypeBaseOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<TypeBaseOwnerNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  auth0Id_EQUAL?: InputMaybe<Scalars["String"]>;
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_EQUAL?: InputMaybe<Scalars["String"]>;
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_GT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_GTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_LT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_LTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type TypeBaseOwnerUpdateConnectionInput = {
+  node?: InputMaybe<UserUpdateInput>;
+};
+
+export type TypeBaseOwnerUpdateFieldInput = {
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  update?: InputMaybe<TypeBaseOwnerUpdateConnectionInput>;
+  connect?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
+  disconnect?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
+  create?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
+  delete?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+};
+
+/** Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object. */
+export type TypeBaseSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  kind?: InputMaybe<SortDirection>;
+};
+
+export type TypeBaseUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  _on?: InputMaybe<TypeBaseImplementationsUpdateInput>;
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
+};
+
+export type TypeBaseWhere = {
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  kind_NOT?: InputMaybe<TypeKind>;
+  kind_IN?: InputMaybe<Array<TypeKind>>;
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>;
+  _on?: InputMaybe<TypeBaseImplementationsWhere>;
+  owner?: InputMaybe<UserWhere>;
+  owner_NOT?: InputMaybe<UserWhere>;
+  ownerAggregate?: InputMaybe<TypeBaseOwnerAggregateInput>;
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+};
+
+export type TypeReferenceCreateInput = {
+  name: Scalars["String"];
+  label: Scalars["String"];
+};
+
+export type TypeReferenceOptions = {
+  /** Specify one or more TypeReferenceSort objects to sort TypeReferences by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<TypeReferenceSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+/** Fields to sort TypeReferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeReferenceSort object. */
+export type TypeReferenceSort = {
+  name?: InputMaybe<SortDirection>;
+  label?: InputMaybe<SortDirection>;
+};
+
+export type TypeReferenceUpdateInput = {
+  name?: InputMaybe<Scalars["String"]>;
+  label?: InputMaybe<Scalars["String"]>;
+};
+
+export type TypeReferenceWhere = {
+  OR?: InputMaybe<Array<TypeReferenceWhere>>;
+  AND?: InputMaybe<Array<TypeReferenceWhere>>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  label?: InputMaybe<Scalars["String"]>;
+  label_NOT?: InputMaybe<Scalars["String"]>;
+  label_IN?: InputMaybe<Array<Scalars["String"]>>;
+  label_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  label_CONTAINS?: InputMaybe<Scalars["String"]>;
+  label_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  label_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  label_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  label_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  label_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+};
+
+export type UnionTypeConnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeConnectFieldInput>
+  >;
+};
+
+export type UnionTypeConnectOrCreateInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+};
+
+export type UnionTypeCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  kind?: TypeKind;
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>;
+  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>;
+};
+
+export type UnionTypeDeleteInput = {
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>
+  >;
+};
+
+export type UnionTypeDisconnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>
+  >;
+};
+
+export type UnionTypeOptions = {
+  /** Specify one or more UnionTypeSort objects to sort UnionTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<UnionTypeSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UnionTypeOwnerAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>;
+  OR?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>;
+  node?: InputMaybe<UnionTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type UnionTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<UnionTypeOwnerNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  auth0Id_EQUAL?: InputMaybe<Scalars["String"]>;
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_EQUAL?: InputMaybe<Scalars["String"]>;
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_GT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_GTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_LT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_LTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UnionTypeRelationInput = {
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCreateFieldInput>
+  >;
+};
+
+/** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
+export type UnionTypeSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  kind?: InputMaybe<SortDirection>;
+};
+
+export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>;
+  where?: InputMaybe<TypeBaseConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeConnectionSort = {
+  node?: InputMaybe<TypeBaseSort>;
+};
+
+export type UnionTypeTypesOfUnionTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectionWhere>>;
+  node?: InputMaybe<TypeBaseWhere>;
+  node_NOT?: InputMaybe<TypeBaseWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
+  node: TypeBaseCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeFieldInput = {
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeUpdateConnectionInput = {
+  node?: InputMaybe<TypeBaseUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+};
+
+export type UnionTypeUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>
+  >;
+};
+
+export type UnionTypeWhere = {
+  OR?: InputMaybe<Array<UnionTypeWhere>>;
+  AND?: InputMaybe<Array<UnionTypeWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  kind_NOT?: InputMaybe<TypeKind>;
+  kind_IN?: InputMaybe<Array<TypeKind>>;
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>;
+  owner?: InputMaybe<UserWhere>;
+  owner_NOT?: InputMaybe<UserWhere>;
+  ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>;
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  typesOfUnionTypeConnection?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  typesOfUnionTypeConnection_NOT?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+};
+
+export type UserAppsAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<UserAppsAggregateInput>>;
+  OR?: InputMaybe<Array<UserAppsAggregateInput>>;
+  node?: InputMaybe<UserAppsNodeAggregationWhereInput>;
+};
+
+export type UserAppsConnectFieldInput = {
+  where?: InputMaybe<AppConnectWhere>;
+  connect?: InputMaybe<Array<AppConnectInput>>;
+};
+
+export type UserAppsConnectionSort = {
+  node?: InputMaybe<AppSort>;
+};
+
+export type UserAppsConnectionWhere = {
+  AND?: InputMaybe<Array<UserAppsConnectionWhere>>;
+  OR?: InputMaybe<Array<UserAppsConnectionWhere>>;
+  node?: InputMaybe<AppWhere>;
+  node_NOT?: InputMaybe<AppWhere>;
+};
+
+export type UserAppsConnectOrCreateFieldInput = {
+  where: AppConnectOrCreateWhere;
+  onCreate: UserAppsConnectOrCreateFieldInputOnCreate;
+};
+
+export type UserAppsConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput;
+};
+
+export type UserAppsCreateFieldInput = {
+  node: AppCreateInput;
+};
+
+export type UserAppsDeleteFieldInput = {
+  where?: InputMaybe<UserAppsConnectionWhere>;
+  delete?: InputMaybe<AppDeleteInput>;
+};
+
+export type UserAppsDisconnectFieldInput = {
+  where?: InputMaybe<UserAppsConnectionWhere>;
+  disconnect?: InputMaybe<AppDisconnectInput>;
+};
+
+export type UserAppsFieldInput = {
+  create?: InputMaybe<Array<UserAppsCreateFieldInput>>;
+  connect?: InputMaybe<Array<UserAppsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>;
+};
+
+export type UserAppsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UserAppsUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>;
+};
+
+export type UserAppsUpdateFieldInput = {
+  where?: InputMaybe<UserAppsConnectionWhere>;
+  update?: InputMaybe<UserAppsUpdateConnectionInput>;
+  connect?: InputMaybe<Array<UserAppsConnectFieldInput>>;
+  disconnect?: InputMaybe<Array<UserAppsDisconnectFieldInput>>;
+  create?: InputMaybe<Array<UserAppsCreateFieldInput>>;
+  delete?: InputMaybe<Array<UserAppsDeleteFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>;
+};
+
+export type UserComponentsAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<UserComponentsAggregateInput>>;
+  OR?: InputMaybe<Array<UserComponentsAggregateInput>>;
+  node?: InputMaybe<UserComponentsNodeAggregationWhereInput>;
+};
+
+export type UserComponentsConnectFieldInput = {
+  where?: InputMaybe<ComponentConnectWhere>;
+  connect?: InputMaybe<Array<ComponentConnectInput>>;
+};
+
+export type UserComponentsConnectionSort = {
+  node?: InputMaybe<ComponentSort>;
+};
+
+export type UserComponentsConnectionWhere = {
+  AND?: InputMaybe<Array<UserComponentsConnectionWhere>>;
+  OR?: InputMaybe<Array<UserComponentsConnectionWhere>>;
+  node?: InputMaybe<ComponentWhere>;
+  node_NOT?: InputMaybe<ComponentWhere>;
+};
+
+export type UserComponentsConnectOrCreateFieldInput = {
+  where: ComponentConnectOrCreateWhere;
+  onCreate: UserComponentsConnectOrCreateFieldInputOnCreate;
+};
+
+export type UserComponentsConnectOrCreateFieldInputOnCreate = {
+  node: ComponentOnCreateInput;
+};
+
+export type UserComponentsCreateFieldInput = {
+  node: ComponentCreateInput;
+};
+
+export type UserComponentsDeleteFieldInput = {
+  where?: InputMaybe<UserComponentsConnectionWhere>;
+  delete?: InputMaybe<ComponentDeleteInput>;
+};
+
+export type UserComponentsDisconnectFieldInput = {
+  where?: InputMaybe<UserComponentsConnectionWhere>;
+  disconnect?: InputMaybe<ComponentDisconnectInput>;
+};
+
+export type UserComponentsFieldInput = {
+  create?: InputMaybe<Array<UserComponentsCreateFieldInput>>;
+  connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>;
+};
+
+export type UserComponentsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UserComponentsUpdateConnectionInput = {
+  node?: InputMaybe<ComponentUpdateInput>;
+};
+
+export type UserComponentsUpdateFieldInput = {
+  where?: InputMaybe<UserComponentsConnectionWhere>;
+  update?: InputMaybe<UserComponentsUpdateConnectionInput>;
+  connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>;
+  disconnect?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>;
+  create?: InputMaybe<Array<UserComponentsCreateFieldInput>>;
+  delete?: InputMaybe<Array<UserComponentsDeleteFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>;
+};
+
+export type UserConnectInput = {
+  types?: InputMaybe<Array<UserTypesConnectFieldInput>>;
+  apps?: InputMaybe<Array<UserAppsConnectFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsConnectFieldInput>>;
+};
+
+export type UserConnectOrCreateInput = {
+  apps?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>;
+};
+
+export type UserConnectOrCreateWhere = {
+  node: UserUniqueWhere;
+};
+
+export type UserConnectWhere = {
+  node: UserWhere;
+};
+
+export type UserCreateInput = {
+  auth0Id: Scalars["String"];
+  email: Scalars["String"];
+  roles?: InputMaybe<Array<Role>>;
+  types?: InputMaybe<UserTypesFieldInput>;
+  apps?: InputMaybe<UserAppsFieldInput>;
+  components?: InputMaybe<UserComponentsFieldInput>;
+};
+
+export type UserDeleteInput = {
+  types?: InputMaybe<Array<UserTypesDeleteFieldInput>>;
+  apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>;
+};
+
+export type UserDisconnectInput = {
+  types?: InputMaybe<Array<UserTypesDisconnectFieldInput>>;
+  apps?: InputMaybe<Array<UserAppsDisconnectFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>;
+};
+
+export type UserOnCreateInput = {
+  auth0Id: Scalars["String"];
+  email: Scalars["String"];
+};
+
+export type UserOptions = {
+  /** Specify one or more UserSort objects to sort Users by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<UserSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UserRelationInput = {
+  types?: InputMaybe<Array<UserTypesCreateFieldInput>>;
+  apps?: InputMaybe<Array<UserAppsCreateFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsCreateFieldInput>>;
+};
+
+/** Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object. */
+export type UserSort = {
+  id?: InputMaybe<SortDirection>;
+  auth0Id?: InputMaybe<SortDirection>;
+  email?: InputMaybe<SortDirection>;
+};
+
+export type UserTypesConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>;
+  where?: InputMaybe<TypeBaseConnectWhere>;
+};
+
+export type UserTypesConnectionSort = {
+  node?: InputMaybe<TypeBaseSort>;
+};
+
+export type UserTypesConnectionWhere = {
+  AND?: InputMaybe<Array<UserTypesConnectionWhere>>;
+  OR?: InputMaybe<Array<UserTypesConnectionWhere>>;
+  node?: InputMaybe<TypeBaseWhere>;
+  node_NOT?: InputMaybe<TypeBaseWhere>;
+};
+
+export type UserTypesCreateFieldInput = {
+  node: TypeBaseCreateInput;
+};
+
+export type UserTypesDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>;
+  where?: InputMaybe<UserTypesConnectionWhere>;
+};
+
+export type UserTypesDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>;
+  where?: InputMaybe<UserTypesConnectionWhere>;
+};
+
+export type UserTypesFieldInput = {
+  create?: InputMaybe<Array<UserTypesCreateFieldInput>>;
+  connect?: InputMaybe<Array<UserTypesConnectFieldInput>>;
+};
+
+export type UserTypesUpdateConnectionInput = {
+  node?: InputMaybe<TypeBaseUpdateInput>;
+};
+
+export type UserTypesUpdateFieldInput = {
+  connect?: InputMaybe<Array<UserTypesConnectFieldInput>>;
+  create?: InputMaybe<Array<UserTypesCreateFieldInput>>;
+  delete?: InputMaybe<Array<UserTypesDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UserTypesDisconnectFieldInput>>;
+  update?: InputMaybe<UserTypesUpdateConnectionInput>;
+  where?: InputMaybe<UserTypesConnectionWhere>;
+};
+
+export type UserUniqueWhere = {
+  id?: InputMaybe<Scalars["ID"]>;
+  auth0Id?: InputMaybe<Scalars["String"]>;
+};
+
+export type UserUpdateInput = {
+  auth0Id?: InputMaybe<Scalars["String"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  roles?: InputMaybe<Array<Role>>;
+  types?: InputMaybe<Array<UserTypesUpdateFieldInput>>;
+  apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>;
+  components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>;
+};
+
+export type UserWhere = {
+  OR?: InputMaybe<Array<UserWhere>>;
+  AND?: InputMaybe<Array<UserWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  auth0Id?: InputMaybe<Scalars["String"]>;
+  auth0Id_NOT?: InputMaybe<Scalars["String"]>;
+  auth0Id_IN?: InputMaybe<Array<Scalars["String"]>>;
+  auth0Id_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  auth0Id_CONTAINS?: InputMaybe<Scalars["String"]>;
+  auth0Id_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  auth0Id_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  auth0Id_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  auth0Id_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  auth0Id_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  email_NOT?: InputMaybe<Scalars["String"]>;
+  email_IN?: InputMaybe<Array<Scalars["String"]>>;
+  email_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  email_CONTAINS?: InputMaybe<Scalars["String"]>;
+  email_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  email_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  email_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  email_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  email_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  roles?: InputMaybe<Array<Role>>;
+  roles_NOT?: InputMaybe<Array<Role>>;
+  roles_INCLUDES?: InputMaybe<Role>;
+  roles_NOT_INCLUDES?: InputMaybe<Role>;
+  apps?: InputMaybe<AppWhere>;
+  apps_NOT?: InputMaybe<AppWhere>;
+  appsAggregate?: InputMaybe<UserAppsAggregateInput>;
+  /** Return Users where all of the related Apps match this filter */
+  apps_ALL?: InputMaybe<AppWhere>;
+  /** Return Users where none of the related Apps match this filter */
+  apps_NONE?: InputMaybe<AppWhere>;
+  /** Return Users where one of the related Apps match this filter */
+  apps_SINGLE?: InputMaybe<AppWhere>;
+  /** Return Users where some of the related Apps match this filter */
+  apps_SOME?: InputMaybe<AppWhere>;
+  components?: InputMaybe<ComponentWhere>;
+  components_NOT?: InputMaybe<ComponentWhere>;
+  componentsAggregate?: InputMaybe<UserComponentsAggregateInput>;
+  /** Return Users where all of the related Components match this filter */
+  components_ALL?: InputMaybe<ComponentWhere>;
+  /** Return Users where none of the related Components match this filter */
+  components_NONE?: InputMaybe<ComponentWhere>;
+  /** Return Users where one of the related Components match this filter */
+  components_SINGLE?: InputMaybe<ComponentWhere>;
+  /** Return Users where some of the related Components match this filter */
+  components_SOME?: InputMaybe<ComponentWhere>;
+  typesConnection?: InputMaybe<UserTypesConnectionWhere>;
+  typesConnection_NOT?: InputMaybe<UserTypesConnectionWhere>;
+  typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>;
+  typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>;
+  typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>;
+  typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>;
+  appsConnection?: InputMaybe<UserAppsConnectionWhere>;
+  appsConnection_NOT?: InputMaybe<UserAppsConnectionWhere>;
+  appsConnection_ALL?: InputMaybe<UserAppsConnectionWhere>;
+  appsConnection_NONE?: InputMaybe<UserAppsConnectionWhere>;
+  appsConnection_SINGLE?: InputMaybe<UserAppsConnectionWhere>;
+  appsConnection_SOME?: InputMaybe<UserAppsConnectionWhere>;
+  componentsConnection?: InputMaybe<UserComponentsConnectionWhere>;
+  componentsConnection_NOT?: InputMaybe<UserComponentsConnectionWhere>;
+  componentsConnection_ALL?: InputMaybe<UserComponentsConnectionWhere>;
+  componentsConnection_NONE?: InputMaybe<UserComponentsConnectionWhere>;
+  componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>;
+  componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>;
+};
+
+export interface ResetDatabaseMutationResponseAggregateSelectionInput {
+  count?: boolean;
+}
+
+export declare class ResetDatabaseMutationResponseModel {
+  public find(args?: {
+    where?: ResetDatabaseMutationResponseWhere;
+
+    options?: ResetDatabaseMutationResponseOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ResetDatabaseMutationResponse[]>;
+  public create(args: {
+    input: ResetDatabaseMutationResponseCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>;
+  public update(args: {
+    where?: ResetDatabaseMutationResponseWhere;
+    update?: ResetDatabaseMutationResponseUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>;
+  public delete(args: {
+    where?: ResetDatabaseMutationResponseWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ResetDatabaseMutationResponseWhere;
+
+    aggregate: ResetDatabaseMutationResponseAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ResetDatabaseMutationResponseAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface UserAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  auth0Id?: StringAggregateInputNonNullable;
+  email?: StringAggregateInputNonNullable;
+}
+
+export declare class UserModel {
+  public find(args?: {
+    where?: UserWhere;
+
+    options?: UserOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<User[]>;
+  public create(args: {
+    input: UserCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateUsersMutationResponse>;
+  public update(args: {
+    where?: UserWhere;
+    update?: UserUpdateInput;
+    connect?: UserConnectInput;
+    disconnect?: UserDisconnectInput;
+    create?: UserCreateInput;
+    connectOrCreate?: UserConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateUsersMutationResponse>;
+  public delete(args: {
+    where?: UserWhere;
+    delete?: UserDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: UserWhere;
+
+    aggregate: UserAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UserAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface AppAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class AppModel {
+  public find(args?: {
+    where?: AppWhere;
+
+    options?: AppOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<App[]>;
+  public create(args: {
+    input: AppCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateAppsMutationResponse>;
+  public update(args: {
+    where?: AppWhere;
+    update?: AppUpdateInput;
+    connect?: AppConnectInput;
+    disconnect?: AppDisconnectInput;
+    create?: AppCreateInput;
+    connectOrCreate?: AppConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateAppsMutationResponse>;
+  public delete(args: {
+    where?: AppWhere;
+    delete?: AppDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: AppWhere;
+
+    aggregate: AppAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<AppAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface AtomAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class AtomModel {
+  public find(args?: {
+    where?: AtomWhere;
+
+    options?: AtomOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Atom[]>;
+  public create(args: {
+    input: AtomCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateAtomsMutationResponse>;
+  public update(args: {
+    where?: AtomWhere;
+    update?: AtomUpdateInput;
+    connect?: AtomConnectInput;
+    disconnect?: AtomDisconnectInput;
+    create?: AtomCreateInput;
+    connectOrCreate?: AtomConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateAtomsMutationResponse>;
+  public delete(args: {
+    where?: AtomWhere;
+    delete?: AtomDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: AtomWhere;
+
+    aggregate: AtomAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<AtomAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface CreateInfoAggregateSelectionInput {
+  count?: boolean;
+  bookmark?: StringAggregateInputNullable;
+  nodesCreated?: IntAggregateInputNonNullable;
+  relationshipsCreated?: IntAggregateInputNonNullable;
+}
+
+export declare class CreateInfoModel {
+  public find(args?: {
+    where?: CreateInfoWhere;
+
+    options?: CreateInfoOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateInfo[]>;
+  public create(args: {
+    input: CreateInfoCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateCreateInfosMutationResponse>;
+  public update(args: {
+    where?: CreateInfoWhere;
+    update?: CreateInfoUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateCreateInfosMutationResponse>;
+  public delete(args: {
+    where?: CreateInfoWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: CreateInfoWhere;
+
+    aggregate: CreateInfoAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateInfoAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PageAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class PageModel {
+  public find(args?: {
+    where?: PageWhere;
+
+    options?: PageOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Page[]>;
+  public create(args: {
+    input: PageCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePagesMutationResponse>;
+  public update(args: {
+    where?: PageWhere;
+    update?: PageUpdateInput;
+    connect?: PageConnectInput;
+    disconnect?: PageDisconnectInput;
+    create?: PageCreateInput;
+    connectOrCreate?: PageConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePagesMutationResponse>;
+  public delete(args: {
+    where?: PageWhere;
+    delete?: PageDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PageWhere;
+
+    aggregate: PageAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PageAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface TypeReferenceAggregateSelectionInput {
+  count?: boolean;
+  name?: StringAggregateInputNonNullable;
+  label?: StringAggregateInputNonNullable;
+}
+
+export declare class TypeReferenceModel {
+  public find(args?: {
+    where?: TypeReferenceWhere;
+
+    options?: TypeReferenceOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TypeReference[]>;
+  public create(args: {
+    input: TypeReferenceCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateTypeReferencesMutationResponse>;
+  public update(args: {
+    where?: TypeReferenceWhere;
+    update?: TypeReferenceUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateTypeReferencesMutationResponse>;
+  public delete(args: {
+    where?: TypeReferenceWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: TypeReferenceWhere;
+
+    aggregate: TypeReferenceAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TypeReferenceAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PrimitiveTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class PrimitiveTypeModel {
+  public find(args?: {
+    where?: PrimitiveTypeWhere;
+
+    options?: PrimitiveTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PrimitiveType[]>;
+  public create(args: {
+    input: PrimitiveTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePrimitiveTypesMutationResponse>;
+  public update(args: {
+    where?: PrimitiveTypeWhere;
+    update?: PrimitiveTypeUpdateInput;
+    connect?: PrimitiveTypeConnectInput;
+    disconnect?: PrimitiveTypeDisconnectInput;
+    create?: PrimitiveTypeCreateInput;
+    connectOrCreate?: PrimitiveTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePrimitiveTypesMutationResponse>;
+  public delete(args: {
+    where?: PrimitiveTypeWhere;
+    delete?: PrimitiveTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PrimitiveTypeWhere;
+
+    aggregate: PrimitiveTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PrimitiveTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ArrayTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class ArrayTypeModel {
+  public find(args?: {
+    where?: ArrayTypeWhere;
+
+    options?: ArrayTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ArrayType[]>;
+  public create(args: {
+    input: ArrayTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateArrayTypesMutationResponse>;
+  public update(args: {
+    where?: ArrayTypeWhere;
+    update?: ArrayTypeUpdateInput;
+    connect?: ArrayTypeConnectInput;
+    disconnect?: ArrayTypeDisconnectInput;
+    create?: ArrayTypeCreateInput;
+    connectOrCreate?: ArrayTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateArrayTypesMutationResponse>;
+  public delete(args: {
+    where?: ArrayTypeWhere;
+    delete?: ArrayTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ArrayTypeWhere;
+
+    aggregate: ArrayTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ArrayTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface UnionTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class UnionTypeModel {
+  public find(args?: {
+    where?: UnionTypeWhere;
+
+    options?: UnionTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UnionType[]>;
+  public create(args: {
+    input: UnionTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateUnionTypesMutationResponse>;
+  public update(args: {
+    where?: UnionTypeWhere;
+    update?: UnionTypeUpdateInput;
+    connect?: UnionTypeConnectInput;
+    disconnect?: UnionTypeDisconnectInput;
+    create?: UnionTypeCreateInput;
+    connectOrCreate?: UnionTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateUnionTypesMutationResponse>;
+  public delete(args: {
+    where?: UnionTypeWhere;
+    delete?: UnionTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: UnionTypeWhere;
+
+    aggregate: UnionTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UnionTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface InterfaceTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class InterfaceTypeModel {
+  public find(args?: {
+    where?: InterfaceTypeWhere;
+
+    options?: InterfaceTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<InterfaceType[]>;
+  public create(args: {
+    input: InterfaceTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateInterfaceTypesMutationResponse>;
+  public update(args: {
+    where?: InterfaceTypeWhere;
+    update?: InterfaceTypeUpdateInput;
+    connect?: InterfaceTypeConnectInput;
+    disconnect?: InterfaceTypeDisconnectInput;
+    create?: InterfaceTypeCreateInput;
+    connectOrCreate?: InterfaceTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateInterfaceTypesMutationResponse>;
+  public delete(args: {
+    where?: InterfaceTypeWhere;
+    delete?: InterfaceTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: InterfaceTypeWhere;
+
+    aggregate: InterfaceTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<InterfaceTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ElementTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class ElementTypeModel {
+  public find(args?: {
+    where?: ElementTypeWhere;
+
+    options?: ElementTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ElementType[]>;
+  public create(args: {
+    input: ElementTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateElementTypesMutationResponse>;
+  public update(args: {
+    where?: ElementTypeWhere;
+    update?: ElementTypeUpdateInput;
+    connect?: ElementTypeConnectInput;
+    disconnect?: ElementTypeDisconnectInput;
+    create?: ElementTypeCreateInput;
+    connectOrCreate?: ElementTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateElementTypesMutationResponse>;
+  public delete(args: {
+    where?: ElementTypeWhere;
+    delete?: ElementTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ElementTypeWhere;
+
+    aggregate: ElementTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ElementTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface RenderPropsTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class RenderPropsTypeModel {
+  public find(args?: {
+    where?: RenderPropsTypeWhere;
+
+    options?: RenderPropsTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<RenderPropsType[]>;
+  public create(args: {
+    input: RenderPropsTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateRenderPropsTypesMutationResponse>;
+  public update(args: {
+    where?: RenderPropsTypeWhere;
+    update?: RenderPropsTypeUpdateInput;
+    connect?: RenderPropsTypeConnectInput;
+    disconnect?: RenderPropsTypeDisconnectInput;
+    create?: RenderPropsTypeCreateInput;
+    connectOrCreate?: RenderPropsTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateRenderPropsTypesMutationResponse>;
+  public delete(args: {
+    where?: RenderPropsTypeWhere;
+    delete?: RenderPropsTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: RenderPropsTypeWhere;
+
+    aggregate: RenderPropsTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<RenderPropsTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ReactNodeTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class ReactNodeTypeModel {
+  public find(args?: {
+    where?: ReactNodeTypeWhere;
+
+    options?: ReactNodeTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ReactNodeType[]>;
+  public create(args: {
+    input: ReactNodeTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateReactNodeTypesMutationResponse>;
+  public update(args: {
+    where?: ReactNodeTypeWhere;
+    update?: ReactNodeTypeUpdateInput;
+    connect?: ReactNodeTypeConnectInput;
+    disconnect?: ReactNodeTypeDisconnectInput;
+    create?: ReactNodeTypeCreateInput;
+    connectOrCreate?: ReactNodeTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateReactNodeTypesMutationResponse>;
+  public delete(args: {
+    where?: ReactNodeTypeWhere;
+    delete?: ReactNodeTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ReactNodeTypeWhere;
+
+    aggregate: ReactNodeTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ReactNodeTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface EnumTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class EnumTypeModel {
+  public find(args?: {
+    where?: EnumTypeWhere;
+
+    options?: EnumTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<EnumType[]>;
+  public create(args: {
+    input: EnumTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateEnumTypesMutationResponse>;
+  public update(args: {
+    where?: EnumTypeWhere;
+    update?: EnumTypeUpdateInput;
+    connect?: EnumTypeConnectInput;
+    disconnect?: EnumTypeDisconnectInput;
+    create?: EnumTypeCreateInput;
+    connectOrCreate?: EnumTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateEnumTypesMutationResponse>;
+  public delete(args: {
+    where?: EnumTypeWhere;
+    delete?: EnumTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: EnumTypeWhere;
+
+    aggregate: EnumTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<EnumTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface EnumTypeValueAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNullable;
+  value?: StringAggregateInputNonNullable;
+}
+
+export declare class EnumTypeValueModel {
+  public find(args?: {
+    where?: EnumTypeValueWhere;
+
+    options?: EnumTypeValueOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<EnumTypeValue[]>;
+  public create(args: {
+    input: EnumTypeValueCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateEnumTypeValuesMutationResponse>;
+  public update(args: {
+    where?: EnumTypeValueWhere;
+    update?: EnumTypeValueUpdateInput;
+    connect?: EnumTypeValueConnectInput;
+    disconnect?: EnumTypeValueDisconnectInput;
+    create?: EnumTypeValueCreateInput;
+    connectOrCreate?: EnumTypeValueConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateEnumTypeValuesMutationResponse>;
+  public delete(args: {
+    where?: EnumTypeValueWhere;
+    delete?: EnumTypeValueDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: EnumTypeValueWhere;
+
+    aggregate: EnumTypeValueAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<EnumTypeValueAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface LambdaTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class LambdaTypeModel {
+  public find(args?: {
+    where?: LambdaTypeWhere;
+
+    options?: LambdaTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<LambdaType[]>;
+  public create(args: {
+    input: LambdaTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateLambdaTypesMutationResponse>;
+  public update(args: {
+    where?: LambdaTypeWhere;
+    update?: LambdaTypeUpdateInput;
+    connect?: LambdaTypeConnectInput;
+    disconnect?: LambdaTypeDisconnectInput;
+    create?: LambdaTypeCreateInput;
+    connectOrCreate?: LambdaTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateLambdaTypesMutationResponse>;
+  public delete(args: {
+    where?: LambdaTypeWhere;
+    delete?: LambdaTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: LambdaTypeWhere;
+
+    aggregate: LambdaTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<LambdaTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PageTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class PageTypeModel {
+  public find(args?: {
+    where?: PageTypeWhere;
+
+    options?: PageTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PageType[]>;
+  public create(args: {
+    input: PageTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePageTypesMutationResponse>;
+  public update(args: {
+    where?: PageTypeWhere;
+    update?: PageTypeUpdateInput;
+    connect?: PageTypeConnectInput;
+    disconnect?: PageTypeDisconnectInput;
+    create?: PageTypeCreateInput;
+    connectOrCreate?: PageTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePageTypesMutationResponse>;
+  public delete(args: {
+    where?: PageTypeWhere;
+    delete?: PageTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PageTypeWhere;
+
+    aggregate: PageTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PageTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface AppTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class AppTypeModel {
+  public find(args?: {
+    where?: AppTypeWhere;
+
+    options?: AppTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<AppType[]>;
+  public create(args: {
+    input: AppTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateAppTypesMutationResponse>;
+  public update(args: {
+    where?: AppTypeWhere;
+    update?: AppTypeUpdateInput;
+    connect?: AppTypeConnectInput;
+    disconnect?: AppTypeDisconnectInput;
+    create?: AppTypeCreateInput;
+    connectOrCreate?: AppTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateAppTypesMutationResponse>;
+  public delete(args: {
+    where?: AppTypeWhere;
+    delete?: AppTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: AppTypeWhere;
+
+    aggregate: AppTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<AppTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface MonacoTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class MonacoTypeModel {
+  public find(args?: {
+    where?: MonacoTypeWhere;
+
+    options?: MonacoTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<MonacoType[]>;
+  public create(args: {
+    input: MonacoTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateMonacoTypesMutationResponse>;
+  public update(args: {
+    where?: MonacoTypeWhere;
+    update?: MonacoTypeUpdateInput;
+    connect?: MonacoTypeConnectInput;
+    disconnect?: MonacoTypeDisconnectInput;
+    create?: MonacoTypeCreateInput;
+    connectOrCreate?: MonacoTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateMonacoTypesMutationResponse>;
+  public delete(args: {
+    where?: MonacoTypeWhere;
+    delete?: MonacoTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: MonacoTypeWhere;
+
+    aggregate: MonacoTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<MonacoTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface TagAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class TagModel {
+  public find(args?: {
+    where?: TagWhere;
+
+    options?: TagOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Tag[]>;
+  public create(args: {
+    input: TagCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateTagsMutationResponse>;
+  public update(args: {
+    where?: TagWhere;
+    update?: TagUpdateInput;
+    connect?: TagConnectInput;
+    disconnect?: TagDisconnectInput;
+    create?: TagCreateInput;
+    connectOrCreate?: TagConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateTagsMutationResponse>;
+  public delete(args: {
+    where?: TagWhere;
+    delete?: TagDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: TagWhere;
+
+    aggregate: TagAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface TagGraphOptionsAggregateSelectionInput {
+  count?: boolean;
+  sort?: IntAggregateInputNullable;
+  limit?: IntAggregateInputNullable;
+}
+
+export declare class TagGraphOptionsModel {
+  public find(args?: {
+    where?: TagGraphOptionsWhere;
+
+    options?: TagGraphOptionsOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraphOptions[]>;
+  public create(args: {
+    input: TagGraphOptionsCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateTagGraphOptionsMutationResponse>;
+  public update(args: {
+    where?: TagGraphOptionsWhere;
+    update?: TagGraphOptionsUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateTagGraphOptionsMutationResponse>;
+  public delete(args: {
+    where?: TagGraphOptionsWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: TagGraphOptionsWhere;
+
+    aggregate: TagGraphOptionsAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraphOptionsAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface TagGraphAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class TagGraphModel {
+  public find(args?: {
+    where?: TagGraphWhere;
+
+    options?: TagGraphOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraph[]>;
+  public create(args: {
+    input: TagGraphCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateTagGraphsMutationResponse>;
+  public update(args: {
+    where?: TagGraphWhere;
+    update?: TagGraphUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateTagGraphsMutationResponse>;
+  public delete(args: {
+    where?: TagGraphWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: TagGraphWhere;
+
+    aggregate: TagGraphAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<TagGraphAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ElementGraphAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+}
+
+export declare class ElementGraphModel {
+  public find(args?: {
+    where?: ElementGraphWhere;
+
+    options?: ElementGraphOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ElementGraph[]>;
+  public create(args: {
+    input: ElementGraphCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateElementGraphsMutationResponse>;
+  public update(args: {
+    where?: ElementGraphWhere;
+    update?: ElementGraphUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateElementGraphsMutationResponse>;
+  public delete(args: {
+    where?: ElementGraphWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ElementGraphWhere;
+
+    aggregate: ElementGraphAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ElementGraphAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ElementAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNullable;
+  css?: StringAggregateInputNullable;
+  propTransformationJs?: StringAggregateInputNullable;
+  renderForEachPropKey?: StringAggregateInputNullable;
+  renderIfPropKey?: StringAggregateInputNullable;
+}
+
+export declare class ElementModel {
+  public find(args?: {
+    where?: ElementWhere;
+
+    options?: ElementOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Element[]>;
+  public create(args: {
+    input: ElementCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateElementsMutationResponse>;
+  public update(args: {
+    where?: ElementWhere;
+    update?: ElementUpdateInput;
+    connect?: ElementConnectInput;
+    disconnect?: ElementDisconnectInput;
+    create?: ElementCreateInput;
+    connectOrCreate?: ElementConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateElementsMutationResponse>;
+  public delete(args: {
+    where?: ElementWhere;
+    delete?: ElementDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ElementWhere;
+
+    aggregate: ElementAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ElementAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PropAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  data?: StringAggregateInputNonNullable;
+}
+
+export declare class PropModel {
+  public find(args?: {
+    where?: PropWhere;
+
+    options?: PropOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Prop[]>;
+  public create(args: {
+    input: PropCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePropsMutationResponse>;
+  public update(args: {
+    where?: PropWhere;
+    update?: PropUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePropsMutationResponse>;
+  public delete(args: {
+    where?: PropWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PropWhere;
+
+    aggregate: PropAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PropAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface PropMapBindingAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  sourceKey?: StringAggregateInputNonNullable;
+  targetKey?: StringAggregateInputNonNullable;
+}
+
+export declare class PropMapBindingModel {
+  public find(args?: {
+    where?: PropMapBindingWhere;
+
+    options?: PropMapBindingOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PropMapBinding[]>;
+  public create(args: {
+    input: PropMapBindingCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreatePropMapBindingsMutationResponse>;
+  public update(args: {
+    where?: PropMapBindingWhere;
+    update?: PropMapBindingUpdateInput;
+    connect?: PropMapBindingConnectInput;
+    disconnect?: PropMapBindingDisconnectInput;
+    create?: PropMapBindingCreateInput;
+    connectOrCreate?: PropMapBindingConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdatePropMapBindingsMutationResponse>;
+  public delete(args: {
+    where?: PropMapBindingWhere;
+    delete?: PropMapBindingDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: PropMapBindingWhere;
+
+    aggregate: PropMapBindingAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<PropMapBindingAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface HookAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+}
+
+export declare class HookModel {
+  public find(args?: {
+    where?: HookWhere;
+
+    options?: HookOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Hook[]>;
+  public create(args: {
+    input: HookCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateHooksMutationResponse>;
+  public update(args: {
+    where?: HookWhere;
+    update?: HookUpdateInput;
+    connect?: HookConnectInput;
+    disconnect?: HookDisconnectInput;
+    create?: HookCreateInput;
+    connectOrCreate?: HookConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateHooksMutationResponse>;
+  public delete(args: {
+    where?: HookWhere;
+    delete?: HookDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: HookWhere;
+
+    aggregate: HookAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<HookAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ComponentAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class ComponentModel {
+  public find(args?: {
+    where?: ComponentWhere;
+
+    options?: ComponentOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Component[]>;
+  public create(args: {
+    input: ComponentCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateComponentsMutationResponse>;
+  public update(args: {
+    where?: ComponentWhere;
+    update?: ComponentUpdateInput;
+    connect?: ComponentConnectInput;
+    disconnect?: ComponentDisconnectInput;
+    create?: ComponentCreateInput;
+    connectOrCreate?: ComponentConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateComponentsMutationResponse>;
+  public delete(args: {
+    where?: ComponentWhere;
+    delete?: ComponentDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ComponentWhere;
+
+    aggregate: ComponentAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ComponentAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ActionAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  body?: StringAggregateInputNonNullable;
+}
+
+export declare class ActionModel {
+  public find(args?: {
+    where?: ActionWhere;
+
+    options?: ActionOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Action[]>;
+  public create(args: {
+    input: ActionCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateActionsMutationResponse>;
+  public update(args: {
+    where?: ActionWhere;
+    update?: ActionUpdateInput;
+    connect?: ActionConnectInput;
+    disconnect?: ActionDisconnectInput;
+    create?: ActionCreateInput;
+    connectOrCreate?: ActionConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateActionsMutationResponse>;
+  public delete(args: {
+    where?: ActionWhere;
+    delete?: ActionDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ActionWhere;
+
+    aggregate: ActionAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ActionAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface StoreAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  localState?: StringAggregateInputNonNullable;
+}
+
+export declare class StoreModel {
+  public find(args?: {
+    where?: StoreWhere;
+
+    options?: StoreOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Store[]>;
+  public create(args: {
+    input: StoreCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateStoresMutationResponse>;
+  public update(args: {
+    where?: StoreWhere;
+    update?: StoreUpdateInput;
+    connect?: StoreConnectInput;
+    disconnect?: StoreDisconnectInput;
+    create?: StoreCreateInput;
+    connectOrCreate?: StoreConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateStoresMutationResponse>;
+  public delete(args: {
+    where?: StoreWhere;
+    delete?: StoreDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: StoreWhere;
+
+    aggregate: StoreAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<StoreAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface DeleteInfoAggregateSelectionInput {
+  count?: boolean;
+  bookmark?: StringAggregateInputNullable;
+  nodesDeleted?: IntAggregateInputNonNullable;
+  relationshipsDeleted?: IntAggregateInputNonNullable;
+}
+
+export declare class DeleteInfoModel {
+  public find(args?: {
+    where?: DeleteInfoWhere;
+
+    options?: DeleteInfoOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<DeleteInfo[]>;
+  public create(args: {
+    input: DeleteInfoCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateDeleteInfosMutationResponse>;
+  public update(args: {
+    where?: DeleteInfoWhere;
+    update?: DeleteInfoUpdateInput;
+
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateDeleteInfosMutationResponse>;
+  public delete(args: {
+    where?: DeleteInfoWhere;
+
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: DeleteInfoWhere;
+
+    aggregate: DeleteInfoAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<DeleteInfoAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface ResourceAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  config?: StringAggregateInputNonNullable;
+}
+
+export declare class ResourceModel {
+  public find(args?: {
+    where?: ResourceWhere;
+
+    options?: ResourceOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Resource[]>;
+  public create(args: {
+    input: ResourceCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateResourcesMutationResponse>;
+  public update(args: {
+    where?: ResourceWhere;
+    update?: ResourceUpdateInput;
+    connect?: ResourceConnectInput;
+    disconnect?: ResourceDisconnectInput;
+    create?: ResourceCreateInput;
+    connectOrCreate?: ResourceConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateResourcesMutationResponse>;
+  public delete(args: {
+    where?: ResourceWhere;
+    delete?: ResourceDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ResourceWhere;
+
+    aggregate: ResourceAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ResourceAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface IntAggregateInputNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
+export interface OperationAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  config?: StringAggregateInputNonNullable;
+}
+
+export declare class OperationModel {
+  public find(args?: {
+    where?: OperationWhere;
+
+    options?: OperationOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<Operation[]>;
+  public create(args: {
+    input: OperationCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateOperationsMutationResponse>;
+  public update(args: {
+    where?: OperationWhere;
+    update?: OperationUpdateInput;
+    connect?: OperationConnectInput;
+    disconnect?: OperationDisconnectInput;
+    create?: OperationCreateInput;
+    connectOrCreate?: OperationConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateOperationsMutationResponse>;
+  public delete(args: {
+    where?: OperationWhere;
+    delete?: OperationDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: OperationWhere;
+
+    aggregate: OperationAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<OperationAggregateSelection>;
+}
+
+export interface ModelMap {
+  ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel;
+  User: UserModel;
+  App: AppModel;
+  Atom: AtomModel;
+  CreateInfo: CreateInfoModel;
+  Page: PageModel;
+  TypeReference: TypeReferenceModel;
+  PrimitiveType: PrimitiveTypeModel;
+  ArrayType: ArrayTypeModel;
+  UnionType: UnionTypeModel;
+  InterfaceType: InterfaceTypeModel;
+  ElementType: ElementTypeModel;
+  RenderPropsType: RenderPropsTypeModel;
+  ReactNodeType: ReactNodeTypeModel;
+  EnumType: EnumTypeModel;
+  EnumTypeValue: EnumTypeValueModel;
+  LambdaType: LambdaTypeModel;
+  PageType: PageTypeModel;
+  AppType: AppTypeModel;
+  MonacoType: MonacoTypeModel;
+  Tag: TagModel;
+  TagGraphOptions: TagGraphOptionsModel;
+  TagGraph: TagGraphModel;
+  ElementGraph: ElementGraphModel;
+  Element: ElementModel;
+  Prop: PropModel;
+  PropMapBinding: PropMapBindingModel;
+  Hook: HookModel;
+  Component: ComponentModel;
+  Action: ActionModel;
+  Store: StoreModel;
+  DeleteInfo: DeleteInfoModel;
+  Resource: ResourceModel;
+  Operation: OperationModel;
+}
