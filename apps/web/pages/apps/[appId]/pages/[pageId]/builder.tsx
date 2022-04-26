@@ -70,10 +70,10 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       <Head>
         <title>{data?.page?.name} | Builder | Codelab</title>
       </Head>
-
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
       {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
       {isLoading && <Spin />}
-
       <Builder
         builderService={store.builderService}
         elementService={store.elementService}
