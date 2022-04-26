@@ -18,8 +18,6 @@ export const PageFragmentDoc = gql`
     name
     app {
       id
-    }
-    app {
       rootProviderElement {
         id
       }

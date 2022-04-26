@@ -6,6 +6,7 @@ import {
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
+  createMobxState,
   MainPane,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
@@ -21,46 +22,59 @@ import {
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const PageBuilder: CodelabPage<any> = observer(() => {
-  const store = useStore()
+  const {
+    pageService,
+    appService,
+    elementService,
+    providerElementService,
+    storeService,
+    builderService,
+  } = useStore()
+
   const currentAppId = useCurrentAppId()
   const currentPageId = useCurrentPageId()
-
-  // Load the pages list for the top bar
-  useLoadingState(
-    () => store.pageService.getAll({ app: { id: currentAppId } }),
-    { executeOnMount: true },
-  )
+  const router = useRouter()
 
   const [, { isLoading, error, data }] = useLoadingState(
     async () => {
-      const app = await store.appService.getOne(currentAppId)
-      // Load the page we're rendering
-      const page = await store.pageService.getOne(currentPageId)
+      // load all apps to provide them to mobxState
+      const apps = await appService.getAll()
+      // load all pages to provide them to mobxState
+      const pages = await pageService.getAll()
+      const app = appService.app(currentAppId)
+      const page = pageService.page(currentPageId)
 
       if (!page) {
         throw new Error('Page not found')
       }
 
+      const storeTree = app?.store?.id
+        ? await storeService.getOne(app.store.id)
+        : null
+
       // Get element tree and provider tree
-      const [elementTree, providerTree, storeTree] = await Promise.all([
-        store.elementService.getTree(page.rootElementId),
-        store.providerElementService.getTree(page.providerElementId),
-        app?.store?.id ? store.storeService.getOne(app?.store?.id) : null,
+      const [elementTree, providerTree] = await Promise.all([
+        elementService.getTree(page.rootElementId),
+        providerElementService.getTree(page.providerElementId),
       ])
 
       // initialize renderer
-      await store.builderService.builderRenderer.init(
-        store.elementService.elementTree,
-        store.providerElementService.elementTree,
-        app?.store?.id
-          ? store.storeService.store(app?.store?.id)?.toMobxObservable()
-          : null,
+      await builderService.builderRenderer.init(
+        elementService.elementTree,
+        providerElementService.elementTree,
+        createMobxState(storeTree, apps, pages, router),
       )
 
-      return { page, elementTree, providerTree, storeTree }
+      return {
+        page,
+        elementTree,
+        providerTree,
+        storeTree,
+      }
     },
     { executeOnMount: true },
   )
@@ -73,9 +87,9 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
       <Builder
-        builderService={store.builderService}
-        elementService={store.elementService}
-        key={store.builderService.builderRenderer.tree?.root?.id}
+        builderService={builderService}
+        elementService={elementService}
+        key={builderService.builderRenderer.tree?.root?.id}
       />
     </>
   )

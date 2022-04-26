@@ -6,11 +6,53 @@ import {
   IStateTreeNode,
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
+import { App } from '@codelab/frontend/modules/app'
+import { Page } from '@codelab/frontend/modules/page'
+import { Store } from '@codelab/frontend/modules/store'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { get } from 'lodash'
+import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
   start: STATE_PATH_TEMPLATE_START,
   end: STATE_PATH_TEMPLATE_END,
+}
+
+export const createMobxState = (
+  rootStore: Nullish<Store>,
+  apps: Array<App>,
+  pages: Array<Page>,
+  router: NextRouter,
+) => {
+  if (!rootStore) {
+    return null
+  }
+
+  // group pages by apps (easier to read in the state tree)
+  const pagesByApps = apps.map((app) => ({
+    name: app.name,
+    id: app.id,
+    ownerId: app.ownerId,
+    rootProviderElement: { id: app.id },
+    store: { id: app.store?.id },
+    pages: pages
+      .filter((page) => page.appId === app.id)
+      .map((page) => ({
+        id: page.id,
+        name: page.name,
+        appId: page.appId,
+        rootElementId: page.rootElementId,
+        providerElementId: page.providerElementId,
+      })),
+  }))
+
+  // we inject here state globals
+  const stateGlobals = {
+    router,
+    apps: pagesByApps,
+  }
+
+  return rootStore.toMobxObservable(stateGlobals)
 }
 
 export const toAntd = (
