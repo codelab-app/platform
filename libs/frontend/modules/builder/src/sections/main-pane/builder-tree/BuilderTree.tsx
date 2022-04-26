@@ -10,7 +10,7 @@ import React from 'react'
 import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
 import { TreeItemTitle } from './TreeItemTitle'
 
-export const MainPaneTree = observer<
+export const BuilderTree = observer<
   WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
 >(({ builderService, elementService }) => {
   const { setExpandedNodeIds, expandedNodeIds } =
@@ -37,7 +37,7 @@ export const MainPaneTree = observer<
         nativeEvent.stopPropagation()
 
         if (id) {
-          builderService.set_selectedElement(elementRef(node.key.toString()))
+          builderService.set_selectedElement(elementRef(id.toString()))
         }
       }}
       selectedKeys={
@@ -53,4 +53,4 @@ export const MainPaneTree = observer<
   )
 })
 
-MainPaneTree.displayName = 'MainPaneBuilderTreeTab'
+BuilderTree.displayName = 'MainPaneBuilderTreeTab'

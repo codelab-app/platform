@@ -23,9 +23,9 @@ import Input from 'antd/lib/input'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
+import { BuilderTree } from './builder-tree'
 import { MainPaneMobxState } from './mobx-state/MainPaneMobxState'
-import { MainPaneToolbox } from './toolbox/MainPaneToolbox'
-import { MainPaneTree } from './tree'
+import { Toolbox } from './toolbox/Toolbox'
 
 const { Search } = Input
 
@@ -98,7 +98,7 @@ export const MainPane = observer<
       title={paneTitles[builderTab]}
     >
       <DisplayIf condition={builderTab === BuilderTab.Tree}>
-        <MainPaneTree
+        <BuilderTree
           builderService={builderService}
           elementService={elementService}
         />
@@ -109,7 +109,7 @@ export const MainPane = observer<
       </DisplayIf>
 
       <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
-        <MainPaneToolbox
+        <Toolbox
           atomService={atomService}
           componentService={componentService}
           searchQuery={searchValue}

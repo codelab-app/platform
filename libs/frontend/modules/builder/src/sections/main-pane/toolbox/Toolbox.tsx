@@ -61,7 +61,7 @@ export type MainPaneToolboxProps = WithServices<
   searchQuery?: string
 }
 
-export const MainPaneToolbox = observer<MainPaneToolboxProps>(
+export const Toolbox = observer<MainPaneToolboxProps>(
   ({ searchQuery, atomService, componentService }) => {
     const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
     const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])
@@ -143,4 +143,4 @@ const ToolboxItemView = ({ toolboxItem }: { toolboxItem: ToolboxItem }) => {
   )
 }
 
-MainPaneToolbox.displayName = 'MainPaneBuilderToolboxTab'
+Toolbox.displayName = 'MainPaneBuilderToolboxTab'

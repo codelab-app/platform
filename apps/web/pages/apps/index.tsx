@@ -51,7 +51,7 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  console.debug('index.tsx', props)
+  // console.debug('index.tsx', props)
 
   const store = useStore()
 

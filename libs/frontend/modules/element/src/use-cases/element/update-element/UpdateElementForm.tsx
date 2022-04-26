@@ -57,44 +57,42 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     return (
-      <div>
-        <Form<IUpdateElementDTO>
-          autosave
-          key={element.id}
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={createNotificationHandler({
-            title: 'Error while updating element',
-            type: 'error',
-          })}
-          schema={updateElementSchema}
-          submitRef={undefined}
-        >
-          <AutoFields
-            omitFields={[
-              'atomId',
-              'renderIfPropKey',
-              'renderForEachPropKey',
-              'propTransformationJs',
-              'instanceOfComponentId',
-              // We edit it in the css tab
-              'css',
-            ]}
-          />
-          <AutoField component={SelectComponent} name="instanceOfComponentId" />
-          <AutoField component={SelectAtom} name="atomId" />
-          <AutoCompleteField
-            name="renderIfPropKey"
-            onSearch={handlePropSearch}
-            options={propCompleteOptions}
-          />
-          <AutoCompleteField
-            name="renderForEachPropKey"
-            onSearch={handlePropSearch}
-            options={propCompleteOptions}
-          />
-        </Form>
-      </div>
+      <Form<IUpdateElementDTO>
+        autosave
+        key={element.id}
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while updating element',
+          type: 'error',
+        })}
+        schema={updateElementSchema}
+        submitRef={undefined}
+      >
+        <AutoFields
+          omitFields={[
+            'atomId',
+            'renderIfPropKey',
+            'renderForEachPropKey',
+            'propTransformationJs',
+            'instanceOfComponentId',
+            // We edit it in the css tab
+            'css',
+          ]}
+        />
+        <AutoField component={SelectComponent} name="instanceOfComponentId" />
+        <AutoField component={SelectAtom} name="atomId" />
+        <AutoCompleteField
+          name="renderIfPropKey"
+          onSearch={handlePropSearch}
+          options={propCompleteOptions}
+        />
+        <AutoCompleteField
+          name="renderForEachPropKey"
+          onSearch={handlePropSearch}
+          options={propCompleteOptions}
+        />
+      </Form>
     )
   },
 )
