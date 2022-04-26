@@ -14,16 +14,19 @@
   "plugins": [
     "@emotion",
     "macros",
+    // For mobx-keystone
     [
-      // For mobx-keystone
       "@babel/plugin-proposal-decorators",
       {
         "version": "legacy"
       }
     ],
+    // For mobx-keystone
     [
-      // For mobx-keystone
-      "@babel/plugin-proposal-class-properties"
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
     ]
   ]
 }
