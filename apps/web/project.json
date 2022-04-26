@@ -20,8 +20,10 @@
           "root": "apps/web",
           "outputPath": "dist/apps/web"
         },
-        "production": {}
-      }
+        "production": {},
+        "development": {}
+      },
+      "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@nrwl/next:server",
@@ -41,8 +43,13 @@
         "production": {
           "buildTarget": "web:build:production",
           "dev": false
+        },
+        "development": {
+          "buildTarget": "web:build:development",
+          "dev": true
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "codegen": {
       "executor": "@nrwl/workspace:run-commands",
@@ -84,7 +91,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/web/jest.config.js",
+        "jestConfig": "apps/web/jest.config.ts",
         "passWithNoTests": true
       },
       "outputs": ["coverage/apps/web"]

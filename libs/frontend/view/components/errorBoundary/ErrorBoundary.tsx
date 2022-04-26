@@ -3,7 +3,7 @@
  *
  * Error boundary as recommended by Next.js
  */
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 interface ErrorState {
   hasError: boolean
@@ -15,7 +15,7 @@ interface ErrorBoundaryProps {
 }
 
 export class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
+  PropsWithChildren<ErrorBoundaryProps>,
   ErrorState
 > {
   override state: ErrorState

@@ -16,8 +16,7 @@ export const reduceComponentTree = (
       children,
     }: PropsWithChildren<ComponentProps<ComponentType>>): JSX.Element => (
       <ParentComponent>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <ChildComponent {...childProps}>{children}</ChildComponent>
+        {React.createElement(ChildComponent, childProps, children)}
       </ParentComponent>
     )
   }, ChildrenRender)
