@@ -1815,9 +1815,9 @@ export enum SortDirection {
 
 export enum TypeKind {
   PrimitiveType = "PrimitiveType",
+  EnumType = "EnumType",
   ArrayType = "ArrayType",
   InterfaceType = "InterfaceType",
-  EnumType = "EnumType",
   LambdaType = "LambdaType",
   ElementType = "ElementType",
   RenderPropsType = "RenderPropsType",
@@ -3797,9 +3797,11 @@ export type InterfaceType = TypeBase &
     apiOfAtoms: Array<Atom>;
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>;
     fields: Array<TypeBase>;
+    fieldsFor: Array<TypeBase>;
     ownerConnection: TypeBaseOwnerConnection;
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection;
     fieldsConnection: InterfaceTypeFieldsConnection;
+    fieldsForConnection: InterfaceTypeFieldsForConnection;
   };
 
 /** Represents an object type with multiple fields */
@@ -3836,6 +3838,13 @@ export type InterfaceTypeFieldsArgs = {
 };
 
 /** Represents an object type with multiple fields */
+export type InterfaceTypeFieldsForArgs = {
+  options?: InputMaybe<TypeBaseOptions>;
+  where?: InputMaybe<TypeBaseWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerConnectionArgs = {
   where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
@@ -3860,6 +3869,15 @@ export type InterfaceTypeFieldsConnectionArgs = {
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
   sort?: InputMaybe<Array<InterfaceTypeFieldsConnectionSort>>;
+};
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldsForConnectionArgs = {
+  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<InterfaceTypeFieldsForConnectionSort>>;
 };
 
 export type InterfaceTypeAggregateSelection = {
@@ -3905,6 +3923,23 @@ export type InterfaceTypeFieldsConnection = {
   edges: Array<InterfaceTypeFieldsRelationship>;
   totalCount: Scalars["Int"];
   pageInfo: PageInfo;
+};
+
+export type InterfaceTypeFieldsForConnection = {
+  __typename?: "InterfaceTypeFieldsForConnection";
+  edges: Array<InterfaceTypeFieldsForRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type InterfaceTypeFieldsForRelationship = Field & {
+  __typename?: "InterfaceTypeFieldsForRelationship";
+  cursor: Scalars["String"];
+  node: TypeBase;
+  id: Scalars["ID"];
+  key: Scalars["String"];
+  name?: Maybe<Scalars["String"]>;
+  description?: Maybe<Scalars["String"]>;
 };
 
 export type InterfaceTypeFieldsRelationship = Field & {
@@ -10352,6 +10387,7 @@ export type InterfaceTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>;
+  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>;
 };
 
 export type InterfaceTypeConnectOrCreateInput = {
@@ -10376,18 +10412,21 @@ export type InterfaceTypeCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>;
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>;
+  fieldsFor?: InputMaybe<InterfaceTypeFieldsForFieldInput>;
 };
 
 export type InterfaceTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>;
+  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>;
 };
 
 export type InterfaceTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>;
+  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>;
 };
 
 export type InterfaceTypeFieldsConnectFieldInput = {
@@ -10428,6 +10467,60 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 export type InterfaceTypeFieldsFieldInput = {
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>;
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>;
+};
+
+export type InterfaceTypeFieldsForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>;
+  edge: FieldCreateInput;
+  where?: InputMaybe<TypeBaseConnectWhere>;
+};
+
+export type InterfaceTypeFieldsForConnectionSort = {
+  edge?: InputMaybe<FieldSort>;
+  node?: InputMaybe<TypeBaseSort>;
+};
+
+export type InterfaceTypeFieldsForConnectionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>;
+  OR?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>;
+  edge?: InputMaybe<FieldWhere>;
+  edge_NOT?: InputMaybe<FieldWhere>;
+  node?: InputMaybe<TypeBaseWhere>;
+  node_NOT?: InputMaybe<TypeBaseWhere>;
+};
+
+export type InterfaceTypeFieldsForCreateFieldInput = {
+  node: TypeBaseCreateInput;
+  edge: FieldCreateInput;
+};
+
+export type InterfaceTypeFieldsForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>;
+  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+};
+
+export type InterfaceTypeFieldsForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>;
+  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+};
+
+export type InterfaceTypeFieldsForFieldInput = {
+  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>;
+  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>;
+};
+
+export type InterfaceTypeFieldsForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>;
+  node?: InputMaybe<TypeBaseUpdateInput>;
+};
+
+export type InterfaceTypeFieldsForUpdateFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>;
+  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>;
+  delete?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>;
+  update?: InputMaybe<InterfaceTypeFieldsForUpdateConnectionInput>;
+  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
 };
 
 export type InterfaceTypeFieldsUpdateConnectionInput = {
@@ -10517,6 +10610,7 @@ export type InterfaceTypeRelationInput = {
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>;
+  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>;
 };
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
@@ -10537,6 +10631,7 @@ export type InterfaceTypeUpdateInput = {
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>;
+  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForUpdateFieldInput>>;
 };
 
 export type InterfaceTypeWhere = {
@@ -10594,6 +10689,12 @@ export type InterfaceTypeWhere = {
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
   fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
+  fieldsForConnection?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  fieldsForConnection_NOT?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  fieldsForConnection_ALL?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  fieldsForConnection_NONE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  fieldsForConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
+  fieldsForConnection_SOME?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>;
 };
 
 export type LambdaTypeConnectInput = {
