@@ -72,7 +72,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       </Head>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
       <Builder
         builderService={store.builderService}

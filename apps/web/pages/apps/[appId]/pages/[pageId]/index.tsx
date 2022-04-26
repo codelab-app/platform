@@ -64,7 +64,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       <Head>
         <title>{data?.page?.name}</title>
       </Head>
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
       <Renderer renderService={store.renderService} />
     </>

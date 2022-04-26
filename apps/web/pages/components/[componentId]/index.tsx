@@ -59,7 +59,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>{data?.component?.name} | Codelab</title>
       </Head>
 
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
 
       <Builder

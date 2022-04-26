@@ -68,7 +68,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
         <title>{app?.name} | Provider Builder | Codelab</title>
       </Head>
 
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
 
       <Builder
