@@ -1,10 +1,10 @@
+import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Tree } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { IStateTreeNode } from '../../../renderer/utils/platformState'
-import { WithBuilderService } from '../../../store/BuilderService'
 import { StateTreeItem } from './StateTreeItem'
 
-interface StateTreeProps extends WithBuilderService {
+type StateTreeProps = WithServices<BUILDER_SERVICE> & {
   state: Array<IStateTreeNode>
   parentPath: string
 }

@@ -10,16 +10,17 @@ import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Page, pageRef, PageService } from '../../store'
+import { pageRef } from '../../store'
 
 export type GetPagesItemProps = {
   page: IPage
   pageService: IPageService
 }
 
-export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
-  const router = useRouter()
-  const isProviderTreePage = page.name === PROVIDER_TREE_PAGE_NAME
+export const GetPagesItem = observer<GetPagesItemProps>(
+  ({ page, pageService }) => {
+    const router = useRouter()
+    const isProviderTreePage = page.name === PROVIDER_TREE_PAGE_NAME
 
     const href = isProviderTreePage
       ? { pathname: PageType.AppProviderDetail, query: router.query }

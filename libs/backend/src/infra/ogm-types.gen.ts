@@ -1,13 +1,6 @@
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
 import { SelectionSetNode, DocumentNode } from "graphql";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-=======
-import { DocumentNode, SelectionSetNode } from 'graphql'
-
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -32,7 +25,6 @@ export type Scalars = {
 };
 
 export type Query = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "Query";
   elementGraph: ElementGraph;
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
@@ -139,108 +131,6 @@ export type Query = {
   operationsConnection: OperationsConnection;
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
   isTypeDescendantOf?: Maybe<Scalars["Boolean"]>;
-=======
-  __typename?: 'Query'
-  elementGraph: ElementGraph
-  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
-  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
-  resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
-  users: Array<User>
-  usersAggregate: UserAggregateSelection
-  usersConnection: UsersConnection
-  apps: Array<App>
-  appsAggregate: AppAggregateSelection
-  appsConnection: AppsConnection
-  atoms: Array<Atom>
-  atomsAggregate: AtomAggregateSelection
-  atomsConnection: AtomsConnection
-  createInfos: Array<CreateInfo>
-  createInfosAggregate: CreateInfoAggregateSelection
-  createInfosConnection: CreateInfosConnection
-  pages: Array<Page>
-  pagesAggregate: PageAggregateSelection
-  pagesConnection: PagesConnection
-  typeReferences: Array<TypeReference>
-  typeReferencesAggregate: TypeReferenceAggregateSelection
-  typeReferencesConnection: TypeReferencesConnection
-  primitiveTypes: Array<PrimitiveType>
-  primitiveTypesAggregate: PrimitiveTypeAggregateSelection
-  primitiveTypesConnection: PrimitiveTypesConnection
-  arrayTypes: Array<ArrayType>
-  arrayTypesAggregate: ArrayTypeAggregateSelection
-  arrayTypesConnection: ArrayTypesConnection
-  unionTypes: Array<UnionType>
-  unionTypesAggregate: UnionTypeAggregateSelection
-  unionTypesConnection: UnionTypesConnection
-  interfaceTypes: Array<InterfaceType>
-  interfaceTypesAggregate: InterfaceTypeAggregateSelection
-  interfaceTypesConnection: InterfaceTypesConnection
-  elementTypes: Array<ElementType>
-  elementTypesAggregate: ElementTypeAggregateSelection
-  elementTypesConnection: ElementTypesConnection
-  renderPropsTypes: Array<RenderPropsType>
-  renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
-  renderPropsTypesConnection: RenderPropsTypesConnection
-  reactNodeTypes: Array<ReactNodeType>
-  reactNodeTypesAggregate: ReactNodeTypeAggregateSelection
-  reactNodeTypesConnection: ReactNodeTypesConnection
-  enumTypes: Array<EnumType>
-  enumTypesAggregate: EnumTypeAggregateSelection
-  enumTypesConnection: EnumTypesConnection
-  enumTypeValues: Array<EnumTypeValue>
-  enumTypeValuesAggregate: EnumTypeValueAggregateSelection
-  enumTypeValuesConnection: EnumTypeValuesConnection
-  lambdaTypes: Array<LambdaType>
-  lambdaTypesAggregate: LambdaTypeAggregateSelection
-  lambdaTypesConnection: LambdaTypesConnection
-  pageTypes: Array<PageType>
-  pageTypesAggregate: PageTypeAggregateSelection
-  pageTypesConnection: PageTypesConnection
-  appTypes: Array<AppType>
-  appTypesAggregate: AppTypeAggregateSelection
-  appTypesConnection: AppTypesConnection
-  monacoTypes: Array<MonacoType>
-  monacoTypesAggregate: MonacoTypeAggregateSelection
-  monacoTypesConnection: MonacoTypesConnection
-  tags: Array<Tag>
-  tagsAggregate: TagAggregateSelection
-  tagsConnection: TagsConnection
-  tagGraphOptions: Array<TagGraphOptions>
-  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
-  tagGraphOptionsConnection: TagGraphOptionsConnection
-  tagGraphs: Array<TagGraph>
-  tagGraphsAggregate: TagGraphAggregateSelection
-  tagGraphsConnection: TagGraphsConnection
-  elementGraphs: Array<ElementGraph>
-  elementGraphsAggregate: ElementGraphAggregateSelection
-  elementGraphsConnection: ElementGraphsConnection
-  elements: Array<Element>
-  elementsAggregate: ElementAggregateSelection
-  elementsConnection: ElementsConnection
-  props: Array<Prop>
-  propsAggregate: PropAggregateSelection
-  propsConnection: PropsConnection
-  propMapBindings: Array<PropMapBinding>
-  propMapBindingsAggregate: PropMapBindingAggregateSelection
-  propMapBindingsConnection: PropMapBindingsConnection
-  hooks: Array<Hook>
-  hooksAggregate: HookAggregateSelection
-  hooksConnection: HooksConnection
-  components: Array<Component>
-  componentsAggregate: ComponentAggregateSelection
-  componentsConnection: ComponentsConnection
-  actions: Array<Action>
-  actionsAggregate: ActionAggregateSelection
-  actionsConnection: ActionsConnection
-  stores: Array<Store>
-  storesAggregate: StoreAggregateSelection
-  storesConnection: StoresConnection
-  deleteInfos: Array<DeleteInfo>
-  deleteInfosAggregate: DeleteInfoAggregateSelection
-  deleteInfosConnection: DeleteInfosConnection
-  /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
-  isTypeDescendantOf?: Maybe<Scalars['Boolean']>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
    * This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
@@ -252,10 +142,6 @@ export type QueryElementGraphArgs = {
   input: ElementGraphInput;
 };
 
-export type QueryElementGraphArgs = {
-  input: ElementGraphInput
-}
-
 export type QueryResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>;
   options?: InputMaybe<ResetDatabaseMutationResponseOptions>;
@@ -266,19 +152,11 @@ export type QueryResetDatabaseMutationResponsesAggregateArgs = {
 };
 
 export type QueryResetDatabaseMutationResponsesConnectionArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>;
   sort?: InputMaybe<Array<InputMaybe<ResetDatabaseMutationResponseSort>>>;
 };
-=======
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-  sort?: InputMaybe<Array<InputMaybe<ResetDatabaseMutationResponseSort>>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type QueryUsersArgs = {
   where?: InputMaybe<UserWhere>;
@@ -296,13 +174,6 @@ export type QueryUsersConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<UserSort>>>;
 };
 
-export type QueryUsersConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<UserWhere>
-  sort?: InputMaybe<Array<InputMaybe<UserSort>>>
-}
-
 export type QueryAppsArgs = {
   where?: InputMaybe<AppWhere>;
   options?: InputMaybe<AppOptions>;
@@ -318,13 +189,6 @@ export type QueryAppsConnectionArgs = {
   where?: InputMaybe<AppWhere>;
   sort?: InputMaybe<Array<InputMaybe<AppSort>>>;
 };
-
-export type QueryAppsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<AppWhere>
-  sort?: InputMaybe<Array<InputMaybe<AppSort>>>
-}
 
 export type QueryAtomsArgs = {
   where?: InputMaybe<AtomWhere>;
@@ -342,13 +206,6 @@ export type QueryAtomsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<AtomSort>>>;
 };
 
-export type QueryAtomsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<AtomWhere>
-  sort?: InputMaybe<Array<InputMaybe<AtomSort>>>
-}
-
 export type QueryCreateInfosArgs = {
   where?: InputMaybe<CreateInfoWhere>;
   options?: InputMaybe<CreateInfoOptions>;
@@ -364,13 +221,6 @@ export type QueryCreateInfosConnectionArgs = {
   where?: InputMaybe<CreateInfoWhere>;
   sort?: InputMaybe<Array<InputMaybe<CreateInfoSort>>>;
 };
-
-export type QueryCreateInfosConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<CreateInfoWhere>
-  sort?: InputMaybe<Array<InputMaybe<CreateInfoSort>>>
-}
 
 export type QueryPagesArgs = {
   where?: InputMaybe<PageWhere>;
@@ -388,13 +238,6 @@ export type QueryPagesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<PageSort>>>;
 };
 
-export type QueryPagesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<PageWhere>
-  sort?: InputMaybe<Array<InputMaybe<PageSort>>>
-}
-
 export type QueryTypeReferencesArgs = {
   where?: InputMaybe<TypeReferenceWhere>;
   options?: InputMaybe<TypeReferenceOptions>;
@@ -405,19 +248,11 @@ export type QueryTypeReferencesAggregateArgs = {
 };
 
 export type QueryTypeReferencesConnectionArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   where?: InputMaybe<TypeReferenceWhere>;
   sort?: InputMaybe<Array<InputMaybe<TypeReferenceSort>>>;
 };
-=======
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<TypeReferenceWhere>
-  sort?: InputMaybe<Array<InputMaybe<TypeReferenceSort>>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type QueryPrimitiveTypesArgs = {
   where?: InputMaybe<PrimitiveTypeWhere>;
@@ -435,13 +270,6 @@ export type QueryPrimitiveTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<PrimitiveTypeSort>>>;
 };
 
-export type QueryPrimitiveTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<PrimitiveTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<PrimitiveTypeSort>>>
-}
-
 export type QueryArrayTypesArgs = {
   where?: InputMaybe<ArrayTypeWhere>;
   options?: InputMaybe<ArrayTypeOptions>;
@@ -457,13 +285,6 @@ export type QueryArrayTypesConnectionArgs = {
   where?: InputMaybe<ArrayTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<ArrayTypeSort>>>;
 };
-
-export type QueryArrayTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ArrayTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<ArrayTypeSort>>>
-}
 
 export type QueryUnionTypesArgs = {
   where?: InputMaybe<UnionTypeWhere>;
@@ -481,13 +302,6 @@ export type QueryUnionTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<UnionTypeSort>>>;
 };
 
-export type QueryUnionTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<UnionTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<UnionTypeSort>>>
-}
-
 export type QueryInterfaceTypesArgs = {
   where?: InputMaybe<InterfaceTypeWhere>;
   options?: InputMaybe<InterfaceTypeOptions>;
@@ -503,13 +317,6 @@ export type QueryInterfaceTypesConnectionArgs = {
   where?: InputMaybe<InterfaceTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<InterfaceTypeSort>>>;
 };
-
-export type QueryInterfaceTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<InterfaceTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<InterfaceTypeSort>>>
-}
 
 export type QueryElementTypesArgs = {
   where?: InputMaybe<ElementTypeWhere>;
@@ -527,13 +334,6 @@ export type QueryElementTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ElementTypeSort>>>;
 };
 
-export type QueryElementTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ElementTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<ElementTypeSort>>>
-}
-
 export type QueryRenderPropsTypesArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>;
   options?: InputMaybe<RenderPropsTypeOptions>;
@@ -549,13 +349,6 @@ export type QueryRenderPropsTypesConnectionArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<RenderPropsTypeSort>>>;
 };
-
-export type QueryRenderPropsTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<RenderPropsTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<RenderPropsTypeSort>>>
-}
 
 export type QueryReactNodeTypesArgs = {
   where?: InputMaybe<ReactNodeTypeWhere>;
@@ -573,13 +366,6 @@ export type QueryReactNodeTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ReactNodeTypeSort>>>;
 };
 
-export type QueryReactNodeTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ReactNodeTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<ReactNodeTypeSort>>>
-}
-
 export type QueryEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>;
   options?: InputMaybe<EnumTypeOptions>;
@@ -595,13 +381,6 @@ export type QueryEnumTypesConnectionArgs = {
   where?: InputMaybe<EnumTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<EnumTypeSort>>>;
 };
-
-export type QueryEnumTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<EnumTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<EnumTypeSort>>>
-}
 
 export type QueryEnumTypeValuesArgs = {
   where?: InputMaybe<EnumTypeValueWhere>;
@@ -619,13 +398,6 @@ export type QueryEnumTypeValuesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<EnumTypeValueSort>>>;
 };
 
-export type QueryEnumTypeValuesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<EnumTypeValueWhere>
-  sort?: InputMaybe<Array<InputMaybe<EnumTypeValueSort>>>
-}
-
 export type QueryLambdaTypesArgs = {
   where?: InputMaybe<LambdaTypeWhere>;
   options?: InputMaybe<LambdaTypeOptions>;
@@ -641,13 +413,6 @@ export type QueryLambdaTypesConnectionArgs = {
   where?: InputMaybe<LambdaTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<LambdaTypeSort>>>;
 };
-
-export type QueryLambdaTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<LambdaTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<LambdaTypeSort>>>
-}
 
 export type QueryPageTypesArgs = {
   where?: InputMaybe<PageTypeWhere>;
@@ -665,13 +430,6 @@ export type QueryPageTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<PageTypeSort>>>;
 };
 
-export type QueryPageTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<PageTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<PageTypeSort>>>
-}
-
 export type QueryAppTypesArgs = {
   where?: InputMaybe<AppTypeWhere>;
   options?: InputMaybe<AppTypeOptions>;
@@ -688,13 +446,6 @@ export type QueryAppTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<AppTypeSort>>>;
 };
 
-export type QueryAppTypesConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<AppTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<AppTypeSort>>>
-}
-
 export type QueryMonacoTypesArgs = {
   where?: InputMaybe<MonacoTypeWhere>;
   options?: InputMaybe<MonacoTypeOptions>;
@@ -705,19 +456,11 @@ export type QueryMonacoTypesAggregateArgs = {
 };
 
 export type QueryMonacoTypesConnectionArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   where?: InputMaybe<MonacoTypeWhere>;
   sort?: InputMaybe<Array<InputMaybe<MonacoTypeSort>>>;
 };
-=======
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<MonacoTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<MonacoTypeSort>>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type QueryTagsArgs = {
   where?: InputMaybe<TagWhere>;
@@ -735,13 +478,6 @@ export type QueryTagsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<TagSort>>>;
 };
 
-export type QueryTagsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<TagWhere>
-  sort?: InputMaybe<Array<InputMaybe<TagSort>>>
-}
-
 export type QueryTagGraphOptionsArgs = {
   where?: InputMaybe<TagGraphOptionsWhere>;
   options?: InputMaybe<TagGraphOptionsOptions>;
@@ -757,13 +493,6 @@ export type QueryTagGraphOptionsConnectionArgs = {
   where?: InputMaybe<TagGraphOptionsWhere>;
   sort?: InputMaybe<Array<InputMaybe<TagGraphOptionsSort>>>;
 };
-
-export type QueryTagGraphOptionsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<TagGraphOptionsWhere>
-  sort?: InputMaybe<Array<InputMaybe<TagGraphOptionsSort>>>
-}
 
 export type QueryTagGraphsAggregateArgs = {
   where?: InputMaybe<TagGraphWhere>;
@@ -792,29 +521,6 @@ export type QueryElementGraphsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ElementGraphSort>>>;
 };
 
-export type QueryTagGraphsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<TagGraphWhere>
-  sort?: InputMaybe<Array<InputMaybe<TagGraphSort>>>
-}
-
-export type QueryElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>
-  options?: InputMaybe<ElementGraphOptions>
-}
-
-export type QueryElementGraphsAggregateArgs = {
-  where?: InputMaybe<ElementGraphWhere>
-}
-
-export type QueryElementGraphsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ElementGraphWhere>
-  sort?: InputMaybe<Array<InputMaybe<ElementGraphSort>>>
-}
-
 export type QueryElementsArgs = {
   where?: InputMaybe<ElementWhere>;
   options?: InputMaybe<ElementOptions>;
@@ -825,19 +531,11 @@ export type QueryElementsAggregateArgs = {
 };
 
 export type QueryElementsConnectionArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   where?: InputMaybe<ElementWhere>;
   sort?: InputMaybe<Array<InputMaybe<ElementSort>>>;
 };
-=======
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ElementWhere>
-  sort?: InputMaybe<Array<InputMaybe<ElementSort>>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type QueryPropsArgs = {
   where?: InputMaybe<PropWhere>;
@@ -855,13 +553,6 @@ export type QueryPropsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<PropSort>>>;
 };
 
-export type QueryPropsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<PropWhere>
-  sort?: InputMaybe<Array<InputMaybe<PropSort>>>
-}
-
 export type QueryPropMapBindingsArgs = {
   where?: InputMaybe<PropMapBindingWhere>;
   options?: InputMaybe<PropMapBindingOptions>;
@@ -877,13 +568,6 @@ export type QueryPropMapBindingsConnectionArgs = {
   where?: InputMaybe<PropMapBindingWhere>;
   sort?: InputMaybe<Array<InputMaybe<PropMapBindingSort>>>;
 };
-
-export type QueryPropMapBindingsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<PropMapBindingWhere>
-  sort?: InputMaybe<Array<InputMaybe<PropMapBindingSort>>>
-}
 
 export type QueryHooksArgs = {
   where?: InputMaybe<HookWhere>;
@@ -901,13 +585,6 @@ export type QueryHooksConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<HookSort>>>;
 };
 
-export type QueryHooksConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<HookWhere>
-  sort?: InputMaybe<Array<InputMaybe<HookSort>>>
-}
-
 export type QueryComponentsArgs = {
   where?: InputMaybe<ComponentWhere>;
   options?: InputMaybe<ComponentOptions>;
@@ -923,13 +600,6 @@ export type QueryComponentsConnectionArgs = {
   where?: InputMaybe<ComponentWhere>;
   sort?: InputMaybe<Array<InputMaybe<ComponentSort>>>;
 };
-
-export type QueryComponentsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ComponentWhere>
-  sort?: InputMaybe<Array<InputMaybe<ComponentSort>>>
-}
 
 export type QueryActionsArgs = {
   where?: InputMaybe<ActionWhere>;
@@ -947,13 +617,6 @@ export type QueryActionsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ActionSort>>>;
 };
 
-export type QueryActionsConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<ActionWhere>
-  sort?: InputMaybe<Array<InputMaybe<ActionSort>>>
-}
-
 export type QueryStoresArgs = {
   where?: InputMaybe<StoreWhere>;
   options?: InputMaybe<StoreOptions>;
@@ -969,13 +632,6 @@ export type QueryStoresConnectionArgs = {
   where?: InputMaybe<StoreWhere>;
   sort?: InputMaybe<Array<InputMaybe<StoreSort>>>;
 };
-
-export type QueryStoresConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<StoreWhere>
-  sort?: InputMaybe<Array<InputMaybe<StoreSort>>>
-}
 
 export type QueryDeleteInfosArgs = {
   where?: InputMaybe<DeleteInfoWhere>;
@@ -1025,30 +681,16 @@ export type QueryOperationsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<OperationSort>>>;
 };
 
-export type QueryDeleteInfosConnectionArgs = {
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<DeleteInfoWhere>
-  sort?: InputMaybe<Array<InputMaybe<DeleteInfoSort>>>
-}
-
 export type QueryIsTypeDescendantOfArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   parentTypeId: Scalars["ID"];
   descendantTypeId: Scalars["ID"];
 };
-=======
-  parentTypeId: Scalars['ID']
-  descendantTypeId: Scalars['ID']
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type QueryGetTypeReferencesArgs = {
   typeId: Scalars["ID"];
 };
 
 export type Mutation = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "Mutation";
   deleteStoresSubgraph: DeleteInfo;
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse;
@@ -1155,108 +797,6 @@ export type Mutation = {
   updateOperations: UpdateOperationsMutationResponse;
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>;
 };
-=======
-  __typename?: 'Mutation'
-  deleteStoresSubgraph: DeleteInfo
-  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
-  deleteResetDatabaseMutationResponses: DeleteInfo
-  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
-  createUsers: CreateUsersMutationResponse
-  deleteUsers: DeleteInfo
-  updateUsers: UpdateUsersMutationResponse
-  createApps: CreateAppsMutationResponse
-  deleteApps: DeleteInfo
-  updateApps: UpdateAppsMutationResponse
-  createAtoms: CreateAtomsMutationResponse
-  deleteAtoms: DeleteInfo
-  updateAtoms: UpdateAtomsMutationResponse
-  createCreateInfos: CreateCreateInfosMutationResponse
-  deleteCreateInfos: DeleteInfo
-  updateCreateInfos: UpdateCreateInfosMutationResponse
-  createPages: CreatePagesMutationResponse
-  deletePages: DeleteInfo
-  updatePages: UpdatePagesMutationResponse
-  createTypeReferences: CreateTypeReferencesMutationResponse
-  deleteTypeReferences: DeleteInfo
-  updateTypeReferences: UpdateTypeReferencesMutationResponse
-  createPrimitiveTypes: CreatePrimitiveTypesMutationResponse
-  deletePrimitiveTypes: DeleteInfo
-  updatePrimitiveTypes: UpdatePrimitiveTypesMutationResponse
-  createArrayTypes: CreateArrayTypesMutationResponse
-  deleteArrayTypes: DeleteInfo
-  updateArrayTypes: UpdateArrayTypesMutationResponse
-  createUnionTypes: CreateUnionTypesMutationResponse
-  deleteUnionTypes: DeleteInfo
-  updateUnionTypes: UpdateUnionTypesMutationResponse
-  createInterfaceTypes: CreateInterfaceTypesMutationResponse
-  deleteInterfaceTypes: DeleteInfo
-  updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
-  createElementTypes: CreateElementTypesMutationResponse
-  deleteElementTypes: DeleteInfo
-  updateElementTypes: UpdateElementTypesMutationResponse
-  createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
-  deleteRenderPropsTypes: DeleteInfo
-  updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
-  createReactNodeTypes: CreateReactNodeTypesMutationResponse
-  deleteReactNodeTypes: DeleteInfo
-  updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
-  createEnumTypes: CreateEnumTypesMutationResponse
-  deleteEnumTypes: DeleteInfo
-  updateEnumTypes: UpdateEnumTypesMutationResponse
-  createEnumTypeValues: CreateEnumTypeValuesMutationResponse
-  deleteEnumTypeValues: DeleteInfo
-  updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
-  createLambdaTypes: CreateLambdaTypesMutationResponse
-  deleteLambdaTypes: DeleteInfo
-  updateLambdaTypes: UpdateLambdaTypesMutationResponse
-  createPageTypes: CreatePageTypesMutationResponse
-  deletePageTypes: DeleteInfo
-  updatePageTypes: UpdatePageTypesMutationResponse
-  createAppTypes: CreateAppTypesMutationResponse
-  deleteAppTypes: DeleteInfo
-  updateAppTypes: UpdateAppTypesMutationResponse
-  createMonacoTypes: CreateMonacoTypesMutationResponse
-  deleteMonacoTypes: DeleteInfo
-  updateMonacoTypes: UpdateMonacoTypesMutationResponse
-  createTags: CreateTagsMutationResponse
-  deleteTags: DeleteInfo
-  updateTags: UpdateTagsMutationResponse
-  createTagGraphOptions: CreateTagGraphOptionsMutationResponse
-  deleteTagGraphOptions: DeleteInfo
-  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
-  createTagGraphs: CreateTagGraphsMutationResponse
-  deleteTagGraphs: DeleteInfo
-  updateTagGraphs: UpdateTagGraphsMutationResponse
-  createElementGraphs: CreateElementGraphsMutationResponse
-  deleteElementGraphs: DeleteInfo
-  updateElementGraphs: UpdateElementGraphsMutationResponse
-  createElements: CreateElementsMutationResponse
-  deleteElements: DeleteInfo
-  updateElements: UpdateElementsMutationResponse
-  createProps: CreatePropsMutationResponse
-  deleteProps: DeleteInfo
-  updateProps: UpdatePropsMutationResponse
-  createPropMapBindings: CreatePropMapBindingsMutationResponse
-  deletePropMapBindings: DeleteInfo
-  updatePropMapBindings: UpdatePropMapBindingsMutationResponse
-  createHooks: CreateHooksMutationResponse
-  deleteHooks: DeleteInfo
-  updateHooks: UpdateHooksMutationResponse
-  createComponents: CreateComponentsMutationResponse
-  deleteComponents: DeleteInfo
-  updateComponents: UpdateComponentsMutationResponse
-  createActions: CreateActionsMutationResponse
-  deleteActions: DeleteInfo
-  updateActions: UpdateActionsMutationResponse
-  createStores: CreateStoresMutationResponse
-  deleteStores: DeleteInfo
-  updateStores: UpdateStoresMutationResponse
-  createDeleteInfos: CreateDeleteInfosMutationResponse
-  deleteDeleteInfos: DeleteInfo
-  updateDeleteInfos: UpdateDeleteInfosMutationResponse
-  resetDatabase?: Maybe<ResetDatabaseMutationResponse>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MutationDeleteStoresSubgraphArgs = {
   delete?: InputMaybe<StoreDeleteInput>;
@@ -1272,15 +812,9 @@ export type MutationDeleteResetDatabaseMutationResponsesArgs = {
 };
 
 export type MutationUpdateResetDatabaseMutationResponsesArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>;
   update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>;
 };
-=======
-  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
-  update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MutationCreateUsersArgs = {
   input: Array<UserCreateInput>;
@@ -1380,15 +914,9 @@ export type MutationDeleteTypeReferencesArgs = {
 };
 
 export type MutationUpdateTypeReferencesArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<TypeReferenceWhere>;
   update?: InputMaybe<TypeReferenceUpdateInput>;
 };
-=======
-  where?: InputMaybe<TypeReferenceWhere>
-  update?: InputMaybe<TypeReferenceUpdateInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MutationCreatePrimitiveTypesArgs = {
   input: Array<PrimitiveTypeCreateInput>;
@@ -1628,7 +1156,6 @@ export type MutationDeleteMonacoTypesArgs = {
 };
 
 export type MutationUpdateMonacoTypesArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<MonacoTypeWhere>;
   update?: InputMaybe<MonacoTypeUpdateInput>;
   connect?: InputMaybe<MonacoTypeConnectInput>;
@@ -1637,16 +1164,6 @@ export type MutationUpdateMonacoTypesArgs = {
   delete?: InputMaybe<MonacoTypeDeleteInput>;
   connectOrCreate?: InputMaybe<MonacoTypeConnectOrCreateInput>;
 };
-=======
-  where?: InputMaybe<MonacoTypeWhere>
-  update?: InputMaybe<MonacoTypeUpdateInput>
-  connect?: InputMaybe<MonacoTypeConnectInput>
-  disconnect?: InputMaybe<MonacoTypeDisconnectInput>
-  create?: InputMaybe<MonacoTypeRelationInput>
-  delete?: InputMaybe<MonacoTypeDeleteInput>
-  connectOrCreate?: InputMaybe<MonacoTypeConnectOrCreateInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MutationCreateTagsArgs = {
   input: Array<TagCreateInput>;
@@ -1706,19 +1223,6 @@ export type MutationUpdateElementGraphsArgs = {
   update?: InputMaybe<ElementGraphUpdateInput>;
 };
 
-export type MutationCreateElementGraphsArgs = {
-  input: Array<ElementGraphCreateInput>
-}
-
-export type MutationDeleteElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>
-}
-
-export type MutationUpdateElementGraphsArgs = {
-  where?: InputMaybe<ElementGraphWhere>
-  update?: InputMaybe<ElementGraphUpdateInput>
-}
-
 export type MutationCreateElementsArgs = {
   input: Array<ElementCreateInput>;
 };
@@ -1729,7 +1233,6 @@ export type MutationDeleteElementsArgs = {
 };
 
 export type MutationUpdateElementsArgs = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<ElementWhere>;
   update?: InputMaybe<ElementUpdateInput>;
   connect?: InputMaybe<ElementConnectInput>;
@@ -1738,16 +1241,6 @@ export type MutationUpdateElementsArgs = {
   delete?: InputMaybe<ElementDeleteInput>;
   connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>;
 };
-=======
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-  connect?: InputMaybe<ElementConnectInput>
-  disconnect?: InputMaybe<ElementDisconnectInput>
-  create?: InputMaybe<ElementRelationInput>
-  delete?: InputMaybe<ElementDeleteInput>
-  connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MutationCreatePropsArgs = {
   input: Array<PropCreateInput>;
@@ -2313,11 +1806,6 @@ export enum Role {
   Admin = "Admin",
 }
 
-export enum Role {
-  User = 'User',
-  Admin = 'Admin',
-}
-
 export enum SortDirection {
   /** Sort by field values in ascending order. */
   Asc = "ASC",
@@ -2340,35 +1828,12 @@ export enum TypeKind {
   AppType = "AppType",
 }
 
-export enum TypeKind {
-  PrimitiveType = 'PrimitiveType',
-  EnumType = 'EnumType',
-  ArrayType = 'ArrayType',
-  InterfaceType = 'InterfaceType',
-  LambdaType = 'LambdaType',
-  ElementType = 'ElementType',
-  RenderPropsType = 'RenderPropsType',
-  ReactNodeType = 'ReactNodeType',
-  UnionType = 'UnionType',
-  MonacoType = 'MonacoType',
-  PageType = 'PageType',
-  AppType = 'AppType',
-}
-
 export type Field = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   key: Scalars["String"];
   name?: Maybe<Scalars["String"]>;
   description?: Maybe<Scalars["String"]>;
 };
-=======
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ParentOfElement = {
   order?: Maybe<Scalars["Int"]>;
@@ -2383,21 +1848,12 @@ export type StoreResource = {
 };
 
 export type TypeBase = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   owner: User;
   ownerConnection: TypeBaseOwnerConnection;
   id: Scalars["ID"];
   name: Scalars["String"];
   kind: TypeKind;
 };
-=======
-  owner: User
-  ownerConnection: TypeBaseOwnerConnection
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type TypeBaseOwnerArgs = {
   where?: InputMaybe<UserWhere>;
@@ -2467,19 +1923,6 @@ export type ActionsConnection = {
   edges: Array<ActionEdge>;
 };
 
-export type ActionEdge = {
-  __typename?: 'ActionEdge'
-  cursor: Scalars['String']
-  node: Action
-}
-
-export type ActionsConnection = {
-  __typename?: 'ActionsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ActionEdge>
-}
-
 export type ActionStoreConnection = {
   __typename?: "ActionStoreConnection";
   edges: Array<ActionStoreRelationship>;
@@ -2507,7 +1950,6 @@ export type ActionStoreStoreNodeAggregateSelection = {
 };
 
 export type App = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "App";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -2524,24 +1966,6 @@ export type App = {
   rootProviderElementConnection: AppRootProviderElementConnection;
   storeConnection: AppStoreConnection;
 };
-=======
-  __typename?: 'App'
-  id: Scalars['ID']
-  name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>
-  pages: Array<Page>
-  pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
-  rootProviderElement: Element
-  rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>
-  store?: Maybe<Store>
-  storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
-  ownerConnection: AppOwnerConnection
-  pagesConnection: AppPagesConnection
-  rootProviderElementConnection: AppRootProviderElementConnection
-  storeConnection: AppStoreConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppOwnerArgs = {
   where?: InputMaybe<UserWhere>;
@@ -2632,12 +2056,6 @@ export type AppEdge = {
   node: App;
 };
 
-export type AppEdge = {
-  __typename?: 'AppEdge'
-  cursor: Scalars['String']
-  node: App
-}
-
 export type AppElementRootProviderElementAggregationSelection = {
   __typename?: "AppElementRootProviderElementAggregationSelection";
   count: Scalars["Int"];
@@ -2712,13 +2130,6 @@ export type AppsConnection = {
   edges: Array<AppEdge>;
 };
 
-export type AppsConnection = {
-  __typename?: 'AppsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<AppEdge>
-}
-
 export type AppStoreConnection = {
   __typename?: "AppStoreConnection";
   edges: Array<AppStoreRelationship>;
@@ -2747,7 +2158,6 @@ export type AppStoreStoreNodeAggregateSelection = {
 
 /** Allows picking a app from the list of apps */
 export type AppType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "AppType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -2756,16 +2166,6 @@ export type AppType = TypeBase & {
   ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'AppType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Allows picking a app from the list of apps */
 export type AppTypeOwnerArgs = {
@@ -2809,19 +2209,6 @@ export type AppTypesConnection = {
   edges: Array<AppTypeEdge>;
 };
 
-export type AppTypeEdge = {
-  __typename?: 'AppTypeEdge'
-  cursor: Scalars['String']
-  node: AppType
-}
-
-export type AppTypesConnection = {
-  __typename?: 'AppTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<AppTypeEdge>
-}
-
 export type AppTypeUserOwnerAggregationSelection = {
   __typename?: "AppTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -2854,7 +2241,6 @@ export type AppUserOwnerNodeAggregateSelection = {
  */
 export type ArrayType = TypeBase &
   WithDescendants & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     __typename?: "ArrayType";
     id: Scalars["ID"];
     name: Scalars["String"];
@@ -2866,19 +2252,6 @@ export type ArrayType = TypeBase &
     ownerConnection: TypeBaseOwnerConnection;
     itemTypeConnection: ArrayTypeItemTypeConnection;
   };
-=======
-    __typename?: 'ArrayType'
-    id: Scalars['ID']
-    name: Scalars['String']
-    descendantTypesIds: Array<Scalars['ID']>
-    kind: TypeKind
-    owner: User
-    ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
-    itemType: TypeBase
-    ownerConnection: TypeBaseOwnerConnection
-    itemTypeConnection: ArrayTypeItemTypeConnection
-  }
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -2946,12 +2319,6 @@ export type ArrayTypeEdge = {
   node: ArrayType;
 };
 
-export type ArrayTypeEdge = {
-  __typename?: 'ArrayTypeEdge'
-  cursor: Scalars['String']
-  node: ArrayType
-}
-
 export type ArrayTypeItemTypeConnection = {
   __typename?: "ArrayTypeItemTypeConnection";
   edges: Array<ArrayTypeItemTypeRelationship>;
@@ -2971,13 +2338,6 @@ export type ArrayTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<ArrayTypeEdge>;
 };
-
-export type ArrayTypesConnection = {
-  __typename?: 'ArrayTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ArrayTypeEdge>
-}
 
 export type ArrayTypeUserOwnerAggregationSelection = {
   __typename?: "ArrayTypeUserOwnerAggregationSelection";
@@ -3069,12 +2429,6 @@ export type AtomEdge = {
   node: Atom;
 };
 
-export type AtomEdge = {
-  __typename?: 'AtomEdge'
-  cursor: Scalars['String']
-  node: Atom
-}
-
 export type AtomInterfaceTypeApiAggregationSelection = {
   __typename?: "AtomInterfaceTypeApiAggregationSelection";
   count: Scalars["Int"];
@@ -3093,13 +2447,6 @@ export type AtomsConnection = {
   pageInfo: PageInfo;
   edges: Array<AtomEdge>;
 };
-
-export type AtomsConnection = {
-  __typename?: 'AtomsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<AtomEdge>
-}
 
 export type AtomTagsConnection = {
   __typename?: "AtomTagsConnection";
@@ -3189,12 +2536,6 @@ export type ComponentEdge = {
   node: Component;
 };
 
-export type ComponentEdge = {
-  __typename?: 'ComponentEdge'
-  cursor: Scalars['String']
-  node: Component
-}
-
 export type ComponentElementRootElementAggregationSelection = {
   __typename?: "ComponentElementRootElementAggregationSelection";
   count: Scalars["Int"];
@@ -3243,13 +2584,6 @@ export type ComponentsConnection = {
   pageInfo: PageInfo;
   edges: Array<ComponentEdge>;
 };
-
-export type ComponentsConnection = {
-  __typename?: 'ComponentsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ComponentEdge>
-}
 
 export type ComponentUserOwnerAggregationSelection = {
   __typename?: "ComponentUserOwnerAggregationSelection";
@@ -3301,17 +2635,10 @@ export type CreateComponentsMutationResponse = {
 };
 
 export type CreateCreateInfosMutationResponse = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "CreateCreateInfosMutationResponse";
   info: CreateInfo;
   createInfos: Array<CreateInfo>;
 };
-=======
-  __typename?: 'CreateCreateInfosMutationResponse'
-  info: CreateInfo
-  createInfos: Array<CreateInfo>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type CreateDeleteInfosMutationResponse = {
   __typename?: "CreateDeleteInfosMutationResponse";
@@ -3320,17 +2647,10 @@ export type CreateDeleteInfosMutationResponse = {
 };
 
 export type CreateElementGraphsMutationResponse = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "CreateElementGraphsMutationResponse";
   info: CreateInfo;
   elementGraphs: Array<ElementGraph>;
 };
-=======
-  __typename?: 'CreateElementGraphsMutationResponse'
-  info: CreateInfo
-  elementGraphs: Array<ElementGraph>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type CreateElementsMutationResponse = {
   __typename?: "CreateElementsMutationResponse";
@@ -3378,7 +2698,6 @@ export type CreateInfoAggregateSelection = {
 };
 
 export type CreateInfoEdge = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "CreateInfoEdge";
   cursor: Scalars["String"];
   node: CreateInfo;
@@ -3390,19 +2709,6 @@ export type CreateInfosConnection = {
   pageInfo: PageInfo;
   edges: Array<CreateInfoEdge>;
 };
-=======
-  __typename?: 'CreateInfoEdge'
-  cursor: Scalars['String']
-  node: CreateInfo
-}
-
-export type CreateInfosConnection = {
-  __typename?: 'CreateInfosConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<CreateInfoEdge>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type CreateInterfaceTypesMutationResponse = {
   __typename?: "CreateInterfaceTypesMutationResponse";
@@ -3519,17 +2825,10 @@ export type CreateUnionTypesMutationResponse = {
 };
 
 export type CreateUsersMutationResponse = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "CreateUsersMutationResponse";
   info: CreateInfo;
   users: Array<User>;
 };
-=======
-  __typename?: 'CreateUsersMutationResponse'
-  info: CreateInfo
-  users: Array<User>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type DeleteInfo = {
   __typename?: "DeleteInfo";
@@ -3547,7 +2846,6 @@ export type DeleteInfoAggregateSelection = {
 };
 
 export type DeleteInfoEdge = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "DeleteInfoEdge";
   cursor: Scalars["String"];
   node: DeleteInfo;
@@ -3559,19 +2857,6 @@ export type DeleteInfosConnection = {
   pageInfo: PageInfo;
   edges: Array<DeleteInfoEdge>;
 };
-=======
-  __typename?: 'DeleteInfoEdge'
-  cursor: Scalars['String']
-  node: DeleteInfo
-}
-
-export type DeleteInfosConnection = {
-  __typename?: 'DeleteInfosConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<DeleteInfoEdge>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type Element = {
   __typename?: "Element";
@@ -3847,17 +3132,10 @@ export type ElementComponentRelationship = {
 };
 
 export type ElementEdge = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "ElementEdge";
   cursor: Scalars["String"];
   node: Element;
 };
-=======
-  __typename?: 'ElementEdge'
-  cursor: Scalars['String']
-  node: Element
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ElementElementChildrenAggregationSelection = {
   __typename?: "ElementElementChildrenAggregationSelection";
@@ -3927,25 +3205,6 @@ export type ElementGraphsConnection = {
   pageInfo: PageInfo;
   edges: Array<ElementGraphEdge>;
 };
-
-export type ElementGraphAggregateSelection = {
-  __typename?: 'ElementGraphAggregateSelection'
-  count: Scalars['Int']
-  id: IdAggregateSelectionNonNullable
-}
-
-export type ElementGraphEdge = {
-  __typename?: 'ElementGraphEdge'
-  cursor: Scalars['String']
-  node: ElementGraph
-}
-
-export type ElementGraphsConnection = {
-  __typename?: 'ElementGraphsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ElementGraphEdge>
-}
 
 export type ElementHookHooksAggregationSelection = {
   __typename?: "ElementHookHooksAggregationSelection";
@@ -4056,13 +3315,6 @@ export type ElementsConnection = {
   edges: Array<ElementEdge>;
 };
 
-export type ElementsConnection = {
-  __typename?: 'ElementsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ElementEdge>
-}
-
 /**
  * Allows picking an element from the current tree
  * Is passed to the rendered element as a React node
@@ -4074,17 +3326,10 @@ export type ElementsConnection = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ElementType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "ElementType";
   id: Scalars["ID"];
   name: Scalars["String"];
   kind: TypeKind;
-=======
-  __typename?: 'ElementType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind;
   owner: User;
@@ -4161,19 +3406,6 @@ export type ElementTypesConnection = {
   edges: Array<ElementTypeEdge>;
 };
 
-export type ElementTypeEdge = {
-  __typename?: 'ElementTypeEdge'
-  cursor: Scalars['String']
-  node: ElementType
-}
-
-export type ElementTypesConnection = {
-  __typename?: 'ElementTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ElementTypeEdge>
-}
-
 export type ElementTypeUserOwnerAggregationSelection = {
   __typename?: "ElementTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -4193,7 +3425,6 @@ export type ElementTypeUserOwnerNodeAggregateSelection = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "EnumType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -4205,19 +3436,6 @@ export type EnumType = TypeBase & {
   ownerConnection: TypeBaseOwnerConnection;
   allowedValuesConnection: EnumTypeAllowedValuesConnection;
 };
-=======
-  __typename?: 'EnumType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<EnumTypeUserOwnerAggregationSelection>
-  allowedValues: Array<EnumTypeValue>
-  allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-  allowedValuesConnection: EnumTypeAllowedValuesConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /**
  * Allows choosing one of a set of allowed values.
@@ -4313,12 +3531,6 @@ export type EnumTypeEdge = {
   node: EnumType;
 };
 
-export type EnumTypeEdge = {
-  __typename?: 'EnumTypeEdge'
-  cursor: Scalars['String']
-  node: EnumType
-}
-
 export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
   __typename?: "EnumTypeEnumTypeValueAllowedValuesAggregationSelection";
   count: Scalars["Int"];
@@ -4338,13 +3550,6 @@ export type EnumTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<EnumTypeEdge>;
 };
-
-export type EnumTypesConnection = {
-  __typename?: 'EnumTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<EnumTypeEdge>
-}
 
 export type EnumTypeUserOwnerAggregationSelection = {
   __typename?: "EnumTypeUserOwnerAggregationSelection";
@@ -4402,12 +3607,6 @@ export type EnumTypeValueEdge = {
   node: EnumTypeValue;
 };
 
-export type EnumTypeValueEdge = {
-  __typename?: 'EnumTypeValueEdge'
-  cursor: Scalars['String']
-  node: EnumTypeValue
-}
-
 export type EnumTypeValueEnumTypeConnection = {
   __typename?: "EnumTypeValueEnumTypeConnection";
   edges: Array<EnumTypeValueEnumTypeRelationship>;
@@ -4439,13 +3638,6 @@ export type EnumTypeValuesConnection = {
   pageInfo: PageInfo;
   edges: Array<EnumTypeValueEdge>;
 };
-
-export type EnumTypeValuesConnection = {
-  __typename?: 'EnumTypeValuesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<EnumTypeValueEdge>
-}
 
 export type Hook = {
   __typename?: "Hook";
@@ -4522,12 +3714,6 @@ export type HookEdge = {
   node: Hook;
 };
 
-export type HookEdge = {
-  __typename?: 'HookEdge'
-  cursor: Scalars['String']
-  node: Hook
-}
-
 export type HookElementConnection = {
   __typename?: "HookElementConnection";
   edges: Array<HookElementRelationship>;
@@ -4576,13 +3762,6 @@ export type HooksConnection = {
   edges: Array<HookEdge>;
 };
 
-export type HooksConnection = {
-  __typename?: 'HooksConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<HookEdge>
-}
-
 export type IdAggregateSelectionNonNullable = {
   __typename?: "IDAggregateSelectionNonNullable";
   shortest: Scalars["ID"];
@@ -4608,7 +3787,6 @@ export type IntAggregateSelectionNullable = {
 /** Represents an object type with multiple fields */
 export type InterfaceType = TypeBase &
   WithDescendants & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     __typename?: "InterfaceType";
     id: Scalars["ID"];
     name: Scalars["String"];
@@ -4623,22 +3801,6 @@ export type InterfaceType = TypeBase &
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection;
     fieldsConnection: InterfaceTypeFieldsConnection;
   };
-=======
-    __typename?: 'InterfaceType'
-    id: Scalars['ID']
-    name: Scalars['String']
-    descendantTypesIds: Array<Scalars['ID']>
-    kind: TypeKind
-    owner: User
-    ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
-    apiOfAtoms: Array<Atom>
-    apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
-    fields: Array<TypeBase>
-    ownerConnection: TypeBaseOwnerConnection
-    apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
-    fieldsConnection: InterfaceTypeFieldsConnection
-  }
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerArgs = {
@@ -4733,17 +3895,10 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 };
 
 export type InterfaceTypeEdge = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "InterfaceTypeEdge";
   cursor: Scalars["String"];
   node: InterfaceType;
 };
-=======
-  __typename?: 'InterfaceTypeEdge'
-  cursor: Scalars['String']
-  node: InterfaceType
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type InterfaceTypeFieldsConnection = {
   __typename?: "InterfaceTypeFieldsConnection";
@@ -4753,7 +3908,6 @@ export type InterfaceTypeFieldsConnection = {
 };
 
 export type InterfaceTypeFieldsRelationship = Field & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "InterfaceTypeFieldsRelationship";
   cursor: Scalars["String"];
   node: TypeBase;
@@ -4769,23 +3923,6 @@ export type InterfaceTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<InterfaceTypeEdge>;
 };
-=======
-  __typename?: 'InterfaceTypeFieldsRelationship'
-  cursor: Scalars['String']
-  node: TypeBase
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
-
-export type InterfaceTypesConnection = {
-  __typename?: 'InterfaceTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<InterfaceTypeEdge>
-}
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
   __typename?: "InterfaceTypeUserOwnerAggregationSelection";
@@ -4802,7 +3939,6 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
 
 /** Allows picking a lambda */
 export type LambdaType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "LambdaType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -4811,16 +3947,6 @@ export type LambdaType = TypeBase & {
   ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'LambdaType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Allows picking a lambda */
 export type LambdaTypeOwnerArgs = {
@@ -4864,19 +3990,6 @@ export type LambdaTypesConnection = {
   edges: Array<LambdaTypeEdge>;
 };
 
-export type LambdaTypeEdge = {
-  __typename?: 'LambdaTypeEdge'
-  cursor: Scalars['String']
-  node: LambdaType
-}
-
-export type LambdaTypesConnection = {
-  __typename?: 'LambdaTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<LambdaTypeEdge>
-}
-
 export type LambdaTypeUserOwnerAggregationSelection = {
   __typename?: "LambdaTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -4892,7 +4005,6 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
 
 /** Allows editing the value using a monaco editor */
 export type MonacoType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "MonacoType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -4902,17 +4014,6 @@ export type MonacoType = TypeBase & {
   ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'MonacoType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  language: MonacoLanguage
-  owner: User
-  ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Allows editing the value using a monaco editor */
 export type MonacoTypeOwnerArgs = {
@@ -4955,19 +4056,6 @@ export type MonacoTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<MonacoTypeEdge>;
 };
-
-export type MonacoTypeEdge = {
-  __typename?: 'MonacoTypeEdge'
-  cursor: Scalars['String']
-  node: MonacoType
-}
-
-export type MonacoTypesConnection = {
-  __typename?: 'MonacoTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<MonacoTypeEdge>
-}
 
 export type MonacoTypeUserOwnerAggregationSelection = {
   __typename?: "MonacoTypeUserOwnerAggregationSelection";
@@ -5147,12 +4235,6 @@ export type PageEdge = {
   node: Page;
 };
 
-export type PageEdge = {
-  __typename?: 'PageEdge'
-  cursor: Scalars['String']
-  node: Page
-}
-
 export type PageElementRootElementAggregationSelection = {
   __typename?: "PageElementRootElementAggregationSelection";
   count: Scalars["Int"];
@@ -5198,16 +4280,8 @@ export type PagesConnection = {
   edges: Array<PageEdge>;
 };
 
-export type PagesConnection = {
-  __typename?: 'PagesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<PageEdge>
-}
-
 /** Allows picking a page from the list of pages */
 export type PageType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "PageType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -5216,16 +4290,6 @@ export type PageType = TypeBase & {
   ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'PageType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Allows picking a page from the list of pages */
 export type PageTypeOwnerArgs = {
@@ -5269,19 +4333,6 @@ export type PageTypesConnection = {
   edges: Array<PageTypeEdge>;
 };
 
-export type PageTypeEdge = {
-  __typename?: 'PageTypeEdge'
-  cursor: Scalars['String']
-  node: PageType
-}
-
-export type PageTypesConnection = {
-  __typename?: 'PageTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<PageTypeEdge>
-}
-
 export type PageTypeUserOwnerAggregationSelection = {
   __typename?: "PageTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -5297,7 +4348,6 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "PrimitiveType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -5307,17 +4357,6 @@ export type PrimitiveType = TypeBase & {
   ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'PrimitiveType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  primitiveKind: PrimitiveTypeKind
-  owner: User
-  ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveTypeOwnerArgs = {
@@ -5361,19 +4400,6 @@ export type PrimitiveTypesConnection = {
   edges: Array<PrimitiveTypeEdge>;
 };
 
-export type PrimitiveTypeEdge = {
-  __typename?: 'PrimitiveTypeEdge'
-  cursor: Scalars['String']
-  node: PrimitiveType
-}
-
-export type PrimitiveTypesConnection = {
-  __typename?: 'PrimitiveTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<PrimitiveTypeEdge>
-}
-
 export type PrimitiveTypeUserOwnerAggregationSelection = {
   __typename?: "PrimitiveTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -5405,12 +4431,6 @@ export type PropEdge = {
   cursor: Scalars["String"];
   node: Prop;
 };
-
-export type PropEdge = {
-  __typename?: 'PropEdge'
-  cursor: Scalars['String']
-  node: Prop
-}
 
 export type PropMapBinding = {
   __typename?: "PropMapBinding";
@@ -5477,12 +4497,6 @@ export type PropMapBindingEdge = {
   node: PropMapBinding;
 };
 
-export type PropMapBindingEdge = {
-  __typename?: 'PropMapBindingEdge'
-  cursor: Scalars['String']
-  node: PropMapBinding
-}
-
 export type PropMapBindingElementConnection = {
   __typename?: "PropMapBindingElementConnection";
   edges: Array<PropMapBindingElementRelationship>;
@@ -5535,13 +4549,6 @@ export type PropMapBindingsConnection = {
   edges: Array<PropMapBindingEdge>;
 };
 
-export type PropMapBindingsConnection = {
-  __typename?: 'PropMapBindingsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<PropMapBindingEdge>
-}
-
 export type PropMapBindingTargetElementConnection = {
   __typename?: "PropMapBindingTargetElementConnection";
   edges: Array<PropMapBindingTargetElementRelationship>;
@@ -5562,13 +4569,6 @@ export type PropsConnection = {
   edges: Array<PropEdge>;
 };
 
-export type PropsConnection = {
-  __typename?: 'PropsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<PropEdge>
-}
-
 /**
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a React node: `ReactNode`
@@ -5580,7 +4580,6 @@ export type PropsConnection = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type ReactNodeType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "ReactNodeType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -5589,16 +4588,6 @@ export type ReactNodeType = TypeBase & {
   ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'ReactNodeType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /**
  * Allows picking a Component from the list of components.
@@ -5669,19 +4658,6 @@ export type ReactNodeTypesConnection = {
   edges: Array<ReactNodeTypeEdge>;
 };
 
-export type ReactNodeTypeEdge = {
-  __typename?: 'ReactNodeTypeEdge'
-  cursor: Scalars['String']
-  node: ReactNodeType
-}
-
-export type ReactNodeTypesConnection = {
-  __typename?: 'ReactNodeTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ReactNodeTypeEdge>
-}
-
 export type ReactNodeTypeUserOwnerAggregationSelection = {
   __typename?: "ReactNodeTypeUserOwnerAggregationSelection";
   count: Scalars["Int"];
@@ -5707,7 +4683,6 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
  * - ElementType: Current tree element select box, results it 'ReactNod' value
  */
 export type RenderPropsType = TypeBase & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "RenderPropsType";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -5716,16 +4691,6 @@ export type RenderPropsType = TypeBase & {
   ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>;
   ownerConnection: TypeBaseOwnerConnection;
 };
-=======
-  __typename?: 'RenderPropsType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind: TypeKind
-  owner: User
-  ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /**
  * Allows picking a Component from the list of components.
@@ -5798,19 +4763,6 @@ export type RenderPropsTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<RenderPropsTypeEdge>;
 };
-
-export type RenderPropsTypeEdge = {
-  __typename?: 'RenderPropsTypeEdge'
-  cursor: Scalars['String']
-  node: RenderPropsType
-}
-
-export type RenderPropsTypesConnection = {
-  __typename?: 'RenderPropsTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<RenderPropsTypeEdge>
-}
 
 export type RenderPropsTypeUserOwnerAggregationSelection = {
   __typename?: "RenderPropsTypeUserOwnerAggregationSelection";
@@ -5924,19 +4876,6 @@ export type ResourcesConnection = {
   pageInfo: PageInfo;
   edges: Array<ResourceEdge>;
 };
-
-export type ResetDatabaseMutationResponseEdge = {
-  __typename?: 'ResetDatabaseMutationResponseEdge'
-  cursor: Scalars['String']
-  node: ResetDatabaseMutationResponse
-}
-
-export type ResetDatabaseMutationResponsesConnection = {
-  __typename?: 'ResetDatabaseMutationResponsesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<ResetDatabaseMutationResponseEdge>
-}
 
 export type Store = {
   __typename?: "Store";
@@ -6110,12 +5049,6 @@ export type StoreEdge = {
   node: Store;
 };
 
-export type StoreEdge = {
-  __typename?: 'StoreEdge'
-  cursor: Scalars['String']
-  node: Store
-}
-
 export type StoreInterfaceTypeStateAggregationSelection = {
   __typename?: "StoreInterfaceTypeStateAggregationSelection";
   count: Scalars["Int"];
@@ -6181,13 +5114,6 @@ export type StoresConnection = {
   pageInfo: PageInfo;
   edges: Array<StoreEdge>;
 };
-
-export type StoresConnection = {
-  __typename?: 'StoresConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<StoreEdge>
-}
 
 export type StoreStateConnection = {
   __typename?: "StoreStateConnection";
@@ -6329,12 +5255,6 @@ export type TagEdge = {
   node: Tag;
 };
 
-export type TagEdge = {
-  __typename?: 'TagEdge'
-  cursor: Scalars['String']
-  node: Tag
-}
-
 export type TagGraph = {
   __typename?: "TagGraph";
   id: Scalars["ID"];
@@ -6355,12 +5275,6 @@ export type TagGraphEdge = {
   cursor: Scalars["String"];
   node: TagGraph;
 };
-
-export type TagGraphEdge = {
-  __typename?: 'TagGraphEdge'
-  cursor: Scalars['String']
-  node: TagGraph
-}
 
 export type TagGraphOptions = {
   __typename?: "TagGraphOptions";
@@ -6395,26 +5309,6 @@ export type TagGraphsConnection = {
   edges: Array<TagGraphEdge>;
 };
 
-export type TagGraphOptionsConnection = {
-  __typename?: 'TagGraphOptionsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<TagGraphOptionsEdge>
-}
-
-export type TagGraphOptionsEdge = {
-  __typename?: 'TagGraphOptionsEdge'
-  cursor: Scalars['String']
-  node: TagGraphOptions
-}
-
-export type TagGraphsConnection = {
-  __typename?: 'TagGraphsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<TagGraphEdge>
-}
-
 export type TagParentConnection = {
   __typename?: "TagParentConnection";
   edges: Array<TagParentRelationship>;
@@ -6434,13 +5328,6 @@ export type TagsConnection = {
   pageInfo: PageInfo;
   edges: Array<TagEdge>;
 };
-
-export type TagsConnection = {
-  __typename?: 'TagsConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<TagEdge>
-}
 
 export type TagTagChildrenAggregationSelection = {
   __typename?: "TagTagChildrenAggregationSelection";
@@ -6507,23 +5394,9 @@ export type TypeReferencesConnection = {
   edges: Array<TypeReferenceEdge>;
 };
 
-export type TypeReferenceEdge = {
-  __typename?: 'TypeReferenceEdge'
-  cursor: Scalars['String']
-  node: TypeReference
-}
-
-export type TypeReferencesConnection = {
-  __typename?: 'TypeReferencesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<TypeReferenceEdge>
-}
-
 /** Allows picking one of a set of types */
 export type UnionType = TypeBase &
   WithDescendants & {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     __typename?: "UnionType";
     id: Scalars["ID"];
     name: Scalars["String"];
@@ -6535,19 +5408,6 @@ export type UnionType = TypeBase &
     ownerConnection: TypeBaseOwnerConnection;
     typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection;
   };
-=======
-    __typename?: 'UnionType'
-    id: Scalars['ID']
-    name: Scalars['String']
-    descendantTypesIds: Array<Scalars['ID']>
-    kind: TypeKind
-    owner: User
-    ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>
-    typesOfUnionType: Array<TypeBase>
-    ownerConnection: TypeBaseOwnerConnection
-    typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
-  }
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
@@ -6606,19 +5466,6 @@ export type UnionTypesConnection = {
   pageInfo: PageInfo;
   edges: Array<UnionTypeEdge>;
 };
-
-export type UnionTypeEdge = {
-  __typename?: 'UnionTypeEdge'
-  cursor: Scalars['String']
-  node: UnionType
-}
-
-export type UnionTypesConnection = {
-  __typename?: 'UnionTypesConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<UnionTypeEdge>
-}
 
 export type UnionTypeTypesOfUnionTypeConnection = {
   __typename?: "UnionTypeTypesOfUnionTypeConnection";
@@ -6683,17 +5530,10 @@ export type UpdateComponentsMutationResponse = {
 };
 
 export type UpdateCreateInfosMutationResponse = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "UpdateCreateInfosMutationResponse";
   info: UpdateInfo;
   createInfos: Array<CreateInfo>;
 };
-=======
-  __typename?: 'UpdateCreateInfosMutationResponse'
-  info: UpdateInfo
-  createInfos: Array<CreateInfo>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UpdateDeleteInfosMutationResponse = {
   __typename?: "UpdateDeleteInfosMutationResponse";
@@ -6702,17 +5542,10 @@ export type UpdateDeleteInfosMutationResponse = {
 };
 
 export type UpdateElementGraphsMutationResponse = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "UpdateElementGraphsMutationResponse";
   info: UpdateInfo;
   elementGraphs: Array<ElementGraph>;
 };
-=======
-  __typename?: 'UpdateElementGraphsMutationResponse'
-  info: UpdateInfo
-  elementGraphs: Array<ElementGraph>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UpdateElementsMutationResponse = {
   __typename?: "UpdateElementsMutationResponse";
@@ -6745,7 +5578,6 @@ export type UpdateHooksMutationResponse = {
 };
 
 export type UpdateInfo = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "UpdateInfo";
   bookmark?: Maybe<Scalars["String"]>;
   nodesCreated: Scalars["Int"];
@@ -6753,15 +5585,6 @@ export type UpdateInfo = {
   relationshipsCreated: Scalars["Int"];
   relationshipsDeleted: Scalars["Int"];
 };
-=======
-  __typename?: 'UpdateInfo'
-  bookmark?: Maybe<Scalars['String']>
-  nodesCreated: Scalars['Int']
-  nodesDeleted: Scalars['Int']
-  relationshipsCreated: Scalars['Int']
-  relationshipsDeleted: Scalars['Int']
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UpdateInterfaceTypesMutationResponse = {
   __typename?: "UpdateInterfaceTypesMutationResponse";
@@ -6884,7 +5707,6 @@ export type UpdateUsersMutationResponse = {
 };
 
 export type User = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   __typename?: "User";
   id: Scalars["ID"];
   auth0Id: Scalars["String"];
@@ -6899,22 +5721,6 @@ export type User = {
   appsConnection: UserAppsConnection;
   componentsConnection: UserComponentsConnection;
 };
-=======
-  __typename?: 'User'
-  id: Scalars['ID']
-  auth0Id: Scalars['String']
-  email: Scalars['String']
-  roles?: Maybe<Array<Role>>
-  types: Array<TypeBase>
-  apps: Array<App>
-  appsAggregate?: Maybe<UserAppAppsAggregationSelection>
-  components: Array<Component>
-  componentsAggregate?: Maybe<UserComponentComponentsAggregationSelection>
-  typesConnection: UserTypesConnection
-  appsConnection: UserAppsConnection
-  componentsConnection: UserComponentsConnection
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UserTypesArgs = {
   options?: InputMaybe<TypeBaseOptions>;
@@ -7038,19 +5844,6 @@ export type UsersConnection = {
   pageInfo: PageInfo;
   edges: Array<UserEdge>;
 };
-
-export type UserEdge = {
-  __typename?: 'UserEdge'
-  cursor: Scalars['String']
-  node: User
-}
-
-export type UsersConnection = {
-  __typename?: 'UsersConnection'
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-  edges: Array<UserEdge>
-}
 
 export type UserTypesConnection = {
   __typename?: "UserTypesConnection";
@@ -7285,7 +6078,6 @@ export type ActionWhere = {
 };
 
 export type AppConnectInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   owner?: InputMaybe<AppOwnerConnectFieldInput>;
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>;
@@ -7298,20 +6090,6 @@ export type AppConnectOrCreateInput = {
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>;
   store?: InputMaybe<AppStoreConnectOrCreateFieldInput>;
 };
-=======
-  owner?: InputMaybe<AppOwnerConnectFieldInput>
-  pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>
-  store?: InputMaybe<AppStoreConnectFieldInput>
-}
-
-export type AppConnectOrCreateInput = {
-  owner?: InputMaybe<AppOwnerConnectOrCreateFieldInput>
-  pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
-  store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppConnectOrCreateWhere = {
   node: AppUniqueWhere;
@@ -7330,7 +6108,6 @@ export type AppCreateInput = {
 };
 
 export type AppDeleteInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   owner?: InputMaybe<AppOwnerDeleteFieldInput>;
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>;
@@ -7343,20 +6120,6 @@ export type AppDisconnectInput = {
   rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>;
   store?: InputMaybe<AppStoreDisconnectFieldInput>;
 };
-=======
-  owner?: InputMaybe<AppOwnerDeleteFieldInput>
-  pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>
-  store?: InputMaybe<AppStoreDeleteFieldInput>
-}
-
-export type AppDisconnectInput = {
-  owner?: InputMaybe<AppOwnerDisconnectFieldInput>
-  pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>
-  store?: InputMaybe<AppStoreDisconnectFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppOnCreateInput = {
   name: Scalars["String"];
@@ -7381,15 +6144,9 @@ export type AppOwnerAggregateInput = {
 };
 
 export type AppOwnerConnectFieldInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<UserConnectWhere>;
   connect?: InputMaybe<UserConnectInput>;
 };
-=======
-  where?: InputMaybe<UserConnectWhere>
-  connect?: InputMaybe<UserConnectInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppOwnerConnectionSort = {
   node?: InputMaybe<UserSort>;
@@ -7426,17 +6183,10 @@ export type AppOwnerDisconnectFieldInput = {
 };
 
 export type AppOwnerFieldInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   create?: InputMaybe<AppOwnerCreateFieldInput>;
   connect?: InputMaybe<AppOwnerConnectFieldInput>;
   connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>;
 };
-=======
-  create?: InputMaybe<AppOwnerCreateFieldInput>
-  connect?: InputMaybe<AppOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppOwnerNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AppOwnerNodeAggregationWhereInput>>;
@@ -7489,7 +6239,6 @@ export type AppOwnerUpdateConnectionInput = {
 };
 
 export type AppOwnerUpdateFieldInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   where?: InputMaybe<AppOwnerConnectionWhere>;
   update?: InputMaybe<AppOwnerUpdateConnectionInput>;
   connect?: InputMaybe<AppOwnerConnectFieldInput>;
@@ -7498,16 +6247,6 @@ export type AppOwnerUpdateFieldInput = {
   delete?: InputMaybe<AppOwnerDeleteFieldInput>;
   connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>;
 };
-=======
-  where?: InputMaybe<AppOwnerConnectionWhere>
-  update?: InputMaybe<AppOwnerUpdateConnectionInput>
-  connect?: InputMaybe<AppOwnerConnectFieldInput>
-  disconnect?: InputMaybe<AppOwnerDisconnectFieldInput>
-  create?: InputMaybe<AppOwnerCreateFieldInput>
-  delete?: InputMaybe<AppOwnerDeleteFieldInput>
-  connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppPagesAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -7606,19 +6345,11 @@ export type AppPagesUpdateFieldInput = {
 };
 
 export type AppRelationInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   owner?: InputMaybe<AppOwnerCreateFieldInput>;
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>;
   rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>;
   store?: InputMaybe<AppStoreCreateFieldInput>;
 };
-=======
-  owner?: InputMaybe<AppOwnerCreateFieldInput>
-  pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>
-  store?: InputMaybe<AppStoreCreateFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppRootProviderElementAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -7927,19 +6658,11 @@ export type AppTypeConnectOrCreateInput = {
 };
 
 export type AppTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -8019,7 +6742,6 @@ export type AppTypeRelationInput = {
 
 /** Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object. */
 export type AppTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -8065,60 +6787,12 @@ export type AppTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type AppTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type AppTypeWhere = {
-  OR?: InputMaybe<Array<AppTypeWhere>>
-  AND?: InputMaybe<Array<AppTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<AppTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AppUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
 export type AppUpdateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   name?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<AppOwnerUpdateFieldInput>;
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>;
@@ -8155,44 +6829,6 @@ export type AppWhere = {
   pages?: InputMaybe<PageWhere>;
   pages_NOT?: InputMaybe<PageWhere>;
   pagesAggregate?: InputMaybe<AppPagesAggregateInput>;
-=======
-  name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<AppOwnerUpdateFieldInput>
-  pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>
-  store?: InputMaybe<AppStoreUpdateFieldInput>
-}
-
-export type AppWhere = {
-  OR?: InputMaybe<Array<AppWhere>>
-  AND?: InputMaybe<Array<AppWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
-  pages?: InputMaybe<PageWhere>
-  pages_NOT?: InputMaybe<PageWhere>
-  pagesAggregate?: InputMaybe<AppPagesAggregateInput>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /** Return Apps where all of the related Pages match this filter */
   pages_ALL?: InputMaybe<PageWhere>;
   /** Return Apps where none of the related Pages match this filter */
@@ -8200,7 +6836,6 @@ export type AppWhere = {
   /** Return Apps where one of the related Pages match this filter */
   pages_SINGLE?: InputMaybe<PageWhere>;
   /** Return Apps where some of the related Pages match this filter */
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   pages_SOME?: InputMaybe<PageWhere>;
   rootProviderElement?: InputMaybe<ElementWhere>;
   rootProviderElement_NOT?: InputMaybe<ElementWhere>;
@@ -8221,28 +6856,6 @@ export type AppWhere = {
   storeConnection?: InputMaybe<AppStoreConnectionWhere>;
   storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>;
 };
-=======
-  pages_SOME?: InputMaybe<PageWhere>
-  rootProviderElement?: InputMaybe<ElementWhere>
-  rootProviderElement_NOT?: InputMaybe<ElementWhere>
-  rootProviderElementAggregate?: InputMaybe<AppRootProviderElementAggregateInput>
-  store?: InputMaybe<StoreWhere>
-  store_NOT?: InputMaybe<StoreWhere>
-  storeAggregate?: InputMaybe<AppStoreAggregateInput>
-  ownerConnection?: InputMaybe<AppOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<AppOwnerConnectionWhere>
-  pagesConnection?: InputMaybe<AppPagesConnectionWhere>
-  pagesConnection_NOT?: InputMaybe<AppPagesConnectionWhere>
-  pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>
-  pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>
-  pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
-  pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
-  rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>
-  rootProviderElementConnection_NOT?: InputMaybe<AppRootProviderElementConnectionWhere>
-  storeConnection?: InputMaybe<AppStoreConnectionWhere>
-  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ArrayTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
@@ -8254,21 +6867,12 @@ export type ArrayTypeConnectOrCreateInput = {
 };
 
 export type ArrayTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-  itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ArrayTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -8399,7 +7003,6 @@ export type ArrayTypeRelationInput = {
 
 /** Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object. */
 export type ArrayTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -8448,56 +7051,6 @@ export type ArrayTypeWhere = {
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type ArrayTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-  itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
-}
-
-export type ArrayTypeWhere = {
-  OR?: InputMaybe<Array<ArrayTypeWhere>>
-  AND?: InputMaybe<Array<ArrayTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-  itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AtomApiAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -8752,17 +7305,10 @@ export type AtomTagsUpdateFieldInput = {
 };
 
 export type AtomUniqueWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<AtomType>;
 };
-=======
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  type?: InputMaybe<AtomType>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type AtomUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
@@ -9243,7 +7789,6 @@ export type CreateInfoUpdateInput = {
 };
 
 export type CreateInfoWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   OR?: InputMaybe<Array<CreateInfoWhere>>;
   AND?: InputMaybe<Array<CreateInfoWhere>>;
   bookmark?: InputMaybe<Scalars["String"]>;
@@ -9273,37 +7818,6 @@ export type CreateInfoWhere = {
   relationshipsCreated_GT?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated_GTE?: InputMaybe<Scalars["Int"]>;
 };
-=======
-  OR?: InputMaybe<Array<CreateInfoWhere>>
-  AND?: InputMaybe<Array<CreateInfoWhere>>
-  bookmark?: InputMaybe<Scalars['String']>
-  bookmark_NOT?: InputMaybe<Scalars['String']>
-  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  nodesCreated?: InputMaybe<Scalars['Int']>
-  nodesCreated_NOT?: InputMaybe<Scalars['Int']>
-  nodesCreated_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesCreated_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesCreated_LT?: InputMaybe<Scalars['Int']>
-  nodesCreated_LTE?: InputMaybe<Scalars['Int']>
-  nodesCreated_GT?: InputMaybe<Scalars['Int']>
-  nodesCreated_GTE?: InputMaybe<Scalars['Int']>
-  relationshipsCreated?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_NOT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsCreated_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsCreated_LT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_LTE?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_GT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_GTE?: InputMaybe<Scalars['Int']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type DeleteInfoCreateInput = {
   bookmark?: InputMaybe<Scalars["String"]>;
@@ -9332,7 +7846,6 @@ export type DeleteInfoUpdateInput = {
 };
 
 export type DeleteInfoWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   OR?: InputMaybe<Array<DeleteInfoWhere>>;
   AND?: InputMaybe<Array<DeleteInfoWhere>>;
   bookmark?: InputMaybe<Scalars["String"]>;
@@ -9362,37 +7875,6 @@ export type DeleteInfoWhere = {
   relationshipsDeleted_GT?: InputMaybe<Scalars["Int"]>;
   relationshipsDeleted_GTE?: InputMaybe<Scalars["Int"]>;
 };
-=======
-  OR?: InputMaybe<Array<DeleteInfoWhere>>
-  AND?: InputMaybe<Array<DeleteInfoWhere>>
-  bookmark?: InputMaybe<Scalars['String']>
-  bookmark_NOT?: InputMaybe<Scalars['String']>
-  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
-  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  nodesDeleted?: InputMaybe<Scalars['Int']>
-  nodesDeleted_NOT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
-  nodesDeleted_LT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_LTE?: InputMaybe<Scalars['Int']>
-  nodesDeleted_GT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_GTE?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_NOT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsDeleted_NOT_IN?: InputMaybe<Array<Scalars['Int']>>
-  relationshipsDeleted_LT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_LTE?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_GT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_GTE?: InputMaybe<Scalars['Int']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ElementAtomAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -9877,11 +8359,6 @@ export type ElementGraphCreateInput = {
   descendants: Array<Scalars["ID"]>;
 };
 
-export type ElementGraphCreateInput = {
-  id: Scalars['ID']
-  descendants: Array<Scalars['ID']>
-}
-
 export type ElementGraphInput = {
   rootId: Scalars["String"];
 };
@@ -9903,25 +8380,7 @@ export type ElementGraphUpdateInput = {
   descendants?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
-export type ElementGraphOptions = {
-  /** Specify one or more ElementGraphSort objects to sort ElementGraphs by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<ElementGraphSort>>
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-}
-
-/** Fields to sort ElementGraphs by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementGraphSort object. */
-export type ElementGraphSort = {
-  id?: InputMaybe<SortDirection>
-}
-
-export type ElementGraphUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  descendants?: InputMaybe<Array<Scalars['ID']>>
-}
-
 export type ElementGraphWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   OR?: InputMaybe<Array<ElementGraphWhere>>;
   AND?: InputMaybe<Array<ElementGraphWhere>>;
   id?: InputMaybe<Scalars["ID"]>;
@@ -9939,25 +8398,6 @@ export type ElementGraphWhere = {
   descendants_INCLUDES?: InputMaybe<Scalars["ID"]>;
   descendants_NOT_INCLUDES?: InputMaybe<Scalars["ID"]>;
 };
-=======
-  OR?: InputMaybe<Array<ElementGraphWhere>>
-  AND?: InputMaybe<Array<ElementGraphWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  descendants?: InputMaybe<Array<Scalars['ID']>>
-  descendants_NOT?: InputMaybe<Array<Scalars['ID']>>
-  descendants_INCLUDES?: InputMaybe<Scalars['ID']>
-  descendants_NOT_INCLUDES?: InputMaybe<Scalars['ID']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ElementHooksAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -10603,21 +9043,12 @@ export type ElementTypeConnectOrCreateInput = {
 };
 
 export type ElementTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   elementKind: ElementTypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  elementKind: ElementTypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ElementTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -10697,7 +9128,6 @@ export type ElementTypeRelationInput = {
 
 /** Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object. */
 export type ElementTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -10749,59 +9179,6 @@ export type ElementTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  elementKind?: InputMaybe<SortDirection>
-}
-
-export type ElementTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  elementKind?: InputMaybe<ElementTypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type ElementTypeWhere = {
-  OR?: InputMaybe<Array<ElementTypeWhere>>
-  AND?: InputMaybe<Array<ElementTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  elementKind?: InputMaybe<ElementTypeKind>
-  elementKind_NOT?: InputMaybe<ElementTypeKind>
-  elementKind_IN?: InputMaybe<Array<ElementTypeKind>>
-  elementKind_NOT_IN?: InputMaybe<Array<ElementTypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ElementUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
@@ -11091,21 +9468,12 @@ export type EnumTypeConnectWhere = {
 };
 
 export type EnumTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-  allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type EnumTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -11193,38 +9561,22 @@ export type EnumTypeRelationInput = {
 
 /** Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object. */
 export type EnumTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type EnumTypeUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
 export type EnumTypeUpdateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   kind?: InputMaybe<TypeKind>;
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>;
 };
-=======
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type EnumTypeValueConnectInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>;
@@ -11415,7 +9767,6 @@ export type EnumTypeValueWhere = {
 };
 
 export type EnumTypeWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   OR?: InputMaybe<Array<EnumTypeWhere>>;
   AND?: InputMaybe<Array<EnumTypeWhere>>;
   id?: InputMaybe<Scalars["ID"]>;
@@ -11448,40 +9799,6 @@ export type EnumTypeWhere = {
   allowedValues?: InputMaybe<EnumTypeValueWhere>;
   allowedValues_NOT?: InputMaybe<EnumTypeValueWhere>;
   allowedValuesAggregate?: InputMaybe<EnumTypeAllowedValuesAggregateInput>;
-=======
-  OR?: InputMaybe<Array<EnumTypeWhere>>
-  AND?: InputMaybe<Array<EnumTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
-  allowedValues?: InputMaybe<EnumTypeValueWhere>
-  allowedValues_NOT?: InputMaybe<EnumTypeValueWhere>
-  allowedValuesAggregate?: InputMaybe<EnumTypeAllowedValuesAggregateInput>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /** Return EnumTypes where all of the related EnumTypeValues match this filter */
   allowedValues_ALL?: InputMaybe<EnumTypeValueWhere>;
   /** Return EnumTypes where none of the related EnumTypeValues match this filter */
@@ -11501,7 +9818,6 @@ export type EnumTypeWhere = {
 };
 
 export type FieldCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   key: Scalars["String"];
   name?: InputMaybe<Scalars["String"]>;
@@ -11566,72 +9882,6 @@ export type FieldWhere = {
   description_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   description_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
 };
-=======
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-}
-
-export type FieldSort = {
-  id?: InputMaybe<SortDirection>
-  key?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  description?: InputMaybe<SortDirection>
-}
-
-export type FieldUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  key?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-}
-
-export type FieldWhere = {
-  OR?: InputMaybe<Array<FieldWhere>>
-  AND?: InputMaybe<Array<FieldWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  key?: InputMaybe<Scalars['String']>
-  key_NOT?: InputMaybe<Scalars['String']>
-  key_IN?: InputMaybe<Array<Scalars['String']>>
-  key_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  key_CONTAINS?: InputMaybe<Scalars['String']>
-  key_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  key_STARTS_WITH?: InputMaybe<Scalars['String']>
-  key_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  key_ENDS_WITH?: InputMaybe<Scalars['String']>
-  key_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-  description_NOT?: InputMaybe<Scalars['String']>
-  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  description_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  description_CONTAINS?: InputMaybe<Scalars['String']>
-  description_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  description_STARTS_WITH?: InputMaybe<Scalars['String']>
-  description_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  description_ENDS_WITH?: InputMaybe<Scalars['String']>
-  description_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type HookConfigAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -12120,7 +10370,6 @@ export type InterfaceTypeConnectWhere = {
 };
 
 export type InterfaceTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
@@ -12128,15 +10377,6 @@ export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>;
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-  apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
-  fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type InterfaceTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -12145,17 +10385,10 @@ export type InterfaceTypeDeleteInput = {
 };
 
 export type InterfaceTypeDisconnectInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>;
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>;
 };
-=======
-  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
-  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
-  fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type InterfaceTypeFieldsConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>;
@@ -12288,24 +10521,16 @@ export type InterfaceTypeRelationInput = {
 
 /** Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object. */
 export type InterfaceTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type InterfaceTypeUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
 export type InterfaceTypeUpdateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   kind?: InputMaybe<TypeKind>;
@@ -12347,49 +10572,6 @@ export type InterfaceTypeWhere = {
   apiOfAtoms?: InputMaybe<AtomWhere>;
   apiOfAtoms_NOT?: InputMaybe<AtomWhere>;
   apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>;
-=======
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
-  fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
-}
-
-export type InterfaceTypeWhere = {
-  OR?: InputMaybe<Array<InterfaceTypeWhere>>
-  AND?: InputMaybe<Array<InterfaceTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
-  apiOfAtoms?: InputMaybe<AtomWhere>
-  apiOfAtoms_NOT?: InputMaybe<AtomWhere>
-  apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /** Return InterfaceTypes where all of the related Atoms match this filter */
   apiOfAtoms_ALL?: InputMaybe<AtomWhere>;
   /** Return InterfaceTypes where none of the related Atoms match this filter */
@@ -12423,19 +10605,11 @@ export type LambdaTypeConnectOrCreateInput = {
 };
 
 export type LambdaTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type LambdaTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -12515,7 +10689,6 @@ export type LambdaTypeRelationInput = {
 
 /** Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object. */
 export type LambdaTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -12561,53 +10734,6 @@ export type LambdaTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type LambdaTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type LambdaTypeWhere = {
-  OR?: InputMaybe<Array<LambdaTypeWhere>>
-  AND?: InputMaybe<Array<LambdaTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<LambdaTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MonacoTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
@@ -12618,21 +10744,12 @@ export type MonacoTypeConnectOrCreateInput = {
 };
 
 export type MonacoTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   language: MonacoLanguage;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  language: MonacoLanguage
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type MonacoTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -12712,7 +10829,6 @@ export type MonacoTypeRelationInput = {
 
 /** Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object. */
 export type MonacoTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -12989,59 +11105,6 @@ export type OperationWhere = {
   resourceConnection?: InputMaybe<OperationResourceConnectionWhere>;
   resourceConnection_NOT?: InputMaybe<OperationResourceConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  language?: InputMaybe<SortDirection>
-}
-
-export type MonacoTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  language?: InputMaybe<MonacoLanguage>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type MonacoTypeWhere = {
-  OR?: InputMaybe<Array<MonacoTypeWhere>>
-  AND?: InputMaybe<Array<MonacoTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  language?: InputMaybe<MonacoLanguage>
-  language_NOT?: InputMaybe<MonacoLanguage>
-  language_IN?: InputMaybe<Array<MonacoLanguage>>
-  language_NOT_IN?: InputMaybe<Array<MonacoLanguage>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<MonacoTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type PageAppAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -13380,19 +11443,11 @@ export type PageTypeConnectOrCreateInput = {
 };
 
 export type PageTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type PageTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -13472,7 +11527,6 @@ export type PageTypeRelationInput = {
 
 /** Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object. */
 export type PageTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -13518,53 +11572,6 @@ export type PageTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type PageTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type PageTypeWhere = {
-  OR?: InputMaybe<Array<PageTypeWhere>>
-  AND?: InputMaybe<Array<PageTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<PageTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type PageUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
@@ -13672,21 +11679,12 @@ export type PrimitiveTypeConnectOrCreateInput = {
 };
 
 export type PrimitiveTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   primitiveKind: PrimitiveTypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  primitiveKind: PrimitiveTypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type PrimitiveTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -13766,7 +11764,6 @@ export type PrimitiveTypeRelationInput = {
 
 /** Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object. */
 export type PrimitiveTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -13818,59 +11815,6 @@ export type PrimitiveTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  primitiveKind?: InputMaybe<SortDirection>
-}
-
-export type PrimitiveTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  primitiveKind?: InputMaybe<PrimitiveTypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type PrimitiveTypeWhere = {
-  OR?: InputMaybe<Array<PrimitiveTypeWhere>>
-  AND?: InputMaybe<Array<PrimitiveTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  primitiveKind?: InputMaybe<PrimitiveTypeKind>
-  primitiveKind_NOT?: InputMaybe<PrimitiveTypeKind>
-  primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
-  primitiveKind_NOT_IN?: InputMaybe<Array<PrimitiveTypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<PrimitiveTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type PropConnectOrCreateWhere = {
   node: PropUniqueWhere;
@@ -14410,19 +12354,11 @@ export type ReactNodeTypeConnectOrCreateInput = {
 };
 
 export type ReactNodeTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ReactNodeTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -14502,7 +12438,6 @@ export type ReactNodeTypeRelationInput = {
 
 /** Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object. */
 export type ReactNodeTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -14548,53 +12483,6 @@ export type ReactNodeTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type ReactNodeTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type ReactNodeTypeWhere = {
-  OR?: InputMaybe<Array<ReactNodeTypeWhere>>
-  AND?: InputMaybe<Array<ReactNodeTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<ReactNodeTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type RenderPropsTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
@@ -14605,19 +12493,11 @@ export type RenderPropsTypeConnectOrCreateInput = {
 };
 
 export type RenderPropsTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type RenderPropsTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -14697,7 +12577,6 @@ export type RenderPropsTypeRelationInput = {
 
 /** Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object. */
 export type RenderPropsTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -14743,53 +12622,6 @@ export type RenderPropsTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type RenderPropsTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type RenderPropsTypeWhere = {
-  OR?: InputMaybe<Array<RenderPropsTypeWhere>>
-  AND?: InputMaybe<Array<RenderPropsTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type ResetDatabaseMutationResponseCreateInput = {
   success?: InputMaybe<Scalars["Boolean"]>;
@@ -16121,13 +13953,6 @@ export type TagGraphSort = {
   isRoot?: InputMaybe<SortDirection>;
 };
 
-/** Fields to sort TagGraphs by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphSort object. */
-export type TagGraphSort = {
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  isRoot?: InputMaybe<SortDirection>
-}
-
 export type TagGraphUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
@@ -16577,7 +14402,6 @@ export type TypeBaseOwnerUpdateFieldInput = {
 
 /** Fields to sort TypeBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeBaseSort object. */
 export type TypeBaseSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
@@ -16623,53 +14447,6 @@ export type TypeBaseWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
-
-export type TypeBaseUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  _on?: InputMaybe<TypeBaseImplementationsUpdateInput>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type TypeBaseWhere = {
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  _on?: InputMaybe<TypeBaseImplementationsWhere>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<TypeBaseOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type TypeReferenceCreateInput = {
   name: Scalars["String"];
@@ -16731,21 +14508,12 @@ export type UnionTypeConnectOrCreateInput = {
 };
 
 export type UnionTypeCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id: Scalars["ID"];
   name: Scalars["String"];
   kind?: TypeKind;
   owner?: InputMaybe<TypeBaseOwnerFieldInput>;
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>;
 };
-=======
-  id: Scalars['ID']
-  name: Scalars['String']
-  kind?: TypeKind
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-  typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UnionTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
@@ -16834,17 +14602,10 @@ export type UnionTypeRelationInput = {
 
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
 export type UnionTypeSort = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
 };
-=======
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UnionTypeTypesOfUnionTypeConnectFieldInput = {
   connect?: InputMaybe<TypeBaseConnectInput>;
@@ -16895,24 +14656,16 @@ export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
 };
 
 export type UnionTypeUpdateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   kind?: InputMaybe<TypeKind>;
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
-=======
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>
   >;
 };
 
 export type UnionTypeWhere = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   OR?: InputMaybe<Array<UnionTypeWhere>>;
   AND?: InputMaybe<Array<UnionTypeWhere>>;
   id?: InputMaybe<Scalars["ID"]>;
@@ -16951,46 +14704,6 @@ export type UnionTypeWhere = {
   typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
   typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
 };
-=======
-  OR?: InputMaybe<Array<UnionTypeWhere>>
-  AND?: InputMaybe<Array<UnionTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  kind?: InputMaybe<TypeKind>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  owner?: InputMaybe<UserWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  typesOfUnionTypeConnection?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_NOT?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_SINGLE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-  typesOfUnionTypeConnection_SOME?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UserAppsAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
@@ -17204,7 +14917,6 @@ export type UserConnectWhere = {
 };
 
 export type UserCreateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   auth0Id: Scalars["String"];
   email: Scalars["String"];
   roles?: InputMaybe<Array<Role>>;
@@ -17212,15 +14924,6 @@ export type UserCreateInput = {
   apps?: InputMaybe<UserAppsFieldInput>;
   components?: InputMaybe<UserComponentsFieldInput>;
 };
-=======
-  auth0Id: Scalars['String']
-  email: Scalars['String']
-  roles?: InputMaybe<Array<Role>>
-  types?: InputMaybe<UserTypesFieldInput>
-  apps?: InputMaybe<UserAppsFieldInput>
-  components?: InputMaybe<UserComponentsFieldInput>
-}
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 
 export type UserDeleteInput = {
   types?: InputMaybe<Array<UserTypesDeleteFieldInput>>;
@@ -17313,7 +15016,6 @@ export type UserUniqueWhere = {
 };
 
 export type UserUpdateInput = {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   auth0Id?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   roles?: InputMaybe<Array<Role>>;
@@ -17362,56 +15064,6 @@ export type UserWhere = {
   apps?: InputMaybe<AppWhere>;
   apps_NOT?: InputMaybe<AppWhere>;
   appsAggregate?: InputMaybe<UserAppsAggregateInput>;
-=======
-  auth0Id?: InputMaybe<Scalars['String']>
-  email?: InputMaybe<Scalars['String']>
-  roles?: InputMaybe<Array<Role>>
-  types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
-  apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>
-  components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
-}
-
-export type UserWhere = {
-  OR?: InputMaybe<Array<UserWhere>>
-  AND?: InputMaybe<Array<UserWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  auth0Id?: InputMaybe<Scalars['String']>
-  auth0Id_NOT?: InputMaybe<Scalars['String']>
-  auth0Id_IN?: InputMaybe<Array<Scalars['String']>>
-  auth0Id_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  auth0Id_CONTAINS?: InputMaybe<Scalars['String']>
-  auth0Id_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  auth0Id_STARTS_WITH?: InputMaybe<Scalars['String']>
-  auth0Id_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  auth0Id_ENDS_WITH?: InputMaybe<Scalars['String']>
-  auth0Id_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  email?: InputMaybe<Scalars['String']>
-  email_NOT?: InputMaybe<Scalars['String']>
-  email_IN?: InputMaybe<Array<Scalars['String']>>
-  email_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  email_CONTAINS?: InputMaybe<Scalars['String']>
-  email_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  email_STARTS_WITH?: InputMaybe<Scalars['String']>
-  email_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  email_ENDS_WITH?: InputMaybe<Scalars['String']>
-  email_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  roles?: InputMaybe<Array<Role>>
-  roles_NOT?: InputMaybe<Array<Role>>
-  roles_INCLUDES?: InputMaybe<Role>
-  roles_NOT_INCLUDES?: InputMaybe<Role>
-  apps?: InputMaybe<AppWhere>
-  apps_NOT?: InputMaybe<AppWhere>
-  appsAggregate?: InputMaybe<UserAppsAggregateInput>
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   /** Return Users where all of the related Apps match this filter */
   apps_ALL?: InputMaybe<AppWhere>;
   /** Return Users where none of the related Apps match this filter */
@@ -17459,7 +15111,6 @@ export declare class ResetDatabaseMutationResponseModel {
   public find(args?: {
     where?: ResetDatabaseMutationResponseWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ResetDatabaseMutationResponseOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -17473,54 +15124,21 @@ export declare class ResetDatabaseMutationResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>;
-=======
-    options?: ResetDatabaseMutationResponseOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ResetDatabaseMutationResponse>>
-
-  public create(args: {
-    input: Array<ResetDatabaseMutationResponseCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: ResetDatabaseMutationResponseWhere;
     update?: ResetDatabaseMutationResponseUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: ResetDatabaseMutationResponseWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ResetDatabaseMutationResponseWhere;
 
@@ -17538,10 +15156,6 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
 export interface UserAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -17553,7 +15167,6 @@ export declare class UserModel {
   public find(args?: {
     where?: UserWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: UserOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -17585,43 +15198,6 @@ export declare class UserModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: UserOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<User>>
-
-  public create(args: {
-    input: Array<UserCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateUsersMutationResponse>
-
-  public update(args: {
-    where?: UserWhere
-    update?: UserUpdateInput
-    connect?: UserConnectInput
-    disconnect?: UserDisconnectInput
-    create?: UserCreateInput
-    connectOrCreate?: UserConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateUsersMutationResponse>
-
-  public delete(args: {
-    where?: UserWhere
-    delete?: UserDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: UserWhere;
 
@@ -17632,21 +15208,12 @@ export declare class UserModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface AppAggregateSelectionInput {
   count?: boolean;
@@ -17658,7 +15225,6 @@ export declare class AppModel {
   public find(args?: {
     where?: AppWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: AppOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -17690,43 +15256,6 @@ export declare class AppModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: AppOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<App>>
-
-  public create(args: {
-    input: Array<AppCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateAppsMutationResponse>
-
-  public update(args: {
-    where?: AppWhere
-    update?: AppUpdateInput
-    connect?: AppConnectInput
-    disconnect?: AppDisconnectInput
-    create?: AppCreateInput
-    connectOrCreate?: AppConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateAppsMutationResponse>
-
-  public delete(args: {
-    where?: AppWhere
-    delete?: AppDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: AppWhere;
 
@@ -17737,21 +15266,12 @@ export declare class AppModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface AtomAggregateSelectionInput {
   count?: boolean;
@@ -17763,7 +15283,6 @@ export declare class AtomModel {
   public find(args?: {
     where?: AtomWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: AtomOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -17795,43 +15314,6 @@ export declare class AtomModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: AtomOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Atom>>
-
-  public create(args: {
-    input: Array<AtomCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateAtomsMutationResponse>
-
-  public update(args: {
-    where?: AtomWhere
-    update?: AtomUpdateInput
-    connect?: AtomConnectInput
-    disconnect?: AtomDisconnectInput
-    create?: AtomCreateInput
-    connectOrCreate?: AtomConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateAtomsMutationResponse>
-
-  public delete(args: {
-    where?: AtomWhere
-    delete?: AtomDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: AtomWhere;
 
@@ -17842,21 +15324,12 @@ export declare class AtomModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -17879,7 +15352,6 @@ export declare class CreateInfoModel {
   public find(args?: {
     where?: CreateInfoWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: CreateInfoOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -17893,54 +15365,21 @@ export declare class CreateInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateCreateInfosMutationResponse>;
-=======
-    options?: CreateInfoOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<CreateInfo>>
-
-  public create(args: {
-    input: Array<CreateInfoCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateCreateInfosMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: CreateInfoWhere;
     update?: CreateInfoUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateCreateInfosMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateCreateInfosMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: CreateInfoWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: CreateInfoWhere;
 
@@ -17951,21 +15390,12 @@ export declare class CreateInfoModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -17987,7 +15417,6 @@ export declare class PageModel {
   public find(args?: {
     where?: PageWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: PageOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18019,43 +15448,6 @@ export declare class PageModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: PageOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Page>>
-
-  public create(args: {
-    input: Array<PageCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreatePagesMutationResponse>
-
-  public update(args: {
-    where?: PageWhere
-    update?: PageUpdateInput
-    connect?: PageConnectInput
-    disconnect?: PageDisconnectInput
-    create?: PageCreateInput
-    connectOrCreate?: PageConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdatePagesMutationResponse>
-
-  public delete(args: {
-    where?: PageWhere
-    delete?: PageDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: PageWhere;
 
@@ -18066,21 +15458,12 @@ export declare class PageModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18102,7 +15485,6 @@ export declare class TypeReferenceModel {
   public find(args?: {
     where?: TypeReferenceWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: TypeReferenceOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18116,54 +15498,21 @@ export declare class TypeReferenceModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTypeReferencesMutationResponse>;
-=======
-    options?: TypeReferenceOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<TypeReference>>
-
-  public create(args: {
-    input: Array<TypeReferenceCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTypeReferencesMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: TypeReferenceWhere;
     update?: TypeReferenceUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTypeReferencesMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTypeReferencesMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: TypeReferenceWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: TypeReferenceWhere;
 
@@ -18181,7 +15530,6 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
@@ -18191,21 +15539,6 @@ export interface IntAggregateInputNonNullable {
   min?: boolean;
   average?: boolean;
   sum?: boolean;
-=======
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface PrimitiveTypeAggregateSelectionInput {
   count?: boolean;
@@ -18217,7 +15550,6 @@ export declare class PrimitiveTypeModel {
   public find(args?: {
     where?: PrimitiveTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: PrimitiveTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18249,43 +15581,6 @@ export declare class PrimitiveTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: PrimitiveTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<PrimitiveType>>
-
-  public create(args: {
-    input: Array<PrimitiveTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreatePrimitiveTypesMutationResponse>
-
-  public update(args: {
-    where?: PrimitiveTypeWhere
-    update?: PrimitiveTypeUpdateInput
-    connect?: PrimitiveTypeConnectInput
-    disconnect?: PrimitiveTypeDisconnectInput
-    create?: PrimitiveTypeCreateInput
-    connectOrCreate?: PrimitiveTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdatePrimitiveTypesMutationResponse>
-
-  public delete(args: {
-    where?: PrimitiveTypeWhere
-    delete?: PrimitiveTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: PrimitiveTypeWhere;
 
@@ -18296,21 +15591,12 @@ export declare class PrimitiveTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18332,7 +15618,6 @@ export declare class ArrayTypeModel {
   public find(args?: {
     where?: ArrayTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ArrayTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18364,43 +15649,6 @@ export declare class ArrayTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ArrayTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ArrayType>>
-
-  public create(args: {
-    input: Array<ArrayTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateArrayTypesMutationResponse>
-
-  public update(args: {
-    where?: ArrayTypeWhere
-    update?: ArrayTypeUpdateInput
-    connect?: ArrayTypeConnectInput
-    disconnect?: ArrayTypeDisconnectInput
-    create?: ArrayTypeCreateInput
-    connectOrCreate?: ArrayTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateArrayTypesMutationResponse>
-
-  public delete(args: {
-    where?: ArrayTypeWhere
-    delete?: ArrayTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ArrayTypeWhere;
 
@@ -18411,21 +15659,12 @@ export declare class ArrayTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18447,7 +15686,6 @@ export declare class UnionTypeModel {
   public find(args?: {
     where?: UnionTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: UnionTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18479,43 +15717,6 @@ export declare class UnionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: UnionTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<UnionType>>
-
-  public create(args: {
-    input: Array<UnionTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateUnionTypesMutationResponse>
-
-  public update(args: {
-    where?: UnionTypeWhere
-    update?: UnionTypeUpdateInput
-    connect?: UnionTypeConnectInput
-    disconnect?: UnionTypeDisconnectInput
-    create?: UnionTypeCreateInput
-    connectOrCreate?: UnionTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateUnionTypesMutationResponse>
-
-  public delete(args: {
-    where?: UnionTypeWhere
-    delete?: UnionTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: UnionTypeWhere;
 
@@ -18526,21 +15727,12 @@ export declare class UnionTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18562,7 +15754,6 @@ export declare class InterfaceTypeModel {
   public find(args?: {
     where?: InterfaceTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: InterfaceTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18594,43 +15785,6 @@ export declare class InterfaceTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: InterfaceTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<InterfaceType>>
-
-  public create(args: {
-    input: Array<InterfaceTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateInterfaceTypesMutationResponse>
-
-  public update(args: {
-    where?: InterfaceTypeWhere
-    update?: InterfaceTypeUpdateInput
-    connect?: InterfaceTypeConnectInput
-    disconnect?: InterfaceTypeDisconnectInput
-    create?: InterfaceTypeCreateInput
-    connectOrCreate?: InterfaceTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateInterfaceTypesMutationResponse>
-
-  public delete(args: {
-    where?: InterfaceTypeWhere
-    delete?: InterfaceTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: InterfaceTypeWhere;
 
@@ -18641,21 +15795,12 @@ export declare class InterfaceTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18677,7 +15822,6 @@ export declare class ElementTypeModel {
   public find(args?: {
     where?: ElementTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ElementTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18709,43 +15853,6 @@ export declare class ElementTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ElementTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ElementType>>
-
-  public create(args: {
-    input: Array<ElementTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateElementTypesMutationResponse>
-
-  public update(args: {
-    where?: ElementTypeWhere
-    update?: ElementTypeUpdateInput
-    connect?: ElementTypeConnectInput
-    disconnect?: ElementTypeDisconnectInput
-    create?: ElementTypeCreateInput
-    connectOrCreate?: ElementTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateElementTypesMutationResponse>
-
-  public delete(args: {
-    where?: ElementTypeWhere
-    delete?: ElementTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ElementTypeWhere;
 
@@ -18756,21 +15863,12 @@ export declare class ElementTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18792,7 +15890,6 @@ export declare class RenderPropsTypeModel {
   public find(args?: {
     where?: RenderPropsTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: RenderPropsTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18824,43 +15921,6 @@ export declare class RenderPropsTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: RenderPropsTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<RenderPropsType>>
-
-  public create(args: {
-    input: Array<RenderPropsTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateRenderPropsTypesMutationResponse>
-
-  public update(args: {
-    where?: RenderPropsTypeWhere
-    update?: RenderPropsTypeUpdateInput
-    connect?: RenderPropsTypeConnectInput
-    disconnect?: RenderPropsTypeDisconnectInput
-    create?: RenderPropsTypeCreateInput
-    connectOrCreate?: RenderPropsTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateRenderPropsTypesMutationResponse>
-
-  public delete(args: {
-    where?: RenderPropsTypeWhere
-    delete?: RenderPropsTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: RenderPropsTypeWhere;
 
@@ -18871,21 +15931,12 @@ export declare class RenderPropsTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -18907,7 +15958,6 @@ export declare class ReactNodeTypeModel {
   public find(args?: {
     where?: ReactNodeTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ReactNodeTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -18939,43 +15989,6 @@ export declare class ReactNodeTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ReactNodeTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ReactNodeType>>
-
-  public create(args: {
-    input: Array<ReactNodeTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateReactNodeTypesMutationResponse>
-
-  public update(args: {
-    where?: ReactNodeTypeWhere
-    update?: ReactNodeTypeUpdateInput
-    connect?: ReactNodeTypeConnectInput
-    disconnect?: ReactNodeTypeDisconnectInput
-    create?: ReactNodeTypeCreateInput
-    connectOrCreate?: ReactNodeTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateReactNodeTypesMutationResponse>
-
-  public delete(args: {
-    where?: ReactNodeTypeWhere
-    delete?: ReactNodeTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ReactNodeTypeWhere;
 
@@ -18986,21 +15999,12 @@ export declare class ReactNodeTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19022,7 +16026,6 @@ export declare class EnumTypeModel {
   public find(args?: {
     where?: EnumTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: EnumTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19054,43 +16057,6 @@ export declare class EnumTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: EnumTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<EnumType>>
-
-  public create(args: {
-    input: Array<EnumTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateEnumTypesMutationResponse>
-
-  public update(args: {
-    where?: EnumTypeWhere
-    update?: EnumTypeUpdateInput
-    connect?: EnumTypeConnectInput
-    disconnect?: EnumTypeDisconnectInput
-    create?: EnumTypeCreateInput
-    connectOrCreate?: EnumTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateEnumTypesMutationResponse>
-
-  public delete(args: {
-    where?: EnumTypeWhere
-    delete?: EnumTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: EnumTypeWhere;
 
@@ -19101,21 +16067,12 @@ export declare class EnumTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19138,7 +16095,6 @@ export declare class EnumTypeValueModel {
   public find(args?: {
     where?: EnumTypeValueWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: EnumTypeValueOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19170,43 +16126,6 @@ export declare class EnumTypeValueModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: EnumTypeValueOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<EnumTypeValue>>
-
-  public create(args: {
-    input: Array<EnumTypeValueCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateEnumTypeValuesMutationResponse>
-
-  public update(args: {
-    where?: EnumTypeValueWhere
-    update?: EnumTypeValueUpdateInput
-    connect?: EnumTypeValueConnectInput
-    disconnect?: EnumTypeValueDisconnectInput
-    create?: EnumTypeValueCreateInput
-    connectOrCreate?: EnumTypeValueConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateEnumTypeValuesMutationResponse>
-
-  public delete(args: {
-    where?: EnumTypeValueWhere
-    delete?: EnumTypeValueDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: EnumTypeValueWhere;
 
@@ -19217,21 +16136,12 @@ export declare class EnumTypeValueModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19253,7 +16163,6 @@ export declare class LambdaTypeModel {
   public find(args?: {
     where?: LambdaTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: LambdaTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19285,43 +16194,6 @@ export declare class LambdaTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: LambdaTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<LambdaType>>
-
-  public create(args: {
-    input: Array<LambdaTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateLambdaTypesMutationResponse>
-
-  public update(args: {
-    where?: LambdaTypeWhere
-    update?: LambdaTypeUpdateInput
-    connect?: LambdaTypeConnectInput
-    disconnect?: LambdaTypeDisconnectInput
-    create?: LambdaTypeCreateInput
-    connectOrCreate?: LambdaTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateLambdaTypesMutationResponse>
-
-  public delete(args: {
-    where?: LambdaTypeWhere
-    delete?: LambdaTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: LambdaTypeWhere;
 
@@ -19332,21 +16204,12 @@ export declare class LambdaTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19368,7 +16231,6 @@ export declare class PageTypeModel {
   public find(args?: {
     where?: PageTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: PageTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19400,43 +16262,6 @@ export declare class PageTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: PageTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<PageType>>
-
-  public create(args: {
-    input: Array<PageTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreatePageTypesMutationResponse>
-
-  public update(args: {
-    where?: PageTypeWhere
-    update?: PageTypeUpdateInput
-    connect?: PageTypeConnectInput
-    disconnect?: PageTypeDisconnectInput
-    create?: PageTypeCreateInput
-    connectOrCreate?: PageTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdatePageTypesMutationResponse>
-
-  public delete(args: {
-    where?: PageTypeWhere
-    delete?: PageTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: PageTypeWhere;
 
@@ -19447,21 +16272,12 @@ export declare class PageTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19483,7 +16299,6 @@ export declare class AppTypeModel {
   public find(args?: {
     where?: AppTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: AppTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19515,43 +16330,6 @@ export declare class AppTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: AppTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<AppType>>
-
-  public create(args: {
-    input: Array<AppTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateAppTypesMutationResponse>
-
-  public update(args: {
-    where?: AppTypeWhere
-    update?: AppTypeUpdateInput
-    connect?: AppTypeConnectInput
-    disconnect?: AppTypeDisconnectInput
-    create?: AppTypeCreateInput
-    connectOrCreate?: AppTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateAppTypesMutationResponse>
-
-  public delete(args: {
-    where?: AppTypeWhere
-    delete?: AppTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: AppTypeWhere;
 
@@ -19562,21 +16340,12 @@ export declare class AppTypeModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19598,7 +16367,6 @@ export declare class MonacoTypeModel {
   public find(args?: {
     where?: MonacoTypeWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: MonacoTypeOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19630,43 +16398,6 @@ export declare class MonacoTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: MonacoTypeOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<MonacoType>>
-
-  public create(args: {
-    input: Array<MonacoTypeCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateMonacoTypesMutationResponse>
-
-  public update(args: {
-    where?: MonacoTypeWhere
-    update?: MonacoTypeUpdateInput
-    connect?: MonacoTypeConnectInput
-    disconnect?: MonacoTypeDisconnectInput
-    create?: MonacoTypeCreateInput
-    connectOrCreate?: MonacoTypeConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateMonacoTypesMutationResponse>
-
-  public delete(args: {
-    where?: MonacoTypeWhere
-    delete?: MonacoTypeDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: MonacoTypeWhere;
 
@@ -19684,7 +16415,6 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
@@ -19694,21 +16424,6 @@ export interface IntAggregateInputNonNullable {
   min?: boolean;
   average?: boolean;
   sum?: boolean;
-=======
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface TagAggregateSelectionInput {
   count?: boolean;
@@ -19720,7 +16435,6 @@ export declare class TagModel {
   public find(args?: {
     where?: TagWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: TagOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19752,43 +16466,6 @@ export declare class TagModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: TagOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Tag>>
-
-  public create(args: {
-    input: Array<TagCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTagsMutationResponse>
-
-  public update(args: {
-    where?: TagWhere
-    update?: TagUpdateInput
-    connect?: TagConnectInput
-    disconnect?: TagDisconnectInput
-    create?: TagCreateInput
-    connectOrCreate?: TagConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTagsMutationResponse>
-
-  public delete(args: {
-    where?: TagWhere
-    delete?: TagDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: TagWhere;
 
@@ -19799,21 +16476,12 @@ export declare class TagModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19841,7 +16509,6 @@ export declare class TagGraphOptionsModel {
   public find(args?: {
     where?: TagGraphOptionsWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: TagGraphOptionsOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19855,54 +16522,21 @@ export declare class TagGraphOptionsModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTagGraphOptionsMutationResponse>;
-=======
-    options?: TagGraphOptionsOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<TagGraphOptions>>
-
-  public create(args: {
-    input: Array<TagGraphOptionsCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTagGraphOptionsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: TagGraphOptionsWhere;
     update?: TagGraphOptionsUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTagGraphOptionsMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTagGraphOptionsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: TagGraphOptionsWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: TagGraphOptionsWhere;
 
@@ -19913,21 +16547,12 @@ export declare class TagGraphOptionsModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -19955,7 +16580,6 @@ export declare class TagGraphModel {
   public find(args?: {
     where?: TagGraphWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: TagGraphOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -19969,54 +16593,21 @@ export declare class TagGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTagGraphsMutationResponse>;
-=======
-    options?: TagGraphOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<TagGraph>>
-
-  public create(args: {
-    input: Array<TagGraphCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTagGraphsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: TagGraphWhere;
     update?: TagGraphUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTagGraphsMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTagGraphsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: TagGraphWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: TagGraphWhere;
 
@@ -20027,21 +16618,12 @@ export declare class TagGraphModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20060,18 +16642,12 @@ export interface IntAggregateInputNullable {
   sum?: boolean;
 }
 export interface ElementGraphAggregateSelectionInput {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   count?: boolean;
   id?: IdAggregateInputNonNullable;
-=======
-  count?: boolean
-  id?: IdAggregateInputNonNullable
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 
 export declare class ElementGraphModel {
   public find(args?: {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     where?: ElementGraphWhere;
 
     options?: ElementGraphOptions;
@@ -20118,58 +16694,6 @@ export interface IdAggregateInputNonNullable {
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-    where?: ElementGraphWhere
-
-    options?: ElementGraphOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ElementGraph>>
-
-  public create(args: {
-    input: Array<ElementGraphCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateElementGraphsMutationResponse>
-
-  public update(args: {
-    where?: ElementGraphWhere
-    update?: ElementGraphUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateElementGraphsMutationResponse>
-
-  public delete(args: {
-    where?: ElementGraphWhere
-
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: ElementGraphWhere
-
-    aggregate: ElementGraphAggregateSelectionInput
-    context?: any
-    rootValue?: any
-  }): Promise<ElementGraphAggregateSelection>
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20201,7 +16725,6 @@ export declare class ElementModel {
   public find(args?: {
     where?: ElementWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ElementOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20233,43 +16756,6 @@ export declare class ElementModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ElementOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Element>>
-
-  public create(args: {
-    input: Array<ElementCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateElementsMutationResponse>
-
-  public update(args: {
-    where?: ElementWhere
-    update?: ElementUpdateInput
-    connect?: ElementConnectInput
-    disconnect?: ElementDisconnectInput
-    create?: ElementCreateInput
-    connectOrCreate?: ElementConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateElementsMutationResponse>
-
-  public delete(args: {
-    where?: ElementWhere
-    delete?: ElementDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ElementWhere;
 
@@ -20287,7 +16773,6 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
@@ -20303,27 +16788,6 @@ export interface IntAggregateInputNullable {
   min?: boolean;
   average?: boolean;
   sum?: boolean;
-=======
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
-}
-export interface IntAggregateInputNullable {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface PropAggregateSelectionInput {
   count?: boolean;
@@ -20335,7 +16799,6 @@ export declare class PropModel {
   public find(args?: {
     where?: PropWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: PropOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20349,54 +16812,21 @@ export declare class PropModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePropsMutationResponse>;
-=======
-    options?: PropOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Prop>>
-
-  public create(args: {
-    input: Array<PropCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreatePropsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: PropWhere;
     update?: PropUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePropsMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdatePropsMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: PropWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: PropWhere;
 
@@ -20407,21 +16837,12 @@ export declare class PropModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20450,7 +16871,6 @@ export declare class PropMapBindingModel {
   public find(args?: {
     where?: PropMapBindingWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: PropMapBindingOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20482,43 +16902,6 @@ export declare class PropMapBindingModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: PropMapBindingOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<PropMapBinding>>
-
-  public create(args: {
-    input: Array<PropMapBindingCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreatePropMapBindingsMutationResponse>
-
-  public update(args: {
-    where?: PropMapBindingWhere
-    update?: PropMapBindingUpdateInput
-    connect?: PropMapBindingConnectInput
-    disconnect?: PropMapBindingDisconnectInput
-    create?: PropMapBindingCreateInput
-    connectOrCreate?: PropMapBindingConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdatePropMapBindingsMutationResponse>
-
-  public delete(args: {
-    where?: PropMapBindingWhere
-    delete?: PropMapBindingDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: PropMapBindingWhere;
 
@@ -20529,21 +16912,12 @@ export declare class PropMapBindingModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20570,7 +16944,6 @@ export declare class HookModel {
   public find(args?: {
     where?: HookWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: HookOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20602,43 +16975,6 @@ export declare class HookModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: HookOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Hook>>
-
-  public create(args: {
-    input: Array<HookCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateHooksMutationResponse>
-
-  public update(args: {
-    where?: HookWhere
-    update?: HookUpdateInput
-    connect?: HookConnectInput
-    disconnect?: HookDisconnectInput
-    create?: HookCreateInput
-    connectOrCreate?: HookConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateHooksMutationResponse>
-
-  public delete(args: {
-    where?: HookWhere
-    delete?: HookDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: HookWhere;
 
@@ -20649,21 +16985,12 @@ export declare class HookModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20691,7 +17018,6 @@ export declare class ComponentModel {
   public find(args?: {
     where?: ComponentWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ComponentOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20723,43 +17049,6 @@ export declare class ComponentModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ComponentOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Component>>
-
-  public create(args: {
-    input: Array<ComponentCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateComponentsMutationResponse>
-
-  public update(args: {
-    where?: ComponentWhere
-    update?: ComponentUpdateInput
-    connect?: ComponentConnectInput
-    disconnect?: ComponentDisconnectInput
-    create?: ComponentCreateInput
-    connectOrCreate?: ComponentConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateComponentsMutationResponse>
-
-  public delete(args: {
-    where?: ComponentWhere
-    delete?: ComponentDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ComponentWhere;
 
@@ -20770,21 +17059,12 @@ export declare class ComponentModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20813,7 +17093,6 @@ export declare class ActionModel {
   public find(args?: {
     where?: ActionWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: ActionOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20845,43 +17124,6 @@ export declare class ActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: ActionOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Action>>
-
-  public create(args: {
-    input: Array<ActionCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateActionsMutationResponse>
-
-  public update(args: {
-    where?: ActionWhere
-    update?: ActionUpdateInput
-    connect?: ActionConnectInput
-    disconnect?: ActionDisconnectInput
-    create?: ActionCreateInput
-    connectOrCreate?: ActionConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateActionsMutationResponse>
-
-  public delete(args: {
-    where?: ActionWhere
-    delete?: ActionDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: ActionWhere;
 
@@ -20892,21 +17134,12 @@ export declare class ActionModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -20935,7 +17168,6 @@ export declare class StoreModel {
   public find(args?: {
     where?: StoreWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: StoreOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -20967,43 +17199,6 @@ export declare class StoreModel {
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    options?: StoreOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<Store>>
-
-  public create(args: {
-    input: Array<StoreCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateStoresMutationResponse>
-
-  public update(args: {
-    where?: StoreWhere
-    update?: StoreUpdateInput
-    connect?: StoreConnectInput
-    disconnect?: StoreDisconnectInput
-    create?: StoreCreateInput
-    connectOrCreate?: StoreConnectOrCreateInput
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateStoresMutationResponse>
-
-  public delete(args: {
-    where?: StoreWhere
-    delete?: StoreDeleteInput
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: StoreWhere;
 
@@ -21014,21 +17209,12 @@ export declare class StoreModel {
 }
 
 export interface IdAggregateInputNonNullable {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   shortest?: boolean;
   longest?: boolean;
 }
 export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
-=======
-  shortest?: boolean
-  longest?: boolean
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean
-  longest?: boolean
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }
 export interface StringAggregateInputNullable {
   shortest?: boolean;
@@ -21057,7 +17243,6 @@ export declare class DeleteInfoModel {
   public find(args?: {
     where?: DeleteInfoWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     options?: DeleteInfoOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
@@ -21071,54 +17256,21 @@ export declare class DeleteInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateDeleteInfosMutationResponse>;
-=======
-    options?: DeleteInfoOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<DeleteInfo>>
-
-  public create(args: {
-    input: Array<DeleteInfoCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateDeleteInfosMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public update(args: {
     where?: DeleteInfoWhere;
     update?: DeleteInfoUpdateInput;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
   }): Promise<UpdateDeleteInfosMutationResponse>;
-=======
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateDeleteInfosMutationResponse>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public delete(args: {
     where?: DeleteInfoWhere;
 
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-=======
-    context?: any
-    rootValue?: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
   public aggregate(args: {
     where?: DeleteInfoWhere;
 
@@ -21279,7 +17431,6 @@ export declare class OperationModel {
 }
 
 export interface ModelMap {
-<<<<<<< HEAD:libs/backend/src/ogm-types.gen.ts
   ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel;
   User: UserModel;
   App: AppModel;
@@ -21314,38 +17465,4 @@ export interface ModelMap {
   DeleteInfo: DeleteInfoModel;
   Resource: ResourceModel;
   Operation: OperationModel;
-=======
-  ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel
-  User: UserModel
-  App: AppModel
-  Atom: AtomModel
-  CreateInfo: CreateInfoModel
-  Page: PageModel
-  TypeReference: TypeReferenceModel
-  PrimitiveType: PrimitiveTypeModel
-  ArrayType: ArrayTypeModel
-  UnionType: UnionTypeModel
-  InterfaceType: InterfaceTypeModel
-  ElementType: ElementTypeModel
-  RenderPropsType: RenderPropsTypeModel
-  ReactNodeType: ReactNodeTypeModel
-  EnumType: EnumTypeModel
-  EnumTypeValue: EnumTypeValueModel
-  LambdaType: LambdaTypeModel
-  PageType: PageTypeModel
-  AppType: AppTypeModel
-  MonacoType: MonacoTypeModel
-  Tag: TagModel
-  TagGraphOptions: TagGraphOptionsModel
-  TagGraph: TagGraphModel
-  ElementGraph: ElementGraphModel
-  Element: ElementModel
-  Prop: PropModel
-  PropMapBinding: PropMapBindingModel
-  Hook: HookModel
-  Component: ComponentModel
-  Action: ActionModel
-  Store: StoreModel
-  DeleteInfo: DeleteInfoModel
->>>>>>> 519781256 (wip: adding type export):libs/backend/src/infra/ogm-types.gen.ts
 }

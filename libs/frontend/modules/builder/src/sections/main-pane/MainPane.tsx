@@ -105,7 +105,7 @@ export const MainPane = observer<
       </DisplayIf>
 
       <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-        <MainPaneMobxState renderService={builderService.builderRenderer} />
+        <MainPaneMobxState builderService={builderService} />
       </DisplayIf>
 
       <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
@@ -116,6 +116,8 @@ export const MainPane = observer<
         />
       </DisplayIf>
 
-        <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MainPaneMobxState builderService={builderService} />
-        </DisplayIf>
+      <CreateElementModal elementService={elementService} />
+      <DeleteElementModal elementService={elementService} />
+    </MainPaneTemplate>
+  )
+})

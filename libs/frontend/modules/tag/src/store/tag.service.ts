@@ -2,6 +2,7 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import { TagWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateTagDTO,
+  ITagDTO,
   ITagService,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
@@ -185,12 +186,12 @@ export class TagService
 
   @modelAction
   getOrCreateNew(tag: ITagDTO) {
-    if (this.tags.has(tag.id)) {
-      return this.tags.get(tag.id)
+    if (this._tags.has(tag.id)) {
+      return this._tags.get(tag.id)
     }
 
     const tagModel = Tag.hydrate(tag)
-    this.tags.set(tag.id, tagModel)
+    this._tags.set(tag.id, tagModel)
 
     return tagModel
   }

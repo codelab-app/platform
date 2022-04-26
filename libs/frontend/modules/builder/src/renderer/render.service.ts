@@ -46,9 +46,8 @@ import { ExtraElementProps } from './ExtraElementProps'
 import { renderPipeFactory } from './renderPipes/renderPipeFactory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { isTypedValue } from './utils/isTypedValue'
-import { getTemplateFn } from './utils/platformState'
-import { reduceComponentTree } from './utils/reduceComponentTree'
 import { getState } from './utils/platformState'
+import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
 /**

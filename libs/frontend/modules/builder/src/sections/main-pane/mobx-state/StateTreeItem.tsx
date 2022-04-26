@@ -1,13 +1,13 @@
 import { EyeOutlined } from '@ant-design/icons'
+import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Button, Tag } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { IStateTreeNode } from '../../../renderer/utils/platformState'
-import { WithBuilderService } from '../../../store/BuilderService'
 import { CopyPathButton } from './CopyPathButton'
 
-interface StateTreeItemProps extends WithBuilderService {
+type StateTreeItemProps = WithServices<BUILDER_SERVICE> & {
   node: IStateTreeNode
 }
 

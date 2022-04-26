@@ -1,15 +1,19 @@
+import {
+  RESOURCE_SERVICE,
+  STORE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useCurrentStore } from '../../../hooks'
-import { WithStoreResourceService, WithStoreService } from '../../../store'
 import { useStoreResourcesTable } from './useStoreResourcesTable'
 
 export const GetStoreResourcesTable = observer<
-  WithStoreService & WithStoreResourceService
->(({ storeService, storeResourceService }) => {
+  WithServices<RESOURCE_SERVICE | STORE_SERVICE>
+>(({ storeService, resourceService }) => {
   const { store } = useCurrentStore(storeService)
-  const { columns, pagination } = useStoreResourcesTable(storeResourceService)
+  const { columns, pagination } = useStoreResourcesTable(resourceService)
 
   return (
     <Table

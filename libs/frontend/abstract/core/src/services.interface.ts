@@ -8,8 +8,10 @@ import {
   IElementService,
   IImportAtomService,
   IImportTypeService,
+  IOperationService,
   IPageService,
   IRenderService,
+  IResourceService,
   IStoreService,
   ITagService,
   ITypeService,
@@ -31,6 +33,8 @@ export const RENDER_SERVICE = 'renderService'
 export const TYPE_SERVICE = 'typeService'
 export const STORE_SERVICE = 'storeService'
 export const ACTION_SERVICE = 'actionService'
+export const RESOURCE_SERVICE = 'resourceService'
+export const OPERATION_SERVICE = 'operationService'
 
 export type APP_SERVICE = typeof APP_SERVICE
 export type ADMIN_SERVICE = typeof ADMIN_SERVICE
@@ -47,6 +51,8 @@ export type RENDER_SERVICE = typeof RENDER_SERVICE
 export type TYPE_SERVICE = typeof TYPE_SERVICE
 export type STORE_SERVICE = typeof STORE_SERVICE
 export type ACTION_SERVICE = typeof ACTION_SERVICE
+export type RESOURCE_SERVICE = typeof RESOURCE_SERVICE
+export type OPERATION_SERVICE = typeof OPERATION_SERVICE
 
 export type DomainServices = {
   [APP_SERVICE]: IAppService
@@ -64,6 +70,8 @@ export type DomainServices = {
   [TYPE_SERVICE]: ITypeService
   [STORE_SERVICE]: IStoreService
   [ACTION_SERVICE]: IActionService
+  [RESOURCE_SERVICE]: IResourceService
+  [OPERATION_SERVICE]: IOperationService
 }
 
 export type WithServices<T extends keyof DomainServices> = {

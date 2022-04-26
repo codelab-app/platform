@@ -9,6 +9,7 @@ import { computed } from 'mobx'
 import { Frozen, frozen, Model, model, prop, Ref } from 'mobx-keystone'
 import { RenderService, renderServiceContext } from '../renderer'
 import { ExtraElementProps } from '../renderer/ExtraElementProps'
+import { StateModalService } from './state-modal.service'
 
 const voidClick = () => {
   //
@@ -24,6 +25,7 @@ export class BuilderService
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
     builderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
+    stateModal: prop(() => new StateModalService({})),
 
     // Use a builder-specific render service that overwrites
     // each onClick handler with a void click handler.

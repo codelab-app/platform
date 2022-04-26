@@ -1,15 +1,16 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { HttpMethod, ICreateOperationDTO } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
 
-const monacoGraphQLOptions = {
+export const monacoGraphQLOptions = {
   editorOptions: { language: MonacoLanguage.graphqlDev },
   containerProps: { style: { height: '240px' } },
 }
 
-const monacoJSONOptions = {
+export const monacoJSONOptions = {
   editorOptions: { language: MonacoLanguage.json },
   containerProps: { style: { height: '240px' } },
 }
@@ -18,6 +19,11 @@ export const createOperationSchema: JSONSchemaType<ICreateOperationDTO> = {
   title: 'Create Operation',
   type: 'object',
   properties: {
+    resource: {
+      type: 'string',
+      disabled: true,
+      ...showFieldOnDev(),
+    },
     name: {
       type: 'string',
       autoFocus: true,
@@ -37,18 +43,15 @@ export const createOperationSchema: JSONSchemaType<ICreateOperationDTO> = {
           type: 'string',
           uniforms: { component: monacoFieldFactory(monacoGraphQLOptions) },
         },
-
         variables: {
           type: 'string',
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
         },
-
         /**
          *
          * Rest Operation fields
          *
          */
-
         body: {
           type: 'string',
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
@@ -58,7 +61,6 @@ export const createOperationSchema: JSONSchemaType<ICreateOperationDTO> = {
           enum: keys(HttpMethod) as Array<HttpMethod>,
           showSearch: true,
         },
-
         queryParams: {
           type: 'string',
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },

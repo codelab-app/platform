@@ -2,12 +2,12 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "jsxImportSource": "@emotion/react"
+    "allowSyntheticDefaultImports": true
   },
   "files": [],
   "include": [],

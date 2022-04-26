@@ -1,3 +1,4 @@
+import { WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -6,9 +7,8 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithResourceService } from '../../../store'
 
-export const DeleteResourcesModal = observer<WithResourceService>(
+export const DeleteResourcesModal = observer<WithServices<any>>(
   ({ resourceService }) => {
     const router = useRouter()
     const resourceId = useCurrentResourceId()

@@ -1,11 +1,11 @@
+import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { List, Spinner } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { WithResourceService } from '../../../store'
 import { GetResourcesItem } from './GetResourcesItem'
 
-export const GetResourcesList = observer<WithResourceService>(
+export const GetResourcesList = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     const [getResources, { isLoading }] = useLoadingState(() =>
       resourceService.getAll(),

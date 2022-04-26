@@ -1,31 +1,26 @@
 import { Element } from '@codelab/frontend/modules/element'
+import { BuilderDragData, BuilderTab } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, frozen, Model, model, prop, Ref } from 'mobx-keystone'
-import { BuilderDragData } from '../dnd/BuilderDragData'
 import { RenderService, renderServiceContext } from '../renderer'
 import { ExtraElementProps } from '../renderer/ExtraElementProps'
-import { BuilderTab } from './BuilderTab'
 import { StateModalService } from './state-modal.service'
 
 const voidClick = () => {
   //
 }
 
-export type WithBuilderService = {
-  builderService: BuilderService
-}
-
 const globalProps = { onClick: voidClick }
 
 @model('@codelab/BuilderService')
 export class BuilderService extends Model({
-  selectedElement: prop<Nullable<Ref<Element>>>(() => null).withSetter(),
-  hoveredElement: prop<Nullable<Ref<Element>>>(() => null).withSetter(),
+  selectedElement: prop<Nullable<Ref<Element>>>(null).withSetter(),
+  hoveredElement: prop<Nullable<Ref<Element>>>(null).withSetter(),
   currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(
     () => null,
   ).withSetter(),
 
-  builderTab: prop<BuilderTab>(() => BuilderTab.Tree).withSetter(),
+  builderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
   stateModal: prop(() => new StateModalService({})),
 
   // Use a builder-specific render service that overwrites

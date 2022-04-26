@@ -15,7 +15,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { useCurrentStore } from '../../../hooks'
 
-export const UpdateInitialStateForm = observer<
+export const UpdateLocalStateForm = observer<
   WithServices<STORE_SERVICE | TYPE_SERVICE>
 >(({ storeService, typeService }) => {
   const { store } = useCurrentStore(storeService)

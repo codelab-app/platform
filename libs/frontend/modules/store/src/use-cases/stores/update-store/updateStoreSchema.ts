@@ -11,7 +11,7 @@ export const updateStoreSchema: JSONSchemaType<IUpdateStoreDTO> = {
       type: 'string',
       autoFocus: true,
     },
-    initialState: {
+    localState: {
       type: 'string',
       label: '',
       component: monacoFieldFactory({

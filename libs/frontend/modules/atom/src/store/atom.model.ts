@@ -27,7 +27,7 @@ export class Atom
   extends Model({
     id: idProp,
     name: prop<string>(),
-    type: prop<AtomType>(),
+    type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(),
     api: prop<Ref<InterfaceType>>(),
   })

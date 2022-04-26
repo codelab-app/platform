@@ -4,6 +4,7 @@ import {
   IInterfaceTypeRef,
   ITag,
 } from '@codelab/shared/abstract/core'
+import { Ref } from 'mobx-keystone'
 
 export interface AtomRecord {
   id: string
@@ -26,5 +27,5 @@ export type ActionColumnProps = {
 } & WithServices<ATOM_SERVICE>
 
 export type TagsColumnProps = {
-  tags: Array<Ref<Tag>>
+  tags: Array<Ref<ITag>>
 }

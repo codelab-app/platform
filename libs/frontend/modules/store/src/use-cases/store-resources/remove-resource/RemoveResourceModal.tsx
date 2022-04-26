@@ -1,21 +1,23 @@
+import {
+  RESOURCE_SERVICE,
+  STORE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import {
-  Store,
-  WithStoreResourceService,
-  WithStoreService,
-} from '../../../store'
+import { Store } from '../../../store'
 
-type DeleteResourcesModalProps = WithStoreResourceService &
-  WithStoreService & { store: Store }
+type DeleteResourcesModalProps = WithServices<
+  STORE_SERVICE | RESOURCE_SERVICE
+> & { store: Store }
 
 export const RemoveResourceModal = observer<DeleteResourcesModalProps>(
-  ({ storeResourceService, storeService, store }) => {
-    const resource = storeResourceService.deleteModal.resource
-    const closeModal = () => storeResourceService.deleteModal.close()
+  ({ resourceService, storeService, store }) => {
+    const resource = resourceService.deleteModal.resource
+    const closeModal = () => resourceService.deleteModal.close()
 
     const onSubmit = () => {
       if (!resource) {
@@ -39,7 +41,7 @@ export const RemoveResourceModal = observer<DeleteResourcesModalProps>(
         okText="Delete Resource"
         onCancel={closeModal}
         title="Delete Confirmation"
-        visible={storeResourceService.deleteModal.isOpen}
+        visible={resourceService.deleteModal.isOpen}
       >
         <ModalForm.Form
           model={{}}

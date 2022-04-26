@@ -1,9 +1,9 @@
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { IResourceService } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
-import { ResourceService } from '../store'
 
-export const useCurrentResource = (resourcesService: ResourceService) => {
+export const useCurrentResource = (resourcesService: IResourceService) => {
   const resourceId = useCurrentResourceId()
 
   const [getResource, { isLoading, error }] = useLoadingState((id: string) =>

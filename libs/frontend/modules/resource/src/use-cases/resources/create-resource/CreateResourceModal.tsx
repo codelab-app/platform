@@ -1,18 +1,18 @@
+import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithResourceService } from '../../../store'
 import { createResourceSchema } from './createResourceSchema'
 
-export const CreateResourceModal = observer<WithResourceService>(
+export const CreateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     const closeModal = () => resourceService.createModal.close()
 
     const onSubmit = (input: ICreateResourceDTO) =>
-      resourceService.createResource(input)
+      resourceService.create(input)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating resource',

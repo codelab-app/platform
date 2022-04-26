@@ -1,20 +1,24 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { ICreateActionDTO } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 
 export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',
   properties: {
-    ...{
-      name: {
-        type: 'string',
-        autoFocus: true,
-      },
-      body: {
-        type: 'string',
-        uniforms: {
+    storeId: {
+      type: 'string',
+      disabled: true,
+      ...showFieldOnDev(),
+    },
+    name: {
+      type: 'string',
+      autoFocus: true,
+    },
+    body: {
+      type: 'string',
+      uniforms: {
         component: monacoFieldFactory({
           editorOptions: {
             language: 'typescript',
@@ -25,7 +29,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
             },
           },
         }),
-        }
       },
     },
   },

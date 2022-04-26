@@ -2,22 +2,11 @@ import {
   STATE_PATH_TEMPLATE_END,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
+import {
+  IStateTreeNode,
+  MobxStateKeyTemplate,
+} from '@codelab/shared/abstract/core'
 import { get } from 'lodash'
-
-export interface MobxStateKeyTemplate {
-  start: string
-  end: string
-}
-
-export interface IStateTreeNode {
-  name: string
-  key: string
-  path: string
-  type: string
-  children: Array<IStateTreeNode>
-  useModal: boolean
-  content: any
-}
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
   start: STATE_PATH_TEMPLATE_START,

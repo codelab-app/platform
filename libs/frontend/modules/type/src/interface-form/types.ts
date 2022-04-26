@@ -1,8 +1,6 @@
-import { FormProps } from '@codelab/frontend/abstract/types'
-import { IAnyType, IInterfaceType } from '@codelab/shared/abstract/core'
 import { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import { SetIsLoading } from '@codelab/frontend/view/components'
-import { IAnyType } from '@codelab/shared/abstract/core'
+import { IAnyType, IInterfaceType } from '@codelab/shared/abstract/core'
 import { Assign } from 'utility-types'
 
 export type InterfaceFormProps<TData> = Assign<

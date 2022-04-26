@@ -28,7 +28,6 @@ import {
 import {
   ActionService,
   actionServiceContext,
-  StoreResourceService,
   StoreService,
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
@@ -49,9 +48,11 @@ import {
   IElementService,
   IImportAtomService,
   IImportTypeService,
+  IOperationService,
   IPageProps,
   IPageService,
   IRenderService,
+  IResourceService,
   IStoreService,
   ITagService,
   ITypeService,
@@ -96,8 +97,8 @@ export type IRootStore = {
   providerElementService: IElementService
   builderService: IBuilderService
   renderService: IRenderService
-  resourceService: ResourceService
-  storeResourceService: StoreResourceService
+  resourceService: IResourceService
+  operationService: IOperationService
 }
 
 export const createRootStore = (
@@ -121,7 +122,6 @@ export const createRootStore = (
       storeService: prop(() => new StoreService({})),
       resourceService: prop(() => new ResourceService({})),
       operationService: prop(() => new OperationService({})),
-      storeResourceService: prop(() => new StoreResourceService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
       // element service that is used by the provider tree

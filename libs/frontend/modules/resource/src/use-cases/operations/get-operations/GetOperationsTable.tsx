@@ -1,14 +1,15 @@
+import {
+  OPERATION_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { WithOperationService, WithResourceService } from '../../../store'
 import { useOperationTable } from './useOperationTable'
 
-type GetOperationsTableProps = WithOperationService & WithResourceService
-
-export const GetOperationsTable = observer<GetOperationsTableProps>(
+export const GetOperationsTable = observer<WithServices<OPERATION_SERVICE>>(
   ({ operationService }) => {
     const { columns, rowSelection, pagination } =
       useOperationTable(operationService)

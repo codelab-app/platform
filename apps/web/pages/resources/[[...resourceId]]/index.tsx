@@ -1,5 +1,10 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
+  OPERATION_SERVICE,
+  RESOURCE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
+import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
@@ -12,8 +17,6 @@ import {
   ResourceMainPane,
   UpdateOperationModal,
   useCurrentResource,
-  WithOperationService,
-  WithResourceService,
 } from '@codelab/frontend/modules/resource'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -26,30 +29,27 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const OperationPage = observer<WithResourceService & WithOperationService>(
-  ({ operationService, resourceService }) => (
-    <>
-      <PageHeader
-        extra={[<CreateOperationButton operationService={operationService} />]}
-        ghost={false}
-        title="Operations"
-      />
-      <CreateOperationModal
-        operationService={operationService}
-        resourceService={resourceService}
-      />
-      <UpdateOperationModal
-        operationService={operationService}
-        resourceService={resourceService}
-      />
-      <DeleteOperationsModal operationService={operationService} />
-      <GetOperationsTable
-        operationService={operationService}
-        resourceService={resourceService}
-      />
-    </>
-  ),
-)
+const OperationPage = observer<
+  WithServices<RESOURCE_SERVICE | OPERATION_SERVICE>
+>(({ operationService, resourceService }) => (
+  <>
+    <PageHeader
+      extra={[<CreateOperationButton operationService={operationService} />]}
+      ghost={false}
+      title="Operations"
+    />
+    <CreateOperationModal
+      operationService={operationService}
+      resourceService={resourceService}
+    />
+    <UpdateOperationModal
+      operationService={operationService}
+      resourceService={resourceService}
+    />
+    <DeleteOperationsModal operationService={operationService} />
+    <GetOperationsTable operationService={operationService} />
+  </>
+))
 
 const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { operationService, resourceService } = useStore()
