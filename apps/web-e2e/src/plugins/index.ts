@@ -17,6 +17,9 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
+  /**
+   * Difficult to get this working so we can properly import using project references, instead we opt for relative to bypass this issue
+   */
   on('task', { encrypt })
 
   config.env.tsConfig = 'tsconfig.e2e.json'

@@ -34,7 +34,15 @@
     "**/*.stories.ts",
     "**/*.stories.js",
     "**/*.stories.jsx",
-    "**/*.stories.tsx"
+    "**/*.stories.tsx",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx",
+    "**/*.spec.js",
+    "**/*.test.js",
+    "**/*.spec.jsx",
+    "**/*.test.jsx"
   ],
   "references": []
 }
