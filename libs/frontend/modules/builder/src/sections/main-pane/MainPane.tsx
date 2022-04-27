@@ -24,7 +24,7 @@ import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import { BuilderTree } from './builder-tree'
-import { MainPaneMobxState } from './mobx-state/MainPaneMobxState'
+import { MobxState } from './mobx-state/MobxState'
 import { Toolbox } from './toolbox/Toolbox'
 
 const { Search } = Input
@@ -105,7 +105,7 @@ export const MainPane = observer<
       </DisplayIf>
 
       <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-        <MainPaneMobxState builderService={builderService} />
+        <MobxState builderService={builderService} />
       </DisplayIf>
 
       <DisplayIf condition={builderTab === BuilderTab.Toolbox}>

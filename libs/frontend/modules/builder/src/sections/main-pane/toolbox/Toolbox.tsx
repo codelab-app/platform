@@ -55,13 +55,11 @@ const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
   }
 }
 
-export type MainPaneToolboxProps = WithServices<
-  ATOM_SERVICE | COMPONENT_SERVICE
-> & {
+export type ToolboxProps = WithServices<ATOM_SERVICE | COMPONENT_SERVICE> & {
   searchQuery?: string
 }
 
-export const Toolbox = observer<MainPaneToolboxProps>(
+export const Toolbox = observer<ToolboxProps>(
   ({ searchQuery, atomService, componentService }) => {
     const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
     const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])

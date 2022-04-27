@@ -5,13 +5,13 @@ import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import tw from 'twin.macro'
-import { TreeItemDropDownOverlay } from './TreeItemDropDownOverlay'
+import { BuilderTreeItemOverlay } from './BuilderTreeItemOverlay'
 
-type TreeItemTitleProps = WithServices<ELEMENT_SERVICE> & {
+type BuilderTreeItemTitleProps = WithServices<ELEMENT_SERVICE> & {
   node: DataNode
 }
 
-export const TreeItemTitle = observer<TreeItemTitleProps>(
+export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
   ({ node, elementService }) => {
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
@@ -40,7 +40,7 @@ export const TreeItemTitle = observer<TreeItemTitleProps>(
             setContextMenuNodeId(visible ? element.id : null)
           }
           overlay={
-            <TreeItemDropDownOverlay
+            <BuilderTreeItemOverlay
               element={element}
               elementService={elementService}
               setContextMenuNodeId={setContextMenuNodeId}
