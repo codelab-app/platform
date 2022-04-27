@@ -4,6 +4,7 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreatePageDTO,
+  IPage,
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/shared/abstract/core'
@@ -192,8 +193,19 @@ export class PageService
   @modelFlow
   @transaction
   deleteMany = _async(function* (this: PageService, ids: Array<string>) {
+    if (ids.length === 0) {
+      return []
+    }
+
+    const existings: Array<IPage> = []
+
     for (const id in ids) {
-      this.pages.delete(id)
+      const existing = throwIfUndefined(this.pages.get(id))
+
+      if (existing) {
+        existings.push(existing)
+        this.pages.delete(id)
+      }
     }
 
     const { deletePages } = yield* _await(
@@ -204,17 +216,7 @@ export class PageService
       // throw error so that the atomic middleware rolls back the changes
       throw new Error('Page was not deleted')
     }
+
+    return existings
   })
-}
-
-export const pageServiceContext = createContext<PageService>()
-
-export const getPageService = (self: any) => {
-  const pageService = pageServiceContext.get(self)
-
-  if (!pageService) {
-    throw new Error('pageServiceContext is not set')
-  }
-
-  return pageService
 }

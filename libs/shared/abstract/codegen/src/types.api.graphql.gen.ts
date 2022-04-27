@@ -12827,6 +12827,9 @@ export type Tag = {
   id: Scalars['ID']
   isRoot?: Maybe<Scalars['Boolean']>
   name: Scalars['String']
+  owner: Array<User>
+  ownerAggregate?: Maybe<TagUserOwnerAggregationSelection>
+  ownerConnection: TagOwnerConnection
   parent?: Maybe<Tag>
   parentAggregate?: Maybe<TagTagParentAggregationSelection>
   parentConnection: TagParentConnection
@@ -12849,6 +12852,25 @@ export type TagChildrenConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<TagChildrenConnectionSort>>
   where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type TagOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type TagOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagOwnerConnectionSort>>
+  where?: InputMaybe<TagOwnerConnectionWhere>
 }
 
 export type TagParentArgs = {
@@ -12988,11 +13010,13 @@ export type TagChildrenUpdateFieldInput = {
 
 export type TagConnectInput = {
   children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  owner?: InputMaybe<Array<TagOwnerConnectFieldInput>>
   parent?: InputMaybe<TagParentConnectFieldInput>
 }
 
 export type TagConnectOrCreateInput = {
   children?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  owner?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
   parent?: InputMaybe<TagParentConnectOrCreateFieldInput>
 }
 
@@ -13005,43 +13029,21 @@ export type TagConnectWhere = {
 }
 
 export type TagCreateInput = {
-  owner?: InputMaybe<TagOwnerFieldInput>
   children?: InputMaybe<TagChildrenFieldInput>
   name: Scalars['String']
+  owner?: InputMaybe<TagOwnerFieldInput>
   parent?: InputMaybe<TagParentFieldInput>
-}
-
-export type TagOwnerFieldInput = {
-  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
-}
-
-export type TagOwnerConnectFieldInput = {
-  connect?: InputMaybe<Array<UserConnectInput>>
-  where?: InputMaybe<UserConnectWhere>
-}
-
-export type TagOwnerConnectOrCreateFieldInput = {
-  onCreate: TagOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type TagOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
-export type TagOwnerCreateFieldInput = {
-  node: UserCreateInput
 }
 
 export type TagDeleteInput = {
   children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  owner?: InputMaybe<Array<TagOwnerDeleteFieldInput>>
   parent?: InputMaybe<TagParentDeleteFieldInput>
 }
 
 export type TagDisconnectInput = {
   children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  owner?: InputMaybe<Array<TagOwnerDisconnectFieldInput>>
   parent?: InputMaybe<TagParentDisconnectFieldInput>
 }
 
@@ -13138,6 +13140,135 @@ export type TagOptions = {
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<TagSort>>
+}
+
+export type TagOwnerAggregateInput = {
+  AND?: InputMaybe<Array<TagOwnerAggregateInput>>
+  OR?: InputMaybe<Array<TagOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<TagOwnerNodeAggregationWhereInput>
+}
+
+export type TagOwnerConnectFieldInput = {
+  connect?: InputMaybe<Array<UserConnectInput>>
+  where?: InputMaybe<UserConnectWhere>
+}
+
+export type TagOwnerConnectOrCreateFieldInput = {
+  onCreate: TagOwnerConnectOrCreateFieldInputOnCreate
+  where: UserConnectOrCreateWhere
+}
+
+export type TagOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserOnCreateInput
+}
+
+export type TagOwnerConnection = {
+  __typename?: 'TagOwnerConnection'
+  edges: Array<TagOwnerRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TagOwnerConnectionSort = {
+  node?: InputMaybe<UserSort>
+}
+
+export type TagOwnerConnectionWhere = {
+  AND?: InputMaybe<Array<TagOwnerConnectionWhere>>
+  OR?: InputMaybe<Array<TagOwnerConnectionWhere>>
+  node?: InputMaybe<UserWhere>
+  node_NOT?: InputMaybe<UserWhere>
+}
+
+export type TagOwnerCreateFieldInput = {
+  node: UserCreateInput
+}
+
+export type TagOwnerDeleteFieldInput = {
+  delete?: InputMaybe<UserDeleteInput>
+  where?: InputMaybe<TagOwnerConnectionWhere>
+}
+
+export type TagOwnerDisconnectFieldInput = {
+  disconnect?: InputMaybe<UserDisconnectInput>
+  where?: InputMaybe<TagOwnerConnectionWhere>
+}
+
+export type TagOwnerFieldInput = {
+  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
+}
+
+export type TagOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TagOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+}
+
+export type TagOwnerRelationship = {
+  __typename?: 'TagOwnerRelationship'
+  cursor: Scalars['String']
+  node: User
+}
+
+export type TagOwnerUpdateConnectionInput = {
+  node?: InputMaybe<UserUpdateInput>
+}
+
+export type TagOwnerUpdateFieldInput = {
+  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
+  delete?: InputMaybe<Array<TagOwnerDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<TagOwnerDisconnectFieldInput>>
+  update?: InputMaybe<TagOwnerUpdateConnectionInput>
+  where?: InputMaybe<TagOwnerConnectionWhere>
 }
 
 export type TagParentAggregateInput = {
@@ -13251,6 +13382,7 @@ export type TagParentUpdateFieldInput = {
 
 export type TagRelationInput = {
   children?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  owner?: InputMaybe<Array<TagOwnerCreateFieldInput>>
   parent?: InputMaybe<TagParentCreateFieldInput>
 }
 
@@ -13293,7 +13425,21 @@ export type TagUniqueWhere = {
 export type TagUpdateInput = {
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<Array<TagOwnerUpdateFieldInput>>
   parent?: InputMaybe<TagParentUpdateFieldInput>
+}
+
+export type TagUserOwnerAggregationSelection = {
+  __typename?: 'TagUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<TagUserOwnerNodeAggregateSelection>
+}
+
+export type TagUserOwnerNodeAggregateSelection = {
+  __typename?: 'TagUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
 }
 
 export type TagWhere = {
@@ -13332,6 +13478,19 @@ export type TagWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  ownerAggregate?: InputMaybe<TagOwnerAggregateInput>
+  ownerConnection_ALL?: InputMaybe<TagOwnerConnectionWhere>
+  ownerConnection_NONE?: InputMaybe<TagOwnerConnectionWhere>
+  ownerConnection_SINGLE?: InputMaybe<TagOwnerConnectionWhere>
+  ownerConnection_SOME?: InputMaybe<TagOwnerConnectionWhere>
+  /** Return Tags where all of the related Users match this filter */
+  owner_ALL?: InputMaybe<UserWhere>
+  /** Return Tags where none of the related Users match this filter */
+  owner_NONE?: InputMaybe<UserWhere>
+  /** Return Tags where one of the related Users match this filter */
+  owner_SINGLE?: InputMaybe<UserWhere>
+  /** Return Tags where some of the related Users match this filter */
+  owner_SOME?: InputMaybe<UserWhere>
   parent?: InputMaybe<TagWhere>
   parentAggregate?: InputMaybe<TagParentAggregateInput>
   parentConnection?: InputMaybe<TagParentConnectionWhere>
@@ -14257,6 +14416,9 @@ export type User = {
   email: Scalars['String']
   id: Scalars['ID']
   roles?: Maybe<Array<Role>>
+  tags: Array<Tag>
+  tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
+  tagsConnection: UserTagsConnection
   types: Array<TypeBase>
   typesConnection: UserTypesConnection
 }
@@ -14297,6 +14459,25 @@ export type UserComponentsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<UserComponentsConnectionSort>>
   where?: InputMaybe<UserComponentsConnectionWhere>
+}
+
+export type UserTagsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type UserTagsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<TagWhere>
+}
+
+export type UserTagsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<UserTagsConnectionSort>>
+  where?: InputMaybe<UserTagsConnectionWhere>
 }
 
 export type UserTypesArgs = {
@@ -14566,6 +14747,7 @@ export type UserComponentsUpdateFieldInput = {
 export type UserConnectInput = {
   apps?: InputMaybe<Array<UserAppsConnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsConnectFieldInput>>
+  tags?: InputMaybe<Array<UserTagsConnectFieldInput>>
   types?: InputMaybe<Array<UserTypesConnectFieldInput>>
 }
 
@@ -14583,18 +14765,21 @@ export type UserCreateInput = {
   components?: InputMaybe<UserComponentsFieldInput>
   email: Scalars['String']
   roles?: InputMaybe<Array<Role>>
+  tags?: InputMaybe<UserTagsFieldInput>
   types?: InputMaybe<UserTypesFieldInput>
 }
 
 export type UserDeleteInput = {
   apps?: InputMaybe<Array<UserAppsDeleteFieldInput>>
   components?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
+  tags?: InputMaybe<Array<UserTagsDeleteFieldInput>>
   types?: InputMaybe<Array<UserTypesDeleteFieldInput>>
 }
 
 export type UserDisconnectInput = {
   apps?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
   components?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
+  tags?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
   types?: InputMaybe<Array<UserTypesDisconnectFieldInput>>
 }
 
@@ -14621,6 +14806,127 @@ export type UserSort = {
   auth0Id?: InputMaybe<SortDirection>
   email?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+}
+
+export type UserTagTagsAggregationSelection = {
+  __typename?: 'UserTagTagsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<UserTagTagsNodeAggregateSelection>
+}
+
+export type UserTagTagsNodeAggregateSelection = {
+  __typename?: 'UserTagTagsNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type UserTagsAggregateInput = {
+  AND?: InputMaybe<Array<UserTagsAggregateInput>>
+  OR?: InputMaybe<Array<UserTagsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<UserTagsNodeAggregationWhereInput>
+}
+
+export type UserTagsConnectFieldInput = {
+  connect?: InputMaybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type UserTagsConnectOrCreateFieldInput = {
+  onCreate: UserTagsConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type UserTagsConnectOrCreateFieldInputOnCreate = {
+  node: TagOnCreateInput
+}
+
+export type UserTagsConnection = {
+  __typename?: 'UserTagsConnection'
+  edges: Array<UserTagsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type UserTagsConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type UserTagsConnectionWhere = {
+  AND?: InputMaybe<Array<UserTagsConnectionWhere>>
+  OR?: InputMaybe<Array<UserTagsConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type UserTagsCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type UserTagsDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<UserTagsConnectionWhere>
+}
+
+export type UserTagsDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<UserTagsConnectionWhere>
+}
+
+export type UserTagsFieldInput = {
+  connect?: InputMaybe<Array<UserTagsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserTagsCreateFieldInput>>
+}
+
+export type UserTagsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<UserTagsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<UserTagsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type UserTagsRelationship = {
+  __typename?: 'UserTagsRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type UserTagsUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type UserTagsUpdateFieldInput = {
+  connect?: InputMaybe<Array<UserTagsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<UserTagsCreateFieldInput>>
+  delete?: InputMaybe<Array<UserTagsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
+  update?: InputMaybe<UserTagsUpdateConnectionInput>
+  where?: InputMaybe<UserTagsConnectionWhere>
 }
 
 export type UserTypesConnectFieldInput = {
@@ -14695,6 +15001,7 @@ export type UserUpdateInput = {
   components?: InputMaybe<Array<UserComponentsUpdateFieldInput>>
   email?: InputMaybe<Scalars['String']>
   roles?: InputMaybe<Array<Role>>
+  tags?: InputMaybe<Array<UserTagsUpdateFieldInput>>
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>
 }
 
@@ -14761,6 +15068,19 @@ export type UserWhere = {
   roles_INCLUDES?: InputMaybe<Role>
   roles_NOT?: InputMaybe<Array<Role>>
   roles_NOT_INCLUDES?: InputMaybe<Role>
+  tagsAggregate?: InputMaybe<UserTagsAggregateInput>
+  tagsConnection_ALL?: InputMaybe<UserTagsConnectionWhere>
+  tagsConnection_NONE?: InputMaybe<UserTagsConnectionWhere>
+  tagsConnection_SINGLE?: InputMaybe<UserTagsConnectionWhere>
+  tagsConnection_SOME?: InputMaybe<UserTagsConnectionWhere>
+  /** Return Users where all of the related Tags match this filter */
+  tags_ALL?: InputMaybe<TagWhere>
+  /** Return Users where none of the related Tags match this filter */
+  tags_NONE?: InputMaybe<TagWhere>
+  /** Return Users where one of the related Tags match this filter */
+  tags_SINGLE?: InputMaybe<TagWhere>
+  /** Return Users where some of the related Tags match this filter */
+  tags_SOME?: InputMaybe<TagWhere>
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>

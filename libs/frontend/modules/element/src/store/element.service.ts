@@ -274,20 +274,6 @@ export class ElementService
       // ele?.parentElement?.removeChild(ele)
     }
 
-<<<<<<< HEAD
-=======
-    console.log('after delete')
-
-<<<<<<< HEAD
-=======
-    if (deletedRoot) {
-      this.elementTree.removeElementAndDescendants(deletedRoot)
-    }
-
->>>>>>> feat: delete app works now with its dependencies
->>>>>>> feat: delete app works now with its dependencies
-=======
->>>>>>> fix: remove 'Guest'
     const {
       deleteElements: { nodesDeleted },
     } = yield* _await(

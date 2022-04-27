@@ -10,7 +10,7 @@ import {
   IStore,
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -19,7 +19,7 @@ export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
 }
 
 export const createMobxState = (
-  rootStore: Nullish<IStore>,
+  rootStore: Maybe<IStore> | null,
   apps: Array<IApp>,
   pages: Array<IPage>,
   router: NextRouter,
@@ -52,7 +52,7 @@ export const createMobxState = (
     apps: pagesByApps,
   }
 
-  return rootStore.toMobxObservable(stateGlobals)
+  return rootStore.toMobxObservable()
 }
 
 export const toAntd = (

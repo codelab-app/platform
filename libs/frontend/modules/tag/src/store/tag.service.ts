@@ -66,6 +66,7 @@ export class TagService
     const input = data.map((tag) => {
       return {
         name: tag.name,
+        owner: { connect: [{ where: { node: { auth0Id: tag.auth0Id } } }] },
         parent: {
           connect: tag.parentTagId
             ? {
@@ -84,11 +85,7 @@ export class TagService
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input: {
-          name: input.name,
-          owner: { connect: [{ where: { node: { auth0Id: ownerId } } }] },
-          ...connectParentWhere,
-        },
+        input,
       }),
     )
 

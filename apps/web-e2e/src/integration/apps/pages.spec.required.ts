@@ -1,17 +1,9 @@
-import { createAppWithCypress } from '../support/helpers/createPage'
+import { pageName, updatedAppName, updatedPageName } from './app.data'
 
 describe('Pages CRUD', () => {
-  let appId: string
-  const appName = 'new app'
-  const pageName = 'new useful page'
-  const updatedPageName = 'updated page'
-
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        createAppWithCypress(appName)
-      })
-    })
+    cy.getCard({ title: updatedAppName }).find('a').click()
+    cy.url({ timeout: 5000 }).should('include', 'pages')
   })
 
   describe('create', () => {
@@ -55,6 +47,10 @@ describe('Pages CRUD', () => {
   require('./builder.spec.required')
 
   describe('delete', () => {
+    before(() => {
+      cy.go('back')
+    })
+
     it('should be able to delete page', () => {
       cy.getListItem(updatedPageName)
         .getButton({

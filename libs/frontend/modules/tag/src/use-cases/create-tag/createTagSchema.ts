@@ -1,4 +1,5 @@
 import { ICreateTagDTO } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
@@ -12,6 +13,12 @@ export const createTagSchema: JSONSchemaType<ICreateTagDTO> = {
     parentTagId: {
       type: 'string',
       nullable: true,
+    },
+    auth0Id: {
+      type: 'string',
+      nullable: true,
+      disabled: true,
+      ...showFieldOnDev(),
     },
   },
   required: ['name'],

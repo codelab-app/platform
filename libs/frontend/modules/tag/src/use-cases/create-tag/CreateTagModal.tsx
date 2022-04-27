@@ -1,5 +1,8 @@
-import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { useUser } from '@auth0/nextjs-auth0'
+import {
+  TAG_SERVICE,
+  USER_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateTagDTO } from '@codelab/shared/abstract/core'
@@ -8,23 +11,19 @@ import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { createTagSchema } from './createTagSchema'
 
-export const CreateTagModal = observer<WithServices<TAG_SERVICE>>(({ tagService }) => {
-  const { user } = useUser()
-
+export const CreateTagModal = observer<
+  WithServices<TAG_SERVICE | USER_SERVICE>
+>(({ tagService, userService }) => {
   const onSubmit = (input: ICreateTagDTO) => {
-    if (!user?.sub) {
-      throw new Error('Missing user sub')
-    }
-
-    return tagService.create({ ...input }, user?.sub)
+    return tagService.create([input])
   }
 
   // const options = tagService.getAll.map((tag) => ({
   //   label: tag.name,
   //   value: tag.id,
   // }))
-  const options = tagService.tagsListOptions
-  const defaultOption = tagService.seletedTagOption
+  const options = tagService.tagsSelectOptions
+  const defaultOption = tagService.selectedOption
   const closeModal = () => tagService.createModal.close()
 
   return (
@@ -36,6 +35,7 @@ export const CreateTagModal = observer<WithServices<TAG_SERVICE>>(({ tagService 
       <ModalForm.Form
         model={{
           parentTagId: `${defaultOption.value}`,
+          auth0Id: userService.user?.auth0Id,
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -57,5 +57,4 @@ export const CreateTagModal = observer<WithServices<TAG_SERVICE>>(({ tagService 
       </ModalForm.Form>
     </ModalForm.Modal>
   )
-},
-)
+})

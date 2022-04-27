@@ -16,10 +16,14 @@ export const tagSchema = gql`
   extend type Tag
     @auth(
       rules: [
-        { operations: [READ, CONNECT, DISCONNECT, UPDATE, DELETE], roles: ["Admin"] }
+        { 
+          operations: [READ, CONNECT, DISCONNECT, UPDATE, DELETE, CREATE]
+          roles: ["Admin"]
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
         {
           roles: ["User"]
-          operations: [READ, CREATE, UPDATE, DELETE]
+          operations: [READ, UPDATE, CREATE, DELETE]
           where: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }

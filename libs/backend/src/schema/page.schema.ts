@@ -12,7 +12,6 @@ export const pageSchema = gql`
   extend type Page
     @auth(
       rules: [
-        { operations: [READ], roles: [] }
         {
           operations: [READ, CREATE, UPDATE]
           roles: ["User"]
