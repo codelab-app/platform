@@ -8,7 +8,7 @@ import { Tree as AntdTree } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
-import { TreeItemTitle } from './TreeItemTitle'
+import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 
 export const BuilderTree = observer<
   WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
@@ -46,7 +46,7 @@ export const BuilderTree = observer<
           : []
       }
       titleRender={(node) => (
-        <TreeItemTitle elementService={elementService} node={node} />
+        <BuilderTreeItemTitle elementService={elementService} node={node} />
       )}
       treeData={antdTree ? [antdTree] : []}
     />

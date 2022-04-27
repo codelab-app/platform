@@ -1,3 +1,3 @@
 export * from './BuilderTree'
-export * from './TreeItemDropDownOverlay'
-export * from './TreeItemTitle'
+export * from './BuilderTreeItemOverlay'
+export * from './BuilderTreeItemTitle'

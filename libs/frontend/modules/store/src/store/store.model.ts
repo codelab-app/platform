@@ -72,7 +72,7 @@ export class Store
   }
 
   @modelAction
-  toMobxObservable() {
+  toMobxObservable(globals: any = {}) {
     const storeState = [...this.state.current.fields.values()]
       .map((field) => ({ [field.key]: this.localState[field.key] }))
       .reduce(merge, {})
@@ -101,7 +101,7 @@ export class Store
       .reduce(merge, {})
 
     return makeAutoObservable(
-      merge({}, storeState, storeActions, resources, childStores),
+      merge({}, storeState, storeActions, resources, childStores, globals),
     )
   }
 

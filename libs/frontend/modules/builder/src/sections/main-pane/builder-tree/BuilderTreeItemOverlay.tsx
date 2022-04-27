@@ -6,12 +6,12 @@ import React from 'react'
 import tw from 'twin.macro'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-type TreeItemDropDownOverplayProps = WithServices<ELEMENT_SERVICE> & {
+type BuilderTreeItemOverlayProps = WithServices<ELEMENT_SERVICE> & {
   setContextMenuNodeId: (id: Nullable<string>) => void
   element: IElement
 }
 
-export const TreeItemDropDownOverlay = observer<TreeItemDropDownOverplayProps>(
+export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
   ({ setContextMenuNodeId, element, elementService }) => {
     const closeMenu = () => setContextMenuNodeId(null)
 

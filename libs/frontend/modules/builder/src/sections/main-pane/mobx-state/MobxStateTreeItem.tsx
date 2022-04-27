@@ -11,7 +11,7 @@ type StateTreeItemProps = WithServices<BUILDER_SERVICE> & {
   node: IStateTreeNode
 }
 
-export const StateTreeItem = observer<StateTreeItemProps>(
+export const MobxStateTreeItem = observer<StateTreeItemProps>(
   ({ node, builderService }) => {
     const { type, path, name, useModal, content } = node
 
