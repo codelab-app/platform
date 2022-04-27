@@ -5,9 +5,8 @@ export const entityToIdAndEntity = <T extends IEntity>(
   entity: T,
 ): [string, T] => [entity.id, entity]
 
-export const entityMapById = <T extends IEntity>(
-  entities: Nullish<Array<T>>,
-) => new Map(entities?.length ? entities.map(entityToIdAndEntity) : [])
+export const entityMapById = <T extends IEntity>(entities: Nullish<Array<T>>) =>
+  new Map(entities?.length ? entities.map(entityToIdAndEntity) : [])
 
 export const entityRecordById = <T extends IEntity>(
   entities: Nullish<Array<T>>,
