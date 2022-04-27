@@ -1,13 +1,15 @@
+import { ACTION_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { IAction } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Action, actionRef, WithActionService } from '../../../../store'
+import { actionRef } from '../../../../store'
 
-type ActionColumnProps = WithActionService & {
-  action: Action
+type ActionColumnProps = WithServices<ACTION_SERVICE> & {
+  action: IAction
 }
 
 export const ActionColumn = observer<ActionColumnProps>(

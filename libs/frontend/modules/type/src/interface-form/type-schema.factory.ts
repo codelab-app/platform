@@ -19,7 +19,6 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { JSONSchema7 } from 'json-schema'
-import { getSnapshot } from 'mobx-keystone'
 
 export type JsonSchema = JSONSchema7 & { uniforms?: any; label?: string }
 
@@ -84,10 +83,6 @@ export class TypeSchemaFactory {
   }
 
   fromInterfaceType(type: IInterfaceType): JsonSchema {
-    console.log(getSnapshot(type))
-
-    console.log(type.fields.toString())
-
     const makeFieldSchema = (field: IField) => ({
       ...this.transform(field.type.current),
       label: field.name || pascalCaseToWords(field.key),
@@ -98,7 +93,6 @@ export class TypeSchemaFactory {
       field: IField,
     ) => {
       acc = acc || {}
-      console.log(getSnapshot(field))
       acc[field.key] = makeFieldSchema(field)
 
       return acc
@@ -134,7 +128,8 @@ export class TypeSchemaFactory {
         return {
           type: 'object',
           label: '',
-          typeName: innerType.current.name, // We use this as label of the select field item
+          // We use this as label of the select field item
+          typeName: innerType.current.name,
           properties,
         }
       }),
@@ -220,7 +215,8 @@ export class TypeSchemaFactory {
         uniforms: blankUniforms,
         label: typeLabel,
         default: typeId,
-        enum: typeId ? [typeId] : undefined, // This ensures that only this exact type is considered valid. Allows union types to use oneOf
+        // This ensures that only this exact type is considered valid. Allows union types to use oneOf
+        enum: typeId ? [typeId] : undefined,
       },
     }
   }

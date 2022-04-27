@@ -1,3 +1,4 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   SelectAnyElement,
   SelectAtom,
@@ -10,14 +11,13 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithElementService } from '../../../store'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
-export const CreateElementModal = observer<WithElementService>(
+export const CreateElementModal = observer<WithServices<ELEMENT_SERVICE>>(
   ({ elementService }) => {
     const onSubmit = (submitData: ICreateElementDTO) =>
-      elementService.createElement(submitData)
+      elementService.create(submitData)
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating element',
@@ -27,7 +27,7 @@ export const CreateElementModal = observer<WithElementService>(
 
     const model = {
       parentElementId: parentElement?.id || undefined,
-      order: parentElement ? parentElement?.current.lastChildOrder + 1 : 1,
+      order: parentElement ? parentElement?.lastChildOrder + 1 : 1,
     }
 
     const closeModal = () => elementService.createModal.close()
@@ -62,7 +62,10 @@ export const CreateElementModal = observer<WithElementService>(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
                 allElementOptions={elementService.elementTree.elementsList
-                  .filter((e) => !e?.instanceOfComponent && !e?.component)
+                  .filter(
+                    (element) =>
+                      !element?.instanceOfComponent && !element?.component,
+                  )
                   .map(mapElementOption)}
               />
             ))}

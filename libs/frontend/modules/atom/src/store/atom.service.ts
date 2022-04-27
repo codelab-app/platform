@@ -2,13 +2,11 @@ import { getTagService } from '@codelab/frontend/modules/tag'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
-  IAtom,
   IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -30,25 +28,24 @@ import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
-export type WithAtomService = {
-  atomService: AtomService
-}
-
 @model('@codelab/AtomService')
-export class AtomService extends Model({
-  atoms: prop(() => objectMap<Atom>()),
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new AtomModalService({})),
-  deleteModal: prop(() => new AtomsModalService({})),
-  selectedIds: prop(() => arraySet<string>()).withSetter(),
-}) {
+export class AtomService
+  extends Model({
+    _atoms: prop(() => objectMap<Atom>()),
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new AtomModalService({})),
+    deleteManyModal: prop(() => new AtomsModalService({})),
+    selectedIds: prop(() => arraySet<string>()).withSetter(),
+  })
+  implements IAtomService
+{
   @computed
-  get atomsList() {
-    return [...this.atoms.values()]
+  get atoms() {
+    return [...this._atoms.values()]
   }
 
   atom(id: string) {
-    return this.atoms.get(id)
+    return this._atoms.get(id)
   }
 
   @modelFlow
@@ -89,7 +86,7 @@ export class AtomService extends Model({
 
   @modelAction
   addAtom(atom: Atom) {
-    this.atoms.set(atom.id, atom)
+    this._atoms.set(atom.id, atom)
   }
 
   @modelAction
@@ -123,8 +120,8 @@ export class AtomService extends Model({
   @modelFlow
   @transaction
   getOne = _async(function* (this: AtomService, id: string) {
-    if (this.atoms.has(id)) {
-      return this.atoms.get(id)
+    if (this._atoms.has(id)) {
+      return this._atoms.get(id)
     }
 
     const all = yield* _await(this.getAll({ id }))
@@ -134,14 +131,9 @@ export class AtomService extends Model({
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: AtomService,
-    input: ICreateAtomDTO,
-    ownerId: Nullish<string>,
-  ) {
-    const apiOwner = ownerId
-      ? { connect: { where: { node: { auth0Id: ownerId } } } }
-      : undefined
+  create = _async(function* (this: AtomService, input: ICreateAtomDTO) {
+    const { owner } = input
+    const apiOwner = { connect: { where: { node: { auth0Id: owner } } } }
 
     const apiNode = {
       id: v4(),
@@ -176,19 +168,17 @@ export class AtomService extends Model({
 
     const atomModel = Atom.hydrate(atom)
 
-    this.atoms.set(atomModel.id, atomModel)
+    this._atoms.set(atomModel.id, atomModel)
 
     return atomModel
   })
 
   @modelFlow
   @transaction
-  deleteMany = _async(function* (this: IAtomService, atoms: Array<IAtom>) {
-    const ids = atoms.map((atom) => atom.id)
-
+  deleteMany = _async(function* (this: IAtomService, ids: Array<string>) {
     for (const id of ids) {
-      if (this.atoms.has(id)) {
-        this.atoms.delete(id)
+      if (this._atoms.has(id)) {
+        this._atoms.delete(id)
       }
     }
 
@@ -207,10 +197,10 @@ export class AtomService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, id: string) {
-    const existing = throwIfUndefined(this.atoms.get(id))
+    const existing = throwIfUndefined(this._atoms.get(id))
 
     if (existing) {
-      this.atoms.delete(id)
+      this._atoms.delete(id)
     }
 
     const { deleteAtoms } = yield* _await(

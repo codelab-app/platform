@@ -1,23 +1,19 @@
-import { Element } from '@codelab/frontend/modules/element'
+import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { HoverOverlay } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { queryRenderedElementById } from '../renderer/utils/queryRenderedElementById'
-import { WithBuilderService } from '../store/BuilderService'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
-export type BuilderDropHandlersProps = WithBuilderService
+interface BuilderDropHandlerProps {
+  element: IElement
+  target: HTMLElement
+  order?: number
+}
 
-const BuilderDropHandler = observer(
-  ({
-    element,
-    target,
-    order,
-  }: {
-    element: Element
-    target: HTMLElement
-    order?: number
-  }) => {
+const BuilderDropHandler = observer<BuilderDropHandlerProps>(
+  ({ element, target, order }) => {
     const { setNodeRef, isOver, rect, node, over, active } =
       useCreateElementDroppable(element.id, {
         order,
@@ -44,8 +40,8 @@ const BuilderDropHandler = observer(
   },
 )
 
-export const ElementDropHandlers = observer(
-  ({ builderService }: BuilderDropHandlersProps) => {
+export const ElementDropHandlers = observer<WithServices<BUILDER_SERVICE>>(
+  ({ builderService }) => {
     return (
       // eslint-disable-next-line react/jsx-no-useless-fragment
       <>

@@ -14,6 +14,7 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
       type: 'string',
       label: 'Mobx Store',
       uniforms: { component: SelectStore },
+      nullable: true,
     },
   },
   required: ['name'],

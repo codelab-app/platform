@@ -4,6 +4,7 @@
  *    const { scrollX, scrollY, scrollDirection } = useScroll();
  * Original Source: https://gist.github.com/joshuacerbito/ea318a6a7ca4336e9fadb9ae5bbb87f4
  */
+import { isServer } from '@codelab/shared/utils'
 import { useEffect, useState } from 'react'
 
 type SSRRect = {
@@ -32,7 +33,7 @@ const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
   const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
-    typeof window === 'undefined' || !window.document
+    isServer || !window.document
       ? EmptySSRRect
       : document.body.getBoundingClientRect(),
   )
@@ -46,7 +47,7 @@ const useScroll = () => {
 
   const listener = () => {
     setBodyOffset(
-      typeof window === 'undefined' || !window.document
+      isServer || !window.document
         ? EmptySSRRect
         : document.body.getBoundingClientRect(),
     )

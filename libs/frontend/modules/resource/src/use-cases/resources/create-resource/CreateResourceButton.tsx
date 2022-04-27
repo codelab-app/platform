@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { WithResourceService } from '../../../store'
 
-export const CreateResourceButton = observer<WithResourceService>(
+export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     return (
       <Button

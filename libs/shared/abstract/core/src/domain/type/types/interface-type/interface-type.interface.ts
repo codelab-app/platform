@@ -12,3 +12,5 @@ export interface IInterfaceType extends IBaseType {
   kind: ITypeKind.InterfaceType
   fields: ObjectMap<IField>
 }
+
+export type IInterfaceTypeRef = string

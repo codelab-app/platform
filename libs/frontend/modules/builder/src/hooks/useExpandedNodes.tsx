@@ -1,8 +1,8 @@
+import { IBuilderService } from '@codelab/shared/abstract/core'
 import { autorun } from 'mobx'
 import { useEffect, useState } from 'react'
-import { BuilderService } from '../store'
 
-export const useExpandedNodes = (builderService: BuilderService) => {
+export const useExpandedNodes = (builderService: IBuilderService) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<
     Array<string | number>
   >([])
@@ -10,12 +10,12 @@ export const useExpandedNodes = (builderService: BuilderService) => {
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
     return autorun(() => {
-      if (!builderService.selectedElement?.current) {
+      if (!builderService.selectedElement) {
         return
       }
 
       const pathResult = builderService.builderRenderer.tree?.getPathFromRoot(
-        builderService.selectedElement.current,
+        builderService.selectedElement,
       )
       // go through each node of the path and keep track of all nodes that need to get expanded
 

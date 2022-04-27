@@ -1,10 +1,10 @@
+import { IOperation } from '@codelab/shared/abstract/core'
 import { Descriptions } from 'antd'
 import { keys } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import { Operation } from '../../../../store'
 
 type ConfigColumnProps = {
-  operation: Operation
+  operation: IOperation
 }
 
 export const ConfigColumn = observer<ConfigColumnProps>(({ operation }) => {
@@ -12,7 +12,7 @@ export const ConfigColumn = observer<ConfigColumnProps>(({ operation }) => {
     <Descriptions column={1} size="small">
       {keys(operation.config).map((x) => (
         <Descriptions.Item label={x}>
-          {operation.config[x as keyof Operation['config']] as string}
+          {operation.config[x as keyof IOperation['config']] as string}
         </Descriptions.Item>
       ))}
     </Descriptions>

@@ -1,17 +1,17 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { updatedAppName, updatedPageName } from './app.data'
 
 const atoms = [
-  { name: AtomType.AntDesignGridCol, type: AtomType.AntDesignGridCol },
-  { name: AtomType.AntDesignGridRow, type: AtomType.AntDesignGridRow },
-  { name: AtomType.AntDesignButton, type: AtomType.AntDesignButton },
+  { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
+  { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
+  { name: IAtomType.AntDesignButton, type: IAtomType.AntDesignButton },
   {
-    name: AtomType.AntDesignTypographyText,
-    type: AtomType.AntDesignTypographyText,
+    name: IAtomType.AntDesignTypographyText,
+    type: IAtomType.AntDesignTypographyText,
   },
 ]
 
@@ -22,32 +22,34 @@ const ELEMENT_COL_B = 'Col B'
 const ELEMENT_TEXT = 'Text'
 const ELEMENT_BUTTON = 'Button'
 
-const elements = [
+type ElementData = { name: string; atom?: string; parentElement: string }
+
+const elements: Array<ElementData> = [
   { name: ELEMENT_CONTAINER, parentElement: ROOT_ELEMENT_NAME },
   { name: ELEMENT_ROW, parentElement: ELEMENT_CONTAINER },
   {
     name: ELEMENT_COL_A,
-    atom: AtomType.AntDesignGridCol,
+    atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
   },
   {
     name: ELEMENT_COL_B,
-    atom: AtomType.AntDesignGridCol,
+    atom: IAtomType.AntDesignGridCol,
     parentElement: ELEMENT_ROW,
   },
   {
     name: ELEMENT_TEXT,
-    atom: AtomType.AntDesignTypographyText,
+    atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_COL_A,
   },
   {
     name: ELEMENT_BUTTON,
-    atom: AtomType.AntDesignButton,
+    atom: IAtomType.AntDesignButton,
     parentElement: ELEMENT_COL_B,
   },
   {
     name: ELEMENT_TEXT,
-    atom: AtomType.AntDesignTypographyText,
+    atom: IAtomType.AntDesignTypographyText,
     parentElement: ELEMENT_BUTTON,
   },
 ]
@@ -97,39 +99,37 @@ describe('Elements CRUD', () => {
 
   describe(`create`, () => {
     it(`should be able to create elements`, () => {
-      cy.wrap(elements).each(
-        (element: { name: string; atom: string; parentElement: string }) => {
-          const { atom, name, parentElement } = element
+      cy.wrap(elements).each((element: ElementData) => {
+        const { atom, name, parentElement } = element
 
-          cy.getSider().getButton({ icon: 'plus' }).click()
+        cy.getSider().getButton({ icon: 'plus' }).click()
 
-          cy.getModal().findByLabelText('Name').type(name)
+        cy.getModal().findByLabelText('Name').type(name)
 
-          /**
-           * We skip this if parent element is root, since it is disabled and can't be accessed
-           */
-          if (parentElement !== ROOT_ELEMENT_NAME) {
-            cy.getModal().setFormFieldValue({
-              label: 'Parent element',
-              value: parentElement,
-              type: FIELD_TYPE.SELECT,
-            })
-          }
+        /**
+         * We skip this if parent element is root, since it is disabled and can't be accessed
+         */
+        if (parentElement !== ROOT_ELEMENT_NAME) {
+          cy.getModal().setFormFieldValue({
+            label: 'Parent element',
+            value: parentElement,
+            type: FIELD_TYPE.SELECT,
+          })
+        }
 
-          if (atom) {
-            cy.getModal().setFormFieldValue({
-              label: 'Atom',
-              value: atom,
-              type: FIELD_TYPE.SELECT,
-            })
-          }
+        if (atom) {
+          cy.getModal().setFormFieldValue({
+            label: 'Atom',
+            value: atom,
+            type: FIELD_TYPE.SELECT,
+          })
+        }
 
-          cy.getModal()
-            .getModalAction(/Create/)
-            .click()
-          cy.getModal().should('not.exist', { timeout: 10000 })
-        },
-      )
+        cy.getModal()
+          .getModalAction(/Create/)
+          .click()
+        cy.getModal().should('not.exist', { timeout: 10000 })
+      })
     })
   })
 

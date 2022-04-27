@@ -1,14 +1,14 @@
 import { gql } from 'apollo-server-micro'
-import getTypeDescendantIds from '../../repositories/type/getTypeDescendantIds.cypher'
+import getTypeDescendantIds from '../../repositories/type/getTypeDescendants.cypher'
 import getTypeReferencesCypher from '../../repositories/type/getTypeReferences.cypher'
 import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 
 export const typeSchema = gql`
   enum TypeKind {
     PrimitiveType
+    EnumType
     ArrayType
     InterfaceType
-    EnumType
     LambdaType
     ElementType
     RenderPropsType
@@ -74,21 +74,17 @@ export const typeSchema = gql`
       {
         operations: [UPDATE, CREATE, DELETE]
         roles: ["Admin"]
-        # For where clause, we must use where in GraphQL query
-        where: { owner: { auth0Id: "$jwt.sub" } }
+        # Admin can access all types, so no need for where
+#        where: { owner: { auth0Id: "$jwt.sub" } }
         bind: { owner: { auth0Id: "$jwt.sub" } }
       }
     ]
   )
 
-
-  # Adding @cypher here doesn't seem to work
   interface WithDescendants {
     descendantTypesIds: [ID!]!
-      @cypher(statement: """${getTypeDescendantIds}""")
+        @cypher(statement: """${getTypeDescendantIds}""")
   }
-
-
 
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
@@ -165,6 +161,12 @@ export const typeSchema = gql`
         direction: OUT
         properties: "Field"
       )
+    fieldsFor: [TypeBase!]!
+      @relationship(
+        type: "INTERFACE_FIELD"
+        direction: IN
+        properties: "Field"
+    )
   }
 
   """

@@ -1,15 +1,15 @@
 import { getTypeApi } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
+import { IElementTree } from '@codelab/shared/abstract/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import { observer } from 'mobx-react-lite'
 import React, { Ref, useEffect, useState } from 'react'
 import { connectField, FieldProps, filterDOMProps, useField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
-import { ElementTree } from '../../../store'
 
 type InnerProps = Omit<AutoCompleteProps, 'onSearch' | 'options'> & {
-  tree: ElementTree
+  tree: IElementTree
 }
 
 export type TargetKeyFieldProps = FieldProps<
@@ -31,8 +31,8 @@ const filterSearch = (
 /** *
  * Provides autocompletion for the keys of the api of a target element
  */
-const TargetKeyFieldInternal = observer(
-  ({ tree, ...props }: TargetKeyFieldProps) => {
+const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
+  ({ tree, ...props }) => {
     // Get the targetElementId value from the other field
     const [{ value: targetElementId }] = useField(
       'targetElementId',

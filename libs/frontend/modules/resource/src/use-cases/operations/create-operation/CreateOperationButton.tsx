@@ -1,11 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons'
+import {
+  OPERATION_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { WithOperationService } from '../../../store'
 
-export const CreateOperationButton = observer<WithOperationService>(
+export const CreateOperationButton = observer<WithServices<OPERATION_SERVICE>>(
   ({ operationService }) => (
     <Button
       css={tw`flex justify-center items-center`}

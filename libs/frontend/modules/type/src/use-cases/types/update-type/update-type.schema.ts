@@ -1,9 +1,9 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
+  IPrimitiveTypeKind,
   ITypeKind,
   IUpdateTypeDTO,
-  PrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
@@ -36,7 +36,7 @@ export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
     primitiveKind: {
       type: 'string',
       nullable: true,
-      enum: Object.values(PrimitiveTypeKind),
+      enum: Object.values(IPrimitiveTypeKind),
     },
     elementKind: {
       type: 'string',
@@ -67,8 +67,6 @@ export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
         required: ['id', 'value'],
       },
     },
-    // ...baseTypeSchemaProperties,
-    // ...typeSchemaProperties,
     arrayTypeId: { type: 'string', nullable: true },
   },
   required: ['name'],

@@ -1,12 +1,12 @@
+import { IRenderOutput } from '@codelab/shared/abstract/core'
 import { ArrayOrSingle } from 'ts-essentials'
-import { RenderOutput } from '../abstract/RenderOutput'
 
 /**
  * Utility function for looping over one or more RenderOutputs
  */
 export const mapOutput = <T>(
-  output: ArrayOrSingle<RenderOutput>,
-  mapper: (output: RenderOutput) => T,
+  output: ArrayOrSingle<IRenderOutput>,
+  mapper: (output: IRenderOutput) => T,
 ): Array<T> | T => {
   if (Array.isArray(output)) {
     return output.map(mapper)

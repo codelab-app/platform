@@ -1,4 +1,5 @@
 import { EllipsisOutlined } from '@ant-design/icons'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
@@ -21,6 +22,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
@@ -48,7 +50,9 @@ const AppsPageHeader = observer(() => {
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Apps" />
 })
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
+const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
+  // console.debug('index.tsx', props)
+
   const store = useStore()
 
   const [, { isLoading }] = useLoadingState(() => store.appService.getAll(), {
@@ -61,8 +65,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal appService={store.appService} />
-      <UpdateAppModal appService={store.appService} />
+      <CreateAppModal
+        appService={store.appService}
+        userService={store.userService}
+      />
+      <UpdateAppModal
+        appService={store.appService}
+        userService={store.userService}
+      />
       <DeleteAppModal appService={store.appService} />
 
       <ContentSection>
@@ -73,7 +83,25 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
+//
 export default AppsPage
+
+// https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
+/**
+ * This gets called on SSR, and props are passed to _app
+ */
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async (context: GetServerSidePropsContext) => {
+    // await setClientAuthHeaders(context)
+    //
+    // const store = initializeStore()
+
+    return {
+      // props: { initialState: getSnapshot(store) },
+      props: {},
+    }
+  },
+})
 
 AppsPage.Layout = (page) => {
   return (

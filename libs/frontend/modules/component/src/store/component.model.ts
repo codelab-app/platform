@@ -15,7 +15,8 @@ export class Component
   extends Model({
     id: idProp,
     name: prop<string>().withSetter(),
-    rootElementId: prop<string>().withSetter(), // this isn't a Ref, because it will cause a circular dep.
+    // this isn't a Ref, because it will cause a circular dep.
+    rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
   })
   implements IComponent

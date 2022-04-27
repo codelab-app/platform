@@ -26,7 +26,7 @@ import React from 'react'
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(() => store.tagService.getTags(), {
+  const [, { isLoading }] = useLoadingState(() => store.tagService.getAll(), {
     executeOnMount: true,
   })
 

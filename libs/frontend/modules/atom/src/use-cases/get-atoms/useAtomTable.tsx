@@ -1,12 +1,12 @@
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { IAtomService } from '@codelab/shared/abstract/core'
 import { TableColumnProps } from 'antd'
 import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
-import { AtomService } from '../../store'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AtomRecord } from './columns/types'
 
@@ -17,7 +17,7 @@ const onLibraryFilter = (value: any, atom: AtomRecord): boolean => {
   return list.some((x) => x.startsWith(search))
 }
 
-export const useAtomTable = (atomService: AtomService) => {
+export const useAtomTable = (atomService: IAtomService) => {
   // const { data } = useGetTagGraphsQuery()
   // const tagTree = useTagTree(data?.tagGraphs)
   // const tagTreeData = tagTree.getAntdTrees()

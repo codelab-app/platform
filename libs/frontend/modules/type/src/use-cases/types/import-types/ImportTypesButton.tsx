@@ -1,11 +1,14 @@
 import { useUser } from '@auth0/nextjs-auth0'
+import {
+  IMPORT_TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { ImportUpload } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
-import { WithTypeImportService } from '../../../store'
 
-export const ImportTypesUpload = observer<WithTypeImportService>(
-  ({ typeImportService }) => {
+export const ImportTypesUpload = observer<WithServices<IMPORT_TYPE_SERVICE>>(
+  ({ importTypeService }) => {
     const { onSuccess, onError } = useNotify(
       { title: 'Types successfully imported' },
       { title: 'Error while importing types' },
@@ -20,7 +23,7 @@ export const ImportTypesUpload = observer<WithTypeImportService>(
         return
       }
 
-      await typeImportService
+      await importTypeService
         .importTypes(data, user.sub)
         .then(onSuccess)
         .catch(onError)

@@ -1,16 +1,16 @@
-import { IModalService } from '@codelab/shared/abstract/core'
+import { IBaseModalService } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 @model('@codelab/ModelService')
-export class ModalService<TMetadata = never>
+export class ModalService<TMetadata = never, Properties extends object = never>
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow
     TMetadata,
   >() => ({
-    isOpen: prop<boolean>(() => false),
-    metadata: prop<TMetadata | null>(() => null),
+    isOpen: prop<boolean>(false),
+    metadata: prop<TMetadata | null>(null),
   }))<TMetadata>
-  implements IModalService<TMetadata>
+  implements IBaseModalService<TMetadata, Properties>
 {
   @modelAction
   open(...args: TMetadata extends never ? [] : [TMetadata]) {

@@ -15,7 +15,7 @@ export const ActionColumn = observer<ActionColumnProps>(
           onClick={() => atomService.updateModal.open(atomRef(atom.id))}
         />
         <ListItemDeleteButton
-          onClick={() => atomService.deleteModal.open([atomRef(atom.id)])}
+          onClick={() => atomService.deleteManyModal.open([atomRef(atom.id)])}
         />
       </Space>
     )

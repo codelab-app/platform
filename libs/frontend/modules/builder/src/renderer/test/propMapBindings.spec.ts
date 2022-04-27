@@ -1,11 +1,11 @@
 import { elementRef, PropMapBinding } from '@codelab/frontend/modules/element'
+import { IRenderOutput } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { RenderOutput } from '../abstract/RenderOutput'
-import { LoopingRenderPipe } from '../renderPipes/LoopingRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
+import { setupTestForRenderer } from './setup/setupTest'
 
 describe('PropMapBindings', () => {
-  const data = setupTestRenderData((next) => new LoopingRenderPipe({ next }))
+  const data = setupTestForRenderer((next) => new LoopingRenderPipe({ next }))
 
   it('should render prop map bindings targeting other elements', () => {
     const pmb = new PropMapBinding({
@@ -18,16 +18,16 @@ describe('PropMapBindings', () => {
     data.elementToRender.addPropMapBinding(pmb)
     data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props, descendantBoundProps } =
-      data.renderService.renderElementIntermediate(
-        data.elementToRender,
-      ) as RenderOutput
+    const { props, globalProps } = data.renderService.renderIntermediateElement(
+      data.elementToRender,
+    ) as IRenderOutput
 
     expect(props).toMatchObject({
-      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey), // control
+      // control
+      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey),
     })
 
-    expect(descendantBoundProps).toMatchObject({
+    expect(globalProps).toMatchObject({
       [data.elementToRender02.id]: {
         [pmb.targetKey]: data.elementToRender.props?.get(pmb.sourceKey),
       },
@@ -45,12 +45,13 @@ describe('PropMapBindings', () => {
     data.elementToRender.addPropMapBinding(pmb)
     data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props } = data.renderService.renderElementIntermediate(
+    const { props } = data.renderService.renderIntermediateElement(
       data.elementToRender,
-    ) as RenderOutput
+    ) as IRenderOutput
 
     expect(props).toMatchObject({
-      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey), // control
+      // control
+      [pmb.sourceKey]: data.elementToRender.props?.get(pmb.sourceKey),
       [pmb.targetKey]: data.elementToRender.props?.get(pmb.sourceKey),
     })
   })

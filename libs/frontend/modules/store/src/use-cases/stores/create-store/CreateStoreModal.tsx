@@ -1,21 +1,26 @@
 import { useUser } from '@auth0/nextjs-auth0'
+import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithStoreService } from '../../../store'
 import { createStoreSchema } from './createStoreSchema'
 import { DisplayIfParent } from './DisplayIfParent'
 
-export const CreateStoreModal = observer<WithStoreService>(
+export const CreateStoreModal = observer<WithServices<STORE_SERVICE>>(
   ({ storeService }) => {
     const { user } = useUser()
     const closeModal = () => storeService.createModal.close()
 
-    const onSubmit = (input: ICreateStoreDTO) =>
-      storeService.create(input, user?.sub)
+    const onSubmit = (input: ICreateStoreDTO) => {
+      if (!user?.sub) {
+        throw new Error('missing user')
+      }
+
+      return storeService.create({ ...input, auth0Id: user?.sub })
+    }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating store',

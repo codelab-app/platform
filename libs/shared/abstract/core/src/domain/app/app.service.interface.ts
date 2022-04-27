@@ -8,7 +8,7 @@ import { IApp } from './app.interface'
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>,
     IQueryService<IApp, AppWhere>,
-    ICRUDModalService<Ref<IApp>> {
+    ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   /**
    * Properties
    */

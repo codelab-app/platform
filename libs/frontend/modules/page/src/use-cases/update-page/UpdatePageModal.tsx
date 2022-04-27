@@ -1,46 +1,48 @@
+import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { IUpdatePageDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithPageService } from '../../store'
 import { updatePageSchema } from './updatePageSchema'
 
-export const UpdatePageModal = observer<WithPageService>(({ pageService }) => {
-  const closeModal = () => pageService.updateModal.close()
-  const page = pageService.updateModal.page
+export const UpdatePageModal = observer<WithServices<PAGE_SERVICE>>(
+  ({ pageService }) => {
+    const closeModal = () => pageService.updateModal.close()
+    const page = pageService.updateModal.page
 
-  if (!page) {
-    return null
-  }
+    if (!page) {
+      return null
+    }
 
-  const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
+    const onSubmit = (input: IUpdatePageDTO) => pageService.update(page, input)
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updating page',
-  })
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while updating page',
+    })
 
-  const model = {
-    name: page.name,
-    appId: page.appId || undefined,
-  }
+    const model = {
+      name: page.name,
+      appId: page.appId || undefined,
+    }
 
-  return (
-    <ModalForm.Modal
-      okText="Update Page"
-      onCancel={closeModal}
-      visible={pageService.updateModal.isOpen}
-    >
-      <ModalForm.Form<IUpdatePageDTO>
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        onSubmitSuccess={closeModal}
-        schema={updatePageSchema}
+    return (
+      <ModalForm.Modal
+        okText="Update Page"
+        onCancel={closeModal}
+        visible={pageService.updateModal.isOpen}
       >
-        <AutoFields omitFields={['appId']} />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form<IUpdatePageDTO>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={closeModal}
+          schema={updatePageSchema}
+        >
+          <AutoFields omitFields={['appId']} />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

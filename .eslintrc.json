@@ -227,9 +227,13 @@
           "error",
           "always",
           {
-            "markers": ["/"]
+            "markers": ["/"],
+            "block": {
+              "balanced": true
+            }
           }
         ],
+        "no-inline-comments": "error",
         "simple-import-sort/imports": [
           "error",
           {

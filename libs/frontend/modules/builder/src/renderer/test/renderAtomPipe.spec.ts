@@ -1,10 +1,10 @@
 import { atomRef } from '@codelab/frontend/modules/atom'
 import { render } from '@testing-library/react'
-import { AtomRenderPipe } from '../renderPipes/AtomRenderPipe'
-import { setupTestRenderData } from './testData/renderData'
+import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
+import { setupTestForRenderer } from './setup/setupTest'
 
 describe('RenderAtomPipe', () => {
-  const data = setupTestRenderData((next) => new AtomRenderPipe({ next }))
+  const data = setupTestForRenderer((next) => new AtomRenderPipe({ next }))
 
   it('should render element atom', async () => {
     const text = 'a text to render'

@@ -6212,6 +6212,18 @@ type InterfaceType implements TypeBase & WithDescendants {
     sort: [InterfaceTypeFieldsConnectionSort!]
     where: InterfaceTypeFieldsConnectionWhere
   ): InterfaceTypeFieldsConnection!
+  fieldsFor(
+    directed: Boolean = true
+    options: TypeBaseOptions
+    where: TypeBaseWhere
+  ): [TypeBase!]!
+  fieldsForConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [InterfaceTypeFieldsForConnectionSort!]
+    where: InterfaceTypeFieldsForConnectionWhere
+  ): InterfaceTypeFieldsForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -6355,6 +6367,7 @@ type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
+  fieldsFor: [InterfaceTypeFieldsForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -6374,6 +6387,7 @@ input InterfaceTypeConnectWhere {
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fields: InterfaceTypeFieldsFieldInput
+  fieldsFor: InterfaceTypeFieldsForFieldInput
   id: ID!
   kind: TypeKind! = InterfaceType
   name: String!
@@ -6383,12 +6397,14 @@ input InterfaceTypeCreateInput {
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
+  fieldsFor: [InterfaceTypeFieldsForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
+  fieldsFor: [InterfaceTypeFieldsForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
@@ -6441,6 +6457,75 @@ input InterfaceTypeFieldsDisconnectFieldInput {
 input InterfaceTypeFieldsFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
+}
+
+input InterfaceTypeFieldsForConnectFieldInput {
+  connect: TypeBaseConnectInput
+  edge: FieldCreateInput!
+  where: TypeBaseConnectWhere
+}
+
+type InterfaceTypeFieldsForConnection {
+  edges: [InterfaceTypeFieldsForRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input InterfaceTypeFieldsForConnectionSort {
+  edge: FieldSort
+  node: TypeBaseSort
+}
+
+input InterfaceTypeFieldsForConnectionWhere {
+  AND: [InterfaceTypeFieldsForConnectionWhere!]
+  OR: [InterfaceTypeFieldsForConnectionWhere!]
+  edge: FieldWhere
+  edge_NOT: FieldWhere
+  node: TypeBaseWhere
+  node_NOT: TypeBaseWhere
+}
+
+input InterfaceTypeFieldsForCreateFieldInput {
+  edge: FieldCreateInput!
+  node: TypeBaseCreateInput!
+}
+
+input InterfaceTypeFieldsForDeleteFieldInput {
+  delete: TypeBaseDeleteInput
+  where: InterfaceTypeFieldsForConnectionWhere
+}
+
+input InterfaceTypeFieldsForDisconnectFieldInput {
+  disconnect: TypeBaseDisconnectInput
+  where: InterfaceTypeFieldsForConnectionWhere
+}
+
+input InterfaceTypeFieldsForFieldInput {
+  connect: [InterfaceTypeFieldsForConnectFieldInput!]
+  create: [InterfaceTypeFieldsForCreateFieldInput!]
+}
+
+type InterfaceTypeFieldsForRelationship implements Field {
+  cursor: String!
+  description: String
+  id: ID!
+  key: String!
+  name: String
+  node: TypeBase!
+}
+
+input InterfaceTypeFieldsForUpdateConnectionInput {
+  edge: FieldUpdateInput
+  node: TypeBaseUpdateInput
+}
+
+input InterfaceTypeFieldsForUpdateFieldInput {
+  connect: [InterfaceTypeFieldsForConnectFieldInput!]
+  create: [InterfaceTypeFieldsForCreateFieldInput!]
+  delete: [InterfaceTypeFieldsForDeleteFieldInput!]
+  disconnect: [InterfaceTypeFieldsForDisconnectFieldInput!]
+  update: InterfaceTypeFieldsForUpdateConnectionInput
+  where: InterfaceTypeFieldsForConnectionWhere
 }
 
 type InterfaceTypeFieldsRelationship implements Field {
@@ -6541,6 +6626,7 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
+  fieldsFor: [InterfaceTypeFieldsForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -6560,6 +6646,7 @@ input InterfaceTypeUniqueWhere {
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
+  fieldsFor: [InterfaceTypeFieldsForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -6608,6 +6695,10 @@ input InterfaceTypeWhere {
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SOME: InterfaceTypeFieldsConnectionWhere
+  fieldsForConnection_ALL: InterfaceTypeFieldsForConnectionWhere
+  fieldsForConnection_NONE: InterfaceTypeFieldsForConnectionWhere
+  fieldsForConnection_SINGLE: InterfaceTypeFieldsForConnectionWhere
+  fieldsForConnection_SOME: InterfaceTypeFieldsForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

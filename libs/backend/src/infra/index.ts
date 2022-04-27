@@ -1,1 +1,6 @@
 export * from './driver'
+export * from './generate-ogm-types'
+export * from './model'
+export * from './model.interface'
+export * from './ogm'
+export * from './ogm-types.gen'

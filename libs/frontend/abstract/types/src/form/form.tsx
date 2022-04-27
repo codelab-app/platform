@@ -27,13 +27,7 @@ export type FormProps<TData, TResponse = unknown> = {
    *  Pass either schema or bridge
    */
   schema: JSONSchemaType<TData> | Bridge
-} & /**
- * Use this to be able to hide the submit button and get a controller, which can trigger form submit.
- *
- * This is programmatically passed from ModalForm to the Form using cloneElement.
- *
- * Currently making it require since most forms use it, this way we don't have to create a separate type. Optional works too but we get less typing
- */ SubmitRef &
+} & SubmitRef &
   /**
    * By limiting the interface surface area, we can more easily understand behavior by requiring the least features to complete our use cases
    */
@@ -42,6 +36,13 @@ export type FormProps<TData, TResponse = unknown> = {
   // Then these are additional options
   Partial<Pick<AutoFormProps<TData>, 'autosave' | 'onChange' | 'onChangeModel'>>
 
+/**
+ * Use this to be able to hide the submit button and get a controller, which can trigger form submit.
+ *
+ * This is programmatically passed from ModalForm to the Form using cloneElement.
+ *
+ * Currently making it require since most forms use it, this way we don't have to create a separate type. Optional works too but we get less typing
+ */
 export type SubmitRef = {
   submitRef?: React.MutableRefObject<Maybe<SubmitController>> | undefined
 }

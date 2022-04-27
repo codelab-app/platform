@@ -1,5 +1,5 @@
+import { MoveData } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { MoveData } from './types'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {
   title: 'Update Element Input',

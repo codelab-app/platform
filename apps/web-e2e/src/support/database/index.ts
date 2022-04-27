@@ -1,5 +1,5 @@
 import { CypressCommand } from '../types'
-import { exportAdminData, importAdminData, resetDatabase } from './admin'
+import { resetDatabase } from './admin'
 import { createApp } from './app'
 import { createAtom } from './atom'
 import { createComponent } from './component'
@@ -19,8 +19,8 @@ export interface CypressDatabaseCommands {
 
   /** admin model */
   resetDatabase: typeof resetDatabase
-  importAdminData: typeof importAdminData
-  exportAdminData: typeof exportAdminData
+  // importAdminData: typeof importAdminData
+  // exportAdminData: typeof exportAdminData
 
   /** component model */
   createComponent: typeof createComponent
@@ -45,8 +45,8 @@ export const databaseCommands: Array<CypressCommand> = [
   { name: 'createPage', fn: createPage },
   { name: 'getPages', fn: getPages },
   { name: 'resetDatabase', fn: resetDatabase },
-  { name: 'exportAdminData', fn: exportAdminData },
-  { name: 'importAdminData', fn: importAdminData },
+  // { name: 'exportAdminData', fn: exportAdminData },
+  // { name: 'importAdminData', fn: importAdminData },
   { name: 'createComponent', fn: createComponent },
   { name: 'createElement', fn: createElement },
   { name: 'updateElement', fn: updateElement },

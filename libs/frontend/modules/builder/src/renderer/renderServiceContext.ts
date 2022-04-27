@@ -1,15 +1,15 @@
 import { createContext } from 'mobx-keystone'
-import type { RenderService } from './RenderService'
+import type { RenderService } from './render.service'
 
 // This can be used to access the renderer model  from anywhere inside the pipeline
 export const renderServiceContext = createContext<RenderService>()
 
-export const getRenderContext = (self: object) => {
-  const renderModel = renderServiceContext.get(self)
+export const getRenderService = (self: object) => {
+  const renderService = renderServiceContext.get(self)
 
-  if (!renderModel) {
+  if (!renderService) {
     throw new Error('RenderService context is not defined')
   }
 
-  return renderModel
+  return renderService
 }

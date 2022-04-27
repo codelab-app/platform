@@ -14,7 +14,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/frontend/shared/utils"],
       "options": {
-        "jestConfig": "libs/frontend/shared/utils/jest.config.js",
+        "jestConfig": "libs/frontend/shared/utils/jest.config.ts",
         "passWithNoTests": true
       }
     }

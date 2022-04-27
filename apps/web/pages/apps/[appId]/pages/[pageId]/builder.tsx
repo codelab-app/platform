@@ -70,10 +70,8 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       <Head>
         <title>{data?.page?.name} | Builder | Codelab</title>
       </Head>
-
-      {error && <Alert type="error">{extractErrorMessage(error)}</Alert>}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-
       <Builder
         builderService={store.builderService}
         elementService={store.elementService}
@@ -94,10 +92,8 @@ PageBuilder.Layout = observer((page) => {
       elementService={store.elementService}
     >
       <BuilderDashboardTemplate
-        Header={observer(() => (
-          <PageDetailHeader pages={store.pageService} />
-        ))}
-        MainPane={observer(() => (
+        Header={() => <PageDetailHeader pageService={store.pageService} />}
+        MainPane={() => (
           <MainPane
             atomService={store.atomService}
             builderService={store.builderService}
@@ -105,8 +101,8 @@ PageBuilder.Layout = observer((page) => {
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
           />
-        ))}
-        MetaPane={observer(() => (
+        )}
+        MetaPane={() => (
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
@@ -114,15 +110,13 @@ PageBuilder.Layout = observer((page) => {
             key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
           />
-        ))}
-        SidebarNavigation={observer((props) => (
+        )}
+        SidebarNavigation={() => (
           <BuilderSidebarNavigation
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
             builderService={store.builderService}
             key={store.builderService.builderRenderer.tree?.root?.id}
           />
-        ))}
+        )}
         builderService={store.builderService}
         headerHeight={38}
         key={store.builderService.builderRenderer.tree?.id}

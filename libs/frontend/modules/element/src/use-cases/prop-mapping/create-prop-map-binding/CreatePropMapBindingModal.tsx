@@ -4,17 +4,20 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
-import { ICreatePropMapBindingDTO } from '@codelab/shared/abstract/core'
+import {
+  ICreatePropMapBindingDTO,
+  IElementService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithElementService } from '../../../store'
 import { createPropMapBindingSchema } from './createPropMapBindingSchema'
 import { TargetKeyField } from './TargetKeyField'
 
-export interface CreatePropMapBindingModalProps extends WithElementService {
+export interface CreatePropMapBindingModalProps {
   providePropCompletion?: (searchValue: string) => Array<string>
+  elementService: IElementService
 }
 
 interface CompletionValue {

@@ -39,6 +39,14 @@
       "options": {
         "lintFilePatterns": ["apps/cli/**/*.ts"]
       }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/cli"],
+      "options": {
+        "jestConfig": "apps/cli/jest.config.ts",
+        "passWithNoTests": true
+      }
     }
   },
   "tags": ["scope:cli"]

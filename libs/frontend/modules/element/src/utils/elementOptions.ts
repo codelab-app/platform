@@ -1,7 +1,7 @@
-import { Element } from '../store/element.model'
+import { IElement } from '@codelab/shared/abstract/core'
 
-export const mapElementOption = (e: Element) => ({
-  value: e.id,
-  childrenIds: e.childrenSorted.map((c) => c.id),
-  label: e.label,
+export const mapElementOption = (element: IElement) => ({
+  value: element.id,
+  childrenIds: element.childrenSorted.map((c) => c.id),
+  label: element.label,
 })

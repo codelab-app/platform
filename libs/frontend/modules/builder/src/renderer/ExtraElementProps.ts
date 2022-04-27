@@ -1,4 +1,9 @@
-import { IPropData, IPropDataByElementId } from '@codelab/shared/abstract/core'
+import {
+  IElementRef,
+  IExtraElementProps,
+  IPropData,
+  IPropDataByElementId,
+} from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import {
   Frozen,
@@ -11,10 +16,13 @@ import {
 } from 'mobx-keystone'
 
 @model('@codelab/ExtraElementProps')
-export class ExtraElementProps extends Model({
-  elementPropMap: prop(() => objectMap<Frozen<IPropData>>()),
-  global: prop<Frozen<IPropData>>(() => frozen({})).withSetter(),
-}) {
+export class ExtraElementProps
+  extends Model({
+    elementPropMap: prop(() => objectMap<Frozen<IPropData>>()),
+    global: prop<Frozen<IPropData>>(() => frozen({})).withSetter(),
+  })
+  implements IExtraElementProps
+{
   getForElement(elementId: string) {
     return mergeProps(
       this.elementPropMap.get(elementId)?.data,
@@ -45,7 +53,7 @@ export class ExtraElementProps extends Model({
   }
 
   @modelAction
-  setForElement(elementId: string, props: IPropData) {
-    this.elementPropMap.set(elementId, frozen(props))
+  setForElement(element: IElementRef, props: IPropData) {
+    this.elementPropMap.set(element, frozen(props))
   }
 }

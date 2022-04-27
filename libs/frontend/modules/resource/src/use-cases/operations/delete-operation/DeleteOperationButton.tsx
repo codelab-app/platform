@@ -1,11 +1,16 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import {
+  OPERATION_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { operationRef, WithOperationService } from '../../../store'
+import { operationRef } from '../../../store'
 
-type DeleteOperationButtonProps = DeleteButtonProps & WithOperationService
+type DeleteOperationButtonProps = DeleteButtonProps &
+  WithServices<OPERATION_SERVICE>
 
 export const DeleteOperationButton = observer<DeleteOperationButtonProps>(
   ({ disabled, ids, operationService }) => (

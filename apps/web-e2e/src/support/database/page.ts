@@ -1,19 +1,19 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen'
-import { IPage } from '@codelab/shared/abstract/core'
+import { IPageDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
-  E2eCreatePageDocument,
-  E2eGetPageDocument,
-} from './graphql/page.endpoints.graphql.gen'
+  CreatePagesDocument,
+  GetPagesDocument,
+} from '../../../../../libs/frontend/modules/page/src/graphql'
 
 export const getPages = (input: PageWhere) =>
   cy
     .graphqlRequest({
-      query: print(E2eGetPageDocument),
+      query: print(GetPagesDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.pages as Array<IPage>)
+    .then((result) => result.body.data?.pages as Array<IPageDTO>)
 
 const defaultInput: PageCreateInput = {
   name: 'Test Page',
@@ -23,7 +23,7 @@ const defaultInput: PageCreateInput = {
 export const createPage = (input: Partial<PageCreateInput>) =>
   cy
     .graphqlRequest({
-      query: print(E2eCreatePageDocument),
+      query: print(CreatePagesDocument),
       variables: { input: { ...defaultInput, ...input } },
     })
-    .then((r) => r.body.data?.createPages.pages as Array<IPage>)
+    .then((result) => result.body.data?.createPages.pages as Array<IPageDTO>)

@@ -1,8 +1,10 @@
-import { IElement } from '../element/element.interface'
+import { IElement } from '../element'
 
 export interface IProp {
   id: string
   data: IPropData
+  jsonString: string
+  values: IPropData
 }
 
 export interface IPropData {

@@ -1,29 +1,26 @@
 import { useUser } from '@auth0/nextjs-auth0'
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  Element,
-  elementRef,
-  ElementService,
-} from '@codelab/frontend/modules/element'
+import { elementRef } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
-export interface ElementContextMenuProps {
-  element: Element
-  elementService: ElementService
+export type ElementContextMenuProps = {
+  element: IElement
   onClick?: () => any
   onBlur?: () => any
-}
+} & WithServices<ELEMENT_SERVICE>
 
 /**
  * The right-click menu in the element tree
  */
-export const ElementContextMenu = observer(
-  ({ element, onClick, onBlur, elementService }: ElementContextMenuProps) => {
+export const ElementContextMenu = observer<ElementContextMenuProps>(
+  ({ element, onClick, onBlur, elementService }) => {
     const { push } = useRouter()
     const { user } = useUser()
     const isComponentInstance = !!element.instanceOfComponent
@@ -31,12 +28,12 @@ export const ElementContextMenu = observer(
 
     const onAddChild = () => {
       return elementService.createModal.open({
-        parentElement: elementRef(element),
+        parentElement: elementRef(element.id),
       })
     }
 
     const onDelete = () => {
-      return elementService.deleteModal.open(elementRef(element))
+      return elementService.deleteModal.open(elementRef(element.id))
     }
 
     const onDuplicate = () => {

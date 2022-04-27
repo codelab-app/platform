@@ -1,6 +1,6 @@
 import { tagRef } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { AtomType, IAtom, IAtomDTO, ITag } from '@codelab/shared/abstract/core'
+import { IAtom, IAtomDTO, IAtomType, ITag } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,
@@ -27,7 +27,7 @@ export class Atom
   extends Model({
     id: idProp,
     name: prop<string>(),
-    type: prop<AtomType>(),
+    type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(),
     api: prop<Ref<InterfaceType>>(),
   })

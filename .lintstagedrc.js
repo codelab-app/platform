@@ -11,7 +11,7 @@ module.exports = {
       `madge --circular ${stagedFiles} --extensions ts,tsx,js,jsx`,
     ]
 
-    console.log(`Running: ${cmds}`)
+    console.info(`Running: ${cmds}`)
 
     return cmds
   },
@@ -19,24 +19,8 @@ module.exports = {
     const stagedFiles = files.join(' ')
     const cmd = `prettier --config .prettierrc.json --write ${stagedFiles}`
 
-    console.log(`Running: ${cmd}`)
+    console.info(`Running: ${cmd}`)
 
     return cmd
   },
-  // '**/*.{cypher}': (files) => {
-  //   const stagedFiles = files.join(' ')
-  //   const cmd = `yarn cli tasks format --env test ${stagedFiles}`
-  //   console.log(`Running: ${cmd}`)
-
-  //   return cmd
-  // },
-  // '**/*.{.tf}': (files) => {
-  //   const stagedFiles = files.join(' ')
-
-  //   const cmd = `tflint --write ${stagedFiles}`
-
-  //   // console.log(`Running: ${cmd}`)
-
-  //   return `terraform fmt -recursive .terraform && tflint .terraform`
-  // },
 }

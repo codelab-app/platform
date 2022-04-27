@@ -1,13 +1,14 @@
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { ObjectMap } from 'mobx-keystone'
-import { ICRUDService, IQueryService } from '../../service/service.interface'
+import { ObjectMap, Ref } from 'mobx-keystone'
+import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import { ICreatePageDTO, IUpdatePageDTO } from './page.dto.interface'
 import { IPage } from './page.interface'
 
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,
-    IQueryService<IPage, PageWhere> {
+    IQueryService<IPage, PageWhere>,
+    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }> {
   /**
    * Properties
    */

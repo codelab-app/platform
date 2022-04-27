@@ -1,16 +1,19 @@
-import { Element, ElementService } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
-import { IPropData } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElement,
+  IElementService,
+  IPropData,
+} from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { autorun } from 'mobx'
 import { useCallback, useEffect, useState } from 'react'
-import { BuilderService } from '../store/BuilderService'
 
 export const usePropsInspector = (
-  element: Element,
-  builderService: BuilderService,
-  elementService: ElementService,
+  element: IElement,
+  builderService: IBuilderService,
+  elementService: IElementService,
 ) => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -20,7 +23,7 @@ export const usePropsInspector = (
 
   // this is memoized by createTransformer, so we're effectively getting the last rendered output
   const renderOutput =
-    builderService.builderRenderer.renderElementIntermediate(element)
+    builderService.builderRenderer.renderIntermediateElement(element)
 
   const lastRenderedProps = Array.isArray(renderOutput)
     ? mergeProps(renderOutput.map((o) => o.props))

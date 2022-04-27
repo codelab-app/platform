@@ -12,7 +12,8 @@ export const getComponentRootElementFromProp = (
     return null
   }
 
-  const id = (payload as any).id || payload.value // .id is for backward compatibility
+  // .id is for backward compatibility
+  const id = (payload as any).id || payload.value
 
   if (typeof id !== 'string') {
     return null

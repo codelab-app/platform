@@ -19,14 +19,17 @@ import {
 import { createGraphQLOperation, createRestOperation } from '../integrations'
 import { Operation, operationRef } from './operation.model'
 
-@model('codelab/Resource')
-export class Resource extends Model(() => ({
-  id: idProp,
-  name: prop<string>(),
-  config: prop<IResource['config']>(),
-  type: prop<ResourceType>(),
-  operations: prop<Array<Ref<Operation>>>(),
-})) {
+@model('@codelab/Resource')
+export class Resource
+  extends Model(() => ({
+    id: idProp,
+    name: prop<string>(),
+    config: prop<IResource['config']>(),
+    type: prop<ResourceType>(),
+    operations: prop<Array<Ref<Operation>>>(),
+  }))
+  implements IResource
+{
   static hydrate(resource: IResourceDTO) {
     return new Resource({
       id: resource.id,

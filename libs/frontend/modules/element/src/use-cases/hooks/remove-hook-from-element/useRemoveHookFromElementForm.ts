@@ -29,7 +29,7 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
     entity: {} as any,
     onSubmitSuccess: () => {
       //
-    }, // [() => resetModal()],
+    },
     isLoading: false,
     reset: () => {
       //

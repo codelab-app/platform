@@ -1,30 +1,31 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
   ElementUpdateInput,
+  ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
+  IElement,
+  IElementRef,
+  IElementService,
   IPropData,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
+  IUserRef,
+  MoveData,
 } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import {
   _async,
   _await,
-  ExtendedModel,
   Model,
   model,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
-  Ref,
   transaction,
 } from 'mobx-keystone'
-import { MoveData } from '../use-cases/element/move-element/types'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -32,32 +33,36 @@ import {
 } from './api.utils'
 import { elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
+import {
+  CreateElementModalService,
+  ElementModalService,
+} from './element-modal.service'
 import { ElementTree } from './element-tree.model'
 import { PropMapBinding } from './prop-map-binding.model'
-
-export interface WithElementService {
-  elementService: ElementService
-}
+import { PropMapBindingModalService } from './prop-map-binding-modal.service'
 
 /**
  * Element stores a tree of elements locally using an ElementTree
  * and handles the communication with the server.
  */
 @model('@codelab/ElementService')
-export class ElementService extends Model({
-  elementTree: prop(() => new ElementTree({})),
-  elements: prop(() => objectMap<Element>()),
+export class ElementService
+  extends Model({
+    elementTree: prop(() => new ElementTree({})),
+    elements: prop(() => objectMap<Element>()),
 
-  createModal: prop(() => new CreateElementModalService({})),
-  updateModal: prop(() => new ElementModalService({})),
-  deleteModal: prop(() => new ElementModalService({})),
+    createModal: prop(() => new CreateElementModalService({})),
+    updateModal: prop(() => new ElementModalService({})),
+    deleteModal: prop(() => new ElementModalService({})),
 
-  createPropMapBindingModal: prop(() => new ElementModalService({})),
-  updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
-  deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
-}) {
+    createPropMapBindingModal: prop(() => new ElementModalService({})),
+    updatePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+    deletePropMapBindingModal: prop(() => new PropMapBindingModalService({})),
+  })
+  implements IElementService
+{
   @modelFlow
-  getTree = _async(function* (this: ElementService, rootId: string) {
+  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementGraph({ input: { rootId } }),
     )
@@ -79,24 +84,22 @@ export class ElementService extends Model({
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ElementService, ids: Array<string> = []) {
+  getAll = _async(function* (this: ElementService, where?: ElementWhere) {
     const { elements } = yield* _await(
       elementApi.GetElements({
-        where: {
-          id_IN: ids,
-        },
+        where,
       }),
     )
 
     return elements.map((element) => {
       if (this.elements.has(element.id)) {
-        return element
+        return throwIfUndefined(this.elements.get(element.id))
       }
 
       const elementModel = Element.hydrate(element)
       this.elements.set(element.id, elementModel)
 
-      return element
+      return elementModel
     })
   })
 
@@ -116,10 +119,7 @@ export class ElementService extends Model({
 
   @modelFlow
   @transaction
-  createElement = _async(function* (
-    this: ElementService,
-    input: ICreateElementDTO,
-  ) {
+  create = _async(function* (this: ElementService, input: ICreateElementDTO) {
     const createInput: ElementCreateInput = makeCreateInput(input)
 
     const {
@@ -137,9 +137,13 @@ export class ElementService extends Model({
     return element
   })
 
+  element(id: string) {
+    return this.elements?.get(id)
+  }
+
   @modelFlow
   @transaction
-  updateElement = _async(function* (
+  update = _async(function* (
     this: ElementService,
     element: Element,
     input: IUpdateElementDTO,
@@ -155,7 +159,7 @@ export class ElementService extends Model({
   @transaction
   updateElementsPropTransformationJs = _async(function* (
     this: ElementService,
-    element: Element,
+    element: IElement,
     newPropTransformJs: string,
   ) {
     const input: ElementUpdateInput = {
@@ -169,7 +173,7 @@ export class ElementService extends Model({
   @transaction
   updateElementCss = _async(function* (
     this: ElementService,
-    element: Element,
+    element: IElement,
     newCss: string,
   ) {
     const input: ElementUpdateInput = { css: newCss }
@@ -181,11 +185,13 @@ export class ElementService extends Model({
   @transaction
   moveElement = _async(function* (
     this: ElementService,
-    targetElementId: string,
+    targetElementId: IElementRef,
     { parentElementId, order }: MoveData,
   ) {
-    // It's important that we do this locally first, because we can do some validations
-    // that would otherwise require a custom resolver to do
+    /*
+     * It's important that we do this locally first, because we can do some validations
+     * that would otherwise require a custom resolver to do
+     */
     const targetElement = this.elementTree.moveElement(
       targetElementId,
       parentElementId,
@@ -225,7 +231,7 @@ export class ElementService extends Model({
   @transaction
   private patchElement = _async(function* (
     this: ElementService,
-    element: Element,
+    element: IElement,
     input: ElementUpdateInput,
   ) {
     const {
@@ -252,10 +258,10 @@ export class ElementService extends Model({
   @transaction
   deleteElementSubgraph = _async(function* (
     this: ElementService,
-    rootId: string,
+    root: IElementRef,
   ) {
     const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({ input: { rootId } }),
+      elementApi.GetElementGraph({ input: { rootId: root } }),
     )
 
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
@@ -265,8 +271,6 @@ export class ElementService extends Model({
       this.elements.delete(id)
       // ele?.parentElement?.removeChild(ele)
     }
-
-    console.log('after delete')
 
     const {
       deleteElements: { nodesDeleted },
@@ -290,7 +294,7 @@ export class ElementService extends Model({
   duplicateElement = _async(function* (
     this: ElementService,
     targetElement: Element,
-    userId: string,
+    userId: IUserRef,
   ) {
     if (!targetElement.parentElement) {
       throw new Error("Can't duplicate root element")
@@ -366,7 +370,7 @@ export class ElementService extends Model({
   convertElementToComponent = _async(function* (
     this: ElementService,
     element: Element,
-    userId: string,
+    userId: IUserRef,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
@@ -400,7 +404,7 @@ export class ElementService extends Model({
 
     // 2. Make an intermediate element with instance of the Component
     yield* _await(
-      this.createElement({
+      this.create({
         name: element.label,
         instanceOfComponentId: element.component.id,
         parentElementId: parentId,
@@ -508,48 +512,4 @@ export class ElementService extends Model({
 
     return propMapBinding
   })
-}
-
-@model('@codelab/ElementModalService')
-class ElementModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<ModalService<Ref<Element>>>(ModalService),
-  props: {},
-})) {
-  @computed
-  get element() {
-    return this.metadata?.current ?? null
-  }
-}
-
-@model('@codelab/CreateElementModalService')
-class CreateElementModalService extends ExtendedModel(() => ({
-  baseModel:
-    modelClass<ModalService<{ parentElement?: Ref<Element> }>>(ModalService),
-  props: {},
-})) {
-  @computed
-  get parentElement() {
-    return this.metadata?.parentElement ?? null
-  }
-}
-
-@model('@codelab/PropMapBindingModalService')
-class PropMapBindingModalService extends ExtendedModel(() => ({
-  baseModel: modelClass<
-    ModalService<{
-      propMapBinding: Ref<PropMapBinding>
-      element: Ref<Element>
-    }>
-  >(ModalService),
-  props: {},
-})) {
-  @computed
-  get propMapBinding() {
-    return this.metadata?.propMapBinding.current ?? null
-  }
-
-  @computed
-  get element() {
-    return this.metadata?.element.current ?? null
-  }
 }

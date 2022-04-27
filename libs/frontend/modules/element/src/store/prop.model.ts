@@ -12,7 +12,7 @@ export class Prop
   implements IProp
 {
   @computed
-  get propsData() {
+  get values() {
     return { ...this.data.data }
   }
 
@@ -22,7 +22,7 @@ export class Prop
   }
 
   get(key: string) {
-    return this.propsData[key]
+    return this.values[key]
   }
 
   @modelAction
@@ -42,6 +42,6 @@ export class Prop
 
   @computed
   get jsonString() {
-    return propSafeStringify(this.propsData)
+    return propSafeStringify(this.values)
   }
 }

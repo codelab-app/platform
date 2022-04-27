@@ -1,3 +1,8 @@
+import {
+  OPERATION_SERVICE,
+  RESOURCE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
@@ -8,11 +13,10 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCurrentResource } from '../../../hooks'
-import { WithOperationService, WithResourceService } from '../../../store'
 import { updateOperationSchema } from './updateOperationSchema'
 
 export const UpdateOperationModal = observer<
-  WithOperationService & WithResourceService
+  WithServices<OPERATION_SERVICE | RESOURCE_SERVICE>
 >(({ operationService, resourceService }) => {
   const closeModal = () => operationService.updateModal.close()
   const updateOperation = operationService.updateModal.operation

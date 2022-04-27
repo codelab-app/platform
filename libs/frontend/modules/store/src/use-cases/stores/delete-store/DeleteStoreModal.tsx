@@ -1,3 +1,4 @@
+import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -6,9 +7,8 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { WithStoreService } from '../../../store'
 
-export const DeleteStoresModal = observer<WithStoreService>(
+export const DeleteStoresModal = observer<WithServices<STORE_SERVICE>>(
   ({ storeService }) => {
     const router = useRouter()
     const storeId = useCurrentStoreId()

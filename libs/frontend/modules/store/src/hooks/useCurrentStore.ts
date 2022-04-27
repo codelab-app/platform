@@ -1,9 +1,9 @@
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { IStoreService } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
-import { StoreService } from '../store'
 
-export const useCurrentStore = (stores: StoreService) => {
+export const useCurrentStore = (stores: IStoreService) => {
   const storeId = useCurrentStoreId()
 
   const [getStore, { isLoading, error }] = useLoadingState((id: string) =>

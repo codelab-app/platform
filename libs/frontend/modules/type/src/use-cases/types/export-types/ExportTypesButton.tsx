@@ -1,20 +1,24 @@
 import { DownloadOutlined } from '@ant-design/icons'
+import {
+  IMPORT_TYPE_SERVICE,
+  TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Button, Tooltip } from 'antd'
 import fileDownload from 'js-file-download'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { WithTypeImportService, WithTypeService } from '../../../store'
 
 export const ExportTypesButton = observer<
-  WithTypeImportService & WithTypeService
->(({ typeImportService, typeService }) => {
+  WithServices<TYPE_SERVICE | IMPORT_TYPE_SERVICE>
+>(({ importTypeService, typeService }) => {
   const [onClick, { isLoading }] = useLoadingState(async () => {
     if (typeService.selectedIds.size === 0) {
       return
     }
 
-    const content = await typeImportService.exportTypes([
+    const content = await importTypeService.exportTypes([
       ...typeService.selectedIds.values(),
     ])
 

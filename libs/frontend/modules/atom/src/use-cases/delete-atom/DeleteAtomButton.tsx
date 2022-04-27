@@ -1,11 +1,12 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef, WithAtomService } from '../../store'
+import { atomRef } from '../../store'
 
-export type DeleteAtomButton = DeleteButtonProps & WithAtomService
+export type DeleteAtomButton = DeleteButtonProps & WithServices<ATOM_SERVICE>
 
 export const DeleteAtomButton = observer<DeleteAtomButton>(
   ({ disabled, ids, atomService }) => {
@@ -15,7 +16,7 @@ export const DeleteAtomButton = observer<DeleteAtomButton>(
         disabled={disabled}
         icon={<DeleteOutlined />}
         onClick={() =>
-          atomService.deleteModal.open(ids.map((id) => atomRef(id)))
+          atomService.deleteManyModal.open(ids.map((id) => atomRef(id)))
         }
         size="small"
       />

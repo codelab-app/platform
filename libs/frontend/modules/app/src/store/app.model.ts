@@ -1,5 +1,5 @@
 import { IApp, IAppDTO } from '@codelab/shared/abstract/core'
-import { IIdentifiable, Nullish } from '@codelab/shared/abstract/types'
+import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 @model('@codelab/App')
@@ -8,8 +8,8 @@ export class App
     id: idProp,
     ownerId: prop<string>(),
     name: prop<string>(),
-    rootProviderElement: prop<Nullish<IIdentifiable>>(),
-    store: prop<Nullish<IIdentifiable>>(),
+    rootProviderElement: prop<Nullable<IEntity>>(null),
+    store: prop<Nullable<IEntity>>(null),
   })
   implements IApp
 {

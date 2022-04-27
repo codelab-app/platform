@@ -57,7 +57,7 @@ export const useSchema = (): SchemaState & SchemaHandlers => {
       setTimeout(() => {
         loadCurrentSchema()
           .then(() => {
-            console.log('got schema')
+            //
           })
           .catch((err) => console.error(err))
       }, 200)

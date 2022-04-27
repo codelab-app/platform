@@ -1,6 +1,7 @@
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IElement } from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
-import { Element, WithElementService } from '../store'
 import {
   CreatePropMapBindingButton,
   CreatePropMapBindingModal,
@@ -9,8 +10,8 @@ import {
   UpdatePropMapBindingModal,
 } from '../use-cases'
 
-export interface PropMapBindingSectionProps extends WithElementService {
-  element: Element
+export type PropMapBindingSectionProps = WithServices<ELEMENT_SERVICE> & {
+  element: IElement
   providePropCompletion?: (searchValue: string) => Array<string>
 }
 

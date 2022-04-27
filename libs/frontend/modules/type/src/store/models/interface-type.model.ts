@@ -80,7 +80,7 @@ export class InterfaceType
       let field = this.field(fieldEdge.id)
 
       if (field) {
-        field.updateCache(fieldEdge, this.id)
+        field.updateCache(fieldEdge)
       } else {
         field = this.updateFieldCache(fieldEdge)
         this.fields.set(field.id, field)

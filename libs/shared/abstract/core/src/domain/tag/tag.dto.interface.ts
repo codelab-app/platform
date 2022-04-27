@@ -1,4 +1,5 @@
 import { TagFragment } from './tag.fragment.graphql.gen'
+import { ITagRef } from './tag.model.interface'
 
 export interface ICreateTagDTO {
   name: string
@@ -10,3 +11,7 @@ export interface IUpdateTagDTO {
 }
 
 export type ITagDTO = TagFragment
+
+export type ITagGraphDTO = ITagDTO & {
+  descendants: Array<ITagRef>
+}

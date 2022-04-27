@@ -14,7 +14,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/frontend/modules/admin"],
       "options": {
-        "jestConfig": "libs/frontend/modules/admin/jest.config.js",
+        "jestConfig": "libs/frontend/modules/admin/jest.config.ts",
         "passWithNoTests": true
       }
     }

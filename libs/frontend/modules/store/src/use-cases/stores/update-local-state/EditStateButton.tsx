@@ -1,13 +1,13 @@
 import { EditFilled } from '@ant-design/icons'
+import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
 import { useCurrentStore } from '../../../hooks'
-import { WithStoreService } from '../../../store'
 
-export const EditStateButton = observer<WithStoreService>(
+export const EditStateButton = observer<WithServices<STORE_SERVICE>>(
   ({ storeService }) => {
     const router = useRouter()
     const { store } = useCurrentStore(storeService)

@@ -4,7 +4,7 @@ import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderContext } from '../renderServiceContext'
+import { getRenderService } from '../renderServiceContext'
 import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
 
 /**
@@ -31,7 +31,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderContext(this)
+    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     return (
@@ -41,7 +41,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   public transform(value: TypedValue<any>): any {
-    const renderer = getRenderContext(this)
+    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     const rootElement = getComponentRootElementFromProp(
@@ -58,7 +58,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   private makeRenderProp(element: Element) {
-    const renderer = getRenderContext(this)
+    const renderer = getRenderService(this)
 
     return (...renderPropArgs: Array<any>) =>
       renderer.renderElement(element, mergeProps(...renderPropArgs))

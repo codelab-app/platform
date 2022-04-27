@@ -1,25 +1,28 @@
-import { InterfaceForm, WithTypeService } from '@codelab/frontend/modules/type'
+import {
+  ELEMENT_SERVICE,
+  TYPE_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
+import { InterfaceForm } from '@codelab/frontend/modules/type'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   Spinner,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IElement, IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { Element, WithElementService } from '../../../store'
 
-export interface UpdateElementPropsFormProps
-  extends WithTypeService,
-    WithElementService {
-  element: Element
+export type UpdateElementPropsFormProps = {
+  element: IElement
   trackPromises?: UseTrackLoadingPromises
-}
+} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ elementService, element, trackPromises, typeService }) => {
     const { trackPromise } = trackPromises ?? {}
-    const initialPropsRef = useRef(element?.props?.propsData ?? {}) // cache it to not confuse the user when auto-saving
+    // cache it to not confuse the user when auto-saving
+    const initialPropsRef = useRef(element?.props?.values ?? {})
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
       useLoadingState((_id: string) =>

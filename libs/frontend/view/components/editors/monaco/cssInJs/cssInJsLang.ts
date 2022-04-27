@@ -82,7 +82,8 @@ export const language = {
     ],
     selectorname: [
       ['#{', { token: 'meta', next: '@variableinterpolation' }],
-      ['(\\.|#(?=[^{])|%|(@identifier)|:)+', 'tag'], // selector (.foo, div, ...)
+      // selector (.foo, div, ...)
+      ['(\\.|#(?=[^{])|%|(@identifier)|:)+', 'tag'],
     ],
     selectorattribute: [
       { include: '@term' },
@@ -107,7 +108,8 @@ export const language = {
       ['!important', 'literal'],
       [';', 'delimiter', '@pop'],
       ['{', { token: 'delimiter.curly', switchTo: '@nestedproperty' }],
-      ['(?=})', { token: '', next: '@pop' }], // missing semicolon
+      // missing semicolon
+      ['(?=})', { token: '', next: '@pop' }],
     ],
     nestedproperty: [
       ['[*_]?@identifier@ws:', 'attribute.name', '@rulevalue'],
@@ -134,19 +136,22 @@ export const language = {
     declarationbody: [
       { include: '@term' },
       [';', 'delimiter', '@pop'],
-      ['(?=})', { token: '', next: '@pop' }], // missing semicolon
+      // missing semicolon
+      ['(?=})', { token: '', next: '@pop' }],
     ],
     extendbody: [
       { include: '@selectorname' },
       ['!optional', 'literal'],
       [';', 'delimiter', '@pop'],
-      ['(?=})', { token: '', next: '@pop' }], // missing semicolon
+      // missing semicolon
+      ['(?=})', { token: '', next: '@pop' }],
     ],
     variablereference: [
       // sass variable reference
       ['\\$@identifier', 'variable.ref'],
       ['\\.\\.\\.', 'operator'],
-      ['#{', { token: 'meta', next: '@variableinterpolation' }], // sass var resolve
+      // sass var resolve
+      ['#{', { token: 'meta', next: '@variableinterpolation' }],
     ],
     variableinterpolation: [
       { include: '@variablereference' },

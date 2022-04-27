@@ -1,8 +1,9 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { OperationWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateOperationDTO,
   IOperationDTO,
+  IOperationService,
   IUpdateOperationDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -23,19 +24,18 @@ import { operationApi } from './operation.api'
 import { Operation } from './operation.model'
 import { OperationModalService } from './operation-modal.service'
 
-export type WithOperationService = {
-  operationService: OperationService
-}
+@model('@codelab/Operation')
+export class OperationService
+  extends Model({
+    operations: prop(() => objectMap<Operation>()),
 
-@model('codelab/Operation')
-export class OperationService extends Model({
-  operations: prop(() => objectMap<Operation>()),
-
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new OperationModalService({})),
-  deleteModal: prop(() => new OperationModalService({})),
-  selectedOperations: prop(() => Array<Ref<Operation>>()).withSetter(),
-}) {
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new OperationModalService({})),
+    deleteModal: prop(() => new OperationModalService({})),
+    selectedOperations: prop(() => Array<Ref<Operation>>()).withSetter(),
+  })
+  implements IOperationService
+{
   operationList(resourceId: Nullish<string>) {
     const operations = [...this.operations.values()]
 
@@ -53,9 +53,13 @@ export class OperationService extends Model({
   getAll = _async(function* (this: OperationService, where?: OperationWhere) {
     const { operations } = yield* _await(operationApi.GetOperations({ where }))
 
-    return operations.map((r) =>
-      this.operations.set(r.id, Operation.hydrate(r)),
-    )
+    return operations.map((result) => {
+      const operation = Operation.hydrate(result)
+
+      this.operations.set(result.id, operation)
+
+      return operation
+    })
   })
 
   @modelFlow
@@ -63,7 +67,6 @@ export class OperationService extends Model({
   create = _async(function* (
     this: OperationService,
     input: ICreateOperationDTO,
-    resourceId: Nullish<string>,
   ) {
     const { name, config, runOnInit } = input
 
@@ -74,7 +77,7 @@ export class OperationService extends Model({
         input: {
           name,
           runOnInit,
-          resource: { connect: { where: { node: { id: resourceId } } } },
+          resource: { connect: { where: { node: { id: input.resource } } } },
           config: JSON.stringify(config),
         },
       }),
@@ -90,7 +93,7 @@ export class OperationService extends Model({
 
     this.operations.set(operationModel.id, operationModel)
 
-    return operations
+    return operationModel
   })
 
   @modelFlow
@@ -151,6 +154,8 @@ export class OperationService extends Model({
   @modelFlow
   @transaction
   delete = _async(function* (this: OperationService, id: string) {
+    const existing = throwIfUndefined(this.operations.get(id))
+
     if (this.operations.has(id)) {
       this.operations.delete(id)
     }
@@ -159,7 +164,12 @@ export class OperationService extends Model({
       operationApi.DeleteOperations({ where: { id } }),
     )
 
-    return deleteOperations
+    if (deleteOperations.nodesDeleted === 0) {
+      // throw error so that the atomic middleware rolls back the changes
+      throw new Error('App was not deleted')
+    }
+
+    return existing
   })
 }
 

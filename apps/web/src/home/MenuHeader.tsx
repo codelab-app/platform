@@ -32,13 +32,13 @@ export const HomeMenuHeader = () => {
       >
         <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
-      {/* <Menu.Item*/}
-      {/*  key="5"*/}
-      {/*  style={{*/}
-      {/*    visibility: 'hidden',*/}
-      {/*    flexGrow: 1,*/}
-      {/*  }}*/}
-      {/*/ >*/}
+      {/* <Menu.Item */}
+      {/*  key="5" */}
+      {/*  style={{ */}
+      {/*    visibility: 'hidden', */}
+      {/*    flexGrow: 1, */}
+      {/*  }} */}
+      {/*/ > */}
     </>
   )
 
@@ -61,13 +61,13 @@ export const HomeMenuHeader = () => {
         }}
       />
       {/* Empty filler */}
-      {/* <Menu.Item*/}
-      {/*  key="5"*/}
-      {/*  style={{*/}
-      {/*    visibility: 'hidden',*/}
-      {/*    flexGrow: 1,*/}
-      {/*  }}*/}
-      {/*/ >*/}
+      {/* <Menu.Item */}
+      {/*  key="5" */}
+      {/*  style={{ */}
+      {/*    visibility: 'hidden', */}
+      {/*    flexGrow: 1, */}
+      {/*  }} */}
+      {/*/ > */}
     </>
   )
 

@@ -17,5 +17,5 @@ type CardSearch = {
 }
 
 export const getCard = ({ title }: CardSearch) => {
-  return cy.contains('.ant-card-head-title', title).closest('.ant-card')
+  return cy.contains('.ant-card-head', title)
 }

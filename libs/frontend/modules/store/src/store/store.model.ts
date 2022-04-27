@@ -2,6 +2,7 @@ import { Resource, resourceRef } from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
   IPropData,
+  IStore,
   IStoreDTO,
   IStoreResource,
 } from '@codelab/shared/abstract/core'
@@ -22,21 +23,24 @@ import {
 import { Action, actionRef } from './action.model'
 
 @model('@codelab/Store')
-export class Store extends Model(() => ({
-  id: idProp,
-  parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
-  children: prop<Array<Ref<Store>>>().withSetter(),
-  // PARENT_OF_STORE relation property
-  storeKey: prop<Nullable<string>>(null).withSetter(),
+export class Store
+  extends Model(() => ({
+    id: idProp,
+    parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
+    children: prop<Array<Ref<Store>>>().withSetter(),
+    // PARENT_OF_STORE relation property
+    storeKey: prop<Nullable<string>>(null).withSetter(),
 
-  resources: prop<Array<Ref<Resource>>>(() => []),
-  resourcesKeys: prop<Array<IStoreResource>>(() => []),
+    resources: prop<Array<Ref<Resource>>>(() => []),
+    resourcesKeys: prop<Array<IStoreResource>>(() => []),
 
-  name: prop<string>(),
-  actions: prop<Array<Ref<Action>>>().withSetter(),
-  localState: prop<IPropData>(),
-  state: prop<Ref<InterfaceType>>().withSetter(),
-})) {
+    name: prop<string>(),
+    actions: prop<Array<Ref<Action>>>().withSetter(),
+    localState: prop<IPropData>(),
+    state: prop<Ref<InterfaceType>>().withSetter(),
+  }))
+  implements IStore
+{
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id

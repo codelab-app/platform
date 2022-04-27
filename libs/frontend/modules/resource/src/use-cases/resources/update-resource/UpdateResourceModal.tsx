@@ -1,13 +1,13 @@
+import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { IUpdateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { WithResourceService } from '../../../store'
 import { updateResourceSchema } from './updateResourceSchema'
 
-export const UpdateResourceModal = observer<WithResourceService>(
+export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     const updateResource = resourceService.updateModal.resource
     const closeModal = () => resourceService.updateModal.close()
@@ -17,7 +17,7 @@ export const UpdateResourceModal = observer<WithResourceService>(
         throw new Error('Updated resource is not set')
       }
 
-      return resourceService.updateResource(updateResource, data)
+      return resourceService.update(updateResource, data)
     }
 
     const onSubmitError = createNotificationHandler({

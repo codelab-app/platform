@@ -1,3 +1,4 @@
+import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { IUpdateFieldDTO } from '@codelab/shared/abstract/core'
@@ -6,12 +7,12 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType, WithTypeService } from '../../../store'
+import { InterfaceType } from '../../../store'
 import { createFieldSchema } from '../create-field'
 
 export type UpdateFieldModalProps = {
   interfaceType: InterfaceType
-} & WithTypeService
+} & WithServices<TYPE_SERVICE>
 
 export const UpdateFieldModal = observer<UpdateFieldModalProps>(
   ({ interfaceType, typeService }) => {
@@ -23,9 +24,10 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
     }
 
     const model = {
+      id: field.id,
       name: field.name,
       key: field.key,
-      existingTypeId: field.type.id ?? '',
+      fieldType: field.type.id ?? '',
       description: field.description,
     }
 
@@ -50,11 +52,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
           schema={createFieldSchema}
         >
           <AutoFields fields={['key', 'name', 'description']} />
-          <TypeSelect
-            label="Type"
-            name="existingTypeId"
-            typeService={typeService}
-          />
+          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

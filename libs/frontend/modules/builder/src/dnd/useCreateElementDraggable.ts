@@ -1,9 +1,12 @@
-import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import {
+  BuilderDndType,
+  ICreateElementDTO,
+  IElementRef,
+} from '@codelab/shared/abstract/core'
 import { useDraggable } from '@dnd-kit/core'
-import { BuilderDndType } from './BuilderDndType'
 
 export const useCreateElementDraggable = (
-  id: string,
+  id: IElementRef,
   createElementInput: ICreateElementDTO,
 ) => {
   return useDraggable({

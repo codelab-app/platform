@@ -32,12 +32,9 @@ const hydrate = (fragment: IArrayTypeDTO): ArrayType => {
 
 @model('@codelab/ArrayType')
 export class ArrayType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.ArrayType),
-    props: {
-      itemType: prop<Ref<IAnyType>>(),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.ArrayType), {
+    itemType: prop<Ref<IAnyType>>(),
+  })
   implements IArrayType
 {
   @modelAction

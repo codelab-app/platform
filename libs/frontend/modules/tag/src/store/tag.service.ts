@@ -1,7 +1,9 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
+import { TagWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateTagDTO,
   ITagDTO,
+  ITagService,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -23,39 +25,38 @@ import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 
-export interface WithTagService {
-  tagService: TagService
-}
-
 @model('@codelab/TagService')
-export class TagService extends Model({
-  tags: prop(() => objectMap<Tag>()),
+export class TagService
+  extends Model({
+    _tags: prop(() => objectMap<Tag>()),
 
-  selectedTag: prop<Nullish<Ref<Tag>>>(() => null).withSetter(),
-  checkedTags: prop(() => Array<Ref<Tag>>()).withSetter(),
+    selectedTag: prop<Nullish<Ref<Tag>>>(null).withSetter(),
+    checkedTags: prop<Array<Ref<Tag>>>(() => []).withSetter(),
 
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new TagModalService({})),
-  deleteModal: prop(() => new TagsModalService({})),
-}) {
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new TagModalService({})),
+    deleteManyModal: prop(() => new TagsModalService({})),
+  })
+  implements ITagService
+{
   @computed
-  get tagsList() {
-    return [...this.tags.values()]
+  get tags() {
+    return [...this._tags.values()]
   }
 
   @computed
-  get tagsListOptions() {
-    return this.tagsList.map((tag) => ({
+  get tagsSelectOptions() {
+    return this.tags.map((tag) => ({
       label: tag.name,
       value: tag.id,
     }))
   }
 
   @computed
-  get seletedTagOption() {
+  get selectedOption() {
     return {
-      lable: this.selectedTag?.current.name,
-      value: this.selectedTag?.current.id,
+      label: this.selectedTag?.current.name ?? '',
+      value: this.selectedTag?.current.id ?? '',
     }
   }
 
@@ -88,7 +89,7 @@ export class TagService extends Model({
     const tag = tags[0]
     const tagModel = Tag.hydrate(tag)
 
-    this.tags.set(tagModel.id, tagModel)
+    this._tags.set(tagModel.id, tagModel)
 
     return tagModel
   })
@@ -113,26 +114,29 @@ export class TagService extends Model({
 
     const tagModel = Tag.hydrate(updatedTag)
 
-    this.tags.set(tag.id, tagModel)
+    this._tags.set(tag.id, tagModel)
 
     return tagModel
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TagService, tags: Array<Tag>) {
-    const ids = tags.map((tag) => tag.id)
+  deleteMany = _async(function* (this: TagService, ids: Array<string>) {
     const descendantsIds: Array<string> = []
 
+    const tagsToDelete = ids
+      .map((id) => this._tags.get(id))
+      .filter((x): x is Tag => !x)
+
     for (const id of ids) {
-      if (this.tags.has(id)) {
+      if (this._tags.has(id)) {
         const DescendantsOfTag = yield* _await(this.getTagDescendants(id))
         DescendantsOfTag?.forEach((descendantsId) => {
           descendantsIds.push(descendantsId)
-          this.tags.delete(descendantsId)
+          this._tags.delete(descendantsId)
         })
 
-        this.tags.delete(id)
+        this._tags.delete(id)
       }
     }
 
@@ -145,7 +149,7 @@ export class TagService extends Model({
       throw new Error('App was not deleted')
     }
 
-    return deleteTags
+    return tagsToDelete
   })
 
   @modelFlow
@@ -155,7 +159,8 @@ export class TagService extends Model({
       (checkedTag) => checkedTag?.current,
     )
 
-    checkedTags.length && (yield* _await(this.delete(checkedTags)))
+    checkedTags.length &&
+      (yield* _await(this.deleteMany(checkedTags.map((tag) => tag.id))))
   })
 
   @modelFlow
@@ -168,23 +173,25 @@ export class TagService extends Model({
 
   @modelFlow
   @transaction
-  getTags = _async(function* (this: TagService) {
-    const { tags } = yield* _await(tagApi.GetTags())
+  getAll = _async(function* (this: TagService, where?: TagWhere) {
+    const { tags } = yield* _await(tagApi.GetTags({ where }))
 
-    tags.forEach((tag) => {
+    return tags.map((tag) => {
       const tagModel = Tag.hydrate(tag)
-      this.tags.set(tag.id, tagModel)
+      this._tags.set(tag.id, tagModel)
+
+      return tagModel
     })
   })
 
   @modelAction
   getOrCreateNew(tag: ITagDTO) {
-    if (this.tags.has(tag.id)) {
-      return this.tags.get(tag.id)
+    if (this._tags.has(tag.id)) {
+      return this._tags.get(tag.id)
     }
 
     const tagModel = Tag.hydrate(tag)
-    this.tags.set(tag.id, tagModel)
+    this._tags.set(tag.id, tagModel)
 
     return tagModel
   }

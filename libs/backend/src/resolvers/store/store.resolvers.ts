@@ -1,7 +1,7 @@
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
-import { Store } from '../../model'
-import { DeleteInfo, MutationDeleteStoresArgs } from '../../ogm-types.gen'
+import { StoreOGM } from '../../infra/model'
+import { DeleteInfo, MutationDeleteStoresArgs } from '../../infra/ogm-types.gen'
 import { storeRepository } from '../../repositories'
 import { IRxTxnResolver } from '../common'
 
@@ -14,7 +14,7 @@ export const deleteStoresSubgraph: IRxTxnResolver<
   }
 
   const { where } = args
-  const $stores = from(Store().then((StoreModel) => StoreModel.find({ where })))
+  const $stores = from(StoreOGM().then((Store) => Store.find({ where })))
 
   return $stores.pipe(
     mergeMap((stores) =>

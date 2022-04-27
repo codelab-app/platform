@@ -18,10 +18,10 @@ export const useImportAppForm = () => {
   const onSubmit = useCallback(
     async (input: ImportAppSchema) => {
       const text = await input.file.originFileObj?.text()
-      console.log(text)
 
       if (!text) {
-        throw new Error("Can't parse file") // shouldn't happen, we test in the form
+        // shouldn't happen, we test in the form
+        throw new Error("Can't parse file")
       }
 
       return mutate({ variables: { input: { payload: text } } }).unwrap()

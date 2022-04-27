@@ -1,14 +1,15 @@
-import { IIdentifiable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 import * as R from 'ramda'
 import { entityIdSet, entityMapById } from '../entity'
 
 interface ItemsByArrayDiff<T> {
   toDelete: Array<T>
-  toUpdate: Array<[T, T]> // [entity, oldEntity]
+  // [entity, oldEntity]
+  toUpdate: Array<[T, T]>
   toCreate: Array<T>
 }
 
-export const groupItemsByArrayDiff = <T extends IIdentifiable>(
+export const groupItemsByArrayDiff = <T extends IEntity>(
   arrayA: Array<T>,
   arrayB: Array<T>,
 ): ItemsByArrayDiff<T> => {

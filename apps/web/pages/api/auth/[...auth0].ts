@@ -7,8 +7,6 @@ const afterCallback = async (
   session: Session,
   // state,
 ) => {
-  console.log('auth0', session)
-
   return session
 }
 

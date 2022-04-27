@@ -1,10 +1,13 @@
-import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import {
+  BuilderDndType,
+  BuilderDragData,
+  ICreateElementDTO,
+  IElementRef,
+} from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
-import { BuilderDndType } from './BuilderDndType'
-import { BuilderDragData } from './BuilderDragData'
 
 export const useCreateElementDroppable = (
-  id: string,
+  id: IElementRef,
   input: ICreateElementDTO,
 ) => {
   const data: BuilderDragData = {

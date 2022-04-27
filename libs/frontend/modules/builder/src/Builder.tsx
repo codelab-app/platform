@@ -1,5 +1,9 @@
-import { DATA_ID } from '@codelab/frontend/abstract/core'
-import { WithElementService } from '@codelab/frontend/modules/element'
+import {
+  BUILDER_SERVICE,
+  DATA_ID,
+  ELEMENT_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import { BuilderDropHandler } from './dnd/BuilderDropHandler'
@@ -7,41 +11,38 @@ import { ElementDropHandlers } from './dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from './hooks'
 import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
 import { Renderer } from './renderer'
-import { WithBuilderService } from './store/BuilderService'
 
-export interface BuilderProps extends WithBuilderService, WithElementService {}
+export const Builder = observer<
+  WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
+>(({ builderService, elementService }) => {
+  const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(
+    builderService,
+    builderService.builderRenderer.tree,
+  )
 
-export const Builder = observer<BuilderProps>(
-  ({ builderService, elementService }) => {
-    const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(
-      builderService,
-      builderService.builderRenderer.tree,
-    )
+  useBuilderHotkeys(builderService, elementService)
 
-    useBuilderHotkeys(builderService, elementService)
+  const handleContainerClick = useBuilderRootClickHandler(builderService)
 
-    const handleContainerClick = useBuilderRootClickHandler(builderService)
+  return (
+    <StyledBuilderContainer
+      id="Builder"
+      key={builderService.builderRenderer.tree?.id}
+      onClick={handleContainerClick}
+      onMouseLeave={handleMouseLeave}
+      onMouseOver={handleMouseOver}
+    >
+      <BuilderDropHandler builderService={builderService} />
+      <ElementDropHandlers builderService={builderService} />
 
-    return (
-      <StyledBuilderContainer
-        id="Builder"
-        key={builderService.builderRenderer.tree?.id}
-        onClick={handleContainerClick}
-        onMouseLeave={handleMouseLeave}
-        onMouseOver={handleMouseOver}
-      >
-        <BuilderDropHandler builderService={builderService} />
-        <ElementDropHandlers builderService={builderService} />
+      <Renderer renderService={builderService.builderRenderer} />
 
-        <Renderer renderService={builderService.builderRenderer} />
-
-        {/* <BuilderHoverOverlay />*/}
-        {/* <BuilderClickOverlay />*/}
-        {/* {children}*/}
-      </StyledBuilderContainer>
-    )
-  },
-)
+      {/* <BuilderHoverOverlay /> */}
+      {/* <BuilderClickOverlay /> */}
+      {/* {children} */}
+    </StyledBuilderContainer>
+  )
+})
 
 const StyledBuilderContainer = styled.div`
   // [${DATA_ID}] is a selector for all rendered elements

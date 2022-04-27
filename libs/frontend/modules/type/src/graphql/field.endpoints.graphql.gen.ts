@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { FieldFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { InterfaceTypeFragment } from '../../../../../shared/abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { FieldFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { InterfaceTypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 export type CreateFieldMutationVariables = Types.Exact<{
   interfaceId: Types.Scalars['ID']
   fieldTypeId: Types.Scalars['ID']
@@ -12,9 +12,7 @@ export type CreateFieldMutationVariables = Types.Exact<{
 }>
 
 export type CreateFieldMutation = {
-  updateInterfaceTypes: {
-    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
-  }
+  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
 export type UpdateFieldMutationVariables = Types.Exact<{
@@ -24,9 +22,7 @@ export type UpdateFieldMutationVariables = Types.Exact<{
 }>
 
 export type UpdateFieldMutation = {
-  updateInterfaceTypes: {
-    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
-  }
+  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
 export type DeleteFieldMutationVariables = Types.Exact<{
@@ -35,9 +31,7 @@ export type DeleteFieldMutationVariables = Types.Exact<{
 }>
 
 export type DeleteFieldMutation = {
-  updateInterfaceTypes: {
-    interfaceTypes: Array<{ fieldsConnection: { edges: Array<FieldFragment> } }>
-  }
+  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
 export const CreateFieldDocument = gql`
@@ -53,15 +47,11 @@ export const CreateFieldDocument = gql`
       }
     ) {
       interfaceTypes {
-        fieldsConnection {
-          edges {
-            ...Field
-          }
-        }
+        ...InterfaceType
       }
     }
   }
-  ${FieldFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
 `
 export const UpdateFieldDocument = gql`
   mutation UpdateField(
@@ -78,15 +68,11 @@ export const UpdateFieldDocument = gql`
       }
     ) {
       interfaceTypes {
-        fieldsConnection {
-          edges {
-            ...Field
-          }
-        }
+        ...InterfaceType
       }
     }
   }
-  ${FieldFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
 `
 export const DeleteFieldDocument = gql`
   mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
@@ -95,15 +81,11 @@ export const DeleteFieldDocument = gql`
       disconnect: { fields: [{ where: { edge: $where } }] }
     ) {
       interfaceTypes {
-        fieldsConnection {
-          edges {
-            ...Field
-          }
-        }
+        ...InterfaceType
       }
     }
   }
-  ${FieldFragmentDoc}
+  ${InterfaceTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -1,21 +1,24 @@
+import {
+  COMPONENT_SERVICE,
+  WithServices,
+} from '@codelab/frontend/abstract/core'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import tw from 'twin.macro'
-import { WithComponentService } from '../../store'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { ComponentColumnData } from './columns/types'
 
-export const GetComponentsTable = observer<WithComponentService>(
+export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
   ({ componentService }) => {
     const [getComponents, { isLoading }] = useLoadingState(() =>
       componentService.getAll(),
     )
 
-    const components = componentService.componentsList
+    const components = componentService.components
     useEffect(() => {
       getComponents()
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +46,7 @@ export const GetComponentsTable = observer<WithComponentService>(
         render: (_, component) => (
           <ActionColumn
             component={component}
-            componentStore={componentService}
+            componentService={componentService}
           />
         ),
       },

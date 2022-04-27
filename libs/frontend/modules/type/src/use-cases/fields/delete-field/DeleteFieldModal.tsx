@@ -1,3 +1,4 @@
+import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -8,17 +9,18 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceType, WithTypeService } from '../../../store'
+import { InterfaceType } from '../../../store'
 
 type DeleteFieldModalProps = {
   interfaceType: InterfaceType
-} & WithTypeService
+} & WithServices<TYPE_SERVICE>
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
   ({ interfaceType, typeService }) => {
     const closeModal = () => typeService.fieldDeleteModal.close()
+    const { field } = typeService.fieldDeleteModal
 
-    if (!typeService.fieldDeleteModal.field) {
+    if (!field) {
       return null
     }
 
@@ -34,16 +36,13 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
         <ModalForm.Form<EmptyJsonSchemaType>
           model={{}}
           onSubmit={(input) => {
-            if (!typeService.fieldDeleteModal.field) {
+            if (!field) {
               throw new Error(
                 'fieldDeleteModal.field is not defined, set it when opening the modal',
               )
             }
 
-            return typeService.deleteField(
-              interfaceType,
-              typeService.fieldDeleteModal.field.id,
-            )
+            return typeService.deleteField(interfaceType, field.id)
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting field',
@@ -53,8 +52,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
           schema={emptyJsonSchema}
         >
           <h4>
-            Are you sure you want to delete field "
-            {typeService.fieldDeleteModal.field?.name}"?
+            Are you sure you want to delete field "{field?.name ?? field.key}"?
           </h4>
           <AutoFields />
         </ModalForm.Form>

@@ -3,6 +3,7 @@ import { getComponentService } from '@codelab/frontend/modules/component'
 import {
   IComponentDTO,
   IElementDTO,
+  IElementTree,
   isAtomDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -37,20 +38,28 @@ const hydrate = (elements: Array<IElementDTO>, rootId: string) => {
  * It doesn't handle remote data, use elementService for that
  */
 @model('@codelab/ElementTree')
-export class ElementTree extends Model({
-  id: idProp,
+export class ElementTree
+  extends Model({
+    id: idProp,
 
-  /** The root tree element */
-  root: prop<Nullable<Ref<Element>>>(null).withSetter(),
+    /** The root tree element */
+    _root: prop<Nullable<Ref<Element>>>(null).withSetter(),
 
-  /** All root elements of the components in the main tree */
-  componentRoots: prop(() => objectMap<Ref<Element>>()),
-}) {
+    /** All root elements of the components in the main tree */
+    componentRoots: prop(() => objectMap<Ref<Element>>()),
+  })
+  implements IElementTree
+{
   @computed
   get elementsList() {
-    return this.root
-      ? [this.root.current, ...(this.root.current?.descendants ?? [])]
+    return this._root
+      ? [this._root.current, ...(this._root.current?.descendants ?? [])]
       : []
+  }
+
+  @computed
+  get root() {
+    return this._root?.current
   }
 
   // Need to use get parent to get the ElementService, otherwise getElementService may get the wrong service depending on who's calling
@@ -97,7 +106,7 @@ export class ElementTree extends Model({
       // this.elements.set(elementDTO.id, element)
 
       if (!elementDTO.parentElement?.id) {
-        this.setRoot(elementRef(element))
+        this.set_root(elementRef(element))
       } else if (elementDTO.component) {
         this.componentRoots.set(elementDTO.id, elementRef(element))
       }
@@ -105,8 +114,6 @@ export class ElementTree extends Model({
 
     // Assign relationships
     for (const [_, element] of this.elements) {
-      console.log(element)
-
       const parentId = element.parentId
 
       if (!parentId) {
@@ -118,8 +125,6 @@ export class ElementTree extends Model({
       if (!parent || parent.hasChild(element)) {
         continue
       }
-
-      console.log(parent, element)
 
       parent?.addChild(element)
     }
@@ -159,7 +164,7 @@ export class ElementTree extends Model({
     }
 
     newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
-    element.setOrderInParent(newOrder)
+    element.setOrderInParent(newOrder ?? null)
     newParent.addChild(element)
 
     return element

@@ -1,11 +1,13 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Element, elementRef, WithElementService } from '../../../store'
+import { elementRef } from '../../../store'
 
-export interface CreatePropMapBindingButtonProps extends WithElementService {
-  element: Element
+export interface CreatePropMapBindingButtonProps {
+  element: IElement
+  elementService: IElementService
 }
 
 export const CreatePropMapBindingButton =
@@ -14,7 +16,7 @@ export const CreatePropMapBindingButton =
       <Button
         icon={<PlusOutlined />}
         onClick={() =>
-          elementService.createPropMapBindingModal.open(elementRef(element))
+          elementService.createPropMapBindingModal.open(elementRef(element.id))
         }
         type="primary"
       >

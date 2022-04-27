@@ -1,4 +1,5 @@
 import { DeleteOutlined, EditFilled, PlusOutlined } from '@ant-design/icons'
+import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ListItemButton } from '@codelab/frontend/view/components'
 import { TreeDataNode } from 'antd'
@@ -6,22 +7,19 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { storeRef, WithStoreService } from '../../../store'
+import { storeRef } from '../../../store'
 
-export type TreeItemTitleProps = WithStoreService & {
+export type TreeItemTitleProps = WithServices<STORE_SERVICE> & {
   node: TreeDataNode
 }
 
 export const TreeItemTitle = observer<TreeItemTitleProps>(
   ({ node, storeService }) => {
-    const onAddChild = () =>
-      storeService.createModal.open(storeRef(node.key as string))
-
-    const onEdit = () =>
-      storeService.updateModal.open(storeRef(node.key as string))
+    const onAddChild = () => storeService.createModal.open()
+    const onEdit = () => storeService.updateModal.open(storeRef(`${node.key}`))
 
     const onDelete = () =>
-      storeService.deleteModal.open(storeRef(node.key as string))
+      storeService.deleteModal.open(storeRef(`${node.key}`))
 
     const href = {
       pathname: PageType.Store,

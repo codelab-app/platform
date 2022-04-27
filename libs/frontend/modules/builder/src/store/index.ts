@@ -1,1 +1,1 @@
-export { BuilderService } from './BuilderService'
+export { BuilderService } from './builder.service'

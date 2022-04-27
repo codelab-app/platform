@@ -2,9 +2,10 @@ import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
   ICreateTypeDTO,
+  IPrimitiveTypeKind,
   ITypeKind,
-  PrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../../../shared'
 
@@ -17,6 +18,11 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
+    auth0Id: {
+      type: 'string',
+      disabled: true,
+      ...showFieldOnDev(),
+    },
     id: {
       type: 'string',
       disabled: true,
@@ -40,7 +46,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
     primitiveKind: {
       type: 'string',
       nullable: true,
-      enum: Object.values(PrimitiveTypeKind),
+      enum: Object.values(IPrimitiveTypeKind),
     },
     elementKind: {
       type: 'string',
@@ -78,5 +84,5 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeDTO> = {
     },
     arrayTypeId: { type: 'string', nullable: true },
   },
-  required: ['kind', 'name'],
+  required: ['kind', 'name', 'auth0Id'],
 }

@@ -1,22 +1,17 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
+import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import {
-  FieldModalMetadata,
-  fieldRef,
-  InterfaceType,
-  typeRef,
-  WithTypeService,
-} from '../../../store'
+import { fieldRef, InterfaceType, typeRef } from '../../../store'
 
 export type FieldsTableProps = {
   interfaceType?: InterfaceType
   isLoading: boolean
   hideActions?: boolean
-} & WithTypeService
+} & WithServices<TYPE_SERVICE>
 
 interface CellData {
   id: string
@@ -71,12 +66,10 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeService.fieldUpdateModal.open(
-                      new FieldModalMetadata({
-                        field: fieldRef(record.id),
-                        interface: typeRef(interfaceType),
-                      }),
-                    )
+                    typeService.fieldUpdateModal.open({
+                      field: fieldRef(record.id),
+                      interface: typeRef(interfaceType),
+                    })
                   }}
                   size="small"
                   type="primary"
@@ -89,12 +82,10 @@ export const FieldsTable = observer<FieldsTableProps>(
                       return
                     }
 
-                    typeService.fieldDeleteModal.open(
-                      new FieldModalMetadata({
-                        field: fieldRef(record.id),
-                        interface: typeRef(interfaceType),
-                      }),
-                    )
+                    typeService.fieldDeleteModal.open({
+                      field: fieldRef(record.id),
+                      interface: typeRef(interfaceType),
+                    })
                   }}
                   size="small"
                   type="primary"

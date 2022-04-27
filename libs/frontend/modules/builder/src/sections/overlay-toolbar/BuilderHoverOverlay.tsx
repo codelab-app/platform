@@ -1,12 +1,10 @@
+import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { HoverOverlay } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
-import { WithBuilderService } from '../../store/BuilderService'
 
-export type BuilderHoverOverlayProps = WithBuilderService
-
-export const BuilderHoverOverlay = observer<BuilderHoverOverlayProps>(
+export const BuilderHoverOverlay = observer<WithServices<BUILDER_SERVICE>>(
   ({ builderService }) => {
     const hoveredElement = builderService.hoveredElement?.current
 

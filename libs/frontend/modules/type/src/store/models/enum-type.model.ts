@@ -18,7 +18,7 @@ import {
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'
 
-const fromFragmentValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
+const hydrateEnumValue = (fragment: IEnumTypeValueDTO): EnumTypeValue =>
   new EnumTypeValue({
     ...fragment,
     name: fragment.name,
@@ -34,10 +34,10 @@ export class EnumTypeValue extends Model({
     return this.name || this.value
   }
 
-  public static hydrate = fromFragmentValue
+  public static hydrate = hydrateEnumValue
 }
 
-const fromFragmentEnumType = ({
+const hydrate = ({
   id,
   allowedValues,
   kind,
@@ -45,8 +45,6 @@ const fromFragmentEnumType = ({
   owner,
 }: IEnumTypeDTO): EnumType => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
-
-  console.log(allowedValues)
 
   return new EnumType({
     id,
@@ -92,5 +90,5 @@ export class EnumType
   //   )
   // }
 
-  public static hydrate = fromFragmentEnumType
+  public static hydrate = hydrate
 }

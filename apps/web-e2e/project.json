@@ -87,6 +87,6 @@
       "outputs": ["{options.outputFile}"]
     }
   },
-  "tags": ["scope:e2e"],
+  "tags": [],
   "implicitDependencies": ["web"]
 }

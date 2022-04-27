@@ -1,27 +1,26 @@
-import { AtomService } from '@codelab/frontend/modules/atom'
-import { TypeService } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
   useLoadingState,
 } from '@codelab/frontend/shared/utils'
+import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useEffect } from 'react'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
 type UseAddHookToElementForm = (
   elementId: string,
-  typeStore: TypeService,
-  atomStore: AtomService,
+  typeService: ITypeService,
+  atomService: IAtomService,
 ) => any & InterfaceProps
 
 export const useAddHookToElementForm: UseAddHookToElementForm = (
   elementId,
-  typeStore,
-  atomStore,
+  typeService,
+  atomService,
 ) => {
   // const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   // const { selectedType, actionType } = useHookState()
-  const [getAtoms] = useLoadingState(() => atomStore.getAll())
+  const [getAtoms] = useLoadingState(() => atomService.getAll())
 
   useEffect(() => {
     getAtoms()
@@ -31,7 +30,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   assertIsDefined(elementId)
 
   const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
-    useLoadingState((id: string) => typeStore.getInterfaceAndDescendants(id))
+    useLoadingState((id: string) => typeService.getInterfaceAndDescendants(id))
   //
   // const [mutate, { isLoading }] = useCreateHooksMutation({
   //   selectFromResult: (r) => ({
@@ -45,7 +44,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     submitData: AddHookToElementMutationInput,
   ) => {
     const { typeId, ...configObj } = submitData
-    const type = atomStore.atom(typeId)?.type
+    const type = atomService.atom(typeId)?.type
     const config = JSON.stringify(configObj)
 
     return type ? { elementId, type, config } : undefined
@@ -91,13 +90,13 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
     onSubmit,
     onSubmitSuccess: () => {
       //
-    }, // [() => resetModal()],
+    },
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while creating hook',
       }),
     ],
-    model: {}, // { typeId: selectedType },
+    model: {},
     actionType: 'CREATE',
     isLoading: false,
     interfaceLoading,

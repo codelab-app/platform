@@ -3,6 +3,7 @@ import { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
   IResourceDTO,
+  IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -23,18 +24,17 @@ import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
 import { ResourceModalService } from './resource-modal.service'
 
-export type WithResourceService = {
-  resourceService: ResourceService
-}
+@model('@codelab/Resource')
+export class ResourceService
+  extends Model({
+    resources: prop(() => objectMap<Resource>()),
 
-@model('codelab/Resource')
-export class ResourceService extends Model({
-  resources: prop(() => objectMap<Resource>()),
-
-  createModal: prop(() => new ModalService({})),
-  updateModal: prop(() => new ResourceModalService({})),
-  deleteModal: prop(() => new ResourceModalService({})),
-}) {
+    createModal: prop(() => new ModalService({})),
+    updateModal: prop(() => new ResourceModalService({})),
+    deleteModal: prop(() => new ResourceModalService({})),
+  })
+  implements IResourceService
+{
   @computed
   get resourceList() {
     return [...this.resources.values()]
@@ -56,11 +56,12 @@ export class ResourceService extends Model({
 
     this.fetchOperations(resources.flatMap((x) => x.operations))
 
-    resources.forEach((r) => {
-      this.resources.set(r.id, Resource.hydrate(r))
-    })
+    return resources.map((resource) => {
+      const resourceModel = Resource.hydrate(resource)
+      this.resources.set(resource.id, resourceModel)
 
-    return this.resources
+      return resourceModel
+    })
   })
 
   @modelFlow
@@ -73,10 +74,7 @@ export class ResourceService extends Model({
 
   @modelFlow
   @transaction
-  createResource = _async(function* (
-    this: ResourceService,
-    input: ICreateResourceDTO,
-  ) {
+  create = _async(function* (this: ResourceService, input: ICreateResourceDTO) {
     const { name, type, config } = input
 
     const { createResources } = yield* _await(
@@ -95,12 +93,12 @@ export class ResourceService extends Model({
 
     this.resources.set(resourceModel.id, resourceModel)
 
-    return resource
+    return resourceModel
   })
 
   @modelFlow
   @transaction
-  updateResource = _async(function* (
+  update = _async(function* (
     this: ResourceService,
     resource: Resource,
     input: IUpdateResourceDTO,

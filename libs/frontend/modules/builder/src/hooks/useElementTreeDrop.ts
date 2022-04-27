@@ -1,4 +1,4 @@
-import { ElementService } from '@codelab/frontend/modules/element'
+import { IElementService } from '@codelab/shared/abstract/core'
 import { TreeProps } from 'antd/lib/tree'
 
 /**
@@ -6,7 +6,7 @@ import { TreeProps } from 'antd/lib/tree'
  * This can be optimized to be handled in the API
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
-export const useElementTreeDrop = (elementService: ElementService) => {
+export const useElementTreeDrop = (elementService: IElementService) => {
   // const [moveElement, { isLoading }] = useMoveElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
@@ -48,6 +48,7 @@ export const useElementTreeDrop = (elementService: ElementService) => {
 
   return {
     handleDrop,
-    isMoving: false, // isLoading,
+    // isLoading,
+    isMoving: false,
   }
 }

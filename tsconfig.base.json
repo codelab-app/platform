@@ -69,11 +69,11 @@
       "@codelab/frontend/modules/props": [
         "libs/frontend/modules/prop/src/index.ts"
       ],
-      "@codelab/frontend/modules/store": [
-        "libs/frontend/modules/store/src/index.ts"
-      ],
       "@codelab/frontend/modules/resource": [
         "libs/frontend/modules/resource/src/index.ts"
+      ],
+      "@codelab/frontend/modules/store": [
+        "libs/frontend/modules/store/src/index.ts"
       ],
       "@codelab/frontend/modules/style": [
         "libs/frontend/modules/style/src/index.ts"
@@ -116,8 +116,7 @@
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
-      ],
-      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

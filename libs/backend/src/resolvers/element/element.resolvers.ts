@@ -1,6 +1,6 @@
 import { QueryElementGraphArgs } from '@codelab/shared/abstract/codegen'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
-import { getDriver } from '../../infra/driver'
+import { getDriver } from '../../infra'
 import { elementRepository } from '../../repositories'
 
 export const elementGraph: IFieldResolver<

@@ -1,13 +1,11 @@
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { IResourceService } from '@codelab/shared/abstract/core'
 import { TableColumnProps } from 'antd'
 import { TablePaginationConfig } from 'antd/lib/table/interface'
-import { StoreResourceService } from '../../../store'
 import { ActionColumn } from './columns'
 
-export const useStoreResourcesTable = (
-  storeResourceService: StoreResourceService,
-) => {
+export const useStoreResourcesTable = (resourceService: IResourceService) => {
   const columns: Array<TableColumnProps<any>> = [
     {
       title: 'Resource Key',
@@ -36,10 +34,7 @@ export const useStoreResourcesTable = (
       onHeaderCell: headerCellProps,
       width: 100,
       render: (text, resource) => (
-        <ActionColumn
-          resource={resource}
-          storeResourceService={storeResourceService}
-        />
+        <ActionColumn resource={resource} resourceService={resourceService} />
       ),
     },
   ]

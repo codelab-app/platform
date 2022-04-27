@@ -1,11 +1,12 @@
 import { FieldCreateInput } from '@codelab/shared/abstract/codegen'
+import { IFieldDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
-import { E2eCreateFieldDocument } from './graphql/field.endpoints.graphql.gen'
+import { CreateFieldDocument } from '../../../../../libs/frontend/modules/type/src/graphql/field.endpoints.graphql.gen'
 
 export const createField = (input: FieldCreateInput) =>
   cy
     .graphqlRequest({
-      query: print(E2eCreateFieldDocument),
+      query: print(CreateFieldDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.createField)
+    .then((result) => result.body.data?.createField as IFieldDTO)
