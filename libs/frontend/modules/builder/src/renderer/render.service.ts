@@ -59,8 +59,6 @@ import { mapOutput } from './utils/renderOutputUtils'
  * This ensures that each render() call can be used for a single isolated observer() - wrapped React Element
  * and it will get re-rendered only if the source Element model is changed
  *
- * The last render results are stored in .renderOutput.
- *
  * The renderPipe and typedValueTransformers replace the previous render pipeline.
  * It's useful to keep them as mobx-keystone models because they can access the context of the state tree
  * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.

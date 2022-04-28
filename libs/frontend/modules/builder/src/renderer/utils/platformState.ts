@@ -1,16 +1,16 @@
 import {
   STATE_PATH_TEMPLATE_END,
+  STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
+import { App } from '@codelab/frontend/modules/app'
+import { Page } from '@codelab/frontend/modules/page'
+import { Store } from '@codelab/frontend/modules/store'
 import {
   IStateTreeNode,
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
-import { App } from '@codelab/frontend/modules/app'
-import { Page } from '@codelab/frontend/modules/page'
-import { Store } from '@codelab/frontend/modules/store'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { get } from 'lodash'
 import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -83,27 +83,98 @@ export const toAntd = (
 export const matchesTemplate = (str: string) => {
   const { start, end } = mobxStateKeyTemplate
 
-  return str.startsWith(start) && str.endsWith(end)
-}
-
-export const parsePath = (str: string) => {
-  const { start, end } = mobxStateKeyTemplate
-
-  return matchesTemplate(str)
-    ? str.substring(start.length, str.length - end.length).trim()
-    : undefined
-}
-
-export const getState = (path: string, globalState: unknown) => {
-  const parsedPath = parsePath(path)
-
-  if (!parsedPath) {
-    return path
+  if (typeof str !== 'string') {
+    return false
   }
 
-  const value = get(globalState, parsedPath)
+  return str.includes(start) && str.includes(end)
+}
 
-  console.info(`${parsedPath} : ${value}`)
+export const parseTemplateExpressions = (str: string) => {
+  if (!matchesTemplate(str)) {
+    return undefined
+  }
+
+  return str.match(STATE_PATH_TEMPLATE_REGEX)
+}
+
+const expressionFnFactory = (expression: string, globalState: any): any => {
+  // eslint-disable-next-line no-new-func
+  const fn = new Function(`with(this){ return ${expression} }`)
+
+  if (!globalState) {
+    return undefined
+  }
+
+  return fn.call(
+    new Proxy(
+      {},
+      {
+        has() {
+          return true
+        },
+        get(target, key) {
+          const value = globalState[key]
+
+          if (typeof value === 'function') {
+            return value.bind(globalState)
+          }
+
+          return value
+        },
+      },
+    ),
+  )
+}
+
+export const evaluateTemplateExpression = (value: string, globalState: any) => {
+  const { start, end } = mobxStateKeyTemplate
+
+  if (!value) {
+    return value
+  }
+
+  // here value is in the form of {{ someExpression }}
+  const expression = value
+    .trim()
+    .substring(start.length, value.length - end.length)
+    .trim()
+
+  try {
+    return expressionFnFactory(expression, globalState)
+  } catch (e) {
+    console.log('Error while parsing expression: ', e)
+
+    return value
+  }
+}
+
+export const getState = (value: string, globalState: unknown) => {
+  const templateExpressions = parseTemplateExpressions(value)
+
+  if (!templateExpressions) {
+    return value
+  }
+
+  for (const templateExpression of templateExpressions) {
+    const evaluated = evaluateTemplateExpression(
+      templateExpression,
+      globalState,
+    )
+
+    // event handlers
+    if (typeof evaluated === 'function') {
+      return evaluated
+    }
+
+    // if there is nothing else in the whole vlaue just return the evaluated value
+    // e.g. '{{ someExpression }}', not 'some text {{ someExpression }}'
+    if (templateExpression === value && typeof evaluated !== 'string') {
+      return evaluated
+    }
+
+    value = value?.replace(templateExpression, evaluated)
+  }
 
   return value
 }
