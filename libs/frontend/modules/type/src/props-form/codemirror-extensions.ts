@@ -112,7 +112,8 @@ if (STATE_PATH_TEMPLATE_START !== '{{') {
 
 const insertBracketAndStartCompletion: Command = (view) => {
   const textBeforeCursor = getTextBeforeCursor(view)
-  const toInsert = insertBracket(view.state, '{') // insert the bracket
+  // insert the bracket
+  const toInsert = insertBracket(view.state, '{')
 
   if (toInsert) {
     view.dispatch(toInsert)
