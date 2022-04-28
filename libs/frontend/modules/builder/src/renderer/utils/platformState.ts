@@ -3,11 +3,11 @@ import {
   STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
-import { App } from '@codelab/frontend/modules/app'
-import { Page } from '@codelab/frontend/modules/page'
-import { Store } from '@codelab/frontend/modules/store'
 import {
+  IApp,
+  IPage,
   IStateTreeNode,
+  IStore,
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -19,9 +19,9 @@ export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
 }
 
 export const createMobxState = (
-  rootStore: Nullish<Store>,
-  apps: Array<App>,
-  pages: Array<Page>,
+  rootStore: Nullish<IStore>,
+  apps: Array<IApp>,
+  pages: Array<IPage>,
   router: NextRouter,
 ) => {
   if (!rootStore) {
