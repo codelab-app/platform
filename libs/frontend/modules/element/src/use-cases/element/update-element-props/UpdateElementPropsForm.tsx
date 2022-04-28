@@ -3,7 +3,7 @@ import {
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { InterfaceForm } from '@codelab/frontend/modules/type'
+import { PropsForm } from '@codelab/frontend/modules/type'
 import { useLoadingState } from '@codelab/frontend/shared/utils'
 import {
   Spinner,
@@ -16,10 +16,17 @@ import { useEffect, useRef } from 'react'
 export type UpdateElementPropsFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
+  autocompleteContext?: any
 } & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ elementService, element, trackPromises, typeService }) => {
+  ({
+    elementService,
+    element,
+    trackPromises,
+    typeService,
+    autocompleteContext,
+  }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element?.props?.values ?? {})
@@ -46,13 +53,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={isLoading}>
         {interfaceType && (
-          <InterfaceForm
+          <PropsForm
+            autocompleteContext={autocompleteContext}
             autosave
+            initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}
-            model={initialPropsRef.current}
             onSubmit={onSubmit}
-            submitRef={undefined}
           />
         )}
       </Spinner>

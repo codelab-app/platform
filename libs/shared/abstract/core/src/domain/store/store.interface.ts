@@ -13,7 +13,7 @@ export interface IStore {
   state: Ref<IInterfaceType>
   localState: IPropData
   resourcesList: RcTableProps<Omit<IResource, 'operations'>>['data']
-  toMobxObservable(): any
+  toMobxObservable(globals?: any): any
 }
 
 export type IStoreRef = string
