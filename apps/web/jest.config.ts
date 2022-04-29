@@ -9,9 +9,9 @@ module.exports = {
       // https://github.com/kentcdodds/babel-plugin-macros/issues/160
       // useESM: true,
     },
-    'babel-jest': {
-      babelrcFile: '<rootDir>/.babelrc',
-    },
+    // 'babel-jest': {
+    //   babelrcFile: '<rootDir>/.babelrc',
+    // },
   },
   // testEnvironment: 'node',
   // Used with ts-jest
