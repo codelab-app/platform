@@ -138,7 +138,7 @@ export class ImportAtomService extends Model({}) {
   ) {
     const atomService = getAtomService(this)
 
-    if (existing.api.id !== importedAtom._api.id) {
+    if (existing._api.id !== importedAtom._api.id) {
       // this shouldn't happen, but if it does the import won't be successful
       throw new Error("Something went wrong, atom api id's don't match")
     }

@@ -39,7 +39,7 @@ export class Atom
    */
   @computed
   get api() {
-    return this._api.current
+    return this._api.maybeCurrent
   }
 
   @modelAction

@@ -83,13 +83,14 @@ const handler: NextApiHandler = async (req, res) => {
       process.env.NODE_ENV !== 'development' ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
-      console.error(e)
+      // console.error(e)
     }
   }
 
   /**
    * Check for upsert only when user exists
    */
+  // TODO: should think of a way so we don't need to call this everytime
   if (session?.user) {
     const user = session.user as Auth0SessionUser
 

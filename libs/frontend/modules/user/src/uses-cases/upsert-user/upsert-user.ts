@@ -27,9 +27,9 @@ export const upsertUser = async (User: UserModel, user: Auth0SessionUser) => {
           ],
         })
 
-        console.log('Created', users)
+        // console.log('Created', users)
       } catch (e) {
-        console.error(e)
+        // console.error(e)
       }
     }
   }
