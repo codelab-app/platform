@@ -7,6 +7,7 @@ import {
   IUpdateOperationDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { connectId } from '@codelab/shared/data'
 import {
   _async,
   _await,
@@ -66,34 +67,34 @@ export class OperationService
   @transaction
   create = _async(function* (
     this: OperationService,
-    input: ICreateOperationDTO,
+    data: Array<ICreateOperationDTO>,
   ) {
-    const { name, config, runOnInit } = input
+    const input = data.map((operation) => ({
+      name: operation.name,
+      config: JSON.stringify(operation.config),
+      runOnIt: operation.runOnInit,
+      resource: connectId(operation.resource),
+    }))
 
     const {
       createOperations: { operations },
     } = yield* _await(
       operationApi.CreateOperations({
-        input: {
-          name,
-          runOnInit,
-          resource: { connect: { where: { node: { id: input.resource } } } },
-          config: JSON.stringify(config),
-        },
+        input,
       }),
     )
 
-    const operation = operations[0]
-
-    if (!operation) {
-      throw new Error('Atom was not created')
+    if (!operations.length) {
+      throw new Error('Operation was not created')
     }
 
-    const operationModel = Operation.hydrate(operation)
+    return operations.map((operation) => {
+      const operationModel = Operation.hydrate(operation)
 
-    this.operations.set(operationModel.id, operationModel)
+      this.operations.set(operationModel.id, operationModel)
 
-    return operationModel
+      return operationModel
+    })
   })
 
   @modelFlow

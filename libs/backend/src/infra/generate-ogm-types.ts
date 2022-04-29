@@ -11,10 +11,15 @@ export const generateOgmTypes = async () => {
     'src/infra/ogm-types.gen.ts',
   )
 
-  await generate({
+  const data = await generate({
     ogm: await getOgm(),
     outFile,
   })
+
+  /**
+   * Save to abstract folder as well for exporting just the interfaces
+   */
+  // fs.writeFileSync(outFile, JSON.stringify(data))
 
   // const results = await getEslint().lintFiles(outFile)
   // await ESLint.outputFixes(results)

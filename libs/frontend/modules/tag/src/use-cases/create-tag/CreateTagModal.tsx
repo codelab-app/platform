@@ -9,7 +9,7 @@ import { createTagSchema } from './createTagSchema'
 
 export const CreateTagModal = observer<WithServices<TAG_SERVICE>>(
   ({ tagService }) => {
-    const onSubmit = (input: ICreateTagDTO) => tagService.create({ ...input })
+    const onSubmit = (data: ICreateTagDTO) => tagService.create([data])
     // const options = tagService.getAll.map((tag) => ({
     //   label: tag.name,
     //   value: tag.id,

@@ -16,7 +16,6 @@ describe('User', () => {
         const email = r.body.email
 
         if (!email) {
-          console.error(email)
           throw new Error('Email is not valid!')
         }
 

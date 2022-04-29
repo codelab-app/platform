@@ -74,26 +74,35 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: ResourceService, input: ICreateResourceDTO) {
-    const { name, type, config } = input
+  create = _async(function* (
+    this: ResourceService,
+    data: Array<ICreateResourceDTO>,
+  ) {
+    const input = data.map((resource) => ({
+      type: resource.type,
+      name: resource.name,
+      config: JSON.stringify(resource.config),
+    }))
 
-    const { createResources } = yield* _await(
+    const {
+      createResources: { resources },
+    } = yield* _await(
       resourceApi.CreateResources({
-        input: { type, name, config: JSON.stringify(config) },
+        input,
       }),
     )
 
-    const resource = createResources.resources[0]
-
-    if (!resource) {
-      throw new Error('Atom was not created')
+    if (!resources.length) {
+      throw new Error('Resource was not created')
     }
 
-    const resourceModel = Resource.hydrate(resource)
+    return resources.map((resource) => {
+      const resourceModel = Resource.hydrate(resource)
 
-    this.resources.set(resourceModel.id, resourceModel)
+      this.resources.set(resourceModel.id, resourceModel)
 
-    return resourceModel
+      return resourceModel
+    })
   })
 
   @modelFlow

@@ -62,36 +62,44 @@ export class TagService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TagService, input: ICreateTagDTO) {
-    const connectParentWhere = input?.parentTagId && {
-      parent: {
-        connect: {
-          where: {
-            node: {
-              id: input.parentTagId,
-            },
-          },
+  create = _async(function* (this: TagService, data: Array<ICreateTagDTO>) {
+    const input = data.map((tag) => {
+      return {
+        name: tag.name,
+        parent: {
+          connect: tag.parentTagId
+            ? {
+                where: {
+                  node: {
+                    id: tag.parentTagId,
+                  },
+                },
+              }
+            : null,
         },
-      },
-    }
+      }
+    })
 
     const {
       createTags: { tags },
     } = yield* _await(
       tagApi.CreateTags({
-        input: {
-          name: input.name,
-          ...connectParentWhere,
-        },
+        input,
       }),
     )
 
-    const tag = tags[0]
-    const tagModel = Tag.hydrate(tag)
+    if (!tags.length) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('Tag was not created')
+    }
 
-    this._tags.set(tagModel.id, tagModel)
+    return tags.map((tag) => {
+      const tagModel = Tag.hydrate(tag)
 
-    return tagModel
+      this._tags.set(tagModel.id, tagModel)
+
+      return tagModel
+    })
   })
 
   @modelFlow

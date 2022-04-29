@@ -119,22 +119,21 @@ export class ElementService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: ElementService, input: ICreateElementDTO) {
-    const createInput: ElementCreateInput = makeCreateInput(input)
+  create = _async(function* (
+    this: ElementService,
+    data: Array<ICreateElementDTO>,
+  ) {
+    const input = data.map((element) => makeCreateInput(element))
 
     const {
-      createElements: {
-        elements: [createdElement],
-      },
-    } = yield* _await(elementApi.CreateElements({ input: createInput }))
+      createElements: { elements },
+    } = yield* _await(elementApi.CreateElements({ input }))
 
-    if (!createdElement) {
+    if (!elements.length) {
       throw new Error('No elements created')
     }
 
-    const [element] = this.elementTree.updateCache([createdElement])
-
-    return element
+    return this.elementTree.updateCache(elements)
   })
 
   element(id: string) {
@@ -404,12 +403,14 @@ export class ElementService
 
     // 2. Make an intermediate element with instance of the Component
     yield* _await(
-      this.create({
-        name: element.label,
-        instanceOfComponentId: element.component.id,
-        parentElementId: parentId,
-        order,
-      }),
+      this.create([
+        {
+          name: element.label,
+          instanceOfComponentId: element.component.id,
+          parentElementId: parentId,
+          order,
+        },
+      ]),
     )
   })
 

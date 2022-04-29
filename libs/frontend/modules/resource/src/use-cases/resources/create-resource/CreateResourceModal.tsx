@@ -11,8 +11,8 @@ export const CreateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     const closeModal = () => resourceService.createModal.close()
 
-    const onSubmit = (input: ICreateResourceDTO) =>
-      resourceService.create(input)
+    const onSubmit = (data: ICreateResourceDTO) =>
+      resourceService.create([data])
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating resource',
@@ -34,9 +34,7 @@ export const CreateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
           <AutoFields omitFields={['config']} />
 
           {/**
-           *
            *  GraphQL Resource Config Form
-           *
            */}
           <DisplayIfField<ICreateResourceDTO>
             condition={(c) => c.model.type === ResourceType.GraphQL}
@@ -47,9 +45,7 @@ export const CreateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
           </DisplayIfField>
 
           {/**
-           *
            *  Rest Resource Config Form
-           *
            */}
           <DisplayIfField<ICreateResourceDTO>
             condition={(c) => c.model.type === ResourceType.Rest}

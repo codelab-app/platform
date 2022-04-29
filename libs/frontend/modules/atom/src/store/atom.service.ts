@@ -1,4 +1,3 @@
-import { getTagService } from '@codelab/frontend/modules/tag'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -7,6 +6,7 @@ import {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -111,10 +111,17 @@ export class AtomService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
-    const tagService = getTagService(this)
+    // const tagService = getTagService(this)
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
-    return this.updateCache(atoms)
+    console.log(atoms)
+
+    return atoms.map((atom) => {
+      const atomModel = Atom.hydrate(atom)
+      this._atoms.set(atom.id, atomModel)
+
+      return atomModel
+    })
   })
 
   @modelFlow
@@ -131,46 +138,43 @@ export class AtomService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: AtomService, input: ICreateAtomDTO) {
-    const { owner } = input
-    const apiOwner = { connect: { where: { node: { auth0Id: owner } } } }
-
-    const apiNode = {
+  create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
+    const createApiNode = (atom: ICreateAtomDTO) => ({
       id: v4(),
-      name: `${input.name} API`,
-      owner: apiOwner,
+      name: `${atom.name} API`,
+      owner: connectOwner(atom.owner),
+    })
+
+    const connectTags = (atom: ICreateAtomDTO) => {
+      return atom.tags?.map((tag) => ({
+        where: { node: { id: tag } },
+      }))
     }
 
-    const tagsConnect = input.tags?.map((tag) => ({
-      where: { node: { id: tag } },
+    const input = data.map((atom) => ({
+      id: v4(),
+      name: atom.name,
+      type: atom.type,
+      tags: { connect: connectTags(atom) },
+      api: { create: { node: createApiNode(atom) } },
     }))
 
     const {
       createAtoms: { atoms },
-    } = yield* _await(
-      atomApi.CreateAtoms({
-        input: {
-          id: v4(),
-          name: input.name,
-          type: input.type,
-          tags: { connect: tagsConnect },
-          api: { create: { node: apiNode } },
-        },
-      }),
-    )
+    } = yield* _await(atomApi.CreateAtoms({ input }))
 
-    const atom = atoms[0]
-
-    if (!atom) {
+    if (!atoms.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Atom was not created')
     }
 
-    const atomModel = Atom.hydrate(atom)
+    return atoms.map((atom) => {
+      const atomModel = Atom.hydrate(atom)
 
-    this._atoms.set(atomModel.id, atomModel)
+      this._atoms.set(atomModel.id, atomModel)
 
-    return atomModel
+      return atomModel
+    })
   })
 
   @modelFlow

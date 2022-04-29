@@ -14,8 +14,8 @@ import { createAppSchema } from './createAppSchema'
 export const CreateAppModal = observer<
   WithServices<APP_SERVICE | USER_SERVICE>
 >(({ appService, userService }) => {
-  const onSubmit = (input: ICreateAppDTO) => {
-    return appService.create({ ...input })
+  const onSubmit = (data: ICreateAppDTO) => {
+    return appService.create([data])
   }
 
   const closeModal = () => appService.createModal.close()

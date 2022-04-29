@@ -6,6 +6,7 @@ import {
   ICreateAppDTO,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
+import { connectId, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -103,36 +104,36 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: AppService, input: ICreateAppDTO) {
+  create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
+    const input = data.map((app) => ({
+      name: app.name,
+      owner: connectOwner(app.auth0Id),
+      store: connectId(app.storeId),
+      rootProviderElement: {
+        create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME } },
+      },
+    }))
+
     const {
       createApps: { apps },
     } = yield* _await(
       appApi.CreateApps({
-        input: {
-          name: input.name,
-          owner: { connect: { where: { node: { auth0Id: input.auth0Id } } } },
-          store: input.storeId
-            ? { connect: { where: { node: { id: input.storeId } } } }
-            : undefined,
-          rootProviderElement: {
-            create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME } },
-          },
-        },
+        input,
       }),
     )
 
-    const app = apps[0]
-
-    if (!app) {
+    if (!apps.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('App was not created')
     }
 
-    const appModel = App.hydrate(app)
+    return apps.map((app) => {
+      const appModel = App.hydrate(app)
 
-    this.apps.set(appModel.id, appModel)
+      this.apps.set(appModel.id, appModel)
 
-    return appModel
+      return appModel
+    })
   })
 
   @modelFlow

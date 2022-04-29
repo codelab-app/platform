@@ -9957,6 +9957,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dotenv@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "@types/dotenv@npm:8.2.0"
+  dependencies:
+    dotenv: "*"
+  checksum: a1f524da7dc18b09bdb6c2613b9abbbe8ca575621cce4625efc7f98daf2ba07c7dbab622c9bb394507a12c5c515f9cbbbba4aeec17b801c88faeb8e8e656d460
+  languageName: node
+  linkType: hard
+
 "@types/enzyme@npm:3.10.11":
   version: 3.10.11
   resolution: "@types/enzyme@npm:3.10.11"
@@ -10280,7 +10289,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonwebtoken@npm:*, @types/jsonwebtoken@npm:^8.5.0":
+"@types/jsonwebtoken@npm:*, @types/jsonwebtoken@npm:^8.5.0, @types/jsonwebtoken@npm:^8.5.8":
   version: 8.5.8
   resolution: "@types/jsonwebtoken@npm:8.5.8"
   dependencies:
@@ -10295,6 +10304,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 740581b0d1e18f31ce9332e26702ae2704af86f0cb0bb914ee3554517e514e97392610525f9349ea8fe3742d0f816eb86d7ab864ddbd19cef55b2db4a43883a1
+  languageName: node
+  linkType: hard
+
+"@types/jwk-to-pem@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@types/jwk-to-pem@npm:2.0.1"
+  checksum: 4fb0e1918c55bd2b794b2a497c14fd898028ae0b9f21f73b4400167358f4767df898d032875ca3655ea4e49234480cf9d21524374913664007e4e9011b2f28e8
   languageName: node
   linkType: hard
 
@@ -12729,7 +12745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"asn1.js@npm:^5.2.0":
+"asn1.js@npm:^5.2.0, asn1.js@npm:^5.3.0":
   version: 5.4.1
   resolution: "asn1.js@npm:5.4.1"
   dependencies:
@@ -14903,6 +14919,7 @@ __metadata:
     "@types/d3": 7.1.0
     "@types/d3-force": 3.0.3
     "@types/d3-selection": 3.0.2
+    "@types/dotenv": ^8.2.0
     "@types/enzyme": 3.10.11
     "@types/express": 4.17.13
     "@types/findup-sync": 4.0.2
@@ -14915,6 +14932,8 @@ __metadata:
     "@types/js-cookie": 3.0.1
     "@types/js-yaml": 4.0.5
     "@types/json2csv": 5.0.3
+    "@types/jsonwebtoken": ^8.5.8
+    "@types/jwk-to-pem": 2.0.1
     "@types/jwt-decode": ^3.1.0
     "@types/lodash": 4.14.178
     "@types/method-override": 0.0.32
@@ -14974,8 +14993,8 @@ __metadata:
     d3-force: 3.0.0
     d3-selection: 3.0.0
     deepmerge: 4.2.2
-    dotenv: ^15.0.0
-    dotenv-webpack: 7.0.3
+    dotenv: ^16.0.0
+    dotenv-webpack: 7.1.0
     env-cmd: 10.1.0
     env-var: ^7.1.1
     enzyme: 3.11.0
@@ -15021,6 +15040,8 @@ __metadata:
     js-cookie: 3.0.1
     js-file-download: 0.4.12
     json-schema: 0.4.0
+    jsonwebtoken: ^8.5.1
+    jwk-to-pem: 2.0.5
     lint-staged: 12.1.7
     loader-utils: 3.2.0
     lodash: 4.17.21
@@ -17643,25 +17664,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-webpack@npm:7.0.3":
-  version: 7.0.3
-  resolution: "dotenv-webpack@npm:7.0.3"
+"dotenv-webpack@npm:7.1.0":
+  version: 7.1.0
+  resolution: "dotenv-webpack@npm:7.1.0"
   dependencies:
     dotenv-defaults: ^2.0.2
   peerDependencies:
     webpack: ^4 || ^5
-  checksum: d80dcbebe3b9e8f6251b3eb15647bb647bf358172ff21d2eaa4bb012afc9eaa7f4ba6c452f2dafd40afc96474e8c7ffbd21f0a2896eec244eff59a79e32c7716
+  checksum: e69f5b5de16f99a0acc35f2bc75e1dd40a587053cdb62ffb2fe80cea197ba703a829771f6db270a01e96ca8f52c8160671c243875a7b9c7c040bc32fc3d400f1
   languageName: node
   linkType: hard
 
-"dotenv@npm:^15.0.0":
-  version: 15.0.1
-  resolution: "dotenv@npm:15.0.1"
-  checksum: acebaa5b0bb23fdbbdc50827936bdf6782e935b73c6048e949df352515576ec9542455a93f58cc3eefd839e45c670fbfed250a1061eb72f536dab05745d1bf33
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.0.0":
+"dotenv@npm:*, dotenv@npm:^16.0.0":
   version: 16.0.0
   resolution: "dotenv@npm:16.0.0"
   checksum: 664cebb51f0a9a1d1b930f51f0271e72e26d62feaecc9dc03df39453dd494b4e724809ca480fb3ec3213382b1ed3f791aaeb83569a137f9329ce58efd4853dbf
@@ -17834,7 +17848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:^6.5.3":
+"elliptic@npm:^6.5.3, elliptic@npm:^6.5.4":
   version: 6.5.4
   resolution: "elliptic@npm:6.5.4"
   dependencies:
@@ -24445,6 +24459,17 @@ __metadata:
     ecdsa-sig-formatter: 1.0.11
     safe-buffer: ^5.0.1
   checksum: ff30ea7c2dcc61f3ed2098d868bf89d43701605090c5b21b5544b512843ec6fd9e028381a4dda466cbcdb885c2d1150f7c62e7168394ee07941b4098e1035e2f
+  languageName: node
+  linkType: hard
+
+"jwk-to-pem@npm:2.0.5":
+  version: 2.0.5
+  resolution: "jwk-to-pem@npm:2.0.5"
+  dependencies:
+    asn1.js: ^5.3.0
+    elliptic: ^6.5.4
+    safe-buffer: ^5.0.1
+  checksum: 14a8f518e9f81876a0f45233288fd1b611777d4d0fc317b8cd4b4e19602c305e537dc45d44476263667d950664a7ddf3c7a218a39b6b1f5e53e4ad53a44822ef
   languageName: node
   linkType: hard
 

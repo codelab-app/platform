@@ -13,7 +13,7 @@ export const CreatePageModal = observer<WithServices<PAGE_SERVICE>>(
     const currentAppId = useCurrentAppId()
     const isOpen = pageService.createModal.isOpen
     const model = { appId: currentAppId }
-    const onSubmit = (input: ICreatePageDTO) => pageService.create(input)
+    const onSubmit = (data: ICreatePageDTO) => pageService.create([data])
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating page',

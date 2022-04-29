@@ -7,7 +7,7 @@ import { IAtomType } from './atom-type.enum'
 export interface ICreateAtomDTO {
   name: string
   type: IAtomType
-  tags: Nullish<Array<ITagRef>>
+  tags?: Nullish<Array<ITagRef>>
   owner: IAuth0ID
 }
 

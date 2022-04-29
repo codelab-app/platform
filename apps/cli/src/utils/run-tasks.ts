@@ -1,4 +1,5 @@
 /* eslint-disable no-case-declarations */
+import concurrently from 'concurrently'
 import execa from 'execa'
 import { TaskEnv } from './env'
 import { Tasks } from './tasks'
@@ -25,7 +26,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand('npx nx affected:build --projects=web,cli -c=ci --verbose')
+        execCommand('npx nx affected:build -c=ci --verbose')
       }
 
       break
@@ -74,15 +75,57 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
     case Tasks.Int:
       if (env === TaskEnv.Test) {
-        execCommand(
-          `${NX_TEST} affected:test --testPathPattern="i.spec.ts" --parallel=1 --memoryLimit=8192 --runInBand`,
-        )
+        concurrently(
+          [
+            'npx env-cmd -f .env.test npx next start dist/apps/web-test --port 3001',
+            // 'nx serve web -c test',
+            `npx wait-on "http://127.0.0.1:3001" && \
+          ${NX_TEST} run-many \
+            --target=test \
+            --projects=web \
+            --testPathPattern="i.spec.ts" \
+            --parallel=1 \
+            --memoryLimit=8192 \
+            --runInBand`,
+          ],
+          {
+            killOthers: 'success',
+          },
+        ).commands.forEach((command) => {
+          /**
+           * Kill concurrently commands when parent process exits
+           */
+          process.on('exit', () => {
+            command.kill()
+          })
+        })
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(
-          `npx nx affected:test --testPathPattern="i.spec.ts" --parallel=1 --runInBand --verbose`,
-        )
+        concurrently(
+          [
+            'npx next start dist/apps/web --port 3000',
+            // 'nx serve web -c ci',
+            `npx wait-on "http://127.0.0.1:3001" && \
+          ${NX_TEST} run-many \
+            --target=test \
+            --projects=web \
+            --testPathPattern="i.spec.ts" \
+            --parallel=1 \
+            --memoryLimit=8192 \
+            --runInBand`,
+          ],
+          {
+            killOthers: 'success',
+          },
+        ).commands.forEach((command) => {
+          /**
+           * Kill concurrently commands when parent process exits
+           */
+          process.on('exit', () => {
+            command.kill()
+          })
+        })
       }
 
       break
@@ -94,7 +137,6 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
      */
     case Tasks.E2e:
       if (env === TaskEnv.Test) {
-        execCommand(`${NX_TEST} build web -c=test`)
         execCommand(`${NX_TEST} run web-e2e:e2e:test --verbose`)
       }
 

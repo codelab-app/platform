@@ -1,6 +1,5 @@
 module.exports = {
   displayName: 'cli',
-
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

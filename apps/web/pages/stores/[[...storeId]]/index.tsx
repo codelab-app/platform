@@ -153,7 +153,12 @@ StoresPage.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      MainPane={() => <StoreMainPane storeService={store.storeService} />}
+      MainPane={() => (
+        <StoreMainPane
+          storeService={store.storeService}
+          userService={store.userService}
+        />
+      )}
       SidebarNavigation={SidebarNavigation}
     >
       {page.children}

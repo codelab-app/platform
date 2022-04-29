@@ -48,7 +48,7 @@ export const useBuilderDnd = (
           ...(overData?.createElementInput ?? {}),
         }
 
-        const el = await elementService.create(createElementInput)
+        const [el] = await elementService.create([createElementInput])
         builderService.set_selectedElement(elementRef(el.id))
       }
     },

@@ -21,8 +21,8 @@ export const CreateOperationModal = observer<
   const { resource } = useCurrentResource(resourceService)
   const closeModal = () => operationService.createModal.close()
 
-  const onSubmit = (input: ICreateOperationDTO) =>
-    operationService.create(input)
+  const onSubmit = (data: ICreateOperationDTO) =>
+    operationService.create([data])
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating operation',

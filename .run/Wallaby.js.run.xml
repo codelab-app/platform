@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Wallaby.js" type="wallaby" factoryName="wallaby" configType="Configuration File" config="$PROJECT_DIR$/wallaby.js" wsl="No" SmartStart="Yes">
+    <method v="2" />
+  </configuration>
+</component>
