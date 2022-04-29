@@ -7,7 +7,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       babelConfig: '<rootDir>/.babelrc',
       // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-      // useESM: true,
+      useESM: true,
     },
     // 'babel-jest': {
     //   babelrcFile: '<rootDir>/.babelrc',
