@@ -127,7 +127,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         const startServer = `nx serve-test web -c ci`
-        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c test`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c ci`
 
         const runSpecsChildProcess = spawn(runSpecs, {
           stdio: ['ignore', 'inherit', 'ignore'],
