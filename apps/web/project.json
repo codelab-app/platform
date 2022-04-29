@@ -25,6 +25,33 @@
       },
       "defaultConfiguration": "production"
     },
+    "serve-test": {
+      "executor": "@nrwl/workspace:run-commands",
+      // "dependsOn": [
+      //   {
+      //     "target": "build",
+      //     "projects": "self"
+      //   }
+      // ],
+      "configurations": {
+        "test": {
+          "commands": [
+            {
+              "command": "npx next start dist/apps/web-test --port 3001",
+              "forwardAllArgs": false
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "npx next start dist/apps/web --port 3000",
+              "forwardAllArgs": false
+            }
+          ]
+        }
+      }
+    },
     "serve": {
       "executor": "@nrwl/next:server",
       "options": {
@@ -93,6 +120,12 @@
       "options": {
         "jestConfig": "apps/web/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "test": {
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
+        }
       },
       "outputs": ["coverage/apps/web"]
     },

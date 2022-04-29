@@ -1,10 +1,16 @@
 /* eslint-disable no-case-declarations */
-import concurrently from 'concurrently'
+import { spawn } from 'child_process'
 import execa from 'execa'
 import { TaskEnv } from './env'
 import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
+
+/**
+ * spawn vs exec - spawn returns a stream while exec returns the whole buffer
+ *
+ * spawn vs fork - fork shares same parent process
+ */
 
 export const execCommand = (command: string) => {
   try {
@@ -75,56 +81,72 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
     case Tasks.Int:
       if (env === TaskEnv.Test) {
-        concurrently(
-          [
-            'npx env-cmd -f .env.test npx next start dist/apps/web-test --port 3001',
-            // 'nx serve web -c test',
-            `npx wait-on "http://127.0.0.1:3001" && \
-          ${NX_TEST} run-many \
-            --target=test \
-            --projects=web \
-            --testPathPattern="i.spec.ts" \
-            --parallel=1 \
-            --memoryLimit=8192 \
-            --runInBand`,
-          ],
-          {
-            killOthers: 'success',
-          },
-        ).commands.forEach((command) => {
+        const startServer = `${NX_TEST} serve-test web -c test`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test web -c test`
+
+        const runSpecsChildProcess = spawn(runSpecs, {
+          stdio: 'inherit',
+          // Need shell to access yarn/npx etc
+          shell: true,
+          detached: true,
+        })
+
+        const startServerChildProcess = spawn(startServer, {
+          stdio: 'inherit',
           /**
-           * Kill concurrently commands when parent process exits
+           * The next.js server will spawn it's own set of child processes, setting detached to true means these sub processes won't be attached to the main process, but rather to a detached group.
+           *
+           * Issue prior was that shutting down this process didn't kill the sub processes
            */
-          process.on('exit', () => {
-            command.kill()
-          })
+          shell: true,
+          detached: true,
+        })
+
+        runSpecsChildProcess.on('exit', (code: number, signal) => {
+          // console.log('specs process exit!', code, signal)
+
+          /**
+           * SIGINT - requested by user
+           * SIGKILL - right away
+           *
+           * If a child process in Node.js spawn their own child processes, kill() method will not kill the child process’s own child processes.
+           */
+          if (startServerChildProcess.pid) {
+            // Please note - before pid. This converts a pid to a group of pids for process kill() method.
+            process.kill(-startServerChildProcess.pid, 'SIGINT')
+          }
+
+          process.exit(code)
+
+          // Child process will exit by itself
+          // if (runSpecsChildProcess.pid) {
+          //   process.kill(-runSpecsChildProcess.pid)
+          // }
         })
       }
 
       if (env === TaskEnv.Ci) {
-        concurrently(
-          [
-            'npx next start dist/apps/web --port 3000',
-            // 'nx serve web -c ci',
-            `npx wait-on "http://127.0.0.1:3001" && \
-          ${NX_TEST} run-many \
-            --target=test \
-            --projects=web \
-            --testPathPattern="i.spec.ts" \
-            --parallel=1 \
-            --memoryLimit=8192 \
-            --runInBand`,
-          ],
-          {
-            killOthers: 'success',
-          },
-        ).commands.forEach((command) => {
-          /**
-           * Kill concurrently commands when parent process exits
-           */
-          process.on('exit', () => {
-            command.kill()
-          })
+        const startServer = `nx serve-test web -c ci`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c test`
+
+        const runSpecsChildProcess = spawn(runSpecs, {
+          stdio: ['ignore', 'inherit', 'ignore'],
+          shell: true,
+          detached: true,
+        })
+
+        const startServerChildProcess = spawn(startServer, {
+          stdio: ['ignore', 'inherit', 'ignore'],
+          shell: true,
+          detached: true,
+        })
+
+        runSpecsChildProcess.on('exit', (code: number) => {
+          if (startServerChildProcess.pid) {
+            process.kill(-startServerChildProcess.pid, 'SIGINT')
+          }
+
+          process.exit(code)
         })
       }
 

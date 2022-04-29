@@ -61,7 +61,10 @@ describe('App', () => {
 
     client.setHeader('authorization', `Bearer ${auth0.access_token}`)
 
-    const atoms = reduce<Omit<ICreateAtomDTO, 'owner'>, Promise<Array<IAtom>>>(
+    const atoms = await reduce<
+      Omit<ICreateAtomDTO, 'owner'>,
+      Promise<Array<IAtom>>
+    >(
       createAtomsData,
       async (results, atom) => {
         const [createdAtom] = await atomService.create([
@@ -76,11 +79,14 @@ describe('App', () => {
       Promise.resolve([]),
     )
 
+    // console.log('atoms', atoms)
+
     // const atoms = await atomService.getAll()
 
     expect(atoms).toEqual(
       expect.arrayContaining(
         createAtomsData.map((atom) =>
+          // We want all those
           expect.objectContaining({
             name: atom.name,
             type: atom.type,
@@ -100,17 +106,22 @@ describe('App', () => {
     const exportedStringData = await adminService.exportData()
     const exportedData = JSON.parse(exportedStringData)
 
-    console.log(exportedData)
+    // cLog(exportedData)
 
-    expect(exportedData).toEqual({
+    /**
+     * https://www.emgoto.com/jest-partial-match/
+     */
+    expect(exportedData).toMatchObject({
+      // Use arrayContaining so order doesn't matter
       atoms: expect.arrayContaining(
         createAtomsData.map((atom) =>
           expect.objectContaining({
             name: atom.name,
             type: atom.type,
-            api: {
+            // This is required for nested
+            api: expect.objectContaining({
               name: `${atom.name} API`,
-            },
+            }),
           }),
         ),
       ),
