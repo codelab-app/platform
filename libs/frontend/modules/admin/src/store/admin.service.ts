@@ -3,6 +3,10 @@ import {
   getAtomImportServiceContext,
   getAtomService,
 } from '@codelab/frontend/modules/atom'
+import {
+  getImportTypeService,
+  getTypeService,
+} from '@codelab/frontend/modules/type'
 import { IAdminService } from '@codelab/shared/abstract/core'
 import {
   _async,
