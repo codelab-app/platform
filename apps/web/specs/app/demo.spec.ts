@@ -1,4 +1,4 @@
-import { createAtomsData } from '../../../../libs/shared/data/src'
+import { createAtomsData } from '@codelab/shared/data'
 
 describe('demo', () => {
   it('works', () => {

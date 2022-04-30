@@ -4,14 +4,14 @@ require('reflect-metadata')
 const { configure } = require('enzyme')
 const Adapter = require('enzyme-adapter-react-16')
 const { config } = require('dotenv')
+const fs = require('fs')
 const path = require('path')
 
-const envPath =
-  process.env.NODE_ENV === 'test'
-    ? path.resolve(__dirname, '../../.env.test')
-    : path.resolve(__dirname, '../../.env')
+const envPath = path.resolve(__dirname, '../../.env.test')
 
-// console.info(`Loading env from ${envPath}`)
+// Only load if test env & file exists
+if (process.env.NODE_ENV === 'test' && fs.existsSync(envPath)) {
+  config({ path: envPath })
+}
 
-config({ path: envPath })
 configure({ adapter: new Adapter() })

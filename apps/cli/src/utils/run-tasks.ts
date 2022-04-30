@@ -37,19 +37,6 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       break
 
-    case Tasks.Format:
-      // Format cypher files
-      // Get all `*.cypher` files as input
-
-      // const files = args?.split(',')
-      //
-      // files?.forEach((file) => {
-      //   const content = readFileSync(file, 'utf8')
-      //
-      // })
-
-      break
-
     case Tasks.Lint:
       if (env === TaskEnv.Test) {
         execCommand(`yarn cross-env TIMING=1 lint-staged --verbose`)
@@ -67,13 +54,13 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
     case Tasks.Unit:
       if (env === TaskEnv.Test) {
         execCommand(
-          `${NX_TEST} affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color`,
+          `${NX_TEST} affected:test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color --parallel=3`,
         )
       }
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `npx nx affected:test --testPathPattern="[^i].spec.ts" --verbose --color`,
+          `npx nx affected:test --testPathPattern="[^i].spec.ts" --verbose --color --parallel=3`,
         )
       }
 
@@ -127,16 +114,16 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         const startServer = `nx serve-test web -c ci`
-        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c ci`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c ci --verbose`
 
         const runSpecsChildProcess = spawn(runSpecs, {
-          stdio: ['ignore', 'inherit', 'ignore'],
+          stdio: 'inherit',
           shell: true,
           detached: true,
         })
 
         const startServerChildProcess = spawn(startServer, {
-          stdio: ['ignore', 'inherit', 'ignore'],
+          stdio: 'inherit',
           shell: true,
           detached: true,
         })

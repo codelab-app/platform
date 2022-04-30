@@ -25,19 +25,36 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve-test": {
+    "_build": {
       "executor": "@nrwl/workspace:run-commands",
-      // "dependsOn": [
-      //   {
-      //     "target": "build",
-      //     "projects": "self"
-      //   }
-      // ],
+      "options": {
+        "commands": ["nx build web"]
+      },
       "configurations": {
         "test": {
           "commands": [
             {
-              "command": "npx next start dist/apps/web-test --port 3001",
+              "command": "npx env-cmd -f .env.test nx build web -c test",
+              "forwardAllArgs": false
+            }
+          ]
+        }
+      }
+    },
+    "serve-test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test nx serve web -c test"
+            }
+          ]
+        },
+        "test": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3001",
               "forwardAllArgs": false
             }
           ]
@@ -123,6 +140,10 @@
       },
       "configurations": {
         "test": {
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
+        },
+        "ci": {
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         }

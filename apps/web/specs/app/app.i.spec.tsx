@@ -10,7 +10,7 @@ import { createAtomsData } from '@codelab/shared/data'
 import { reduce } from 'lodash'
 import { setup } from '../setup/setup'
 
-const appName = 'Codelab!!'
+const appName = 'Codelab'
 const pageName = 'Home'
 
 describe('App', () => {
@@ -20,6 +20,8 @@ describe('App', () => {
     const { rootStore, auth0Service } = data
     const { appService, pageService } = rootStore
     const auth0 = await auth0Service
+
+    console.log(auth0)
 
     client.setHeader('authorization', `Bearer ${auth0.access_token}`)
 

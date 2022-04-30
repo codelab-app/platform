@@ -1,17 +1,8 @@
-const dotenv = require('dotenv')
-const path = require('path')
-
 const nxPreset = require('@nrwl/jest/preset')
 
 const testTimeout = process.env.CI ? 30000 : 500000
 
 const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
-
-if (process.env.NODE_ENV === 'test') {
-  dotenv.config({
-    path: path.resolve(__dirname, './env.test'),
-  })
-}
 
 module.exports = {
   ...nxPreset,

@@ -15,7 +15,7 @@ export const upsertUser = async (User: UserModel, user: Auth0SessionUser) => {
     })
 
     if (existing) {
-      // console.log(`User with email ${user.email} already exists!`)
+      console.log(`User with email ${user.email} already exists!`)
     } else {
       try {
         const { users } = await User.create({
@@ -27,7 +27,7 @@ export const upsertUser = async (User: UserModel, user: Auth0SessionUser) => {
           ],
         })
 
-        // console.log('Created', users)
+        console.log('Created', users)
       } catch (e) {
         // console.error(e)
       }
