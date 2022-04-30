@@ -18,11 +18,10 @@ describe('App', () => {
 
   it('should create an app a page', async () => {
     const { rootStore, auth0Service } = data
-    const { appService, pageService } = rootStore
+    const { appService, pageService, userService } = rootStore
     const auth0 = await auth0Service
 
-    console.log(auth0)
-
+    userService.setUser(auth0)
     client.setHeader('authorization', `Bearer ${auth0.access_token}`)
 
     /**
@@ -30,13 +29,13 @@ describe('App', () => {
      */
     await upsertUser(await UserOGM(), {
       email: auth0.email,
-      sub: auth0.auth0_user_id,
+      sub: auth0.auth0Id,
     })
 
     const [app] = await appService.create([
       {
         name: appName,
-        auth0Id: auth0.auth0_user_id,
+        auth0Id: auth0.auth0Id,
       },
     ])
 
@@ -58,7 +57,7 @@ describe('App', () => {
 
   it('should create atoms', async () => {
     const { rootStore, auth0Service } = data
-    const { atomService } = rootStore
+    const { atomService, userService } = rootStore
     const auth0 = await auth0Service
 
     client.setHeader('authorization', `Bearer ${auth0.access_token}`)
@@ -72,7 +71,7 @@ describe('App', () => {
         const [createdAtom] = await atomService.create([
           {
             ...atom,
-            owner: auth0.auth0_user_id,
+            owner: auth0.auth0Id,
           },
         ])
 

@@ -41,6 +41,7 @@ export const setup = () => {
      * Setup root store
      */
     setupData.rootStore = createRootStore({})
+
     registerRootStore(setupData.rootStore)
 
     /**

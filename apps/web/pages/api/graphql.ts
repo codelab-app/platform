@@ -24,6 +24,8 @@ const startServer = neoSchema
     apolloServer = new ApolloServer({
       schema,
       context: ({ req }) => {
+        // console.log(req.headers)
+
         return {
           req,
         }

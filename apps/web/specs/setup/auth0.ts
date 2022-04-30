@@ -1,13 +1,16 @@
-import { IDTokenPayload } from '@codelab/shared/abstract/core'
+import {
+  IDTokenPayload,
+  IUserDTO,
+  JWT_CLAIMS,
+} from '@codelab/shared/abstract/core'
 import { Config } from '@codelab/shared/utils'
 import axios, { AxiosRequestConfig } from 'axios'
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import path from 'path'
 
-export interface Auth0FileData {
+export interface Auth0FileData extends IUserDTO {
   access_token: string
-  auth0_user_id: string
   email: string
 }
 
@@ -88,8 +91,10 @@ export const passwordRealmGrantType = async (): Promise<Auth0FileData> => {
 
     const auth0Data = {
       access_token: data.access_token,
-      auth0_user_id: user.sub,
+      id: user.sub,
+      auth0Id: user.sub,
       email: user.email,
+      roles: user[JWT_CLAIMS].roles,
     }
 
     fs.writeFileSync(auth0DataFilePath, JSON.stringify(auth0Data))

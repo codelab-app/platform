@@ -6,7 +6,7 @@ export const userSchema = gql`
     Admin
   }
 
-  type User @exclude(operations: [CREATE, UPDATE]) {
+  type User @exclude(operations: [UPDATE]) {
     id: ID! @id
     auth0Id: String! @unique
     email: String!
