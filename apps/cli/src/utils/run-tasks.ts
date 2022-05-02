@@ -100,7 +100,11 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
            */
           if (startServerChildProcess.pid) {
             // Please note - before pid. This converts a pid to a group of pids for process kill() method.
-            process.kill(-startServerChildProcess.pid, 'SIGINT')
+            try {
+              process.kill(-startServerChildProcess.pid, 'SIGINT')
+            } catch (e) {
+              //
+            }
           }
 
           process.exit(code)
@@ -130,7 +134,11 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
         runSpecsChildProcess.on('exit', (code: number) => {
           if (startServerChildProcess.pid) {
-            process.kill(-startServerChildProcess.pid, 'SIGINT')
+            try {
+              process.kill(-startServerChildProcess.pid, 'SIGINT')
+            } catch (e) {
+              //
+            }
           }
 
           process.exit(code)

@@ -1,5 +1,6 @@
 /// <reference types='jest'/>
 
+import { client } from '@codelab/frontend/model/infra/graphql'
 import { createRootStore, IRootStore } from '@codelab/frontend/model/infra/mobx'
 import { registerRootStore, unregisterRootStore } from 'mobx-keystone'
 import {
@@ -45,42 +46,17 @@ export const setup = () => {
     registerRootStore(setupData.rootStore)
 
     /**
-     * Clear data
+     * Get auth token and pass in header to call admin service
      */
-    setupData.rootStore.adminService.resetData()
+    return setupData.auth0Service.then(({ access_token }) => {
+      client.setHeader('authorization', `Bearer ${access_token}`)
 
-    /**
-     * Create user
-     */
-
-    /**
-     * Use token to call a M2M endpoint to test it's validity
-     * @deprecated
-     */
-    // setupData.auth0Service = fetchAuth0User(auth0Data.access_token)
-    //   /**
-    //    * If token works then continue
-    //    */
-    //   .then<Auth0FileData>((res) => {
-    //     console.log('Using cached Auth0 data...')
-    //
-    //     return {
-    //       access_token: auth0Data.access_token,
-    //       auth0_user_id: res.user_id,
-    //       email: res.email,
-    //     }
-    //   })
-    //   /**
-    //    * If token doesn't work, then we re-fetch a new token and save it
-    //    */
-    //   .catch<Auth0FileData>((err) => {
-    //     console.error(err.response.data)
-    //
-    //     return fetchAndCacheAuth0Data()
-    //   })
+      /**
+       * Clear data
+       */
+      return setupData.rootStore.adminService.resetData()
+    })
   })
-
-  // beforeEach(() => {})
 
   afterAll(() => {
     unregisterRootStore(setupData.rootStore)

@@ -3,7 +3,6 @@
  * @jest-environment node
  */
 import { UserOGM } from '@codelab/backend'
-import { client } from '@codelab/frontend/model/infra/graphql'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { IAtom, ICreateAtomDTO } from '@codelab/shared/abstract/core'
 import { createAtomsData } from '@codelab/shared/data'
@@ -20,9 +19,6 @@ describe('App', () => {
     const { rootStore, auth0Service } = data
     const { appService, pageService, userService } = rootStore
     const auth0 = await auth0Service
-
-    userService.setUser(auth0)
-    client.setHeader('authorization', `Bearer ${auth0.access_token}`)
 
     /**
      * Need to call promise here
@@ -57,10 +53,8 @@ describe('App', () => {
 
   it('should create atoms', async () => {
     const { rootStore, auth0Service } = data
-    const { atomService, userService } = rootStore
+    const { atomService } = rootStore
     const auth0 = await auth0Service
-
-    client.setHeader('authorization', `Bearer ${auth0.access_token}`)
 
     const atoms = await reduce<
       Omit<ICreateAtomDTO, 'owner'>,
@@ -98,12 +92,8 @@ describe('App', () => {
   })
 
   it('should export atoms data', async () => {
-    const { rootStore, auth0Service } = data
+    const { rootStore } = data
     const { adminService } = rootStore
-    const auth0 = await auth0Service
-
-    client.setHeader('authorization', `Bearer ${auth0.access_token}`)
-
     const exportedStringData = await adminService.exportData()
     const exportedData = JSON.parse(exportedStringData)
 

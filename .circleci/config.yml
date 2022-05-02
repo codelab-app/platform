@@ -134,6 +134,7 @@ jobs:
           # clear cache here because this never gets cleared, rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
+            rm -rf ~/project/node_modules/@storybook
             npx jest --clearCache
           # npx cypress cache path
       - run:
@@ -186,6 +187,10 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run:
+          command: |
+            ls ~/projects/apps/web/specs/setup
+            cat ~/projects/apps/web/specs/setup/auth0-token.json
       - run: yarn cli tasks int --env ci
       - notify-failure
 
