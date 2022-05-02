@@ -323,7 +323,7 @@ export const setInputValue =
   ($el: JQuery) => {
     if (value) {
       on($el).type(
-        append ? value : `{selectall}${value.replace('{', '{{}')}`,
+        append ? value : `{selectall}${value.replace(/{/g, '{{}')}`,
         options,
       )
     } else {

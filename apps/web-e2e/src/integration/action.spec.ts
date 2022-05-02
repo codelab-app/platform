@@ -19,7 +19,7 @@ describe('Action CRUD', () => {
   describe('create', () => {
     it('should be able to create action', () => {
       // check that we don't have action with test-name
-      cy.findAllByText(actionBody, { exact: true, timeout: 0 }).should(
+      cy.findAllByText(actionName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
 
@@ -38,7 +38,7 @@ describe('Action CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(actionBody).should('exist')
+      cy.findByText(actionName).should('exist')
     })
   })
 

@@ -14,8 +14,9 @@ export const CreateOperationButton = observer<WithServices<OPERATION_SERVICE>>(
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
       onClick={() => operationService.createModal.open()}
-      size="small"
       type="primary"
-    />
+    >
+      Create Operation
+    </Button>
   ),
 )
