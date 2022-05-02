@@ -37,7 +37,7 @@ export class ImportAtomService extends Model({}) {
     const atoms: Array<Atom> = yield* _await(atomService.getAll({ id_IN: ids }))
     const atomSnapshots = this.makeAtomsExportPayload(atoms)
     const typeImportService = getImportTypeService(this)
-    const apiIds = atomSnapshots.map((atom) => atom.api.id)
+    const apiIds = atomSnapshots.map((atom) => atom._api.id)
 
     const typesSnapshots = yield* _await(
       typeImportService.exportTypesPayload(apiIds),
@@ -119,7 +119,7 @@ export class ImportAtomService extends Model({}) {
       name: importedAtom.name,
       type: importedAtom.type,
       tags: { connect: tagsConnect },
-      api: { connect: { where: { node: { id: importedAtom.api.id } } } },
+      api: { connect: { where: { node: { id: importedAtom._api.id } } } },
     }
 
     const {
@@ -138,7 +138,7 @@ export class ImportAtomService extends Model({}) {
   ) {
     const atomService = getAtomService(this)
 
-    if (existing.api.id !== importedAtom.api.id) {
+    if (existing._api.id !== importedAtom._api.id) {
       // this shouldn't happen, but if it does the import won't be successful
       throw new Error("Something went wrong, atom api id's don't match")
     }

@@ -24,9 +24,13 @@ export interface IFieldModalProperties {
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+  extends Omit<
+      ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
+      'create'
+    >,
     IQueryService<IAnyType, TypeBaseWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
+  create(type: ICreateTypeDTO): Promise<IAnyType>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   type(id: string): Maybe<IAnyType>
   typesList: Array<IAnyType>

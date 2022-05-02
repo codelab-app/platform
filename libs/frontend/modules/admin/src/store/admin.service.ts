@@ -11,6 +11,7 @@ import { IAdminService } from '@codelab/shared/abstract/core'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelFlow,
@@ -31,18 +32,32 @@ export class AdminService extends Model({}) implements IAdminService {
   @modelFlow
   @transaction
   exportData = _async(function* (this: AdminService) {
-    const atomService = getAtomService(this)
-    const atomImportService = getAtomImportServiceContext(this)
     const typeImportService = getImportTypeService(this)
     const typeService = getTypeService(this)
-    const allAtoms = yield* _await(atomService.getAll())
-    const atomSnapshots = atomImportService.makeAtomsExportPayload(allAtoms)
-    const allTypes = yield* _await(typeService.getAll())
-    const typesSnapshots = typeImportService.makeTypesExportPayload(allTypes)
+    // Get atoms
+    const atomService = getAtomService(this)
+
+    // Get all types to hydrate the types first, so atom reference returns the full data
+    const types = yield* _await(
+      typeService.getAll({
+        // id_IN: atoms.map((atom) => atom.api.id),
+      }),
+    )
+
+    const atoms = yield* _await(atomService.getAll())
+
+    // const atomImportService = getAtomImportServiceContext(this)
+    // const allAtoms = yield* _await(atomService.getAll())
+    // const atomSnapshots = atomImportService.makeAtomsExportPayload(allAtoms)
+    // const allTypes = yield* _await(typeService.getAll())
+    // const typesSnapshots = typeImportService.makeTypesExportPayload(allTypes)
 
     const payloadData: AtomExportPayload = {
-      atoms: atomSnapshots,
-      types: typesSnapshots,
+      atoms: atoms.map((atom) => ({
+        ...getSnapshot(atom),
+        api: getSnapshot(atom.api),
+      })),
+      types: types.map((type) => getSnapshot(type)),
     }
 
     return JSON.stringify(payloadData)

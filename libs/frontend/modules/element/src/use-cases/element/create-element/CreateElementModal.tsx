@@ -16,8 +16,7 @@ import { createElementSchema } from './createElementSchema'
 
 export const CreateElementModal = observer<WithServices<ELEMENT_SERVICE>>(
   ({ elementService }) => {
-    const onSubmit = (submitData: ICreateElementDTO) =>
-      elementService.create(submitData)
+    const onSubmit = (data: ICreateElementDTO) => elementService.create([data])
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating element',

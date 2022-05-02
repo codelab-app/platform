@@ -1,0 +1,15 @@
+{
+  "root": "libs/shared/data",
+  "sourceRoot": "libs/shared/data/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/data/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

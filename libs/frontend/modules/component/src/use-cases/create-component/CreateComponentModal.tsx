@@ -16,8 +16,8 @@ export const CreateComponentModal = observer<
 >(({ componentService, userService }) => {
   const user = userService.user
 
-  const handleSubmit = (input: ICreateComponentDTO) => {
-    return componentService.create(input)
+  const handleSubmit = (data: ICreateComponentDTO) => {
+    return componentService.create([data])
   }
 
   const closeModal = () => componentService.createModal.close()

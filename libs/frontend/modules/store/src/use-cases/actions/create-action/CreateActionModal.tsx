@@ -18,14 +18,8 @@ export const CreateActionModal = observer<
   const { store } = useCurrentStore(storeService)
   const closeModal = () => actionService.createModal.close()
 
-  const onSubmit = (input: ICreateActionDTO) => {
-    const storeId = store?.id
-
-    if (!storeId) {
-      throw new Error('Missing storeId')
-    }
-
-    return actionService.create({ ...input, storeId: store?.id })
+  const onSubmit = (data: ICreateActionDTO) => {
+    return actionService.create([data])
   }
 
   const onSubmitError = createNotificationHandler({
@@ -39,7 +33,9 @@ export const CreateActionModal = observer<
       visible={actionService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{}}
+        model={{
+          storeId: store?.id,
+        }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}

@@ -5,6 +5,8 @@ import {
   getSchema,
   UserOGM,
 } from '@codelab/backend'
+import { upsertUser } from '@codelab/frontend/modules/user'
+import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { ApolloServer } from 'apollo-server-micro'
 import { get } from 'env-var'
 import { NextApiHandler } from 'next'
@@ -21,9 +23,13 @@ const startServer = neoSchema
   .then((schema) => {
     apolloServer = new ApolloServer({
       schema,
-      context: ({ req }) => ({
-        req,
-      }),
+      context: ({ req }) => {
+        // console.log(req.headers)
+
+        return {
+          req,
+        }
+      },
       formatError: (err) => {
         console.error(util.inspect(err, false, null, true))
 
@@ -31,7 +37,7 @@ const startServer = neoSchema
         // be manipulated in other ways, as long as it's returned.
         return err
       },
-      // introspection: true,
+      introspection: true,
       // plugins: [ApolloServerPluginInlineTrace()],
     })
   })
@@ -80,43 +86,18 @@ const handler: NextApiHandler = async (req, res) => {
       process.env.NODE_ENV !== 'development' ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
-      console.error(e)
+      // console.error(e)
     }
   }
 
   /**
    * Check for upsert only when user exists
    */
+  // TODO: should think of a way so we don't need to call this everytime
   if (session?.user) {
-    const user = session.user
-    const User = await UserOGM()
+    const user = session.user as Auth0SessionUser
 
-    const [existing] = await User.find({
-      where: {
-        auth0Id: user.sub,
-      },
-    })
-
-    if (existing) {
-      // console.log(`User with email ${user.email} already exists!`)
-    } else {
-      try {
-        const { users } = await (
-          await UserOGM()
-        ).create({
-          input: [
-            {
-              auth0Id: user.sub,
-              email: user.email,
-            },
-          ],
-        })
-
-        console.log('Created', users)
-      } catch (e) {
-        console.error(e)
-      }
-    }
+    await upsertUser(await UserOGM(), user)
   }
 
   /**

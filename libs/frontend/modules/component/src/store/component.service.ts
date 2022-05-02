@@ -77,30 +77,30 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    input: ICreateComponentDTO,
+    data: Array<ICreateComponentDTO>,
   ) {
-    const createComponentInput = mapCreateInput(input)
+    const input = data.map((component) => mapCreateInput(component))
 
     const {
       createComponents: { components },
     } = yield* _await(
       componentApi.CreateComponents({
-        input: createComponentInput,
+        input,
       }),
     )
 
-    const component = components[0]
-
-    if (!component) {
+    if (!components.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Component was not created')
     }
 
-    const componentModel = Component.hydrate(component)
+    return components.map((component) => {
+      const componentModel = Component.hydrate(component)
 
-    this._components.set(componentModel.id, componentModel)
+      this._components.set(componentModel.id, componentModel)
 
-    return componentModel
+      return componentModel
+    })
   })
 
   @modelFlow

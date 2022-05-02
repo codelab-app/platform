@@ -1,19 +1,10 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { updatedAppName, updatedPageName } from './app.data'
-
-const atoms = [
-  { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
-  { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
-  { name: IAtomType.AntDesignButton, type: IAtomType.AntDesignButton },
-  {
-    name: IAtomType.AntDesignTypographyText,
-    type: IAtomType.AntDesignTypographyText,
-  },
-]
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -59,22 +50,24 @@ const updatedElementName = 'Container updated'
 describe('Elements CRUD', () => {
   before(() => {
     cy.getCurrentUserId().then((userId) => {
-      const atomsInput: Array<AtomCreateInput> = atoms.map((atom) => ({
-        id: v4(),
-        name: atom.name,
-        type: atom.type,
-        api: {
-          create: {
-            node: {
-              id: v4(),
-              name: `${atom.name} API`,
-              owner: userId
-                ? { connect: { where: { node: { auth0Id: userId } } } }
-                : undefined,
+      const atomsInput: Array<AtomCreateInput> = createAtomsData.map(
+        (atom) => ({
+          id: v4(),
+          name: atom.name,
+          type: atom.type,
+          api: {
+            create: {
+              node: {
+                id: v4(),
+                name: `${atom.name} API`,
+                owner: userId
+                  ? { connect: { where: { node: { auth0Id: userId } } } }
+                  : undefined,
+              },
             },
           },
-        },
-      }))
+        }),
+      )
 
       cy.createAtom(atomsInput).then(() => {
         // cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)

@@ -26,17 +26,17 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "unused-imports/no-unused-imports-ts": "error",
-        // "prefer-destructuring": [
-        //   "error",
-        //   {
-        //     "array": true,
-        //     "object": true
-        //   },
-        //   {
-        //     "enforceForRenamedProperties": false
-        //   }
-        // ],
+        //        "unused-imports/no-unused-imports-ts": "error",
+        //        "prefer-destructuring": [
+        //          "error",
+        //          {
+        //            "array": true,
+        //            "object": true
+        //          },
+        //          {
+        //            "enforceForRenamedProperties": false
+        //          }
+        //        ],
         "react/jsx-sort-props": "error",
         "react/jsx-props-no-spreading": [
           "error",

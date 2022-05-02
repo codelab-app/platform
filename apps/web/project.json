@@ -25,6 +25,50 @@
       },
       "defaultConfiguration": "production"
     },
+    "_build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["nx build web"]
+      },
+      "configurations": {
+        "test": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test nx build web -c test",
+              "forwardAllArgs": false
+            }
+          ]
+        }
+      }
+    },
+    "serve-test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test nx serve web -c test"
+            }
+          ]
+        },
+        "test": {
+          "commands": [
+            {
+              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3001",
+              "forwardAllArgs": false
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "npx next start dist/apps/web --port 3000",
+              "forwardAllArgs": false
+            }
+          ]
+        }
+      }
+    },
     "serve": {
       "executor": "@nrwl/next:server",
       "options": {
@@ -93,6 +137,16 @@
       "options": {
         "jestConfig": "apps/web/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "test": {
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
+        },
+        "ci": {
+          "testPathPattern": ["i.spec.ts"],
+          "runInBand": true
+        }
       },
       "outputs": ["coverage/apps/web"]
     },

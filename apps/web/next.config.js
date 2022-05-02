@@ -33,6 +33,7 @@ const withRawCypherFiles = (nextConfig = {}) => {
  */
 module.exports = withPlugins(
   [
+    withNx,
     withRawCypherFiles,
     withBundleAnalyzer,
     [

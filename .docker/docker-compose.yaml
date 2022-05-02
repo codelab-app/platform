@@ -36,7 +36,7 @@ services:
 
   neo4j-test:
     container_name: codelab-neo4j-test
-    image: neo4j:4.4.3
+    image: neo4j:4.4.6
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins

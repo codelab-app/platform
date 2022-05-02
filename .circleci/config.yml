@@ -38,7 +38,7 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.2
   node: circleci/node@4.7.0
-  nx: nrwl/nx@1.1.3
+  nx: nrwl/nx@1.4.0
 
 executors:
   machine-ubuntu:
@@ -111,8 +111,7 @@ commands:
           name: 'Restore Yarn cache'
           keys:
             - dep-cache-staging-{{ checksum "yarn.lock" }}
-            # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            # - dep-cache-staging-
+          # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
       - run:
           name: 'Install NPM packages'
           command: yarn install --immutable
@@ -135,8 +134,9 @@ jobs:
           # clear cache here because this never gets cleared, rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
-          # npx jest --clearCache
-          # npx cypress cache path
+            rm -rf ~/project/node_modules/@storybook
+      #            npx jest --clearCache
+      #            npx cypress cache path
       - run:
           name: 'Build CI'
           command: npx nx run-many --target=build --projects=web,cli --configuration=ci --verbose
@@ -187,6 +187,10 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      #      - run:
+      #          command: |
+      #            ls ~/projects/apps/web/specs/setup
+      #            cat ~/projects/apps/web/specs/setup/auth0-token.json
       - run: yarn cli tasks int --env ci
       - notify-failure
 
@@ -314,6 +318,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
+            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-pr

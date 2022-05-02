@@ -1,5 +1,5 @@
 import { OGM } from '@neo4j/graphql-ogm'
-import { typeDefs } from '../schema/typeDefs'
+import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 import { ModelMap } from './ogm-types.gen'
 

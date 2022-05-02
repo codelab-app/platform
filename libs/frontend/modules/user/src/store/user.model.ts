@@ -28,14 +28,14 @@ export class User
   updateCache(data: IUserDTO) {
     this.id = data.id
     this.auth0Id = data.auth0Id
-    this.roles = data.roles
+    this.roles = data.roles ?? []
   }
 
   static hydrate(user: IUserDTO) {
     return new User({
       id: user.id,
       auth0Id: user.auth0Id,
-      roles: user.roles,
+      roles: user.roles ?? [],
     })
   }
 }

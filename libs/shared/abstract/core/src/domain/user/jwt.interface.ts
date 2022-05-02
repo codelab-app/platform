@@ -7,7 +7,12 @@ export interface CodelabApiClaims {
 
 export const JWT_CLAIMS = 'https://api.codelab.ai/jwt/claims'
 
-export interface JwtPayload {
+/**
+ * Access tokens are what the OAuth client uses to make requests to an API
+ *
+ * Not intended to carry user info, used for authorization
+ */
+export interface AccessTokenPayload {
   /**
    * These are set programmatically inside Auth0 rules
    */
@@ -28,4 +33,29 @@ export interface JwtPayload {
   scope?: string
   /** Grand type */
   gty?: string
+}
+
+/**
+ * Confirm that the user is authenticated and carries user info
+ *
+ * An ID token contains information about what happened when a user authenticated, and is intended to be read by the OAuth client
+ */
+export interface IDTokenPayload {
+  [JWT_CLAIMS]: CodelabApiClaims
+  nickname: string
+  name: string
+  picture: string
+  updated_at: string
+  email: string
+  email_verified: false
+  iss: string
+  sub: string
+  aud: string
+  iat: number
+  exp: number
+}
+
+export interface Auth0SessionUser {
+  sub: string
+  email: string
 }

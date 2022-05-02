@@ -111,34 +111,33 @@ export class PageService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: PageService,
-    { name, appId }: ICreatePageDTO,
-  ) {
+  create = _async(function* (this: PageService, data: Array<ICreatePageDTO>) {
+    const input = data.map((page) => ({
+      name: page.name,
+      app: { connect: { where: { node: { id: page.appId } } } },
+      rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
+    }))
+
     const {
       createPages: { pages },
     } = yield* _await(
       pageApi.CreatePages({
-        input: {
-          name,
-          app: { connect: { where: { node: { id: appId } } } },
-          rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
-        },
+        input,
       }),
     )
 
-    const page = pages[0]
-
-    if (!page) {
+    if (!pages.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Page was not created')
     }
 
-    const pageModel = Page.hydrate(page)
+    return pages.map((page) => {
+      const pageModel = Page.hydrate(page)
 
-    this.pages.set(pageModel.id, pageModel)
+      this.pages.set(pageModel.id, pageModel)
 
-    return pageModel
+      return pageModel
+    })
   })
 
   @modelFlow

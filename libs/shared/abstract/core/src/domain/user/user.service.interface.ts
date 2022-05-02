@@ -1,9 +1,9 @@
 import { Nullable } from '@codelab/shared/abstract/types'
-import { ObjectMap, Ref } from 'mobx-keystone'
+import { IUserDTO } from './user.dto'
 import { IUser } from './user.interface'
 
 export interface IUserService {
-  users: ObjectMap<IUser>
-  authenticatedUser: Nullable<Ref<IUser>>
-  user?: IUser
+  // users: ObjectMap<IUser>
+  user: Nullable<IUser>
+  setUser(user: IUserDTO): void
 }

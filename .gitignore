@@ -5,6 +5,8 @@
 !.env.example
 nx-cloud.env
 
+*.pem
+
 #
 .yarn/*
 #!.yarn/cache

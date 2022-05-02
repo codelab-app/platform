@@ -118,31 +118,36 @@ export class ActionService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: ActionService, input: ICreateActionDTO) {
-    const { storeId } = input
+  create = _async(function* (
+    this: ActionService,
+    data: Array<ICreateActionDTO>,
+  ) {
+    const input = data.map((action) => ({
+      name: action.name,
+      body: action.body,
+      store: { connect: { where: { node: { id: action.storeId } } } },
+    }))
 
-    const { createActions } = yield* _await(
+    const {
+      createActions: { actions },
+    } = yield* _await(
       actionApi.CreateActions({
-        input: {
-          name: input.name,
-          body: input.body,
-          store: { connect: { where: { node: { id: storeId } } } },
-        },
+        input,
       }),
     )
 
-    const action = createActions.actions[0]
-
-    if (!action) {
+    if (!actions.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Action was not created')
     }
 
-    const actionModel = Action.hydrate(action)
+    return actions.map((action) => {
+      const actionModel = Action.hydrate(action)
 
-    this.actions.set(action.id, actionModel)
+      this.actions.set(action.id, actionModel)
 
-    return actionModel
+      return actionModel
+    })
   })
 
   @modelFlow

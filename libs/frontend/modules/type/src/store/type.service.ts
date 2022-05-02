@@ -190,8 +190,6 @@ export class TypeService
   @transaction
   create = _async(function* (this: TypeService, type: ICreateTypeDTO) {
     const typeInput = createTypeInputFactory(type)
-    console.log(typeInput)
-
     const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
 
     if (!type) {

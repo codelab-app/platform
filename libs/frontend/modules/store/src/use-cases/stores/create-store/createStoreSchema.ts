@@ -1,5 +1,6 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
 import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 
 export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
@@ -8,7 +9,8 @@ export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
   properties: {
     auth0Id: {
       type: 'string',
-      format: 'hidden',
+      disabled: true,
+      ...showFieldOnDev(),
     },
     name: {
       type: 'string',

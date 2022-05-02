@@ -1,6 +1,7 @@
 import { tagRef } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import { IAtom, IAtomDTO, IAtomType, ITag } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import {
   detach,
   idProp,
@@ -17,7 +18,7 @@ const hydrate = (atom: IAtomDTO) => {
     id: atom.id,
     name: atom.name,
     type: atom.type,
-    api: typeRef(atom.api.id) as Ref<InterfaceType>,
+    _api: typeRef(atom.api.id) as Ref<InterfaceType>,
     tags: atom.tags.map((tag) => tagRef(tag.id)),
   })
 }
@@ -29,15 +30,23 @@ export class Atom
     name: prop<string>(),
     type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(),
-    api: prop<Ref<InterfaceType>>(),
+    _api: prop<Ref<InterfaceType>>(),
   })
   implements IAtom
 {
+  /**
+   * Used by typeRef to resolve type
+   */
+  @computed
+  get api() {
+    return this._api.maybeCurrent
+  }
+
   @modelAction
   updateCache(atom: IAtomDTO) {
     this.name = atom.name
     this.type = atom.type
-    this.api = typeRef(atom.api.id) as Ref<InterfaceType>
+    this._api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
   }
 

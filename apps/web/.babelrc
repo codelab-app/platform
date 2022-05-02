@@ -1,6 +1,14 @@
 {
   "presets": [
-    "@nrwl/next/babel",
+    [
+      "@nrwl/next/babel",
+      {
+        "preset-react": {
+          "runtime": "automatic",
+          "importSource": "@emotion/react"
+        }
+      }
+    ],
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop",
     [
@@ -27,6 +35,7 @@
       {
         "loose": true
       }
-    ]
+    ],
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
   ]
 }

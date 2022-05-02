@@ -3,9 +3,11 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node"],
+    "types": ["@fancyapps/ui", "jest", "node"],
     "jsx": "react",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": false,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

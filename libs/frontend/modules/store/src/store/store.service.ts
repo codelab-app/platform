@@ -131,31 +131,25 @@ export class StoreService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, input: ICreateStoreDTO) {
-    const { auth0Id } = input
-
-    if (!auth0Id) {
-      throw new Error('No owner id not provided')
-    }
+  create = _async(function* (this: StoreService, data: Array<ICreateStoreDTO>) {
+    const input = data.map((store) => makeStoreCreateInput(store))
 
     const {
-      createStores: {
-        stores: [createdStore],
-      },
-    } = yield* _await(
-      storeApi.CreateStores({ input: makeStoreCreateInput(input, auth0Id) }),
-    )
+      createStores: { stores },
+    } = yield* _await(storeApi.CreateStores({ input }))
 
-    if (!createdStore) {
+    if (!stores.length) {
       throw new Error('No stores created')
     }
 
-    const store = Store.hydrate(createdStore)
+    return stores.map((store) => {
+      const storeModel = Store.hydrate(store)
 
-    this.addStore(store)
-    this.attachToParent(store)
+      this.addStore(storeModel)
+      this.attachToParent(storeModel)
 
-    return store
+      return storeModel
+    })
   })
 
   @modelAction

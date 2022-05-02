@@ -19,7 +19,7 @@ export const GetAtomsTable = observer<WithServices<ATOM_SERVICE>>(
     const atomsData: Array<AtomRecord> = atomsList.map((a) => ({
       id: a.id,
       type: a.type,
-      apiId: a.api.id,
+      apiId: a._api.id,
       name: a.name,
       tags: a.tags.map((tag) => tag.current),
     }))

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
+
 module.exports = {
   globals: {
     'ts-jest': {
@@ -7,9 +10,20 @@ module.exports = {
       useESM: true,
     },
   },
+  // testEnvironment: 'node',
+  // Used with ts-jest
+  // transformIgnorePatterns: [".+\\.(cypher|cyp)$'"],
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/next/babel'] }],
+    // '^.+\\.[tj]sx?$': 'ts-jest',
+    // Stub doesn't work with ts-jest
+    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
+      'jest-transform-stub',
+    // '.+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
+    //   '<rootDir>/specs/__mocks__/fileTransform.js',
   },
+  moduleNameMapper: {},
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/apps/web',
   displayName: 'web',
