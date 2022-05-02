@@ -1,3 +1,4 @@
+import { Form } from 'antd'
 import React, { Ref } from 'react'
 import { connectField, HTMLFieldProps } from 'uniforms'
 import { MonacoEditor, MonacoEditorProps } from '../../editors/monaco'
@@ -14,15 +15,14 @@ export const monacoFieldFactory = (
   connectField<MonacoFieldProps>(
     (props) => {
       return (
-        <>
-          <p>{props.label ?? ''}</p>
+        <Form.Item label={props.label ?? ''}>
           <MonacoEditor
             onChange={props.onChange as any}
             value={props.value as string}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...monacoProps}
           />
-        </>
+        </Form.Item>
       )
     },
     {

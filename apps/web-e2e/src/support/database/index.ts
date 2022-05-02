@@ -6,6 +6,7 @@ import { createComponent } from './component'
 import { createElement, updateElement } from './element'
 import { createField } from './field'
 import { createPage, getPages } from './page'
+import { createStore } from './store'
 import { createType } from './type'
 import { getCurrentUserId } from './user'
 
@@ -38,6 +39,9 @@ export interface CypressDatabaseCommands {
 
   /** user model */
   getCurrentUserId: typeof getCurrentUserId
+
+  /** store model */
+  createStore: typeof createStore
 }
 
 export const databaseCommands: Array<CypressCommand> = [
@@ -54,4 +58,5 @@ export const databaseCommands: Array<CypressCommand> = [
   { name: 'createField', fn: createField },
   { name: 'createType', fn: createType },
   { name: 'getCurrentUserId', fn: getCurrentUserId },
+  { name: 'createStore', fn: createStore },
 ]

@@ -84,6 +84,8 @@ export const getFormInput = ({
       return scope.find('.ant-radio-group', opts)
     case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
+    case FIELD_TYPE.MONACO:
+      return scope.find('.monaco-editor textarea', opts)
     default:
       throw unsupportedFieldType(type)
   }
@@ -159,6 +161,7 @@ export const expectFormFieldValue = ({
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
     case FIELD_TYPE.DATE:
+    case FIELD_TYPE.MONACO:
       getInput().should('have.value', isUndefined(value) ? '' : String(value))
 
       if (shouldExpectPlaceholder) {
@@ -319,7 +322,10 @@ export const setInputValue =
   ) =>
   ($el: JQuery) => {
     if (value) {
-      on($el).type(append ? value : `{selectall}${value}`, options)
+      on($el).type(
+        append ? value : `{selectall}${value.replace('{', '{{}')}`,
+        options,
+      )
     } else {
       on($el).clear(options)
     }
@@ -471,6 +477,7 @@ export const setFormFieldValue = ({
   switch (type) {
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
+    case FIELD_TYPE.MONACO:
       if (isArray(value) || value === undefined) {
         throw new Error('Input `value` must be a single string or number.')
       }
