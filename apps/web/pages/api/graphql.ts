@@ -10,6 +10,7 @@ import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { ApolloServer } from 'apollo-server-micro'
 import { get } from 'env-var'
 import { NextApiHandler } from 'next'
+import * as util from 'util'
 
 const driver = getDriver()
 const neoSchema = getSchema(driver)
@@ -30,7 +31,7 @@ const startServer = neoSchema
         }
       },
       formatError: (err) => {
-        // console.error(util.inspect(err, false, null, true))
+        console.error(util.inspect(err, false, null, true))
 
         // Otherwise return the original error. The error can also
         // be manipulated in other ways, as long as it's returned.
