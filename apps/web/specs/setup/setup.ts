@@ -49,13 +49,16 @@ export const setup = () => {
      * Get auth token and pass in header to call admin service
      */
     return setupData.auth0Service.then(({ access_token }) => {
+      /**
+       * For some reason, only on ci did we need to add authorization for adminService, but putting in beforeAll setup is much better anyways, since we only need to set headers once.
+       */
       client.setHeader('authorization', `Bearer ${access_token}`)
 
       /**
        * Clear data
        */
       return setupData.rootStore.adminService.resetData().then((res) => {
-        console.log(res)
+        // console.log(res)
       })
     })
   })

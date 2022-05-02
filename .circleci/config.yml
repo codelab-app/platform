@@ -135,8 +135,8 @@ jobs:
           command: |
             rm -rf ~/project/node_modules/nx/.cache
             rm -rf ~/project/node_modules/@storybook
-            npx jest --clearCache
-          # npx cypress cache path
+      #            npx jest --clearCache
+      #            npx cypress cache path
       - run:
           name: 'Build CI'
           command: npx nx run-many --target=build --projects=web,cli --configuration=ci --verbose
@@ -187,10 +187,10 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run:
-          command: |
-            ls ~/projects/apps/web/specs/setup
-            cat ~/projects/apps/web/specs/setup/auth0-token.json
+      #      - run:
+      #          command: |
+      #            ls ~/projects/apps/web/specs/setup
+      #            cat ~/projects/apps/web/specs/setup/auth0-token.json
       - run: yarn cli tasks int --env ci
       - notify-failure
 
