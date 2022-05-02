@@ -2,6 +2,7 @@ import { DeleteOutlined, EditFilled } from '@ant-design/icons'
 import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ListItemButton } from '@codelab/frontend/view/components'
+import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
@@ -26,7 +27,7 @@ export const GetResourcesItem = observer<GetResourcesItemProps>(
     }
 
     return (
-      <div css={tw`flex flex-row  items-center`}>
+      <List.Item css={tw`flex flex-row  items-center`}>
         <Link href={href}>
           <a css={tw`flex-grow`}>{resource.name}</a>
         </Link>
@@ -37,7 +38,7 @@ export const GetResourcesItem = observer<GetResourcesItemProps>(
           icon={<DeleteOutlined />}
           onClick={onDelete}
         />
-      </div>
+      </List.Item>
     )
   },
 )
