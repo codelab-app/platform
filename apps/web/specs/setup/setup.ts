@@ -54,7 +54,9 @@ export const setup = () => {
       /**
        * Clear data
        */
-      return setupData.rootStore.adminService.resetData()
+      return setupData.rootStore.adminService.resetData().then((res) => {
+        console.log(res)
+      })
     })
   })
 
