@@ -1,9 +1,10 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 import { GraphQLSchema } from 'graphql'
 import { defaultSchemaBuilder } from 'graphql-language-service'
+import { MonacoGraphQLAPI } from 'monaco-graphql/esm/api'
+import { initializeMode } from 'monaco-graphql/esm/initializeMode'
 import type { SchemaConfig } from 'monaco-graphql/esm/typings'
-import { useCallback, useEffect, useState } from 'react'
-import { GraphqlApi } from '../monaco/setupMonaco'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export type SchemaState = {
   schema: Nullable<GraphQLSchema>
@@ -25,6 +26,7 @@ export type SchemaHandlers = {
 export const useSchema = (): SchemaState & SchemaHandlers => {
   const [state, setState] = useState({ ...initialState })
   const [config, setConfig] = useState<SchemaConfig>({ uri: '' })
+  const apiRef = useRef<MonacoGraphQLAPI>()
 
   const loadCurrentSchema = useCallback(async () => {
     setState((s) => ({
@@ -33,7 +35,7 @@ export const useSchema = (): SchemaState & SchemaHandlers => {
     }))
 
     try {
-      const schema = await GraphqlApi.getSchema()
+      const schema = await apiRef.current?.schemas?.[0]
 
       setState((s) => ({
         ...s,
@@ -52,7 +54,7 @@ export const useSchema = (): SchemaState & SchemaHandlers => {
 
   useEffect(() => {
     if (config) {
-      GraphqlApi.setSchemaConfig(config)
+      apiRef.current = initializeMode({ schemas: [config] })
 
       setTimeout(() => {
         loadCurrentSchema()

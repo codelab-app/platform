@@ -1,5 +1,6 @@
 import { StoreCreateInput } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 export const storeName = 'new store'
@@ -22,7 +23,7 @@ export const parentStoreInput = (ownerId: string): StoreCreateInput => ({
         fields: {},
         fieldsFor: {},
         apiOfAtoms: {},
-        owner: { connect: { where: { node: { auth0Id: ownerId } } } },
+        owner: connectOwner(ownerId),
       },
     },
   },
