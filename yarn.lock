@@ -9453,10 +9453,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/auth0@npm:2.34.13":
-  version: 2.34.13
-  resolution: "@types/auth0@npm:2.34.13"
-  checksum: 81b87b5584de603a6db64272559ffb103837a2fccd9778e3890cf62f300c7f1d8035c9f0926663ec715e5d30351b11bb5ce2afacfdf34b0b82c889c437ed7126
+"@types/auth0@npm:2.34.19":
+  version: 2.34.19
+  resolution: "@types/auth0@npm:2.34.19"
+  checksum: 380f4fb47695c3b7193a60be4a9f62ae4a5b33e12cc0eb58af47678c70af8618e01df190f46090f8fe94f1dfe957b7071ff93d88da31c85529280b72517d0699
   languageName: node
   linkType: hard
 
@@ -12896,19 +12896,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0@npm:2.37.0":
-  version: 2.37.0
-  resolution: "auth0@npm:2.37.0"
+"auth0@npm:2.40.0":
+  version: 2.40.0
+  resolution: "auth0@npm:2.40.0"
   dependencies:
-    axios: ^0.21.4
-    es6-promisify: ^6.1.1
+    axios: ^0.25.0
     form-data: ^3.0.1
     jsonwebtoken: ^8.5.1
     jwks-rsa: ^1.12.1
     lru-memoizer: ^2.1.4
-    rest-facade: ^1.13.1
+    rest-facade: ^1.16.3
     retry: ^0.13.1
-  checksum: 8113c3d45c3c4be8aa6de7dbb4892216b3d89d36e038b875f71adf2db0dafc3c52784a42aa118e8f66ced59a2080d191d49c6c96f73a2d9372455ae4540341c4
+  checksum: bb496223ea287cc2d14dc9348caa36dd31d1ab8b90c9fa9efda5217f9447fea623669c5e6cdd711f173b292b96ce7018054e4b57c9a7d367e43e0cbbd8d18d87
   languageName: node
   linkType: hard
 
@@ -12991,12 +12990,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1, axios@npm:^0.21.4":
+"axios@npm:^0.21.1":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
   dependencies:
     follow-redirects: ^1.14.0
   checksum: 44245f24ac971e7458f3120c92f9d66d1fc695e8b97019139de5b0cc65d9b8104647db01e5f46917728edfc0cfd88eb30fc4c55e6053eef4ace76768ce95ff3c
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "axios@npm:0.25.0"
+  dependencies:
+    follow-redirects: ^1.14.7
+  checksum: 2a8a3787c05f2a0c9c3878f49782357e2a9f38945b93018fb0c4fd788171c43dceefbb577988628e09fea53952744d1ecebde234b561f1e703aa43e0a598a3ad
   languageName: node
   linkType: hard
 
@@ -14870,7 +14878,7 @@ __metadata:
     "@testing-library/user-event": 13.5.0
     "@types/adm-zip": 0.4.34
     "@types/asynciterator": 3.0.0
-    "@types/auth0": 2.34.13
+    "@types/auth0": 2.34.19
     "@types/bcrypt": 5.0.0
     "@types/benchmark": ^2.1.1
     "@types/bluebird": 3.5.36
@@ -14929,7 +14937,7 @@ __metadata:
     animate.css: 4.1.1
     antd: 4.19.5
     apollo-server-micro: ^3.6.2
-    auth0: 2.37.0
+    auth0: 2.40.0
     autoprefixer: 9
     axios: 0.24.0
     babel-jest: 27.5.1
@@ -18198,13 +18206,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promisify@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "es6-promisify@npm:6.1.1"
-  checksum: e57dfa8b6533387e6cae115bdc1591e4e6e7648443741360c4f4f8f1d2c17d1f0fb293ccd3f86193f016c236ed15f336e075784eab7ec9a67af0aed2b949dd7c
-  languageName: node
-  linkType: hard
-
 "es6-shim@npm:^0.35.5":
   version: 0.35.6
   resolution: "es6-shim@npm:0.35.6"
@@ -19776,7 +19777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.4":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.4, follow-redirects@npm:^1.14.7":
   version: 1.14.9
   resolution: "follow-redirects@npm:1.14.9"
   peerDependenciesMeta:
@@ -31352,7 +31353,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rest-facade@npm:^1.13.1":
+"rest-facade@npm:^1.16.3":
   version: 1.16.3
   resolution: "rest-facade@npm:1.16.3"
   dependencies:
