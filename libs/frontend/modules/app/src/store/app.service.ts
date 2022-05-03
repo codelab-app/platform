@@ -7,7 +7,6 @@ import {
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { connectId, connectOwner } from '@codelab/shared/data'
-import { cLog } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -114,8 +113,6 @@ export class AppService
         create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME } },
       },
     }))
-
-    cLog(input)
 
     const {
       createApps: { apps },

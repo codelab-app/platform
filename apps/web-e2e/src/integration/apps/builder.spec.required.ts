@@ -3,7 +3,7 @@ import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
-import { FIELD_TYPE } from '../support/antd/form'
+import { FIELD_TYPE } from '../../support/antd/form'
 import { updatedAppName, updatedPageName } from './app.data'
 
 const ELEMENT_CONTAINER = 'Container'

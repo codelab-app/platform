@@ -163,7 +163,7 @@ export class ImportTypeService extends Model({}) implements IImportTypeService {
     // Not owned by current user, create it with the current user as owner
     // const createdType = fromSnapshot<AnyType>(importedType)
     // createdType.ownerAuth0Id = currentUserAuth0Id
-    yield* _await(typeService.create({ ...importedType, auth0Id }))
+    yield* _await(typeService.create([{ ...importedType, auth0Id }]))
   })
 
   private getExistingType(

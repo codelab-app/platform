@@ -42,7 +42,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
               )
             }
 
-            return typeService.deleteField(interfaceType, field.id)
+            return typeService.deleteField(interfaceType.id, field.id)
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting field',

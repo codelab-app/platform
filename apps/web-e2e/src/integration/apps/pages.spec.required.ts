@@ -45,7 +45,7 @@ describe('Page CRUD', () => {
   })
 
   // Run builder spec here
-  require('./builder.spec.ignore')
+  require('./builder.spec.required')
 
   describe('delete', () => {
     before(() => {

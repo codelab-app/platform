@@ -7,7 +7,7 @@ import {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectId, connectOwner } from '@codelab/shared/data'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -139,6 +139,9 @@ export class AtomService
     return all[0]
   })
 
+  /**
+   * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
+   */
   @modelFlow
   @transaction
   create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
@@ -154,12 +157,19 @@ export class AtomService
       }))
     }
 
+    const connectOrCreateApi = (atom: ICreateAtomDTO) =>
+      atom.interfaceId
+        ? connectId(atom.interfaceId)
+        : {
+            create: { node: createApiNode(atom) },
+          }
+
     const input = data.map((atom) => ({
       id: v4(),
       name: atom.name,
       type: atom.type,
       tags: { connect: connectTags(atom) },
-      api: { create: { node: createApiNode(atom) } },
+      api: connectOrCreateApi(atom),
     }))
 
     const {

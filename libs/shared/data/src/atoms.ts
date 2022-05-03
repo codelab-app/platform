@@ -1,12 +1,22 @@
 import { IAtomType, ICreateAtomDTO } from '@codelab/shared/abstract/core'
 
-export const createAtomsData: Array<Omit<ICreateAtomDTO, 'owner'>> = [
-  { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
-  { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
-  { name: IAtomType.AntDesignButton, type: IAtomType.AntDesignButton },
+type CreateAtoms = (ids: Array<string>) => Array<Omit<ICreateAtomDTO, 'owner'>>
+
+export const createAtomsData: CreateAtoms = ([
+  buttonInterfaceId,
+  typeInterfaceId,
+]) => [
+  // { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
+  // { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
+  {
+    name: IAtomType.AntDesignButton,
+    type: IAtomType.AntDesignButton,
+    interfaceId: buttonInterfaceId,
+  },
   {
     name: IAtomType.AntDesignTypographyText,
     type: IAtomType.AntDesignTypographyText,
+    interfaceId: typeInterfaceId,
   },
 ]
 

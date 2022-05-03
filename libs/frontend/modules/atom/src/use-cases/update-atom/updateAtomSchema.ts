@@ -13,6 +13,14 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
       type: 'string',
       autoFocus: true,
     },
+    // Hide field for now, added only to implement the interface
+    interfaceId: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     type: {
       type: 'string',
       enum: Object.keys(IAtomType).filter(

@@ -15,6 +15,14 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
       disabled: true,
       ...showFieldOnDev(),
     },
+    // Hide field for now, added only to implement the interface
+    interfaceId: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     name: {
       type: 'string',
       autoFocus: true,

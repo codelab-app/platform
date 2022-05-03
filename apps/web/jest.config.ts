@@ -12,10 +12,19 @@ module.exports = {
   },
   // testEnvironment: 'node',
   // Used with ts-jest
-  // transformIgnorePatterns: [".+\\.(cypher|cyp)$'"],
+  transformIgnorePatterns: [
+    'node_modules/(?!(stringify-object|is-regexp|is-obj)/)',
+  ],
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/next/babel'] }],
+    '^.+\\.[tj]sx?$': [
+      'babel-jest',
+      {
+        presets: ['@nrwl/next/babel'],
+        // https://github.com/facebook/jest/issues/9814#issuecomment-655164306
+        // configFile: path.resolve(__dirname, 'babel.config.json'),
+      },
+    ],
     // '^.+\\.[tj]sx?$': 'ts-jest',
     // Stub doesn't work with ts-jest
     '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':

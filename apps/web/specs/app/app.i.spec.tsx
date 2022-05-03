@@ -4,9 +4,18 @@
  */
 import { UserOGM } from '@codelab/backend'
 import { upsertUser } from '@codelab/frontend/modules/user'
-import { IAtom, ICreateAtomDTO } from '@codelab/shared/abstract/core'
-import { createAtomsData } from '@codelab/shared/data'
+import { IAtom, ICreateAtomDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  booleanTypeId,
+  buttonInterfaceId,
+  createAtomsData,
+  createPrimitiveTypesData,
+  floatTypeId,
+  integerTypeId,
+  stringTypeId,
+} from '@codelab/shared/data'
 import { reduce } from 'lodash'
+import { v4 } from 'uuid'
 import { setup } from '../setup/setup'
 
 const appName = 'Codelab'
@@ -51,6 +60,83 @@ describe('App', () => {
     })
   })
 
+  it('should create types', async () => {
+    const { rootStore, auth0Service } = data
+    const { atomService, typeService } = rootStore
+    const auth0 = await auth0Service
+
+    const input = createPrimitiveTypesData([
+      stringTypeId,
+      booleanTypeId,
+      floatTypeId,
+      integerTypeId,
+    ]).map((primitiveType) => ({
+      ...primitiveType,
+      auth0Id: auth0.auth0Id,
+    }))
+
+    const types = await typeService.create(input)
+    /**
+     * Create button api for assignment later
+     */
+
+    await typeService.create([
+      {
+        id: buttonInterfaceId,
+        name: 'AntDesignButton API',
+        kind: ITypeKind.InterfaceType,
+        auth0Id: auth0.auth0Id,
+      },
+    ])
+
+    /**
+     * Create size enum
+     */
+
+    const sizeEnumId = v4()
+
+    await typeService.create([
+      {
+        id: sizeEnumId,
+        name: 'Size',
+        kind: ITypeKind.EnumType,
+        allowedValues: [
+          {
+            id: v4(),
+            name: 'small',
+            value: 'small',
+          },
+          {
+            id: v4(),
+            name: 'middle',
+            value: 'middle',
+          },
+          {
+            id: v4(),
+            name: 'large',
+            value: 'large',
+          },
+        ],
+        auth0Id: auth0.auth0Id,
+      },
+    ])
+
+    /**
+     * Add fields
+     */
+    await typeService.addField(buttonInterfaceId, {
+      id: v4(),
+      key: 'block',
+      fieldType: buttonInterfaceId,
+    })
+
+    await typeService.addField(buttonInterfaceId, {
+      id: v4(),
+      key: 'size',
+      fieldType: sizeEnumId,
+    })
+  })
+
   it('should create atoms', async () => {
     const { rootStore, auth0Service } = data
     const { atomService } = rootStore
@@ -60,7 +146,7 @@ describe('App', () => {
       Omit<ICreateAtomDTO, 'owner'>,
       Promise<Array<IAtom>>
     >(
-      createAtomsData,
+      createAtomsData([buttonInterfaceId]),
       async (results, atom) => {
         const [createdAtom] = await atomService.create([
           {
@@ -74,13 +160,13 @@ describe('App', () => {
       Promise.resolve([]),
     )
 
-    // console.log('atoms', atoms)
+    // cLog(atoms)
 
     // const atoms = await atomService.getAll()
 
     expect(atoms).toEqual(
       expect.arrayContaining(
-        createAtomsData.map((atom) =>
+        createAtomsData([]).map((atom) =>
           // We want all those
           expect.objectContaining({
             name: atom.name,
@@ -105,13 +191,14 @@ describe('App', () => {
     expect(exportedData).toMatchObject({
       // Use arrayContaining so order doesn't matter
       atoms: expect.arrayContaining(
-        createAtomsData.map((atom) =>
+        createAtomsData([]).map((atom) =>
           expect.objectContaining({
             name: atom.name,
             type: atom.type,
             // This is required for nested
             api: expect.objectContaining({
               name: `${atom.name} API`,
+              fields: [],
             }),
           }),
         ),
