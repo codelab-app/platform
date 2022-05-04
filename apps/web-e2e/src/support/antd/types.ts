@@ -44,6 +44,7 @@ declare global {
         AntPopoverCommands,
         AntSpinCommands,
         AntTableCommands,
+        AntTreeCommands,
         AntTooltipCommands {}
   }
 }

@@ -30,7 +30,7 @@ export const DeleteTagsModal = observer<WithServices<TAG_SERVICE>>(
           schema={deleteTagsSchema}
         >
           Are you sure you want to delete{' '}
-          {tags.map((tag) => tag.name).join(', ')}
+          {tags.map((tag) => tag.label).join(', ')}
           ?
           <AutoFields omitFields={['ids']} />
           <ListField hidden={true} itemProps={{}} name="ids" />

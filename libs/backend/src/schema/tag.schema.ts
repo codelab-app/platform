@@ -10,14 +10,14 @@ export const tagSchema = gql`
       @cypher(statement: """${tagIsRoot}""")
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
-    owner: [User!]! @relationship(type: "OWNED_BY", direction: OUT)
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
   extend type Tag
     @auth(
       rules: [
-        { 
-          operations: [READ, CONNECT, DISCONNECT, UPDATE, DELETE, CREATE]
+        {
+          operations: [READ, UPDATE, CREATE, DELETE]
           roles: ["Admin"]
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }

@@ -7,6 +7,7 @@ export type TagFragment = {
   id: string
   name: string
   isRoot?: boolean | null
+  parent?: { id: string } | null
   children: Array<{ id: string }>
 }
 
@@ -14,6 +15,9 @@ export const TagFragmentDoc = gql`
   fragment Tag on Tag {
     id
     name
+    parent {
+      id
+    }
     children {
       id
     }

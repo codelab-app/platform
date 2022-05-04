@@ -27,7 +27,7 @@ export const UpdateTagModal = observer<WithServices<TAG_SERVICE>>(
         visible={tagService.updateModal.isOpen}
       >
         <ModalForm.Form<IUpdateTagDTO>
-          model={{ name: tag?.name }}
+          model={{ name: tag?.label }}
           onSubmit={onSubmit}
           onSubmitError={createNotificationHandler({
             title: 'Error while updating tag',

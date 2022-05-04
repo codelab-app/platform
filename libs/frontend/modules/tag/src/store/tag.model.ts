@@ -1,7 +1,6 @@
-import { ITag, ITagDTO } from '@codelab/shared/abstract/core'
+import { IGraphQLTagNode, ITag, ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
-import { INode } from './tree.service'
 
 @model('@codelab/Tag')
 export class Tag
@@ -10,7 +9,7 @@ export class Tag
     name: prop<string>(),
     children: prop<Array<string>>(),
   })
-  implements INode, ITag
+  implements IGraphQLTagNode, ITag
 {
   @computed
   get label() {
