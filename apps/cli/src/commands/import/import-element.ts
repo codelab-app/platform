@@ -7,45 +7,69 @@ import { v4 } from 'uuid'
  */
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
-  idMap: Map<string, string>,
 ): Promise<OGM_TYPES.Element> => {
-  const Elements = await ElementOGM()
+  const Element = await ElementOGM()
+
+  const existing = await Element.find({
+    where: {
+      id: element.id,
+    },
+  })
+
+  if (!existing.length) {
+    console.log(`Creating ${element.name} ${element?.atom?.type}`)
+
+    const {
+      elements: [newElement],
+    } = await Element.create({
+      input: [
+        {
+          id: element.id ?? v4(),
+          name: element.name,
+          css: element.css,
+          atom: element.atom
+            ? { connect: { where: { node: { id: element.atom.id } } } }
+            : undefined,
+          component: element.component
+            ? {
+                connect: {
+                  where: { node: { id: element.component.id } },
+                },
+              }
+            : undefined,
+          instanceOfComponent: element.instanceOfComponent
+            ? {
+                connect: {
+                  where: { node: { id: element.instanceOfComponent.id } },
+                },
+              }
+            : undefined,
+          props: element.props
+            ? {
+                create: { node: { data: element.props.data } },
+              }
+            : undefined,
+          propTransformationJs: element.propTransformationJs,
+          renderForEachPropKey: element.renderForEachPropKey,
+          renderIfPropKey: element.renderIfPropKey,
+        },
+      ],
+    })
+
+    return newElement
+  }
+
+  console.log(`Updating ${element.name}`)
 
   const {
     elements: [newElement],
-  } = await Elements.create({
-    input: [
-      {
-        id: v4(),
-        name: element.name,
-        css: element.css,
-        atom: element.atom
-          ? { connect: { where: { node: { id: element.atom.id } } } }
-          : undefined,
-        component: element.component
-          ? {
-              connect: {
-                where: { node: { id: idMap.get(element.component.id) } },
-              },
-            }
-          : undefined,
-        instanceOfComponent: element.instanceOfComponent
-          ? {
-              connect: {
-                where: { node: { id: element.instanceOfComponent.id } },
-              },
-            }
-          : undefined,
-        props: element.props
-          ? {
-              create: { node: { data: element.props.data } },
-            }
-          : undefined,
-        propTransformationJs: element.propTransformationJs,
-        renderForEachPropKey: element.renderForEachPropKey,
-        renderIfPropKey: element.renderIfPropKey,
-      },
-    ],
+  } = await Element.update({
+    where: {
+      id: element.id,
+    },
+    update: {
+      name: element.name,
+    },
   })
 
   return newElement
@@ -56,29 +80,28 @@ export const importElementInitial = async (
  */
 export const updateImportedElement = async (
   element: OGM_TYPES.Element,
-  idMap: Map<string, string>,
 ): Promise<void> => {
   const Elements = await ElementOGM()
 
   if (element.props) {
     // replace all references in props
-    for (const [key, value] of idMap.entries()) {
-      element.props.data = element.props.data.replace(
-        new RegExp(key, 'g'),
-        value,
-      )
-    }
+    // for (const [key, value] of idMap.entries()) {
+    //   element.props.data = element.props.data.replace(
+    //     new RegExp(key, 'g'),
+    //     value,
+    //   )
+    // }
   }
 
   await Elements.update({
-    where: { id: idMap.get(element.id) },
+    where: { id: element.id },
     update: {
       parentElement: element.parentElement
         ? {
             disconnect: { where: {} },
             connect: {
               edge: { order: element.parentElementConnection?.edges[0].order },
-              where: { node: { id: idMap.get(element.parentElement.id) } },
+              where: { node: { id: element.parentElement.id } },
             },
           }
         : undefined,
@@ -97,7 +120,7 @@ export const updateImportedElement = async (
                 ? {
                     connect: {
                       where: {
-                        node: { id: idMap.get(pmb.targetElement.id) },
+                        node: { id: pmb.targetElement.id },
                       },
                     },
                   }

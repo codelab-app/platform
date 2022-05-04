@@ -3,27 +3,33 @@ import {
   InterfaceTypeOGM,
   PrimitiveTypeOGM,
 } from '@codelab/backend'
-import {
-  ICreateTypeDTO,
-  ITypeExport,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
 import { cLog } from '@codelab/shared/utils'
 
 export const importType = async (
   types: Array<ITypeExport>,
-  auth0Id: string,
+  selectedUser: string,
 ) => {
   for (const type of types) {
     console.log(`Upserting ${type.name}:`)
     cLog(type)
     console.log('\n')
-    await upsertTypeOgm(type)
+    await upsertTypeOgm(type, selectedUser)
   }
 }
 
-export const upsertTypeOgm = async (data: ITypeExport) => {
+const createBaseFields = (data: ITypeExport, selectedUser: string) => ({
+  id: data.id,
+  name: data.name,
+  kind: data.kind,
+  owner: connectId(selectedUser),
+})
+
+export const upsertTypeOgm = async (
+  data: ITypeExport,
+  selectedUser: string,
+) => {
   switch (data.__typename) {
     case ITypeKind.PrimitiveType: {
       const PrimitiveType = await PrimitiveTypeOGM()
@@ -38,14 +44,13 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
         },
       })
 
-      if (!exists) {
+      if (!exists.length) {
         console.log(`Creating ${data.name} [${data.kind}]...`)
 
         return await PrimitiveType.create({
           input: [
             {
-              ...data,
-              owner: connectId(data.owner.id),
+              ...createBaseFields(data, selectedUser),
               primitiveKind: data.primitiveKind,
             },
           ],
@@ -59,8 +64,7 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
           id: data.id,
         },
         update: {
-          name: data.name,
-          owner: connectId(data.owner.id),
+          ...createBaseFields(data, selectedUser),
         },
       })
     }
@@ -74,14 +78,13 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
         },
       })
 
-      if (!exists) {
+      if (!exists.length) {
         console.log(`Creating ${data.name} [${data.kind}]...`)
 
         return EnumType.create({
           input: [
             {
-              ...data,
-              owner: connectId(data.owner.id),
+              ...createBaseFields(data, selectedUser),
               allowedValues: {
                 create: data.allowedValues?.map((value) => ({
                   node: {
@@ -103,8 +106,7 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
           id: data.id,
         },
         update: {
-          ...data,
-          owner: connectId(data.owner.id),
+          ...createBaseFields(data, selectedUser),
           allowedValues: data.allowedValues?.map((value) => ({
             update: {
               node: {
@@ -130,16 +132,13 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
       /**
        * First create the interface
        */
-      if (!exists) {
+      if (!exists.length) {
         console.log(`Creating ${data.name} [${data.kind}]...`)
 
         return await InterfaceType.create({
           input: [
             {
-              id: data.id,
-              name: data.name,
-              kind: data.kind,
-              owner: connectId(data.owner.id),
+              ...createBaseFields(data, selectedUser),
             },
           ],
         })
@@ -155,8 +154,6 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
           id: data.id,
         },
         update: {
-          name: data.name,
-          owner: connectId(data.owner.id),
           fields: [
             {
               disconnect: [
@@ -176,30 +173,28 @@ export const upsertTypeOgm = async (data: ITypeExport) => {
        */
       console.log(`Connecting fields for ${data.name}`)
 
-      const update = {
-        name: data.name,
-        owner: connectId(data.owner.id),
-        fields: [
-          {
-            connect: data.fieldsConnection.edges.map((edge) => ({
-              where: {
-                node: {
-                  id: edge.node.id,
-                },
-              },
-              edge,
-            })),
-          },
-        ],
-      }
-
-      console.log(update)
-
       return InterfaceType.update({
         where: {
           id: data.id,
         },
-        update,
+        update: {
+          ...createBaseFields(data, selectedUser),
+        },
+        connect: {
+          fields: data.fieldsConnection.edges.map((edge) => ({
+            where: {
+              node: {
+                id: edge.node.id,
+              },
+            },
+            edge: {
+              id: edge.id,
+              key: edge.key,
+              name: edge.name,
+              description: edge.description,
+            },
+          })),
+        },
       })
     }
   }

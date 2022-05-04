@@ -2,7 +2,7 @@
   "app": {
     "__typename": "App",
     "id": "8f70dafe-c9e5-4b55-9bf0-54907c1fe523",
-    "name": "Codelab",
+    "name": "Codelab V2",
     "rootProviderElement": {
       "id": "793373ed-949f-4b7c-b70e-2c274945eb63"
     },
@@ -69,6 +69,35 @@
                   "order": 1
                 }
               ]
+            }
+          }
+        ],
+        "components": []
+      },
+      {
+        "id": "b528607e-2757-4036-9bce-f02ceaf857cf",
+        "name": "About",
+        "rootElement": {
+          "id": "2c369d7a-2cf4-4124-b408-4f958e6c1e0c",
+          "name": "Root element"
+        },
+        "elements": [
+          {
+            "id": "2c369d7a-2cf4-4124-b408-4f958e6c1e0c",
+            "name": "Root element",
+            "css": null,
+            "component": null,
+            "instanceOfComponent": null,
+            "parentElement": null,
+            "atom": null,
+            "props": null,
+            "hooks": [],
+            "renderForEachPropKey": null,
+            "renderIfPropKey": null,
+            "propMapBindings": [],
+            "propTransformationJs": null,
+            "parentElementConnection": {
+              "edges": []
             }
           }
         ],

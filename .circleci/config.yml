@@ -306,18 +306,18 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - integration:
-          <<: *filters-pr
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
+      #      - integration:
+      #          <<: *filters-pr
+      #          e: docker-node
+      #          context: CI
+      #          requires:
+      #            - install-and-build-workspace
       - e2e:
           <<: *filters-pr
           e: docker-node
           context: CI
           requires:
-            - integration
+            #            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
@@ -326,5 +326,5 @@ workflows:
           requires:
             - lint
             - unit
-            - integration
+            #            - integration
             - e2e

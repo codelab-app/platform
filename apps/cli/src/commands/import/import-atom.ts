@@ -8,6 +8,7 @@ export const importAtom = async (
   auth0Id: string,
 ) => {
   for (const atom of atoms) {
+    console.log(`Upserting ${atom.name}`)
     await upsertAtom(atom)
   }
 }
@@ -28,11 +29,15 @@ const upsertAtom = async (atom: IAtomExport) => {
     api: connectId(atom.api.id),
   }
 
-  if (!existing) {
+  if (!existing.length) {
+    console.log(`Creating ${atom.name}...`)
+
     return await Atom.create({
       input: [input],
     })
   }
+
+  console.log(`Updating ${atom.name}...`)
 
   return await Atom.update({
     where: {

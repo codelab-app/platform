@@ -35,6 +35,9 @@ export class AdminService extends Model({}) implements IAdminService {
     return resetDatabase?.success
   })
 
+  /**
+   * @deprecated Using OGM/CLI for import/export
+   */
   @modelFlow
   @transaction
   exportData = _async(function* (this: AdminService) {
@@ -96,6 +99,9 @@ export class AdminService extends Model({}) implements IAdminService {
     return JSON.stringify(payloadData)
   })
 
+  /**
+   * @deprecated Using OGM/CLI for import/export
+   */
   @modelFlow
   @transaction
   importData = _async(function* (

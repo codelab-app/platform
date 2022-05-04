@@ -1,15 +1,15 @@
 import {
   getDriver,
-  ModelMap,
   PrimitiveTypeOGM,
   typeDefs,
   UserOGM,
 } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { OGM } from '@neo4j/graphql-ogm'
 import { v4 } from 'uuid'
 
-const ogm = new OGM<ModelMap>({ typeDefs, driver: getDriver() })
+const ogm = new OGM<OGM_TYPES.ModelMap>({ typeDefs, driver: getDriver() })
 
 describe.skip('Export', () => {
   let PrimitiveType: Awaited<ReturnType<typeof PrimitiveTypeOGM>>

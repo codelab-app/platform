@@ -1,48 +1,66 @@
 import { AppOGM } from '@codelab/backend'
 import { IAppExport } from '@codelab/shared/abstract/core'
+import { cLog } from '@codelab/shared/utils'
+import { omit } from 'lodash'
 import { v4 } from 'uuid'
 import { importComponent } from './import-component'
 import { importElementInitial, updateImportedElement } from './import-element'
 import { validate } from './validate'
 
-export const importApp = async (
-  app: IAppExport,
-  selectedUser: string,
-  // idMap: Map<string, string>,
-) => {
+export const importApp = async (app: IAppExport, selectedUser: string) => {
+  cLog(omit(app, ['pages']))
+
   const App = await AppOGM()
   const { pages, providerElements } = app
   await validate(pages)
 
-  const idMap = new Map<string, string>()
-
-  for (const element of providerElements) {
-    const newElement = await importElementInitial(element, idMap)
-
-    idMap.set(element.id, newElement.id)
-  }
-
-  for (const element of providerElements) {
-    await updateImportedElement(element, idMap)
-  }
-
   for (const { elements, components } of pages) {
     for (const component of components) {
       const newComponent = await importComponent(component, selectedUser)
-
-      idMap.set(component.id, newComponent.id)
     }
 
     for (const element of elements) {
-      const newElement = await importElementInitial(element, idMap)
-
-      idMap.set(element.id, newElement.id)
+      const newElement = await importElementInitial(element)
     }
 
     for (const element of elements) {
-      await updateImportedElement(element, idMap)
+      await updateImportedElement(element)
     }
   }
+
+  for (const element of providerElements) {
+    const newElement = await importElementInitial(element)
+  }
+
+  for (const element of providerElements) {
+    await updateImportedElement(element)
+  }
+
+  const pagesData = app.pages.map(({ elements, components, ...props }) => ({
+    ...props,
+  }))
+
+  cLog(pagesData)
+
+  const existing = await App.find({
+    where: {
+      id: app.id,
+    },
+  })
+
+  if (existing.length) {
+    console.log('Deleting app/pages before re-creating...')
+    await App.delete({
+      where: {
+        id: app.id,
+      },
+      delete: {
+        pages: [{ where: {} }],
+      },
+    })
+  }
+
+  console.log('Creating new app...')
 
   const {
     apps: [importedApp],
@@ -50,21 +68,21 @@ export const importApp = async (
     input: [
       {
         id: app.id,
-        name: `${app.name} - Imported at ${new Date().toISOString()}`,
-        owner: { connect: { where: { node: { id: selectedUser } } } as any },
+        name: app.name,
+        owner: { connect: { where: { node: { id: selectedUser } } } },
         rootProviderElement: {
           connect: {
-            where: { node: { id: idMap.get(app.rootProviderElement.id) } },
+            where: { node: { id: app.rootProviderElement.id } },
           },
         },
         pages: {
           create: app.pages.map((page) => ({
             node: {
-              id: v4(),
+              id: page.id ?? v4(),
               name: page.name,
               rootElement: {
                 connect: {
-                  where: { node: { id: idMap.get(page.rootElement.id) } },
+                  where: { node: { id: page.rootElement.id } },
                 },
               },
             },

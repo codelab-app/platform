@@ -1,4 +1,5 @@
 import { UserOGM } from '@codelab/backend'
+import { config } from 'dotenv'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
@@ -20,7 +21,7 @@ export const importCommand: CommandModule<any, any> = {
     },
   },
   handler: async ({ filePath = defaultOutputPath }) => {
-    // config({ path: `${process.cwd()}/.env` })
+    config({ path: `${process.cwd()}/.env.test` })
 
     const json = fs.readFileSync(path.resolve('data', filePath), 'utf8')
     const Users = await UserOGM()
