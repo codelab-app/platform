@@ -34756,7 +34756,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uniforms@npm:3.8.1":
+"uniforms@npm:3.8.1, uniforms@npm:^3.8.1":
   version: 3.8.1
   resolution: "uniforms@npm:3.8.1"
   dependencies:
@@ -34766,19 +34766,6 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^16.8.0
   checksum: 4f120c46abd7cf7e18eb7fc77338cb91eb588a9ad609aed648a41378c1368b6eda8af8a3c1134a499a8b0363efa658dbad4c63a61f9cea1f038726304a7167fa
-  languageName: node
-  linkType: hard
-
-"uniforms@npm:^3.8.1":
-  version: 3.9.1
-  resolution: "uniforms@npm:3.9.1"
-  dependencies:
-    invariant: ^2.0.0
-    lodash: ^4.0.0
-    tslib: ^2.2.0
-  peerDependencies:
-    react: ^17.0.0 || ^16.8.0
-  checksum: 0737acceb5fe0b66cc60cc3dd5b43b8818a3fcd2cc4785ac6c55739c5a3aaf47515cc1bba62bc6719b7ad8c05d97132316127cd6ac645d0183a447d1f6eab119
   languageName: node
   linkType: hard
 
