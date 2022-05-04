@@ -11,8 +11,9 @@ export const AddResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
       onClick={() => resourceService.createModal.open()}
-      size="small"
       type="primary"
-    />
+    >
+      Add Resource
+    </Button>
   ),
 )

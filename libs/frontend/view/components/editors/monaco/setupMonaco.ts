@@ -2,8 +2,6 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 // eslint-disable-next-line import/first
 import './cssInJs/monaco.contribution'
-// eslint-disable-next-line import/first
-import { api as GraphqlApi } from 'monaco-graphql/dist/monaco.contribution'
 /* eslint-disable import/no-webpack-loader-syntax, @typescript-eslint/ban-ts-comment */
 import CSSInJsWorker from 'worker-loader!./cssInJs/css-in-js.worker'
 import GraphQLWorker from 'worker-loader!./graphql.worker'
@@ -54,4 +52,4 @@ window.MonacoEnvironment = {
   },
 }
 
-export { GraphqlApi, monaco }
+export { monaco }

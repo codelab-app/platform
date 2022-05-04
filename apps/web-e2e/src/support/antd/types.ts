@@ -15,6 +15,7 @@ import type { AntPopoverCommands } from './popover'
 import type { AntSpinCommands } from './spin'
 import type { AntTableCommands } from './table'
 import type { AntTooltipCommands } from './tooltip'
+import { AntTreeCommands } from './tree'
 
 export type Label = string | number | RegExp
 
@@ -34,6 +35,7 @@ declare global {
         AntIconCommands,
         AntLayoutCommands,
         AntListCommands,
+        AntTreeCommands,
         AntMessageCommands,
         AntModalCommands,
         AntNotificationCommands,

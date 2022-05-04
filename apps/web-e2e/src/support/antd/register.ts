@@ -15,6 +15,7 @@ import { antPopoverCommands } from './popover'
 import { antSpinCommands } from './spin'
 import { antTableCommands } from './table'
 import { antTooltipCommands } from './tooltip'
+import { antTreeCommands } from './tree'
 
 const antCommands = [
   ...antButtonCommands,
@@ -34,6 +35,7 @@ const antCommands = [
   ...antSpinCommands,
   ...antTableCommands,
   ...antTooltipCommands,
+  ...antTreeCommands,
 ]
 
 for (const cmd of antCommands) {

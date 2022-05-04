@@ -14,6 +14,7 @@ type FieldType =
   | 'tags'
   | 'radio'
   | 'date'
+  | 'monaco'
 
 export const FIELD_TYPE = {
   INPUT: 'input' as FieldType,
@@ -23,6 +24,7 @@ export const FIELD_TYPE = {
   TAGS: 'tags' as FieldType,
   RADIO: 'radio' as FieldType,
   DATE: 'date' as FieldType,
+  MONACO: 'monaco' as FieldType,
 }
 
 export type FormFieldOptions = { label?: string }

@@ -110,7 +110,7 @@
     "mobx-react-lite": "^3.3.0",
     "mobx-utils": "^6.0.4",
     "monaco-editor": "^0.33.0",
-    "monaco-graphql": "0.5.1",
+    "monaco-graphql": "1.0.17",
     "morphext": "^2.4.7",
     "neo4j-driver": "^4.4.3",
     "next": "12.1.2",
@@ -318,7 +318,7 @@
     "jest": "27.5.1",
     "jest-transform-stub": "^2.0.0",
     "json-schema": "0.4.0",
-    "lint-staged": "12.1.7",
+    "lint-staged": "12.4.1",
     "loader-utils": "3.2.0",
     "madge": "5.0.1",
     "next-compose-plugins": "2.2.1",
@@ -345,6 +345,8 @@
   "resolutions": {
     "graphql-language-service": "3.1.6",
     "graphql-language-service-interface": "2.8.4",
-    "resolve": "1.20.0"
+    "resolve": "1.20.0",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   }
 }

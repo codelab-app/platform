@@ -6,6 +6,7 @@ import {
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 /**
@@ -15,7 +16,7 @@ export const headerFieldName = 'Header'
 
 export const renderItemFieldName = 'Render Item'
 
-export const createListAtomInput = (userId: string): AtomCreateInput => ({
+export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
   name: 'List',
   type: AtomType.AntDesignList,
   api: {
@@ -29,7 +30,7 @@ export const createListAtomInput = (userId: string): AtomCreateInput => ({
                 ReactNodeType: {
                   id: v4(),
                   name: ITypeKind.ReactNodeType,
-                  owner: { connect: { where: { node: { auth0Id: userId } } } },
+                  owner: connectOwner(ownerId),
                 },
               },
               edge: {
@@ -42,7 +43,7 @@ export const createListAtomInput = (userId: string): AtomCreateInput => ({
                 RenderPropsType: {
                   id: v4(),
                   name: ITypeKind.RenderPropsType,
-                  owner: { connect: { where: { node: { auth0Id: userId } } } },
+                  owner: connectOwner(ownerId),
                 },
               },
               edge: {
@@ -52,7 +53,7 @@ export const createListAtomInput = (userId: string): AtomCreateInput => ({
             },
           ],
         },
-        owner: { connect: { where: { node: { auth0Id: userId } } } },
+        owner: connectOwner(ownerId),
       },
     },
   },
@@ -69,7 +70,7 @@ export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
     create: {
       node: {
         name: 'ListItem API',
-        owner: { connect: { where: { node: { auth0Id: userId } } } },
+        owner: connectOwner(ownerId),
       },
     },
   },
@@ -79,7 +80,7 @@ export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
  * create Text Atom
  */
 
-export const createTextAtomInput = (userId: string): AtomCreateInput => ({
+export const createTextAtomInput = (ownerId: string): AtomCreateInput => ({
   name: 'Text',
   type: AtomType.Text,
   api: {
@@ -94,7 +95,7 @@ export const createTextAtomInput = (userId: string): AtomCreateInput => ({
                   id: v4(),
                   name: 'String',
                   primitiveKind: PrimitiveTypeKind.String,
-                  owner: { connect: { where: { node: { auth0Id: userId } } } },
+                  owner: connectOwner(ownerId),
                 },
               },
               edge: {
@@ -104,7 +105,7 @@ export const createTextAtomInput = (userId: string): AtomCreateInput => ({
             },
           ],
         },
-        owner: { connect: { where: { node: { auth0Id: userId } } } },
+        owner: connectOwner(ownerId),
       },
     },
   },

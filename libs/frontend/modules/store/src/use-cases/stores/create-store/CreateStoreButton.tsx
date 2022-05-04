@@ -14,7 +14,7 @@ export const CreateStoreButton = observer<WithServices<STORE_SERVICE>>(
         onClick={() => storeService.createModal.open()}
         type="primary"
       >
-        Create
+        Create Store
       </Button>
     )
   },
