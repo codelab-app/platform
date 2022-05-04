@@ -28,7 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { createTypeInputFactory } from '../use-cases/types/create-type/create-type.factory'
+import { createTypeFactory } from '../use-cases/types/create-type/create-type.factory'
 import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
 import { fieldApi } from './apis/field.api'
 import {
@@ -202,7 +202,7 @@ export class TypeService
       return []
     }
 
-    const input = createTypeInputFactory(data)
+    const input = createTypeFactory(data)
     const types = yield* _await(createTypeApi[data[0].kind](input))
 
     if (!types.length) {
@@ -229,7 +229,7 @@ export class TypeService
       return []
     }
 
-    const input = createTypeInputFactory(data)
+    const input = createTypeFactory(data)
     const types = yield* _await(createTypeApi[data[0].kind](input))
 
     if (!types.length) {

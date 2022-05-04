@@ -1,4 +1,5 @@
 import { ElementOGM, IElementModel } from '@codelab/backend'
+import { v4 } from 'uuid'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
@@ -14,6 +15,7 @@ export const importElementInitial = async (
   } = await Elements.create({
     input: [
       {
+        id: v4(),
         name: element.name,
         css: element.css,
         atom: element.atom

@@ -1,4 +1,5 @@
 import { ComponentOGM, IComponentModel } from '@codelab/backend'
+import { v4 } from 'uuid'
 
 export const importComponent = async (
   component: IComponentModel,
@@ -13,7 +14,7 @@ export const importComponent = async (
       {
         name: component.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
-        rootElement: { create: { node: { name: '' } } },
+        rootElement: { create: { node: { id: v4(), name: '' } } },
       },
     ],
   })

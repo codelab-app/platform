@@ -9,7 +9,7 @@ import {
   makeTypesOfUnionTypeCreateInput,
 } from '../../../shared/type-input.factory'
 
-export const createTypeInputFactory = (
+export const createTypeFactory = (
   types: Array<ICreateTypeDTO>,
 ): Array<ICreateTypeInput> => {
   return types.map((type) => ({

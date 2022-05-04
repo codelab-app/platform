@@ -1,3 +1,8 @@
+import {
+  IAppExport,
+  IAtomExport,
+  ITypeExport,
+} from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
 import { config } from 'dotenv'
 import * as fs from 'fs'
@@ -9,11 +14,17 @@ import { exportType } from './export-type'
 
 config({ path: `${process.cwd()}/.env` })
 
-const outputPath = path.resolve('data', 'export-data.json')
+export const defaultOutputPath = path.resolve('data', 'export-data.json')
+
+export type ExportedData = {
+  app: IAppExport | null
+  atoms: Array<IAtomExport>
+  types: Array<ITypeExport>
+}
 
 export const saveFile = (data: object | null) => {
   const json = JSON.stringify(data, null, 2)
-  fs.writeFileSync(outputPath, json)
+  fs.writeFileSync(defaultOutputPath, json)
 }
 
 /**
@@ -31,7 +42,7 @@ export const exportCommand: CommandModule<any, any> = {
     const atomData = await exportAtom()
     const typeData = await exportType()
 
-    const exportData = {
+    const exportData: ExportedData = {
       ...appData,
       ...atomData,
       ...typeData,

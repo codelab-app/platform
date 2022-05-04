@@ -16,18 +16,26 @@ import { flatMap } from 'lodash'
 import path from 'path'
 import { v4 } from 'uuid'
 import yargs, { CommandModule } from 'yargs'
-import { ExportAppData } from '../export/get-app'
+import { defaultOutputPath, ExportedData } from '../export/export.command'
 import { importApp } from './import-app'
+import { importAtom } from './import-atom'
 import { importComponent } from './import-component'
 import { importElementInitial, updateImportedElement } from './import-element'
+import { importType } from './import-type'
 
 /**
  * Will process json file, and import apps/types accordingly based on their existence
  */
 export const importCommand: CommandModule<any, any> = {
-  command: 'import <filePath>',
-  handler: async ({ filePath }) => {
-    config({ path: `${process.cwd()}/.env` })
+  command: 'import',
+  builder: {
+    filePath: {
+      describe: 'filePath',
+      type: 'string',
+    },
+  },
+  handler: async ({ filePath = defaultOutputPath }) => {
+    // config({ path: `${process.cwd()}/.env` })
 
     const json = fs.readFileSync(path.resolve('data', filePath), 'utf8')
     const Users = await UserOGM()
@@ -45,70 +53,26 @@ export const importCommand: CommandModule<any, any> = {
       },
     ])
 
-    const { app } = JSON.parse(json) as ExportAppData
-    const { pages, providerElements } = app
+    const { app, atoms, types } = JSON.parse(json) as ExportedData
 
-    await validate(pages)
-
-    const idMap = new Map<string, string>()
-
-    for (const element of providerElements) {
-      const newElement = await importElementInitial(element, idMap)
-
-      idMap.set(element.id, newElement.id)
+    if (types.length) {
+      console.log('Importing types...\n')
+      await importType(types, selectedUser)
     }
 
-    for (const element of providerElements) {
-      await updateImportedElement(element, idMap)
+    if (atoms.length) {
+      console.log('Importing atoms...')
+      await importAtom(atoms, selectedUser)
     }
 
-    for (const { elements, components } of pages) {
-      for (const component of components) {
-        const newComponent = await importComponent(component, selectedUser)
+    if (app) {
+      console.log('Importing app...')
 
-        idMap.set(component.id, newComponent.id)
-      }
+      const importedApp = await importApp(app, selectedUser)
 
-      for (const element of elements) {
-        const newElement = await importElementInitial(element, idMap)
-
-        idMap.set(element.id, newElement.id)
-      }
-
-      for (const element of elements) {
-        await updateImportedElement(element, idMap)
-      }
+      console.info(`Imported app with id ${importedApp.id}`)
     }
 
-    const importedApp = await importApp(app, selectedUser, idMap)
-
-    console.info(`Imported app with id ${importedApp.id}`)
     yargs.exit(0, null!)
   },
-}
-
-const validate = async (pages: Array<IPageExport>) => {
-  const Atoms = await AtomOGM()
-
-  let allAtomIds = flatMap(
-    pages,
-    (page) =>
-      page.elements.map((e) => e.atom?.id).filter(Boolean) as Array<string>,
-  )
-
-  allAtomIds = [...new Set(allAtomIds)]
-
-  const foundAtoms = await Atoms.find({
-    where: { id_IN: allAtomIds },
-  })
-
-  const foundAtomsMap = new Map<string, IAtomModel>(
-    foundAtoms.map((f) => [f.id, f]),
-  )
-
-  const notFound = allAtomIds.filter((id) => !foundAtomsMap.has(id))
-
-  if (notFound.length) {
-    throw new Error(`Can't find Atoms with ids "${notFound.join(', ')}"`)
-  }
 }

@@ -1,11 +1,8 @@
 import { IAppModel, PageOGM, pageSelectionSet } from '@codelab/backend'
 import { IAppExport } from '@codelab/shared/abstract/core'
+import { ExportAppData } from './export-app'
 import { getElementAndDescendants } from './get-element'
 import { getPageData } from './get-page'
-
-export type ExportAppData = {
-  app: IAppExport
-}
 
 /**
  * Gather all pages, elements and components

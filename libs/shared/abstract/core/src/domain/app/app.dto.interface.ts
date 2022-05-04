@@ -22,3 +22,5 @@ export type IAppExport = {
   pages: Array<IPageExport>
   providerElements: Array<IElementExport>
 }
+
+// export type IAppExport = App

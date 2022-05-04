@@ -110,4 +110,4 @@ yargs(hideBin(process.argv))
   //
   .command(exportCommand)
   .command(importCommand)
-  .demandCommand(1, 'Please provide a command').argv
+  .parse()

@@ -1,6 +1,7 @@
 import { userSelectionSet } from './userSelectionSet'
 
 const baseSelection = `
+  __typename
   id
   kind
   name

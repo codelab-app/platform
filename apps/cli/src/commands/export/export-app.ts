@@ -1,8 +1,13 @@
 import { AppOGM, appSelectionSet } from '@codelab/backend'
+import { IAppExport } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import { getAppData } from './get-app'
+
+export type ExportAppData = {
+  app: IAppExport
+}
 
 export const exportApp = async () => {
   /**
@@ -60,13 +65,8 @@ export const exportApp = async () => {
     //   throw new Error('Output path must end with .json')
     // }
 
-    const data = await getAppData(app)
-
-    return data
-
-    // const json = JSON.stringify(data, null, 2)
-    // fs.writeFileSync(path.resolve('data', outputPath), json)
+    return await getAppData(app)
   }
 
-  return null
+  return { app: null }
 }

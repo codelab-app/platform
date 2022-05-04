@@ -1,5 +1,6 @@
 {
   "app": {
+    "__typename": "App",
     "id": "8f70dafe-c9e5-4b55-9bf0-54907c1fe523",
     "name": "Codelab",
     "rootProviderElement": {
@@ -107,6 +108,7 @@
   ],
   "types": [
     {
+      "__typename": "PrimitiveType",
       "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
       "kind": "PrimitiveType",
       "name": "String",
@@ -119,6 +121,7 @@
       "primitiveKind": "String"
     },
     {
+      "__typename": "PrimitiveType",
       "id": "c794b3b3-c093-4f55-a075-6d04e1a6ab87",
       "kind": "PrimitiveType",
       "name": "Boolean",
@@ -131,6 +134,7 @@
       "primitiveKind": "Boolean"
     },
     {
+      "__typename": "PrimitiveType",
       "id": "187e1d6a-bba0-4613-b4ed-35cf306acddb",
       "kind": "PrimitiveType",
       "name": "Integer",
@@ -143,6 +147,7 @@
       "primitiveKind": "Integer"
     },
     {
+      "__typename": "InterfaceType",
       "id": "f509288c-75ad-4d12-967e-38754d796f48",
       "kind": "InterfaceType",
       "name": "Address",
@@ -160,6 +165,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -177,6 +183,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "187e1d6a-bba0-4613-b4ed-35cf306acddb",
               "kind": "PrimitiveType",
               "name": "Integer",
@@ -192,6 +199,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "806d734f-9910-40d3-98bf-2966a6339120",
       "kind": "InterfaceType",
       "name": "User",
@@ -209,6 +217,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -226,6 +235,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "InterfaceType",
               "id": "f509288c-75ad-4d12-967e-38754d796f48",
               "kind": "InterfaceType",
               "name": "Address",
@@ -241,6 +251,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "9856b1d7-7f27-48bf-8bae-18167d18fcc5",
       "kind": "InterfaceType",
       "name": "Button API",
@@ -258,6 +269,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -275,6 +287,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "c794b3b3-c093-4f55-a075-6d04e1a6ab87",
               "kind": "PrimitiveType",
               "name": "Boolean",
@@ -290,6 +303,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "806d734f-9910-40d3-98bf-2966a6339120",
       "kind": "InterfaceType",
       "name": "User",
@@ -307,6 +321,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -324,6 +339,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "InterfaceType",
               "id": "f509288c-75ad-4d12-967e-38754d796f48",
               "kind": "InterfaceType",
               "name": "Address",
@@ -339,6 +355,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "f509288c-75ad-4d12-967e-38754d796f48",
       "kind": "InterfaceType",
       "name": "Address",
@@ -356,6 +373,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -373,6 +391,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "187e1d6a-bba0-4613-b4ed-35cf306acddb",
               "kind": "PrimitiveType",
               "name": "Integer",
@@ -388,6 +407,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "9856b1d7-7f27-48bf-8bae-18167d18fcc5",
       "kind": "InterfaceType",
       "name": "Button API",
@@ -405,6 +425,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -422,6 +443,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "c794b3b3-c093-4f55-a075-6d04e1a6ab87",
               "kind": "PrimitiveType",
               "name": "Boolean",
@@ -437,6 +459,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "9856b1d7-7f27-48bf-8bae-18167d18fcc5",
       "kind": "InterfaceType",
       "name": "Button API",
@@ -454,6 +477,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -471,6 +495,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "c794b3b3-c093-4f55-a075-6d04e1a6ab87",
               "kind": "PrimitiveType",
               "name": "Boolean",
@@ -486,6 +511,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "f509288c-75ad-4d12-967e-38754d796f48",
       "kind": "InterfaceType",
       "name": "Address",
@@ -503,6 +529,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -520,6 +547,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "187e1d6a-bba0-4613-b4ed-35cf306acddb",
               "kind": "PrimitiveType",
               "name": "Integer",
@@ -535,6 +563,7 @@
       }
     },
     {
+      "__typename": "InterfaceType",
       "id": "806d734f-9910-40d3-98bf-2966a6339120",
       "kind": "InterfaceType",
       "name": "User",
@@ -552,6 +581,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "PrimitiveType",
               "id": "823ae740-ada7-46a8-9590-b8802f84de9a",
               "kind": "PrimitiveType",
               "name": "String",
@@ -569,6 +599,7 @@
             "name": null,
             "description": null,
             "node": {
+              "__typename": "InterfaceType",
               "id": "f509288c-75ad-4d12-967e-38754d796f48",
               "kind": "InterfaceType",
               "name": "Address",
