@@ -318,7 +318,7 @@
     "jest": "27.5.1",
     "jest-transform-stub": "^2.0.0",
     "json-schema": "0.4.0",
-    "lint-staged": "12.1.7",
+    "lint-staged": "12.4.1",
     "loader-utils": "3.2.0",
     "madge": "5.0.1",
     "next-compose-plugins": "2.2.1",
