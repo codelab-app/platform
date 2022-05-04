@@ -7,8 +7,8 @@ import {
 } from '@codelab/backend'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { Config } from '@codelab/shared/utils'
 import { ApolloServer } from 'apollo-server-micro'
-import { get } from 'env-var'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 
@@ -94,7 +94,7 @@ const handler: NextApiHandler = async (req, res) => {
    * Check for upsert only when user exists
    */
   // TODO: should think of a way so we don't need to call this everytime
-  if (session?.user) {
+  if (session?.user && Config().dev.upsert_user_middleware) {
     const user = session.user as Auth0SessionUser
 
     await upsertUser(await UserOGM(), user)
@@ -110,11 +110,7 @@ const handler: NextApiHandler = async (req, res) => {
   await startServer
   await apolloServer.createHandler({ path })(req, res)
 
-  const devGenerateOgmTypes = get('DEV_GENERATE_OGM_TYPES')
-    .default('false')
-    .asBoolStrict()
-
-  if (devGenerateOgmTypes) {
+  if (Config().dev.generate_ogm_types) {
     await generateOgmTypes()
   }
 }

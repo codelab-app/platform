@@ -8,6 +8,12 @@ interface Config {
     user: string
     password: string
   }
+  dev: {
+    // Should we generate OGM types on server hit
+    generate_ogm_types: boolean
+    // Should we enable upsert user middleware for next.js
+    upsert_user_middleware: boolean
+  }
   auth0: {
     issuer_base_url: string
     secret: string
@@ -24,6 +30,16 @@ export const Config = (): Config => ({
     uri: env.get('NEO4J_URI').required().asString(),
     user: env.get('NEO4J_USER').required().asString(),
     password: env.get('NEO4J_PASSWORD').required().asString(),
+  },
+  dev: {
+    generate_ogm_types: env
+      .get('DEV_GENERATE_OGM_TYPES')
+      .default('false')
+      .asBoolStrict(),
+    upsert_user_middleware: env
+      .get('DEV_UPSERT_USER_MIDDLEWARE')
+      .default('false')
+      .asBoolStrict(),
   },
   auth0: {
     issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
