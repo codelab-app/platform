@@ -25,7 +25,7 @@ module.exports = {
         // configFile: path.resolve(__dirname, 'babel.config.json'),
       },
     ],
-    // '^.+\\.[tj]sx?$': 'ts-jest',
+    // '^.+\\.[tj]sx?$': 'babel-jest',
     // Stub doesn't work with ts-jest
     '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
       'jest-transform-stub',
