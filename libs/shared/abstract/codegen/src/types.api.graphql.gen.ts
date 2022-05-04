@@ -437,6 +437,7 @@ export type AppConnectWhere = {
 }
 
 export type AppCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<AppOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
@@ -481,6 +482,7 @@ export type AppElementRootProviderElementNodeAggregateSelection = {
 }
 
 export type AppOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -1294,6 +1296,7 @@ export type AppUniqueWhere = {
 }
 
 export type AppUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<AppOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
@@ -3270,6 +3273,12 @@ export type CreateUnionTypesMutationResponse = {
   unionTypes: Array<UnionType>
 }
 
+export type CreateUsersMutationResponse = {
+  __typename?: 'CreateUsersMutationResponse'
+  info: CreateInfo
+  users: Array<User>
+}
+
 export type DeleteInfo = {
   __typename?: 'DeleteInfo'
   bookmark?: Maybe<Scalars['String']>
@@ -3994,6 +4003,7 @@ export type ElementCreateInput = {
   component?: InputMaybe<ElementComponentFieldInput>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<ElementHooksFieldInput>
+  id: Scalars['ID']
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentFieldInput>
   name?: InputMaybe<Scalars['String']>
   parentElement?: InputMaybe<ElementParentElementFieldInput>
@@ -4299,6 +4309,7 @@ export type ElementInstanceOfComponentUpdateFieldInput = {
 
 export type ElementOnCreateInput = {
   css?: InputMaybe<Scalars['String']>
+  id: Scalars['ID']
   name?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
@@ -5095,6 +5106,7 @@ export type ElementUpdateInput = {
   component?: InputMaybe<ElementComponentUpdateFieldInput>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<ElementHooksUpdateFieldInput>>
+  id?: InputMaybe<Scalars['ID']>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
   parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
@@ -7561,6 +7573,7 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
+  createUsers: CreateUsersMutationResponse
   deleteActions: DeleteInfo
   deleteAppTypes: DeleteInfo
   deleteApps: DeleteInfo
@@ -7744,6 +7757,10 @@ export type MutationCreateTypeReferencesArgs = {
 
 export type MutationCreateUnionTypesArgs = {
   input: Array<UnionTypeCreateInput>
+}
+
+export type MutationCreateUsersArgs = {
+  input: Array<UserCreateInput>
 }
 
 export type MutationDeleteActionsArgs = {
@@ -8676,6 +8693,7 @@ export type PageConnectWhere = {
 
 export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   rootElement?: InputMaybe<PageRootElementFieldInput>
 }
@@ -8722,6 +8740,7 @@ export type PageInfo = {
 }
 
 export type PageOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -9142,6 +9161,7 @@ export type PageUniqueWhere = {
 
 export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
 }

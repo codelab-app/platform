@@ -43,26 +43,26 @@ const hydrate = ({
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createTypeBase(ITypeKind.InterfaceType), {
-    _fields: prop(() => objectMap<Field>()),
+    fields: prop(() => objectMap<Field>()),
   })
   implements IInterfaceType
 {
   field(id: string): Field | undefined {
-    return this._fields.get(id)
+    return this.fields.get(id)
   }
 
   @modelAction
   updateFieldCache(fragment: IFieldDTO): Field {
     const field = Field.hydrate(fragment)
 
-    this._fields.set(field.id, field)
+    this.fields.set(field.id, field)
 
     return field
   }
 
   @modelAction
   deleteFieldLocal(field: Field) {
-    this._fields.delete(field.id)
+    this.fields.delete(field.id)
   }
 
   @modelAction
@@ -80,15 +80,15 @@ export class InterfaceType
         field.updateCache(fieldEdge)
       } else {
         field = this.updateFieldCache(fieldEdge)
-        this._fields.set(field.id, field)
+        this.fields.set(field.id, field)
       }
     }
 
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //
-    // for (const [key, field] of this._fields) {
+    // for (const [key, field] of this.fields) {
     //   if (!newFieldsKeySet.has(key)) {
-    //     this._fields.delete(field.id)
+    //     this.fields.delete(field.id)
     //   }
     // }
   }

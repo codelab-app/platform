@@ -36,7 +36,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
         typeService.getInterfaceAndDescendants(_id),
       )
 
-    const apiId = element.atom?.current._api.id
+    const apiId = element.atom?.current.api.id
 
     useEffect(() => {
       if (apiId) {

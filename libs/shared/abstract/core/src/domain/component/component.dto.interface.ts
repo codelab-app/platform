@@ -1,3 +1,4 @@
+import { IComponentModel } from '@codelab/backend'
 import { IAuth0ID } from '../user'
 import { ComponentFragment } from './component.fragment.graphql.gen'
 
@@ -9,3 +10,5 @@ export interface ICreateComponentDTO {
 export type IUpdateComponentDTO = Omit<ICreateComponentDTO, 'auth0Id'>
 
 export type IComponentDTO = ComponentFragment
+
+export type IComponentExport = IComponentModel

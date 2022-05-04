@@ -1,5 +1,5 @@
 import { AdminService } from '@codelab/frontend/modules/admin'
-import { AppService } from '@codelab/frontend/modules/app'
+import { AppService, appServiceContext } from '@codelab/frontend/modules/app'
 import {
   AtomService,
   atomServiceContext,
@@ -18,7 +18,7 @@ import {
   ElementService,
   elementServiceContext,
 } from '@codelab/frontend/modules/element'
-import { PageService } from '@codelab/frontend/modules/page'
+import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import {
   OperationService,
   operationServiceContext,
@@ -136,6 +136,8 @@ export const createRootStore = (
     implements IRootStore
   {
     protected onInit(): void {
+      appServiceContext.set(this, this.appService)
+      pageServiceContext.set(this, this.pageService)
       typeServiceContext.set(this, this.typeService)
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)

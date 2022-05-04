@@ -4,11 +4,11 @@ export const importComponent = async (
   component: IComponentModel,
   selectedUser: string,
 ): Promise<IComponentModel> => {
-  const Components = await ComponentOGM()
+  const Component = await ComponentOGM()
 
   const {
     components: [newComponent],
-  } = await Components.create({
+  } = await Component.create({
     input: [
       {
         name: component.name,

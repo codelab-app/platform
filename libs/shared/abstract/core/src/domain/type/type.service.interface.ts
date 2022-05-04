@@ -51,6 +51,12 @@ export interface ITypeService
   ): Promise<IField>
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
+
+  /**
+   * Issue with fieldConnections when creating multiple at a time
+   * @param data
+   */
+  import(data: Array<ICreateTypeDTO>): void
 }
 
 export interface IImportTypeService {

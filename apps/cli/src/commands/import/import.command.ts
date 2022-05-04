@@ -8,20 +8,18 @@ import {
   IPageModel,
   UserOGM,
 } from '@codelab/backend'
+import { IPageExport } from '@codelab/shared/abstract/core'
 import { config } from 'dotenv'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import { flatMap } from 'lodash'
 import path from 'path'
+import { v4 } from 'uuid'
 import yargs, { CommandModule } from 'yargs'
+import { ExportAppData } from '../export/get-app'
+import { importApp } from './import-app'
 import { importComponent } from './import-component'
 import { importElementInitial, updateImportedElement } from './import-element'
-
-interface PagePack {
-  page: IPageModel
-  components: Array<IComponentModel>
-  elements: Array<IElementModel>
-}
 
 /**
  * Will process json file, and import apps/types accordingly based on their existence
@@ -32,7 +30,6 @@ export const importCommand: CommandModule<any, any> = {
     config({ path: `${process.cwd()}/.env` })
 
     const json = fs.readFileSync(path.resolve('data', filePath), 'utf8')
-    const Apps = await AppOGM()
     const Users = await UserOGM()
     const allUsers = await Users.find()
 
@@ -48,11 +45,8 @@ export const importCommand: CommandModule<any, any> = {
       },
     ])
 
-    const { pages, app, providerElements } = JSON.parse(json) as {
-      app: IAppModel
-      pages: Array<PagePack>
-      providerElements: Array<IElementModel>
-    }
+    const { app } = JSON.parse(json) as ExportAppData
+    const { pages, providerElements } = app
 
     await validate(pages)
 
@@ -86,40 +80,14 @@ export const importCommand: CommandModule<any, any> = {
       }
     }
 
-    const {
-      apps: [importedApp],
-    } = await Apps.create({
-      input: [
-        {
-          name: `${app.name} - Imported at ${new Date().toISOString()}`,
-          owner: { connect: { where: { node: { id: selectedUser } } } as any },
-          rootProviderElement: {
-            connect: {
-              where: { node: { id: idMap.get(app.rootProviderElement.id) } },
-            } as any,
-          },
-          pages: {
-            create: pages.map(({ page }) => ({
-              node: {
-                name: page.name,
-                rootElement: {
-                  connect: {
-                    where: { node: { id: idMap.get(page.rootElement.id) } },
-                  },
-                },
-              },
-            })),
-          },
-        },
-      ],
-    })
+    const importedApp = await importApp(app, selectedUser, idMap)
 
     console.info(`Imported app with id ${importedApp.id}`)
     yargs.exit(0, null!)
   },
 }
 
-const validate = async (pages: Array<PagePack>) => {
+const validate = async (pages: Array<IPageExport>) => {
   const Atoms = await AtomOGM()
 
   let allAtomIds = flatMap(

@@ -6,10 +6,12 @@ import {
 import { v4 } from 'uuid'
 
 type CreatePrimitiveTypes = (
-  ids: Array<string>,
+  ids?: Array<string>,
 ) => Array<Omit<ICreateTypeDTO, 'auth0Id'>>
 
 export const buttonInterfaceId = v4()
+
+export const buttonAtomId = v4()
 
 export const stringTypeId = v4()
 export const booleanTypeId = v4()
@@ -17,11 +19,11 @@ export const floatTypeId = v4()
 export const integerTypeId = v4()
 
 export const createPrimitiveTypesData: CreatePrimitiveTypes = ([
-  stringId,
-  booleanId,
-  floatId,
-  integerId,
-]) => [
+  stringId = v4(),
+  booleanId = v4(),
+  floatId = v4(),
+  integerId = v4(),
+] = []) => [
   {
     id: stringId,
     name: IPrimitiveTypeKind.String,

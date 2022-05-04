@@ -189,10 +189,46 @@ export class TypeService
 
   /**
    * The array of types must be of same type
+   *
+   * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: Array<ICreateTypeDTO>) {
+  create = _async(function* (
+    this: TypeService,
+    data: Array<ICreateTypeDTO> = [],
+  ) {
+    if (!data.length) {
+      return []
+    }
+
+    const input = createTypeInputFactory(data)
+    const types = yield* _await(createTypeApi[data[0].kind](input))
+
+    if (!types.length) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('Type was not created')
+    }
+
+    return types.map((type) => {
+      const typeModel = typeFactory(type)
+
+      this.types.set(type.id, typeModel)
+
+      return typeModel
+    })
+  })
+
+  @modelFlow
+  @transaction
+  import = _async(function* (
+    this: TypeService,
+    data: Array<ICreateTypeDTO> = [],
+  ) {
+    if (!data.length) {
+      return []
+    }
+
     const input = createTypeInputFactory(data)
     const types = yield* _await(createTypeApi[data[0].kind](input))
 

@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-micro'
 
 export const pageSchema = gql`
   type Page {
-    id: ID! @id
+    id: ID! @id(autogenerate: false)
     name: String!
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)

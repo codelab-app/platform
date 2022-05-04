@@ -88,26 +88,6 @@ yargs(hideBin(process.argv))
     },
   )
   //
-  // Dgraph
-  //
-  .command(
-    'dgraph',
-    'Run dgraph related command',
-    (_yargs) =>
-      _yargs
-        .command(
-          'update-schema',
-          'Update dgraph scheme',
-          requireEnvOptions,
-          (argv) =>
-            runCli(argv.env, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
-        )
-        .command('reset-data', 'Reset dgraph data', requireEnvOptions, (argv) =>
-          runCli(argv.env, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
-        )
-        .demandCommand(1, 'Please provide a dgraph command').argv,
-  )
-  //
   // Ts Parser
   //
   .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {

@@ -22,21 +22,21 @@ export const enumTypeSelectionSet = `{
   }
 }`
 
-export const interfaceTypeSelectionSet = `{
-  ${baseSelection}
-}`
-
 // export const interfaceTypeSelectionSet = `{
 //   ${baseSelection}
-//   fieldsConnection {
-//     edges {
-//       id
-//       key
-//       name
-//       description
-//       node {
-//         ${baseSelection}
-//       }
-//     }
-//   }
 // }`
+
+export const interfaceTypeSelectionSet = `{
+  ${baseSelection}
+  fieldsConnection {
+    edges {
+      id
+      key
+      name
+      description
+      node {
+        ${baseSelection}
+      }
+    }
+  }
+}`

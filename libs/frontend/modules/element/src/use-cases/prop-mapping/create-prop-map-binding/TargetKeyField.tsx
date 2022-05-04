@@ -54,7 +54,7 @@ const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
         ? tree.element(targetElementId as string)
         : null
 
-      const api = targetElement?.atom?.current._api
+      const api = targetElement?.atom?.current.api
 
       if (api) {
         getTypeApi.GetInterfaceTypes({ where: { id: api.id } }).then((r) => {

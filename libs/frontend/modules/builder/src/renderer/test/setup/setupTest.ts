@@ -82,7 +82,7 @@ export const setupTestForRenderer = (
       name: 'Html Div',
       id: v4(),
       type: IAtomType.HtmlDiv,
-      _api: typeRef(emptyInterface),
+      api: typeRef(emptyInterface),
       tags: [],
     })
 
@@ -90,7 +90,7 @@ export const setupTestForRenderer = (
       name: 'Text',
       id: v4(),
       type: IAtomType.Text,
-      _api: typeRef(emptyInterface),
+      api: typeRef(emptyInterface),
       tags: [],
     })
 

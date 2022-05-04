@@ -34,8 +34,8 @@ export class ImportTypeService extends Model({}) implements IImportTypeService {
     return this.makeTypesExportPayload(types)
   })
 
-  public makeTypesExportPayload(atoms: Array<AnyType>) {
-    return atoms.map((t) => getSnapshot(t))
+  public makeTypesExportPayload(types: Array<AnyType>) {
+    return types.map((t) => getSnapshot(t))
   }
 
   @modelFlow

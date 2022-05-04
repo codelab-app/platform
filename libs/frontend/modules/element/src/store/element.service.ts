@@ -61,6 +61,9 @@ export class ElementService
   })
   implements IElementService
 {
+  /**
+   * Used to load the entire page tree
+   */
   @modelFlow
   getTree = _async(function* (this: ElementService, rootId: IElementRef) {
     const { elementGraph } = yield* _await(

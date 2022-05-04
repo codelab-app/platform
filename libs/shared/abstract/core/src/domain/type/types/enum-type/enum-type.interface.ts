@@ -4,7 +4,7 @@ import { ITypeKind } from '../base-type/type-kind.enum'
 
 export interface IEnumTypeValue {
   id: string
-  name: Nullish<string>
+  name?: Nullish<string>
   value: string
 }
 

@@ -5,6 +5,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
   title: 'Create Element Input',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     name: {
       autoFocus: true,
       type: 'string',

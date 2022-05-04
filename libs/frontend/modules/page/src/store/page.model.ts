@@ -1,6 +1,16 @@
 import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
+const hydrate = (page: IPageDTO) => {
+  return new Page({
+    id: page.id,
+    name: page.name,
+    rootElementId: page.rootElement.id,
+    appId: page.app.id,
+    providerElementId: page.app.rootProviderElement.id,
+  })
+}
+
 @model('@codelab/Page')
 export class Page
   extends Model({
@@ -12,18 +22,5 @@ export class Page
   })
   implements IPage
 {
-  getRefId() {
-    // when `getId` is not specified in the custom reference it will use this as id
-    return this.id
-  }
-
-  static hydrate(page: IPageDTO) {
-    return new Page({
-      id: page.id,
-      name: page.name,
-      rootElementId: page.rootElement.id,
-      appId: page.app.id,
-      providerElementId: page.app.rootProviderElement.id,
-    })
-  }
+  static hydrate = hydrate
 }

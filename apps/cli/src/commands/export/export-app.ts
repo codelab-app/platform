@@ -47,22 +47,26 @@ export const exportApp = async () => {
     /**
      * Export info, file path etc
      */
-    const { outputPath } = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'outputPath',
-        message: 'Enter a path to export to',
-        default: `${app.name ?? 'app'}.json`,
-      },
-    ])
-
-    if (!outputPath.endsWith('.json')) {
-      throw new Error('Output path must end with .json')
-    }
+    // const { outputPath } = await inquirer.prompt([
+    //   {
+    //     type: 'input',
+    //     name: 'outputPath',
+    //     message: 'Enter a path to export to',
+    //     default: `${app.name ?? 'app'}.json`,
+    //   },
+    // ])
+    //
+    // if (!outputPath.endsWith('.json')) {
+    //   throw new Error('Output path must end with .json')
+    // }
 
     const data = await getAppData(app)
-    const json = JSON.stringify(data, null, 2)
 
-    fs.writeFileSync(path.resolve('data', outputPath), json)
+    return data
+
+    // const json = JSON.stringify(data, null, 2)
+    // fs.writeFileSync(path.resolve('data', outputPath), json)
   }
+
+  return null
 }

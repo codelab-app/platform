@@ -50,7 +50,7 @@ const updatedElementName = 'Container updated'
 describe('Elements CRUD', () => {
   before(() => {
     cy.getCurrentUserId().then((userId) => {
-      const atomsInput: Array<AtomCreateInput> = createAtomsData.map(
+      const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
         (atom) => ({
           id: v4(),
           name: atom.name,
@@ -69,7 +69,7 @@ describe('Elements CRUD', () => {
         }),
       )
 
-      cy.createAtom(atomsInput).then(() => {
+      cy.createAtom(atomsInput).then((data) => {
         // cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
 
         cy.visit('/apps')
@@ -90,8 +90,8 @@ describe('Elements CRUD', () => {
     })
   })
 
-  describe(`create`, () => {
-    it(`should be able to create elements`, () => {
+  describe('create', () => {
+    it('should be able to create elements', () => {
       cy.wrap(elements).each((element: ElementData) => {
         const { atom, name, parentElement } = element
 

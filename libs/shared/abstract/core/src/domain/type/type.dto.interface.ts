@@ -30,3 +30,11 @@ export interface ICreateTypeDTO extends IBaseTypeDTO {
 export type IUpdateTypeDTO = IBaseTypeDTO
 
 export type ITypeDTO = TypeFragment
+
+export type ITypeExport = {
+  id: string
+  name: string
+  kind: ITypeKind
+  primitiveKind?: IPrimitiveTypeKind
+  allowedValues?: Array<IEnumTypeValue>
+}

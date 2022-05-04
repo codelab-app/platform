@@ -378,6 +378,7 @@ input AppConnectWhere {
 }
 
 input AppCreateInput {
+  id: ID!
   name: String!
   owner: AppOwnerFieldInput
   pages: AppPagesFieldInput
@@ -419,6 +420,7 @@ type AppElementRootProviderElementNodeAggregateSelection {
 }
 
 input AppOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -1213,6 +1215,7 @@ input AppUniqueWhere {
 }
 
 input AppUpdateInput {
+  id: ID
   name: String
   owner: AppOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
@@ -3097,6 +3100,11 @@ type CreateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
+type CreateUsersMutationResponse {
+  info: CreateInfo!
+  users: [User!]!
+}
+
 type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
@@ -3748,6 +3756,7 @@ input ElementCreateInput {
   component: ElementComponentFieldInput
   css: String
   hooks: ElementHooksFieldInput
+  id: ID!
   instanceOfComponent: ElementInstanceOfComponentFieldInput
   name: String
   parentElement: ElementParentElementFieldInput
@@ -4037,6 +4046,7 @@ input ElementInstanceOfComponentUpdateFieldInput {
 
 input ElementOnCreateInput {
   css: String
+  id: ID!
   name: String
   propTransformationJs: String
   renderForEachPropKey: String
@@ -4796,6 +4806,7 @@ input ElementUpdateInput {
   component: ElementComponentUpdateFieldInput
   css: String
   hooks: [ElementHooksUpdateFieldInput!]
+  id: ID
   instanceOfComponent: ElementInstanceOfComponentUpdateFieldInput
   name: String
   parentElement: ElementParentElementUpdateFieldInput
@@ -7208,6 +7219,7 @@ type Mutation {
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
+  createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
   deleteActions(delete: ActionDeleteInput, where: ActionWhere): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
@@ -8007,6 +8019,7 @@ input PageConnectWhere {
 
 input PageCreateInput {
   app: PageAppFieldInput
+  id: ID!
   name: String!
   rootElement: PageRootElementFieldInput
 }
@@ -8051,6 +8064,7 @@ type PageInfo {
 }
 
 input PageOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -8462,6 +8476,7 @@ input PageUniqueWhere {
 
 input PageUpdateInput {
   app: PageAppUpdateFieldInput
+  id: ID
   name: String
   rootElement: PageRootElementUpdateFieldInput
 }
