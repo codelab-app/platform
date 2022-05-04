@@ -1,7 +1,7 @@
-import { EnumType, InterfaceType, PrimitiveType } from '@codelab/backend'
 import {
   ElementTypeKind,
   MonacoLanguage,
+  OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
 import { IEnumTypeValue, IPrimitiveTypeKind, ITypeKind } from './types'
@@ -33,4 +33,7 @@ export type IUpdateTypeDTO = IBaseTypeDTO
 export type ITypeDTO = TypeFragment
 
 // Uses OGM types
-export type ITypeExport = PrimitiveType | EnumType | InterfaceType
+export type ITypeExport =
+  | OGM_TYPES.PrimitiveType
+  | OGM_TYPES.EnumType
+  | OGM_TYPES.InterfaceType

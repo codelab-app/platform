@@ -1,4 +1,5 @@
-import { AtomOGM, AtomType } from '@codelab/backend'
+import { AtomOGM } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
 
@@ -23,7 +24,7 @@ const upsertAtom = async (atom: IAtomExport) => {
   const input = {
     id: atom.id,
     name: atom.name,
-    type: atom.type as AtomType,
+    type: atom.type as OGM_TYPES.AtomType,
     api: connectId(atom.api.id),
   }
 

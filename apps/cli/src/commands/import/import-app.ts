@@ -1,4 +1,4 @@
-import { AppOGM, IAppModel } from '@codelab/backend'
+import { AppOGM } from '@codelab/backend'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { importComponent } from './import-component'

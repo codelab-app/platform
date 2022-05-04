@@ -3,21 +3,14 @@ import {
   enumTypeSelectionSet,
   getDriver,
   getTypeDescendantsOGM,
-  InterfaceType as IInterfaceType,
   InterfaceTypeOGM,
   interfaceTypeSelectionSet,
   PrimitiveTypeOGM,
   primitiveTypeSelectionSet,
 } from '@codelab/backend'
-import {
-  IBaseTypeDTO,
-  ITypeDTO,
-  ITypeExport,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import inquirer from 'inquirer'
-import { difference } from 'lodash'
 
 type Descendant = {
   id: string
@@ -103,7 +96,7 @@ export const exportType = async (): Promise<ExportTypeData> => {
       .map((type) => {
         return interfaceTypes.find((t) => t.id === type.id)
       })
-      .filter((x): x is IInterfaceType => !!x)
+      .filter((x): x is OGM_TYPES.InterfaceType => !!x)
 
     const allTypes = [
       ...primitiveTypes,

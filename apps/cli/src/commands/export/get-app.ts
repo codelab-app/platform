@@ -1,13 +1,15 @@
-import { IAppModel, PageOGM, pageSelectionSet } from '@codelab/backend'
-import { IAppExport } from '@codelab/shared/abstract/core'
-import { ExportAppData } from './export-app'
+import { PageOGM, pageSelectionSet } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { ExportAppData } from './export-app'
 import { getElementAndDescendants } from './get-element'
 import { getPageData } from './get-page'
 
 /**
  * Gather all pages, elements and components
  */
-export const getAppData = async (app: IAppModel): Promise<ExportAppData> => {
+export const getAppData = async (
+  app: OGM_TYPES.App,
+): Promise<ExportAppData> => {
   const Page = await PageOGM()
 
   const pages = await Page.find({

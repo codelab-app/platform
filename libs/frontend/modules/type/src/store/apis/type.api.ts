@@ -1,18 +1,10 @@
-import {
-  EnumTypeModel,
-  EnumTypeOGM,
-  IEnumTypeModel,
-  PrimitiveTypeOGM,
-} from '@codelab/backend'
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
   IConnectTypeInput,
-  ICreateTypeDTO,
   ICreateTypeInput,
   IDeleteTypeInput,
   IDisconnectTypeInput,
   ITypeDTO,
-  ITypeExport,
   ITypeKind,
   ITypeWhere,
   IUpdateTypeInput,
@@ -27,8 +19,6 @@ import {
 } from '../../graphql/get-type.endpoints.graphql.gen'
 import { getSdk } from '../../graphql/type.endpoints.graphql.gen'
 import { getSdk as getUpdateSdk } from '../../graphql/update-type.endpoints.graphql.gen'
-import { createTypeFactory } from '../../use-cases/types'
-import { updateTypeInputFactory } from '../../use-cases/types/update-type/update-type.factory'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
 // so here are a collection of helper functions that allow us to universally query/mutate a type, based on its type kind

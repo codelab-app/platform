@@ -1,26 +1,11 @@
-import {
-  AppOGM,
-  AtomOGM,
-  IAppModel,
-  IAtomModel,
-  IComponentModel,
-  IElementModel,
-  IPageModel,
-  UserOGM,
-} from '@codelab/backend'
-import { IPageExport } from '@codelab/shared/abstract/core'
-import { config } from 'dotenv'
+import { UserOGM } from '@codelab/backend'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
-import { flatMap } from 'lodash'
 import path from 'path'
-import { v4 } from 'uuid'
 import yargs, { CommandModule } from 'yargs'
 import { defaultOutputPath, ExportedData } from '../export/export.command'
 import { importApp } from './import-app'
 import { importAtom } from './import-atom'
-import { importComponent } from './import-component'
-import { importElementInitial, updateImportedElement } from './import-element'
 import { importType } from './import-type'
 
 /**

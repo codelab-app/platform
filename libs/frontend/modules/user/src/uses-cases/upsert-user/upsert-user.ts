@@ -1,4 +1,4 @@
-import type { UserModel } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 
 /**
@@ -6,7 +6,10 @@ import { Auth0SessionUser } from '@codelab/shared/abstract/core'
  *
  * Also used by specs to create a user
  */
-export const upsertUser = async (User: UserModel, user: Auth0SessionUser) => {
+export const upsertUser = async (
+  User: OGM_TYPES.UserModel,
+  user: Auth0SessionUser,
+) => {
   if (user) {
     const [existing] = await User.find({
       where: {

@@ -1,4 +1,5 @@
-import { AtomOGM, IAtomModel } from '@codelab/backend'
+import { AtomOGM } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IPageExport } from '@codelab/shared/abstract/core'
 import { flatMap } from 'lodash'
 
@@ -17,7 +18,7 @@ export const validate = async (pages: Array<IPageExport>) => {
     where: { id_IN: allAtomIds },
   })
 
-  const foundAtomsMap = new Map<string, IAtomModel>(
+  const foundAtomsMap = new Map<string, OGM_TYPES.Atom>(
     foundAtoms.map((f) => [f.id, f]),
   )
 

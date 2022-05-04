@@ -1,10 +1,11 @@
-import { ComponentOGM, IComponentModel } from '@codelab/backend'
+import { ComponentOGM } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { v4 } from 'uuid'
 
 export const importComponent = async (
-  component: IComponentModel,
+  component: OGM_TYPES.Component,
   selectedUser: string,
-): Promise<IComponentModel> => {
+): Promise<OGM_TYPES.Component> => {
   const Component = await ComponentOGM()
 
   const {

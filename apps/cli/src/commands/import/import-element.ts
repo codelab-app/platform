@@ -1,13 +1,14 @@
-import { ElementOGM, IElementModel } from '@codelab/backend'
+import { ElementOGM } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { v4 } from 'uuid'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
  */
 export const importElementInitial = async (
-  element: IElementModel,
+  element: OGM_TYPES.Element,
   idMap: Map<string, string>,
-): Promise<IElementModel> => {
+): Promise<OGM_TYPES.Element> => {
   const Elements = await ElementOGM()
 
   const {
@@ -54,7 +55,7 @@ export const importElementInitial = async (
  * Updates the imported element with prop map bindings, parent/children connections and props after we have imported all the elements, so we can reference them
  */
 export const updateImportedElement = async (
-  element: IElementModel,
+  element: OGM_TYPES.Element,
   idMap: Map<string, string>,
 ): Promise<void> => {
   const Elements = await ElementOGM()

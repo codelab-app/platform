@@ -1,6 +1,5 @@
-import { IElementModel } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
 import {
   ElementFragment,
   ElementGraphFragment,
@@ -32,7 +31,11 @@ export type IElementDTO = ElementFragment
 
 export type IElementGraphDTO = ElementGraphFragment
 
-export type IElementExport = IElementModel
+export type IElementExport = Pick<
+  OGM_TYPES.Element,
+  'id' | 'name' | 'parentElement' | 'atom'
+>
+
 // {
 //   id: string
 //   name?: string | null
