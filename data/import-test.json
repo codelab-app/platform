@@ -1,7 +1,7 @@
 [
   {
     "id": "da929511-92fd-41a5-b87c-e14f5435a418",
-    "typeKind": "PrimitiveType",
+    "kind": "PrimitiveType",
     "name": "String",
     "primitiveKind": "String",
     "ownerAuth0Id": "google-oauth2|116956556863062538891",
@@ -9,7 +9,7 @@
   },
   {
     "id": "5ad5e4d2-97e9-4827-9ea4-dc339836c1e8",
-    "typeKind": "PrimitiveType",
+    "kind": "PrimitiveType",
     "name": "Boolean",
     "primitiveKind": "Boolean",
     "ownerAuth0Id": "google-oauth2|116956556863062538891",
@@ -17,7 +17,7 @@
   },
   {
     "id": "a1189ed0-11e6-4b61-802b-a6090c848016",
-    "typeKind": "ArrayType",
+    "kind": "ArrayType",
     "name": "ArrayType",
     "itemType": {
       "id": "da929511-92fd-41a5-b87c-e14f5435a418",
@@ -28,10 +28,10 @@
   },
   {
     "id": "2c22369e-c743-480f-9cae-a5d5752d6a44",
-    "typeKind": "InterfaceType",
+    "kind": "InterfaceType",
     "name": "User",
     "ownerAuth0Id": "google-oauth2|116956556863062538891",
-    "_fields": {
+    "fields": {
       "items": {
         "2c22369e-c743-480f-9cae-a5d5752d6a44:fields:name": {
           "id": "2c22369e-c743-480f-9cae-a5d5752d6a44:fields:name",
@@ -74,7 +74,7 @@
   },
   {
     "id": "7155d3bf-61ac-48a2-ba58-878046036776",
-    "typeKind": "EnumType",
+    "kind": "EnumType",
     "name": "MembershipTier",
     "allowedValues": [
       {

@@ -6,7 +6,7 @@
       "type": "MuiAccordion",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "dc0b9f6a-0978-47b3-8fdf-6bc8f4ac196a",
         "$modelType": "codelab/TypeRef"
       }
@@ -17,7 +17,7 @@
       "type": "MuiDatePicker",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
         "$modelType": "codelab/TypeRef"
       }
@@ -28,7 +28,7 @@
       "type": "MuiAccordionActions",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "879df196-45a0-43a4-89d1-7c7d4f55392c",
         "$modelType": "codelab/TypeRef"
       }
@@ -39,7 +39,7 @@
       "type": "MuiAccordionDetails",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "590186ef-1cc7-4d04-aacc-644725ad1624",
         "$modelType": "codelab/TypeRef"
       }
@@ -50,7 +50,7 @@
       "type": "MuiAccordionSummary",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "04716976-1d37-4b39-924e-02bef5fa8535",
         "$modelType": "codelab/TypeRef"
       }
@@ -61,7 +61,7 @@
       "type": "MuiAlert",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "694eecb9-4c77-4340-87b8-121a5c5c8542",
         "$modelType": "codelab/TypeRef"
       }
@@ -72,7 +72,7 @@
       "type": "MuiAlertTitle",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f6ed9000-e7ff-47a6-90e1-b5f4dcdf6166",
         "$modelType": "codelab/TypeRef"
       }
@@ -83,7 +83,7 @@
       "type": "MuiAppBar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "89280046-f738-45e9-bc0c-4309cc557776",
         "$modelType": "codelab/TypeRef"
       }
@@ -94,7 +94,7 @@
       "type": "MuiAutocomplete",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "0a03310b-46fe-47f5-9da8-0ea573a31ca5",
         "$modelType": "codelab/TypeRef"
       }
@@ -105,7 +105,7 @@
       "type": "MuiAvatar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "37f978c4-17b2-49f8-b6ab-b134b059eaaa",
         "$modelType": "codelab/TypeRef"
       }
@@ -116,7 +116,7 @@
       "type": "MuiAvatarGroup",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "3920f375-8eb8-45c6-b12f-00703bc9f940",
         "$modelType": "codelab/TypeRef"
       }
@@ -127,7 +127,7 @@
       "type": "MuiBottomNavigation",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "73627c43-95c7-4027-a946-ac7313f99d70",
         "$modelType": "codelab/TypeRef"
       }
@@ -138,7 +138,7 @@
       "type": "MuiBottomNavigationAction",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "2fabe554-2faa-4023-936f-d0597ae6267e",
         "$modelType": "codelab/TypeRef"
       }
@@ -149,7 +149,7 @@
       "type": "MuiBox",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "67365bc9-67cb-4df5-9c05-b2d13b472221",
         "$modelType": "codelab/TypeRef"
       }
@@ -160,7 +160,7 @@
       "type": "MuiBreadcrumbs",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "5e2d0477-d724-4341-a3de-311f5920090e",
         "$modelType": "codelab/TypeRef"
       }
@@ -171,7 +171,7 @@
       "type": "MuiButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "bd60dea3-c957-44f5-a098-0b30a162458d",
         "$modelType": "codelab/TypeRef"
       }
@@ -182,7 +182,7 @@
       "type": "MuiButtonBase",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "db98330a-674b-4b18-896d-450de845d65e",
         "$modelType": "codelab/TypeRef"
       }
@@ -193,7 +193,7 @@
       "type": "MuiButtonGroup",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "a023b3a5-977c-4382-a55e-12c5e636975f",
         "$modelType": "codelab/TypeRef"
       }
@@ -204,7 +204,7 @@
       "type": "MuiCard",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e56c8875-46d2-403d-9044-1990184409f8",
         "$modelType": "codelab/TypeRef"
       }
@@ -215,7 +215,7 @@
       "type": "MuiCardActionArea",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b65fce01-6003-4c81-9b62-df7f972412cf",
         "$modelType": "codelab/TypeRef"
       }
@@ -226,7 +226,7 @@
       "type": "MuiCardActions",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "990217d5-1d25-467c-82d7-a46f09b40f18",
         "$modelType": "codelab/TypeRef"
       }
@@ -237,7 +237,7 @@
       "type": "MuiCardContent",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "6e3c481d-b3f3-494b-a4d7-83d7d00064dc",
         "$modelType": "codelab/TypeRef"
       }
@@ -248,7 +248,7 @@
       "type": "MuiCardHeader",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "31a7ceb5-d7cf-4336-8e6d-67c5ff9acc40",
         "$modelType": "codelab/TypeRef"
       }
@@ -259,7 +259,7 @@
       "type": "MuiCardMedia",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b238c098-7130-4612-bccf-3be78eb9ce04",
         "$modelType": "codelab/TypeRef"
       }
@@ -270,7 +270,7 @@
       "type": "MuiCheckbox",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "5e65927a-b0ef-422b-bb30-62b59bf368d7",
         "$modelType": "codelab/TypeRef"
       }
@@ -281,7 +281,7 @@
       "type": "MuiChip",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "3fdfc550-84fc-473f-a5dc-c8d6011e0093",
         "$modelType": "codelab/TypeRef"
       }
@@ -292,7 +292,7 @@
       "type": "MuiCircularProgress",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "9df1144e-ef46-40e4-9eec-c3f0e9e5aa1b",
         "$modelType": "codelab/TypeRef"
       }
@@ -303,7 +303,7 @@
       "type": "MuiCollapse",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "826aefd1-9ef2-46c8-a775-97b70402d3dc",
         "$modelType": "codelab/TypeRef"
       }
@@ -314,7 +314,7 @@
       "type": "MuiContainer",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "69973cb7-f548-4f52-8d59-7d4a20a480bf",
         "$modelType": "codelab/TypeRef"
       }
@@ -325,7 +325,7 @@
       "type": "MuiCssBaseline",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "933ba15d-e599-44ab-8f8b-8688be4da804",
         "$modelType": "codelab/TypeRef"
       }
@@ -336,7 +336,7 @@
       "type": "MuiDialog",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "d1e74dd6-16f6-44e8-89cc-9af250efc262",
         "$modelType": "codelab/TypeRef"
       }
@@ -347,7 +347,7 @@
       "type": "MuiDialogActions",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "9fdf7b0c-4e99-49f3-9567-df941d4e9348",
         "$modelType": "codelab/TypeRef"
       }
@@ -358,7 +358,7 @@
       "type": "MuiDialogContent",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "6818832b-9ec6-41ad-a982-f09686a5529a",
         "$modelType": "codelab/TypeRef"
       }
@@ -369,7 +369,7 @@
       "type": "MuiDialogContentText",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "7bc94777-31e2-4095-ad0a-e5814b5534c3",
         "$modelType": "codelab/TypeRef"
       }
@@ -380,7 +380,7 @@
       "type": "MuiDialogTitle",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "abd5b48f-6d8f-4164-a119-57d9e0ee4f42",
         "$modelType": "codelab/TypeRef"
       }
@@ -391,7 +391,7 @@
       "type": "MuiDivider",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "7ab4a650-26ba-4ac0-9a0c-172a15204145",
         "$modelType": "codelab/TypeRef"
       }
@@ -402,7 +402,7 @@
       "type": "MuiDrawer",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "2e0bacf3-a46f-420b-93cb-02a95b5155f1",
         "$modelType": "codelab/TypeRef"
       }
@@ -413,7 +413,7 @@
       "type": "MuiFab",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "c62ea56a-1791-4d2d-ae0c-87b408f55dcb",
         "$modelType": "codelab/TypeRef"
       }
@@ -424,7 +424,7 @@
       "type": "MuiFade",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e25f1fa2-7408-4314-b0eb-77aa8a70ef52",
         "$modelType": "codelab/TypeRef"
       }
@@ -435,7 +435,7 @@
       "type": "MuiFilledInput",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "def77503-4d31-44ba-9c8c-d24791aab5b5",
         "$modelType": "codelab/TypeRef"
       }
@@ -446,7 +446,7 @@
       "type": "MuiFormControl",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "a5586bfc-9a8d-4a72-81fa-ede8cf5def97",
         "$modelType": "codelab/TypeRef"
       }
@@ -457,7 +457,7 @@
       "type": "MuiFormControlLabel",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "35b55f47-1fd3-4217-b529-ef52f5188cae",
         "$modelType": "codelab/TypeRef"
       }
@@ -468,7 +468,7 @@
       "type": "MuiFormGroup",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "93f1ed25-538d-4118-afd3-e3f9668c3179",
         "$modelType": "codelab/TypeRef"
       }
@@ -479,7 +479,7 @@
       "type": "MuiFormHelperText",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "d09a8b1c-ba56-4c52-9946-975f0abb3311",
         "$modelType": "codelab/TypeRef"
       }
@@ -490,7 +490,7 @@
       "type": "MuiFormLabel",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "fac9039d-7eb2-44c1-808a-5369c2201791",
         "$modelType": "codelab/TypeRef"
       }
@@ -501,7 +501,7 @@
       "type": "MuiGlobalStyles",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "18756f4f-a9ab-4a2e-b8c0-f9a69456803e",
         "$modelType": "codelab/TypeRef"
       }
@@ -512,7 +512,7 @@
       "type": "MuiGrid",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "ac2f17c5-3dc5-4360-9a7d-e8f0b783d112",
         "$modelType": "codelab/TypeRef"
       }
@@ -523,7 +523,7 @@
       "type": "MuiGrow",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f5c6e986-e637-4251-a954-14f084f70a4e",
         "$modelType": "codelab/TypeRef"
       }
@@ -534,7 +534,7 @@
       "type": "MuiHidden",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "09739e89-6e82-41a2-859e-a3f808e4e61f",
         "$modelType": "codelab/TypeRef"
       }
@@ -545,7 +545,7 @@
       "type": "MuiIcon",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "6d5223c5-2ff8-4a96-ae31-598706689f31",
         "$modelType": "codelab/TypeRef"
       }
@@ -556,7 +556,7 @@
       "type": "MuiIconButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "00e33c17-f503-4d4e-8591-081d3384b006",
         "$modelType": "codelab/TypeRef"
       }
@@ -567,7 +567,7 @@
       "type": "MuiImageList",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "2780d914-f9d7-442e-8272-edc17a189ae1",
         "$modelType": "codelab/TypeRef"
       }
@@ -578,7 +578,7 @@
       "type": "MuiImageListItem",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "54d75961-2051-4035-abeb-51bcc530d063",
         "$modelType": "codelab/TypeRef"
       }
@@ -589,7 +589,7 @@
       "type": "MuiImageListItemBar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "df4d68cd-b5cc-46fe-9a64-b9a83b8a6c0b",
         "$modelType": "codelab/TypeRef"
       }
@@ -600,7 +600,7 @@
       "type": "MuiInput",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "588c18c4-2816-4b49-a275-aa4511c845bd",
         "$modelType": "codelab/TypeRef"
       }
@@ -611,7 +611,7 @@
       "type": "MuiInputAdornment",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "78eb2b0a-aaa6-49ba-ae29-26b52cb7a0f2",
         "$modelType": "codelab/TypeRef"
       }
@@ -622,7 +622,7 @@
       "type": "MuiInputBase",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "4f13ad22-0642-446d-b88c-0d75e93a8ff0",
         "$modelType": "codelab/TypeRef"
       }
@@ -633,7 +633,7 @@
       "type": "MuiInputLabel",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "d8d3f13b-7ff0-4f88-9aa6-f0eb03b56909",
         "$modelType": "codelab/TypeRef"
       }
@@ -644,7 +644,7 @@
       "type": "MuiLinearProgress",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "71072833-80b6-47aa-abf0-ffc8965f439e",
         "$modelType": "codelab/TypeRef"
       }
@@ -655,7 +655,7 @@
       "type": "MuiLink",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b16811f6-287e-4be1-bcff-ab8952b271cc",
         "$modelType": "codelab/TypeRef"
       }
@@ -666,7 +666,7 @@
       "type": "MuiList",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e71dd2eb-355c-460e-8f58-6df12efc34ed",
         "$modelType": "codelab/TypeRef"
       }
@@ -677,7 +677,7 @@
       "type": "MuiListItem",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "65a16156-8bed-4d64-b068-a818f5bb4d4b",
         "$modelType": "codelab/TypeRef"
       }
@@ -688,7 +688,7 @@
       "type": "MuiListItemAvatar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b899be8c-3b12-4da1-9d78-4328439b5eb7",
         "$modelType": "codelab/TypeRef"
       }
@@ -699,7 +699,7 @@
       "type": "MuiListItemButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "ba9c1682-63c8-4ad7-9304-83b3faa19bde",
         "$modelType": "codelab/TypeRef"
       }
@@ -710,7 +710,7 @@
       "type": "MuiListItemIcon",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "17168add-7b6c-4625-adf4-dad23c0002a2",
         "$modelType": "codelab/TypeRef"
       }
@@ -721,7 +721,7 @@
       "type": "MuiListItemSecondaryAction",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e3b6cc5c-2595-4aa4-86d3-584ffdeabdb0",
         "$modelType": "codelab/TypeRef"
       }
@@ -732,7 +732,7 @@
       "type": "MuiListItemText",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "4affba73-3e6a-4ce6-ac82-af71ffc7c213",
         "$modelType": "codelab/TypeRef"
       }
@@ -743,7 +743,7 @@
       "type": "MuiListSubheader",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "71829b74-0232-460e-ac05-1ec6057e2522",
         "$modelType": "codelab/TypeRef"
       }
@@ -754,7 +754,7 @@
       "type": "MuiMenu",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "c307d423-5d1b-43d7-9bac-fd8cb3699f90",
         "$modelType": "codelab/TypeRef"
       }
@@ -765,7 +765,7 @@
       "type": "MuiMenuItem",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "68e75ea4-4c5e-4967-9935-cde2c861364c",
         "$modelType": "codelab/TypeRef"
       }
@@ -776,7 +776,7 @@
       "type": "MuiMenuList",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "6fe0416d-8d4f-40be-b8e4-9fb0e40e3c89",
         "$modelType": "codelab/TypeRef"
       }
@@ -787,7 +787,7 @@
       "type": "MuiMobileStepper",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b2c06483-541d-4cad-a8ef-a2f7ae579a66",
         "$modelType": "codelab/TypeRef"
       }
@@ -798,7 +798,7 @@
       "type": "MuiNativeSelect",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "7a63ed8a-971d-4451-b8c9-556df5427d90",
         "$modelType": "codelab/TypeRef"
       }
@@ -809,7 +809,7 @@
       "type": "MuiOutlinedInput",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "88f24f79-ae8e-4459-b3aa-72a76e0b1412",
         "$modelType": "codelab/TypeRef"
       }
@@ -820,7 +820,7 @@
       "type": "MuiPagination",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "8e248477-5d05-41ef-b537-fa9d814b1969",
         "$modelType": "codelab/TypeRef"
       }
@@ -831,7 +831,7 @@
       "type": "MuiPaginationItem",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e0b853cb-3c0e-445c-9968-9b7ae66f3543",
         "$modelType": "codelab/TypeRef"
       }
@@ -842,7 +842,7 @@
       "type": "MuiPaper",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "0c66c0f1-3720-4abf-8f04-e882b3dce45a",
         "$modelType": "codelab/TypeRef"
       }
@@ -853,7 +853,7 @@
       "type": "MuiPopover",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "611ede7a-094d-4d77-bfd2-10a90a4252e1",
         "$modelType": "codelab/TypeRef"
       }
@@ -864,7 +864,7 @@
       "type": "MuiPopper",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "4684180d-8d77-4067-ba11-e33d447b4a61",
         "$modelType": "codelab/TypeRef"
       }
@@ -875,7 +875,7 @@
       "type": "MuiRadio",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "3d0f2550-c95e-4a6b-8aed-1e5607b51311",
         "$modelType": "codelab/TypeRef"
       }
@@ -886,7 +886,7 @@
       "type": "MuiRadioGroup",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "da5dab5b-572a-4784-8b27-4c05674a5943",
         "$modelType": "codelab/TypeRef"
       }
@@ -897,7 +897,7 @@
       "type": "MuiRating",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "63787e30-8367-4548-92e7-ec99bbd54204",
         "$modelType": "codelab/TypeRef"
       }
@@ -908,7 +908,7 @@
       "type": "MuiScopedCssBaseline",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b803b762-145f-452b-8edd-3153e7b4bbcf",
         "$modelType": "codelab/TypeRef"
       }
@@ -919,7 +919,7 @@
       "type": "MuiSelect",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "581d8707-bb34-470a-b872-a1d80e400a3b",
         "$modelType": "codelab/TypeRef"
       }
@@ -930,7 +930,7 @@
       "type": "MuiSkeleton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "76f695bd-4a80-4fda-9166-50646169d6d9",
         "$modelType": "codelab/TypeRef"
       }
@@ -941,7 +941,7 @@
       "type": "MuiSlide",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "ca40e3d4-9817-4d85-bcb4-187fc2e2269e",
         "$modelType": "codelab/TypeRef"
       }
@@ -952,7 +952,7 @@
       "type": "MuiSnackbar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "5c428383-28b0-483d-9f11-4941c24bbecd",
         "$modelType": "codelab/TypeRef"
       }
@@ -963,7 +963,7 @@
       "type": "MuiSnackbarContent",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "3173e479-1e41-440a-8c60-4919d4161e74",
         "$modelType": "codelab/TypeRef"
       }
@@ -974,7 +974,7 @@
       "type": "MuiSpeedDial",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e124fdda-1f3d-4767-accd-890528aa3561",
         "$modelType": "codelab/TypeRef"
       }
@@ -985,7 +985,7 @@
       "type": "MuiSpeedDialAction",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "67948dc2-7b4b-4d7d-bbe3-292cdf3dc1c9",
         "$modelType": "codelab/TypeRef"
       }
@@ -996,7 +996,7 @@
       "type": "MuiSpeedDialIcon",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "8609fc5c-ae11-436d-a735-297758a59878",
         "$modelType": "codelab/TypeRef"
       }
@@ -1007,7 +1007,7 @@
       "type": "MuiStack",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "364bfc1b-0850-4d1f-b5f8-b4aedb97ba94",
         "$modelType": "codelab/TypeRef"
       }
@@ -1018,7 +1018,7 @@
       "type": "MuiStep",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "4417cbcf-0276-4175-9380-d1132286acf1",
         "$modelType": "codelab/TypeRef"
       }
@@ -1029,7 +1029,7 @@
       "type": "MuiStepButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "413c8e77-9ade-493f-a9fa-924c94e8f32e",
         "$modelType": "codelab/TypeRef"
       }
@@ -1040,7 +1040,7 @@
       "type": "MuiStepConnector",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f43f5983-a765-4cbb-86c4-5a122909969e",
         "$modelType": "codelab/TypeRef"
       }
@@ -1051,7 +1051,7 @@
       "type": "MuiStepContent",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "4c064d82-fb36-4ea5-8bf1-e99fe01a933d",
         "$modelType": "codelab/TypeRef"
       }
@@ -1062,7 +1062,7 @@
       "type": "MuiStepIcon",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "b31a3a45-a108-45aa-8fb5-6b497eacf25e",
         "$modelType": "codelab/TypeRef"
       }
@@ -1073,7 +1073,7 @@
       "type": "MuiStepLabel",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f4bfc2f2-e807-43c4-b46e-9fcc8de9a4c5",
         "$modelType": "codelab/TypeRef"
       }
@@ -1084,7 +1084,7 @@
       "type": "MuiStepper",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "13e06fa0-314b-458f-a170-3bd5cc3ff913",
         "$modelType": "codelab/TypeRef"
       }
@@ -1095,7 +1095,7 @@
       "type": "MuiSvgIcon",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "7072eca8-9064-4feb-8917-e5eb2fa9b16d",
         "$modelType": "codelab/TypeRef"
       }
@@ -1106,7 +1106,7 @@
       "type": "MuiSwipeableDrawer",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "15f6560b-f17d-4711-9c45-0a43faea7b9f",
         "$modelType": "codelab/TypeRef"
       }
@@ -1117,7 +1117,7 @@
       "type": "MuiSwitch",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "53840b75-a242-4a17-bce5-79160ed791f1",
         "$modelType": "codelab/TypeRef"
       }
@@ -1128,7 +1128,7 @@
       "type": "MuiTab",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "82b7d4c1-fdd2-478a-9a64-c9641a450a9a",
         "$modelType": "codelab/TypeRef"
       }
@@ -1139,7 +1139,7 @@
       "type": "MuiTabScrollButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "456c44c2-6afd-411a-a205-0578f225f845",
         "$modelType": "codelab/TypeRef"
       }
@@ -1150,7 +1150,7 @@
       "type": "MuiTable",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "9ed62713-4a56-4172-845f-9b51ad93a40f",
         "$modelType": "codelab/TypeRef"
       }
@@ -1161,7 +1161,7 @@
       "type": "MuiTableBody",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f612e2a0-b510-4e2d-8c69-b7e772c633df",
         "$modelType": "codelab/TypeRef"
       }
@@ -1172,7 +1172,7 @@
       "type": "MuiTableCell",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "2c12d6c2-f381-406d-a183-a355cd705072",
         "$modelType": "codelab/TypeRef"
       }
@@ -1183,7 +1183,7 @@
       "type": "MuiTableContainer",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "aa49dc7f-d8fc-4a78-892f-39686befb628",
         "$modelType": "codelab/TypeRef"
       }
@@ -1194,7 +1194,7 @@
       "type": "MuiTableFooter",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "055815a6-a702-4db4-9e3b-0b35543881ec",
         "$modelType": "codelab/TypeRef"
       }
@@ -1205,7 +1205,7 @@
       "type": "MuiTableHead",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "95394597-c15d-4598-b6e1-7df89f30475a",
         "$modelType": "codelab/TypeRef"
       }
@@ -1216,7 +1216,7 @@
       "type": "MuiTablePagination",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "52e742bf-39d2-4bd0-b7a1-3e15f1179410",
         "$modelType": "codelab/TypeRef"
       }
@@ -1227,7 +1227,7 @@
       "type": "MuiTableRow",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e51f6382-bc7e-484c-addb-d86b19eb5c79",
         "$modelType": "codelab/TypeRef"
       }
@@ -1238,7 +1238,7 @@
       "type": "MuiTableSortLabel",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "e5910cf9-4f81-4b32-95f3-3ae4bedd5701",
         "$modelType": "codelab/TypeRef"
       }
@@ -1249,7 +1249,7 @@
       "type": "MuiTabs",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "04384d37-8cde-4c86-9ff3-fad35b0038d2",
         "$modelType": "codelab/TypeRef"
       }
@@ -1260,7 +1260,7 @@
       "type": "MuiTextField",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "a3d4ba1a-ad09-4392-99f7-93c0cf58c7c2",
         "$modelType": "codelab/TypeRef"
       }
@@ -1271,7 +1271,7 @@
       "type": "MuiTextareaAutosize",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "f93363ee-d468-40a2-b80a-684536aac930",
         "$modelType": "codelab/TypeRef"
       }
@@ -1282,7 +1282,7 @@
       "type": "MuiToggleButton",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "ec00c93d-0ea5-42f3-bc16-fccb2dec9cde",
         "$modelType": "codelab/TypeRef"
       }
@@ -1293,7 +1293,7 @@
       "type": "MuiToggleButtonGroup",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "11e7c1b4-0ad6-4176-8bf2-fea5a1399b0b",
         "$modelType": "codelab/TypeRef"
       }
@@ -1304,7 +1304,7 @@
       "type": "MuiToolbar",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "80cb5556-24d6-41cd-82d1-6cbb93b969ad",
         "$modelType": "codelab/TypeRef"
       }
@@ -1315,7 +1315,7 @@
       "type": "MuiTooltip",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "1dec25a2-b7f5-4f1d-afa2-582c79091581",
         "$modelType": "codelab/TypeRef"
       }
@@ -1326,7 +1326,7 @@
       "type": "MuiTypography",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "46f23133-c928-4a83-9ee7-f042d8de32f5",
         "$modelType": "codelab/TypeRef"
       }
@@ -1337,7 +1337,7 @@
       "type": "MuiZoom",
       "tagIds": [],
       "$modelType": "codelab/Atom",
-      "api": {
+      "_api": {
         "id": "380f9c39-7404-44d0-aa87-52e2ebf225c3",
         "$modelType": "codelab/TypeRef"
       }
@@ -1347,12 +1347,12 @@
     {
       "id": "dc0b9f6a-0978-47b3-8fdf-6bc8f4ac196a",
       "name": "Accordion API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "dc0b9f6a-0978-47b3-8fdf-6bc8f4ac196a_fields",
+      "fields": {
+        "$modelId": "dc0b9f6a-0978-47b3-8fdf-6bc8f4ac196a:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "dc0b9f6a-0978-47b3-8fdf-6bc8f4ac196a:fields:defaultExpanded": {
@@ -1401,7 +1401,7 @@
     {
       "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
       "name": "Boolean",
-      "typeKind": "PrimitiveType",
+      "kind": "PrimitiveType",
       "__typename": "PrimitiveType",
       "primitiveKind": "Boolean",
       "ownerAuth0Id": "",
@@ -1410,12 +1410,12 @@
     {
       "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
       "name": "Date picker API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a_fields",
+      "fields": {
+        "$modelId": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a:fields:renderInput": {
@@ -1434,12 +1434,12 @@
     {
       "id": "879df196-45a0-43a4-89d1-7c7d4f55392c",
       "name": "AccordionActions API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "879df196-45a0-43a4-89d1-7c7d4f55392c_fields",
+      "fields": {
+        "$modelId": "879df196-45a0-43a4-89d1-7c7d4f55392c:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "879df196-45a0-43a4-89d1-7c7d4f55392c:fields:disableSpacing": {
@@ -1458,24 +1458,24 @@
     {
       "id": "590186ef-1cc7-4d04-aacc-644725ad1624",
       "name": "AccordionDetails API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "590186ef-1cc7-4d04-aacc-644725ad1624_fields",
+      "fields": {
+        "$modelId": "590186ef-1cc7-4d04-aacc-644725ad1624:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "04716976-1d37-4b39-924e-02bef5fa8535",
       "name": "AccordionSummary API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "04716976-1d37-4b39-924e-02bef5fa8535_fields",
+      "fields": {
+        "$modelId": "04716976-1d37-4b39-924e-02bef5fa8535:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "04716976-1d37-4b39-924e-02bef5fa8535:fields:disabled": {
@@ -1534,12 +1534,12 @@
     {
       "id": "694eecb9-4c77-4340-87b8-121a5c5c8542",
       "name": "Alert API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "694eecb9-4c77-4340-87b8-121a5c5c8542_fields",
+      "fields": {
+        "$modelId": "694eecb9-4c77-4340-87b8-121a5c5c8542:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "694eecb9-4c77-4340-87b8-121a5c5c8542:fields:color": {
@@ -1578,7 +1578,7 @@
     {
       "id": "9461fbc9-c035-45a7-91a3-731cbe70b0ff",
       "name": "Alert color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -1608,7 +1608,7 @@
     {
       "id": "b1c6801a-0418-4d97-b540-70a2b0f38058",
       "name": "Alert severity",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -1638,7 +1638,7 @@
     {
       "id": "e8defee7-ccf6-42ec-b84f-0d1978e37bef",
       "name": "Alert variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -1663,24 +1663,24 @@
     {
       "id": "f6ed9000-e7ff-47a6-90e1-b5f4dcdf6166",
       "name": "AlertTitle API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f6ed9000-e7ff-47a6-90e1-b5f4dcdf6166_fields",
+      "fields": {
+        "$modelId": "f6ed9000-e7ff-47a6-90e1-b5f4dcdf6166:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "89280046-f738-45e9-bc0c-4309cc557776",
       "name": "AppBar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "89280046-f738-45e9-bc0c-4309cc557776_fields",
+      "fields": {
+        "$modelId": "89280046-f738-45e9-bc0c-4309cc557776:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "89280046-f738-45e9-bc0c-4309cc557776:fields:color": {
@@ -1719,7 +1719,7 @@
     {
       "id": "5ac28811-c6de-41a0-831f-0a853f5b8428",
       "name": "AppBar color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -1754,7 +1754,7 @@
     {
       "id": "f31552fc-a95a-4dba-a18d-103562cf55b6",
       "name": "AppBar position",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -1789,12 +1789,12 @@
     {
       "id": "0a03310b-46fe-47f5-9da8-0ea573a31ca5",
       "name": "Autocomplete API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "0a03310b-46fe-47f5-9da8-0ea573a31ca5_fields",
+      "fields": {
+        "$modelId": "0a03310b-46fe-47f5-9da8-0ea573a31ca5:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "0a03310b-46fe-47f5-9da8-0ea573a31ca5:fields:disabled": {
@@ -2053,7 +2053,7 @@
     {
       "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758151",
       "name": "RenderPropsType",
-      "typeKind": "RenderPropsType",
+      "kind": "RenderPropsType",
       "__typename": "RenderPropsType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/RenderPropsType"
@@ -2061,7 +2061,7 @@
     {
       "id": "5935b082-76bb-4954-8a80-5158b3f0b68b",
       "name": "Autocomplete forcePopupIcon",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2076,7 +2076,7 @@
     {
       "id": "8b4d547c-cab9-4543-bcbd-b56a6a175c1c",
       "name": "Autocomplete size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2096,7 +2096,7 @@
     {
       "id": "7eea299f-241e-4f2a-a6bb-c0221070f0db",
       "name": "Autocomplete blurOnSelect",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2116,12 +2116,12 @@
     {
       "id": "37f978c4-17b2-49f8-b6ab-b134b059eaaa",
       "name": "Avatar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "37f978c4-17b2-49f8-b6ab-b134b059eaaa_fields",
+      "fields": {
+        "$modelId": "37f978c4-17b2-49f8-b6ab-b134b059eaaa:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "37f978c4-17b2-49f8-b6ab-b134b059eaaa:fields:variant": {
@@ -2140,7 +2140,7 @@
     {
       "id": "0dae38aa-fb21-40f8-852e-593a34a1a3a5",
       "name": "Avatar variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2165,12 +2165,12 @@
     {
       "id": "3920f375-8eb8-45c6-b12f-00703bc9f940",
       "name": "AvatarGroup API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "3920f375-8eb8-45c6-b12f-00703bc9f940_fields",
+      "fields": {
+        "$modelId": "3920f375-8eb8-45c6-b12f-00703bc9f940:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "3920f375-8eb8-45c6-b12f-00703bc9f940:fields:variant": {
@@ -2189,7 +2189,7 @@
     {
       "id": "823c0950-3858-478c-95ec-ac28161862e2",
       "name": "AvatarGroup variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2214,12 +2214,12 @@
     {
       "id": "73627c43-95c7-4027-a946-ac7313f99d70",
       "name": "BottomNavigation API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "73627c43-95c7-4027-a946-ac7313f99d70_fields",
+      "fields": {
+        "$modelId": "73627c43-95c7-4027-a946-ac7313f99d70:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "73627c43-95c7-4027-a946-ac7313f99d70:fields:showLabels": {
@@ -2238,12 +2238,12 @@
     {
       "id": "2fabe554-2faa-4023-936f-d0597ae6267e",
       "name": "BottomNavigationAction API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "2fabe554-2faa-4023-936f-d0597ae6267e_fields",
+      "fields": {
+        "$modelId": "2fabe554-2faa-4023-936f-d0597ae6267e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "2fabe554-2faa-4023-936f-d0597ae6267e:fields:showLabel": {
@@ -2312,36 +2312,36 @@
     {
       "id": "67365bc9-67cb-4df5-9c05-b2d13b472221",
       "name": "Box API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "67365bc9-67cb-4df5-9c05-b2d13b472221_fields",
+      "fields": {
+        "$modelId": "67365bc9-67cb-4df5-9c05-b2d13b472221:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "5e2d0477-d724-4341-a3de-311f5920090e",
       "name": "Breadcrumbs API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "5e2d0477-d724-4341-a3de-311f5920090e_fields",
+      "fields": {
+        "$modelId": "5e2d0477-d724-4341-a3de-311f5920090e:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "bd60dea3-c957-44f5-a098-0b30a162458d",
       "name": "Button API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "bd60dea3-c957-44f5-a098-0b30a162458d_fields",
+      "fields": {
+        "$modelId": "bd60dea3-c957-44f5-a098-0b30a162458d:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "bd60dea3-c957-44f5-a098-0b30a162458d:fields:color": {
@@ -2460,7 +2460,7 @@
     {
       "id": "5f44ba4e-b5a1-44e6-897c-7bb594bef22a",
       "name": "Button color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2505,7 +2505,7 @@
     {
       "id": "6da5b36c-0b94-4692-b375-bbc8349b6b58",
       "name": "Button size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2530,7 +2530,7 @@
     {
       "id": "0a5f0f16-e06b-4f27-9249-5cb8d2975062",
       "name": "Button variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2555,12 +2555,12 @@
     {
       "id": "db98330a-674b-4b18-896d-450de845d65e",
       "name": "ButtonBase API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "db98330a-674b-4b18-896d-450de845d65e_fields",
+      "fields": {
+        "$modelId": "db98330a-674b-4b18-896d-450de845d65e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "db98330a-674b-4b18-896d-450de845d65e:fields:centerRipple": {
@@ -2619,12 +2619,12 @@
     {
       "id": "a023b3a5-977c-4382-a55e-12c5e636975f",
       "name": "ButtonGroup API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "a023b3a5-977c-4382-a55e-12c5e636975f_fields",
+      "fields": {
+        "$modelId": "a023b3a5-977c-4382-a55e-12c5e636975f:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "a023b3a5-977c-4382-a55e-12c5e636975f:fields:color": {
@@ -2723,7 +2723,7 @@
     {
       "id": "cf59a4f4-d50c-4481-91cb-36a2a431a827",
       "name": "ButtonGroup color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2768,7 +2768,7 @@
     {
       "id": "42017fb8-f25b-452a-bf5e-ce9141983813",
       "name": "ButtonGroup orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2788,7 +2788,7 @@
     {
       "id": "fa3ec1e6-02bc-4253-9c62-100ebf2a866a",
       "name": "ButtonGroup size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2813,7 +2813,7 @@
     {
       "id": "77989416-42d5-4ad5-a046-12f938982313",
       "name": "ButtonGroup variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -2838,12 +2838,12 @@
     {
       "id": "e56c8875-46d2-403d-9044-1990184409f8",
       "name": "Card API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e56c8875-46d2-403d-9044-1990184409f8_fields",
+      "fields": {
+        "$modelId": "e56c8875-46d2-403d-9044-1990184409f8:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e56c8875-46d2-403d-9044-1990184409f8:fields:raised": {
@@ -2862,12 +2862,12 @@
     {
       "id": "b65fce01-6003-4c81-9b62-df7f972412cf",
       "name": "CardActionArea API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b65fce01-6003-4c81-9b62-df7f972412cf_fields",
+      "fields": {
+        "$modelId": "b65fce01-6003-4c81-9b62-df7f972412cf:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "b65fce01-6003-4c81-9b62-df7f972412cf:fields:disabled": {
@@ -2926,12 +2926,12 @@
     {
       "id": "990217d5-1d25-467c-82d7-a46f09b40f18",
       "name": "CardActions API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "990217d5-1d25-467c-82d7-a46f09b40f18_fields",
+      "fields": {
+        "$modelId": "990217d5-1d25-467c-82d7-a46f09b40f18:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "990217d5-1d25-467c-82d7-a46f09b40f18:fields:disableSpacing": {
@@ -2950,24 +2950,24 @@
     {
       "id": "6e3c481d-b3f3-494b-a4d7-83d7d00064dc",
       "name": "CardContent API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "6e3c481d-b3f3-494b-a4d7-83d7d00064dc_fields",
+      "fields": {
+        "$modelId": "6e3c481d-b3f3-494b-a4d7-83d7d00064dc:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "31a7ceb5-d7cf-4336-8e6d-67c5ff9acc40",
       "name": "CardHeader API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "31a7ceb5-d7cf-4336-8e6d-67c5ff9acc40_fields",
+      "fields": {
+        "$modelId": "31a7ceb5-d7cf-4336-8e6d-67c5ff9acc40:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "31a7ceb5-d7cf-4336-8e6d-67c5ff9acc40:fields:disableTypography": {
@@ -2986,24 +2986,24 @@
     {
       "id": "b238c098-7130-4612-bccf-3be78eb9ce04",
       "name": "CardMedia API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b238c098-7130-4612-bccf-3be78eb9ce04_fields",
+      "fields": {
+        "$modelId": "b238c098-7130-4612-bccf-3be78eb9ce04:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "5e65927a-b0ef-422b-bb30-62b59bf368d7",
       "name": "Checkbox API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "5e65927a-b0ef-422b-bb30-62b59bf368d7_fields",
+      "fields": {
+        "$modelId": "5e65927a-b0ef-422b-bb30-62b59bf368d7:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "5e65927a-b0ef-422b-bb30-62b59bf368d7:fields:checked": {
@@ -3082,7 +3082,7 @@
     {
       "id": "32386242-5266-480a-9c21-b861d36759cd",
       "name": "Checkbox color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3127,7 +3127,7 @@
     {
       "id": "08033080-4ba7-434b-b27e-03db89633b74",
       "name": "Checkbox size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3147,12 +3147,12 @@
     {
       "id": "3fdfc550-84fc-473f-a5dc-c8d6011e0093",
       "name": "Chip API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "3fdfc550-84fc-473f-a5dc-c8d6011e0093_fields",
+      "fields": {
+        "$modelId": "3fdfc550-84fc-473f-a5dc-c8d6011e0093:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "3fdfc550-84fc-473f-a5dc-c8d6011e0093:fields:children": {
@@ -3221,7 +3221,7 @@
     {
       "id": "936d4e62-a140-467a-aaab-8a4389fd53d9",
       "name": "Chip children",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [],
       "ownerAuth0Id": "",
@@ -3230,7 +3230,7 @@
     {
       "id": "b519ff56-ec4e-4bb4-8f98-c9a5f317f662",
       "name": "Chip color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3275,7 +3275,7 @@
     {
       "id": "30ed84fc-08ae-4e70-b504-eeb3d7f7964f",
       "name": "Chip size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3295,7 +3295,7 @@
     {
       "id": "7cbdba1e-bcb5-44ec-b720-9c3777f7d956",
       "name": "Chip variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3315,12 +3315,12 @@
     {
       "id": "9df1144e-ef46-40e4-9eec-c3f0e9e5aa1b",
       "name": "CircularProgress API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "9df1144e-ef46-40e4-9eec-c3f0e9e5aa1b_fields",
+      "fields": {
+        "$modelId": "9df1144e-ef46-40e4-9eec-c3f0e9e5aa1b:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "9df1144e-ef46-40e4-9eec-c3f0e9e5aa1b:fields:color": {
@@ -3359,7 +3359,7 @@
     {
       "id": "8e4285b2-993f-4e54-9881-e123d3655b6c",
       "name": "CircularProgress color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3404,7 +3404,7 @@
     {
       "id": "ee6b11c7-23d0-4d46-b399-4d1693b43db4",
       "name": "CircularProgress variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3424,12 +3424,12 @@
     {
       "id": "826aefd1-9ef2-46c8-a775-97b70402d3dc",
       "name": "Collapse API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "826aefd1-9ef2-46c8-a775-97b70402d3dc_fields",
+      "fields": {
+        "$modelId": "826aefd1-9ef2-46c8-a775-97b70402d3dc:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "826aefd1-9ef2-46c8-a775-97b70402d3dc:fields:in": {
@@ -3458,7 +3458,7 @@
     {
       "id": "0fb4abf1-3d85-4f81-beed-17bba1b6a67e",
       "name": "Collapse orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3478,12 +3478,12 @@
     {
       "id": "69973cb7-f548-4f52-8d59-7d4a20a480bf",
       "name": "Container API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "69973cb7-f548-4f52-8d59-7d4a20a480bf_fields",
+      "fields": {
+        "$modelId": "69973cb7-f548-4f52-8d59-7d4a20a480bf:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "69973cb7-f548-4f52-8d59-7d4a20a480bf:fields:disableGutters": {
@@ -3522,7 +3522,7 @@
     {
       "id": "d5b8238a-6273-434f-a338-38969edd6b60",
       "name": "Container maxWidth",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3557,24 +3557,24 @@
     {
       "id": "933ba15d-e599-44ab-8f8b-8688be4da804",
       "name": "CssBaseline API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "933ba15d-e599-44ab-8f8b-8688be4da804_fields",
+      "fields": {
+        "$modelId": "933ba15d-e599-44ab-8f8b-8688be4da804:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "d1e74dd6-16f6-44e8-89cc-9af250efc262",
       "name": "Dialog API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "d1e74dd6-16f6-44e8-89cc-9af250efc262_fields",
+      "fields": {
+        "$modelId": "d1e74dd6-16f6-44e8-89cc-9af250efc262:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "d1e74dd6-16f6-44e8-89cc-9af250efc262:fields:disableEscapeKeyDown": {
@@ -3643,7 +3643,7 @@
     {
       "id": "7e53468f-c9e5-4e3b-ae67-b1dda4a282c7",
       "name": "Dialog maxWidth",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3678,7 +3678,7 @@
     {
       "id": "a5f5cee1-59b5-4e51-851f-9bd350a54e9d",
       "name": "Dialog scroll",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3698,12 +3698,12 @@
     {
       "id": "9fdf7b0c-4e99-49f3-9567-df941d4e9348",
       "name": "DialogActions API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "9fdf7b0c-4e99-49f3-9567-df941d4e9348_fields",
+      "fields": {
+        "$modelId": "9fdf7b0c-4e99-49f3-9567-df941d4e9348:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "9fdf7b0c-4e99-49f3-9567-df941d4e9348:fields:disableSpacing": {
@@ -3722,12 +3722,12 @@
     {
       "id": "6818832b-9ec6-41ad-a982-f09686a5529a",
       "name": "DialogContent API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "6818832b-9ec6-41ad-a982-f09686a5529a_fields",
+      "fields": {
+        "$modelId": "6818832b-9ec6-41ad-a982-f09686a5529a:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "6818832b-9ec6-41ad-a982-f09686a5529a:fields:dividers": {
@@ -3746,12 +3746,12 @@
     {
       "id": "7bc94777-31e2-4095-ad0a-e5814b5534c3",
       "name": "DialogContentText API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "7bc94777-31e2-4095-ad0a-e5814b5534c3_fields",
+      "fields": {
+        "$modelId": "7bc94777-31e2-4095-ad0a-e5814b5534c3:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "7bc94777-31e2-4095-ad0a-e5814b5534c3:fields:variant": {
@@ -3810,7 +3810,7 @@
     {
       "id": "cfc6e279-42e0-4b2a-8b00-a7ad53211223",
       "name": "DialogContentText variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3890,7 +3890,7 @@
     {
       "id": "e6f90ee8-e391-4a96-a0d1-442aa64b7181",
       "name": "DialogContentText align",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -3925,24 +3925,24 @@
     {
       "id": "abd5b48f-6d8f-4164-a119-57d9e0ee4f42",
       "name": "DialogTitle API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "abd5b48f-6d8f-4164-a119-57d9e0ee4f42_fields",
+      "fields": {
+        "$modelId": "abd5b48f-6d8f-4164-a119-57d9e0ee4f42:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "7ab4a650-26ba-4ac0-9a0c-172a15204145",
       "name": "Divider API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "7ab4a650-26ba-4ac0-9a0c-172a15204145_fields",
+      "fields": {
+        "$modelId": "7ab4a650-26ba-4ac0-9a0c-172a15204145:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "7ab4a650-26ba-4ac0-9a0c-172a15204145:fields:absolute": {
@@ -4011,7 +4011,7 @@
     {
       "id": "92024138-baaf-44c7-a505-78703a9c9f80",
       "name": "Divider orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4031,7 +4031,7 @@
     {
       "id": "a7b8e946-4211-4fb7-88dd-10167ad97b0d",
       "name": "Divider textAlign",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4056,7 +4056,7 @@
     {
       "id": "5f51a59c-86b6-40c3-83a0-f1da3c791bcc",
       "name": "Divider variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4081,12 +4081,12 @@
     {
       "id": "2e0bacf3-a46f-420b-93cb-02a95b5155f1",
       "name": "Drawer API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "2e0bacf3-a46f-420b-93cb-02a95b5155f1_fields",
+      "fields": {
+        "$modelId": "2e0bacf3-a46f-420b-93cb-02a95b5155f1:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "2e0bacf3-a46f-420b-93cb-02a95b5155f1:fields:anchor": {
@@ -4125,7 +4125,7 @@
     {
       "id": "8e53d388-3fd0-492b-9c25-7563167f692e",
       "name": "Drawer anchor",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4155,7 +4155,7 @@
     {
       "id": "e9901d23-310c-42cc-9980-2f7e948cca0a",
       "name": "Drawer variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4180,12 +4180,12 @@
     {
       "id": "c62ea56a-1791-4d2d-ae0c-87b408f55dcb",
       "name": "Fab API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "c62ea56a-1791-4d2d-ae0c-87b408f55dcb_fields",
+      "fields": {
+        "$modelId": "c62ea56a-1791-4d2d-ae0c-87b408f55dcb:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "c62ea56a-1791-4d2d-ae0c-87b408f55dcb:fields:color": {
@@ -4284,7 +4284,7 @@
     {
       "id": "8372372e-3344-4791-a5d3-b770e66b7a9e",
       "name": "Fab color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4314,7 +4314,7 @@
     {
       "id": "9706731b-4d42-4d19-a130-fe372bd07b11",
       "name": "Fab size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4339,7 +4339,7 @@
     {
       "id": "571e1ea6-d82c-4cd3-a89f-ce743305b861",
       "name": "Fab variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4359,12 +4359,12 @@
     {
       "id": "e25f1fa2-7408-4314-b0eb-77aa8a70ef52",
       "name": "Fade API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e25f1fa2-7408-4314-b0eb-77aa8a70ef52_fields",
+      "fields": {
+        "$modelId": "e25f1fa2-7408-4314-b0eb-77aa8a70ef52:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e25f1fa2-7408-4314-b0eb-77aa8a70ef52:fields:appear": {
@@ -4393,12 +4393,12 @@
     {
       "id": "def77503-4d31-44ba-9c8c-d24791aab5b5",
       "name": "FilledInput API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "def77503-4d31-44ba-9c8c-d24791aab5b5_fields",
+      "fields": {
+        "$modelId": "def77503-4d31-44ba-9c8c-d24791aab5b5:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "def77503-4d31-44ba-9c8c-d24791aab5b5:fields:hiddenLabel": {
@@ -4427,12 +4427,12 @@
     {
       "id": "a5586bfc-9a8d-4a72-81fa-ede8cf5def97",
       "name": "FormControl API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "a5586bfc-9a8d-4a72-81fa-ede8cf5def97_fields",
+      "fields": {
+        "$modelId": "a5586bfc-9a8d-4a72-81fa-ede8cf5def97:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "a5586bfc-9a8d-4a72-81fa-ede8cf5def97:fields:color": {
@@ -4541,7 +4541,7 @@
     {
       "id": "d989c750-3612-4095-aae7-af34faba2825",
       "name": "FormControl color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4581,7 +4581,7 @@
     {
       "id": "1e990fff-b98d-4ccf-a7e7-a2f0da5030c1",
       "name": "FormControl margin",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4606,7 +4606,7 @@
     {
       "id": "639f01fc-e4ed-4f43-9240-af8ba7134a7e",
       "name": "FormControl size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4626,7 +4626,7 @@
     {
       "id": "bd6351a5-8eb6-41d1-a463-6e5faeae3a2c",
       "name": "FormControl variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4651,12 +4651,12 @@
     {
       "id": "35b55f47-1fd3-4217-b529-ef52f5188cae",
       "name": "FormControlLabel API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "35b55f47-1fd3-4217-b529-ef52f5188cae_fields",
+      "fields": {
+        "$modelId": "35b55f47-1fd3-4217-b529-ef52f5188cae:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "35b55f47-1fd3-4217-b529-ef52f5188cae:fields:checked": {
@@ -4705,7 +4705,7 @@
     {
       "id": "e89ae9dc-2ed9-4449-99e3-770c5cd9ceb1",
       "name": "FormControlLabel labelPlacement",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4735,12 +4735,12 @@
     {
       "id": "93f1ed25-538d-4118-afd3-e3f9668c3179",
       "name": "FormGroup API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "93f1ed25-538d-4118-afd3-e3f9668c3179_fields",
+      "fields": {
+        "$modelId": "93f1ed25-538d-4118-afd3-e3f9668c3179:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "93f1ed25-538d-4118-afd3-e3f9668c3179:fields:row": {
@@ -4759,12 +4759,12 @@
     {
       "id": "d09a8b1c-ba56-4c52-9946-975f0abb3311",
       "name": "FormHelperText API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "d09a8b1c-ba56-4c52-9946-975f0abb3311_fields",
+      "fields": {
+        "$modelId": "d09a8b1c-ba56-4c52-9946-975f0abb3311:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "d09a8b1c-ba56-4c52-9946-975f0abb3311:fields:disabled": {
@@ -4843,7 +4843,7 @@
     {
       "id": "84e06a72-85d6-41b4-8bc7-372454d7ca41",
       "name": "FormHelperText margin",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4858,7 +4858,7 @@
     {
       "id": "a1285676-2967-409a-8e38-44d421cfe75d",
       "name": "FormHelperText variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -4883,36 +4883,36 @@
     {
       "id": "fac9039d-7eb2-44c1-808a-5369c2201791",
       "name": "FormLabel API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "fac9039d-7eb2-44c1-808a-5369c2201791_fields",
+      "fields": {
+        "$modelId": "fac9039d-7eb2-44c1-808a-5369c2201791:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "18756f4f-a9ab-4a2e-b8c0-f9a69456803e",
       "name": "GlobalStyles API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "18756f4f-a9ab-4a2e-b8c0-f9a69456803e_fields",
+      "fields": {
+        "$modelId": "18756f4f-a9ab-4a2e-b8c0-f9a69456803e:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "ac2f17c5-3dc5-4360-9a7d-e8f0b783d112",
       "name": "Grid API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "ac2f17c5-3dc5-4360-9a7d-e8f0b783d112_fields",
+      "fields": {
+        "$modelId": "ac2f17c5-3dc5-4360-9a7d-e8f0b783d112:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "ac2f17c5-3dc5-4360-9a7d-e8f0b783d112:fields:container": {
@@ -5011,7 +5011,7 @@
     {
       "id": "19609e1c-9f03-489f-bd1b-9739bc14e9f4",
       "name": "Grid lg",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5026,7 +5026,7 @@
     {
       "id": "fc08f6fd-b9dd-43ce-bd07-8322b18d0036",
       "name": "Grid md",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5041,7 +5041,7 @@
     {
       "id": "c9b02589-eb53-473c-a1d8-9b5983106b63",
       "name": "Grid sm",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5056,7 +5056,7 @@
     {
       "id": "28c62109-8e63-46fd-b415-8dca0d4bb351",
       "name": "Grid wrap",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5081,7 +5081,7 @@
     {
       "id": "b9a7e93b-7dbd-482e-b049-b1a63375f960",
       "name": "Grid xl",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5096,7 +5096,7 @@
     {
       "id": "6b58ef5d-30a2-4b10-bc0d-831d5fd78ff6",
       "name": "Grid xs",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5111,12 +5111,12 @@
     {
       "id": "f5c6e986-e637-4251-a954-14f084f70a4e",
       "name": "Grow API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f5c6e986-e637-4251-a954-14f084f70a4e_fields",
+      "fields": {
+        "$modelId": "f5c6e986-e637-4251-a954-14f084f70a4e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "f5c6e986-e637-4251-a954-14f084f70a4e:fields:appear": {
@@ -5145,24 +5145,24 @@
     {
       "id": "09739e89-6e82-41a2-859e-a3f808e4e61f",
       "name": "Hidden API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "09739e89-6e82-41a2-859e-a3f808e4e61f_fields",
+      "fields": {
+        "$modelId": "09739e89-6e82-41a2-859e-a3f808e4e61f:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "6d5223c5-2ff8-4a96-ae31-598706689f31",
       "name": "Icon API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "6d5223c5-2ff8-4a96-ae31-598706689f31_fields",
+      "fields": {
+        "$modelId": "6d5223c5-2ff8-4a96-ae31-598706689f31:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "6d5223c5-2ff8-4a96-ae31-598706689f31:fields:color": {
@@ -5191,7 +5191,7 @@
     {
       "id": "22dc0c65-8d39-4e2f-97da-f3335f321bf3",
       "name": "Icon color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5246,7 +5246,7 @@
     {
       "id": "12e03715-745d-4f1a-988a-90031d4034e2",
       "name": "Icon fontSize",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5276,12 +5276,12 @@
     {
       "id": "00e33c17-f503-4d4e-8591-081d3384b006",
       "name": "IconButton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "00e33c17-f503-4d4e-8591-081d3384b006_fields",
+      "fields": {
+        "$modelId": "00e33c17-f503-4d4e-8591-081d3384b006:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "00e33c17-f503-4d4e-8591-081d3384b006:fields:color": {
@@ -5380,7 +5380,7 @@
     {
       "id": "da44285f-8f22-4bd7-b743-34d569647e3d",
       "name": "IconButton color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5430,7 +5430,7 @@
     {
       "id": "91fc4f78-31e3-4f40-a193-1fa41fe5e462",
       "name": "IconButton edge",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5450,7 +5450,7 @@
     {
       "id": "b9d48119-f4fa-4e2d-b98d-fc0975e9367e",
       "name": "IconButton size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5475,12 +5475,12 @@
     {
       "id": "2780d914-f9d7-442e-8272-edc17a189ae1",
       "name": "ImageList API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "2780d914-f9d7-442e-8272-edc17a189ae1_fields",
+      "fields": {
+        "$modelId": "2780d914-f9d7-442e-8272-edc17a189ae1:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "2780d914-f9d7-442e-8272-edc17a189ae1:fields:variant": {
@@ -5499,7 +5499,7 @@
     {
       "id": "0cfcc241-c3c0-4542-91e4-d61a387d1000",
       "name": "ImageList variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5529,24 +5529,24 @@
     {
       "id": "54d75961-2051-4035-abeb-51bcc530d063",
       "name": "ImageListItem API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "54d75961-2051-4035-abeb-51bcc530d063_fields",
+      "fields": {
+        "$modelId": "54d75961-2051-4035-abeb-51bcc530d063:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "df4d68cd-b5cc-46fe-9a64-b9a83b8a6c0b",
       "name": "ImageListItemBar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "df4d68cd-b5cc-46fe-9a64-b9a83b8a6c0b_fields",
+      "fields": {
+        "$modelId": "df4d68cd-b5cc-46fe-9a64-b9a83b8a6c0b:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "df4d68cd-b5cc-46fe-9a64-b9a83b8a6c0b:fields:actionPosition": {
@@ -5575,7 +5575,7 @@
     {
       "id": "9a248988-c631-43d2-9c25-20019d420d4e",
       "name": "ImageListItemBar actionPosition",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5595,7 +5595,7 @@
     {
       "id": "f031d456-c36a-4fd9-a3c2-6092d73ac2d5",
       "name": "ImageListItemBar position",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5620,12 +5620,12 @@
     {
       "id": "588c18c4-2816-4b49-a275-aa4511c845bd",
       "name": "Input API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "588c18c4-2816-4b49-a275-aa4511c845bd_fields",
+      "fields": {
+        "$modelId": "588c18c4-2816-4b49-a275-aa4511c845bd:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "588c18c4-2816-4b49-a275-aa4511c845bd:fields:disableUnderline": {
@@ -5644,12 +5644,12 @@
     {
       "id": "78eb2b0a-aaa6-49ba-ae29-26b52cb7a0f2",
       "name": "InputAdornment API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "78eb2b0a-aaa6-49ba-ae29-26b52cb7a0f2_fields",
+      "fields": {
+        "$modelId": "78eb2b0a-aaa6-49ba-ae29-26b52cb7a0f2:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "78eb2b0a-aaa6-49ba-ae29-26b52cb7a0f2:fields:disablePointerEvents": {
@@ -5698,7 +5698,7 @@
     {
       "id": "851dade9-f1c1-410b-97f8-08ee061d29de",
       "name": "InputAdornment position",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5718,7 +5718,7 @@
     {
       "id": "d0de48e5-06e9-4d76-bce9-51b49a746f0b",
       "name": "InputAdornment variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5743,12 +5743,12 @@
     {
       "id": "4f13ad22-0642-446d-b88c-0d75e93a8ff0",
       "name": "InputBase API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "4f13ad22-0642-446d-b88c-0d75e93a8ff0_fields",
+      "fields": {
+        "$modelId": "4f13ad22-0642-446d-b88c-0d75e93a8ff0:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "4f13ad22-0642-446d-b88c-0d75e93a8ff0:fields:autoFocus": {
@@ -5857,7 +5857,7 @@
     {
       "id": "81c79761-d6ce-45b1-9f1e-aa8cb49b856b",
       "name": "InputBase color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5897,7 +5897,7 @@
     {
       "id": "bf6d4cda-af11-4b07-a37b-da22f261bcbb",
       "name": "InputBase margin",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5917,7 +5917,7 @@
     {
       "id": "f4ed287a-74cd-41ec-b06d-44070a0c40b5",
       "name": "InputBase size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -5937,12 +5937,12 @@
     {
       "id": "d8d3f13b-7ff0-4f88-9aa6-f0eb03b56909",
       "name": "InputLabel API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "d8d3f13b-7ff0-4f88-9aa6-f0eb03b56909_fields",
+      "fields": {
+        "$modelId": "d8d3f13b-7ff0-4f88-9aa6-f0eb03b56909:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "d8d3f13b-7ff0-4f88-9aa6-f0eb03b56909:fields:disableAnimation": {
@@ -6031,7 +6031,7 @@
     {
       "id": "d31c29aa-657a-4345-833d-9f1c5312e74c",
       "name": "InputLabel margin",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6046,7 +6046,7 @@
     {
       "id": "993940e1-f2c6-4283-a79c-5ed351b346a7",
       "name": "InputLabel variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6071,12 +6071,12 @@
     {
       "id": "71072833-80b6-47aa-abf0-ffc8965f439e",
       "name": "LinearProgress API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "71072833-80b6-47aa-abf0-ffc8965f439e_fields",
+      "fields": {
+        "$modelId": "71072833-80b6-47aa-abf0-ffc8965f439e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "71072833-80b6-47aa-abf0-ffc8965f439e:fields:color": {
@@ -6105,7 +6105,7 @@
     {
       "id": "01e3c516-e192-497d-be40-1ed9ab251545",
       "name": "LinearProgress color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6150,7 +6150,7 @@
     {
       "id": "219c063b-5f36-4eb5-98c6-470f124ec642",
       "name": "LinearProgress variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6180,12 +6180,12 @@
     {
       "id": "b16811f6-287e-4be1-bcff-ab8952b271cc",
       "name": "Link API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b16811f6-287e-4be1-bcff-ab8952b271cc_fields",
+      "fields": {
+        "$modelId": "b16811f6-287e-4be1-bcff-ab8952b271cc:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "b16811f6-287e-4be1-bcff-ab8952b271cc:fields:underline": {
@@ -6214,7 +6214,7 @@
     {
       "id": "fb201274-0187-4ab2-a2fb-3339ee23e3c8",
       "name": "Link underline",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6239,7 +6239,7 @@
     {
       "id": "28830795-2c01-49ab-b049-140426c5a605",
       "name": "Link variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6319,12 +6319,12 @@
     {
       "id": "e71dd2eb-355c-460e-8f58-6df12efc34ed",
       "name": "List API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e71dd2eb-355c-460e-8f58-6df12efc34ed_fields",
+      "fields": {
+        "$modelId": "e71dd2eb-355c-460e-8f58-6df12efc34ed:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e71dd2eb-355c-460e-8f58-6df12efc34ed:fields:dense": {
@@ -6353,12 +6353,12 @@
     {
       "id": "65a16156-8bed-4d64-b068-a818f5bb4d4b",
       "name": "ListItem API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "65a16156-8bed-4d64-b068-a818f5bb4d4b_fields",
+      "fields": {
+        "$modelId": "65a16156-8bed-4d64-b068-a818f5bb4d4b:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "65a16156-8bed-4d64-b068-a818f5bb4d4b:fields:button": {
@@ -6497,7 +6497,7 @@
     {
       "id": "ff66c8da-ff5d-4674-8e9b-c32c8fd804f3",
       "name": "ListItem alignItems",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6517,12 +6517,12 @@
     {
       "id": "b899be8c-3b12-4da1-9d78-4328439b5eb7",
       "name": "ListItemAvatar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b899be8c-3b12-4da1-9d78-4328439b5eb7_fields",
+      "fields": {
+        "$modelId": "b899be8c-3b12-4da1-9d78-4328439b5eb7:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "b899be8c-3b12-4da1-9d78-4328439b5eb7:fields:defaultChecked": {
@@ -6871,7 +6871,7 @@
     {
       "id": "ed2c5e6a-6ee6-4f17-a9be-0abadd4386c8",
       "name": "ListItemAvatar contentEditable",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6896,7 +6896,7 @@
     {
       "id": "3dcb9b4f-293a-49c4-8354-96971317ef01",
       "name": "ListItemAvatar draggable",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6916,7 +6916,7 @@
     {
       "id": "81e434d7-b636-4688-83f5-b56b12d79998",
       "name": "ListItemAvatar spellCheck",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6936,7 +6936,7 @@
     {
       "id": "92f79674-3623-4128-b845-26d88a901522",
       "name": "ListItemAvatar translate",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6956,7 +6956,7 @@
     {
       "id": "669426b7-b891-4673-b1fc-3a6359d87c58",
       "name": "ListItemAvatar unselectable",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -6976,7 +6976,7 @@
     {
       "id": "8d39021b-bb4c-4bb6-916f-43d0aea45d25",
       "name": "ListItemAvatar inputMode",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7026,7 +7026,7 @@
     {
       "id": "fbf0fe2d-2d90-4ee0-9f3a-942f8c4f2ee7",
       "name": "ListItemAvatar aria-atomic",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7046,7 +7046,7 @@
     {
       "id": "3327fd4d-4157-4ef1-b5e3-8e5d6f223011",
       "name": "ListItemAvatar aria-autocomplete",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7076,7 +7076,7 @@
     {
       "id": "35e56db9-7440-4003-b6cb-e6c9f1e4cc86",
       "name": "ListItemAvatar aria-busy",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7096,7 +7096,7 @@
     {
       "id": "62d2e68b-5f38-4573-925a-25c1129e5b04",
       "name": "ListItemAvatar aria-checked",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7121,7 +7121,7 @@
     {
       "id": "d2ae261d-ba84-4150-b8d2-9ba518a351f3",
       "name": "ListItemAvatar aria-current",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7166,7 +7166,7 @@
     {
       "id": "b0e567fc-d2c2-4569-b12b-33b0b2224b65",
       "name": "ListItemAvatar aria-disabled",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7186,7 +7186,7 @@
     {
       "id": "dece4f18-d72e-463f-bef0-9e482637af26",
       "name": "ListItemAvatar aria-dropeffect",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7226,7 +7226,7 @@
     {
       "id": "c6e7b15d-26db-4711-bb27-5e4f81c42b1f",
       "name": "ListItemAvatar aria-expanded",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7246,7 +7246,7 @@
     {
       "id": "52e12150-cf84-4971-b2b4-5a470dc47e2c",
       "name": "ListItemAvatar aria-grabbed",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7266,7 +7266,7 @@
     {
       "id": "7ae89744-7feb-4b15-b8a9-67065003e618",
       "name": "ListItemAvatar aria-haspopup",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7311,7 +7311,7 @@
     {
       "id": "4ab91550-776f-4dd6-9060-5992f4a1abb3",
       "name": "ListItemAvatar aria-hidden",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7331,7 +7331,7 @@
     {
       "id": "3922ac69-c2e7-4347-a342-35f0a066055b",
       "name": "ListItemAvatar aria-invalid",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7361,7 +7361,7 @@
     {
       "id": "401bd22f-743a-400d-86bd-785bf63492fa",
       "name": "ListItemAvatar aria-live",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7386,7 +7386,7 @@
     {
       "id": "a9c831c3-c9f4-4b1b-bd47-47655449c9e0",
       "name": "ListItemAvatar aria-modal",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7406,7 +7406,7 @@
     {
       "id": "1f172499-cc38-40c7-8d71-1efef335c3e2",
       "name": "ListItemAvatar aria-multiline",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7426,7 +7426,7 @@
     {
       "id": "80b2d7fb-b278-420c-a5cd-52251531927e",
       "name": "ListItemAvatar aria-multiselectable",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7446,7 +7446,7 @@
     {
       "id": "d364f061-f4b4-4bfb-b080-a246d5237cc7",
       "name": "ListItemAvatar aria-orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7466,7 +7466,7 @@
     {
       "id": "bdb3e43e-06c6-4a36-a913-bb1d07dba929",
       "name": "ListItemAvatar aria-pressed",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7491,7 +7491,7 @@
     {
       "id": "8865b4d7-733a-413f-8dce-695cf5a18217",
       "name": "ListItemAvatar aria-readonly",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7511,7 +7511,7 @@
     {
       "id": "b1208344-e7d9-4cec-a03c-c96344728887",
       "name": "ListItemAvatar aria-relevant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7571,7 +7571,7 @@
     {
       "id": "9484ecbf-77d5-4b0a-a1f7-f7739da70c24",
       "name": "ListItemAvatar aria-required",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7591,7 +7591,7 @@
     {
       "id": "71d0761f-ac02-48f8-aeeb-3e21334c12bf",
       "name": "ListItemAvatar aria-selected",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7611,7 +7611,7 @@
     {
       "id": "65d8dfcc-d808-48b8-890f-5cec7bcc886c",
       "name": "ListItemAvatar aria-sort",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7641,12 +7641,12 @@
     {
       "id": "ba9c1682-63c8-4ad7-9304-83b3faa19bde",
       "name": "ListItemButton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "ba9c1682-63c8-4ad7-9304-83b3faa19bde_fields",
+      "fields": {
+        "$modelId": "ba9c1682-63c8-4ad7-9304-83b3faa19bde:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "ba9c1682-63c8-4ad7-9304-83b3faa19bde:fields:alignItems": {
@@ -7765,7 +7765,7 @@
     {
       "id": "d9656af8-4fa9-442c-a928-acb48a13bb6b",
       "name": "ListItemButton alignItems",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7785,36 +7785,36 @@
     {
       "id": "17168add-7b6c-4625-adf4-dad23c0002a2",
       "name": "ListItemIcon API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "17168add-7b6c-4625-adf4-dad23c0002a2_fields",
+      "fields": {
+        "$modelId": "17168add-7b6c-4625-adf4-dad23c0002a2:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "e3b6cc5c-2595-4aa4-86d3-584ffdeabdb0",
       "name": "ListItemSecondaryAction API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e3b6cc5c-2595-4aa4-86d3-584ffdeabdb0_fields",
+      "fields": {
+        "$modelId": "e3b6cc5c-2595-4aa4-86d3-584ffdeabdb0:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "4affba73-3e6a-4ce6-ac82-af71ffc7c213",
       "name": "ListItemText API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "4affba73-3e6a-4ce6-ac82-af71ffc7c213_fields",
+      "fields": {
+        "$modelId": "4affba73-3e6a-4ce6-ac82-af71ffc7c213:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "4affba73-3e6a-4ce6-ac82-af71ffc7c213:fields:disableTypography": {
@@ -7843,12 +7843,12 @@
     {
       "id": "71829b74-0232-460e-ac05-1ec6057e2522",
       "name": "ListSubheader API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "71829b74-0232-460e-ac05-1ec6057e2522_fields",
+      "fields": {
+        "$modelId": "71829b74-0232-460e-ac05-1ec6057e2522:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "71829b74-0232-460e-ac05-1ec6057e2522:fields:color": {
@@ -7897,7 +7897,7 @@
     {
       "id": "c7feb94c-e69c-4fb8-b6c7-ab5dd06194ec",
       "name": "ListSubheader color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7922,12 +7922,12 @@
     {
       "id": "c307d423-5d1b-43d7-9bac-fd8cb3699f90",
       "name": "Menu API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "c307d423-5d1b-43d7-9bac-fd8cb3699f90_fields",
+      "fields": {
+        "$modelId": "c307d423-5d1b-43d7-9bac-fd8cb3699f90:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "c307d423-5d1b-43d7-9bac-fd8cb3699f90:fields:autoFocus": {
@@ -7976,7 +7976,7 @@
     {
       "id": "ac08458b-8feb-482b-b76e-829acb7c2845",
       "name": "Menu variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -7996,12 +7996,12 @@
     {
       "id": "68e75ea4-4c5e-4967-9935-cde2c861364c",
       "name": "MenuItem API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "68e75ea4-4c5e-4967-9935-cde2c861364c_fields",
+      "fields": {
+        "$modelId": "68e75ea4-4c5e-4967-9935-cde2c861364c:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "68e75ea4-4c5e-4967-9935-cde2c861364c:fields:autoFocus": {
@@ -8110,12 +8110,12 @@
     {
       "id": "6fe0416d-8d4f-40be-b8e4-9fb0e40e3c89",
       "name": "MenuList API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "6fe0416d-8d4f-40be-b8e4-9fb0e40e3c89_fields",
+      "fields": {
+        "$modelId": "6fe0416d-8d4f-40be-b8e4-9fb0e40e3c89:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "6fe0416d-8d4f-40be-b8e4-9fb0e40e3c89:fields:autoFocus": {
@@ -8194,7 +8194,7 @@
     {
       "id": "dcd8ad55-46df-468e-b792-6bb2882d81a0",
       "name": "MenuList variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8214,12 +8214,12 @@
     {
       "id": "b2c06483-541d-4cad-a8ef-a2f7ae579a66",
       "name": "MobileStepper API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b2c06483-541d-4cad-a8ef-a2f7ae579a66_fields",
+      "fields": {
+        "$modelId": "b2c06483-541d-4cad-a8ef-a2f7ae579a66:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "b2c06483-541d-4cad-a8ef-a2f7ae579a66:fields:position": {
@@ -8258,7 +8258,7 @@
     {
       "id": "ce1068b5-141c-4e9a-839e-bada4fba14b2",
       "name": "MobileStepper position",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8283,7 +8283,7 @@
     {
       "id": "8da19710-d3ed-4f7b-8e3f-f80514ab8a75",
       "name": "Float",
-      "typeKind": "PrimitiveType",
+      "kind": "PrimitiveType",
       "__typename": "PrimitiveType",
       "primitiveKind": "Float",
       "ownerAuth0Id": "",
@@ -8292,7 +8292,7 @@
     {
       "id": "09d926fc-ee3a-40e6-a159-e043ffec26e8",
       "name": "MobileStepper variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8317,12 +8317,12 @@
     {
       "id": "7a63ed8a-971d-4451-b8c9-556df5427d90",
       "name": "NativeSelect API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "7a63ed8a-971d-4451-b8c9-556df5427d90_fields",
+      "fields": {
+        "$modelId": "7a63ed8a-971d-4451-b8c9-556df5427d90:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "7a63ed8a-971d-4451-b8c9-556df5427d90:fields:variant": {
@@ -8341,7 +8341,7 @@
     {
       "id": "fff25168-ac0c-4d90-a8f2-0816b0664ebd",
       "name": "NativeSelect variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8366,12 +8366,12 @@
     {
       "id": "88f24f79-ae8e-4459-b3aa-72a76e0b1412",
       "name": "OutlinedInput API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "88f24f79-ae8e-4459-b3aa-72a76e0b1412_fields",
+      "fields": {
+        "$modelId": "88f24f79-ae8e-4459-b3aa-72a76e0b1412:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "88f24f79-ae8e-4459-b3aa-72a76e0b1412:fields:notched": {
@@ -8390,12 +8390,12 @@
     {
       "id": "8e248477-5d05-41ef-b537-fa9d814b1969",
       "name": "Pagination API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "8e248477-5d05-41ef-b537-fa9d814b1969_fields",
+      "fields": {
+        "$modelId": "8e248477-5d05-41ef-b537-fa9d814b1969:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "8e248477-5d05-41ef-b537-fa9d814b1969:fields:color": {
@@ -8494,7 +8494,7 @@
     {
       "id": "638eb4e8-4d2c-46dc-b66e-35081f12b98e",
       "name": "Pagination color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8519,7 +8519,7 @@
     {
       "id": "a8d9ba26-bc4e-4b4e-8e24-cfa7d20c4d0d",
       "name": "Pagination shape",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8539,7 +8539,7 @@
     {
       "id": "1bbf0b89-1f9a-4e46-9978-629fda93fa2c",
       "name": "Pagination size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8564,7 +8564,7 @@
     {
       "id": "89773d17-1e4d-47f5-b2c6-0bf0c2f19126",
       "name": "Pagination variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8584,12 +8584,12 @@
     {
       "id": "e0b853cb-3c0e-445c-9968-9b7ae66f3543",
       "name": "PaginationItem API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e0b853cb-3c0e-445c-9968-9b7ae66f3543_fields",
+      "fields": {
+        "$modelId": "e0b853cb-3c0e-445c-9968-9b7ae66f3543:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e0b853cb-3c0e-445c-9968-9b7ae66f3543:fields:color": {
@@ -8668,7 +8668,7 @@
     {
       "id": "1f0a835a-0c64-4226-942b-873705fe754b",
       "name": "PaginationItem color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8693,7 +8693,7 @@
     {
       "id": "e041a595-a0e5-421e-aa1b-6aaf293040a5",
       "name": "PaginationItem shape",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8713,7 +8713,7 @@
     {
       "id": "091b99a2-2bd1-4e35-8fa0-ba141f7fdab5",
       "name": "PaginationItem size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8738,7 +8738,7 @@
     {
       "id": "f8caf738-78c4-435e-8bb2-ab748315bb8e",
       "name": "PaginationItem type",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8783,7 +8783,7 @@
     {
       "id": "981452fc-462e-4793-aa46-8fa5442f7890",
       "name": "PaginationItem variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8803,12 +8803,12 @@
     {
       "id": "0c66c0f1-3720-4abf-8f04-e882b3dce45a",
       "name": "Paper API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "0c66c0f1-3720-4abf-8f04-e882b3dce45a_fields",
+      "fields": {
+        "$modelId": "0c66c0f1-3720-4abf-8f04-e882b3dce45a:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "0c66c0f1-3720-4abf-8f04-e882b3dce45a:fields:square": {
@@ -8837,7 +8837,7 @@
     {
       "id": "cbfb8f18-13cd-4491-b517-2129f2efa505",
       "name": "Paper variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8857,12 +8857,12 @@
     {
       "id": "611ede7a-094d-4d77-bfd2-10a90a4252e1",
       "name": "Popover API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "611ede7a-094d-4d77-bfd2-10a90a4252e1_fields",
+      "fields": {
+        "$modelId": "611ede7a-094d-4d77-bfd2-10a90a4252e1:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "611ede7a-094d-4d77-bfd2-10a90a4252e1:fields:anchorReference": {
@@ -8891,7 +8891,7 @@
     {
       "id": "aac6f76f-bb21-41fa-8ab8-ec083f2a469d",
       "name": "Popover anchorReference",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -8916,12 +8916,12 @@
     {
       "id": "4684180d-8d77-4067-ba11-e33d447b4a61",
       "name": "Popper API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "4684180d-8d77-4067-ba11-e33d447b4a61_fields",
+      "fields": {
+        "$modelId": "4684180d-8d77-4067-ba11-e33d447b4a61:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "4684180d-8d77-4067-ba11-e33d447b4a61:fields:disablePortal": {
@@ -8970,12 +8970,12 @@
     {
       "id": "3d0f2550-c95e-4a6b-8aed-1e5607b51311",
       "name": "Radio API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "3d0f2550-c95e-4a6b-8aed-1e5607b51311_fields",
+      "fields": {
+        "$modelId": "3d0f2550-c95e-4a6b-8aed-1e5607b51311:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "3d0f2550-c95e-4a6b-8aed-1e5607b51311:fields:color": {
@@ -9014,7 +9014,7 @@
     {
       "id": "2c529cef-3f07-4aa9-b87a-0e70a22a9a2b",
       "name": "Radio color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9059,7 +9059,7 @@
     {
       "id": "79b7cc19-14aa-4b93-9196-0e1ffb4f2126",
       "name": "Radio size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9079,24 +9079,24 @@
     {
       "id": "da5dab5b-572a-4784-8b27-4c05674a5943",
       "name": "RadioGroup API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "da5dab5b-572a-4784-8b27-4c05674a5943_fields",
+      "fields": {
+        "$modelId": "da5dab5b-572a-4784-8b27-4c05674a5943:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "63787e30-8367-4548-92e7-ec99bbd54204",
       "name": "Rating API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "63787e30-8367-4548-92e7-ec99bbd54204_fields",
+      "fields": {
+        "$modelId": "63787e30-8367-4548-92e7-ec99bbd54204:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "63787e30-8367-4548-92e7-ec99bbd54204:fields:disabled": {
@@ -9145,7 +9145,7 @@
     {
       "id": "e26084d2-d714-4516-8a02-69dcd1669edc",
       "name": "Rating size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9170,24 +9170,24 @@
     {
       "id": "b803b762-145f-452b-8edd-3153e7b4bbcf",
       "name": "ScopedCssBaseline API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b803b762-145f-452b-8edd-3153e7b4bbcf_fields",
+      "fields": {
+        "$modelId": "b803b762-145f-452b-8edd-3153e7b4bbcf:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "581d8707-bb34-470a-b872-a1d80e400a3b",
       "name": "Select API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "581d8707-bb34-470a-b872-a1d80e400a3b_fields",
+      "fields": {
+        "$modelId": "581d8707-bb34-470a-b872-a1d80e400a3b:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "581d8707-bb34-470a-b872-a1d80e400a3b:fields:autoWidth": {
@@ -9256,7 +9256,7 @@
     {
       "id": "4eede21b-4966-4e02-bed3-efe70864e39d",
       "name": "Select variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9281,12 +9281,12 @@
     {
       "id": "76f695bd-4a80-4fda-9166-50646169d6d9",
       "name": "Skeleton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "76f695bd-4a80-4fda-9166-50646169d6d9_fields",
+      "fields": {
+        "$modelId": "76f695bd-4a80-4fda-9166-50646169d6d9:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "76f695bd-4a80-4fda-9166-50646169d6d9:fields:animation": {
@@ -9315,7 +9315,7 @@
     {
       "id": "3c4ab0d7-c4d4-401c-8520-068c895a87d1",
       "name": "Skeleton animation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9335,7 +9335,7 @@
     {
       "id": "f5bd1f9a-000a-4acb-9711-6a0f7ab2471a",
       "name": "Skeleton variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9360,12 +9360,12 @@
     {
       "id": "ca40e3d4-9817-4d85-bcb4-187fc2e2269e",
       "name": "Slide API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "ca40e3d4-9817-4d85-bcb4-187fc2e2269e_fields",
+      "fields": {
+        "$modelId": "ca40e3d4-9817-4d85-bcb4-187fc2e2269e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "ca40e3d4-9817-4d85-bcb4-187fc2e2269e:fields:appear": {
@@ -9394,7 +9394,7 @@
     {
       "id": "9f7983b2-b60e-475c-bd87-8eb426c65d3f",
       "name": "Slide direction",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9424,12 +9424,12 @@
     {
       "id": "5c428383-28b0-483d-9f11-4941c24bbecd",
       "name": "Snackbar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "5c428383-28b0-483d-9f11-4941c24bbecd_fields",
+      "fields": {
+        "$modelId": "5c428383-28b0-483d-9f11-4941c24bbecd:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "5c428383-28b0-483d-9f11-4941c24bbecd:fields:disableWindowBlurListener": {
@@ -9458,24 +9458,24 @@
     {
       "id": "3173e479-1e41-440a-8c60-4919d4161e74",
       "name": "SnackbarContent API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "3173e479-1e41-440a-8c60-4919d4161e74_fields",
+      "fields": {
+        "$modelId": "3173e479-1e41-440a-8c60-4919d4161e74:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "e124fdda-1f3d-4767-accd-890528aa3561",
       "name": "SpeedDial API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e124fdda-1f3d-4767-accd-890528aa3561_fields",
+      "fields": {
+        "$modelId": "e124fdda-1f3d-4767-accd-890528aa3561:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e124fdda-1f3d-4767-accd-890528aa3561:fields:ariaLabel": {
@@ -9524,7 +9524,7 @@
     {
       "id": "257a1eeb-21f8-4950-9e1f-74d417c6b80f",
       "name": "String",
-      "typeKind": "PrimitiveType",
+      "kind": "PrimitiveType",
       "__typename": "PrimitiveType",
       "primitiveKind": "String",
       "ownerAuth0Id": "",
@@ -9533,7 +9533,7 @@
     {
       "id": "02834954-0e25-41aa-84a7-956ac3e526b1",
       "name": "SpeedDial direction",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9563,12 +9563,12 @@
     {
       "id": "67948dc2-7b4b-4d7d-bbe3-292cdf3dc1c9",
       "name": "SpeedDialAction API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "67948dc2-7b4b-4d7d-bbe3-292cdf3dc1c9_fields",
+      "fields": {
+        "$modelId": "67948dc2-7b4b-4d7d-bbe3-292cdf3dc1c9:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "67948dc2-7b4b-4d7d-bbe3-292cdf3dc1c9:fields:tooltipPlacement": {
@@ -9597,7 +9597,7 @@
     {
       "id": "e5d29fd5-01ea-4db6-882e-08c44419903f",
       "name": "SpeedDialAction tooltipPlacement",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9667,12 +9667,12 @@
     {
       "id": "8609fc5c-ae11-436d-a735-297758a59878",
       "name": "SpeedDialIcon API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "8609fc5c-ae11-436d-a735-297758a59878_fields",
+      "fields": {
+        "$modelId": "8609fc5c-ae11-436d-a735-297758a59878:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "8609fc5c-ae11-436d-a735-297758a59878:fields:open": {
@@ -9691,24 +9691,24 @@
     {
       "id": "364bfc1b-0850-4d1f-b5f8-b4aedb97ba94",
       "name": "Stack API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "364bfc1b-0850-4d1f-b5f8-b4aedb97ba94_fields",
+      "fields": {
+        "$modelId": "364bfc1b-0850-4d1f-b5f8-b4aedb97ba94:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "4417cbcf-0276-4175-9380-d1132286acf1",
       "name": "Step API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "4417cbcf-0276-4175-9380-d1132286acf1_fields",
+      "fields": {
+        "$modelId": "4417cbcf-0276-4175-9380-d1132286acf1:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "4417cbcf-0276-4175-9380-d1132286acf1:fields:active": {
@@ -9767,12 +9767,12 @@
     {
       "id": "413c8e77-9ade-493f-a9fa-924c94e8f32e",
       "name": "StepButton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "413c8e77-9ade-493f-a9fa-924c94e8f32e_fields",
+      "fields": {
+        "$modelId": "413c8e77-9ade-493f-a9fa-924c94e8f32e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "413c8e77-9ade-493f-a9fa-924c94e8f32e:fields:disabled": {
@@ -9831,36 +9831,36 @@
     {
       "id": "f43f5983-a765-4cbb-86c4-5a122909969e",
       "name": "StepConnector API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f43f5983-a765-4cbb-86c4-5a122909969e_fields",
+      "fields": {
+        "$modelId": "f43f5983-a765-4cbb-86c4-5a122909969e:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "4c064d82-fb36-4ea5-8bf1-e99fe01a933d",
       "name": "StepContent API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "4c064d82-fb36-4ea5-8bf1-e99fe01a933d_fields",
+      "fields": {
+        "$modelId": "4c064d82-fb36-4ea5-8bf1-e99fe01a933d:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "b31a3a45-a108-45aa-8fb5-6b497eacf25e",
       "name": "StepIcon API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "b31a3a45-a108-45aa-8fb5-6b497eacf25e_fields",
+      "fields": {
+        "$modelId": "b31a3a45-a108-45aa-8fb5-6b497eacf25e:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "b31a3a45-a108-45aa-8fb5-6b497eacf25e:fields:active": {
@@ -9899,12 +9899,12 @@
     {
       "id": "f4bfc2f2-e807-43c4-b46e-9fcc8de9a4c5",
       "name": "StepLabel API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f4bfc2f2-e807-43c4-b46e-9fcc8de9a4c5_fields",
+      "fields": {
+        "$modelId": "f4bfc2f2-e807-43c4-b46e-9fcc8de9a4c5:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "f4bfc2f2-e807-43c4-b46e-9fcc8de9a4c5:fields:error": {
@@ -9923,12 +9923,12 @@
     {
       "id": "13e06fa0-314b-458f-a170-3bd5cc3ff913",
       "name": "Stepper API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "13e06fa0-314b-458f-a170-3bd5cc3ff913_fields",
+      "fields": {
+        "$modelId": "13e06fa0-314b-458f-a170-3bd5cc3ff913:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "13e06fa0-314b-458f-a170-3bd5cc3ff913:fields:alternativeLabel": {
@@ -9967,7 +9967,7 @@
     {
       "id": "528c7cbe-4573-4432-8c97-1109bb92c4e4",
       "name": "Stepper orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -9987,12 +9987,12 @@
     {
       "id": "7072eca8-9064-4feb-8917-e5eb2fa9b16d",
       "name": "SvgIcon API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "7072eca8-9064-4feb-8917-e5eb2fa9b16d_fields",
+      "fields": {
+        "$modelId": "7072eca8-9064-4feb-8917-e5eb2fa9b16d:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "7072eca8-9064-4feb-8917-e5eb2fa9b16d:fields:color": {
@@ -10021,7 +10021,7 @@
     {
       "id": "cea1c3e0-d801-4005-89a0-884d2ce1cd82",
       "name": "SvgIcon color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10076,7 +10076,7 @@
     {
       "id": "a803ed7c-f4b9-49e7-88d2-d79f17080e95",
       "name": "SvgIcon fontSize",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10106,24 +10106,24 @@
     {
       "id": "15f6560b-f17d-4711-9c45-0a43faea7b9f",
       "name": "SwipeableDrawer API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "15f6560b-f17d-4711-9c45-0a43faea7b9f_fields",
+      "fields": {
+        "$modelId": "15f6560b-f17d-4711-9c45-0a43faea7b9f:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "53840b75-a242-4a17-bce5-79160ed791f1",
       "name": "Switch API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "53840b75-a242-4a17-bce5-79160ed791f1_fields",
+      "fields": {
+        "$modelId": "53840b75-a242-4a17-bce5-79160ed791f1:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "53840b75-a242-4a17-bce5-79160ed791f1:fields:color": {
@@ -10162,7 +10162,7 @@
     {
       "id": "218a89ff-a3f8-4acf-8cc4-643c01ad221d",
       "name": "Switch color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10207,7 +10207,7 @@
     {
       "id": "1cf836cc-982e-4b62-90f8-a62703a60782",
       "name": "Switch size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10227,12 +10227,12 @@
     {
       "id": "82b7d4c1-fdd2-478a-9a64-c9641a450a9a",
       "name": "Tab API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "82b7d4c1-fdd2-478a-9a64-c9641a450a9a_fields",
+      "fields": {
+        "$modelId": "82b7d4c1-fdd2-478a-9a64-c9641a450a9a:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "82b7d4c1-fdd2-478a-9a64-c9641a450a9a:fields:disabled": {
@@ -10311,12 +10311,12 @@
     {
       "id": "456c44c2-6afd-411a-a205-0578f225f845",
       "name": "TabScrollButton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "456c44c2-6afd-411a-a205-0578f225f845_fields",
+      "fields": {
+        "$modelId": "456c44c2-6afd-411a-a205-0578f225f845:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "456c44c2-6afd-411a-a205-0578f225f845:fields:direction": {
@@ -10355,7 +10355,7 @@
     {
       "id": "c4f3b88a-3f3c-4d91-8e3f-2ae75a466e80",
       "name": "TabScrollButton direction",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10375,7 +10375,7 @@
     {
       "id": "b5663506-a4fe-4b7a-bf53-44c5305e2b0f",
       "name": "TabScrollButton orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10395,12 +10395,12 @@
     {
       "id": "9ed62713-4a56-4172-845f-9b51ad93a40f",
       "name": "Table API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "9ed62713-4a56-4172-845f-9b51ad93a40f_fields",
+      "fields": {
+        "$modelId": "9ed62713-4a56-4172-845f-9b51ad93a40f:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "9ed62713-4a56-4172-845f-9b51ad93a40f:fields:padding": {
@@ -10439,7 +10439,7 @@
     {
       "id": "ed12c490-ab5e-442a-9441-af68f0dc331a",
       "name": "Table padding",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10464,7 +10464,7 @@
     {
       "id": "d5984065-8074-4ead-b089-08219c816027",
       "name": "Table size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10484,24 +10484,24 @@
     {
       "id": "f612e2a0-b510-4e2d-8c69-b7e772c633df",
       "name": "TableBody API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f612e2a0-b510-4e2d-8c69-b7e772c633df_fields",
+      "fields": {
+        "$modelId": "f612e2a0-b510-4e2d-8c69-b7e772c633df:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "2c12d6c2-f381-406d-a183-a355cd705072",
       "name": "TableCell API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "2c12d6c2-f381-406d-a183-a355cd705072_fields",
+      "fields": {
+        "$modelId": "2c12d6c2-f381-406d-a183-a355cd705072:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "2c12d6c2-f381-406d-a183-a355cd705072:fields:align": {
@@ -10560,7 +10560,7 @@
     {
       "id": "ccbcbd71-aebd-4eaa-8076-ff708791e630",
       "name": "TableCell align",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10595,7 +10595,7 @@
     {
       "id": "8c149288-be9c-4485-ba24-93f350b2f330",
       "name": "TableCell padding",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10620,7 +10620,7 @@
     {
       "id": "6e96ef73-92c3-464f-bd98-0b4a330946aa",
       "name": "TableCell size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10640,7 +10640,7 @@
     {
       "id": "277a0dd9-0c2e-4b9c-8dba-66a520b33093",
       "name": "TableCell sortDirection",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10660,7 +10660,7 @@
     {
       "id": "cae90f5f-7f6f-4019-9576-0761a0a00af0",
       "name": "TableCell variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10685,48 +10685,48 @@
     {
       "id": "aa49dc7f-d8fc-4a78-892f-39686befb628",
       "name": "TableContainer API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "aa49dc7f-d8fc-4a78-892f-39686befb628_fields",
+      "fields": {
+        "$modelId": "aa49dc7f-d8fc-4a78-892f-39686befb628:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "055815a6-a702-4db4-9e3b-0b35543881ec",
       "name": "TableFooter API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "055815a6-a702-4db4-9e3b-0b35543881ec_fields",
+      "fields": {
+        "$modelId": "055815a6-a702-4db4-9e3b-0b35543881ec:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "95394597-c15d-4598-b6e1-7df89f30475a",
       "name": "TableHead API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "95394597-c15d-4598-b6e1-7df89f30475a_fields",
+      "fields": {
+        "$modelId": "95394597-c15d-4598-b6e1-7df89f30475a:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "52e742bf-39d2-4bd0-b7a1-3e15f1179410",
       "name": "TablePagination API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "52e742bf-39d2-4bd0-b7a1-3e15f1179410_fields",
+      "fields": {
+        "$modelId": "52e742bf-39d2-4bd0-b7a1-3e15f1179410:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "52e742bf-39d2-4bd0-b7a1-3e15f1179410:fields:count": {
@@ -10785,12 +10785,12 @@
     {
       "id": "e51f6382-bc7e-484c-addb-d86b19eb5c79",
       "name": "TableRow API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e51f6382-bc7e-484c-addb-d86b19eb5c79_fields",
+      "fields": {
+        "$modelId": "e51f6382-bc7e-484c-addb-d86b19eb5c79:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e51f6382-bc7e-484c-addb-d86b19eb5c79:fields:hover": {
@@ -10819,12 +10819,12 @@
     {
       "id": "e5910cf9-4f81-4b32-95f3-3ae4bedd5701",
       "name": "TableSortLabel API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "e5910cf9-4f81-4b32-95f3-3ae4bedd5701_fields",
+      "fields": {
+        "$modelId": "e5910cf9-4f81-4b32-95f3-3ae4bedd5701:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "e5910cf9-4f81-4b32-95f3-3ae4bedd5701:fields:active": {
@@ -10913,7 +10913,7 @@
     {
       "id": "cb78db89-30f9-4f25-b5f1-d59751881e09",
       "name": "TableSortLabel direction",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -10933,12 +10933,12 @@
     {
       "id": "04384d37-8cde-4c86-9ff3-fad35b0038d2",
       "name": "Tabs API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "04384d37-8cde-4c86-9ff3-fad35b0038d2_fields",
+      "fields": {
+        "$modelId": "04384d37-8cde-4c86-9ff3-fad35b0038d2:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "04384d37-8cde-4c86-9ff3-fad35b0038d2:fields:allowScrollButtonsMobile": {
@@ -11037,7 +11037,7 @@
     {
       "id": "13a828b6-5631-4d53-a2fa-35e0fac63274",
       "name": "Tabs indicatorColor",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11057,7 +11057,7 @@
     {
       "id": "0873c556-d00c-4afa-957e-79a1d95a0291",
       "name": "Tabs orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11077,7 +11077,7 @@
     {
       "id": "76b40edb-f578-461a-ad1d-3c9d86efdcd5",
       "name": "Tabs scrollButtons",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11092,7 +11092,7 @@
     {
       "id": "1c8ebdaf-3c77-4926-8abc-8e8733016314",
       "name": "Tabs textColor",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11117,7 +11117,7 @@
     {
       "id": "eb857292-4dfe-43ff-9cf3-fe100523faa4",
       "name": "Tabs variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11142,12 +11142,12 @@
     {
       "id": "a3d4ba1a-ad09-4392-99f7-93c0cf58c7c2",
       "name": "TextField API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "a3d4ba1a-ad09-4392-99f7-93c0cf58c7c2_fields",
+      "fields": {
+        "$modelId": "a3d4ba1a-ad09-4392-99f7-93c0cf58c7c2:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "a3d4ba1a-ad09-4392-99f7-93c0cf58c7c2:fields:variant": {
@@ -11256,7 +11256,7 @@
     {
       "id": "0ae56897-7feb-40d9-b9ea-36c3ea1f15ea",
       "name": "TextField variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11281,7 +11281,7 @@
     {
       "id": "77a04343-3e08-40cb-a438-0b5d24c6cd10",
       "name": "TextField color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11321,7 +11321,7 @@
     {
       "id": "662fa0af-9067-42eb-a463-71f1fea8f747",
       "name": "TextField size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11341,24 +11341,24 @@
     {
       "id": "f93363ee-d468-40a2-b80a-684536aac930",
       "name": "TextareaAutosize API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "f93363ee-d468-40a2-b80a-684536aac930_fields",
+      "fields": {
+        "$modelId": "f93363ee-d468-40a2-b80a-684536aac930:fields",
         "$modelType": "mobx-keystone/ObjectMap"
       }
     },
     {
       "id": "ec00c93d-0ea5-42f3-bc16-fccb2dec9cde",
       "name": "ToggleButton API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "ec00c93d-0ea5-42f3-bc16-fccb2dec9cde_fields",
+      "fields": {
+        "$modelId": "ec00c93d-0ea5-42f3-bc16-fccb2dec9cde:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "ec00c93d-0ea5-42f3-bc16-fccb2dec9cde:fields:color": {
@@ -11467,7 +11467,7 @@
     {
       "id": "2f66a626-9fbf-4522-8731-3ff8cb0fcc2f",
       "name": "ToggleButton color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11512,7 +11512,7 @@
     {
       "id": "ab6f6748-2a74-44b6-bac9-71d985b4ebd8",
       "name": "ToggleButton size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11537,12 +11537,12 @@
     {
       "id": "11e7c1b4-0ad6-4176-8bf2-fea5a1399b0b",
       "name": "ToggleButtonGroup API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "11e7c1b4-0ad6-4176-8bf2-fea5a1399b0b_fields",
+      "fields": {
+        "$modelId": "11e7c1b4-0ad6-4176-8bf2-fea5a1399b0b:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "11e7c1b4-0ad6-4176-8bf2-fea5a1399b0b:fields:color": {
@@ -11611,7 +11611,7 @@
     {
       "id": "23abd39b-8c1d-432f-9599-3893ba660477",
       "name": "ToggleButtonGroup color",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11656,7 +11656,7 @@
     {
       "id": "e81e9a21-21b4-40dd-bcb5-edf56106cef4",
       "name": "ToggleButtonGroup orientation",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11676,7 +11676,7 @@
     {
       "id": "3283c39f-a0b4-4c1f-9402-e2ab6afe4b3e",
       "name": "ToggleButtonGroup size",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11701,12 +11701,12 @@
     {
       "id": "80cb5556-24d6-41cd-82d1-6cbb93b969ad",
       "name": "Toolbar API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "80cb5556-24d6-41cd-82d1-6cbb93b969ad_fields",
+      "fields": {
+        "$modelId": "80cb5556-24d6-41cd-82d1-6cbb93b969ad:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "80cb5556-24d6-41cd-82d1-6cbb93b969ad:fields:disableGutters": {
@@ -11735,7 +11735,7 @@
     {
       "id": "6f649d2b-6f01-4bb0-9e16-b6a2fd6085e9",
       "name": "Toolbar variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11755,12 +11755,12 @@
     {
       "id": "1dec25a2-b7f5-4f1d-afa2-582c79091581",
       "name": "Tooltip API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "1dec25a2-b7f5-4f1d-afa2-582c79091581_fields",
+      "fields": {
+        "$modelId": "1dec25a2-b7f5-4f1d-afa2-582c79091581:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "1dec25a2-b7f5-4f1d-afa2-582c79091581:fields:arrow": {
@@ -11859,7 +11859,7 @@
     {
       "id": "9ab4a55e-baf8-4f06-ace1-1c2df94d9c45",
       "name": "Tooltip placement",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -11929,12 +11929,12 @@
     {
       "id": "46f23133-c928-4a83-9ee7-f042d8de32f5",
       "name": "Typography API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "46f23133-c928-4a83-9ee7-f042d8de32f5_fields",
+      "fields": {
+        "$modelId": "46f23133-c928-4a83-9ee7-f042d8de32f5:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "46f23133-c928-4a83-9ee7-f042d8de32f5:fields:align": {
@@ -11993,7 +11993,7 @@
     {
       "id": "53c26c35-e6a7-4608-944f-73b8ecee1428",
       "name": "Typography align",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -12028,7 +12028,7 @@
     {
       "id": "f897b3f0-21b3-4936-8f5d-c5dab26106f3",
       "name": "Typography variant",
-      "typeKind": "EnumType",
+      "kind": "EnumType",
       "__typename": "EnumType",
       "allowedValues": [
         {
@@ -12108,12 +12108,12 @@
     {
       "id": "380f9c39-7404-44d0-aa87-52e2ebf225c3",
       "name": "Zoom API",
-      "typeKind": "InterfaceType",
+      "kind": "InterfaceType",
       "__typename": "InterfaceType",
       "ownerAuth0Id": "",
       "$modelType": "codelab/InterfaceType",
-      "_fields": {
-        "$modelId": "380f9c39-7404-44d0-aa87-52e2ebf225c3_fields",
+      "fields": {
+        "$modelId": "380f9c39-7404-44d0-aa87-52e2ebf225c3:fields",
         "$modelType": "mobx-keystone/ObjectMap",
         "items": {
           "380f9c39-7404-44d0-aa87-52e2ebf225c3:fields:appear": {

@@ -66,72 +66,72 @@
     {
       "vertices": [
         {
-          "typeKind": "EnumType",
+          "kind": "EnumType",
           "__resolveType": "EnumType",
           "name": "type-4",
           "id": "f7f48684-049b-4202-9e78-aaf86229b07b"
         },
         {
-          "typeKind": "EnumTypeValue",
+          "kind": "EnumTypeValue",
           "__resolveType": "EnumTypeValue",
           "name": "User",
           "id": "db6ecdb0-2734-403e-9e5a-836bbcf6ea26",
           "value": "user"
         },
         {
-          "typeKind": "InterfaceType",
+          "kind": "InterfaceType",
           "__resolveType": "InterfaceType",
           "name": "type-3",
           "id": "d4fa8006-3d9a-4178-8cca-c00aa108b2f9"
         },
         {
-          "typeKind": "ElementType",
+          "kind": "ElementType",
           "elementKind": "AllElements",
           "__resolveType": "ElementType",
           "name": "type-6",
           "id": "d0798ee4-2cc3-4042-bc15-69f072cabef9"
         },
         {
-          "typeKind": "EnumTypeValue",
+          "kind": "EnumTypeValue",
           "__resolveType": "EnumTypeValue",
           "name": "Super Admin",
           "id": "af8989d8-5348-4cd6-a8b8-895b87f022d3",
           "value": "superadmin"
         },
         {
-          "typeKind": "InterfaceType",
+          "kind": "InterfaceType",
           "__resolveType": "InterfaceType",
           "name": "atom-1 API",
           "id": "af1e3496-5d1f-4937-b477-6e7ae1946be0"
         },
         {
-          "typeKind": "InterfaceType",
+          "kind": "InterfaceType",
           "__resolveType": "InterfaceType",
           "name": "atom-2 API",
           "id": "81a1cb0e-9b58-47ac-aec4-79ab6ab3b43f"
         },
         {
-          "typeKind": "ArrayType",
+          "kind": "ArrayType",
           "__resolveType": "ArrayType",
           "name": "type-2",
           "id": "6ceb1df4-7ff2-4e6e-95f9-b286bb4f913a"
         },
         {
-          "typeKind": "PrimitiveType",
+          "kind": "PrimitiveType",
           "__resolveType": "PrimitiveType",
           "name": "type-1",
           "id": "60143b9e-fe4e-441b-a95b-346713f4bd82",
           "primitiveKind": "Boolean"
         },
         {
-          "typeKind": "EnumTypeValue",
+          "kind": "EnumTypeValue",
           "__resolveType": "EnumTypeValue",
           "name": "Admin",
           "id": "2c2ec202-c598-4438-9b07-5519f4a6f91d",
           "value": "admin"
         },
         {
-          "typeKind": "UnionType",
+          "kind": "UnionType",
           "__resolveType": "UnionType",
           "name": "type-8",
           "id": "0c30b3bc-8c8c-4f32-8e31-f102c2de4285"
@@ -241,7 +241,7 @@
     {
       "vertices": [
         {
-          "typeKind": "LambdaType",
+          "kind": "LambdaType",
           "__resolveType": "LambdaType",
           "name": "type-5",
           "id": "0802e975-1f9a-4ceb-a07d-72762cbc4fe5"
@@ -252,7 +252,7 @@
     {
       "vertices": [
         {
-          "typeKind": "RenderPropsType",
+          "kind": "RenderPropsType",
           "__resolveType": "RenderPropsType",
           "name": "type-7",
           "id": "462ddbe6-861e-4c90-bad9-4878e90191f8"
@@ -263,7 +263,7 @@
     {
       "vertices": [
         {
-          "typeKind": "MonacoType",
+          "kind": "MonacoType",
           "__resolveType": "MonacoType",
           "name": "type-9",
           "language": "cssInJs",
@@ -275,7 +275,7 @@
     {
       "vertices": [
         {
-          "typeKind": "PageType",
+          "kind": "PageType",
           "__resolveType": "PageType",
           "name": "type-10",
           "id": "c6efc1b0-8f8a-4a8d-a00f-6c1bbb473584"
@@ -286,7 +286,7 @@
     {
       "vertices": [
         {
-          "typeKind": "AppType",
+          "kind": "AppType",
           "__resolveType": "AppType",
           "name": "type-11",
           "id": "482dad64-726c-40bc-b4f3-2419a57852b7"

@@ -16,7 +16,7 @@ describe('RenderService', () => {
   })
 
   // TODO figure out why ReactNodeType doesn't work in this test
-  it.skip('should render props when typeKind is ReactNodeType', async () => {
+  it.skip('should render props when kind is ReactNodeType', async () => {
     const extraProps = {
       someNode: {
         type: data.reactNodeType.id,
@@ -37,7 +37,7 @@ describe('RenderService', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render props when typeKind is RenderPropsType', async () => {
+  it('should render props when kind is RenderPropsType', async () => {
     const extraProps = {
       someNode: {
         type: data.renderPropsType.id,
@@ -58,7 +58,7 @@ describe('RenderService', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render props when typeKind is RenderPropsType with overriden props', async () => {
+  it('should render props when kind is RenderPropsType with overriden props', async () => {
     const extraProps = {
       someNode: {
         type: data.renderPropsType.id,

@@ -4,6 +4,7 @@ import {
   AtomService,
   atomServiceContext,
   ImportAtomService,
+  importAtomServiceContext,
 } from '@codelab/frontend/modules/atom'
 import {
   BuilderService,
@@ -144,6 +145,7 @@ export const createRootStore = (
       renderServiceContext.set(this, this.renderService)
       actionServiceContext.set(this, this.actionService)
       importTypeServiceContext.set(this, this.importTypeService)
+      importAtomServiceContext.set(this, this.importAtomService)
       resourceServiceContext.set(this, this.resourceService)
       operationServiceContext.set(this, this.operationService)
       elementServiceContext.set(this, this.elementService)
