@@ -1,13 +1,14 @@
-import {
-  ICreateTypeDTO,
-  IPrimitiveTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+
+// type CreatePrimitiveTypes = (
+//   ids?: Array<string>,
+// ) => Array<Omit<ICreateTypeDTO, 'auth0Id'>>
 
 type CreatePrimitiveTypes = (
   ids?: Array<string>,
-) => Array<Omit<ICreateTypeDTO, 'auth0Id'>>
+) => Array<Omit<OGM_TYPES.PrimitiveType, 'owner' | 'ownerConnection'>>
 
 export const buttonInterfaceId = v4()
 

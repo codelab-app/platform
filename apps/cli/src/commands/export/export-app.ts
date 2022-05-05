@@ -1,9 +1,7 @@
 import { AppOGM, appSelectionSet } from '@codelab/backend'
 import { IAppExport } from '@codelab/shared/abstract/core'
-import fs from 'fs'
 import * as inquirer from 'inquirer'
-import path from 'path'
-import { getAppData } from './get-app'
+import { getApp } from '../../repository/app.repo'
 
 export type ExportAppData = {
   app: IAppExport
@@ -49,23 +47,7 @@ export const exportApp = async () => {
       throw new Error('App not found')
     }
 
-    /**
-     * Export info, file path etc
-     */
-    // const { outputPath } = await inquirer.prompt([
-    //   {
-    //     type: 'input',
-    //     name: 'outputPath',
-    //     message: 'Enter a path to export to',
-    //     default: `${app.name ?? 'app'}.json`,
-    //   },
-    // ])
-    //
-    // if (!outputPath.endsWith('.json')) {
-    //   throw new Error('Output path must end with .json')
-    // }
-
-    return await getAppData(app)
+    return await getApp(app)
   }
 
   return { app: null }

@@ -56,6 +56,13 @@ export const typeSchema = gql`
         type: "OWNED_BY",
         direction: OUT
       )
+    # Any type could be used a field for some interface
+    fieldFor: [TypeBase!]!
+      @relationship(
+        type: "INTERFACE_FIELD"
+        direction: IN
+        properties: "Field"
+      )
   }
 
   # https://github.com/neo4j/graphql/issues/1105
@@ -161,7 +168,7 @@ export const typeSchema = gql`
         direction: OUT
         properties: "Field"
       )
-    fieldsFor: [TypeBase!]!
+    fieldFor: [TypeBase!]!
       @relationship(
         type: "INTERFACE_FIELD"
         direction: IN

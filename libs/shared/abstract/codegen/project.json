@@ -3,5 +3,5 @@
   "sourceRoot": "libs/shared/abstract/codegen/src",
   "projectType": "library",
   "targets": {},
-  "tags": ["scope:codegen"]
+  "tags": ["scope:codegen", "type:abstract"]
 }

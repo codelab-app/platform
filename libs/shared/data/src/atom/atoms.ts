@@ -1,10 +1,10 @@
-import { IAtomType, ICreateAtomDTO } from '@codelab/shared/abstract/core'
+import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 type CreateAtoms = (
   atomIds?: Array<string>,
   interfaceIds?: Array<string>,
-) => Array<Omit<ICreateAtomDTO, 'owner'>>
+) => Array<IAtomExport>
 
 export const createAtomsData: CreateAtoms = (
   [buttonId, textId] = [],
@@ -14,16 +14,28 @@ export const createAtomsData: CreateAtoms = (
     id: buttonId ?? v4(),
     name: IAtomType.AntDesignButton,
     type: IAtomType.AntDesignButton,
-    interfaceId: buttonInterfaceId,
+    api: {
+      id: buttonInterfaceId,
+    },
   },
   {
     id: textId ?? v4(),
     name: IAtomType.AntDesignTypographyText,
     type: IAtomType.AntDesignTypographyText,
-    interfaceId: textInterfaceId,
+    api: {
+      id: textInterfaceId,
+    },
   },
-  { name: IAtomType.AntDesignGridCol, type: IAtomType.AntDesignGridCol },
-  { name: IAtomType.AntDesignGridRow, type: IAtomType.AntDesignGridRow },
+  {
+    id: v4(),
+    name: IAtomType.AntDesignGridCol,
+    type: IAtomType.AntDesignGridCol,
+  },
+  {
+    id: v4(),
+    name: IAtomType.AntDesignGridRow,
+    type: IAtomType.AntDesignGridRow,
+  },
 ]
 
 export const connectOwner = (auth0Id: string) => {
@@ -31,5 +43,5 @@ export const connectOwner = (auth0Id: string) => {
 }
 
 export const connectId = (id?: string) => {
-  return { connect: { where: { node: { id } } } }
+  return { connect: id ? { where: { node: { id } } } : undefined }
 }

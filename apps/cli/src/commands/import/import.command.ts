@@ -1,11 +1,15 @@
 import { UserOGM } from '@codelab/backend'
-import { config } from 'dotenv'
+import {
+  createAntDesignAtomsData,
+  createPrimitiveTypesData,
+} from '@codelab/shared/data'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
+import { createApp } from '../../repository/app.repo'
 import { defaultOutputPath, ExportedData } from '../export/export.command'
-import { importApp } from './import-app'
+import { SeederService } from '../seed/seeder.service'
 import { importAtom } from './import-atom'
 import { importType } from './import-type'
 
@@ -13,17 +17,17 @@ import { importType } from './import-type'
  * Will process json file, and import apps/types accordingly based on their existence
  */
 export const importCommand: CommandModule<any, any> = {
-  command: 'import',
-  builder: {
-    filePath: {
-      describe: 'filePath',
-      type: 'string',
-    },
-  },
-  handler: async ({ filePath = defaultOutputPath }) => {
-    config({ path: `${process.cwd()}/.env.test` })
+  command: 'import <file>',
+  // builder: {
+  //   file: {
+  //     describe: 'file',
+  //     type: 'string',
+  //   },
+  // },
+  handler: async ({ file = defaultOutputPath }) => {
+    // config({ path: `${process.cwd()}/.env.test` })
 
-    const json = fs.readFileSync(path.resolve('data', filePath), 'utf8')
+    const json = fs.readFileSync(path.resolve('data', file), 'utf8')
     const Users = await UserOGM()
     const allUsers = await Users.find()
 
@@ -46,15 +50,26 @@ export const importCommand: CommandModule<any, any> = {
       await importType(types, selectedUser)
     }
 
+    // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
+    await importType(createPrimitiveTypesData(), selectedUser)
+
     if (atoms.length) {
       console.log('Importing atoms...')
       await importAtom(atoms, selectedUser)
     }
 
+    // Seed all atoms here second
+    await importAtom(await createAntDesignAtomsData(), selectedUser)
+
+    // Then seed all atom api's
+    const seeder = new SeederService()
+    const seedData = await seeder.seed()
+    console.log('seed data', seedData)
+
     if (app) {
       console.log('Importing app...')
 
-      const importedApp = await importApp(app, selectedUser)
+      const importedApp = await createApp(app, selectedUser)
 
       console.info(`Imported app with id ${importedApp.id}`)
     }
