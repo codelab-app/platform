@@ -1,4 +1,5 @@
 import { IPropData } from '@codelab/shared/abstract/core'
+import { jsx } from '@emotion/react'
 import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 
 const ChildrenRender = ({ children }: PropsWithChildren<any>): JSX.Element => (
@@ -16,7 +17,7 @@ export const reduceComponentTree = (
       children,
     }: PropsWithChildren<ComponentProps<ComponentType>>): JSX.Element => (
       <ParentComponent>
-        {React.createElement(ChildComponent, childProps, children)}
+        {jsx(ChildComponent, childProps, children)}
       </ParentComponent>
     )
   }, ChildrenRender)

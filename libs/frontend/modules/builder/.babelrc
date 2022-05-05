@@ -16,7 +16,6 @@
     ]
   ],
   "plugins": [
-    "@emotion",
     "macros",
     // For mobx-keystone
     [
