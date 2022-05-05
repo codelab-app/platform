@@ -10,7 +10,25 @@ export const tagSchema = gql`
       @cypher(statement: """${tagIsRoot}""")
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
+    owner: [User!]! @relationship(type: "OWNED_BY", direction: OUT)
   }
+
+  extend type Tag
+    @auth(
+      rules: [
+        { 
+          operations: [READ, CONNECT, DISCONNECT, UPDATE, DELETE, CREATE]
+          roles: ["Admin"]
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+        {
+          roles: ["User"]
+          operations: [READ, UPDATE, CREATE, DELETE]
+          where: { owner: { auth0Id: "$jwt.sub" } }
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )
 
   # should be removed, added as a workaround to fix the build issue
   type TagGraphOptions {

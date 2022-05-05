@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
@@ -36,7 +37,10 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Tags | Codelab</title>
       </Head>
 
-      <CreateTagModal tagService={store.tagService} />
+      <CreateTagModal
+        tagService={store.tagService}
+        userService={store.userService}
+      />
       <UpdateTagModal tagService={store.tagService} />
       <DeleteTagsModal tagService={store.tagService} />
 
@@ -73,3 +77,5 @@ TagPage.Layout = observer((page) => {
     </DashboardTemplate>
   )
 })
+
+export const getServerSideProps = withPageAuthRequired()
