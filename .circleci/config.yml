@@ -134,7 +134,7 @@ jobs:
           # clear cache here because this never gets cleared, rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
-            npx cypress cache clear
+      #            npx cypress cache clear
       #            npx jest --clearCache
       - run:
           name: 'Build CI'
