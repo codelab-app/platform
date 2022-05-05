@@ -181,9 +181,13 @@ export class TypeService
   ) {
     const types = yield* _await(this.getAllWithDescendants([id]))
 
+    console.log(types)
+
     const interfaceType = types?.find(
       (type) => type.kind === ITypeKind.InterfaceType,
     )
+
+    console.log(interfaceType)
 
     if (!interfaceType) {
       throw new Error('Type is not an interface')
