@@ -120,7 +120,7 @@ export class ImportTypeService extends Model({}) implements IImportTypeService {
       case ITypeKind.UnionType:
         return type.typesOfUnionType.map((t) => t.id)
       case ITypeKind.InterfaceType:
-        return Object.values(type.fields).map((f) => f.type.id)
+        return Object.values(type.fields.items || {}).map((f) => f.type.id)
 
       case ITypeKind.ArrayType: {
         const itemId = type.itemType?.id

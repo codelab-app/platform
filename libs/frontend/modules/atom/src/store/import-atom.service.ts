@@ -170,13 +170,13 @@ export class ImportAtomService extends Model({}) {
   }
 }
 
-export const atomImportServiceContext = createContext<ImportAtomService>()
+export const importAtomServiceContext = createContext<ImportAtomService>()
 
-export const getAtomImportServiceContext = (self: object) => {
-  const typeService = atomImportServiceContext.get(self)
+export const getImportAtomService = (self: object) => {
+  const typeService = importAtomServiceContext.get(self)
 
   if (!typeService) {
-    throw new Error('AtomImportService is not defined')
+    throw new Error('ImportAtomService is not defined')
   }
 
   return typeService
