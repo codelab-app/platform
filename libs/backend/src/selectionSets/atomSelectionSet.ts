@@ -1,0 +1,1 @@
+export const atomSelectionSet = `{ id, name, type, api { id } }`

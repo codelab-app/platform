@@ -32,7 +32,9 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   ITypeKind,
-  (input: ICreateTypeInput) => Promise<Array<ITypeDTO>>
+  (
+    input: ICreateTypeInput | Array<ICreateTypeInput>,
+  ) => Promise<Array<ITypeDTO>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -46,7 +48,7 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreateArrayTypes({ input }).then((r) => r.types.types),
   [ITypeKind.InterfaceType]: (input) =>
     _createApi
-      .CreateInterfaceTypes({ input: input as any })
+      .CreateInterfaceTypes({ input: input })
       .then((r) => r.types.types),
   [ITypeKind.EnumType]: (input) =>
     _createApi.CreateEnumTypes({ input }).then((r) => r.types.types),

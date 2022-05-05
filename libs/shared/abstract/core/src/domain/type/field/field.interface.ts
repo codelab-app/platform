@@ -4,6 +4,9 @@ import type { IAnyType } from '../types'
 
 export interface IField {
   id: string
+  /**
+   * Allows default to null
+   */
   name: Nullish<string>
   description: Nullish<string>
   key: string

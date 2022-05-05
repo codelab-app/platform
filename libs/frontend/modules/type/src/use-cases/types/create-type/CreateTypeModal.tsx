@@ -44,7 +44,7 @@ export const CreateTypeModal = observer<
             })),
           }
 
-          return typeService.create(input)
+          return typeService.create([input])
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while creating type',

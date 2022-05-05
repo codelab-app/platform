@@ -1,7 +1,7 @@
-import { IEntity, Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ITag } from '../tag'
-import { IAnyType, IInterfaceType } from '../type'
+import { IAnyType } from '../type'
 import { IAtomDTO } from './atom.dto.interface'
 import { IAtomType } from './atom-type.enum'
 
@@ -9,8 +9,7 @@ export interface IAtom extends IEntity {
   name: string
   type: IAtomType
   tags: Array<Ref<ITag>>
-  _api: Ref<IAnyType>
-  api: Maybe<IInterfaceType>
+  api: Ref<IAnyType>
   updateCache(atom: any): void
 }
 

@@ -3,51 +3,118 @@
  * @jest-environment node
  */
 import { UserOGM } from '@codelab/backend'
+import { createRootStore } from '@codelab/frontend/model/infra/mobx'
 import { upsertUser } from '@codelab/frontend/modules/user'
-import { IAtom, ICreateAtomDTO } from '@codelab/shared/abstract/core'
-import { createAtomsData } from '@codelab/shared/data'
+import { IAtom, ICreateAtomDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  appData,
+  booleanTypeId,
+  buttonAtomId,
+  buttonElementData,
+  buttonInterfaceId,
+  createAtomsData,
+  createPrimitiveTypesData,
+  floatTypeId,
+  integerTypeId,
+  pageData,
+  stringTypeId,
+} from '@codelab/shared/data'
 import { reduce } from 'lodash'
+import { registerRootStore, unregisterRootStore } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { setup } from '../setup/setup'
-
-const appName = 'Codelab'
-const pageName = 'Home'
+import { checkExportedData, exportedData } from './helper'
 
 describe('App', () => {
   const data = setup()
 
-  it('should create an app a page', async () => {
+  beforeAll(() => {
+    const { auth0Service } = data
+
+    return auth0Service.then((auth0) =>
+      UserOGM().then((User) =>
+        upsertUser(User, {
+          email: auth0.email,
+          sub: auth0.auth0Id,
+        }),
+      ),
+    )
+  })
+
+  it('should create types', async () => {
     const { rootStore, auth0Service } = data
-    const { appService, pageService, userService } = rootStore
+    const { atomService, typeService } = rootStore
     const auth0 = await auth0Service
 
-    /**
-     * Need to call promise here
-     */
-    await upsertUser(await UserOGM(), {
-      email: auth0.email,
-      sub: auth0.auth0Id,
-    })
+    const input = createPrimitiveTypesData([
+      stringTypeId,
+      booleanTypeId,
+      floatTypeId,
+      integerTypeId,
+    ]).map((primitiveType) => ({
+      ...primitiveType,
+      auth0Id: auth0.auth0Id,
+    }))
 
-    const [app] = await appService.create([
+    const types = await typeService.create(input)
+    /**
+     * Create button api for assignment later
+     */
+
+    await typeService.create([
       {
-        name: appName,
+        id: buttonInterfaceId,
+        name: 'AntDesignButton API',
+        kind: ITypeKind.InterfaceType,
         auth0Id: auth0.auth0Id,
       },
     ])
 
-    expect(app).toMatchObject({
-      name: appName,
-    })
+    /**
+     * Create size enum
+     */
 
-    const [page] = await pageService.create([
+    const sizeEnumId = v4()
+
+    await typeService.create([
       {
-        name: 'Home',
-        appId: app.id,
+        id: sizeEnumId,
+        name: 'Size',
+        kind: ITypeKind.EnumType,
+        allowedValues: [
+          {
+            id: v4(),
+            name: 'small',
+            value: 'small',
+          },
+          {
+            id: v4(),
+            name: 'middle',
+            value: 'middle',
+          },
+          {
+            id: v4(),
+            name: 'large',
+            value: 'large',
+          },
+        ],
+        auth0Id: auth0.auth0Id,
       },
     ])
 
-    expect(page).toMatchObject({
-      name: pageName,
+    /**
+     * Add fields
+     */
+    await typeService.addField(buttonInterfaceId, {
+      id: v4(),
+      key: 'block',
+      fieldType: buttonInterfaceId,
+    })
+
+    await typeService.addField(buttonInterfaceId, {
+      id: v4(),
+      key: 'size',
+      fieldType: sizeEnumId,
     })
   })
 
@@ -60,7 +127,7 @@ describe('App', () => {
       Omit<ICreateAtomDTO, 'owner'>,
       Promise<Array<IAtom>>
     >(
-      createAtomsData,
+      createAtomsData([buttonAtomId], [buttonInterfaceId]),
       async (results, atom) => {
         const [createdAtom] = await atomService.create([
           {
@@ -74,13 +141,9 @@ describe('App', () => {
       Promise.resolve([]),
     )
 
-    // console.log('atoms', atoms)
-
-    // const atoms = await atomService.getAll()
-
     expect(atoms).toEqual(
       expect.arrayContaining(
-        createAtomsData.map((atom) =>
+        createAtomsData().map((atom) =>
           // We want all those
           expect.objectContaining({
             name: atom.name,
@@ -91,31 +154,75 @@ describe('App', () => {
     )
   })
 
-  it('should export atoms data', async () => {
-    const { rootStore } = data
+  it('should create an app a page', async () => {
+    const { rootStore, auth0Service } = data
+    const { appService, pageService, elementService } = rootStore
+    const auth0 = await auth0Service
+
+    const [app] = await appService.create([
+      {
+        id: appData.id,
+        name: appData.name,
+        auth0Id: auth0.auth0Id,
+      },
+    ])
+
+    expect(app).toMatchObject({
+      id: appData.id,
+      name: appData.name,
+    })
+
+    const [page] = await pageService.create([
+      {
+        id: pageData.id,
+        name: 'Home',
+        appId: app.id,
+      },
+    ])
+
+    expect(page).toMatchObject({
+      id: pageData.id,
+      name: pageData.name,
+    })
+
+    await elementService.create([
+      {
+        id: buttonElementData.id,
+        name: buttonElementData.name,
+        atomId: buttonAtomId,
+        parentElementId: page.rootElementId,
+      },
+    ])
+  })
+
+  it('should export data', async () => {
+    await checkExportedData(data)
+  })
+
+  it('should import data', async () => {
+    const { rootStore, auth0Service } = data
     const { adminService } = rootStore
-    const exportedStringData = await adminService.exportData()
-    const exportedData = JSON.parse(exportedStringData)
+    const auth0 = await auth0Service
 
-    // cLog(exportedData)
+    // Reset so we can import data
+    await adminService.resetData()
 
-    /**
-     * https://www.emgoto.com/jest-partial-match/
-     */
-    expect(exportedData).toMatchObject({
-      // Use arrayContaining so order doesn't matter
-      atoms: expect.arrayContaining(
-        createAtomsData.map((atom) =>
-          expect.objectContaining({
-            name: atom.name,
-            type: atom.type,
-            // This is required for nested
-            api: expect.objectContaining({
-              name: `${atom.name} API`,
-            }),
-          }),
-        ),
-      ),
+    // Clear cached data
+    unregisterRootStore(rootStore)
+
+    const newRootStore = createRootStore({})
+    registerRootStore(newRootStore)
+
+    await upsertUser(await UserOGM(), {
+      email: auth0.email,
+      sub: auth0.auth0Id,
+    })
+
+    await adminService.importData(exportedData, auth0.auth0Id)
+
+    await checkExportedData({
+      rootStore: newRootStore,
+      auth0Service,
     })
   })
 })

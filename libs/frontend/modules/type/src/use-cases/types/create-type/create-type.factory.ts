@@ -9,10 +9,10 @@ import {
   makeTypesOfUnionTypeCreateInput,
 } from '../../../shared/type-input.factory'
 
-export const createTypeInputFactory = (
-  type: ICreateTypeDTO,
-): ICreateTypeInput => {
-  return {
+export const createTypeFactory = (
+  types: Array<ICreateTypeDTO>,
+): Array<ICreateTypeInput> => {
+  return types.map((type) => ({
     id: type.id,
     name: type.name,
     owner: {
@@ -39,5 +39,5 @@ export const createTypeInputFactory = (
     //   type.kind === ITypeKind.InterfaceType
     //     ? makeFieldsCreateInput(type)
     //     : undefined,
-  }
+  }))
 }

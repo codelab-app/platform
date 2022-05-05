@@ -8,8 +8,8 @@ import {
   PrimitiveTypeOGM,
   primitiveTypeSelectionSet,
 } from '@codelab/backend'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import inquirer from 'inquirer'
 
 type Descendant = {
@@ -17,7 +17,11 @@ type Descendant = {
   kind: ITypeKind
 }
 
-export const exportType = async () => {
+type ExportTypeData = {
+  types: Array<ITypeExport>
+}
+
+export const exportType = async (): Promise<ExportTypeData> => {
   /**
    * Export types
    */
@@ -60,9 +64,9 @@ export const exportType = async () => {
     })
 
     /**
-     * Here we create the dependency tree, so during import we don't have to worry about order
+     * Here we create the interface dependency tree order
      *
-     * Further to the front are closer to the leaf
+     * Further to the front are closer to the leaf.
      */
     let dependentTypes: Array<Descendant> = []
 
@@ -79,54 +83,29 @@ export const exportType = async () => {
         ...results.records[0].values(),
       ][0] as Array<Descendant>
 
-      dependentTypes = [...descendants, interfaceType, ...dependentTypes]
+      // We only get interface type descendants, since other types are pushed in front of interfaces
+      const interfaceDescendants = descendants.filter(
+        (type) => type.kind === ITypeKind.InterfaceType,
+      )
+
+      dependentTypes = [...interfaceDescendants, ...dependentTypes]
     }
 
-    const allTypes = [...primitiveTypes, ...enumTypes, ...dependentTypes]
+    // Here we get all the types that needs to be added
+    const orderedInterfaceTypes = dependentTypes
+      .map((type) => {
+        return interfaceTypes.find((t) => t.id === type.id)
+      })
+      .filter((x): x is OGM_TYPES.InterfaceType => !!x)
 
-    cLog(allTypes)
+    const allTypes = [
+      ...primitiveTypes,
+      ...enumTypes,
+      ...orderedInterfaceTypes,
+    ] as Array<ITypeExport>
+
+    return { types: allTypes }
   }
-}
 
-// export const typeFactory = async (kind: ITypeKind, ids: Array<string>) => {
-//   switch (kind) {
-//     case ITypeKind.PrimitiveType: {
-//       const PrimitiveType = await PrimitiveTypeModel()
-//
-//       const primitiveTypes = await PrimitiveType.find({
-//         where: {
-//           id_IN: ids,
-//         },
-//         selectionSet: primitiveTypeSelectionSet,
-//       })
-//
-//       return primitiveTypes
-//     }
-//
-//     case ITypeKind.EnumType: {
-//       const EnumType = await EnumTypeModel()
-//
-//       const enumTypes = await EnumType.find({
-//         where: {
-//           id_IN: ids,
-//         },
-//         selectionSet: enumTypeSelectionSet,
-//       })
-//
-//       return enumTypes
-//     }
-//
-//     case ITypeKind.InterfaceType: {
-//       const InterfaceType = await InterfaceTypeModel()
-//
-//       const interfaceTypes = await InterfaceType.find({
-//         selectionSet: interfaceTypeSelectionSet,
-//       })
-//
-//       return interfaceTypes
-//     }
-//
-//     default:
-//       throw new Error('Incorrect type')
-//   }
-// }
+  return { types: [] }
+}

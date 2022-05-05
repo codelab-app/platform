@@ -1,4 +1,5 @@
 export * from './appSelectionSet'
+export * from './atomSelectionSet'
 export * from './componentSelectionSet'
 export * from './elementSelectionSet'
 export * from './pageSelectionSet'

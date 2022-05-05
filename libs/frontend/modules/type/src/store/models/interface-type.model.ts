@@ -42,12 +42,9 @@ const hydrate = ({
 
 @model('@codelab/InterfaceType')
 export class InterfaceType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.InterfaceType),
-    props: {
-      fields: prop(() => objectMap<Field>()),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.InterfaceType), {
+    fields: prop(() => objectMap<Field>()),
+  })
   implements IInterfaceType
 {
   field(id: string): Field | undefined {
@@ -89,9 +86,9 @@ export class InterfaceType
 
     // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
     //
-    // for (const [key, field] of this._fields) {
+    // for (const [key, field] of this.fields) {
     //   if (!newFieldsKeySet.has(key)) {
-    //     this._fields.delete(field.id)
+    //     this.fields.delete(field.id)
     //   }
     // }
   }

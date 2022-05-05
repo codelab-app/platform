@@ -42,7 +42,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
         <ModalForm.Form<IUpdateFieldDTO>
           model={model}
           onSubmit={(input) =>
-            typeService.updateField(interfaceType, field.key, input)
+            typeService.updateField(interfaceType.id, field.key, input)
           }
           onSubmitError={createNotificationHandler({
             title: 'Error while updating field',

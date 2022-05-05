@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'babel-jest',
   },
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

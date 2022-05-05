@@ -2,7 +2,11 @@
 
 import { client } from '@codelab/frontend/model/infra/graphql'
 import { createRootStore, IRootStore } from '@codelab/frontend/model/infra/mobx'
-import { registerRootStore, unregisterRootStore } from 'mobx-keystone'
+import {
+  isRootStore,
+  registerRootStore,
+  unregisterRootStore,
+} from 'mobx-keystone'
 import {
   Auth0FileData,
   auth0UserInfo,
@@ -10,11 +14,13 @@ import {
   passwordRealmGrantType,
 } from './auth0'
 
+export type SetupData = {
+  rootStore: IRootStore
+  auth0Service: Promise<Auth0FileData>
+}
+
 export const setup = () => {
-  const setupData: {
-    rootStore: IRootStore
-    auth0Service: Promise<Auth0FileData>
-  } = {} as any
+  const setupData: SetupData = {} as SetupData
 
   beforeAll(() => {
     /**
@@ -64,7 +70,9 @@ export const setup = () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(setupData.rootStore)
+    if (isRootStore(setupData.rootStore)) {
+      unregisterRootStore(setupData.rootStore)
+    }
   })
 
   return setupData

@@ -19,6 +19,7 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageModalService } from './page-modal.service'
@@ -112,10 +113,17 @@ export class PageService
   @modelFlow
   @transaction
   create = _async(function* (this: PageService, data: Array<ICreatePageDTO>) {
+    console.log(data)
+
     const input = data.map((page) => ({
+      id: page.id ?? v4(),
       name: page.name,
       app: { connect: { where: { node: { id: page.appId } } } },
-      rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
+      rootElement: {
+        create: {
+          node: { id: page.rootElementId ?? v4(), name: ROOT_ELEMENT_NAME },
+        },
+      },
     }))
 
     const {

@@ -1,6 +1,10 @@
-import { AnyType, getImportTypeService } from '@codelab/frontend/modules/type'
+import { getImportTypeService } from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
-import { IAuth0ID } from '@codelab/shared/abstract/core'
+import {
+  AdminExportPayload,
+  IAtom,
+  IAuth0ID,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
@@ -17,15 +21,10 @@ import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { getAtomService } from './atom.service'
 
-export interface AtomExportPayload {
-  atoms: Array<SnapshotOutOf<Atom>>
-  types: Array<SnapshotOutOf<AnyType>>
-}
-
 @model('@codelab/AtomImportService')
 export class ImportAtomService extends Model({}) {
   /**
-   * Produces a payload of type {@see AtomExportPayload},
+   * Produces a payload of type {@see AdminExportPayload},
    * where types contain a list of the exported atoms apis + their descendant types
    */
   @modelFlow
@@ -37,21 +36,22 @@ export class ImportAtomService extends Model({}) {
     const atoms: Array<Atom> = yield* _await(atomService.getAll({ id_IN: ids }))
     const atomSnapshots = this.makeAtomsExportPayload(atoms)
     const typeImportService = getImportTypeService(this)
-    const apiIds = atomSnapshots.map((atom) => atom._api.id)
+    const apiIds = atomSnapshots.map((atom) => atom.api.id)
 
     const typesSnapshots = yield* _await(
       typeImportService.exportTypesPayload(apiIds),
     )
 
-    const payloadData: AtomExportPayload = {
+    const payloadData: AdminExportPayload = {
       atoms: atomSnapshots,
       types: typesSnapshots,
+      apps: [],
     }
 
     return JSON.stringify(payloadData)
   })
 
-  public makeAtomsExportPayload(atoms: Array<Atom>) {
+  public makeAtomsExportPayload(atoms: Array<IAtom>) {
     return atoms.map((t) => getSnapshot(t))
   }
 
@@ -71,7 +71,7 @@ export class ImportAtomService extends Model({}) {
 
     // Import all types so we can reference them in the atom
     const typeImportService = getImportTypeService(this)
-    const importedTypes: Array<SnapshotOutOf<AnyType>> = payload.types
+    const importedTypes: any = payload.types
 
     yield* _await(typeImportService.importTypesPayload(importedTypes, auth0Id))
 
@@ -119,7 +119,7 @@ export class ImportAtomService extends Model({}) {
       name: importedAtom.name,
       type: importedAtom.type,
       tags: { connect: tagsConnect },
-      api: { connect: { where: { node: { id: importedAtom._api.id } } } },
+      api: { connect: { where: { node: { id: importedAtom.api.id } } } },
     }
 
     const {
@@ -138,7 +138,7 @@ export class ImportAtomService extends Model({}) {
   ) {
     const atomService = getAtomService(this)
 
-    if (existing._api.id !== importedAtom._api.id) {
+    if (existing.api.id !== importedAtom.api.id) {
       // this shouldn't happen, but if it does the import won't be successful
       throw new Error("Something went wrong, atom api id's don't match")
     }
@@ -152,7 +152,7 @@ export class ImportAtomService extends Model({}) {
     )
   })
 
-  private parsePayload(payloadString: string): Nullable<AtomExportPayload> {
+  private parsePayload(payloadString: string): Nullable<AdminExportPayload> {
     try {
       return JSON.parse(payloadString)
     } catch (e) {

@@ -1,6 +1,7 @@
 import { userSelectionSet } from './userSelectionSet'
 
 const baseSelection = `
+  __typename
   id
   kind
   name
@@ -22,21 +23,21 @@ export const enumTypeSelectionSet = `{
   }
 }`
 
-export const interfaceTypeSelectionSet = `{
-  ${baseSelection}
-}`
-
 // export const interfaceTypeSelectionSet = `{
 //   ${baseSelection}
-//   fieldsConnection {
-//     edges {
-//       id
-//       key
-//       name
-//       description
-//       node {
-//         ${baseSelection}
-//       }
-//     }
-//   }
 // }`
+
+export const interfaceTypeSelectionSet = `{
+  ${baseSelection}
+  fieldsConnection {
+    edges {
+      id
+      key
+      name
+      description
+      node {
+        ${baseSelection}
+      }
+    }
+  }
+}`

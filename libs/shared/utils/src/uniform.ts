@@ -9,3 +9,17 @@ export const showFieldOnDev = () => {
     },
   }
 }
+
+export const hideField = {
+  uniforms: {
+    component: () => null,
+  },
+}
+
+export const idField = {
+  id: {
+    type: 'string',
+    nullable: true,
+    ...hideField,
+  },
+}

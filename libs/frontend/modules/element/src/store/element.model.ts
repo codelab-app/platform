@@ -52,8 +52,8 @@ export const hydrate = ({
   renderIfPropKey,
   renderForEachPropKey,
   parentElementConnection,
-}: Omit<IElementDTO, '__typename'>) =>
-  new Element({
+}: Omit<IElementDTO, '__typename'>) => {
+  return new Element({
     id,
     name,
     css,
@@ -74,6 +74,7 @@ export const hydrate = ({
         : [],
     ),
   })
+}
 
 @model('@codelab/Element')
 export class Element

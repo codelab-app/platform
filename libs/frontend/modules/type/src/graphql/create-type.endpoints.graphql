@@ -22,6 +22,7 @@ mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
   }
 }
 
+# Issue with querying connections when creating multiple interfaces
 mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
   types: createInterfaceTypes(input: $input) {
     types: interfaceTypes {

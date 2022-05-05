@@ -6135,6 +6135,7 @@ export type AppConnectWhere = {
 };
 
 export type AppCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
   owner?: InputMaybe<AppOwnerFieldInput>;
   pages?: InputMaybe<AppPagesFieldInput>;
@@ -6157,6 +6158,7 @@ export type AppDisconnectInput = {
 };
 
 export type AppOnCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
 };
 
@@ -6828,6 +6830,7 @@ export type AppUniqueWhere = {
 };
 
 export type AppUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<AppOwnerUpdateFieldInput>;
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>;
@@ -8350,6 +8353,7 @@ export type ElementConnectWhere = {
 };
 
 export type ElementCreateInput = {
+  id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
   css?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
@@ -8607,6 +8611,7 @@ export type ElementInstanceOfComponentUpdateFieldInput = {
 };
 
 export type ElementOnCreateInput = {
+  id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
   css?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
@@ -9220,6 +9225,7 @@ export type ElementUniqueWhere = {
 };
 
 export type ElementUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   css?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
@@ -11322,6 +11328,7 @@ export type PageConnectWhere = {
 };
 
 export type PageCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
   rootElement?: InputMaybe<PageRootElementFieldInput>;
   app?: InputMaybe<PageAppFieldInput>;
@@ -11338,6 +11345,7 @@ export type PageDisconnectInput = {
 };
 
 export type PageOnCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
 };
 
@@ -11679,6 +11687,7 @@ export type PageUniqueWhere = {
 };
 
 export type PageUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>;
   app?: InputMaybe<PageAppUpdateFieldInput>;

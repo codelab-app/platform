@@ -1,6 +1,7 @@
 import {
   ElementTypeKind,
   MonacoLanguage,
+  OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
 import { IEnumTypeValue, IPrimitiveTypeKind, ITypeKind } from './types'
@@ -30,3 +31,9 @@ export interface ICreateTypeDTO extends IBaseTypeDTO {
 export type IUpdateTypeDTO = IBaseTypeDTO
 
 export type ITypeDTO = TypeFragment
+
+// Uses OGM types
+export type ITypeExport =
+  | OGM_TYPES.PrimitiveType
+  | OGM_TYPES.EnumType
+  | OGM_TYPES.InterfaceType

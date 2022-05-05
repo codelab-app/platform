@@ -7,7 +7,6 @@ import {
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { connectId, connectOwner } from '@codelab/shared/data'
-import { cLog } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -19,6 +18,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { appApi } from './app.api'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
@@ -48,10 +48,6 @@ export class AppService
     const { apps } = yield* _await(appApi.GetApps({ where }))
 
     return apps.map((app) => {
-      if (this.apps.has(app.id)) {
-        return throwIfUndefined(this.apps.get(app.id))
-      }
-
       const appModel = App.hydrate(app)
       this.apps.set(app.id, appModel)
 
@@ -107,15 +103,14 @@ export class AppService
   @transaction
   create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
     const input = data.map((app) => ({
+      id: app.id ?? v4(),
       name: app.name,
       owner: connectOwner(app.auth0Id),
       store: connectId(app.storeId),
       rootProviderElement: {
-        create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME } },
+        create: { node: { id: v4(), name: PROVIDER_ROOT_ELEMENT_NAME } },
       },
     }))
-
-    cLog(input)
 
     const {
       createApps: { apps },

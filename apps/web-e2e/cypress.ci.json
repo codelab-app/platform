@@ -9,7 +9,7 @@
   "videosFolder": "./src/videos",
   "screenshotsFolder": "./src/screenshots",
   "chromeWebSecurity": false,
-  "ignoreTestFiles": "*.ignore.ts",
+  "ignoreTestFiles": ["*.ignore.ts", "*.required.ts"],
   "defaultCommandTimeout": 30000,
   "responseTimeout": 60000,
   "execTimeout": 60000,

@@ -1,6 +1,18 @@
-import { IApp, IAppDTO } from '@codelab/shared/abstract/core'
+import { pageRef } from '@codelab/frontend/modules/page'
+import { IApp, IAppDTO, IPage } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
+
+const hydrate = (app: IAppDTO) => {
+  return new App({
+    id: app.id,
+    name: app.name,
+    ownerId: app.owner?.id,
+    rootProviderElement: { id: app.rootProviderElement.id },
+    store: app.store?.id ? { id: app.store?.id as string } : undefined,
+    pages: app.pages.map((page) => pageRef(page.id)),
+  })
+}
 
 @model('@codelab/App')
 export class App
@@ -10,23 +22,11 @@ export class App
     name: prop<string>(),
     rootProviderElement: prop<Nullable<IEntity>>(null),
     store: prop<Nullable<IEntity>>(null),
+    pages: prop<Array<Ref<IPage>>>(() => []),
   })
   implements IApp
 {
-  getRefId() {
-    // when `getId` is not specified in the custom reference it will use this as id
-    return this.id
-  }
-
-  static hydrate(app: IAppDTO) {
-    return new App({
-      id: app.id,
-      name: app.name,
-      ownerId: app.owner?.id,
-      rootProviderElement: { id: app.rootProviderElement.id },
-      store: app.store?.id ? { id: app.store?.id as string } : undefined,
-    })
-  }
+  static hydrate = hydrate
 }
 
 export const appRef = rootRef<App>('@codelab/AppRef', {

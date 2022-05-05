@@ -10,10 +10,25 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomDTO> = {
   title: 'Create Atom',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     owner: {
       type: 'string',
       disabled: true,
       ...showFieldOnDev(),
+    },
+    // Hide field for now, added only to implement the interface
+    api: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
     },
     name: {
       type: 'string',

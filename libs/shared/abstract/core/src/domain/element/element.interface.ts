@@ -15,6 +15,7 @@ export interface IElement {
   atom: Nullish<Ref<IAtom>>
   orderInParent: Nullable<number>
   hooks: Array<IHook>
+  parentId: Nullish<string>
   parentElement: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
   component: Nullish<Ref<IComponent>>

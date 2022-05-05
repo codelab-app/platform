@@ -7,7 +7,7 @@ import {
   ICreateAtomDTO,
   IUpdateAtomDTO,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectId, connectOwner } from '@codelab/shared/data'
 import { difference } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -139,6 +139,9 @@ export class AtomService
     return all[0]
   })
 
+  /**
+   * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
+   */
   @modelFlow
   @transaction
   create = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
@@ -154,12 +157,19 @@ export class AtomService
       }))
     }
 
+    const connectOrCreateApi = (atom: ICreateAtomDTO) =>
+      atom.api
+        ? connectId(atom.api)
+        : {
+            create: { node: createApiNode(atom) },
+          }
+
     const input = data.map((atom) => ({
-      id: v4(),
+      id: atom?.id ?? v4(),
       name: atom.name,
       type: atom.type,
       tags: { connect: connectTags(atom) },
-      api: { create: { node: createApiNode(atom) } },
+      api: connectOrCreateApi(atom),
     }))
 
     const {
@@ -178,6 +188,39 @@ export class AtomService
 
       return atomModel
     })
+  })
+
+  @modelFlow
+  @transaction
+  upsert = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
+    const allIds = data
+      .map((atom) => atom.id)
+      .filter((id): id is string => !!id)
+
+    /**
+     * Split data into updates & creates
+     */
+
+    const existingAtoms = yield* _await(
+      this.getAll({
+        id_IN: allIds,
+      }),
+    )
+
+    const existingIds = [...existingAtoms.values()].map((atom) => atom.id)
+    const newIds = difference(allIds, existingIds)
+
+    const createInput = data.filter(
+      (atom) => atom?.id && newIds.includes(atom.id),
+    )
+
+    yield* _await(this.create(createInput))
+
+    const updateInput = data
+      .filter((atom) => atom?.id && existingIds.includes(atom.id))
+      .map((atom) => [this.atom(atom.id!), atom])
+
+    // yield* _await(this.update(updateInput))
   })
 
   @modelFlow
@@ -227,11 +270,11 @@ export class AtomService
 export const atomServiceContext = createContext<AtomService>()
 
 export const getAtomService = (self: any) => {
-  const atomStore = atomServiceContext.get(self)
+  const atomService = atomServiceContext.get(self)
 
-  if (!atomStore) {
+  if (!atomService) {
     throw new Error('atomServiceContext is not defined')
   }
 
-  return atomStore
+  return atomService
 }

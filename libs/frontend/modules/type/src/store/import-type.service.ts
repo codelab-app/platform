@@ -34,8 +34,8 @@ export class ImportTypeService extends Model({}) implements IImportTypeService {
     return this.makeTypesExportPayload(types)
   })
 
-  public makeTypesExportPayload(atoms: Array<AnyType>) {
-    return atoms.map((t) => getSnapshot(t))
+  public makeTypesExportPayload(types: Array<AnyType>) {
+    return types.map((t) => getSnapshot(t))
   }
 
   @modelFlow
@@ -163,7 +163,7 @@ export class ImportTypeService extends Model({}) implements IImportTypeService {
     // Not owned by current user, create it with the current user as owner
     // const createdType = fromSnapshot<AnyType>(importedType)
     // createdType.ownerAuth0Id = currentUserAuth0Id
-    yield* _await(typeService.create({ ...importedType, auth0Id }))
+    yield* _await(typeService.create([{ ...importedType, auth0Id }]))
   })
 
   private getExistingType(

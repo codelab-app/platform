@@ -18,6 +18,7 @@ export const execCommand = (command: string) => {
       stdio: 'inherit',
     })
   } catch (e) {
+    console.error(e)
     process.exit(1)
   }
 }

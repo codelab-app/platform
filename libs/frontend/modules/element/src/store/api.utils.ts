@@ -6,6 +6,7 @@ import {
   ICreateElementDTO,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 import { Element } from '../store'
 
 //
@@ -16,12 +17,13 @@ export const makeCreateInput = (
   input: ICreateElementDTO,
 ): ElementCreateInput => {
   const {
+    id = v4(),
     parentElementId,
     instanceOfComponentId,
     atomId,
+    name,
     order,
     propsData,
-    ...data
   } = input
 
   const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
@@ -51,7 +53,8 @@ export const makeCreateInput = (
     atom,
     parentElement,
     props,
-    ...data,
+    name,
+    id,
   }
 }
 
@@ -94,6 +97,7 @@ export const makeDuplicateInput = (
   }
 
   return {
+    id: v4(),
     instanceOfComponent,
     atom,
     props,

@@ -1,6 +1,7 @@
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
 import {
+  assertIsTypeKind,
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
@@ -27,7 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { createTypeInputFactory } from '../use-cases/types/create-type/create-type.factory'
+import { createTypeFactory } from '../use-cases/types/create-type/create-type.factory'
 import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
 import { fieldApi } from './apis/field.api'
 import {
@@ -186,22 +187,63 @@ export class TypeService
     return type as InterfaceType
   })
 
+  /**
+   * The array of types must be of same type
+   *
+   * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
+   */
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, type: ICreateTypeDTO) {
-    const typeInput = createTypeInputFactory(type)
-    const [typeFragment] = yield* _await(createTypeApi[type.kind](typeInput))
+  create = _async(function* (
+    this: TypeService,
+    data: Array<ICreateTypeDTO> = [],
+  ) {
+    if (!data.length) {
+      return []
+    }
 
-    if (!type) {
+    const input = createTypeFactory(data)
+    const types = yield* _await(createTypeApi[data[0].kind](input))
+
+    if (!types.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Type was not created')
     }
 
-    const typeModel = typeFactory(typeFragment)
+    return types.map((type) => {
+      const typeModel = typeFactory(type)
 
-    this.types.set(type.id, typeModel)
+      this.types.set(type.id, typeModel)
 
-    return typeModel
+      return typeModel
+    })
+  })
+
+  @modelFlow
+  @transaction
+  import = _async(function* (
+    this: TypeService,
+    data: Array<ICreateTypeDTO> = [],
+  ) {
+    if (!data.length) {
+      return []
+    }
+
+    const input = createTypeFactory(data)
+    const types = yield* _await(createTypeApi[data[0].kind](input))
+
+    if (!types.length) {
+      // Throw an error so that the transaction middleware rolls back the changes
+      throw new Error('Type was not created')
+    }
+
+    return types.map((type) => {
+      const typeModel = typeFactory(type)
+
+      this.types.set(type.id, typeModel)
+
+      return typeModel
+    })
   })
 
   @modelFlow
@@ -235,11 +277,11 @@ export class TypeService
   @transaction
   addField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,
   ) {
     const input = {
-      interfaceId: interfaceType.id,
+      interfaceId: interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         description: data.description,
@@ -251,6 +293,9 @@ export class TypeService
 
     const { updateInterfaceTypes } = yield* _await(fieldApi.CreateField(input))
     const interfaceTypeDTO = updateInterfaceTypes.interfaceTypes[0]
+    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+
+    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
 
     interfaceType.updateCache(interfaceTypeDTO)
 
@@ -261,14 +306,18 @@ export class TypeService
   @transaction
   updateField = _async(function* (
     this: TypeService,
-    type: InterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     targetKey: IInterfaceTypeRef,
     data: IUpdateFieldDTO,
   ) {
-    const field = throwIfUndefined(type.field(data.id))
+    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+
+    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
+
+    const field = throwIfUndefined(interfaceType.field(data.id))
 
     const input = {
-      interfaceId: type.id,
+      interfaceId: interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         id: data.id,
@@ -292,16 +341,20 @@ export class TypeService
   @transaction
   deleteField = _async(function* (
     this: TypeService,
-    interfaceType: InterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     fieldId: IFieldRef,
   ) {
+    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+
+    assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
+
     const field = interfaceType.field(fieldId)
 
     if (!field) {
       return
     }
 
-    const input = { where: { id: fieldId }, interfaceId: interfaceType.id }
+    const input = { where: { id: fieldId }, interfaceId: interfaceTypeId }
     const res = yield* _await(fieldApi.DeleteField(input))
 
     // Returns current edges, not deleted edges

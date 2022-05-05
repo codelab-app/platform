@@ -134,8 +134,8 @@ jobs:
           # clear cache here because this never gets cleared, rely on remote cache instead
           command: |
             rm -rf ~/project/node_modules/nx/.cache
+      #            npx cypress cache clear
       #            npx jest --clearCache
-      #            npx cypress cache path
       - run:
           name: 'Build CI'
           command: npx nx run-many --target=build --projects=web,cli --configuration=ci --verbose
@@ -306,18 +306,18 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - integration:
-          <<: *filters-pr
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
+      #      - integration:
+      #          <<: *filters-pr
+      #          e: docker-node
+      #          context: CI
+      #          requires:
+      #            - install-and-build-workspace
       - e2e:
           <<: *filters-pr
           e: docker-node
           context: CI
           requires:
-            - integration
+            #            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-pr
@@ -326,5 +326,5 @@ workflows:
           requires:
             - lint
             - unit
-            - integration
+            #            - integration
             - e2e

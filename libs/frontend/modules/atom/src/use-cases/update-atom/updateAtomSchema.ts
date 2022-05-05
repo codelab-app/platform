@@ -9,9 +9,24 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomDTO> = {
   title: 'Update Atom Input',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     name: {
       type: 'string',
       autoFocus: true,
+    },
+    // Hide field for now, added only to implement the interface
+    api: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
     },
     type: {
       type: 'string',

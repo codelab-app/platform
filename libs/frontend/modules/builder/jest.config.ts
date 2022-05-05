@@ -9,7 +9,7 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/modules/builder',

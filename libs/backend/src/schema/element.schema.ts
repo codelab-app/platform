@@ -11,7 +11,7 @@ export const elementSchema = gql`
   }
 
   type Element {
-    id: ID! @id
+    id: ID! @id(autogenerate: false)
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"

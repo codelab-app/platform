@@ -1,16 +1,18 @@
-import { Nullable } from '@codelab/shared/abstract/types'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   ElementFragment,
   ElementGraphFragment,
 } from './element.fragment.graphql.gen'
 
 export interface ICreateElementDTO {
+  id?: string
   name?: Nullable<string>
   order?: number
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
-  css?: string
+  css?: Nullish<string>
   propsData?: string
 }
 
@@ -28,3 +30,15 @@ export type IUpdateElementDTO = {
 export type IElementDTO = ElementFragment
 
 export type IElementGraphDTO = ElementGraphFragment
+
+export type IElementExport = Pick<
+  OGM_TYPES.Element,
+  'id' | 'name' | 'parentElement' | 'atom'
+>
+
+// {
+//   id: string
+//   name?: string | null
+//   parentElement?: { id: string } | null
+//   atom?: { id: string } | null
+// }

@@ -3918,7 +3918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^1.2.1":
+"@eslint/eslintrc@npm:^1.2.2":
   version: 1.2.2
   resolution: "@eslint/eslintrc@npm:1.2.2"
   dependencies:
@@ -10660,6 +10660,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/stringify-object@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@types/stringify-object@npm:4.0.1"
+  checksum: 5c30bb6604ff903bf0e5ddd90cceef289f836a6607d55c622abb7d77c6c569ab0928b456ecb6291b1556a60bfbbba62714013fb418837a086f79bb76f56901ba
+  languageName: node
+  linkType: hard
+
 "@types/tapable@npm:^1, @types/tapable@npm:^1.0.5":
   version: 1.0.8
   resolution: "@types/tapable@npm:1.0.8"
@@ -14828,6 +14835,7 @@ __metadata:
     "@types/react-grid-layout": 1.3.1
     "@types/react-resizable": 1.7.4
     "@types/react-slick": 0.23.8
+    "@types/stringify-object": ^4.0.1
     "@types/testing-library__cypress": 5.0.9
     "@types/testing-library__jest-dom": 5.14.2
     "@types/uuid": 8.3.4
@@ -14877,7 +14885,7 @@ __metadata:
     env-var: ^7.1.1
     enzyme: 3.11.0
     enzyme-adapter-react-16: 1.15.6
-    eslint: 8.12.0
+    eslint: 8.14.0
     eslint-config-airbnb: 19.0.4
     eslint-config-airbnb-typescript: 16.1.0
     eslint-config-airbnb-typescript-prettier: 5.0.0
@@ -14962,6 +14970,7 @@ __metadata:
     rxjs: ^6.6.3
     sanitize-filename: 1.6.3
     speed-measure-webpack-plugin: ^1.5.0
+    stringify-object: ^4.0.1
     tailwindcss: "npm:@tailwindcss/postcss7-compat@^2.0.2"
     terser-webpack-plugin: ^5.3.0
     ts-essentials: 9.1.2
@@ -18717,11 +18726,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.12.0":
-  version: 8.12.0
-  resolution: "eslint@npm:8.12.0"
+"eslint@npm:8.14.0":
+  version: 8.14.0
+  resolution: "eslint@npm:8.14.0"
   dependencies:
-    "@eslint/eslintrc": ^1.2.1
+    "@eslint/eslintrc": ^1.2.2
     "@humanwhocodes/config-array": ^0.9.2
     ajv: ^6.10.0
     chalk: ^4.0.0
@@ -18758,7 +18767,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 111bf9046b7a463049788dd00d7f4cd91e024029982352dff4811ce5dfa8cb1136aa127cd8a7a91508234d3e1b4fb6f638a1f5ef9ea08b1af93a18703a4a8dc1
+  checksum: 87d2e3e5eb93216d4ab36006e7b8c0bfad02f40b0a0f193f1d42754512cd3a9d8244152f1c69df5db2e135b3c4f1c10d0ed2f0881fe8a8c01af55465968174c1
   languageName: node
   linkType: hard
 
@@ -20390,7 +20399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-own-enumerable-property-symbols@npm:^3.0.0":
+"get-own-enumerable-property-symbols@npm:^3.0.0, get-own-enumerable-property-symbols@npm:^3.0.2":
   version: 3.0.2
   resolution: "get-own-enumerable-property-symbols@npm:3.0.2"
   checksum: 8f0331f14159f939830884799f937343c8c0a2c330506094bc12cbee3665d88337fe97a4ea35c002cc2bdba0f5d9975ad7ec3abb925015cdf2a93e76d4759ede
@@ -22750,6 +22759,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-obj@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "is-obj@npm:3.0.0"
+  checksum: 75e97a99ed0b0884778887f8e913791864151307774914283b068b06b57ca86f695b024aa1ba5ed04411918edef93e2bfd8f84d68c6b6aab417802cc76f5061b
+  languageName: node
+  linkType: hard
+
 "is-object@npm:^1.0.1":
   version: 1.0.2
   resolution: "is-object@npm:1.0.2"
@@ -22854,6 +22870,13 @@ __metadata:
   version: 1.0.0
   resolution: "is-regexp@npm:1.0.0"
   checksum: be692828e24cba479ec33644326fa98959ec68ba77965e0291088c1a741feaea4919d79f8031708f85fd25e39de002b4520622b55460660b9c369e6f7187faef
+  languageName: node
+  linkType: hard
+
+"is-regexp@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "is-regexp@npm:3.1.0"
+  checksum: d39dbd9892f0a25d01ee1a8e650c3f2e045bf7b1fa87eafb50b31dd29342869aa9135fd372628202254398956bf7f4b62094bdda39283ec2a9bb749fbb7f427c
   languageName: node
   linkType: hard
 
@@ -33143,6 +33166,17 @@ __metadata:
     is-obj: ^1.0.1
     is-regexp: ^1.0.0
   checksum: 6827a3f35975cfa8572e8cd3ed4f7b262def260af18655c6fde549334acdac49ddba69f3c861ea5a6e9c5a4990fe4ae870b9c0e6c31019430504c94a83b7a154
+  languageName: node
+  linkType: hard
+
+"stringify-object@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "stringify-object@npm:4.0.1"
+  dependencies:
+    get-own-enumerable-property-symbols: ^3.0.2
+    is-obj: ^3.0.0
+    is-regexp: ^3.0.0
+  checksum: 97fc5473bc726effe8b39e7eb96009fc573716497a0b00005bb68250150c4d086682356f4cee1823d404ac40ac36c0e643d5b9960ecfd3e96bb1ae20225e467b
   languageName: node
   linkType: hard
 

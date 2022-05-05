@@ -31,7 +31,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           model={{
             id: v4(),
           }}
-          onSubmit={(input) => typeService.addField(interfaceType, input)}
+          onSubmit={(input) => typeService.addField(interfaceType.id, input)}
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',

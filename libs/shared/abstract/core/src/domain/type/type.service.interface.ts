@@ -24,13 +24,9 @@ export interface IFieldModalProperties {
 }
 
 export interface ITypeService
-  extends Omit<
-      ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
-      'create'
-    >,
+  extends ICRUDService<IAnyType, ICreateTypeDTO, IUpdateTypeDTO>,
     IQueryService<IAnyType, TypeBaseWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
-  create(type: ICreateTypeDTO): Promise<IAnyType>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   type(id: string): Maybe<IAnyType>
   typesList: Array<IAnyType>
@@ -41,20 +37,26 @@ export interface ITypeService
   fieldUpdateModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
   fieldDeleteModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
   addField(
-    interfaceType: IInterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     data: ICreateFieldDTO,
   ): Promise<IInterfaceType>
   deleteField(
-    interfaceType: IInterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     field: IFieldRef,
   ): Promise<Maybe<IField>>
   updateField(
-    type: IInterfaceType,
+    interfaceTypeId: IInterfaceTypeRef,
     targetKey: IInterfaceTypeRef,
     data: IUpdateFieldDTO,
   ): Promise<IField>
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
+
+  /**
+   * Issue with fieldConnections when creating multiple at a time
+   * @param data
+   */
+  import(data: Array<ICreateTypeDTO>): void
 }
 
 export interface IImportTypeService {

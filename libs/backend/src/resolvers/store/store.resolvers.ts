@@ -1,7 +1,10 @@
+import {
+  DeleteInfo,
+  MutationDeleteStoresArgs,
+} from '@codelab/shared/abstract/codegen'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { StoreOGM } from '../../infra/model'
-import { DeleteInfo, MutationDeleteStoresArgs } from '../../infra/ogm-types.gen'
 import { storeRepository } from '../../repositories'
 import { IRxTxnResolver } from '../common'
 

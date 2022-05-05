@@ -1,4 +1,4 @@
-export const throwIfUndefined = <T>(value: T) => {
+export const throwIfUndefined = <T>(value: T | undefined) => {
   if (value === undefined) {
     throw new Error('Value should not be undefined')
   }
