@@ -15,6 +15,35 @@ mutation CreateField(
   }
 }
 
+# Cypher version for multiple edges
+mutation CreateFieldEdge(
+  $interfaceTypeId: ID!
+  $fieldTypeId: ID!
+  $field: FieldCreateInput!
+) {
+  upsertField(
+    interfaceTypeId: $interfaceTypeId
+    fieldTypeId: $fieldTypeId
+    field: $field
+  ) {
+    ...InterfaceType
+  }
+}
+
+mutation UpdateFieldEdge(
+  $interfaceTypeId: ID!
+  $fieldTypeId: ID!
+  $field: FieldCreateInput!
+) {
+  upsertField(
+    interfaceTypeId: $interfaceTypeId
+    fieldTypeId: $fieldTypeId
+    field: $field
+  ) {
+    ...InterfaceType
+  }
+}
+
 mutation UpdateField(
   $interfaceId: ID!
   $fieldTypeId: ID!

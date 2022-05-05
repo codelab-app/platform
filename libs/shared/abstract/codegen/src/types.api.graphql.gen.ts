@@ -8011,6 +8011,7 @@ export type Mutation = {
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
+  upsertField: InterfaceType
 }
 
 export type MutationCreateActionsArgs = {
@@ -8565,6 +8566,12 @@ export type MutationUpdateUnionTypesArgs = {
   disconnect?: InputMaybe<UnionTypeDisconnectInput>
   update?: InputMaybe<UnionTypeUpdateInput>
   where?: InputMaybe<UnionTypeWhere>
+}
+
+export type MutationUpsertFieldArgs = {
+  field: FieldCreateInput
+  fieldTypeId: Scalars['ID']
+  interfaceTypeId: Scalars['ID']
 }
 
 export type Operation = {

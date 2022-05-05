@@ -1,13 +1,8 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Config } from '@codelab/shared/utils'
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-import { loadSchema } from '@graphql-tools/load'
-import { mergeTypeDefs } from '@graphql-tools/merge'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
-import { gql } from 'apollo-server-micro'
 import { Driver } from 'neo4j-driver'
-import * as path from 'path'
 import { resolvers } from '../resolvers'
 import { typeDefs } from './typeDefs'
 
@@ -17,34 +12,6 @@ import { typeDefs } from './typeDefs'
 const escapeDotPathKeys = (key: string) => {
   return key.replace(/\./g, '\\.')
 }
-
-/**
- * https://www.graphql-tools.com/docs/migration/migration-from-import
- *
- * Allow us to import GraphQL types
- */
-const schemaFolder = path.resolve(process.cwd(), 'libs/backend/src/schema')
-
-/**
- * loadFilesSync doesn't support import syntax. loadSchema supports loading SDL files with import syntax. You can find all.those information in the documentation.
- *
- * https://github.com/ardatan/graphql-tools/issues/1691#issuecomment-650577093
- */
-const fieldSchema = loadSchema(
-  // Field graphql
-  [path.resolve(schemaFolder, 'type/field.graphql')],
-  {
-    loaders: [new GraphQLFileLoader()],
-  },
-)
-
-const mergedSchema = async () =>
-  mergeTypeDefs([
-    await fieldSchema,
-    gql`
-      ${typeDefs}
-    `,
-  ])
 
 /**
  * Your web app has a session (that’s the cookie) used to verify the user.
@@ -57,9 +24,9 @@ const mergedSchema = async () =>
  *
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
-export const getSchema = async (driver: Driver) =>
+export const getSchema = (driver: Driver) =>
   new Neo4jGraphQL({
-    typeDefs: await mergedSchema(),
+    typeDefs,
     driver,
     resolvers,
     plugins: {

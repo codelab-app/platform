@@ -12,7 +12,7 @@ import { propSchema } from './prop.schema'
 import { resourceSchema } from './resource.schema'
 import { storeSchema } from './store.schema'
 import { tagSchema } from './tag.schema'
-import { typeSchema } from './type'
+import { fieldSchema, typeSchema } from './type'
 import { userSchema } from './user.schema'
 
 export const typeDefs = print(gql`
@@ -21,6 +21,7 @@ export const typeDefs = print(gql`
   ${adminSchema}
   ${userSchema}
   ${appSchema}
+  ${fieldSchema}
   ${atomSchema}
   ${pageSchema}
   ${typeSchema}
@@ -33,5 +34,3 @@ export const typeDefs = print(gql`
   ${storeSchema}
   ${resourceSchema}
 `)
-
-// ${fieldSchema}

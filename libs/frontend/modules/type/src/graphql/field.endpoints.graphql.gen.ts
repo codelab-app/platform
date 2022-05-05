@@ -15,6 +15,22 @@ export type CreateFieldMutation = {
   updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
+export type CreateFieldEdgeMutationVariables = Types.Exact<{
+  interfaceTypeId: Types.Scalars['ID']
+  fieldTypeId: Types.Scalars['ID']
+  field: Types.FieldCreateInput
+}>
+
+export type CreateFieldEdgeMutation = { upsertField: InterfaceTypeFragment }
+
+export type UpdateFieldEdgeMutationVariables = Types.Exact<{
+  interfaceTypeId: Types.Scalars['ID']
+  fieldTypeId: Types.Scalars['ID']
+  field: Types.FieldCreateInput
+}>
+
+export type UpdateFieldEdgeMutation = { upsertField: InterfaceTypeFragment }
+
 export type UpdateFieldMutationVariables = Types.Exact<{
   interfaceId: Types.Scalars['ID']
   fieldTypeId: Types.Scalars['ID']
@@ -49,6 +65,38 @@ export const CreateFieldDocument = gql`
       interfaceTypes {
         ...InterfaceType
       }
+    }
+  }
+  ${InterfaceTypeFragmentDoc}
+`
+export const CreateFieldEdgeDocument = gql`
+  mutation CreateFieldEdge(
+    $interfaceTypeId: ID!
+    $fieldTypeId: ID!
+    $field: FieldCreateInput!
+  ) {
+    upsertField(
+      interfaceTypeId: $interfaceTypeId
+      fieldTypeId: $fieldTypeId
+      field: $field
+    ) {
+      ...InterfaceType
+    }
+  }
+  ${InterfaceTypeFragmentDoc}
+`
+export const UpdateFieldEdgeDocument = gql`
+  mutation UpdateFieldEdge(
+    $interfaceTypeId: ID!
+    $fieldTypeId: ID!
+    $field: FieldCreateInput!
+  ) {
+    upsertField(
+      interfaceTypeId: $interfaceTypeId
+      fieldTypeId: $fieldTypeId
+      field: $field
+    ) {
+      ...InterfaceType
     }
   }
   ${InterfaceTypeFragmentDoc}
@@ -116,6 +164,36 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'CreateField',
+        'mutation',
+      )
+    },
+    CreateFieldEdge(
+      variables: CreateFieldEdgeMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<CreateFieldEdgeMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateFieldEdgeMutation>(
+            CreateFieldEdgeDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'CreateFieldEdge',
+        'mutation',
+      )
+    },
+    UpdateFieldEdge(
+      variables: UpdateFieldEdgeMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateFieldEdgeMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateFieldEdgeMutation>(
+            UpdateFieldEdgeDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateFieldEdge',
         'mutation',
       )
     },

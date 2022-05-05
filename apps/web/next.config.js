@@ -68,7 +68,7 @@ module.exports = withPlugins(
          * https://github.com/ardatan/graphql-tools/issues/1544
          */
         // '@codelab/graphql$': path.resolve(process.cwd(), 'schema.api.graphql'),
-        '@codelab/graphql': path.resolve(process.cwd()),
+        // '@codelab/graphql': path.resolve(process.cwd()),
       }
 
       /**
@@ -76,11 +76,11 @@ module.exports = withPlugins(
        *
        * https://www.npmjs.com/package/graphql-tag#webpack-loading-and-preprocessing
        */
-      config.module.rules.push({
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: 'graphql-tag/loader',
-      })
+      // config.module.rules.push({
+      //   test: /\.(graphql|gql)$/,
+      //   exclude: /node_modules/,
+      //   loader: 'graphql-tag/loader',
+      // })
 
       /**
        * Use this to patch Global CSS issue https://github.com/vercel/next.js/issues/19936

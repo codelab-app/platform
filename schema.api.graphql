@@ -7856,6 +7856,11 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
+  upsertField(
+    field: FieldCreateInput!
+    fieldTypeId: ID!
+    interfaceTypeId: ID!
+  ): InterfaceType!
 }
 
 type Operation {

@@ -1,7 +1,14 @@
 import { gql } from 'apollo-server-micro'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// const sdl = require('../../../../../schema.api.graphql')
+
+// const sdlString = sdl.loc.source.body
+
 /**
  * 3 ways of representing GraphQL
+ *
+ * https://www.apollographql.com/blog/backend/schema-design/three-ways-to-represent-your-graphql-schema/
  *
  * 1. SDL
  * 2. Introspection query result
@@ -9,6 +16,15 @@ import { gql } from 'apollo-server-micro'
  *
  * We want 2 -> 1
  */
+
+const sdl = `
+input FieldCreateInput {
+  description: String
+  id: ID!
+  key: String!
+  name: String
+}
+`
 
 export const fieldSchema = gql`
   interface Field @relationshipProperties {
@@ -18,19 +34,13 @@ export const fieldSchema = gql`
     description: String
   }
 
-  #  input UpsertFieldInput {
-  #    # Current interface to add fields to
-  #    interfaceTypeId: ID!
-  #    # The target node
-  #    fieldType: ID!
-  #    key: String!
-  #    name: String
-  #    description: String
-  #  }
-
-  #      connect: InterfaceTypeFieldsConnectFieldInput!
+  ${sdl}
 
   type Mutation {
-    upsertField(where: InterfaceTypeWhere!): InterfaceTypeEdge!
+    upsertField(
+      interfaceTypeId: ID!
+      fieldTypeId: ID!
+      field: FieldCreateInput!
+    ): InterfaceType!
   }
 `

@@ -43,7 +43,7 @@ export const checkExportedData = async (data: SetupData) => {
         expect.objectContaining({
           kind: primitiveType.kind,
           name: primitiveType.name,
-          primitiveKind: primitiveType.primitiveKind,
+          primitiveKind: (primitiveType as any).primitiveKind,
         }),
       ),
     ),

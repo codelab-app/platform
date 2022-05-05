@@ -290,7 +290,7 @@ export class TypeService
     data: ICreateFieldDTO,
   ) {
     const input = {
-      interfaceId: interfaceTypeId,
+      interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         description: data.description,
@@ -300,8 +300,8 @@ export class TypeService
       },
     }
 
-    const { updateInterfaceTypes } = yield* _await(fieldApi.CreateField(input))
-    const interfaceTypeDTO = updateInterfaceTypes.interfaceTypes[0]
+    const { upsertField } = yield* _await(fieldApi.CreateFieldEdge(input))
+    const interfaceTypeDTO = upsertField
     const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
 
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
@@ -326,7 +326,7 @@ export class TypeService
     const field = throwIfUndefined(interfaceType.field(data.id))
 
     const input = {
-      interfaceId: interfaceTypeId,
+      interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         id: data.id,
@@ -336,10 +336,8 @@ export class TypeService
       },
     }
 
-    const { updateInterfaceTypes } = yield* _await(fieldApi.UpdateField(input))
-
-    const updatedField =
-      updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    const { upsertField } = yield* _await(fieldApi.UpdateFieldEdge(input))
+    const updatedField = upsertField.fieldsConnection.edges[0]
 
     field.updateCache(updatedField)
 
