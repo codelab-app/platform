@@ -18,34 +18,35 @@ const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer
 
-const startServer = neoSchema
-  .getSchema()
-  .then((schema) => {
-    apolloServer = new ApolloServer({
-      schema,
-      context: ({ req }) => {
-        // console.log(req.headers)
+const startServer = async () =>
+  (await neoSchema)
+    .getSchema()
+    .then((schema) => {
+      apolloServer = new ApolloServer({
+        schema,
+        context: ({ req }) => {
+          // console.log(req.headers)
 
-        return {
-          req,
-        }
-      },
-      formatError: (err) => {
-        console.error(util.inspect(err, false, null, true))
+          return {
+            req,
+          }
+        },
+        formatError: (err) => {
+          console.error(util.inspect(err, false, null, true))
 
-        // Otherwise return the original error. The error can also
-        // be manipulated in other ways, as long as it's returned.
-        return err
-      },
-      introspection: true,
-      // plugins: [ApolloServerPluginInlineTrace()],
+          // Otherwise return the original error. The error can also
+          // be manipulated in other ways, as long as it's returned.
+          return err
+        },
+        introspection: true,
+        // plugins: [ApolloServerPluginInlineTrace()],
+      })
     })
-  })
-  .then(() =>
-    neoSchema
-      .assertIndexesAndConstraints({ options: { create: true }, driver })
-      .then(() => apolloServer.start()),
-  )
+    .then(async () =>
+      (await neoSchema)
+        .assertIndexesAndConstraints({ options: { create: true }, driver })
+        .then(() => apolloServer.start()),
+    )
 
 /**
  * Allow local HTTPS with https://github.com/vercel/next.js/discussions/10935#discussioncomment-434842
@@ -107,7 +108,7 @@ const handler: NextApiHandler = async (req, res) => {
     req.headers.authorization = `Bearer ${accessToken}`
   }
 
-  await startServer
+  await startServer()
   await apolloServer.createHandler({ path })(req, res)
 
   if (Config().dev.generate_ogm_types) {

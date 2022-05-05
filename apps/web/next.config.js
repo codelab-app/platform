@@ -2,6 +2,7 @@ const util = require('util')
 const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const { patchWebpackConfig } = require('next-global-css')
+const path = require('path')
 
 const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
 
@@ -33,7 +34,7 @@ const withRawCypherFiles = (nextConfig = {}) => {
  */
 module.exports = withPlugins(
   [
-    withNx,
+    // withNx,
     withRawCypherFiles,
     withBundleAnalyzer,
     [
@@ -55,6 +56,32 @@ module.exports = withPlugins(
   ],
   {
     webpack(config, options) {
+      /**
+       * Add alias for loading GraphQL files
+       */
+      config.resolve.alias = {
+        ...config.resolve.alias,
+
+        /**
+         * Alias resolve has issues with @graphql-tool/import
+         *
+         * https://github.com/ardatan/graphql-tools/issues/1544
+         */
+        // '@codelab/graphql$': path.resolve(process.cwd(), 'schema.api.graphql'),
+        '@codelab/graphql': path.resolve(process.cwd()),
+      }
+
+      /**
+       * Add GraphQL loader
+       *
+       * https://www.npmjs.com/package/graphql-tag#webpack-loading-and-preprocessing
+       */
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      })
+
       /**
        * Use this to patch Global CSS issue https://github.com/vercel/next.js/issues/19936
        */
