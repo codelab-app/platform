@@ -66,6 +66,7 @@ export class TagService
     const input = data.map((tag) => {
       return {
         name: tag.name,
+        owner: { connect: [{ where: { node: { auth0Id: tag.auth0Id } } }] },
         parent: {
           connect: tag.parentTagId
             ? {
@@ -217,7 +218,6 @@ export class TagService
   })
 }
 
-// This can be used to access the type store from anywhere inside the mobx-keystone tree
 export const tagServiceContext = createContext<TagService>()
 
 export const getTagService = (thisModel: any) => {

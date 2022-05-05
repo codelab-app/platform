@@ -11731,6 +11731,22 @@ type Tag {
   id: ID!
   isRoot: Boolean
   name: String!
+  owner(
+    directed: Boolean = true
+    options: UserOptions
+    where: UserWhere
+  ): [User!]!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): TagUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [TagOwnerConnectionSort!]
+    where: TagOwnerConnectionWhere
+  ): TagOwnerConnection!
   parent(directed: Boolean = true, options: TagOptions, where: TagWhere): Tag
   parentAggregate(
     directed: Boolean = true
@@ -11860,11 +11876,13 @@ input TagChildrenUpdateFieldInput {
 
 input TagConnectInput {
   children: [TagChildrenConnectFieldInput!]
+  owner: [TagOwnerConnectFieldInput!]
   parent: TagParentConnectFieldInput
 }
 
 input TagConnectOrCreateInput {
   children: [TagChildrenConnectOrCreateFieldInput!]
+  owner: [TagOwnerConnectOrCreateFieldInput!]
   parent: TagParentConnectOrCreateFieldInput
 }
 
@@ -11879,16 +11897,19 @@ input TagConnectWhere {
 input TagCreateInput {
   children: TagChildrenFieldInput
   name: String!
+  owner: TagOwnerFieldInput
   parent: TagParentFieldInput
 }
 
 input TagDeleteInput {
   children: [TagChildrenDeleteFieldInput!]
+  owner: [TagOwnerDeleteFieldInput!]
   parent: TagParentDeleteFieldInput
 }
 
 input TagDisconnectInput {
   children: [TagChildrenDisconnectFieldInput!]
+  owner: [TagOwnerDisconnectFieldInput!]
   parent: TagParentDisconnectFieldInput
 }
 
@@ -11987,6 +12008,133 @@ input TagOptions {
   Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [TagSort!]
+}
+
+input TagOwnerAggregateInput {
+  AND: [TagOwnerAggregateInput!]
+  OR: [TagOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: TagOwnerNodeAggregationWhereInput
+}
+
+input TagOwnerConnectFieldInput {
+  connect: [UserConnectInput!]
+  where: UserConnectWhere
+}
+
+input TagOwnerConnectOrCreateFieldInput {
+  onCreate: TagOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input TagOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
+type TagOwnerConnection {
+  edges: [TagOwnerRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input TagOwnerConnectionSort {
+  node: UserSort
+}
+
+input TagOwnerConnectionWhere {
+  AND: [TagOwnerConnectionWhere!]
+  OR: [TagOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input TagOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input TagOwnerDeleteFieldInput {
+  delete: UserDeleteInput
+  where: TagOwnerConnectionWhere
+}
+
+input TagOwnerDisconnectFieldInput {
+  disconnect: UserDisconnectInput
+  where: TagOwnerConnectionWhere
+}
+
+input TagOwnerFieldInput {
+  connect: [TagOwnerConnectFieldInput!]
+  connectOrCreate: [TagOwnerConnectOrCreateFieldInput!]
+  create: [TagOwnerCreateFieldInput!]
+}
+
+input TagOwnerNodeAggregationWhereInput {
+  AND: [TagOwnerNodeAggregationWhereInput!]
+  OR: [TagOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+type TagOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+input TagOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input TagOwnerUpdateFieldInput {
+  connect: [TagOwnerConnectFieldInput!]
+  connectOrCreate: [TagOwnerConnectOrCreateFieldInput!]
+  create: [TagOwnerCreateFieldInput!]
+  delete: [TagOwnerDeleteFieldInput!]
+  disconnect: [TagOwnerDisconnectFieldInput!]
+  update: TagOwnerUpdateConnectionInput
+  where: TagOwnerConnectionWhere
 }
 
 input TagParentAggregateInput {
@@ -12098,6 +12246,7 @@ input TagParentUpdateFieldInput {
 
 input TagRelationInput {
   children: [TagChildrenCreateFieldInput!]
+  owner: [TagOwnerCreateFieldInput!]
   parent: TagParentCreateFieldInput
 }
 
@@ -12138,7 +12287,19 @@ input TagUniqueWhere {
 input TagUpdateInput {
   children: [TagChildrenUpdateFieldInput!]
   name: String
+  owner: [TagOwnerUpdateFieldInput!]
   parent: TagParentUpdateFieldInput
+}
+
+type TagUserOwnerAggregationSelection {
+  count: Int!
+  node: TagUserOwnerNodeAggregateSelection
+}
+
+type TagUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input TagWhere {
@@ -12189,6 +12350,31 @@ input TagWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  ownerAggregate: TagOwnerAggregateInput
+  ownerConnection_ALL: TagOwnerConnectionWhere
+  ownerConnection_NONE: TagOwnerConnectionWhere
+  ownerConnection_SINGLE: TagOwnerConnectionWhere
+  ownerConnection_SOME: TagOwnerConnectionWhere
+
+  """
+  Return Tags where all of the related Users match this filter
+  """
+  owner_ALL: UserWhere
+
+  """
+  Return Tags where none of the related Users match this filter
+  """
+  owner_NONE: UserWhere
+
+  """
+  Return Tags where one of the related Users match this filter
+  """
+  owner_SINGLE: UserWhere
+
+  """
+  Return Tags where some of the related Users match this filter
+  """
+  owner_SOME: UserWhere
   parent: TagWhere
   parentAggregate: TagParentAggregateInput
   parentConnection: TagParentConnectionWhere
@@ -13073,6 +13259,18 @@ type User {
   email: String!
   id: ID!
   roles: [Role!]
+  tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
+  tagsAggregate(
+    directed: Boolean = true
+    where: TagWhere
+  ): UserTagTagsAggregationSelection
+  tagsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [UserTagsConnectionSort!]
+    where: UserTagsConnectionWhere
+  ): UserTagsConnection!
   types(
     directed: Boolean = true
     options: TypeBaseOptions
@@ -13331,6 +13529,7 @@ input UserComponentsUpdateFieldInput {
 input UserConnectInput {
   apps: [UserAppsConnectFieldInput!]
   components: [UserComponentsConnectFieldInput!]
+  tags: [UserTagsConnectFieldInput!]
   types: [UserTypesConnectFieldInput!]
 }
 
@@ -13348,18 +13547,21 @@ input UserCreateInput {
   components: UserComponentsFieldInput
   email: String!
   roles: [Role!]
+  tags: UserTagsFieldInput
   types: UserTypesFieldInput
 }
 
 input UserDeleteInput {
   apps: [UserAppsDeleteFieldInput!]
   components: [UserComponentsDeleteFieldInput!]
+  tags: [UserTagsDeleteFieldInput!]
   types: [UserTypesDeleteFieldInput!]
 }
 
 input UserDisconnectInput {
   apps: [UserAppsDisconnectFieldInput!]
   components: [UserComponentsDisconnectFieldInput!]
+  tags: [UserTagsDisconnectFieldInput!]
   types: [UserTypesDisconnectFieldInput!]
 }
 
@@ -13390,6 +13592,123 @@ input UserSort {
   auth0Id: SortDirection
   email: SortDirection
   id: SortDirection
+}
+
+type UserTagTagsAggregationSelection {
+  count: Int!
+  node: UserTagTagsNodeAggregateSelection
+}
+
+type UserTagTagsNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input UserTagsAggregateInput {
+  AND: [UserTagsAggregateInput!]
+  OR: [UserTagsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UserTagsNodeAggregationWhereInput
+}
+
+input UserTagsConnectFieldInput {
+  connect: [TagConnectInput!]
+  where: TagConnectWhere
+}
+
+input UserTagsConnectOrCreateFieldInput {
+  onCreate: UserTagsConnectOrCreateFieldInputOnCreate!
+  where: TagConnectOrCreateWhere!
+}
+
+input UserTagsConnectOrCreateFieldInputOnCreate {
+  node: TagOnCreateInput!
+}
+
+type UserTagsConnection {
+  edges: [UserTagsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UserTagsConnectionSort {
+  node: TagSort
+}
+
+input UserTagsConnectionWhere {
+  AND: [UserTagsConnectionWhere!]
+  OR: [UserTagsConnectionWhere!]
+  node: TagWhere
+  node_NOT: TagWhere
+}
+
+input UserTagsCreateFieldInput {
+  node: TagCreateInput!
+}
+
+input UserTagsDeleteFieldInput {
+  delete: TagDeleteInput
+  where: UserTagsConnectionWhere
+}
+
+input UserTagsDisconnectFieldInput {
+  disconnect: TagDisconnectInput
+  where: UserTagsConnectionWhere
+}
+
+input UserTagsFieldInput {
+  connect: [UserTagsConnectFieldInput!]
+  connectOrCreate: [UserTagsConnectOrCreateFieldInput!]
+  create: [UserTagsCreateFieldInput!]
+}
+
+input UserTagsNodeAggregationWhereInput {
+  AND: [UserTagsNodeAggregationWhereInput!]
+  OR: [UserTagsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type UserTagsRelationship {
+  cursor: String!
+  node: Tag!
+}
+
+input UserTagsUpdateConnectionInput {
+  node: TagUpdateInput
+}
+
+input UserTagsUpdateFieldInput {
+  connect: [UserTagsConnectFieldInput!]
+  connectOrCreate: [UserTagsConnectOrCreateFieldInput!]
+  create: [UserTagsCreateFieldInput!]
+  delete: [UserTagsDeleteFieldInput!]
+  disconnect: [UserTagsDisconnectFieldInput!]
+  update: UserTagsUpdateConnectionInput
+  where: UserTagsConnectionWhere
 }
 
 input UserTypesConnectFieldInput {
@@ -13462,6 +13781,7 @@ input UserUpdateInput {
   components: [UserComponentsUpdateFieldInput!]
   email: String
   roles: [Role!]
+  tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
 }
 
@@ -13552,6 +13872,31 @@ input UserWhere {
   roles_INCLUDES: Role
   roles_NOT: [Role!]
   roles_NOT_INCLUDES: Role
+  tagsAggregate: UserTagsAggregateInput
+  tagsConnection_ALL: UserTagsConnectionWhere
+  tagsConnection_NONE: UserTagsConnectionWhere
+  tagsConnection_SINGLE: UserTagsConnectionWhere
+  tagsConnection_SOME: UserTagsConnectionWhere
+
+  """
+  Return Users where all of the related Tags match this filter
+  """
+  tags_ALL: TagWhere
+
+  """
+  Return Users where none of the related Tags match this filter
+  """
+  tags_NONE: TagWhere
+
+  """
+  Return Users where one of the related Tags match this filter
+  """
+  tags_SINGLE: TagWhere
+
+  """
+  Return Users where some of the related Tags match this filter
+  """
+  tags_SOME: TagWhere
   typesConnection_ALL: UserTypesConnectionWhere
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere

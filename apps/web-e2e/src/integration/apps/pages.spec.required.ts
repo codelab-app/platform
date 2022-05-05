@@ -1,13 +1,12 @@
 import { pageName, updatedAppName, updatedPageName } from './app.data'
 
-describe('Page CRUD', () => {
+describe('Pages CRUD', () => {
+  before(() => {
+    cy.getCard({ title: updatedAppName }).find('a').click()
+    cy.url({ timeout: 5000 }).should('include', 'pages')
+  })
+
   describe('create', () => {
-    before(() => {
-      cy.getCard({ title: updatedAppName }).find('a').click()
-
-      cy.url({ timeout: 5000 }).should('include', 'pages')
-    })
-
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 

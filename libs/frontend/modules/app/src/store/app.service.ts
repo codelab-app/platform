@@ -1,4 +1,6 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/modules/element'
+import { getPageService } from '@codelab/frontend/modules/page'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -141,9 +143,26 @@ export class AppService
 
     if (existing) {
       this.apps.delete(id)
+
+      const elementService = getElementService(this)
+
+      elementService.deleteElementSubgraph(
+        existing.rootProviderElement?.id as string,
+      )
     }
 
-    const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
+    const pageService = getPageService(this)
+
+    pageService.deleteManyByAppId(id)
+
+    const deleteCondition = {
+      where: {
+        id,
+      },
+      delete: {},
+    }
+
+    const { deleteApps } = yield* _await(appApi.DeleteApps(deleteCondition))
 
     if (deleteApps.nodesDeleted === 0) {
       // throw error so that the atomic middleware rolls back the changes

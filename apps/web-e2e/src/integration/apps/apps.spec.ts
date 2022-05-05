@@ -70,7 +70,7 @@ describe('Apps CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(appName).should('not.exist')
+      cy.findAllByText(updatedAppName).should('not.exist')
     })
   })
 })
