@@ -13,7 +13,7 @@ import {
   buttonElementData,
   buttonInterfaceId,
   createAtomsData,
-  createPrimitiveTypesData,
+  createSeedTypesData,
   floatTypeId,
   integerTypeId,
   pageData,
@@ -46,7 +46,7 @@ describe('App', () => {
     const { atomService, typeService } = rootStore
     const auth0 = await auth0Service
 
-    const input = createPrimitiveTypesData([
+    const input = createSeedTypesData([
       stringTypeId,
       booleanTypeId,
       floatTypeId,

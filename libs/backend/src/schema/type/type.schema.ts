@@ -99,7 +99,7 @@ export const typeSchema = gql`
   type PrimitiveType implements TypeBase  {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
-    name: String!
+    name: String! @unique
     owner: User!
     fieldFor: [TypeBase!]!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
@@ -137,7 +137,7 @@ export const typeSchema = gql`
   type UnionType implements TypeBase & WithDescendants {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
-    name: String!
+    name: String! @unique
     owner: User!
     fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!

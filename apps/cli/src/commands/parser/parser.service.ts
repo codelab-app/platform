@@ -1,20 +1,20 @@
 import { IAtomExport, ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
+import { v4 } from 'uuid'
 import { AntdDesignApi, createAntDesignAtomsData } from './ant-design'
 import { csvNameToAtomTypeMap } from './csvNameToAtomTypeMap'
 import { iterateCsvs } from './iterateCsv'
+import { getTypeForApi } from './type-map'
 
 interface ApiData {
-  api: {
-    id: string
-    fields: ICreateFieldDTO
-  }
+  fields: Array<ICreateFieldDTO>
+  atom: IAtomExport
 }
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
  */
-export class SeederService {
+export class ParserService {
   private antdDataFolder = `${process.cwd()}/data/antd/`
 
   private customComponentsDataFolder = `${process.cwd()}/data/customComponents/`
@@ -28,25 +28,22 @@ export class SeederService {
 
   public apis: Array<ApiData> = []
 
-  constructor() {
+  private userId: string
+
+  constructor(userId: string) {
+    this.userId = userId
     this._atoms = createAntDesignAtomsData().then(
       (data) => new Map(data.map((atom) => [atom.type, atom])),
     )
   }
 
-  async seed() {
-    console.log('Seed!')
+  /**
+   * Extract data to be used for seeding
+   */
+  async extractFields() {
+    await iterateCsvs(this.antdDataFolder, await this.handleCsv.bind(this))
 
-    /**
-     * (1) Seed base types like String, Boolean, Integer so other types can use them
-     */
-    /**
-     * (2) Seed all atom apis
-     */
-    return await iterateCsvs(
-      this.antdDataFolder,
-      await this.handleCsv.bind(this),
-    )
+    return this.apis
   }
 
   private async handleCsv(data: Array<AntdDesignApi>, file: string) {
@@ -58,24 +55,28 @@ export class SeederService {
 
     const atom = (await this._atoms).get(atomType)
 
-    const fields = data.map((field) => ({
-      key: field.property,
-      name: pascalCaseToWords(field.property),
-      description: field.description,
-      fieldType: '',
-    }))
-
-    const api = {
-      id: atom?.api?.id,
-      fields: fields,
+    if (!atom) {
+      return
     }
 
-    // this.apis.push(api)
+    const fields: Array<ICreateFieldDTO> = await Promise.all(
+      data.map(async (field) => ({
+        id: v4(),
+        key: field.property,
+        name: pascalCaseToWords(field.property),
+        description: field.description,
+        fieldType:
+          (await getTypeForApi(field, atom, this.userId))?.existingId ?? '',
+      })),
+    )
 
-    // if (!atomId) {
-    //   return
-    // }
+    const filteredFields = fields.filter((field): field is ICreateFieldDTO => {
+      return !!field.fieldType
+    })
 
-    // return this.typeSeeder.seedAtomApi(atomId, data, currentUser)
+    this.apis.push({
+      fields: filteredFields,
+      atom,
+    })
   }
 }

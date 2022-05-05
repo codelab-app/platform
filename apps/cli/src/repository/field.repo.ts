@@ -7,6 +7,8 @@ export const upsertField = async (
 ) => {
   const InterfaceType = await InterfaceTypeOGM()
 
+  console.log('Upserting fields...', fields)
+
   // Disconnect all
   await InterfaceType.update({
     where: {

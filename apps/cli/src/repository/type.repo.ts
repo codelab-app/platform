@@ -2,6 +2,8 @@ import {
   EnumTypeOGM,
   InterfaceTypeOGM,
   PrimitiveTypeOGM,
+  ReactNodeTypeOGM,
+  RenderPropsTypeOGM,
 } from '@codelab/backend'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
@@ -24,7 +26,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
 
       const exists = await PrimitiveType.find({
         where: {
-          id: data.id,
+          name: data.name,
         },
       })
 
@@ -51,6 +53,54 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
           ...createBaseFields(data, selectedUser),
         },
       })
+    }
+
+    case ITypeKind.RenderPropsType: {
+      const RenderPropsType = await RenderPropsTypeOGM()
+
+      const exists = await RenderPropsType.find({
+        where: {
+          name: data.name,
+        },
+      })
+
+      if (!exists.length) {
+        console.log(`Creating ${data.name} [${data.kind}]...`)
+
+        return await RenderPropsType.create({
+          input: [
+            {
+              ...createBaseFields(data, selectedUser),
+            },
+          ],
+        })
+      }
+
+      return
+    }
+
+    case ITypeKind.ReactNodeType: {
+      const ReactNodeType = await ReactNodeTypeOGM()
+
+      const exists = await ReactNodeType.find({
+        where: {
+          name: data.name,
+        },
+      })
+
+      if (!exists.length) {
+        console.log(`Creating ${data.name} [${data.kind}]...`)
+
+        return await ReactNodeType.create({
+          input: [
+            {
+              ...createBaseFields(data, selectedUser),
+            },
+          ],
+        })
+      }
+
+      return
     }
 
     case ITypeKind.EnumType: {

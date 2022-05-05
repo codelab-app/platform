@@ -7,6 +7,7 @@ export const importType = async (
   selectedUser: string,
 ) => {
   for (const type of types) {
+    console.log('\n---------------------\n')
     console.log(`Upserting ${type.name}:`)
     cLog(type)
     console.log('\n')

@@ -1,7 +1,6 @@
-import { useLoadingState } from '@codelab/frontend/shared/utils'
 import { ITypeService } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { InterfaceType } from '../../../store'
 
 export const useCurrentInterfaceId = () => {
@@ -18,25 +17,21 @@ export const useCurrentInterfaceId = () => {
 }
 
 /** Grabs the [interfaceId] from the query params and fetches it, along with its fields */
-export const useGetCurrentInterfaceWithFields = (typeStore: ITypeService) => {
+export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
-
-  const [getOne, { isLoading, error }] = useLoadingState((_id: string) =>
-    // We need the whole graph, not just the interface, because we need to reference all the field types
-    typeStore.getInterfaceAndDescendants(_id),
-  )
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (interfaceId) {
-      getOne(interfaceId)
-    }
-  }, [interfaceId, getOne])
+    typeService.getInterfaceAndDescendants(interfaceId).then(() => {
+      console.log('setIsLoading')
+      setLoading(false)
+    })
+  }, [interfaceId])
 
   return {
     isLoading,
-    error,
     type: interfaceId
-      ? (typeStore.type(interfaceId) as InterfaceType | undefined)
+      ? (typeService.type(interfaceId) as InterfaceType)
       : undefined,
   }
 }

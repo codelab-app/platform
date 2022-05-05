@@ -1,13 +1,14 @@
 import { UserOGM } from '@codelab/backend'
-import { createPrimitiveTypesData } from '@codelab/shared/data'
+import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
 import { createApp } from '../../repository/app.repo'
+import { upsertField } from '../../repository/field.repo'
 import { defaultOutputPath, ExportedData } from '../export/export.command'
-import { createAntDesignAtomsData } from '../seed/ant-design'
-import { SeederService } from '../seed/seeder.service'
+import { createAntDesignAtomsData } from '../parser/ant-design'
+import { ParserService } from '../parser/parser.service'
 import { importAtom } from './import-atom'
 import { importType } from './import-type'
 
@@ -49,7 +50,7 @@ export const importCommand: CommandModule<any, any> = {
     }
 
     // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
-    await importType(createPrimitiveTypesData(), selectedUser)
+    await importType(createSeedTypesData(), selectedUser)
 
     if (atoms.length) {
       console.log('Importing atoms...')
@@ -60,9 +61,14 @@ export const importCommand: CommandModule<any, any> = {
     await importAtom(await createAntDesignAtomsData(), selectedUser)
 
     // Then seed all atom api's
-    const seeder = new SeederService()
-    const seedData = await seeder.seed()
-    console.log('seed data', seedData)
+    const parser = new ParserService(selectedUser)
+    const parsedData = await parser.extractFields()
+
+    for (const { atom, fields } of parsedData) {
+      await upsertField(atom, fields)
+    }
+
+    console.log('parsed data', parsedData)
 
     if (app) {
       console.log('Importing app...')

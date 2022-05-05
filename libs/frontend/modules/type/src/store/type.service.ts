@@ -6,6 +6,7 @@ import {
   ICreateFieldDTO,
   ICreateTypeDTO,
   IFieldRef,
+  IInterfaceType,
   IInterfaceTypeRef,
   ITypeDTO,
   ITypeKind,
@@ -39,7 +40,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, InterfaceType } from './models'
+import { AnyType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -121,10 +122,10 @@ export class TypeService
     const typesMap = entityMapById(types)
 
     return Array.from(typesMap).map(([id]) => {
-      if (this.types.has(id)) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.types.get(id)!
-      }
+      // if (this.types.has(id)) {
+      //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      //   return this.types.get(id)!
+      // }
 
       const typeModel = typeFactory(typesMap.get(id)!)
 
@@ -157,11 +158,11 @@ export class TypeService
       return []
     }
 
-    const descendantsResponse = yield* _await(
-      getTypeApi.GetDescendants({ ids }),
-    )
+    const descendants = yield* _await(getTypeApi.GetDescendants({ ids }))
 
-    const allDescendantIds = Object.values(descendantsResponse).reduce(
+    // For interface types, we want to fetch the fieldType node as well
+
+    const allDescendantIds = Object.values(descendants).reduce(
       (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
       [] as Array<string>,
     )
@@ -178,16 +179,20 @@ export class TypeService
     this: TypeService,
     id: IInterfaceTypeRef,
   ) {
-    const [type] = yield* _await(this.getAllWithDescendants([id]))
+    const types = yield* _await(this.getAllWithDescendants([id]))
 
-    if (type.kind !== ITypeKind.InterfaceType) {
+    const interfaceType = types?.find(
+      (type) => type.kind === ITypeKind.InterfaceType,
+    )
+
+    if (!interfaceType) {
       throw new Error('Type is not an interface')
     }
 
-    return type as InterfaceType
+    return interfaceType as IInterfaceType
   })
 
-  /**
+  /*
    * The array of types must be of same type
    *
    * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
