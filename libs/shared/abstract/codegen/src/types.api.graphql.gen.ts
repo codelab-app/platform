@@ -1090,12 +1090,30 @@ export type AppStoreUpdateFieldInput = {
 /** Allows picking a app from the list of apps */
 export type AppType = TypeBase & {
   __typename?: 'AppType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<AppTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/** Allows picking a app from the list of apps */
+export type AppTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Allows picking a app from the list of apps */
+export type AppTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /** Allows picking a app from the list of apps */
@@ -1128,6 +1146,7 @@ export type AppTypeAggregateSelection = {
 }
 
 export type AppTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<AppTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -1136,6 +1155,7 @@ export type AppTypeConnectOrCreateInput = {
 }
 
 export type AppTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -1143,10 +1163,12 @@ export type AppTypeCreateInput = {
 }
 
 export type AppTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<AppTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type AppTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<AppTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -1154,6 +1176,41 @@ export type AppTypeEdge = {
   __typename?: 'AppTypeEdge'
   cursor: Scalars['String']
   node: AppType
+}
+
+export type AppTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type AppTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type AppTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type AppTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type AppTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type AppTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<AppTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<AppTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<AppTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AppTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<AppTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type AppTypeOptions = {
@@ -1221,6 +1278,7 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type AppTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<AppTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -1232,6 +1290,7 @@ export type AppTypeSort = {
 }
 
 export type AppTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<AppTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -1253,6 +1312,10 @@ export type AppTypeUserOwnerNodeAggregateSelection = {
 export type AppTypeWhere = {
   AND?: InputMaybe<Array<AppTypeWhere>>
   OR?: InputMaybe<Array<AppTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -1385,6 +1448,8 @@ export type ArrayType = TypeBase &
   WithDescendants & {
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
+    fieldFor: Array<TypeBase>
+    fieldForConnection: TypeBaseFieldForConnection
     id: Scalars['ID']
     itemType: TypeBase
     itemTypeConnection: ArrayTypeItemTypeConnection
@@ -1394,6 +1459,28 @@ export type ArrayType = TypeBase &
     ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
     ownerConnection: TypeBaseOwnerConnection
   }
+
+/**
+ * ArrayType Allows defining a variable number of items of a given type.
+ * Contains a reference to another type which is the array item type.
+ */
+export type ArrayTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/**
+ * ArrayType Allows defining a variable number of items of a given type.
+ * Contains a reference to another type which is the array item type.
+ */
+export type ArrayTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -1456,6 +1543,7 @@ export type ArrayTypeAggregateSelection = {
 }
 
 export type ArrayTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<ArrayTypeFieldForConnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
@@ -1465,6 +1553,7 @@ export type ArrayTypeConnectOrCreateInput = {
 }
 
 export type ArrayTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
   kind?: TypeKind
@@ -1473,11 +1562,13 @@ export type ArrayTypeCreateInput = {
 }
 
 export type ArrayTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<ArrayTypeFieldForDeleteFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<ArrayTypeFieldForDisconnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
@@ -1486,6 +1577,41 @@ export type ArrayTypeEdge = {
   __typename?: 'ArrayTypeEdge'
   cursor: Scalars['String']
   node: ArrayType
+}
+
+export type ArrayTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type ArrayTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type ArrayTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ArrayTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ArrayTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type ArrayTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<ArrayTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<ArrayTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<ArrayTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<ArrayTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
@@ -1614,6 +1740,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ArrayTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<ArrayTypeFieldForCreateFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
@@ -1626,6 +1753,7 @@ export type ArrayTypeSort = {
 }
 
 export type ArrayTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<ArrayTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
@@ -1648,6 +1776,10 @@ export type ArrayTypeUserOwnerNodeAggregateSelection = {
 export type ArrayTypeWhere = {
   AND?: InputMaybe<Array<ArrayTypeWhere>>
   OR?: InputMaybe<Array<ArrayTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -4850,12 +4982,48 @@ export type ElementType = TypeBase & {
   __typename?: 'ElementType'
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ElementTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /**
@@ -4915,6 +5083,7 @@ export type ElementTypeAggregateSelection = {
 }
 
 export type ElementTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<ElementTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -4924,6 +5093,7 @@ export type ElementTypeConnectOrCreateInput = {
 
 export type ElementTypeCreateInput = {
   elementKind: ElementTypeKind
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -4931,10 +5101,12 @@ export type ElementTypeCreateInput = {
 }
 
 export type ElementTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<ElementTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ElementTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<ElementTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -4942,6 +5114,41 @@ export type ElementTypeEdge = {
   __typename?: 'ElementTypeEdge'
   cursor: Scalars['String']
   node: ElementType
+}
+
+export type ElementTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type ElementTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type ElementTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ElementTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ElementTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type ElementTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<ElementTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<ElementTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<ElementTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<ElementTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<ElementTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export enum ElementTypeKind {
@@ -5020,6 +5227,7 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ElementTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<ElementTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -5033,6 +5241,7 @@ export type ElementTypeSort = {
 
 export type ElementTypeUpdateInput = {
   elementKind?: InputMaybe<ElementTypeKind>
+  fieldFor?: InputMaybe<Array<ElementTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -5058,6 +5267,10 @@ export type ElementTypeWhere = {
   elementKind_IN?: InputMaybe<Array<ElementTypeKind>>
   elementKind_NOT?: InputMaybe<ElementTypeKind>
   elementKind_NOT_IN?: InputMaybe<Array<ElementTypeKind>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -5263,6 +5476,8 @@ export type EnumType = TypeBase & {
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
@@ -5303,6 +5518,30 @@ export type EnumTypeAllowedValuesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<EnumTypeAllowedValuesConnectionSort>>
   where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+}
+
+/**
+ * Allows choosing one of a set of allowed values.
+ * The value gets passed to the render pipe as a Enum Type Value id.
+ * The actual value must be de-referenced by the id.
+ */
+export type EnumTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/**
+ * Allows choosing one of a set of allowed values.
+ * The value gets passed to the render pipe as a Enum Type Value id.
+ * The actual value must be de-referenced by the id.
+ */
+export type EnumTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /**
@@ -5466,6 +5705,7 @@ export type EnumTypeAllowedValuesUpdateFieldInput = {
 
 export type EnumTypeConnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
+  fieldFor?: InputMaybe<Array<EnumTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -5483,6 +5723,7 @@ export type EnumTypeConnectWhere = {
 
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -5491,11 +5732,13 @@ export type EnumTypeCreateInput = {
 
 export type EnumTypeDeleteInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
+  fieldFor?: InputMaybe<Array<EnumTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type EnumTypeDisconnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
+  fieldFor?: InputMaybe<Array<EnumTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -5516,6 +5759,41 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
   value: StringAggregateSelectionNonNullable
+}
+
+export type EnumTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type EnumTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type EnumTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type EnumTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type EnumTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type EnumTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<EnumTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<EnumTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<EnumTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<EnumTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type EnumTypeOnCreateInput = {
@@ -5589,6 +5867,7 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
 
 export type EnumTypeRelationInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
+  fieldFor?: InputMaybe<Array<EnumTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -5605,6 +5884,7 @@ export type EnumTypeUniqueWhere = {
 
 export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
+  fieldFor?: InputMaybe<Array<EnumTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -5902,6 +6182,10 @@ export type EnumTypeWhere = {
   allowedValues_SINGLE?: InputMaybe<EnumTypeValueWhere>
   /** Return EnumTypes where some of the related EnumTypeValues match this filter */
   allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -6531,10 +6815,10 @@ export type InterfaceType = TypeBase &
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
     descendantTypesIds: Array<Scalars['ID']>
+    fieldFor: Array<TypeBase>
+    fieldForConnection: TypeBaseFieldForConnection
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
-    fieldsFor: Array<TypeBase>
-    fieldsForConnection: InterfaceTypeFieldsForConnection
     id: Scalars['ID']
     kind: TypeKind
     name: Scalars['String']
@@ -6566,6 +6850,22 @@ export type InterfaceTypeApiOfAtomsConnectionArgs = {
 }
 
 /** Represents an object type with multiple fields */
+export type InterfaceTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+/** Represents an object type with multiple fields */
 export type InterfaceTypeFieldsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<TypeBaseOptions>
@@ -6579,22 +6879,6 @@ export type InterfaceTypeFieldsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InterfaceTypeFieldsConnectionSort>>
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
-}
-
-/** Represents an object type with multiple fields */
-export type InterfaceTypeFieldsForArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<TypeBaseOptions>
-  where?: InputMaybe<TypeBaseWhere>
-}
-
-/** Represents an object type with multiple fields */
-export type InterfaceTypeFieldsForConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InterfaceTypeFieldsForConnectionSort>>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
 }
 
 /** Represents an object type with multiple fields */
@@ -6753,8 +7037,8 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 
 export type InterfaceTypeConnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
+  fieldFor?: InputMaybe<Array<InterfaceTypeFieldForConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -6775,8 +7059,8 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
-  fieldsFor?: InputMaybe<InterfaceTypeFieldsForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -6785,15 +7069,15 @@ export type InterfaceTypeCreateInput = {
 
 export type InterfaceTypeDeleteInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
+  fieldFor?: InputMaybe<Array<InterfaceTypeFieldForDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type InterfaceTypeDisconnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
+  fieldFor?: InputMaybe<Array<InterfaceTypeFieldForDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -6801,6 +7085,41 @@ export type InterfaceTypeEdge = {
   __typename?: 'InterfaceTypeEdge'
   cursor: Scalars['String']
   node: InterfaceType
+}
+
+export type InterfaceTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type InterfaceTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type InterfaceTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type InterfaceTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type InterfaceTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type InterfaceTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<InterfaceTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type InterfaceTypeFieldsConnectFieldInput = {
@@ -6848,77 +7167,6 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-}
-
-export type InterfaceTypeFieldsForConnectFieldInput = {
-  connect?: InputMaybe<TypeBaseConnectInput>
-  edge: FieldCreateInput
-  where?: InputMaybe<TypeBaseConnectWhere>
-}
-
-export type InterfaceTypeFieldsForConnection = {
-  __typename?: 'InterfaceTypeFieldsForConnection'
-  edges: Array<InterfaceTypeFieldsForRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type InterfaceTypeFieldsForConnectionSort = {
-  edge?: InputMaybe<FieldSort>
-  node?: InputMaybe<TypeBaseSort>
-}
-
-export type InterfaceTypeFieldsForConnectionWhere = {
-  AND?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>
-  OR?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>
-  edge?: InputMaybe<FieldWhere>
-  edge_NOT?: InputMaybe<FieldWhere>
-  node?: InputMaybe<TypeBaseWhere>
-  node_NOT?: InputMaybe<TypeBaseWhere>
-}
-
-export type InterfaceTypeFieldsForCreateFieldInput = {
-  edge: FieldCreateInput
-  node: TypeBaseCreateInput
-}
-
-export type InterfaceTypeFieldsForDeleteFieldInput = {
-  delete?: InputMaybe<TypeBaseDeleteInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-}
-
-export type InterfaceTypeFieldsForDisconnectFieldInput = {
-  disconnect?: InputMaybe<TypeBaseDisconnectInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-}
-
-export type InterfaceTypeFieldsForFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
-  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
-}
-
-export type InterfaceTypeFieldsForRelationship = Field & {
-  __typename?: 'InterfaceTypeFieldsForRelationship'
-  cursor: Scalars['String']
-  description?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  node: TypeBase
-}
-
-export type InterfaceTypeFieldsForUpdateConnectionInput = {
-  edge?: InputMaybe<FieldUpdateInput>
-  node?: InputMaybe<TypeBaseUpdateInput>
-}
-
-export type InterfaceTypeFieldsForUpdateFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
-  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
-  delete?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>
-  update?: InputMaybe<InterfaceTypeFieldsForUpdateConnectionInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
 }
 
 export type InterfaceTypeFieldsRelationship = Field & {
@@ -7016,8 +7264,8 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 
 export type InterfaceTypeRelationInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  fieldFor?: InputMaybe<Array<InterfaceTypeFieldForCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -7034,8 +7282,8 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
+  fieldFor?: InputMaybe<Array<InterfaceTypeFieldForUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -7070,14 +7318,14 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
-  fieldsForConnection_ALL?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_NONE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_SOME?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -7119,12 +7367,30 @@ export type InterfaceTypesConnection = {
 /** Allows picking a lambda */
 export type LambdaType = TypeBase & {
   __typename?: 'LambdaType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<LambdaTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/** Allows picking a lambda */
+export type LambdaTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Allows picking a lambda */
+export type LambdaTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /** Allows picking a lambda */
@@ -7157,6 +7423,7 @@ export type LambdaTypeAggregateSelection = {
 }
 
 export type LambdaTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<LambdaTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -7165,6 +7432,7 @@ export type LambdaTypeConnectOrCreateInput = {
 }
 
 export type LambdaTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -7172,10 +7440,12 @@ export type LambdaTypeCreateInput = {
 }
 
 export type LambdaTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<LambdaTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type LambdaTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<LambdaTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -7183,6 +7453,41 @@ export type LambdaTypeEdge = {
   __typename?: 'LambdaTypeEdge'
   cursor: Scalars['String']
   node: LambdaType
+}
+
+export type LambdaTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type LambdaTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type LambdaTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type LambdaTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type LambdaTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type LambdaTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<LambdaTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<LambdaTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<LambdaTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<LambdaTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<LambdaTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type LambdaTypeOptions = {
@@ -7250,6 +7555,7 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type LambdaTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<LambdaTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -7261,6 +7567,7 @@ export type LambdaTypeSort = {
 }
 
 export type LambdaTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<LambdaTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -7282,6 +7589,10 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
 export type LambdaTypeWhere = {
   AND?: InputMaybe<Array<LambdaTypeWhere>>
   OR?: InputMaybe<Array<LambdaTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -7332,6 +7643,8 @@ export enum MonacoLanguage {
 /** Allows editing the value using a monaco editor */
 export type MonacoType = TypeBase & {
   __typename?: 'MonacoType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   language: MonacoLanguage
@@ -7339,6 +7652,22 @@ export type MonacoType = TypeBase & {
   owner: User
   ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/** Allows editing the value using a monaco editor */
+export type MonacoTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Allows editing the value using a monaco editor */
+export type MonacoTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /** Allows editing the value using a monaco editor */
@@ -7371,6 +7700,7 @@ export type MonacoTypeAggregateSelection = {
 }
 
 export type MonacoTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<MonacoTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -7379,6 +7709,7 @@ export type MonacoTypeConnectOrCreateInput = {
 }
 
 export type MonacoTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   language: MonacoLanguage
@@ -7387,10 +7718,12 @@ export type MonacoTypeCreateInput = {
 }
 
 export type MonacoTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<MonacoTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type MonacoTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<MonacoTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -7398,6 +7731,41 @@ export type MonacoTypeEdge = {
   __typename?: 'MonacoTypeEdge'
   cursor: Scalars['String']
   node: MonacoType
+}
+
+export type MonacoTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type MonacoTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type MonacoTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type MonacoTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type MonacoTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type MonacoTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<MonacoTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<MonacoTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<MonacoTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<MonacoTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<MonacoTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type MonacoTypeOptions = {
@@ -7465,6 +7833,7 @@ export type MonacoTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type MonacoTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<MonacoTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -7477,6 +7846,7 @@ export type MonacoTypeSort = {
 }
 
 export type MonacoTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<MonacoTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   language?: InputMaybe<MonacoLanguage>
   name?: InputMaybe<Scalars['String']>
@@ -7499,6 +7869,10 @@ export type MonacoTypeUserOwnerNodeAggregateSelection = {
 export type MonacoTypeWhere = {
   AND?: InputMaybe<Array<MonacoTypeWhere>>
   OR?: InputMaybe<Array<MonacoTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -8954,12 +9328,30 @@ export type PageSort = {
 /** Allows picking a page from the list of pages */
 export type PageType = TypeBase & {
   __typename?: 'PageType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<PageTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/** Allows picking a page from the list of pages */
+export type PageTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Allows picking a page from the list of pages */
+export type PageTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /** Allows picking a page from the list of pages */
@@ -8992,6 +9384,7 @@ export type PageTypeAggregateSelection = {
 }
 
 export type PageTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<PageTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -9000,6 +9393,7 @@ export type PageTypeConnectOrCreateInput = {
 }
 
 export type PageTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -9007,10 +9401,12 @@ export type PageTypeCreateInput = {
 }
 
 export type PageTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<PageTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PageTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<PageTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -9018,6 +9414,41 @@ export type PageTypeEdge = {
   __typename?: 'PageTypeEdge'
   cursor: Scalars['String']
   node: PageType
+}
+
+export type PageTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type PageTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type PageTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type PageTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type PageTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type PageTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<PageTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<PageTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<PageTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<PageTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<PageTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type PageTypeOptions = {
@@ -9085,6 +9516,7 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type PageTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<PageTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -9096,6 +9528,7 @@ export type PageTypeSort = {
 }
 
 export type PageTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<PageTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -9117,6 +9550,10 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
 export type PageTypeWhere = {
   AND?: InputMaybe<Array<PageTypeWhere>>
   OR?: InputMaybe<Array<PageTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -9271,6 +9708,8 @@ export type ParentOfStoreWhere = {
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = TypeBase & {
   __typename?: 'PrimitiveType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
@@ -9278,6 +9717,22 @@ export type PrimitiveType = TypeBase & {
   ownerAggregate?: Maybe<PrimitiveTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
   primitiveKind: PrimitiveTypeKind
+}
+
+/** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
+export type PrimitiveTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
+export type PrimitiveTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
@@ -9310,6 +9765,7 @@ export type PrimitiveTypeAggregateSelection = {
 }
 
 export type PrimitiveTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<PrimitiveTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -9318,6 +9774,7 @@ export type PrimitiveTypeConnectOrCreateInput = {
 }
 
 export type PrimitiveTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -9326,10 +9783,12 @@ export type PrimitiveTypeCreateInput = {
 }
 
 export type PrimitiveTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<PrimitiveTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type PrimitiveTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<PrimitiveTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -9337,6 +9796,41 @@ export type PrimitiveTypeEdge = {
   __typename?: 'PrimitiveTypeEdge'
   cursor: Scalars['String']
   node: PrimitiveType
+}
+
+export type PrimitiveTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type PrimitiveTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type PrimitiveTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type PrimitiveTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type PrimitiveTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type PrimitiveTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<PrimitiveTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<PrimitiveTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<PrimitiveTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<PrimitiveTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<PrimitiveTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export enum PrimitiveTypeKind {
@@ -9411,6 +9905,7 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type PrimitiveTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<PrimitiveTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -9423,6 +9918,7 @@ export type PrimitiveTypeSort = {
 }
 
 export type PrimitiveTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<PrimitiveTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -9445,6 +9941,10 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
 export type PrimitiveTypeWhere = {
   AND?: InputMaybe<Array<PrimitiveTypeWhere>>
   OR?: InputMaybe<Array<PrimitiveTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -10799,12 +11299,48 @@ export type QueryUsersConnectionArgs = {
  */
 export type ReactNodeType = TypeBase & {
   __typename?: 'ReactNodeType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ReactNodeTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/**
+ * Allows picking a Component from the list of components.
+ * It is passed to the rendered element as a React node: `ReactNode`
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ReactNodeTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/**
+ * Allows picking a Component from the list of components.
+ * It is passed to the rendered element as a React node: `ReactNode`
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ReactNodeTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /**
@@ -10864,6 +11400,7 @@ export type ReactNodeTypeAggregateSelection = {
 }
 
 export type ReactNodeTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<ReactNodeTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -10872,6 +11409,7 @@ export type ReactNodeTypeConnectOrCreateInput = {
 }
 
 export type ReactNodeTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -10879,10 +11417,12 @@ export type ReactNodeTypeCreateInput = {
 }
 
 export type ReactNodeTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<ReactNodeTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type ReactNodeTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<ReactNodeTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -10890,6 +11430,41 @@ export type ReactNodeTypeEdge = {
   __typename?: 'ReactNodeTypeEdge'
   cursor: Scalars['String']
   node: ReactNodeType
+}
+
+export type ReactNodeTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type ReactNodeTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type ReactNodeTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ReactNodeTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type ReactNodeTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type ReactNodeTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<ReactNodeTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<ReactNodeTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<ReactNodeTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<ReactNodeTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<ReactNodeTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type ReactNodeTypeOptions = {
@@ -10957,6 +11532,7 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ReactNodeTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<ReactNodeTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -10968,6 +11544,7 @@ export type ReactNodeTypeSort = {
 }
 
 export type ReactNodeTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<ReactNodeTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -10989,6 +11566,10 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
 export type ReactNodeTypeWhere = {
   AND?: InputMaybe<Array<ReactNodeTypeWhere>>
   OR?: InputMaybe<Array<ReactNodeTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -11040,12 +11621,50 @@ export type ReactNodeTypesConnection = {
  */
 export type RenderPropsType = TypeBase & {
   __typename?: 'RenderPropsType'
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
   ownerConnection: TypeBaseOwnerConnection
+}
+
+/**
+ * Allows picking a Component from the list of components.
+ * It is passed to the rendered element as a function that takes props as input
+ * and returns a React element: '(props) => ReactNode'
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type RenderPropsTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/**
+ * Allows picking a Component from the list of components.
+ * It is passed to the rendered element as a function that takes props as input
+ * and returns a React element: '(props) => ReactNode'
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type RenderPropsTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 /**
@@ -11108,6 +11727,7 @@ export type RenderPropsTypeAggregateSelection = {
 }
 
 export type RenderPropsTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<RenderPropsTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -11116,6 +11736,7 @@ export type RenderPropsTypeConnectOrCreateInput = {
 }
 
 export type RenderPropsTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -11123,10 +11744,12 @@ export type RenderPropsTypeCreateInput = {
 }
 
 export type RenderPropsTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<RenderPropsTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type RenderPropsTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<RenderPropsTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -11134,6 +11757,41 @@ export type RenderPropsTypeEdge = {
   __typename?: 'RenderPropsTypeEdge'
   cursor: Scalars['String']
   node: RenderPropsType
+}
+
+export type RenderPropsTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type RenderPropsTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type RenderPropsTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type RenderPropsTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type RenderPropsTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type RenderPropsTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<RenderPropsTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<RenderPropsTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<RenderPropsTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<RenderPropsTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<RenderPropsTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type RenderPropsTypeOptions = {
@@ -11201,6 +11859,7 @@ export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type RenderPropsTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<RenderPropsTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -11212,6 +11871,7 @@ export type RenderPropsTypeSort = {
 }
 
 export type RenderPropsTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<RenderPropsTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -11233,6 +11893,10 @@ export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
 export type RenderPropsTypeWhere = {
   AND?: InputMaybe<Array<RenderPropsTypeWhere>>
   OR?: InputMaybe<Array<RenderPropsTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -13506,11 +14170,27 @@ export type TagsConnection = {
 }
 
 export type TypeBase = {
+  fieldFor: Array<TypeBase>
+  fieldForConnection: TypeBaseFieldForConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
   owner: User
   ownerConnection: TypeBaseOwnerConnection
+}
+
+export type TypeBaseFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+export type TypeBaseFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type TypeBaseOwnerArgs = {
@@ -13529,6 +14209,7 @@ export type TypeBaseOwnerConnectionArgs = {
 
 export type TypeBaseConnectInput = {
   _on?: InputMaybe<TypeBaseImplementationsConnectInput>
+  fieldFor?: InputMaybe<Array<TypeBaseFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -13553,12 +14234,85 @@ export type TypeBaseCreateInput = {
 
 export type TypeBaseDeleteInput = {
   _on?: InputMaybe<TypeBaseImplementationsDeleteInput>
+  fieldFor?: InputMaybe<Array<TypeBaseFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type TypeBaseDisconnectInput = {
   _on?: InputMaybe<TypeBaseImplementationsDisconnectInput>
+  fieldFor?: InputMaybe<Array<TypeBaseFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+}
+
+export type TypeBaseFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type TypeBaseFieldForConnection = {
+  __typename?: 'TypeBaseFieldForConnection'
+  edges: Array<TypeBaseFieldForRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TypeBaseFieldForConnectionSort = {
+  edge?: InputMaybe<FieldSort>
+  node?: InputMaybe<TypeBaseSort>
+}
+
+export type TypeBaseFieldForConnectionWhere = {
+  AND?: InputMaybe<Array<TypeBaseFieldForConnectionWhere>>
+  OR?: InputMaybe<Array<TypeBaseFieldForConnectionWhere>>
+  edge?: InputMaybe<FieldWhere>
+  edge_NOT?: InputMaybe<FieldWhere>
+  node?: InputMaybe<TypeBaseWhere>
+  node_NOT?: InputMaybe<TypeBaseWhere>
+}
+
+export type TypeBaseFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type TypeBaseFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type TypeBaseFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type TypeBaseFieldForFieldInput = {
+  connect?: InputMaybe<Array<TypeBaseFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<TypeBaseFieldForCreateFieldInput>>
+}
+
+export type TypeBaseFieldForRelationship = Field & {
+  __typename?: 'TypeBaseFieldForRelationship'
+  cursor: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  id: Scalars['ID']
+  key: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  node: TypeBase
+}
+
+export type TypeBaseFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type TypeBaseFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<TypeBaseFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<TypeBaseFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<TypeBaseFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<TypeBaseFieldForDisconnectFieldInput>>
+  update?: InputMaybe<TypeBaseFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type TypeBaseImplementationsConnectInput = {
@@ -13781,6 +14535,7 @@ export type TypeBaseSort = {
 
 export type TypeBaseUpdateInput = {
   _on?: InputMaybe<TypeBaseImplementationsUpdateInput>
+  fieldFor?: InputMaybe<Array<TypeBaseFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -13788,6 +14543,10 @@ export type TypeBaseUpdateInput = {
 
 export type TypeBaseWhere = {
   _on?: InputMaybe<TypeBaseImplementationsWhere>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -13915,6 +14674,8 @@ export type UnionType = TypeBase &
   WithDescendants & {
     __typename?: 'UnionType'
     descendantTypesIds: Array<Scalars['ID']>
+    fieldFor: Array<TypeBase>
+    fieldForConnection: TypeBaseFieldForConnection
     id: Scalars['ID']
     kind: TypeKind
     name: Scalars['String']
@@ -13924,6 +14685,22 @@ export type UnionType = TypeBase &
     typesOfUnionType: Array<TypeBase>
     typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection
   }
+
+/** Allows picking one of a set of types */
+export type UnionTypeFieldForArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<TypeBaseOptions>
+  where?: InputMaybe<TypeBaseWhere>
+}
+
+/** Allows picking one of a set of types */
+export type UnionTypeFieldForConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseFieldForConnectionSort>>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
@@ -13971,6 +14748,7 @@ export type UnionTypeAggregateSelection = {
 }
 
 export type UnionTypeConnectInput = {
+  fieldFor?: InputMaybe<Array<UnionTypeFieldForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeConnectFieldInput>
@@ -13982,6 +14760,7 @@ export type UnionTypeConnectOrCreateInput = {
 }
 
 export type UnionTypeCreateInput = {
+  fieldFor?: InputMaybe<TypeBaseFieldForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -13990,6 +14769,7 @@ export type UnionTypeCreateInput = {
 }
 
 export type UnionTypeDeleteInput = {
+  fieldFor?: InputMaybe<Array<UnionTypeFieldForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>
@@ -13997,6 +14777,7 @@ export type UnionTypeDeleteInput = {
 }
 
 export type UnionTypeDisconnectInput = {
+  fieldFor?: InputMaybe<Array<UnionTypeFieldForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>
@@ -14007,6 +14788,41 @@ export type UnionTypeEdge = {
   __typename?: 'UnionTypeEdge'
   cursor: Scalars['String']
   node: UnionType
+}
+
+export type UnionTypeFieldForConnectFieldInput = {
+  connect?: InputMaybe<TypeBaseConnectInput>
+  edge: FieldCreateInput
+  where?: InputMaybe<TypeBaseConnectWhere>
+}
+
+export type UnionTypeFieldForCreateFieldInput = {
+  edge: FieldCreateInput
+  node: TypeBaseCreateInput
+}
+
+export type UnionTypeFieldForDeleteFieldInput = {
+  delete?: InputMaybe<TypeBaseDeleteInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type UnionTypeFieldForDisconnectFieldInput = {
+  disconnect?: InputMaybe<TypeBaseDisconnectInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
+}
+
+export type UnionTypeFieldForUpdateConnectionInput = {
+  edge?: InputMaybe<FieldUpdateInput>
+  node?: InputMaybe<TypeBaseUpdateInput>
+}
+
+export type UnionTypeFieldForUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeFieldForConnectFieldInput>>
+  create?: InputMaybe<Array<UnionTypeFieldForCreateFieldInput>>
+  delete?: InputMaybe<Array<UnionTypeFieldForDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<UnionTypeFieldForDisconnectFieldInput>>
+  update?: InputMaybe<UnionTypeFieldForUpdateConnectionInput>
+  where?: InputMaybe<TypeBaseFieldForConnectionWhere>
 }
 
 export type UnionTypeOptions = {
@@ -14074,6 +14890,7 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type UnionTypeRelationInput = {
+  fieldFor?: InputMaybe<Array<UnionTypeFieldForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
   typesOfUnionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeCreateFieldInput>
@@ -14149,6 +14966,7 @@ export type UnionTypeTypesOfUnionTypeUpdateFieldInput = {
 }
 
 export type UnionTypeUpdateInput = {
+  fieldFor?: InputMaybe<Array<UnionTypeFieldForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -14173,6 +14991,10 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
 export type UnionTypeWhere = {
   AND?: InputMaybe<Array<UnionTypeWhere>>
   OR?: InputMaybe<Array<UnionTypeWhere>>
+  fieldForConnection_ALL?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_NONE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SINGLE?: InputMaybe<TypeBaseFieldForConnectionWhere>
+  fieldForConnection_SOME?: InputMaybe<TypeBaseFieldForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>

@@ -1,14 +1,12 @@
 import { UserOGM } from '@codelab/backend'
-import {
-  createAntDesignAtomsData,
-  createPrimitiveTypesData,
-} from '@codelab/shared/data'
+import { createPrimitiveTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
 import { createApp } from '../../repository/app.repo'
 import { defaultOutputPath, ExportedData } from '../export/export.command'
+import { createAntDesignAtomsData } from '../seed/ant-design'
 import { SeederService } from '../seed/seeder.service'
 import { importAtom } from './import-atom'
 import { importType } from './import-type'

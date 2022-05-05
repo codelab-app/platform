@@ -7,8 +7,8 @@ export const generateOgmTypes = async () => {
   // Only generate types when you make a schema change
   const outFile = path.resolve(
     process.cwd(),
-    'libs/backend',
-    'src/infra/ogm-types.gen.ts',
+    'libs/shared/abstract/codegen',
+    'src/ogm-types.gen.ts',
   )
 
   const data = await generate({
