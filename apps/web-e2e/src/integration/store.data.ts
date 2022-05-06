@@ -21,7 +21,6 @@ export const parentStoreInput = (ownerId: string): StoreCreateInput => ({
         kind: ITypeKind.InterfaceType,
         id: v4(),
         fields: {},
-        fieldFor: {},
         apiOfAtoms: {},
         owner: connectOwner(ownerId),
       },
