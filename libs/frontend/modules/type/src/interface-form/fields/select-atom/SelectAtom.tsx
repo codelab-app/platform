@@ -7,18 +7,19 @@ import { interfaceFormApi } from '../../../store'
 
 export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
 
-export const SelectAtom = ({ name, error }: SelectAtomProps) => {
-  const {
-    data,
-    isLoading,
-    error: queryError,
-  } = useQuery('interface-form/select-atom', () =>
-    interfaceFormApi.InterfaceForm_GetAtoms({
-      where: { name_NOT_CONTAINS: 'Hook' },
-    }),
+/**
+ * @returns { data, isLoading, error }
+ */
+export const useGetAllAtoms = () => {
+  const { data, isLoading, error } = useQuery(
+    'interface-form/select-atom',
+    () =>
+      interfaceFormApi.InterfaceForm_GetAtoms({
+        where: { name_NOT_CONTAINS: 'Hook' },
+      }),
   )
 
-  const componentOptions =
+  const atomOptions =
     data?.atoms
       ?.filter((x) => filterNotHookType(x.type))
       .map((atom) => ({
@@ -26,13 +27,24 @@ export const SelectAtom = ({ name, error }: SelectAtomProps) => {
         value: atom.id,
       })) ?? []
 
+  return {
+    data,
+    atomOptions,
+    isLoading,
+    error,
+  }
+}
+
+export const SelectAtom = ({ name, error }: SelectAtomProps) => {
+  const { atomOptions, isLoading, error: queryError } = useGetAllAtoms()
+
   return (
     <SelectField
       error={error || queryError}
       loading={isLoading}
       name={name}
       optionFilterProp="label"
-      options={componentOptions}
+      options={atomOptions}
       showSearch
     />
   )

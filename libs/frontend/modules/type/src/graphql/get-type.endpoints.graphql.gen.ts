@@ -31,6 +31,7 @@ export type GetTypesQuery = {
   interfaceTypes: Array<Type_InterfaceType_Fragment>
   elementTypes: Array<Type_ElementType_Fragment>
   renderPropsTypes: Array<Type_RenderPropsType_Fragment>
+  reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   enumTypes: Array<Type_EnumType_Fragment>
   lambdaTypes: Array<Type_LambdaType_Fragment>
   pageTypes: Array<Type_PageType_Fragment>
@@ -156,6 +157,9 @@ export const GetTypesDocument = gql`
       ...Type
     }
     renderPropsTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    reactNodeTypes(where: { id_IN: $ids }) {
       ...Type
     }
     enumTypes(where: { id_IN: $ids }) {

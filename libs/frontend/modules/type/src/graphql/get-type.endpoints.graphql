@@ -17,6 +17,9 @@ query GetTypes($ids: [ID!]) {
   renderPropsTypes(where: { id_IN: $ids }) {
     ...Type
   }
+  reactNodeTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
   enumTypes(where: { id_IN: $ids }) {
     ...Type
   }

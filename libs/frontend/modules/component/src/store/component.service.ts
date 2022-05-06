@@ -58,7 +58,7 @@ export class ComponentService
           return componentModel
         }
       })
-      .filter((component): component is Component => !component)
+      .filter((component): component is Component => Boolean(component))
   })
 
   @modelFlow

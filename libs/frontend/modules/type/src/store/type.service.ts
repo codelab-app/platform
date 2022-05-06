@@ -164,6 +164,9 @@ export class TypeService
     return yield* _await(this.getAll({ id_IN: allIds }))
   })
 
+  /**
+   * A wrapper around getAllWithDescendants with some type checking
+   */
   @modelFlow
   @transaction
   getInterfaceAndDescendants = _async(function* (

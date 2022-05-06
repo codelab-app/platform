@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import useDeepCompareEffect from 'use-deep-compare-effect'
-import { propsFieldFactory } from './props-field.factory'
+import { PropsFieldFactory } from './props-field.factory'
 
 export interface PropsFormProps {
   interfaceType: IInterfaceType
@@ -54,7 +54,7 @@ export const PropsForm = observer<PropsFormProps>(
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>
         {fields.map((field) =>
-          propsFieldFactory(field, form, autocompleteContext),
+          PropsFieldFactory(field, form, autocompleteContext),
         )}
       </form>
     )
