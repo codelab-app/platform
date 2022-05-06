@@ -88,26 +88,20 @@ export class ElementTree
 
   @modelAction
   updateCache(elementsDTO: Array<IElementDTO>, rootId?: string) {
-    for (const element of elementsDTO) {
-      this.elements.set(element.id, Element.hydrate(element))
-    }
-
     this.updateAtomsCache(elementsDTO)
     this.updateComponentsCache(elementsDTO)
 
     for (const elementDTO of elementsDTO) {
-      let element = this.element(elementDTO.id)
+      const element = this.element(elementDTO.id) || Element.hydrate(elementDTO)
 
       // Update cache if exists, other create new
-      element
-        ? element.updateCache(elementDTO)
-        : (element = Element.hydrate(elementDTO))
+      this.updateOrCreate(element, elementDTO)
 
-      // this.elements.set(elementDTO.id, element)
-
-      if (!elementDTO.parentElement?.id) {
+      if (!element.parentId) {
         this.set_root(elementRef(element))
-      } else if (elementDTO.component) {
+      }
+
+      if (elementDTO.component) {
         this.componentRoots.set(elementDTO.id, elementRef(element))
       }
     }
@@ -130,6 +124,16 @@ export class ElementTree
     }
 
     return [...this.elements.values()]
+  }
+
+  updateOrCreate(element: Element, elementDTO: IElementDTO) {
+    if (this.elements.has(element.id)) {
+      element.updateCache(elementDTO)
+
+      return
+    }
+
+    this.elements.set(element.id, element)
   }
 
   /**

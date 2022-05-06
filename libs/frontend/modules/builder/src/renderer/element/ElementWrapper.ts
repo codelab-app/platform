@@ -4,6 +4,7 @@ import {
   IRenderService,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
+import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
@@ -56,12 +57,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-
-      const IntermediateChildren = React.createElement(
-        ReactComponent,
-        extractedProps,
-        children,
-      )
+      const IntermediateChildren = jsx(ReactComponent, extractedProps, children)
 
       const withMaybeProviders = withMaybeGlobalPropsProvider(
         renderOutput,

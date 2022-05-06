@@ -1,3 +1,4 @@
+import { getComponentService } from '@codelab/frontend/modules/component'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   ElementCreateInput,
@@ -394,6 +395,7 @@ export class ElementService
             node: {
               name: element.label,
               owner: { connect: { where: { node: { auth0Id: userId } } } },
+              rootElement: { connect: { where: { node: { id: element.id } } } },
             },
           },
         },
@@ -404,7 +406,10 @@ export class ElementService
       throw new Error('Could not find component')
     }
 
-    // 2. Make an intermediate element with instance of the Component
+    // 2. Load component so we can use reference
+    yield* _await(getComponentService(this).getOne(element.component.id))
+
+    // 3. Make an intermediate element with instance of the Component
     yield* _await(
       this.create([
         {

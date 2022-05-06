@@ -189,25 +189,8 @@ export class Element
 
   @computed
   get parentElement() {
-    let parent: any = getParent(this)
-
-    if (parent?.$modelType === '@codelab/ElementTree') {
-      // This is the root of the tree
-      return undefined
-    }
-
-    /*
-     * usually the first parent will be the 'children' objectMap. To get to the parent element, we need to get the parent of the objectMap
-     * For some reason it's two levels deep
-     */
-    parent = getParent(parent)
-    parent = getParent(parent)
-
-    if (parent?.$modelType === '@codelab/Element') {
-      return parent
-    }
-
-    return undefined
+    // the parent is ObjectMap items
+    return this.parentId ? getParent(this)[this.parentId] : undefined
   }
 
   @computed

@@ -56,7 +56,7 @@ const checkForOpenLeftSideBracket = (context: CompletionContext): boolean => {
 export const makeCompletionOptionsFromObjectKeys = (
   autocompleteContext: any,
 ): Array<Completion> => {
-  return Object.entries(autocompleteContext).map(([key, value]) => ({
+  return Object.entries(autocompleteContext || {}).map(([key, value]) => ({
     label: key,
     type: typeof value == 'function' ? 'function' : 'variable',
   }))
