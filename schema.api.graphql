@@ -1022,18 +1022,6 @@ input AppStoreUpdateFieldInput {
 Allows picking a app from the list of apps
 """
 type AppType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -1058,7 +1046,6 @@ type AppTypeAggregateSelection {
 }
 
 input AppTypeConnectInput {
-  fieldFor: [AppTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -1067,7 +1054,6 @@ input AppTypeConnectOrCreateInput {
 }
 
 input AppTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = AppType
   name: String!
@@ -1075,53 +1061,16 @@ input AppTypeCreateInput {
 }
 
 input AppTypeDeleteInput {
-  fieldFor: [AppTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input AppTypeDisconnectInput {
-  fieldFor: [AppTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type AppTypeEdge {
   cursor: String!
   node: AppType!
-}
-
-input AppTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input AppTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input AppTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input AppTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input AppTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input AppTypeFieldForUpdateFieldInput {
-  connect: [AppTypeFieldForConnectFieldInput!]
-  create: [AppTypeFieldForCreateFieldInput!]
-  delete: [AppTypeFieldForDeleteFieldInput!]
-  disconnect: [AppTypeFieldForDisconnectFieldInput!]
-  update: AppTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input AppTypeOptions {
@@ -1192,7 +1141,6 @@ input AppTypeOwnerNodeAggregationWhereInput {
 }
 
 input AppTypeRelationInput {
-  fieldFor: [AppTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -1206,7 +1154,6 @@ input AppTypeSort {
 }
 
 input AppTypeUpdateInput {
-  fieldFor: [AppTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -1226,10 +1173,6 @@ type AppTypeUserOwnerNodeAggregateSelection {
 input AppTypeWhere {
   AND: [AppTypeWhere!]
   OR: [AppTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -1368,18 +1311,6 @@ Contains a reference to another type which is the array item type.
 """
 type ArrayType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   itemType(
     directed: Boolean = true
@@ -1416,7 +1347,6 @@ type ArrayTypeAggregateSelection {
 }
 
 input ArrayTypeConnectInput {
-  fieldFor: [ArrayTypeFieldForConnectFieldInput!]
   itemType: ArrayTypeItemTypeConnectFieldInput
   owner: TypeBaseOwnerConnectFieldInput
 }
@@ -1426,7 +1356,6 @@ input ArrayTypeConnectOrCreateInput {
 }
 
 input ArrayTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   itemType: ArrayTypeItemTypeFieldInput
   kind: TypeKind! = ArrayType
@@ -1435,13 +1364,11 @@ input ArrayTypeCreateInput {
 }
 
 input ArrayTypeDeleteInput {
-  fieldFor: [ArrayTypeFieldForDeleteFieldInput!]
   itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
-  fieldFor: [ArrayTypeFieldForDisconnectFieldInput!]
   itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: TypeBaseOwnerDisconnectFieldInput
 }
@@ -1449,41 +1376,6 @@ input ArrayTypeDisconnectInput {
 type ArrayTypeEdge {
   cursor: String!
   node: ArrayType!
-}
-
-input ArrayTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input ArrayTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input ArrayTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ArrayTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ArrayTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input ArrayTypeFieldForUpdateFieldInput {
-  connect: [ArrayTypeFieldForConnectFieldInput!]
-  create: [ArrayTypeFieldForCreateFieldInput!]
-  delete: [ArrayTypeFieldForDeleteFieldInput!]
-  disconnect: [ArrayTypeFieldForDisconnectFieldInput!]
-  update: ArrayTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input ArrayTypeItemTypeConnectFieldInput {
@@ -1613,7 +1505,6 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 }
 
 input ArrayTypeRelationInput {
-  fieldFor: [ArrayTypeFieldForCreateFieldInput!]
   itemType: ArrayTypeItemTypeCreateFieldInput
   owner: TypeBaseOwnerCreateFieldInput
 }
@@ -1628,7 +1519,6 @@ input ArrayTypeSort {
 }
 
 input ArrayTypeUpdateInput {
-  fieldFor: [ArrayTypeFieldForUpdateFieldInput!]
   id: ID
   itemType: ArrayTypeItemTypeUpdateFieldInput
   name: String
@@ -1649,10 +1539,6 @@ type ArrayTypeUserOwnerNodeAggregateSelection {
 input ArrayTypeWhere {
   AND: [ArrayTypeWhere!]
   OR: [ArrayTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -4693,18 +4579,6 @@ type ElementType implements TypeBase {
   Allows scoping the type of element to only descendants, children or all elements
   """
   elementKind: ElementTypeKind!
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -4729,7 +4603,6 @@ type ElementTypeAggregateSelection {
 }
 
 input ElementTypeConnectInput {
-  fieldFor: [ElementTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -4739,7 +4612,6 @@ input ElementTypeConnectOrCreateInput {
 
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = ElementType
   name: String!
@@ -4747,53 +4619,16 @@ input ElementTypeCreateInput {
 }
 
 input ElementTypeDeleteInput {
-  fieldFor: [ElementTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ElementTypeDisconnectInput {
-  fieldFor: [ElementTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type ElementTypeEdge {
   cursor: String!
   node: ElementType!
-}
-
-input ElementTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input ElementTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input ElementTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ElementTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ElementTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input ElementTypeFieldForUpdateFieldInput {
-  connect: [ElementTypeFieldForConnectFieldInput!]
-  create: [ElementTypeFieldForCreateFieldInput!]
-  delete: [ElementTypeFieldForDeleteFieldInput!]
-  disconnect: [ElementTypeFieldForDisconnectFieldInput!]
-  update: ElementTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 enum ElementTypeKind {
@@ -4886,7 +4721,6 @@ input ElementTypeOwnerNodeAggregationWhereInput {
 }
 
 input ElementTypeRelationInput {
-  fieldFor: [ElementTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -4902,7 +4736,6 @@ input ElementTypeSort {
 
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
-  fieldFor: [ElementTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -4926,10 +4759,6 @@ input ElementTypeWhere {
   elementKind_IN: [ElementTypeKind!]
   elementKind_NOT: ElementTypeKind
   elementKind_NOT_IN: [ElementTypeKind!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -5181,18 +5010,6 @@ type EnumType implements TypeBase {
     sort: [EnumTypeAllowedValuesConnectionSort!]
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -5334,7 +5151,6 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
-  fieldFor: [EnumTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -5352,7 +5168,6 @@ input EnumTypeConnectWhere {
 
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = EnumType
   name: String!
@@ -5361,13 +5176,11 @@ input EnumTypeCreateInput {
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
-  fieldFor: [EnumTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
-  fieldFor: [EnumTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
@@ -5385,41 +5198,6 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
   value: StringAggregateSelectionNonNullable!
-}
-
-input EnumTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input EnumTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input EnumTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input EnumTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input EnumTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input EnumTypeFieldForUpdateFieldInput {
-  connect: [EnumTypeFieldForConnectFieldInput!]
-  create: [EnumTypeFieldForCreateFieldInput!]
-  delete: [EnumTypeFieldForDeleteFieldInput!]
-  disconnect: [EnumTypeFieldForDisconnectFieldInput!]
-  update: EnumTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input EnumTypeOnCreateInput {
@@ -5496,7 +5274,6 @@ input EnumTypeOwnerNodeAggregationWhereInput {
 
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
-  fieldFor: [EnumTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -5515,7 +5292,6 @@ input EnumTypeUniqueWhere {
 
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
-  fieldFor: [EnumTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -5814,10 +5590,6 @@ input EnumTypeWhere {
   Return EnumTypes where some of the related EnumTypeValues match this filter
   """
   allowedValues_SOME: EnumTypeValueWhere
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -6439,18 +6211,7 @@ type InterfaceType implements TypeBase & WithDescendants {
     where: InterfaceTypeApiOfAtomsConnectionWhere
   ): InterfaceTypeApiOfAtomsConnection!
   descendantTypesIds: [ID!]!
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
+  fieldFor: [TypeBase!]!
   fields(
     directed: Boolean = true
     options: TypeBaseOptions
@@ -6605,7 +6366,6 @@ type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
 
 input InterfaceTypeConnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
-  fieldFor: [InterfaceTypeFieldForConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
@@ -6625,7 +6385,6 @@ input InterfaceTypeConnectWhere {
 
 input InterfaceTypeCreateInput {
   apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
-  fieldFor: TypeBaseFieldForFieldInput
   fields: InterfaceTypeFieldsFieldInput
   id: ID!
   kind: TypeKind! = InterfaceType
@@ -6635,14 +6394,12 @@ input InterfaceTypeCreateInput {
 
 input InterfaceTypeDeleteInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
-  fieldFor: [InterfaceTypeFieldForDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input InterfaceTypeDisconnectInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
-  fieldFor: [InterfaceTypeFieldForDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
@@ -6650,41 +6407,6 @@ input InterfaceTypeDisconnectInput {
 type InterfaceTypeEdge {
   cursor: String!
   node: InterfaceType!
-}
-
-input InterfaceTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input InterfaceTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input InterfaceTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input InterfaceTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input InterfaceTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input InterfaceTypeFieldForUpdateFieldInput {
-  connect: [InterfaceTypeFieldForConnectFieldInput!]
-  create: [InterfaceTypeFieldForCreateFieldInput!]
-  delete: [InterfaceTypeFieldForDeleteFieldInput!]
-  disconnect: [InterfaceTypeFieldForDisconnectFieldInput!]
-  update: InterfaceTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input InterfaceTypeFieldsConnectFieldInput {
@@ -6830,7 +6552,6 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 
 input InterfaceTypeRelationInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
-  fieldFor: [InterfaceTypeFieldForCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
@@ -6850,7 +6571,6 @@ input InterfaceTypeUniqueWhere {
 
 input InterfaceTypeUpdateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
-  fieldFor: [InterfaceTypeFieldForUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   id: ID
   name: String
@@ -6896,10 +6616,6 @@ input InterfaceTypeWhere {
   Return InterfaceTypes where some of the related Atoms match this filter
   """
   apiOfAtoms_SOME: AtomWhere
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   fieldsConnection_ALL: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NONE: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_SINGLE: InterfaceTypeFieldsConnectionWhere
@@ -6945,18 +6661,6 @@ type InterfaceTypesConnection {
 Allows picking a lambda
 """
 type LambdaType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -6981,7 +6685,6 @@ type LambdaTypeAggregateSelection {
 }
 
 input LambdaTypeConnectInput {
-  fieldFor: [LambdaTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -6990,7 +6693,6 @@ input LambdaTypeConnectOrCreateInput {
 }
 
 input LambdaTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = LambdaType
   name: String!
@@ -6998,53 +6700,16 @@ input LambdaTypeCreateInput {
 }
 
 input LambdaTypeDeleteInput {
-  fieldFor: [LambdaTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input LambdaTypeDisconnectInput {
-  fieldFor: [LambdaTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type LambdaTypeEdge {
   cursor: String!
   node: LambdaType!
-}
-
-input LambdaTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input LambdaTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input LambdaTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input LambdaTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input LambdaTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input LambdaTypeFieldForUpdateFieldInput {
-  connect: [LambdaTypeFieldForConnectFieldInput!]
-  create: [LambdaTypeFieldForCreateFieldInput!]
-  delete: [LambdaTypeFieldForDeleteFieldInput!]
-  disconnect: [LambdaTypeFieldForDisconnectFieldInput!]
-  update: LambdaTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input LambdaTypeOptions {
@@ -7115,7 +6780,6 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
 }
 
 input LambdaTypeRelationInput {
-  fieldFor: [LambdaTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -7129,7 +6793,6 @@ input LambdaTypeSort {
 }
 
 input LambdaTypeUpdateInput {
-  fieldFor: [LambdaTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -7149,10 +6812,6 @@ type LambdaTypeUserOwnerNodeAggregateSelection {
 input LambdaTypeWhere {
   AND: [LambdaTypeWhere!]
   OR: [LambdaTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -7203,18 +6862,6 @@ enum MonacoLanguage {
 Allows editing the value using a monaco editor
 """
 type MonacoType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   language: MonacoLanguage!
@@ -7240,7 +6887,6 @@ type MonacoTypeAggregateSelection {
 }
 
 input MonacoTypeConnectInput {
-  fieldFor: [MonacoTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -7249,7 +6895,6 @@ input MonacoTypeConnectOrCreateInput {
 }
 
 input MonacoTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = MonacoType
   language: MonacoLanguage!
@@ -7258,53 +6903,16 @@ input MonacoTypeCreateInput {
 }
 
 input MonacoTypeDeleteInput {
-  fieldFor: [MonacoTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input MonacoTypeDisconnectInput {
-  fieldFor: [MonacoTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type MonacoTypeEdge {
   cursor: String!
   node: MonacoType!
-}
-
-input MonacoTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input MonacoTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input MonacoTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input MonacoTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input MonacoTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input MonacoTypeFieldForUpdateFieldInput {
-  connect: [MonacoTypeFieldForConnectFieldInput!]
-  create: [MonacoTypeFieldForCreateFieldInput!]
-  delete: [MonacoTypeFieldForDeleteFieldInput!]
-  disconnect: [MonacoTypeFieldForDisconnectFieldInput!]
-  update: MonacoTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input MonacoTypeOptions {
@@ -7375,7 +6983,6 @@ input MonacoTypeOwnerNodeAggregationWhereInput {
 }
 
 input MonacoTypeRelationInput {
-  fieldFor: [MonacoTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -7390,7 +6997,6 @@ input MonacoTypeSort {
 }
 
 input MonacoTypeUpdateInput {
-  fieldFor: [MonacoTypeFieldForUpdateFieldInput!]
   id: ID
   language: MonacoLanguage
   name: String
@@ -7411,10 +7017,6 @@ type MonacoTypeUserOwnerNodeAggregateSelection {
 input MonacoTypeWhere {
   AND: [MonacoTypeWhere!]
   OR: [MonacoTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -8595,18 +8197,6 @@ input PageSort {
 Allows picking a page from the list of pages
 """
 type PageType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -8631,7 +8221,6 @@ type PageTypeAggregateSelection {
 }
 
 input PageTypeConnectInput {
-  fieldFor: [PageTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -8640,7 +8229,6 @@ input PageTypeConnectOrCreateInput {
 }
 
 input PageTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = PageType
   name: String!
@@ -8648,53 +8236,16 @@ input PageTypeCreateInput {
 }
 
 input PageTypeDeleteInput {
-  fieldFor: [PageTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input PageTypeDisconnectInput {
-  fieldFor: [PageTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type PageTypeEdge {
   cursor: String!
   node: PageType!
-}
-
-input PageTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input PageTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input PageTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input PageTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input PageTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input PageTypeFieldForUpdateFieldInput {
-  connect: [PageTypeFieldForConnectFieldInput!]
-  create: [PageTypeFieldForCreateFieldInput!]
-  delete: [PageTypeFieldForDeleteFieldInput!]
-  disconnect: [PageTypeFieldForDisconnectFieldInput!]
-  update: PageTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input PageTypeOptions {
@@ -8765,7 +8316,6 @@ input PageTypeOwnerNodeAggregationWhereInput {
 }
 
 input PageTypeRelationInput {
-  fieldFor: [PageTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -8779,7 +8329,6 @@ input PageTypeSort {
 }
 
 input PageTypeUpdateInput {
-  fieldFor: [PageTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -8799,10 +8348,6 @@ type PageTypeUserOwnerNodeAggregateSelection {
 input PageTypeWhere {
   AND: [PageTypeWhere!]
   OR: [PageTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -8956,18 +8501,6 @@ input ParentOfStoreWhere {
 Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
 """
 type PrimitiveType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -8993,7 +8526,6 @@ type PrimitiveTypeAggregateSelection {
 }
 
 input PrimitiveTypeConnectInput {
-  fieldFor: [PrimitiveTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -9002,7 +8534,6 @@ input PrimitiveTypeConnectOrCreateInput {
 }
 
 input PrimitiveTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = PrimitiveType
   name: String!
@@ -9011,53 +8542,16 @@ input PrimitiveTypeCreateInput {
 }
 
 input PrimitiveTypeDeleteInput {
-  fieldFor: [PrimitiveTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input PrimitiveTypeDisconnectInput {
-  fieldFor: [PrimitiveTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type PrimitiveTypeEdge {
   cursor: String!
   node: PrimitiveType!
-}
-
-input PrimitiveTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input PrimitiveTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input PrimitiveTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input PrimitiveTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input PrimitiveTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input PrimitiveTypeFieldForUpdateFieldInput {
-  connect: [PrimitiveTypeFieldForConnectFieldInput!]
-  create: [PrimitiveTypeFieldForCreateFieldInput!]
-  delete: [PrimitiveTypeFieldForDeleteFieldInput!]
-  disconnect: [PrimitiveTypeFieldForDisconnectFieldInput!]
-  update: PrimitiveTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 enum PrimitiveTypeKind {
@@ -9135,7 +8629,6 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
 }
 
 input PrimitiveTypeRelationInput {
-  fieldFor: [PrimitiveTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -9150,7 +8643,6 @@ input PrimitiveTypeSort {
 }
 
 input PrimitiveTypeUpdateInput {
-  fieldFor: [PrimitiveTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -9171,10 +8663,6 @@ type PrimitiveTypeUserOwnerNodeAggregateSelection {
 input PrimitiveTypeWhere {
   AND: [PrimitiveTypeWhere!]
   OR: [PrimitiveTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10215,18 +9703,6 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type ReactNodeType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -10251,7 +9727,6 @@ type ReactNodeTypeAggregateSelection {
 }
 
 input ReactNodeTypeConnectInput {
-  fieldFor: [ReactNodeTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -10260,7 +9735,6 @@ input ReactNodeTypeConnectOrCreateInput {
 }
 
 input ReactNodeTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = ReactNodeType
   name: String!
@@ -10268,53 +9742,16 @@ input ReactNodeTypeCreateInput {
 }
 
 input ReactNodeTypeDeleteInput {
-  fieldFor: [ReactNodeTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input ReactNodeTypeDisconnectInput {
-  fieldFor: [ReactNodeTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type ReactNodeTypeEdge {
   cursor: String!
   node: ReactNodeType!
-}
-
-input ReactNodeTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input ReactNodeTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input ReactNodeTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ReactNodeTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input ReactNodeTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input ReactNodeTypeFieldForUpdateFieldInput {
-  connect: [ReactNodeTypeFieldForConnectFieldInput!]
-  create: [ReactNodeTypeFieldForCreateFieldInput!]
-  delete: [ReactNodeTypeFieldForDeleteFieldInput!]
-  disconnect: [ReactNodeTypeFieldForDisconnectFieldInput!]
-  update: ReactNodeTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input ReactNodeTypeOptions {
@@ -10385,7 +9822,6 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
 }
 
 input ReactNodeTypeRelationInput {
-  fieldFor: [ReactNodeTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -10399,7 +9835,6 @@ input ReactNodeTypeSort {
 }
 
 input ReactNodeTypeUpdateInput {
-  fieldFor: [ReactNodeTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -10419,10 +9854,6 @@ type ReactNodeTypeUserOwnerNodeAggregateSelection {
 input ReactNodeTypeWhere {
   AND: [ReactNodeTypeWhere!]
   OR: [ReactNodeTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -10472,18 +9903,6 @@ Comparison between different element types:
 - ElementType: Current tree element select box, results it 'ReactNod' value
 """
 type RenderPropsType implements TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -10508,7 +9927,6 @@ type RenderPropsTypeAggregateSelection {
 }
 
 input RenderPropsTypeConnectInput {
-  fieldFor: [RenderPropsTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -10517,7 +9935,6 @@ input RenderPropsTypeConnectOrCreateInput {
 }
 
 input RenderPropsTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = RenderPropsType
   name: String!
@@ -10525,53 +9942,16 @@ input RenderPropsTypeCreateInput {
 }
 
 input RenderPropsTypeDeleteInput {
-  fieldFor: [RenderPropsTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input RenderPropsTypeDisconnectInput {
-  fieldFor: [RenderPropsTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
 
 type RenderPropsTypeEdge {
   cursor: String!
   node: RenderPropsType!
-}
-
-input RenderPropsTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input RenderPropsTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input RenderPropsTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input RenderPropsTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input RenderPropsTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input RenderPropsTypeFieldForUpdateFieldInput {
-  connect: [RenderPropsTypeFieldForConnectFieldInput!]
-  create: [RenderPropsTypeFieldForCreateFieldInput!]
-  delete: [RenderPropsTypeFieldForDeleteFieldInput!]
-  disconnect: [RenderPropsTypeFieldForDisconnectFieldInput!]
-  update: RenderPropsTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input RenderPropsTypeOptions {
@@ -10642,7 +10022,6 @@ input RenderPropsTypeOwnerNodeAggregationWhereInput {
 }
 
 input RenderPropsTypeRelationInput {
-  fieldFor: [RenderPropsTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
 
@@ -10656,7 +10035,6 @@ input RenderPropsTypeSort {
 }
 
 input RenderPropsTypeUpdateInput {
-  fieldFor: [RenderPropsTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -10676,10 +10054,6 @@ type RenderPropsTypeUserOwnerNodeAggregateSelection {
 input RenderPropsTypeWhere {
   AND: [RenderPropsTypeWhere!]
   OR: [RenderPropsTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -12930,18 +12304,6 @@ type TagsConnection {
 }
 
 interface TypeBase {
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -12957,7 +12319,6 @@ interface TypeBase {
 
 input TypeBaseConnectInput {
   _on: TypeBaseImplementationsConnectInput
-  fieldFor: [TypeBaseFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
@@ -12982,83 +12343,12 @@ input TypeBaseCreateInput {
 
 input TypeBaseDeleteInput {
   _on: TypeBaseImplementationsDeleteInput
-  fieldFor: [TypeBaseFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input TypeBaseDisconnectInput {
   _on: TypeBaseImplementationsDisconnectInput
-  fieldFor: [TypeBaseFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-input TypeBaseFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-type TypeBaseFieldForConnection {
-  edges: [TypeBaseFieldForRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input TypeBaseFieldForConnectionSort {
-  edge: FieldSort
-  node: TypeBaseSort
-}
-
-input TypeBaseFieldForConnectionWhere {
-  AND: [TypeBaseFieldForConnectionWhere!]
-  OR: [TypeBaseFieldForConnectionWhere!]
-  edge: FieldWhere
-  edge_NOT: FieldWhere
-  node: TypeBaseWhere
-  node_NOT: TypeBaseWhere
-}
-
-input TypeBaseFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input TypeBaseFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input TypeBaseFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input TypeBaseFieldForFieldInput {
-  connect: [TypeBaseFieldForConnectFieldInput!]
-  create: [TypeBaseFieldForCreateFieldInput!]
-}
-
-type TypeBaseFieldForRelationship implements Field {
-  cursor: String!
-  description: String
-  id: ID!
-  key: String!
-  name: String
-  node: TypeBase!
-}
-
-input TypeBaseFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input TypeBaseFieldForUpdateFieldInput {
-  connect: [TypeBaseFieldForConnectFieldInput!]
-  create: [TypeBaseFieldForCreateFieldInput!]
-  delete: [TypeBaseFieldForDeleteFieldInput!]
-  disconnect: [TypeBaseFieldForDisconnectFieldInput!]
-  update: TypeBaseFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input TypeBaseImplementationsConnectInput {
@@ -13284,7 +12574,6 @@ input TypeBaseSort {
 
 input TypeBaseUpdateInput {
   _on: TypeBaseImplementationsUpdateInput
-  fieldFor: [TypeBaseFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -13292,10 +12581,6 @@ input TypeBaseUpdateInput {
 
 input TypeBaseWhere {
   _on: TypeBaseImplementationsWhere
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -13429,18 +12714,6 @@ Allows picking one of a set of types
 """
 type UnionType implements TypeBase & WithDescendants {
   descendantTypesIds: [ID!]!
-  fieldFor(
-    directed: Boolean = true
-    options: TypeBaseOptions
-    where: TypeBaseWhere
-  ): [TypeBase!]!
-  fieldForConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseFieldForConnectionSort!]
-    where: TypeBaseFieldForConnectionWhere
-  ): TypeBaseFieldForConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -13477,7 +12750,6 @@ type UnionTypeAggregateSelection {
 }
 
 input UnionTypeConnectInput {
-  fieldFor: [UnionTypeFieldForConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
 }
@@ -13487,7 +12759,6 @@ input UnionTypeConnectOrCreateInput {
 }
 
 input UnionTypeCreateInput {
-  fieldFor: TypeBaseFieldForFieldInput
   id: ID!
   kind: TypeKind! = UnionType
   name: String!
@@ -13496,13 +12767,11 @@ input UnionTypeCreateInput {
 }
 
 input UnionTypeDeleteInput {
-  fieldFor: [UnionTypeFieldForDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDeleteFieldInput!]
 }
 
 input UnionTypeDisconnectInput {
-  fieldFor: [UnionTypeFieldForDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
 }
@@ -13510,41 +12779,6 @@ input UnionTypeDisconnectInput {
 type UnionTypeEdge {
   cursor: String!
   node: UnionType!
-}
-
-input UnionTypeFieldForConnectFieldInput {
-  connect: TypeBaseConnectInput
-  edge: FieldCreateInput!
-  where: TypeBaseConnectWhere
-}
-
-input UnionTypeFieldForCreateFieldInput {
-  edge: FieldCreateInput!
-  node: TypeBaseCreateInput!
-}
-
-input UnionTypeFieldForDeleteFieldInput {
-  delete: TypeBaseDeleteInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input UnionTypeFieldForDisconnectFieldInput {
-  disconnect: TypeBaseDisconnectInput
-  where: TypeBaseFieldForConnectionWhere
-}
-
-input UnionTypeFieldForUpdateConnectionInput {
-  edge: FieldUpdateInput
-  node: TypeBaseUpdateInput
-}
-
-input UnionTypeFieldForUpdateFieldInput {
-  connect: [UnionTypeFieldForConnectFieldInput!]
-  create: [UnionTypeFieldForCreateFieldInput!]
-  delete: [UnionTypeFieldForDeleteFieldInput!]
-  disconnect: [UnionTypeFieldForDisconnectFieldInput!]
-  update: UnionTypeFieldForUpdateConnectionInput
-  where: TypeBaseFieldForConnectionWhere
 }
 
 input UnionTypeOptions {
@@ -13615,7 +12849,6 @@ input UnionTypeOwnerNodeAggregationWhereInput {
 }
 
 input UnionTypeRelationInput {
-  fieldFor: [UnionTypeFieldForCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
   typesOfUnionType: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
 }
@@ -13689,7 +12922,6 @@ input UnionTypeTypesOfUnionTypeUpdateFieldInput {
 }
 
 input UnionTypeUpdateInput {
-  fieldFor: [UnionTypeFieldForUpdateFieldInput!]
   id: ID
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -13710,10 +12942,6 @@ type UnionTypeUserOwnerNodeAggregateSelection {
 input UnionTypeWhere {
   AND: [UnionTypeWhere!]
   OR: [UnionTypeWhere!]
-  fieldForConnection_ALL: TypeBaseFieldForConnectionWhere
-  fieldForConnection_NONE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SINGLE: TypeBaseFieldForConnectionWhere
-  fieldForConnection_SOME: TypeBaseFieldForConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

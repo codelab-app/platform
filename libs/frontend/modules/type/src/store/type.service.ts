@@ -28,8 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { createTypeFactory } from '../use-cases/types/create-type/create-type.factory'
-import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
+import { createTypeFactory, updateTypeInputFactory } from '../use-cases/types'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -288,7 +287,7 @@ export class TypeService
       },
     }
 
-    const { upsertField } = yield* _await(fieldApi.CreateFieldEdge(input))
+    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
     const interfaceTypeDTO = upsertField
     const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
 
@@ -324,7 +323,7 @@ export class TypeService
       },
     }
 
-    const { upsertField } = yield* _await(fieldApi.UpdateFieldEdge(input))
+    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
     const updatedField = upsertField.fieldsConnection.edges[0]
 
     field.updateCache(updatedField)

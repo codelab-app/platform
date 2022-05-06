@@ -1,22 +1,5 @@
-mutation CreateField(
-  $interfaceId: ID!
-  $fieldTypeId: ID!
-  $field: FieldCreateInput!
-) {
-  updateInterfaceTypes(
-    where: { id: $interfaceId }
-    connect: {
-      fields: [{ edge: $field, where: { node: { id: $fieldTypeId } } }]
-    }
-  ) {
-    interfaceTypes {
-      ...InterfaceType
-    }
-  }
-}
-
 # Cypher version for multiple edges
-mutation CreateFieldEdge(
+mutation UpsertField(
   $interfaceTypeId: ID!
   $fieldTypeId: ID!
   $field: FieldCreateInput!
@@ -30,38 +13,42 @@ mutation CreateFieldEdge(
   }
 }
 
-mutation UpdateFieldEdge(
-  $interfaceTypeId: ID!
-  $fieldTypeId: ID!
-  $field: FieldCreateInput!
-) {
-  upsertField(
-    interfaceTypeId: $interfaceTypeId
-    fieldTypeId: $fieldTypeId
-    field: $field
-  ) {
-    ...InterfaceType
-  }
-}
+# Don't use this, can only create 1 edge
+#mutation CreateField(
+#  $interfaceId: ID!
+#  $fieldTypeId: ID!
+#  $field: FieldCreateInput!
+#) {
+#  updateInterfaceTypes(
+#    where: { id: $interfaceId }
+#    connect: {
+#      fields: [{ edge: $field, where: { node: { id: $fieldTypeId } } }]
+#    }
+#  ) {
+#    interfaceTypes {
+#      ...InterfaceType
+#    }
+#  }
+#}
 
-mutation UpdateField(
-  $interfaceId: ID!
-  $fieldTypeId: ID!
-  $field: FieldUpdateInput!
-) {
-  updateInterfaceTypes(
-    where: { id: $interfaceId }
-    update: {
-      fields: [
-        { where: { node: { id: $fieldTypeId } }, update: { edge: $field } }
-      ]
-    }
-  ) {
-    interfaceTypes {
-      ...InterfaceType
-    }
-  }
-}
+#mutation UpdateField(
+#  $interfaceId: ID!
+#  $fieldTypeId: ID!
+#  $field: FieldUpdateInput!
+#) {
+#  updateInterfaceTypes(
+#    where: { id: $interfaceId }
+#    update: {
+#      fields: [
+#        { where: { node: { id: $fieldTypeId } }, update: { edge: $field } }
+#      ]
+#    }
+#  ) {
+#    interfaceTypes {
+#      ...InterfaceType
+#    }
+#  }
+#}
 
 mutation DeleteField($interfaceId: ID!, $where: FieldWhere!) {
   updateInterfaceTypes(
