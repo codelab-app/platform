@@ -57,12 +57,12 @@ export const typeSchema = gql`
         direction: OUT
       )
     # Any type could be used a field for some interface
-    fieldFor: [TypeBase!]!
-      @relationship(
-        type: "INTERFACE_FIELD"
-        direction: IN
-        properties: "Field"
-      )
+#    fieldFor: [TypeBase!]!
+#      @relationship(
+#        type: "INTERFACE_FIELD"
+#        direction: IN
+#        properties: "Field"
+#      )
   }
 
   # https://github.com/neo4j/graphql/issues/1105
@@ -101,7 +101,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
   }
@@ -122,7 +122,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ArrayType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
     itemType: TypeBase!
       @relationship(
@@ -139,7 +139,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
     typesOfUnionType: [TypeBase!]!
       @relationship(
@@ -189,7 +189,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ElementType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -212,7 +212,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: RenderPropsType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
   }
 
   """
@@ -230,7 +230,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ReactNodeType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
   }
 
   enum ElementTypeKind {
@@ -262,7 +262,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
@@ -285,7 +285,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: LambdaType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
   }
 
   """
@@ -296,7 +296,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: PageType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
   }
 
   """
@@ -307,7 +307,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: AppType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
   }
 
   """
@@ -318,7 +318,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: MonacoType)
     name: String!
     owner: User!
-    fieldFor: [TypeBase!]!
+#    fieldFor: [TypeBase!]!
     language: MonacoLanguage!
   }
 

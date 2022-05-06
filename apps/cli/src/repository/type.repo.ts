@@ -1,5 +1,6 @@
 import {
   EnumTypeOGM,
+  fieldRepository,
   InterfaceTypeOGM,
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
@@ -207,29 +208,24 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
        */
       console.log(`Connecting fields for ${data.name}`)
 
-      return InterfaceType.update({
-        where: {
-          id: data.id,
-        },
-        update: {
-          ...createBaseFields(data, selectedUser),
-        },
-        connect: {
-          fields: data.fieldsConnection.edges.map((edge) => ({
-            where: {
-              node: {
-                id: edge.node.id,
-              },
-            },
-            edge: {
-              id: edge.id,
-              key: edge.key,
-              name: edge.name,
-              description: edge.description,
-            },
-          })),
-        },
-      })
+      // upsertField()
+
+      for (const edge of data.fieldsConnection.edges) {
+        const args = {
+          interfaceTypeId: data.id,
+          fieldTypeId: edge.node.id,
+          field: {
+            id: edge.id,
+            name: edge.name,
+            description: edge.description,
+            key: edge.key,
+          },
+        }
+
+        console.log('Upserting field...', args)
+
+        await fieldRepository.upsertField(args)
+      }
     }
   }
 

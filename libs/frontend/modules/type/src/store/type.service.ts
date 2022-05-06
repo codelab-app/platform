@@ -14,7 +14,6 @@ import {
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { entityMapById } from '@codelab/shared/utils'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -116,20 +115,15 @@ export class TypeService
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
-    const ids = where?.id_IN
-    const idsToFetch = ids?.filter((id) => !this.types.has(id))
-    const types = yield* _await(getAllTypes(idsToFetch))
-    const typesMap = entityMapById(types)
+    const ids = where?.id_IN ?? undefined
+    // Work on caching later
+    // const idsToFetch = ids?.filter((id) => !this.types.has(id))
+    const types = yield* _await(getAllTypes(ids))
 
-    return Array.from(typesMap).map(([id]) => {
-      // if (this.types.has(id)) {
-      //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      //   return this.types.get(id)!
-      // }
+    return types.map((type) => {
+      const typeModel = typeFactory(type)
 
-      const typeModel = typeFactory(typesMap.get(id)!)
-
-      this.types.set(id, typeModel)
+      this.types.set(type.id, typeModel)
 
       return typeModel
     })
@@ -160,8 +154,6 @@ export class TypeService
 
     const descendants = yield* _await(getTypeApi.GetDescendants({ ids }))
 
-    // For interface types, we want to fetch the fieldType node as well
-
     const allDescendantIds = Object.values(descendants).reduce(
       (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
       [] as Array<string>,
@@ -181,13 +173,9 @@ export class TypeService
   ) {
     const types = yield* _await(this.getAllWithDescendants([id]))
 
-    console.log(types)
-
     const interfaceType = types?.find(
       (type) => type.kind === ITypeKind.InterfaceType,
     )
-
-    console.log(interfaceType)
 
     if (!interfaceType) {
       throw new Error('Type is not an interface')

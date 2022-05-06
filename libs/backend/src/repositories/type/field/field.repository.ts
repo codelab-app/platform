@@ -2,6 +2,7 @@ import {
   MutationUpsertFieldArgs,
   OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
+import { merge } from 'lodash'
 import { getDriver, InterfaceTypeOGM } from '../../../infra'
 import { interfaceTypeSelectionSet } from '../../../selectionSets'
 import connectField from './connectField.cypher'
@@ -23,33 +24,15 @@ export const fieldRepository = {
         },
       })
 
-      return {
-        ...interfaceType,
+      return merge(interfaceType, {
         fieldsConnection: {
-          ...interfaceType.fieldsConnection,
           edges: interfaceType.fieldsConnection.edges.map((edge) => ({
-            ...edge,
             node: {
               __resolveType: edge.node.kind,
-              ...edge.node,
             },
           })),
         },
-      }
-
-      // return {
-      //   ...interfaceType,
-      //   fieldsConnection: {
-      //     ...interfaceType.fieldsConnection,
-      //     edges: interfaceType.fieldsConnection.edges.map((edge) => ({
-      //       ...edge,
-      //       node: {
-      //         __resolveType: edge.node.kind,
-      //         ...edge.node,
-      //       },
-      //     })),
-      //   },
-      // }
+      })
     } finally {
       await session.close()
     }

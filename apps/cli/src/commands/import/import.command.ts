@@ -1,11 +1,10 @@
-import { UserOGM } from '@codelab/backend'
+import { fieldRepository, UserOGM } from '@codelab/backend'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
 import { createApp } from '../../repository/app.repo'
-import { upsertField } from '../../repository/field.repo'
 import { ExportedData } from '../export/export.command'
 import { createAntDesignAtomsData } from '../parser/ant-design'
 import { ParserService } from '../parser/parser.service'
@@ -78,7 +77,22 @@ export const importCommand: CommandModule<any, any> = {
     const parsedData = await parser.extractFields()
 
     for (const { atom, fields } of parsedData) {
-      await upsertField(atom, fields)
+      for (const field of fields) {
+        if (!atom?.api?.id) {
+          continue
+        }
+
+        await fieldRepository.upsertField({
+          interfaceTypeId: atom?.api?.id,
+          fieldTypeId: field.fieldType,
+          field: {
+            id: field.id,
+            name: field.name,
+            key: field.key,
+            description: field.description,
+          },
+        })
+      }
     }
 
     yargs.exit(0, null!)

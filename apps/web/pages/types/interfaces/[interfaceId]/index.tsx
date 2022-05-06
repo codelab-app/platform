@@ -20,6 +20,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { PageHeader, Spin } from 'antd'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -32,6 +33,8 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
     const { type, isLoading } = useGetCurrentInterfaceWithFields(
       store.typeService,
     )
+
+    console.log(isLoading, getSnapshot(type))
 
     return (
       <>
@@ -57,15 +60,15 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         )}
 
         <ContentSection>
-          {isLoading && <Spin />}
-          {!type ||
-            (type.kind === ITypeKind.InterfaceType && (
-              <FieldsTable
-                interfaceType={type}
-                isLoading={isLoading}
-                typeService={store.typeService}
-              />
-            ))}
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <FieldsTable
+              interfaceType={type}
+              isLoading={isLoading}
+              typeService={store.typeService}
+            />
+          )}
         </ContentSection>
       </>
     )
