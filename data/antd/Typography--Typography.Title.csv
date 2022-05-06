@@ -5,7 +5,7 @@
 "disabled","Disabled content","boolean","false","",false
 "editable","If editable. Can control edit state when is object","boolean | editable","false","editable",false
 "ellipsis","Display ellipsis when text overflows, can configure rows and expandable by using object","boolean | ellipsis","false","ellipsis",false
-"level","Set content importance. Match with h1, h2, h3, h4, h5","number: 1, 2, 3, 4, 5","1","5: 4.6.0",false
+"level","Set content importance. Match with h1, h2, h3, h4, h5",1 | 2 | 3 | 4 | 5,"1","5: 4.6.0",true
 "mark","Marked style","boolean","false","",false
 "onClick","Set the handler to handle click event","(event) => void","-","",false
 "italic","Italic style","boolean","false","4.16.0",false

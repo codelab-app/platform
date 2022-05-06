@@ -15,6 +15,30 @@ export const fieldRepository = {
     const InterfaceType = await InterfaceTypeOGM()
 
     try {
+      /**
+       * To implement upsert, we disconnect field first, then re-connect them each time.
+       *
+       * Save us from having to create additional cypher queries
+       *
+       * Maybe have issue in the future if we're connecting the fields to something else, but this is good for now.
+       */
+      await InterfaceType.update({
+        where: {
+          id: args.interfaceTypeId,
+        },
+        disconnect: {
+          fields: [
+            {
+              where: {
+                edge: {
+                  key: args.field.key,
+                },
+              },
+            },
+          ],
+        },
+      })
+
       await session.writeTransaction((tx) => tx.run(connectField, args))
 
       const [interfaceType] = await InterfaceType.find({
