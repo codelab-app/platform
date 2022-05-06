@@ -3,9 +3,9 @@ import {
   IAtomExport,
   ITypeExport,
 } from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
 import { config } from 'dotenv'
 import * as fs from 'fs'
+import inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
 import { exportApp } from './export-app'
@@ -22,7 +22,23 @@ export type ExportedData = {
   types: Array<ITypeExport>
 }
 
-export const saveFile = (data: object | null) => {
+export const saveFile = async (data: object | null) => {
+  /**
+   * Export info, file path etc
+   */
+  const { outputPath } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'outputPath',
+      message: 'Enter a path to export to, relative to ./data',
+      default: `export-data-${Date.now()}.json`,
+    },
+  ])
+
+  if (!outputPath.endsWith('.json')) {
+    throw new Error('Output path must end with .json')
+  }
+
   const json = JSON.stringify(data, null, 2)
   fs.writeFileSync(defaultOutputPath, json)
 }
@@ -48,10 +64,7 @@ export const exportCommand: CommandModule<any, any> = {
       ...typeData,
     }
 
-    // console.log(atomData)
-    saveFile(exportData)
-
-    // await exportType()
+    await saveFile(exportData)
 
     yargs.exit(0, null!)
   },

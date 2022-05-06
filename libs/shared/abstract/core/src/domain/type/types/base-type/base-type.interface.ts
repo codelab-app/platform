@@ -11,3 +11,5 @@ export interface IBaseType {
   // updateCache(fragment: any): void
   // applyUpdateData(data: any): void
 }
+
+export type IBaseTypeExportFields = 'id' | 'name' | 'kind'

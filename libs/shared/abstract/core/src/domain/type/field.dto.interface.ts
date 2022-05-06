@@ -1,3 +1,4 @@
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { IFieldRef } from './field'
 import { FieldFragment } from './fragments'
@@ -19,3 +20,5 @@ export type IDeleteFieldDTO = {
 }
 
 export type IFieldDTO = FieldFragment
+
+export type IFieldExport = OGM_TYPES.Field

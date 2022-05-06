@@ -88,6 +88,7 @@ yargs(hideBin(process.argv))
     },
   )
   //
+  //
   // Ts Parser
   //
   .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {

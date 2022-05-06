@@ -18,12 +18,12 @@ export const useCurrentInterfaceId = () => {
 }
 
 /** Grabs the [interfaceId] from the query params and fetches it, along with its fields */
-export const useGetCurrentInterfaceWithFields = (typeStore: ITypeService) => {
+export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
   const [getOne, { isLoading, error }] = useLoadingState((_id: string) =>
     // We need the whole graph, not just the interface, because we need to reference all the field types
-    typeStore.getInterfaceAndDescendants(_id),
+    typeService.getInterfaceAndDescendants(_id),
   )
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const useGetCurrentInterfaceWithFields = (typeStore: ITypeService) => {
     isLoading,
     error,
     type: interfaceId
-      ? (typeStore.type(interfaceId) as InterfaceType | undefined)
+      ? (typeService.type(interfaceId) as InterfaceType)
       : undefined,
   }
 }

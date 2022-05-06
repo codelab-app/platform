@@ -1,10 +1,18 @@
 import {
   ElementTypeKind,
   MonacoLanguage,
-  OGM_TYPES,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
-import { IEnumTypeValue, IPrimitiveTypeKind, ITypeKind } from './types'
+import {
+  IEnumTypeExport,
+  IEnumTypeValue,
+  IInterfaceTypeExport,
+  IPrimitiveTypeExport,
+  IPrimitiveTypeKind,
+  IReactNodeTypeExport,
+  IRenderPropsTypeExport,
+  ITypeKind,
+} from './types'
 
 export interface IBaseTypeDTO {
   id: string
@@ -34,6 +42,8 @@ export type ITypeDTO = TypeFragment
 
 // Uses OGM types
 export type ITypeExport =
-  | OGM_TYPES.PrimitiveType
-  | OGM_TYPES.EnumType
-  | OGM_TYPES.InterfaceType
+  | IPrimitiveTypeExport
+  | IEnumTypeExport
+  | IInterfaceTypeExport
+  | IReactNodeTypeExport
+  | IRenderPropsTypeExport

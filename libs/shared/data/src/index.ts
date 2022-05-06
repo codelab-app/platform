@@ -1,3 +1,3 @@
 export * from './app'
-export * from './atoms'
+export * from './atom/atoms'
 export * from './types'

@@ -5,25 +5,13 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
-export type CreateFieldMutationVariables = Types.Exact<{
-  interfaceId: Types.Scalars['ID']
+export type UpsertFieldMutationVariables = Types.Exact<{
+  interfaceTypeId: Types.Scalars['ID']
   fieldTypeId: Types.Scalars['ID']
   field: Types.FieldCreateInput
 }>
 
-export type CreateFieldMutation = {
-  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
-}
-
-export type UpdateFieldMutationVariables = Types.Exact<{
-  interfaceId: Types.Scalars['ID']
-  fieldTypeId: Types.Scalars['ID']
-  field: Types.FieldUpdateInput
-}>
-
-export type UpdateFieldMutation = {
-  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
-}
+export type UpsertFieldMutation = { upsertField: InterfaceTypeFragment }
 
 export type DeleteFieldMutationVariables = Types.Exact<{
   interfaceId: Types.Scalars['ID']
@@ -34,42 +22,18 @@ export type DeleteFieldMutation = {
   updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
-export const CreateFieldDocument = gql`
-  mutation CreateField(
-    $interfaceId: ID!
+export const UpsertFieldDocument = gql`
+  mutation UpsertField(
+    $interfaceTypeId: ID!
     $fieldTypeId: ID!
     $field: FieldCreateInput!
   ) {
-    updateInterfaceTypes(
-      where: { id: $interfaceId }
-      connect: {
-        fields: [{ edge: $field, where: { node: { id: $fieldTypeId } } }]
-      }
+    upsertField(
+      interfaceTypeId: $interfaceTypeId
+      fieldTypeId: $fieldTypeId
+      field: $field
     ) {
-      interfaceTypes {
-        ...InterfaceType
-      }
-    }
-  }
-  ${InterfaceTypeFragmentDoc}
-`
-export const UpdateFieldDocument = gql`
-  mutation UpdateField(
-    $interfaceId: ID!
-    $fieldTypeId: ID!
-    $field: FieldUpdateInput!
-  ) {
-    updateInterfaceTypes(
-      where: { id: $interfaceId }
-      update: {
-        fields: [
-          { where: { node: { id: $fieldTypeId } }, update: { edge: $field } }
-        ]
-      }
-    ) {
-      interfaceTypes {
-        ...InterfaceType
-      }
+      ...InterfaceType
     }
   }
   ${InterfaceTypeFragmentDoc}
@@ -105,31 +69,17 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    CreateField(
-      variables: CreateFieldMutationVariables,
+    UpsertField(
+      variables: UpsertFieldMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<CreateFieldMutation> {
+    ): Promise<UpsertFieldMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateFieldMutation>(CreateFieldDocument, variables, {
+          client.request<UpsertFieldMutation>(UpsertFieldDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'CreateField',
-        'mutation',
-      )
-    },
-    UpdateField(
-      variables: UpdateFieldMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<UpdateFieldMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<UpdateFieldMutation>(UpdateFieldDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'UpdateField',
+        'UpsertField',
         'mutation',
       )
     },

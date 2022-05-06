@@ -21,10 +21,10 @@ export const typeDefs = print(gql`
   ${adminSchema}
   ${userSchema}
   ${appSchema}
+  ${fieldSchema}
   ${atomSchema}
   ${pageSchema}
   ${typeSchema}
-  ${fieldSchema}
   ${tagSchema}
   ${elementSchema}
   ${propSchema}

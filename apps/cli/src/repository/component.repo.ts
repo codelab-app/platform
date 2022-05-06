@@ -2,7 +2,7 @@ import { ComponentOGM } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { v4 } from 'uuid'
 
-export const importComponent = async (
+export const createComponent = async (
   component: OGM_TYPES.Component,
   selectedUser: string,
 ): Promise<OGM_TYPES.Component> => {

@@ -6531,10 +6531,9 @@ export type InterfaceType = TypeBase &
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
     descendantTypesIds: Array<Scalars['ID']>
+    fieldFor: Array<TypeBase>
     fields: Array<TypeBase>
     fieldsConnection: InterfaceTypeFieldsConnection
-    fieldsFor: Array<TypeBase>
-    fieldsForConnection: InterfaceTypeFieldsForConnection
     id: Scalars['ID']
     kind: TypeKind
     name: Scalars['String']
@@ -6579,22 +6578,6 @@ export type InterfaceTypeFieldsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InterfaceTypeFieldsConnectionSort>>
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
-}
-
-/** Represents an object type with multiple fields */
-export type InterfaceTypeFieldsForArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<TypeBaseOptions>
-  where?: InputMaybe<TypeBaseWhere>
-}
-
-/** Represents an object type with multiple fields */
-export type InterfaceTypeFieldsForConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InterfaceTypeFieldsForConnectionSort>>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
 }
 
 /** Represents an object type with multiple fields */
@@ -6754,7 +6737,6 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 export type InterfaceTypeConnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
@@ -6776,7 +6758,6 @@ export type InterfaceTypeConnectWhere = {
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
-  fieldsFor?: InputMaybe<InterfaceTypeFieldsForFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -6786,14 +6767,12 @@ export type InterfaceTypeCreateInput = {
 export type InterfaceTypeDeleteInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type InterfaceTypeDisconnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
 
@@ -6848,77 +6827,6 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-}
-
-export type InterfaceTypeFieldsForConnectFieldInput = {
-  connect?: InputMaybe<TypeBaseConnectInput>
-  edge: FieldCreateInput
-  where?: InputMaybe<TypeBaseConnectWhere>
-}
-
-export type InterfaceTypeFieldsForConnection = {
-  __typename?: 'InterfaceTypeFieldsForConnection'
-  edges: Array<InterfaceTypeFieldsForRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type InterfaceTypeFieldsForConnectionSort = {
-  edge?: InputMaybe<FieldSort>
-  node?: InputMaybe<TypeBaseSort>
-}
-
-export type InterfaceTypeFieldsForConnectionWhere = {
-  AND?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>
-  OR?: InputMaybe<Array<InterfaceTypeFieldsForConnectionWhere>>
-  edge?: InputMaybe<FieldWhere>
-  edge_NOT?: InputMaybe<FieldWhere>
-  node?: InputMaybe<TypeBaseWhere>
-  node_NOT?: InputMaybe<TypeBaseWhere>
-}
-
-export type InterfaceTypeFieldsForCreateFieldInput = {
-  edge: FieldCreateInput
-  node: TypeBaseCreateInput
-}
-
-export type InterfaceTypeFieldsForDeleteFieldInput = {
-  delete?: InputMaybe<TypeBaseDeleteInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-}
-
-export type InterfaceTypeFieldsForDisconnectFieldInput = {
-  disconnect?: InputMaybe<TypeBaseDisconnectInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-}
-
-export type InterfaceTypeFieldsForFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
-  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
-}
-
-export type InterfaceTypeFieldsForRelationship = Field & {
-  __typename?: 'InterfaceTypeFieldsForRelationship'
-  cursor: Scalars['String']
-  description?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-  key: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  node: TypeBase
-}
-
-export type InterfaceTypeFieldsForUpdateConnectionInput = {
-  edge?: InputMaybe<FieldUpdateInput>
-  node?: InputMaybe<TypeBaseUpdateInput>
-}
-
-export type InterfaceTypeFieldsForUpdateFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeFieldsForConnectFieldInput>>
-  create?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
-  delete?: InputMaybe<Array<InterfaceTypeFieldsForDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<InterfaceTypeFieldsForDisconnectFieldInput>>
-  update?: InputMaybe<InterfaceTypeFieldsForUpdateConnectionInput>
-  where?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
 }
 
 export type InterfaceTypeFieldsRelationship = Field & {
@@ -7017,7 +6925,6 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 export type InterfaceTypeRelationInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
 
@@ -7035,7 +6942,6 @@ export type InterfaceTypeUniqueWhere = {
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
-  fieldsFor?: InputMaybe<Array<InterfaceTypeFieldsForUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -7074,10 +6980,6 @@ export type InterfaceTypeWhere = {
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_SOME?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
-  fieldsForConnection_ALL?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_NONE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_SINGLE?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
-  fieldsForConnection_SOME?: InputMaybe<InterfaceTypeFieldsForConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -7637,6 +7539,7 @@ export type Mutation = {
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
+  upsertField: InterfaceType
 }
 
 export type MutationCreateActionsArgs = {
@@ -8191,6 +8094,12 @@ export type MutationUpdateUnionTypesArgs = {
   disconnect?: InputMaybe<UnionTypeDisconnectInput>
   update?: InputMaybe<UnionTypeUpdateInput>
   where?: InputMaybe<UnionTypeWhere>
+}
+
+export type MutationUpsertFieldArgs = {
+  field: FieldCreateInput
+  fieldTypeId: Scalars['ID']
+  interfaceTypeId: Scalars['ID']
 }
 
 export type Operation = {

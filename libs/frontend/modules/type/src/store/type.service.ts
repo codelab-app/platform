@@ -6,6 +6,7 @@ import {
   ICreateFieldDTO,
   ICreateTypeDTO,
   IFieldRef,
+  IInterfaceType,
   IInterfaceTypeRef,
   ITypeDTO,
   ITypeKind,
@@ -13,7 +14,6 @@ import {
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { entityMapById } from '@codelab/shared/utils'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -28,8 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { createTypeFactory } from '../use-cases/types/create-type/create-type.factory'
-import { updateTypeInputFactory } from '../use-cases/types/update-type/update-type.factory'
+import { createTypeFactory, updateTypeInputFactory } from '../use-cases/types'
 import { fieldApi } from './apis/field.api'
 import {
   createTypeApi,
@@ -39,7 +38,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType, InterfaceType } from './models'
+import { AnyType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,
@@ -115,20 +114,15 @@ export class TypeService
   @modelFlow
   @transaction
   getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
-    const ids = where?.id_IN
-    const idsToFetch = ids?.filter((id) => !this.types.has(id))
-    const types = yield* _await(getAllTypes(idsToFetch))
-    const typesMap = entityMapById(types)
+    const ids = where?.id_IN ?? undefined
+    // Work on caching later
+    // const idsToFetch = ids?.filter((id) => !this.types.has(id))
+    const types = yield* _await(getAllTypes(ids))
 
-    return Array.from(typesMap).map(([id]) => {
-      if (this.types.has(id)) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.types.get(id)!
-      }
+    return types.map((type) => {
+      const typeModel = typeFactory(type)
 
-      const typeModel = typeFactory(typesMap.get(id)!)
-
-      this.types.set(id, typeModel)
+      this.types.set(type.id, typeModel)
 
       return typeModel
     })
@@ -157,11 +151,9 @@ export class TypeService
       return []
     }
 
-    const descendantsResponse = yield* _await(
-      getTypeApi.GetDescendants({ ids }),
-    )
+    const descendants = yield* _await(getTypeApi.GetDescendants({ ids }))
 
-    const allDescendantIds = Object.values(descendantsResponse).reduce(
+    const allDescendantIds = Object.values(descendants).reduce(
       (acc, v) => [...acc, ...flatMap(v, (item) => item.descendantTypesIds)],
       [] as Array<string>,
     )
@@ -178,16 +170,20 @@ export class TypeService
     this: TypeService,
     id: IInterfaceTypeRef,
   ) {
-    const [type] = yield* _await(this.getAllWithDescendants([id]))
+    const types = yield* _await(this.getAllWithDescendants([id]))
 
-    if (type.kind !== ITypeKind.InterfaceType) {
+    const interfaceType = types?.find(
+      (type) => type.kind === ITypeKind.InterfaceType,
+    )
+
+    if (!interfaceType) {
       throw new Error('Type is not an interface')
     }
 
-    return type as InterfaceType
+    return interfaceType as IInterfaceType
   })
 
-  /**
+  /*
    * The array of types must be of same type
    *
    * Issue with interfaceType & fieldConnections variable getting repeated in Neo4j if we create multiple at a time.
@@ -281,7 +277,7 @@ export class TypeService
     data: ICreateFieldDTO,
   ) {
     const input = {
-      interfaceId: interfaceTypeId,
+      interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         description: data.description,
@@ -291,8 +287,8 @@ export class TypeService
       },
     }
 
-    const { updateInterfaceTypes } = yield* _await(fieldApi.CreateField(input))
-    const interfaceTypeDTO = updateInterfaceTypes.interfaceTypes[0]
+    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
+    const interfaceTypeDTO = upsertField
     const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
 
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
@@ -317,7 +313,7 @@ export class TypeService
     const field = throwIfUndefined(interfaceType.field(data.id))
 
     const input = {
-      interfaceId: interfaceTypeId,
+      interfaceTypeId,
       fieldTypeId: data.fieldType,
       field: {
         id: data.id,
@@ -327,10 +323,8 @@ export class TypeService
       },
     }
 
-    const { updateInterfaceTypes } = yield* _await(fieldApi.UpdateField(input))
-
-    const updatedField =
-      updateInterfaceTypes.interfaceTypes[0].fieldsConnection.edges[0]
+    const { upsertField } = yield* _await(fieldApi.UpsertField(input))
+    const updatedField = upsertField.fieldsConnection.edges[0]
 
     field.updateCache(updatedField)
 

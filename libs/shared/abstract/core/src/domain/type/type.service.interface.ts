@@ -1,6 +1,6 @@
 import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { ArraySet, Ref } from 'mobx-keystone'
+import { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
@@ -28,6 +28,7 @@ export interface ITypeService
     IQueryService<IAnyType, TypeBaseWhere>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
+  types: ObjectMap<IAnyType>
   type(id: string): Maybe<IAnyType>
   typesList: Array<IAnyType>
   fieldCreateModal: IModalService<
@@ -51,6 +52,7 @@ export interface ITypeService
   ): Promise<IField>
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
+  getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
 
   /**
    * Issue with fieldConnections when creating multiple at a time

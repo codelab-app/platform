@@ -1,29 +1,32 @@
-import { UserOGM } from '@codelab/backend'
-import { config } from 'dotenv'
+import { fieldRepository, UserOGM } from '@codelab/backend'
+import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import * as inquirer from 'inquirer'
 import path from 'path'
 import yargs, { CommandModule } from 'yargs'
-import { defaultOutputPath, ExportedData } from '../export/export.command'
-import { importApp } from './import-app'
+import { createApp } from '../../repository/app.repo'
+import { ExportedData } from '../export/export.command'
+import { createAntDesignAtomsData } from '../parser/ant-design'
+import { ParserService } from '../parser/parser.service'
 import { importAtom } from './import-atom'
 import { importType } from './import-type'
 
 /**
  * Will process json file, and import apps/types accordingly based on their existence
+ *
+ * Import without any argument seeds data
  */
 export const importCommand: CommandModule<any, any> = {
   command: 'import',
   builder: {
-    filePath: {
-      describe: 'filePath',
+    file: {
+      describe: 'file',
       type: 'string',
     },
   },
-  handler: async ({ filePath = defaultOutputPath }) => {
-    config({ path: `${process.cwd()}/.env.test` })
+  handler: async ({ file }) => {
+    // config({ path: `${process.cwd()}/.env.test` })
 
-    const json = fs.readFileSync(path.resolve('data', filePath), 'utf8')
     const Users = await UserOGM()
     const allUsers = await Users.find()
 
@@ -39,24 +42,57 @@ export const importCommand: CommandModule<any, any> = {
       },
     ])
 
-    const { app, atoms, types } = JSON.parse(json) as ExportedData
+    // If we specified a file for import
+    if (file) {
+      const json = fs.readFileSync(path.resolve('data', file), 'utf8')
+      const { app, atoms, types } = JSON.parse(json) as ExportedData
 
-    if (types.length) {
-      console.log('Importing types...\n')
-      await importType(types, selectedUser)
+      if (types.length) {
+        console.log('Importing types...\n')
+        await importType(types, selectedUser)
+      }
+
+      if (atoms.length) {
+        console.log('Importing atoms...')
+        await importAtom(atoms, selectedUser)
+      }
+
+      if (app) {
+        console.log('Importing app...')
+
+        const importedApp = await createApp(app, selectedUser)
+
+        console.info(`Imported app with id ${importedApp.id}`)
+      }
     }
 
-    if (atoms.length) {
-      console.log('Importing atoms...')
-      await importAtom(atoms, selectedUser)
-    }
+    // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
+    await importType(createSeedTypesData(), selectedUser)
 
-    if (app) {
-      console.log('Importing app...')
+    // Seed all atoms here second
+    await importAtom(await createAntDesignAtomsData(), selectedUser)
 
-      const importedApp = await importApp(app, selectedUser)
+    // Then seed all atom api's
+    const parser = new ParserService(selectedUser)
+    const parsedData = await parser.extractFields()
 
-      console.info(`Imported app with id ${importedApp.id}`)
+    for (const { atom, fields } of parsedData) {
+      for (const field of fields) {
+        if (!atom?.api?.id) {
+          continue
+        }
+
+        await fieldRepository.upsertField({
+          interfaceTypeId: atom?.api?.id,
+          fieldTypeId: field.fieldType,
+          field: {
+            id: field.id,
+            name: field.name,
+            key: field.key,
+            description: field.description,
+          },
+        })
+      }
     }
 
     yargs.exit(0, null!)

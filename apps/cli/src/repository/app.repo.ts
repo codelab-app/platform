@@ -1,13 +1,17 @@
-import { AppOGM } from '@codelab/backend'
+import { AppOGM, PageOGM, pageSelectionSet } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { v4 } from 'uuid'
-import { importComponent } from './import-component'
-import { importElementInitial, updateImportedElement } from './import-element'
-import { validate } from './validate'
+import type { ExportAppData } from '../commands/export/export-app'
+import { getElementAndDescendants } from '../commands/export/get-element'
+import { getPageData } from '../commands/export/get-page'
+import { validate } from '../commands/import/validate'
+import { createComponent } from './component.repo'
+import { importElementInitial, updateImportedElement } from './element.repo'
 
-export const importApp = async (app: IAppExport, selectedUser: string) => {
+export const createApp = async (app: IAppExport, selectedUser: string) => {
   cLog(omit(app, ['pages']))
 
   const App = await AppOGM()
@@ -16,7 +20,7 @@ export const importApp = async (app: IAppExport, selectedUser: string) => {
 
   for (const { elements, components } of pages) {
     for (const component of components) {
-      const newComponent = await importComponent(component, selectedUser)
+      const newComponent = await createComponent(component, selectedUser)
     }
 
     for (const element of elements) {
@@ -93,4 +97,39 @@ export const importApp = async (app: IAppExport, selectedUser: string) => {
   })
 
   return importedApp
+}
+
+/**
+ * Gather all pages, elements and components
+ */
+export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
+  const Page = await PageOGM()
+
+  const pages = await Page.find({
+    where: { app: { id: app.id } },
+    selectionSet: pageSelectionSet,
+  })
+
+  const pagesData = await Promise.all(
+    pages.map(async (page) => {
+      const { elements, components } = await getPageData(page)
+
+      return {
+        id: page.id,
+        name: page.name,
+        rootElement: {
+          id: page.rootElement.id,
+          name: page?.rootElement?.name ?? null,
+        },
+        elements,
+        components,
+      }
+    }),
+  )
+
+  const providerElements = await getElementAndDescendants(
+    app.rootProviderElement.id,
+  )
+
+  return { app: { ...app, pages: pagesData, providerElements } }
 }

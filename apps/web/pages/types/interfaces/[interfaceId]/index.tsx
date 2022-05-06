@@ -57,15 +57,15 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         )}
 
         <ContentSection>
-          {isLoading && <Spin />}
-          {!type ||
-            (type.kind === ITypeKind.InterfaceType && (
-              <FieldsTable
-                interfaceType={type}
-                isLoading={isLoading}
-                typeService={store.typeService}
-              />
-            ))}
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <FieldsTable
+              interfaceType={type}
+              isLoading={isLoading}
+              typeService={store.typeService}
+            />
+          )}
         </ContentSection>
       </>
     )

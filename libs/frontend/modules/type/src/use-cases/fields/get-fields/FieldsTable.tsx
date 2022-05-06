@@ -103,7 +103,7 @@ export const FieldsTable = observer<FieldsTableProps>(
       id: f.id,
       name: f.name || '',
       key: f.key,
-      typeKind: f.type.current ? f.type.current.kind : '',
+      typeKind: f.type.maybeCurrent ? f.type.maybeCurrent.kind : '',
       description: f.description || '',
     }))
 

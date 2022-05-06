@@ -25,8 +25,10 @@ export type IAtomDTO = AtomFragment
 export type IAtomExport = {
   id: string
   name: string
-  type: string
-  api: {
-    id: string
+  type: IAtomType
+  api?: {
+    id: string | undefined
   }
 }
+
+// export type IAtomExport = Pick<OGM_TYPES.Atom, 'id' | 'name' | 'type' | 'api'>

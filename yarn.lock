@@ -4291,7 +4291,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/graphql-file-loader@npm:^7.0.5, @graphql-tools/graphql-file-loader@npm:^7.3.7":
+"@graphql-tools/graphql-file-loader@npm:^7.0.5, @graphql-tools/graphql-file-loader@npm:^7.3.11, @graphql-tools/graphql-file-loader@npm:^7.3.7":
   version: 7.3.11
   resolution: "@graphql-tools/graphql-file-loader@npm:7.3.11"
   dependencies:
@@ -4361,7 +4361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/load@npm:^7.3.0, @graphql-tools/load@npm:^7.5.5":
+"@graphql-tools/load@npm:^7.3.0, @graphql-tools/load@npm:^7.5.10, @graphql-tools/load@npm:^7.5.5":
   version: 7.5.10
   resolution: "@graphql-tools/load@npm:7.5.10"
   dependencies:
@@ -4375,7 +4375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/merge@npm:8.2.10, @graphql-tools/merge@npm:^8.2.1, @graphql-tools/merge@npm:^8.2.6":
+"@graphql-tools/merge@npm:8.2.10, @graphql-tools/merge@npm:^8.2.1, @graphql-tools/merge@npm:^8.2.10, @graphql-tools/merge@npm:^8.2.6":
   version: 8.2.10
   resolution: "@graphql-tools/merge@npm:8.2.10"
   dependencies:
@@ -12304,7 +12304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-micro@npm:^3.6.2":
+"apollo-server-micro@npm:^3.6.7":
   version: 3.6.7
   resolution: "apollo-server-micro@npm:3.6.7"
   dependencies:
@@ -14740,7 +14740,10 @@ __metadata:
     "@graphql-codegen/typescript-graphql-request": ^4.4.5
     "@graphql-codegen/typescript-operations": 2.3.5
     "@graphql-eslint/eslint-plugin": 3.10.1
+    "@graphql-tools/graphql-file-loader": ^7.3.11
+    "@graphql-tools/load": ^7.5.10
     "@graphql-tools/load-files": 6.5.3
+    "@graphql-tools/merge": ^8.2.10
     "@hon2a/cypress-antd": ^0.4.10
     "@ls-lint/ls-lint": ^1.11.0
     "@monaco-editor/react": ^4.3.1
@@ -14852,7 +14855,7 @@ __metadata:
     ajv: 8.8.2
     animate.css: 4.1.1
     antd: 4.19.5
-    apollo-server-micro: ^3.6.2
+    apollo-server-micro: ^3.6.7
     auth0: 2.40.0
     autoprefixer: 9
     axios: 0.24.0
@@ -14872,6 +14875,7 @@ __metadata:
     cross-env: 7.0.3
     cross-fetch: 3.1.4
     css-loader: 5.2.6
+    csv-parser: ^3.0.0
     cypress: 9.6.0
     cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
@@ -16209,6 +16213,17 @@ __metadata:
   version: 3.0.11
   resolution: "csstype@npm:3.0.11"
   checksum: 95e56abfe9ca219ae065acb4e43f61771a03170eed919127f558dfa168240867aba7629c8d98a201a0dd06d9a5ce82686f0570031c928516c61816adbc7c877f
+  languageName: node
+  linkType: hard
+
+"csv-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "csv-parser@npm:3.0.0"
+  dependencies:
+    minimist: ^1.2.0
+  bin:
+    csv-parser: bin/csv-parser
+  checksum: adc9d67d9f185249825570778c24d13004625301655330f6b735a052b9fdfbe1a239a014afb1f89939e0626ee573718f71f9f14164db7c17e4bcb2f38d6a162b
   languageName: node
   linkType: hard
 

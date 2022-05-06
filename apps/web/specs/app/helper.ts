@@ -1,6 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AdminExportPayload } from '@codelab/shared/abstract/core'
-import { createAtomsData, createPrimitiveTypesData } from '@codelab/shared/data'
+import { createAtomsData, createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import path from 'path'
 import { SetupData } from '../setup/setup'
@@ -39,11 +39,11 @@ export const checkExportedData = async (data: SetupData) => {
       ),
     ),
     types: expect.arrayContaining(
-      createPrimitiveTypesData().map((primitiveType) =>
+      createSeedTypesData().map((primitiveType) =>
         expect.objectContaining({
           kind: primitiveType.kind,
           name: primitiveType.name,
-          primitiveKind: primitiveType.primitiveKind,
+          primitiveKind: (primitiveType as any).primitiveKind,
         }),
       ),
     ),

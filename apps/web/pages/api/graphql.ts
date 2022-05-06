@@ -20,7 +20,7 @@ let apolloServer: ApolloServer
 
 const startServer = neoSchema
   .getSchema()
-  .then((schema) => {
+  .then(async (schema) => {
     apolloServer = new ApolloServer({
       schema,
       context: ({ req }) => {

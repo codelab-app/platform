@@ -70,6 +70,7 @@ export const DashboardTemplate = observer(
                 }px)`,
                 height: headerHeight ?? defaultHeaderHeight,
                 marginLeft: SidebarNavigation ? sidebarNavigationWidth : 0,
+                background: 'initial',
               }}
             >
               <Header />
