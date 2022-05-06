@@ -159,7 +159,7 @@ export class ElementTree
     }
 
     // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || newParent.findDescendant(element.id)) {
+    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
       throw new Error(`Cannot move element ${elementId} to itself`)
     }
 
