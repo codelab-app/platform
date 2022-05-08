@@ -3,7 +3,6 @@ import {
   ROOT_RENDER_CONTAINER_ID,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { Spin } from 'antd'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -35,7 +34,7 @@ import React from 'react'
 export const Renderer = observer<WithServices<RENDER_SERVICE>>(
   ({ renderService }) => {
     if (!renderService.isInitialized) {
-      return <Spin />
+      return null
     }
 
     return (

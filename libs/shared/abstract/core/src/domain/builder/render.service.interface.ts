@@ -10,6 +10,7 @@ export interface IRenderService {
   renderRoot(): ReactElement | null
   tree: Nullable<IElementTree>
   platformState?: any
+  isInitialized: boolean
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,
