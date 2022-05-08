@@ -66,7 +66,11 @@ export class ElementService
    * Used to load the entire page tree
    */
   @modelFlow
-  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
+  getTree = _async(function* (
+    this: ElementService,
+    rootId: IElementRef,
+    updateRoot = true,
+  ) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementGraph({ input: { rootId } }),
     )
@@ -81,7 +85,7 @@ export class ElementService
       }),
     )
 
-    this.elementTree.updateCache(elements, rootId)
+    this.elementTree.updateCache(elements, rootId, updateRoot)
 
     return this.elementTree
   })
