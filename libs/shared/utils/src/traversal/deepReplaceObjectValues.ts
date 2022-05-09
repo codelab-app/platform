@@ -7,8 +7,13 @@ export const deepReplaceObjectValues = <
   obj: TIn,
   fn: (value: any, key: string, innerObj: Record<string, any>) => any,
 ): TIn => {
-  // for some reason react nodes objects are causing to much recursion
-  if (!obj || typeof obj !== 'object' || (obj as any)['$$typeof']) {
+  // for some reason react nodes/ Html elements objects are causing to much recursion
+  if (
+    !obj ||
+    typeof obj !== 'object' ||
+    (obj as any)['$$typeof'] ||
+    obj instanceof HTMLElement
+  ) {
     return undefined as TIn
   }
 
