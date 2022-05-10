@@ -1,12 +1,16 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { TagWhere } from '@codelab/shared/abstract/codegen'
+import { TagGraph, TagWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateTagDTO,
+  IGraphQLTagNode,
   ITagDTO,
+  ITagGraphDTO,
   ITagService,
+  ITagTreeNode,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
+import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
   _async,
@@ -24,12 +28,18 @@ import {
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
+import { Node, TreeService } from './tree.service'
 
 @model('@codelab/TagService')
 export class TagService
   extends Model({
     _tags: prop(() => objectMap<Tag>()),
-
+    loadingAntdTreeDataNode: prop(false),
+    antdTreeDataNode: prop<Array<DataNode>>(() => []),
+    tagGraphs: prop<Array<any>>(() => []),
+    treeService: prop<TreeService<any, any>>(() =>
+      TreeService.init({ nodes: [] }),
+    ),
     selectedTag: prop<Nullish<Ref<Tag>>>(null).withSetter(),
     checkedTags: prop<Array<Ref<Tag>>>(() => []).withSetter(),
 
@@ -66,7 +76,7 @@ export class TagService
     const input = data.map((tag) => {
       return {
         name: tag.name,
-        owner: { connect: [{ where: { node: { auth0Id: tag.auth0Id } } }] },
+        owner: { connect: { where: { node: { auth0Id: tag.auth0Id } } } },
         parent: {
           connect: tag.parentTagId
             ? {
@@ -94,6 +104,9 @@ export class TagService
       throw new Error('Tag was not created')
     }
 
+    this.treeService.addNodesFromFragments(tags)
+    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
+
     return tags.map((tag) => {
       const tagModel = Tag.hydrate(tag)
 
@@ -105,7 +118,11 @@ export class TagService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TagService, tag: Tag, input: IUpdateTagDTO) {
+  update = _async(function* (
+    this: TagService,
+    tag: ITagTreeNode,
+    input: IUpdateTagDTO,
+  ) {
     const {
       updateTags: { tags },
     } = yield* _await(
@@ -124,6 +141,8 @@ export class TagService
     const tagModel = Tag.hydrate(updatedTag)
 
     this._tags.set(tag.id, tagModel)
+    this.treeService.updateNodeFromFragment(updatedTag)
+    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
 
     return tagModel
   })
@@ -143,11 +162,15 @@ export class TagService
         DescendantsOfTag?.forEach((descendantsId) => {
           descendantsIds.push(descendantsId)
           this._tags.delete(descendantsId)
+          this.treeService.delete(id)
         })
 
         this._tags.delete(id)
+        this.treeService.delete(id)
       }
     }
+
+    this.antdTreeDataNode = this.treeService.generateTreeDataNodes()
 
     const { deleteTags } = yield* _await(
       tagApi.DeleteTags({ where: { id_IN: [...ids, ...descendantsIds] } }),
@@ -176,6 +199,23 @@ export class TagService
   @transaction
   getTagGraphs = _async(function* (this: TagService) {
     const { tagGraphs } = yield* _await(tagApi.GetTagGraphs())
+
+    this.tagGraphs = tagGraphs
+
+    const makeupResponse: Array<IGraphQLTagNode> =
+      this.tagGraphs?.map((tag: ITagGraphDTO) => ({
+        id: tag.id,
+        label: tag.name,
+        children: tag.descendants,
+        isRoot: Boolean(tag.isRoot),
+      })) || []
+
+    const treeService = TreeService.init<IGraphQLTagNode>({
+      nodes: makeupResponse,
+    })
+
+    this.antdTreeDataNode = treeService.generateTreeDataNodes()
+    this.treeService = treeService
 
     return tagGraphs
   })

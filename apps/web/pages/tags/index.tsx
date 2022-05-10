@@ -51,16 +51,16 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   )
 })
 
-const TagPageHeader = () => {
+const TagPageHeader = observer(() => {
   const store = useStore()
 
   const pageHeaderButtons = [
     <CreateTagButton key={0} tagService={store.tagService} />,
-    <DeleteTagsButton ids={[]} key={1} tagService={store.tagService} />,
+    <DeleteTagsButton key={1} tagService={store.tagService} />,
   ]
 
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Tags" />
-}
+})
 
 export default TagPage
 
