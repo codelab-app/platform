@@ -33,6 +33,10 @@ import React from 'react'
  */
 export const Renderer = observer<WithServices<RENDER_SERVICE>>(
   ({ renderService }) => {
+    if (!renderService.isInitialized) {
+      return null
+    }
+
     return (
       <ErrorBoundary>
         <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>

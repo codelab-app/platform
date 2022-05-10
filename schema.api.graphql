@@ -2118,7 +2118,6 @@ enum AtomType {
   MuiAvatar
   MuiAvatarGroup
   MuiBackdrop
-  MuiBackdropUnstyled
   MuiBadge
   MuiBadgeUnstyled
   MuiBottomNavigation

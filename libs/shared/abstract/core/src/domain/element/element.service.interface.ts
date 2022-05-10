@@ -68,7 +68,7 @@ export interface IElementService
   element(id: string): Maybe<IElement>
   updateElementProps(element: IElement, data: IPropData): Promise<IElement>
   updateElementCss(element: IElement, newCss: string): Promise<IElement>
-  getTree(root: IElementRef): Promise<IElementTree>
+  getTree(root: IElementRef, updateRoot?: boolean): Promise<IElementTree>
   updateElementsPropTransformationJs(
     element: IElement,
     newPropTransformJs: string,

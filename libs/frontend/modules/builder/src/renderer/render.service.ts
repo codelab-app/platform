@@ -1,7 +1,9 @@
+import { getComponentService } from '@codelab/frontend/modules/component'
 import {
   Element,
   ElementTree,
   elementTreeRef,
+  getElementService,
 } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
@@ -19,7 +21,7 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
-import { flatMap, isEmpty, isString } from 'lodash'
+import { flatMap, isEmpty, isString, values } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -95,7 +97,7 @@ export class RenderService
        */
       renderPipe: prop<IRenderPipe>(renderPipeFactory),
 
-      isInitialized: prop(() => true),
+      isInitialized: prop(() => false),
 
       /**
        * Will log the render output and render pipe info to the console
@@ -124,13 +126,13 @@ export class RenderService
     providerTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
-    this.treeRef = elementTreeRef(tree.id)
-    this.providerTreeRef = providerTree ? elementTreeRef(providerTree.id) : null
-    this.platformState = platformState
-
     if (this.isInitialized) {
       return
     }
+
+    this.treeRef = elementTreeRef(tree.id)
+    this.providerTreeRef = providerTree ? elementTreeRef(providerTree.id) : null
+    this.platformState = platformState
 
     /*
      * Make sure all types are fetched first, because we need
@@ -139,9 +141,36 @@ export class RenderService
      */
     const typeStore = getTypeService(this)
 
-    if (typeStore?.types.size <= 1) {
-      yield* _await(typeStore.getAll())
-    }
+    yield* _await(typeStore.getAll())
+
+    const componentIds = tree.elementsList.flatMap((x) =>
+      values(x.props?.values)
+        .filter((p) => {
+          const typeKind = this.getTypeKindById(p.type)
+
+          const componentsTypeKinds = [
+            ITypeKind.ReactNodeType,
+            ITypeKind.RenderPropsType,
+          ]
+
+          return typeKind && componentsTypeKinds.includes(typeKind)
+        })
+        .map((renderProp) => renderProp.value),
+    )
+
+    const componentService = getComponentService(this)
+    const elementService = getElementService(this)
+
+    const components = yield* _await(
+      componentService.getAll({ id_IN: componentIds }),
+    )
+
+    yield* _await(
+      Promise.all(
+        // keep the main tree root as it is.
+        components.map((c) => elementService.getTree(c.rootElementId, false)),
+      ),
+    )
 
     this.isInitialized = true
   })

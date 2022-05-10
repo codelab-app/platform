@@ -87,7 +87,11 @@ export class ElementTree
   }
 
   @modelAction
-  updateCache(elementsDTO: Array<IElementDTO>, rootId?: string) {
+  updateCache(
+    elementsDTO: Array<IElementDTO>,
+    rootId?: string,
+    updateRoot = true,
+  ) {
     this.updateAtomsCache(elementsDTO)
     this.updateComponentsCache(elementsDTO)
 
@@ -97,12 +101,24 @@ export class ElementTree
       // Update cache if exists, other create new
       this.updateOrCreate(element, elementDTO)
 
-      if (!element.parentId) {
-        this.set_root(elementRef(element))
-      }
-
       if (elementDTO.component) {
         this.componentRoots.set(elementDTO.id, elementRef(element))
+      }
+
+      /**
+       * this sets the root for the main trees
+       * main trees are :
+       *      - page elements tree
+       *      - provider elements tree
+       *      - component elements tree
+       * sub trees
+       *      - components referenced by element (instanceOfComponent)
+       *           loaded with the main tree so (elementDTO.id === rootId) will eliminate them
+       *      - components referenced by props (ReactNodeType, RenderPropsType)
+       *           not loaded with the main tree therefor we use (updateRoot)
+       */
+      if (elementDTO.id === rootId && updateRoot) {
+        this.set_root(elementRef(element))
       }
     }
 
@@ -159,7 +175,7 @@ export class ElementTree
     }
 
     // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || newParent.findDescendant(element.id)) {
+    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
       throw new Error(`Cannot move element ${elementId} to itself`)
     }
 

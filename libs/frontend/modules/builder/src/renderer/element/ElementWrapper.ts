@@ -57,7 +57,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-      const IntermediateChildren = jsx(ReactComponent, extractedProps, children)
+
+      const IntermediateChildren = jsx(
+        ReactComponent,
+        mergeProps(extraProps, extractedProps),
+        children,
+      )
 
       const withMaybeProviders = withMaybeGlobalPropsProvider(
         renderOutput,

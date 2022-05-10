@@ -14,7 +14,6 @@ import { DataNode } from 'antd/lib/tree'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
-  detach,
   getParent,
   idProp,
   Model,
@@ -239,7 +238,7 @@ export class Element
 
   @modelAction
   removeChild(element: Element) {
-    detach(element)
+    this.children.delete(element.id)
   }
 
   /**

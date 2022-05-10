@@ -25,12 +25,9 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/material/AvatarGroup'),
   ),
   [IAtomType.MuiBackdrop]: dynamic(() => import('@mui/material/Backdrop')),
-  [IAtomType.MuiBackdropUnstyled]: dynamic(
-    () => import('@mui/core/BackdropUnstyled'),
-  ),
   [IAtomType.MuiBadge]: dynamic(() => import('@mui/material/Badge')),
   [IAtomType.MuiBadgeUnstyled]: dynamic(
-    () => import('@mui/core/BadgeUnstyled'),
+    () => import('@mui/base/BadgeUnstyled'),
   ),
   [IAtomType.MuiBottomNavigation]: dynamic(
     () => import('@mui/material/BottomNavigation'),
@@ -48,7 +45,7 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/material/ButtonGroup'),
   ),
   [IAtomType.MuiButtonUnstyled]: dynamic(
-    () => import('@mui/core/ButtonUnstyled'),
+    () => import('@mui/base/ButtonUnstyled'),
   ),
   [IAtomType.MuiCalendarPicker]: dynamic(
     () => import('@mui/lab/CalendarPicker'),
@@ -132,7 +129,7 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/material/FormControlLabel'),
   ),
   [IAtomType.MuiFormControlUnstyled]: dynamic(
-    () => import('@mui/core/FormControlUnstyled'),
+    () => import('@mui/base/FormControlUnstyled'),
   ),
   [IAtomType.MuiFormGroup]: dynamic(() => import('@mui/material/FormGroup')),
   [IAtomType.MuiFormHelperText]: dynamic(
@@ -206,7 +203,7 @@ export const muiAtoms: AtomsRecord = {
   ),
   [IAtomType.MuiModal]: dynamic(() => import('@mui/material/Modal')),
   [IAtomType.MuiModalUnstyled]: dynamic(
-    () => import('@mui/core/ModalUnstyled'),
+    () => import('@mui/base/ModalUnstyled'),
   ),
   [IAtomType.MuiMonthPicker]: dynamic(() => import('@mui/lab/MonthPicker')),
   [IAtomType.MuiNativeSelect]: dynamic(
@@ -236,7 +233,7 @@ export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiSlide]: dynamic(() => import('@mui/material/Slide')),
   [IAtomType.MuiSlider]: dynamic(() => import('@mui/material/Slider')),
   [IAtomType.MuiSliderUnstyled]: dynamic(
-    () => import('@mui/core/SliderUnstyled'),
+    () => import('@mui/base/SliderUnstyled'),
   ),
   [IAtomType.MuiSnackbar]: dynamic(() => import('@mui/material/Snackbar')),
   [IAtomType.MuiSnackbarContent]: dynamic(
@@ -279,7 +276,7 @@ export const muiAtoms: AtomsRecord = {
   ),
   [IAtomType.MuiSwitch]: dynamic(() => import('@mui/material/Switch')),
   [IAtomType.MuiSwitchUnstyled]: dynamic(
-    () => import('@mui/core/SwitchUnstyled'),
+    () => import('@mui/base/SwitchUnstyled'),
   ),
   [IAtomType.MuiTab]: dynamic(() => import('@mui/material/Tab')),
   [IAtomType.MuiTabContext]: dynamic(() => import('@mui/lab/TabContext')),
@@ -338,7 +335,7 @@ export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiTreeView]: dynamic(() => import('@mui/lab/TreeView')),
   [IAtomType.MuiTypography]: dynamic(() => import('@mui/material/Typography')),
   [IAtomType.MuiUnstableTrapFocus]: dynamic(
-    () => import('@mui/core/Unstable_TrapFocus'),
+    () => import('@mui/material/Unstable_TrapFocus'),
   ),
   [IAtomType.MuiYearPicker]: dynamic(() => import('@mui/lab/YearPicker')),
   [IAtomType.MuiZoom]: dynamic(() => import('@mui/material/Zoom')),
