@@ -8,6 +8,7 @@ import { createField } from './field'
 import { createPage, getPages } from './page'
 import { createResource } from './resource'
 import { createStore } from './store'
+import { createTag } from './tag'
 import { createType } from './type'
 import { getCurrentUserId } from './user'
 
@@ -38,7 +39,9 @@ export interface CypressDatabaseCommands {
   createField: typeof createField
   createType: typeof createType
 
-  /** user model */
+  /** tag model */
+  createTag: typeof createTag
+
   getCurrentUserId: typeof getCurrentUserId
 
   /** store model */
@@ -49,6 +52,7 @@ export interface CypressDatabaseCommands {
 }
 
 export const databaseCommands: Array<CypressCommand> = [
+  { name: 'createTag', fn: createTag },
   { name: 'createApp', fn: createApp },
   { name: 'createPage', fn: createPage },
   { name: 'getPages', fn: getPages },
