@@ -1,1 +1,1 @@
-RETURN NOT exists((:Tag)<-[:CHILDREN]-({ id: $this.id }))
+RETURN NOT exists((:Tag)-[:CHILDREN]->({ id: $this.id }))

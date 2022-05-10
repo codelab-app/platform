@@ -41,7 +41,7 @@ export const DeleteElementModal = observer<WithServices<ELEMENT_SERVICE>>(
           schema={deleteElementSchema}
         >
           <h4>
-            Are you sure you want to delete
+            Are you sure you want to delete{" "}
             {elementToDelete?.name
               ? `the element "${elementToDelete?.name}"`
               : 'that element'}

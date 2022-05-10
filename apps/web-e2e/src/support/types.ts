@@ -1,6 +1,7 @@
 import '@testing-library/cypress/add-commands'
 import { CypressAuth0Commands } from './auth0'
 import { CypressDatabaseCommands } from './database'
+import { CypressUICommands } from './entities'
 import { CypressHelpersCommands } from './helpers'
 
 export type CypressCommand = {
@@ -17,6 +18,7 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject>
       extends CypressDatabaseCommands,
+        CypressUICommands,
         CypressAuth0Commands,
         // CypressSelectorsCommands,
         CypressHelpersCommands {}

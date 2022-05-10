@@ -11645,11 +11645,7 @@ type Tag {
   id: ID!
   isRoot: Boolean
   name: String!
-  owner(
-    directed: Boolean = true
-    options: UserOptions
-    where: UserWhere
-  ): [User!]!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
@@ -11790,13 +11786,13 @@ input TagChildrenUpdateFieldInput {
 
 input TagConnectInput {
   children: [TagChildrenConnectFieldInput!]
-  owner: [TagOwnerConnectFieldInput!]
+  owner: TagOwnerConnectFieldInput
   parent: TagParentConnectFieldInput
 }
 
 input TagConnectOrCreateInput {
   children: [TagChildrenConnectOrCreateFieldInput!]
-  owner: [TagOwnerConnectOrCreateFieldInput!]
+  owner: TagOwnerConnectOrCreateFieldInput
   parent: TagParentConnectOrCreateFieldInput
 }
 
@@ -11817,13 +11813,13 @@ input TagCreateInput {
 
 input TagDeleteInput {
   children: [TagChildrenDeleteFieldInput!]
-  owner: [TagOwnerDeleteFieldInput!]
+  owner: TagOwnerDeleteFieldInput
   parent: TagParentDeleteFieldInput
 }
 
 input TagDisconnectInput {
   children: [TagChildrenDisconnectFieldInput!]
-  owner: [TagOwnerDisconnectFieldInput!]
+  owner: TagOwnerDisconnectFieldInput
   parent: TagParentDisconnectFieldInput
 }
 
@@ -11936,7 +11932,7 @@ input TagOwnerAggregateInput {
 }
 
 input TagOwnerConnectFieldInput {
-  connect: [UserConnectInput!]
+  connect: UserConnectInput
   where: UserConnectWhere
 }
 
@@ -11981,9 +11977,9 @@ input TagOwnerDisconnectFieldInput {
 }
 
 input TagOwnerFieldInput {
-  connect: [TagOwnerConnectFieldInput!]
-  connectOrCreate: [TagOwnerConnectOrCreateFieldInput!]
-  create: [TagOwnerCreateFieldInput!]
+  connect: TagOwnerConnectFieldInput
+  connectOrCreate: TagOwnerConnectOrCreateFieldInput
+  create: TagOwnerCreateFieldInput
 }
 
 input TagOwnerNodeAggregationWhereInput {
@@ -12042,11 +12038,11 @@ input TagOwnerUpdateConnectionInput {
 }
 
 input TagOwnerUpdateFieldInput {
-  connect: [TagOwnerConnectFieldInput!]
-  connectOrCreate: [TagOwnerConnectOrCreateFieldInput!]
-  create: [TagOwnerCreateFieldInput!]
-  delete: [TagOwnerDeleteFieldInput!]
-  disconnect: [TagOwnerDisconnectFieldInput!]
+  connect: TagOwnerConnectFieldInput
+  connectOrCreate: TagOwnerConnectOrCreateFieldInput
+  create: TagOwnerCreateFieldInput
+  delete: TagOwnerDeleteFieldInput
+  disconnect: TagOwnerDisconnectFieldInput
   update: TagOwnerUpdateConnectionInput
   where: TagOwnerConnectionWhere
 }
@@ -12160,7 +12156,7 @@ input TagParentUpdateFieldInput {
 
 input TagRelationInput {
   children: [TagChildrenCreateFieldInput!]
-  owner: [TagOwnerCreateFieldInput!]
+  owner: TagOwnerCreateFieldInput
   parent: TagParentCreateFieldInput
 }
 
@@ -12201,7 +12197,7 @@ input TagUniqueWhere {
 input TagUpdateInput {
   children: [TagChildrenUpdateFieldInput!]
   name: String
-  owner: [TagOwnerUpdateFieldInput!]
+  owner: TagOwnerUpdateFieldInput
   parent: TagParentUpdateFieldInput
 }
 
@@ -12264,31 +12260,11 @@ input TagWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: TagOwnerAggregateInput
-  ownerConnection_ALL: TagOwnerConnectionWhere
-  ownerConnection_NONE: TagOwnerConnectionWhere
-  ownerConnection_SINGLE: TagOwnerConnectionWhere
-  ownerConnection_SOME: TagOwnerConnectionWhere
-
-  """
-  Return Tags where all of the related Users match this filter
-  """
-  owner_ALL: UserWhere
-
-  """
-  Return Tags where none of the related Users match this filter
-  """
-  owner_NONE: UserWhere
-
-  """
-  Return Tags where one of the related Users match this filter
-  """
-  owner_SINGLE: UserWhere
-
-  """
-  Return Tags where some of the related Users match this filter
-  """
-  owner_SOME: UserWhere
+  ownerConnection: TagOwnerConnectionWhere
+  ownerConnection_NOT: TagOwnerConnectionWhere
+  owner_NOT: UserWhere
   parent: TagWhere
   parentAggregate: TagParentAggregateInput
   parentConnection: TagParentConnectionWhere

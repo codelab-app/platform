@@ -12735,7 +12735,7 @@ export type Tag = {
   id: Scalars['ID']
   isRoot?: Maybe<Scalars['Boolean']>
   name: Scalars['String']
-  owner: Array<User>
+  owner: User
   ownerAggregate?: Maybe<TagUserOwnerAggregationSelection>
   ownerConnection: TagOwnerConnection
   parent?: Maybe<Tag>
@@ -12918,13 +12918,13 @@ export type TagChildrenUpdateFieldInput = {
 
 export type TagConnectInput = {
   children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
-  owner?: InputMaybe<Array<TagOwnerConnectFieldInput>>
+  owner?: InputMaybe<TagOwnerConnectFieldInput>
   parent?: InputMaybe<TagParentConnectFieldInput>
 }
 
 export type TagConnectOrCreateInput = {
   children?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
-  owner?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
+  owner?: InputMaybe<TagOwnerConnectOrCreateFieldInput>
   parent?: InputMaybe<TagParentConnectOrCreateFieldInput>
 }
 
@@ -12945,13 +12945,13 @@ export type TagCreateInput = {
 
 export type TagDeleteInput = {
   children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
-  owner?: InputMaybe<Array<TagOwnerDeleteFieldInput>>
+  owner?: InputMaybe<TagOwnerDeleteFieldInput>
   parent?: InputMaybe<TagParentDeleteFieldInput>
 }
 
 export type TagDisconnectInput = {
   children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
-  owner?: InputMaybe<Array<TagOwnerDisconnectFieldInput>>
+  owner?: InputMaybe<TagOwnerDisconnectFieldInput>
   parent?: InputMaybe<TagParentDisconnectFieldInput>
 }
 
@@ -13062,7 +13062,7 @@ export type TagOwnerAggregateInput = {
 }
 
 export type TagOwnerConnectFieldInput = {
-  connect?: InputMaybe<Array<UserConnectInput>>
+  connect?: InputMaybe<UserConnectInput>
   where?: InputMaybe<UserConnectWhere>
 }
 
@@ -13108,9 +13108,9 @@ export type TagOwnerDisconnectFieldInput = {
 }
 
 export type TagOwnerFieldInput = {
-  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
+  connect?: InputMaybe<TagOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<TagOwnerCreateFieldInput>
 }
 
 export type TagOwnerNodeAggregationWhereInput = {
@@ -13170,11 +13170,11 @@ export type TagOwnerUpdateConnectionInput = {
 }
 
 export type TagOwnerUpdateFieldInput = {
-  connect?: InputMaybe<Array<TagOwnerConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TagOwnerConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<TagOwnerCreateFieldInput>>
-  delete?: InputMaybe<Array<TagOwnerDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<TagOwnerDisconnectFieldInput>>
+  connect?: InputMaybe<TagOwnerConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagOwnerConnectOrCreateFieldInput>
+  create?: InputMaybe<TagOwnerCreateFieldInput>
+  delete?: InputMaybe<TagOwnerDeleteFieldInput>
+  disconnect?: InputMaybe<TagOwnerDisconnectFieldInput>
   update?: InputMaybe<TagOwnerUpdateConnectionInput>
   where?: InputMaybe<TagOwnerConnectionWhere>
 }
@@ -13290,7 +13290,7 @@ export type TagParentUpdateFieldInput = {
 
 export type TagRelationInput = {
   children?: InputMaybe<Array<TagChildrenCreateFieldInput>>
-  owner?: InputMaybe<Array<TagOwnerCreateFieldInput>>
+  owner?: InputMaybe<TagOwnerCreateFieldInput>
   parent?: InputMaybe<TagParentCreateFieldInput>
 }
 
@@ -13333,7 +13333,7 @@ export type TagUniqueWhere = {
 export type TagUpdateInput = {
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<Array<TagOwnerUpdateFieldInput>>
+  owner?: InputMaybe<TagOwnerUpdateFieldInput>
   parent?: InputMaybe<TagParentUpdateFieldInput>
 }
 
@@ -13386,19 +13386,11 @@ export type TagWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<TagOwnerAggregateInput>
-  ownerConnection_ALL?: InputMaybe<TagOwnerConnectionWhere>
-  ownerConnection_NONE?: InputMaybe<TagOwnerConnectionWhere>
-  ownerConnection_SINGLE?: InputMaybe<TagOwnerConnectionWhere>
-  ownerConnection_SOME?: InputMaybe<TagOwnerConnectionWhere>
-  /** Return Tags where all of the related Users match this filter */
-  owner_ALL?: InputMaybe<UserWhere>
-  /** Return Tags where none of the related Users match this filter */
-  owner_NONE?: InputMaybe<UserWhere>
-  /** Return Tags where one of the related Users match this filter */
-  owner_SINGLE?: InputMaybe<UserWhere>
-  /** Return Tags where some of the related Users match this filter */
-  owner_SOME?: InputMaybe<UserWhere>
+  ownerConnection?: InputMaybe<TagOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TagOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   parent?: InputMaybe<TagWhere>
   parentAggregate?: InputMaybe<TagParentAggregateInput>
   parentConnection?: InputMaybe<TagParentConnectionWhere>
