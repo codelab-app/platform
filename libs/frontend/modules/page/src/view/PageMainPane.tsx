@@ -21,7 +21,7 @@ export const PageMainPane = observer<WithServices<PAGE_SERVICE>>(
 
     return (
       <MainPaneTemplate
-        header={[<CreatePageButton key={0} pageService={pageService} />]}
+        header={<CreatePageButton key={0} pageService={pageService} />}
         headerProps={headerProps}
         title="Pages"
       >

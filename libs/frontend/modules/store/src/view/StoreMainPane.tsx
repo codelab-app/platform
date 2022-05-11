@@ -18,7 +18,7 @@ export const StoreMainPane = observer<
   WithServices<STORE_SERVICE | USER_SERVICE>
 >(({ storeService, userService }) => (
   <MainPaneTemplate
-    header={() => <CreateStoreButton key={0} storeService={storeService} />}
+    header={<CreateStoreButton key={0} storeService={storeService} />}
     title="Stores"
   >
     <GetStoresTree storeService={storeService} />

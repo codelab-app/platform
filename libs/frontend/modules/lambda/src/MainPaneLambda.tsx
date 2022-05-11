@@ -9,10 +9,7 @@ import {
 
 export const MainPaneLambda = () => {
   return (
-    <MainPaneTemplate
-      header={() => <CreateLambdaButton key={1} />}
-      title="Lambda"
-    >
+    <MainPaneTemplate header={<CreateLambdaButton key={1} />} title="Lambda">
       <GetLambdasTable />
       <CreateLambdaModal />
       <UpdateLambdaModal />

@@ -13,9 +13,9 @@ import {
 export const ResourceMainPane = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => (
     <MainPaneTemplate
-      header={() => (
+      header={
         <CreateResourceButton key={0} resourceService={resourceService} />
-      )}
+      }
       title="Resources"
     >
       <GetResourcesList resourceService={resourceService} />
