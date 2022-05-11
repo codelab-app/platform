@@ -1,11 +1,9 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import styled from '@emotion/styled'
 import { Dropdown } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
-import { PropsWithChildren, useState } from 'react'
+import { useState } from 'react'
 import tw from 'twin.macro'
 import { ElementContextMenuProps } from '../ElementContextMenu'
 import { BuilderTreeItemOverlay } from './BuilderTreeItemOverlay'
@@ -28,8 +26,12 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       return <ItemTitleStyle node={node}>{node.title}</ItemTitleStyle>
     }
 
-    const atomName = element.atom?.current?.name || element.atom?.current?.type
-    const componentInstanceName = element.instanceOfComponent?.current?.name
+    const atomName =
+      element.atom?.maybeCurrent?.name || element.atom?.maybeCurrent?.type
+
+    const componentInstanceName =
+      element.instanceOfComponent?.maybeCurrent?.name
+
     const isComponentInstance = !!element.instanceOfComponent
 
     const componentMeta = componentInstanceName

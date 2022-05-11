@@ -19,6 +19,7 @@ import {
 type BuilderTreeProps = {
   treeData?: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
+  className?: string
 } & Pick<
   IBuilderService,
   | 'setHoveredElement'
@@ -30,6 +31,7 @@ type BuilderTreeProps = {
 
 export const BuilderTree = observer<BuilderTreeProps>(
   ({
+    className,
     elementContextMenuProps,
     treeData,
     setHoveredElement,
@@ -53,7 +55,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     return (
       <AntdTree
         blockNode
-        className="draggable-tree"
+        className={`${className} draggable-tree`}
         css={[disableTreeNodeWrapperHoverStyle]}
         disabled={isMoving}
         draggable={{

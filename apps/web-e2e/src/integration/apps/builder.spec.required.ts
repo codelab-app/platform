@@ -70,8 +70,6 @@ describe('Elements CRUD', () => {
       )
 
       cy.createAtom(atomsInput).then((data) => {
-        // cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
-
         cy.visit('/apps')
 
         cy.getCard({ title: updatedAppName }).find('a').click()
@@ -85,7 +83,6 @@ describe('Elements CRUD', () => {
         cy.findByText(ROOT_ELEMENT_NAME, { timeout: 6000 })
           .should('be.visible')
           .click({ force: true })
-        // cy.findByText(ROOT_ELEMENT_NAME, { timeout: 5000 }).should('exist')
       })
     })
   })
@@ -95,7 +92,10 @@ describe('Elements CRUD', () => {
       cy.wrap(elements).each((element: ElementData) => {
         const { atom, name, parentElement } = element
 
-        cy.getSider().getButton({ icon: 'plus' }).click()
+        cy.getSider()
+          .find('.ant-page-header-heading')
+          .getButton({ icon: 'plus' })
+          .click()
 
         cy.getModal().findByLabelText('Name').type(name)
 

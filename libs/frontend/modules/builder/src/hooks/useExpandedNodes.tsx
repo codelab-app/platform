@@ -28,8 +28,6 @@ export const useExpandedNodes = ({
     // go through each node of the path and keep track of all nodes that need to get expanded
 
     setExpandedNodeIds((prevState) => {
-      console.log(prevState)
-
       const expandedSet = new Set(prevState)
 
       const toExpand = (pathResult ?? [])

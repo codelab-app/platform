@@ -126,6 +126,8 @@ export class ElementService
     const atomService = getAtomService(this)
     const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
 
+    console.log(atoms)
+
     atomService.updateCache(atoms)
   }
 

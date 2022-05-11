@@ -66,9 +66,16 @@ export const BuilderMainPane = observer<
     componentService.loadComponentTrees()
 
     const BaseBuilderTree = observer(
-      ({ treeData }: { treeData: DataNode | undefined }) => (
+      ({
+        treeData,
+        className,
+      }: {
+        treeData: DataNode | undefined
+        className?: string
+      }) => (
         <BuilderTree
           builderRenderer={builderService.builderRenderer}
+          className={className}
           element={elementService.element.bind(elementService)}
           elementContextMenuProps={{
             createModal: elementService.createModal,
@@ -113,7 +120,7 @@ export const BuilderMainPane = observer<
         title={paneTitles[builderTab]}
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          <BaseBuilderTree treeData={antdTree} />
+          <BaseBuilderTree className="page-builder" treeData={antdTree} />
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
