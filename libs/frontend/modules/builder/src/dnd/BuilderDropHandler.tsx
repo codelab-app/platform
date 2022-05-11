@@ -17,7 +17,6 @@ export const BuilderDropHandler = observer<
 >(({ builderService, userService }) => {
   const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
     parentElementId: builderService.builderRenderer.tree?.root?.id as string,
-    owner: userService.auth0Id,
   })
 
   return (

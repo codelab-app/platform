@@ -23,10 +23,8 @@ export const elementSchema = gql`
     order: Int
   }
 
-  type Element implements WithOwner {
+  type Element {
     id: ID! @id(autogenerate: false)
-    # We need to put owner on Element, but not on Page, because an Element could be detached from a Page
-    owner: User!
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"

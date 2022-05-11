@@ -8,14 +8,6 @@
         "lintFilePatterns": ["libs/frontend/abstract/core/**/*.{ts,tsx,js,jsx}"]
       },
       "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/frontend/abstract/core"],
-      "options": {
-        "jestConfig": "libs/frontend/abstract/core/jest.config.ts",
-        "passWithNoTests": true
-      }
     }
   },
   "tags": ["type:abstract", "scope:frontend"]

@@ -7,7 +7,6 @@ import {
   IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 //
@@ -23,7 +22,6 @@ export const makeCreateInput = (
     instanceOfComponentId,
     atomId,
     name,
-    owner,
     order,
     propsData,
   } = input
@@ -57,7 +55,6 @@ export const makeCreateInput = (
     props,
     name,
     id,
-    owner: connectOwner(owner),
   }
 }
 

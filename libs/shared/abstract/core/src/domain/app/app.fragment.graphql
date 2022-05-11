@@ -7,9 +7,6 @@ fragment App on App {
   pages {
     id
   }
-  rootDetachedElement {
-    id
-  }
   rootProviderElement {
     id
   }

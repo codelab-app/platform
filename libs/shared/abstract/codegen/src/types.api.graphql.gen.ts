@@ -323,9 +323,6 @@ export type App = WithOwner & {
   pages: Array<Page>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
-  rootDetachedElement: Element
-  rootDetachedElementAggregate?: Maybe<AppElementRootDetachedElementAggregationSelection>
-  rootDetachedElementConnection: AppRootDetachedElementConnection
   rootProviderElement: Element
   rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>
   rootProviderElementConnection: AppRootProviderElementConnection
@@ -370,25 +367,6 @@ export type AppPagesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<AppPagesConnectionSort>>
   where?: InputMaybe<AppPagesConnectionWhere>
-}
-
-export type AppRootDetachedElementArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ElementOptions>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type AppRootDetachedElementAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type AppRootDetachedElementConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<AppRootDetachedElementConnectionSort>>
-  where?: InputMaybe<AppRootDetachedElementConnectionWhere>
 }
 
 export type AppRootProviderElementArgs = {
@@ -439,7 +417,6 @@ export type AppAggregateSelection = {
 export type AppConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementConnectFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>
   store?: InputMaybe<AppStoreConnectFieldInput>
 }
@@ -447,7 +424,6 @@ export type AppConnectInput = {
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementConnectOrCreateFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
   store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
@@ -465,7 +441,6 @@ export type AppCreateInput = {
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementFieldInput>
   store?: InputMaybe<AppStoreFieldInput>
 }
@@ -473,7 +448,6 @@ export type AppCreateInput = {
 export type AppDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementDeleteFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>
   store?: InputMaybe<AppStoreDeleteFieldInput>
 }
@@ -481,7 +455,6 @@ export type AppDeleteInput = {
 export type AppDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementDisconnectFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>
   store?: InputMaybe<AppStoreDisconnectFieldInput>
 }
@@ -490,22 +463,6 @@ export type AppEdge = {
   __typename?: 'AppEdge'
   cursor: Scalars['String']
   node: App
-}
-
-export type AppElementRootDetachedElementAggregationSelection = {
-  __typename?: 'AppElementRootDetachedElementAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<AppElementRootDetachedElementNodeAggregateSelection>
-}
-
-export type AppElementRootDetachedElementNodeAggregateSelection = {
-  __typename?: 'AppElementRootDetachedElementNodeAggregateSelection'
-  css: StringAggregateSelectionNullable
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
-  renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfPropKey: StringAggregateSelectionNullable
 }
 
 export type AppElementRootProviderElementAggregationSelection = {
@@ -717,198 +674,8 @@ export type AppPagesUpdateFieldInput = {
 export type AppRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementCreateFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>
   store?: InputMaybe<AppStoreCreateFieldInput>
-}
-
-export type AppRootDetachedElementAggregateInput = {
-  AND?: InputMaybe<Array<AppRootDetachedElementAggregateInput>>
-  OR?: InputMaybe<Array<AppRootDetachedElementAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<AppRootDetachedElementNodeAggregationWhereInput>
-}
-
-export type AppRootDetachedElementConnectFieldInput = {
-  connect?: InputMaybe<ElementConnectInput>
-  where?: InputMaybe<ElementConnectWhere>
-}
-
-export type AppRootDetachedElementConnectOrCreateFieldInput = {
-  onCreate: AppRootDetachedElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type AppRootDetachedElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
-export type AppRootDetachedElementConnection = {
-  __typename?: 'AppRootDetachedElementConnection'
-  edges: Array<AppRootDetachedElementRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type AppRootDetachedElementConnectionSort = {
-  node?: InputMaybe<ElementSort>
-}
-
-export type AppRootDetachedElementConnectionWhere = {
-  AND?: InputMaybe<Array<AppRootDetachedElementConnectionWhere>>
-  OR?: InputMaybe<Array<AppRootDetachedElementConnectionWhere>>
-  node?: InputMaybe<ElementWhere>
-  node_NOT?: InputMaybe<ElementWhere>
-}
-
-export type AppRootDetachedElementCreateFieldInput = {
-  node: ElementCreateInput
-}
-
-export type AppRootDetachedElementDeleteFieldInput = {
-  delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<AppRootDetachedElementConnectionWhere>
-}
-
-export type AppRootDetachedElementDisconnectFieldInput = {
-  disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<AppRootDetachedElementConnectionWhere>
-}
-
-export type AppRootDetachedElementFieldInput = {
-  connect?: InputMaybe<AppRootDetachedElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootDetachedElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootDetachedElementCreateFieldInput>
-}
-
-export type AppRootDetachedElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppRootDetachedElementNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<AppRootDetachedElementNodeAggregationWhereInput>>
-  css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  css_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  css_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  css_EQUAL?: InputMaybe<Scalars['String']>
-  css_GT?: InputMaybe<Scalars['Int']>
-  css_GTE?: InputMaybe<Scalars['Int']>
-  css_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  css_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  css_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  css_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  css_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  css_LT?: InputMaybe<Scalars['Int']>
-  css_LTE?: InputMaybe<Scalars['Int']>
-  css_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  css_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  css_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  css_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  css_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  renderIfPropKey_EQUAL?: InputMaybe<Scalars['String']>
-  renderIfPropKey_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_LTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AppRootDetachedElementRelationship = {
-  __typename?: 'AppRootDetachedElementRelationship'
-  cursor: Scalars['String']
-  node: Element
-}
-
-export type AppRootDetachedElementUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>
-}
-
-export type AppRootDetachedElementUpdateFieldInput = {
-  connect?: InputMaybe<AppRootDetachedElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootDetachedElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootDetachedElementCreateFieldInput>
-  delete?: InputMaybe<AppRootDetachedElementDeleteFieldInput>
-  disconnect?: InputMaybe<AppRootDetachedElementDisconnectFieldInput>
-  update?: InputMaybe<AppRootDetachedElementUpdateConnectionInput>
-  where?: InputMaybe<AppRootDetachedElementConnectionWhere>
 }
 
 export type AppRootProviderElementAggregateInput = {
@@ -1461,7 +1228,6 @@ export type AppUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  rootDetachedElement?: InputMaybe<AppRootDetachedElementUpdateFieldInput>
   rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>
   store?: InputMaybe<AppStoreUpdateFieldInput>
 }
@@ -1520,11 +1286,6 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  rootDetachedElement?: InputMaybe<ElementWhere>
-  rootDetachedElementAggregate?: InputMaybe<AppRootDetachedElementAggregateInput>
-  rootDetachedElementConnection?: InputMaybe<AppRootDetachedElementConnectionWhere>
-  rootDetachedElementConnection_NOT?: InputMaybe<AppRootDetachedElementConnectionWhere>
-  rootDetachedElement_NOT?: InputMaybe<ElementWhere>
   rootProviderElement?: InputMaybe<ElementWhere>
   rootProviderElementAggregate?: InputMaybe<AppRootProviderElementAggregateInput>
   rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>
@@ -3452,7 +3213,7 @@ export type DeleteInfo = {
   relationshipsDeleted: Scalars['Int']
 }
 
-export type Element = WithOwner & {
+export type Element = {
   __typename?: 'Element'
   app?: Maybe<App>
   appAggregate?: Maybe<ElementAppAppAggregationSelection>
@@ -3475,9 +3236,6 @@ export type Element = WithOwner & {
   instanceOfComponentAggregate?: Maybe<ElementComponentInstanceOfComponentAggregationSelection>
   instanceOfComponentConnection: ElementInstanceOfComponentConnection
   name?: Maybe<Scalars['String']>
-  owner: User
-  ownerAggregate?: Maybe<ElementUserOwnerAggregationSelection>
-  ownerConnection: WithOwnerOwnerConnection
   page?: Maybe<Page>
   pageAggregate?: Maybe<ElementPagePageAggregationSelection>
   pageConnection: ElementPageConnection
@@ -3607,25 +3365,6 @@ export type ElementInstanceOfComponentConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<ElementInstanceOfComponentConnectionSort>>
   where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
-}
-
-export type ElementOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type ElementOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type ElementOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
-  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type ElementPageArgs = {
@@ -4325,7 +4064,6 @@ export type ElementConnectInput = {
   component?: InputMaybe<ElementComponentConnectFieldInput>
   hooks?: InputMaybe<Array<ElementHooksConnectFieldInput>>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   page?: InputMaybe<ElementPageConnectFieldInput>
   parentElement?: InputMaybe<ElementParentElementConnectFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
@@ -4339,7 +4077,6 @@ export type ElementConnectOrCreateInput = {
   component?: InputMaybe<ElementComponentConnectOrCreateFieldInput>
   hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   page?: InputMaybe<ElementPageConnectOrCreateFieldInput>
   parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   propMapBindings?: InputMaybe<
@@ -4366,7 +4103,6 @@ export type ElementCreateInput = {
   id: Scalars['ID']
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentFieldInput>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   page?: InputMaybe<ElementPageFieldInput>
   parentElement?: InputMaybe<ElementParentElementFieldInput>
   propMapBindings?: InputMaybe<ElementPropMapBindingsFieldInput>
@@ -4383,7 +4119,6 @@ export type ElementDeleteInput = {
   component?: InputMaybe<ElementComponentDeleteFieldInput>
   hooks?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDeleteFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   page?: InputMaybe<ElementPageDeleteFieldInput>
   parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>
@@ -4397,7 +4132,6 @@ export type ElementDisconnectInput = {
   component?: InputMaybe<ElementComponentDisconnectFieldInput>
   hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDisconnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   page?: InputMaybe<ElementPageDisconnectFieldInput>
   parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>
   propMapBindings?: InputMaybe<
@@ -4689,63 +4423,6 @@ export type ElementOptions = {
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more ElementSort objects to sort Elements by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<ElementSort>>
-}
-
-export type ElementOwnerAggregateInput = {
-  AND?: InputMaybe<Array<ElementOwnerAggregateInput>>
-  OR?: InputMaybe<Array<ElementOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ElementOwnerNodeAggregationWhereInput>
-}
-
-export type ElementOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementOwnerNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
-  auth0Id_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  email_EQUAL?: InputMaybe<Scalars['String']>
-  email_GT?: InputMaybe<Scalars['Int']>
-  email_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  email_LT?: InputMaybe<Scalars['Int']>
-  email_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
 }
 
 export type ElementPageAggregateInput = {
@@ -5368,7 +5045,6 @@ export type ElementRelationInput = {
   component?: InputMaybe<ElementComponentCreateFieldInput>
   hooks?: InputMaybe<Array<ElementHooksCreateFieldInput>>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   page?: InputMaybe<ElementPageCreateFieldInput>
   parentElement?: InputMaybe<ElementParentElementCreateFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
@@ -5659,7 +5335,6 @@ export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   instanceOfComponent?: InputMaybe<ElementInstanceOfComponentUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   page?: InputMaybe<ElementPageUpdateFieldInput>
   parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsUpdateFieldInput>>
@@ -5667,19 +5342,6 @@ export type ElementUpdateInput = {
   props?: InputMaybe<ElementPropsUpdateFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfPropKey?: InputMaybe<Scalars['String']>
-}
-
-export type ElementUserOwnerAggregationSelection = {
-  __typename?: 'ElementUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<ElementUserOwnerNodeAggregateSelection>
-}
-
-export type ElementUserOwnerNodeAggregateSelection = {
-  __typename?: 'ElementUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
 }
 
 export type ElementWhere = {
@@ -5761,11 +5423,6 @@ export type ElementWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<ElementOwnerAggregateInput>
-  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
   page?: InputMaybe<PageWhere>
   pageAggregate?: InputMaybe<ElementPageAggregateInput>
   pageConnection?: InputMaybe<ElementPageConnectionWhere>

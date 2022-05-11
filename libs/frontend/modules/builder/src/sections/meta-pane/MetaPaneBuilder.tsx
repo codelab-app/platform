@@ -1,7 +1,6 @@
 import {
   ATOM_SERVICE,
   BUILDER_SERVICE,
-  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   TYPE_SERVICE,
   WithServices,
@@ -42,11 +41,7 @@ export type MetaPaneBuilderProps = {
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
 } & WithServices<
-  | TYPE_SERVICE
-  | ATOM_SERVICE
-  | BUILDER_SERVICE
-  | ELEMENT_SERVICE
-  | DETACHED_ELEMENT_SERVICE
+  TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
 >
 
 export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
@@ -56,7 +51,6 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
     typeService,
     atomService,
     elementService,
-    detachedElementService,
   }) => {
     const selectedElement = builderService.selectedElement
     const { providePropCompletion } = usePropCompletion(builderService)
@@ -98,7 +92,6 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
                 autocompleteContext={
                   builderService.builderRenderer.platformState
                 }
-                detachedElementService={detachedElementService}
                 element={selectedElement}
                 elementService={elementService}
                 key={selectedElement.id}

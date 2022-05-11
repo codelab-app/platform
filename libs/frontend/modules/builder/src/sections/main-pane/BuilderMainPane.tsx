@@ -2,7 +2,6 @@ import {
   ATOM_SERVICE,
   BUILDER_SERVICE,
   COMPONENT_SERVICE,
-  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   USER_SERVICE,
   WithServices,
@@ -42,7 +41,6 @@ export const BuilderMainPane = observer<
     | ELEMENT_SERVICE
     | BUILDER_SERVICE
     | USER_SERVICE
-    | DETACHED_ELEMENT_SERVICE
   >
 >(
   ({
@@ -51,7 +49,6 @@ export const BuilderMainPane = observer<
     elementService,
     componentService,
     userService,
-    detachedElementService,
   }) => {
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
@@ -64,7 +61,6 @@ export const BuilderMainPane = observer<
 
     const root = elementService.elementTree?.root
     const antdTree = elementService.elementTree.root?.antdNode
-    const detachedAntdTree = detachedElementService.elementTree.root?.antdNode
     const componentsAntdTree = componentService.componentAntdNode
 
     componentService.loadComponentTrees()
@@ -105,7 +101,6 @@ export const BuilderMainPane = observer<
         header={() => (
           <BuilderMainPaneHeader
             builderService={builderService}
-            detachedElementService={detachedElementService}
             elementService={elementService}
             onSearch={debouncedSearch}
             root={root ?? null}
@@ -117,7 +112,6 @@ export const BuilderMainPane = observer<
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
           <BaseBuilderTree treeData={antdTree} />
-          <BaseBuilderTree treeData={detachedAntdTree} />
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />

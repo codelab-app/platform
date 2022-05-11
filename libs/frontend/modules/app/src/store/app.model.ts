@@ -9,7 +9,6 @@ const hydrate = (app: IAppDTO) => {
     name: app.name,
     ownerId: app.owner?.id,
     rootProviderElement: { id: app.rootProviderElement.id },
-    rootDetachedElement: { id: app.rootDetachedElement.id },
     store: app.store?.id ? { id: app.store?.id as string } : undefined,
     pages: app.pages.map((page) => pageRef(page.id)),
   })
@@ -22,7 +21,6 @@ export class App
     ownerId: prop<string>(),
     name: prop<string>(),
     rootProviderElement: prop<IEntity>(),
-    rootDetachedElement: prop<IEntity>(),
     store: prop<Nullable<IEntity>>(null),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })

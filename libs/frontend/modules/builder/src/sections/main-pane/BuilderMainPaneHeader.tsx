@@ -1,6 +1,5 @@
 import {
   BUILDER_SERVICE,
-  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
@@ -11,7 +10,7 @@ import Input from 'antd/lib/input'
 import React from 'react'
 
 type BuilderMainPaneHeaderProps = WithServices<
-  ELEMENT_SERVICE | DETACHED_ELEMENT_SERVICE | BUILDER_SERVICE
+  ELEMENT_SERVICE | BUILDER_SERVICE
 > & {
   tab: BuilderTab
   root: Nullable<IElement>
@@ -25,7 +24,6 @@ export const BuilderMainPaneHeader = ({
   root,
   onSearch,
   elementService,
-  detachedElementService,
   builderService,
 }: BuilderMainPaneHeaderProps) => {
   if (tab === BuilderTab.Tree && root) {

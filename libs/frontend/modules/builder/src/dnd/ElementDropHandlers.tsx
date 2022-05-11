@@ -18,7 +18,6 @@ const BuilderDropHandler = observer<BuilderDropHandlerProps>(
       useCreateElementDroppable(element.id, {
         order,
         parentElementId: element.id,
-        owner: element.owner,
       })
 
     if (isOver) {

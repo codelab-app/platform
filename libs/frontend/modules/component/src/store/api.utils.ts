@@ -13,7 +13,6 @@ export const mapCreateInput = (
       node: {
         id: v4(),
         name,
-        owner: connectOwner(auth0Id),
       },
     },
   }

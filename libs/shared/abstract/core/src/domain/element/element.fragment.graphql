@@ -3,10 +3,6 @@ fragment Element on Element {
   id
   name
   css
-  owner {
-    id
-    auth0Id
-  }
   component {
     ...Component
   }

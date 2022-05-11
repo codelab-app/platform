@@ -55,7 +55,6 @@ export interface IElementService
       'createModal'
     > {
   elementTree: IElementTree
-  // detachedElements: ObjectMap<Ref<IElement>>
   elements: ObjectMap<IElement>
   createModal: IModalService<CreateElementData, { parentElement?: IElement }>
   createPropMapBindingModal: IModalService<
@@ -64,8 +63,6 @@ export interface IElementService
   >
   updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
-  // detachedElementsAntdNode: DataNode
-  // updateOrCreate(element: IElement, elementDTO: IElementDTO): void
 
   hydrateOrUpdateCache(elements: Array<IElementDTO>): Array<IElement>
 

@@ -99,7 +99,6 @@ AppProviderBuilder.Layout = observer((page) => {
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
-            detachedElementService={store.detachedElementService}
             elementService={store.providerElementService}
             userService={store.userService}
           />
@@ -108,7 +107,6 @@ AppProviderBuilder.Layout = observer((page) => {
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
-            detachedElementService={store.detachedElementService}
             elementService={store.providerElementService}
             typeService={store.typeService}
           />

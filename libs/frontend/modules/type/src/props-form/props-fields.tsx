@@ -1,6 +1,5 @@
 import {
   IAnyType,
-  IElement,
   IField,
   IPrimitiveTypeKind,
   ITypeKind,
@@ -19,7 +18,6 @@ type PropsFieldFactoryProps = {
   form: UseFormReturn
   // the state object from where we will get the keys to make autocomplete options
   autocompleteContext: any
-  detachedElements: Array<IElement>
 }
 
 /**
@@ -31,14 +29,11 @@ export const PropsFields = observer<PropsFieldFactoryProps>(
     form,
     // the state object from where we will get the keys to make autocomplete options
     autocompleteContext,
-    detachedElements,
   }) => {
     // For now - create a CodeMirror field for everything,
     // later we will add support for Selects, Checkboxes and a List field
 
-    const reactNodeOptions = detachedElements.map((element) => {
-      console.log(element)
-
+    const reactNodeOptions = [{ id: '0x', name: 'test' }].map((element) => {
       return {
         label: element.id,
         detail: element.name ?? '',

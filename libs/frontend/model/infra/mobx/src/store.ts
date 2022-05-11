@@ -95,7 +95,6 @@ export type IRootStore = {
   // Element services
   elementService: IElementService
   providerElementService: IElementService
-  detachedElementService: IElementService
 
   builderService: IBuilderService
   renderService: IRenderService
@@ -126,7 +125,6 @@ export const createRootStore = (
       operationService: prop(() => new OperationService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
-      detachedElementService: prop(() => new ElementService({})),
       // element service that is used by the provider tree
       providerElementService: prop(() => new ElementService({})),
       builderService: prop(() => new BuilderService({})),

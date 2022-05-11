@@ -1,4 +1,3 @@
-import { DragOutlined } from '@ant-design/icons'
 import {
   ATOM_SERVICE,
   COMPONENT_SERVICE,
@@ -6,30 +5,15 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
-import {
-  IAtom,
-  IComponent,
-  ICreateElementDTO,
-} from '@codelab/shared/abstract/core'
+import { IAtom, IComponent } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
-import { Button } from 'antd'
 import Fuse from 'fuse.js'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
-import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
-import { ToolboxItem } from './ToolboxItem'
-
-export interface ToolboxItemProps {
-  id: string
-  name: string
-  createElementInputFactory: () => Omit<
-    ICreateElementDTO,
-    'parentElementId' | 'order' | 'owner'
-  >
-}
+import { ToolboxItem, ToolboxItemProps } from './ToolboxItem'
 
 const atomToolboxItemFactory = (atom: IAtom): ToolboxItemProps => ({
   name: atom.name,

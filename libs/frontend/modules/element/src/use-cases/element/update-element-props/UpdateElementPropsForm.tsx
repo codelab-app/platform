@@ -1,5 +1,4 @@
 import {
-  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   TYPE_SERVICE,
   WithServices,
@@ -18,7 +17,7 @@ export type UpdateElementPropsFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocompleteContext?: any
-} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE | DETACHED_ELEMENT_SERVICE>
+} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({
@@ -27,7 +26,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     trackPromises,
     typeService,
     autocompleteContext,
-    detachedElementService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
@@ -58,7 +56,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <PropsForm
             autocompleteContext={autocompleteContext}
             autosave
-            detachedElementService={detachedElementService}
             initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}

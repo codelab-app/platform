@@ -8,10 +8,6 @@ export const appSchema = gql`
     pages: [Page!]! @relationship(type: "PAGES", direction: IN)
     rootProviderElement: Element!
       @relationship(type: "PROVIDER_ROOT", direction: IN)
-    # Used to hold all detached elements, use this instead of array to match tree structure
-    # This element type itself is actually invalid
-    rootDetachedElement: Element!
-      @relationship(type: "DETACHED_ELEMENTS", direction: IN)
     store: Store @relationship(type: "STORE_OF_APP", direction: IN)
   }
   extend type App

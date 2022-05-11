@@ -54,12 +54,8 @@ import { PropMapBindingModalService } from './prop-map-binding-modal.service'
  *
  * - Elements part of rootTree
  * - Elements part of providerTree
- * - Elements that are detached
  * - Elements part of components
  *
- * Previously we created 2 properties, elements & detachedElements, but this mixes up different context in the same service
- *
- * Instead, we could create a new element service for detachedElements, which is stored as elements property
  */
 @model('@codelab/ElementService')
 export class ElementService
@@ -72,11 +68,6 @@ export class ElementService
      * - Elements that are detached
      */
     elements: prop(() => objectMap<IElement>()),
-    /**
-     * Put detached elements in its own group for easy access
-     */
-    // detachedElements: prop(() => objectMap<Ref<IElement>>()),
-
     createModal: prop(() => new CreateElementModalService({})),
     updateModal: prop(() => new ElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
@@ -122,30 +113,12 @@ export class ElementService
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
     const { elements } = yield* _await(
       elementApi.GetElements({
-        where: {
-          ...where,
-          owner: {
-            // auth0Id:
-          },
-        },
+        where,
       }),
     )
 
     return this.hydrateOrUpdateCache(elements)
   })
-
-  // get detachedElementsAntdNode() {
-  //   return {
-  //     children: [...this.detachedElements.values()].map((element) => {
-  //       return {
-  //         key: element.current.id,
-  //         title: element.current.label,
-  //       }
-  //     }),
-  //     key: 'detachedNodes',
-  //     title: 'Detached Nodes',
-  //   }
-  // }
 
   @modelAction
   private updateAtomsCache(elements: Array<IElementDTO>) {
@@ -186,59 +159,6 @@ export class ElementService
       return elementModel
     })
   }
-
-  /**
-   * Get elements without any parent or children, currently we load all from current user
-   */
-  // @modelFlow
-  // @transaction
-  // loadAllDetached = _async(function* (this: ElementService) {
-  //   const userService = getUserService(this)
-  //
-  //   const { elements } = yield* _await(
-  //     elementApi.GetElements({
-  //       where: {
-  //         AND: [
-  //           {
-  //             parentElementAggregate: {
-  //               count: 0,
-  //             },
-  //           },
-  //           {
-  //             childrenAggregate: {
-  //               count: 0,
-  //             },
-  //           },
-  //           // Can't be a provider element
-  //           {
-  //             appAggregate: {
-  //               count: 0,
-  //             },
-  //           },
-  //           // Can't be a root element
-  //           {
-  //             pageAggregate: {
-  //               count: 0,
-  //             },
-  //           },
-  //           {
-  //             owner: {
-  //               auth0Id: userService.user?.auth0Id,
-  //             },
-  //           },
-  //         ],
-  //       },
-  //     }),
-  //   )
-  //
-  //   const elementsModel = this.hydrateOrUpdateCache(elements)
-  //
-  //   // elementsModel.forEach((element) => {
-  //   //   this.detachedElements.set(element.id, elementRef(element.id))
-  //   // })
-  //
-  //   return elementsModel
-  // })
 
   @modelFlow
   @transaction
@@ -556,7 +476,6 @@ export class ElementService
       this.create([
         {
           name: element.label,
-          owner: auth0Id,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
           order,

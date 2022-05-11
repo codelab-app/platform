@@ -1,7 +1,4 @@
-import {
-  DETACHED_ROOT_ELEMENT_NAME,
-  PROVIDER_ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
+import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/modules/page'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
@@ -117,15 +114,6 @@ export class AppService
           node: {
             id: v4(),
             name: PROVIDER_ROOT_ELEMENT_NAME,
-            owner: connectOwner(app.auth0Id),
-          },
-        },
-      },
-      rootDetachedElement: {
-        create: {
-          node: {
-            id: v4(),
-            name: DETACHED_ROOT_ELEMENT_NAME,
             owner: connectOwner(app.auth0Id),
           },
         },

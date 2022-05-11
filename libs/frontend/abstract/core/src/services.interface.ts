@@ -25,7 +25,6 @@ export const ATOM_SERVICE = 'atomService'
 export const IMPORT_ATOM_SERVICE = 'importAtomService'
 export const IMPORT_TYPE_SERVICE = 'importTypeService'
 export const ELEMENT_SERVICE = 'elementService'
-export const DETACHED_ELEMENT_SERVICE = 'detachedElementService'
 export const USER_SERVICE = 'userService'
 export const TAG_SERVICE = 'tagService'
 export const COMPONENT_SERVICE = 'componentService'
@@ -44,7 +43,6 @@ export type ATOM_SERVICE = typeof ATOM_SERVICE
 export type IMPORT_ATOM_SERVICE = typeof IMPORT_ATOM_SERVICE
 export type IMPORT_TYPE_SERVICE = typeof IMPORT_TYPE_SERVICE
 export type ELEMENT_SERVICE = typeof ELEMENT_SERVICE
-export type DETACHED_ELEMENT_SERVICE = typeof DETACHED_ELEMENT_SERVICE
 export type USER_SERVICE = typeof USER_SERVICE
 export type TAG_SERVICE = typeof TAG_SERVICE
 export type COMPONENT_SERVICE = typeof COMPONENT_SERVICE
@@ -67,7 +65,6 @@ export type DomainServices = {
   [IMPORT_TYPE_SERVICE]: IImportTypeService
   [COMPONENT_SERVICE]: IComponentService
   [ELEMENT_SERVICE]: IElementService
-  [DETACHED_ELEMENT_SERVICE]: IElementService
   [BUILDER_SERVICE]: IBuilderService
   [RENDER_SERVICE]: IRenderService
   [TYPE_SERVICE]: ITypeService

@@ -88,7 +88,6 @@ ComponentDetail.Layout = observer((page) => {
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
-            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             userService={store.userService}
@@ -98,7 +97,6 @@ ComponentDetail.Layout = observer((page) => {
           <MetaPaneBuilderComponent
             atomService={store.atomService}
             builderService={store.builderService}
-            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}

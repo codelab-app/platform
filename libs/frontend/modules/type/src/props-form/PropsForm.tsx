@@ -1,7 +1,3 @@
-import {
-  DETACHED_ELEMENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { IInterfaceType } from '@codelab/shared/abstract/core'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -16,7 +12,7 @@ export type PropsFormProps = {
   onSubmit: (values: any) => any
   autosave?: boolean
   autocompleteContext?: any
-} & WithServices<DETACHED_ELEMENT_SERVICE>
+}
 
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
@@ -28,7 +24,6 @@ export const PropsForm = observer<PropsFormProps>(
     onSubmit,
     autosave,
     autocompleteContext = { hello: 'world' },
-    detachedElementService,
   }) => {
     const form = useForm({
       defaultValues: initialValue,
@@ -50,8 +45,6 @@ export const PropsForm = observer<PropsFormProps>(
       defaultValue: initialValue,
     })
 
-    const detachedElements = [...detachedElementService.elements.values()]
-
     useDeepCompareEffect(() => {
       if (autosave && form.formState.isDirty) {
         debouncedSave()
@@ -63,7 +56,6 @@ export const PropsForm = observer<PropsFormProps>(
         {fields.map((field) => (
           <PropsFields
             autocompleteContext={autocompleteContext}
-            detachedElements={detachedElements}
             field={field}
             form={form}
           />

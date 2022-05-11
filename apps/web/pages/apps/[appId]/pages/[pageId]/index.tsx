@@ -26,7 +26,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     providerElementService,
     storeService,
     renderService,
-    detachedElementService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
@@ -56,7 +55,6 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const [elementTree, providerTree] = await Promise.all([
         elementService.getTree(page.rootElement.id),
         providerElementService.getTree(page.providerElement.id),
-        detachedElementService.getTree(app.rootDetachedElement.id),
       ])
 
       // initialize renderer

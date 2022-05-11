@@ -39,7 +39,6 @@ export const hydrate = ({
   css,
   atom,
 
-  owner,
   component,
   instanceOfComponent,
   parentElement,
@@ -61,7 +60,6 @@ export const hydrate = ({
     parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
     props: props ? Prop.hydrate(props) : null,
-    owner: owner.auth0Id,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -348,7 +346,6 @@ export class Element
     name,
     css,
     atom,
-    owner,
     component,
     instanceOfComponent,
     hooks,
@@ -363,7 +360,6 @@ export class Element
     this.id = id
     this.name = name
     this.css = css
-    this.owner = owner.auth0Id
     this.propTransformationJs = propTransformationJs
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey

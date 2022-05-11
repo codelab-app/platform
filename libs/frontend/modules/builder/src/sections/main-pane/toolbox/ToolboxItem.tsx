@@ -1,9 +1,18 @@
 import { DragOutlined } from '@ant-design/icons'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
-import { ToolboxItemProps } from './Toolbox'
+
+export interface ToolboxItemProps {
+  id: string
+  name: string
+  createElementInputFactory: () => Omit<
+    ICreateElementDTO,
+    'parentElementId' | 'order' | 'owner'
+  >
+}
 
 export const ToolboxItem = ({
   toolboxItem,

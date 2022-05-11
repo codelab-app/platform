@@ -34,7 +34,6 @@ const PageBuilder: CodelabPage<any> = observer(() => {
     storeService,
     builderService,
     userService,
-    detachedElementService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
@@ -67,7 +66,6 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       const [elementTree, providerTree] = await Promise.all([
         elementService.getTree(page.rootElement.id),
         providerElementService.getTree(page.providerElement.id),
-        detachedElementService.getTree(app.rootDetachedElement.id),
         // elementService.loadAllDetached(),
       ])
 
@@ -122,7 +120,6 @@ PageBuilder.Layout = observer((page) => {
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
-            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             userService={store.userService}
@@ -132,7 +129,6 @@ PageBuilder.Layout = observer((page) => {
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
-            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
