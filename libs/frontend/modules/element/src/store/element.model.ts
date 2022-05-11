@@ -15,7 +15,6 @@ import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
   detach,
-  findParent,
   getParent,
   idProp,
   Model,
@@ -88,7 +87,7 @@ export class Element
 
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullish<string>>(),
-    owner: prop<string>(),
+    owner: prop<Nullish<string>>(),
 
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 

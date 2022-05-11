@@ -4,7 +4,6 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/modules/atom'
 import {
   Component,
-  componentRef,
   ComponentService,
 } from '@codelab/frontend/modules/component'
 import {
@@ -23,6 +22,7 @@ import {
   typeRef,
   TypeService,
 } from '@codelab/frontend/modules/type'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType, IRenderPipe } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
@@ -183,7 +183,7 @@ export const setupTestForRenderer = (
         ]),
       }),
       componentService: new ComponentService({
-        _components: objectMap([
+        components: objectMap([
           [data.componentToRender.id, data.componentToRender],
         ]),
       }),

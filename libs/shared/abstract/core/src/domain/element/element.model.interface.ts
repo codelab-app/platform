@@ -10,7 +10,7 @@ import { IElementDTO } from './element.dto.interface'
 
 export interface IElement {
   id: string
-  owner: IAuth0Id
+  owner: Nullish<IAuth0Id>
   name: Nullish<string>
   css: Nullish<string>
   props?: Nullish<IProp>
