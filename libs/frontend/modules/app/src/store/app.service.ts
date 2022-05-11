@@ -114,7 +114,6 @@ export class AppService
           node: {
             id: v4(),
             name: PROVIDER_ROOT_ELEMENT_NAME,
-            owner: connectOwner(app.auth0Id),
           },
         },
       },
