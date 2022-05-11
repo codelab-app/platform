@@ -28,6 +28,8 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
   switch (task) {
     case Tasks.Build:
       if (env === TaskEnv.Test) {
+        // Added since many times can't find production build of next during push
+        execCommand(`${NX_TEST} build web -c=test`)
         execCommand(
           `${NX_TEST} affected:build -c=test --exclude=tools-plugins-codelab`,
         )
