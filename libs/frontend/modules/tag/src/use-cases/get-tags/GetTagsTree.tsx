@@ -1,8 +1,6 @@
 import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { CheckedKeys } from '@codelab/frontend/abstract/types'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
-// TODO: resolve circular deps issue
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { Tree, TreeProps } from 'antd'
 import { toJS } from 'mobx'
@@ -21,7 +19,7 @@ export const GetTagsTree = observer<WithServices<TAG_SERVICE>>(
       tagService.setCheckedTags(checked.map((check) => tagRef(check as string)))
     }
 
-    const [_, { isLoading }] = useLoadingState(
+    const [_, { isLoading }] = useStatefulExecutor(
       () => tagService.getTagGraphs(),
       { executeOnMount: true },
     )

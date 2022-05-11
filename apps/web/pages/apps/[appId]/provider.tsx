@@ -6,8 +6,8 @@ import {
   Builder,
   BuilderContext,
   BuilderDashboardTemplate,
+  BuilderMainPane,
   BuilderSidebarNavigation,
-  MainPaneComponentBuilder,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
@@ -95,7 +95,7 @@ AppProviderBuilder.Layout = observer((page) => {
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={store.pageService} />}
         MainPane={observer(() => (
-          <MainPaneComponentBuilder
+          <BuilderMainPane
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}

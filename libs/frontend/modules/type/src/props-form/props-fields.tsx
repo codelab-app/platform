@@ -80,7 +80,7 @@ export const PropsFields = observer<PropsFieldFactoryProps>(
 
 const makeCompletionOptionsFromType = (
   type: IAnyType,
-  reactNodeOptions: Array<{ label: string; value: string }> = [],
+  reactNodeOptions: Array<{ label: string; detail: string }> = [],
 ): Array<Completion> => {
   if (
     type.kind === ITypeKind.PrimitiveType &&

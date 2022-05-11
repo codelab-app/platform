@@ -1,6 +1,10 @@
 import { ElementTree, elementTreeRef } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
+import {
   IElement,
   IElementTree,
   IPropData,
@@ -162,7 +166,7 @@ export class RenderService
     yield* _await(
       Promise.all(
         // keep the main tree root as it is.
-        components.map((c) => elementService.getTree(c.rootElementId, false)),
+        components.map((c) => elementService.getTree(c.rootElementId)),
       ),
     )
 

@@ -1,14 +1,7 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import {
-  IModalService,
-  ITag,
-  ITagTreeNode,
-  ITagTreeService,
-} from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { IModalService, ITagTreeNode } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
-import { Node } from './tree.service'
 
 @model('@codelab/TagModalService')
 export class TagModalService
@@ -27,10 +20,7 @@ export class TagModalService
 @model('@codelab/TagsModalService')
 export class TagsModalService
   extends ExtendedModel(() => ({
-    baseModel:
-      modelClass<
-        ModalService<Array<Ref<ITagTreeNode>>, { tags: Array<ITagTreeNode> }>
-      >(ModalService),
+    baseModel: modelClass<ModalService<Array<Ref<ITagTreeNode>>>>(ModalService),
     props: {},
   }))
   implements
