@@ -96,9 +96,11 @@ export const BuilderMainPane = observer<
     return (
       <MainPaneTemplate
         containerProps={{
-          onClick: () => builderService.set_selectedElement(null),
+          onClick: () => {
+            // builderService.set_selectedElement(null)
+          },
         }}
-        header={() => (
+        header={
           <BuilderMainPaneHeader
             builderService={builderService}
             elementService={elementService}
@@ -106,7 +108,7 @@ export const BuilderMainPane = observer<
             root={root ?? null}
             tab={builderTab}
           />
-        )}
+        }
         key={root?.id ?? 'main-pane-builder'}
         title={paneTitles[builderTab]}
       >

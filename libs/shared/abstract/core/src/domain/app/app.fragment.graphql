@@ -1,9 +1,9 @@
 fragment App on App {
   id
+  name
   owner {
     id
   }
-  name
   pages {
     id
   }

@@ -1,13 +1,14 @@
 import { css } from '@emotion/react'
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import styled from '@emotion/styled'
 import { PageHeader, PageHeaderProps } from 'antd'
-import React, { JSXElementConstructor } from 'react'
+import React from 'react'
 import tw, { GlobalStyles } from 'twin.macro'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{
   title: React.ReactNode
   // For buttons
-  header?: JSXElementConstructor<unknown>
+  header?: ReactJSXElement
   containerProps?: Pick<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLDivElement>,
@@ -50,8 +51,6 @@ export const MainPaneTemplate = ({
   containerProps,
   headerProps,
 }: MainPaneTemplateProps) => {
-  const extra = header && Array.isArray(header) ? header : [header]
-
   return (
     <StyledContainer
       css={css`
@@ -62,7 +61,7 @@ export const MainPaneTemplate = ({
     >
       <GlobalStyles />
       <PageHeader
-        extra={[...extra]}
+        extra={header}
         onBack={headerProps?.onBack}
         style={{ maxHeight: '100%' }}
         title={title}

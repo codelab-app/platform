@@ -8,7 +8,6 @@ import {
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -125,7 +124,6 @@ export class PageService
           node: {
             id: page.rootElementId ?? v4(),
             name: ROOT_ELEMENT_NAME,
-            owner: connectOwner(page.auth0Id),
           },
         },
       },

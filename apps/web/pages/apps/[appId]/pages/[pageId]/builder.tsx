@@ -66,7 +66,6 @@ const PageBuilder: CodelabPage<any> = observer(() => {
       const [elementTree, providerTree] = await Promise.all([
         elementService.getTree(page.rootElement.id),
         providerElementService.getTree(page.providerElement.id),
-        // elementService.loadAllDetached(),
       ])
 
       // initialize renderer

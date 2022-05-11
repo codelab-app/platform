@@ -34,7 +34,7 @@ export const elementSchema = gql`
     # Used for reverse lookup to see whether element is detached
     app: App @relationship(type: "PROVIDER_ROOT", direction: OUT)
     # Used for reverse lookup to see whether element is detached
-    page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
+    page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
     parentElement: Element
       @relationship(

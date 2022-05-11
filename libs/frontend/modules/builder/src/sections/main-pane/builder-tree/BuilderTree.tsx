@@ -1,19 +1,12 @@
-import {
-  BUILDER_SERVICE,
-  COMPONENT_TREE_CONTAINER,
-  ELEMENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
 import { checkIfValidUUID } from '@codelab/shared/utils'
-import { css } from '@emotion/react'
 import { Tree as AntdTree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { Key, useRef, useState } from 'react'
+import React from 'react'
 import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
 import { ElementContextMenuProps } from '../ElementContextMenu'
 import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
@@ -74,6 +67,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onClick={(e) => e.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
+          console.log(expandedKeys)
+
           return setExpandedNodeIds(expandedKeys)
         }}
         onMouseEnter={({ node, event }) => {

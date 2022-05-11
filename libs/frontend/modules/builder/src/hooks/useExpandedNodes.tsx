@@ -1,5 +1,4 @@
-import { IBuilderService, IElement } from '@codelab/shared/abstract/core'
-import { autorun } from 'mobx'
+import { IBuilderService } from '@codelab/shared/abstract/core'
 import { useEffect, useState } from 'react'
 
 export type UseExpandedNodesProps = Pick<
@@ -29,6 +28,8 @@ export const useExpandedNodes = ({
     // go through each node of the path and keep track of all nodes that need to get expanded
 
     setExpandedNodeIds((prevState) => {
+      console.log(prevState)
+
       const expandedSet = new Set(prevState)
 
       const toExpand = (pathResult ?? [])
