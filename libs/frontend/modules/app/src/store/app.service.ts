@@ -1,6 +1,6 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/modules/element'
 import { getPageService } from '@codelab/frontend/modules/page'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -41,7 +41,7 @@ export class AppService
   }
 
   app(id: string) {
-    return this.apps.get(id)
+    return throwIfUndefined(this.apps.get(id))
   }
 
   @modelFlow
@@ -110,7 +110,12 @@ export class AppService
       owner: connectOwner(app.auth0Id),
       store: connectId(app.storeId),
       rootProviderElement: {
-        create: { node: { id: v4(), name: PROVIDER_ROOT_ELEMENT_NAME } },
+        create: {
+          node: {
+            id: v4(),
+            name: PROVIDER_ROOT_ELEMENT_NAME,
+          },
+        },
       },
     }))
 

@@ -1,6 +1,6 @@
 import { ElementWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
+import { ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
   ICRUDService,
@@ -14,10 +14,14 @@ import {
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
-import { IUserRef } from '../user'
-import { ICreateElementDTO, IUpdateElementDTO } from './element.dto.interface'
-import { IElement, IElementRef } from './element.interface'
-import { IElementTree } from './element-tree.interface'
+import { IAuth0Id } from '../user'
+import {
+  ICreateElementDTO,
+  IElementDTO,
+  IUpdateElementDTO,
+} from './element.dto.interface'
+import { IElement, IElementRef } from './element.model.interface'
+import { IElementTree } from './element-tree.interface.model'
 
 /**
  * Used for modal input
@@ -51,6 +55,7 @@ export interface IElementService
       'createModal'
     > {
   elementTree: IElementTree
+  elements: ObjectMap<IElement>
   createModal: IModalService<CreateElementData, { parentElement?: IElement }>
   createPropMapBindingModal: IModalService<
     Ref<IElement>,
@@ -59,16 +64,22 @@ export interface IElementService
   updatePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
   deletePropMapBindingModal: IModalService<PropMapData, PropMapProperties>
 
+  hydrateOrUpdateCache(elements: Array<IElementDTO>): Array<IElement>
+
   moveElement(
     targetElementId: IElementRef,
     moveData: MoveData,
   ): Promise<IElement>
-  duplicateElement(target: IElement, userId: IUserRef): Promise<void>
-  convertElementToComponent(element: IElement, userId: IUserRef): Promise<void>
+  duplicateElement(target: IElement, auth0Id: IAuth0Id): Promise<void>
+  convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
   element(id: string): Maybe<IElement>
   updateElementProps(element: IElement, data: IPropData): Promise<IElement>
   updateElementCss(element: IElement, newCss: string): Promise<IElement>
-  getTree(root: IElementRef, updateRoot?: boolean): Promise<IElementTree>
+
+  /**
+   * Modify it so it can build a tree from parameter
+   */
+  getTree(root: IElementRef): Promise<IElementTree>
   updateElementsPropTransformationJs(
     element: IElement,
     newPropTransformJs: string,
@@ -87,4 +98,5 @@ export interface IElementService
     element: IElement,
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
+  // loadAllDetached(): Promise<Array<IElement>>
 }

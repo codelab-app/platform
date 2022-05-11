@@ -1,5 +1,5 @@
 import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -10,7 +10,7 @@ export const GetAtomsTable = observer<WithServices<ATOM_SERVICE>>(
   ({ atomService }) => {
     const { columns, rowSelection, pagination } = useAtomTable(atomService)
 
-    const [getAtoms, { isLoading }] = useLoadingState(() =>
+    const [getAtoms, { isLoading }] = useStatefulExecutor(() =>
       atomService.getAll(),
     )
 

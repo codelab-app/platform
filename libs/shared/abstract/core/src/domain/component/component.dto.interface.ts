@@ -1,10 +1,10 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { IAuth0ID } from '../user'
+import { IAuth0Id } from '../user'
 import { ComponentFragment } from './component.fragment.graphql.gen'
 
 export interface ICreateComponentDTO {
   name: string
-  auth0Id: IAuth0ID
+  auth0Id: IAuth0Id
 }
 
 export type IUpdateComponentDTO = Omit<ICreateComponentDTO, 'auth0Id'>

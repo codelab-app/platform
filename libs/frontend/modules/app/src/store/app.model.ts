@@ -20,7 +20,7 @@ export class App
     id: idProp,
     ownerId: prop<string>(),
     name: prop<string>(),
-    rootProviderElement: prop<Nullable<IEntity>>(null),
+    rootProviderElement: prop<IEntity>(),
     store: prop<Nullable<IEntity>>(null),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })

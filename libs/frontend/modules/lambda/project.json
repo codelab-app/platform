@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/lambda",
   "sourceRoot": "libs/frontend/modules/lambda/src",
   "projectType": "library",
   "targets": {

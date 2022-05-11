@@ -1,10 +1,15 @@
-import { DATA_COMPONENT_ID, DATA_ID } from '@codelab/frontend/abstract/core'
-import { Component } from '@codelab/frontend/modules/component'
+import {
+  DATA_COMPONENT_ID,
+  DATA_ELEMENT_ID,
+} from '@codelab/frontend/abstract/core'
 import { Element } from '@codelab/frontend/modules/element'
 import {
+  IComponent,
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
@@ -43,12 +48,12 @@ export class ComponentRenderPipe
     return renderer.renderIntermediateElement(rootElement, overrideProps)
   }
 
-  private static makeOverrideProps(props: IPropData, component: Component) {
-    const { key, [DATA_ID]: id, ...overrideProps } = { ...props } as any
+  private static makeOverrideProps(props: IPropData, component: IComponent) {
+    const { key, [DATA_ELEMENT_ID]: id, ...overrideProps } = { ...props } as any
 
     return {
       [DATA_COMPONENT_ID]: component.id,
-      [DATA_ID]: component.rootElementId,
+      [DATA_ELEMENT_ID]: component.rootElementId,
       ...overrideProps,
     }
   }
@@ -66,9 +71,9 @@ export class ComponentRenderPipe
   }
 
   private static logRendering(
-    renderer: RenderService,
-    rootElement: Element,
-    element: Element,
+    renderer: IRenderService,
+    rootElement: IElement,
+    element: IElement,
   ) {
     if (renderer.debugMode) {
       console.info(

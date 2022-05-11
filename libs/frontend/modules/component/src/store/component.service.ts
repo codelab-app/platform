@@ -1,11 +1,26 @@
+import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
+import {
+  atomServiceContext,
+  getAtomService,
+} from '@codelab/frontend/modules/atom'
+import { ElementService } from '@codelab/frontend/modules/element'
+import { getUserService } from '@codelab/frontend/modules/user'
+import {
+  componentServiceContext,
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IComponent,
   IComponentDTO,
   IComponentService,
   ICreateComponentDTO,
+  IElementService,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
+import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
   _async,
@@ -23,24 +38,91 @@ import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
-@model('@codelab/ComponentStore')
+@model('@codelab/ComponentService')
 export class ComponentService
   extends Model({
-    _components: prop(() => objectMap<Component>()),
+    components: prop(() => objectMap<IComponent>()),
+    // Map of component id to elementTree
+    componentTrees: prop(() => objectMap<IElementService>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ComponentModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
   })
   implements IComponentService
 {
-  @computed
-  get components() {
-    return [...this._components.values()]
+  component(id: string) {
+    return this.components.get(id)
   }
 
-  component(id: string) {
-    return this._components.get(id)
+  @computed
+  get elementService() {
+    return getElementService(this)
   }
+
+  @computed
+  get componentAntdNode() {
+    return {
+      id: COMPONENT_TREE_CONTAINER,
+      key: COMPONENT_TREE_CONTAINER,
+      title: 'Components',
+      selectable: false,
+      children: [...this.components.values()].map((component) => {
+        const elementService = this.componentTrees.get(component.id)
+        const dataNode = elementService?.elementTree?.root?.antdNode
+
+        return {
+          id: component.id,
+          key: component.id,
+          title: component.name,
+          selectable: false,
+          children: [dataNode].filter((data): data is DataNode =>
+            Boolean(data),
+          ),
+        }
+      }),
+    }
+  }
+
+  @modelFlow
+  loadComponentTrees = _async(function* (this: ComponentService) {
+    const userService = getUserService(this)
+
+    const components = yield* _await(
+      this.getAll({
+        owner: {
+          auth0Id: userService.auth0Id,
+        },
+      }),
+    )
+
+    return components.map(async (component) => {
+      const existingElementService = this.componentTrees.has(component.id)
+
+      if (!existingElementService) {
+        /**
+         * Each component should instantiate its own element tree
+         */
+        const elementService = new ElementService({})
+
+        this.componentTrees.set(component.id, elementService)
+
+        /**
+         * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
+         *
+         * Need to manually set as a workaround
+         */
+        atomServiceContext.apply(() => elementService, getAtomService(this))
+        componentServiceContext.apply(
+          () => elementService,
+          getComponentService(this),
+        )
+
+        const componentTree = await elementService.getTree(
+          component.rootElementId,
+        )
+      }
+    })
+  })
 
   @modelFlow
   @transaction
@@ -49,11 +131,11 @@ export class ComponentService
 
     return components
       .map((component) => {
-        if (this._components.get(component.id)) {
-          return this._components.get(component.id)
+        if (this.components.get(component.id)) {
+          return this.components.get(component.id)
         } else {
           const componentModel = Component.hydrate(component)
-          this._components.set(component.id, componentModel)
+          this.components.set(component.id, componentModel)
 
           return componentModel
         }
@@ -64,8 +146,8 @@ export class ComponentService
   @modelFlow
   @transaction
   getOne = _async(function* (this: ComponentService, id: string) {
-    if (this._components.has(id)) {
-      return this._components.get(id)
+    if (this.components.has(id)) {
+      return this.components.get(id)
     }
 
     const all = yield* _await(this.getAll({ id }))
@@ -94,13 +176,18 @@ export class ComponentService
       throw new Error('Component was not created')
     }
 
-    return components.map((component) => {
-      const componentModel = Component.hydrate(component)
+    const component = components[0]
+    const componentModel = Component.hydrate(component)
 
-      this._components.set(componentModel.id, componentModel)
+    this.components.set(component.id, componentModel)
 
-      return componentModel
-    })
+    const componentTree = yield* _await(
+      this.elementService.getTree(component.rootElement.id),
+    )
+
+    // this.componentTrees.set(component.id, componentTree)
+
+    return [componentModel]
   })
 
   @modelFlow
@@ -133,10 +220,10 @@ export class ComponentService
   @modelFlow
   @transaction
   delete = _async(function* (this: ComponentService, id: string) {
-    const existing = throwIfUndefined(this._components.get(id))
+    const existing = throwIfUndefined(this.components.get(id))
 
-    if (this._components.has(id)) {
-      this._components.delete(id)
+    if (this.components.has(id)) {
+      this.components.delete(id)
     }
 
     const { deleteComponents } = yield* _await(
@@ -159,7 +246,7 @@ export class ComponentService
       existing.updateCache(componentFragment)
     } else {
       const component = Component.hydrate(componentFragment)
-      this._components.set(component.id, component)
+      this.components.set(component.id, component)
     }
   }
 

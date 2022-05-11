@@ -284,7 +284,7 @@ type ActionsConnection {
   totalCount: Int!
 }
 
-type App {
+type App implements WithOwner {
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -296,9 +296,9 @@ type App {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [AppOwnerConnectionSort!]
-    where: AppOwnerConnectionWhere
-  ): AppOwnerConnection!
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   pages(
     directed: Boolean = true
     options: PageOptions
@@ -356,14 +356,14 @@ type AppAggregateSelection {
 }
 
 input AppConnectInput {
-  owner: AppOwnerConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
   rootProviderElement: AppRootProviderElementConnectFieldInput
   store: AppStoreConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
-  owner: AppOwnerConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
   rootProviderElement: AppRootProviderElementConnectOrCreateFieldInput
   store: AppStoreConnectOrCreateFieldInput
@@ -380,21 +380,21 @@ input AppConnectWhere {
 input AppCreateInput {
   id: ID!
   name: String!
-  owner: AppOwnerFieldInput
+  owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
   rootProviderElement: AppRootProviderElementFieldInput
   store: AppStoreFieldInput
 }
 
 input AppDeleteInput {
-  owner: AppOwnerDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
   rootProviderElement: AppRootProviderElementDeleteFieldInput
   store: AppStoreDeleteFieldInput
 }
 
 input AppDisconnectInput {
-  owner: AppOwnerDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
   rootProviderElement: AppRootProviderElementDisconnectFieldInput
   store: AppStoreDisconnectFieldInput
@@ -445,57 +445,6 @@ input AppOwnerAggregateInput {
   node: AppOwnerNodeAggregationWhereInput
 }
 
-input AppOwnerConnectFieldInput {
-  connect: UserConnectInput
-  where: UserConnectWhere
-}
-
-input AppOwnerConnectOrCreateFieldInput {
-  onCreate: AppOwnerConnectOrCreateFieldInputOnCreate!
-  where: UserConnectOrCreateWhere!
-}
-
-input AppOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserOnCreateInput!
-}
-
-type AppOwnerConnection {
-  edges: [AppOwnerRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AppOwnerConnectionSort {
-  node: UserSort
-}
-
-input AppOwnerConnectionWhere {
-  AND: [AppOwnerConnectionWhere!]
-  OR: [AppOwnerConnectionWhere!]
-  node: UserWhere
-  node_NOT: UserWhere
-}
-
-input AppOwnerCreateFieldInput {
-  node: UserCreateInput!
-}
-
-input AppOwnerDeleteFieldInput {
-  delete: UserDeleteInput
-  where: AppOwnerConnectionWhere
-}
-
-input AppOwnerDisconnectFieldInput {
-  disconnect: UserDisconnectInput
-  where: AppOwnerConnectionWhere
-}
-
-input AppOwnerFieldInput {
-  connect: AppOwnerConnectFieldInput
-  connectOrCreate: AppOwnerConnectOrCreateFieldInput
-  create: AppOwnerCreateFieldInput
-}
-
 input AppOwnerNodeAggregationWhereInput {
   AND: [AppOwnerNodeAggregationWhereInput!]
   OR: [AppOwnerNodeAggregationWhereInput!]
@@ -540,25 +489,6 @@ input AppOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
-}
-
-type AppOwnerRelationship {
-  cursor: String!
-  node: User!
-}
-
-input AppOwnerUpdateConnectionInput {
-  node: UserUpdateInput
-}
-
-input AppOwnerUpdateFieldInput {
-  connect: AppOwnerConnectFieldInput
-  connectOrCreate: AppOwnerConnectOrCreateFieldInput
-  create: AppOwnerCreateFieldInput
-  delete: AppOwnerDeleteFieldInput
-  disconnect: AppOwnerDisconnectFieldInput
-  update: AppOwnerUpdateConnectionInput
-  where: AppOwnerConnectionWhere
 }
 
 type AppPagePagesAggregationSelection {
@@ -679,7 +609,7 @@ input AppPagesUpdateFieldInput {
 }
 
 input AppRelationInput {
-  owner: AppOwnerCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
   rootProviderElement: AppRootProviderElementCreateFieldInput
   store: AppStoreCreateFieldInput
@@ -1217,7 +1147,7 @@ input AppUniqueWhere {
 input AppUpdateInput {
   id: ID
   name: String
-  owner: AppOwnerUpdateFieldInput
+  owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
   rootProviderElement: AppRootProviderElementUpdateFieldInput
   store: AppStoreUpdateFieldInput
@@ -1259,8 +1189,8 @@ input AppWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: AppOwnerAggregateInput
-  ownerConnection: AppOwnerConnectionWhere
-  ownerConnection_NOT: AppOwnerConnectionWhere
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
   owner_NOT: UserWhere
   pagesAggregate: AppPagesAggregateInput
   pagesConnection_ALL: AppPagesConnectionWhere
@@ -3111,6 +3041,18 @@ type DeleteInfo {
 }
 
 type Element {
+  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App
+  appAggregate(
+    directed: Boolean = true
+    where: AppWhere
+  ): ElementAppAppAggregationSelection
+  appConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementAppConnectionSort!]
+    where: ElementAppConnectionWhere
+  ): ElementAppConnection!
   atom(directed: Boolean = true, options: AtomOptions, where: AtomWhere): Atom
   atomAggregate(
     directed: Boolean = true
@@ -3190,6 +3132,18 @@ type Element {
     where: ElementInstanceOfComponentConnectionWhere
   ): ElementInstanceOfComponentConnection!
   name: String
+  page(directed: Boolean = true, options: PageOptions, where: PageWhere): Page
+  pageAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): ElementPagePageAggregationSelection
+  pageConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementPageConnectionSort!]
+    where: ElementPageConnectionWhere
+  ): ElementPageConnection!
   parentElement(
     directed: Boolean = true
     options: ElementOptions
@@ -3247,6 +3201,123 @@ type ElementAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+input ElementAppAggregateInput {
+  AND: [ElementAppAggregateInput!]
+  OR: [ElementAppAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementAppNodeAggregationWhereInput
+}
+
+type ElementAppAppAggregationSelection {
+  count: Int!
+  node: ElementAppAppNodeAggregateSelection
+}
+
+type ElementAppAppNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ElementAppConnectFieldInput {
+  connect: AppConnectInput
+  where: AppConnectWhere
+}
+
+input ElementAppConnectOrCreateFieldInput {
+  onCreate: ElementAppConnectOrCreateFieldInputOnCreate!
+  where: AppConnectOrCreateWhere!
+}
+
+input ElementAppConnectOrCreateFieldInputOnCreate {
+  node: AppOnCreateInput!
+}
+
+type ElementAppConnection {
+  edges: [ElementAppRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementAppConnectionSort {
+  node: AppSort
+}
+
+input ElementAppConnectionWhere {
+  AND: [ElementAppConnectionWhere!]
+  OR: [ElementAppConnectionWhere!]
+  node: AppWhere
+  node_NOT: AppWhere
+}
+
+input ElementAppCreateFieldInput {
+  node: AppCreateInput!
+}
+
+input ElementAppDeleteFieldInput {
+  delete: AppDeleteInput
+  where: ElementAppConnectionWhere
+}
+
+input ElementAppDisconnectFieldInput {
+  disconnect: AppDisconnectInput
+  where: ElementAppConnectionWhere
+}
+
+input ElementAppFieldInput {
+  connect: ElementAppConnectFieldInput
+  connectOrCreate: ElementAppConnectOrCreateFieldInput
+  create: ElementAppCreateFieldInput
+}
+
+input ElementAppNodeAggregationWhereInput {
+  AND: [ElementAppNodeAggregationWhereInput!]
+  OR: [ElementAppNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ElementAppRelationship {
+  cursor: String!
+  node: App!
+}
+
+input ElementAppUpdateConnectionInput {
+  node: AppUpdateInput
+}
+
+input ElementAppUpdateFieldInput {
+  connect: ElementAppConnectFieldInput
+  connectOrCreate: ElementAppConnectOrCreateFieldInput
+  create: ElementAppCreateFieldInput
+  delete: ElementAppDeleteFieldInput
+  disconnect: ElementAppDisconnectFieldInput
+  update: ElementAppUpdateConnectionInput
+  where: ElementAppConnectionWhere
 }
 
 input ElementAtomAggregateInput {
@@ -3720,22 +3791,26 @@ input ElementComponentUpdateFieldInput {
 }
 
 input ElementConnectInput {
+  app: ElementAppConnectFieldInput
   atom: ElementAtomConnectFieldInput
   children: [ElementChildrenConnectFieldInput!]
   component: ElementComponentConnectFieldInput
   hooks: [ElementHooksConnectFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentConnectFieldInput
+  page: ElementPageConnectFieldInput
   parentElement: ElementParentElementConnectFieldInput
   propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
   props: ElementPropsConnectFieldInput
 }
 
 input ElementConnectOrCreateInput {
+  app: ElementAppConnectOrCreateFieldInput
   atom: ElementAtomConnectOrCreateFieldInput
   children: [ElementChildrenConnectOrCreateFieldInput!]
   component: ElementComponentConnectOrCreateFieldInput
   hooks: [ElementHooksConnectOrCreateFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentConnectOrCreateFieldInput
+  page: ElementPageConnectOrCreateFieldInput
   parentElement: ElementParentElementConnectOrCreateFieldInput
   propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
   props: ElementPropsConnectOrCreateFieldInput
@@ -3750,6 +3825,7 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
+  app: ElementAppFieldInput
   atom: ElementAtomFieldInput
   children: ElementChildrenFieldInput
   component: ElementComponentFieldInput
@@ -3758,6 +3834,7 @@ input ElementCreateInput {
   id: ID!
   instanceOfComponent: ElementInstanceOfComponentFieldInput
   name: String
+  page: ElementPageFieldInput
   parentElement: ElementParentElementFieldInput
   propMapBindings: ElementPropMapBindingsFieldInput
   propTransformationJs: String
@@ -3767,22 +3844,26 @@ input ElementCreateInput {
 }
 
 input ElementDeleteInput {
+  app: ElementAppDeleteFieldInput
   atom: ElementAtomDeleteFieldInput
   children: [ElementChildrenDeleteFieldInput!]
   component: ElementComponentDeleteFieldInput
   hooks: [ElementHooksDeleteFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentDeleteFieldInput
+  page: ElementPageDeleteFieldInput
   parentElement: ElementParentElementDeleteFieldInput
   propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
   props: ElementPropsDeleteFieldInput
 }
 
 input ElementDisconnectInput {
+  app: ElementAppDisconnectFieldInput
   atom: ElementAtomDisconnectFieldInput
   children: [ElementChildrenDisconnectFieldInput!]
   component: ElementComponentDisconnectFieldInput
   hooks: [ElementHooksDisconnectFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentDisconnectFieldInput
+  page: ElementPageDisconnectFieldInput
   parentElement: ElementParentElementDisconnectFieldInput
   propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
   props: ElementPropsDisconnectFieldInput
@@ -4060,6 +4141,123 @@ input ElementOptions {
   Specify one or more ElementSort objects to sort Elements by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [ElementSort!]
+}
+
+input ElementPageAggregateInput {
+  AND: [ElementPageAggregateInput!]
+  OR: [ElementPageAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementPageNodeAggregationWhereInput
+}
+
+input ElementPageConnectFieldInput {
+  connect: PageConnectInput
+  where: PageConnectWhere
+}
+
+input ElementPageConnectOrCreateFieldInput {
+  onCreate: ElementPageConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input ElementPageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+type ElementPageConnection {
+  edges: [ElementPageRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementPageConnectionSort {
+  node: PageSort
+}
+
+input ElementPageConnectionWhere {
+  AND: [ElementPageConnectionWhere!]
+  OR: [ElementPageConnectionWhere!]
+  node: PageWhere
+  node_NOT: PageWhere
+}
+
+input ElementPageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input ElementPageDeleteFieldInput {
+  delete: PageDeleteInput
+  where: ElementPageConnectionWhere
+}
+
+input ElementPageDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: ElementPageConnectionWhere
+}
+
+input ElementPageFieldInput {
+  connect: ElementPageConnectFieldInput
+  connectOrCreate: ElementPageConnectOrCreateFieldInput
+  create: ElementPageCreateFieldInput
+}
+
+input ElementPageNodeAggregationWhereInput {
+  AND: [ElementPageNodeAggregationWhereInput!]
+  OR: [ElementPageNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ElementPagePageAggregationSelection {
+  count: Int!
+  node: ElementPagePageNodeAggregateSelection
+}
+
+type ElementPagePageNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+type ElementPageRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input ElementPageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input ElementPageUpdateFieldInput {
+  connect: ElementPageConnectFieldInput
+  connectOrCreate: ElementPageConnectOrCreateFieldInput
+  create: ElementPageCreateFieldInput
+  delete: ElementPageDeleteFieldInput
+  disconnect: ElementPageDisconnectFieldInput
+  update: ElementPageUpdateConnectionInput
+  where: ElementPageConnectionWhere
 }
 
 input ElementParentElementAggregateInput {
@@ -4541,11 +4739,13 @@ input ElementPropsUpdateFieldInput {
 }
 
 input ElementRelationInput {
+  app: ElementAppCreateFieldInput
   atom: ElementAtomCreateFieldInput
   children: [ElementChildrenCreateFieldInput!]
   component: ElementComponentCreateFieldInput
   hooks: [ElementHooksCreateFieldInput!]
   instanceOfComponent: ElementInstanceOfComponentCreateFieldInput
+  page: ElementPageCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
   propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
   props: ElementPropsCreateFieldInput
@@ -4800,6 +5000,7 @@ input ElementUniqueWhere {
 }
 
 input ElementUpdateInput {
+  app: ElementAppUpdateFieldInput
   atom: ElementAtomUpdateFieldInput
   children: [ElementChildrenUpdateFieldInput!]
   component: ElementComponentUpdateFieldInput
@@ -4808,6 +5009,7 @@ input ElementUpdateInput {
   id: ID
   instanceOfComponent: ElementInstanceOfComponentUpdateFieldInput
   name: String
+  page: ElementPageUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
   propMapBindings: [ElementPropMapBindingsUpdateFieldInput!]
   propTransformationJs: String
@@ -4819,6 +5021,11 @@ input ElementUpdateInput {
 input ElementWhere {
   AND: [ElementWhere!]
   OR: [ElementWhere!]
+  app: AppWhere
+  appAggregate: ElementAppAggregateInput
+  appConnection: ElementAppConnectionWhere
+  appConnection_NOT: ElementAppConnectionWhere
+  app_NOT: AppWhere
   atom: AtomWhere
   atomAggregate: ElementAtomAggregateInput
   atomConnection: ElementAtomConnectionWhere
@@ -4914,6 +5121,11 @@ input ElementWhere {
   name_NOT_IN: [String]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  page: PageWhere
+  pageAggregate: ElementPageAggregateInput
+  pageConnection: ElementPageConnectionWhere
+  pageConnection_NOT: ElementPageConnectionWhere
+  page_NOT: PageWhere
   parentElement: ElementWhere
   parentElementAggregate: ElementParentElementAggregateInput
   parentElementConnection: ElementParentElementConnectionWhere
@@ -13146,6 +13358,22 @@ type User {
     sort: [UserComponentsConnectionSort!]
     where: UserComponentsConnectionWhere
   ): UserComponentsConnection!
+  elements(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): [Element!]!
+  elementsAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): UserElementElementsAggregationSelection
+  elementsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [UserElementsConnectionSort!]
+    where: UserElementsConnectionWhere
+  ): UserElementsConnection!
   email: String!
   id: ID!
   roles: [Role!]
@@ -13419,6 +13647,7 @@ input UserComponentsUpdateFieldInput {
 input UserConnectInput {
   apps: [UserAppsConnectFieldInput!]
   components: [UserComponentsConnectFieldInput!]
+  elements: [UserElementsConnectFieldInput!]
   tags: [UserTagsConnectFieldInput!]
   types: [UserTypesConnectFieldInput!]
 }
@@ -13435,6 +13664,7 @@ input UserCreateInput {
   apps: UserAppsFieldInput
   auth0Id: String!
   components: UserComponentsFieldInput
+  elements: UserElementsFieldInput
   email: String!
   roles: [Role!]
   tags: UserTagsFieldInput
@@ -13444,6 +13674,7 @@ input UserCreateInput {
 input UserDeleteInput {
   apps: [UserAppsDeleteFieldInput!]
   components: [UserComponentsDeleteFieldInput!]
+  elements: [UserElementsDeleteFieldInput!]
   tags: [UserTagsDeleteFieldInput!]
   types: [UserTypesDeleteFieldInput!]
 }
@@ -13451,6 +13682,7 @@ input UserDeleteInput {
 input UserDisconnectInput {
   apps: [UserAppsDisconnectFieldInput!]
   components: [UserComponentsDisconnectFieldInput!]
+  elements: [UserElementsDisconnectFieldInput!]
   tags: [UserTagsDisconnectFieldInput!]
   types: [UserTypesDisconnectFieldInput!]
 }
@@ -13458,6 +13690,207 @@ input UserDisconnectInput {
 type UserEdge {
   cursor: String!
   node: User!
+}
+
+type UserElementElementsAggregationSelection {
+  count: Int!
+  node: UserElementElementsNodeAggregateSelection
+}
+
+type UserElementElementsNodeAggregateSelection {
+  css: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+input UserElementsAggregateInput {
+  AND: [UserElementsAggregateInput!]
+  OR: [UserElementsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UserElementsNodeAggregationWhereInput
+}
+
+input UserElementsConnectFieldInput {
+  connect: [ElementConnectInput!]
+  where: ElementConnectWhere
+}
+
+input UserElementsConnectOrCreateFieldInput {
+  onCreate: UserElementsConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input UserElementsConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type UserElementsConnection {
+  edges: [UserElementsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UserElementsConnectionSort {
+  node: ElementSort
+}
+
+input UserElementsConnectionWhere {
+  AND: [UserElementsConnectionWhere!]
+  OR: [UserElementsConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input UserElementsCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input UserElementsDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: UserElementsConnectionWhere
+}
+
+input UserElementsDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: UserElementsConnectionWhere
+}
+
+input UserElementsFieldInput {
+  connect: [UserElementsConnectFieldInput!]
+  connectOrCreate: [UserElementsConnectOrCreateFieldInput!]
+  create: [UserElementsCreateFieldInput!]
+}
+
+input UserElementsNodeAggregationWhereInput {
+  AND: [UserElementsNodeAggregationWhereInput!]
+  OR: [UserElementsNodeAggregationWhereInput!]
+  css_AVERAGE_EQUAL: Float
+  css_AVERAGE_GT: Float
+  css_AVERAGE_GTE: Float
+  css_AVERAGE_LT: Float
+  css_AVERAGE_LTE: Float
+  css_EQUAL: String
+  css_GT: Int
+  css_GTE: Int
+  css_LONGEST_EQUAL: Int
+  css_LONGEST_GT: Int
+  css_LONGEST_GTE: Int
+  css_LONGEST_LT: Int
+  css_LONGEST_LTE: Int
+  css_LT: Int
+  css_LTE: Int
+  css_SHORTEST_EQUAL: Int
+  css_SHORTEST_GT: Int
+  css_SHORTEST_GTE: Int
+  css_SHORTEST_LT: Int
+  css_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  propTransformationJs_AVERAGE_EQUAL: Float
+  propTransformationJs_AVERAGE_GT: Float
+  propTransformationJs_AVERAGE_GTE: Float
+  propTransformationJs_AVERAGE_LT: Float
+  propTransformationJs_AVERAGE_LTE: Float
+  propTransformationJs_EQUAL: String
+  propTransformationJs_GT: Int
+  propTransformationJs_GTE: Int
+  propTransformationJs_LONGEST_EQUAL: Int
+  propTransformationJs_LONGEST_GT: Int
+  propTransformationJs_LONGEST_GTE: Int
+  propTransformationJs_LONGEST_LT: Int
+  propTransformationJs_LONGEST_LTE: Int
+  propTransformationJs_LT: Int
+  propTransformationJs_LTE: Int
+  propTransformationJs_SHORTEST_EQUAL: Int
+  propTransformationJs_SHORTEST_GT: Int
+  propTransformationJs_SHORTEST_GTE: Int
+  propTransformationJs_SHORTEST_LT: Int
+  propTransformationJs_SHORTEST_LTE: Int
+  renderForEachPropKey_AVERAGE_EQUAL: Float
+  renderForEachPropKey_AVERAGE_GT: Float
+  renderForEachPropKey_AVERAGE_GTE: Float
+  renderForEachPropKey_AVERAGE_LT: Float
+  renderForEachPropKey_AVERAGE_LTE: Float
+  renderForEachPropKey_EQUAL: String
+  renderForEachPropKey_GT: Int
+  renderForEachPropKey_GTE: Int
+  renderForEachPropKey_LONGEST_EQUAL: Int
+  renderForEachPropKey_LONGEST_GT: Int
+  renderForEachPropKey_LONGEST_GTE: Int
+  renderForEachPropKey_LONGEST_LT: Int
+  renderForEachPropKey_LONGEST_LTE: Int
+  renderForEachPropKey_LT: Int
+  renderForEachPropKey_LTE: Int
+  renderForEachPropKey_SHORTEST_EQUAL: Int
+  renderForEachPropKey_SHORTEST_GT: Int
+  renderForEachPropKey_SHORTEST_GTE: Int
+  renderForEachPropKey_SHORTEST_LT: Int
+  renderForEachPropKey_SHORTEST_LTE: Int
+  renderIfPropKey_AVERAGE_EQUAL: Float
+  renderIfPropKey_AVERAGE_GT: Float
+  renderIfPropKey_AVERAGE_GTE: Float
+  renderIfPropKey_AVERAGE_LT: Float
+  renderIfPropKey_AVERAGE_LTE: Float
+  renderIfPropKey_EQUAL: String
+  renderIfPropKey_GT: Int
+  renderIfPropKey_GTE: Int
+  renderIfPropKey_LONGEST_EQUAL: Int
+  renderIfPropKey_LONGEST_GT: Int
+  renderIfPropKey_LONGEST_GTE: Int
+  renderIfPropKey_LONGEST_LT: Int
+  renderIfPropKey_LONGEST_LTE: Int
+  renderIfPropKey_LT: Int
+  renderIfPropKey_LTE: Int
+  renderIfPropKey_SHORTEST_EQUAL: Int
+  renderIfPropKey_SHORTEST_GT: Int
+  renderIfPropKey_SHORTEST_GTE: Int
+  renderIfPropKey_SHORTEST_LT: Int
+  renderIfPropKey_SHORTEST_LTE: Int
+}
+
+type UserElementsRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input UserElementsUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input UserElementsUpdateFieldInput {
+  connect: [UserElementsConnectFieldInput!]
+  connectOrCreate: [UserElementsConnectOrCreateFieldInput!]
+  create: [UserElementsCreateFieldInput!]
+  delete: [UserElementsDeleteFieldInput!]
+  disconnect: [UserElementsDisconnectFieldInput!]
+  update: UserElementsUpdateConnectionInput
+  where: UserElementsConnectionWhere
 }
 
 input UserOnCreateInput {
@@ -13669,6 +14102,7 @@ input UserUpdateInput {
   apps: [UserAppsUpdateFieldInput!]
   auth0Id: String
   components: [UserComponentsUpdateFieldInput!]
+  elements: [UserElementsUpdateFieldInput!]
   email: String
   roles: [Role!]
   tags: [UserTagsUpdateFieldInput!]
@@ -13738,6 +14172,31 @@ input UserWhere {
   Return Users where some of the related Components match this filter
   """
   components_SOME: ComponentWhere
+  elementsAggregate: UserElementsAggregateInput
+  elementsConnection_ALL: UserElementsConnectionWhere
+  elementsConnection_NONE: UserElementsConnectionWhere
+  elementsConnection_SINGLE: UserElementsConnectionWhere
+  elementsConnection_SOME: UserElementsConnectionWhere
+
+  """
+  Return Users where all of the related Elements match this filter
+  """
+  elements_ALL: ElementWhere
+
+  """
+  Return Users where none of the related Elements match this filter
+  """
+  elements_NONE: ElementWhere
+
+  """
+  Return Users where one of the related Elements match this filter
+  """
+  elements_SINGLE: ElementWhere
+
+  """
+  Return Users where some of the related Elements match this filter
+  """
+  elements_SOME: ElementWhere
   email: String
   email_CONTAINS: String
   email_ENDS_WITH: String
@@ -13801,4 +14260,79 @@ type UsersConnection {
 
 interface WithDescendants {
   descendantTypesIds: [ID!]!
+}
+
+interface WithOwner {
+  owner: User!
+  ownerConnection: WithOwnerOwnerConnection!
+}
+
+input WithOwnerOwnerConnectFieldInput {
+  connect: UserConnectInput
+  where: UserConnectWhere
+}
+
+input WithOwnerOwnerConnectOrCreateFieldInput {
+  onCreate: WithOwnerOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input WithOwnerOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
+type WithOwnerOwnerConnection {
+  edges: [WithOwnerOwnerRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input WithOwnerOwnerConnectionSort {
+  node: UserSort
+}
+
+input WithOwnerOwnerConnectionWhere {
+  AND: [WithOwnerOwnerConnectionWhere!]
+  OR: [WithOwnerOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input WithOwnerOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input WithOwnerOwnerDeleteFieldInput {
+  delete: UserDeleteInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
+input WithOwnerOwnerDisconnectFieldInput {
+  disconnect: UserDisconnectInput
+  where: WithOwnerOwnerConnectionWhere
+}
+
+input WithOwnerOwnerFieldInput {
+  connect: WithOwnerOwnerConnectFieldInput
+  connectOrCreate: WithOwnerOwnerConnectOrCreateFieldInput
+  create: WithOwnerOwnerCreateFieldInput
+}
+
+type WithOwnerOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+input WithOwnerOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input WithOwnerOwnerUpdateFieldInput {
+  connect: WithOwnerOwnerConnectFieldInput
+  connectOrCreate: WithOwnerOwnerConnectOrCreateFieldInput
+  create: WithOwnerOwnerCreateFieldInput
+  delete: WithOwnerOwnerDeleteFieldInput
+  disconnect: WithOwnerOwnerDisconnectFieldInput
+  update: WithOwnerOwnerUpdateConnectionInput
+  where: WithOwnerOwnerConnectionWhere
 }

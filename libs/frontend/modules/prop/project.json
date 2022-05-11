@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/prop",
   "sourceRoot": "libs/frontend/modules/prop/src",
   "projectType": "library",
   "tags": ["layer:domain:frontend", "scope:frontend"],

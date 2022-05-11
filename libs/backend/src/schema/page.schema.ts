@@ -5,8 +5,8 @@ export const pageSchema = gql`
     id: ID! @id(autogenerate: false)
     name: String!
     rootElement: Element!
-      @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
-    app: App! @relationship(type: "PAGES", direction: OUT)
+      @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
+    app: App! @relationship(type: "PAGES", direction: IN)
   }
 
   extend type Page

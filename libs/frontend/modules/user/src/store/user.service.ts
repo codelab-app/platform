@@ -1,5 +1,7 @@
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { IUser, IUserDTO, IUserService } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import { createContext, Model, model, prop } from 'mobx-keystone'
 import { User } from './user.model'
 
@@ -11,16 +13,10 @@ export class UserService
   })
   implements IUserService
 {
-  // @computed
-  // get user(): User {
-  //   const user = this.authenticatedUser?.current
-  //
-  //   if (!user) {
-  //     throw new Error('User should be authenticated')
-  //   }
-  //
-  //   return user
-  // }
+  @computed
+  get auth0Id() {
+    return throwIfUndefined(this.user?.auth0Id)
+  }
 
   static init = (data?: IUserDTO) => {
     // SSR makes it such that user may be undefined

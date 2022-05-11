@@ -1,24 +1,36 @@
-import { IElementService } from '@codelab/shared/abstract/core'
+import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
 import { TreeProps } from 'antd/lib/tree'
+
+export type UseElementTreeDropProps = Pick<
+  IElementService,
+  'elementTree' | 'moveElement'
+>
 
 /**
  * Provides a handler for Antd tree onDrop for moving elements
  * This can be optimized to be handled in the API
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
-export const useElementTreeDrop = (elementService: IElementService) => {
+export const useElementTreeDrop = ({
+  elementTree,
+  moveElement,
+}: UseElementTreeDropProps) => {
   // const [moveElement, { isLoading }] = useMoveElementsMutation()
 
-  const handleDrop: TreeProps['onDrop'] = (e) => {
-    const dragNodeId = (e.dragNode as any).id
-    const dropNodeId = (e.node as any).id
+  const handleDrop: TreeProps['onDrop'] = (info) => {
+    console.log(info)
 
-    if (e.dropToGap) {
+    const dragNodeId = info.dragNode.key.toString()
+    const dropNodeId = info.node.key.toString()
+
+    console.log(dragNodeId, dropNodeId)
+
+    if (info.dropToGap) {
       // Switch spots with the element next to the drop indicator
-      const dropElement = elementService.elementTree.element(dropNodeId)
+      const dropElement = elementTree.element(dropNodeId)
       const dropNodeParentId = dropElement?.parentElement?.id
       const dropElementOrder = dropElement?.orderInParent ?? 0
-      const dragElement = elementService.elementTree.element(dragNodeId)
+      const dragElement = elementTree.element(dragNodeId)
       const originalDragElementOrder = dragElement?.orderInParent ?? 0
 
       if (dropNodeParentId) {
@@ -27,7 +39,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
             ? dropElementOrder + 1
             : dropElementOrder
 
-        return elementService.moveElement(dragNodeId, {
+        return moveElement(dragNodeId, {
           parentElementId: dropNodeParentId,
           order,
         })
@@ -37,9 +49,9 @@ export const useElementTreeDrop = (elementService: IElementService) => {
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
-      return elementService.moveElement(dragNodeId, {
+      return moveElement(dragNodeId, {
         parentElementId: dropNodeId,
-        order: e.dropPosition,
+        order: info.dropPosition,
       })
     }
 

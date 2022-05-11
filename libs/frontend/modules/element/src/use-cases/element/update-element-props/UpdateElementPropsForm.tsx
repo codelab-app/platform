@@ -4,7 +4,7 @@ import {
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { PropsForm } from '@codelab/frontend/modules/type'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   Spinner,
   UseTrackLoadingPromises,
@@ -32,7 +32,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const initialPropsRef = useRef(element?.props?.values ?? {})
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
-      useLoadingState((_id: string) =>
+      useStatefulExecutor((_id: string) =>
         typeService.getInterfaceAndDescendants(_id),
       )
 

@@ -1,5 +1,4 @@
 {
-  "root": "apps/cli",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
   "targets": {

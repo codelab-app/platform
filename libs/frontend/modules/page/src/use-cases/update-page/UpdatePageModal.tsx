@@ -24,7 +24,7 @@ export const UpdatePageModal = observer<WithServices<PAGE_SERVICE>>(
 
     const model = {
       name: page.name,
-      appId: page.appId || undefined,
+      appId: page.app.id || undefined,
     }
 
     return (

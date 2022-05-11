@@ -9,7 +9,7 @@
           {
             "__typename": "Element",
             "id": "0x18f62",
-            "name": "Root element",
+            "name": "Body",
             "css": null,
             "atom": null,
             "props": "{}",

@@ -34,6 +34,8 @@ export class Prop
   updateCache({ id, data }: IPropDTO) {
     this.id = id
     this.data = frozen(JSON.parse(data))
+
+    return this
   }
 
   public static hydrate({ id, data }: IPropDTO): Prop {

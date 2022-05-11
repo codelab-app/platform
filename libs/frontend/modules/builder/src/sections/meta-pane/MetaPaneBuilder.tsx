@@ -44,14 +44,14 @@ export type MetaPaneBuilderProps = {
   TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
 >
 
-export const MetaPaneBuilder = observer(
+export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
   ({
     renderUpdateElementContent,
     builderService,
     typeService,
     atomService,
     elementService,
-  }: MetaPaneBuilderProps) => {
+  }) => {
     const selectedElement = builderService.selectedElement
     const { providePropCompletion } = usePropCompletion(builderService)
     const trackPromises = useTrackLoadingPromises()

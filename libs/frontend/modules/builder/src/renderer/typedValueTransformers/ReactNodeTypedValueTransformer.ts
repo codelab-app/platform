@@ -1,4 +1,4 @@
-import { getComponentService } from '@codelab/frontend/modules/component'
+import { getComponentService } from '@codelab/frontend/presenter/container'
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'

@@ -1,13 +1,14 @@
 import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
 const hydrate = (page: IPageDTO) => {
   return new Page({
     id: page.id,
     name: page.name,
-    rootElementId: page.rootElement.id,
-    appId: page.app.id,
-    providerElementId: page.app.rootProviderElement.id,
+    rootElement: { id: page.rootElement.id },
+    app: { id: page.app.id },
+    providerElement: { id: page.app.rootProviderElement.id },
   })
 }
 
@@ -15,10 +16,10 @@ const hydrate = (page: IPageDTO) => {
 export class Page
   extends Model({
     id: idProp,
-    appId: prop<string>(),
+    app: prop<IEntity>(),
     name: prop<string>(),
-    rootElementId: prop<string>(),
-    providerElementId: prop<string>(),
+    rootElement: prop<IEntity>(),
+    providerElement: prop<IEntity>(),
   })
   implements IPage
 {

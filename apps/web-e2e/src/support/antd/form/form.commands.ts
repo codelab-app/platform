@@ -506,8 +506,6 @@ export const setFormFieldValue = ({
         .click({ force: true })
         .type(`${value}`, { force: true })
 
-      // getSelectDropdown()
-      //   .contains('.ant-select-item', value)
       getSelectDropdown()
         .contains('.ant-select-item', value)
         .click({ force: true })

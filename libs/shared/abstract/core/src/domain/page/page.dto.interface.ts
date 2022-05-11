@@ -1,5 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IElementExport } from '../element'
+import { IAuth0Id } from '../user'
 import { PageFragment } from './page.fragment.graphql.gen'
 
 export interface ICreatePageDTO {
@@ -9,9 +10,13 @@ export interface ICreatePageDTO {
 
   name: string
   appId: string
+  auth0Id: IAuth0Id
 }
 
-export type IUpdatePageDTO = Omit<ICreatePageDTO, 'id' | 'rootElementId'>
+export type IUpdatePageDTO = Omit<
+  ICreatePageDTO,
+  'id' | 'rootElementId' | 'auth0Id'
+>
 
 export type IPageDTO = PageFragment
 

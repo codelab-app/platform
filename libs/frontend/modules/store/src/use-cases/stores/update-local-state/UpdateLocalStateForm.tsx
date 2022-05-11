@@ -6,7 +6,7 @@ import {
 import { InterfaceForm, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { IPropData } from '@codelab/shared/abstract/core'
@@ -20,7 +20,7 @@ export const UpdateLocalStateForm = observer<
 >(({ storeService, typeService }) => {
   const { store } = useCurrentStore(storeService)
 
-  const [getInterfaceType, { data, isLoading }] = useLoadingState(
+  const [getInterfaceType, { data, isLoading }] = useStatefulExecutor(
     (id: string) => typeService.getInterfaceAndDescendants(id),
   )
 

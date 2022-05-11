@@ -1,5 +1,6 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -9,7 +10,6 @@ import { IComponentService } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { componentRef } from '../../../store'
 import { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {

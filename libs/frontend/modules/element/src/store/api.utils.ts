@@ -4,10 +4,10 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateElementDTO,
+  IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { Element } from '../store'
 
 //
 // Utilities for transforming the form inputs to api inputs
@@ -59,7 +59,7 @@ export const makeCreateInput = (
 }
 
 export const makeDuplicateInput = (
-  element: Element,
+  element: IElement,
   parentId: string,
   userId: string,
 ): ElementCreateInput => {

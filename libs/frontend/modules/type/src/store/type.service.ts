@@ -206,6 +206,8 @@ export class TypeService
     }
 
     const input = createTypeFactory(data)
+    console.log(input)
+
     const types = yield* _await(createTypeApi[data[0].kind](input))
 
     if (!types.length) {

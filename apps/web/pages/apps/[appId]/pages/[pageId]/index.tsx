@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import {
   extractErrorMessage,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Alert, Spin } from 'antd'
@@ -32,9 +32,9 @@ const PageRenderer: CodelabPage<any> = observer(() => {
   const currentPageId = useCurrentPageId()
   const router = useRouter()
   // Load the pages list for the top bar
-  useLoadingState(() => pageService.getAll(), { executeOnMount: true })
+  useStatefulExecutor(() => pageService.getAll(), { executeOnMount: true })
 
-  const [, { isLoading, error, data }] = useLoadingState(
+  const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -53,8 +53,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
       // Get element tree and provider tree
       const [elementTree, providerTree] = await Promise.all([
-        elementService.getTree(page.rootElementId),
-        providerElementService.getTree(page.providerElementId),
+        elementService.getTree(page.rootElement.id),
+        providerElementService.getTree(page.providerElement.id),
       ])
 
       // initialize renderer

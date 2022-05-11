@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/abstract/core",
   "sourceRoot": "libs/shared/abstract/core/src",
   "projectType": "library",
   "targets": {

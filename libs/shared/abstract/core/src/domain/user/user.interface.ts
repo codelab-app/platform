@@ -7,6 +7,6 @@ export interface IUser {
   roles: Array<IRole>
 }
 
-export type IUserRef = string
+// export type IUserRef = string
 
-export type IAuth0ID = string
+export type IAuth0Id = string

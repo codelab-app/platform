@@ -7,7 +7,7 @@ import { useDraggable } from '@dnd-kit/core'
 
 export const useCreateElementDraggable = (
   id: IElementRef,
-  createElementInput: ICreateElementDTO,
+  createElementInput: Omit<ICreateElementDTO, 'owner'>,
 ) => {
   return useDraggable({
     id: id,

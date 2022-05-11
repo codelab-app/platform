@@ -1,6 +1,6 @@
 import { STORE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { Tree, TreeDataNode } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -11,7 +11,7 @@ export const GetStoresTree = observer<WithServices<STORE_SERVICE>>(
   ({ storeService }) => {
     const currentStoreId = useCurrentStoreId()
 
-    const [getStores, { isLoading }] = useLoadingState(() =>
+    const [getStores, { isLoading }] = useStatefulExecutor(() =>
       storeService.getAll(),
     )
 

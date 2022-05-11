@@ -4,10 +4,10 @@ import { IAppExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { v4 } from 'uuid'
-import type { ExportAppData } from '../commands/export/export-app'
-import { getElementAndDescendants } from '../commands/export/get-element'
-import { getPageData } from '../commands/export/get-page'
 import { validate } from '../commands/import/validate'
+import type { ExportAppData } from '../use-cases/export/export-app'
+import { getElementAndDescendants } from '../use-cases/export/get-element'
+import { getPageData } from '../use-cases/export/get-page'
 import { createComponent } from './component.repo'
 import { importElementInitial, updateImportedElement } from './element.repo'
 
@@ -24,7 +24,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
     }
 
     for (const element of elements) {
-      const newElement = await importElementInitial(element)
+      const newElement = await importElementInitial(element, selectedUser)
     }
 
     for (const element of elements) {
@@ -33,7 +33,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
   }
 
   for (const element of providerElements) {
-    const newElement = await importElementInitial(element)
+    const newElement = await importElementInitial(element, selectedUser)
   }
 
   for (const element of providerElements) {

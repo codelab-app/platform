@@ -36,13 +36,13 @@ export const createMobxState = (
     rootProviderElement: { id: app.id },
     store: { id: app.store?.id },
     pages: pages
-      .filter((page) => page.appId === app.id)
+      .filter((page) => page.app.id === app.id)
       .map((page) => ({
         id: page.id,
         name: page.name,
-        appId: page.appId,
-        rootElementId: page.rootElementId,
-        providerElementId: page.providerElementId,
+        appId: page.app.id,
+        rootElementId: page.rootElement.id,
+        providerElementId: page.providerElement.id,
       })),
   }))
 

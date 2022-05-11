@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/data",
   "sourceRoot": "libs/shared/data/src",
   "projectType": "library",
   "targets": {

@@ -1,6 +1,6 @@
 import { ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
-import { IAuth0ID } from '../user'
+import { IAuth0Id } from '../user'
 import { AtomFragment } from './atom.fragment.graphql.gen'
 import { IAtomType } from './atom-type.enum'
 
@@ -12,10 +12,11 @@ export interface ICreateAtomDTO {
   name: string
   type: IAtomType
   tags?: Array<ITagRef>
-  owner: IAuth0ID
+  // Used for interface
+  owner: IAuth0Id
 
   // Allow for connection to existing interface
-  api?: IInterfaceTypeRef
+  api?: IInterfaceTypeRef | undefined
 }
 
 export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>

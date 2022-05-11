@@ -7,7 +7,7 @@ import {
   IModalService,
   IQueryService,
 } from '../../service'
-import { IAuth0ID } from '../user'
+import { IAuth0Id } from '../user'
 import { IField, IFieldRef } from './field'
 import { ICreateFieldDTO, IUpdateFieldDTO } from './field.dto.interface'
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
@@ -64,7 +64,7 @@ export interface ITypeService
 export interface IImportTypeService {
   importTypes(
     payloadString: string,
-    currentUserAuth0Id: IAuth0ID,
+    currentUserAuth0Id: IAuth0Id,
   ): Promise<void>
   exportTypes(ids: Array<ITypeRef>): Promise<string>
 }

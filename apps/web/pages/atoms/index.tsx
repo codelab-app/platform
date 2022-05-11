@@ -13,7 +13,7 @@ import {
   ImportAtomsUpload,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -28,9 +28,12 @@ import tw from 'twin.macro'
 const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(() => store.tagService.getAll(), {
-    executeOnMount: true,
-  })
+  const [, { isLoading }] = useStatefulExecutor(
+    () => store.tagService.getAll(),
+    {
+      executeOnMount: true,
+    },
+  )
 
   return (
     <>

@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/admin",
   "sourceRoot": "libs/frontend/modules/admin/src",
   "projectType": "library",
   "targets": {

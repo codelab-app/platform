@@ -3,7 +3,7 @@ import { notify } from '@codelab/frontend/shared/utils'
 import {
   AdminExportPayload,
   IAtom,
-  IAuth0ID,
+  IAuth0Id,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import {
@@ -61,7 +61,7 @@ export class ImportAtomService extends Model({}) {
     this: ImportAtomService,
     // should be the result of exportAtoms
     payloadString: string,
-    auth0Id: IAuth0ID,
+    auth0Id: IAuth0Id,
   ) {
     const payload = this.parsePayload(payloadString)
 

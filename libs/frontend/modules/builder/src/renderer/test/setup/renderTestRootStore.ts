@@ -1,10 +1,8 @@
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
-import {
-  ComponentService,
-  componentServiceContext,
-} from '@codelab/frontend/modules/component'
+import { ComponentService } from '@codelab/frontend/modules/component'
 import { ElementService } from '@codelab/frontend/modules/element'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
+import { componentServiceContext } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { RenderService } from '../../render.service'
 import { renderServiceContext } from '../../renderServiceContext'

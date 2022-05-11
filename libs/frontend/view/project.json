@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/view",
   "sourceRoot": "libs/frontend/view",
   "projectType": "library",
   "targets": {

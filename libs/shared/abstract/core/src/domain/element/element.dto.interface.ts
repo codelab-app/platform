@@ -35,10 +35,3 @@ export type IElementExport = Pick<
   OGM_TYPES.Element,
   'id' | 'name' | 'parentElement' | 'atom'
 >
-
-// {
-//   id: string
-//   name?: string | null
-//   parentElement?: { id: string } | null
-//   atom?: { id: string } | null
-// }

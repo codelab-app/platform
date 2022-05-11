@@ -1,36 +1,45 @@
 import { IBuilderService } from '@codelab/shared/abstract/core'
-import { autorun } from 'mobx'
 import { useEffect, useState } from 'react'
 
-export const useExpandedNodes = (builderService: IBuilderService) => {
+export type UseExpandedNodesProps = Pick<
+  IBuilderService,
+  'selectedElement' | 'builderRenderer'
+>
+
+/**
+ * Destructured mobx classes don't work for hooks, I think it's because autorun works on objects only
+ */
+export const useExpandedNodes = ({
+  selectedElement,
+  builderRenderer,
+}: UseExpandedNodesProps) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<
     Array<string | number>
   >([])
 
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
-    return autorun(() => {
-      if (!builderService.selectedElement) {
-        return
-      }
+    if (!selectedElement) {
+      return
+    }
 
-      const pathResult = builderService.builderRenderer.tree?.getPathFromRoot(
-        builderService.selectedElement,
-      )
-      // go through each node of the path and keep track of all nodes that need to get expanded
+    const pathResult = builderRenderer.tree?.getPathFromRoot(selectedElement)
 
-      setExpandedNodeIds((prevState) => {
-        const expandedSet = new Set(prevState)
+    // go through each node of the path and keep track of all nodes that need to get expanded
 
-        const toExpand = pathResult
-          ?.filter((el) => !expandedSet.has(el.id))
-          .map((e) => e.id)
+    setExpandedNodeIds((prevState) => {
+      const expandedSet = new Set(prevState)
 
-        return [...prevState, ...(toExpand ?? [])]
-      })
+      const toExpand = (pathResult ?? [])
+        ?.filter((el) => !expandedSet.has(el.id))
+        .map((el) => {
+          return el.id
+        })
+
+      return [...prevState, ...(toExpand ?? [])]
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [selectedElement])
 
   return { expandedNodeIds, setExpandedNodeIds }
 }

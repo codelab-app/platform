@@ -1,4 +1,3 @@
-import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -86,11 +85,6 @@ export class AtomService
   })
 
   @modelAction
-  addAtom(atom: Atom) {
-    this._atoms.set(atom.id, atom)
-  }
-
-  @modelAction
   addOrUpdate(atom: IAtomDTO) {
     let atomModel = this.atom(atom.id)
 
@@ -98,7 +92,7 @@ export class AtomService
       atomModel.updateCache(atom)
     } else {
       atomModel = Atom.hydrate(atom)
-      this.addAtom(atomModel)
+      this._atoms.set(atom.id, atomModel)
     }
 
     return atomModel
@@ -112,14 +106,9 @@ export class AtomService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
-    const typeService = getTypeService(this)
-    // const tagService = getTagService(this)
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
     return atoms.map((atom) => {
-      // Here we want to retrieve the actual interface model to retrieve a ref
-
-      // const type = typeService.type(atom.api.id)
       const atomModel = Atom.hydrate(atom)
       this._atoms.set(atom.id, atomModel)
 
@@ -188,39 +177,6 @@ export class AtomService
 
       return atomModel
     })
-  })
-
-  @modelFlow
-  @transaction
-  upsert = _async(function* (this: AtomService, data: Array<ICreateAtomDTO>) {
-    const allIds = data
-      .map((atom) => atom.id)
-      .filter((id): id is string => !!id)
-
-    /**
-     * Split data into updates & creates
-     */
-
-    const existingAtoms = yield* _await(
-      this.getAll({
-        id_IN: allIds,
-      }),
-    )
-
-    const existingIds = [...existingAtoms.values()].map((atom) => atom.id)
-    const newIds = difference(allIds, existingIds)
-
-    const createInput = data.filter(
-      (atom) => atom?.id && newIds.includes(atom.id),
-    )
-
-    yield* _await(this.create(createInput))
-
-    const updateInput = data
-      .filter((atom) => atom?.id && existingIds.includes(atom.id))
-      .map((atom) => [this.atom(atom.id!), atom])
-
-    // yield* _await(this.update(updateInput))
   })
 
   @modelFlow

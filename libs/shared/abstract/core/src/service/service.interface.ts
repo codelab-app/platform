@@ -26,12 +26,9 @@ export interface ICRUDModalService<
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
  */
-export interface IBaseModalService<
-  Metadata = never,
-  Properties extends object = never,
-> {
+export interface IBaseModalService<Metadata = never> {
   isOpen: boolean
-  metadata: Metadata | null
+  metadata?: Metadata | null
   open(...args: Metadata extends never ? [] : [Metadata]): void
   close(): void
 }
@@ -39,6 +36,6 @@ export interface IBaseModalService<
 export type IModalService<
   Metadata = never,
   Properties extends object = Record<string, any>,
-> = IBaseModalService<Metadata, Properties> & {
+> = IBaseModalService<Metadata> & {
   [K in keyof Properties]: Properties[K]
 }

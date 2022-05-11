@@ -1,6 +1,6 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 export const mapCreateInput = (
@@ -9,12 +9,17 @@ export const mapCreateInput = (
   const { name, auth0Id } = input
 
   const rootElement: ComponentCreateInput['rootElement'] = {
-    create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } },
+    create: {
+      node: {
+        id: v4(),
+        name,
+      },
+    },
   }
 
   return {
     name,
     rootElement,
-    owner: { connect: { where: { node: { auth0Id } } } },
+    owner: connectOwner(auth0Id),
   }
 }

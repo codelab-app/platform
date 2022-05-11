@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/atom",
   "sourceRoot": "libs/frontend/modules/atom/src",
   "projectType": "library",
   "targets": {

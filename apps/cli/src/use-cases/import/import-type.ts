@@ -3,9 +3,11 @@ import { cLog } from '@codelab/shared/utils'
 import { upsertType } from '../../repository/type.repo'
 
 export const importType = async (
-  types: Array<ITypeExport>,
+  types: Array<ITypeExport> = [],
   selectedUser: string,
 ) => {
+  console.log('Importing types...\n')
+
   for (const type of types) {
     console.log('\n---------------------\n')
     console.log(`Upserting ${type.name}:`)

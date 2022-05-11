@@ -3,7 +3,7 @@ import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -14,26 +14,42 @@ export type ElementContextMenuProps = {
   element: IElement
   onClick?: () => any
   onBlur?: () => any
-} & WithServices<ELEMENT_SERVICE>
+} & Pick<
+  IElementService,
+  | 'createModal'
+  | 'deleteModal'
+  | 'duplicateElement'
+  | 'convertElementToComponent'
+  | 'elementTree'
+>
 
 /**
  * The right-click menu in the element tree
  */
 export const ElementContextMenu = observer<ElementContextMenuProps>(
-  ({ element, onClick, onBlur, elementService }) => {
+  ({
+    element,
+    onClick,
+    onBlur,
+    createModal,
+    deleteModal,
+    duplicateElement,
+    convertElementToComponent,
+    elementTree,
+  }) => {
     const { push } = useRouter()
     const { user } = useUser()
     const isComponentInstance = !!element.instanceOfComponent
-    const hideForRoot = elementService.elementTree.root?.id === element.id
+    const hideForRoot = elementTree.root?.id === element.id
 
     const onAddChild = () => {
-      return elementService.createModal.open({
+      return createModal.open({
         parentElement: elementRef(element.id),
       })
     }
 
     const onDelete = () => {
-      return elementService.deleteModal.open(elementRef(element.id))
+      return deleteModal.open(elementRef(element.id))
     }
 
     const onDuplicate = () => {
@@ -41,7 +57,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      return elementService.duplicateElement(element, user.sub)
+      return duplicateElement(element, user.sub)
     }
 
     const onConvert = () => {
@@ -49,7 +65,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      return elementService.convertElementToComponent(element, user.sub)
+      return convertElementToComponent(element, user.sub)
     }
 
     const onEditComponent = () => {

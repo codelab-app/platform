@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/builder",
   "sourceRoot": "libs/frontend/modules/builder/src",
   "projectType": "library",
   "targets": {
