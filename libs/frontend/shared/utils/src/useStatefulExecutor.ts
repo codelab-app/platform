@@ -26,7 +26,7 @@ export const defaultNotifyFactory = (error: any): NotificationOptions => ({
   content: extractErrorMessage(error),
 })
 
-export const useLoadingState = <TArgs extends Array<any>, TOut>(
+export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
   executor: (...args: TArgs) => Promise<TOut>,
   options?: UseLoadingStateOptions<TArgs>,
 ) => {

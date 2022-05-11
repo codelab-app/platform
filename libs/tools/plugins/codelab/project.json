@@ -1,5 +1,4 @@
 {
-  "root": "libs/tools/plugins/codelab",
   "sourceRoot": "libs/tools/plugins/codelab/src",
   "projectType": "library",
   "targets": {

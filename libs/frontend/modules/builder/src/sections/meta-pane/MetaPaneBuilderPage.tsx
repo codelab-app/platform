@@ -1,6 +1,7 @@
 import {
   ATOM_SERVICE,
   BUILDER_SERVICE,
+  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   TYPE_SERVICE,
   WithServices,
@@ -16,41 +17,56 @@ import { usePropCompletion } from '../../hooks'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderPage = observer<
-  WithServices<ATOM_SERVICE | TYPE_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE>
->(({ typeService, atomService, builderService, elementService }) => {
-  const { providePropCompletion } = usePropCompletion(builderService)
+  WithServices<
+    | ATOM_SERVICE
+    | TYPE_SERVICE
+    | BUILDER_SERVICE
+    | ELEMENT_SERVICE
+    | DETACHED_ELEMENT_SERVICE
+  >
+>(
+  ({
+    typeService,
+    atomService,
+    builderService,
+    elementService,
+    detachedElementService,
+  }) => {
+    const { providePropCompletion } = usePropCompletion(builderService)
 
-  return (
-    <MetaPaneBuilder
-      atomService={atomService}
-      builderService={builderService}
-      elementService={elementService}
-      renderUpdateElementContent={(element, trackPromises) => (
-        <>
-          <UpdateElementForm
-            element={element}
-            elementService={elementService}
-            key={element.id + '_update_form'}
-            providePropCompletion={(value) =>
-              providePropCompletion(value, element.id)
-            }
-            trackPromises={trackPromises}
-          />
+    return (
+      <MetaPaneBuilder
+        atomService={atomService}
+        builderService={builderService}
+        detachedElementService={detachedElementService}
+        elementService={elementService}
+        renderUpdateElementContent={(element, trackPromises) => (
+          <>
+            <UpdateElementForm
+              element={element}
+              elementService={elementService}
+              key={element.id + '_update_form'}
+              providePropCompletion={(value) =>
+                providePropCompletion(value, element.id)
+              }
+              trackPromises={trackPromises}
+            />
 
-          <MoveElementForm
-            element={element}
-            elementService={elementService}
-            key={element.id + '_move_form'}
-            trackPromises={trackPromises}
-          />
+            <MoveElementForm
+              element={element}
+              elementService={elementService}
+              key={element.id + '_move_form'}
+              trackPromises={trackPromises}
+            />
 
-          <DeleteElementButton
-            element={element}
-            elementService={elementService}
-          />
-        </>
-      )}
-      typeService={typeService}
-    />
-  )
-})
+            <DeleteElementButton
+              element={element}
+              elementService={elementService}
+            />
+          </>
+        )}
+        typeService={typeService}
+      />
+    )
+  },
+)

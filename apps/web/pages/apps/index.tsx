@@ -14,7 +14,7 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -55,9 +55,12 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(() => store.appService.getAll(), {
-    executeOnMount: true,
-  })
+  const [, { isLoading }] = useStatefulExecutor(
+    () => store.appService.getAll(),
+    {
+      executeOnMount: true,
+    },
+  )
 
   return (
     <>

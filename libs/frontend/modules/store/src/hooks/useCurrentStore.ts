@@ -1,12 +1,12 @@
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IStoreService } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
 
 export const useCurrentStore = (stores: IStoreService) => {
   const storeId = useCurrentStoreId()
 
-  const [getStore, { isLoading, error }] = useLoadingState((id: string) =>
+  const [getStore, { isLoading, error }] = useStatefulExecutor((id: string) =>
     stores.getOne(id),
   )
 

@@ -1,6 +1,5 @@
-import { getComponentService } from '@codelab/frontend/modules/component'
-import { Element } from '@codelab/frontend/modules/element'
-import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
+import { getComponentService } from '@codelab/frontend/presenter/container'
+import { IElement, ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
@@ -57,7 +56,7 @@ export class RenderPropsTypedValueTransformer
     return this.makeRenderProp(rootElement)
   }
 
-  private makeRenderProp(element: Element) {
+  private makeRenderProp(element: IElement) {
     const renderer = getRenderService(this)
 
     return (...renderPropArgs: Array<any>) =>

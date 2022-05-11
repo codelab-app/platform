@@ -25,6 +25,7 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfPropKey?: string | null
   propTransformationJs?: string | null
+  owner: { id: string; auth0Id: string }
   component?: ComponentFragment | null
   instanceOfComponent?: ComponentFragment | null
   parentElement?: { id: string } | null
@@ -48,6 +49,10 @@ export const ElementFragmentDoc = gql`
     id
     name
     css
+    owner {
+      id
+      auth0Id
+    }
     component {
       ...Component
     }

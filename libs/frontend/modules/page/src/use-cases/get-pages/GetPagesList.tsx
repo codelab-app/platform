@@ -4,7 +4,7 @@ import {
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -15,7 +15,7 @@ export const GetPagesList = observer<WithServices<PAGE_SERVICE>>(
   ({ pageService }) => {
     const appId = useCurrentAppId()
 
-    const [getPages, { isLoading }] = useLoadingState(() =>
+    const [getPages, { isLoading }] = useStatefulExecutor(() =>
       pageService.getAll({ app: { id: appId } }),
     )
 

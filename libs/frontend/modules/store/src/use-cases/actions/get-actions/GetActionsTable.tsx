@@ -4,7 +4,7 @@ import {
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentStoreId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -16,7 +16,7 @@ export const GetActionsTable = observer<
   const { columns, rowSelection, pagination } = useActionTable(actionService)
   const storeId = useCurrentStoreId()
 
-  const [getActions] = useLoadingState((id: string) =>
+  const [getActions] = useStatefulExecutor((id: string) =>
     actionService.getAll({ store: { id } }),
   )
 

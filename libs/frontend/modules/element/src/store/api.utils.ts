@@ -4,10 +4,11 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateElementDTO,
+  IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
-import { Element } from '../store'
 
 //
 // Utilities for transforming the form inputs to api inputs
@@ -22,6 +23,7 @@ export const makeCreateInput = (
     instanceOfComponentId,
     atomId,
     name,
+    owner,
     order,
     propsData,
   } = input
@@ -55,11 +57,12 @@ export const makeCreateInput = (
     props,
     name,
     id,
+    owner: connectOwner(owner),
   }
 }
 
 export const makeDuplicateInput = (
-  element: Element,
+  element: IElement,
   parentId: string,
   userId: string,
 ): ElementCreateInput => {

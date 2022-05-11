@@ -11,14 +11,8 @@ import {
   RenderService,
   renderServiceContext,
 } from '@codelab/frontend/modules/builder'
-import {
-  ComponentService,
-  componentServiceContext,
-} from '@codelab/frontend/modules/component'
-import {
-  ElementService,
-  elementServiceContext,
-} from '@codelab/frontend/modules/element'
+import { ComponentService } from '@codelab/frontend/modules/component'
+import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import {
   OperationService,
@@ -39,6 +33,10 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/modules/type'
 import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
+import {
+  componentServiceContext,
+  elementServiceContext,
+} from '@codelab/frontend/presenter/container'
 import {
   IActionService,
   IAdminService,
@@ -94,8 +92,11 @@ export type IRootStore = {
   componentService: IComponentService
   actionService: IActionService
   storeService: IStoreService
+  // Element services
   elementService: IElementService
   providerElementService: IElementService
+  detachedElementService: IElementService
+
   builderService: IBuilderService
   renderService: IRenderService
   resourceService: IResourceService
@@ -125,6 +126,7 @@ export const createRootStore = (
       operationService: prop(() => new OperationService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
+      detachedElementService: prop(() => new ElementService({})),
       // element service that is used by the provider tree
       providerElementService: prop(() => new ElementService({})),
       builderService: prop(() => new BuilderService({})),

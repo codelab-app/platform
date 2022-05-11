@@ -1,10 +1,11 @@
 import {
+  DETACHED_ELEMENT_SERVICE,
   ELEMENT_SERVICE,
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { PropsForm } from '@codelab/frontend/modules/type'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   Spinner,
   UseTrackLoadingPromises,
@@ -17,7 +18,7 @@ export type UpdateElementPropsFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocompleteContext?: any
-} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
+} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE | DETACHED_ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({
@@ -26,13 +27,14 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     trackPromises,
     typeService,
     autocompleteContext,
+    detachedElementService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element?.props?.values ?? {})
 
     const [getInterfaceType, { data: interfaceType, isLoading }] =
-      useLoadingState((_id: string) =>
+      useStatefulExecutor((_id: string) =>
         typeService.getInterfaceAndDescendants(_id),
       )
 
@@ -56,6 +58,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <PropsForm
             autocompleteContext={autocompleteContext}
             autosave
+            detachedElementService={detachedElementService}
             initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}

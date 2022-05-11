@@ -1,9 +1,9 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { getAppService } from '@codelab/frontend/modules/app'
 import { getAtomService } from '@codelab/frontend/modules/atom'
-import { getElementService } from '@codelab/frontend/modules/element'
 import { getPageService } from '@codelab/frontend/modules/page'
 import { getTypeService } from '@codelab/frontend/modules/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import {
   AdminExportPayload,
   IAdminService,
@@ -59,7 +59,7 @@ export class AdminService extends Model({}) implements IAdminService {
     const pages = yield* _await(pageService.getAll())
 
     const getPageElements = async (page: IPage) => {
-      const tree = await elementService.getTree(page.rootElementId)
+      const tree = await elementService.getTree(page.rootElement.id)
 
       return tree.elements
     }
@@ -203,7 +203,8 @@ export class AdminService extends Model({}) implements IAdminService {
         app.pages.map((page) => ({
           name: page.name,
           appId: app.id,
-          rootElementId: page.rootElementId,
+          rootElementId: page.rootElement.id,
+          auth0Id: app.ownerId,
         })),
       )
       .flat()

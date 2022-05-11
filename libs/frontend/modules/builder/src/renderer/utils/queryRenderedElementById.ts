@@ -1,4 +1,4 @@
-import { DATA_ID } from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 
 export const queryRenderedElementById = (
@@ -8,7 +8,7 @@ export const queryRenderedElementById = (
     return null
   }
 
-  const nodeQuerySelector = `[${DATA_ID}="${nodeId}"]`
+  const nodeQuerySelector = `[${DATA_ELEMENT_ID}="${nodeId}"]`
 
   return document.querySelector(nodeQuerySelector)
 }

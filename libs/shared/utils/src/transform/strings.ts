@@ -11,6 +11,8 @@ export const toPascalCase = (value: string) =>
 
 export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
 
+export const toTitleCase = (value: string) => v.titleCase(value)
+
 export const toKebabCase = (value: string) => v.chain(value).kebabCase().value()
 
 export const pascalCaseToWords = (input: string) =>

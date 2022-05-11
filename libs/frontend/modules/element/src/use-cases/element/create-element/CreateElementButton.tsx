@@ -21,6 +21,7 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
               : undefined,
           })
         }
+        size="small"
       />
     )
   },

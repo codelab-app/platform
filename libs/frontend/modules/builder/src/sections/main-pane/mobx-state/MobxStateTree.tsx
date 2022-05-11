@@ -14,7 +14,7 @@ export const MobxStateTree = observer<StateTreeProps>(
     <Tree
       blockNode
       titleRender={(node) => (
-        <MobxStateTreeItem builderService={builderService} node={node} />
+        <MobxStateTreeItem node={node} open={builderService.stateModal.open} />
       )}
       treeData={state}
     />

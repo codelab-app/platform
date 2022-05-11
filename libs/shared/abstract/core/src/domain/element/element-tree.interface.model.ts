@@ -1,6 +1,6 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
-import { IElement } from './element.interface'
+import { ObjectMap, Ref } from 'mobx-keystone'
+import { IElement } from './element.model.interface'
 
 export interface IElementTree {
   id: string
@@ -9,4 +9,6 @@ export interface IElementTree {
   elementsList: Array<IElement>
   getPathFromRoot(element: IElement): Array<IElement>
   element(id: string): Maybe<IElement>
+  buildTree(elements: Array<IElement>): void
+  elements: ObjectMap<IElement>
 }

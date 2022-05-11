@@ -4,7 +4,7 @@ import {
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Button, Tooltip } from 'antd'
 import fileDownload from 'js-file-download'
 import { observer } from 'mobx-react-lite'
@@ -13,7 +13,7 @@ import React from 'react'
 export const ExportTypesButton = observer<
   WithServices<TYPE_SERVICE | IMPORT_TYPE_SERVICE>
 >(({ importTypeService, typeService }) => {
-  const [onClick, { isLoading }] = useLoadingState(async () => {
+  const [onClick, { isLoading }] = useStatefulExecutor(async () => {
     if (typeService.selectedIds.size === 0) {
       return
     }

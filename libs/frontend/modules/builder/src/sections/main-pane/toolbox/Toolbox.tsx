@@ -4,7 +4,7 @@ import {
   COMPONENT_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import {
   IAtom,
@@ -20,18 +20,18 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
-import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
+import { ToolboxItem } from './ToolboxItem'
 
-export interface ToolboxItem {
+export interface ToolboxItemProps {
   id: string
   name: string
   createElementInputFactory: () => Omit<
     ICreateElementDTO,
-    'parentElementId' | 'order'
+    'parentElementId' | 'order' | 'owner'
   >
 }
 
-const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
+const atomToolboxItemFactory = (atom: IAtom): ToolboxItemProps => ({
   name: atom.name,
   id: atom.id,
   createElementInputFactory: () => ({
@@ -42,7 +42,9 @@ const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
   }),
 })
 
-const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
+const componentToolboxItemFactory = (
+  component: IComponent,
+): ToolboxItemProps => {
   const { name, id } = component
 
   return {
@@ -62,15 +64,19 @@ export type ToolboxProps = WithServices<ATOM_SERVICE | COMPONENT_SERVICE> & {
 export const Toolbox = observer<ToolboxProps>(
   ({ searchQuery, atomService, componentService }) => {
     const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
-    const [filteredItems, setFilteredItems] = useState<Array<ToolboxItem>>([])
-    const fuseRef = useRef(new Fuse<ToolboxItem>([], { keys: ['name'] }))
 
-    const [, { isLoading: isLoadingAtoms }] = useLoadingState(
+    const [filteredItems, setFilteredItems] = useState<Array<ToolboxItemProps>>(
+      [],
+    )
+
+    const fuseRef = useRef(new Fuse<ToolboxItemProps>([], { keys: ['name'] }))
+
+    const [, { isLoading: isLoadingAtoms }] = useStatefulExecutor(
       () => atomService.getAll(),
       { executeOnMount: true },
     )
 
-    const [, { isLoading: isLoadingComponents }] = useLoadingState(
+    const [, { isLoading: isLoadingComponents }] = useStatefulExecutor(
       () => componentService.getAll(),
       { executeOnMount: true },
     )
@@ -80,9 +86,9 @@ export const Toolbox = observer<ToolboxProps>(
         const componentsList = componentService.components
         const atomsList = atomService.atoms
 
-        const toolboxItems: Array<ToolboxItem> = [
+        const toolboxItems: Array<ToolboxItemProps> = [
           ...atomsList.map(atomToolboxItemFactory),
-          ...componentsList.map(componentToolboxItemFactory),
+          ...[...componentsList.values()].map(componentToolboxItemFactory),
         ]
 
         fuseRef.current.setCollection(toolboxItems)
@@ -110,35 +116,12 @@ export const Toolbox = observer<ToolboxProps>(
       >
         <Spinner isLoading={isLoadingAtoms || isLoadingComponents}>
           {filteredItems.map((item) => (
-            <ToolboxItemView key={item.id} toolboxItem={item} />
+            <ToolboxItem key={item.id} toolboxItem={item} />
           ))}
         </Spinner>
       </div>
     )
   },
 )
-
-const ToolboxItemView = ({ toolboxItem }: { toolboxItem: ToolboxItem }) => {
-  const { attributes, listeners, setNodeRef } = useCreateElementDraggable(
-    toolboxItem.id,
-    toolboxItem.createElementInputFactory(),
-  )
-
-  return (
-    <div css={tw`border-gray-300 p-2 border flex items-center justify-between`}>
-      <span>{toolboxItem.name}</span>
-
-      <Button
-        ref={setNodeRef}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...listeners}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...attributes}
-        icon={<DragOutlined />}
-        size="small"
-      />
-    </div>
-  )
-}
 
 Toolbox.displayName = 'MainPaneBuilderToolboxTab'

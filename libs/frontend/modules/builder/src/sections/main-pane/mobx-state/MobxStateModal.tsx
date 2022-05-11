@@ -1,16 +1,26 @@
 import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import {
+  IModalService,
+  IStateTreeNode,
+  StateModalProperties,
+} from '@codelab/shared/abstract/core'
 import { Modal, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CopyPathButton } from './CopyPathButton'
 
-export const MobxStateModal = observer<WithServices<BUILDER_SERVICE>>(
-  ({ builderService }) => {
-    if (!builderService.stateModal.node) {
+type MobxStateModalProps = Pick<
+  IModalService<IStateTreeNode, StateModalProperties>,
+  'isOpen' | 'close' | 'node'
+>
+
+export const MobxStateModal = observer<MobxStateModalProps>(
+  ({ isOpen, close, node }) => {
+    if (!node) {
       return null
     }
 
-    const { content, path } = builderService.stateModal.node
+    const { content, path } = node
 
     return (
       <Modal
@@ -19,14 +29,14 @@ export const MobxStateModal = observer<WithServices<BUILDER_SERVICE>>(
         closable
         maskClosable
         okButtonProps={{ hidden: true }}
-        onCancel={() => builderService.stateModal.close()}
+        onCancel={() => close()}
         title={[
           <Space>
             {path}
             <CopyPathButton path={path} />
           </Space>,
         ]}
-        visible={builderService.stateModal.isOpen}
+        visible={isOpen}
       >
         {typeof content === 'object'
           ? JSON.stringify(content, null, 2)

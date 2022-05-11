@@ -12,6 +12,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
         component: () => null,
       },
     },
+    owner: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     name: {
       autoFocus: true,
       type: 'string',

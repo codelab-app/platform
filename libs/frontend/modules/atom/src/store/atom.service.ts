@@ -1,4 +1,3 @@
-import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -112,14 +111,9 @@ export class AtomService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
-    const typeService = getTypeService(this)
-    // const tagService = getTagService(this)
     const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
 
     return atoms.map((atom) => {
-      // Here we want to retrieve the actual interface model to retrieve a ref
-
-      // const type = typeService.type(atom.api.id)
       const atomModel = Atom.hydrate(atom)
       this._atoms.set(atom.id, atomModel)
 

@@ -5,7 +5,7 @@
 import { UserOGM } from '@codelab/backend'
 import { createRootStore } from '@codelab/frontend/model/infra/mobx'
 import { upsertUser } from '@codelab/frontend/modules/user'
-import { IAtom, ICreateAtomDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import { IAtom, IAtomExport, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   appData,
   booleanTypeId,
@@ -123,15 +123,17 @@ describe('App', () => {
     const { atomService } = rootStore
     const auth0 = await auth0Service
 
-    const atoms = await reduce<
-      Omit<ICreateAtomDTO, 'owner'>,
-      Promise<Array<IAtom>>
-    >(
+    const atoms = await reduce<IAtomExport, Promise<Array<IAtom>>>(
       createAtomsData([buttonAtomId], [buttonInterfaceId]),
       async (results, atom) => {
         const [createdAtom] = await atomService.create([
           {
-            ...atom,
+            id: atom.id,
+            name: atom.name,
+            type: atom.type,
+            // api: {
+            //   id: atom.id,
+            // },
             owner: auth0.auth0Id,
           },
         ])
@@ -191,6 +193,7 @@ describe('App', () => {
         name: buttonElementData.name,
         atomId: buttonAtomId,
         parentElementId: page.rootElementId,
+        owner: auth0.auth0Id,
       },
     ])
   })

@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/shared/utils",
   "sourceRoot": "libs/frontend/shared/utils/src",
   "projectType": "library",
   "targets": {

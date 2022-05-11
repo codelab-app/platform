@@ -11,6 +11,11 @@ export const createPageSchema: JSONSchemaType<ICreatePageDTO> = {
       nullable: true,
       ...hideField,
     },
+    auth0Id: {
+      type: 'string',
+      nullable: true,
+      ...hideField,
+    },
     rootElementId: {
       type: 'string',
       nullable: true,

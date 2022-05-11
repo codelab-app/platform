@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/model/infra/mobx",
   "sourceRoot": "libs/frontend/model/infra/mobx/src",
   "projectType": "library",
   "targets": {

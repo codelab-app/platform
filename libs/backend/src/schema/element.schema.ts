@@ -23,14 +23,20 @@ export const elementSchema = gql`
     order: Int
   }
 
-  type Element {
+  type Element implements WithOwner {
     id: ID! @id(autogenerate: false)
+    # We need to put owner on Element, but not on Page, because an Element could be detached from a Page
+    owner: User!
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"
         properties: "ParentOfElement"
         direction: OUT
       )
+    # Used for reverse lookup to see whether element is detached
+    app: App @relationship(type: "PROVIDER_ROOT", direction: OUT)
+    # Used for reverse lookup to see whether element is detached
+    page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
     parentElement: Element
       @relationship(

@@ -7,6 +7,7 @@ import { v4 } from 'uuid'
  */
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
+  userId: string,
 ): Promise<OGM_TYPES.Element> => {
   const Element = await ElementOGM()
 
@@ -26,6 +27,15 @@ export const importElementInitial = async (
         {
           id: element.id ?? v4(),
           name: element.name,
+          owner: {
+            connect: {
+              where: {
+                node: {
+                  id: userId,
+                },
+              },
+            },
+          },
           css: element.css,
           atom: element.atom
             ? { connect: { where: { node: { id: element.atom.id } } } }

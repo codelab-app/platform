@@ -1,4 +1,4 @@
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ITypeService } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -21,7 +21,7 @@ export const useCurrentInterfaceId = () => {
 export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const interfaceId = useCurrentInterfaceId()
 
-  const [getOne, { isLoading, error }] = useLoadingState((_id: string) =>
+  const [getOne, { isLoading, error }] = useStatefulExecutor((_id: string) =>
     // We need the whole graph, not just the interface, because we need to reference all the field types
     typeService.getInterfaceAndDescendants(_id),
   )

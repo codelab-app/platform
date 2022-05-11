@@ -1,7 +1,9 @@
 import {
+  BUILDER_CONTAINER_ID,
   BUILDER_SERVICE,
-  DATA_ID,
+  DATA_ELEMENT_ID,
   ELEMENT_SERVICE,
+  USER_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import styled from '@emotion/styled'
@@ -13,8 +15,8 @@ import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
 import { Renderer } from './renderer'
 
 export const Builder = observer<
-  WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
->(({ builderService, elementService }) => {
+  WithServices<BUILDER_SERVICE | ELEMENT_SERVICE | USER_SERVICE>
+>(({ builderService, elementService, userService }) => {
   const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(
     builderService,
     builderService.builderRenderer.tree,
@@ -26,13 +28,16 @@ export const Builder = observer<
 
   return (
     <StyledBuilderContainer
-      id="Builder"
+      id={BUILDER_CONTAINER_ID}
       key={builderService.builderRenderer.tree?.id}
       onClick={handleContainerClick}
       onMouseLeave={handleMouseLeave}
       onMouseOver={handleMouseOver}
     >
-      <BuilderDropHandler builderService={builderService} />
+      <BuilderDropHandler
+        builderService={builderService}
+        userService={userService}
+      />
       <ElementDropHandlers builderService={builderService} />
 
       <Renderer renderService={builderService.builderRenderer} />
@@ -45,11 +50,11 @@ export const Builder = observer<
 })
 
 const StyledBuilderContainer = styled.div`
-  // [${DATA_ID}] is a selector for all rendered elements
-  [${DATA_ID}]:hover {
+  // [${DATA_ELEMENT_ID}] is a selector for all rendered elements
+  [${DATA_ELEMENT_ID}]:hover {
     cursor: pointer;
   }
-  [${DATA_ID}] {
+  [${DATA_ELEMENT_ID}] {
     // Force all pointer events to be on, because otherwise we won't be able to click to inspect
     // elements that have it disabled by design, like disabled buttons
     pointer-events: all !important;

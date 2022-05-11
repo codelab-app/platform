@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/abstract/core",
   "sourceRoot": "libs/frontend/abstract/core/src",
   "projectType": "library",
   "targets": {

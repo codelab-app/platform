@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/abstract/codegen",
   "sourceRoot": "libs/shared/abstract/codegen/src",
   "projectType": "library",
   "targets": {},

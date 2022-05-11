@@ -1,13 +1,13 @@
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { IResourceService } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
 
 export const useCurrentResource = (resourcesService: IResourceService) => {
   const resourceId = useCurrentResourceId()
 
-  const [getResource, { isLoading, error }] = useLoadingState((id: string) =>
-    resourcesService.getOne(id),
+  const [getResource, { isLoading, error }] = useStatefulExecutor(
+    (id: string) => resourcesService.getOne(id),
   )
 
   useEffect(() => {

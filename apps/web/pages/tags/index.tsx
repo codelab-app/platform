@@ -13,7 +13,7 @@ import {
   GetTagsTree,
   UpdateTagModal,
 } from '@codelab/frontend/modules/tag'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -27,9 +27,12 @@ import React from 'react'
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(() => store.tagService.getAll(), {
-    executeOnMount: true,
-  })
+  const [, { isLoading }] = useStatefulExecutor(
+    () => store.tagService.getAll(),
+    {
+      executeOnMount: true,
+    },
+  )
 
   return (
     <>

@@ -1,3 +1,10 @@
+import {
+  BUILDER_CONTAINER_ID,
+  DATA_COMPONENT_ID,
+  DATA_ELEMENT_ID,
+  DATASET_COMPONENT_ID,
+  DATASET_ELEMENT_ID,
+} from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { IBuilderService } from '@codelab/shared/abstract/core'
 import { MouseEventHandler } from 'react'
@@ -9,14 +16,14 @@ export const useBuilderRootClickHandler = (builderService: IBuilderService) => {
 
     // Go up the dom tree to find a element with a node id
     const visit = (element: HTMLElement) => {
-      const nodeId = element.dataset?.['id']
+      const elementId = element.dataset?.[DATASET_ELEMENT_ID]
       // Don't allow selection of elements withing a componentId
-      const componentId = element.dataset?.['componentId']
+      const componentId = element.dataset?.[DATASET_COMPONENT_ID]
 
-      if (nodeId && !componentId) {
-        builderService.set_selectedElement(elementRef(nodeId))
+      if (elementId && !componentId) {
+        builderService.set_selectedElement(elementRef(elementId))
         e.stopPropagation()
-      } else if (element.parentElement && element.id !== 'Builder') {
+      } else if (element.parentElement && element.id !== BUILDER_CONTAINER_ID) {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
         visit(element.parentElement)
       } else {

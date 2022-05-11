@@ -5,9 +5,9 @@ import {
   Builder,
   BuilderContext,
   BuilderDashboardTemplate,
+  BuilderMainPane,
   BuilderSidebarNavigation,
   createMobxState,
-  MainPane,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
@@ -17,7 +17,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import {
   extractErrorMessage,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -33,13 +33,15 @@ const PageBuilder: CodelabPage<any> = observer(() => {
     providerElementService,
     storeService,
     builderService,
+    userService,
+    detachedElementService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
   const currentPageId = useCurrentPageId()
   const router = useRouter()
 
-  const [, { isLoading, error, data }] = useLoadingState(
+  const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -56,10 +58,17 @@ const PageBuilder: CodelabPage<any> = observer(() => {
         ? await storeService.getOne(app.store.id)
         : null
 
-      // Get element tree and provider tree
+      /**
+       * Preload all required data
+       * - element tree
+       * - provider tree
+       * - detached elements
+       */
       const [elementTree, providerTree] = await Promise.all([
-        elementService.getTree(page.rootElementId),
-        providerElementService.getTree(page.providerElementId),
+        elementService.getTree(page.rootElement.id),
+        providerElementService.getTree(page.providerElement.id),
+        detachedElementService.getTree(app.rootDetachedElement.id),
+        // elementService.loadAllDetached(),
       ])
 
       // initialize renderer
@@ -90,6 +99,7 @@ const PageBuilder: CodelabPage<any> = observer(() => {
         builderService={builderService}
         elementService={elementService}
         key={builderService.builderRenderer.tree?.root?.id}
+        userService={userService}
       />
     </>
   )
@@ -108,18 +118,21 @@ PageBuilder.Layout = observer((page) => {
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={store.pageService} />}
         MainPane={() => (
-          <MainPane
+          <BuilderMainPane
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
+            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
+            userService={store.userService}
           />
         )}
         MetaPane={() => (
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
+            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
@@ -127,8 +140,9 @@ PageBuilder.Layout = observer((page) => {
         )}
         SidebarNavigation={() => (
           <BuilderSidebarNavigation
-            builderService={store.builderService}
+            builderTab={store.builderService.builderTab}
             key={store.builderService.builderRenderer.tree?.root?.id}
+            setBuilderTab={store.builderService.setBuilderTab}
           />
         )}
         builderService={store.builderService}

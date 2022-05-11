@@ -2,7 +2,7 @@ import {
   COMPONENT_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
 import { Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -14,7 +14,7 @@ import { ComponentColumnData } from './columns/types'
 
 export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
   ({ componentService }) => {
-    const [getComponents, { isLoading }] = useLoadingState(() =>
+    const [getComponents, { isLoading }] = useStatefulExecutor(() =>
       componentService.getAll(),
     )
 
@@ -52,10 +52,12 @@ export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
       },
     ]
 
-    const dataSource: Array<ComponentColumnData> = components.map((c) => ({
-      name: c.name,
-      id: c.id,
-    }))
+    const dataSource: Array<ComponentColumnData> = [...components.values()].map(
+      (c) => ({
+        name: c.name,
+        id: c.id,
+      }),
+    )
 
     return (
       <Spinner isLoading={isLoading}>

@@ -8,13 +8,13 @@ import {
   Builder,
   BuilderContext,
   BuilderDashboardTemplate,
+  BuilderMainPane,
   BuilderSidebarNavigation,
-  MainPane,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
 import {
   extractErrorMessage,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -27,7 +27,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { query } = useRouter()
   const currentComponentId = query.componentId as string
 
-  const [, { isLoading, error, data }] = useLoadingState(
+  const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
       // Load the component we're rendering
       const component = await store.componentService.getOne(currentComponentId)
@@ -66,6 +66,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
         builderService={store.builderService}
         elementService={store.elementService}
         key={store.builderService.builderRenderer.tree?.root?.id}
+        userService={store.userService}
       />
     </>
   )
@@ -83,29 +84,30 @@ ComponentDetail.Layout = observer((page) => {
     >
       <BuilderDashboardTemplate
         MainPane={observer(() => (
-          <MainPane
+          <BuilderMainPane
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
+            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
+            userService={store.userService}
           />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderComponent
             atomService={store.atomService}
             builderService={store.builderService}
+            detachedElementService={store.detachedElementService}
             elementService={store.elementService}
             key={store.builderService.builderRenderer.tree?.root?.id}
             typeService={store.typeService}
           />
         ))}
-        SidebarNavigation={observer((props) => (
+        SidebarNavigation={observer(() => (
           <BuilderSidebarNavigation
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-            builderService={store.builderService}
-            key={store.builderService.builderRenderer.tree?.root?.id}
+            builderTab={store.builderService.builderTab}
+            setBuilderTab={store.builderService.setBuilderTab}
           />
         ))}
         builderService={store.builderService}

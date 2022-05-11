@@ -1,7 +1,8 @@
-import { DATA_ID } from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
-import { Component, componentRef } from '@codelab/frontend/modules/component'
+import { componentRef } from '@codelab/frontend/presenter/container'
 import {
+  IComponent,
   IElement,
   IElementDTO,
   IHook,
@@ -10,10 +11,11 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
-import { DataNode } from 'antd/lib/tree'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
+  detach,
+  findParent,
   getParent,
   idProp,
   Model,
@@ -38,6 +40,7 @@ export const hydrate = ({
   css,
   atom,
 
+  owner,
   component,
   instanceOfComponent,
   parentElement,
@@ -59,6 +62,7 @@ export const hydrate = ({
     parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
     props: props ? Prop.hydrate(props) : null,
+    owner: owner.auth0Id,
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
@@ -79,11 +83,12 @@ export const hydrate = ({
 export class Element
   extends Model({
     id: idProp.withSetter(),
-    children: prop(() => objectMap<Ref<Element>>()),
+    children: prop(() => objectMap<Ref<IElement>>()),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullish<string>>(),
+    owner: prop<string>(),
 
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
@@ -97,26 +102,26 @@ export class Element
     propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
     // component which has this element as rootElement
-    component: prop<Nullish<Ref<Component>>>().withSetter(),
+    component: prop<Nullish<Ref<IComponent>>>().withSetter(),
 
     // Marks the element as an instance of a specific component
-    instanceOfComponent: prop<Nullish<Ref<Component>>>().withSetter(),
+    instanceOfComponent: prop<Nullish<Ref<IComponent>>>().withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
 {
   @computed
-  get childrenSorted(): Array<Element> {
+  get childrenSorted(): Array<IElement> {
     return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
   @modelAction
-  addChild(child: Element) {
+  addChild(child: IElement) {
     this.children.set(child.id, elementRef(child))
   }
 
   @modelAction
-  hasChild(child: Element) {
+  hasChild(child: IElement) {
     return this.children.has(child.id)
   }
 
@@ -125,9 +130,21 @@ export class Element
     this.propMapBindings.set(propMapBinding.id, propMapBinding)
   }
 
+  /**
+   * Check to see if this element is part of a compoent tree
+   */
+  // @computed
+  // get isComponentElement() {
+  //   const foundParent = findParent(this, (parent: any) => {
+  //     return parent?.$modelType === '@codelab/ComponentService'
+  //   })
+  //
+  //   return Boolean(foundParent)
+  // }
+
   @computed
-  get descendants(): Array<Element> {
-    const descendants: Array<Element> = []
+  get descendants(): Array<IElement> {
+    const descendants: Array<IElement> = []
 
     for (const child of this.childrenSorted) {
       descendants.push(child)
@@ -139,7 +156,7 @@ export class Element
 
   /** All descendants that are the first child of their parent */
   @computed
-  get leftHandDescendants(): Array<Element> {
+  get leftHandDescendants(): Array<IElement> {
     const firstChild = this.childrenSorted[0]
 
     if (!firstChild) {
@@ -150,11 +167,11 @@ export class Element
   }
 
   @computed
-  get deepestDescendant(): Element | null {
-    let deepest: Element | null = null
+  get deepestDescendant(): IElement | null {
+    let deepest: IElement | null = null
     let deepestDepth = 0
 
-    const visitChildren = (child: Element, depth: number): void => {
+    const visitChildren = (child: IElement, depth: number): void => {
       if (child.children.size) {
         for (const subChild of child.childrenSorted) {
           visitChildren(subChild, depth + 1)
@@ -176,8 +193,8 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.atom?.current.name ||
-      (this.atom?.current
+      this.atom?.maybeCurrent?.name ||
+      (this.atom?.maybeCurrent
         ? pascalCaseToWords(this.atom.current.type)
         : undefined) ||
       this.component?.current?.name ||
@@ -204,11 +221,11 @@ export class Element
    */
   @computed
   get __metadataProps() {
-    return { [DATA_ID]: this.id, key: this.id }
+    return { [DATA_ELEMENT_ID]: this.id, key: this.id }
   }
 
   @computed
-  get antdNode(): DataNode {
+  get antdNode() {
     return {
       key: this.id,
       title: this.label,
@@ -216,7 +233,7 @@ export class Element
     }
   }
 
-  findDescendant(id: string): Maybe<Element> {
+  findDescendant(id: string): Maybe<IElement> {
     if (this.id === id) {
       return this
     }
@@ -237,8 +254,8 @@ export class Element
   }
 
   @modelAction
-  removeChild(element: Element) {
-    this.children.delete(element.id)
+  removeChild(element: IElement) {
+    detach(element)
   }
 
   /**
@@ -303,7 +320,7 @@ export class Element
    * If successful, merges the result with the original props and returns it
    * If failed, returns the original props
    */
-  executePropTransformJs = (props: IPropData): IPropData => {
+  executePropTransformJs = (props: IPropData) => {
     const transformFn = this.transformFn
 
     if (!transformFn) {
@@ -332,6 +349,7 @@ export class Element
     name,
     css,
     atom,
+    owner,
     component,
     instanceOfComponent,
     hooks,
@@ -346,6 +364,7 @@ export class Element
     this.id = id
     this.name = name
     this.css = css
+    this.owner = owner.auth0Id
     this.propTransformationJs = propTransformationJs
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
@@ -372,11 +391,13 @@ export class Element
     this.instanceOfComponent = instanceOfComponent
       ? componentRef(instanceOfComponent.id)
       : null
+
+    return this
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   public static hydrate = hydrate
 }
 
-export const compareOrder = (a: Element, b: Element) =>
+export const compareOrder = (a: IElement, b: IElement) =>
   (a.orderInParent ?? 0) - (b.orderInParent ?? 0)

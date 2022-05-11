@@ -14,6 +14,10 @@ export const primitiveTypeSelectionSet = `{
   primitiveKind
 }`
 
+export const reactNodeTypeSelectionSet = `{
+  ${baseSelection}
+}`
+
 export const enumTypeSelectionSet = `{
   ${baseSelection}
   allowedValues {

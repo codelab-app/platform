@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/model/infra/graphql",
   "sourceRoot": "libs/frontend/model/infra/graphql/src",
   "projectType": "library",
   "targets": {

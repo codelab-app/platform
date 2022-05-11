@@ -1,20 +1,23 @@
-import { getComponentService } from '@codelab/frontend/modules/component'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { getAtomService } from '@codelab/frontend/modules/atom'
+import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import {
+  IAuth0Id,
+  IComponentDTO,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
+  IElementDTO,
   IElementRef,
   IElementService,
   IPropData,
+  isAtomDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
-  IUserRef,
   MoveData,
 } from '@codelab/shared/abstract/core'
 import {
@@ -22,6 +25,7 @@ import {
   _await,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -45,12 +49,33 @@ import { PropMapBindingModalService } from './prop-map-binding-modal.service'
 /**
  * Element stores a tree of elements locally using an ElementTree
  * and handles the communication with the server.
+ *
+ * We will instantiate multiple ElementServices, one for each type of elements
+ *
+ * - Elements part of rootTree
+ * - Elements part of providerTree
+ * - Elements that are detached
+ * - Elements part of components
+ *
+ * Previously we created 2 properties, elements & detachedElements, but this mixes up different context in the same service
+ *
+ * Instead, we could create a new element service for detachedElements, which is stored as elements property
  */
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
     elementTree: prop(() => new ElementTree({})),
-    elements: prop(() => objectMap<Element>()),
+    /**
+     * Contains all elements
+     *
+     * - Elements part of rootTree
+     * - Elements that are detached
+     */
+    elements: prop(() => objectMap<IElement>()),
+    /**
+     * Put detached elements in its own group for easy access
+     */
+    // detachedElements: prop(() => objectMap<Ref<IElement>>()),
 
     createModal: prop(() => new CreateElementModalService({})),
     updateModal: prop(() => new ElementModalService({})),
@@ -85,7 +110,9 @@ export class ElementService
       }),
     )
 
-    this.elementTree.updateCache(elements, rootId, updateRoot)
+    const elementModels = this.hydrateOrUpdateCache(elements)
+
+    this.elementTree.buildTree(elementModels)
 
     return this.elementTree
   })
@@ -95,13 +122,62 @@ export class ElementService
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
     const { elements } = yield* _await(
       elementApi.GetElements({
-        where,
+        where: {
+          ...where,
+          owner: {
+            // auth0Id:
+          },
+        },
       }),
     )
 
+    return this.hydrateOrUpdateCache(elements)
+  })
+
+  // get detachedElementsAntdNode() {
+  //   return {
+  //     children: [...this.detachedElements.values()].map((element) => {
+  //       return {
+  //         key: element.current.id,
+  //         title: element.current.label,
+  //       }
+  //     }),
+  //     key: 'detachedNodes',
+  //     title: 'Detached Nodes',
+  //   }
+  // }
+
+  @modelAction
+  private updateAtomsCache(elements: Array<IElementDTO>) {
+    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
+    const atomService = getAtomService(this)
+    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
+
+    atomService.updateCache(atoms)
+  }
+
+  @modelAction
+  private updateComponentsCache(elements: Array<IElementDTO>) {
+    // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
+    const componentService = getComponentService(this)
+
+    const allComponents = elements
+      .map((v) => v.component)
+      .filter(Boolean) as Array<IComponentDTO>
+
+    componentService.updateCaches(allComponents)
+  }
+
+  @modelAction
+  public hydrateOrUpdateCache = (elements: Array<IElementDTO>) => {
+    this.updateAtomsCache(elements)
+    this.updateComponentsCache(elements)
+
     return elements.map((element) => {
       if (this.elements.has(element.id)) {
-        return throwIfUndefined(this.elements.get(element.id))
+        const elementModel = this.elements.get(element.id)!
+
+        return elementModel.updateCache(element)
       }
 
       const elementModel = Element.hydrate(element)
@@ -109,7 +185,60 @@ export class ElementService
 
       return elementModel
     })
-  })
+  }
+
+  /**
+   * Get elements without any parent or children, currently we load all from current user
+   */
+  // @modelFlow
+  // @transaction
+  // loadAllDetached = _async(function* (this: ElementService) {
+  //   const userService = getUserService(this)
+  //
+  //   const { elements } = yield* _await(
+  //     elementApi.GetElements({
+  //       where: {
+  //         AND: [
+  //           {
+  //             parentElementAggregate: {
+  //               count: 0,
+  //             },
+  //           },
+  //           {
+  //             childrenAggregate: {
+  //               count: 0,
+  //             },
+  //           },
+  //           // Can't be a provider element
+  //           {
+  //             appAggregate: {
+  //               count: 0,
+  //             },
+  //           },
+  //           // Can't be a root element
+  //           {
+  //             pageAggregate: {
+  //               count: 0,
+  //             },
+  //           },
+  //           {
+  //             owner: {
+  //               auth0Id: userService.user?.auth0Id,
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     }),
+  //   )
+  //
+  //   const elementsModel = this.hydrateOrUpdateCache(elements)
+  //
+  //   // elementsModel.forEach((element) => {
+  //   //   this.detachedElements.set(element.id, elementRef(element.id))
+  //   // })
+  //
+  //   return elementsModel
+  // })
 
   @modelFlow
   @transaction
@@ -125,6 +254,9 @@ export class ElementService
     return elementGraph
   })
 
+  /**
+   * We need a separate create function for element trees
+   */
   @modelFlow
   @transaction
   create = _async(function* (
@@ -141,9 +273,14 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    return this.elementTree.updateCache(elements)
+    const elementModels = this.hydrateOrUpdateCache(elements)
+
+    this.elementTree.buildTree(elementModels)
+
+    return elementModels
   })
 
+  @modelAction
   element(id: string) {
     return this.elements?.get(id)
   }
@@ -301,7 +438,7 @@ export class ElementService
   duplicateElement = _async(function* (
     this: ElementService,
     targetElement: Element,
-    userId: IUserRef,
+    auth0Id: IAuth0Id,
   ) {
     if (!targetElement.parentElement) {
       throw new Error("Can't duplicate root element")
@@ -309,11 +446,11 @@ export class ElementService
 
     const oldToNewIdMap = new Map<string, string>()
 
-    const recursiveDuplicate = async (element: Element, parentId: string) => {
+    const recursiveDuplicate = async (element: IElement, parentId: string) => {
       const createInput: ElementCreateInput = makeDuplicateInput(
         element,
         parentId,
-        userId,
+        auth0Id,
       )
 
       const {
@@ -326,15 +463,16 @@ export class ElementService
         throw new Error('No elements created')
       }
 
-      const [elementModel] = this.elementTree.updateCache([createdElement])
-
-      oldToNewIdMap.set(element.id, elementModel.id)
-
-      for (const child of element.childrenSorted) {
-        await recursiveDuplicate(child, elementModel.id)
-      }
-
-      return elementModel
+      // const createdElementModel = this.hydrateOrUpdateCache([createdElement])
+      // const [elementModel] = this.elementTree.buildTree(createdElementModel)
+      //
+      // oldToNewIdMap.set(element.id, elementModel.id)
+      //
+      // for (const child of element.childrenSorted) {
+      //   await recursiveDuplicate(child, elementModel.id)
+      // }
+      //
+      // return elementModel
     }
 
     yield* _await(
@@ -377,7 +515,7 @@ export class ElementService
   convertElementToComponent = _async(function* (
     this: ElementService,
     element: Element,
-    userId: IUserRef,
+    auth0Id: IAuth0Id,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
@@ -398,7 +536,7 @@ export class ElementService
           create: {
             node: {
               name: element.label,
-              owner: { connect: { where: { node: { auth0Id: userId } } } },
+              owner: { connect: { where: { node: { auth0Id } } } },
               rootElement: { connect: { where: { node: { id: element.id } } } },
             },
           },
@@ -418,6 +556,7 @@ export class ElementService
       this.create([
         {
           name: element.label,
+          owner: auth0Id,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
           order,
@@ -430,7 +569,7 @@ export class ElementService
   @transaction
   createPropMapBinding = _async(function* (
     this: ElementService,
-    element: Element,
+    element: IElement,
     createInput: ICreatePropMapBindingDTO,
   ) {
     const {

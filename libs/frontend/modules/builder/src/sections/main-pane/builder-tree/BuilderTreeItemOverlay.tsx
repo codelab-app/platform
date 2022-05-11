@@ -4,15 +4,18 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { ElementContextMenu } from '../ElementContextMenu'
+import {
+  ElementContextMenu,
+  ElementContextMenuProps,
+} from '../ElementContextMenu'
 
-type BuilderTreeItemOverlayProps = WithServices<ELEMENT_SERVICE> & {
+export type BuilderTreeItemOverlayProps = {
   setContextMenuNodeId: (id: Nullable<string>) => void
-  element: IElement
+  elementContextMenuProps: Omit<ElementContextMenuProps, 'closeMenu'>
 }
 
 export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
-  ({ setContextMenuNodeId, element, elementService }) => {
+  ({ setContextMenuNodeId, elementContextMenuProps }) => {
     const closeMenu = () => setContextMenuNodeId(null)
 
     const onClick = (e: React.MouseEvent) => {
@@ -23,11 +26,8 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
     return (
       <>
         <div css={tw`inset-0`} onClick={onClick} />
-        <ElementContextMenu
-          element={element}
-          elementService={elementService}
-          onClick={closeMenu}
-        />
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <ElementContextMenu onClick={closeMenu} {...elementContextMenuProps} />
       </>
     )
   },

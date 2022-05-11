@@ -40,9 +40,12 @@ export class BuilderService
   })
   implements IBuilderService
 {
+  /**
+   * Element could be a placeholder for detached elements, so can't be current
+   */
   @computed
   get selectedElement() {
-    return this._selectedElement?.current
+    return this._selectedElement?.maybeCurrent
   }
 
   protected override onAttachedToRootStore(

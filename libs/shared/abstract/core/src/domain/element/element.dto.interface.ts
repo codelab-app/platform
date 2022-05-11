@@ -1,5 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { IAuth0Id } from '../user'
 import {
   ElementFragment,
   ElementGraphFragment,
@@ -14,6 +15,7 @@ export interface ICreateElementDTO {
   parentElementId?: string
   css?: Nullish<string>
   propsData?: string
+  owner: IAuth0Id
 }
 
 export type IUpdateElementDTO = {
@@ -35,10 +37,3 @@ export type IElementExport = Pick<
   OGM_TYPES.Element,
   'id' | 'name' | 'parentElement' | 'atom'
 >
-
-// {
-//   id: string
-//   name?: string | null
-//   parentElement?: { id: string } | null
-//   atom?: { id: string } | null
-// }

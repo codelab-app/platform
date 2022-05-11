@@ -1,22 +1,22 @@
 import { EyeOutlined } from '@ant-design/icons'
 import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IStateTreeNode } from '@codelab/shared/abstract/core'
+import { IModalService, IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Button, Tag } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { CopyPathButton } from './CopyPathButton'
 
-type StateTreeItemProps = WithServices<BUILDER_SERVICE> & {
+type StateTreeItemProps = Pick<IModalService<IStateTreeNode>, 'open'> & {
   node: IStateTreeNode
 }
 
 export const MobxStateTreeItem = observer<StateTreeItemProps>(
-  ({ node, builderService }) => {
+  ({ node, open }) => {
     const { type, path, name, useModal, content } = node
 
     const onPreview = async () => {
-      builderService.stateModal.open(node)
+      open(node)
     }
 
     if (!node) {

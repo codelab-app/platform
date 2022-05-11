@@ -1,10 +1,8 @@
-import { getAtomService } from '@codelab/frontend/modules/atom'
-import { getComponentService } from '@codelab/frontend/modules/component'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import {
-  IComponentDTO,
+  IElement,
   IElementDTO,
   IElementTree,
-  isAtomDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -20,14 +18,13 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { Element } from './element.model'
 import { elementRef } from './element.ref'
 import type { ElementService } from './element.service'
 
-const hydrate = (elements: Array<IElementDTO>, rootId: string) => {
+const hydrate = async (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
-
-  tree.updateCache(elements, rootId)
+  // const elementModels = tree.elementService.hydrateOrUpdateCache(elements)
+  // tree.buildTree(elementModels)
 
   return tree
 }
@@ -43,10 +40,10 @@ export class ElementTree
     id: idProp,
 
     /** The root tree element */
-    _root: prop<Nullable<Ref<Element>>>(null).withSetter(),
+    _root: prop<Nullable<Ref<IElement>>>(null).withSetter(),
 
     /** All root elements of the components in the main tree */
-    componentRoots: prop(() => objectMap<Ref<Element>>()),
+    componentRoots: prop(() => objectMap<Ref<IElement>>()),
   })
   implements IElementTree
 {
@@ -60,6 +57,10 @@ export class ElementTree
   @computed
   get root() {
     return this._root?.current
+  }
+
+  get elementService() {
+    return getElementService(this)
   }
 
   // Need to use get parent to get the ElementService, otherwise getElementService may get the wrong service depending on who's calling
@@ -86,45 +87,21 @@ export class ElementTree
     return this.elements?.get(id)
   }
 
+  /**
+   * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
+   */
   @modelAction
-  updateCache(
-    elementsDTO: Array<IElementDTO>,
-    rootId?: string,
-    updateRoot = true,
-  ) {
-    this.updateAtomsCache(elementsDTO)
-    this.updateComponentsCache(elementsDTO)
-
-    for (const elementDTO of elementsDTO) {
-      const element = this.element(elementDTO.id) || Element.hydrate(elementDTO)
-
-      // Update cache if exists, other create new
-      this.updateOrCreate(element, elementDTO)
-
-      if (elementDTO.component) {
-        this.componentRoots.set(elementDTO.id, elementRef(element))
-      }
-
-      /**
-       * this sets the root for the main trees
-       * main trees are :
-       *      - page elements tree
-       *      - provider elements tree
-       *      - component elements tree
-       * sub trees
-       *      - components referenced by element (instanceOfComponent)
-       *           loaded with the main tree so (elementDTO.id === rootId) will eliminate them
-       *      - components referenced by props (ReactNodeType, RenderPropsType)
-       *           not loaded with the main tree therefor we use (updateRoot)
-       */
-      if (elementDTO.id === rootId && updateRoot) {
+  buildTree(elements: Array<IElement>) {
+    for (const element of elements) {
+      if (!element.parentElement?.id) {
         this.set_root(elementRef(element))
       }
-    }
 
-    // Assign relationships
-    for (const [_, element] of this.elements) {
-      const parentId = element.parentId
+      if (element.component) {
+        this.componentRoots.set(element.id, elementRef(element))
+      }
+
+      const parentId = element.parentElement?.id
 
       if (!parentId) {
         continue
@@ -138,18 +115,6 @@ export class ElementTree
 
       parent?.addChild(element)
     }
-
-    return [...this.elements.values()]
-  }
-
-  updateOrCreate(element: Element, elementDTO: IElementDTO) {
-    if (this.elements.has(element.id)) {
-      element.updateCache(elementDTO)
-
-      return
-    }
-
-    this.elements.set(element.id, element)
   }
 
   /**
@@ -160,7 +125,7 @@ export class ElementTree
     elementId: string,
     newParentId: string,
     newOrder?: number,
-  ): Element {
+  ): IElement {
     const element = this.element(elementId)
 
     if (!element) {
@@ -190,9 +155,9 @@ export class ElementTree
     return element
   }
 
-  getPathFromRoot(selectedElement: Element): Array<Element> {
+  getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []
-    let current: Element | undefined = selectedElement
+    let current: IElement | undefined = selectedElement
 
     while (current) {
       path.push(current)
@@ -200,27 +165,6 @@ export class ElementTree
     }
 
     return path.reverse()
-  }
-
-  @modelAction
-  private updateAtomsCache(elements: Array<IElementDTO>) {
-    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
-    const atomService = getAtomService(this)
-    const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
-
-    atomService.updateCache(atoms)
-  }
-
-  @modelAction
-  private updateComponentsCache(elements: Array<IElementDTO>) {
-    // Add all non-existing components to the ComponentStore, so we can safely reference them in Element
-    const componentService = getComponentService(this)
-
-    const allComponents = elements
-      .map((v) => v.component)
-      .filter(Boolean) as Array<IComponentDTO>
-
-    componentService.updateCaches(allComponents)
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

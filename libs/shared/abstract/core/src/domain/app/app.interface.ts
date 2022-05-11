@@ -8,6 +8,8 @@ export interface IApp {
   name: string
   store: Nullable<IEntity>
   pages: Array<Ref<IPage>>
+  rootProviderElement: IEntity
+  rootDetachedElement: IEntity
 }
 
 export type IAppRef = string

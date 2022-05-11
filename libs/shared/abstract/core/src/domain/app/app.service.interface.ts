@@ -13,7 +13,7 @@ export interface IAppService
    * Properties
    */
   apps: ObjectMap<IApp>
-  app(id: string): Maybe<IApp>
+  app(id: string): IApp
   appsList: Array<IApp>
 
   /**

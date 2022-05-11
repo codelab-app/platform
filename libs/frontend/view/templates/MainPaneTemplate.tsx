@@ -1,13 +1,13 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { PageHeader, PageHeaderProps } from 'antd'
-import React from 'react'
+import React, { JSXElementConstructor } from 'react'
 import tw, { GlobalStyles } from 'twin.macro'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{
   title: React.ReactNode
   // For buttons
-  header?: React.ReactElement | Array<React.ReactElement>
+  header?: JSXElementConstructor<unknown>
   containerProps?: Pick<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLDivElement>,

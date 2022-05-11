@@ -6,12 +6,17 @@ export const userSchema = gql`
     Admin
   }
 
+  interface WithOwner {
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+  }
+
   type User @exclude(operations: [UPDATE]) {
     id: ID! @id
     auth0Id: String! @unique
     email: String!
     types: [TypeBase!]! @relationship(type: "OWNED_BY", direction: IN)
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
+    elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)
     components: [Component!]! @relationship(type: "OWNED_BY", direction: IN)
     roles: [Role!]
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)

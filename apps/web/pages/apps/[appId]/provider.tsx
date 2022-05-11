@@ -7,7 +7,7 @@ import {
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderSidebarNavigation,
-  MainPane,
+  MainPaneComponentBuilder,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
@@ -17,7 +17,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import {
   extractErrorMessage,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -31,12 +31,12 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
   const { app } = useCurrentApp(store.appService)
 
   // Load the pages list for the top bar
-  useLoadingState(
+  useStatefulExecutor(
     () => store.pageService.getAll({ app: { id: currentAppId } }),
     { executeOnMount: true },
   )
 
-  const [, { isLoading, error }] = useLoadingState(
+  const [, { isLoading, error }] = useStatefulExecutor(
     async () => {
       // Load the page we're rendering
       const page = await store.pageService.getOne(currentPageId)
@@ -47,7 +47,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
 
       // Get provider tree
       const providerTree = await store.providerElementService.getTree(
-        page.providerElementId,
+        page.providerElement.id,
       )
 
       // initialize renderer
@@ -74,6 +74,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
       <Builder
         builderService={store.builderService}
         elementService={store.providerElementService}
+        userService={store.userService}
       />
     </>
   )
@@ -94,26 +95,28 @@ AppProviderBuilder.Layout = observer((page) => {
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={store.pageService} />}
         MainPane={observer(() => (
-          <MainPane
+          <MainPaneComponentBuilder
             atomService={store.atomService}
             builderService={store.builderService}
             componentService={store.componentService}
+            detachedElementService={store.detachedElementService}
             elementService={store.providerElementService}
+            userService={store.userService}
           />
         ))}
         MetaPane={observer(() => (
           <MetaPaneBuilderPage
             atomService={store.atomService}
             builderService={store.builderService}
+            detachedElementService={store.detachedElementService}
             elementService={store.providerElementService}
             typeService={store.typeService}
           />
         ))}
-        SidebarNavigation={observer((props) => (
+        SidebarNavigation={observer(() => (
           <BuilderSidebarNavigation
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-            builderService={store.builderService}
+            builderTab={store.builderService.builderTab}
+            setBuilderTab={store.builderService.setBuilderTab}
           />
         ))}
         builderService={store.builderService}

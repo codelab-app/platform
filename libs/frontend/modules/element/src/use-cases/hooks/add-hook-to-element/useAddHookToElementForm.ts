@@ -1,6 +1,6 @@
 import {
   createNotificationHandler,
-  useLoadingState,
+  useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
@@ -20,7 +20,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
 ) => {
   // const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   // const { selectedType, actionType } = useHookState()
-  const [getAtoms] = useLoadingState(() => atomService.getAll())
+  const [getAtoms] = useStatefulExecutor(() => atomService.getAll())
 
   useEffect(() => {
     getAtoms()
@@ -30,7 +30,9 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (
   assertIsDefined(elementId)
 
   const [fetchInterface, { data: interfaceType, isLoading: interfaceLoading }] =
-    useLoadingState((id: string) => typeService.getInterfaceAndDescendants(id))
+    useStatefulExecutor((id: string) =>
+      typeService.getInterfaceAndDescendants(id),
+    )
   //
   // const [mutate, { isLoading }] = useCreateHooksMutation({
   //   selectFromResult: (r) => ({

@@ -1,6 +1,6 @@
 import {
   BUILDER_NONE_CLASS_NAME,
-  DATA_ID,
+  DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
 import { IPropData } from '@codelab/shared/abstract/core'
@@ -33,7 +33,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
   // common props passed to all rendered atoms
   let props: IPropData = {
-    [DATA_ID]: node.id,
+    [DATA_ELEMENT_ID]: node.id,
     className: BUILDER_NONE_CLASS_NAME,
   }
 

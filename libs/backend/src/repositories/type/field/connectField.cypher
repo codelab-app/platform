@@ -10,8 +10,8 @@ MERGE (interfaceType)-
     {
       id: $field.id,
       key: $field.key,
-      name: $field.name,
-      description: $field.description
+      name: coalesce($field.name, ""),
+      description: coalesce($field.description, "")
     }
   ]->(fieldType)
 

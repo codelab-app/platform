@@ -1,5 +1,4 @@
 {
-  "root": "libs/frontend/modules/tag",
   "sourceRoot": "libs/frontend/modules/tag/src",
   "projectType": "library",
   "targets": {

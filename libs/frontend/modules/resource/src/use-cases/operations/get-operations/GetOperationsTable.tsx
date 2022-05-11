@@ -3,7 +3,7 @@ import {
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -16,7 +16,7 @@ export const GetOperationsTable = observer<WithServices<OPERATION_SERVICE>>(
 
     const resourceId = useCurrentResourceId()
 
-    const [getOperations] = useLoadingState((id: string) =>
+    const [getOperations] = useStatefulExecutor((id: string) =>
       operationService.getAll({ resource: { id } }),
     )
 

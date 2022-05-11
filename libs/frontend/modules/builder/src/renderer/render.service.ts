@@ -1,10 +1,4 @@
-import { getComponentService } from '@codelab/frontend/modules/component'
-import {
-  Element,
-  ElementTree,
-  elementTreeRef,
-  getElementService,
-} from '@codelab/frontend/modules/element'
+import { ElementTree, elementTreeRef } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   IElement,
@@ -47,8 +41,8 @@ import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import { renderPipeFactory } from './renderPipes/renderPipeFactory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
+import { getState } from './utils'
 import { isTypedValue } from './utils/isTypedValue'
-import { getState } from './utils/platformState'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
@@ -102,7 +96,7 @@ export class RenderService
       /**
        * Will log the render output and render pipe info to the console
        */
-      debugMode: prop(() => false).withSetter(),
+      debugMode: prop(false).withSetter(),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {
@@ -262,7 +256,7 @@ export class RenderService
    * @param extraProps props passed down from parent components, these have high priority than element.props
    */
   renderIntermediateElement = (
-    element: Element,
+    element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
     let props = mergeProps(
@@ -348,7 +342,7 @@ export class RenderService
   /**
    * Parses and transforms the props for a given element, so they are ready for rendering
    */
-  private processPropsForRender = (props: IPropData, element: Element) => {
+  private processPropsForRender = (props: IPropData, element: IElement) => {
     props = this.applyPropTypeTransformers(props)
     props = element.executePropTransformJs(props)
     props = this.replaceStateInProps(props)

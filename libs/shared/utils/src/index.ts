@@ -1,3 +1,4 @@
+export * from './antd/tree'
 export * from './assert'
 export * from './buffer'
 export * from './collections'

@@ -1,13 +1,16 @@
-import { ComponentService } from '@codelab/frontend/modules/component'
-import { Element, ElementTree } from '@codelab/frontend/modules/element'
-import { TypedValue } from '@codelab/shared/abstract/core'
+import {
+  IComponentService,
+  IElement,
+  IElementTree,
+  TypedValue,
+} from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 
 export const getComponentRootElementFromProp = (
   payload: TypedValue<any>,
-  tree: Nullable<ElementTree>,
-  componentService: ComponentService,
-): Nullish<Element> => {
+  tree: Nullable<IElementTree>,
+  componentService: IComponentService,
+): Nullish<IElement> => {
   if (!payload) {
     return null
   }

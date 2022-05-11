@@ -3,6 +3,7 @@ const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const { patchWebpackConfig } = require('next-global-css')
 const path = require('path')
+const { merge } = require('lodash')
 
 const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
 
@@ -47,6 +48,11 @@ module.exports = withPlugins(
          * Cause: https://github.com/vercel/next.js/issues/30330#issuecomment-952847838
          */
         nx: { svgr: true },
+        // https://nextjs.org/docs/advanced-features/compiler#styled-components
+        // Disabled if using babel
+        // compiler: {
+        //   styledComponents: true,
+        // },
         experimental: {
           esmExternals: false,
         },

@@ -11,6 +11,7 @@ export interface IRenderService {
   tree: Nullable<IElementTree>
   platformState?: any
   isInitialized: boolean
+  debugMode: boolean
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,

@@ -1,4 +1,3 @@
-import { PlusOutlined } from '@ant-design/icons'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
@@ -11,21 +10,22 @@ import {
   GetComponentsTable,
   UpdateComponentModal,
 } from '@codelab/frontend/modules/component'
-import { useLoadingState } from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { Button, PageHeader, Spin } from 'antd'
+import { PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import { CreateComponentButton } from '../../../../libs/frontend/modules/component/src/use-cases/create-component/CreateComponentButton'
 
 const Components: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
 
-  const [, { isLoading }] = useLoadingState(
+  const [, { isLoading }] = useStatefulExecutor(
     () => store.componentService.getAll(),
     { executeOnMount: true },
   )
@@ -58,12 +58,7 @@ const Header = observer(() => {
   return (
     <PageHeader
       extra={[
-        <Button
-          icon={<PlusOutlined />}
-          key={0}
-          onClick={() => store.componentService.createModal.open()}
-          size="small"
-        />,
+        <CreateComponentButton componentService={store.componentService} />,
       ]}
       ghost={false}
       title="Components"
