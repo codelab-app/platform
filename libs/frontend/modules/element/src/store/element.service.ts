@@ -31,6 +31,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -457,6 +458,7 @@ export class ElementService
         component: {
           create: {
             node: {
+              id: v4(),
               name: element.label,
               owner: { connect: { where: { node: { auth0Id } } } },
               rootElement: { connect: { where: { node: { id: element.id } } } },

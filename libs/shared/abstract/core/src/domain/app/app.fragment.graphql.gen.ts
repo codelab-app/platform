@@ -15,10 +15,10 @@ export type AppFragment = {
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
+    name
     owner {
       id
     }
-    name
     pages {
       id
     }

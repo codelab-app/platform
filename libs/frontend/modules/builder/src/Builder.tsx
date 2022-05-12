@@ -64,6 +64,8 @@ const StyledBuilderContainer = styled.div`
   height: 100%;
   background: white;
   max-height: 100%;
+  border: 3px dotted rgba(0, 0, 0, 1);
+  margin-bottom: 400px;
   .ant-modal-mask,
   .ant-modal-wrap {
     position: absolute;
