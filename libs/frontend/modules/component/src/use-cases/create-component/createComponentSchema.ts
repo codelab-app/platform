@@ -6,6 +6,13 @@ export const createComponentSchema: JSONSchemaType<ICreateComponentDTO> = {
   title: 'Create Component Input',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     auth0Id: {
       type: 'string',
       disabled: true,

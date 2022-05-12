@@ -19,12 +19,13 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
   await validate(pages)
 
   for (const { elements, components } of pages) {
-    for (const component of components) {
-      const newComponent = await createComponent(component, selectedUser)
+    for (const element of elements) {
+      await importElementInitial(element, selectedUser)
     }
 
-    for (const element of elements) {
-      const newElement = await importElementInitial(element, selectedUser)
+    // components should be created after their root elements
+    for (const component of components) {
+      await createComponent(component, selectedUser)
     }
 
     for (const element of elements) {

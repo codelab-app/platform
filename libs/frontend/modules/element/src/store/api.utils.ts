@@ -81,6 +81,7 @@ export const makeDuplicateInput = (
     ? {
         create: {
           node: {
+            id: v4(),
             name: element.component.current.name,
             owner: { connect: { where: { node: { auth0Id: userId } } } },
           },
