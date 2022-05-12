@@ -210,8 +210,6 @@ export class ElementService
   ) {
     const updateInput = makeUpdateInput(input)
 
-    element.setName(input.name)
-
     return yield* _await(this.patchElement(element, updateInput))
   })
 
@@ -309,9 +307,7 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
-    element.updateCache(updatedElement)
-
-    return element
+    return element.updateCache(updatedElement)
   })
 
   @modelFlow

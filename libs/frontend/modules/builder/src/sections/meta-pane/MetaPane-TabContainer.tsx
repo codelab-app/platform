@@ -69,7 +69,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
+        <Tabs defaultActiveKey={selectedElement.id + '_tab1'} size="small">
           <Tabs.TabPane
             key={selectedElement.id + '_tab1'}
             style={{ overflow: 'auto', maxHeight: '100%' }}

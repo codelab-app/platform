@@ -30,8 +30,6 @@ export const MetaPane = observer<
       builderService={builderService}
       elementService={elementService}
       renderUpdateElementContent={(element, trackPromises) => {
-        console.log(element)
-
         /**
          * The builder tree nodes could be a component as well, in which case we would show the form for components
          */
@@ -54,7 +52,6 @@ export const MetaPane = observer<
                   key={element.id + '_move_form'}
                   trackPromises={trackPromises}
                 />
-
                 <DeleteElementButton
                   element={element}
                   elementService={elementService}
