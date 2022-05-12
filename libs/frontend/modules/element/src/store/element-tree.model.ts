@@ -2,24 +2,27 @@ import { getElementService } from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementDTO,
+  IElementRef,
   IElementTree,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
+  _async,
+  _await,
   detach,
-  getParent,
   idProp,
   Model,
   model,
   modelAction,
+  modelFlow,
   objectMap,
   prop,
   Ref,
   rootRef,
 } from 'mobx-keystone'
+import { elementApi } from './apis'
 import { elementRef } from './element.ref'
-import type { ElementService } from './element.service'
 
 const hydrate = async (elements: Array<IElementDTO>, rootId: string) => {
   const tree = new ElementTree({})
@@ -47,6 +50,9 @@ export class ElementTree
   })
   implements IElementTree
 {
+  /**
+   * All elements within the tree
+   */
   @computed
   get elementsList() {
     return this._root
@@ -54,29 +60,40 @@ export class ElementTree
       : []
   }
 
+  /**
+   * Used to load the entire page tree
+   */
+  @modelFlow
+  getTree = _async(function* (this: ElementTree, rootId: IElementRef) {
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({ input: { rootId } }),
+    )
+
+    const ids = [elementGraph.id, ...elementGraph.descendants]
+
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    const elementModels = this.elementService.hydrateOrUpdateCache(elements)
+
+    this.buildTree(elementModels)
+
+    return this
+  })
+
   @computed
   get root() {
     return this._root?.current
   }
 
+  @computed
   get elementService() {
     return getElementService(this)
-  }
-
-  // Need to use get parent to get the ElementService, otherwise getElementService may get the wrong service depending on who's calling
-  @computed
-  get elements() {
-    const parent = getParent<ElementService>(this)
-
-    if (!parent) {
-      throw new Error('Missing ElementService')
-    }
-
-    if (parent.$modelType === '@codelab/ElementService') {
-      return parent.elements
-    }
-
-    throw new Error('Missing ElementService')
   }
 
   element(id: string) {
@@ -84,7 +101,7 @@ export class ElementTree
       return this.componentRoots.get(id)?.current
     }
 
-    return this.elements?.get(id)
+    return this.elementsList?.find((element) => element.id === id)
   }
 
   /**
@@ -117,43 +134,32 @@ export class ElementTree
     }
   }
 
-  /**
-   * Moves an element to a different parent and/or order
-   */
-  @modelAction
-  moveElement(
-    elementId: string,
-    newParentId: string,
-    newOrder?: number,
-  ): IElement {
-    const element = this.element(elementId)
-
-    if (!element) {
-      throw new Error(`Element ${elementId} not found`)
-    }
-
-    const existingParent = element.parentElement
-    const newParent = this.element(newParentId)
-
-    if (!newParent) {
-      throw new Error(`Parent element ${newParentId} not found`)
-    }
-
-    // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
-      throw new Error(`Cannot move element ${elementId} to itself`)
-    }
-
-    if (existingParent) {
-      existingParent.removeChild(element)
-    }
-
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
-    element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(element)
-
-    return element
-  }
+  // @modelFlow
+  // @transaction
+  // moveElement = _async(function* (
+  //   this: ElementService,
+  //   targetElementId: IElementRef,
+  //   { parentElementId, order }: MoveData,
+  // ) {
+  //   /*
+  //    * It's important that we do this locally first, because we can do some validations
+  //    * that would otherwise require a custom resolver to do
+  //    */
+  //   const targetElement = this.elementTree.moveElement(
+  //     targetElementId,
+  //     parentElementId,
+  //     order,
+  //   )
+  //
+  //   const input: ElementUpdateInput = {
+  //     parentElement: {
+  //       disconnect: { where: {} },
+  //       connect: { edge: { order }, where: { node: { id: parentElementId } } },
+  //     },
+  //   }
+  //
+  //   return yield* _await(this.elementService(targetElement, input))
+  // })
 
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []

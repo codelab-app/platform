@@ -6,7 +6,11 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement, IUpdateElementDTO } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IUpdateBaseElementDTO,
+  IUpdateElementDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -58,7 +62,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     return (
-      <Form<IUpdateElementDTO>
+      <Form<IUpdateBaseElementDTO>
         autosave
         key={element.id}
         model={model}

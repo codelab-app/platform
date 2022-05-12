@@ -1,2 +1,2 @@
-export * from './props-fields'
+export * from './PropsField'
 export * from './PropsForm'

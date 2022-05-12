@@ -17,7 +17,11 @@ import {
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IComponent, IElement } from '@codelab/shared/abstract/core'
+import {
+  IComponent,
+  IElement,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -36,6 +40,7 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 )
 
 export type MetaPaneBuilderProps = {
+  elementTree: IElementTree
   renderUpdateElementContent: (
     element: IElement | IComponent,
     trackPromises: UseTrackLoadingPromises,
@@ -47,6 +52,7 @@ export type MetaPaneBuilderProps = {
 export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
   ({
     renderUpdateElementContent,
+    elementTree,
     builderService,
     typeService,
     atomService,
@@ -154,6 +160,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
             <PropMapBindingSection
               element={selectedElement}
               elementService={elementService}
+              elementTree={elementTree}
               key={selectedElement.id}
               providePropCompletion={(searchValue) =>
                 selectedElement

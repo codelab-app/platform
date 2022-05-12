@@ -46,14 +46,14 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
       }
 
       // Get provider tree
-      const providerTree = await store.providerElementService.getTree(
+      const providerTree = await store.providerElementTree.getTree(
         page.providerElement.id,
       )
 
       // initialize renderer
       await store.builderService.builderRenderer.init(
-        store.elementService.elementTree,
-        store.providerElementService.elementTree,
+        store.pageElementTree,
+        store.providerElementTree,
         null,
       )
 
@@ -73,7 +73,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
 
       <Builder
         builderService={store.builderService}
-        elementService={store.providerElementService}
+        elementService={store.elementService}
         userService={store.userService}
       />
     </>
@@ -85,39 +85,50 @@ export default AppProviderBuilder
 export const getServerSideProps = withPageAuthRequired()
 
 AppProviderBuilder.Layout = observer((page) => {
-  const store = useStore()
+  const {
+    pageElementTree,
+    builderService,
+    elementService,
+    pageService,
+    atomService,
+    componentService,
+    userService,
+    typeService,
+  } = useStore()
 
   return (
     <BuilderContext
-      builderService={store.builderService}
-      elementService={store.providerElementService}
+      builderService={builderService}
+      elementService={elementService}
     >
       <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pageService={store.pageService} />}
+        Header={() => <PageDetailHeader pageService={pageService} />}
         MainPane={observer(() => (
           <BuilderMainPane
-            atomService={store.atomService}
-            builderService={store.builderService}
-            componentService={store.componentService}
-            elementService={store.providerElementService}
-            userService={store.userService}
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            pageElementTree={pageElementTree}
+            userService={userService}
           />
         ))}
         MetaPane={observer(() => (
           <MetaPane
-            atomService={store.atomService}
-            builderService={store.builderService}
-            elementService={store.providerElementService}
-            typeService={store.typeService}
+            atomService={atomService}
+            builderService={builderService}
+            elementService={elementService}
+            elementTree={pageElementTree}
+            typeService={typeService}
           />
         ))}
         SidebarNavigation={observer(() => (
           <BuilderSidebarNavigation
-            builderTab={store.builderService.builderTab}
-            setBuilderTab={store.builderService.setBuilderTab}
+            builderTab={builderService.builderTab}
+            setBuilderTab={builderService.setBuilderTab}
           />
         ))}
-        builderService={store.builderService}
+        builderService={builderService}
         headerHeight={38}
       >
         {page.children}

@@ -23,30 +23,30 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
+  const { builderService, elementService, componentService, userService } =
+    useStore()
+
   const { query } = useRouter()
   const currentComponentId = query.componentId as string
 
   const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
       // Load the component we're rendering
-      const component = await store.componentService.getOne(currentComponentId)
+      const component = await componentService.getOne(currentComponentId)
 
       if (!component) {
         throw new Error('Component not found')
       }
 
       // Get element tree
-      const elementTree = await store.elementService.getTree(
-        component.rootElementId,
-      )
+      const elementTree = await componentService.elementTrees
+        .get(component.id)
+        ?.getTree(component.rootElementId)
 
-      // initialize renderer
-      await store.builderService.builderRenderer.init(
-        store.elementService.elementTree,
-        null,
-        null,
-      )
+      if (elementTree) {
+        // initialize renderer
+        await builderService.builderRenderer.init(elementTree, null, null)
+      }
 
       return { component, elementTree }
     },
@@ -63,10 +63,10 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
       {isLoading && <Spin />}
 
       <Builder
-        builderService={store.builderService}
-        elementService={store.elementService}
-        key={store.builderService.builderRenderer.tree?.root?.id}
-        userService={store.userService}
+        builderService={builderService}
+        elementService={elementService}
+        key={builderService.builderRenderer.tree?.root?.id}
+        userService={userService}
       />
     </>
   )
@@ -75,40 +75,50 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
 export const getServerSideProps = withPageAuthRequired()
 
 ComponentDetail.Layout = observer((page) => {
-  const store = useStore()
+  const {
+    builderService,
+    elementService,
+    atomService,
+    componentService,
+    userService,
+    typeService,
+    pageElementTree,
+  } = useStore()
 
   return (
     <BuilderContext
-      builderService={store.builderService}
-      elementService={store.elementService}
+      builderService={builderService}
+      elementService={elementService}
     >
       <BuilderDashboardTemplate
         MainPane={observer(() => (
           <BuilderMainPane
-            atomService={store.atomService}
-            builderService={store.builderService}
-            componentService={store.componentService}
-            elementService={store.elementService}
-            key={store.builderService.builderRenderer.tree?.root?.id}
-            userService={store.userService}
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            key={builderService.builderRenderer.tree?.root?.id}
+            pageElementTree={pageElementTree}
+            userService={userService}
           />
         ))}
         MetaPane={observer(() => (
           <MetaPane
-            atomService={store.atomService}
-            builderService={store.builderService}
-            elementService={store.elementService}
-            key={store.builderService.builderRenderer.tree?.root?.id}
-            typeService={store.typeService}
+            atomService={atomService}
+            builderService={builderService}
+            elementService={elementService}
+            elementTree={pageElementTree}
+            key={builderService.builderRenderer.tree?.root?.id}
+            typeService={typeService}
           />
         ))}
         SidebarNavigation={observer(() => (
           <BuilderSidebarNavigation
-            builderTab={store.builderService.builderTab}
-            setBuilderTab={store.builderService.setBuilderTab}
+            builderTab={builderService.builderTab}
+            setBuilderTab={builderService.setBuilderTab}
           />
         ))}
-        builderService={store.builderService}
+        builderService={builderService}
       >
         {page.children}
       </BuilderDashboardTemplate>

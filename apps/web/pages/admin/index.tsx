@@ -7,8 +7,6 @@ import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   ExecuteCommandButton,
   ExecuteCommandModal,
-  ExportButton,
-  ImportButton,
   ResetDataButton,
 } from '@codelab/frontend/modules/admin'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -37,8 +35,6 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <Space>
           <ResetDataButton adminService={store.adminService} />
           <ExecuteCommandButton />
-          <ExportButton adminService={store.adminService} />
-          <ImportButton adminService={store.adminService} />
         </Space>
       </ContentSection>
     </>

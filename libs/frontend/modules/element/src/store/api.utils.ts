@@ -128,6 +128,14 @@ export const makeUpdateInput = (
   return {
     name: input.name,
     atom,
+    props: {
+      update: {
+        node: {
+          data: JSON.stringify(input.props),
+        },
+      },
+    },
+    css: input.css,
     renderForEachPropKey: input.renderForEachPropKey,
     instanceOfComponent,
     renderIfPropKey: input.renderIfPropKey,

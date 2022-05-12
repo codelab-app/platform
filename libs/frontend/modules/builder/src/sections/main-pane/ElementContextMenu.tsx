@@ -1,9 +1,12 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -14,13 +17,13 @@ export type ElementContextMenuProps = {
   element: IElement
   onClick?: () => any
   onBlur?: () => any
+  elementTree: IElementTree
 } & Pick<
   IElementService,
   | 'createModal'
   | 'deleteModal'
   | 'duplicateElement'
   | 'convertElementToComponent'
-  | 'elementTree'
 >
 
 /**

@@ -1,5 +1,9 @@
 import { elementRef } from '@codelab/frontend/modules/element'
-import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import { checkIfValidUUID } from '@codelab/shared/utils'
 import { Tree as AntdTree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
@@ -18,8 +22,12 @@ import {
 
 type BuilderTreeProps = {
   treeData?: DataNode
-  elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
+  elementContextMenuProps: Omit<
+    ElementContextMenuProps,
+    'element' | 'elementTree'
+  >
   className?: string
+  elementTree: IElementTree
 } & Pick<
   IBuilderService,
   | 'setHoveredElement'
@@ -27,7 +35,7 @@ type BuilderTreeProps = {
   | 'selectedElement'
   | 'builderRenderer'
 > &
-  Pick<IElementService, 'element' | 'elementTree' | 'moveElement'>
+  Pick<IElementService, 'element' | 'moveElement'>
 
 export const BuilderTree = observer<BuilderTreeProps>(
   ({
@@ -95,7 +103,10 @@ export const BuilderTree = observer<BuilderTreeProps>(
           return (
             <BuilderTreeItemTitle
               element={element(node.key.toString())}
-              elementContextMenuProps={elementContextMenuProps}
+              elementContextMenuProps={{
+                ...elementContextMenuProps,
+                elementTree,
+              }}
               node={node}
             />
           )

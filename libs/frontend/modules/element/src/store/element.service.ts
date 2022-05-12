@@ -18,8 +18,8 @@ import {
   isAtomDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
-  MoveData,
 } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
@@ -42,25 +42,19 @@ import {
   CreateElementModalService,
   ElementModalService,
 } from './element-modal.service'
-import { ElementTree } from './element-tree.model'
 import { PropMapBinding } from './prop-map-binding.model'
 import { PropMapBindingModalService } from './prop-map-binding-modal.service'
 
 /**
- * Element stores a tree of elements locally using an ElementTree
- * and handles the communication with the server.
+ * We will have a single ElementService that contains all elements from
  *
- * We will instantiate multiple ElementServices, one for each type of elements
- *
- * - Elements part of rootTree
- * - Elements part of providerTree
- * - Elements part of components
+ * - PageElementTree
+ * - ComponentElementTree
  *
  */
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    elementTree: prop(() => new ElementTree({})),
     /**
      * Contains all elements
      *
@@ -78,32 +72,6 @@ export class ElementService
   })
   implements IElementService
 {
-  /**
-   * Used to load the entire page tree
-   */
-  @modelFlow
-  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
-    const { elementGraph } = yield* _await(
-      elementApi.GetElementGraph({ input: { rootId } }),
-    )
-
-    const ids = [elementGraph.id, ...elementGraph.descendants]
-
-    const { elements } = yield* _await(
-      elementApi.GetElements({
-        where: {
-          id_IN: ids,
-        },
-      }),
-    )
-
-    const elementModels = this.hydrateOrUpdateCache(elements)
-
-    this.elementTree.buildTree(elementModels)
-
-    return this.elementTree
-  })
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
@@ -138,7 +106,9 @@ export class ElementService
   }
 
   @modelAction
-  public hydrateOrUpdateCache = (elements: Array<IElementDTO>) => {
+  public hydrateOrUpdateCache = (
+    elements: Array<IElementDTO>,
+  ): Array<IElement> => {
     this.updateAtomsCache(elements)
     this.updateComponentsCache(elements)
 
@@ -191,7 +161,7 @@ export class ElementService
 
     const elementModels = this.hydrateOrUpdateCache(elements)
 
-    this.elementTree.buildTree(elementModels)
+    // this.elementTree.buildTree(elementModels)
 
     return elementModels
   })
@@ -205,12 +175,27 @@ export class ElementService
   @transaction
   update = _async(function* (
     this: ElementService,
-    element: Element,
+    element: IEntity,
     input: IUpdateElementDTO,
   ) {
-    const updateInput = makeUpdateInput(input)
+    const update = makeUpdateInput(input)
 
-    return yield* _await(this.patchElement(element, updateInput))
+    const {
+      updateElements: {
+        elements: [updatedElement],
+      },
+    } = yield* _await(
+      elementApi.UpdateElements({
+        where: { id: element.id },
+        update,
+      }),
+    )
+
+    if (!updatedElement) {
+      throw new Error('No elements updated')
+    }
+
+    return this.hydrateOrUpdateCache([updatedElement])[0]
   })
 
   @modelFlow
@@ -224,7 +209,7 @@ export class ElementService
       propTransformationJs: newPropTransformJs,
     }
 
-    return yield* _await(this.patchElement(element, input))
+    return yield* _await(this.update(element, input))
   })
 
   @modelFlow
@@ -234,36 +219,9 @@ export class ElementService
     element: IElement,
     newCss: string,
   ) {
-    const input: ElementUpdateInput = { css: newCss }
+    const input = { css: newCss }
 
-    return yield* _await(this.patchElement(element, input))
-  })
-
-  @modelFlow
-  @transaction
-  moveElement = _async(function* (
-    this: ElementService,
-    targetElementId: IElementRef,
-    { parentElementId, order }: MoveData,
-  ) {
-    /*
-     * It's important that we do this locally first, because we can do some validations
-     * that would otherwise require a custom resolver to do
-     */
-    const targetElement = this.elementTree.moveElement(
-      targetElementId,
-      parentElementId,
-      order,
-    )
-
-    const input: ElementUpdateInput = {
-      parentElement: {
-        disconnect: { where: {} },
-        connect: { edge: { order }, where: { node: { id: parentElementId } } },
-      },
-    }
-
-    return yield* _await(this.patchElement(targetElement, input))
+    return yield* _await(this.update(element, input))
   })
 
   @modelFlow
@@ -273,13 +231,11 @@ export class ElementService
     element: Element,
     data: IPropData,
   ) {
-    const createOrUpdate = element.props ? 'update' : 'create'
-
-    const input: ElementUpdateInput = {
-      props: { [createOrUpdate]: { node: { data: JSON.stringify(data) } } },
+    const input = {
+      props: data,
     }
 
-    return yield* _await(this.patchElement(element, input))
+    return yield* _await(this.update(element, input))
   })
 
   /**
@@ -308,6 +264,56 @@ export class ElementService
     }
 
     return element.updateCache(updatedElement)
+  })
+
+  /**
+   * Moves an element to a different parent and/or order
+   */
+  @modelAction
+  @transaction
+  moveElement = _async(function* (
+    this: ElementService,
+    elementId: string,
+    newParentId: string,
+    newOrder?: number,
+  ) {
+    const element = this.element(elementId)
+
+    if (!element) {
+      throw new Error(`Element ${elementId} not found`)
+    }
+
+    const existingParent = element.parentElement
+    const newParent = this.element(newParentId)
+
+    if (!newParent) {
+      throw new Error(`Parent element ${newParentId} not found`)
+    }
+
+    // make sure it won't be a child of itself or a descendant
+    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
+      throw new Error(`Cannot move element ${elementId} to itself`)
+    }
+
+    if (existingParent) {
+      existingParent.removeChild(element)
+    }
+
+    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
+    element.setOrderInParent(newOrder ?? null)
+    newParent.addChild(element)
+
+    const input: ElementUpdateInput = {
+      parentElement: {
+        disconnect: { where: {} },
+        connect: {
+          edge: { order: newOrder },
+          where: { node: { id: newParentId } },
+        },
+      },
+    }
+
+    return yield* _await(this.update({ id: elementId }, input))
   })
 
   @modelFlow
@@ -401,24 +407,24 @@ export class ElementService
         throw new Error(`Could not find new id for ${inputElement.id}`)
       }
 
-      const duplicated = this.elementTree.element(newId)
-
-      if (!duplicated) {
-        throw new Error(`Could not find duplicated element ${newId}`)
-      }
-
-      for (const propMapBinding of inputElement.propMapBindings.values()) {
-        yield* _await(
-          this.createPropMapBinding(duplicated, {
-            elementId: newId,
-            targetElementId: propMapBinding.targetElement
-              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
-              : undefined,
-            targetKey: propMapBinding.targetKey,
-            sourceKey: propMapBinding.sourceKey,
-          }),
-        )
-      }
+      // const duplicated = this.elementTree.element(newId)
+      //
+      // if (!duplicated) {
+      //   throw new Error(`Could not find duplicated element ${newId}`)
+      // }
+      //
+      // for (const propMapBinding of inputElement.propMapBindings.values()) {
+      //   yield* _await(
+      //     this.createPropMapBinding(duplicated, {
+      //       elementId: newId,
+      //       targetElementId: propMapBinding.targetElement
+      //         ? oldToNewIdMap.get(propMapBinding.targetElement.id)
+      //         : undefined,
+      //       targetKey: propMapBinding.targetKey,
+      //       sourceKey: propMapBinding.sourceKey,
+      //     }),
+      //   )
+      // }
     }
   })
 

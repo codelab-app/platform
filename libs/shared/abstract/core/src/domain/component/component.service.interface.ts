@@ -3,7 +3,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
-import { IElementService } from '../element'
+import { IElementTree } from '../element'
 import {
   IComponentDTO,
   ICreateComponentDTO,
@@ -19,7 +19,7 @@ export interface IComponentService
   component(id: string): Maybe<IComponent>
   componentAntdNode: DataNode
   componentAntdNodeV2: DataNode
-  componentTrees: ObjectMap<IElementService>
+  elementTrees: ObjectMap<IElementTree>
   loadComponentTrees(): Promise<any>
   updateCaches(components: Array<IComponentDTO>): void
 }

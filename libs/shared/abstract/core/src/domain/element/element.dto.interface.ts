@@ -1,5 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { IPropData } from '../prop'
 import {
   ElementFragment,
   ElementGraphFragment,
@@ -17,12 +18,26 @@ export interface ICreateElementDTO {
 }
 
 export type IUpdateElementDTO = {
-  name: Nullable<string>
-  instanceOfComponentId: Nullable<string>
-  atomId: Nullable<string>
-  renderForEachPropKey: Nullable<string>
-  renderIfPropKey: Nullable<string>
+  name?: Nullable<string>
+  instanceOfComponentId?: Nullable<string>
+  atomId?: Nullable<string>
+  renderForEachPropKey?: Nullable<string>
+  renderIfPropKey?: Nullable<string>
+  css?: Nullable<string>
+  props?: Nullable<IPropData>
 }
+
+/**
+ * Some properties have their own forms, the base form only uses a subset of fields
+ */
+export type IUpdateBaseElementDTO = Pick<
+  IUpdateElementDTO,
+  | 'atomId'
+  | 'name'
+  | 'renderIfPropKey'
+  | 'renderForEachPropKey'
+  | 'instanceOfComponentId'
+>
 
 /**
  * This is the graphql fragment equivalent, used for hydrating object

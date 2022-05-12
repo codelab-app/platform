@@ -1,10 +1,9 @@
-import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
+import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
 import { TreeProps } from 'antd/lib/tree'
 
-export type UseElementTreeDropProps = Pick<
-  IElementService,
-  'elementTree' | 'moveElement'
->
+export type UseElementTreeDropProps = Pick<IElementService, 'moveElement'> & {
+  elementTree: IElementTree
+}
 
 /**
  * Provides a handler for Antd tree onDrop for moving elements
@@ -39,20 +38,14 @@ export const useElementTreeDrop = ({
             ? dropElementOrder + 1
             : dropElementOrder
 
-        return moveElement(dragNodeId, {
-          parentElementId: dropNodeParentId,
-          order,
-        })
+        return moveElement(dragNodeId, dropNodeParentId, order)
       }
     } else {
       // FIXME
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
-      return moveElement(dragNodeId, {
-        parentElementId: dropNodeId,
-        order: info.dropPosition,
-      })
+      return moveElement(dragNodeId, dropNodeId, info.dropPosition)
     }
 
     return void 0

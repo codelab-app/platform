@@ -207,21 +207,23 @@ export const setupTestForRenderer = (
           ],
           [data.componentRootElement.id, data.componentRootElement],
         ]),
-        elementTree: new ElementTree({
-          _root: elementRef(data.elementToRender),
-          componentRoots: objectMap([
-            [
-              data.componentRootElement.id,
-              elementRef(data.componentRootElement),
-            ],
-          ]),
-        }),
+      }),
+      pageElementTree: new ElementTree({
+        _root: elementRef(data.elementToRender),
+        componentRoots: objectMap([
+          [data.componentRootElement.id, elementRef(data.componentRootElement)],
+        ]),
       }),
     })
 
+    // elementServiceContext.apply(
+    //   () => data.rootStore.pageElementTree,
+    //   getElementService(this),
+    // )
+
     data.renderService = data.rootStore.renderService
 
-    data.renderService.initForce(data.rootStore.elementService.elementTree)
+    data.renderService.initForce(data.rootStore.pageElementTree)
   })
 
   afterEach(() => {

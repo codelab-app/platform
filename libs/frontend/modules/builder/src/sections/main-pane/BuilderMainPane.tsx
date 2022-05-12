@@ -16,7 +16,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import { BuilderTab } from '@codelab/shared/abstract/core'
+import { BuilderTab, IElementTree } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
@@ -34,21 +34,24 @@ const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.Tree]: 'Page',
 }
 
-export const BuilderMainPane = observer<
-  WithServices<
-    | ATOM_SERVICE
-    | COMPONENT_SERVICE
-    | ELEMENT_SERVICE
-    | BUILDER_SERVICE
-    | USER_SERVICE
-  >
->(
+type BuilderMainPaneProps = WithServices<
+  | ATOM_SERVICE
+  | COMPONENT_SERVICE
+  | ELEMENT_SERVICE
+  | BUILDER_SERVICE
+  | USER_SERVICE
+> & {
+  pageElementTree: IElementTree
+}
+
+export const BuilderMainPane = observer<BuilderMainPaneProps>(
   ({
     atomService,
     builderService,
     elementService,
     componentService,
     userService,
+    pageElementTree,
   }) => {
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
@@ -59,8 +62,8 @@ export const BuilderMainPane = observer<
       [],
     )
 
-    const root = elementService.elementTree?.root
-    const antdTree = elementService.elementTree.root?.antdNode
+    const root = pageElementTree?.root
+    const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNodeV2
 
     useEffect(() => {
@@ -86,9 +89,8 @@ export const BuilderMainPane = observer<
               elementService.duplicateElement.bind(elementService),
             convertElementToComponent:
               elementService.convertElementToComponent.bind(elementService),
-            elementTree: elementService.elementTree,
           }}
-          elementTree={elementService.elementTree}
+          elementTree={pageElementTree}
           moveElement={elementService.moveElement.bind(elementService)}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(
@@ -127,7 +129,7 @@ export const BuilderMainPane = observer<
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          <BaseBuilderTree treeData={componentsAntdTree} />
+          {/* <BaseBuilderTree treeData={componentsAntdTree} /> */}
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
@@ -144,6 +146,7 @@ export const BuilderMainPane = observer<
 
         <CreateElementModal
           elementService={elementService}
+          elementTree={pageElementTree}
           userService={userService}
         />
         <CreateComponentModal

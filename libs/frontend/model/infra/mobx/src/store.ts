@@ -12,7 +12,7 @@ import {
   renderServiceContext,
 } from '@codelab/frontend/modules/builder'
 import { ComponentService } from '@codelab/frontend/modules/component'
-import { ElementService } from '@codelab/frontend/modules/element'
+import { ElementService, ElementTree } from '@codelab/frontend/modules/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import {
   OperationService,
@@ -45,6 +45,7 @@ import {
   IBuilderService,
   IComponentService,
   IElementService,
+  IElementTree,
   IImportAtomService,
   IImportTypeService,
   IOperationService,
@@ -94,7 +95,8 @@ export type IRootStore = {
   storeService: IStoreService
   // Element services
   elementService: IElementService
-  providerElementService: IElementService
+  pageElementTree: IElementTree
+  providerElementTree: IElementTree
 
   builderService: IBuilderService
   renderService: IRenderService
@@ -125,8 +127,9 @@ export const createRootStore = (
       operationService: prop(() => new OperationService({})),
       // default regular service that holds the element tree
       elementService: prop(() => new ElementService({})),
+      pageElementTree: prop(() => new ElementTree({})),
       // element service that is used by the provider tree
-      providerElementService: prop(() => new ElementService({})),
+      providerElementTree: prop(() => new ElementTree({})),
       builderService: prop(() => new BuilderService({})),
       /*
        * This is the default render service used for rendering apps.

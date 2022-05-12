@@ -23,9 +23,10 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     pageService,
     appService,
     elementService,
-    providerElementService,
+    providerElementTree,
     storeService,
     renderService,
+    pageElementTree,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
@@ -53,14 +54,14 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
       // Get element tree and provider tree
       const [elementTree, providerTree] = await Promise.all([
-        elementService.getTree(page.rootElement.id),
-        providerElementService.getTree(page.providerElement.id),
+        pageElementTree.getTree(page.rootElement.id),
+        providerElementTree.getTree(page.providerElement.id),
       ])
 
       // initialize renderer
       await renderService.init(
-        elementService.elementTree,
-        providerElementService.elementTree,
+        pageElementTree,
+        providerElementTree,
         createMobxState(storeTree, apps, pages, router),
       )
 
