@@ -108,9 +108,9 @@ export class ElementTree
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
   @modelAction
-  buildTree(elements: Array<IElement>) {
+  buildTree(elements: Array<IElement>, mainTree: boolean) {
     for (const element of elements) {
-      if (!element.parentElement?.id) {
+      if (!element.parentElement?.id && mainTree) {
         this.set_root(elementRef(element))
       }
 
