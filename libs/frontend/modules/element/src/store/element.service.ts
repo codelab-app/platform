@@ -86,7 +86,7 @@ export class ElementService
   getTree = _async(function* (
     this: ElementService,
     rootId: IElementRef,
-    updateRoot = true,
+    mainTree,
   ) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementGraph({ input: { rootId } }),
@@ -104,7 +104,7 @@ export class ElementService
 
     const elementModels = this.hydrateOrUpdateCache(elements)
 
-    this.elementTree.buildTree(elementModels)
+    this.elementTree.buildTree(elementModels, mainTree)
 
     return this.elementTree
   })

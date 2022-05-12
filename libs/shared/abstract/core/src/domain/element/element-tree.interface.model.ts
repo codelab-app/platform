@@ -9,6 +9,6 @@ export interface IElementTree {
   elementsList: Array<IElement>
   getPathFromRoot(element: IElement): Array<IElement>
   element(id: string): Maybe<IElement>
-  buildTree(elements: Array<IElement>): void
+  buildTree(elements: Array<IElement>, mainTree: boolean): void
   elements: ObjectMap<IElement>
 }

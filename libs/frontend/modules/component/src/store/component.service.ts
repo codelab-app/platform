@@ -119,6 +119,7 @@ export class ComponentService
 
         const componentTree = await elementService.getTree(
           component.rootElementId,
+          false,
         )
       }
     })
@@ -182,7 +183,7 @@ export class ComponentService
     this.components.set(component.id, componentModel)
 
     const componentTree = yield* _await(
-      this.elementService.getTree(component.rootElement.id),
+      this.elementService.getTree(component.rootElement.id, false),
     )
 
     // this.componentTrees.set(component.id, componentTree)

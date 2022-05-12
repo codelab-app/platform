@@ -166,7 +166,7 @@ export class RenderService
     yield* _await(
       Promise.all(
         // keep the main tree root as it is.
-        components.map((c) => elementService.getTree(c.rootElementId)),
+        components.map((c) => elementService.getTree(c.rootElementId, false)),
       ),
     )
 

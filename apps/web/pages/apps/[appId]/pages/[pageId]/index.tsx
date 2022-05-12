@@ -53,8 +53,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
       // Get element tree and provider tree
       const [elementTree, providerTree] = await Promise.all([
-        elementService.getTree(page.rootElement.id),
-        providerElementService.getTree(page.providerElement.id),
+        elementService.getTree(page.rootElement.id, true),
+        providerElementService.getTree(page.providerElement.id, true),
       ])
 
       // initialize renderer
@@ -81,7 +81,9 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Renderer renderService={renderService} />
+      {renderService.isInitialized && (
+        <Renderer renderService={renderService} />
+      )}
     </>
   )
 })

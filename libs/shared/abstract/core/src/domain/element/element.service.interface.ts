@@ -79,7 +79,7 @@ export interface IElementService
   /**
    * Modify it so it can build a tree from parameter
    */
-  getTree(root: IElementRef): Promise<IElementTree>
+  getTree(root: IElementRef, mainTree: boolean): Promise<IElementTree>
   updateElementsPropTransformationJs(
     element: IElement,
     newPropTransformJs: string,

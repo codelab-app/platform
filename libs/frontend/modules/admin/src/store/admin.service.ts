@@ -59,7 +59,7 @@ export class AdminService extends Model({}) implements IAdminService {
     const pages = yield* _await(pageService.getAll())
 
     const getPageElements = async (page: IPage) => {
-      const tree = await elementService.getTree(page.rootElement.id)
+      const tree = await elementService.getTree(page.rootElement.id, true)
 
       return tree.elements
     }
