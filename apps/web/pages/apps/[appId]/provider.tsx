@@ -48,6 +48,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
       // Get provider tree
       const providerTree = await store.providerElementService.getTree(
         page.providerElement.id,
+        true,
       )
 
       // initialize renderer
