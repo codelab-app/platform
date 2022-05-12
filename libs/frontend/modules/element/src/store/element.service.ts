@@ -198,7 +198,7 @@ export class ElementService
 
     const elementModels = this.hydrateOrUpdateCache(elements)
 
-    this.elementTree.buildTree(elementModels)
+    this.elementTree.buildTree(elementModels, false)
 
     return elementModels
   })

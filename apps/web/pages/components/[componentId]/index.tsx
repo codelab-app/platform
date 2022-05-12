@@ -39,6 +39,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
       // Get element tree
       const elementTree = await store.elementService.getTree(
         component.rootElementId,
+        true,
       )
 
       // initialize renderer
