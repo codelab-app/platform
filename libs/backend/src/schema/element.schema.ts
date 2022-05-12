@@ -53,7 +53,7 @@ export const elementSchema = gql`
       @relationship(type: "INSTANCE_OF_COMPONENT", direction: OUT)
 
     # element is the rootElement to which component
-    component: Component @relationship(type: "COMPONENT_ROOT", direction: OUT)
+    component: Component @relationship(type: "COMPONENT_ROOT", direction: IN)
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
     propMapBindings: [PropMapBinding!]!

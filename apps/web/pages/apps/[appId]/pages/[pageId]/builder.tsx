@@ -8,7 +8,7 @@ import {
   BuilderMainPane,
   BuilderSidebarNavigation,
   createMobxState,
-  MetaPaneBuilderPage,
+  MetaPane,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import {
@@ -125,7 +125,7 @@ PageBuilder.Layout = observer((page) => {
           />
         )}
         MetaPane={() => (
-          <MetaPaneBuilderPage
+          <MetaPane
             atomService={store.atomService}
             builderService={store.builderService}
             elementService={store.elementService}

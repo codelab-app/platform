@@ -82,11 +82,7 @@ export class ElementService
    * Used to load the entire page tree
    */
   @modelFlow
-  getTree = _async(function* (
-    this: ElementService,
-    rootId: IElementRef,
-    updateRoot = true,
-  ) {
+  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementGraph({ input: { rootId } }),
     )
@@ -125,8 +121,6 @@ export class ElementService
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const atomService = getAtomService(this)
     const atoms = elements.map((element) => element.atom).filter(isAtomDTO)
-
-    console.log(atoms)
 
     atomService.updateCache(atoms)
   }

@@ -1,3 +1,2 @@
-export * from './MetaPaneBuilder'
-export * from './MetaPaneBuilderComponent'
-export * from './MetaPaneBuilderPage'
+export * from './MetaPane'
+export * from './MetaPane-TabContainer'

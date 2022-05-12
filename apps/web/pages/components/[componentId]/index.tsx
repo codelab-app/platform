@@ -10,7 +10,7 @@ import {
   BuilderDashboardTemplate,
   BuilderMainPane,
   BuilderSidebarNavigation,
-  MetaPaneBuilderComponent,
+  MetaPane,
 } from '@codelab/frontend/modules/builder'
 import {
   extractErrorMessage,
@@ -94,7 +94,7 @@ ComponentDetail.Layout = observer((page) => {
           />
         ))}
         MetaPane={observer(() => (
-          <MetaPaneBuilderComponent
+          <MetaPane
             atomService={store.atomService}
             builderService={store.builderService}
             elementService={store.elementService}

@@ -2178,6 +2178,7 @@ export enum AtomType {
   MuiAvatar = 'MuiAvatar',
   MuiAvatarGroup = 'MuiAvatarGroup',
   MuiBackdrop = 'MuiBackdrop',
+  MuiBackdropUnstyled = 'MuiBackdropUnstyled',
   MuiBadge = 'MuiBadge',
   MuiBadgeUnstyled = 'MuiBadgeUnstyled',
   MuiBottomNavigation = 'MuiBottomNavigation',

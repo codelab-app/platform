@@ -108,8 +108,8 @@ export const DashboardTemplate = observer(
               {MetaPane && (
                 <DashboardTemplateMetaPane
                   MetaPane={MetaPane}
-                  hasMainPane={!!MainPane}
-                  hasSidebarNavigation={!!SidebarNavigation}
+                  hasMainPane={Boolean(MainPane)}
+                  hasSidebarNavigation={Boolean(SidebarNavigation)}
                   mainPaneWidth={mainPaneResizable.width}
                   resizable={metaPaneResizable}
                 />

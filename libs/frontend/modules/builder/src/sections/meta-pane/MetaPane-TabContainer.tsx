@@ -17,13 +17,13 @@ import {
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IComponent, IElement } from '@codelab/shared/abstract/core'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
-import { TabContainer } from './MetaPaneTabContainer'
+import { TabContainer } from './MetaPane-TabContainerStyle'
 import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
@@ -37,14 +37,14 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 
 export type MetaPaneBuilderProps = {
   renderUpdateElementContent: (
-    element: IElement,
+    element: IElement | IComponent,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
 } & WithServices<
   TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
 >
 
-export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
+export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
   ({
     renderUpdateElementContent,
     builderService,

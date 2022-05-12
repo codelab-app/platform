@@ -3,7 +3,7 @@ import {
   atomServiceContext,
   getAtomService,
 } from '@codelab/frontend/modules/atom'
-import { ElementService } from '@codelab/frontend/modules/element'
+import { Element, ElementService } from '@codelab/frontend/modules/element'
 import { getUserService } from '@codelab/frontend/modules/user'
 import {
   componentServiceContext,
@@ -44,6 +44,8 @@ export class ComponentService
     components: prop(() => objectMap<IComponent>()),
     // Map of component id to elementTree
     componentTrees: prop(() => objectMap<IElementService>()),
+    // Combine all component tree into a single tree, easier to re-use the builder tree view this way
+    elementTreeService: prop(() => new ElementService({})),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ComponentModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
@@ -83,6 +85,31 @@ export class ComponentService
     }
   }
 
+  @computed
+  get componentAntdNodeV2() {
+    return {
+      id: COMPONENT_TREE_CONTAINER,
+      key: COMPONENT_TREE_CONTAINER,
+      title: 'Components',
+      selectable: false,
+      children: [...this.components.values()].map((component) => {
+        const elementService = this.componentTrees.get(component.id)
+        const dataNode = elementService?.elementTree?.root?.antdNode
+
+        return {
+          id: component.id,
+          key: component.id,
+          title: component.name,
+          // This should bring up a meta pane for editing the component
+          selectable: true,
+          children: [dataNode].filter((data): data is DataNode =>
+            Boolean(data),
+          ),
+        }
+      }),
+    }
+  }
+
   @modelFlow
   loadComponentTrees = _async(function* (this: ComponentService) {
     const userService = getUserService(this)
@@ -95,31 +122,38 @@ export class ComponentService
       }),
     )
 
+    const rootElement = new Element({
+      id: 'components',
+      name: 'Components',
+      owner: '',
+    })
+
     return components.map(async (component) => {
-      const existingElementService = this.componentTrees.has(component.id)
+      /**
+       * Each component should instantiate its own element tree
+       */
+      const elementService = new ElementService({})
 
-      if (!existingElementService) {
-        /**
-         * Each component should instantiate its own element tree
-         */
-        const elementService = new ElementService({})
+      this.componentTrees.set(component.id, elementService)
 
-        this.componentTrees.set(component.id, elementService)
+      /**
+       * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
+       *
+       * Need to manually set as a workaround
+       */
+      atomServiceContext.apply(() => elementService, getAtomService(this))
+      componentServiceContext.apply(
+        () => elementService,
+        getComponentService(this),
+      )
 
-        /**
-         * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
-         *
-         * Need to manually set as a workaround
-         */
-        atomServiceContext.apply(() => elementService, getAtomService(this))
-        componentServiceContext.apply(
-          () => elementService,
-          getComponentService(this),
-        )
+      const componentTree = await elementService.getTree(
+        component.rootElementId,
+      )
 
-        const componentTree = await elementService.getTree(
-          component.rootElementId,
-        )
+      // Append this to rootComponentNode
+      if (componentTree?.root) {
+        rootElement.addChild(componentTree?.root)
       }
     })
   })
@@ -181,9 +215,9 @@ export class ComponentService
 
     this.components.set(component.id, componentModel)
 
-    const componentTree = yield* _await(
-      this.elementService.getTree(component.rootElement.id),
-    )
+    // const componentTree = yield* _await(
+    //   this.elementService.getTree(component.rootElement.id),
+    // )
 
     // this.componentTrees.set(component.id, componentTree)
 

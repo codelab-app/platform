@@ -1,6 +1,7 @@
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
+import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import { IAtom } from '../atom'
 import { IComponent } from '../component'
 import { IHook } from '../hook'
@@ -8,7 +9,7 @@ import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
 
-export interface IElement {
+export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   owner: Nullish<IAuth0Id>
   name: Nullish<string>

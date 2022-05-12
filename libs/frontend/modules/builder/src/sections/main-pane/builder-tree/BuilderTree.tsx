@@ -69,8 +69,6 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onClick={(e) => e.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
-          console.log(expandedKeys)
-
           return setExpandedNodeIds(expandedKeys)
         }}
         onMouseEnter={({ node, event }) => {

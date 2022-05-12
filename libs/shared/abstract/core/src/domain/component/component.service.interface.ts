@@ -18,6 +18,7 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: DataNode
+  componentAntdNodeV2: DataNode
   componentTrees: ObjectMap<IElementService>
   loadComponentTrees(): Promise<any>
   updateCaches(components: Array<IComponentDTO>): void

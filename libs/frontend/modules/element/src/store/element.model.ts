@@ -2,6 +2,7 @@ import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import {
+  ELEMENT_NODE_TYPE,
   IComponent,
   IElement,
   IElementDTO,
@@ -81,6 +82,7 @@ export class Element
   extends Model({
     id: idProp.withSetter(),
     children: prop(() => objectMap<Ref<IElement>>()),
+    __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready

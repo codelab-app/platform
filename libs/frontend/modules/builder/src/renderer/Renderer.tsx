@@ -28,7 +28,6 @@ import React from 'react'
  *
  * - We use this for prop map binding, which is a strategy for passing props to any descendant element. We might deprecate this in the future
  *
- *
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 export const Renderer = observer<WithServices<RENDER_SERVICE>>(
