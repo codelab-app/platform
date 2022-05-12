@@ -1,4 +1,5 @@
 import { Maybe } from '@codelab/shared/abstract/types'
+import { CSSInterpolation } from '@emotion/serialize'
 import { JSONSchemaType } from 'ajv'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
@@ -6,6 +7,7 @@ import { AutoFormProps, Bridge } from 'uniforms'
 import { Callback } from '../utils'
 
 export type FormProps<TData, TResponse = unknown> = {
+  cssString?: CSSInterpolation
   /**
    * Called after a successful submit
    */

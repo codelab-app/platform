@@ -15,5 +15,4 @@ export interface IElementTree {
    * Modify it so it can build a tree from parameter
    */
   getTree(root: IElementRef): Promise<IElementTree>
-  // elements: ObjectMap<IElement>
 }

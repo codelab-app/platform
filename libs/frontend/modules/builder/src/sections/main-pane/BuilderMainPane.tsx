@@ -129,7 +129,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {/* <BaseBuilderTree treeData={componentsAntdTree} /> */}
+          <BaseBuilderTree treeData={componentsAntdTree} />
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>

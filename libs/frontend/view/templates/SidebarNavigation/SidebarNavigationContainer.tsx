@@ -1,7 +1,10 @@
 import { PageType } from '@codelab/frontend/abstract/types'
+import { css } from '@emotion/react'
 import { Menu, MenuProps } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
+import tw from 'twin.macro'
+import { sidebarNavigationWidth } from '../Dashboard/constants'
 
 export type SidebarNavigationContainerProps = Pick<
   MenuProps,
@@ -13,7 +16,7 @@ export type SidebarNavigationContainerProps = Pick<
 export const sidebarNavContainerStyle = ({
   fullHeight,
 }: SidebarNavigationContainerProps) => ({
-  width: '40px',
+  width: `${sidebarNavigationWidth}px`,
   height: fullHeight ? '100%' : undefined,
   maxHeight: '100vh',
 })
@@ -26,6 +29,11 @@ export const SidebarNavigationContainer = (
 
   return (
     <Menu
+      css={css`
+        li.ant-menu-item {
+          // ${tw`!my-2`}
+        }
+      `}
       defaultOpenKeys={[]}
       defaultSelectedKeys={[PageType.AppList]}
       mode="inline"

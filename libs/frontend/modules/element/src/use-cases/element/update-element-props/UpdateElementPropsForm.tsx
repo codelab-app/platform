@@ -36,13 +36,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
         typeService.getInterfaceAndDescendants(_id),
       )
 
-    useEffect(() => {
-      const apiId = element.atom?.current.api.id
+    const apiId = element.atom?.current.api.id
 
+    useEffect(() => {
       if (apiId) {
         getInterfaceType(apiId)
       }
-    }, [getInterfaceType, element])
+    }, [apiId])
 
     const onSubmit = (data: IPropData) => {
       const promise = elementService.updateElementProps(element, data)

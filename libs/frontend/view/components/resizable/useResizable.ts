@@ -15,6 +15,8 @@ export interface MinMaxValue {
 export interface UseResizableInput {
   width?: MinMaxValue
   height?: MinMaxValue
+  // Should we reverse the direction
+  reverse?: boolean
 }
 
 export type DragHandleProps = Pick<
@@ -62,6 +64,7 @@ const clampSet = (
 export const useResizable = ({
   width,
   height,
+  reverse = false,
 }: UseResizableInput): UseResizable => {
   const [isDraggingX, setIsDraggingX] = useState(false)
   const [isDraggingY, setIsDraggingY] = useState(false)
@@ -70,7 +73,7 @@ export const useResizable = ({
 
   const handleXDrag = useCallback(
     (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      clampSet(mWidth, info.delta.x, width)
+      clampSet(mWidth, reverse ? info.delta.x * -1 : info.delta.x, width)
     },
     [mWidth, width],
   )

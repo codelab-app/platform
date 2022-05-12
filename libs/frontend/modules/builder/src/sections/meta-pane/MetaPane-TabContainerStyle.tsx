@@ -7,11 +7,19 @@ export const TabContainer = styled.div`
   border-top: rgba(211, 211, 211, 0.21) 1px solid;
 
   .ant-tabs {
-    & > .ant-tabs-nav {
+    > .ant-tabs-nav {
       ${tw`px-4 mb-0`}
     }
-    & .ant-tabs-content {
+    .ant-tabs-content {
       ${tw`px-4 py-2`}
+    }
+    // Remove antd tab padding so tooltip can cover more area
+    .ant-tabs-tab {
+      height: 32px;
+      ${tw`!p-0`}
+    }
+    .ant-tabs-tab-btn {
+      ${tw`!h-full flex items-center`}
     }
   }
 
@@ -23,11 +31,6 @@ export const TabContainer = styled.div`
   .tab-panel {
     ${tw`flex flex-col flex-grow min-h-0 overflow-visible`}
   }
-
-  // .tab-panel,
-  // .ant-tabs-content {
-  //   ${tw`px-4 py-2`}
-  // }
 
   .suggest-details-container,
   .editor-widget,
