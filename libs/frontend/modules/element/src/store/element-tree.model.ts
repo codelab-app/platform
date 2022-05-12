@@ -83,7 +83,7 @@ export class ElementTree
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
   @modelAction
-  buildTree(elements: Array<IElement>) {
+  buildTree(elements: Array<IElement>, mainTree: boolean) {
     for (const element of elements) {
       /**
        * For ElementTree that is already initialized, we need this to update its elements
