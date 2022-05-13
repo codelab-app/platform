@@ -15,6 +15,7 @@ import {
   IElementTree,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
@@ -223,11 +224,9 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    component: Component,
+    component: IEntity,
     { name }: IUpdateComponentDTO,
   ) {
-    component.setName(name)
-
     const { updateComponents } = yield* _await(
       componentApi.UpdateComponents({
         update: { name },
@@ -241,9 +240,11 @@ export class ComponentService
       throw new Error('Failed to update component')
     }
 
-    component.setName(updatedComponent.name)
+    const componentModel = Component.hydrate(updatedComponent)
 
-    return component
+    this.components.set(component.id, componentModel)
+
+    return componentModel
   })
 
   @modelFlow

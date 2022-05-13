@@ -1,10 +1,12 @@
 import {
   ATOM_SERVICE,
   BUILDER_SERVICE,
+  COMPONENT_SERVICE,
   ELEMENT_SERVICE,
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
+import { UpdateComponentForm } from '@codelab/frontend/modules/component'
 import {
   DeleteElementButton,
   MoveElementForm,
@@ -23,7 +25,11 @@ import { MetaPaneTabContainer } from './MetaPane-TabContainer'
 type MetaPaneProps = {
   elementTree: IElementTree
 } & WithServices<
-  ATOM_SERVICE | TYPE_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
+  | ATOM_SERVICE
+  | TYPE_SERVICE
+  | BUILDER_SERVICE
+  | ELEMENT_SERVICE
+  | COMPONENT_SERVICE
 >
 
 export const MetaPane = observer<MetaPaneProps>(
@@ -32,53 +38,61 @@ export const MetaPane = observer<MetaPaneProps>(
     atomService,
     builderService,
     elementService,
+    componentService,
     elementTree,
   }) => {
     const { providePropCompletion } = usePropCompletion(builderService)
 
     return (
       <MetaPaneTabContainer
-        atomService={atomService}
-        builderService={builderService}
-        elementService={elementService}
-        elementTree={elementTree}
-        renderUpdateElementContent={(element, trackPromises) => {
+        UpdateElementContent={({ node, trackPromises }) => {
           /**
            * The builder tree nodes could be a component as well, in which case we would show the form for components
            */
           return (
             <>
-              {element.__nodeType === ELEMENT_NODE_TYPE ? (
+              {node.__nodeType === ELEMENT_NODE_TYPE ? (
                 <>
                   <UpdateElementForm
-                    element={element}
+                    element={node}
                     elementService={elementService}
-                    key={element.id + '_update_form'}
+                    key={node.id + '_update_form'}
                     providePropCompletion={(value) =>
-                      providePropCompletion(value, element.id)
+                      providePropCompletion(value, node.id)
                     }
                     trackPromises={trackPromises}
                   />
                   <MoveElementForm
-                    element={element}
+                    element={node}
                     elementService={elementService}
                     elementTree={elementTree}
-                    key={element.id + '_move_form'}
+                    key={node.id + '_move_form'}
                     trackPromises={trackPromises}
                   />
                   <DeleteElementButton
-                    element={element}
+                    element={node}
                     elementService={elementService}
                   />
                 </>
               ) : null}
 
-              {element.__nodeType === COMPONENT_NODE_TYPE ? <></> : null}
+              {node.__nodeType === COMPONENT_NODE_TYPE ? (
+                <UpdateComponentForm
+                  component={node}
+                  componentService={componentService}
+                />
+              ) : null}
             </>
           )
         }}
+        atomService={atomService}
+        builderService={builderService}
+        elementService={elementService}
+        elementTree={elementTree}
         typeService={typeService}
       />
     )
   },
 )
+
+MetaPane.displayName = 'MetaPane'

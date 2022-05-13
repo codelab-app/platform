@@ -3,7 +3,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import { ICreateAppDTO, IUpdateAppDTO } from './app.dto.interface'
-import { IApp } from './app.interface'
+import { IApp } from './app.model.interface'
 
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppDTO, IUpdateAppDTO>,

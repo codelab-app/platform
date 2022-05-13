@@ -7,7 +7,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
 import { defaultHeaderHeight, sidebarNavigationWidth } from './constants'
-import DashboardTemplateMainPane from './DashboardTemplateMainPane'
+import { DashboardTemplateMainPane } from './DashboardTemplateMainPane'
 import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
 
 const { Sider, Header: AntDesignHeader } = Layout
@@ -122,3 +122,5 @@ export const DashboardTemplate = observer(
     )
   },
 )
+
+DashboardTemplate.displayName = 'DashboardTemplate'

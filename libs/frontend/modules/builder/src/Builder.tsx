@@ -1,53 +1,83 @@
 import {
   BUILDER_CONTAINER_ID,
-  BUILDER_SERVICE,
   DATA_ELEMENT_ID,
-  ELEMENT_SERVICE,
-  USER_SERVICE,
-  WithServices,
 } from '@codelab/frontend/abstract/core'
+import {
+  IBuilderService,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import { BuilderDropHandler } from './dnd/BuilderDropHandler'
 import { ElementDropHandlers } from './dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from './hooks'
 import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
-import { Renderer } from './renderer'
 
-export const Builder = observer<
-  WithServices<BUILDER_SERVICE | ELEMENT_SERVICE | USER_SERVICE>
->(({ builderService, elementService, userService }) => {
-  const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(
-    builderService,
-    builderService.builderRenderer.tree,
-  )
+type BuilderProps = {
+  elementTree: IElementTree
+} & Pick<
+  IBuilderService,
+  | 'setHoveredElement'
+  | 'currentDragData'
+  | 'set_selectedElement'
+  | 'selectedElement'
+> &
+  Pick<IElementService, 'deleteModal'>
 
-  useBuilderHotkeys(builderService, elementService)
+export const Builder = observer<BuilderProps>(
+  ({
+    currentDragData,
+    setHoveredElement,
+    set_selectedElement,
+    selectedElement,
+    elementTree,
+    deleteModal,
+  }) => {
+    console.log('Builder', elementTree)
 
-  const handleContainerClick = useBuilderRootClickHandler(builderService)
+    const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
+      currentDragData: currentDragData,
+      setHoveredElement: setHoveredElement,
+    })
 
-  return (
-    <StyledBuilderContainer
-      id={BUILDER_CONTAINER_ID}
-      key={builderService.builderRenderer.tree?.id}
-      onClick={handleContainerClick}
-      onMouseLeave={handleMouseLeave}
-      onMouseOver={handleMouseOver}
-    >
-      <BuilderDropHandler
-        builderService={builderService}
-        userService={userService}
-      />
-      <ElementDropHandlers builderService={builderService} />
+    useBuilderHotkeys({
+      selectedElement,
+      set_selectedElement,
+      deleteModal,
+    })
 
-      <Renderer renderService={builderService.builderRenderer} />
+    const handleContainerClick = useBuilderRootClickHandler({
+      set_selectedElement,
+    })
 
-      {/* <BuilderHoverOverlay /> */}
-      {/* <BuilderClickOverlay /> */}
-      {/* {children} */}
-    </StyledBuilderContainer>
-  )
-})
+    const elementId = elementTree?.root?.id
+    const elementsList = elementTree?.elementsList
+
+    return (
+      <StyledBuilderContainer
+        id={BUILDER_CONTAINER_ID}
+        key={elementTree?.id}
+        onClick={handleContainerClick}
+        onMouseLeave={handleMouseLeave}
+        onMouseOver={handleMouseOver}
+      >
+        {elementId ? <BuilderDropHandler elementId={elementId} /> : null}
+        {elementsList ? (
+          <ElementDropHandlers elementsList={elementsList} />
+        ) : null}
+
+        {/* <Renderer renderService={builderService.builderRenderer} /> */}
+
+        {/* <BuilderHoverOverlay /> */}
+        {/* <BuilderClickOverlay /> */}
+        {/* {children} */}
+      </StyledBuilderContainer>
+    )
+  },
+)
+
+Builder.displayName = 'Builder'
 
 const StyledBuilderContainer = styled.div`
   // [${DATA_ELEMENT_ID}] is a selector for all rendered elements
@@ -70,3 +100,5 @@ const StyledBuilderContainer = styled.div`
     z-index: 10;
   }
 `
+
+StyledBuilderContainer.displayName = 'StyledBuilderContainer'

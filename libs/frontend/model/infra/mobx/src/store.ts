@@ -38,6 +38,7 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/presenter/container'
 import {
+  AccessTokenPayload,
   IActionService,
   IAdminService,
   IAppService,
@@ -62,6 +63,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { isServer } from '@codelab/shared/utils'
 import {
+  applySnapshot,
   Model,
   model,
   prop,
@@ -167,7 +169,11 @@ let _store: IRootStore | null = null
  *
  * @param pageProps
  */
-export const initializeStore = (pageProps?: IPageProps) => {
+export const initializeStore = (
+  pageProps?: IPageProps & {
+    user?: AccessTokenPayload
+  },
+) => {
   // console.debug('store', pageProps)
 
   const snapshot = pageProps?.snapshot
@@ -202,6 +208,13 @@ export const initializeStore = (pageProps?: IPageProps) => {
       roles: user?.[JWT_CLAIMS]?.roles ?? [],
     },
   })
+
+  /**
+   * Apply snapshot data to root store if available. The snapshot contains data loaded during Next.js SSR inside the `getServerSideProps` block
+   */
+  if (snapshot) {
+    applySnapshot(store, snapshot)
+  }
 
   registerRootStore(store)
 

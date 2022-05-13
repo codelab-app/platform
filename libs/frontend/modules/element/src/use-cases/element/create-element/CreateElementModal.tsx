@@ -87,3 +87,5 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     )
   },
 )
+
+CreateElementModal.displayName = 'CreateElementModal'

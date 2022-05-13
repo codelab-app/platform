@@ -76,7 +76,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           type: 'error',
         })}
         schema={updateElementSchema}
-        submitRef={undefined}
       >
         <AutoFields
           omitFields={[

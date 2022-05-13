@@ -23,9 +23,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { builderService, elementService, componentService, userService } =
-    useStore()
-
+  const { builderService, elementService, componentService } = useStore()
   const { query } = useRouter()
   const currentComponentId = query.componentId as string
 
@@ -53,6 +51,8 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
     { executeOnMount: true },
   )
 
+  const elementTree = builderService.builderRenderer.tree
+
   return (
     <>
       <Head>
@@ -62,12 +62,21 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
 
-      <Builder
-        builderService={builderService}
-        elementService={elementService}
-        key={builderService.builderRenderer.tree?.root?.id}
-        userService={userService}
-      />
+      {elementTree ? (
+        <Builder
+          currentDragData={builderService.currentDragData}
+          deleteModal={elementService.deleteModal}
+          elementTree={elementTree}
+          key={builderService.builderRenderer.tree?.root?.id}
+          selectedElement={builderService.selectedElement}
+          setHoveredElement={builderService.setHoveredElement.bind(
+            builderService,
+          )}
+          set_selectedElement={builderService.set_selectedElement.bind(
+            builderService,
+          )}
+        />
+      ) : null}
     </>
   )
 })
@@ -106,6 +115,7 @@ ComponentDetail.Layout = observer((page) => {
           <MetaPane
             atomService={atomService}
             builderService={builderService}
+            componentService={componentService}
             elementService={elementService}
             elementTree={pageElementTree}
             key={builderService.builderRenderer.tree?.root?.id}

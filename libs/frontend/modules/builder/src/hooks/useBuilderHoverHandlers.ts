@@ -1,54 +1,55 @@
 import { elementRef } from '@codelab/frontend/modules/element'
-import { IBuilderService, IElementTree } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { IBuilderService } from '@codelab/shared/abstract/core'
 import { MouseEvent, useCallback } from 'react'
+
+type UseBuilderHoverHandlersProps = Pick<
+  IBuilderService,
+  'setHoveredElement' | 'currentDragData'
+>
 
 /**
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
  * them to the builder state for hovering elements
  */
-export const useBuilderHoverHandlers = (
-  builderService: IBuilderService,
-  elementTree: Nullable<IElementTree>,
-) => {
-  const handleMouseOver = useCallback(
-    (e: MouseEvent) => {
-      if (builderService.currentDragData) {
-        return
-      }
+export const useBuilderHoverHandlers = ({
+  currentDragData,
+  setHoveredElement,
+}: UseBuilderHoverHandlersProps) => {
+  const handleMouseOver = useCallback((e: MouseEvent) => {
+    if (currentDragData) {
+      return
+    }
 
-      const target = e.target as HTMLElement
+    const target = e.target as HTMLElement
 
-      if (!target) {
-        builderService.setHoveredElement(null)
+    if (!target) {
+      setHoveredElement(null)
 
-        return
-      }
+      return
+    }
 
-      const elementId = target.dataset['id']
-      const componentId = target.dataset['componentId']
+    const elementId = target.dataset['id']
+    const componentId = target.dataset['componentId']
 
-      if (!elementId) {
-        return
-      }
+    if (!elementId) {
+      return
+    }
 
-      // Don't allow selection of elements withing a componentId
-      if (componentId) {
-        return
-      }
+    // Don't allow selection of elements withing a componentId
+    if (componentId) {
+      return
+    }
 
-      if (elementId) {
-        builderService.setHoveredElement(elementRef(elementId))
-      } else {
-        builderService.setHoveredElement(null)
-      }
-    },
-    [builderService],
-  )
+    if (elementId) {
+      setHoveredElement(elementRef(elementId))
+    } else {
+      setHoveredElement(null)
+    }
+  }, [])
 
   const handleMouseLeave = useCallback(() => {
-    builderService.setHoveredElement(null)
-  }, [builderService])
+    setHoveredElement(null)
+  }, [])
 
   return {
     handleMouseOver,

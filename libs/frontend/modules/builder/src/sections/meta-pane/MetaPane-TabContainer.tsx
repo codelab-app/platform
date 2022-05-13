@@ -47,10 +47,10 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 
 export type MetaPaneBuilderProps = {
   elementTree: IElementTree
-  renderUpdateElementContent: (
-    element: IElement | IComponent,
-    trackPromises: UseTrackLoadingPromises,
-  ) => React.ReactNode
+  UpdateElementContent: (props: {
+    node: IElement | IComponent
+    trackPromises: UseTrackLoadingPromises
+  }) => React.ReactElement | null
 } & WithServices<
   TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
 >
@@ -77,7 +77,7 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
 
 export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
   ({
-    renderUpdateElementContent,
+    UpdateElementContent,
     elementTree,
     builderService,
     typeService,
@@ -107,7 +107,10 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
           >
-            {renderUpdateElementContent(selectedElement, trackPromises)}
+            <UpdateElementContent
+              node={selectedElement}
+              trackPromises={trackPromises}
+            />
           </Tabs.TabPane>
 
           <Tabs.TabPane

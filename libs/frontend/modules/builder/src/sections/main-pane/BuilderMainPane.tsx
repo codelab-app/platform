@@ -25,8 +25,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderMainPaneHeader } from './BuilderMainPaneHeader'
-import { MobxStateContainer } from './mobx-state/MobxStateContainer'
-import { Toolbox } from './toolbox/Toolbox'
 
 const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.MobxState]: 'Mobx State',
@@ -124,25 +122,27 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         title={paneTitles[builderTab]}
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          <BaseBuilderTree className="page-builder" treeData={antdTree} />
+          {antdTree ? (
+            <BaseBuilderTree className="page-builder" treeData={antdTree} />
+          ) : null}
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          <BaseBuilderTree treeData={componentsAntdTree} />
+          {antdTree ? <BaseBuilderTree treeData={componentsAntdTree} /> : null}
         </DisplayIf>
 
-        <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MobxStateContainer builderService={builderService} />
-        </DisplayIf>
+        {/* <DisplayIf condition={builderTab === BuilderTab.MobxState}> */}
+        {/*  <MobxStateContainer builderService={builderService} /> */}
+        {/* </DisplayIf> */}
 
-        <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
-          <Toolbox
-            atomService={atomService}
-            componentService={componentService}
-            searchQuery={searchValue}
-          />
-        </DisplayIf>
+        {/* <DisplayIf condition={builderTab === BuilderTab.Toolbox}> */}
+        {/*  <Toolbox */}
+        {/*    atomService={atomService} */}
+        {/*    componentService={componentService} */}
+        {/*    searchQuery={searchValue} */}
+        {/*  /> */}
+        {/* </DisplayIf> */}
 
         <CreateElementModal
           elementService={elementService}

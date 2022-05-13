@@ -1,16 +1,15 @@
-import { NextComponentType, NextPage } from 'next'
-import { NextPageContext } from 'next/dist/shared/lib/utils'
+import { NextPage } from 'next'
 import { JSXElementConstructor } from 'react'
 
-export type CodelabPage<T, P = any, IP = P> = NextPage<P, IP> & PageProps<T>
+export type CodelabPage<P = any, IP = P> = NextPage<P, IP> & PageProps
 
 /**
  * These are the props a page requires. We don't pass any props into these components
  */
-export type PageProps<P> = {
-  getLayout?: (
-    page: NextComponentType<NextPageContext, any, P>,
-  ) => JSX.Element | JSXElementConstructor<any>
+export type PageProps = {
+  // getLayout?: (
+  //   page: NextComponentType<NextPageContext, any, P>,
+  // ) => JSX.Element | JSXElementConstructor<any>
   Layout?: JSXElementConstructor<any>
 }
 

@@ -9,7 +9,7 @@ import {
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from './component.dto.interface'
-import { IComponent } from './component.interface'
+import { IComponent } from './component.model.interface'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,

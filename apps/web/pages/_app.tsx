@@ -1,4 +1,4 @@
-// import '../src/wdyr'
+import '../src/wdyr'
 import 'reflect-metadata'
 import '../src/styles/app.css'
 import 'animate.css'
@@ -66,5 +66,7 @@ const App = ({ pageProps, Component }: IAppProps) => {
     </StoreProvider>
   )
 }
+
+App.displayName = 'App'
 
 export default App

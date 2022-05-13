@@ -10,8 +10,8 @@ import { DataNode } from 'antd/lib/tree'
 import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
+import React, { useCallback } from 'react'
+import { useExpandedNodes } from '../../../hooks'
 import { ElementContextMenuProps } from '../ElementContextMenu'
 import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
@@ -50,22 +50,33 @@ export const BuilderTree = observer<BuilderTreeProps>(
     elementTree,
     moveElement,
   }) => {
-    const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
-      selectedElement,
-      builderRenderer,
-    })
+    const { setExpandedNodeIds, expandedNodeIds } = useCallback(
+      () =>
+        useExpandedNodes({
+          selectedElement,
+          builderRenderer,
+        }),
+      [],
+    )()
 
-    const { isMoving, handleDrop } = useElementTreeDrop({
-      elementTree,
-      moveElement,
-    })
+    // const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
+    //   selectedElement,
+    //   builderRenderer,
+    // })
+
+    // const { isMoving, handleDrop } = useElementTreeDrop({
+    //   elementTree,
+    //   moveElement,
+    // })
+
+    console.log(treeData)
 
     return (
       <AntdTree
         blockNode
         className={`${className} draggable-tree`}
         css={[disableTreeNodeWrapperHoverStyle]}
-        disabled={isMoving}
+        // disabled={isMoving}
         draggable={{
           icon: false,
           nodeDraggable: (node: AntTreeNodeProps) => {
@@ -75,9 +86,11 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         expandedKeys={expandedNodeIds}
         onClick={(e) => e.stopPropagation()}
-        onDrop={handleDrop}
+        // onDrop={handleDrop}
         onExpand={(expandedKeys) => {
-          return setExpandedNodeIds(expandedKeys)
+          console.log(expandedKeys)
+
+          // return setExpandedNodeIds(expandedKeys)
         }}
         onMouseEnter={({ node, event }) => {
           // Selectable by default, unless it's not
@@ -117,4 +130,4 @@ export const BuilderTree = observer<BuilderTreeProps>(
   },
 )
 
-BuilderTree.displayName = 'MainPaneBuilderTreeTab'
+BuilderTree.displayName = 'BuilderTree'
