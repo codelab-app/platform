@@ -5,8 +5,13 @@ import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   Builder,
   BuilderContext,
+  BuilderDashboardTemplate,
+  BuilderMainPane,
+  BuilderSidebarNavigation,
   createMobxState,
+  MetaPane,
 } from '@codelab/frontend/modules/builder'
+import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -48,7 +53,6 @@ const PageBuilder: CodelabPage<PageBuilderProps> = observer((props) => {
     elementService,
     pageElementTree,
     providerElementTree,
-    storeService,
     builderService,
   } = useStore()
 
@@ -145,7 +149,7 @@ export const getServerSideProps = withPageAuthRequired<
   },
 })
 
-const PageBuilderLayout = observer((page) => {
+PageBuilder.Layout = observer((page) => {
   const {
     pageElementTree,
     builderService,
@@ -162,54 +166,46 @@ const PageBuilderLayout = observer((page) => {
       builderService={builderService}
       elementService={elementService}
     >
-      {page.children}
-      {/* <BuilderDashboardTemplate */}
-      {/*  Header={() => <PageDetailHeader pageService={pageService} />} */}
-      {/*  MainPane={ */}
-      {/*    () => null */}
-      {/*    // <BuilderMainPane */}
-      {/*    //   atomService={atomService} */}
-      {/*    //   builderService={builderService} */}
-      {/*    //   componentService={componentService} */}
-      {/*    //   elementService={elementService} */}
-      {/*    //   key={builderService.builderRenderer.tree?.root?.id} */}
-      {/*    //   pageElementTree={pageElementTree} */}
-      {/*    //   userService={userService} */}
-      {/*    // /> */}
-      {/*  } */}
-      {/*  MetaPane={ */}
-      {/*    () => null */}
-      {/*    // <MetaPane */}
-      {/*    //   atomService={atomService} */}
-      {/*    //   builderService={builderService} */}
-      {/*    //   componentService={componentService} */}
-      {/*    //   elementService={elementService} */}
-      {/*    //   elementTree={pageElementTree} */}
-      {/*    //   key={builderService.builderRenderer.tree?.root?.id} */}
-      {/*    //   typeService={typeService} */}
-      {/*    // /> */}
-      {/*  } */}
-      {/*  SidebarNavigation={ */}
-      {/*    () => null */}
-      {/*    // <BuilderSidebarNavigation */}
-      {/*    //   builderTab={builderService.builderTab} */}
-      {/*    //   key={builderService.builderRenderer.tree?.root?.id} */}
-      {/*    //   setBuilderTab={builderService.setBuilderTab} */}
-      {/*    // /> */}
-      {/*  } */}
-      {/*  builderService={builderService} */}
-      {/*  headerHeight={38} */}
-      {/*  key={builderService.builderRenderer.tree?.id} */}
-      {/* > */}
-      {/*  {page.children} */}
-      {/* </BuilderDashboardTemplate> */}
+      <BuilderDashboardTemplate
+        Header={() => <PageDetailHeader pageService={pageService} />}
+        MainPane={() => (
+          <BuilderMainPane
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            key={builderService.builderRenderer.tree?.root?.id}
+            pageElementTree={pageElementTree}
+            userService={userService}
+          />
+        )}
+        MetaPane={() => (
+          <MetaPane
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            elementTree={pageElementTree}
+            key={builderService.builderRenderer.tree?.root?.id}
+            typeService={typeService}
+          />
+        )}
+        SidebarNavigation={() => (
+          <BuilderSidebarNavigation
+            builderTab={builderService.builderTab}
+            key={builderService.builderRenderer.tree?.root?.id}
+            setBuilderTab={builderService.setBuilderTab}
+          />
+        )}
+        builderService={builderService}
+        headerHeight={38}
+        key={builderService.builderRenderer.tree?.id}
+      >
+        {page.children}
+      </BuilderDashboardTemplate>
     </BuilderContext>
   )
 })
-
-PageBuilderLayout.displayName = 'PageBuilderLayout'
-
-PageBuilder.Layout = PageBuilderLayout
 
 export default PageBuilder
 

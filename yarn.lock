@@ -9500,6 +9500,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/json-schema@npm:7.0.9":
+  version: 7.0.9
+  resolution: "@types/json-schema@npm:7.0.9"
+  checksum: 259d0e25f11a21ba5c708f7ea47196bd396e379fddb79c76f9f4f62c945879dc21657904914313ec2754e443c5018ea8372362f323f30e0792897fdb2098a705
+  languageName: node
+  linkType: hard
+
 "@types/json-stable-stringify@npm:^1.0.32":
   version: 1.0.34
   resolution: "@types/json-stable-stringify@npm:1.0.34"
@@ -14110,7 +14117,7 @@ __metadata:
     eslint-plugin-unused-imports: 2.0.0
     execa: 5
     fp-ts: 2.11.7
-    framer-motion: 5.5.7
+    framer-motion: 6.3.3
     fuse.js: 6.5.3
     get-port-cli: 3.0.0
     glob: 7.2.0
@@ -14146,7 +14153,7 @@ __metadata:
     next: 12.1.6
     next-auth: 4.3.4
     next-compose-plugins: 2.2.1
-    next-global-css: 1.2.0
+    next-global-css: 1.3.1
     node-fetch: 3.1.0
     nx: 14.1.5
     postcss: 7
@@ -14162,7 +14169,7 @@ __metadata:
     react-is: 18.1.0
     react-json-view: 1.21.3
     react-monaco-editor: 0.47.0
-    react-query: 3.34.7
+    react-query: 3.39.0
     react-resizable: 3.0.4
     react-slick: 0.28.1
     react-test-renderer: 18.1.0
@@ -15918,7 +15925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debounce@npm:^1.2.0, debounce@npm:^1.2.1":
+"debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
   checksum: 682a89506d9e54fb109526f4da255c5546102fbb8e3ae75eef3b04effaf5d4853756aee97475cd4650641869794e44f410eeb20ace2b18ea592287ab2038519e
@@ -18986,32 +18993,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:5.5.7":
-  version: 5.5.7
-  resolution: "framer-motion@npm:5.5.7"
+"framer-motion@npm:6.3.3":
+  version: 6.3.3
+  resolution: "framer-motion@npm:6.3.3"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
     hey-listen: ^1.0.8
     popmotion: 11.0.3
-    react-merge-refs: ^1.1.0
-    react-use-measure: ^2.1.1
     style-value-types: 5.0.0
     tslib: ^2.1.0
   peerDependencies:
-    "@react-three/fiber": "*"
-    react: ">=16.8 || ^17.0.0"
-    react-dom: ">=16.8 || ^17.0.0"
-    three: ^0.135.0
+    react: ">=16.8 || ^17.0.0 || ^18.0.0"
+    react-dom: ">=16.8 || ^17.0.0 || ^18.0.0"
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  peerDependenciesMeta:
-    "@react-three/fiber":
-      optional: true
-    three:
-      optional: true
-  checksum: 14d6c9918faf9224dcaf71d0ab36cbc3d198054ad17962e46946115dbeed45d3a38305975fd7c4bbd4c5d9326951ca79ea6ea0b3d778430572622a5da6293e54
+  checksum: 905ccf2679a45b00f6fd3fa6220f73f176e0c14b43d65ceb5feb93e23b12098def275930b98926c9bd4320f0436564745ebcfd488d7a477646a7a4600362fdbf
   languageName: node
   linkType: hard
 
@@ -19947,17 +19945,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:^5.0.4":
-  version: 5.0.4
-  resolution: "graphql-language-service@npm:5.0.4"
+"graphql-language-service-interface@npm:2.8.4":
+  version: 2.8.4
+  resolution: "graphql-language-service-interface@npm:2.8.4"
   dependencies:
-    nullthrows: ^1.0.0
+    graphql-language-service-parser: ^1.9.0
+    graphql-language-service-types: ^1.8.0
+    graphql-language-service-utils: ^2.5.1
+    vscode-languageserver-types: ^3.15.1
+  peerDependencies:
+    graphql: ">= v14.5.0 <= 15.5.0"
+  checksum: f4786bb123734150c303b53f54e75df7bed11e9b364478c31b9c31d4d2c82f22fe014f18b8620b0156f51d4fdc6e692b77878b57f5f1d6715cd36c8c4d83ec74
+  languageName: node
+  linkType: hard
+
+"graphql-language-service-parser@npm:^1.9.0, graphql-language-service-parser@npm:^1.9.3":
+  version: 1.10.4
+  resolution: "graphql-language-service-parser@npm:1.10.4"
+  dependencies:
+    graphql-language-service-types: ^1.8.7
+  peerDependencies:
+    graphql: ^15.5.0 || ^16.0.0
+  checksum: 80c8867cdd97b5dfe970280a29b56a6c913413717da6dde78091e119cc3157e79e4a3a43d73ec50f01b9280b4af18da5e6ccb083a5faabd81078278cce4143f6
+  languageName: node
+  linkType: hard
+
+"graphql-language-service-types@npm:^1.8.0, graphql-language-service-types@npm:^1.8.2, graphql-language-service-types@npm:^1.8.7":
+  version: 1.8.7
+  resolution: "graphql-language-service-types@npm:1.8.7"
+  dependencies:
+    graphql-config: ^4.1.0
     vscode-languageserver-types: ^3.15.1
   peerDependencies:
     graphql: ^15.5.0 || ^16.0.0
+  checksum: 17d73316d52062988dfea2f737d655a47965eae0dd158d9dbfa23bddb12b1f153d2e51eb7c9c5a774ee8dcefcc92cdb6624f38ba5ed0c17777fe3ca60707a430
+  languageName: node
+  linkType: hard
+
+"graphql-language-service-utils@npm:^2.5.1, graphql-language-service-utils@npm:^2.5.3":
+  version: 2.7.1
+  resolution: "graphql-language-service-utils@npm:2.7.1"
+  dependencies:
+    "@types/json-schema": 7.0.9
+    graphql-language-service-types: ^1.8.7
+    nullthrows: ^1.0.0
+  peerDependencies:
+    graphql: ^15.5.0 || ^16.0.0
+  checksum: 36f2d5db18a514187477ee48b29280bdfa6c1fd97258bc21fcdc0ad47a07b115d24b0737be835c3e278362e0cde846d5c6fcf0a2a9f1f397a105460b01859d46
+  languageName: node
+  linkType: hard
+
+"graphql-language-service@npm:3.1.6":
+  version: 3.1.6
+  resolution: "graphql-language-service@npm:3.1.6"
+  dependencies:
+    graphql-language-service-interface: ^2.8.2
+    graphql-language-service-parser: ^1.9.3
+    graphql-language-service-types: ^1.8.2
+    graphql-language-service-utils: ^2.5.3
+  peerDependencies:
+    graphql: ">= v14.5.0 <= 15.5.0"
   bin:
     graphql: dist/temp-bin.js
-  checksum: 768fca75150402318ae30a928b7528fb878edc3b53edd5e5a9086a9277559e3097ba5a43d1e7dd3338be0b0411469c5918c4f54a2f85bea06a6aeb6d72f6232e
+  checksum: bf8b4b4a6bbe42e4d4b2a07a98dc60eb2c83d8a891ab51b84ead01afd2e19b6c60c9cfa1a82407ed8a4d9c17a79f82d2a8a4deb50c79994bcbff16d11b35814e
   languageName: node
   linkType: hard
 
@@ -25659,10 +25709,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-global-css@npm:1.2.0":
-  version: 1.2.0
-  resolution: "next-global-css@npm:1.2.0"
-  checksum: 7119646bd696ea534e209421474a0f23b9a48d57f91256b4389fe49e1dfcc297dca011eedb682eadff67b4a25163bd264e7569eefdd1e1837d6a6dc3841c52c0
+"next-global-css@npm:1.3.1":
+  version: 1.3.1
+  resolution: "next-global-css@npm:1.3.1"
+  checksum: fdb85e2ea614e17dc2d6f3f5064644346de9458774844f50a398c2b71d3d320717713d6f915fa8b91039956440900e6166a8b1bc19d3091c31aed582495f8a0f
   languageName: node
   linkType: hard
 
@@ -29536,13 +29586,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-merge-refs@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "react-merge-refs@npm:1.1.0"
-  checksum: 90884352999002d868ab9f1bcfe3222fb0f2178ed629f1da7e98e5a9b02a2c96b4aa72800db92aabd69d2483211b4be57a2088e89a11a0b660e7ada744d4ddf7
-  languageName: node
-  linkType: hard
-
 "react-monaco-editor@npm:0.47.0":
   version: 0.47.0
   resolution: "react-monaco-editor@npm:0.47.0"
@@ -29584,21 +29627,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:3.34.7":
-  version: 3.34.7
-  resolution: "react-query@npm:3.34.7"
+"react-query@npm:3.39.0":
+  version: 3.39.0
+  resolution: "react-query@npm:3.39.0"
   dependencies:
     "@babel/runtime": ^7.5.5
     broadcast-channel: ^3.4.1
     match-sorter: ^6.0.2
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: 879ea7c42a9414eaa0a49cceb2c87f69731ccb7e93cda73cf427b260822a1e5b34e524e6cc1dfcc00b6915cfc08399f23b36f701f5805b9ecb36cd4126cc4abe
+  checksum: 18fd745ef86375c73496d6bcffdd4a6d02b48feb1e63c05bcb1881406a91ecf776543d0751b776a6ff6ffddd3d7bf31973a37df8e4eb72d1626c41b815396aef
   languageName: node
   linkType: hard
 
@@ -29787,18 +29830,6 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: b67bf5b3e86dbab72d658b9a52a3589e5960583ab28c7c66272427d8fe30d4c7de422d5046ae96bd2683cdf80cc3264b2516f5ce80cae1dbe6cf3ca6dda392c5
-  languageName: node
-  linkType: hard
-
-"react-use-measure@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "react-use-measure@npm:2.1.1"
-  dependencies:
-    debounce: ^1.2.1
-  peerDependencies:
-    react: ">=16.13"
-    react-dom: ">=16.13"
-  checksum: b8e8939229d463c3c505f7b617925c0228efae0cd6f651371f463846417b06c9170be57df51293a61027c41770f8a090fdb8a08717c4e36290ccb496e0318f1f
   languageName: node
   linkType: hard
 

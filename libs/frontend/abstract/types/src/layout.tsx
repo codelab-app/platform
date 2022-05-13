@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { JSXElementConstructor } from 'react'
+import { JSXElementConstructor, PropsWithChildren } from 'react'
 
 export type CodelabPage<P = any, IP = P> = NextPage<P, IP> & PageProps
 
@@ -10,7 +10,7 @@ export type PageProps = {
   // getLayout?: (
   //   page: NextComponentType<NextPageContext, any, P>,
   // ) => JSX.Element | JSXElementConstructor<any>
-  Layout?: JSXElementConstructor<any>
+  Layout?: JSXElementConstructor<PropsWithChildren<unknown>>
 }
 
 /**
