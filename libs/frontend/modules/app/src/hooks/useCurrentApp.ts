@@ -6,8 +6,8 @@ import { useEffect } from 'react'
 export const useCurrentApp = (apps: IAppService) => {
   const appId = useCurrentAppId()
 
-  const [getApp, { isLoading, error }] = useStatefulExecutor((id: string) =>
-    apps.getOne(id),
+  const [getApp, { isLoading, error, isDone }] = useStatefulExecutor(
+    (id: string) => apps.getOne(id),
   )
 
   useEffect(() => {
@@ -16,5 +16,5 @@ export const useCurrentApp = (apps: IAppService) => {
     }
   }, [appId, getApp])
 
-  return { app: appId ? apps.app(appId) : null, isLoading, error }
+  return { app: appId && isDone ? apps.app(appId) : null, isLoading, error }
 }
