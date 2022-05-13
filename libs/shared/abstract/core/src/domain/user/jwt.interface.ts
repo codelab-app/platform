@@ -1,7 +1,7 @@
-import { Claims } from '@auth0/nextjs-auth0/src/session/session'
+import { Claims } from '@auth0/nextjs-auth0'
 import { IRole } from './role.enum'
 
-export interface CodelabApiClaims {
+export interface CodelabApiClaims extends Claims {
   email: string
   roles: Array<IRole>
 }
@@ -13,7 +13,7 @@ export const JWT_CLAIMS = 'https://api.codelab.ai/jwt/claims'
  *
  * Not intended to carry user info, used for authorization
  */
-export interface AccessTokenPayload extends Claims {
+export interface AccessTokenPayload {
   /**
    * These are set programmatically inside Auth0 rules
    */
