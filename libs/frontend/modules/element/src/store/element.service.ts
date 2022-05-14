@@ -316,6 +316,7 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
+    this.updateAtomsCache([updatedElement])
     element.updateCache(updatedElement)
 
     return element

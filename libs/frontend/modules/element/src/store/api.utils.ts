@@ -116,7 +116,10 @@ export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
   const atom = input.atomId
-    ? { connect: { where: { node: { id: input.atomId } } } }
+    ? {
+        disconnect: { where: {} },
+        connect: { where: { node: { id: input.atomId } } },
+      }
     : { disconnect: { where: {} } }
 
   const instanceOfComponent = input.instanceOfComponentId
