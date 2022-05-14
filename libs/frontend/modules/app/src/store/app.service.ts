@@ -144,30 +144,21 @@ export class AppService
   @modelFlow
   @transaction
   delete = _async(function* (this: AppService, id: string) {
+    const elementService = getElementService(this)
+    const pageService = getPageService(this)
     const existing = throwIfUndefined(this.apps.get(id))
 
-    if (existing) {
-      this.apps.delete(id)
+    this.apps.delete(id)
 
-      const elementService = getElementService(this)
+    yield* _await(pageService.deleteManyByAppId(id))
 
+    yield* _await(
       elementService.deleteElementSubgraph(
         existing.rootProviderElement?.id as string,
-      )
-    }
+      ),
+    )
 
-    const pageService = getPageService(this)
-
-    pageService.deleteManyByAppId(id)
-
-    const deleteCondition = {
-      where: {
-        id,
-      },
-      delete: {},
-    }
-
-    const { deleteApps } = yield* _await(appApi.DeleteApps(deleteCondition))
+    const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
 
     if (deleteApps.nodesDeleted === 0) {
       // throw error so that the atomic middleware rolls back the changes
