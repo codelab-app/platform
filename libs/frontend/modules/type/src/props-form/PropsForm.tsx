@@ -14,6 +14,37 @@ export type PropsFormProps = {
   autocompleteContext?: any
 }
 
+type UsePropFormProps = Pick<
+  PropsFormProps,
+  'autosave' | 'initialValue' | 'onSubmit'
+>
+
+const usePropForm = ({
+  onSubmit,
+  autosave,
+  initialValue,
+}: UsePropFormProps) => {
+  const form = useForm({ defaultValues: initialValue })
+  const { control, formState, handleSubmit } = form
+  const watchedData = useWatch({ control, defaultValue: initialValue })
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedSave = useCallback(
+    debounce(() => {
+      handleSubmit(onSubmit)()
+    }, 500),
+    [onSubmit],
+  )
+
+  useDeepCompareEffect(() => {
+    if (autosave && formState.isDirty) {
+      debouncedSave()
+    }
+  }, [autosave, watchedData])
+
+  return form
+}
+
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
@@ -23,33 +54,10 @@ export const PropsForm = observer<PropsFormProps>(
     initialValue,
     onSubmit,
     autosave,
-    autocompleteContext = { hello: 'world' },
+    autocompleteContext,
   }) => {
-    const form = useForm({
-      defaultValues: initialValue,
-    })
-
+    const form = usePropForm({ onSubmit, initialValue, autosave })
     const fields = [...interfaceType.fields.values()]
-
-    const debouncedSave = useCallback(
-      debounce(() => {
-        form.handleSubmit(onSubmit)()
-        // autosave every 500ms
-      }, 500),
-
-      [onSubmit],
-    )
-
-    const watchedData = useWatch({
-      control: form.control,
-      defaultValue: initialValue,
-    })
-
-    useDeepCompareEffect(() => {
-      if (autosave && form.formState.isDirty) {
-        debouncedSave()
-      }
-    }, [autosave, watchedData])
 
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>

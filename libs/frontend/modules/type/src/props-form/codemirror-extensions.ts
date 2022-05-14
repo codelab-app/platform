@@ -3,6 +3,7 @@ import {
   STATE_PATH_TEMPLATE_START_OPEN_REGEX,
   STATE_PATH_TEMPLATE_START_REGEX,
 } from '@codelab/frontend/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import {
   closeBrackets,
   closeBracketsKeymap,
@@ -54,7 +55,7 @@ const checkForOpenLeftSideBracket = (context: CompletionContext): boolean => {
 }
 
 export const makeCompletionOptionsFromObjectKeys = (
-  autocompleteContext: any,
+  autocompleteContext: IPropData,
 ): Array<Completion> => {
   return Object.entries(autocompleteContext || {}).map(([key, value]) => ({
     label: key,

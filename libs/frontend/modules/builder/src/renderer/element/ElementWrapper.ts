@@ -60,6 +60,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const IntermediateChildren = jsx(
         ReactComponent,
+        // Not sure why but this is required for MuiAutocomplete/MuiDatepicker
         mergeProps(extraProps, extractedProps),
         children,
       )
