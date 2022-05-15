@@ -6,7 +6,6 @@ import {
   ITypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import {
   ExtendedModel,
   model,
@@ -50,11 +49,6 @@ export class InterfaceType
 {
   field(id: string): Field | undefined {
     return this.fields.get(id)
-  }
-
-  @computed
-  get fieldsList() {
-    return [...this.fields.values()]
   }
 
   @modelAction

@@ -35,7 +35,7 @@ export const Field = ({ field, form, context }: FieldProps) => {
     case ITypeKind.InterfaceType:
       return (
         <>
-          {field.type.current.fieldsList.map((f, i) => (
+          {[...field.type.current.fields.values()].map((f, i) => (
             <Field context={context} field={f} form={form} />
           ))}
         </>
@@ -43,7 +43,7 @@ export const Field = ({ field, form, context }: FieldProps) => {
 
     case ITypeKind.PrimitiveType: {
       return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
-        <CheckboxField context={context} field={field} form={form} />
+        <CheckboxField field={field} form={form} />
       ) : (
         <CodeMirrorField context={context} field={field} form={form} />
       )
