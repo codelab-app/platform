@@ -6,7 +6,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 
-export const getComponentRootElementFromProp = (
+export const getRootElement = (
   payload: TypedValue<any>,
   tree: Nullable<IElementTree>,
   componentService: IComponentService,
@@ -15,8 +15,7 @@ export const getComponentRootElementFromProp = (
     return null
   }
 
-  // .id is for backward compatibility
-  const id = (payload as any).id || payload.value
+  const id = payload.value
 
   if (typeof id !== 'string') {
     return null

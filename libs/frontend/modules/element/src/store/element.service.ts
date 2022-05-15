@@ -20,6 +20,8 @@ import {
   IUpdatePropMapBindingDTO,
   MoveData,
 } from '@codelab/shared/abstract/core'
+import { uuidRegex } from '@codelab/shared/utils'
+import { flatMap, values } from 'lodash'
 import {
   _async,
   _await,
@@ -79,6 +81,52 @@ export class ElementService
   })
   implements IElementService
 {
+  @modelFlow
+  @transaction
+  loadPropsComponents = _async(function* (this: ElementService) {
+    const componentService = getComponentService(this)
+    let uuids: Array<string> = []
+    let elementsList: Array<IElement> = this.elementTree.elementsList
+
+    do {
+      uuids = elementsList.flatMap(
+        // simply find all uuid even types ids
+        (x) => values(x.props?.jsonString.match(uuidRegex)),
+      )
+
+      if (!uuids.length) {
+        break
+      }
+
+      const components = yield* _await(
+        componentService.getAll({ id_IN: uuids }),
+      )
+
+      elementsList = flatMap(
+        yield* _await(
+          Promise.all(
+            components.map(async (c) => {
+              const { elementGraph } = await elementApi.GetElementGraph({
+                input: { rootId: c.rootElementId },
+              })
+
+              const ids = [elementGraph.id, ...elementGraph.descendants]
+
+              const { elements } = await elementApi.GetElements({
+                where: { id_IN: ids },
+              })
+
+              const elementModels = this.hydrateOrUpdateCache(elements)
+              this.elementTree.buildTree(elementModels, false)
+
+              return elementModels as Array<IElement>
+            }),
+          ),
+        ),
+      )
+    } while (uuids.length)
+  })
+
   /**
    * Used to load the entire page tree
    */
@@ -105,6 +153,8 @@ export class ElementService
     const elementModels = this.hydrateOrUpdateCache(elements)
 
     this.elementTree.buildTree(elementModels, mainTree)
+
+    yield* _await(this.loadPropsComponents())
 
     return this.elementTree
   })

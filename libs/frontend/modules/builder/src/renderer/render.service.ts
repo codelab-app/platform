@@ -1,10 +1,6 @@
 import { ElementTree, elementTreeRef } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
-  getComponentService,
-  getElementService,
-} from '@codelab/frontend/presenter/container'
-import {
   IElement,
   IElementTree,
   IPropData,
@@ -19,7 +15,7 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
-import { flatMap, isEmpty, isString, values } from 'lodash'
+import { flatMap, isEmpty, isString } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -140,35 +136,6 @@ export class RenderService
     const typeStore = getTypeService(this)
 
     yield* _await(typeStore.getAll())
-
-    const componentIds = tree.elementsList.flatMap((x) =>
-      values(x.props?.values)
-        .filter((p) => {
-          const typeKind = this.getTypeKindById(p.type)
-
-          const componentsTypeKinds = [
-            ITypeKind.ReactNodeType,
-            ITypeKind.RenderPropsType,
-          ]
-
-          return typeKind && componentsTypeKinds.includes(typeKind)
-        })
-        .map((renderProp) => renderProp.value),
-    )
-
-    const componentService = getComponentService(this)
-    const elementService = getElementService(this)
-
-    const components = yield* _await(
-      componentService.getAll({ id_IN: componentIds }),
-    )
-
-    yield* _await(
-      Promise.all(
-        // keep the main tree root as it is.
-        components.map((c) => elementService.getTree(c.rootElementId, false)),
-      ),
-    )
 
     this.isInitialized = true
   })
@@ -390,6 +357,8 @@ export class RenderService
         ) {
           continue
         }
+
+        console.log(propTransformer.transform(value, typeKind))
 
         return propTransformer.transform(value, typeKind)
       }

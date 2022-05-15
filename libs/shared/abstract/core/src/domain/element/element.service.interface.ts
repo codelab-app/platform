@@ -75,6 +75,7 @@ export interface IElementService
   element(id: string): Maybe<IElement>
   updateElementProps(element: IElement, data: IPropData): Promise<IElement>
   updateElementCss(element: IElement, newCss: string): Promise<IElement>
+  loadPropsComponents(root: IElementRef): Promise<void>
 
   /**
    * Modify it so it can build a tree from parameter

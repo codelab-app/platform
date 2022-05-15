@@ -3,7 +3,7 @@ import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { getRenderService } from '../renderServiceContext'
-import { getComponentRootElementFromProp } from '../utils/getComponentFromProp'
+import { getRootElement } from '../utils/getRootElement'
 
 /**
  * Transforms props from the following format:
@@ -34,19 +34,14 @@ export class ReactNodeTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getComponentRootElementFromProp(value, renderer.tree, componentService)
+      !!getRootElement(value, renderer.tree, componentService)
     )
   }
 
   public transform(value: TypedValue<any>): any {
     const renderer = getRenderService(this)
     const componentService = getComponentService(this)
-
-    const rootElement = getComponentRootElementFromProp(
-      value,
-      renderer.tree,
-      componentService,
-    )
+    const rootElement = getRootElement(value, renderer.tree, componentService)
 
     if (!rootElement) {
       return value
