@@ -89,9 +89,7 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
           >
             {selectedElement.atom ? (
               <UpdateElementPropsForm
-                autocompleteContext={
-                  builderService.builderRenderer.platformState
-                }
+                autocomplete={builderService.builderRenderer.platformState}
                 element={selectedElement}
                 elementService={elementService}
                 key={selectedElement.id}

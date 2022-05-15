@@ -3,7 +3,12 @@ import {
   STATE_PATH_TEMPLATE_START_OPEN_REGEX,
   STATE_PATH_TEMPLATE_START_REGEX,
 } from '@codelab/frontend/abstract/core'
-import { IPropData } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IPrimitiveTypeKind,
+  IPropData,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import {
   closeBrackets,
   closeBracketsKeymap,
@@ -54,7 +59,42 @@ const checkForOpenLeftSideBracket = (context: CompletionContext): boolean => {
   return found >= 0
 }
 
-export const makeCompletionOptionsFromObjectKeys = (
+export const typeCompletionOptions = (
+  type: IAnyType,
+  reactNodeOptions: Array<{ label: string; detail: string }> = [],
+): Array<Completion> => {
+  if (
+    type.kind === ITypeKind.PrimitiveType &&
+    type.primitiveKind === IPrimitiveTypeKind.Boolean
+  ) {
+    return [
+      {
+        label: 'true',
+        type: 'primitive',
+      },
+      {
+        label: 'false',
+        type: 'primitive',
+      },
+    ]
+  }
+
+  if (type.kind === ITypeKind.ReactNodeType) {
+    return reactNodeOptions
+  }
+
+  if (type.kind === ITypeKind.EnumType) {
+    return type.allowedValues.map((av) => ({
+      type: 'variable',
+      label: av.value,
+      detail: av.name ?? undefined,
+    }))
+  }
+
+  return []
+}
+
+export const contextCompletionOptions = (
   autocompleteContext: IPropData,
 ): Array<Completion> => {
   return Object.entries(autocompleteContext || {}).map(([key, value]) => ({

@@ -12,3 +12,7 @@ export interface IPropData {
 }
 
 export type IPropDataByElementId = { [id: IElement['id']]: IPropData }
+
+export interface IPropsFieldContext {
+  autocomplete?: IPropData
+}

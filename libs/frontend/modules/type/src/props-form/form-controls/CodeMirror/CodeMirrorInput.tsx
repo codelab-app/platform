@@ -9,7 +9,7 @@ import { useCodeMirror, ViewUpdate } from '@uiw/react-codemirror'
 import React, { useEffect, useRef } from 'react'
 import { basicSetup, completionsFactory } from './codemirror-extensions'
 
-export interface CodeMirrorFieldProps {
+export interface CodeMirrorInputProps {
   value: string
   onChange: (value: string) => void
   onBlur?: () => void
@@ -17,13 +17,13 @@ export interface CodeMirrorFieldProps {
   templateCompletionOptions?: Array<Completion>
 }
 
-export const CodeMirrorField = ({
+export const CodeMirrorInput = ({
   value,
   onChange,
   onBlur,
   defaultCompletionOptions,
   templateCompletionOptions,
-}: CodeMirrorFieldProps) => {
+}: CodeMirrorInputProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
 
   const extensionsRef = useRef([
