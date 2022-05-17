@@ -47,10 +47,15 @@ export const usePropsInspector = (
 
     try {
       setIsLoading(true)
-      await elementService.updateElementProps(
-        element,
-        JSON.parse(persistedProps),
-      )
+      await elementService.patchElement(element, {
+        props: {
+          update: {
+            node: {
+              data: persistedProps,
+            },
+          },
+        },
+      })
     } catch (e) {
       console.error(e)
       notify({ title: 'Invalid json', type: 'warning' })

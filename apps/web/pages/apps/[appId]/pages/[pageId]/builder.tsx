@@ -95,15 +95,15 @@ const PageBuilder: CodelabPage = observer(() => {
       {isLoading && <Spin />}
       {data?.elementTree && !isLoading ? (
         <Builder
-          builderService={builderService}
           currentDragData={builderService.currentDragData}
           deleteModal={elementService.deleteModal}
           elementTree={data.elementTree}
           key={builderService.builderRenderer.tree?.root?.id}
           rendererProps={{
             isInitialized: builderService.builderRenderer.isInitialized,
-            renderRoot:
-              builderService.builderRenderer.renderRoot.bind(builderService),
+            renderRoot: builderService.builderRenderer.renderRoot.bind(
+              builderService.builderRenderer,
+            ),
           }}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(

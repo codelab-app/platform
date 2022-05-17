@@ -23,6 +23,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     pageService,
     appService,
     elementService,
+    builderService,
     providerElementTree,
     storeService,
     renderService,
@@ -82,7 +83,12 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Renderer renderService={renderService} />
+      <Renderer
+        isInitialized={builderService.builderRenderer.isInitialized}
+        renderRoot={builderService.builderRenderer.renderRoot.bind(
+          builderService.builderRenderer,
+        )}
+      />
     </>
   )
 })

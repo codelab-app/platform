@@ -50,7 +50,6 @@ export const PropsForm = observer<PropsFormProps>(
         debouncedSave()
       }
     }, [autosave, watchedData])
-    console.log(fields)
 
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>

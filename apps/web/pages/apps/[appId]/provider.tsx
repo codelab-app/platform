@@ -86,6 +86,12 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
           deleteModal={elementService.deleteModal}
           elementTree={elementTree}
           key={builderService.builderRenderer.tree?.root?.id}
+          rendererProps={{
+            isInitialized: builderService.builderRenderer.isInitialized,
+            renderRoot: builderService.builderRenderer.renderRoot.bind(
+              builderService.builderRenderer,
+            ),
+          }}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
