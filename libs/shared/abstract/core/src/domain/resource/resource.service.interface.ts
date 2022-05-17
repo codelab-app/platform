@@ -4,6 +4,7 @@ import { Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import {
   ICreateResourceDTO,
+  IResourceDTO,
   IUpdateResourceDTO,
 } from './resource.dto.interface'
 import { IResource, IResourceRef } from './resource.model.interface'
@@ -17,4 +18,5 @@ export interface IResourceService
     ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }> {
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
+  updateCache(resources: Array<IResourceDTO>): void
 }

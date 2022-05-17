@@ -172,7 +172,7 @@ export class ActionService
   })
 }
 
-export const actionServiceContext = createContext<ActionService>()
+export const actionServiceContext = createContext<IActionService>()
 
 export const getActionService = (self: object) => {
   const actionStore = actionServiceContext.get(self)

@@ -28,7 +28,6 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/presenter/container'
 import {
-  AccessTokenPayload,
   IActionService,
   IAdminService,
   IAppService,
@@ -38,7 +37,6 @@ import {
   IElementService,
   IElementTree,
   IOperationService,
-  IPageProps,
   IPageService,
   IRenderService,
   IResourceService,
@@ -47,21 +45,8 @@ import {
   ITypeService,
   IUserDTO,
   IUserService,
-  JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
-import { isServer } from '@codelab/shared/utils'
-import {
-  applySnapshot,
-  Model,
-  model,
-  prop,
-  registerRootStore,
-  SnapshotOutOf,
-} from 'mobx-keystone'
-
-export type Snapshot<T = any> = {
-  snapshot: SnapshotOutOf<T>
-}
+import { Model, model, prop } from 'mobx-keystone'
 
 /**
  * Initial data to be injected into store
@@ -103,25 +88,39 @@ export const createRootStore = (
       appService: prop(() => props?.appService ?? new AppService({})),
       pageService: prop(() => props?.pageService ?? new PageService({})),
       typeService: prop(() => props?.typeService ?? new TypeService({})),
-      atomService: prop(() => new AtomService({})),
-      tagService: prop(() => new TagService({})),
-      adminService: prop(() => new AdminService({})),
-      componentService: prop(() => new ComponentService({})),
-      actionService: prop(() => new ActionService({})),
-      storeService: prop(() => new StoreService({})),
-      resourceService: prop(() => new ResourceService({})),
-      operationService: prop(() => new OperationService({})),
+      atomService: prop(() => props?.atomService ?? new AtomService({})),
+      tagService: prop(() => props?.tagService ?? new TagService({})),
+      adminService: prop(() => props?.adminService ?? new AdminService({})),
+      componentService: prop(
+        () => props?.componentService ?? new ComponentService({}),
+      ),
+      actionService: prop(() => props?.actionService ?? new ActionService({})),
+      storeService: prop(() => props?.storeService ?? new StoreService({})),
+      resourceService: prop(
+        () => props?.resourceService ?? new ResourceService({}),
+      ),
+      operationService: prop(
+        () => props?.operationService ?? new OperationService({}),
+      ),
       // default regular service that holds the element tree
-      elementService: prop(() => new ElementService({})),
-      pageElementTree: prop(() => new ElementTree({})),
+      elementService: prop(
+        () => props?.elementService ?? new ElementService({}),
+      ),
+      pageElementTree: prop(
+        () => props?.pageElementTree ?? new ElementTree({}),
+      ),
       // element service that is used by the provider tree
-      providerElementTree: prop(() => new ElementTree({})),
-      builderService: prop(() => new BuilderService({})),
+      providerElementTree: prop(
+        () => props?.providerElementTree ?? new ElementTree({}),
+      ),
+      builderService: prop(
+        () => props?.builderService ?? new BuilderService({}),
+      ),
       /*
        * This is the default render service used for rendering apps.
        * do not confuse it with the builder-specific render service in builderService.builderRenderer
        */
-      renderService: prop(() => new RenderService({})),
+      renderService: prop(() => props?.renderService ?? new RenderService({})),
     })
     implements IRootStore
   {
@@ -142,81 +141,4 @@ export const createRootStore = (
   }
 
   return new RootStore(props ?? ({} as any)) as IRootStore
-}
-
-let _store: IRootStore | null = null
-
-/**
- * User is passed automatically when we call withPageAuthRequired
- *
- * @param pageProps
- * @param storeProps Existing partial store instances to be used
- */
-export const initializeStore = (
-  pageProps?: IPageProps & {
-    user?: AccessTokenPayload
-  },
-  // storeProps?: Partial<IRootStore>,
-) => {
-  const snapshot = pageProps?.snapshot
-  const user = pageProps?.user
-
-  /**
-   * Having issue on window hot reload if we return the cached _store
-   */
-  // const store: IRootStore = _store
-  //   ? _store
-  //   : createRootStore({
-  //       user: {
-  //         id: user?.sub ?? '',
-  //         auth0Id: user?.sub ?? '',
-  //         roles: user?.[JWT_CLAIMS]?.roles ?? [],
-  //       },
-  //     })
-
-  // Create the store once in the client
-  if (!_store) {
-    console.log(isServer, 'Creating new store')
-
-    _store = createRootStore({
-      user: {
-        id: user?.sub ?? '',
-        auth0Id: user?.sub ?? '',
-        roles: user?.[JWT_CLAIMS]?.roles ?? [],
-      },
-    })
-
-    registerRootStore(_store)
-  }
-
-  /**
-   * Apply snapshot data to root store if available. The snapshot contains data loaded during Next.js SSR inside the `getServerSideProps` block
-   *
-   * We break up snapshot per service to conserve bandwidth
-   */
-  if (snapshot?.appService) {
-    applySnapshot(_store.appService, snapshot.appService)
-  }
-
-  if (snapshot?.pageService) {
-    applySnapshot(_store.pageService, snapshot.pageService)
-  }
-
-  if (snapshot?.pageElementTree) {
-    console.log(snapshot.pageElementTree.id, _store.pageElementTree.id)
-    applySnapshot(_store.pageElementTree, snapshot.pageElementTree)
-  }
-
-  // For SSG and SSR always create a new store
-  // if (isServer) {
-  //   _store = store
-  //
-  //   return _store
-  // }
-
-  // if (process.env.NODE_ENV === 'development') {
-  //   ;(window as any).store = store
-  // }
-
-  return _store
 }

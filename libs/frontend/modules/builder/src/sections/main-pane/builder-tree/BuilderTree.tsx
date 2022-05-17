@@ -10,8 +10,8 @@ import { DataNode } from 'antd/lib/tree'
 import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback } from 'react'
-import { useExpandedNodes } from '../../../hooks'
+import React from 'react'
+import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
 import { ElementContextMenuProps } from '../ElementContextMenu'
 import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
@@ -50,26 +50,15 @@ export const BuilderTree = observer<BuilderTreeProps>(
     elementTree,
     moveElement,
   }) => {
-    const { setExpandedNodeIds, expandedNodeIds } = useCallback(
-      () =>
-        useExpandedNodes({
-          selectedElement,
-          builderRenderer,
-        }),
-      [],
-    )()
+    const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
+      selectedElement,
+      builderRenderer,
+    })
 
-    // const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
-    //   selectedElement,
-    //   builderRenderer,
-    // })
-
-    // const { isMoving, handleDrop } = useElementTreeDrop({
-    //   elementTree,
-    //   moveElement,
-    // })
-
-    console.log(treeData)
+    const { isMoving, handleDrop } = useElementTreeDrop({
+      elementTree,
+      moveElement,
+    })
 
     return (
       <AntdTree
@@ -88,9 +77,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onClick={(e) => e.stopPropagation()}
         // onDrop={handleDrop}
         onExpand={(expandedKeys) => {
-          console.log(expandedKeys)
-
-          // return setExpandedNodeIds(expandedKeys)
+          return setExpandedNodeIds(expandedKeys)
         }}
         onMouseEnter={({ node, event }) => {
           // Selectable by default, unless it's not

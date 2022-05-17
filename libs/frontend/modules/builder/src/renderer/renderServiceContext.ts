@@ -1,8 +1,8 @@
+import { IRenderService } from '@codelab/shared/abstract/core'
 import { createContext } from 'mobx-keystone'
-import type { RenderService } from './render.service'
 
 // This can be used to access the renderer model  from anywhere inside the pipeline
-export const renderServiceContext = createContext<RenderService>()
+export const renderServiceContext = createContext<IRenderService>()
 
 export const getRenderService = (self: object) => {
   const renderService = renderServiceContext.get(self)

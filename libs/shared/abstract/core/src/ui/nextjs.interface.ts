@@ -17,9 +17,12 @@ export type IAppProps = Overwrite<
  */
 export interface IPageProps {
   snapshot?: {
+    // rootStore: SnapshotOutOfModel<any>
     appService: SnapshotOutOfModel<any>
     pageService: SnapshotOutOfModel<any>
+    atomService: SnapshotOutOfModel<any>
+    elementService: SnapshotOutOfModel<any>
     pageElementTree: SnapshotOutOfModel<any>
+    builderService: SnapshotOutOfModel<any>
   }
-  // user?: AccessTokenPayload
 }

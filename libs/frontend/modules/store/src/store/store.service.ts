@@ -3,8 +3,10 @@ import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IActionDTO,
   IAddStoreResourceDTO,
   ICreateStoreDTO,
+  IResourceDTO,
   IStoreDTO,
   IStoreService,
   IUpdateStoreDTO,
@@ -63,13 +65,13 @@ export class StoreService
   }
 
   @modelAction
-  fetchResources(resources: IStoreDTO['resources']) {
+  fetchResources(resources: Array<IResourceDTO>) {
     // loading state interface within store fragment is hard so we load it separately
     getResourceService(this).updateCache(resources)
   }
 
   @modelAction
-  fetchActions(actions: IStoreDTO['actions']) {
+  fetchActions(actions: Array<IActionDTO>) {
     getActionService(this).updateCache(actions)
   }
 

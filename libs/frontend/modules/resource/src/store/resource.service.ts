@@ -178,7 +178,7 @@ export class ResourceService
   }
 }
 
-export const resourceServiceContext = createContext<ResourceService>()
+export const resourceServiceContext = createContext<IResourceService>()
 
 export const getResourceService = (self: object) => {
   const resourceStore = resourceServiceContext.get(self)

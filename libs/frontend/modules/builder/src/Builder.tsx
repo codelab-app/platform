@@ -13,6 +13,7 @@ import { BuilderDropHandler } from './dnd/BuilderDropHandler'
 import { ElementDropHandlers } from './dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from './hooks'
 import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
+import { Renderer, RendererProps } from './renderer'
 
 type BuilderProps = {
   elementTree: IElementTree
@@ -23,7 +24,9 @@ type BuilderProps = {
   | 'set_selectedElement'
   | 'selectedElement'
 > &
-  Pick<IElementService, 'deleteModal'>
+  Pick<IElementService, 'deleteModal'> & {
+    rendererProps: RendererProps
+  }
 
 export const Builder = observer<BuilderProps>(
   ({
@@ -33,9 +36,8 @@ export const Builder = observer<BuilderProps>(
     selectedElement,
     elementTree,
     deleteModal,
+    rendererProps,
   }) => {
-    console.log('Builder', elementTree)
-
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
       currentDragData: currentDragData,
       setHoveredElement: setHoveredElement,
@@ -67,7 +69,10 @@ export const Builder = observer<BuilderProps>(
           <ElementDropHandlers elementsList={elementsList} />
         ) : null}
 
-        {/* <Renderer renderService={builderService.builderRenderer} /> */}
+        <Renderer
+          isInitialized={rendererProps.isInitialized}
+          renderRoot={rendererProps.renderRoot}
+        />
 
         {/* <BuilderHoverOverlay /> */}
         {/* <BuilderClickOverlay /> */}

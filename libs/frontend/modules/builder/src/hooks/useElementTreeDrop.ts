@@ -17,12 +17,8 @@ export const useElementTreeDrop = ({
   // const [moveElement, { isLoading }] = useMoveElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (info) => {
-    console.log(info)
-
     const dragNodeId = info.dragNode.key.toString()
     const dropNodeId = info.node.key.toString()
-
-    console.log(dragNodeId, dropNodeId)
 
     if (info.dropToGap) {
       // Switch spots with the element next to the drop indicator

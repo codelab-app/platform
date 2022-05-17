@@ -17,8 +17,6 @@ export const useExpandedNodes = ({
 
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
-    console.log(selectedElement)
-
     const pathResult = selectedElement
       ? builderRenderer.tree?.getPathFromRoot(selectedElement)
       : []

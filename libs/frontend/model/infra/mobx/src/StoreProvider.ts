@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { IRootStore } from './store'
+import { IRootStore } from './create-root-store'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const StoreContext = createContext<IRootStore>(null!)

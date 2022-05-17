@@ -36,6 +36,8 @@ const PageBuilder: CodelabPage<PageBuilderProps> = observer(
     const page = pageService.pages.get(pageId)
     const elementTree = builderService.builderRenderer.tree
 
+    console.log(elementTree)
+
     return (
       <>
         <Head>
@@ -47,6 +49,11 @@ const PageBuilder: CodelabPage<PageBuilderProps> = observer(
             deleteModal={elementService.deleteModal}
             elementTree={elementTree}
             key={builderService.builderRenderer.tree?.root?.id}
+            rendererProps={{
+              isInitialized: builderService.builderRenderer.isInitialized,
+              renderRoot:
+                builderService.builderRenderer.renderRoot.bind(builderService),
+            }}
             selectedElement={builderService.selectedElement}
             setHoveredElement={builderService.setHoveredElement.bind(
               builderService,
@@ -116,6 +123,9 @@ export const getServerSideProps = withPageAuthRequired<
           appService: getSnapshot(rootStore.appService),
           pageElementTree: getSnapshot(rootStore.pageElementTree),
           pageService: getSnapshot(rootStore.pageService),
+          atomService: getSnapshot(rootStore.atomService),
+          elementService: getSnapshot(rootStore.elementService),
+          builderService: getSnapshot(rootStore.builderService),
         },
         appId,
         pageId,
