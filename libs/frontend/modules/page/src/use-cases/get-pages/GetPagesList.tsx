@@ -19,7 +19,8 @@ export const GetPagesList = observer<WithServices<PAGE_SERVICE>>(
       pageService.getAll({ app: { id: appId } }),
     )
 
-    const pagesList = pageService.pagesList
+    // pageService.pagesList doesn't filter by app
+    const pagesList = pageService.pagesByApp(appId)
     useEffect(() => {
       getPages()
       // eslint-disable-next-line react-hooks/exhaustive-deps

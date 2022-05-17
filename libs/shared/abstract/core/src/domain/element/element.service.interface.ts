@@ -78,6 +78,7 @@ export interface IElementService
   convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
   element(id: string): Maybe<IElement>
   updateElementCss(element: IElement, newCss: string): Promise<IElement>
+  loadPropsComponents(root: IElementRef): Promise<void>
 
   updateElementsPropTransformationJs(
     element: IElement,

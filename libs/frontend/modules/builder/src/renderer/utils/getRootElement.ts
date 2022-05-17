@@ -6,7 +6,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 
-export const getComponentRootElementFromProp = (
+export const getRootElement = (
   payload: TypedValue<any>,
   tree: Nullable<IElementTree>,
   componentService: IComponentService,

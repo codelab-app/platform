@@ -1,50 +1,69 @@
 import { Nullish } from '@codelab/shared/abstract/types'
-import { isObjectLike } from 'lodash'
+import { entries, isArray, isObjectLike, merge } from 'lodash'
 
-export const deepReplaceObjectValues = <
-  TIn extends Nullish<Record<string, any> | Array<any>>,
->(
-  obj: TIn,
-  fn: (value: any, key: string, innerObj: Record<string, any>) => any,
-): TIn => {
-  // for some reason react nodes/ Html elements objects are causing to much recursion
-  if (
-    !obj ||
-    typeof obj !== 'object' ||
-    (obj as any)['$$typeof'] ||
-    obj instanceof HTMLElement
-  ) {
-    return undefined as TIn
+const shouldSkip = (obj: any, _refs: WeakSet<any>) =>
+  !obj ||
+  // isNotObject
+  typeof obj !== 'object' ||
+  /**
+   *
+   * some circular objects we know they exists
+   *  isReactObject
+   *  isMobxModel
+   *  isHtmlElement
+   *
+   * */
+  Boolean(obj['$$typeof']) ||
+  Boolean(obj['$modelType']) ||
+  obj instanceof HTMLElement ||
+  /**
+   *
+   * other circular objects
+   *
+   * */
+  // isVisited
+  _refs.has(obj)
+
+export const deepReplaceObjectValues = (
+  obj: any,
+  replacer: (value: any, key: string, innerObj: any) => any,
+  _refs: Nullish<WeakSet<any>> = null,
+): any => {
+  if (!_refs) {
+    _refs = new WeakSet()
   }
 
-  if (Array.isArray(obj)) {
-    return obj.map((itemValue) => deepReplaceObjectValues(itemValue, fn)) as TIn
-  }
-
-  obj = fn(obj, '', obj)
-
-  if (typeof obj !== 'object' || !obj) {
+  if (shouldSkip(obj, _refs)) {
     return obj
   }
 
-  if (Array.isArray(obj)) {
-    return deepReplaceObjectValues(obj, fn)
+  _refs.add(obj)
+
+  if (isArray(obj)) {
+    return obj.map((e) => deepReplaceObjectValues(e, replacer, _refs))
   }
 
-  const newObj: Record<string, any> = {}
-  const entries = Object.entries(obj)
+  obj = replacer(obj, '', obj)
 
-  for (const [key, value] of entries) {
-    let newValue
-
-    if (isObjectLike(value)) {
-      newValue = deepReplaceObjectValues(value, fn)
-    } else {
-      newValue = fn(value, key, obj)
-    }
-
-    newObj[key] = newValue
+  if (shouldSkip(obj, new WeakSet())) {
+    return obj
   }
 
-  return newObj as TIn
+  if (isArray(obj)) {
+    return obj.map((e) => deepReplaceObjectValues(e, replacer, _refs))
+  }
+
+  return entries(obj)
+    .map(([key, value]) => {
+      if (isArray(value)) {
+        value = value.map((v, index) => replacer(v, `${key}.${index}`, v))
+      } else if (isObjectLike(value)) {
+        value = deepReplaceObjectValues(value, replacer, _refs)
+      } else {
+        value = replacer(value, key, obj)
+      }
+
+      return { [key]: value }
+    })
+    .reduce(merge, {})
 }
