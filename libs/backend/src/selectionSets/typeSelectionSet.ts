@@ -1,13 +1,11 @@
-import { userSelectionSet } from './userSelectionSet'
-
 const baseSelection = `
   __typename
   id
   kind
   name
-  owner
-    ${userSelectionSet}
 `
+// owner
+//   ${userSelectionSet}
 
 export const primitiveTypeSelectionSet = `{
   ${baseSelection}

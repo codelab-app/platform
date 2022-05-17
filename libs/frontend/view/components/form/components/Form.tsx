@@ -1,11 +1,13 @@
 import { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import { css } from '@emotion/react'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
 
 export const Form = <TData, TResponse = unknown>({
+  cssString,
   submitRef,
   onSubmitSuccess = [],
   onSubmitError = [],
@@ -26,35 +28,41 @@ export const Form = <TData, TResponse = unknown>({
   }, [schema])
 
   return (
-    <AutoForm<TData>
-      autosave={autosave}
-      autosaveDelay={500}
-      model={model}
-      onChange={onChange}
-      onChangeModel={onChangeModel}
-      onSubmit={(formData) => {
-        const result = onSubmit(formData as TData)
-
-        if (!result) {
-          return result
-        }
-
-        return result
-          .then((r) => {
-            if (r) {
-              callbackWithParams(onSubmitSuccess, r as any)
-            }
-          })
-          .catch((err) => {
-            console.error(err)
-
-            callbackWithParams(onSubmitError, err)
-          })
-      }}
-      ref={connectUniformSubmitRef(submitRef)}
-      schema={bridge}
+    <div
+      css={css`
+        ${cssString}
+      `}
     >
-      {children}
-    </AutoForm>
+      <AutoForm<TData>
+        autosave={autosave}
+        autosaveDelay={500}
+        model={model}
+        onChange={onChange}
+        onChangeModel={onChangeModel}
+        onSubmit={(formData) => {
+          const result = onSubmit(formData as TData)
+
+          if (!result) {
+            return result
+          }
+
+          return result
+            .then((r) => {
+              if (r) {
+                callbackWithParams(onSubmitSuccess, r as any)
+              }
+            })
+            .catch((err) => {
+              console.error(err)
+
+              callbackWithParams(onSubmitError, err)
+            })
+        }}
+        ref={connectUniformSubmitRef(submitRef)}
+        schema={bridge}
+      >
+        {children}
+      </AutoForm>
+    </div>
   )
 }

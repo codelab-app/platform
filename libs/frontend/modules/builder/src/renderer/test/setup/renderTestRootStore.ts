@@ -1,6 +1,6 @@
 import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import { ComponentService } from '@codelab/frontend/modules/component'
-import { ElementService } from '@codelab/frontend/modules/element'
+import { ElementService, ElementTree } from '@codelab/frontend/modules/element'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import { componentServiceContext } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
@@ -11,6 +11,7 @@ import { renderServiceContext } from '../../renderServiceContext'
 export class RenderTestRootStore extends Model({
   typeService: prop<TypeService>(),
   atomService: prop<AtomService>(),
+  pageElementTree: prop<ElementTree>(),
   elementService: prop<ElementService>(),
   renderService: prop<RenderService>(),
   componentService: prop<ComponentService>(),

@@ -2,6 +2,7 @@ import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import {
+  ELEMENT_NODE_TYPE,
   IComponent,
   IElement,
   IElementDTO,
@@ -9,7 +10,7 @@ import {
   IPropData,
   IPropDataByElementId,
 } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
@@ -81,28 +82,29 @@ export class Element
   extends Model({
     id: idProp.withSetter(),
     children: prop(() => objectMap<Ref<IElement>>()),
+    __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
-    parentId: prop<Nullish<string>>(),
-    owner: prop<Nullish<string>>(),
+    parentId: prop<Nullable<string>>(null),
+    owner: prop<Nullable<string>>(null),
 
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
-    name: prop<Nullish<string>>(null).withSetter(),
-    css: prop<Nullish<string>>(null).withSetter(),
-    atom: prop<Nullish<Ref<Atom>>>(null).withSetter(),
-    props: prop<Nullish<Prop>>(null),
-    propTransformationJs: prop<Nullish<string>>(null).withSetter(),
-    renderIfPropKey: prop<Nullish<string>>(null).withSetter(),
-    renderForEachPropKey: prop<Nullish<string>>(null).withSetter(),
+    name: prop<Nullable<string>>(null).withSetter(),
+    css: prop<Nullable<string>>(null).withSetter(),
+    atom: prop<Nullable<Ref<Atom>>>(null).withSetter(),
+    props: prop<Nullable<Prop>>(null),
+    propTransformationJs: prop<Nullable<string>>(null).withSetter(),
+    renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
+    renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     propMapBindings: prop(() => objectMap<PropMapBinding>()),
 
     // component which has this element as rootElement
-    component: prop<Nullish<Ref<IComponent>>>().withSetter(),
+    component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
     // Marks the element as an instance of a specific component
-    instanceOfComponent: prop<Nullish<Ref<IComponent>>>().withSetter(),
+    instanceOfComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
   })
   implements IElement
@@ -358,15 +360,15 @@ export class Element
     parentElement,
   }: Omit<IElementDTO, '__typename'>) {
     this.id = id
-    this.name = name
-    this.css = css
-    this.propTransformationJs = propTransformationJs
-    this.renderIfPropKey = renderIfPropKey
-    this.renderForEachPropKey = renderForEachPropKey
+    this.name = name ?? null
+    this.css = css ?? null
+    this.propTransformationJs = propTransformationJs ?? null
+    this.renderIfPropKey = renderIfPropKey ?? null
+    this.renderForEachPropKey = renderForEachPropKey ?? null
     this.atom = atom ? atomRef(atom.id) : null
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
-    this.parentId = parentElement?.id
+    this.parentId = parentElement?.id ?? null
 
     if (props) {
       this.props?.updateCache(props)

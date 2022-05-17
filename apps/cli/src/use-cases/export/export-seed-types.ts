@@ -8,8 +8,10 @@ import {
   ReactNodeTypeOGM,
   reactNodeTypeSelectionSet,
 } from '@codelab/backend'
+import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
 import { ExportTypeData } from './export-user-types'
+import { sortInterfaceTypesFields } from './get-type'
 
 export const exportSeedTypes = async (): Promise<ExportTypeData> => {
   /**
@@ -19,6 +21,9 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
 
   const primitiveTypes = await PrimitiveType.find({
     selectionSet: primitiveTypeSelectionSet,
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
   })
 
   /**
@@ -29,6 +34,9 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
     selectionSet: reactNodeTypeSelectionSet,
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
   })
 
   /**
@@ -38,6 +46,9 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
 
   const enumTypes = await EnumType.find({
     selectionSet: enumTypeSelectionSet,
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
   })
 
   /**
@@ -53,6 +64,9 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
         count_GT: 0,
       },
     },
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
     selectionSet: interfaceTypeSelectionSet,
   })
 
@@ -66,7 +80,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
     ...reactNodeTypes,
     ...enumTypes,
     // Put interfaces last since they depend on primitive types when seeding
-    ...interfaceTypes,
+    ...sortInterfaceTypesFields(interfaceTypes),
   ] as Array<ITypeExport>
 
   return { types: allTypes }

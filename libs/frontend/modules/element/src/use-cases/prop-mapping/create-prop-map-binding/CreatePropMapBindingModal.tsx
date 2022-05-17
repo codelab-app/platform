@@ -7,6 +7,7 @@ import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
 import {
   ICreatePropMapBindingDTO,
   IElementService,
+  IElementTree,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -18,6 +19,7 @@ import { TargetKeyField } from './TargetKeyField'
 export interface CreatePropMapBindingModalProps {
   providePropCompletion?: (searchValue: string) => Array<string>
   elementService: IElementService
+  elementTree: IElementTree
 }
 
 interface CompletionValue {
@@ -29,6 +31,7 @@ export const CreatePropMapBindingModal = observer(
   ({
     elementService,
     providePropCompletion,
+    elementTree,
   }: CreatePropMapBindingModalProps) => {
     const closeModal = () => elementService.createPropMapBindingModal.close()
     const element = elementService.createPropMapBindingModal.element
@@ -53,7 +56,7 @@ export const CreatePropMapBindingModal = observer(
     }
 
     const allElementOptions: Array<SelectElementOption> =
-      elementService.elementTree.elementsList.map((e) => ({
+      elementTree.elementsList.map((e) => ({
         value: e.id,
         label: e.label,
         childrenIds: e.childrenSorted.map((c) => c.id),
@@ -101,7 +104,10 @@ export const CreatePropMapBindingModal = observer(
             targetElementId={element?.id}
           />
 
-          <TargetKeyField name="targetKey" tree={elementService.elementTree} />
+          <TargetKeyField
+            element={elementService.element.bind(elementService)}
+            name="targetKey"
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

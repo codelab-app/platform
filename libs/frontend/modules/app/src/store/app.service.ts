@@ -8,6 +8,7 @@ import {
   ICreateAppDTO,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { connectId, connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
@@ -61,7 +62,7 @@ export class AppService
   @transaction
   update = _async(function* (
     this: AppService,
-    app: App,
+    app: IEntity,
     { name, storeId }: IUpdateAppDTO,
   ) {
     const {

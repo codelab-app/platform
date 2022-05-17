@@ -1,7 +1,7 @@
+import { IPageService } from '@codelab/shared/abstract/core'
 import { createContext } from 'mobx-keystone'
-import { PageService } from './page.service'
 
-export const pageServiceContext = createContext<PageService>()
+export const pageServiceContext = createContext<IPageService>()
 
 export const getPageService = (self: any) => {
   const pageService = pageServiceContext.get(self)

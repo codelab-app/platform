@@ -13,7 +13,6 @@ import {
   _async,
   _await,
   arraySet,
-  createContext,
   Model,
   model,
   modelAction,
@@ -220,17 +219,4 @@ export class AtomService
 
     return existing
   })
-}
-
-// This can be used to access the type store from anywhere inside the mobx-keystone tree
-export const atomServiceContext = createContext<AtomService>()
-
-export const getAtomService = (self: any) => {
-  const atomService = atomServiceContext.get(self)
-
-  if (!atomService) {
-    throw new Error('atomServiceContext is not defined')
-  }
-
-  return atomService
 }

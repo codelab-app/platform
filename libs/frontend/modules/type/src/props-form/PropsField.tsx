@@ -23,7 +23,7 @@ type PropsFieldFactoryProps = {
 /**
  * Creates a field for the props form given a specific type for the field
  */
-export const PropsFields = observer<PropsFieldFactoryProps>(
+export const PropsField = observer<PropsFieldFactoryProps>(
   ({
     field,
     form,
@@ -48,8 +48,6 @@ export const PropsFields = observer<PropsFieldFactoryProps>(
           control={form.control}
           name={field.key}
           render={({ field: itemField }) => {
-            console.log(itemField)
-
             const { onBlur, onChange, value } = itemField
 
             return (

@@ -170,7 +170,7 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
       if (!exists.length) {
         console.log(`Creating ${data.name} [${data.kind}]...`)
 
-        return await InterfaceType.create({
+        await InterfaceType.create({
           input: [
             {
               ...createBaseFields(data, selectedUser),
@@ -207,8 +207,6 @@ export const upsertType = async (data: ITypeExport, selectedUser: string) => {
        * Then connect everything again
        */
       console.log(`Connecting fields for ${data.name}`)
-
-      // upsertField()
 
       for (const edge of data.fieldsConnection.edges) {
         const args = {

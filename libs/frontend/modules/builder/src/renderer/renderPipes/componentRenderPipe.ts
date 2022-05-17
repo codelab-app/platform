@@ -13,7 +13,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
-import type { RenderService } from '../render.service'
 import { getRenderService } from '../renderServiceContext'
 
 @model('@codelab/ComponentRenderPipe')
@@ -59,7 +58,7 @@ export class ComponentRenderPipe
   }
 
   private static logRootElementNotFound(
-    renderer: RenderService,
+    renderer: IRenderService,
     element: Element,
   ) {
     if (renderer.debugMode) {

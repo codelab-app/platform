@@ -4,7 +4,7 @@ export const componentSchema = gql`
   type Component {
     id: ID! @id
     name: String!
-    rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: IN)
+    rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 

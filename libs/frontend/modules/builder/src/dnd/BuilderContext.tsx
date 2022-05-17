@@ -53,4 +53,6 @@ export const BuilderContext = observer<
   )
 })
 
+BuilderContext.displayName = 'BuilderContext'
+
 export const withBuilderContext = withProvider(BuilderContext)

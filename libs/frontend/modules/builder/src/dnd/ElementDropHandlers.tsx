@@ -1,4 +1,3 @@
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { HoverOverlay } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -40,12 +39,16 @@ const BuilderDropHandler = observer<BuilderDropHandlerProps>(
   },
 )
 
-export const ElementDropHandlers = observer<WithServices<BUILDER_SERVICE>>(
-  ({ builderService }) => {
+type ElementDropHandlersProps = {
+  elementsList: Array<IElement>
+}
+
+export const ElementDropHandlers = observer<ElementDropHandlersProps>(
+  ({ elementsList }) => {
     return (
       // eslint-disable-next-line react/jsx-no-useless-fragment
       <>
-        {builderService.builderRenderer.tree?.elementsList.map((element) => {
+        {elementsList.map((element) => {
           if (!element) {
             return null
           }
@@ -69,4 +72,4 @@ export const ElementDropHandlers = observer<WithServices<BUILDER_SERVICE>>(
   },
 )
 
-ElementDropHandlers.displayName = 'BuilderDropHandlers'
+ElementDropHandlers.displayName = 'ElementDropHandlers'

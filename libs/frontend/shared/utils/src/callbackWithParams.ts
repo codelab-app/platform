@@ -1,5 +1,5 @@
 import type { Callback } from '@codelab/frontend/abstract/types'
-import { isFunction, isObjectLike } from 'lodash'
+import { isFunction } from 'lodash'
 import { ArrayOrSingle } from 'ts-essentials'
 
 export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
@@ -9,7 +9,7 @@ export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
   const callbacksArray = Array.isArray(callbacks) ? callbacks : [callbacks]
 
   callbacksArray.forEach((cb) => {
-    if (isFunction(cb) && isObjectLike(param)) {
+    if (isFunction(cb)) {
       cb(param)
     }
   })

@@ -1,38 +1,32 @@
-import { Tree } from 'antd'
-import { Key, useState } from 'react'
+import { Button } from 'antd'
+import React, { useCallback, useState } from 'react'
+
+const useDemo = () => {
+  console.log('useDemo')
+
+  const sayHello = useCallback(() => {
+    console.log('hello')
+  }, [])
+
+  return {}
+}
+
+const Counter = (props: any) => {
+  console.log('Counter')
+
+  return <span>{props.counter}</span>
+}
 
 const Demo = () => {
-  const [expandedKeys, setExpandedKeys] = useState<Array<Key>>([])
+  console.log('Demo')
 
-  const treeData = [
-    {
-      title: 'Root',
-      key: 'root',
-      children: [
-        {
-          title: 'A',
-          key: 'a',
-        },
-        {
-          title: 'B',
-          key: 'b',
-        },
-      ],
-    },
-  ]
+  const [counter, setCounter] = useState(0)
 
   return (
-    <Tree
-      expandedKeys={expandedKeys}
-      onExpand={(keys) => {
-        console.log(keys)
-        setExpandedKeys(keys)
-      }}
-      onSelect={([id]) => {
-        //
-      }}
-      treeData={treeData}
-    />
+    <>
+      <Button onClick={() => setCounter(counter + 1)}>Click</Button>
+      <Counter counter={counter} />
+    </>
   )
 }
 

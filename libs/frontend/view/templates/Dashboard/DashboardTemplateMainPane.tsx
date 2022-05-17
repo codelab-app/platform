@@ -13,7 +13,7 @@ export interface DashboardTemplateMainPaneProps {
   resizable: UseResizable
 }
 
-const DashboardTemplateMainPane = ({
+export const DashboardTemplateMainPane = ({
   hasHeader,
   hasSidebarNavigation,
   resizable,
@@ -52,4 +52,4 @@ const DashboardTemplateMainPane = ({
   )
 }
 
-export default DashboardTemplateMainPane
+DashboardTemplateMainPane.displayName = 'DashboardTemplateMainPane'

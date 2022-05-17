@@ -2,7 +2,7 @@ import { motion, MotionValue } from 'framer-motion'
 import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
-import { sidebarNavigationWidth } from './constants'
+import { defaultHeaderHeight, sidebarNavigationWidth } from './constants'
 
 export interface DashboardTemplateMetaPaneProps {
   hasSidebarNavigation: boolean
@@ -24,22 +24,20 @@ export const DashboardTemplateMetaPane = ({
 
   return (
     <motion.div
-      animate={{ y: 0 }}
-      css={tw`fixed left-0 right-0 bottom-0 bg-white z-50 flex flex-col`}
-      exit={{ y: 400 }}
-      initial={{ y: 0 }}
+      css={tw`fixed top-0 right-0 bottom-0 h-full bg-white z-50 flex flex-row`}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...resizable.containerProps}
       style={{
         ...resizable.containerProps.style,
-        marginLeft: mainPaneMarginLeft,
-        paddingLeft: sidebarNavMarginLeft,
+        // marginLeft: mainPaneMarginLeft,
+        // paddingLeft: sidebarNavMarginLeft,
+        top: `${defaultHeaderHeight}px`,
       }}
     >
       <motion.div
-        css={[tw`bg-gray-200 w-full z-10`, `min-height: 2px`]}
+        css={[tw`bg-gray-200 h-full z-10`, `width: 2px`]}
         // eslint-disable-next-line react/jsx-props-no-spreading
-        {...resizable.yDragHandleProps}
+        {...resizable.xDragHandleProps}
       />
       <div css={tw`flex-1 overflow-y-auto`}>
         <MetaPane />

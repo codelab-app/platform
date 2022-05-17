@@ -6,6 +6,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { AutoCompleteField, ModalForm } from '@codelab/frontend/view/components'
 import {
   IElementService,
+  IElementTree,
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -18,11 +19,12 @@ import { updatePropMapBindingSchema } from './updatePropMapBindingSchema'
 export interface UpdatePropMapBindingModalProps {
   providePropCompletion?: (searchValue: string) => Array<string>
   elementService: IElementService
+  elementTree: IElementTree
 }
 
 export const UpdatePropMapBindingModal =
   observer<UpdatePropMapBindingModalProps>(
-    ({ providePropCompletion, elementService }) => {
+    ({ providePropCompletion, elementService, elementTree }) => {
       const [propCompleteOptions, setPropCompleteOptions] = useState<
         Array<{ label: string; value: string }>
       >([])
@@ -43,7 +45,7 @@ export const UpdatePropMapBindingModal =
       }
 
       const allElementOptions: Array<SelectElementOption> =
-        elementService.elementTree.elementsList.map((e) => ({
+        elementTree.elementsList.map((e) => ({
           value: e.id,
           label: e.label,
           childrenIds: e.childrenSorted.map((c) => c.id),
@@ -91,8 +93,8 @@ export const UpdatePropMapBindingModal =
               targetElementId={element?.id}
             />
             <TargetKeyField
+              element={elementService.element.bind(elementService)}
               name="targetKey"
-              tree={elementService.elementTree}
             />
           </ModalForm.Form>
         </ModalForm.Modal>

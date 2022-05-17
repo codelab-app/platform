@@ -78,3 +78,5 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       : Children
   },
 )
+
+ElementWrapper.displayName = 'ElementWrapper'

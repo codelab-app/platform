@@ -67,4 +67,6 @@ const App = ({ pageProps, Component }: IAppProps) => {
   )
 }
 
+App.displayName = 'App'
+
 export default App

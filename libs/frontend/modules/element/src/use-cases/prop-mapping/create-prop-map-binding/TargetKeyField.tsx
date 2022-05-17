@@ -1,6 +1,6 @@
 import { getTypeApi } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { IElementTree } from '@codelab/shared/abstract/core'
+import { IElementService } from '@codelab/shared/abstract/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import { observer } from 'mobx-react-lite'
@@ -8,9 +8,8 @@ import React, { Ref, useEffect, useState } from 'react'
 import { connectField, FieldProps, filterDOMProps, useField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 
-type InnerProps = Omit<AutoCompleteProps, 'onSearch' | 'options'> & {
-  tree: IElementTree
-}
+type InnerProps = Omit<AutoCompleteProps, 'onSearch' | 'options'> &
+  Pick<IElementService, 'element'>
 
 export type TargetKeyFieldProps = FieldProps<
   string,
@@ -32,7 +31,7 @@ const filterSearch = (
  * Provides autocompletion for the keys of the api of a target element
  */
 const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
-  ({ tree, ...props }) => {
+  ({ element, ...props }) => {
     // Get the targetElementId value from the other field
     const [{ value: targetElementId }] = useField(
       'targetElementId',
@@ -51,7 +50,7 @@ const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
     // Every time the targetElementId changes, fetch the targetElement's api
     useEffect(() => {
       const targetElement = targetElementId
-        ? tree.element(targetElementId as string)
+        ? element(targetElementId as string)
         : null
 
       const api = targetElement?.atom?.current.api
@@ -74,7 +73,7 @@ const TargetKeyFieldInternal = observer<TargetKeyFieldProps>(
       } else {
         setOptions([])
       }
-    }, [targetElementId, tree])
+    }, [targetElementId])
 
     // When the options change, or when the searchInput changes, update the options to filter them down using the search criteria
     const prevSearchValue = usePrevious(searchInput)

@@ -7,7 +7,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
 import { defaultHeaderHeight, sidebarNavigationWidth } from './constants'
-import DashboardTemplateMainPane from './DashboardTemplateMainPane'
+import { DashboardTemplateMainPane } from './DashboardTemplateMainPane'
 import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
 
 const { Sider, Header: AntDesignHeader } = Layout
@@ -23,11 +23,12 @@ export const DashboardTemplate = observer(
     contentStyles,
   }: React.PropsWithChildren<BuilderDashboardTemplateProps>) => {
     const mainPaneResizable = useResizable({
-      width: { default: 300, max: 600, min: 300 },
+      width: { default: 240, max: 600, min: 240 },
     })
 
     const metaPaneResizable = useResizable({
-      height: { default: 320, max: 400, min: 5 },
+      width: { default: 240, max: 600, min: 240 },
+      reverse: true,
     })
 
     return (
@@ -39,7 +40,7 @@ export const DashboardTemplate = observer(
         {SidebarNavigation && (
           <Sider
             collapsed
-            collapsedWidth={40}
+            collapsedWidth={sidebarNavigationWidth}
             style={{
               zIndex: 50,
               maxHeight: '100vh',
@@ -108,8 +109,8 @@ export const DashboardTemplate = observer(
               {MetaPane && (
                 <DashboardTemplateMetaPane
                   MetaPane={MetaPane}
-                  hasMainPane={!!MainPane}
-                  hasSidebarNavigation={!!SidebarNavigation}
+                  hasMainPane={Boolean(MainPane)}
+                  hasSidebarNavigation={Boolean(SidebarNavigation)}
                   mainPaneWidth={mainPaneResizable.width}
                   resizable={metaPaneResizable}
                 />
@@ -121,3 +122,5 @@ export const DashboardTemplate = observer(
     )
   },
 )
+
+DashboardTemplate.displayName = 'DashboardTemplate'

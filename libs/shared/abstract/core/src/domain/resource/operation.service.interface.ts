@@ -4,6 +4,7 @@ import { Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import {
   ICreateOperationDTO,
+  IOperationDTO,
   IUpdateOperationDTO,
 } from './operation.dto.interface'
 import { IOperation } from './operation.model.interface'
@@ -18,4 +19,5 @@ export interface IOperationService
     ICRUDModalService<Ref<IOperation>, IOperationModalProperties> {
   setSelectedOperations(operations: Array<Ref<IOperation>>): void
   operationList(resource: Nullish<string>): Array<IOperation>
+  updateCache(operations: Array<IOperationDTO>): void
 }

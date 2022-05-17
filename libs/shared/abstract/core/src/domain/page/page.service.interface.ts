@@ -3,7 +3,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import { ICreatePageDTO, IUpdatePageDTO } from './page.dto.interface'
-import { IPage } from './page.interface'
+import { IPage } from './page.model.interface'
 
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageDTO, IUpdatePageDTO>,
@@ -14,6 +14,7 @@ export interface IPageService
    */
   pages: ObjectMap<IPage>
   pagesList: Array<IPage>
+  deleteManyByAppId(id: string): Promise<void>
   page(id: string): Maybe<IPage>
 
   /**

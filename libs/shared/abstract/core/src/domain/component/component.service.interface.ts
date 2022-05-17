@@ -3,13 +3,13 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
-import { IElementService } from '../element'
+import { IElementTree } from '../element'
 import {
   IComponentDTO,
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from './component.dto.interface'
-import { IComponent } from './component.interface'
+import { IComponent } from './component.model.interface'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentDTO, IUpdateComponentDTO>,
@@ -18,7 +18,8 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: DataNode
-  componentTrees: ObjectMap<IElementService>
+  componentAntdNodeV2: DataNode
+  elementTrees: ObjectMap<IElementTree>
   loadComponentTrees(): Promise<any>
   updateCaches(components: Array<IComponentDTO>): void
 }

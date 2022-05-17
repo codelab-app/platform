@@ -174,7 +174,7 @@ export class OperationService
   })
 }
 
-export const operationServiceContext = createContext<OperationService>()
+export const operationServiceContext = createContext<IOperationService>()
 
 export const getOperationService = (self: object) => {
   const operationStore = operationServiceContext.get(self)

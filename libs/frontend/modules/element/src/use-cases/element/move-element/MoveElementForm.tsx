@@ -5,7 +5,7 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement, MoveData } from '@codelab/shared/abstract/core'
+import { IElement, IElementTree, MoveData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -15,11 +15,12 @@ import { moveElementSchema } from './moveElementSchema'
 export type MoveElementFormProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
+  elementTree: IElementTree
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer<MoveElementFormProps>(
-  ({ element, elementService, trackPromises }) => {
+  ({ element, elementService, trackPromises, elementTree }) => {
     const { trackPromise } = trackPromises ?? {}
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
@@ -29,7 +30,10 @@ export const MoveElementForm = observer<MoveElementFormProps>(
     })
 
     const onSubmit = (data: MoveData) => {
-      const promise = elementService.moveElement(element.id, data)
+      const promise = elementService.moveElement(
+        element.id,
+        data.parentElementId,
+      )
 
       if (trackPromise) {
         trackPromise(promise)
@@ -38,8 +42,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       return promise
     }
 
-    const elementOptions =
-      elementService.elementTree.elementsList.map(mapElementOption)
+    const elementOptions = elementTree.elementsList.map(mapElementOption)
 
     return (
       <Form<MoveData>

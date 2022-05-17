@@ -1,4 +1,11 @@
 import {
+  FormatPainterOutlined,
+  FunctionOutlined,
+  NodeIndexOutlined,
+  SettingOutlined,
+  SwapOutlined,
+} from '@ant-design/icons'
+import {
   ATOM_SERVICE,
   BUILDER_SERVICE,
   ELEMENT_SERVICE,
@@ -7,7 +14,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import {
   ElementCssEditor,
-  ElementHookSection,
   PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
@@ -17,14 +23,18 @@ import {
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
-import { Tabs } from 'antd'
+import {
+  IComponent,
+  IElement,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
+import { css } from '@emotion/react'
+import { Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
-import { TabContainer } from './MetaPaneTabContainer'
-import { PropsInspectorTab } from './PropsInspectorTab'
+import { TabContainer } from './MetaPane-TabContainerStyle'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -36,17 +46,39 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 )
 
 export type MetaPaneBuilderProps = {
-  renderUpdateElementContent: (
-    element: IElement,
-    trackPromises: UseTrackLoadingPromises,
-  ) => React.ReactNode
+  elementTree: IElementTree
+  UpdateElementContent: (props: {
+    node: IElement | IComponent
+    trackPromises: UseTrackLoadingPromises
+  }) => React.ReactElement | null
 } & WithServices<
   TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
 >
 
-export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
+type TooltipIconProps = {
+  title: string
+  icon: ReactNode
+}
+
+const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
+  return (
+    <Tooltip
+      css={css`
+        &.anticon {
+          ${tw`!mr-0 p-0 h-full flex items-center`}
+        }
+      `}
+      title={title}
+    >
+      {icon}
+    </Tooltip>
+  )
+}
+
+export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
   ({
-    renderUpdateElementContent,
+    UpdateElementContent,
+    elementTree,
     builderService,
     typeService,
     atomService,
@@ -69,15 +101,16 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
+        <Tabs defaultActiveKey={selectedElement.id + '_tab1'} size="small">
           <Tabs.TabPane
             key={selectedElement.id + '_tab1'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Element"
+            tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
           >
-            <FormsGrid>
-              {renderUpdateElementContent(selectedElement, trackPromises)}
-            </FormsGrid>
+            <UpdateElementContent
+              node={selectedElement}
+              trackPromises={trackPromises}
+            />
           </Tabs.TabPane>
 
           <Tabs.TabPane
@@ -85,7 +118,7 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
             key={selectedElement.id + '_tab2'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             // needed to update props if we change them in the prop inspector tab
-            tab="Props"
+            tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
             {selectedElement.atom ? (
               <UpdateElementPropsForm
@@ -106,7 +139,7 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
           <Tabs.TabPane
             key={selectedElement.id + '_tab3'}
             style={{ overflow: 'visible' }}
-            tab="CSS"
+            tab={<TooltipIcon icon={<FormatPainterOutlined />} title="CSS" />}
           >
             {selectedElement.atom ? (
               <ElementCssEditor
@@ -120,40 +153,41 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
             )}
           </Tabs.TabPane>
 
-          <Tabs.TabPane
-            key={selectedElement.id + '_tab4'}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Hooks"
-          >
-            <ElementHookSection
-              atomService={atomService}
-              elementId={selectedElement.id}
-              key={selectedElement.id}
-              typeService={typeService}
-            />
-          </Tabs.TabPane>
+          {/* <Tabs.TabPane */}
+          {/*  key={selectedElement.id + '_tab4'} */}
+          {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
+          {/*  tab="Hooks" */}
+          {/* > */}
+          {/*  <ElementHookSection */}
+          {/*    atomService={atomService} */}
+          {/*    elementId={selectedElement.id} */}
+          {/*    key={selectedElement.id} */}
+          {/*    typeService={typeService} */}
+          {/*  /> */}
+          {/* </Tabs.TabPane> */}
 
-          <Tabs.TabPane
-            key={selectedElement.id + '_tab5'}
-            style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Props Inspector"
-          >
-            <PropsInspectorTab
-              builderService={builderService}
-              element={selectedElement}
-              elementService={elementService}
-              key={selectedElement.id}
-            />
-          </Tabs.TabPane>
+          {/* <Tabs.TabPane */}
+          {/*  key={selectedElement.id + '_tab5'} */}
+          {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
+          {/*  tab="Props Inspector" */}
+          {/* > */}
+          {/*  <PropsInspectorTab */}
+          {/*    builderService={builderService} */}
+          {/*    element={selectedElement} */}
+          {/*    elementService={elementService} */}
+          {/*    key={selectedElement.id} */}
+          {/*  /> */}
+          {/* </Tabs.TabPane> */}
 
           <Tabs.TabPane
             key={selectedElement.id + '_tab6'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Prop mapping"
+            tab={<TooltipIcon icon={<SwapOutlined />} title="Props Map" />}
           >
             <PropMapBindingSection
               element={selectedElement}
               elementService={elementService}
+              elementTree={elementTree}
               key={selectedElement.id}
               providePropCompletion={(searchValue) =>
                 selectedElement
@@ -166,7 +200,12 @@ export const MetaPaneBuilder = observer<MetaPaneBuilderProps>(
           <Tabs.TabPane
             key={selectedElement.id + '_tab7'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
-            tab="Prop transformation"
+            tab={
+              <TooltipIcon
+                icon={<FunctionOutlined />}
+                title="Props Transformation"
+              />
+            }
           >
             <UpdateElementPropTransformationForm
               element={selectedElement}

@@ -16,12 +16,12 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import { BuilderTab } from '@codelab/shared/abstract/core'
+import { BuilderTab, IElementTree } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderMainPaneHeader } from './BuilderMainPaneHeader'
@@ -34,21 +34,24 @@ const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.Tree]: 'Page',
 }
 
-export const BuilderMainPane = observer<
-  WithServices<
-    | ATOM_SERVICE
-    | COMPONENT_SERVICE
-    | ELEMENT_SERVICE
-    | BUILDER_SERVICE
-    | USER_SERVICE
-  >
->(
+type BuilderMainPaneProps = WithServices<
+  | ATOM_SERVICE
+  | COMPONENT_SERVICE
+  | ELEMENT_SERVICE
+  | BUILDER_SERVICE
+  | USER_SERVICE
+> & {
+  pageElementTree: IElementTree
+}
+
+export const BuilderMainPane = observer<BuilderMainPaneProps>(
   ({
     atomService,
     builderService,
     elementService,
     componentService,
     userService,
+    pageElementTree,
   }) => {
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
@@ -59,11 +62,13 @@ export const BuilderMainPane = observer<
       [],
     )
 
-    const root = elementService.elementTree?.root
-    const antdTree = elementService.elementTree.root?.antdNode
-    const componentsAntdTree = componentService.componentAntdNode
+    const root = pageElementTree?.root
+    const antdTree = root?.antdNode
+    const componentsAntdTree = componentService.componentAntdNodeV2
 
-    componentService.loadComponentTrees()
+    useEffect(() => {
+      componentService.loadComponentTrees()
+    }, [])
 
     const BaseBuilderTree = observer(
       ({
@@ -84,9 +89,8 @@ export const BuilderMainPane = observer<
               elementService.duplicateElement.bind(elementService),
             convertElementToComponent:
               elementService.convertElementToComponent.bind(elementService),
-            elementTree: elementService.elementTree,
           }}
-          elementTree={elementService.elementTree}
+          elementTree={pageElementTree}
           moveElement={elementService.moveElement.bind(elementService)}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(
@@ -99,6 +103,8 @@ export const BuilderMainPane = observer<
         />
       ),
     )
+
+    BaseBuilderTree.displayName = 'BaseBuilderTree'
 
     return (
       <MainPaneTemplate
@@ -120,12 +126,14 @@ export const BuilderMainPane = observer<
         title={paneTitles[builderTab]}
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          <BaseBuilderTree className="page-builder" treeData={antdTree} />
+          {antdTree ? (
+            <BaseBuilderTree className="page-builder" treeData={antdTree} />
+          ) : null}
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          <BaseBuilderTree treeData={componentsAntdTree} />
+          {antdTree ? <BaseBuilderTree treeData={componentsAntdTree} /> : null}
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
@@ -142,6 +150,7 @@ export const BuilderMainPane = observer<
 
         <CreateElementModal
           elementService={elementService}
+          elementTree={pageElementTree}
           userService={userService}
         />
         <CreateComponentModal
@@ -153,3 +162,5 @@ export const BuilderMainPane = observer<
     )
   },
 )
+
+BuilderMainPane.displayName = 'BuilderMainPane'

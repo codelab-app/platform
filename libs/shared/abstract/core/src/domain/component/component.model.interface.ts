@@ -1,6 +1,7 @@
+import { INodeType } from '../../base/node.interface'
 import { IComponentDTO } from './component.dto.interface'
 
-export interface IComponent {
+export interface IComponent extends INodeType<'Component'> {
   id: string
   name: string
   rootElementId: string

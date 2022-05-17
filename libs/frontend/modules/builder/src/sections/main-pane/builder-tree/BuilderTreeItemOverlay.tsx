@@ -1,5 +1,3 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IElement } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -32,3 +30,5 @@ export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
     )
   },
 )
+
+BuilderTreeItemOverlay.displayName = 'BuilderTreeItemOverlay'

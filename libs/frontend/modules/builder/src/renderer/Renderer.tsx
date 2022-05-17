@@ -1,12 +1,10 @@
-import {
-  RENDER_SERVICE,
-  ROOT_RENDER_CONTAINER_ID,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import { IRenderService } from '@codelab/shared/abstract/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
+export type RendererProps = Pick<IRenderService, 'isInitialized' | 'renderRoot'>
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
  *
@@ -28,19 +26,18 @@ import React from 'react'
  *
  * - We use this for prop map binding, which is a strategy for passing props to any descendant element. We might deprecate this in the future
  *
- *
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
-export const Renderer = observer<WithServices<RENDER_SERVICE>>(
-  ({ renderService }) => {
-    if (!renderService.isInitialized) {
+export const Renderer = observer<RendererProps>(
+  ({ isInitialized, renderRoot }) => {
+    if (!isInitialized) {
       return null
     }
 
     return (
       <ErrorBoundary>
         <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
-          {renderService.renderRoot()}
+          {renderRoot()}
         </div>
       </ErrorBoundary>
     )

@@ -44,9 +44,10 @@ export const makeCreateInput = (
       }
     : undefined
 
-  const props: ElementCreateInput['props'] = propsData
-    ? { create: { node: { data: propsData } } }
-    : undefined
+  // Always create props
+  const props: ElementCreateInput['props'] = {
+    create: { node: { data: propsData ?? JSON.stringify({}) } },
+  }
 
   return {
     instanceOfComponent,
@@ -115,7 +116,10 @@ export const makeUpdateInput = (
   input: IUpdateElementDTO,
 ): ElementUpdateInput => {
   const atom = input.atomId
-    ? { connect: { where: { node: { id: input.atomId } } } }
+    ? {
+        connect: { where: { node: { id: input.atomId } } },
+        disconnect: { where: {} },
+      }
     : { disconnect: { where: {} } }
 
   const instanceOfComponent = input.instanceOfComponentId
@@ -125,6 +129,14 @@ export const makeUpdateInput = (
   return {
     name: input.name,
     atom,
+    props: {
+      update: {
+        node: {
+          data: JSON.stringify(input.props),
+        },
+      },
+    },
+    css: input.css,
     renderForEachPropKey: input.renderForEachPropKey,
     instanceOfComponent,
     renderIfPropKey: input.renderIfPropKey,

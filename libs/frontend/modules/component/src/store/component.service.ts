@@ -1,13 +1,8 @@
 import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
-import {
-  atomServiceContext,
-  getAtomService,
-} from '@codelab/frontend/modules/atom'
-import { ElementService } from '@codelab/frontend/modules/element'
+import { Element, ElementTree } from '@codelab/frontend/modules/element'
 import { getUserService } from '@codelab/frontend/modules/user'
 import {
-  componentServiceContext,
-  getComponentService,
+  elementServiceContext,
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
@@ -17,9 +12,10 @@ import {
   IComponentDTO,
   IComponentService,
   ICreateComponentDTO,
-  IElementService,
+  IElementTree,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
@@ -38,12 +34,15 @@ import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
+/**
+ * Component service will use ref from ElementService
+ */
 @model('@codelab/ComponentService')
 export class ComponentService
   extends Model({
     components: prop(() => objectMap<IComponent>()),
     // Map of component id to elementTree
-    componentTrees: prop(() => objectMap<IElementService>()),
+    elementTrees: prop(() => objectMap<IElementTree>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ComponentModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
@@ -67,14 +66,39 @@ export class ComponentService
       title: 'Components',
       selectable: false,
       children: [...this.components.values()].map((component) => {
-        const elementService = this.componentTrees.get(component.id)
-        const dataNode = elementService?.elementTree?.root?.antdNode
+        const elementTree = this.elementTrees.get(component.id)
+        const dataNode = elementTree?.root?.antdNode
 
         return {
           id: component.id,
           key: component.id,
           title: component.name,
           selectable: false,
+          children: [dataNode].filter((data): data is DataNode =>
+            Boolean(data),
+          ),
+        }
+      }),
+    }
+  }
+
+  @computed
+  get componentAntdNodeV2() {
+    return {
+      id: COMPONENT_TREE_CONTAINER,
+      key: COMPONENT_TREE_CONTAINER,
+      title: 'Components',
+      selectable: false,
+      children: [...this.components.values()].map((component) => {
+        const elementTree = this.elementTrees.get(component.id)
+        const dataNode = elementTree?.root?.antdNode
+
+        return {
+          id: component.id,
+          key: component.id,
+          title: component.name,
+          // This should bring up a meta pane for editing the component
+          selectable: true,
           children: [dataNode].filter((data): data is DataNode =>
             Boolean(data),
           ),
@@ -95,31 +119,37 @@ export class ComponentService
       }),
     )
 
+    const rootElement = new Element({
+      id: 'components',
+      name: 'Components',
+      owner: '',
+    })
+
     return components.map(async (component) => {
-      const existingElementService = this.componentTrees.has(component.id)
+      /**
+       * Each component should instantiate its own element tree
+       */
+      const elementTree = new ElementTree({})
 
-      if (!existingElementService) {
-        /**
-         * Each component should instantiate its own element tree
-         */
-        const elementService = new ElementService({})
+      this.elementTrees.set(component.id, elementTree)
 
-        this.componentTrees.set(component.id, elementService)
+      /**
+       * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
+       *
+       * Need to manually set as a workaround
+       */
+      // atomServiceContext.apply(() => elementTree, getAtomService(this))
+      elementServiceContext.apply(() => elementTree, getElementService(this))
+      // componentServiceContext.apply(
+      //   () => elementTree,
+      //   getComponentService(this),
+      // )
 
-        /**
-         * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
-         *
-         * Need to manually set as a workaround
-         */
-        atomServiceContext.apply(() => elementService, getAtomService(this))
-        componentServiceContext.apply(
-          () => elementService,
-          getComponentService(this),
-        )
+      const componentTree = await elementTree.getTree(component.rootElementId)
 
-        const componentTree = await elementService.getTree(
-          component.rootElementId,
-        )
+      // Append this to rootComponentNode
+      if (componentTree?.root) {
+        rootElement.addChild(componentTree?.root)
       }
     })
   })
@@ -181,9 +211,9 @@ export class ComponentService
 
     this.components.set(component.id, componentModel)
 
-    const componentTree = yield* _await(
-      this.elementService.getTree(component.rootElement.id),
-    )
+    // const componentTree = yield* _await(
+    //   this.elementService.getTree(component.rootElement.id),
+    // )
 
     // this.componentTrees.set(component.id, componentTree)
 
@@ -194,11 +224,9 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    component: Component,
+    component: IEntity,
     { name }: IUpdateComponentDTO,
   ) {
-    component.setName(name)
-
     const { updateComponents } = yield* _await(
       componentApi.UpdateComponents({
         update: { name },
@@ -212,9 +240,11 @@ export class ComponentService
       throw new Error('Failed to update component')
     }
 
-    component.setName(updatedComponent.name)
+    const componentModel = Component.hydrate(updatedComponent)
 
-    return component
+    this.components.set(component.id, componentModel)
+
+    return componentModel
   })
 
   @modelFlow

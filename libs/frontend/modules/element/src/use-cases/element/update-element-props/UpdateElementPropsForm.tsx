@@ -42,13 +42,23 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       if (apiId) {
         getInterfaceType(apiId)
       }
-    }, [getInterfaceType, apiId])
+    }, [apiId])
 
     const onSubmit = (data: IPropData) => {
-      const promise = elementService.updateElementProps(element, data)
+      const promise = elementService.patchElement(element, {
+        props: {
+          update: {
+            node: {
+              data: JSON.stringify(data),
+            },
+          },
+        },
+      })
 
       return trackPromise?.(promise) ?? promise
     }
+
+    console.log(interfaceType)
 
     return (
       <Spinner isLoading={isLoading}>

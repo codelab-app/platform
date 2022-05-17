@@ -24,4 +24,5 @@ export interface IRenderService {
     providerTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ): void
+  renderElement(element: IElement, extraProps?: IPropData): ReactElement
 }

@@ -1,5 +1,5 @@
 import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, IElementTree } from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
 import {
@@ -12,6 +12,7 @@ import {
 
 export type PropMapBindingSectionProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
+  elementTree: IElementTree
   providePropCompletion?: (searchValue: string) => Array<string>
 }
 
@@ -19,6 +20,7 @@ export const PropMapBindingSection = ({
   element,
   elementService,
   providePropCompletion,
+  elementTree,
 }: PropMapBindingSectionProps) => {
   return (
     <>
@@ -31,10 +33,12 @@ export const PropMapBindingSection = ({
       </div>
       <CreatePropMapBindingModal
         elementService={elementService}
+        elementTree={elementTree}
         providePropCompletion={providePropCompletion}
       />
       <UpdatePropMapBindingModal
         elementService={elementService}
+        elementTree={elementTree}
         providePropCompletion={providePropCompletion}
       />
       <DeletePropMapBindingModal elementService={elementService} />

@@ -2,11 +2,14 @@ import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  AutoCompleteField,
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement, IUpdateElementDTO } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IUpdateBaseElementDTO,
+  IUpdateElementDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -58,8 +61,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     return (
-      <Form<IUpdateElementDTO>
+      <Form<IUpdateBaseElementDTO>
         autosave
+        cssString={`
+          & .ant-form-item-explain {
+            display: none !important;
+          }
+        `}
         key={element.id}
         model={model}
         onSubmit={onSubmit}
@@ -68,7 +76,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           type: 'error',
         })}
         schema={updateElementSchema}
-        submitRef={undefined}
       >
         <AutoFields
           omitFields={[
@@ -83,16 +90,16 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         />
         <AutoField component={SelectComponent} name="instanceOfComponentId" />
         <AutoField component={SelectAtom} name="atomId" />
-        <AutoCompleteField
-          name="renderIfPropKey"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
-        />
-        <AutoCompleteField
-          name="renderForEachPropKey"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
-        />
+        {/* <AutoCompleteField */}
+        {/*  name="renderIfPropKey" */}
+        {/*  onSearch={handlePropSearch} */}
+        {/*  options={propCompleteOptions} */}
+        {/*/ > */}
+        {/* <AutoCompleteField */}
+        {/*  name="renderForEachPropKey" */}
+        {/*  onSearch={handlePropSearch} */}
+        {/*  options={propCompleteOptions} */}
+        {/*/ > */}
       </Form>
     )
   },

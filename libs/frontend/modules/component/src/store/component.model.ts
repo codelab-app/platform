@@ -1,4 +1,8 @@
-import { IComponent, IComponentDTO } from '@codelab/shared/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  IComponent,
+  IComponentDTO,
+} from '@codelab/shared/abstract/core'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
@@ -13,6 +17,7 @@ const hydrate = (component: IComponentDTO) => {
 @model('@codelab/Component')
 export class Component
   extends Model({
+    __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     id: idProp,
     name: prop<string>().withSetter(),
     // this isn't a Ref, because it will cause a circular dep.
