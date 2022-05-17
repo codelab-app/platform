@@ -1,4 +1,4 @@
-const nxPreset = require('@nrwl/jest/preset')
+const nxPreset = require('@nrwl/jest/preset').default
 
 const testTimeout = process.env.CI ? 30000 : 500000
 

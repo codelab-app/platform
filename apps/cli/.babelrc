@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "@nrwl/next/babel",
+      "@nrwl/react/babel",
       {
         "preset-react": {
           "runtime": "automatic",
