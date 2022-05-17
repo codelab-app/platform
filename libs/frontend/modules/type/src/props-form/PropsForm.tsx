@@ -3,16 +3,13 @@ import {
   IPropData,
   IPropsFieldContext,
 } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
-import useDeepCompareEffect from 'use-deep-compare-effect'
-<<<<<<< HEAD
-import { PropsField } from './PropsField'
-=======
+import React, { useCallback, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { Subscription } from 'react-hook-form/dist/utils/createSubject'
 import { PropsFields } from './PropsFields'
->>>>>>> f5ba5373f (feat: merge commit)
 
 export type PropsFormProps = {
   interfaceType: IInterfaceType
@@ -28,23 +25,24 @@ export type PropsFormProps = {
 export const PropsForm = observer<PropsFormProps>(
   ({ interfaceType, initialValue, onSubmit, autosave, context }) => {
     const form = useForm({ defaultValues: initialValue })
-    const { control, formState, handleSubmit } = form
-    const watchedData = useWatch({ control, defaultValue: initialValue })
+    const { handleSubmit, watch } = form
     const fields = [...interfaceType.fields.values()]
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const debouncedSave = useCallback(
-      debounce(() => {
-        handleSubmit(onSubmit)()
-      }, 200),
+      debounce(() => handleSubmit(onSubmit)(), 500),
       [onSubmit],
     )
 
-    useDeepCompareEffect(() => {
-      if (autosave && formState.isDirty) {
-        debouncedSave()
+    useEffect(() => {
+      let subscription: Nullish<Subscription> = null
+
+      if (autosave) {
+        subscription = watch(debouncedSave)
       }
-    }, [autosave, watchedData])
+
+      return () => subscription?.unsubscribe()
+    }, [watch, autosave, debouncedSave])
 
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>
