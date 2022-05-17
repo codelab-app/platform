@@ -66,11 +66,19 @@ export type IRootStore = {
   componentService: IComponentService
   actionService: IActionService
   storeService: IStoreService
-  // Element services
+  /**
+   * We use a single elementService to hold all elements
+   */
   elementService: IElementService
+  /**
+   * Each tree will have it's own elementTree
+   */
   pageElementTree: IElementTree
   providerElementTree: IElementTree
 
+  /**
+   * Our builder view has page & component tree view, so we would need 2 instances of the builder
+   */
   builderService: IBuilderService
   renderService: IRenderService
   resourceService: IResourceService

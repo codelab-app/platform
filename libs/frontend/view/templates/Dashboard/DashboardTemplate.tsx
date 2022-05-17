@@ -23,11 +23,11 @@ export const DashboardTemplate = observer(
     contentStyles,
   }: React.PropsWithChildren<BuilderDashboardTemplateProps>) => {
     const mainPaneResizable = useResizable({
-      width: { default: 240, max: 600, min: 240 },
+      width: { default: 240, max: 460, min: 240 },
     })
 
     const metaPaneResizable = useResizable({
-      width: { default: 240, max: 600, min: 240 },
+      width: { default: 240, max: 320, min: 240 },
       reverse: true,
     })
 
@@ -94,6 +94,7 @@ export const DashboardTemplate = observer(
               style={{
                 marginTop: Header ? headerHeight ?? defaultHeaderHeight : 0,
                 marginLeft: MainPane ? mainPaneResizable.width : undefined,
+                marginRight: MetaPane ? metaPaneResizable.width : undefined,
               }}
             >
               <div

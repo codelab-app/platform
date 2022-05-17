@@ -47,6 +47,14 @@ import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
+const initForBuilder = () => {
+  // return new RenderService({
+  //   extraElementProps: new ExtraElementProps({
+  //     global: frozen(globalProps),
+  //   }),
+  // }),
+}
+
 /**
  * Handles the logic of rendering a tree of models
  *
@@ -394,6 +402,8 @@ export class RenderService
   private getTypeKindById(typeId: string): ITypeKind | undefined {
     return getTypeService(this).type(typeId)?.kind
   }
+
+  static initForBuilder = initForBuilder
 }
 
 export const renderServiceRef = rootRef<RenderService>(
