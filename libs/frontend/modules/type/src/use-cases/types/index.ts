@@ -1,6 +1,4 @@
 export * from './create-type'
 export * from './delete-type'
-export * from './export-types'
 export * from './get-types'
-export * from './import-types'
 export * from './update-type'

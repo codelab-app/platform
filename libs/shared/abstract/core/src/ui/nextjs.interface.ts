@@ -19,6 +19,7 @@ export interface IPageProps {
   snapshot?: {
     appService: SnapshotOutOfModel<any>
     pageService: SnapshotOutOfModel<any>
+    pageElementTree: SnapshotOutOfModel<any>
   }
   // user?: AccessTokenPayload
 }

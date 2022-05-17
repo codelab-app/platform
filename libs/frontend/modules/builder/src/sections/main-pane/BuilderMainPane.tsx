@@ -66,6 +66,8 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNodeV2
 
+    console.log(antdTree)
+
     // useEffect(() => {
     //   componentService.loadComponentTrees()
     // }, [])

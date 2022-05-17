@@ -1,11 +1,6 @@
 import { AdminService } from '@codelab/frontend/modules/admin'
 import { AppService, appServiceContext } from '@codelab/frontend/modules/app'
-import {
-  AtomService,
-  atomServiceContext,
-  ImportAtomService,
-  importAtomServiceContext,
-} from '@codelab/frontend/modules/atom'
+import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import {
   BuilderService,
   RenderService,
@@ -26,12 +21,7 @@ import {
   StoreService,
 } from '@codelab/frontend/modules/store'
 import { TagService } from '@codelab/frontend/modules/tag'
-import {
-  ImportTypeService,
-  importTypeServiceContext,
-  TypeService,
-  typeServiceContext,
-} from '@codelab/frontend/modules/type'
+import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import {
   componentServiceContext,
@@ -47,8 +37,6 @@ import {
   IComponentService,
   IElementService,
   IElementTree,
-  IImportAtomService,
-  IImportTypeService,
   IOperationService,
   IPageProps,
   IPageService,
@@ -87,9 +75,7 @@ export type IRootStore = {
   appService: IAppService
   pageService: IPageService
   typeService: ITypeService
-  importTypeService: IImportTypeService
   atomService: IAtomService
-  importAtomService: IImportAtomService
   tagService: ITagService
   adminService: IAdminService
   componentService: IComponentService
@@ -113,13 +99,11 @@ export const createRootStore = (
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
-      userService: prop(() => UserService.init(user)),
-      appService: prop(() => new AppService({})),
-      pageService: prop(() => new PageService({})),
-      typeService: prop(() => new TypeService({})),
-      importTypeService: prop(() => new ImportTypeService({})),
+      userService: prop(() => props?.userService ?? UserService.init(user)),
+      appService: prop(() => props?.appService ?? new AppService({})),
+      pageService: prop(() => props?.pageService ?? new PageService({})),
+      typeService: prop(() => props?.typeService ?? new TypeService({})),
       atomService: prop(() => new AtomService({})),
-      importAtomService: prop(() => new ImportAtomService({})),
       tagService: prop(() => new TagService({})),
       adminService: prop(() => new AdminService({})),
       componentService: prop(() => new ComponentService({})),
@@ -149,8 +133,6 @@ export const createRootStore = (
       componentServiceContext.set(this, this.componentService)
       renderServiceContext.set(this, this.renderService)
       actionServiceContext.set(this, this.actionService)
-      importTypeServiceContext.set(this, this.importTypeService)
-      importAtomServiceContext.set(this, this.importAtomService)
       resourceServiceContext.set(this, this.resourceService)
       operationServiceContext.set(this, this.operationService)
       elementServiceContext.set(this, this.elementService)
@@ -168,38 +150,44 @@ let _store: IRootStore | null = null
  * User is passed automatically when we call withPageAuthRequired
  *
  * @param pageProps
+ * @param storeProps Existing partial store instances to be used
  */
 export const initializeStore = (
   pageProps?: IPageProps & {
     user?: AccessTokenPayload
   },
+  // storeProps?: Partial<IRootStore>,
 ) => {
-  // console.debug('store', pageProps)
-
   const snapshot = pageProps?.snapshot
   const user = pageProps?.user
 
   /**
    * Having issue on window hot reload if we return the cached _store
    */
-  // const store: IRootStore =
-  //   _store ?? snapshot
-  //     ? fromSnapshot<IRootStore>(snapshot)
-  //     : createRootStore({
-  //         user: {
-  //           id: user?.sub ?? '',
-  //           auth0Id: user?.sub ?? '',
-  //           roles: user?.[JWT_CLAIMS]?.roles ?? [],
-  //         },
-  //       })
+  // const store: IRootStore = _store
+  //   ? _store
+  //   : createRootStore({
+  //       user: {
+  //         id: user?.sub ?? '',
+  //         auth0Id: user?.sub ?? '',
+  //         roles: user?.[JWT_CLAIMS]?.roles ?? [],
+  //       },
+  //     })
 
-  const store: IRootStore = createRootStore({
-    user: {
-      id: user?.sub ?? '',
-      auth0Id: user?.sub ?? '',
-      roles: user?.[JWT_CLAIMS]?.roles ?? [],
-    },
-  })
+  // Create the store once in the client
+  if (!_store) {
+    console.log(isServer, 'Creating new store')
+
+    _store = createRootStore({
+      user: {
+        id: user?.sub ?? '',
+        auth0Id: user?.sub ?? '',
+        roles: user?.[JWT_CLAIMS]?.roles ?? [],
+      },
+    })
+
+    registerRootStore(_store)
+  }
 
   /**
    * Apply snapshot data to root store if available. The snapshot contains data loaded during Next.js SSR inside the `getServerSideProps` block
@@ -207,30 +195,28 @@ export const initializeStore = (
    * We break up snapshot per service to conserve bandwidth
    */
   if (snapshot?.appService) {
-    applySnapshot(store.appService, snapshot.appService)
+    applySnapshot(_store.appService, snapshot.appService)
   }
 
   if (snapshot?.pageService) {
-    applySnapshot(store.pageService, snapshot.pageService)
+    applySnapshot(_store.pageService, snapshot.pageService)
   }
 
-  registerRootStore(store)
+  if (snapshot?.pageElementTree) {
+    console.log(snapshot.pageElementTree.id, _store.pageElementTree.id)
+    applySnapshot(_store.pageElementTree, snapshot.pageElementTree)
+  }
 
   // For SSG and SSR always create a new store
-  if (isServer) {
-    _store = store
-
-    return _store
-  }
-
-  // Create the store once in the client
-  if (!_store) {
-    _store = store
-  }
+  // if (isServer) {
+  //   _store = store
+  //
+  //   return _store
+  // }
 
   // if (process.env.NODE_ENV === 'development') {
   //   ;(window as any).store = store
   // }
 
-  return store
+  return _store
 }

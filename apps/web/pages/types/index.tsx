@@ -8,9 +8,7 @@ import {
   CreateTypeButton,
   CreateTypeModal,
   DeleteTypeModal,
-  ExportTypesButton,
   GetTypesTable,
-  ImportTypesUpload,
   UpdateTypeModal,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -29,11 +27,6 @@ const Header = observer(() => {
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <ExportTypesButton
-        importTypeService={store.importTypeService}
-        typeService={store.typeService}
-      />
-      <ImportTypesUpload importTypeService={store.importTypeService} />
       <CreateTypeButton key={0} typeService={store.typeService} />
     </div>,
   ]

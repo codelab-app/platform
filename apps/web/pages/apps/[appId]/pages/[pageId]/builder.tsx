@@ -98,7 +98,7 @@ export const getServerSideProps = withPageAuthRequired<
      * - page tree
      * - provider tree
      */
-    const [elementTree, providerTree] = await Promise.all([
+    const [pageElementTree, providerTree] = await Promise.all([
       rootStore.pageElementTree.getTree(page?.rootElement.id),
       rootStore.providerElementTree.getTree(page?.providerElement.id),
     ])
@@ -114,6 +114,7 @@ export const getServerSideProps = withPageAuthRequired<
       props: {
         snapshot: {
           appService: getSnapshot(rootStore.appService),
+          pageElementTree: getSnapshot(rootStore.pageElementTree),
           pageService: getSnapshot(rootStore.pageService),
         },
         appId,

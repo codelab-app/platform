@@ -14,6 +14,7 @@ export interface IPageService
    */
   pages: ObjectMap<IPage>
   pagesList: Array<IPage>
+  deleteManyByAppId(id: string): Promise<void>
   page(id: string): Maybe<IPage>
 
   /**
