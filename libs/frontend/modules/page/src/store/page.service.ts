@@ -49,6 +49,10 @@ export class PageService
     return [...this.pages.values()]
   }
 
+  pagesByApp(appId: string) {
+    return this.pagesList.filter((p) => p.app.id === appId)
+  }
+
   page(id: string) {
     return this.pages.get(id)
   }

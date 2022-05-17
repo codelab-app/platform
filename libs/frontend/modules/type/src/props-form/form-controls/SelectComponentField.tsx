@@ -1,7 +1,7 @@
 import { IField } from '@codelab/shared/abstract/core'
+import { Select } from 'antd'
 import React from 'react'
 import { Controller, UseFormReturn } from 'react-hook-form'
-import { SelectField } from 'uniforms-antd'
 import { useGetAllComponents } from '../../hooks'
 
 export interface SelectComponentFieldProps {
@@ -28,11 +28,10 @@ export const SelectComponentField = ({
         control={form.control}
         name={`${field.key}.value`}
         render={(control) => (
-          <SelectField
+          <Select
             loading={isLoading}
-            name={control.field.name}
             onBlur={control.field.onBlur}
-            onChange={control.field.onBlur}
+            onChange={control.field.onChange}
             optionFilterProp="label"
             options={options}
             showSearch

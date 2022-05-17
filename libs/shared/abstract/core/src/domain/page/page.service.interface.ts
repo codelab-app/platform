@@ -15,6 +15,7 @@ export interface IPageService
   pages: ObjectMap<IPage>
   pagesList: Array<IPage>
   page(id: string): Maybe<IPage>
+  pagesByApp(appId: string): Array<IPage>
 
   /**
    * Queries
