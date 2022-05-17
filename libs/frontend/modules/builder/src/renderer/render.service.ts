@@ -52,6 +52,14 @@ import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
+const initForBuilder = () => {
+  // return new RenderService({
+  //   extraElementProps: new ExtraElementProps({
+  //     global: frozen(globalProps),
+  //   }),
+  // }),
+}
+
 /**
  * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
  */

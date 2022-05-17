@@ -49,7 +49,7 @@ const PageBuilder: CodelabPage = observer(() => {
   const currentPageId = useCurrentPageId()
   const router = useRouter()
 
-  const [, { isLoading, error, data }] = useStatefulExecutor(
+  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -122,7 +122,7 @@ const PageBuilder: CodelabPage = observer(() => {
       {isLoading && <Spin />}
       <Tabs activeKey={builderService.activeTree} type="card">
         <TabPane key={RendererTab.Page} tab="Page">
-          {data?.pageElementTree && !isLoading ? (
+          {isDone && data?.pageElementTree ? (
             <BaseBuilder elementTree={data.pageElementTree} />
           ) : null}
         </TabPane>
