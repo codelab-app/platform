@@ -11,6 +11,7 @@ import {
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
 import { ExportTypeData } from './export-user-types'
+import { sortInterfaceTypesFields } from './get-type'
 
 export const exportSeedTypes = async (): Promise<ExportTypeData> => {
   /**
@@ -79,7 +80,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
     ...reactNodeTypes,
     ...enumTypes,
     // Put interfaces last since they depend on primitive types when seeding
-    ...interfaceTypes,
+    ...sortInterfaceTypesFields(interfaceTypes),
   ] as Array<ITypeExport>
 
   return { types: allTypes }
