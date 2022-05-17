@@ -1,4 +1,4 @@
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
@@ -11,24 +11,24 @@ import { IElementDTO } from './element.dto.interface'
 
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
-  owner: Nullish<IAuth0Id>
-  name: Nullish<string>
-  css: Nullish<string>
-  props?: Nullish<IProp>
-  atom: Nullish<Ref<IAtom>>
+  owner: Nullable<IAuth0Id>
+  name: Nullable<string>
+  css: Nullable<string>
+  props?: Nullable<IProp>
+  atom: Nullable<Ref<IAtom>>
   orderInParent: Nullable<number>
   hooks: Array<IHook>
-  parentId: Nullish<string>
+  parentId: Nullable<string>
   parentElement: Maybe<IElement>
   propMapBindings: ObjectMap<IPropMapBinding>
-  component: Nullish<Ref<IComponent>>
+  component: Nullable<Ref<IComponent>>
   label: string
-  propTransformationJs: Nullish<string>
+  propTransformationJs: Nullable<string>
   lastChildOrder: number
   childrenSorted: Array<IElement>
-  renderForEachPropKey: Nullish<string>
-  renderIfPropKey: Nullish<string>
-  instanceOfComponent: Nullish<Ref<IComponent>>
+  renderForEachPropKey: Nullable<string>
+  renderIfPropKey: Nullable<string>
+  instanceOfComponent: Nullable<Ref<IComponent>>
   antdNode: DataNode
   children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>

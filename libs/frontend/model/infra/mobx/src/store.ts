@@ -179,14 +179,6 @@ export const initializeStore = (
   const snapshot = pageProps?.snapshot
   const user = pageProps?.user
 
-  // if (_store) {
-  //   console.info('Using _store')
-  // } else if (snapshot) {
-  //   console.info('Using snapshot')
-  // } else {
-  //   console.info('createRootStore')
-  // }
-
   /**
    * Having issue on window hot reload if we return the cached _store
    */
@@ -211,9 +203,15 @@ export const initializeStore = (
 
   /**
    * Apply snapshot data to root store if available. The snapshot contains data loaded during Next.js SSR inside the `getServerSideProps` block
+   *
+   * We break up snapshot per service to conserve bandwidth
    */
-  if (snapshot) {
-    applySnapshot(store, snapshot)
+  if (snapshot?.appService) {
+    applySnapshot(store.appService, snapshot.appService)
+  }
+
+  if (snapshot?.pageService) {
+    applySnapshot(store.pageService, snapshot.pageService)
   }
 
   registerRootStore(store)

@@ -22,7 +22,7 @@ export const createMobxState = (
   rootStore: Maybe<IStore> | null,
   apps: Array<IApp>,
   pages: Array<IPage>,
-  router: NextRouter,
+  router?: NextRouter,
 ) => {
   if (!rootStore) {
     return null

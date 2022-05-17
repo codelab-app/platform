@@ -12,112 +12,54 @@ import {
   MetaPane,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import {
-  useCurrentAppId,
-  useCurrentPageId,
-} from '@codelab/frontend/presenter/container'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   AccessTokenPayload,
   APP_ID,
-  IApp,
-  IPage,
-  IStore,
+  IPageProps,
   PAGE_ID,
   WithUrlParams,
 } from '@codelab/shared/abstract/core'
 import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 
-type PageBuilderProps = {
-  apps: Array<IApp>
-  store: IStore | null
-  pages: Array<IPage>
+interface PageBuilderProps extends IPageProps {
+  appId: string
+  pageId: string
 }
 
-const PageBuilder: CodelabPage<PageBuilderProps> = observer((props) => {
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-  const { apps, pages, store } = props
-  const app = apps.find((_app) => _app.id === appId)
-  const page = pages.find((_page) => _page.id === pageId)
+const PageBuilder: CodelabPage<PageBuilderProps> = observer(
+  ({ appId, pageId }) => {
+    const { pageService, elementService, builderService } = useStore()
+    const page = pageService.pages.get(pageId)
+    const elementTree = builderService.builderRenderer.tree
 
-  if (!page) {
-    throw new Error('Page not found')
-  }
-
-  const {
-    elementService,
-    pageElementTree,
-    providerElementTree,
-    builderService,
-  } = useStore()
-
-  const router = useRouter()
-
-  useEffect(() => {
-    // eslint-disable-next-line padding-line-between-statements
-    ;(async () => {
-      /**
-       * Construct the ElementTree's for
-       *
-       * - page tree
-       * - provider tree
-       */
-      const [elementTree, providerTree] = await Promise.all([
-        pageElementTree.getTree(page.rootElement.id),
-        providerElementTree.getTree(page.providerElement.id),
-      ])
-
-      // initialize renderer
-      await builderService.builderRenderer.init(
-        pageElementTree,
-        providerElementTree,
-        createMobxState(store, apps, pages, router),
-      )
-
-      return {
-        page,
-        elementTree,
-        providerTree,
-        storeTree: store,
-      }
-    })()
-
-    return () => {
-      // this now gets called when the component unmounts
-      console.log('builder.tsx unmount()')
-    }
-  }, [])
-
-  const elementTree = builderService.builderRenderer.tree
-
-  return (
-    <>
-      <Head>
-        <title>{page?.name} | Builder | Codelab</title>
-      </Head>
-      {elementTree ? (
-        <Builder
-          currentDragData={builderService.currentDragData}
-          deleteModal={elementService.deleteModal}
-          elementTree={elementTree}
-          key={builderService.builderRenderer.tree?.root?.id}
-          selectedElement={builderService.selectedElement}
-          setHoveredElement={builderService.setHoveredElement.bind(
-            builderService,
-          )}
-          set_selectedElement={builderService.set_selectedElement.bind(
-            builderService,
-          )}
-        />
-      ) : null}
-    </>
-  )
-})
+    return (
+      <>
+        <Head>
+          <title>{page?.name} | Builder | Codelab</title>
+        </Head>
+        {elementTree ? (
+          <Builder
+            currentDragData={builderService.currentDragData}
+            deleteModal={elementService.deleteModal}
+            elementTree={elementTree}
+            key={builderService.builderRenderer.tree?.root?.id}
+            selectedElement={builderService.selectedElement}
+            setHoveredElement={builderService.setHoveredElement.bind(
+              builderService,
+            )}
+            set_selectedElement={builderService.set_selectedElement.bind(
+              builderService,
+            )}
+          />
+        ) : null}
+      </>
+    )
+  },
+)
 
 export const getServerSideProps = withPageAuthRequired<
   PageBuilderProps,
@@ -133,18 +75,50 @@ export const getServerSideProps = withPageAuthRequired<
 
     const rootStore = initializeStore({ user })
     const appId = throwIfUndefined(params?.appId)
-    // const pageId = throwIfUndefined(params?.pageId)
-    // Props to pass into our page
+    const pageId = throwIfUndefined(params?.pageId)
+    /**
+     * Here we fetch data in order to get the data for snapshot, we can't actually pass these models across to the frontend because objects can't be serialized
+     */
     const apps = await rootStore.appService.getAll()
-    const pages = await rootStore.pageService.getAll()
     const app = apps.find((_app) => _app.id === appId)
+    const pages = await rootStore.pageService.getAll()
+    const page = pages.find((_page) => _page.id === pageId)
 
     const store = app?.store?.id
       ? (await rootStore.storeService.getOne(app?.store?.id)) ?? null
       : null
 
+    if (!page) {
+      throw new Error('Missing page')
+    }
+
+    /**
+     * Construct the ElementTree's for
+     *
+     * - page tree
+     * - provider tree
+     */
+    const [elementTree, providerTree] = await Promise.all([
+      rootStore.pageElementTree.getTree(page?.rootElement.id),
+      rootStore.providerElementTree.getTree(page?.providerElement.id),
+    ])
+
+    // initialize renderer
+    await rootStore.builderService.builderRenderer.init(
+      rootStore.pageElementTree,
+      rootStore.providerElementTree,
+      createMobxState(store, apps, pages),
+    )
+
     return {
-      props: { snapshot: getSnapshot(rootStore), apps, pages, store },
+      props: {
+        snapshot: {
+          appService: getSnapshot(rootStore.appService),
+          pageService: getSnapshot(rootStore.pageService),
+        },
+        appId,
+        pageId,
+      },
     }
   },
 })

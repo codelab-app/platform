@@ -4,7 +4,7 @@ import { Nullable } from '@codelab/shared/abstract/types'
 export const queryRenderedElementById = (
   nodeId: string,
 ): Nullable<HTMLElement> => {
-  if (!document) {
+  if (typeof document === 'undefined') {
     return null
   }
 

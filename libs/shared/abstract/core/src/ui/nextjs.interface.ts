@@ -1,3 +1,4 @@
+import { SnapshotOutOfModel } from 'mobx-keystone/src/snapshot/SnapshotOf'
 import { AppProps } from 'next/app'
 import { Overwrite } from 'utility-types'
 
@@ -15,6 +16,9 @@ export type IAppProps = Overwrite<
  * The `props` used by each page component
  */
 export interface IPageProps {
-  snapshot?: any
+  snapshot?: {
+    appService: SnapshotOutOfModel<any>
+    pageService: SnapshotOutOfModel<any>
+  }
   // user?: AccessTokenPayload
 }

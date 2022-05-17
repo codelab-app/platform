@@ -21,10 +21,12 @@ import { Divider } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderMainPaneHeader } from './BuilderMainPaneHeader'
+import { MobxStateContainer } from './mobx-state/MobxStateContainer'
+import { Toolbox } from './toolbox/Toolbox'
 
 const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.MobxState]: 'Mobx State',
@@ -64,9 +66,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNodeV2
 
-    useEffect(() => {
-      componentService.loadComponentTrees()
-    }, [])
+    // useEffect(() => {
+    //   componentService.loadComponentTrees()
+    // }, [])
 
     const BaseBuilderTree = observer(
       ({
@@ -102,6 +104,8 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       ),
     )
 
+    BaseBuilderTree.displayName = 'BaseBuilderTree'
+
     return (
       <MainPaneTemplate
         containerProps={{
@@ -132,17 +136,17 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           {antdTree ? <BaseBuilderTree treeData={componentsAntdTree} /> : null}
         </DisplayIf>
 
-        {/* <DisplayIf condition={builderTab === BuilderTab.MobxState}> */}
-        {/*  <MobxStateContainer builderService={builderService} /> */}
-        {/* </DisplayIf> */}
+        <DisplayIf condition={builderTab === BuilderTab.MobxState}>
+          <MobxStateContainer builderService={builderService} />
+        </DisplayIf>
 
-        {/* <DisplayIf condition={builderTab === BuilderTab.Toolbox}> */}
-        {/*  <Toolbox */}
-        {/*    atomService={atomService} */}
-        {/*    componentService={componentService} */}
-        {/*    searchQuery={searchValue} */}
-        {/*  /> */}
-        {/* </DisplayIf> */}
+        <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
+          <Toolbox
+            atomService={atomService}
+            componentService={componentService}
+            searchQuery={searchValue}
+          />
+        </DisplayIf>
 
         <CreateElementModal
           elementService={elementService}
@@ -158,3 +162,5 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     )
   },
 )
+
+BuilderMainPane.displayName = 'BuilderMainPane'
