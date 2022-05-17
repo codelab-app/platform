@@ -1,4 +1,7 @@
-import { ElementWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ElementUpdateInput,
+  ElementWhere,
+} from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -9,7 +12,6 @@ import {
 } from '../../service'
 import {
   ICreatePropMapBindingDTO,
-  IPropData,
   IPropMapBinding,
   IUpdatePropMapBindingDTO,
 } from '../prop'
@@ -75,7 +77,6 @@ export interface IElementService
   duplicateElement(target: IElement, auth0Id: IAuth0Id): Promise<void>
   convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
   element(id: string): Maybe<IElement>
-  updateElementProps(element: IElement, data: IPropData): Promise<IElement>
   updateElementCss(element: IElement, newCss: string): Promise<IElement>
 
   updateElementsPropTransformationJs(
@@ -96,5 +97,6 @@ export interface IElementService
     element: IElement,
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
+  patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
   // loadAllDetached(): Promise<Array<IElement>>
 }

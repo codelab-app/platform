@@ -1,10 +1,15 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { IRenderService } from '@codelab/shared/abstract/core'
+import { IBuilderService, IRenderService } from '@codelab/shared/abstract/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export type RendererProps = Pick<IRenderService, 'isInitialized' | 'renderRoot'>
+export type RendererProps = Pick<
+  IRenderService,
+  'isInitialized' | 'renderRoot'
+> & {
+  builderService: IBuilderService
+}
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
@@ -30,15 +35,15 @@ export type RendererProps = Pick<IRenderService, 'isInitialized' | 'renderRoot'>
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 export const Renderer = observer<RendererProps>(
-  ({ isInitialized, renderRoot }) => {
-    if (!isInitialized) {
+  ({ builderService, isInitialized, renderRoot }) => {
+    if (!builderService.builderRenderer.isInitialized) {
       return null
     }
 
     return (
       <ErrorBoundary>
         <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
-          {renderRoot()}
+          {builderService.builderRenderer.renderRoot()}
         </div>
       </ErrorBoundary>
     )

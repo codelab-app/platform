@@ -34,7 +34,7 @@ export const useExpandedNodes = ({
       return [...prevState, ...(toExpand ?? [])]
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [selectedElement])
 
   return { expandedNodeIds, setExpandedNodeIds }
 }

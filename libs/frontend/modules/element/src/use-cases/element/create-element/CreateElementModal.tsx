@@ -24,7 +24,12 @@ type CreateElementModalProps = {
 
 export const CreateElementModal = observer<CreateElementModalProps>(
   ({ elementService, userService, elementTree }) => {
-    const onSubmit = (data: ICreateElementDTO) => elementService.create([data])
+    const onSubmit = async (data: ICreateElementDTO) => {
+      const elements = await elementService.create([data])
+      elementTree.buildTree(elements)
+
+      return Promise.resolve(elements)
+    }
 
     const onSubmitError = createNotificationHandler({
       title: 'Error while creating element',

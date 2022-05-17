@@ -44,9 +44,10 @@ export const makeCreateInput = (
       }
     : undefined
 
-  const props: ElementCreateInput['props'] = propsData
-    ? { create: { node: { data: propsData } } }
-    : undefined
+  // Always create props
+  const props: ElementCreateInput['props'] = {
+    create: { node: { data: propsData ?? JSON.stringify({}) } },
+  }
 
   return {
     instanceOfComponent,

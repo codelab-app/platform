@@ -26,10 +26,13 @@ type BuilderProps = {
 > &
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
+  } & {
+    builderService: IBuilderService
   }
 
 export const Builder = observer<BuilderProps>(
   ({
+    builderService,
     currentDragData,
     setHoveredElement,
     set_selectedElement,
@@ -70,8 +73,9 @@ export const Builder = observer<BuilderProps>(
         ) : null}
 
         <Renderer
-          isInitialized={rendererProps.isInitialized}
-          renderRoot={rendererProps.renderRoot}
+          builderService={builderService}
+          isInitialized={builderService.builderRenderer.isInitialized}
+          renderRoot={builderService.builderRenderer.renderRoot}
         />
 
         {/* <BuilderHoverOverlay /> */}

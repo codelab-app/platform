@@ -14,7 +14,6 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
-  IPropData,
   isAtomDTO,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
@@ -159,11 +158,9 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    const elementModels = this.hydrateOrUpdateCache(elements)
+    return this.hydrateOrUpdateCache(elements)
 
     // this.elementTree.buildTree(elementModels)
-
-    return elementModels
   })
 
   @modelAction
@@ -224,26 +221,28 @@ export class ElementService
     return yield* _await(this.update(element, input))
   })
 
-  @modelFlow
-  @transaction
-  updateElementProps = _async(function* (
-    this: ElementService,
-    element: Element,
-    data: IPropData,
-  ) {
-    const input = {
-      props: data,
-    }
-
-    return yield* _await(this.update(element, input))
-  })
+  // @modelFlow
+  // @transaction
+  // updateElementProps = _async(function* (
+  //   this: ElementService,
+  //   element: Element,
+  //   data: IPropData,
+  // ) {
+  //   const input = {
+  //     props: data,
+  //   }
+  //
+  //   console.log(element, input)
+  //
+  //   return yield* _await(this.update(element, input))
+  // })
 
   /**
-   * Helper functions for common update operations
+   * Directly uses generated GraphQL operations
    */
   @modelFlow
   @transaction
-  private patchElement = _async(function* (
+  patchElement = _async(function* (
     this: ElementService,
     element: IElement,
     input: ElementUpdateInput,
