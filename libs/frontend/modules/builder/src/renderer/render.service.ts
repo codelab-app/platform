@@ -358,8 +358,6 @@ export class RenderService
           continue
         }
 
-        console.log(propTransformer.transform(value, typeKind))
-
         return propTransformer.transform(value, typeKind)
       }
     })

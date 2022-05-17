@@ -15,7 +15,8 @@ export const getRootElement = (
     return null
   }
 
-  const id = payload.value
+  // .id is for backward compatibility
+  const id = (payload as any).id || payload.value
 
   if (typeof id !== 'string') {
     return null

@@ -43,6 +43,16 @@ export const deepReplaceObjectValues = (
     return obj.map((e) => deepReplaceObjectValues(e, replacer, _refs))
   }
 
+  obj = replacer(obj, '', obj)
+
+  if (shouldSkip(obj, new WeakSet())) {
+    return obj
+  }
+
+  if (isArray(obj)) {
+    return obj.map((e) => deepReplaceObjectValues(e, replacer, _refs))
+  }
+
   return entries(obj)
     .map(([key, value]) => {
       if (isArray(value)) {
