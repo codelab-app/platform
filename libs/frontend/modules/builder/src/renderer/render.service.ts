@@ -52,12 +52,21 @@ import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
+/**
+ * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
+ */
 const initForBuilder = () => {
-  // return new RenderService({
-  //   extraElementProps: new ExtraElementProps({
-  //     global: frozen(globalProps),
-  //   }),
-  // }),
+  const voidClick = () => {
+    //
+  }
+
+  const globalProps = { onClick: voidClick }
+
+  return new RenderService({
+    extraElementProps: new ExtraElementProps({
+      global: frozen(globalProps),
+    }),
+  })
 }
 
 /**
@@ -144,6 +153,16 @@ export class RenderService
 {
   // Set to any observable that will act as a source for the state of the rendered app
   public platformState?: any
+
+  /**
+   * Need to wait until renderService is initialized before we can inject it
+   */
+  protected override onAttachedToRootStore(
+    rootStore: object,
+  ): (() => void) | void {
+    this.typedValueTransformers = typedValueTransformersFactory(this)
+    this.renderPipe = renderPipeFactory(this)()
+  }
 
   @modelFlow
   init = _async(function* (
