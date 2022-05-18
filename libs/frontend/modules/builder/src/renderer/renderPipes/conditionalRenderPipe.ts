@@ -31,7 +31,7 @@ export class ConditionalRenderPipe
       return RenderOutput.empty({ elementId: element.id })
     }
 
-    return this.next.render(element, props)
+    return this.next.current.render(element, props)
   }
 
   private static shouldStopRendering(element: IElement, props: IPropData) {

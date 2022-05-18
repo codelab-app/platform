@@ -156,12 +156,32 @@ export class RenderService
 
   /**
    * Need to wait until renderService is initialized before we can inject it
+   *
+   * https://github.com/xaviergonz/mobx-keystone/issues/361
    */
-  protected override onAttachedToRootStore(
-    rootStore: object,
-  ): (() => void) | void {
-    this.typedValueTransformers = typedValueTransformersFactory(this)
-    this.renderPipe = renderPipeFactory(this)()
+  protected override onAttachedToRootStore() {
+    // this.typedValueTransformers = typedValueTransformersFactory(this)
+    // this.renderPipe = renderPipeFactory({
+    //   renderer: renderServiceRef(this),
+    //   pipes: defaultPipes(),
+    // })
+    // this.renderPipe = new NullRenderPipe({ renderer: renderServiceRef(this) })
+
+    const renderer = renderServiceRef(this)
+    console.log(renderer)
+
+    const nullRenderPipe = new NullRenderPipe({ renderer })
+
+    console.log('nullRenderPipe', nullRenderPipe.id)
+
+    const atomRenderPipe = new AtomRenderPipe({
+      next: nullRenderPipe,
+      renderer,
+    })
+
+    console.log('atomRenderPipe', atomRenderPipe.id)
+    // this.renderPipe =
+    // this.renderPipe = nullRenderPipe
   }
 
   @modelFlow

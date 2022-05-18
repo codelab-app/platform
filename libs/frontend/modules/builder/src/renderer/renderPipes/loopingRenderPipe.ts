@@ -19,7 +19,7 @@ export class LoopingRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.renderForEachPropKey) {
-      return this.next.render(element, props)
+      return this.next.current.render(element, props)
     }
 
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
@@ -32,7 +32,7 @@ export class LoopingRenderPipe
         )
       }
 
-      return this.next.render(element, props)
+      return this.next.current.render(element, props)
     }
 
     if (this.renderService.debugMode) {
@@ -48,7 +48,7 @@ export class LoopingRenderPipe
           key: `${props['key'] || element.id}-${index}`,
         })
 
-        return this.next.render(element, itemProps)
+        return this.next.current.render(element, itemProps)
       })
       .filter((output): output is IRenderOutput => !!output)
   }
