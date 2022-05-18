@@ -1,7 +1,6 @@
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderService } from '../render.service.context'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 
 /**
@@ -30,25 +29,24 @@ export class ElementTypedValueTransformer
   canHandleValue(value: TypedValue<any>): boolean {
     return (
       typeof value.value === 'string' &&
-      !!this.renderer.tree?.element(value.value)
+      !!this.renderer.current.tree?.element(value.value)
     )
   }
 
   public transform(props: TypedValue<any>): any {
-    const renderer = getRenderService(this)
     const elementId = props?.value
 
     if (typeof elementId !== 'string') {
       return props
     }
 
-    const element = renderer.tree?.element(elementId)
+    const element = this.renderer.current.tree?.element(elementId)
 
     if (!element) {
       // this shouldn't happen, we check in canHandleValue
       return props
     }
 
-    return renderer.renderElement(element)
+    return this.renderer.current.renderElement(element)
   }
 }

@@ -1,23 +1,25 @@
-import { Element } from '@codelab/frontend/modules/element'
 import {
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
-import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop, Ref } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
-  extends ExtendedModel(BaseRenderPipe, { next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    next: prop<Ref<IRenderPipe>>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
-      if (this.renderer.debugMode) {
+      if (this.renderer.current.debugMode) {
         console.info('ConditionalRenderPipe: should stop rendering', {
           element: element.name,
           value: element.renderIfPropKey
@@ -29,10 +31,10 @@ export class ConditionalRenderPipe
       return RenderOutput.empty({ elementId: element.id })
     }
 
-    return this.next.render(element, props)
+    return this.next.current.render(element, props)
   }
 
-  private static shouldStopRendering(element: Element, props: IPropData) {
+  private static shouldStopRendering(element: IElement, props: IPropData) {
     if (!element.renderIfPropKey) {
       return false
     }

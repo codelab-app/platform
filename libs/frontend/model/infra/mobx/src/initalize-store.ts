@@ -3,7 +3,7 @@ import {
   IPageProps,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
-import { fromSnapshot, registerRootStore } from 'mobx-keystone'
+import { registerRootStore } from 'mobx-keystone'
 import { createRootStore, IRootStore } from './create-root-store'
 
 let _store: IRootStore | null = null
@@ -18,6 +18,9 @@ export const initializeStore = (
     user?: AccessTokenPayload
   },
 ) => {
+  /**
+   * Using snapshot on SSR is a bit tricky, since model data may be out of sync on serverside and client side. Passing snapshot data from backend to frontend is also very costly in terms of bandwidth.
+   */
   const snapshot = pageProps?.snapshot
   const user = pageProps?.user
 
@@ -44,26 +47,26 @@ export const initializeStore = (
           roles: user?.[JWT_CLAIMS]?.roles ?? [],
         },
       },
-      {
-        appService: snapshot?.appService
-          ? fromSnapshot(snapshot.appService)
-          : undefined,
-        pageService: snapshot?.pageService
-          ? fromSnapshot(snapshot.pageService)
-          : undefined,
-        atomService: snapshot?.atomService
-          ? fromSnapshot(snapshot.atomService)
-          : undefined,
-        elementService: snapshot?.elementService
-          ? fromSnapshot(snapshot.elementService)
-          : undefined,
-        pageElementTree: snapshot?.pageElementTree
-          ? fromSnapshot(snapshot.pageElementTree)
-          : undefined,
-        builderService: snapshot?.builderService
-          ? fromSnapshot(snapshot.builderService)
-          : undefined,
-      },
+      // {
+      //   appService: snapshot?.appService
+      //     ? fromSnapshot(snapshot.appService)
+      //     : undefined,
+      //   pageService: snapshot?.pageService
+      //     ? fromSnapshot(snapshot.pageService)
+      //     : undefined,
+      //   atomService: snapshot?.atomService
+      //     ? fromSnapshot(snapshot.atomService)
+      //     : undefined,
+      //   elementService: snapshot?.elementService
+      //     ? fromSnapshot(snapshot.elementService)
+      //     : undefined,
+      //   pageElementTree: snapshot?.pageElementTree
+      //     ? fromSnapshot(snapshot.pageElementTree)
+      //     : undefined,
+      //   builderService: snapshot?.builderService
+      //     ? fromSnapshot(snapshot.builderService)
+      //     : undefined,
+      // },
     )
 
     registerRootStore(_store)

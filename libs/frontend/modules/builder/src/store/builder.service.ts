@@ -28,13 +28,4 @@ export class BuilderService
   get selectedElement() {
     return this._selectedElement?.maybeCurrent
   }
-
-  // protected override onAttachedToRootStore(
-  //   rootStore: object,
-  // ): (() => void) | void {
-  //   renderServiceContext.set(this, this.builderRenderer)
-  //
-  //   // Override it in case the renderer comes from a snapshot
-  //   this.builderRenderer.extraElementProps.setGlobal(frozen(globalProps))
-  // }
 }

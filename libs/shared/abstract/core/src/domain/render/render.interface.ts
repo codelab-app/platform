@@ -1,5 +1,7 @@
+import { Ref } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IAtomType } from '../atom'
+import { IRenderService } from '../builder'
 import { IElement } from '../element'
 import { IPropData, IPropDataByElementId } from '../prop'
 
@@ -15,6 +17,14 @@ export interface IRenderOutput {
   globalProps?: IPropDataByElementId
 }
 
-export interface IRenderPipe {
+export interface IBaseRenderPipe {
+  id: string
+  renderer: Ref<IRenderService>
+}
+
+export interface IRenderPipe extends IBaseRenderPipe {
+  // next?: Ref<IRenderPipe>
+  // id: string
+  next?: IRenderPipe
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput>
 }

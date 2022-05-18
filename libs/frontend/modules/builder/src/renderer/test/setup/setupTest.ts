@@ -29,7 +29,7 @@ import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { RenderService } from '../../render.service'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
-import { renderPipeFactory } from '../../renderPipes/renderPipeFactory'
+import { renderPipeFactory } from '../../renderPipes/renderPipe.factory'
 import { RenderTestRootStore } from './renderTestRootStore'
 
 // Clone everything so that we don't get conflicts between different test files

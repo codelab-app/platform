@@ -1,12 +1,12 @@
-import { Element } from '@codelab/frontend/modules/element'
 import {
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
-import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../../atoms'
 import { RenderOutput } from '../abstract/RenderOutput'
@@ -15,12 +15,15 @@ import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
-  extends ExtendedModel(BaseRenderPipe, { next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    // id: idProp,
+    next: prop<IRenderPipe>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.atom?.current) {
-      if (this.renderer.debugMode) {
+      if (this.renderer.current.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }
 
@@ -43,7 +46,7 @@ export class AtomRenderPipe
     const mergedProps = mergeProps(atomProps, props)
     const elCss = element.css ? css(evalCss(element.css)) : undefined
 
-    if (this.renderer.debugMode) {
+    if (this.renderer.current.debugMode) {
       console.info(
         `AtomRenderPipe: Rendering atom ${element.atom.current.type}`,
         { element: element.name },

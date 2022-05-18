@@ -5,7 +5,7 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -15,11 +15,11 @@ import { BaseRenderPipe } from './renderPipe.base'
  */
 @model('@codelab/PassThroughRenderPipe')
 export class PassThroughRenderPipe
-  extends ExtendedModel(BaseRenderPipe, {})
+  extends ExtendedModel(modelClass(BaseRenderPipe), {})
   implements IRenderPipe
 {
   render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (this.renderer.debugMode) {
+    if (this.renderer.current.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {
         element,
         props,

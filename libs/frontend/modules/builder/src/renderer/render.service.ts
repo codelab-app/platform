@@ -25,6 +25,7 @@ import {
   detach,
   frozen,
   getSnapshot,
+  idProp,
   Model,
   model,
   modelAction,
@@ -41,8 +42,8 @@ import { atoms } from '../atoms/atoms'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
-import { renderPipeFactory } from './renderPipes/renderPipeFactory'
-import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
+import { AtomRenderPipe } from './renderPipes/atomRenderPipe'
+import { NullRenderPipe } from './renderPipes/nullRenderPipe'
 import { getState } from './utils'
 import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
@@ -83,6 +84,7 @@ const initForBuilder = () => {
 export class RenderService
   extends Model(
     {
+      id: idProp,
       /**
        * The tree that's being rendered
        */
@@ -104,7 +106,7 @@ export class RenderService
       typedValueTransformers: prop<Array<ITypedValueTransformer>>(() => []),
 
       /**
-       * The render pipe handles and augments the render process.
+       * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
        */
       renderPipe: prop<IRenderPipe | null>(null),
 
@@ -132,12 +134,32 @@ export class RenderService
 
   /**
    * Need to wait until renderService is initialized before we can inject it
+   *
+   * https://github.com/xaviergonz/mobx-keystone/issues/361
    */
-  protected override onAttachedToRootStore(
-    rootStore: object,
-  ): (() => void) | void {
-    this.typedValueTransformers = typedValueTransformersFactory(this)
-    this.renderPipe = renderPipeFactory(this)()
+  protected override onAttachedToRootStore() {
+    // this.typedValueTransformers = typedValueTransformersFactory(this)
+    // this.renderPipe = renderPipeFactory({
+    //   renderer: renderServiceRef(this),
+    //   pipes: defaultPipes(),
+    // })
+    // this.renderPipe = new NullRenderPipe({ renderer: renderServiceRef(this) })
+
+    const renderer = renderServiceRef(this)
+    console.log(renderer)
+
+    const nullRenderPipe = new NullRenderPipe({ renderer })
+
+    console.log('nullRenderPipe', nullRenderPipe.id)
+
+    const atomRenderPipe = new AtomRenderPipe({
+      next: nullRenderPipe,
+      renderer,
+    })
+
+    console.log('atomRenderPipe', atomRenderPipe.id)
+    // this.renderPipe =
+    // this.renderPipe = nullRenderPipe
   }
 
   @modelFlow
@@ -425,10 +447,10 @@ export class RenderService
     return getTypeService(this).type(typeId)?.kind
   }
 
-  static initForBuilder = initForBuilder
+  // static initForBuilder = initForBuilder
 }
 
-export const renderServiceRef = rootRef<RenderService>(
+export const renderServiceRef = rootRef<IRenderService>(
   '@codelab/RenderServiceRef',
   {
     onResolvedValueChange(ref, newType, oldType) {

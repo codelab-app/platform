@@ -3,7 +3,7 @@ import { IElement, ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
 /**
@@ -34,14 +34,18 @@ export class RenderPropsTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, renderer.tree, componentService)
+      !!getRootElement(value, this.renderer.current.tree, componentService)
     )
   }
 
   public transform(value: TypedValue<any>): any {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
-    const rootElement = getRootElement(value, renderer.tree, componentService)
+
+    const rootElement = getRootElement(
+      value,
+      this.renderer.current.tree,
+      componentService,
+    )
 
     if (!rootElement) {
       return value
@@ -51,9 +55,10 @@ export class RenderPropsTypedValueTransformer
   }
 
   private makeRenderProp(element: IElement) {
-    const renderer = getRenderService(this)
-
     return (...renderPropArgs: Array<any>) =>
-      renderer.renderElement(element, mergeProps(...renderPropArgs))
+      this.renderer.current.renderElement(
+        element,
+        mergeProps(...renderPropArgs),
+      )
   }
 }

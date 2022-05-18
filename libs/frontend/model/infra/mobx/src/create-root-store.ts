@@ -4,7 +4,6 @@ import { AtomService, atomServiceContext } from '@codelab/frontend/modules/atom'
 import {
   BuilderService,
   RenderService,
-  renderServiceContext,
 } from '@codelab/frontend/modules/builder'
 import { ComponentService } from '@codelab/frontend/modules/component'
 import { ElementService, ElementTree } from '@codelab/frontend/modules/element'
@@ -158,7 +157,6 @@ export const createRootStore = (
       typeServiceContext.set(this, this.typeService)
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)
-      renderServiceContext.set(this, this.pageBuilderRenderService)
       actionServiceContext.set(this, this.actionService)
       resourceServiceContext.set(this, this.resourceService)
       operationServiceContext.set(this, this.operationService)

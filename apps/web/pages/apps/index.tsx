@@ -22,7 +22,6 @@ import {
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
@@ -93,18 +92,7 @@ export default AppsPage
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async (context: GetServerSidePropsContext) => {
-    // await setClientAuthHeaders(context)
-    //
-    // const store = initializeStore()
-
-    return {
-      // props: { initialState: getSnapshot(store) },
-      props: {},
-    }
-  },
-})
+export const getServerSideProps = withPageAuthRequired()
 
 AppsPage.Layout = (page) => {
   return (
