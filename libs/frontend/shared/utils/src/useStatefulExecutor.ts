@@ -18,6 +18,7 @@ export interface LoadingState<T> {
   isLoading: boolean
   error: string | null
   data: T | null
+  isDone: boolean
 }
 
 export const defaultNotifyFactory = (error: any): NotificationOptions => ({
@@ -34,6 +35,7 @@ export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
     isLoading: false,
     error: null,
     data: null,
+    isDone: false,
   })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,11 +49,11 @@ export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
 
   const statefulExecutor = useCallback(
     async (...args: TArgs) => {
-      setState({ isLoading: true, error: null, data: null })
+      setState({ isLoading: true, error: null, data: null, isDone: false })
 
       try {
         const data = await executorCallback(...args)
-        setState({ isLoading: false, error: null, data })
+        setState({ isLoading: false, error: null, data, isDone: true })
 
         return data
       } catch (e) {
@@ -59,6 +61,7 @@ export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
           isLoading: false,
           error: extractErrorMessage(e),
           data: null,
+          isDone: true,
         })
 
         console.error(e)

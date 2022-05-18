@@ -2357,6 +2357,7 @@ input ComponentConnectWhere {
 }
 
 input ComponentCreateInput {
+  id: ID!
   name: String!
   owner: ComponentOwnerFieldInput
   rootElement: ComponentRootElementFieldInput
@@ -2392,6 +2393,7 @@ type ComponentElementRootElementNodeAggregateSelection {
 }
 
 input ComponentOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -2737,6 +2739,7 @@ input ComponentUniqueWhere {
 }
 
 input ComponentUpdateInput {
+  id: ID
   name: String
   owner: ComponentOwnerUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput

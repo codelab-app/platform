@@ -49,6 +49,10 @@ export class PageService
     return [...this.pages.values()]
   }
 
+  pagesByApp(appId: string) {
+    return this.pagesList.filter((p) => p.app.id === appId)
+  }
+
   page(id: string) {
     return this.pages.get(id)
   }
@@ -174,20 +178,19 @@ export class PageService
 
   @modelFlow
   @transaction
-  deleteManyByAppId = _async(function* (this: PageService, appId: string) {
-    const { pages } = yield* _await(
-      pageApi.GetPages({ where: { app: { id: appId } } }),
+  deleteManyByAppId = _async(function* (this: PageService, id: string) {
+    const elementService = getElementService(this)
+    const pages = yield* _await(this.getAll({ app: { id } }))
+
+    yield* _await(
+      Promise.all(
+        pages.map((page) =>
+          elementService.deleteElementSubgraph(page.rootElement.id),
+        ),
+      ),
     )
 
-    const elementService = getElementService(this)
-    const pageIds: Array<string> = []
-
-    pages.map((page) => {
-      pageIds.push(page.id)
-      elementService.deleteElementSubgraph(page.rootElement.id)
-    })
-
-    this.deleteMany(pageIds)
+    yield* _await(this.deleteMany(pages.map((page) => page.id)))
   })
 
   @modelFlow
@@ -197,15 +200,12 @@ export class PageService
       return []
     }
 
-    const existings: Array<IPage> = []
+    const existingPages: Array<IPage> = []
 
-    for (const id in ids) {
+    for (const id of ids) {
       const existing = throwIfUndefined(this.pages.get(id))
-
-      if (existing) {
-        existings.push(existing)
-        this.pages.delete(id)
-      }
+      existingPages.push(existing)
+      this.pages.delete(id)
     }
 
     const { deletePages } = yield* _await(
@@ -217,6 +217,6 @@ export class PageService
       throw new Error('Page was not deleted')
     }
 
-    return existings
+    return existingPages
   })
 }

@@ -2494,6 +2494,7 @@ export type ComponentConnectWhere = {
 }
 
 export type ComponentCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<ComponentOwnerFieldInput>
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
@@ -2532,6 +2533,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 }
 
 export type ComponentOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -2876,6 +2878,7 @@ export type ComponentUniqueWhere = {
 }
 
 export type ComponentUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<ComponentOwnerUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>

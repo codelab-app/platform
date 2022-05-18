@@ -13,9 +13,12 @@ export const createComponent = async (
   } = await Component.create({
     input: [
       {
+        id: component.id ?? v4(),
         name: component.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
-        rootElement: { create: { node: { id: v4(), name: '' } } },
+        rootElement: {
+          connect: { where: { node: { id: component.rootElement.id } } },
+        },
       },
     ],
   })

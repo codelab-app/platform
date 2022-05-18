@@ -3,11 +3,12 @@ import { IAuth0Id } from '../user'
 import { ComponentFragment } from './component.fragment.graphql.gen'
 
 export interface ICreateComponentDTO {
+  id: string
   name: string
   auth0Id: IAuth0Id
 }
 
-export type IUpdateComponentDTO = Omit<ICreateComponentDTO, 'auth0Id'>
+export type IUpdateComponentDTO = Omit<ICreateComponentDTO, 'id' | 'auth0Id'>
 
 export type IComponentDTO = ComponentFragment
 

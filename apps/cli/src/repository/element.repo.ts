@@ -1,10 +1,19 @@
 import { ElementOGM } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
  */
+
+const label = (element: OGM_TYPES.Element) =>
+  element.name ||
+  element.atom?.name ||
+  (element.atom ? pascalCaseToWords(element.atom.type) : undefined) ||
+  element.component?.name ||
+  element.instanceOfComponent?.name
+
 export const importElementInitial = async (
   element: OGM_TYPES.Element,
   userId: string,
@@ -18,7 +27,7 @@ export const importElementInitial = async (
   })
 
   if (!existing.length) {
-    console.log(`Creating ${element.name} ${element?.atom?.type}`)
+    console.log(`Creating ${label(element)}`)
 
     const {
       elements: [newElement],
@@ -27,6 +36,7 @@ export const importElementInitial = async (
         {
           id: element.id ?? v4(),
           name: element.name,
+          /*          
           owner: {
             connect: {
               where: {
@@ -36,23 +46,10 @@ export const importElementInitial = async (
               },
             },
           },
+         */
           css: element.css,
           atom: element.atom
             ? { connect: { where: { node: { id: element.atom.id } } } }
-            : undefined,
-          component: element.component
-            ? {
-                connect: {
-                  where: { node: { id: element.component.id } },
-                },
-              }
-            : undefined,
-          instanceOfComponent: element.instanceOfComponent
-            ? {
-                connect: {
-                  where: { node: { id: element.instanceOfComponent.id } },
-                },
-              }
             : undefined,
           props: element.props
             ? {
@@ -69,7 +66,7 @@ export const importElementInitial = async (
     return newElement
   }
 
-  console.log(`Updating ${element.name}`)
+  console.log(`Updating ${label(element)}`)
 
   const {
     elements: [newElement],
@@ -106,12 +103,22 @@ export const updateImportedElement = async (
   await Elements.update({
     where: { id: element.id },
     update: {
+      component: element.component
+        ? { connect: { where: { node: { id: element.component.id } } } }
+        : undefined,
       parentElement: element.parentElement
         ? {
             disconnect: { where: {} },
             connect: {
               edge: { order: element.parentElementConnection?.edges[0].order },
               where: { node: { id: element.parentElement.id } },
+            },
+          }
+        : undefined,
+      instanceOfComponent: element.instanceOfComponent
+        ? {
+            connect: {
+              where: { node: { id: element.instanceOfComponent.id } },
             },
           }
         : undefined,

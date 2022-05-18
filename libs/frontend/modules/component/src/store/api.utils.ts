@@ -6,7 +6,7 @@ import { v4 } from 'uuid'
 export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
-  const { name, auth0Id } = input
+  const { id = v4(), name, auth0Id } = input
 
   const rootElement: ComponentCreateInput['rootElement'] = {
     create: {
@@ -18,6 +18,7 @@ export const mapCreateInput = (
   }
 
   return {
+    id,
     name,
     rootElement,
     owner: connectOwner(auth0Id),

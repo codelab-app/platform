@@ -16,17 +16,11 @@ import { useEffect, useRef } from 'react'
 export type UpdateElementPropsFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  autocompleteContext?: any
+  autocomplete?: IPropData
 } & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({
-    elementService,
-    element,
-    trackPromises,
-    typeService,
-    autocompleteContext,
-  }) => {
+  ({ elementService, element, trackPromises, typeService, autocomplete }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element?.props?.values ?? {})
@@ -64,8 +58,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       <Spinner isLoading={isLoading}>
         {interfaceType && (
           <PropsForm
-            autocompleteContext={autocompleteContext}
             autosave
+            context={{ autocomplete }}
             initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}

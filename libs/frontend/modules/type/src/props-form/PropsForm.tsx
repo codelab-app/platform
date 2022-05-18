@@ -1,64 +1,53 @@
-import { IInterfaceType } from '@codelab/shared/abstract/core'
+import {
+  IInterfaceType,
+  IPropData,
+  IPropsFieldContext,
+} from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
-import useDeepCompareEffect from 'use-deep-compare-effect'
-import { PropsField } from './PropsField'
+import React, { useCallback, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { Subscription } from 'react-hook-form/dist/utils/createSubject'
+import { PropsFields } from './PropsFields'
 
 export type PropsFormProps = {
   interfaceType: IInterfaceType
-  initialValue?: any
-  onSubmit: (values: any) => any
+  initialValue?: IPropData
+  onSubmit: (values: IPropData) => IPropData
   autosave?: boolean
-  autocompleteContext?: any
+  context?: IPropsFieldContext
 }
 
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
 export const PropsForm = observer<PropsFormProps>(
-  ({
-    interfaceType,
-    initialValue,
-    onSubmit,
-    autosave,
-    autocompleteContext = { hello: 'world' },
-  }) => {
-    const form = useForm({
-      defaultValues: initialValue,
-    })
-
+  ({ interfaceType, initialValue, onSubmit, autosave, context }) => {
+    const form = useForm({ defaultValues: initialValue })
+    const { handleSubmit, watch } = form
     const fields = [...interfaceType.fields.values()]
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debouncedSave = useCallback(
-      debounce(() => {
-        form.handleSubmit(onSubmit)()
-        // autosave every 500ms
-      }, 500),
-
+      debounce(() => handleSubmit(onSubmit)(), 500),
       [onSubmit],
     )
 
-    const watchedData = useWatch({
-      control: form.control,
-      defaultValue: initialValue,
-    })
+    useEffect(() => {
+      let subscription: Nullish<Subscription> = null
 
-    useDeepCompareEffect(() => {
-      if (autosave && form.formState.isDirty) {
-        debouncedSave()
+      if (autosave) {
+        subscription = watch(debouncedSave)
       }
-    }, [autosave, watchedData])
+
+      return () => subscription?.unsubscribe()
+    }, [watch, autosave, debouncedSave])
 
     return (
       <form onSubmit={form.handleSubmit(onSubmit)}>
         {fields.map((field) => (
-          <PropsField
-            autocompleteContext={autocompleteContext}
-            field={field}
-            form={form}
-          />
+          <PropsFields context={context} field={field} form={form} />
         ))}
       </form>
     )
