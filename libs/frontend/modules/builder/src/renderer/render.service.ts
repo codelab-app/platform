@@ -139,15 +139,24 @@ export class RenderService
    */
   protected override onAttachedToRootStore() {
     // this.typedValueTransformers = typedValueTransformersFactory(this)
+
+    /**
+     * This fails
+     */
     // this.renderPipe = renderPipeFactory({
     //   renderer: renderServiceRef(this),
     //   pipes: defaultPipes(),
     // })
+
+    /**
+     * This works okay
+     */
     // this.renderPipe = new NullRenderPipe({ renderer: renderServiceRef(this) })
 
+    /**
+     * Manually building them
+     */
     const renderer = renderServiceRef(this)
-    console.log(renderer)
-
     const nullRenderPipe = new NullRenderPipe({ renderer })
 
     console.log('nullRenderPipe', nullRenderPipe.id)
@@ -158,8 +167,6 @@ export class RenderService
     })
 
     console.log('atomRenderPipe', atomRenderPipe.id)
-    // this.renderPipe =
-    // this.renderPipe = nullRenderPipe
   }
 
   @modelFlow

@@ -16,7 +16,6 @@ import { BaseRenderPipe } from './renderPipe.base'
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
   extends ExtendedModel(modelClass(BaseRenderPipe), {
-    // id: idProp,
     next: prop<IRenderPipe>(),
   })
   implements IRenderPipe

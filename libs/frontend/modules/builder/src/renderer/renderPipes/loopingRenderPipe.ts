@@ -6,20 +6,20 @@ import {
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
-import { ExtendedModel, model, modelClass, prop, Ref } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/LoopingRenderPipe')
 export class LoopingRenderPipe
   extends ExtendedModel(modelClass(BaseRenderPipe), {
-    next: prop<Ref<IRenderPipe>>(),
+    next: prop<IRenderPipe>(),
   })
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.renderForEachPropKey) {
-      return this.next.current.render(element, props)
+      return this.next.render(element, props)
     }
 
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
@@ -32,7 +32,7 @@ export class LoopingRenderPipe
         )
       }
 
-      return this.next.current.render(element, props)
+      return this.next.render(element, props)
     }
 
     if (this.renderer.current.debugMode) {
@@ -48,7 +48,7 @@ export class LoopingRenderPipe
           key: `${props['key'] || element.id}-${index}`,
         })
 
-        return this.next.current.render(element, itemProps)
+        return this.next.render(element, itemProps)
       })
       .filter((output): output is IRenderOutput => !!output)
   }
