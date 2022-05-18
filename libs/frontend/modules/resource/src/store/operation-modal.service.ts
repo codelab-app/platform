@@ -9,10 +9,10 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 
 @model('@codelab/OperationModalService')
 export class OperationModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<IOperation>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IOperation>>>(ModalService),
+    {},
+  )
   implements IModalService<Ref<IOperation>, IOperationModalProperties>
 {
   @computed

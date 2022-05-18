@@ -1,7 +1,7 @@
 import {
-  IBuilderService,
   IElementRef,
   IPropData,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isObjectLike } from 'lodash'
@@ -12,16 +12,15 @@ import { isObjectLike } from 'lodash'
  * If the element hasn't been rendered it returns an empty array
  * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
  */
-export const usePropCompletion = (builderService: IBuilderService) => {
+export const usePropCompletion = (renderService: IRenderService) => {
   const providePropCompletion = (value: string, elementId: IElementRef) => {
-    const element = builderService.builderRenderer.tree?.element(elementId)
+    const element = renderService.tree?.element(elementId)
 
     if (!element) {
       return []
     }
 
-    const renderOutput =
-      builderService.builderRenderer.renderIntermediateElement(element)
+    const renderOutput = renderService.renderIntermediateElement(element)
 
     if (!renderOutput) {
       return []

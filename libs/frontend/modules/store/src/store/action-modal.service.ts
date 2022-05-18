@@ -7,10 +7,7 @@ import { Action } from './action.model'
 
 @model('@codelab/ActionModalService')
 export class ActionModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<Action>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(modelClass<ModalService<Ref<Action>>>(ModalService), {})
   implements IModalService<Ref<IAction>, { action: Maybe<IAction> }>
 {
   @computed

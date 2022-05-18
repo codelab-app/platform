@@ -3,6 +3,7 @@ import {
   IBuilderService,
   IElementService,
   IElementTree,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { checkIfValidUUID } from '@codelab/shared/utils'
 import { Tree as AntdTree } from 'antd'
@@ -28,12 +29,10 @@ type BuilderTreeProps = {
   >
   className?: string
   elementTree: IElementTree
+  renderService: IRenderService
 } & Pick<
   IBuilderService,
-  | 'setHoveredElement'
-  | 'set_selectedElement'
-  | 'selectedElement'
-  | 'builderRenderer'
+  'setHoveredElement' | 'set_selectedElement' | 'selectedElement'
 > &
   Pick<IElementService, 'element' | 'moveElement'>
 
@@ -46,13 +45,13 @@ export const BuilderTree = observer<BuilderTreeProps>(
     set_selectedElement,
     selectedElement,
     element,
-    builderRenderer,
+    renderService,
     elementTree,
     moveElement,
   }) => {
     const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
       selectedElement,
-      builderRenderer,
+      renderService,
     })
 
     const { isMoving, handleDrop } = useElementTreeDrop({

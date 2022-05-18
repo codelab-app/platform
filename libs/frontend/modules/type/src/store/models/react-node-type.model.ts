@@ -27,10 +27,7 @@ const hydrate = ({
 
 @model('@codelab/ReactNodeType')
 export class ReactNodeType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.ReactNodeType),
-    props: {},
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.ReactNodeType), {})
   implements IReactNodeType
 {
   @modelAction

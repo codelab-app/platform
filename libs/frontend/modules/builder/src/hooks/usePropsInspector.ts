@@ -1,9 +1,9 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import {
-  IBuilderService,
   IElement,
   IElementService,
   IPropData,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const usePropsInspector = (
   element: IElement,
-  builderService: IBuilderService,
+  renderService: IRenderService,
   elementService: IElementService,
 ) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,8 +22,7 @@ export const usePropsInspector = (
   )
 
   // this is memoized by createTransformer, so we're effectively getting the last rendered output
-  const renderOutput =
-    builderService.builderRenderer.renderIntermediateElement(element)
+  const renderOutput = renderService.renderIntermediateElement(element)
 
   const lastRenderedProps = Array.isArray(renderOutput)
     ? mergeProps(renderOutput.map((o) => o.props))
@@ -31,11 +30,8 @@ export const usePropsInspector = (
 
   const setExtraProps = useCallback(
     (props: IPropData) =>
-      builderService.builderRenderer.extraElementProps.setForElement(
-        element.id,
-        props,
-      ),
-    [builderService.builderRenderer.extraElementProps, element.id],
+      renderService.extraElementProps.setForElement(element.id, props),
+    [renderService.extraElementProps, element.id],
   )
 
   const save = async () => {

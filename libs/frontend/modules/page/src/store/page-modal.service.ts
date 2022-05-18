@@ -6,10 +6,7 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 
 @model('@codelab/PageModalService')
 export class PageModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<IPage>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(modelClass<ModalService<Ref<IPage>>>(ModalService), {})
   implements IModalService<Ref<IPage>, { page: Maybe<IPage> }>
 {
   @computed

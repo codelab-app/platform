@@ -39,6 +39,7 @@ const PageBuilder: CodelabPage = observer(() => {
     elementService,
     pageElementTree,
     providerElementTree,
+    pageBuilderRenderService,
     storeService,
     builderService,
     userService,
@@ -77,7 +78,7 @@ const PageBuilder: CodelabPage = observer(() => {
       ])
 
       // initialize renderer
-      await builderService.builderRenderer.init(
+      await pageBuilderRenderService.init(
         pageElementTree,
         providerElementTree,
         createMobxState(storeTree, apps, pages, router),
@@ -98,11 +99,11 @@ const PageBuilder: CodelabPage = observer(() => {
       currentDragData={builderService.currentDragData}
       deleteModal={elementService.deleteModal}
       elementTree={elementTree}
-      key={builderService.builderRenderer.tree?.root?.id}
+      key={pageBuilderRenderService.tree?.root?.id}
       rendererProps={{
-        isInitialized: builderService.builderRenderer.isInitialized,
-        renderRoot: builderService.builderRenderer.renderRoot.bind(
-          builderService.builderRenderer,
+        isInitialized: pageBuilderRenderService.isInitialized,
+        renderRoot: pageBuilderRenderService.renderRoot.bind(
+          pageBuilderRenderService,
         ),
       }}
       selectedElement={builderService.selectedElement}
@@ -127,11 +128,11 @@ const PageBuilder: CodelabPage = observer(() => {
               currentDragData={builderService.currentDragData}
               deleteModal={elementService.deleteModal}
               elementTree={data.elementTree}
-              key={builderService.builderRenderer.tree?.root?.id}
+              key={pageBuilderRenderService.tree?.root?.id}
               rendererProps={{
-                isInitialized: builderService.builderRenderer.isInitialized,
-                renderRoot: builderService.builderRenderer.renderRoot.bind(
-                  builderService.builderRenderer,
+                isInitialized: pageBuilderRenderService.isInitialized,
+                renderRoot: pageBuilderRenderService.renderRoot.bind(
+                  pageBuilderRenderService,
                 ),
               }}
               selectedElement={builderService.selectedElement}
@@ -162,8 +163,10 @@ PageBuilder.Layout = observer((page) => {
     pageService,
     atomService,
     componentService,
+    pageBuilderRenderService,
     userService,
     typeService,
+    componentBuilderRenderService,
   } = useStore()
 
   return (
@@ -177,9 +180,11 @@ PageBuilder.Layout = observer((page) => {
           <BuilderMainPane
             atomService={atomService}
             builderService={builderService}
+            componentBuilderRenderService={componentBuilderRenderService}
             componentService={componentService}
             elementService={elementService}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            pageBuilderRenderService={pageBuilderRenderService}
             pageElementTree={pageElementTree}
             userService={userService}
           />
@@ -191,20 +196,21 @@ PageBuilder.Layout = observer((page) => {
             componentService={componentService}
             elementService={elementService}
             elementTree={pageElementTree}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            renderService={pageBuilderRenderService}
             typeService={typeService}
           />
         )}
         SidebarNavigation={() => (
           <BuilderSidebarNavigation
             builderTab={builderService.builderTab}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
             setBuilderTab={builderService.setBuilderTab}
           />
         )}
         builderService={builderService}
         headerHeight={38}
-        key={builderService.builderRenderer.tree?.id}
+        key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
       </BuilderDashboardTemplate>

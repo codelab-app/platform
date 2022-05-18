@@ -32,6 +32,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
     pageElementTree,
     providerElementTree,
     builderService,
+    pageBuilderRenderService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
@@ -58,7 +59,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
       )
 
       // initialize renderer
-      await builderService.builderRenderer.init(
+      await pageBuilderRenderService.init(
         pageElementTree,
         providerElementTree,
         null,
@@ -69,7 +70,7 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
     { executeOnMount: true },
   )
 
-  const elementTree = builderService.builderRenderer.tree
+  const elementTree = pageBuilderRenderService.tree
 
   return (
     <>
@@ -85,11 +86,11 @@ const AppProviderBuilder: CodelabPage<any> = observer(() => {
           currentDragData={builderService.currentDragData}
           deleteModal={elementService.deleteModal}
           elementTree={elementTree}
-          key={builderService.builderRenderer.tree?.root?.id}
+          key={pageBuilderRenderService.tree?.root?.id}
           rendererProps={{
-            isInitialized: builderService.builderRenderer.isInitialized,
-            renderRoot: builderService.builderRenderer.renderRoot.bind(
-              builderService.builderRenderer,
+            isInitialized: pageBuilderRenderService.isInitialized,
+            renderRoot: pageBuilderRenderService.renderRoot.bind(
+              pageBuilderRenderService,
             ),
           }}
           selectedElement={builderService.selectedElement}
@@ -119,6 +120,8 @@ AppProviderBuilder.Layout = observer((page) => {
     componentService,
     userService,
     typeService,
+    componentBuilderRenderService,
+    pageBuilderRenderService,
   } = useStore()
 
   return (
@@ -132,8 +135,10 @@ AppProviderBuilder.Layout = observer((page) => {
           <BuilderMainPane
             atomService={atomService}
             builderService={builderService}
+            componentBuilderRenderService={componentBuilderRenderService}
             componentService={componentService}
             elementService={elementService}
+            pageBuilderRenderService={pageBuilderRenderService}
             pageElementTree={pageElementTree}
             userService={userService}
           />
@@ -145,6 +150,7 @@ AppProviderBuilder.Layout = observer((page) => {
             componentService={componentService}
             elementService={elementService}
             elementTree={pageElementTree}
+            renderService={pageBuilderRenderService}
             typeService={typeService}
           />
         ))}

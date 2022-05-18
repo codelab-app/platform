@@ -16,7 +16,11 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import { BuilderTab, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  BuilderTab,
+  IElementTree,
+  IRenderService,
+} from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
@@ -42,6 +46,8 @@ type BuilderMainPaneProps = WithServices<
   | USER_SERVICE
 > & {
   pageElementTree: IElementTree
+  pageBuilderRenderService: IRenderService
+  componentBuilderRenderService: IRenderService
 }
 
 export const BuilderMainPane = observer<BuilderMainPaneProps>(
@@ -52,6 +58,8 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     componentService,
     userService,
     pageElementTree,
+    pageBuilderRenderService,
+    componentBuilderRenderService,
   }) => {
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
@@ -74,12 +82,13 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       ({
         treeData,
         className,
+        renderService,
       }: {
         treeData: DataNode | undefined
         className?: string
+        renderService: IRenderService
       }) => (
         <BuilderTree
-          builderRenderer={builderService.builderRenderer}
           className={className}
           element={elementService.element.bind(elementService)}
           elementContextMenuProps={{
@@ -92,6 +101,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           }}
           elementTree={pageElementTree}
           moveElement={elementService.moveElement.bind(elementService)}
+          renderService={renderService}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
@@ -127,17 +137,29 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
           {antdTree ? (
-            <BaseBuilderTree className="page-builder" treeData={antdTree} />
+            <BaseBuilderTree
+              className="page-builder"
+              renderService={pageBuilderRenderService}
+              treeData={antdTree}
+            />
           ) : null}
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {antdTree ? <BaseBuilderTree treeData={componentsAntdTree} /> : null}
+          {antdTree ? (
+            <BaseBuilderTree
+              renderService={componentBuilderRenderService}
+              treeData={componentsAntdTree}
+            />
+          ) : null}
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MobxStateContainer builderService={builderService} />
+          <MobxStateContainer
+            builderService={builderService}
+            renderService={pageBuilderRenderService}
+          />
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.Toolbox}>

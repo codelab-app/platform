@@ -30,12 +30,9 @@ const hydrate = ({
 
 @model('@codelab/ElementType')
 export class ElementType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.ElementType),
-    props: {
-      elementKind: prop<ElementTypeKind>(),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.ElementType), {
+    elementKind: prop<ElementTypeKind>(),
+  })
   implements IElementType
 {
   @modelAction

@@ -39,12 +39,9 @@ const hydrate = ({
 
 @model('@codelab/UnionType')
 export class UnionType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.UnionType),
-    props: {
-      typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.UnionType), {
+    typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
+  })
   implements IUnionType
 {
   @modelAction

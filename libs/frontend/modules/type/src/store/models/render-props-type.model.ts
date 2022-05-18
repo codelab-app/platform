@@ -22,10 +22,7 @@ const hydrate = ({ id, kind, name, owner }: IRenderPropsTypeDTO) => {
 
 @model('@codelab/RenderPropsType')
 export class RenderPropsType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.RenderPropsType),
-    props: {},
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.RenderPropsType), {})
   implements IRenderPropsType
 {
   @modelAction

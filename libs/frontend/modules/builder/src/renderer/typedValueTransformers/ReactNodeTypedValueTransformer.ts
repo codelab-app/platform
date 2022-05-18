@@ -1,6 +1,6 @@
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { getRenderService } from '../renderServiceContext'
 import { getRootElement } from '../utils/getRootElement'
@@ -21,7 +21,7 @@ import { getRootElement } from '../utils/getRootElement'
  */
 @model('@codelab/ReactNodeTypedValueTransformer')
 export class ReactNodeTypedValueTransformer
-  extends Model({})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(typeKind: ITypeKind): boolean {
@@ -29,7 +29,6 @@ export class ReactNodeTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     return (

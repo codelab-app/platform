@@ -80,7 +80,19 @@ export type IRootStore = {
    * Our builder view has page & component tree view, so we would need 2 instances of the builder
    */
   builderService: IBuilderService
-  renderService: IRenderService
+  /**
+   * We have a pageBuilder specific renderer that overrides some onClick methods
+   */
+  pageBuilderRenderService: IRenderService
+  /**
+   * Since page and component tree are used simultaneously, we should keep a separate copy for components, as opposed to re-initializing new render services on switching the tree view
+   */
+  componentBuilderRenderService: IRenderService
+  /**
+   * And a page specific renderer for serving client apps to customers
+   */
+  pageRenderService: IRenderService
+
   resourceService: IResourceService
   operationService: IOperationService
 }
@@ -128,7 +140,15 @@ export const createRootStore = (
        * This is the default render service used for rendering apps.
        * do not confuse it with the builder-specific render service in builderService.builderRenderer
        */
-      renderService: prop(() => props?.renderService ?? new RenderService({})),
+      pageRenderService: prop(
+        () => props?.pageRenderService ?? new RenderService({}),
+      ),
+      pageBuilderRenderService: prop(
+        () => props?.pageBuilderRenderService ?? new RenderService({}),
+      ),
+      componentBuilderRenderService: prop(
+        () => props?.componentBuilderRenderService ?? new RenderService({}),
+      ),
     })
     implements IRootStore
   {
@@ -138,7 +158,7 @@ export const createRootStore = (
       typeServiceContext.set(this, this.typeService)
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)
-      renderServiceContext.set(this, this.renderService)
+      renderServiceContext.set(this, this.pageBuilderRenderService)
       actionServiceContext.set(this, this.actionService)
       resourceServiceContext.set(this, this.resourceService)
       operationServiceContext.set(this, this.operationService)

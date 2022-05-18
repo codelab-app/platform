@@ -5,10 +5,10 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 
 @model('@codelab/ResourceModalService')
 export class ResourceModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<IResource>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IResource>>>(ModalService),
+    {},
+  )
   implements IModalService<Ref<IResource>>
 {
   @computed

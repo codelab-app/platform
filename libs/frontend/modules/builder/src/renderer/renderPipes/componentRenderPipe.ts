@@ -11,13 +11,13 @@ import {
   IRenderPipe,
   IRenderService,
 } from '@codelab/shared/abstract/core'
-import { Model, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
-  extends Model({ next: prop<IRenderPipe>() })
+  extends ExtendedModel(BaseRenderPipe, { next: prop<IRenderPipe>() })
   implements IRenderPipe
 {
   render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
@@ -27,16 +27,15 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const renderer = getRenderService(this)
-    const rootElement = renderer.tree?.element(component.rootElementId)
+    const rootElement = this.renderer.tree?.element(component.rootElementId)
 
     if (!rootElement) {
-      ComponentRenderPipe.logRootElementNotFound(renderer, element)
+      ComponentRenderPipe.logRootElementNotFound(this.renderer, element)
 
       return this.next.render(element, props)
     }
 
-    ComponentRenderPipe.logRendering(renderer, rootElement, element)
+    ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 
     // Start the pipe again with the root element
     const overrideProps = ComponentRenderPipe.makeOverrideProps(
@@ -44,7 +43,7 @@ export class ComponentRenderPipe
       component,
     )
 
-    return renderer.renderIntermediateElement(rootElement, overrideProps)
+    return this.renderer.renderIntermediateElement(rootElement, overrideProps)
   }
 
   private static makeOverrideProps(props: IPropData, component: IComponent) {

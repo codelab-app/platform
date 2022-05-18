@@ -30,12 +30,9 @@ const hydrate = ({
 
 @model('@codelab/PrimitiveType')
 export class PrimitiveType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.PrimitiveType),
-    props: {
-      primitiveKind: prop<PrimitiveTypeKind>(),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.PrimitiveType), {
+    primitiveKind: prop<PrimitiveTypeKind>(),
+  })
   implements IPrimitiveType
 {
   @modelAction

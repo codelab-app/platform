@@ -9,10 +9,7 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/PropMapBindingModalService')
 export class PropMapBindingModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<PropMapData>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(modelClass<ModalService<PropMapData>>(ModalService), {})
   implements IModalService<PropMapData, PropMapProperties>
 {
   @computed

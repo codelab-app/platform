@@ -26,7 +26,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     builderService,
     providerElementTree,
     storeService,
-    renderService,
+    pageBuilderRenderService,
+    pageRenderService,
     pageElementTree,
   } = useStore()
 
@@ -60,7 +61,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       ])
 
       // initialize renderer
-      await renderService.init(
+      await pageRenderService.init(
         pageElementTree,
         providerElementTree,
         createMobxState(storeTree, apps, pages, router),
@@ -84,10 +85,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
       <Renderer
-        isInitialized={builderService.builderRenderer.isInitialized}
-        renderRoot={builderService.builderRenderer.renderRoot.bind(
-          builderService.builderRenderer,
-        )}
+        isInitialized={pageRenderService.isInitialized}
+        renderRoot={pageRenderService.renderRoot.bind(pageRenderService)}
       />
     </>
   )

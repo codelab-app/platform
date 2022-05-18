@@ -5,7 +5,7 @@ import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import { componentServiceContext } from '@codelab/frontend/presenter/container'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { RenderService } from '../../render.service'
-import { renderServiceContext } from '../../renderServiceContext'
+import { renderServiceContext } from '../../render.service.context'
 
 @model('@codelab/RenderTestRootStore')
 export class RenderTestRootStore extends Model({

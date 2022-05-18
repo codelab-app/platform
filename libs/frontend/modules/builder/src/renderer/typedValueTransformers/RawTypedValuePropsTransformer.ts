@@ -1,6 +1,7 @@
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 
 /**
  * Transforms props with the following format.
@@ -21,7 +22,7 @@ import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
  */
 @model('@codelab/RawTypedValuePropsTransformer')
 export class RawTypedValuePropsTransformer
-  extends Model({})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   public readonly handledKinds: ReadonlySet<ITypeKind> = new Set([

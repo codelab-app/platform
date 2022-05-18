@@ -7,10 +7,10 @@ import { Component } from './component.model'
 
 @model('@codelab/ComponentModalService')
 export class ComponentModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<Component>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<Component>>>(ModalService),
+    {},
+  )
   implements IModalService<Ref<IComponent>, { component: Maybe<IComponent> }>
 {
   @computed
