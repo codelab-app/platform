@@ -17,10 +17,7 @@ const hydrate = ({ id, kind, name, owner }: IPageTypeDTO) => {
 
 @model('@codelab/PageType')
 export class PageType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.PageType),
-    props: {},
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.PageType), {})
   implements IPageType
 {
   @modelAction

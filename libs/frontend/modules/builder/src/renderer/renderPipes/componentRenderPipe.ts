@@ -2,7 +2,6 @@ import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
-import { Element } from '@codelab/frontend/modules/element'
 import {
   IComponent,
   IElement,
@@ -11,32 +10,35 @@ import {
   IRenderPipe,
   IRenderService,
 } from '@codelab/shared/abstract/core'
-import { Model, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ComponentRenderPipe')
 export class ComponentRenderPipe
-  extends Model({ next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    next: prop<IRenderPipe>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     const component = element.instanceOfComponent?.current
 
     if (!component) {
       return this.next.render(element, props)
     }
 
-    const renderer = getRenderService(this)
-    const rootElement = renderer.tree?.element(component.rootElementId)
+    const rootElement = this.renderService.tree?.element(
+      component.rootElementId,
+    )
 
     if (!rootElement) {
-      ComponentRenderPipe.logRootElementNotFound(renderer, element)
+      ComponentRenderPipe.logRootElementNotFound(this.renderService, element)
 
       return this.next.render(element, props)
     }
 
-    ComponentRenderPipe.logRendering(renderer, rootElement, element)
+    ComponentRenderPipe.logRendering(this.renderService, rootElement, element)
 
     // Start the pipe again with the root element
     const overrideProps = ComponentRenderPipe.makeOverrideProps(
@@ -44,7 +46,10 @@ export class ComponentRenderPipe
       component,
     )
 
-    return renderer.renderIntermediateElement(rootElement, overrideProps)
+    return this.renderService.renderIntermediateElement(
+      rootElement,
+      overrideProps,
+    )
   }
 
   private static makeOverrideProps(props: IPropData, component: IComponent) {
@@ -59,7 +64,7 @@ export class ComponentRenderPipe
 
   private static logRootElementNotFound(
     renderer: IRenderService,
-    element: Element,
+    element: IElement,
   ) {
     if (renderer.debugMode) {
       console.info(

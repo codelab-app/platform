@@ -30,12 +30,9 @@ const hydrate = ({
 
 @model('@codelab/MonacoType')
 export class MonacoType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.MonacoType),
-    props: {
-      language: prop<MonacoLanguage>(),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.MonacoType), {
+    language: prop<MonacoLanguage>(),
+  })
   implements IMonacoType
 {
   @modelAction

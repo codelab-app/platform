@@ -17,10 +17,10 @@ export class AtomModalService
 
 @model('@codelab/AtomsModalService')
 export class AtomsModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Array<Ref<IAtom>>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Array<Ref<IAtom>>>>(ModalService),
+    {},
+  )
   implements IModalService<Array<Ref<IAtom>>, { atoms: Array<IAtom> }>
 {
   @computed

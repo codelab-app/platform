@@ -1,30 +1,31 @@
-import { Element } from '@codelab/frontend/modules/element'
 import {
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
-import { Model, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/LoopingRenderPipe')
 export class LoopingRenderPipe
-  extends Model({ next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    next: prop<IRenderPipe>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.renderForEachPropKey) {
       return this.next.render(element, props)
     }
 
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
-    const renderer = getRenderService(this)
 
     if (!Array.isArray(value)) {
-      if (renderer.debugMode) {
+      if (this.renderService.debugMode) {
         console.info(
           'LoopingRenderPipe: the specified prop value is not array',
           { element: element.name, value },
@@ -34,7 +35,7 @@ export class LoopingRenderPipe
       return this.next.render(element, props)
     }
 
-    if (renderer.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(
         `LoopingRenderPipe: mapping the element ${value.length} times`,
         { element: element.name, value },
@@ -52,7 +53,7 @@ export class LoopingRenderPipe
       .filter((output): output is IRenderOutput => !!output)
   }
 
-  private static evaluateRenderForEach(element: Element, props: IPropData) {
+  private static evaluateRenderForEach(element: IElement, props: IPropData) {
     if (!element.renderForEachPropKey) {
       return null
     }

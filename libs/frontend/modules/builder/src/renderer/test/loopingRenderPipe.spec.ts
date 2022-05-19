@@ -12,7 +12,7 @@ const initialProps = {
 }
 
 describe('LoopingRenderPipe', () => {
-  const data = setupTestForRenderer((next) => new LoopingRenderPipe({ next }))
+  const data = setupTestForRenderer([LoopingRenderPipe])
 
   beforeEach(() => {
     data.elementToRender.setRenderForEachPropKey('data')

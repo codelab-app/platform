@@ -19,11 +19,18 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
-import { Alert, Spin } from 'antd'
+import { IElementTree, RendererTab } from '@codelab/shared/abstract/core'
+import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
+
+const { TabPane } = Tabs
+
+type BaseBuilderProps = {
+  elementTree: IElementTree
+}
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
@@ -32,6 +39,7 @@ const PageBuilder: CodelabPage = observer(() => {
     elementService,
     pageElementTree,
     providerElementTree,
+    pageBuilderRenderService,
     storeService,
     builderService,
     userService,
@@ -69,8 +77,7 @@ const PageBuilder: CodelabPage = observer(() => {
         providerElementTree.getTree(page.providerElement.id),
       ])
 
-      // initialize renderer
-      await builderService.builderRenderer.init(
+      await pageBuilderRenderService.init(
         pageElementTree,
         providerElementTree,
         createMobxState(storeTree, apps, pages, router),
@@ -78,13 +85,33 @@ const PageBuilder: CodelabPage = observer(() => {
 
       return {
         page,
-        elementTree,
+        pageElementTree,
         providerTree,
         storeTree,
       }
     },
     { executeOnMount: true },
   )
+
+  const BaseBuilder = observer<BaseBuilderProps>(({ elementTree }) => (
+    <Builder
+      currentDragData={builderService.currentDragData}
+      deleteModal={elementService.deleteModal}
+      elementTree={elementTree}
+      key={pageBuilderRenderService.tree?.root?.id}
+      rendererProps={{
+        isInitialized: pageBuilderRenderService.isInitialized,
+        renderRoot: pageBuilderRenderService.renderRoot.bind(
+          pageBuilderRenderService,
+        ),
+      }}
+      selectedElement={builderService.selectedElement}
+      setHoveredElement={builderService.setHoveredElement.bind(builderService)}
+      setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
+        builderService,
+      )}
+    />
+  ))
 
   return (
     <>
@@ -93,27 +120,19 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      {data?.elementTree && !isLoading ? (
-        <Builder
-          currentDragData={builderService.currentDragData}
-          deleteModal={elementService.deleteModal}
-          elementTree={data.elementTree}
-          key={builderService.builderRenderer.tree?.root?.id}
-          rendererProps={{
-            isInitialized: builderService.builderRenderer.isInitialized,
-            renderRoot: builderService.builderRenderer.renderRoot.bind(
-              builderService.builderRenderer,
-            ),
-          }}
-          selectedElement={builderService.selectedElement}
-          setHoveredElement={builderService.setHoveredElement.bind(
-            builderService,
-          )}
-          set_selectedElement={builderService.set_selectedElement.bind(
-            builderService,
-          )}
-        />
-      ) : null}
+      <Tabs activeKey={builderService.activeTree} type="card">
+        <TabPane key={RendererTab.Page} tab="Page">
+          {data?.pageElementTree && !isLoading ? (
+            <BaseBuilder elementTree={data.pageElementTree} />
+          ) : null}
+        </TabPane>
+        <TabPane key={RendererTab.Component} tab="Component">
+          {builderService.selectedComponentRef?.current.id}
+          {/* {data?.elementTree && !isLoading ? ( */}
+          {/*  <BaseBuilder elementTree={data.elementTree} /> */}
+          {/* ) : null} */}
+        </TabPane>
+      </Tabs>
     </>
   )
 })
@@ -128,8 +147,10 @@ PageBuilder.Layout = observer((page) => {
     pageService,
     atomService,
     componentService,
+    pageBuilderRenderService,
     userService,
     typeService,
+    componentBuilderRenderService,
   } = useStore()
 
   return (
@@ -143,9 +164,11 @@ PageBuilder.Layout = observer((page) => {
           <BuilderMainPane
             atomService={atomService}
             builderService={builderService}
+            componentBuilderRenderService={componentBuilderRenderService}
             componentService={componentService}
             elementService={elementService}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            pageBuilderRenderService={pageBuilderRenderService}
             pageElementTree={pageElementTree}
             userService={userService}
           />
@@ -157,20 +180,21 @@ PageBuilder.Layout = observer((page) => {
             componentService={componentService}
             elementService={elementService}
             elementTree={pageElementTree}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            renderService={pageBuilderRenderService}
             typeService={typeService}
           />
         )}
         SidebarNavigation={() => (
           <BuilderSidebarNavigation
             builderTab={builderService.builderTab}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
             setBuilderTab={builderService.setBuilderTab}
           />
         )}
         builderService={builderService}
         headerHeight={38}
-        key={builderService.builderRenderer.tree?.id}
+        key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
       </BuilderDashboardTemplate>

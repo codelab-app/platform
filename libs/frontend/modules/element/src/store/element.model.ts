@@ -111,7 +111,13 @@ export class Element
 {
   @computed
   get childrenSorted(): Array<IElement> {
-    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
+    return [...this.children.values()]
+      .map((x) => {
+        console.log(x.current)
+
+        return x.current
+      })
+      .sort(compareOrder)
   }
 
   @modelAction
@@ -228,8 +234,14 @@ export class Element
     return {
       key: this.id,
       title: this.label,
+      type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
       children: this.childrenSorted.map((child) => child.antdNode),
     }
+  }
+
+  @computed
+  get atomName() {
+    return this.atom?.maybeCurrent?.name || this.atom?.maybeCurrent?.type || ''
   }
 
   findDescendant(id: string): Maybe<IElement> {

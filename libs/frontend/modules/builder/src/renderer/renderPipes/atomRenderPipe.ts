@@ -1,28 +1,28 @@
-import { Element } from '@codelab/frontend/modules/element'
 import {
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
-import { Model, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../../atoms'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderService } from '../renderServiceContext'
 import { evalCss } from '../utils/evalCss'
+import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
-  extends Model({ next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    next: prop<IRenderPipe>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const renderer = getRenderService(this)
-
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.atom?.current) {
-      if (renderer.debugMode) {
+      if (this.renderService.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }
 
@@ -45,7 +45,7 @@ export class AtomRenderPipe
     const mergedProps = mergeProps(atomProps, props)
     const elCss = element.css ? css(evalCss(element.css)) : undefined
 
-    if (renderer.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(
         `AtomRenderPipe: Rendering atom ${element.atom.current.type}`,
         { element: element.name },

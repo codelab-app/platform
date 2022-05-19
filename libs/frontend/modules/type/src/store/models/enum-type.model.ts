@@ -57,12 +57,9 @@ const hydrate = ({
 
 @model('@codelab/EnumType')
 export class EnumType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.EnumType),
-    props: {
-      allowedValues: prop<Array<EnumTypeValue>>(() => []),
-    },
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.EnumType), {
+    allowedValues: prop<Array<EnumTypeValue>>(() => []),
+  })
   implements IEnumType
 {
   @modelAction

@@ -23,7 +23,13 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { builderService, elementService, componentService } = useStore()
+  const {
+    builderService,
+    elementService,
+    componentService,
+    pageBuilderRenderService,
+  } = useStore()
+
   const { query } = useRouter()
   const currentComponentId = query.componentId as string
 
@@ -43,7 +49,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
 
       if (elementTree) {
         // initialize renderer
-        await builderService.builderRenderer.init(elementTree, null, null)
+        await pageBuilderRenderService.init(elementTree, null, null)
       }
 
       return { component, elementTree }
@@ -51,7 +57,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
     { executeOnMount: true },
   )
 
-  const elementTree = builderService.builderRenderer.tree
+  const elementTree = pageBuilderRenderService.tree
 
   return (
     <>
@@ -67,18 +73,18 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
           currentDragData={builderService.currentDragData}
           deleteModal={elementService.deleteModal}
           elementTree={elementTree}
-          key={builderService.builderRenderer.tree?.root?.id}
+          key={pageBuilderRenderService.tree?.root?.id}
           rendererProps={{
-            isInitialized: builderService.builderRenderer.isInitialized,
-            renderRoot: builderService.builderRenderer.renderRoot.bind(
-              builderService.builderRenderer,
+            isInitialized: pageBuilderRenderService.isInitialized,
+            renderRoot: pageBuilderRenderService.renderRoot.bind(
+              pageBuilderRenderService,
             ),
           }}
           selectedElement={builderService.selectedElement}
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
           )}
-          set_selectedElement={builderService.set_selectedElement.bind(
+          setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
             builderService,
           )}
         />
@@ -98,6 +104,8 @@ ComponentDetail.Layout = observer((page) => {
     userService,
     typeService,
     pageElementTree,
+    pageBuilderRenderService,
+    componentBuilderRenderService,
   } = useStore()
 
   return (
@@ -110,9 +118,11 @@ ComponentDetail.Layout = observer((page) => {
           <BuilderMainPane
             atomService={atomService}
             builderService={builderService}
+            componentBuilderRenderService={componentBuilderRenderService}
             componentService={componentService}
             elementService={elementService}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            pageBuilderRenderService={pageBuilderRenderService}
             pageElementTree={pageElementTree}
             userService={userService}
           />
@@ -124,7 +134,8 @@ ComponentDetail.Layout = observer((page) => {
             componentService={componentService}
             elementService={elementService}
             elementTree={pageElementTree}
-            key={builderService.builderRenderer.tree?.root?.id}
+            key={pageBuilderRenderService.tree?.root?.id}
+            renderService={pageBuilderRenderService}
             typeService={typeService}
           />
         ))}

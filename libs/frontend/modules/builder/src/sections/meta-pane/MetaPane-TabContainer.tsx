@@ -27,6 +27,7 @@ import {
   IComponent,
   IElement,
   IElementTree,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
@@ -47,6 +48,7 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 
 export type MetaPaneBuilderProps = {
   elementTree: IElementTree
+  renderService: IRenderService
   UpdateElementContent: (props: {
     node: IElement | IComponent
     trackPromises: UseTrackLoadingPromises
@@ -82,10 +84,11 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
     builderService,
     typeService,
     atomService,
+    renderService,
     elementService,
   }) => {
     const selectedElement = builderService.selectedElement
-    const { providePropCompletion } = usePropCompletion(builderService)
+    const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
 
     if (!selectedElement) {
@@ -122,7 +125,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
           >
             {selectedElement.atom ? (
               <UpdateElementPropsForm
-                autocomplete={builderService.builderRenderer.platformState}
+                autocomplete={renderService.platformState}
                 element={selectedElement}
                 elementService={elementService}
                 key={selectedElement.id}

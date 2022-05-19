@@ -9,10 +9,10 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/StoreModalService')
 export class StateModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<IStateTreeNode>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<IStateTreeNode>>(ModalService),
+    {},
+  )
   implements IModalService<IStateTreeNode, StateModalProperties>
 {
   @computed

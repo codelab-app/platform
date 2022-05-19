@@ -4,6 +4,7 @@ import tw from 'twin.macro'
 export const TabContainer = styled.div`
   height: 100%;
   display: flex;
+  width: 100%;
   border-top: rgba(211, 211, 211, 0.21) 1px solid;
 
   .ant-tabs {

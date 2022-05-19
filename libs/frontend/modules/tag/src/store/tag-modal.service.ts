@@ -5,10 +5,10 @@ import { ExtendedModel, model, modelClass, Ref } from 'mobx-keystone'
 
 @model('@codelab/TagModalService')
 export class TagModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Ref<ITagTreeNode>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<ITagTreeNode>>>(ModalService),
+    {},
+  )
   implements IModalService<Ref<ITagTreeNode>, { tag?: any }>
 {
   @computed
@@ -19,10 +19,10 @@ export class TagModalService
 
 @model('@codelab/TagsModalService')
 export class TagsModalService
-  extends ExtendedModel(() => ({
-    baseModel: modelClass<ModalService<Array<Ref<ITagTreeNode>>>>(ModalService),
-    props: {},
-  }))
+  extends ExtendedModel(
+    modelClass<ModalService<Array<Ref<ITagTreeNode>>>>(ModalService),
+    {},
+  )
   implements
     IModalService<Array<Ref<ITagTreeNode>>, { tags: Array<ITagTreeNode> }>
 {

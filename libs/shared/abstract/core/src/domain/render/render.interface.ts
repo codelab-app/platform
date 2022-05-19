@@ -1,7 +1,13 @@
 import { ArrayOrSingle } from 'ts-essentials'
 import { IAtomType } from '../atom'
+import { IRenderService } from '../builder'
 import { IElement } from '../element'
 import { IPropData, IPropDataByElementId } from '../prop'
+
+export enum RendererTab {
+  Page = 'Page',
+  Component = 'Component',
+}
 
 /**
  * This is the intermediate output from rendering a single Element
@@ -15,6 +21,12 @@ export interface IRenderOutput {
   globalProps?: IPropDataByElementId
 }
 
-export interface IRenderPipe {
+export type IBaseRenderPipe = {
+  id: string
+  renderService: IRenderService
+}
+
+export interface IRenderPipe extends IBaseRenderPipe {
+  next?: IRenderPipe
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput>
 }

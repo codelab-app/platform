@@ -16,9 +16,14 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import { BuilderTab, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  BuilderTab,
+  IBuilderDataNode,
+  IElementTree,
+  IRenderService,
+  RendererTab,
+} from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
-import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -42,6 +47,8 @@ type BuilderMainPaneProps = WithServices<
   | USER_SERVICE
 > & {
   pageElementTree: IElementTree
+  pageBuilderRenderService: IRenderService
+  componentBuilderRenderService: IRenderService
 }
 
 export const BuilderMainPane = observer<BuilderMainPaneProps>(
@@ -52,6 +59,8 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     componentService,
     userService,
     pageElementTree,
+    pageBuilderRenderService,
+    componentBuilderRenderService,
   }) => {
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
@@ -74,13 +83,20 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       ({
         treeData,
         className,
+        renderService,
+        setActiveTree,
       }: {
-        treeData: DataNode | undefined
+        treeData: IBuilderDataNode | undefined
         className?: string
+        renderService: IRenderService
+        setActiveTree: () => void
       }) => (
         <BuilderTree
-          builderRenderer={builderService.builderRenderer}
           className={className}
+          component={componentService.component.bind(componentService)}
+          componentContextMenuProps={{
+            deleteModal: componentService.deleteModal,
+          }}
           element={elementService.element.bind(elementService)}
           elementContextMenuProps={{
             createModal: elementService.createModal,
@@ -92,11 +108,13 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           }}
           elementTree={pageElementTree}
           moveElement={elementService.moveElement.bind(elementService)}
+          renderService={renderService}
           selectedElement={builderService.selectedElement}
+          setActiveTree={setActiveTree}
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
           )}
-          set_selectedElement={builderService.set_selectedElement.bind(
+          setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
             builderService,
           )}
           treeData={treeData}
@@ -127,17 +145,35 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
           {antdTree ? (
-            <BaseBuilderTree className="page-builder" treeData={antdTree} />
+            <BaseBuilderTree
+              className="page-builder"
+              renderService={pageBuilderRenderService}
+              setActiveTree={() =>
+                builderService.setActiveTree(RendererTab.Page)
+              }
+              treeData={antdTree}
+            />
           ) : null}
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {antdTree ? <BaseBuilderTree treeData={componentsAntdTree} /> : null}
+          {antdTree ? (
+            <BaseBuilderTree
+              renderService={componentBuilderRenderService}
+              setActiveTree={() =>
+                builderService.setActiveTree(RendererTab.Component)
+              }
+              treeData={componentsAntdTree}
+            />
+          ) : null}
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
-          <MobxStateContainer builderService={builderService} />
+          <MobxStateContainer
+            builderService={builderService}
+            renderService={pageBuilderRenderService}
+          />
         </DisplayIf>
 
         <DisplayIf condition={builderTab === BuilderTab.Toolbox}>

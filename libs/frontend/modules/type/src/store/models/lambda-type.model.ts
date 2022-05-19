@@ -22,10 +22,7 @@ const hydrate = ({ id, kind, name, owner }: ILambdaTypeDTO): LambdaType => {
 
 @model('@codelab/LambdaType')
 export class LambdaType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.LambdaType),
-    props: {},
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.LambdaType), {})
   implements ILambdaType
 {
   @modelAction

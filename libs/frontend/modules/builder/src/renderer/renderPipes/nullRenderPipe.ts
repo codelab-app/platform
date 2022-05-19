@@ -4,20 +4,21 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 /**
  * Fallback render pipe, returns null
  */
 @model('@codelab/NullRenderPipe')
-export class NullRenderPipe extends Model({}) implements IRenderPipe {
+export class NullRenderPipe
+  extends ExtendedModel(modelClass(BaseRenderPipe), {})
+  implements IRenderPipe
+{
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const renderer = getRenderService(this)
-
-    if (renderer.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 

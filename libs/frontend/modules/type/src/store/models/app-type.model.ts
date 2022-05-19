@@ -17,10 +17,7 @@ const hydrate = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
 
 @model('@codelab/AppType')
 export class AppType
-  extends ExtendedModel(() => ({
-    baseModel: createTypeBase(ITypeKind.AppType),
-    props: {},
-  }))
+  extends ExtendedModel(createTypeBase(ITypeKind.AppType), {})
   implements IAppType
 {
   @modelAction

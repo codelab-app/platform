@@ -1,7 +1,7 @@
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 
 /**
  * Transforms props from the following format:
@@ -19,7 +19,7 @@ import { getRenderService } from '../renderServiceContext'
  */
 @model('@codelab/ElementTypedValueTransformer')
 export class ElementTypedValueTransformer
-  extends Model({})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(kind: ITypeKind): boolean {
@@ -27,28 +27,26 @@ export class ElementTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderService(this)
-
     return (
-      typeof value.value === 'string' && !!renderer.tree?.element(value.value)
+      typeof value.value === 'string' &&
+      !!this.renderService.tree?.element(value.value)
     )
   }
 
   public transform(props: TypedValue<any>): any {
-    const renderer = getRenderService(this)
     const elementId = props?.value
 
     if (typeof elementId !== 'string') {
       return props
     }
 
-    const element = renderer.tree?.element(elementId)
+    const element = this.renderService.tree?.element(elementId)
 
     if (!element) {
       // this shouldn't happen, we check in canHandleValue
       return props
     }
 
-    return renderer.renderElement(element)
+    return this.renderService.renderElement(element)
   }
 }

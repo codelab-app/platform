@@ -21,8 +21,8 @@ type BuilderProps = {
   IBuilderService,
   | 'setHoveredElement'
   | 'currentDragData'
-  | 'set_selectedElement'
   | 'selectedElement'
+  | 'setSelectedTreeNode'
 > &
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
@@ -32,7 +32,7 @@ export const Builder = observer<BuilderProps>(
   ({
     currentDragData,
     setHoveredElement,
-    set_selectedElement,
+    setSelectedTreeNode,
     selectedElement,
     elementTree,
     deleteModal,
@@ -45,12 +45,12 @@ export const Builder = observer<BuilderProps>(
 
     useBuilderHotkeys({
       selectedElement,
-      set_selectedElement,
+      setSelectedTreeNode,
       deleteModal,
     })
 
     const handleContainerClick = useBuilderRootClickHandler({
-      set_selectedElement,
+      setSelectedTreeNode,
     })
 
     const elementId = elementTree?.root?.id

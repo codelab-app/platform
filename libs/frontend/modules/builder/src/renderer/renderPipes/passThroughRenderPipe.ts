@@ -5,20 +5,21 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 /**
  * Render pipe that renders whatever you give it - useful for unit testing
  */
 @model('@codelab/PassThroughRenderPipe')
-export class PassThroughRenderPipe extends Model({}) implements IRenderPipe {
+export class PassThroughRenderPipe
+  extends ExtendedModel(modelClass(BaseRenderPipe), {})
+  implements IRenderPipe
+{
   render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const renderer = getRenderService(this)
-
-    if (renderer.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {
         element,
         props,

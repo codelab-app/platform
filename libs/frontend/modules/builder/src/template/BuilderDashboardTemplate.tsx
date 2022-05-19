@@ -25,7 +25,7 @@ export const BuilderDashboardTemplate = observer<
         MainPane={MainPane}
         MetaPane={builderService.selectedElement ? MetaPane : undefined}
         SidebarNavigation={SidebarNavigation}
-        contentStyles={{ paddingTop: '3rem' }}
+        contentStyles={{ paddingTop: '0rem' }}
         headerHeight={headerHeight ?? 38}
       >
         {children}

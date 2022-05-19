@@ -16,6 +16,7 @@ import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   IElementTree,
+  IRenderService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -24,6 +25,7 @@ import { MetaPaneTabContainer } from './MetaPane-TabContainer'
 
 type MetaPaneProps = {
   elementTree: IElementTree
+  renderService: IRenderService
 } & WithServices<
   | ATOM_SERVICE
   | TYPE_SERVICE
@@ -39,9 +41,10 @@ export const MetaPane = observer<MetaPaneProps>(
     builderService,
     elementService,
     componentService,
+    renderService,
     elementTree,
   }) => {
-    const { providePropCompletion } = usePropCompletion(builderService)
+    const { providePropCompletion } = usePropCompletion(renderService)
 
     return (
       <MetaPaneTabContainer
@@ -89,6 +92,7 @@ export const MetaPane = observer<MetaPaneProps>(
         builderService={builderService}
         elementService={elementService}
         elementTree={elementTree}
+        renderService={renderService}
         typeService={typeService}
       />
     )

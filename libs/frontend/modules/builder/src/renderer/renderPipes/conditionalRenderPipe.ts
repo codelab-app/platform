@@ -1,25 +1,25 @@
-import { Element } from '@codelab/frontend/modules/element'
 import {
+  IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
-import { Model, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
-  extends Model({ next: prop<IRenderPipe>() })
+  extends ExtendedModel(modelClass(BaseRenderPipe), {
+    next: prop<IRenderPipe>(),
+  })
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    const renderer = getRenderService(this)
-
+  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
-      if (renderer.debugMode) {
+      if (this.renderService.debugMode) {
         console.info('ConditionalRenderPipe: should stop rendering', {
           element: element.name,
           value: element.renderIfPropKey
@@ -34,7 +34,7 @@ export class ConditionalRenderPipe
     return this.next.render(element, props)
   }
 
-  private static shouldStopRendering(element: Element, props: IPropData) {
+  private static shouldStopRendering(element: IElement, props: IPropData) {
     if (!element.renderIfPropKey) {
       return false
     }

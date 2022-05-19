@@ -23,7 +23,9 @@ import {
   _await,
   AnyModel,
   detach,
+  frozen,
   getSnapshot,
+  idProp,
   Model,
   model,
   modelAction,
@@ -40,12 +42,32 @@ import { atoms } from '../atoms/atoms'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
-import { renderPipeFactory } from './renderPipes/renderPipeFactory'
+import {
+  defaultPipes,
+  renderPipeFactory,
+} from './renderPipes/renderPipe.factory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { getState } from './utils'
 import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
+
+/**
+ * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
+ */
+const initForBuilder = () => {
+  const voidClick = () => {
+    //
+  }
+
+  const globalProps = { onClick: voidClick }
+
+  return new RenderService({
+    extraElementProps: new ExtraElementProps({
+      global: frozen(globalProps),
+    }),
+  })
+}
 
 /**
  * Handles the logic of rendering a tree of models
@@ -65,15 +87,16 @@ import { mapOutput } from './utils/renderOutputUtils'
 export class RenderService
   extends Model(
     {
+      id: idProp,
       /**
        * The tree that's being rendered
        */
-      treeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
+      treeRef: prop<Nullable<Ref<IElementTree>>>(null),
 
       /**
        * A tree of providers that will get rendered before all of the regular elements
        */
-      providerTreeRef: prop<Nullable<Ref<ElementTree>>>(() => null),
+      providerTreeRef: prop<Nullable<Ref<IElementTree>>>(null),
 
       /**
        * Props passed to specific elements, such as from global props context
@@ -83,16 +106,16 @@ export class RenderService
       /**
        * Those transform different kinds of typed values into render-ready props
        */
-      typedValueTransformers: prop<Array<ITypedValueTransformer>>(
-        typedValueTransformersFactory,
+      typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
+        typedValueTransformersFactory(),
       ),
 
       /**
-       * The render pipe handles and augments the render process.
+       * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
        */
-      renderPipe: prop<IRenderPipe>(renderPipeFactory),
+      renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
 
-      isInitialized: prop(() => false),
+      isInitialized: prop(false),
 
       /**
        * Will log the render output and render pipe info to the console
@@ -268,6 +291,8 @@ export class RenderService
 
     props = this.processPropsForRender(props, element)
 
+    console.log(element, props)
+
     /**
      * Pass down global props
      */
@@ -287,7 +312,11 @@ export class RenderService
           }
     }
 
-    const output = this.renderPipe.render(element, props)
+    if (!this.renderPipe) {
+      throw new Error('RenderPipe not set!')
+    }
+
+    const output = this.renderPipe?.render(element, props)
 
     return mapOutput(output, appendGlobalProps)
   }
@@ -394,9 +423,11 @@ export class RenderService
   private getTypeKindById(typeId: string): ITypeKind | undefined {
     return getTypeService(this).type(typeId)?.kind
   }
+
+  // static initForBuilder = initForBuilder
 }
 
-export const renderServiceRef = rootRef<RenderService>(
+export const renderServiceRef = rootRef<IRenderService>(
   '@codelab/RenderServiceRef',
   {
     onResolvedValueChange(ref, newType, oldType) {

@@ -1,8 +1,8 @@
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
 /**
@@ -21,7 +21,7 @@ import { getRootElement } from '../utils/getRootElement'
  */
 @model('@codelab/ReactNodeTypedValueTransformer')
 export class ReactNodeTypedValueTransformer
-  extends Model({})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(typeKind: ITypeKind): boolean {
@@ -29,24 +29,27 @@ export class ReactNodeTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, renderer.tree, componentService)
+      !!getRootElement(value, this.renderService.tree, componentService)
     )
   }
 
   public transform(value: TypedValue<any>): any {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
-    const rootElement = getRootElement(value, renderer.tree, componentService)
+
+    const rootElement = getRootElement(
+      value,
+      this.renderService.tree,
+      componentService,
+    )
 
     if (!rootElement) {
       return value
     }
 
-    return renderer.renderElement(rootElement)
+    return this.renderService.renderElement(rootElement)
   }
 }

@@ -1,9 +1,9 @@
 import { getComponentService } from '@codelab/frontend/presenter/container'
 import { IElement, ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { Model, model } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import { getRenderService } from '../renderServiceContext'
+import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
 /**
@@ -22,7 +22,7 @@ import { getRootElement } from '../utils/getRootElement'
  */
 @model('@codelab/RenderPropsTypedValueTransformer')
 export class RenderPropsTypedValueTransformer
-  extends Model({})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(typeKind: ITypeKind): boolean {
@@ -30,19 +30,22 @@ export class RenderPropsTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<any>): boolean {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, renderer.tree, componentService)
+      !!getRootElement(value, this.renderService.tree, componentService)
     )
   }
 
   public transform(value: TypedValue<any>): any {
-    const renderer = getRenderService(this)
     const componentService = getComponentService(this)
-    const rootElement = getRootElement(value, renderer.tree, componentService)
+
+    const rootElement = getRootElement(
+      value,
+      this.renderService.tree,
+      componentService,
+    )
 
     if (!rootElement) {
       return value
@@ -52,9 +55,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   private makeRenderProp(element: IElement) {
-    const renderer = getRenderService(this)
-
     return (...renderPropArgs: Array<any>) =>
-      renderer.renderElement(element, mergeProps(...renderPropArgs))
+      this.renderService.renderElement(element, mergeProps(...renderPropArgs))
   }
 }

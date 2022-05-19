@@ -24,18 +24,19 @@ import {
 } from '@codelab/frontend/modules/type'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { IAtomType, IRenderPipe } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { RenderService } from '../../render.service'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
-import { renderPipeFactory } from '../../renderPipes/renderPipeFactory'
+import {
+  RenderPipeClass,
+  renderPipeFactory,
+} from '../../renderPipes/renderPipe.factory'
 import { RenderTestRootStore } from './renderTestRootStore'
 
 // Clone everything so that we don't get conflicts between different test files
-export const setupTestForRenderer = (
-  pipeFactory: (next: PassThroughRenderPipe) => IRenderPipe = renderPipeFactory,
-) => {
+export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: {
     rootStore: RenderTestRootStore
     renderService: RenderService
@@ -195,7 +196,7 @@ export const setupTestForRenderer = (
       }),
       renderService: new RenderService({
         debugMode: true,
-        renderPipe: pipeFactory(new PassThroughRenderPipe({})),
+        renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
       }),
       elementService: new ElementService({
         elements: objectMap([

@@ -1,5 +1,6 @@
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { IRenderOutput } from '@codelab/shared/abstract/core'
+import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 
 const extraProps = {
@@ -8,7 +9,15 @@ const extraProps = {
 }
 
 describe('RenderService', () => {
-  const data = setupTestForRenderer()
+  /**
+   * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
+   */
+  const data = setupTestForRenderer([
+    // LoopingRenderPipe,
+    // ConditionalRenderPipe,
+    ComponentRenderPipe,
+    // AtomRenderPipe,
+  ])
 
   it('should add extra props', () => {
     const { props } = data.renderService.renderIntermediateElement(

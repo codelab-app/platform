@@ -8,6 +8,8 @@ import {
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import {
+  COMPONENT_NODE_TYPE,
+  IBuilderDataNode,
   IComponent,
   IComponentDTO,
   IComponentService,
@@ -16,7 +18,6 @@ import {
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
   _async,
@@ -74,7 +75,7 @@ export class ComponentService
           key: component.id,
           title: component.name,
           selectable: false,
-          children: [dataNode].filter((data): data is DataNode =>
+          children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
         }
@@ -83,10 +84,11 @@ export class ComponentService
   }
 
   @computed
-  get componentAntdNodeV2() {
+  get componentAntdNodeV2(): IBuilderDataNode {
     return {
-      id: COMPONENT_TREE_CONTAINER,
       key: COMPONENT_TREE_CONTAINER,
+      // Container shouldn't have any type
+      type: null,
       title: 'Components',
       selectable: false,
       children: [...this.components.values()].map((component) => {
@@ -94,12 +96,12 @@ export class ComponentService
         const dataNode = elementTree?.root?.antdNode
 
         return {
-          id: component.id,
           key: component.id,
           title: component.name,
+          type: COMPONENT_NODE_TYPE,
           // This should bring up a meta pane for editing the component
           selectable: true,
-          children: [dataNode].filter((data): data is DataNode =>
+          children: [dataNode].filter((data): data is IBuilderDataNode =>
             Boolean(data),
           ),
         }
