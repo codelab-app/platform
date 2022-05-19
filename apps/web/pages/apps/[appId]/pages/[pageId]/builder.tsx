@@ -67,17 +67,20 @@ const PageBuilder: CodelabPage = observer(() => {
         ? await storeService.getOne(app.store.id)
         : null
 
+      // components are needed to build pageElementTree
+      // therefore they must be loaded first
+      const components = await componentService.loadComponentTrees()
+
       /**
        * Construct the ElementTree's for
        *
        * - page tree
        * - provider tree
        */
-      const [elementTree, providerTree, types, components] = await Promise.all([
+      const [elementTree, providerTree, types] = await Promise.all([
         pageElementTree.getTree(page.rootElement.id),
         providerElementTree.getTree(page.providerElement.id),
         typeService.getAll(),
-        componentService.loadComponentTrees(),
       ])
 
       await pageBuilderRenderService.init(

@@ -127,33 +127,42 @@ export class ComponentService
       owner: '',
     })
 
-    return components.map(async (component) => {
-      /**
-       * Each component should instantiate its own element tree
-       */
-      const elementTree = new ElementTree({})
+    return yield* _await(
+      Promise.all(
+        components.map(async (component) => {
+          /**
+           * Each component should instantiate its own element tree
+           */
+          const elementTree = new ElementTree({})
 
-      this.elementTrees.set(component.id, elementTree)
+          this.elementTrees.set(component.id, elementTree)
 
-      /**
-       * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
-       *
-       * Need to manually set as a workaround
-       */
-      // atomServiceContext.apply(() => elementTree, getAtomService(this))
-      elementServiceContext.apply(() => elementTree, getElementService(this))
-      // componentServiceContext.apply(
-      //   () => elementTree,
-      //   getComponentService(this),
-      // )
+          /**
+           * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
+           *
+           * Need to manually set as a workaround
+           */
+          // atomServiceContext.apply(() => elementTree, getAtomService(this))
+          elementServiceContext.apply(
+            () => elementTree,
+            getElementService(this),
+          )
+          // componentServiceContext.apply(
+          //   () => elementTree,
+          //   getComponentService(this),
+          // )
 
-      const componentTree = await elementTree.getTree(component.rootElementId)
+          const componentTree = await elementTree.getTree(
+            component.rootElementId,
+          )
 
-      // Append this to rootComponentNode
-      if (componentTree?.root) {
-        rootElement.addChild(componentTree?.root)
-      }
-    })
+          // Append this to rootComponentNode
+          if (componentTree?.root) {
+            rootElement.addChild(componentTree?.root)
+          }
+        }),
+      ),
+    )
   })
 
   @modelFlow

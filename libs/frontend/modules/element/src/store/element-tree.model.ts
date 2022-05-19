@@ -1,4 +1,7 @@
-import { getElementService } from '@codelab/frontend/presenter/container'
+import {
+  getComponentService,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementDTO,
@@ -96,6 +99,11 @@ export class ElementTree
     return this.elementsList?.find((element) => element.id === id)
   }
 
+  @computed
+  get componentService() {
+    return getComponentService(this)
+  }
+
   /**
    * Refactored to move hydration out of this function, keep this function as only creating references for tree shape
    */
@@ -104,6 +112,17 @@ export class ElementTree
     for (const element of elements) {
       if (!element.parentElement?.id) {
         this.set_root(elementRef(element))
+      }
+
+      if (element.instanceOfComponent?.current) {
+        const componentId = element.instanceOfComponent?.current.id
+
+        const componentRootElement =
+          this.componentService.elementTrees.get(componentId)?.root
+
+        if (componentRootElement) {
+          element.addChild(componentRootElement)
+        }
       }
 
       const parentId = element.parentElement?.id
