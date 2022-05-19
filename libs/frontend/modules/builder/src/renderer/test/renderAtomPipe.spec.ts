@@ -4,7 +4,7 @@ import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 
 describe('RenderAtomPipe', () => {
-  const data = setupTestForRenderer((next) => new AtomRenderPipe({ next }))
+  const data = setupTestForRenderer([AtomRenderPipe])
 
   it('should render element atom', async () => {
     const text = 'a text to render'

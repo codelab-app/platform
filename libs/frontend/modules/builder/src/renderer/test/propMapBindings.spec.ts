@@ -5,7 +5,7 @@ import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 
 describe('PropMapBindings', () => {
-  const data = setupTestForRenderer((next) => new LoopingRenderPipe({ next }))
+  const data = setupTestForRenderer([LoopingRenderPipe])
 
   it('should render prop map bindings targeting other elements', () => {
     const pmb = new PropMapBinding({

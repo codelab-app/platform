@@ -42,7 +42,10 @@ import { atoms } from '../atoms/atoms'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
-import { renderPipeFactory } from './renderPipes/renderPipe.factory'
+import {
+  defaultPipes,
+  renderPipeFactory,
+} from './renderPipes/renderPipe.factory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { getState } from './utils'
 import { isTypedValue } from './utils/isTypedValue'
@@ -110,7 +113,7 @@ export class RenderService
       /**
        * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
        */
-      renderPipe: prop<IRenderPipe>(() => renderPipeFactory({})),
+      renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
 
       isInitialized: prop(false),
 
@@ -287,6 +290,8 @@ export class RenderService
     )
 
     props = this.processPropsForRender(props, element)
+
+    console.log(element, props)
 
     /**
      * Pass down global props

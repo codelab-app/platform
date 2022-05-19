@@ -19,7 +19,7 @@ export class PassThroughRenderPipe
   implements IRenderPipe
 {
   render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (this.renderer.current.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {
         element,
         props,

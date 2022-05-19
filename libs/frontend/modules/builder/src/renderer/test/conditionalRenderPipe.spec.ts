@@ -3,9 +3,7 @@ import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestForRenderer(
-    (next) => new ConditionalRenderPipe({ next }),
-  )
+  const data = setupTestForRenderer([ConditionalRenderPipe])
 
   beforeEach(() => {
     data.elementToRender.setRenderIfPropKey('shouldRender')
