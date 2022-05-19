@@ -22,11 +22,10 @@ const PageRenderer: CodelabPage<any> = observer(() => {
   const {
     pageService,
     appService,
-    elementService,
-    builderService,
+    typeService,
+    componentService,
     providerElementTree,
     storeService,
-    pageBuilderRenderService,
     pageRenderService,
     pageElementTree,
   } = useStore()
@@ -37,7 +36,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
   // Load the pages list for the top bar
   useStatefulExecutor(() => pageService.getAll(), { executeOnMount: true })
 
-  const [, { isLoading, error, data }] = useStatefulExecutor(
+  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -54,10 +53,15 @@ const PageRenderer: CodelabPage<any> = observer(() => {
         ? await storeService.getOne(app.store.id)
         : null
 
+      // components are needed to build pageElementTree
+      // therefore they must be loaded first
+      const components = await componentService.loadComponentTrees()
+
       // Get element tree and provider tree
-      const [elementTree, providerTree] = await Promise.all([
+      const [elementTree, providerTree, types] = await Promise.all([
         pageElementTree.getTree(page.rootElement.id),
         providerElementTree.getTree(page.providerElement.id),
+        typeService.getAll(),
       ])
 
       // initialize renderer
@@ -84,10 +88,12 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Renderer
-        isInitialized={pageRenderService.isInitialized}
-        renderRoot={pageRenderService.renderRoot.bind(pageRenderService)}
-      />
+      {isDone && data?.elementTree ? (
+        <Renderer
+          isInitialized={pageRenderService.isInitialized}
+          renderRoot={pageRenderService.renderRoot.bind(pageRenderService)}
+        />
+      ) : null}
     </>
   )
 })
