@@ -211,9 +211,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
       pageElementTree: new ElementTree({
         _root: elementRef(data.elementToRender),
-        componentRoots: objectMap([
-          [data.componentRootElement.id, elementRef(data.componentRootElement)],
-        ]),
       }),
     })
 

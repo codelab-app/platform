@@ -1,6 +1,5 @@
 import { ElementTree, elementTreeRef } from '@codelab/frontend/modules/element'
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementTree,
@@ -16,11 +15,9 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
-import { flatMap, isEmpty, isString, values } from 'lodash'
+import { flatMap, isEmpty, isString } from 'lodash'
 import { computed } from 'mobx'
 import {
-  _async,
-  _await,
   AnyModel,
   detach,
   frozen,
@@ -30,7 +27,6 @@ import {
   model,
   modelAction,
   ModelClass,
-  modelFlow,
   prop,
   Ref,
   rootRef,
@@ -154,8 +150,8 @@ export class RenderService
   // Set to any observable that will act as a source for the state of the rendered app
   public platformState?: any
 
-  @modelFlow
-  init = _async(function* (
+  @modelAction
+  init(
     this: RenderService,
     tree: IElementTree,
     providerTree?: Nullable<IElementTree>,
@@ -169,45 +165,8 @@ export class RenderService
     this.providerTreeRef = providerTree ? elementTreeRef(providerTree.id) : null
     this.platformState = platformState
 
-    /*
-     * Make sure all types are fetched first, because we need
-     * them when transforming the rendered props. We could cache
-     * the common types in the browser later on
-     */
-    const typeStore = getTypeService(this)
-
-    yield* _await(typeStore.getAll())
-
-    const componentIds = tree.elementsList.flatMap((x) =>
-      values(x.props?.values)
-        .filter((p) => {
-          const typeKind = this.getTypeKindById(p.type)
-
-          const componentsTypeKinds = [
-            ITypeKind.ReactNodeType,
-            ITypeKind.RenderPropsType,
-          ]
-
-          return typeKind && componentsTypeKinds.includes(typeKind)
-        })
-        .map((renderProp) => renderProp.value),
-    )
-
-    const componentService = getComponentService(this)
-
-    const components = yield* _await(
-      componentService.getAll({ id_IN: componentIds }),
-    )
-
-    yield* _await(
-      Promise.all(
-        // keep the main tree root as it is.
-        components.map((c) => tree),
-      ),
-    )
-
     this.isInitialized = true
-  })
+  }
 
   /**
    * Like init, but skips the type fetching

@@ -26,7 +26,7 @@ import {
 import { Divider } from 'antd'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
 import { BuilderMainPaneHeader } from './BuilderMainPaneHeader'
@@ -74,10 +74,6 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const root = pageElementTree?.root
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNodeV2
-
-    useEffect(() => {
-      componentService.loadComponentTrees()
-    }, [])
 
     const BaseBuilderTree = observer(
       ({

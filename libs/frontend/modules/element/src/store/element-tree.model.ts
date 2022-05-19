@@ -16,7 +16,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   Ref,
   rootRef,
@@ -44,9 +43,6 @@ export class ElementTree
 
     /** The root tree element */
     _root: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-
-    /** All root elements of the components in the main tree */
-    componentRoots: prop(() => objectMap<Ref<IElement>>()),
   })
   implements IElementTree
 {
@@ -97,10 +93,6 @@ export class ElementTree
   }
 
   element(id: string) {
-    if (this.componentRoots.has(id)) {
-      return this.componentRoots.get(id)?.current
-    }
-
     return this.elementsList?.find((element) => element.id === id)
   }
 
@@ -114,17 +106,14 @@ export class ElementTree
         this.set_root(elementRef(element))
       }
 
-      if (element.component) {
-        this.componentRoots.set(element.id, elementRef(element))
-      }
-
       const parentId = element.parentElement?.id
 
       if (!parentId) {
         continue
       }
 
-      const parent = this.element(parentId)
+      // don't use this.element() since not all elements are registered yet
+      const parent = this.elementService.element(parentId)
 
       if (!parent || parent.hasChild(element)) {
         continue

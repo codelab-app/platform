@@ -41,8 +41,9 @@ const PageBuilder: CodelabPage = observer(() => {
     providerElementTree,
     pageBuilderRenderService,
     storeService,
+    typeService,
+    componentService,
     builderService,
-    userService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
@@ -72,9 +73,11 @@ const PageBuilder: CodelabPage = observer(() => {
        * - page tree
        * - provider tree
        */
-      const [elementTree, providerTree] = await Promise.all([
+      const [elementTree, providerTree, types, components] = await Promise.all([
         pageElementTree.getTree(page.rootElement.id),
         providerElementTree.getTree(page.providerElement.id),
+        typeService.getAll(),
+        componentService.loadComponentTrees(),
       ])
 
       await pageBuilderRenderService.init(
@@ -88,6 +91,8 @@ const PageBuilder: CodelabPage = observer(() => {
         pageElementTree,
         providerTree,
         storeTree,
+        types,
+        components,
       }
     },
     { executeOnMount: true },
