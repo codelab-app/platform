@@ -1,4 +1,3 @@
-import { elementRef } from '@codelab/frontend/modules/element'
 import {
   BuilderDndType,
   BuilderDragData,
@@ -49,7 +48,7 @@ export const useBuilderDnd = (
         }
 
         const [el] = await elementService.create([createElementInput])
-        builderService.set_selectedElement(elementRef(el.id))
+        // builderService.setSelectedTreeNode(elementRef(el.id))
       }
     },
     [builderService, elementService],

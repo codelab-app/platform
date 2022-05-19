@@ -22,7 +22,7 @@ export class AtomRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (!element.atom?.current) {
-      if (this.renderer.current.debugMode) {
+      if (this.renderService.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }
 
@@ -45,7 +45,7 @@ export class AtomRenderPipe
     const mergedProps = mergeProps(atomProps, props)
     const elCss = element.css ? css(evalCss(element.css)) : undefined
 
-    if (this.renderer.current.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(
         `AtomRenderPipe: Rendering atom ${element.atom.current.type}`,
         { element: element.name },

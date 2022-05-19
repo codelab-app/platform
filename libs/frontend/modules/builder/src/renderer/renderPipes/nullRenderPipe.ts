@@ -18,7 +18,7 @@ export class NullRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (this.renderer.current.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 

@@ -3,17 +3,16 @@ import {
   DATASET_COMPONENT_ID,
   DATASET_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/modules/element'
 import { IBuilderService } from '@codelab/shared/abstract/core'
 import { MouseEventHandler } from 'react'
 
 type UseBuilderRootClickHandlerProps = Pick<
   IBuilderService,
-  'set_selectedElement'
+  'setSelectedTreeNode'
 >
 
 export const useBuilderRootClickHandler = ({
-  set_selectedElement,
+  setSelectedTreeNode,
 }: UseBuilderRootClickHandlerProps) => {
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -26,13 +25,13 @@ export const useBuilderRootClickHandler = ({
       const componentId = element.dataset?.[DATASET_COMPONENT_ID]
 
       if (elementId && !componentId) {
-        set_selectedElement(elementRef(elementId))
+        // setSelectedTreeNode(elementId)
         e.stopPropagation()
       } else if (element.parentElement && element.id !== BUILDER_CONTAINER_ID) {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
         visit(element.parentElement)
       } else {
-        set_selectedElement(null)
+        // setSelectedTreeNode(null)
       }
     }
 

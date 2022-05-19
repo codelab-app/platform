@@ -13,18 +13,21 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
-export type ElementContextMenuProps = {
-  element: IElement
+export type ContextMenuProps = {
   onClick?: () => any
   onBlur?: () => any
+}
+
+export type ElementContextMenuProps = ContextMenuProps & {
+  element: IElement
   elementTree: IElementTree
 } & Pick<
-  IElementService,
-  | 'createModal'
-  | 'deleteModal'
-  | 'duplicateElement'
-  | 'convertElementToComponent'
->
+    IElementService,
+    | 'createModal'
+    | 'deleteModal'
+    | 'duplicateElement'
+    | 'convertElementToComponent'
+  >
 
 /**
  * The right-click menu in the element tree
@@ -89,11 +92,9 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
             Add child
           </Menu.Item>
         )}
-
         <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>
           Duplicate
         </Menu.Item>
-
         {isComponentInstance ? (
           <Menu.Item
             // hidden={hideForRoot}
@@ -111,7 +112,6 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
             Convert To Component
           </Menu.Item>
         )}
-
         <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>
           <span>Delete `{element.name}` </span>{' '}
           <span>

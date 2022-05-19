@@ -18,11 +18,12 @@ import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   BuilderTab,
+  IBuilderDataNode,
   IElementTree,
   IRenderService,
+  RendererTab,
 } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
-import { DataNode } from 'antd/lib/tree'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -83,13 +84,19 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         treeData,
         className,
         renderService,
+        setActiveTree,
       }: {
-        treeData: DataNode | undefined
+        treeData: IBuilderDataNode | undefined
         className?: string
         renderService: IRenderService
+        setActiveTree: () => void
       }) => (
         <BuilderTree
           className={className}
+          component={componentService.component.bind(componentService)}
+          componentContextMenuProps={{
+            deleteModal: componentService.deleteModal,
+          }}
           element={elementService.element.bind(elementService)}
           elementContextMenuProps={{
             createModal: elementService.createModal,
@@ -103,10 +110,11 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           moveElement={elementService.moveElement.bind(elementService)}
           renderService={renderService}
           selectedElement={builderService.selectedElement}
+          setActiveTree={setActiveTree}
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
           )}
-          set_selectedElement={builderService.set_selectedElement.bind(
+          setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
             builderService,
           )}
           treeData={treeData}
@@ -140,6 +148,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
             <BaseBuilderTree
               className="page-builder"
               renderService={pageBuilderRenderService}
+              setActiveTree={() =>
+                builderService.setActiveTree(RendererTab.Page)
+              }
               treeData={antdTree}
             />
           ) : null}
@@ -150,6 +161,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           {antdTree ? (
             <BaseBuilderTree
               renderService={componentBuilderRenderService}
+              setActiveTree={() =>
+                builderService.setActiveTree(RendererTab.Component)
+              }
               treeData={componentsAntdTree}
             />
           ) : null}

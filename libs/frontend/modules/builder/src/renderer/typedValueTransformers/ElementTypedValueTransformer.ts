@@ -29,7 +29,7 @@ export class ElementTypedValueTransformer
   canHandleValue(value: TypedValue<any>): boolean {
     return (
       typeof value.value === 'string' &&
-      !!this.renderer.current.tree?.element(value.value)
+      !!this.renderService.tree?.element(value.value)
     )
   }
 
@@ -40,13 +40,13 @@ export class ElementTypedValueTransformer
       return props
     }
 
-    const element = this.renderer.current.tree?.element(elementId)
+    const element = this.renderService.tree?.element(elementId)
 
     if (!element) {
       // this shouldn't happen, we check in canHandleValue
       return props
     }
 
-    return this.renderer.current.renderElement(element)
+    return this.renderService.renderElement(element)
   }
 }

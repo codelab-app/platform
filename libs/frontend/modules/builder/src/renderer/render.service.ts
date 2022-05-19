@@ -42,8 +42,8 @@ import { atoms } from '../atoms/atoms'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
-import { AtomRenderPipe } from './renderPipes/atomRenderPipe'
-import { NullRenderPipe } from './renderPipes/nullRenderPipe'
+import { renderPipeFactory } from './renderPipes/renderPipe.factory'
+import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { getState } from './utils'
 import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
@@ -88,12 +88,12 @@ export class RenderService
       /**
        * The tree that's being rendered
        */
-      treeRef: prop<Nullable<Ref<ElementTree>>>(null),
+      treeRef: prop<Nullable<Ref<IElementTree>>>(null),
 
       /**
        * A tree of providers that will get rendered before all of the regular elements
        */
-      providerTreeRef: prop<Nullable<Ref<ElementTree>>>(null),
+      providerTreeRef: prop<Nullable<Ref<IElementTree>>>(null),
 
       /**
        * Props passed to specific elements, such as from global props context
@@ -103,12 +103,14 @@ export class RenderService
       /**
        * Those transform different kinds of typed values into render-ready props
        */
-      typedValueTransformers: prop<Array<ITypedValueTransformer>>(() => []),
+      typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
+        typedValueTransformersFactory(),
+      ),
 
       /**
        * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
        */
-      renderPipe: prop<IRenderPipe | null>(null),
+      renderPipe: prop<IRenderPipe>(() => renderPipeFactory({})),
 
       isInitialized: prop(false),
 
@@ -131,43 +133,6 @@ export class RenderService
 {
   // Set to any observable that will act as a source for the state of the rendered app
   public platformState?: any
-
-  /**
-   * Need to wait until renderService is initialized before we can inject it
-   *
-   * https://github.com/xaviergonz/mobx-keystone/issues/361
-   */
-  protected override onAttachedToRootStore() {
-    // this.typedValueTransformers = typedValueTransformersFactory(this)
-
-    /**
-     * This fails
-     */
-    // this.renderPipe = renderPipeFactory({
-    //   renderer: renderServiceRef(this),
-    //   pipes: defaultPipes(),
-    // })
-
-    /**
-     * This works okay
-     */
-    // this.renderPipe = new NullRenderPipe({ renderer: renderServiceRef(this) })
-
-    /**
-     * Manually building them
-     */
-    const renderer = renderServiceRef(this)
-    const nullRenderPipe = new NullRenderPipe({ renderer })
-
-    console.log('nullRenderPipe', nullRenderPipe.id)
-
-    const atomRenderPipe = new AtomRenderPipe({
-      next: nullRenderPipe,
-      renderer,
-    })
-
-    console.log('atomRenderPipe', atomRenderPipe.id)
-  }
 
   @modelFlow
   init = _async(function* (

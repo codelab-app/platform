@@ -1,7 +1,7 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
+import { IBuilderDataNode } from '../../ui'
 import { IAtom } from '../atom'
 import { IComponent } from '../component'
 import { IHook } from '../hook'
@@ -29,11 +29,12 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>
   instanceOfComponent: Nullable<Ref<IComponent>>
-  antdNode: DataNode
+  antdNode: IBuilderDataNode
   children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>
   __metadataProps: object
+  atomName: string
   // isComponentElement: boolean
 
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement

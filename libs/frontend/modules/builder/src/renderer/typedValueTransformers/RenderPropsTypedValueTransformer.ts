@@ -34,7 +34,7 @@ export class RenderPropsTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, this.renderer.current.tree, componentService)
+      !!getRootElement(value, this.renderService.tree, componentService)
     )
   }
 
@@ -43,7 +43,7 @@ export class RenderPropsTypedValueTransformer
 
     const rootElement = getRootElement(
       value,
-      this.renderer.current.tree,
+      this.renderService.tree,
       componentService,
     )
 
@@ -56,9 +56,6 @@ export class RenderPropsTypedValueTransformer
 
   private makeRenderProp(element: IElement) {
     return (...renderPropArgs: Array<any>) =>
-      this.renderer.current.renderElement(
-        element,
-        mergeProps(...renderPropArgs),
-      )
+      this.renderService.renderElement(element, mergeProps(...renderPropArgs))
   }
 }

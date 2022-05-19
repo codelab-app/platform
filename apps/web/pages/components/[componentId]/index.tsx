@@ -84,7 +84,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = observer(() => {
           setHoveredElement={builderService.setHoveredElement.bind(
             builderService,
           )}
-          set_selectedElement={builderService.set_selectedElement.bind(
+          setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
             builderService,
           )}
         />

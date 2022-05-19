@@ -1,67 +1,116 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import {
+  COMPONENT_NODE_TYPE,
+  ELEMENT_NODE_TYPE,
+  IComponent,
+  IElement,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import tw from 'twin.macro'
-import { ElementContextMenuProps } from '../ElementContextMenu'
+import {
+  ComponentContextMenu,
+  ComponentContextMenuProps,
+} from '../ComponentContextMenu'
+import {
+  ElementContextMenu,
+  ElementContextMenuProps,
+} from '../ElementContextMenu'
 import { BuilderTreeItemOverlay } from './BuilderTreeItemOverlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
 type BuilderTreeItemTitleProps = {
-  element: IElement | undefined
-  node: DataNode
+  node: IElement | IComponent | undefined
+  data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
+  componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
-  ({ node, element, elementContextMenuProps }) => {
+  ({ node, data, elementContextMenuProps, componentContextMenuProps }) => {
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
     // Add CSS to disable hover if node is unselectable
 
-    if (!element) {
-      return <ItemTitleStyle node={node}>{node.title}</ItemTitleStyle>
+    if (node?.__nodeType === ELEMENT_NODE_TYPE) {
+      const element = node
+      const atomName = element.atomName
+
+      const componentInstanceName =
+        element.instanceOfComponent?.maybeCurrent?.name
+
+      const isComponentInstance = !!element.instanceOfComponent
+
+      const componentMeta = componentInstanceName
+        ? `(instance of ${componentInstanceName || 'a Component'})`
+        : undefined
+
+      const atomMeta = atomName ? `(${atomName})` : undefined
+      const meta = componentMeta || atomMeta || ''
+
+      return (
+        <ItemTitleStyle node={data}>
+          <Dropdown
+            onVisibleChange={(visible) => {
+              setContextMenuNodeId(visible ? element.id : null)
+            }}
+            overlay={
+              <BuilderTreeItemOverlay
+                ContextMenu={ElementContextMenu}
+                contextMenuProps={{
+                  ...elementContextMenuProps,
+                  element,
+                }}
+                setContextMenuNodeId={setContextMenuNodeId}
+                type={ELEMENT_NODE_TYPE}
+              />
+            }
+            trigger={['contextMenu']}
+            visible={contextMenuItemId === element.id}
+          >
+            <div
+              css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}
+            >
+              {element.label} <span css={tw`text-xs`}>{meta}</span>
+            </div>
+          </Dropdown>
+        </ItemTitleStyle>
+      )
     }
 
-    const atomName =
-      element.atom?.maybeCurrent?.name || element.atom?.maybeCurrent?.type
+    if (node?.__nodeType === COMPONENT_NODE_TYPE) {
+      const component = node
 
-    const componentInstanceName =
-      element.instanceOfComponent?.maybeCurrent?.name
+      return (
+        <ItemTitleStyle node={data}>
+          <Dropdown
+            onVisibleChange={(visible) => {
+              setContextMenuNodeId(visible ? component.id : null)
+            }}
+            overlay={
+              <BuilderTreeItemOverlay
+                ContextMenu={ComponentContextMenu}
+                contextMenuProps={{
+                  ...componentContextMenuProps,
+                  component,
+                }}
+                setContextMenuNodeId={setContextMenuNodeId}
+                type={COMPONENT_NODE_TYPE}
+              />
+            }
+            trigger={['contextMenu']}
+            visible={contextMenuItemId === component.id}
+          >
+            <div>{component.name}</div>
+          </Dropdown>
+        </ItemTitleStyle>
+      )
+    }
 
-    const isComponentInstance = !!element.instanceOfComponent
-
-    const componentMeta = componentInstanceName
-      ? `(instance of ${componentInstanceName || 'a Component'})`
-      : undefined
-
-    const atomMeta = atomName ? `(${atomName})` : undefined
-    const meta = componentMeta || atomMeta || ''
-
-    return (
-      <ItemTitleStyle node={node}>
-        <Dropdown
-          onVisibleChange={(visible) =>
-            setContextMenuNodeId(visible ? element.id : null)
-          }
-          overlay={
-            <BuilderTreeItemOverlay
-              elementContextMenuProps={{ ...elementContextMenuProps, element }}
-              setContextMenuNodeId={setContextMenuNodeId}
-            />
-          }
-          trigger={['contextMenu']}
-          visible={contextMenuItemId === element.id}
-        >
-          <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
-            {element.label} <span css={tw`text-xs`}>{meta}</span>
-          </div>
-        </Dropdown>
-      </ItemTitleStyle>
-    )
+    return <ItemTitleStyle node={data}>{data.title}</ItemTitleStyle>
   },
 )
 

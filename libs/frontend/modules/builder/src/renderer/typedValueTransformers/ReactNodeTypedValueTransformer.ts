@@ -33,7 +33,7 @@ export class ReactNodeTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, this.renderer.current.tree, componentService)
+      !!getRootElement(value, this.renderService.tree, componentService)
     )
   }
 
@@ -42,7 +42,7 @@ export class ReactNodeTypedValueTransformer
 
     const rootElement = getRootElement(
       value,
-      this.renderer.current.tree,
+      this.renderService.tree,
       componentService,
     )
 
@@ -50,6 +50,6 @@ export class ReactNodeTypedValueTransformer
       return value
     }
 
-    return this.renderer.current.renderElement(rootElement)
+    return this.renderService.renderElement(rootElement)
   }
 }

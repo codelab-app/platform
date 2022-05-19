@@ -1561,14 +1561,6 @@
       }
     },
     {
-      "id": "c1a832be-15b7-44ae-8988-308780bda689",
-      "name": "MuiBackdropUnstyled",
-      "type": "MuiBackdropUnstyled",
-      "api": {
-        "id": "0c17a91e-a1bf-4ad3-a506-1ae3a3a7fa6d"
-      }
-    },
-    {
       "id": "4eb015f8-0ded-4624-ba84-9a0544562ca4",
       "name": "MuiBadge",
       "type": "MuiBadge",
@@ -10192,15 +10184,6 @@
       "id": "6d57880c-5073-4a95-801a-087e0556c19e",
       "kind": "InterfaceType",
       "name": "MuiBackdrop API",
-      "fieldsConnection": {
-        "edges": []
-      }
-    },
-    {
-      "__typename": "InterfaceType",
-      "id": "0c17a91e-a1bf-4ad3-a506-1ae3a3a7fa6d",
-      "kind": "InterfaceType",
-      "name": "MuiBackdropUnstyled API",
       "fieldsConnection": {
         "edges": []
       }

@@ -19,7 +19,7 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
-import { IElementTree } from '@codelab/shared/abstract/core'
+import { IElementTree, RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -77,7 +77,6 @@ const PageBuilder: CodelabPage = observer(() => {
         providerElementTree.getTree(page.providerElement.id),
       ])
 
-      // initialize renderer
       await pageBuilderRenderService.init(
         pageElementTree,
         providerElementTree,
@@ -86,7 +85,7 @@ const PageBuilder: CodelabPage = observer(() => {
 
       return {
         page,
-        elementTree,
+        pageElementTree,
         providerTree,
         storeTree,
       }
@@ -108,7 +107,7 @@ const PageBuilder: CodelabPage = observer(() => {
       }}
       selectedElement={builderService.selectedElement}
       setHoveredElement={builderService.setHoveredElement.bind(builderService)}
-      set_selectedElement={builderService.set_selectedElement.bind(
+      setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
         builderService,
       )}
     />
@@ -121,32 +120,17 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Tabs type="card">
-        <TabPane key="page" tab="Page">
-          {data?.elementTree && !isLoading ? (
-            <Builder
-              currentDragData={builderService.currentDragData}
-              deleteModal={elementService.deleteModal}
-              elementTree={data.elementTree}
-              key={pageBuilderRenderService.tree?.root?.id}
-              rendererProps={{
-                isInitialized: pageBuilderRenderService.isInitialized,
-                renderRoot: pageBuilderRenderService.renderRoot.bind(
-                  pageBuilderRenderService,
-                ),
-              }}
-              selectedElement={builderService.selectedElement}
-              setHoveredElement={builderService.setHoveredElement.bind(
-                builderService,
-              )}
-              set_selectedElement={builderService.set_selectedElement.bind(
-                builderService,
-              )}
-            />
+      <Tabs activeKey={builderService.activeTree} type="card">
+        <TabPane key={RendererTab.Page} tab="Page">
+          {data?.pageElementTree && !isLoading ? (
+            <BaseBuilder elementTree={data.pageElementTree} />
           ) : null}
         </TabPane>
-        <TabPane key="component" tab="Component">
-          Component
+        <TabPane key={RendererTab.Component} tab="Component">
+          {builderService.selectedComponentRef?.current.id}
+          {/* {data?.elementTree && !isLoading ? ( */}
+          {/*  <BaseBuilder elementTree={data.elementTree} /> */}
+          {/* ) : null} */}
         </TabPane>
       </Tabs>
     </>

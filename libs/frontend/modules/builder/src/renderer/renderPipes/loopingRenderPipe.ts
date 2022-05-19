@@ -25,7 +25,7 @@ export class LoopingRenderPipe
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
 
     if (!Array.isArray(value)) {
-      if (this.renderer.current.debugMode) {
+      if (this.renderService.debugMode) {
         console.info(
           'LoopingRenderPipe: the specified prop value is not array',
           { element: element.name, value },
@@ -35,7 +35,7 @@ export class LoopingRenderPipe
       return this.next.render(element, props)
     }
 
-    if (this.renderer.current.debugMode) {
+    if (this.renderService.debugMode) {
       console.info(
         `LoopingRenderPipe: mapping the element ${value.length} times`,
         { element: element.name, value },

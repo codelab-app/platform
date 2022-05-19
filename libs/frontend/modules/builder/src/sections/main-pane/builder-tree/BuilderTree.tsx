@@ -1,18 +1,22 @@
 import { elementRef } from '@codelab/frontend/modules/element'
 import {
+  COMPONENT_NODE_TYPE,
+  ELEMENT_NODE_TYPE,
+  IBuilderDataNode,
   IBuilderService,
+  IComponentService,
   IElementService,
   IElementTree,
   IRenderService,
 } from '@codelab/shared/abstract/core'
 import { checkIfValidUUID } from '@codelab/shared/utils'
 import { Tree as AntdTree } from 'antd'
-import { DataNode } from 'antd/lib/tree'
 import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
+import { ComponentContextMenuProps } from '../ComponentContextMenu'
 import { ElementContextMenuProps } from '../ElementContextMenu'
 import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
@@ -22,32 +26,39 @@ import {
 } from './disableNodeHoverEffects'
 
 type BuilderTreeProps = {
-  treeData?: DataNode
+  treeData?: IBuilderDataNode
   elementContextMenuProps: Omit<
     ElementContextMenuProps,
     'element' | 'elementTree'
   >
+  componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
   className?: string
   elementTree: IElementTree
   renderService: IRenderService
+  // Allows us to set which tree is active, used by tabs
+  setActiveTree: () => void
 } & Pick<
   IBuilderService,
-  'setHoveredElement' | 'set_selectedElement' | 'selectedElement'
+  'setHoveredElement' | 'setSelectedTreeNode' | 'selectedElement'
 > &
-  Pick<IElementService, 'element' | 'moveElement'>
+  Pick<IElementService, 'element' | 'moveElement'> &
+  Pick<IComponentService, 'component'>
 
 export const BuilderTree = observer<BuilderTreeProps>(
   ({
     className,
     elementContextMenuProps,
+    componentContextMenuProps,
     treeData,
     setHoveredElement,
-    set_selectedElement,
+    setSelectedTreeNode,
     selectedElement,
-    element,
+    element: getElement,
+    component: getComponent,
     renderService,
     elementTree,
     moveElement,
+    setActiveTree,
   }) => {
     const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
       selectedElement,
@@ -60,7 +71,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     })
 
     return (
-      <AntdTree
+      <AntdTree<IBuilderDataNode>
         blockNode
         className={`${className} draggable-tree`}
         css={[disableTreeNodeWrapperHoverStyle]}
@@ -93,15 +104,31 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onSelect={([id], { nativeEvent, node }) => {
           nativeEvent.stopPropagation()
 
+          setActiveTree()
+
           if (id) {
-            set_selectedElement(elementRef(id.toString()))
+            // Limitation to typing here
+            setSelectedTreeNode(node as unknown as IBuilderDataNode)
           }
         }}
         selectedKeys={selectedElement ? [selectedElement.id] : []}
-        titleRender={(node) => {
+        titleRender={(data) => {
+          let node
+
+          if (data.type === COMPONENT_NODE_TYPE) {
+            node = getComponent(data.key.toString())
+          }
+
+          if (data.type === ELEMENT_NODE_TYPE) {
+            node = getElement(data.key.toString())
+          }
+
           return (
             <BuilderTreeItemTitle
-              element={element(node.key.toString())}
+              componentContextMenuProps={{
+                ...componentContextMenuProps,
+              }}
+              data={data}
               elementContextMenuProps={{
                 ...elementContextMenuProps,
                 elementTree,

@@ -19,7 +19,7 @@ export class ConditionalRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
-      if (this.renderer.current.debugMode) {
+      if (this.renderService.debugMode) {
         console.info('ConditionalRenderPipe: should stop rendering', {
           element: element.name,
           value: element.renderIfPropKey

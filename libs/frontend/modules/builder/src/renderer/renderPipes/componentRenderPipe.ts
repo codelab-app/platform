@@ -28,21 +28,17 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const rootElement = this.renderer.current.tree?.element(
+    const rootElement = this.renderService.tree?.element(
       component.rootElementId,
     )
 
     if (!rootElement) {
-      ComponentRenderPipe.logRootElementNotFound(this.renderer.current, element)
+      ComponentRenderPipe.logRootElementNotFound(this.renderService, element)
 
       return this.next.render(element, props)
     }
 
-    ComponentRenderPipe.logRendering(
-      this.renderer.current,
-      rootElement,
-      element,
-    )
+    ComponentRenderPipe.logRendering(this.renderService, rootElement, element)
 
     // Start the pipe again with the root element
     const overrideProps = ComponentRenderPipe.makeOverrideProps(
@@ -50,7 +46,7 @@ export class ComponentRenderPipe
       component,
     )
 
-    return this.renderer.current.renderIntermediateElement(
+    return this.renderService.renderIntermediateElement(
       rootElement,
       overrideProps,
     )
