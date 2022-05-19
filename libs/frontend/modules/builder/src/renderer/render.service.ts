@@ -66,23 +66,6 @@ const initForBuilder = () => {
 }
 
 /**
- * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
- */
-const initForBuilder = () => {
-  const voidClick = () => {
-    //
-  }
-
-  const globalProps = { onClick: voidClick }
-
-  return new RenderService({
-    extraElementProps: new ExtraElementProps({
-      global: frozen(globalProps),
-    }),
-  })
-}
-
-/**
  * Handles the logic of rendering a tree of models
  *
  * NB! call .init() and wait for it to finish before using .render()
