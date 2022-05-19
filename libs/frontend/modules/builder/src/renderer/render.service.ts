@@ -154,43 +154,6 @@ export class RenderService
   // Set to any observable that will act as a source for the state of the rendered app
   public platformState?: any
 
-  /**
-   * Need to wait until renderService is initialized before we can inject it
-   *
-   * https://github.com/xaviergonz/mobx-keystone/issues/361
-   */
-  protected override onAttachedToRootStore() {
-    // this.typedValueTransformers = typedValueTransformersFactory(this)
-
-    /**
-     * This fails
-     */
-    // this.renderPipe = renderPipeFactory({
-    //   renderer: renderServiceRef(this),
-    //   pipes: defaultPipes(),
-    // })
-
-    /**
-     * This works okay
-     */
-    // this.renderPipe = new NullRenderPipe({ renderer: renderServiceRef(this) })
-
-    /**
-     * Manually building them
-     */
-    const renderer = renderServiceRef(this)
-    const nullRenderPipe = new NullRenderPipe({ renderer })
-
-    console.log('nullRenderPipe', nullRenderPipe.id)
-
-    const atomRenderPipe = new AtomRenderPipe({
-      next: nullRenderPipe,
-      renderer,
-    })
-
-    console.log('atomRenderPipe', atomRenderPipe.id)
-  }
-
   @modelFlow
   init = _async(function* (
     this: RenderService,
