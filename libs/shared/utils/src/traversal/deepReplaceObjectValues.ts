@@ -8,7 +8,7 @@ const traverseObjectValues = (
   _refs: RefSet,
 ) =>
   mapValues(obj, (value, key) =>
-    // isObjects includes array too
+    // isObject includes array too
     isObject(value)
       ? traverseDeep(value, traverseObjectValues, replace, _refs)
       : replace(value, key, obj),
