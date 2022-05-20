@@ -1,22 +1,9 @@
-import { IPropData } from '@codelab/shared/abstract/core'
-import { MaybeArray, Nullish } from '@codelab/shared/abstract/types'
 import { isArray } from 'lodash'
+import { IInput, IOutput, RefSet, TransformFn, TraverseFn } from './abstract'
 
-export type IInput = IPropData
-export type IOutput = MaybeArray<IInput>
-export type RefSet = Nullish<WeakSet<IOutput>>
-
-export type ReplaceFn = (
-  value: IInput,
-  key: string,
-  innerObj: IOutput,
-) => IOutput
-
-export type TraverseFn = (
-  obj: IInput,
-  replaceFn: ReplaceFn,
-  _refs: RefSet,
-) => IOutput
+const isReactNode = (obj: IInput) => Boolean(obj['$$typeof'])
+const isMobxModel = (obj: IInput) => Boolean(obj['$modelType'])
+const isHtmlNode = (obj: IInput) => obj instanceof HTMLElement
 
 const skipTraversal = (obj: IInput | IOutput, _refs: RefSet) =>
   /**
@@ -27,40 +14,46 @@ const skipTraversal = (obj: IInput | IOutput, _refs: RefSet) =>
    * */
   !obj ||
   typeof obj !== 'object' ||
-  Boolean((obj as IInput)['$$typeof']) ||
-  Boolean((obj as IInput)['$modelType']) ||
-  obj instanceof HTMLElement ||
+  isReactNode(obj) ||
+  isMobxModel(obj) ||
+  isHtmlNode(obj) ||
   _refs?.has(obj)
 
 export const traverseDeep = (
   obj: IOutput,
   traverse: TraverseFn,
-  replace: ReplaceFn,
-  _refs?: RefSet,
+  transform: TransformFn,
+  _refs: RefSet = new WeakSet(),
 ): IOutput => {
-  if (!_refs) {
-    _refs = new WeakSet()
+  if (isArray(obj)) {
+    return obj.map((e) => traverseDeep(e, traverse, transform, _refs))
   }
 
+  // provided object can't be traversed
   if (skipTraversal(obj, _refs)) {
     return obj
   }
 
+  // register object to detect circular objects
   _refs.add(obj)
 
+  // apply transformment to object
+  obj = transform(obj, '', obj)
+
+  // object transformment is an array
   if (isArray(obj)) {
-    return obj.map((e) => traverse(e, replace, _refs))
+    return traverseDeep(obj, traverse, transform, _refs)
   }
 
-  obj = replace(obj, '', obj)
-
-  if (skipTraversal(obj, new WeakSet())) {
-    return obj
-  }
-
-  if (isArray(obj)) {
-    return obj.map((e) => traverse(e, replace, _refs))
-  }
-
-  return traverse(obj, replace, _refs)
+  /**
+   * check if object transformment can be traversed
+   *
+   * when the transform function doesn't change the object
+   * we don't want to skip traversing therefore
+   * we pass an empty WeakSet
+   *
+   */
+  return skipTraversal(obj, new WeakSet())
+    ? obj
+    : traverse(obj, transform, _refs)
 }
