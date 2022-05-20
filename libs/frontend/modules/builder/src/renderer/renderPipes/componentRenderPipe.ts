@@ -2,6 +2,7 @@ import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
+import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   IComponent,
   IElement,
@@ -28,9 +29,8 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
-    const rootElement = this.renderService.tree?.element(
-      component.rootElementId,
-    )
+    const componentService = getComponentService(this)
+    const rootElement = componentService.elementTrees.get(component.id)?.root
 
     if (!rootElement) {
       ComponentRenderPipe.logRootElementNotFound(this.renderService, element)

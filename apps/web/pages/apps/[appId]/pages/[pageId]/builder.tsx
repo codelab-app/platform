@@ -41,15 +41,16 @@ const PageBuilder: CodelabPage = observer(() => {
     providerElementTree,
     pageBuilderRenderService,
     storeService,
+    typeService,
+    componentService,
     builderService,
-    userService,
   } = useStore()
 
   const currentAppId = useCurrentAppId()
   const currentPageId = useCurrentPageId()
   const router = useRouter()
 
-  const [, { isLoading, error, data }] = useStatefulExecutor(
+  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -66,15 +67,20 @@ const PageBuilder: CodelabPage = observer(() => {
         ? await storeService.getOne(app.store.id)
         : null
 
+      // components are needed to build pageElementTree
+      // therefore they must be loaded first
+      const components = await componentService.loadComponentTrees()
+
       /**
        * Construct the ElementTree's for
        *
        * - page tree
        * - provider tree
        */
-      const [elementTree, providerTree] = await Promise.all([
+      const [elementTree, providerTree, types] = await Promise.all([
         pageElementTree.getTree(page.rootElement.id),
         providerElementTree.getTree(page.providerElement.id),
+        typeService.getAll(),
       ])
 
       await pageBuilderRenderService.init(
@@ -88,6 +94,8 @@ const PageBuilder: CodelabPage = observer(() => {
         pageElementTree,
         providerTree,
         storeTree,
+        types,
+        components,
       }
     },
     { executeOnMount: true },
@@ -122,7 +130,7 @@ const PageBuilder: CodelabPage = observer(() => {
       {isLoading && <Spin />}
       <Tabs activeKey={builderService.activeTree} type="card">
         <TabPane key={RendererTab.Page} tab="Page">
-          {data?.pageElementTree && !isLoading ? (
+          {isDone && data?.pageElementTree ? (
             <BaseBuilder elementTree={data.pageElementTree} />
           ) : null}
         </TabPane>

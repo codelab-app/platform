@@ -1,14 +1,12 @@
 import {
   IComponentService,
   IElement,
-  IElementTree,
   TypedValue,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 
 export const getRootElement = (
   payload: TypedValue<any>,
-  tree: Nullable<IElementTree>,
   componentService: IComponentService,
 ): Nullish<IElement> => {
   if (!payload) {
@@ -28,5 +26,5 @@ export const getRootElement = (
     return null
   }
 
-  return tree?.element(component.rootElementId)
+  return componentService.elementTrees.get(component.id)?.root
 }

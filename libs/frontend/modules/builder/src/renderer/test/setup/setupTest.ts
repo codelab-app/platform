@@ -187,6 +187,14 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         components: objectMap([
           [data.componentToRender.id, data.componentToRender],
         ]),
+        elementTrees: objectMap([
+          [
+            data.componentToRender.id,
+            new ElementTree({
+              _root: elementRef(data.componentRootElement),
+            }),
+          ],
+        ]),
       }),
       atomService: new AtomService({
         _atoms: objectMap([
@@ -211,9 +219,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
       pageElementTree: new ElementTree({
         _root: elementRef(data.elementToRender),
-        componentRoots: objectMap([
-          [data.componentRootElement.id, elementRef(data.componentRootElement)],
-        ]),
       }),
     })
 

@@ -2952,13 +2952,7 @@
       "__typename": "RenderPropsType",
       "id": "0069b248-935e-4130-883a-580eb8dea05c",
       "kind": "RenderPropsType",
-      "name": "RenderPropsType",
-      "owner": {
-        "id": "1b989c64-0fd0-44e6-ae4c-8f1ae3a7779a",
-        "auth0Id": "google-oauth2|116956556863062538891",
-        "email": "webber@codelab.ai",
-        "roles": null
-      }
+      "name": "RenderPropsType"
     },
     {
       "__typename": "EnumType",
@@ -10158,7 +10152,20 @@
       "kind": "InterfaceType",
       "name": "MuiAutocomplete API",
       "fieldsConnection": {
-        "edges": []
+        "edges": [
+          {
+            "id": "d1e65d00-6401-4200-b36d-26d59c8926a7",
+            "key": "renderInput",
+            "name": "Render Input",
+            "description": "",
+            "node": {
+              "__typename": "RenderPropsType",
+              "id": "0069b248-935e-4130-883a-580eb8dea05c",
+              "kind": "RenderPropsType",
+              "name": "RenderPropsType"
+            }
+          }
+        ]
       }
     },
     {
@@ -10437,7 +10444,20 @@
       "kind": "InterfaceType",
       "name": "MuiDatePicker API",
       "fieldsConnection": {
-        "edges": []
+        "edges": [
+          {
+            "id": "8e7cc80e-b363-41a3-a4ca-994370e8316c",
+            "key": "renderInput",
+            "name": "RenderInput",
+            "description": "",
+            "node": {
+              "__typename": "RenderPropsType",
+              "id": "0069b248-935e-4130-883a-580eb8dea05c",
+              "kind": "RenderPropsType",
+              "name": "RenderPropsType"
+            }
+          }
+        ]
       }
     },
     {

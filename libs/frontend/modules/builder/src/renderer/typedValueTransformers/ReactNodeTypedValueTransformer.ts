@@ -33,18 +33,13 @@ export class ReactNodeTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, this.renderService.tree, componentService)
+      !!getRootElement(value, componentService)
     )
   }
 
   public transform(value: TypedValue<any>): any {
     const componentService = getComponentService(this)
-
-    const rootElement = getRootElement(
-      value,
-      this.renderService.tree,
-      componentService,
-    )
+    const rootElement = getRootElement(value, componentService)
 
     if (!rootElement) {
       return value
