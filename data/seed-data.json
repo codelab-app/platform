@@ -2955,18 +2955,6 @@
       "name": "RenderPropsType"
     },
     {
-      "__typename": "RenderPropsType",
-      "id": "0069b248-935e-4130-883a-580eb8dea05c",
-      "kind": "RenderPropsType",
-      "name": "RenderPropsType",
-      "owner": {
-        "id": "1b989c64-0fd0-44e6-ae4c-8f1ae3a7779a",
-        "auth0Id": "google-oauth2|116956556863062538891",
-        "email": "webber@codelab.ai",
-        "roles": null
-      }
-    },
-    {
       "__typename": "EnumType",
       "id": "f3dbf89d-0390-4826-a427-6eed58b9e975",
       "kind": "EnumType",

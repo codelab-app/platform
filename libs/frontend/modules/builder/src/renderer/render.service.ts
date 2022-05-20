@@ -15,7 +15,7 @@ import {
   deepReplaceObjectValuesAndKeys,
   mergeProps,
 } from '@codelab/shared/utils'
-import { flatMap, isEmpty, isString, values } from 'lodash'
+import { flatMap, isEmpty, isString } from 'lodash'
 import { computed } from 'mobx'
 import {
   AnyModel,
