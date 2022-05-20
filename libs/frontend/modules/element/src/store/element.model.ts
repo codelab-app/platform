@@ -111,13 +111,7 @@ export class Element
 {
   @computed
   get childrenSorted(): Array<IElement> {
-    return [...this.children.values()]
-      .map((x) => {
-        console.log(x.current)
-
-        return x.current
-      })
-      .sort(compareOrder)
+    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
   @modelAction
