@@ -27,10 +27,7 @@ import {
 
 type BuilderTreeProps = {
   treeData?: IBuilderDataNode
-  elementContextMenuProps: Omit<
-    ElementContextMenuProps,
-    'element' | 'elementTree'
-  >
+  elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
   className?: string
   elementTree: IElementTree
@@ -62,7 +59,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
   }) => {
     const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
       selectedElement,
-      renderService,
+      elementTree: renderService.tree,
     })
 
     const { isMoving, handleDrop } = useElementTreeDrop({
@@ -125,14 +122,9 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
           return (
             <BuilderTreeItemTitle
-              componentContextMenuProps={{
-                ...componentContextMenuProps,
-              }}
+              componentContextMenuProps={componentContextMenuProps}
               data={data}
-              elementContextMenuProps={{
-                ...elementContextMenuProps,
-                elementTree,
-              }}
+              elementContextMenuProps={elementContextMenuProps}
               node={node}
             />
           )

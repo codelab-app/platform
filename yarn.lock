@@ -11514,9 +11514,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:4.20.3":
-  version: 4.20.3
-  resolution: "antd@npm:4.20.3"
+"antd@npm:4.20.5":
+  version: 4.20.5
+  resolution: "antd@npm:4.20.5"
   dependencies:
     "@ant-design/colors": ^6.0.0
     "@ant-design/icons": ^4.7.0
@@ -11565,7 +11565,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 1815262fb4199cb2ebb73327f06179221e97873b404074ac0d7b773e261216c1af1acef831fa3d93278670de34cf69e7131984cb26bed78993c1537dbd779b92
+  checksum: 974e6f3ce1b2d38ee0c250d119a3d83740f6c0ef4ed637206e3cf57059e0f3017a37c12259a7a3f03e563a91ed77f86bf5dc9db20454a1e5168f305983a236a0
   languageName: node
   linkType: hard
 
@@ -14234,7 +14234,7 @@ __metadata:
     adm-zip: 0.5.9
     ajv: 8.8.2
     animate.css: 4.1.1
-    antd: 4.20.3
+    antd: 4.20.5
     apollo-server-micro: 3.6.7
     auth0: 2.40.0
     autoprefixer: 9

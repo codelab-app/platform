@@ -203,6 +203,11 @@ export class Element
   }
 
   @computed
+  get siblings() {
+    return this.parentElement?.children
+  }
+
+  @computed
   get parentElement() {
     // the parent is ObjectMap items
     return this.parentId ? getParent(this)[this.parentId] : undefined

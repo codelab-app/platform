@@ -9,11 +9,11 @@ import {
 } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
-import { BuilderDropHandler } from './dnd/BuilderDropHandler'
-import { ElementDropHandlers } from './dnd/ElementDropHandlers'
-import { useBuilderHotkeys, useBuilderHoverHandlers } from './hooks'
-import { useBuilderRootClickHandler } from './hooks/useBuilderRootClickHandler'
-import { Renderer, RendererProps } from './renderer'
+import { BuilderDropHandler } from '../../dnd/BuilderDropHandler'
+import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
+import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
+import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
+import { Renderer, RendererProps } from '../../renderer'
 
 type BuilderProps = {
   elementTree: IElementTree
@@ -27,6 +27,10 @@ type BuilderProps = {
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
   }
+
+/**
+ * Generic builder used for both Component & Element
+ */
 
 export const Builder = observer<BuilderProps>(
   ({

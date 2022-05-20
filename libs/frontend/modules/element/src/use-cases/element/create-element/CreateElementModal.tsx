@@ -1,4 +1,5 @@
 import {
+  COMPONENT_SERVICE,
   ELEMENT_SERVICE,
   USER_SERVICE,
   WithServices,
@@ -20,15 +21,28 @@ import { createElementSchema } from './createElementSchema'
 
 type CreateElementModalProps = {
   elementTree: IElementTree
-} & WithServices<ELEMENT_SERVICE | USER_SERVICE>
+} & WithServices<ELEMENT_SERVICE | USER_SERVICE | COMPONENT_SERVICE>
 
 export const CreateElementModal = observer<CreateElementModalProps>(
-  ({ elementService, userService, elementTree }) => {
+  ({ elementService, userService, elementTree, componentService }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
-      const elements = await elementService.create([data])
-      elementTree.buildTree(elements)
+      const [element] = await elementService.create([data])
 
-      return Promise.resolve(elements)
+      // Build tree for page
+      elementTree.buildTree([element])
+
+      // Get the component tree for the current element
+      const componentId = element?.instanceOfComponent?.id
+
+      if (componentId) {
+        console.log(componentId)
+
+        const componentTree = componentService.elementTrees.get(componentId)
+        console.log(componentTree)
+        componentTree?.buildTree([element])
+      }
+
+      return Promise.resolve([element])
     }
 
     const onSubmitError = createNotificationHandler({

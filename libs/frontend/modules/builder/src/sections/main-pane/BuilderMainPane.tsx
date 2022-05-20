@@ -65,11 +65,14 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const builderTab = builderService.builderTab
     const [searchValue, setSearchValue] = useState('')
 
-    const debouncedSearch = useCallback(
-      (_v: string) =>
-        debounce((nextValue: string) => setSearchValue(nextValue), 200)(_v),
-      [],
-    )
+    const debouncedSearch = useCallback((value: string) => {
+      const debouncedSetSearchValue = debounce(
+        (nextValue: string) => setSearchValue(nextValue),
+        200,
+      )
+
+      return debouncedSetSearchValue(value)
+    }, [])
 
     const root = pageElementTree?.root
     const antdTree = root?.antdNode
@@ -95,6 +98,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           }}
           element={elementService.element.bind(elementService)}
           elementContextMenuProps={{
+            elementTree: pageElementTree,
             createModal: elementService.createModal,
             deleteModal: elementService.deleteModal,
             duplicateElement:
@@ -181,6 +185,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         </DisplayIf>
 
         <CreateElementModal
+          componentService={componentService}
           elementService={elementService}
           elementTree={pageElementTree}
           userService={userService}

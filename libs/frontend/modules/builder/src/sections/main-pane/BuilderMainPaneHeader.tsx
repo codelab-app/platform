@@ -52,3 +52,5 @@ export const BuilderMainPaneHeader = observer(
     return null
   },
 )
+
+BuilderMainPaneHeader.displayName = 'BuilderMainPaneHeader'

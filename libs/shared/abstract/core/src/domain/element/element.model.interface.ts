@@ -35,6 +35,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
+  siblings: Array<IElement>
   // isComponentElement: boolean
 
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement

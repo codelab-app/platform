@@ -1,8 +1,10 @@
-import { IBuilderService, IRenderService } from '@codelab/shared/abstract/core'
+import { usePrevious } from '@codelab/frontend/shared/utils'
+import { IBuilderService, IElementTree } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Key, useEffect, useState } from 'react'
 
 export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedElement'> & {
-  renderService: IRenderService
+  elementTree: Nullable<IElementTree>
 }
 
 /**
@@ -10,14 +12,20 @@ export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedElement'> & {
  */
 export const useExpandedNodes = ({
   selectedElement,
-  renderService,
+  elementTree,
 }: UseExpandedNodesProps) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<Array<Key>>([])
+  const prevExpandedNodeIds = usePrevious(expandedNodeIds)
 
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
+    // console.log(selectedElement?.id, expandedNodeIds, prevExpandedNodeIds)
+
+    /**
+     * If we delete an element, the whole tree collapses. Instead, we want to show the sibling or parent as selected.
+     */
     const pathResult = selectedElement
-      ? renderService.tree?.getPathFromRoot(selectedElement)
+      ? elementTree?.getPathFromRoot(selectedElement)
       : []
 
     // go through each node of the path and keep track of all nodes that need to get expanded
@@ -33,7 +41,7 @@ export const useExpandedNodes = ({
       return [...prevState, ...(toExpand ?? [])]
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedElement])
+  }, [selectedElement?.id])
 
   return { expandedNodeIds, setExpandedNodeIds }
 }

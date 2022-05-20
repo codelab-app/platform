@@ -2,7 +2,9 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
+  BaseBuilderProps,
   Builder,
+  BuilderComponent,
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderMainPane,
@@ -19,7 +21,7 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
-import { IElementTree, RendererTab } from '@codelab/shared/abstract/core'
+import { RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -27,10 +29,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const { TabPane } = Tabs
-
-type BaseBuilderProps = {
-  elementTree: IElementTree
-}
 
 const PageBuilder: CodelabPage = observer(() => {
   const {
@@ -40,6 +38,8 @@ const PageBuilder: CodelabPage = observer(() => {
     pageElementTree,
     providerElementTree,
     pageBuilderRenderService,
+    componentService,
+    componentBuilderRenderService,
     storeService,
     typeService,
     componentService,
@@ -101,25 +101,29 @@ const PageBuilder: CodelabPage = observer(() => {
     { executeOnMount: true },
   )
 
-  const BaseBuilder = observer<BaseBuilderProps>(({ elementTree }) => (
-    <Builder
-      currentDragData={builderService.currentDragData}
-      deleteModal={elementService.deleteModal}
-      elementTree={elementTree}
-      key={pageBuilderRenderService.tree?.root?.id}
-      rendererProps={{
-        isInitialized: pageBuilderRenderService.isInitialized,
-        renderRoot: pageBuilderRenderService.renderRoot.bind(
-          pageBuilderRenderService,
-        ),
-      }}
-      selectedElement={builderService.selectedElement}
-      setHoveredElement={builderService.setHoveredElement.bind(builderService)}
-      setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
-        builderService,
-      )}
-    />
-  ))
+  const currentComponentId = builderService.selectedComponentRef?.current.id
+
+  const BaseBuilder = observer<BaseBuilderProps>(
+    ({ elementTree, renderService }) => (
+      <Builder
+        currentDragData={builderService.currentDragData}
+        deleteModal={elementService.deleteModal}
+        elementTree={elementTree}
+        key={renderService.tree?.root?.id}
+        rendererProps={{
+          isInitialized: renderService.isInitialized,
+          renderRoot: renderService.renderRoot.bind(renderService),
+        }}
+        selectedElement={builderService.selectedElement}
+        setHoveredElement={builderService.setHoveredElement.bind(
+          builderService,
+        )}
+        setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
+          builderService,
+        )}
+      />
+    ),
+  )
 
   return (
     <>
@@ -128,17 +132,34 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Tabs activeKey={builderService.activeTree} type="card">
+      <Tabs
+        activeKey={builderService.activeTree}
+        defaultActiveKey={RendererTab.Page}
+        onChange={(key) => console.log(key)}
+        type="card"
+      >
         <TabPane key={RendererTab.Page} tab="Page">
-          {isDone && data?.pageElementTree ? (
-            <BaseBuilder elementTree={data.pageElementTree} />
+          {data?.pageElementTree && !isDone ? (
+            <BaseBuilder
+              elementTree={data.pageElementTree}
+              renderService={pageBuilderRenderService}
+            />
           ) : null}
         </TabPane>
-        <TabPane key={RendererTab.Component} tab="Component">
+        <TabPane
+          key={RendererTab.Component}
+          style={{ height: '100%' }}
+          tab="Component"
+        >
           {builderService.selectedComponentRef?.current.id}
-          {/* {data?.elementTree && !isLoading ? ( */}
-          {/*  <BaseBuilder elementTree={data.elementTree} /> */}
-          {/* ) : null} */}
+          {currentComponentId ? (
+            <BuilderComponent
+              BaseBuilder={BaseBuilder}
+              componentBuilderRenderService={componentBuilderRenderService}
+              componentId={currentComponentId}
+              componentService={componentService}
+            />
+          ) : null}
         </TabPane>
       </Tabs>
     </>
@@ -168,25 +189,28 @@ PageBuilder.Layout = observer((page) => {
     >
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={pageService} />}
-        MainPane={() => (
-          <BuilderMainPane
-            atomService={atomService}
-            builderService={builderService}
-            componentBuilderRenderService={componentBuilderRenderService}
-            componentService={componentService}
-            elementService={elementService}
-            key={pageBuilderRenderService.tree?.root?.id}
-            pageBuilderRenderService={pageBuilderRenderService}
-            pageElementTree={pageElementTree}
-            userService={userService}
-          />
-        )}
+        MainPane={() => {
+          return (
+            <BuilderMainPane
+              atomService={atomService}
+              builderService={builderService}
+              componentBuilderRenderService={componentBuilderRenderService}
+              componentService={componentService}
+              elementService={elementService}
+              key={pageBuilderRenderService.tree?.root?.id}
+              pageBuilderRenderService={pageBuilderRenderService}
+              pageElementTree={pageElementTree}
+              userService={userService}
+            />
+          )
+        }}
         MetaPane={() => (
           <MetaPane
             atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
+            // The element tree changes depending on whether a page or a component is selected
             elementTree={pageElementTree}
             key={pageBuilderRenderService.tree?.root?.id}
             renderService={pageBuilderRenderService}
@@ -199,9 +223,9 @@ PageBuilder.Layout = observer((page) => {
             key={pageBuilderRenderService.tree?.root?.id}
           />
         )}
-        builderService={builderService}
         headerHeight={38}
-        key={pageBuilderRenderService.tree?.id}
+        // Depending on pageBuilderRenderService causes an extra re-render
+        // key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
       </BuilderDashboardTemplate>
@@ -210,3 +234,7 @@ PageBuilder.Layout = observer((page) => {
 })
 
 export default PageBuilder
+
+PageBuilder.whyDidYouRender = true
+
+PageBuilder.displayName = 'PageBuilder'

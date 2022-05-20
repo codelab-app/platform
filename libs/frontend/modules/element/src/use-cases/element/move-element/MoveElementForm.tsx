@@ -55,7 +55,6 @@ export const MoveElementForm = observer<MoveElementFormProps>(
         })}
         onSubmitSuccess={[]}
         schema={moveElementSchema}
-        submitRef={undefined}
       >
         <AutoFields omitFields={['parentElementId']} />
         <AutoField

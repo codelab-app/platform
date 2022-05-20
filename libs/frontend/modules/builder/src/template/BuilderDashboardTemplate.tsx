@@ -1,11 +1,9 @@
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { DashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
 
-export type BuilderDashboardTemplateProps = DashboardTemplateProps &
-  WithServices<BUILDER_SERVICE>
+export type BuilderDashboardTemplateProps = DashboardTemplateProps
 
 export const BuilderDashboardTemplate = observer<
   PropsWithChildren<BuilderDashboardTemplateProps>
@@ -17,13 +15,12 @@ export const BuilderDashboardTemplate = observer<
     Header,
     SidebarNavigation,
     headerHeight,
-    builderService,
   }) => {
     return (
       <DashboardTemplate
         Header={Header}
         MainPane={MainPane}
-        MetaPane={builderService.selectedElement ? MetaPane : undefined}
+        MetaPane={MetaPane}
         SidebarNavigation={SidebarNavigation}
         contentStyles={{ paddingTop: '0rem' }}
         headerHeight={headerHeight ?? 38}

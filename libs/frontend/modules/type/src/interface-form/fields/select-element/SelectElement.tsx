@@ -70,6 +70,8 @@ export const SelectElement = ({
     }
   }
 
+  console.log(elements)
+
   return (
     <SelectField
       name={name}

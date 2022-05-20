@@ -220,3 +220,5 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
     )
   },
 )
+
+MetaPaneTabContainer.displayName = 'MetaPaneTabContainer'

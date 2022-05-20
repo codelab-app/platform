@@ -1,5 +1,8 @@
-import { Button } from 'antd'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
+import { Button, Tabs } from 'antd'
 import React, { useCallback, useState } from 'react'
+
+const { TabPane } = Tabs
 
 const useDemo = () => {
   console.log('useDemo')
@@ -17,8 +20,19 @@ const Counter = (props: any) => {
   return <span>{props.counter}</span>
 }
 
+Counter.displayName = 'Counter'
+
 const Demo = () => {
-  console.log('Demo')
+  const [, state] = useStatefulExecutor(
+    () => {
+      return Promise.resolve({})
+    },
+    {
+      executeOnMount: true,
+    },
+  )
+
+  console.log(state)
 
   const [counter, setCounter] = useState(0)
 

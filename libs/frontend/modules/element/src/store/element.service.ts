@@ -160,8 +160,6 @@ export class ElementService
     }
 
     return this.hydrateOrUpdateCache(elements)
-
-    // this.elementTree.buildTree(elementModels)
   })
 
   @modelAction
