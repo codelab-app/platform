@@ -46,4 +46,12 @@ export class BuilderService
       this.selectedComponentRef = componentRef(node.key.toString())
     }
   }
+
+  /**
+   * Based on which node is selected in the builder tree, we will display a different element tree for the rendered view
+   */
+  @computed
+  get activeElementTree() {
+    return
+  }
 }

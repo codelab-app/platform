@@ -15,6 +15,9 @@ import { moveElementSchema } from './moveElementSchema'
 export type MoveElementFormProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
+  /**
+   * The element tree is specific to which view we're looking at (i.e. Page, Component)
+   */
   elementTree: IElementTree
 }
 

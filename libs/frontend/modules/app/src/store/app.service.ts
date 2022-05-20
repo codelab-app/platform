@@ -6,6 +6,7 @@ import { AppWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAppService,
   ICreateAppDTO,
+  IElementTree,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -33,6 +34,7 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
+    elementTree: prop(() => objectMap<IElementTree>()),
   })
   implements IAppService
 {

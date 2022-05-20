@@ -42,7 +42,6 @@ const PageBuilder: CodelabPage = observer(() => {
     componentBuilderRenderService,
     storeService,
     typeService,
-    componentService,
     builderService,
   } = useStore()
 
@@ -204,19 +203,21 @@ PageBuilder.Layout = observer((page) => {
             />
           )
         }}
-        MetaPane={() => (
-          <MetaPane
-            atomService={atomService}
-            builderService={builderService}
-            componentService={componentService}
-            elementService={elementService}
-            // The element tree changes depending on whether a page or a component is selected
-            elementTree={pageElementTree}
-            key={pageBuilderRenderService.tree?.root?.id}
-            renderService={pageBuilderRenderService}
-            typeService={typeService}
-          />
-        )}
+        MetaPane={() => {
+          return (
+            <MetaPane
+              atomService={atomService}
+              builderService={builderService}
+              componentService={componentService}
+              elementService={elementService}
+              // The element tree changes depending on whether a page or a component is selected
+              elementTree={pageElementTree}
+              key={pageBuilderRenderService.tree?.root?.id}
+              renderService={pageBuilderRenderService}
+              typeService={typeService}
+            />
+          )
+        }}
         SidebarNavigation={() => (
           <BuilderSidebarNavigation
             builderService={builderService}

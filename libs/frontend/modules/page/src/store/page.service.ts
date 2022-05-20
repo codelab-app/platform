@@ -4,6 +4,7 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreatePageDTO,
+  IElementTree,
   IPage,
   IPageService,
   IUpdatePageDTO,
@@ -37,10 +38,11 @@ export const pageRef = rootRef<Page>('@codelab/PageRef', {
 @model('@codelab/PageService')
 export class PageService
   extends Model({
-    pages: prop(() => objectMap<Page>()),
+    pages: prop(() => objectMap<IPage>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new PageModalService({})),
     deleteModal: prop(() => new PageModalService({})),
+    elementTrees: prop(() => objectMap<IElementTree>()),
   })
   implements IPageService
 {
