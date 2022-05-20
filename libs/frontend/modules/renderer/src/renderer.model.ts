@@ -13,9 +13,9 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
+  deepReplaceObjectValues,
   deepReplaceObjectValuesAndKeys,
   mergeProps,
-  replaceObjectValues,
 } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {
@@ -345,7 +345,7 @@ export class Renderer
    * Applies all the type transformers to the props
    */
   private applyPropTypeTransformers = (props: IPropData): IPropData =>
-    replaceObjectValues(props, (value, key, innerObj) => {
+    deepReplaceObjectValues(props, (value, key, innerObj) => {
       if (!isTypedValue(value)) {
         return value
       }
