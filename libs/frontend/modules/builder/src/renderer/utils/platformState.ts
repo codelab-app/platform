@@ -52,7 +52,7 @@ export const createMobxState = (
     apps: pagesByApps,
   }
 
-  return rootStore.toMobxObservable()
+  return rootStore.toMobxObservable(stateGlobals)
 }
 
 export const toAntd = (

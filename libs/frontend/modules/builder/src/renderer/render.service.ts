@@ -56,7 +56,7 @@ const initForBuilder = () => {
     //
   }
 
-  const globalProps = { onClick: voidClick }
+  const globalProps = { onClick: voidClick, href: '#' }
 
   return new RenderService({
     extraElementProps: new ExtraElementProps({

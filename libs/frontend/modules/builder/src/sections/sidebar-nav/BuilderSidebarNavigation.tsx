@@ -26,8 +26,8 @@ export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
       {
         label: 'Mobx State',
         icon: <DatabaseOutlined title="State" />,
-        key: BuilderTab.Mobxstate,
-        onClick: (info) => builderService.setBuilderTab(BuilderTab.Mobxstate),
+        key: BuilderTab.MobxState,
+        onClick: (info) => builderService.setBuilderTab(BuilderTab.MobxState),
       },
       {
         label: 'Toolbox',

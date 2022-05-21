@@ -229,7 +229,9 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-      children: this.childrenSorted.map((child) => child.antdNode),
+      children: !this.instanceOfComponent?.current
+        ? this.childrenSorted.map((child) => child.antdNode)
+        : [],
     }
   }
 
