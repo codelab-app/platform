@@ -1,4 +1,3 @@
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   IModalService,
   IStateTreeNode,

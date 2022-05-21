@@ -165,7 +165,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           ) : null}
         </DisplayIf>
 
-        <DisplayIf condition={builderTab === BuilderTab.MobxState}>
+        <DisplayIf condition={builderTab === BuilderTab.Mobxstate}>
           <MobxStateContainer
             builderService={builderService}
             renderService={pageBuilderRenderService}

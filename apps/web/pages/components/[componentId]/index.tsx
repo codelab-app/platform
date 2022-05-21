@@ -140,10 +140,7 @@ ComponentDetail.Layout = observer((page) => {
           />
         ))}
         SidebarNavigation={observer(() => (
-          <BuilderSidebarNavigation
-            builderTab={builderService.builderTab}
-            setBuilderTab={builderService.setBuilderTab}
-          />
+          <BuilderSidebarNavigation builderService={builderService} />
         ))}
         builderService={builderService}
       >

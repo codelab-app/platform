@@ -26,6 +26,6 @@ export interface IBuilderService {
   currentDragData: Nullable<Frozen<BuilderDragData>>
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setBuilderTab(data: BuilderTab): void
-  stateModal: IModalService<IStateTreeNode>
+  stateModal: IModalService<IStateTreeNode, StateModalProperties>
   setActiveTree(tab: RendererTab): void
 }

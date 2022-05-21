@@ -20,28 +20,28 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
+import { Button, Dropdown, Menu, MenuProps, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const menu = (
-  <Menu>
-    <Menu.Item key="1">
-      <ImportAppButton />
-    </Menu.Item>
-    <Menu.Item key="0">
-      <SignOutUserButton type="link" />
-    </Menu.Item>
-  </Menu>
-)
+const items: MenuProps['items'] = [
+  {
+    key: '1',
+    icon: <ImportAppButton />,
+  },
+  {
+    key: '0',
+    icon: <SignOutUserButton type="link" />,
+  },
+]
 
 const AppsPageHeader = observer(() => {
   const store = useStore()
 
   const pageHeaderButtons = [
     <CreateAppButton appService={store.appService} key={0} />,
-    <Dropdown key={1} overlay={menu} trigger={['click']}>
+    <Dropdown key={1} overlay={<Menu items={items} />} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
   ]
