@@ -2298,7 +2298,23 @@ type AtomsConnection {
   totalCount: Int!
 }
 
-type Component {
+type Component implements WithOwner {
+  api(
+    directed: Boolean = true
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): InterfaceType!
+  apiAggregate(
+    directed: Boolean = true
+    where: InterfaceTypeWhere
+  ): ComponentInterfaceTypeApiAggregationSelection
+  apiConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ComponentApiConnectionSort!]
+    where: ComponentApiConnectionWhere
+  ): ComponentApiConnection!
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -2310,9 +2326,9 @@ type Component {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ComponentOwnerConnectionSort!]
-    where: ComponentOwnerConnectionWhere
-  ): ComponentOwnerConnection!
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   rootElement(
     directed: Boolean = true
     options: ElementOptions
@@ -2337,13 +2353,122 @@ type ComponentAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+input ComponentApiAggregateInput {
+  AND: [ComponentApiAggregateInput!]
+  OR: [ComponentApiAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ComponentApiNodeAggregationWhereInput
+}
+
+input ComponentApiConnectFieldInput {
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input ComponentApiConnectOrCreateFieldInput {
+  onCreate: ComponentApiConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input ComponentApiConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeOnCreateInput!
+}
+
+type ComponentApiConnection {
+  edges: [ComponentApiRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ComponentApiConnectionSort {
+  node: InterfaceTypeSort
+}
+
+input ComponentApiConnectionWhere {
+  AND: [ComponentApiConnectionWhere!]
+  OR: [ComponentApiConnectionWhere!]
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
+}
+
+input ComponentApiCreateFieldInput {
+  node: InterfaceTypeCreateInput!
+}
+
+input ComponentApiDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
+  where: ComponentApiConnectionWhere
+}
+
+input ComponentApiDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
+  where: ComponentApiConnectionWhere
+}
+
+input ComponentApiFieldInput {
+  connect: ComponentApiConnectFieldInput
+  connectOrCreate: ComponentApiConnectOrCreateFieldInput
+  create: ComponentApiCreateFieldInput
+}
+
+input ComponentApiNodeAggregationWhereInput {
+  AND: [ComponentApiNodeAggregationWhereInput!]
+  OR: [ComponentApiNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ComponentApiRelationship {
+  cursor: String!
+  node: InterfaceType!
+}
+
+input ComponentApiUpdateConnectionInput {
+  node: InterfaceTypeUpdateInput
+}
+
+input ComponentApiUpdateFieldInput {
+  connect: ComponentApiConnectFieldInput
+  connectOrCreate: ComponentApiConnectOrCreateFieldInput
+  create: ComponentApiCreateFieldInput
+  delete: ComponentApiDeleteFieldInput
+  disconnect: ComponentApiDisconnectFieldInput
+  update: ComponentApiUpdateConnectionInput
+  where: ComponentApiConnectionWhere
+}
+
 input ComponentConnectInput {
-  owner: ComponentOwnerConnectFieldInput
+  api: ComponentApiConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
 }
 
 input ComponentConnectOrCreateInput {
-  owner: ComponentOwnerConnectOrCreateFieldInput
+  api: ComponentApiConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   rootElement: ComponentRootElementConnectOrCreateFieldInput
 }
 
@@ -2356,19 +2481,22 @@ input ComponentConnectWhere {
 }
 
 input ComponentCreateInput {
+  api: ComponentApiFieldInput
   id: ID!
   name: String!
-  owner: ComponentOwnerFieldInput
+  owner: WithOwnerOwnerFieldInput
   rootElement: ComponentRootElementFieldInput
 }
 
 input ComponentDeleteInput {
-  owner: ComponentOwnerDeleteFieldInput
+  api: ComponentApiDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
 }
 
 input ComponentDisconnectInput {
-  owner: ComponentOwnerDisconnectFieldInput
+  api: ComponentApiDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
 }
 
@@ -2389,6 +2517,16 @@ type ComponentElementRootElementNodeAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
+}
+
+type ComponentInterfaceTypeApiAggregationSelection {
+  count: Int!
+  node: ComponentInterfaceTypeApiNodeAggregateSelection
+}
+
+type ComponentInterfaceTypeApiNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input ComponentOnCreateInput {
@@ -2415,57 +2553,6 @@ input ComponentOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: ComponentOwnerNodeAggregationWhereInput
-}
-
-input ComponentOwnerConnectFieldInput {
-  connect: UserConnectInput
-  where: UserConnectWhere
-}
-
-input ComponentOwnerConnectOrCreateFieldInput {
-  onCreate: ComponentOwnerConnectOrCreateFieldInputOnCreate!
-  where: UserConnectOrCreateWhere!
-}
-
-input ComponentOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserOnCreateInput!
-}
-
-type ComponentOwnerConnection {
-  edges: [ComponentOwnerRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ComponentOwnerConnectionSort {
-  node: UserSort
-}
-
-input ComponentOwnerConnectionWhere {
-  AND: [ComponentOwnerConnectionWhere!]
-  OR: [ComponentOwnerConnectionWhere!]
-  node: UserWhere
-  node_NOT: UserWhere
-}
-
-input ComponentOwnerCreateFieldInput {
-  node: UserCreateInput!
-}
-
-input ComponentOwnerDeleteFieldInput {
-  delete: UserDeleteInput
-  where: ComponentOwnerConnectionWhere
-}
-
-input ComponentOwnerDisconnectFieldInput {
-  disconnect: UserDisconnectInput
-  where: ComponentOwnerConnectionWhere
-}
-
-input ComponentOwnerFieldInput {
-  connect: ComponentOwnerConnectFieldInput
-  connectOrCreate: ComponentOwnerConnectOrCreateFieldInput
-  create: ComponentOwnerCreateFieldInput
 }
 
 input ComponentOwnerNodeAggregationWhereInput {
@@ -2514,27 +2601,9 @@ input ComponentOwnerNodeAggregationWhereInput {
   id_EQUAL: ID
 }
 
-type ComponentOwnerRelationship {
-  cursor: String!
-  node: User!
-}
-
-input ComponentOwnerUpdateConnectionInput {
-  node: UserUpdateInput
-}
-
-input ComponentOwnerUpdateFieldInput {
-  connect: ComponentOwnerConnectFieldInput
-  connectOrCreate: ComponentOwnerConnectOrCreateFieldInput
-  create: ComponentOwnerCreateFieldInput
-  delete: ComponentOwnerDeleteFieldInput
-  disconnect: ComponentOwnerDisconnectFieldInput
-  update: ComponentOwnerUpdateConnectionInput
-  where: ComponentOwnerConnectionWhere
-}
-
 input ComponentRelationInput {
-  owner: ComponentOwnerCreateFieldInput
+  api: ComponentApiCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
 }
 
@@ -2738,9 +2807,10 @@ input ComponentUniqueWhere {
 }
 
 input ComponentUpdateInput {
+  api: ComponentApiUpdateFieldInput
   id: ID
   name: String
-  owner: ComponentOwnerUpdateFieldInput
+  owner: WithOwnerOwnerUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
 }
 
@@ -2758,6 +2828,11 @@ type ComponentUserOwnerNodeAggregateSelection {
 input ComponentWhere {
   AND: [ComponentWhere!]
   OR: [ComponentWhere!]
+  api: InterfaceTypeWhere
+  apiAggregate: ComponentApiAggregateInput
+  apiConnection: ComponentApiConnectionWhere
+  apiConnection_NOT: ComponentApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -2780,8 +2855,8 @@ input ComponentWhere {
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: ComponentOwnerAggregateInput
-  ownerConnection: ComponentOwnerConnectionWhere
-  ownerConnection_NOT: ComponentOwnerConnectionWhere
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
   owner_NOT: UserWhere
   rootElement: ElementWhere
   rootElementAggregate: ComponentRootElementAggregateInput

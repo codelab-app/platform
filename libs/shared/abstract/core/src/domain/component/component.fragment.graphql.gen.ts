@@ -8,6 +8,7 @@ export type ComponentFragment = {
   name: string
   rootElement: { id: string; name?: string | null }
   owner: { id: string; auth0Id: string }
+  api: { id: string; name: string }
 }
 
 export const ComponentFragmentDoc = gql`
@@ -21,6 +22,10 @@ export const ComponentFragmentDoc = gql`
     owner {
       id
       auth0Id
+    }
+    api {
+      id
+      name
     }
   }
 `

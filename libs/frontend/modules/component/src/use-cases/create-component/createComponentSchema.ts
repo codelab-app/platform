@@ -13,6 +13,13 @@ export const createComponentSchema: JSONSchemaType<ICreateComponentDTO> = {
         component: () => null,
       },
     },
+    api: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     auth0Id: {
       type: 'string',
       disabled: true,

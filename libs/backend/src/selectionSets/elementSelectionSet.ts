@@ -9,6 +9,10 @@ const componentSelectionSet = `
     id
     auth0Id
   }
+  api {
+    id
+    name
+  }
 `
 
 export const elementSelectionSet = `{
