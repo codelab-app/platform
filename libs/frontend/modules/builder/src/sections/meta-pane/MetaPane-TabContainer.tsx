@@ -123,7 +123,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
             // needed to update props if we change them in the prop inspector tab
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
-            {selectedElement.atom ? (
+            {selectedElement.atom || selectedElement.instanceOfComponent ? (
               <UpdateElementPropsForm
                 autocomplete={renderService.platformState}
                 element={selectedElement}
@@ -133,7 +133,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
                 typeService={typeService}
               />
             ) : (
-              `Add an atom to this element to edit its props`
+              `Add an atom or a component to this element to edit its props`
             )}
           </Tabs.TabPane>
 

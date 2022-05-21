@@ -5,55 +5,46 @@ import {
 } from '@ant-design/icons'
 import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
-  sidebarNavContainerStyle,
+  SidebarContainer,
   SidebarNavigation,
-  SidebarNavigationContainer,
 } from '@codelab/frontend/view/templates'
-import { BuilderTab, IBuilderService } from '@codelab/shared/abstract/core'
-import { Menu } from 'antd'
+import { BuilderTab } from '@codelab/shared/abstract/core'
+import { MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-type BuilderSidebarNavigationProps = Pick<
-  IBuilderService,
-  'setBuilderTab' | 'builderTab'
->
+export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
+  ({ builderService }) => {
+    const items: MenuProps['items'] = [
+      {
+        label: 'Tree',
+        icon: <PartitionOutlined title="Tree" />,
+        key: BuilderTab.Tree,
+        onClick: () => builderService.setBuilderTab(BuilderTab.Tree),
+      },
+      {
+        label: 'Mobx State',
+        icon: <DatabaseOutlined title="State" />,
+        key: BuilderTab.MobxState,
+        onClick: (info) => builderService.setBuilderTab(BuilderTab.MobxState),
+      },
+      {
+        label: 'Toolbox',
+        icon: <AppstoreAddOutlined title="Toolbox" />,
+        key: BuilderTab.Toolbox,
+        onClick: () => builderService.setBuilderTab(BuilderTab.Toolbox),
+      },
+    ]
 
-export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
-  ({ setBuilderTab, builderTab }) => {
     return (
-      <div
-        css={tw`flex flex-col justify-between`}
-        style={sidebarNavContainerStyle({ fullHeight: true })}
-      >
-        <SidebarNavigationContainer
+      <div css={tw`flex flex-col justify-between`}>
+        <SidebarContainer
           defaultSelectedKeys={[BuilderTab.Tree]}
           fullHeight={false}
-          selectedKeys={[builderTab]}
-        >
-          <Menu.Item
-            icon={<PartitionOutlined title="Tree" />}
-            key={BuilderTab.Tree}
-            onClick={() => setBuilderTab(BuilderTab.Tree)}
-          >
-            Tree
-          </Menu.Item>
-          <Menu.Item
-            icon={<DatabaseOutlined title="State" />}
-            key={BuilderTab.MobxState}
-            onClick={() => setBuilderTab(BuilderTab.MobxState)}
-          >
-            Mobx State
-          </Menu.Item>
-          <Menu.Item
-            icon={<AppstoreAddOutlined title="Toolbox" />}
-            key={BuilderTab.Toolbox}
-            onClick={() => setBuilderTab(BuilderTab.Toolbox)}
-          >
-            Toolbox
-          </Menu.Item>
-        </SidebarNavigationContainer>
+          items={items}
+          selectedKeys={[builderService.builderTab]}
+        />
         <SidebarNavigation />
       </div>
     )

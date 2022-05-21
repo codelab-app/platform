@@ -2417,16 +2417,38 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']
 }
 
-export type Component = {
+export type Component = WithOwner & {
   __typename?: 'Component'
+  api: InterfaceType
+  apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>
+  apiConnection: ComponentApiConnection
   id: Scalars['ID']
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
-  ownerConnection: ComponentOwnerConnection
+  ownerConnection: WithOwnerOwnerConnection
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElementConnection: ComponentRootElementConnection
+}
+
+export type ComponentApiArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<InterfaceTypeOptions>
+  where?: InputMaybe<InterfaceTypeWhere>
+}
+
+export type ComponentApiAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<InterfaceTypeWhere>
+}
+
+export type ComponentApiConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ComponentApiConnectionSort>>
+  where?: InputMaybe<ComponentApiConnectionWhere>
 }
 
 export type ComponentOwnerArgs = {
@@ -2444,8 +2466,8 @@ export type ComponentOwnerConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ComponentOwnerConnectionSort>>
-  where?: InputMaybe<ComponentOwnerConnectionWhere>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type ComponentRootElementArgs = {
@@ -2474,13 +2496,124 @@ export type ComponentAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
+export type ComponentApiAggregateInput = {
+  AND?: InputMaybe<Array<ComponentApiAggregateInput>>
+  OR?: InputMaybe<Array<ComponentApiAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ComponentApiNodeAggregationWhereInput>
+}
+
+export type ComponentApiConnectFieldInput = {
+  connect?: InputMaybe<InterfaceTypeConnectInput>
+  where?: InputMaybe<InterfaceTypeConnectWhere>
+}
+
+export type ComponentApiConnectOrCreateFieldInput = {
+  onCreate: ComponentApiConnectOrCreateFieldInputOnCreate
+  where: InterfaceTypeConnectOrCreateWhere
+}
+
+export type ComponentApiConnectOrCreateFieldInputOnCreate = {
+  node: InterfaceTypeOnCreateInput
+}
+
+export type ComponentApiConnection = {
+  __typename?: 'ComponentApiConnection'
+  edges: Array<ComponentApiRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ComponentApiConnectionSort = {
+  node?: InputMaybe<InterfaceTypeSort>
+}
+
+export type ComponentApiConnectionWhere = {
+  AND?: InputMaybe<Array<ComponentApiConnectionWhere>>
+  OR?: InputMaybe<Array<ComponentApiConnectionWhere>>
+  node?: InputMaybe<InterfaceTypeWhere>
+  node_NOT?: InputMaybe<InterfaceTypeWhere>
+}
+
+export type ComponentApiCreateFieldInput = {
+  node: InterfaceTypeCreateInput
+}
+
+export type ComponentApiDeleteFieldInput = {
+  delete?: InputMaybe<InterfaceTypeDeleteInput>
+  where?: InputMaybe<ComponentApiConnectionWhere>
+}
+
+export type ComponentApiDisconnectFieldInput = {
+  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
+  where?: InputMaybe<ComponentApiConnectionWhere>
+}
+
+export type ComponentApiFieldInput = {
+  connect?: InputMaybe<ComponentApiConnectFieldInput>
+  connectOrCreate?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
+  create?: InputMaybe<ComponentApiCreateFieldInput>
+}
+
+export type ComponentApiNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ComponentApiNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ComponentApiNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ComponentApiRelationship = {
+  __typename?: 'ComponentApiRelationship'
+  cursor: Scalars['String']
+  node: InterfaceType
+}
+
+export type ComponentApiUpdateConnectionInput = {
+  node?: InputMaybe<InterfaceTypeUpdateInput>
+}
+
+export type ComponentApiUpdateFieldInput = {
+  connect?: InputMaybe<ComponentApiConnectFieldInput>
+  connectOrCreate?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
+  create?: InputMaybe<ComponentApiCreateFieldInput>
+  delete?: InputMaybe<ComponentApiDeleteFieldInput>
+  disconnect?: InputMaybe<ComponentApiDisconnectFieldInput>
+  update?: InputMaybe<ComponentApiUpdateConnectionInput>
+  where?: InputMaybe<ComponentApiConnectionWhere>
+}
+
 export type ComponentConnectInput = {
-  owner?: InputMaybe<ComponentOwnerConnectFieldInput>
+  api?: InputMaybe<ComponentApiConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
 }
 
 export type ComponentConnectOrCreateInput = {
-  owner?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
+  api?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
 }
 
@@ -2493,19 +2626,22 @@ export type ComponentConnectWhere = {
 }
 
 export type ComponentCreateInput = {
+  api?: InputMaybe<ComponentApiFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
-  owner?: InputMaybe<ComponentOwnerFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
 }
 
 export type ComponentDeleteInput = {
-  owner?: InputMaybe<ComponentOwnerDeleteFieldInput>
+  api?: InputMaybe<ComponentApiDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
 }
 
 export type ComponentDisconnectInput = {
-  owner?: InputMaybe<ComponentOwnerDisconnectFieldInput>
+  api?: InputMaybe<ComponentApiDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDisconnectFieldInput>
 }
 
@@ -2531,6 +2667,18 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   renderIfPropKey: StringAggregateSelectionNullable
 }
 
+export type ComponentInterfaceTypeApiAggregationSelection = {
+  __typename?: 'ComponentInterfaceTypeApiAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ComponentInterfaceTypeApiNodeAggregateSelection>
+}
+
+export type ComponentInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'ComponentInterfaceTypeApiNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
 export type ComponentOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -2552,58 +2700,6 @@ export type ComponentOwnerAggregateInput = {
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
   node?: InputMaybe<ComponentOwnerNodeAggregationWhereInput>
-}
-
-export type ComponentOwnerConnectFieldInput = {
-  connect?: InputMaybe<UserConnectInput>
-  where?: InputMaybe<UserConnectWhere>
-}
-
-export type ComponentOwnerConnectOrCreateFieldInput = {
-  onCreate: ComponentOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ComponentOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
-export type ComponentOwnerConnection = {
-  __typename?: 'ComponentOwnerConnection'
-  edges: Array<ComponentOwnerRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type ComponentOwnerConnectionSort = {
-  node?: InputMaybe<UserSort>
-}
-
-export type ComponentOwnerConnectionWhere = {
-  AND?: InputMaybe<Array<ComponentOwnerConnectionWhere>>
-  OR?: InputMaybe<Array<ComponentOwnerConnectionWhere>>
-  node?: InputMaybe<UserWhere>
-  node_NOT?: InputMaybe<UserWhere>
-}
-
-export type ComponentOwnerCreateFieldInput = {
-  node: UserCreateInput
-}
-
-export type ComponentOwnerDeleteFieldInput = {
-  delete?: InputMaybe<UserDeleteInput>
-  where?: InputMaybe<ComponentOwnerConnectionWhere>
-}
-
-export type ComponentOwnerDisconnectFieldInput = {
-  disconnect?: InputMaybe<UserDisconnectInput>
-  where?: InputMaybe<ComponentOwnerConnectionWhere>
-}
-
-export type ComponentOwnerFieldInput = {
-  connect?: InputMaybe<ComponentOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
-  create?: InputMaybe<ComponentOwnerCreateFieldInput>
 }
 
 export type ComponentOwnerNodeAggregationWhereInput = {
@@ -2652,28 +2748,9 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   id_EQUAL?: InputMaybe<Scalars['ID']>
 }
 
-export type ComponentOwnerRelationship = {
-  __typename?: 'ComponentOwnerRelationship'
-  cursor: Scalars['String']
-  node: User
-}
-
-export type ComponentOwnerUpdateConnectionInput = {
-  node?: InputMaybe<UserUpdateInput>
-}
-
-export type ComponentOwnerUpdateFieldInput = {
-  connect?: InputMaybe<ComponentOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
-  create?: InputMaybe<ComponentOwnerCreateFieldInput>
-  delete?: InputMaybe<ComponentOwnerDeleteFieldInput>
-  disconnect?: InputMaybe<ComponentOwnerDisconnectFieldInput>
-  update?: InputMaybe<ComponentOwnerUpdateConnectionInput>
-  where?: InputMaybe<ComponentOwnerConnectionWhere>
-}
-
 export type ComponentRelationInput = {
-  owner?: InputMaybe<ComponentOwnerCreateFieldInput>
+  api?: InputMaybe<ComponentApiCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementCreateFieldInput>
 }
 
@@ -2877,9 +2954,10 @@ export type ComponentUniqueWhere = {
 }
 
 export type ComponentUpdateInput = {
+  api?: InputMaybe<ComponentApiUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<ComponentOwnerUpdateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
 }
 
@@ -2899,6 +2977,11 @@ export type ComponentUserOwnerNodeAggregateSelection = {
 export type ComponentWhere = {
   AND?: InputMaybe<Array<ComponentWhere>>
   OR?: InputMaybe<Array<ComponentWhere>>
+  api?: InputMaybe<InterfaceTypeWhere>
+  apiAggregate?: InputMaybe<ComponentApiAggregateInput>
+  apiConnection?: InputMaybe<ComponentApiConnectionWhere>
+  apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>
+  api_NOT?: InputMaybe<InterfaceTypeWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -2921,8 +3004,8 @@ export type ComponentWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
-  ownerConnection?: InputMaybe<ComponentOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<ComponentOwnerConnectionWhere>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
   rootElement?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<ComponentRootElementAggregateInput>

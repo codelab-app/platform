@@ -9,4 +9,8 @@ fragment Component on Component {
     id
     auth0Id
   }
+  api {
+    id
+    name
+  }
 }

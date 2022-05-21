@@ -16,6 +16,10 @@ export const reactNodeTypeSelectionSet = `{
   ${baseSelection}
 }`
 
+export const renderPropsTypeSelectionSet = `{
+  ${baseSelection}
+}`
+
 export const enumTypeSelectionSet = `{
   ${baseSelection}
   allowedValues {

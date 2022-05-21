@@ -17,10 +17,21 @@ export const mapCreateInput = (
     },
   }
 
+  const api: ComponentCreateInput['api'] = {
+    create: {
+      node: {
+        id: v4(),
+        name: `${name} API`,
+        owner: { connect: { where: { node: { auth0Id } } } },
+      },
+    },
+  }
+
   return {
     id,
     name,
     rootElement,
+    api,
     owner: connectOwner(auth0Id),
   }
 }

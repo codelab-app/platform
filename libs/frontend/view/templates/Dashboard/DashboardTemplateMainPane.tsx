@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
-import { sidebarNavigationWidth } from './constants'
+import { sidebarWidth } from './constants'
 
 export interface DashboardTemplateMainPaneProps {
   MainPane: ComponentType
@@ -28,7 +28,7 @@ export const DashboardTemplateMainPane = ({
       style={{
         ...resizable.containerProps.style,
         marginTop: hasHeader ? headerHeight : 0,
-        marginLeft: hasSidebarNavigation ? sidebarNavigationWidth : 0,
+        marginLeft: hasSidebarNavigation ? sidebarWidth : 0,
         zIndex: 60,
       }}
     >

@@ -1,7 +1,7 @@
 import { componentRef } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import { IComponent, IComponentService } from '@codelab/shared/abstract/core'
-import { Menu } from 'antd'
+import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -18,19 +18,29 @@ export const ComponentContextMenu = observer<ComponentContextMenuProps>(
       return deleteModal.open(componentRef(component.id))
     }
 
+    const menuItems: MenuProps['items'] = [
+      {
+        label: (
+          <>
+            <span>Delete `{component.name}` </span>{' '}
+            <span>
+              <Key>del</Key> <Key>{'\u232B'}</Key>
+            </span>
+          </>
+        ),
+        danger: true,
+        key: 'delete',
+        onClick: onDelete,
+      },
+    ]
+
     return (
       <Menu
         css={tw`border border-gray-200 shadow-xl`}
+        items={menuItems}
         onBlur={onBlur}
         onClick={() => onClick?.()}
-      >
-        <Menu.Item danger key="delete" onClick={onDelete}>
-          <span>Delete `{component.name}` </span>{' '}
-          <span>
-            <Key>del</Key> <Key>{'\u232B'}</Key>
-          </span>
-        </Menu.Item>
-      </Menu>
+      />
     )
   },
 )

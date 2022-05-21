@@ -1,2 +1,2 @@
-export const sidebarNavigationWidth = 40
+export const sidebarWidth = 40
 export const defaultHeaderHeight = 38

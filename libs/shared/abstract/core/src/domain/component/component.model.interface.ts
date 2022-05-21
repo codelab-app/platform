@@ -1,4 +1,6 @@
+import { Ref } from 'mobx-keystone'
 import { INodeType } from '../../base/node.interface'
+import { IAnyType } from '../type'
 import { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent extends INodeType<'Component'> {
@@ -6,6 +8,7 @@ export interface IComponent extends INodeType<'Component'> {
   name: string
   rootElementId: string
   ownerId: string
+  api: Ref<IAnyType>
 
   updateCache(componentFragment: IComponentDTO): void
 }

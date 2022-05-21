@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import tw from 'twin.macro'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
+import { PropsColumn } from './columns/PropsColumn'
 import { ComponentColumnData } from './columns/types'
 
 export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
@@ -39,6 +40,14 @@ export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
         render: (_, component) => <NameColumn component={component} />,
       },
       {
+        title: 'Props API',
+        dataIndex: 'props',
+        key: 'props',
+        width: 100,
+        onHeaderCell: headerCellProps,
+        render: (_, component) => <PropsColumn component={component} />,
+      },
+      {
         title: 'Action',
         key: 'action',
         onHeaderCell: headerCellProps,
@@ -56,6 +65,7 @@ export const GetComponentsTable = observer<WithServices<COMPONENT_SERVICE>>(
       (c) => ({
         name: c.name,
         id: c.id,
+        apiId: c.api.id,
       }),
     )
 

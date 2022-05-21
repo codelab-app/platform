@@ -2,7 +2,7 @@ import { motion, MotionValue } from 'framer-motion'
 import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
-import { defaultHeaderHeight, sidebarNavigationWidth } from './constants'
+import { defaultHeaderHeight, sidebarWidth } from './constants'
 
 export interface DashboardTemplateMetaPaneProps {
   hasSidebarNavigation: boolean
@@ -19,7 +19,7 @@ export const DashboardTemplateMetaPane = ({
   resizable,
   MetaPane,
 }: DashboardTemplateMetaPaneProps) => {
-  const sidebarNavMarginLeft = hasSidebarNavigation ? sidebarNavigationWidth : 0
+  const sidebarNavMarginLeft = hasSidebarNavigation ? sidebarWidth : 0
   const mainPaneMarginLeft = hasMainPane ? mainPaneWidth : 0
 
   return (

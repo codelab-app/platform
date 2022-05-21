@@ -195,9 +195,8 @@ PageBuilder.Layout = observer((page) => {
         )}
         SidebarNavigation={() => (
           <BuilderSidebarNavigation
-            builderTab={builderService.builderTab}
+            builderService={builderService}
             key={pageBuilderRenderService.tree?.root?.id}
-            setBuilderTab={builderService.setBuilderTab}
           />
         )}
         builderService={builderService}

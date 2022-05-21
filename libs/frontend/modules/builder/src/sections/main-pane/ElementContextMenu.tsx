@@ -46,7 +46,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const { push } = useRouter()
     const { user } = useUser()
     const isComponentInstance = !!element.instanceOfComponent
-    const hideForRoot = elementTree.root?.id === element.id
+    const isRoot = elementTree.root?.id === element.id
 
     const onAddChild = () => {
       return createModal.open({
@@ -81,44 +81,57 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       })
     }
 
+    const menuItems = [
+      {
+        key: 'add-child',
+        onClick: onAddChild,
+        label: 'Add child',
+        // find a way to hide it instead of disabling
+        hide: isComponentInstance,
+      },
+      {
+        key: 'duplicate',
+        onClick: onDuplicate,
+        label: 'Duplicate',
+        // find a way to hide it instead of disabling
+        hide: isRoot,
+      },
+      {
+        key: 'edit-component',
+        onClick: onEditComponent,
+        label: 'Edit Component',
+        hide: !isComponentInstance,
+      },
+      {
+        disabled: isRoot,
+        key: 'convert-component',
+        onClick: onConvert,
+        label: 'Convert To Component',
+        hide: isComponentInstance || isRoot,
+      },
+      {
+        danger: true,
+        hide: isRoot,
+        key: 'delete',
+        onClick: onDelete,
+        label: (
+          <>
+            <span>Delete `{element.name}` </span>{' '}
+            <span>
+              <Key>del</Key> <Key>{'\u232B'}</Key>
+            </span>
+          </>
+        ),
+      },
+    ]
+
     return (
       <Menu
         css={tw`border border-gray-200 shadow-xl`}
+        items={menuItems.filter((x) => !x.hide)}
         onBlur={onBlur}
         onClick={() => onClick?.()}
-      >
-        {!isComponentInstance && (
-          <Menu.Item key="add-child" onClick={onAddChild}>
-            Add child
-          </Menu.Item>
-        )}
-        <Menu.Item hidden={hideForRoot} key="duplicate" onClick={onDuplicate}>
-          Duplicate
-        </Menu.Item>
-        {isComponentInstance ? (
-          <Menu.Item
-            // hidden={hideForRoot}
-            key="edit-component"
-            onClick={onEditComponent}
-          >
-            Edit Component
-          </Menu.Item>
-        ) : (
-          <Menu.Item
-            hidden={hideForRoot}
-            key="convert-component"
-            onClick={onConvert}
-          >
-            Convert To Component
-          </Menu.Item>
-        )}
-        <Menu.Item danger hidden={hideForRoot} key="delete" onClick={onDelete}>
-          <span>Delete `{element.name}` </span>{' '}
-          <span>
-            <Key>del</Key> <Key>{'\u232B'}</Key>
-          </span>
-        </Menu.Item>
-      </Menu>
+      />
     )
   },
 )

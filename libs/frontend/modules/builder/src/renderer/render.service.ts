@@ -56,7 +56,7 @@ const initForBuilder = () => {
     //
   }
 
-  const globalProps = { onClick: voidClick }
+  const globalProps = { onClick: voidClick, href: '#' }
 
   return new RenderService({
     extraElementProps: new ExtraElementProps({
@@ -250,8 +250,6 @@ export class RenderService
 
     props = this.processPropsForRender(props, element)
 
-    console.log(element, props)
-
     /**
      * Pass down global props
      */
@@ -347,8 +345,9 @@ export class RenderService
     }
 
     return deepReplaceObjectValuesAndKeys(props, (value, key) => ({
-      key: getState(key, this.platformState),
-      value: isString(value) ? getState(value, this.platformState) : value,
+      [getState(key, this.platformState)]: isString(value)
+        ? getState(value, this.platformState)
+        : value,
     }))
   }
 

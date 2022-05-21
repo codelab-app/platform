@@ -5,4 +5,8 @@ export const componentSelectionSet = `{
     id
     name
   }
+  api {
+    id
+    name
+  }
 }`

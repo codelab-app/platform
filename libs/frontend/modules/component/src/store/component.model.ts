@@ -1,9 +1,10 @@
+import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
   COMPONENT_NODE_TYPE,
   IComponent,
   IComponentDTO,
 } from '@codelab/shared/abstract/core'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { idProp, Model, model, prop, Ref } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({
@@ -11,6 +12,7 @@ const hydrate = (component: IComponentDTO) => {
     name: component.name,
     rootElementId: component.rootElement.id,
     ownerId: component.owner?.id,
+    api: typeRef(component.api.id) as Ref<InterfaceType>,
   })
 }
 
@@ -23,6 +25,7 @@ export class Component
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),
+    api: prop<Ref<InterfaceType>>(),
   })
   implements IComponent
 {
@@ -33,5 +36,6 @@ export class Component
     this.name = componentFragment.name
     this.rootElementId = componentFragment.rootElement.id
     this.ownerId = componentFragment.owner?.id
+    this.api = typeRef(componentFragment.api.id) as Ref<InterfaceType>
   }
 }

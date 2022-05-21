@@ -2,9 +2,7 @@ import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
-import { IPage } from '@codelab/shared/abstract/core'
-import { Menu } from 'antd'
-import SubMenu from 'antd/lib/menu/SubMenu'
+import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -25,48 +23,41 @@ export const PageDetailHeader = observer<WithServices<PAGE_SERVICE>>(
       })
     }
 
+    const menuItems: MenuProps['items'] = [
+      {
+        icon: <FileOutlined />,
+        key: 'sub1',
+        title: currentPage?.name,
+        children: pagesList?.map((page) => ({
+          key: page.id,
+          label: (
+            <Link
+              href={{
+                pathname: PageType.PageBuilder,
+                query: { ...router.query, pageId: page?.id },
+              }}
+            >
+              <a>{page?.name}</a>
+            </Link>
+          ),
+        })),
+      },
+      {
+        icon: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
+        key: '1',
+        onClick: switchPreviewMode,
+        style: { backgroundColor: 'initial' },
+      },
+    ]
+
     return (
       <Menu
+        items={menuItems}
         mode="horizontal"
         selectable={false}
         theme="light"
         triggerSubMenuAction="click"
-      >
-        <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-          {pagesList?.map((page) => (
-            <PageListItem key={page.id} page={page} />
-          ))}
-        </SubMenu>
-        <Menu.Item
-          icon={isBuilder ? <EyeOutlined /> : <ToolOutlined />}
-          key="1"
-          onClick={switchPreviewMode}
-          style={{
-            backgroundColor: 'initial',
-          }}
-        />
-      </Menu>
+      />
     )
   },
 )
-
-interface PageListItemProps {
-  page: IPage
-}
-
-const PageListItem = observer<PageListItemProps>(({ page }) => {
-  const router = useRouter()
-
-  return (
-    <Menu.Item key={page.id}>
-      <Link
-        href={{
-          pathname: PageType.PageBuilder,
-          query: { ...router.query, pageId: page?.id },
-        }}
-      >
-        <a>{page?.name}</a>
-      </Link>
-    </Menu.Item>
-  )
-})

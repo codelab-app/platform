@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
-import { defaultHeaderHeight, sidebarNavigationWidth } from './constants'
+import { defaultHeaderHeight, sidebarWidth } from './constants'
 import { DashboardTemplateMainPane } from './DashboardTemplateMainPane'
 import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
 
@@ -40,7 +40,7 @@ export const DashboardTemplate = observer(
         {SidebarNavigation && (
           <Sider
             collapsed
-            collapsedWidth={sidebarNavigationWidth}
+            collapsedWidth={sidebarWidth}
             style={{
               zIndex: 50,
               maxHeight: '100vh',
@@ -66,11 +66,9 @@ export const DashboardTemplate = observer(
                 top: 0,
                 left: 0,
                 right: 0,
-                width: `calc(100% - ${
-                  SidebarNavigation ? sidebarNavigationWidth : 0
-                }px)`,
+                width: `calc(100% - ${SidebarNavigation ? sidebarWidth : 0}px)`,
                 height: headerHeight ?? defaultHeaderHeight,
-                marginLeft: SidebarNavigation ? sidebarNavigationWidth : 0,
+                marginLeft: SidebarNavigation ? sidebarWidth : 0,
                 background: 'initial',
               }}
             >
@@ -99,7 +97,7 @@ export const DashboardTemplate = observer(
             >
               <div
                 style={{
-                  marginLeft: SidebarNavigation ? sidebarNavigationWidth : 0,
+                  marginLeft: SidebarNavigation ? sidebarWidth : 0,
                 }}
               >
                 {children}

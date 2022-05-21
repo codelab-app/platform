@@ -1,50 +1,33 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { css } from '@emotion/react'
 import { Menu, MenuProps } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
-import tw from 'twin.macro'
-import { sidebarNavigationWidth } from '../Dashboard/constants'
+import { sidebarWidth } from '../Dashboard/constants'
 
-export type SidebarNavigationContainerProps = Pick<
-  MenuProps,
-  'defaultSelectedKeys' | 'selectedKeys' | 'style'
-> & {
+export type SidebarContainerProps = MenuProps & {
   fullHeight?: boolean
 }
 
-export const sidebarNavContainerStyle = ({
+export const SidebarContainer = ({
+  items,
   fullHeight,
-}: SidebarNavigationContainerProps) => ({
-  width: `${sidebarNavigationWidth}px`,
-  height: fullHeight ? '100%' : undefined,
-  maxHeight: '100vh',
-})
-
-export const SidebarNavigationContainer = (
-  props: React.PropsWithChildren<SidebarNavigationContainerProps>,
-) => {
+}: SidebarContainerProps) => {
   const router = useRouter()
-  const { children, fullHeight = true } = props
 
   return (
     <Menu
-      css={css`
-        li.ant-menu-item {
-          // ${tw`!my-2`}
-        }
-      `}
       defaultOpenKeys={[]}
       defaultSelectedKeys={[PageType.AppList]}
+      items={items}
       mode="inline"
       selectedKeys={[router.pathname]}
       style={{
-        ...sidebarNavContainerStyle({ fullHeight }),
+        width: `${sidebarWidth}px`,
+        height: fullHeight ? '100%' : undefined,
+        maxHeight: '100vh',
       }}
-    >
-      {children}
-    </Menu>
+    />
   )
 }
 
-SidebarNavigationContainer.displayName = 'SidebarNavigationContainer'
+SidebarContainer.displayName = 'SidebarContainer'
