@@ -5,10 +5,8 @@ import 'animate.css'
 import '../src/styles/styles.chunk.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  initializeStore,
-  StoreProvider,
-} from '@codelab/frontend/model/infra/mobx'
+import { initializeStore } from '@codelab/frontend/model/infra/mobx'
+import { StoreProvider } from '@codelab/frontend/presenter/container'
 import { IAppProps } from '@codelab/shared/abstract/core'
 import { css, Global } from '@emotion/react'
 import DateFnsAdapter from '@mui/lab/AdapterDateFns'

@@ -1,8 +1,8 @@
 import { IEntity } from '@codelab/shared/abstract/types'
+import { IElementTreeService } from '../element'
 
-export interface IPage extends IEntity {
+export interface IPage extends IEntity, IElementTreeService {
   app: { id: string }
   name: string
   rootElement: { id: string }
-  providerElement: { id: string }
 }

@@ -24,10 +24,10 @@ import {
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
-  IComponent,
-  IElement,
   IElementTree,
-  IRenderService,
+  INode,
+  IRenderer,
+  isElement,
 } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
@@ -48,9 +48,9 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 
 export type MetaPaneBuilderProps = {
   elementTree: IElementTree
-  renderService: IRenderService
+  renderService: IRenderer
   UpdateElementContent: (props: {
-    node: IElement | IComponent
+    node: INode
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
 } & WithServices<
@@ -87,11 +87,11 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
     renderService,
     elementService,
   }) => {
-    const selectedElement = builderService.selectedElement
+    const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
 
-    if (!selectedElement) {
+    if (!selectedNode) {
       return null
     }
 
@@ -104,31 +104,31 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey={selectedElement.id + '_tab1'} size="small">
+        <Tabs defaultActiveKey={selectedNode.id + '_tab1'} size="small">
           <Tabs.TabPane
-            key={selectedElement.id + '_tab1'}
+            key={selectedNode.id + '_tab1'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
           >
             <UpdateElementContent
-              node={selectedElement}
+              node={selectedNode}
               trackPromises={trackPromises}
             />
           </Tabs.TabPane>
 
           <Tabs.TabPane
             destroyInactiveTabPane
-            key={selectedElement.id + '_tab2'}
+            key={selectedNode.id + '_tab2'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             // needed to update props if we change them in the prop inspector tab
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
-            {selectedElement.atom || selectedElement.instanceOfComponent ? (
+            {isElement(selectedNode) && (selectedNode.atom || selectedElement.instanceOfComponent) ? (
               <UpdateElementPropsForm
                 autocomplete={renderService.platformState}
-                element={selectedElement}
+                element={selectedNode}
                 elementService={elementService}
-                key={selectedElement.id}
+                key={selectedNode.id}
                 trackPromises={trackPromises}
                 typeService={typeService}
               />
@@ -138,15 +138,15 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key={selectedElement.id + '_tab3'}
+            key={selectedNode.id + '_tab3'}
             style={{ overflow: 'visible' }}
             tab={<TooltipIcon icon={<FormatPainterOutlined />} title="CSS" />}
           >
-            {selectedElement.atom ? (
+            {isElement(selectedNode) && selectedNode.atom ? (
               <ElementCssEditor
-                element={selectedElement}
+                element={selectedNode}
                 elementService={elementService}
-                key={selectedElement.id}
+                key={selectedNode.id}
                 trackPromises={trackPromises}
               />
             ) : (
@@ -155,51 +155,53 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           {/* <Tabs.TabPane */}
-          {/*  key={selectedElement.id + '_tab4'} */}
+          {/*  key={selectedNode.id + '_tab4'} */}
           {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
           {/*  tab="Hooks" */}
           {/* > */}
           {/*  <ElementHookSection */}
           {/*    atomService={atomService} */}
-          {/*    elementId={selectedElement.id} */}
-          {/*    key={selectedElement.id} */}
+          {/*    elementId={selectedNode.id} */}
+          {/*    key={selectedNode.id} */}
           {/*    typeService={typeService} */}
           {/*  /> */}
           {/* </Tabs.TabPane> */}
 
           {/* <Tabs.TabPane */}
-          {/*  key={selectedElement.id + '_tab5'} */}
+          {/*  key={selectedNode.id + '_tab5'} */}
           {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
           {/*  tab="Props Inspector" */}
           {/* > */}
           {/*  <PropsInspectorTab */}
           {/*    builderService={builderService} */}
-          {/*    element={selectedElement} */}
+          {/*    element={selectedNode} */}
           {/*    elementService={elementService} */}
-          {/*    key={selectedElement.id} */}
+          {/*    key={selectedNode.id} */}
           {/*  /> */}
           {/* </Tabs.TabPane> */}
 
           <Tabs.TabPane
-            key={selectedElement.id + '_tab6'}
+            key={selectedNode.id + '_tab6'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={<TooltipIcon icon={<SwapOutlined />} title="Props Map" />}
           >
-            <PropMapBindingSection
-              element={selectedElement}
-              elementService={elementService}
-              elementTree={elementTree}
-              key={selectedElement.id}
-              providePropCompletion={(searchValue) =>
-                selectedElement
-                  ? providePropCompletion(searchValue, selectedElement.id)
-                  : []
-              }
-            />
+            {isElement(selectedNode) ? (
+              <PropMapBindingSection
+                element={selectedNode}
+                elementService={elementService}
+                elementTree={elementTree}
+                key={selectedNode.id}
+                providePropCompletion={(searchValue) =>
+                  selectedNode
+                    ? providePropCompletion(searchValue, selectedNode.id)
+                    : []
+                }
+              />
+            ) : null}
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key={selectedElement.id + '_tab7'}
+            key={selectedNode.id + '_tab7'}
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <TooltipIcon
@@ -208,12 +210,14 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
               />
             }
           >
-            <UpdateElementPropTransformationForm
-              element={selectedElement}
-              elementService={elementService}
-              key={selectedElement.id}
-              trackPromises={trackPromises}
-            />
+            {isElement(selectedNode) ? (
+              <UpdateElementPropTransformationForm
+                element={selectedNode}
+                elementService={elementService}
+                key={selectedNode.id}
+                trackPromises={trackPromises}
+              />
+            ) : null}
           </Tabs.TabPane>
         </Tabs>
       </TabContainer>

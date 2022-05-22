@@ -2,6 +2,7 @@ import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   IComponentService,
   IElementTree,
+  IRenderer,
   IRenderService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -9,27 +10,22 @@ import React, { JSXElementConstructor } from 'react'
 
 export type BaseBuilderProps = {
   elementTree: IElementTree
-  renderService: IRenderService
+  renderer: IRenderer
 }
 
 type BuilderComponentProps = {
   componentId: string
   componentService: IComponentService
-  componentBuilderRenderService: IRenderService
   // Pass in BaseBuilder so we don't have to initialize props again
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
+  renderService: IRenderService
 }
 
 /**
  * Since the component builder tree changes based on which component id is active, we move the component id dependency to a wrapper we create for the main Builder
  */
 export const BuilderComponent = observer<BuilderComponentProps>(
-  ({
-    componentId,
-    componentService,
-    componentBuilderRenderService,
-    BaseBuilder,
-  }) => {
+  ({ componentId, componentService, renderService, BaseBuilder }) => {
     if (!componentId) {
       return null
     }
@@ -42,17 +38,18 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           throw new Error('Component not found')
         }
 
-        // Get element tree
-        const componentTree = await componentService.elementTrees
-          .get(component.id)
-          ?.getTree(component.rootElementId)
+        const componentTree = await component.elementTree
 
-        if (componentTree) {
-          await componentBuilderRenderService.init(componentTree, null, null)
-        }
+        const renderer = await renderService.addRenderer(
+          componentId,
+          componentTree,
+          null,
+          null,
+        )
 
         return {
           componentTree,
+          renderer,
         }
       },
       {
@@ -65,7 +62,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
         {data?.componentTree ? (
           <BaseBuilder
             elementTree={data?.componentTree}
-            renderService={componentBuilderRenderService}
+            renderer={data.renderer}
           />
         ) : null}
       </>

@@ -1,8 +1,8 @@
+import { queryRenderedElementById } from '@codelab/frontend/modules/renderer'
 import { HoverOverlay } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { queryRenderedElementById } from '../renderer/utils/queryRenderedElementById'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
 interface BuilderDropHandlerProps {

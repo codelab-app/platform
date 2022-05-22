@@ -1,0 +1,18 @@
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { AnyModel, ModelClass, ObjectMap } from 'mobx-keystone'
+import { IRenderer } from '../builder'
+import { IElementTree } from '../element'
+
+export interface IBaseRenderer {
+  /**
+   * Renderer for multiple contexts
+   * - page, component etc
+   */
+  renderers: ObjectMap<IRenderer>
+  initRenderer(
+    id: string,
+    pageTree: IElementTree,
+    appTree: Nullable<IElementTree>,
+    platformState?: Nullish<ModelClass<AnyModel>>,
+  ): IRenderer
+}

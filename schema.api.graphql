@@ -315,22 +315,22 @@ type App implements WithOwner {
     sort: [AppPagesConnectionSort!]
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
-  rootProviderElement(
+  rootElement(
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
   ): Element!
-  rootProviderElementAggregate(
+  rootElementAggregate(
     directed: Boolean = true
     where: ElementWhere
-  ): AppElementRootProviderElementAggregationSelection
-  rootProviderElementConnection(
+  ): AppElementRootElementAggregationSelection
+  rootElementConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [AppRootProviderElementConnectionSort!]
-    where: AppRootProviderElementConnectionWhere
-  ): AppRootProviderElementConnection!
+    sort: [AppRootElementConnectionSort!]
+    where: AppRootElementConnectionWhere
+  ): AppRootElementConnection!
   store(
     directed: Boolean = true
     options: StoreOptions
@@ -358,14 +358,14 @@ type AppAggregateSelection {
 input AppConnectInput {
   owner: WithOwnerOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
-  rootProviderElement: AppRootProviderElementConnectFieldInput
+  rootElement: AppRootElementConnectFieldInput
   store: AppStoreConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
-  rootProviderElement: AppRootProviderElementConnectOrCreateFieldInput
+  rootElement: AppRootElementConnectOrCreateFieldInput
   store: AppStoreConnectOrCreateFieldInput
 }
 
@@ -382,21 +382,21 @@ input AppCreateInput {
   name: String!
   owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
-  rootProviderElement: AppRootProviderElementFieldInput
+  rootElement: AppRootElementFieldInput
   store: AppStoreFieldInput
 }
 
 input AppDeleteInput {
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
-  rootProviderElement: AppRootProviderElementDeleteFieldInput
+  rootElement: AppRootElementDeleteFieldInput
   store: AppStoreDeleteFieldInput
 }
 
 input AppDisconnectInput {
   owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
-  rootProviderElement: AppRootProviderElementDisconnectFieldInput
+  rootElement: AppRootElementDisconnectFieldInput
   store: AppStoreDisconnectFieldInput
 }
 
@@ -405,12 +405,12 @@ type AppEdge {
   node: App!
 }
 
-type AppElementRootProviderElementAggregationSelection {
+type AppElementRootElementAggregationSelection {
   count: Int!
-  node: AppElementRootProviderElementNodeAggregateSelection
+  node: AppElementRootElementNodeAggregateSelection
 }
 
-type AppElementRootProviderElementNodeAggregateSelection {
+type AppElementRootElementNodeAggregateSelection {
   css: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
@@ -611,75 +611,75 @@ input AppPagesUpdateFieldInput {
 input AppRelationInput {
   owner: WithOwnerOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
-  rootProviderElement: AppRootProviderElementCreateFieldInput
+  rootElement: AppRootElementCreateFieldInput
   store: AppStoreCreateFieldInput
 }
 
-input AppRootProviderElementAggregateInput {
-  AND: [AppRootProviderElementAggregateInput!]
-  OR: [AppRootProviderElementAggregateInput!]
+input AppRootElementAggregateInput {
+  AND: [AppRootElementAggregateInput!]
+  OR: [AppRootElementAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: AppRootProviderElementNodeAggregationWhereInput
+  node: AppRootElementNodeAggregationWhereInput
 }
 
-input AppRootProviderElementConnectFieldInput {
+input AppRootElementConnectFieldInput {
   connect: ElementConnectInput
   where: ElementConnectWhere
 }
 
-input AppRootProviderElementConnectOrCreateFieldInput {
-  onCreate: AppRootProviderElementConnectOrCreateFieldInputOnCreate!
+input AppRootElementConnectOrCreateFieldInput {
+  onCreate: AppRootElementConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input AppRootProviderElementConnectOrCreateFieldInputOnCreate {
+input AppRootElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type AppRootProviderElementConnection {
-  edges: [AppRootProviderElementRelationship!]!
+type AppRootElementConnection {
+  edges: [AppRootElementRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input AppRootProviderElementConnectionSort {
+input AppRootElementConnectionSort {
   node: ElementSort
 }
 
-input AppRootProviderElementConnectionWhere {
-  AND: [AppRootProviderElementConnectionWhere!]
-  OR: [AppRootProviderElementConnectionWhere!]
+input AppRootElementConnectionWhere {
+  AND: [AppRootElementConnectionWhere!]
+  OR: [AppRootElementConnectionWhere!]
   node: ElementWhere
   node_NOT: ElementWhere
 }
 
-input AppRootProviderElementCreateFieldInput {
+input AppRootElementCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input AppRootProviderElementDeleteFieldInput {
+input AppRootElementDeleteFieldInput {
   delete: ElementDeleteInput
-  where: AppRootProviderElementConnectionWhere
+  where: AppRootElementConnectionWhere
 }
 
-input AppRootProviderElementDisconnectFieldInput {
+input AppRootElementDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: AppRootProviderElementConnectionWhere
+  where: AppRootElementConnectionWhere
 }
 
-input AppRootProviderElementFieldInput {
-  connect: AppRootProviderElementConnectFieldInput
-  connectOrCreate: AppRootProviderElementConnectOrCreateFieldInput
-  create: AppRootProviderElementCreateFieldInput
+input AppRootElementFieldInput {
+  connect: AppRootElementConnectFieldInput
+  connectOrCreate: AppRootElementConnectOrCreateFieldInput
+  create: AppRootElementCreateFieldInput
 }
 
-input AppRootProviderElementNodeAggregationWhereInput {
-  AND: [AppRootProviderElementNodeAggregationWhereInput!]
-  OR: [AppRootProviderElementNodeAggregationWhereInput!]
+input AppRootElementNodeAggregationWhereInput {
+  AND: [AppRootElementNodeAggregationWhereInput!]
+  OR: [AppRootElementNodeAggregationWhereInput!]
   css_AVERAGE_EQUAL: Float
   css_AVERAGE_GT: Float
   css_AVERAGE_GTE: Float
@@ -783,23 +783,23 @@ input AppRootProviderElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_LTE: Int
 }
 
-type AppRootProviderElementRelationship {
+type AppRootElementRelationship {
   cursor: String!
   node: Element!
 }
 
-input AppRootProviderElementUpdateConnectionInput {
+input AppRootElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input AppRootProviderElementUpdateFieldInput {
-  connect: AppRootProviderElementConnectFieldInput
-  connectOrCreate: AppRootProviderElementConnectOrCreateFieldInput
-  create: AppRootProviderElementCreateFieldInput
-  delete: AppRootProviderElementDeleteFieldInput
-  disconnect: AppRootProviderElementDisconnectFieldInput
-  update: AppRootProviderElementUpdateConnectionInput
-  where: AppRootProviderElementConnectionWhere
+input AppRootElementUpdateFieldInput {
+  connect: AppRootElementConnectFieldInput
+  connectOrCreate: AppRootElementConnectOrCreateFieldInput
+  create: AppRootElementCreateFieldInput
+  delete: AppRootElementDeleteFieldInput
+  disconnect: AppRootElementDisconnectFieldInput
+  update: AppRootElementUpdateConnectionInput
+  where: AppRootElementConnectionWhere
 }
 
 """
@@ -1149,7 +1149,7 @@ input AppUpdateInput {
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
-  rootProviderElement: AppRootProviderElementUpdateFieldInput
+  rootElement: AppRootElementUpdateFieldInput
   store: AppStoreUpdateFieldInput
 }
 
@@ -1217,11 +1217,11 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
-  rootProviderElement: ElementWhere
-  rootProviderElementAggregate: AppRootProviderElementAggregateInput
-  rootProviderElementConnection: AppRootProviderElementConnectionWhere
-  rootProviderElementConnection_NOT: AppRootProviderElementConnectionWhere
-  rootProviderElement_NOT: ElementWhere
+  rootElement: ElementWhere
+  rootElementAggregate: AppRootElementAggregateInput
+  rootElementConnection: AppRootElementConnectionWhere
+  rootElementConnection_NOT: AppRootElementConnectionWhere
+  rootElement_NOT: ElementWhere
   store: StoreWhere
   storeAggregate: AppStoreAggregateInput
   storeConnection: AppStoreConnectionWhere

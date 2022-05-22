@@ -32,7 +32,7 @@ export const elementSchema = gql`
         direction: OUT
       )
     # Used for reverse lookup to see whether element is detached
-    app: App @relationship(type: "PROVIDER_ROOT", direction: OUT)
+    app: App @relationship(type: "ROOT_APP_ELEMENT", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
@@ -52,7 +52,7 @@ export const elementSchema = gql`
     instanceOfComponent: Component
       @relationship(type: "INSTANCE_OF_COMPONENT", direction: OUT)
 
-    # element is the rootElement to which component
+    # element is the rootElement for this component
     component: Component @relationship(type: "COMPONENT_ROOT", direction: IN)
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
     hooks: [Hook!]! @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)

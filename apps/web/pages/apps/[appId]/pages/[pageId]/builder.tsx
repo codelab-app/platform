@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   BaseBuilderProps,
   Builder,
@@ -9,13 +8,14 @@ import {
   BuilderDashboardTemplate,
   BuilderMainPane,
   BuilderSidebarNavigation,
-  createMobxState,
   MetaPane,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
+import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useCurrentPageId,
+  useStore,
 } from '@codelab/frontend/presenter/container'
 import {
   extractErrorMessage,
@@ -35,18 +35,15 @@ const PageBuilder: CodelabPage = observer(() => {
     pageService,
     appService,
     elementService,
-    pageElementTree,
-    providerElementTree,
-    pageBuilderRenderService,
     componentService,
-    componentBuilderRenderService,
     storeService,
     typeService,
     builderService,
+    builderRenderService,
   } = useStore()
 
-  const currentAppId = useCurrentAppId()
-  const currentPageId = useCurrentPageId()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
   const router = useRouter()
 
   const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
@@ -55,8 +52,8 @@ const PageBuilder: CodelabPage = observer(() => {
       const apps = await appService.getAll()
       // load all pages to provide them to mobxState
       const pages = await pageService.getAll()
-      const app = appService.app(currentAppId)
-      const page = pageService.page(currentPageId)
+      const app = appService.app(appId)
+      const page = pageService.page(pageId)
 
       if (!page) {
         throw new Error('Page not found')
@@ -76,15 +73,16 @@ const PageBuilder: CodelabPage = observer(() => {
        * - page tree
        * - provider tree
        */
-      const [elementTree, providerTree, types] = await Promise.all([
-        pageElementTree.getTree(page.rootElement.id),
-        providerElementTree.getTree(page.providerElement.id),
+      const [pageElementTree, providerTree, types] = await Promise.all([
+        page.initTree(page.rootElement.id),
+        app.initTree(app.rootElement.id),
         typeService.getAll(),
       ])
 
-      await pageBuilderRenderService.init(
+      const renderer = await builderRenderService.addRenderer(
+        pageId,
         pageElementTree,
-        providerElementTree,
+        null,
         createMobxState(storeTree, apps, pages, router),
       )
 
@@ -95,34 +93,34 @@ const PageBuilder: CodelabPage = observer(() => {
         storeTree,
         types,
         components,
+        renderer,
       }
     },
     { executeOnMount: true },
   )
 
-  const currentComponentId = builderService.selectedComponentRef?.current.id
+  const activeComponent = builderService.activeComponent
 
   const BaseBuilder = observer<BaseBuilderProps>(
-    ({ elementTree, renderService }) => (
+    ({ elementTree, renderer }) => (
       <Builder
         currentDragData={builderService.currentDragData}
         deleteModal={elementService.deleteModal}
         elementTree={elementTree}
-        key={renderService.tree?.root?.id}
+        key={renderer.pageTree?.current.root?.id}
         rendererProps={{
-          isInitialized: renderService.isInitialized,
-          renderRoot: renderService.renderRoot.bind(renderService),
+          renderRoot: renderer.renderRoot.bind(renderer),
         }}
-        selectedElement={builderService.selectedElement}
-        setHoveredElement={builderService.setHoveredElement.bind(
-          builderService,
-        )}
+        selectedNode={builderService.selectedNode}
         setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
           builderService,
         )}
+        set_hoveredNode={builderService.set_hoveredNode.bind(builderService)}
       />
     ),
   )
+
+  const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
 
   return (
     <>
@@ -138,10 +136,10 @@ const PageBuilder: CodelabPage = observer(() => {
         type="card"
       >
         <TabPane key={RendererTab.Page} tab="Page">
-          {data?.pageElementTree && !isDone ? (
+          {data?.pageElementTree && !isDone && pageBuilderRenderer ? (
             <BaseBuilder
               elementTree={data.pageElementTree}
-              renderService={pageBuilderRenderService}
+              renderer={pageBuilderRenderer}
             />
           ) : null}
         </TabPane>
@@ -150,13 +148,12 @@ const PageBuilder: CodelabPage = observer(() => {
           style={{ height: '100%' }}
           tab="Component"
         >
-          {builderService.selectedComponentRef?.current.id}
-          {currentComponentId ? (
+          {activeComponent ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
-              componentBuilderRenderService={componentBuilderRenderService}
-              componentId={currentComponentId}
+              componentId={activeComponent.id}
               componentService={componentService}
+              renderService={builderRenderService}
             />
           ) : null}
         </TabPane>
@@ -169,17 +166,18 @@ export const getServerSideProps = withPageAuthRequired({})
 
 PageBuilder.Layout = observer((page) => {
   const {
-    pageElementTree,
-    builderService,
     elementService,
     pageService,
     atomService,
     componentService,
-    pageBuilderRenderService,
     userService,
+    builderService,
     typeService,
-    componentBuilderRenderService,
+    builderRenderService,
   } = useStore()
+
+  const pageId = useCurrentPageId()
+  const pageBuilderRenderService = builderRenderService.renderers.get(pageId)
 
   return (
     <BuilderContext
@@ -190,40 +188,56 @@ PageBuilder.Layout = observer((page) => {
         Header={() => <PageDetailHeader pageService={pageService} />}
         MainPane={() => {
           return (
-            <BuilderMainPane
-              atomService={atomService}
-              builderService={builderService}
-              componentBuilderRenderService={componentBuilderRenderService}
-              componentService={componentService}
-              elementService={elementService}
-              key={pageBuilderRenderService.tree?.root?.id}
-              pageBuilderRenderService={pageBuilderRenderService}
-              pageElementTree={pageElementTree}
-              userService={userService}
-            />
+            <>
+              {pageBuilderRenderService ? (
+                <BuilderMainPane
+                  atomService={atomService}
+                  builderService={builderService}
+                  componentService={componentService}
+                  elementService={elementService}
+                  key={pageBuilderRenderService.pageTree?.current.root?.id}
+                  pageId={pageId}
+                  renderService={builderRenderService}
+                  userService={userService}
+                />
+              ) : null}
+            </>
           )
         }}
         MetaPane={() => {
+          const activeElementTree = builderService.activeElementTree
+
           return (
-            <MetaPane
-              atomService={atomService}
-              builderService={builderService}
-              componentService={componentService}
-              elementService={elementService}
-              // The element tree changes depending on whether a page or a component is selected
-              elementTree={pageElementTree}
-              key={pageBuilderRenderService.tree?.root?.id}
-              renderService={pageBuilderRenderService}
-              typeService={typeService}
-            />
+            <>
+              {activeElementTree && pageBuilderRenderService ? (
+                <MetaPane
+                  atomService={atomService}
+                  builderService={builderService}
+                  componentService={componentService}
+                  elementService={elementService}
+                  // The element tree changes depending on whether a page or a component is selected
+                  elementTree={activeElementTree}
+                  key={pageBuilderRenderService.pageTree?.current.root?.id}
+                  renderService={pageBuilderRenderService}
+                  typeService={typeService}
+                />
+              ) : null}
+            </>
           )
         }}
-        SidebarNavigation={() => (
-          <BuilderSidebarNavigation
-            builderService={builderService}
-            key={pageBuilderRenderService.tree?.root?.id}
-          />
-        )}
+        SidebarNavigation={() => {
+          return (
+            <>
+              {pageBuilderRenderService ? (
+                <BuilderSidebarNavigation
+                  activeBuilderTab={builderService.activeBuilderTab}
+                  key={pageBuilderRenderService.pageTree?.current.root?.id}
+                  setActiveBuilderTab={builderService.setActiveBuilderTab}
+                />
+              ) : null}
+            </>
+          )
+        }}
         headerHeight={38}
         // Depending on pageBuilderRenderService causes an extra re-render
         // key={pageBuilderRenderService.tree?.id}
@@ -235,7 +249,5 @@ PageBuilder.Layout = observer((page) => {
 })
 
 export default PageBuilder
-
-PageBuilder.whyDidYouRender = true
 
 PageBuilder.displayName = 'PageBuilder'

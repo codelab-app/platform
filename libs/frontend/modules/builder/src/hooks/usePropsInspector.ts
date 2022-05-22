@@ -3,7 +3,7 @@ import {
   IElement,
   IElementService,
   IPropData,
-  IRenderService,
+  IRenderer,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const usePropsInspector = (
   element: IElement,
-  renderService: IRenderService,
+  renderService: IRenderer,
   elementService: IElementService,
 ) => {
   const [isLoading, setIsLoading] = useState(false)

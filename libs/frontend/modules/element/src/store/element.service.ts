@@ -38,6 +38,7 @@ import {
 } from './api.utils'
 import { elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
+import { elementRef } from './element.ref'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -160,6 +161,30 @@ export class ElementService
     }
 
     return this.hydrateOrUpdateCache(elements)
+  })
+
+  /**
+   * Used to load the entire page tree
+   */
+  @modelFlow
+  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
+    const { elementGraph } = yield* _await(
+      elementApi.GetElementGraph({ input: { rootId } }),
+    )
+
+    const ids = [elementGraph.id, ...elementGraph.descendants]
+
+    const { elements } = yield* _await(
+      elementApi.GetElements({
+        where: {
+          id_IN: ids,
+        },
+      }),
+    )
+
+    return this.hydrateOrUpdateCache(elements)
+
+    // this.buildTree(elementModels)
   })
 
   @modelAction
@@ -299,7 +324,7 @@ export class ElementService
 
     newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
     element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(element)
+    newParent.addChild(elementRef(element))
 
     const input: ElementUpdateInput = {
       parentElement: {

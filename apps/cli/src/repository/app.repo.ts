@@ -75,9 +75,9 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
         id: app.id,
         name: app.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
-        rootProviderElement: {
+        rootElement: {
           connect: {
-            where: { node: { id: app.rootProviderElement.id } },
+            where: { node: { id: app.rootElement.id } },
           },
         },
         pages: {
@@ -128,9 +128,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
     }),
   )
 
-  const providerElements = await getElementAndDescendants(
-    app.rootProviderElement.id,
-  )
+  const providerElements = await getElementAndDescendants(app.rootElement.id)
 
   return { app: { ...app, pages: pagesData, providerElements } }
 }

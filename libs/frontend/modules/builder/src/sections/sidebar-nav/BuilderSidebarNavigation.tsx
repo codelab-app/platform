@@ -3,7 +3,6 @@ import {
   DatabaseOutlined,
   PartitionOutlined,
 } from '@ant-design/icons'
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   SidebarContainer,
   SidebarNavigation,
@@ -21,19 +20,19 @@ export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
         label: 'Tree',
         icon: <PartitionOutlined title="Tree" />,
         key: BuilderTab.Tree,
-        onClick: () => builderService.setBuilderTab(BuilderTab.Tree),
+        onClick: () => builderService.setActiveBuilderTab(BuilderTab.Tree),
       },
       {
         label: 'Mobx State',
         icon: <DatabaseOutlined title="State" />,
         key: BuilderTab.MobxState,
-        onClick: (info) => builderService.setBuilderTab(BuilderTab.MobxState),
+        onClick: (info) => builderService.setActiveBuilderTab(BuilderTab.MobxState),
       },
       {
         label: 'Toolbox',
         icon: <AppstoreAddOutlined title="Toolbox" />,
         key: BuilderTab.Toolbox,
-        onClick: () => builderService.setBuilderTab(BuilderTab.Toolbox),
+        onClick: () => builderService.setActiveBuilderTab(BuilderTab.Toolbox),
       },
     ]
 
@@ -43,7 +42,7 @@ export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
           defaultSelectedKeys={[BuilderTab.Tree]}
           fullHeight={false}
           items={items}
-          selectedKeys={[builderService.builderTab]}
+          selectedKeys={[activeBuilderTab]}
         />
         <SidebarNavigation />
       </div>

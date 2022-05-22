@@ -1,9 +1,8 @@
-import { usePrevious } from '@codelab/frontend/shared/utils'
 import { IBuilderService, IElementTree } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Key, useEffect, useState } from 'react'
 
-export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedElement'> & {
+export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedNode'> & {
   elementTree: Nullable<IElementTree>
 }
 
@@ -11,11 +10,10 @@ export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedElement'> & {
  * Destructured mobx classes don't work for hooks, I think it's because autorun works on objects only
  */
 export const useExpandedNodes = ({
-  selectedElement,
+  selectedNode,
   elementTree,
 }: UseExpandedNodesProps) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<Array<Key>>([])
-  const prevExpandedNodeIds = usePrevious(expandedNodeIds)
 
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
@@ -24,8 +22,8 @@ export const useExpandedNodes = ({
     /**
      * If we delete an element, the whole tree collapses. Instead, we want to show the sibling or parent as selected.
      */
-    const pathResult = selectedElement
-      ? elementTree?.getPathFromRoot(selectedElement)
+    const pathResult = selectedNode
+      ? elementTree?.getPathFromRoot(selectedNode)
       : []
 
     // go through each node of the path and keep track of all nodes that need to get expanded
@@ -41,7 +39,7 @@ export const useExpandedNodes = ({
       return [...prevState, ...(toExpand ?? [])]
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedElement?.id])
+  }, [selectedNode?.id])
 
   return { expandedNodeIds, setExpandedNodeIds }
 }

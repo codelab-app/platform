@@ -3,7 +3,7 @@ fragment Page on Page {
   name
   app {
     id
-    rootProviderElement {
+    rootElement {
       id
     }
   }

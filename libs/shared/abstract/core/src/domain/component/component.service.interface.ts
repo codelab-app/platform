@@ -4,7 +4,6 @@ import { DataNode } from 'antd/lib/tree'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
 import { IBuilderDataNode } from '../../ui'
-import { IElementTree } from '../element'
 import {
   IComponentDTO,
   ICreateComponentDTO,
@@ -20,7 +19,6 @@ export interface IComponentService
   component(id: string): Maybe<IComponent>
   componentAntdNode: DataNode
   componentAntdNodeV2: IBuilderDataNode
-  elementTrees: ObjectMap<IElementTree>
   loadComponentTrees(): Promise<any>
   updateCaches(components: Array<IComponentDTO>): void
 }

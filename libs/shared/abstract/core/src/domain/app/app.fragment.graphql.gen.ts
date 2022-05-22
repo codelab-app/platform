@@ -8,7 +8,7 @@ export type AppFragment = {
   name: string
   owner: { id: string }
   pages: Array<{ id: string }>
-  rootProviderElement: { id: string }
+  rootElement: { id: string }
   store?: { id: string } | null
 }
 
@@ -22,7 +22,7 @@ export const AppFragmentDoc = gql`
     pages {
       id
     }
-    rootProviderElement {
+    rootElement {
       id
     }
     store {

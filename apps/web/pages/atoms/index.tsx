@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateAtomButton,
   CreateAtomModal,
@@ -11,6 +10,7 @@ import {
   GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {

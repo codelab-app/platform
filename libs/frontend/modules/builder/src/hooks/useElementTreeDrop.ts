@@ -2,7 +2,7 @@ import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
 import { TreeProps } from 'antd/lib/tree'
 
 export type UseElementTreeDropProps = Pick<IElementService, 'moveElement'> & {
-  elementTree: IElementTree
+  elementTree: IElementTree | null
 }
 
 /**
@@ -22,10 +22,10 @@ export const useElementTreeDrop = ({
 
     if (info.dropToGap) {
       // Switch spots with the element next to the drop indicator
-      const dropElement = elementTree.element(dropNodeId)
+      const dropElement = elementTree?.element(dropNodeId)
       const dropNodeParentId = dropElement?.parentElement?.id
       const dropElementOrder = dropElement?.orderInParent ?? 0
-      const dragElement = elementTree.element(dragNodeId)
+      const dragElement = elementTree?.element(dragNodeId)
       const originalDragElementOrder = dragElement?.orderInParent ?? 0
 
       if (dropNodeParentId) {

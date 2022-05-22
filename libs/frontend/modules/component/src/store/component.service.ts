@@ -1,5 +1,5 @@
 import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
-import { Element, ElementTree } from '@codelab/frontend/modules/element'
+import { Element, elementRef } from '@codelab/frontend/modules/element'
 import { getUserService } from '@codelab/frontend/modules/user'
 import {
   elementServiceContext,
@@ -14,7 +14,6 @@ import {
   IComponentDTO,
   IComponentService,
   ICreateComponentDTO,
-  IElementTree,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -42,8 +41,6 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentService
   extends Model({
     components: prop(() => objectMap<IComponent>()),
-    // Map of component id to elementTree
-    elementTrees: prop(() => objectMap<IElementTree>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ComponentModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
@@ -67,7 +64,7 @@ export class ComponentService
       title: 'Components',
       selectable: false,
       children: [...this.components.values()].map((component) => {
-        const elementTree = this.elementTrees.get(component.id)
+        const elementTree = component.elementTree
         const dataNode = elementTree?.root?.antdNode
 
         return {
@@ -92,7 +89,7 @@ export class ComponentService
       title: 'Components',
       selectable: false,
       children: [...this.components.values()].map((component) => {
-        const elementTree = this.elementTrees.get(component.id)
+        const elementTree = component.elementTree
         const dataNode = elementTree?.root?.antdNode
 
         return {
@@ -130,35 +127,23 @@ export class ComponentService
     return yield* _await(
       Promise.all(
         components.map(async (component) => {
-          /**
-           * Each component should instantiate its own element tree
-           */
-          const elementTree = new ElementTree({})
-
-          this.elementTrees.set(component.id, elementTree)
+          const componentTree = await component.initTree(
+            component.rootElementId,
+          )
 
           /**
            * When creating new ElementService, it isn't attached to root tree, so this doesn't have access to context
            *
            * Need to manually set as a workaround
            */
-          // atomServiceContext.apply(() => elementTree, getAtomService(this))
           elementServiceContext.apply(
-            () => elementTree,
+            () => componentTree,
             getElementService(this),
-          )
-          // componentServiceContext.apply(
-          //   () => elementTree,
-          //   getComponentService(this),
-          // )
-
-          const componentTree = await elementTree.getTree(
-            component.rootElementId,
           )
 
           // Append this to rootComponentNode
           if (componentTree?.root) {
-            rootElement.addChild(componentTree?.root)
+            rootElement.addChild(elementRef(componentTree?.root))
           }
         }),
       ),

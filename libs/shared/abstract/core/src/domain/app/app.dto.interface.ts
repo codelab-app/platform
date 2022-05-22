@@ -13,20 +13,7 @@ export type IUpdateAppDTO = Omit<ICreateAppDTO, 'auth0Id' | 'id'>
 
 export type IAppDTO = AppFragment
 
-// export type IAppExport = {
-//   id: string
-//   name: string
-//   rootProviderElement: {
-//     id: string
-//   }
-//   pages: Array<IPageExport>
-//   providerElements: Array<IElementExport>
-// }
-
-export type IAppExport = Pick<
-  OGM_TYPES.App,
-  'id' | 'name' | 'rootProviderElement'
-> & {
+export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'rootElement'> & {
   pages: Array<IPageExport>
   providerElements: Array<OGM_TYPES.Element>
 }

@@ -7,7 +7,7 @@ fragment App on App {
   pages {
     id
   }
-  rootProviderElement {
+  rootElement {
     id
   }
   store {

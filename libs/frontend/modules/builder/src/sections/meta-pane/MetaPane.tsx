@@ -16,7 +16,7 @@ import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   IElementTree,
-  IRenderService,
+  IRenderer,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -25,7 +25,7 @@ import { MetaPaneTabContainer } from './MetaPane-TabContainer'
 
 type MetaPaneProps = {
   elementTree: IElementTree
-  renderService: IRenderService
+  renderService: IRenderer
 } & WithServices<
   | ATOM_SERVICE
   | TYPE_SERVICE

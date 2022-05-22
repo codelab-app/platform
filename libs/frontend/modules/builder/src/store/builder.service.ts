@@ -6,45 +6,62 @@ import {
   COMPONENT_NODE_TYPE,
   IBuilderDataNode,
   IBuilderService,
-  IComponent,
-  IElement,
+  INode,
+  isComponent,
+  isElement,
   RendererTab,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
-import { Frozen, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import {
+  findParent,
+  Frozen,
+  Model,
+  model,
+  modelAction,
+  prop,
+  Ref,
+} from 'mobx-keystone'
 import { StateModalService } from './state-modal.service'
 
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    _selectedElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
-    hoveredElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
+    _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
+    _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
+
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
-    builderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
+    activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
     stateModal: prop(() => new StateModalService({})),
-    selectedComponentRef: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
   })
   implements IBuilderService
 {
-  /**
-   * Element could be a placeholder for detached elements, so can't be current
-   */
   @computed
-  get selectedElement() {
-    return this._selectedElement?.maybeCurrent
+  get selectedNode() {
+    return this._selectedNode?.current ?? null
+  }
+
+  @computed
+  get hoveredNode() {
+    return this._hoveredNode?.current ?? null
   }
 
   @modelAction
   setSelectedTreeNode(node: IBuilderDataNode) {
-    this._selectedElement = elementRef(node.key.toString())
+    this._selectedNode = elementRef(node.key.toString())
 
     // If this is the component container
     if (node.type === COMPONENT_NODE_TYPE) {
-      this.selectedComponentRef = componentRef(node.key.toString())
+      this._selectedNode = componentRef(node.key.toString())
     }
+  }
+
+  @computed
+  get activeComponent() {
+    return isComponent(this.selectedNode) ? this.selectedNode : null
   }
 
   /**
@@ -52,6 +69,41 @@ export class BuilderService
    */
   @computed
   get activeElementTree() {
-    return
+    const selectedNode = this.selectedNode
+
+    /**
+     * Component tree
+     */
+    if (this.activeTree === RendererTab.Component) {
+      /**
+       * If we're selecting the component
+       */
+      if (isComponent(selectedNode)) {
+        return selectedNode.elementTree
+      }
+
+      /**
+       * If we're selecting an element within the component
+       */
+      if (isElement(selectedNode)) {
+        return selectedNode.instanceOfComponent?.current.elementTree
+      }
+    }
+
+    /**
+     * Page tree
+     */
+    if (this.activeTree === RendererTab.Page) {
+      // Find the element tree that it belongs to
+      if (!selectedNode) {
+        return undefined
+      }
+
+      return findParent(selectedNode, (parent: any) => {
+        return parent?.$modelType === '@codelab/ElementTree'
+      })
+    }
+
+    return undefined
   }
 }

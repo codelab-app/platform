@@ -1,10 +1,11 @@
 import {
   AccessTokenPayload,
   IPageProps,
+  IRootStore,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
-import { createRootStore, IRootStore } from './create-root-store'
+import { createRootStore } from './create-root-store'
 
 let _store: IRootStore | null = null
 

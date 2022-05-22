@@ -11,7 +11,11 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateElementDTO, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  ICreateElementDTO,
+  IElementTree,
+  IRenderService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -21,10 +25,11 @@ import { createElementSchema } from './createElementSchema'
 
 type CreateElementModalProps = {
   elementTree: IElementTree
+  renderService: IRenderService
 } & WithServices<ELEMENT_SERVICE | USER_SERVICE | COMPONENT_SERVICE>
 
 export const CreateElementModal = observer<CreateElementModalProps>(
-  ({ elementService, userService, elementTree, componentService }) => {
+  ({ elementService, userService, elementTree, renderService }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const [element] = await elementService.create([data])
 
@@ -35,10 +40,9 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       const componentId = element?.instanceOfComponent?.id
 
       if (componentId) {
-        console.log(componentId)
+        const componentTree =
+          renderService.renderers.get(componentId)?.pageTree.current
 
-        const componentTree = componentService.elementTrees.get(componentId)
-        console.log(componentTree)
         componentTree?.buildTree([element])
       }
 

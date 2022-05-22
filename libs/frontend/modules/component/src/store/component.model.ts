@@ -18,10 +18,10 @@ const hydrate = (component: IComponentDTO) => {
 
 @model('@codelab/Component')
 export class Component
-  extends Model({
+  extends ExtendedModel(modelClass(ElementTreeService), {
     __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     id: idProp,
-    name: prop<string>().withSetter(),
+    name: prop<string>(),
     // this isn't a Ref, because it will cause a circular dep.
     rootElementId: prop<string>().withSetter(),
     ownerId: prop<string>(),

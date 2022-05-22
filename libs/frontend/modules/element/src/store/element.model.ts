@@ -25,7 +25,6 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
@@ -115,8 +114,8 @@ export class Element
   }
 
   @modelAction
-  addChild(child: IElement) {
-    this.children.set(child.id, elementRef(child))
+  addChild(child: Ref<IElement>) {
+    this.children.set(child.current.id, child)
   }
 
   @modelAction
@@ -130,7 +129,7 @@ export class Element
   }
 
   /**
-   * Check to see if this element is part of a compoent tree
+   * Check to see if this element is part of a component tree
    */
   // @computed
   // get isComponentElement() {

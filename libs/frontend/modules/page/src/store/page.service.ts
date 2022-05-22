@@ -1,10 +1,10 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreatePageDTO,
-  IElementTree,
   IPage,
   IPageService,
   IUpdatePageDTO,
@@ -14,8 +14,9 @@ import {
   _async,
   _await,
   detach,
-  Model,
+  ExtendedModel,
   model,
+  modelClass,
   modelFlow,
   objectMap,
   prop,
@@ -37,12 +38,11 @@ export const pageRef = rootRef<Page>('@codelab/PageRef', {
 
 @model('@codelab/PageService')
 export class PageService
-  extends Model({
+  extends ExtendedModel(modelClass(ElementTreeService), {
     pages: prop(() => objectMap<IPage>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new PageModalService({})),
     deleteModal: prop(() => new PageModalService({})),
-    elementTrees: prop(() => objectMap<IElementTree>()),
   })
   implements IPageService
 {
@@ -105,6 +105,17 @@ export class PageService
       }
     })
   })
+
+  // @modelFlow
+  // initTree = _async(function* (this: PageService, pageId: string) {
+  //   const elementService = getElementService(this)
+  //   const elements = yield* _await(elementService.getTree(pageId))
+  //   const elementTree = ElementTree.init(elements)
+  //   // const renderer = RenderService.init(elementTree)
+  //   // this.renderers.set(pageId, renderer)
+  //
+  //   return elementTree
+  // })
 
   @modelFlow
   @transaction

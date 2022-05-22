@@ -2,6 +2,7 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
+import { Renderer, RendererProps } from '@codelab/frontend/modules/renderer'
 import {
   IBuilderService,
   IElementService,
@@ -13,16 +14,12 @@ import { BuilderDropHandler } from '../../dnd/BuilderDropHandler'
 import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
-import { Renderer, RendererProps } from '../../renderer'
 
 type BuilderProps = {
   elementTree: IElementTree
 } & Pick<
   IBuilderService,
-  | 'setHoveredElement'
-  | 'currentDragData'
-  | 'selectedElement'
-  | 'setSelectedTreeNode'
+  'set_hoveredNode' | 'currentDragData' | 'selectedNode' | 'setSelectedTreeNode'
 > &
   Pick<IElementService, 'deleteModal'> & {
     rendererProps: RendererProps
@@ -35,20 +32,20 @@ type BuilderProps = {
 export const Builder = observer<BuilderProps>(
   ({
     currentDragData,
-    setHoveredElement,
+    set_hoveredNode,
     setSelectedTreeNode,
-    selectedElement,
+    selectedNode,
     elementTree,
     deleteModal,
     rendererProps,
   }) => {
     const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers({
-      currentDragData: currentDragData,
-      setHoveredElement: setHoveredElement,
+      currentDragData,
+      set_hoveredNode,
     })
 
     useBuilderHotkeys({
-      selectedElement,
+      selectedNode,
       setSelectedTreeNode,
       deleteModal,
     })
@@ -73,10 +70,7 @@ export const Builder = observer<BuilderProps>(
           <ElementDropHandlers elementsList={elementsList} />
         ) : null}
 
-        <Renderer
-          isInitialized={rendererProps.isInitialized}
-          renderRoot={rendererProps.renderRoot}
-        />
+        <Renderer renderRoot={rendererProps.renderRoot} />
 
         {/* <BuilderHoverOverlay /> */}
         {/* <BuilderClickOverlay /> */}

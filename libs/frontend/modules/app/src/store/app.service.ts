@@ -6,7 +6,6 @@ import { AppWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAppService,
   ICreateAppDTO,
-  IElementTree,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
@@ -34,7 +33,6 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
-    elementTree: prop(() => objectMap<IElementTree>()),
   })
   implements IAppService
 {
@@ -112,7 +110,7 @@ export class AppService
       name: app.name,
       owner: connectOwner(app.auth0Id),
       store: connectId(app.storeId),
-      rootProviderElement: {
+      rootElement: {
         create: {
           node: {
             id: v4(),
@@ -156,9 +154,7 @@ export class AppService
     yield* _await(pageService.deleteManyByAppId(id))
 
     yield* _await(
-      elementService.deleteElementSubgraph(
-        existing.rootProviderElement?.id as string,
-      ),
+      elementService.deleteElementSubgraph(existing.rootElement?.id as string),
     )
 
     const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
