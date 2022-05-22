@@ -1,10 +1,18 @@
+import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
   COMPONENT_NODE_TYPE,
   IComponent,
   IComponentDTO,
 } from '@codelab/shared/abstract/core'
-import { idProp, Model, model, prop, Ref } from 'mobx-keystone'
+import {
+  ExtendedModel,
+  idProp,
+  model,
+  modelClass,
+  prop,
+  Ref,
+} from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({
@@ -32,10 +40,10 @@ export class Component
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static hydrate = hydrate
 
-  updateCache(componentFragment: IComponentDTO): void {
-    this.name = componentFragment.name
-    this.rootElementId = componentFragment.rootElement.id
-    this.ownerId = componentFragment.owner?.id
-    this.api = typeRef(componentFragment.api.id) as Ref<InterfaceType>
+  updateCache(fragment: IComponentDTO): void {
+    this.name = fragment.name
+    this.rootElementId = fragment.rootElement.id
+    this.ownerId = fragment.owner?.id
+    this.api = typeRef(fragment.api.id) as Ref<InterfaceType>
   }
 }
