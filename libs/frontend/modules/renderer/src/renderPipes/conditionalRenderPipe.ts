@@ -5,21 +5,21 @@ import {
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
-import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
+import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
-  extends ExtendedModel(modelClass(BaseRenderPipe), {
+  extends ExtendedModel(BaseRenderPipe, {
     next: prop<IRenderPipe>(),
   })
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
     if (ConditionalRenderPipe.shouldStopRendering(element, props)) {
-      if (this.renderService.debugMode) {
+      if (this.renderer.debugMode) {
         console.info('ConditionalRenderPipe: should stop rendering', {
           element: element.name,
           value: element.renderIfPropKey

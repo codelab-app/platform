@@ -38,7 +38,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           throw new Error('Component not found')
         }
 
-        const componentTree = await component.elementTree
+        const componentTree = component.elementTree
 
         const renderer = await renderService.addRenderer(
           componentId,

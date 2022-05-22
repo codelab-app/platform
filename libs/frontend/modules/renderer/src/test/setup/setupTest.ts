@@ -22,7 +22,10 @@ import {
   typeRef,
   TypeService,
 } from '@codelab/frontend/modules/type'
-import { componentRef } from '@codelab/frontend/presenter/container'
+import {
+  componentRef,
+  elementServiceContext,
+} from '@codelab/frontend/presenter/container'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { frozen, objectMap, unregisterRootStore } from 'mobx-keystone'
@@ -39,7 +42,7 @@ import { RenderTestRootStore } from './renderTestRootStore'
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: {
     rootStore: RenderTestRootStore
-    renderService: Renderer
+    renderer: Renderer
     componentToRender: Component
     componentRootElement: Element
     elementToRender: Element
@@ -108,13 +111,14 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'My Component',
       rootElementId: compRootElementId,
       ownerId: v4(),
+      api: typeRef(emptyInterface),
     })
 
     data.componentRootElement = new Element({
       id: compRootElementId,
       name: '01',
       css: '',
-      atom: atomRef(data.textAtom),
+      atom: atomRef(data.textAtom.id),
       component: componentRef(data.componentToRender),
       props: new Prop({
         id: v4(),
@@ -141,7 +145,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       css: '',
-      atom: atomRef(data.divAtom),
+      atom: atomRef(data.divAtom.id),
       props: new Prop({
         id: v4(),
         data: frozen({
@@ -187,14 +191,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         components: objectMap([
           [data.componentToRender.id, data.componentToRender],
         ]),
-        elementTrees: objectMap([
-          [
-            data.componentToRender.id,
-            new ElementTree({
-              _root: elementRef(data.componentRootElement),
-            }),
-          ],
-        ]),
       }),
       atomService: new AtomService({
         _atoms: objectMap([
@@ -202,7 +198,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.textAtom.id, data.textAtom],
         ]),
       }),
-      renderService: new Renderer({
+      renderer: new Renderer({
         debugMode: true,
         renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
       }),
@@ -217,19 +213,18 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [data.componentRootElement.id, data.componentRootElement],
         ]),
       }),
-      pageElementTree: new ElementTree({
-        _root: elementRef(data.elementToRender),
-      }),
+      pageElementTree: ElementTree.init([data.componentRootElement]),
     })
 
-    // elementServiceContext.apply(
-    //   () => data.rootStore.pageElementTree,
-    //   getElementService(this),
-    // )
+    data.renderer = data.rootStore.renderer
 
-    data.renderService = data.rootStore.renderService
+    data.renderer.initForce(data.rootStore.pageElementTree)
 
-    data.renderService.initForce(data.rootStore.pageElementTree)
+    // Renderer isn't attached to rootStore, so has issue accessing context
+    elementServiceContext.apply(
+      () => data.renderer,
+      data.rootStore.elementService,
+    )
   })
 
   afterEach(() => {

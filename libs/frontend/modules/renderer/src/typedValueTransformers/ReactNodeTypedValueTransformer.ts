@@ -50,6 +50,6 @@ export class ReactNodeTypedValueTransformer
       return value
     }
 
-    return this.renderService.renderElement(rootElement)
+    return this.renderer.renderElement(rootElement)
   }
 }

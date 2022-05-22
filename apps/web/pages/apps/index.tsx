@@ -50,16 +50,11 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  // console.debug('index.tsx', props)
+  const { appService, userService } = useStore()
 
-  const store = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.appService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
+  const [, { isLoading }] = useStatefulExecutor(() => appService.getAll(), {
+    executeOnMount: true,
+  })
 
   return (
     <>
@@ -67,25 +62,18 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal
-        appService={store.appService}
-        userService={store.userService}
-      />
-      <UpdateAppModal
-        appService={store.appService}
-        userService={store.userService}
-      />
-      <DeleteAppModal appService={store.appService} />
+      <CreateAppModal appService={appService} userService={userService} />
+      <UpdateAppModal appService={appService} userService={userService} />
+      <DeleteAppModal appService={appService} />
 
       <ContentSection>
         {isLoading && <Spin />}
-        {!isLoading && <GetAppsList appService={store.appService} />}
+        {!isLoading && <GetAppsList appService={appService} />}
       </ContentSection>
     </>
   )
 }
 
-//
 export default AppsPage
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr

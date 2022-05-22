@@ -12,7 +12,7 @@ describe('ConditionalRenderPipe', () => {
   it('should render normally if no key is found', async () => {
     data.elementToRender.setRenderIfPropKey(null)
 
-    const output = data.renderService.renderIntermediateElement(
+    const output = data.renderer.renderIntermediateElement(
       data.elementToRender,
       {
         shouldRender: false,
@@ -29,7 +29,7 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    const output = data.renderService.renderIntermediateElement(
+    const output = data.renderer.renderIntermediateElement(
       data.elementToRender,
       {
         shouldRender: false,
@@ -47,7 +47,7 @@ describe('ConditionalRenderPipe', () => {
       prop01: 'prop01',
     }
 
-    const output = data.renderService.renderIntermediateElement(
+    const output = data.renderer.renderIntermediateElement(
       data.elementToRender,
       initialProps,
     )

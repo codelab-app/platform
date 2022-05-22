@@ -6,13 +6,13 @@ import {
 } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
-import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
+import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './renderPipe.base'
 
 @model('@codelab/LoopingRenderPipe')
 export class LoopingRenderPipe
-  extends ExtendedModel(modelClass(BaseRenderPipe), {
+  extends ExtendedModel(BaseRenderPipe, {
     next: prop<IRenderPipe>(),
   })
   implements IRenderPipe
@@ -25,7 +25,7 @@ export class LoopingRenderPipe
     const value = LoopingRenderPipe.evaluateRenderForEach(element, props)
 
     if (!Array.isArray(value)) {
-      if (this.renderService.debugMode) {
+      if (this.renderer.debugMode) {
         console.info(
           'LoopingRenderPipe: the specified prop value is not array',
           { element: element.name, value },
@@ -35,7 +35,7 @@ export class LoopingRenderPipe
       return this.next.render(element, props)
     }
 
-    if (this.renderService.debugMode) {
+    if (this.renderer.debugMode) {
       console.info(
         `LoopingRenderPipe: mapping the element ${value.length} times`,
         { element: element.name, value },

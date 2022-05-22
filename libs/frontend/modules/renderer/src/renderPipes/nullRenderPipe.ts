@@ -4,7 +4,7 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelClass } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
@@ -14,11 +14,11 @@ import { BaseRenderPipe } from './renderPipe.base'
  */
 @model('@codelab/NullRenderPipe')
 export class NullRenderPipe
-  extends ExtendedModel(modelClass(BaseRenderPipe), {})
+  extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    if (this.renderService.debugMode) {
+    if (this.renderer.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 

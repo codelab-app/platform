@@ -46,7 +46,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   __metadataProps: object
   atomName: string
   siblings: Array<IElement>
-  // isComponentElement: boolean
 
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void

@@ -1,4 +1,5 @@
-import { IBaseRenderPipe } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { IBaseRenderPipe, IRenderer } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { findParent, idProp, Model, model } from 'mobx-keystone'
 
@@ -13,9 +14,11 @@ export class BaseRenderPipe
    * The RenderService is the one that contains these pipes
    */
   @computed
-  get renderService() {
-    return findParent(this, (parent: any) => {
-      return parent?.$modelType === '@codelab/RenderService'
-    })
+  get renderer() {
+    return throwIfUndefined(
+      findParent<IRenderer>(this, (parent: any) => {
+        return parent?.$modelType === '@codelab/Renderer'
+      }),
+    )
   }
 }

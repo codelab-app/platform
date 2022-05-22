@@ -1,7 +1,7 @@
 import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { ExtendedModel, idProp, model, modelClass, prop } from 'mobx-keystone'
+import { ExtendedModel, idProp, model, prop } from 'mobx-keystone'
 
 const hydrate = (page: IPageDTO) => {
   return new Page({
@@ -14,7 +14,7 @@ const hydrate = (page: IPageDTO) => {
 
 @model('@codelab/Page')
 export class Page
-  extends ExtendedModel(modelClass(ElementTreeService), {
+  extends ExtendedModel(ElementTreeService, {
     id: idProp,
     app: prop<IEntity>(),
     name: prop<string>(),

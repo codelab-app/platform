@@ -56,6 +56,6 @@ export class RenderPropsTypedValueTransformer
 
   private makeRenderProp(element: IElement) {
     return (...renderPropArgs: Array<any>) =>
-      this.renderService.renderElement(element, mergeProps(...renderPropArgs))
+      this.renderer.renderElement(element, mergeProps(...renderPropArgs))
   }
 }

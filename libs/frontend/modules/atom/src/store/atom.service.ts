@@ -1,6 +1,7 @@
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IAtom,
   IAtomDTO,
   IAtomService,
   ICreateAtomDTO,
@@ -30,7 +31,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 @model('@codelab/AtomService')
 export class AtomService
   extends Model({
-    _atoms: prop(() => objectMap<Atom>()),
+    _atoms: prop(() => objectMap<IAtom>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AtomModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),

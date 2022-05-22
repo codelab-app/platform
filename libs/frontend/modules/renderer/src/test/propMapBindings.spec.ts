@@ -18,7 +18,7 @@ describe('PropMapBindings', () => {
     data.elementToRender.addPropMapBinding(pmb)
     data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props, globalProps } = data.renderService.renderIntermediateElement(
+    const { props, globalProps } = data.renderer.renderIntermediateElement(
       data.elementToRender,
     ) as IRenderOutput
 
@@ -45,7 +45,7 @@ describe('PropMapBindings', () => {
     data.elementToRender.addPropMapBinding(pmb)
     data.elementToRender.props?.set(pmb.sourceKey, 'parentPropValue')
 
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
     ) as IRenderOutput
 

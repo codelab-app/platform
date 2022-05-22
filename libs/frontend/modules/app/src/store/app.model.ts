@@ -7,7 +7,6 @@ import {
   ExtendedModel,
   idProp,
   model,
-  modelClass,
   prop,
   Ref,
   rootRef,
@@ -26,7 +25,7 @@ const hydrate = (app: IAppDTO) => {
 
 @model('@codelab/App')
 export class App
-  extends ExtendedModel(modelClass(ElementTreeService), {
+  extends ExtendedModel(ElementTreeService, {
     id: idProp,
     ownerId: prop<string>(),
     name: prop<string>(),

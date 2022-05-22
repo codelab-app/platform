@@ -1,5 +1,5 @@
-import { Nullable } from '@codelab/shared/abstract/types'
-import { Ref } from 'mobx-keystone'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { AnyModel, ModelClass, Ref } from 'mobx-keystone'
 import { ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { IElement, IElementTree } from '../element'
@@ -20,4 +20,8 @@ export interface IRenderer {
   extraElementProps: IExtraElementProps
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
+  initForce(
+    pageTree: IElementTree,
+    platformState?: Nullish<ModelClass<AnyModel>>,
+  ): void
 }

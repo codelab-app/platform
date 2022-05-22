@@ -8,7 +8,7 @@ const extraProps = {
   extra2: '02',
 }
 
-describe('RenderService', () => {
+describe('Renderer', () => {
   /**
    * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
    */
@@ -20,7 +20,7 @@ describe('RenderService', () => {
   ])
 
   it('should add extra props', () => {
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -29,7 +29,7 @@ describe('RenderService', () => {
   })
 
   it('should apply transformation function', () => {
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -44,7 +44,7 @@ describe('RenderService', () => {
   it('should keep same props when transform function is invalid', () => {
     data.elementToRender.setPropTransformationJs('invalid fn')
 
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -58,7 +58,7 @@ describe('RenderService', () => {
 
   it('should render component instance', () => {
     const { props, atomType, elementId } =
-      data.renderService.renderIntermediateElement(
+      data.renderer.renderIntermediateElement(
         data.componentInstanceElementToRender,
         {},
       ) as IRenderOutput

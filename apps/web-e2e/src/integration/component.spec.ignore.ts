@@ -1,6 +1,9 @@
 const componentName = 'Test Component'
 const updatedComponentName = 'Test Component updated'
 
+/**
+ * Temporarily commenting out, moved this to component tree UI
+ */
 describe('Components CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {

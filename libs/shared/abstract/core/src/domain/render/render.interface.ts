@@ -23,7 +23,7 @@ export interface IRenderOutput {
 
 export type IBaseRenderPipe = {
   id: string
-  renderService: IRenderer
+  renderer: IRenderer
 }
 
 export interface IRenderPipe extends IBaseRenderPipe {

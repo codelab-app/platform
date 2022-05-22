@@ -1,5 +1,8 @@
 import { getElementService } from '@codelab/frontend/presenter/container'
-import { IElementTreeService } from '@codelab/shared/abstract/core'
+import {
+  IElementTree,
+  IElementTreeService,
+} from '@codelab/shared/abstract/core'
 import { _async, _await, Model, model, modelFlow, prop } from 'mobx-keystone'
 import { ElementTree } from './element-tree.model'
 
@@ -9,7 +12,7 @@ import { ElementTree } from './element-tree.model'
 @model('@codelab/ElementTreeService')
 export class ElementTreeService
   extends Model({
-    elementTree: prop(() => ElementTree.init()),
+    elementTree: prop<IElementTree>(() => ElementTree.init()),
   })
   implements IElementTreeService
 {

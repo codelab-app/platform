@@ -6,7 +6,7 @@ describe('RenderService', () => {
   const data = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
     ) as IRenderOutput
 
@@ -24,7 +24,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -45,7 +45,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -58,7 +58,7 @@ describe('RenderService', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render props when kind is RenderPropsType with overriden props', async () => {
+  it('should render props when kind is RenderPropsType with overridden props', async () => {
     const extraProps = {
       someNode: {
         type: data.renderPropsType.id,
@@ -66,7 +66,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderService.renderIntermediateElement(
+    const { props } = data.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput

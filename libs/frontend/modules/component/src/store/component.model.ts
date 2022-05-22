@@ -5,14 +5,7 @@ import {
   IComponent,
   IComponentDTO,
 } from '@codelab/shared/abstract/core'
-import {
-  ExtendedModel,
-  idProp,
-  model,
-  modelClass,
-  prop,
-  Ref,
-} from 'mobx-keystone'
+import { ExtendedModel, idProp, model, prop, Ref } from 'mobx-keystone'
 
 const hydrate = (component: IComponentDTO) => {
   return new Component({
@@ -26,7 +19,7 @@ const hydrate = (component: IComponentDTO) => {
 
 @model('@codelab/Component')
 export class Component
-  extends ExtendedModel(modelClass(ElementTreeService), {
+  extends ExtendedModel(ElementTreeService, {
     __nodeType: prop<COMPONENT_NODE_TYPE>(COMPONENT_NODE_TYPE),
     id: idProp,
     name: prop<string>(),

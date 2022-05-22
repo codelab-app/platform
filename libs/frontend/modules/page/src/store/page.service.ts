@@ -1,5 +1,4 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
@@ -14,9 +13,8 @@ import {
   _async,
   _await,
   detach,
-  ExtendedModel,
+  Model,
   model,
-  modelClass,
   modelFlow,
   objectMap,
   prop,
@@ -38,7 +36,7 @@ export const pageRef = rootRef<Page>('@codelab/PageRef', {
 
 @model('@codelab/PageService')
 export class PageService
-  extends ExtendedModel(modelClass(ElementTreeService), {
+  extends Model({
     pages: prop(() => objectMap<IPage>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new PageModalService({})),
@@ -63,7 +61,7 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    page: Page,
+    page: IPage,
     { name, appId }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(

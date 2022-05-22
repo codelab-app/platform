@@ -1,14 +1,17 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { Atom, atomRef } from '@codelab/frontend/modules/atom'
+import { atomRef } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import {
   ELEMENT_NODE_TYPE,
+  IAtom,
   IComponent,
   IElement,
   IElementDTO,
   IHook,
+  IProp,
   IPropData,
   IPropDataByElementId,
+  IPropMapBinding,
 } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
@@ -92,12 +95,12 @@ export class Element
 
     name: prop<Nullable<string>>(null).withSetter(),
     css: prop<Nullable<string>>(null).withSetter(),
-    atom: prop<Nullable<Ref<Atom>>>(null).withSetter(),
-    props: prop<Nullable<Prop>>(null),
+    atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
+    props: prop<Nullable<IProp>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
-    propMapBindings: prop(() => objectMap<PropMapBinding>()),
+    propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
     component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
