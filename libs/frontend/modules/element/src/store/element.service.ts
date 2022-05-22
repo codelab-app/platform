@@ -183,8 +183,6 @@ export class ElementService
     )
 
     return this.hydrateOrUpdateCache(elements)
-
-    // this.buildTree(elementModels)
   })
 
   @modelAction
@@ -324,7 +322,7 @@ export class ElementService
 
     newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
     element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(elementRef(element))
+    newParent.addChild(element.id, elementRef(element))
 
     const input: ElementUpdateInput = {
       parentElement: {

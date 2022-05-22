@@ -143,7 +143,10 @@ export class ComponentService
 
           // Append this to rootComponentNode
           if (componentTree?.root) {
-            rootElement.addChild(elementRef(componentTree?.root))
+            rootElement.addChild(
+              componentTree.root.id,
+              elementRef(componentTree.root),
+            )
           }
         }),
       ),

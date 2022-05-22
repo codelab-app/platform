@@ -51,7 +51,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>
   setOrderInParent(order: number | null): void
-  addChild(child: Ref<IElement>): void
+  addChild(id: string, child: Ref<IElement>): void
   hasChild(child: IElement): boolean
   removeChild(element: IElement): void
   applyPropMapBindings(sourceProps: IPropData): {

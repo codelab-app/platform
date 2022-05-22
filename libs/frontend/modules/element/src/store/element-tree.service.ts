@@ -12,7 +12,7 @@ import { ElementTree } from './element-tree.model'
 @model('@codelab/ElementTreeService')
 export class ElementTreeService
   extends Model({
-    elementTree: prop<IElementTree>(() => ElementTree.init()),
+    elementTree: prop<IElementTree>(null!),
   })
   implements IElementTreeService
 {
@@ -23,6 +23,13 @@ export class ElementTreeService
   ) {
     const elementService = getElementService(this)
     const elements = yield* _await(elementService.getTree(rootElementId))
+
+    /**
+     * Here we need to add to elementService
+     */
+    elements.forEach((element) => {
+      elementService.elements.set(element.id, element)
+    })
 
     this.elementTree = ElementTree.init(elements)
 

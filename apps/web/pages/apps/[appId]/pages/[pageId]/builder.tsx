@@ -3,7 +3,6 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BaseBuilderProps,
   Builder,
-  BuilderComponent,
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderMainPane,
@@ -21,7 +20,6 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
-import { RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -129,35 +127,35 @@ const PageBuilder: CodelabPage = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      <Tabs
-        activeKey={builderService.activeTree}
-        defaultActiveKey={RendererTab.Page}
-        onChange={(key) => console.log(key)}
-        type="card"
-      >
-        <TabPane key={RendererTab.Page} tab="Page">
-          {data?.pageElementTree && !isDone && pageBuilderRenderer ? (
-            <BaseBuilder
-              elementTree={data.pageElementTree}
-              renderer={pageBuilderRenderer}
-            />
-          ) : null}
-        </TabPane>
-        <TabPane
-          key={RendererTab.Component}
-          style={{ height: '100%' }}
-          tab="Component"
-        >
-          {activeComponent ? (
-            <BuilderComponent
-              BaseBuilder={BaseBuilder}
-              componentId={activeComponent.id}
-              componentService={componentService}
-              renderService={builderRenderService}
-            />
-          ) : null}
-        </TabPane>
-      </Tabs>
+      {/* <Tabs */}
+      {/*  activeKey={builderService.activeTree} */}
+      {/*  defaultActiveKey={RendererTab.Page} */}
+      {/*  onChange={(key) => console.log(key)} */}
+      {/*  type="card" */}
+      {/* > */}
+      {/*  <TabPane key={RendererTab.Page} tab="Page"> */}
+      {/*    {data?.pageElementTree && !isDone && pageBuilderRenderer ? ( */}
+      {/*      <BaseBuilder */}
+      {/*        elementTree={data.pageElementTree} */}
+      {/*        renderer={pageBuilderRenderer} */}
+      {/*      /> */}
+      {/*    ) : null} */}
+      {/*  </TabPane> */}
+      {/*  <TabPane */}
+      {/*    key={RendererTab.Component} */}
+      {/*    style={{ height: '100%' }} */}
+      {/*    tab="Component" */}
+      {/*  > */}
+      {/*    {activeComponent ? ( */}
+      {/*      <BuilderComponent */}
+      {/*        BaseBuilder={BaseBuilder} */}
+      {/*        componentId={activeComponent.id} */}
+      {/*        componentService={componentService} */}
+      {/*        renderService={builderRenderService} */}
+      {/*      /> */}
+      {/*    ) : null} */}
+      {/*  </TabPane> */}
+      {/* </Tabs> */}
     </>
   )
 })

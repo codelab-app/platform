@@ -19,12 +19,14 @@ import { elementRef } from './element.ref'
 
 /**
  * Helper method to initialize an element tree
+ *
  * @param elements
+ * @param elementService required as param since during constructor function, this isn't attached to the root yet
  */
 const init = (elements: Array<IElement> = []) => {
-  const elementTree = new ElementTree({})
-
-  return elementTree.buildTree(elements)
+  return new ElementTree({
+    _elements: elements.map((element) => elementRef(element)),
+  })
 }
 
 /**
@@ -38,12 +40,18 @@ const init = (elements: Array<IElement> = []) => {
 export class ElementTree
   extends Model({
     id: idProp,
-
+    _elements: prop<Array<Ref<IElement>>>(() => []),
     /** The root tree element */
     _root: prop<Nullable<Ref<IElement>>>(null).withSetter(),
   })
   implements IElementTree
 {
+  protected onAttachedToRootStore(rootStore: object) {
+    console.log('onAttachedToRootStore')
+
+    this.buildTree(this._elements.map((element) => element.current))
+  }
+
   /**
    * All elements within the tree
    */
@@ -98,7 +106,10 @@ export class ElementTree
         )
 
         if (componentRootElement) {
-          element.addChild(elementRef(componentRootElement))
+          element.addChild(
+            componentRootElement.id,
+            elementRef(componentRootElement),
+          )
         }
       }
 
@@ -115,7 +126,7 @@ export class ElementTree
         continue
       }
 
-      parent?.addChild(elementRef(element))
+      parent?.addChild(element.id, elementRef(element))
     }
 
     return this

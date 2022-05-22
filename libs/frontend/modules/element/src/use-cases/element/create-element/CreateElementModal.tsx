@@ -33,6 +33,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const onSubmit = async (data: ICreateElementDTO) => {
       const [element] = await elementService.create([data])
 
+      console.log(element)
+
       // Build tree for page
       elementTree.buildTree([element])
 

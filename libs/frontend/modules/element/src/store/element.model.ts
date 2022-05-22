@@ -116,9 +116,12 @@ export class Element
     return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
+  /**
+   * Using Ref<IElement> doesn't resolve because the ref isn't attached to anything yet, so we must provide an id
+   */
   @modelAction
-  addChild(child: Ref<IElement>) {
-    this.children.set(child.current.id, child)
+  addChild(id: string, child: Ref<IElement>) {
+    this.children.set(id, child)
   }
 
   @modelAction
