@@ -85,6 +85,13 @@ export class ElementTree
   @modelAction
   buildTree(elements: Array<IElement>) {
     for (const element of elements) {
+      /**
+       * For ElementTree that is already initialized, we need this to update its elements
+       */
+      if (!this._elements.find((el) => el.current.id === element.id)) {
+        this._elements.push(elementRef(element))
+      }
+
       if (!element.parentElement?.id) {
         this.set_root(elementRef(element))
       }

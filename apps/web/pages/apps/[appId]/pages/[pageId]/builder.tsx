@@ -174,7 +174,6 @@ PageBuilder.Layout = observer((page) => {
 
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-  const activeElementTree = builderService.activeElementTree
 
   return (
     <BuilderContext
@@ -200,7 +199,7 @@ PageBuilder.Layout = observer((page) => {
           </>
         )}
         MetaPane={observer(() => {
-          console.log(activeElementTree)
+          const activeElementTree = builderService.activeElementTree
 
           return (
             <>

@@ -98,8 +98,6 @@ export const BuilderTree = observer<BuilderTreeProps>(
             const element = elementService.elements.get(id.toString())
 
             element && builderService.set_selectedNode(elementRef(element))
-
-            console.log(builderService.selectedNode)
           }
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
