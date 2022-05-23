@@ -82,8 +82,6 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     if (node?.__nodeType === COMPONENT_NODE_TYPE) {
       const component = node
 
-      console.log(component)
-
       return (
         <ItemTitleStyle node={data}>
           <Dropdown

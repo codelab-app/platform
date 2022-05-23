@@ -1,12 +1,12 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
+  IBuilderService,
   IComponentService,
   IElementTree,
   IRenderer,
   IRenderService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { JSXElementConstructor } from 'react'
+import React, { JSXElementConstructor, useEffect } from 'react'
 
 export type BaseBuilderProps = {
   elementTree: IElementTree
@@ -19,19 +19,25 @@ type BuilderComponentProps = {
   // Pass in BaseBuilder so we don't have to initialize props again
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
   renderService: IRenderService
+  builderService: IBuilderService
 }
 
 /**
  * Since the component builder tree changes based on which component id is active, we move the component id dependency to a wrapper we create for the main Builder
  */
 export const BuilderComponent = observer<BuilderComponentProps>(
-  ({ componentId, componentService, renderService, BaseBuilder }) => {
-    if (!componentId) {
-      return null
-    }
+  ({
+    componentId,
+    componentService,
+    builderService,
+    renderService,
+    BaseBuilder,
+  }) => {
+    const activeComponentTree = builderService.activeElementTree
 
-    const [, { isLoading, error, data }] = useStatefulExecutor(
-      async () => {
+    useEffect(() => {
+      // eslint-disable-next-line padding-line-between-statements
+      ;(async () => {
         const component = await componentService.getOne(componentId)
 
         if (!component) {
@@ -40,30 +46,16 @@ export const BuilderComponent = observer<BuilderComponentProps>(
 
         const componentTree = component.elementTree
 
-        const renderer = await renderService.addRenderer(
-          componentId,
-          componentTree,
-          null,
-          null,
-        )
+        await renderService.addRenderer(componentId, componentTree, null, null)
+      })()
+    }, [componentId])
 
-        return {
-          componentTree,
-          renderer,
-        }
-      },
-      {
-        executeOnMount: true,
-      },
-    )
+    const renderer = renderService.renderers.get(componentId)
 
     return (
       <>
-        {data?.componentTree ? (
-          <BaseBuilder
-            elementTree={data?.componentTree}
-            renderer={data.renderer}
-          />
+        {activeComponentTree && renderer ? (
+          <BaseBuilder elementTree={activeComponentTree} renderer={renderer} />
         ) : null}
       </>
     )

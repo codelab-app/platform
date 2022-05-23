@@ -147,6 +147,7 @@ const PageBuilder: CodelabPage = observer(() => {
           {activeComponent ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
+              builderService={builderService}
               componentId={activeComponent.id}
               componentService={componentService}
               renderService={builderRenderService}

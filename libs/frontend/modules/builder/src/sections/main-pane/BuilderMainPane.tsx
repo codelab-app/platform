@@ -10,6 +10,7 @@ import {
 import {
   CreateComponentButton,
   CreateComponentModal,
+  DeleteComponentModal,
 } from '@codelab/frontend/modules/component'
 import {
   CreateElementModal,
@@ -82,7 +83,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       : null
 
     const antdTree = root?.antdNode
-    const componentsAntdTree = componentService.componentAntdNodeV2
+    const componentsAntdTree = componentService.componentAntdNode
 
     return (
       <MainPaneTemplate
@@ -118,9 +119,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {antdTree && componentTree ? (
+          {antdTree ? (
             <BuilderTree
-              elementTree={componentTree}
+              elementTree={componentTree ?? null}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Component)
               }
@@ -157,6 +158,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           componentService={componentService}
           userService={userService}
         />
+        <DeleteComponentModal componentService={componentService} />
         <DeleteElementModal elementService={elementService} />
       </MainPaneTemplate>
     )

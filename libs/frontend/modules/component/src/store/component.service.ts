@@ -57,31 +57,7 @@ export class ComponentService
   }
 
   @computed
-  get componentAntdNode() {
-    return {
-      id: COMPONENT_TREE_CONTAINER,
-      key: COMPONENT_TREE_CONTAINER,
-      title: 'Components',
-      selectable: false,
-      children: [...this.components.values()].map((component) => {
-        const elementTree = component.elementTree
-        const dataNode = elementTree?.root?.antdNode
-
-        return {
-          id: component.id,
-          key: component.id,
-          title: component.name,
-          selectable: false,
-          children: [dataNode].filter((data): data is IBuilderDataNode =>
-            Boolean(data),
-          ),
-        }
-      }),
-    }
-  }
-
-  @computed
-  get componentAntdNodeV2(): IBuilderDataNode {
+  get componentAntdNode(): IBuilderDataNode {
     return {
       key: COMPONENT_TREE_CONTAINER,
       // Container shouldn't have any type
