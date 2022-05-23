@@ -77,6 +77,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         onMouseLeave={() => builderService.set_hoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
+          console.log(id, node)
+
           nativeEvent.stopPropagation()
 
           setActiveTree()
@@ -96,6 +98,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
           if (dataNode.type === ELEMENT_NODE_TYPE) {
             const element = elementService.elements.get(id.toString())
+
+            console.log(element)
 
             element && builderService.set_selectedNode(elementRef(element))
           }

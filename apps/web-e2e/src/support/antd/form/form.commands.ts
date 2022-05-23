@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
+import { wrapSubject } from '../../deprecated/utils'
 import { CommonOptions, Label } from '../types'
 import { ifOnClock, logAndMute, tickIfOnClock, TickOptions } from '../utils'
 import {
@@ -32,44 +33,52 @@ import {
   unsupportedFieldType,
 } from './form.utils'
 
-export const getFormFieldLabel = ({
-  label,
-  ...options
-}: FormFieldOptions & CommonOptions) => {
+export const getFormFieldLabel = (
+  subject: any,
+  { label, ...options }: FormFieldOptions & CommonOptions,
+): Cypress.Chainable<any> => {
   const opts = logAndMute('getFormFieldLabel', label, options)
 
   return isUndefined(label)
-    ? cy.get('.ant-form-item-label', opts)
-    : cy.contains(
+    ? wrapSubject(subject).find('.ant-form-item-label', opts)
+    : wrapSubject(subject).contains(
         '.ant-form-item-label',
         new RegExp(`^${escapeRegExp(label)}$`, 'u'),
         opts,
       )
 }
 
-export const getFormField = ({
-  label,
-  ...options
-}: FormFieldOptions & CommonOptions = {}): Cypress.Chainable<any> => {
+export const getFormField = (
+  subject: any,
+  { label, ...options }: FormFieldOptions & CommonOptions = {},
+): Cypress.Chainable<any> => {
   const opts = logAndMute('getFormField', label, options)
 
   return isUndefined(label)
     ? cy.get('.ant-form-item', opts)
-    : getFormFieldLabel({ label, ...opts }).closest('.ant-form-item', opts)
+    : getFormFieldLabel(subject, { label, ...opts }).closest(
+        '.ant-form-item',
+        opts,
+      )
 }
 
-export const getFormInput = ({
-  label,
-  type = FIELD_TYPE.INPUT,
-  ...options
-}: FormInputOptions & CommonOptions = {}) => {
+export const getFormInput = (
+  subject: any,
+  {
+    label,
+    type = FIELD_TYPE.INPUT,
+    ...options
+  }: FormInputOptions & CommonOptions = {},
+) => {
   const opts = logAndMute(
     'getFormInput',
     [label, type].filter(Boolean).join(', '),
     options,
   )
 
-  const scope = label ? getFormField({ label, ...opts }) : cy.root()
+  const scope = label
+    ? getFormField(subject, { label, ...opts })
+    : wrapSubject(subject)
 
   switch (type) {
     case FIELD_TYPE.INPUT:
@@ -317,6 +326,7 @@ export const expectSelectDropdownToClose = (options?: CommonOptions) => {
 
 export const setInputValue =
   (
+    subject: any,
     value: string,
     { append, ...options }: { append?: boolean } & CommonOptions = {},
   ) =>
@@ -462,15 +472,18 @@ export const setDatePickerValue =
     return on($el)
   }
 
-export const setFormFieldValue = ({
-  label,
-  type = FIELD_TYPE.INPUT,
-  value,
-  ...options
-}: FormFieldValueOptions & CommonOptions) => {
+export const setFormFieldValue = (
+  subject: any,
+  {
+    label,
+    type = FIELD_TYPE.INPUT,
+    value,
+    ...options
+  }: FormFieldValueOptions & CommonOptions,
+) => {
   const opts = logAndMute('setFieldValue', `${label}: ${value}`, options)
-  const getField = () => getFormField({ label, ...opts })
-  const getInput = () => getFormInput({ label, type, ...opts })
+  const getField = () => getFormField(subject, { label, ...opts })
+  const getInput = () => getFormInput(subject, { label, type, ...opts })
 
   // getField().scrollIntoView(opts)
 
@@ -483,7 +496,7 @@ export const setFormFieldValue = ({
       }
 
       getInput().then(
-        setInputValue(isNumber(value) ? String(value) : value, opts),
+        setInputValue(subject, isNumber(value) ? String(value) : value, opts),
       )
 
       return
@@ -551,7 +564,7 @@ export const setFormFieldValue = ({
 export const setFormFieldValueFn =
   (field: Omit<SetFormFieldValueArgs[0], 'value'>) =>
   (value: SetFormFieldValueArgs[0]['value']) =>
-    setFormFieldValue({ ...field, value })
+    setFormFieldValue(cy, { ...field, value })
 
 export const setFormFieldValues = (
   fields:
@@ -569,7 +582,7 @@ export const setFormFieldValues = (
   const mergedFields = mergeFields(fields, { value: values })
   forEach(mergedFields, (field) => {
     if (!isUndefined(field.value)) {
-      setFormFieldValue({ ...options, ...field })
+      setFormFieldValue(cy, { ...options, ...field })
     }
   })
 }

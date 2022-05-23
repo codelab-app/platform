@@ -1,3 +1,4 @@
+import { OmitFirstArg } from '../../deprecated/types'
 import { CypressCommand } from '../../types'
 import {
   chooseSelectDropdownOption,
@@ -27,11 +28,12 @@ import {
   setSelectValue,
   setTagsValue,
 } from './form.commands'
+import PrevSubject = Cypress.PrevSubject
 
 export interface AntFormCommands {
-  getFormFieldLabel: typeof getFormFieldLabel
+  getFormFieldLabel: OmitFirstArg<typeof getFormFieldLabel>
   getFormField: typeof getFormField
-  getFormInput: typeof getFormInput
+  getFormInput: OmitFirstArg<typeof getFormInput>
   expectSelectValue: typeof expectSelectValue
   expectMultiSelectValue: typeof expectMultiSelectValue
   expectSelectPlaceholder: typeof expectSelectPlaceholder
@@ -43,7 +45,7 @@ export interface AntFormCommands {
   scrollSelectDropdown: typeof scrollSelectDropdown
   chooseSelectDropdownOption: typeof chooseSelectDropdownOption
   expectSelectDropdownToClose: typeof expectSelectDropdownToClose
-  setInputValue: typeof setInputValue
+  setInputValue: OmitFirstArg<typeof setInputValue>
   setSelectValue: typeof setSelectValue
   clearMultiselect: typeof clearMultiselect
   closeMultiselectOptions: typeof closeMultiselectOptions
@@ -51,7 +53,7 @@ export interface AntFormCommands {
   setTagsValue: typeof setTagsValue
   setRadioValue: typeof setRadioValue
   setDatePickerValue: typeof setDatePickerValue
-  setFormFieldValue: typeof setFormFieldValue
+  setFormFieldValue: OmitFirstArg<typeof setFormFieldValue>
   setFormFieldValueFn: typeof setFormFieldValueFn
   setFormFieldValues: typeof setFormFieldValues
   setFormFieldValuesFn: typeof setFormFieldValuesFn
@@ -61,14 +63,23 @@ export const antFormCommands: Array<CypressCommand> = [
   {
     name: 'getFormFieldLabel',
     fn: getFormFieldLabel,
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     name: 'getFormField',
     fn: getFormField,
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     name: 'getFormInput',
     fn: getFormInput,
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     name: 'expectSelectValue',
@@ -170,6 +181,9 @@ export const antFormCommands: Array<CypressCommand> = [
   {
     name: 'setFormFieldValue',
     fn: setFormFieldValue,
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     name: 'setFormFieldValueFn',

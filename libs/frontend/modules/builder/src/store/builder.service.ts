@@ -68,8 +68,6 @@ export class BuilderService
   get activeElementTree() {
     const selectedNode = this.selectedNode
 
-    console.log(this.activeTree, selectedNode)
-
     /**
      * Component tree
      */
