@@ -108,7 +108,7 @@
     "material-ui-colors": "1.0.0",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
-    "mobx": "6.5.0",
+    "mobx": "6.6.0",
     "mobx-keystone": "0.68.6",
     "mobx-react-lite": "3.4.0",
     "mobx-utils": "6.0.5",

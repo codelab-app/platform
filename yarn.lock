@@ -13952,7 +13952,7 @@ __metadata:
     material-ui-colors: 1.0.0
     micro: 9.3.4
     micro-cors: 0.1.1
-    mobx: 6.5.0
+    mobx: 6.6.0
     mobx-keystone: 0.68.6
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
@@ -25011,10 +25011,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:6.5.0":
-  version: 6.5.0
-  resolution: "mobx@npm:6.5.0"
-  checksum: 1210fb0b1c515b5f0ec2916296c32ca19b733e03b34f180af382d44b90668a15b4143c69bb06ca8785ebc3da3e761c6c60d0e72c945c199efc823088af1941ab
+"mobx@npm:6.6.0":
+  version: 6.6.0
+  resolution: "mobx@npm:6.6.0"
+  checksum: 369b8d6830ec286e9c856c80002c7a554d46bca739b7f76432cb56b3ce1fe0a7ed7e5a994b9793d30023beeff0dd16300a501e831fa97107104e4fedc7d4af8f
   languageName: node
   linkType: hard
 

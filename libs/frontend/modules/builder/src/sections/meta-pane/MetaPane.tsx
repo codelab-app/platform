@@ -49,8 +49,6 @@ export const MetaPane = observer<MetaPaneProps>(
     return (
       <MetaPaneTabContainer
         UpdateElementContent={observer(({ node, trackPromises }) => {
-          console.log(node)
-
           /**
            * The builder tree nodes could be a component as well, in which case we would show the form for components
            */

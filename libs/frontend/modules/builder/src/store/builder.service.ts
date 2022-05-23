@@ -1,4 +1,4 @@
-import { elementRef } from '@codelab/frontend/modules/element'
+import { elementRef, ElementTree } from '@codelab/frontend/modules/element'
 import {
   BuilderDragData,
   BuilderTab,
@@ -101,13 +101,18 @@ export class BuilderService
        */
       const refs = getRefsResolvingTo(selectedNode, elementRef)
 
+      console.log([...refs.values()])
+
       return [...refs.values()].reduce((elementTree, node) => {
         const found = findParent(node, (parent: any) => {
           return parent?.$modelType === '@codelab/ElementTree'
         })
 
+        console.log(found)
+
         return found ? found : elementTree
-      }, undefined)
+      }, new ElementTree({}))
+      // }, undefined)
     }
 
     return undefined

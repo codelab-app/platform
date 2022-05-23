@@ -90,15 +90,12 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
     const { providePropCompletion } = usePropCompletion(renderService)
     const trackPromises = useTrackLoadingPromises()
 
-    console.log(builderService.selectedNode)
-
     if (!selectedNode) {
       return null
     }
 
     return (
       <TabContainer>
-        <>{console.log(selectedNode)}</>
         <div css={tw`absolute bottom-0 right-0 m-8`}>
           <LoadingIndicator
             error={trackPromises.error}

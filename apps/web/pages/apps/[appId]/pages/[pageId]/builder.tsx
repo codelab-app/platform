@@ -174,6 +174,7 @@ PageBuilder.Layout = observer((page) => {
 
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+  const activeElementTree = builderService.activeElementTree
 
   return (
     <BuilderContext
@@ -182,26 +183,24 @@ PageBuilder.Layout = observer((page) => {
     >
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={pageService} />}
-        MainPane={() => {
-          return (
-            <>
-              {pageBuilderRenderer && (
-                <BuilderMainPane
-                  atomService={atomService}
-                  builderService={builderService}
-                  componentService={componentService}
-                  elementService={elementService}
-                  key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                  pageId={pageId}
-                  renderService={builderRenderService}
-                  userService={userService}
-                />
-              )}
-            </>
-          )
-        }}
+        MainPane={() => (
+          <>
+            {pageBuilderRenderer && (
+              <BuilderMainPane
+                atomService={atomService}
+                builderService={builderService}
+                componentService={componentService}
+                elementService={elementService}
+                key={pageBuilderRenderer?.pageTree?.current.root?.id}
+                pageId={pageId}
+                renderService={builderRenderService}
+                userService={userService}
+              />
+            )}
+          </>
+        )}
         MetaPane={observer(() => {
-          const activeElementTree = builderService.activeElementTree
+          console.log(activeElementTree)
 
           return (
             <>
@@ -221,17 +220,13 @@ PageBuilder.Layout = observer((page) => {
             </>
           )
         })}
-        SidebarNavigation={() => {
-          return (
-            <>
-              <BuilderSidebarNavigation
-                activeBuilderTab={builderService.activeBuilderTab}
-                key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                setActiveBuilderTab={builderService.setActiveBuilderTab}
-              />
-            </>
-          )
-        }}
+        SidebarNavigation={() => (
+          <BuilderSidebarNavigation
+            activeBuilderTab={builderService.activeBuilderTab}
+            key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            setActiveBuilderTab={builderService.setActiveBuilderTab}
+          />
+        )}
         headerHeight={38}
         // Depending on pageBuilderRenderService causes an extra re-render
         // key={pageBuilderRenderService.tree?.id}
