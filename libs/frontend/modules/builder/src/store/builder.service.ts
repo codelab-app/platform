@@ -1,10 +1,7 @@
 import { elementRef } from '@codelab/frontend/modules/element'
-import { componentRef } from '@codelab/frontend/presenter/container'
 import {
   BuilderDragData,
   BuilderTab,
-  COMPONENT_NODE_TYPE,
-  IBuilderDataNode,
   IBuilderService,
   INode,
   isComponent,
@@ -16,9 +13,9 @@ import { computed } from 'mobx'
 import {
   findParent,
   Frozen,
+  getRefsResolvingTo,
   Model,
   model,
-  modelAction,
   prop,
   Ref,
 } from 'mobx-keystone'
@@ -49,15 +46,15 @@ export class BuilderService
     return this._hoveredNode?.current ?? null
   }
 
-  @modelAction
-  setSelectedTreeNode(node: IBuilderDataNode) {
-    this._selectedNode = elementRef(node.key.toString())
-
-    // If this is the component container
-    if (node.type === COMPONENT_NODE_TYPE) {
-      this._selectedNode = componentRef(node.key.toString())
-    }
-  }
+  // @modelAction
+  // setSelectedTreeNode(node: IBuilderDataNode) {
+  //   this._selectedNode = elementRef(node.key.toString())
+  //
+  //   // If this is the component container
+  //   if (node.type === COMPONENT_NODE_TYPE) {
+  //     this._selectedNode = componentRef(node.key.toString())
+  //   }
+  // }
 
   @computed
   get activeComponent() {
@@ -70,6 +67,8 @@ export class BuilderService
   @computed
   get activeElementTree() {
     const selectedNode = this.selectedNode
+
+    console.log(this.activeTree, selectedNode)
 
     /**
      * Component tree
@@ -99,9 +98,18 @@ export class BuilderService
         return undefined
       }
 
-      return findParent(selectedNode, (parent: any) => {
-        return parent?.$modelType === '@codelab/ElementTree'
-      })
+      /**
+       * Given the node, we want the reference that belongs to an ElementTree.
+       */
+      const refs = getRefsResolvingTo(selectedNode, elementRef)
+
+      return [...refs.values()].reduce((elementTree, node) => {
+        const found = findParent(node, (parent: any) => {
+          return parent?.$modelType === '@codelab/ElementTree'
+        })
+
+        return found ? found : elementTree
+      }, undefined)
     }
 
     return undefined

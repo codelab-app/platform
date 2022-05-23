@@ -1,7 +1,6 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
 import { IModalService } from '../../service'
-import { IBuilderDataNode } from '../../ui'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
@@ -32,7 +31,7 @@ export interface IBuilderService {
    */
   activeComponent: Nullable<IComponent>
 
-  setSelectedTreeNode(node: IBuilderDataNode | null): void
+  // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void
   set_selectedNode(node: Nullable<Ref<INode>>): void
 

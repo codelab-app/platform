@@ -1,5 +1,5 @@
 import { elementRef } from '@codelab/frontend/modules/element'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
@@ -81,11 +81,23 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
           setActiveTree()
 
-          if (id) {
-            // Limitation to typing here
-            builderService.setSelectedTreeNode(
-              node as unknown as IBuilderDataNode,
-            )
+          if (!id) {
+            return
+          }
+
+          const dataNode = node as unknown as IBuilderDataNode
+
+          if (dataNode.type === COMPONENT_NODE_TYPE) {
+            const component = componentService.components.get(id.toString())
+
+            component &&
+              builderService.set_selectedNode(componentRef(component))
+          }
+
+          if (dataNode.type === ELEMENT_NODE_TYPE) {
+            const element = elementService.elements.get(id.toString())
+
+            element && builderService.set_selectedNode(elementRef(element))
           }
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}

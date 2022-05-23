@@ -47,8 +47,6 @@ export class ElementTree
   implements IElementTree
 {
   protected onAttachedToRootStore(rootStore: object) {
-    console.log('onAttachedToRootStore')
-
     this.buildTree(this._elements.map((element) => element.current))
   }
 

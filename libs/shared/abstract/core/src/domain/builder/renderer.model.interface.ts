@@ -9,7 +9,7 @@ import { IRenderOutput } from '../render'
 export interface IRenderer {
   renderRoot(): ReactElement | null
   appTree: Nullable<Ref<IElementTree>>
-  pageTree: Ref<IElementTree>
+  pageTree: Nullable<Ref<IElementTree>>
   platformState?: any
   debugMode: boolean
   renderIntermediateElement(

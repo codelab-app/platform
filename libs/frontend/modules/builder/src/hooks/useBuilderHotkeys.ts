@@ -4,7 +4,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
-  'selectedNode' | 'setSelectedTreeNode'
+  'selectedNode' | 'set_selectedNode'
 > &
   Pick<IElementService, 'deleteModal'>
 
@@ -15,7 +15,7 @@ type UseBuilderHotkeysProps = Pick<
  */
 export const useBuilderHotkeys = ({
   selectedNode,
-  setSelectedTreeNode,
+  set_selectedNode,
   deleteModal,
 }: UseBuilderHotkeysProps) => {
   useHotkeys(
@@ -32,7 +32,7 @@ export const useBuilderHotkeys = ({
     'esc',
     () => {
       if (selectedNode) {
-        setSelectedTreeNode(null)
+        set_selectedNode(null)
       }
     },
     { enabled: !!selectedNode },

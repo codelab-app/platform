@@ -6,13 +6,10 @@ import {
 import { IBuilderService } from '@codelab/shared/abstract/core'
 import { MouseEventHandler } from 'react'
 
-type UseBuilderRootClickHandlerProps = Pick<
-  IBuilderService,
-  'setSelectedTreeNode'
->
+type UseBuilderRootClickHandlerProps = Pick<IBuilderService, 'set_selectedNode'>
 
 export const useBuilderRootClickHandler = ({
-  setSelectedTreeNode,
+  set_selectedNode,
 }: UseBuilderRootClickHandlerProps) => {
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't

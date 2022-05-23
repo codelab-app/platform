@@ -73,12 +73,12 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
       throw new Error('Missing page builder renderer')
     }
 
-    const root = pageBuilderRenderer.pageTree.current.root
-    const pageTree = pageBuilderRenderer.pageTree.current
+    const root = pageBuilderRenderer.pageTree?.current.root
+    const pageTree = pageBuilderRenderer.pageTree?.current
     const componentId = builderService.activeComponent?.id
 
     const componentTree = componentId
-      ? renderService.renderers.get(componentId)?.pageTree.current
+      ? renderService.renderers.get(componentId)?.pageTree?.current
       : null
 
     const antdTree = root?.antdNode
@@ -144,13 +144,15 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           />
         </DisplayIf>
 
-        <CreateElementModal
-          componentService={componentService}
-          elementService={elementService}
-          elementTree={pageTree}
-          renderService={renderService}
-          userService={userService}
-        />
+        {pageTree && (
+          <CreateElementModal
+            componentService={componentService}
+            elementService={elementService}
+            elementTree={pageTree}
+            renderService={renderService}
+            userService={userService}
+          />
+        )}
         <CreateComponentModal
           componentService={componentService}
           userService={userService}

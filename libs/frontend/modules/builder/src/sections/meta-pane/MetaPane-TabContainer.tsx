@@ -83,7 +83,6 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
     elementTree,
     builderService,
     typeService,
-    atomService,
     renderService,
     elementService,
   }) => {

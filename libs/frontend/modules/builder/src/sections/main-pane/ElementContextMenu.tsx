@@ -41,7 +41,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const { push } = useRouter()
     const { user } = useUser()
     const isComponentInstance = Boolean(element.instanceOfComponent)
-    const isRoot = Boolean(element.parentElement)
+    const isRoot = !element.parentElement
 
     const onAddChild = () => {
       return createModal.open({

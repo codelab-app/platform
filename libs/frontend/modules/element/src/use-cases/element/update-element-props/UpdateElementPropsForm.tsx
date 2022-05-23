@@ -54,8 +54,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    console.log(interfaceType)
-
     return (
       <Spinner isLoading={isLoading}>
         {interfaceType && (

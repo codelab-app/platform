@@ -33,7 +33,6 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       useState<Nullable<string>>(null)
 
     // Add CSS to disable hover if node is unselectable
-
     if (node?.__nodeType === ELEMENT_NODE_TYPE) {
       const element = node
       const atomName = element.atomName
@@ -82,6 +81,8 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
 
     if (node?.__nodeType === COMPONENT_NODE_TYPE) {
       const component = node
+
+      console.log(component)
 
       return (
         <ItemTitleStyle node={data}>

@@ -33,8 +33,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     const onSubmit = async (data: ICreateElementDTO) => {
       const [element] = await elementService.create([data])
 
-      console.log(element)
-
       // Build tree for page
       elementTree.buildTree([element])
 
@@ -43,7 +41,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
       if (componentId) {
         const componentTree =
-          renderService.renderers.get(componentId)?.pageTree.current
+          renderService.renderers.get(componentId)?.pageTree?.current
 
         componentTree?.buildTree([element])
       }

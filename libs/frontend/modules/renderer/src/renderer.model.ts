@@ -105,7 +105,7 @@ export class Renderer
       /**
        * The tree that's being rendered, we assume that this is properly constructed
        */
-      pageTree: prop<Ref<IElementTree>>(null!),
+      pageTree: prop<Nullable<Ref<IElementTree>>>(null),
 
       /**
        * Props passed to specific elements, such as from global props context
