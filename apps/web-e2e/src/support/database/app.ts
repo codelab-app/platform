@@ -8,7 +8,7 @@ import { CreateAppsDocument } from '../../../../../libs/frontend/modules/app/src
 const defaultInput: AppCreateInput = {
   id: v4(),
   name: 'Test app',
-  rootProviderElement: {
+  rootElement: {
     create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME, id: v4() } },
   },
 }

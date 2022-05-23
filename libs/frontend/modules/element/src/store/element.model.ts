@@ -1,14 +1,17 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { Atom, atomRef } from '@codelab/frontend/modules/atom'
+import { atomRef } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import {
   ELEMENT_NODE_TYPE,
+  IAtom,
   IComponent,
   IElement,
   IElementDTO,
   IHook,
+  IProp,
   IPropData,
   IPropDataByElementId,
+  IPropMapBinding,
 } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
@@ -25,7 +28,6 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
@@ -93,12 +95,12 @@ export class Element
 
     name: prop<Nullable<string>>(null).withSetter(),
     css: prop<Nullable<string>>(null).withSetter(),
-    atom: prop<Nullable<Ref<Atom>>>(null).withSetter(),
-    props: prop<Nullable<Prop>>(null),
+    atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
+    props: prop<Nullable<IProp>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
-    propMapBindings: prop(() => objectMap<PropMapBinding>()),
+    propMapBindings: prop(() => objectMap<IPropMapBinding>()),
 
     // component which has this element as rootElement
     component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
@@ -114,9 +116,12 @@ export class Element
     return [...this.children.values()].map((x) => x.current).sort(compareOrder)
   }
 
+  /**
+   * Using Ref<IElement> doesn't resolve because the ref isn't attached to anything yet, so we must provide an id
+   */
   @modelAction
-  addChild(child: IElement) {
-    this.children.set(child.id, elementRef(child))
+  addChild(id: string, child: Ref<IElement>) {
+    this.children.set(id, child)
   }
 
   @modelAction
@@ -130,7 +135,7 @@ export class Element
   }
 
   /**
-   * Check to see if this element is part of a compoent tree
+   * Check to see if this element is part of a component tree
    */
   // @computed
   // get isComponentElement() {
@@ -200,6 +205,11 @@ export class Element
       this.instanceOfComponent?.current?.name ||
       ''
     )
+  }
+
+  @computed
+  get siblings() {
+    return this.parentElement?.children
   }
 
   @computed

@@ -8,7 +8,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateOperationButton,
   CreateOperationModal,
@@ -18,6 +17,7 @@ import {
   UpdateOperationModal,
   useCurrentResource,
 } from '@codelab/frontend/modules/resource'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -75,13 +75,11 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 })
 
 ResourcesPage.Layout = observer((page) => {
-  const resource = useStore()
+  const { resourceService } = useStore()
 
   return (
     <DashboardTemplate
-      MainPane={() => (
-        <ResourceMainPane resourceService={resource.resourceService} />
-      )}
+      MainPane={() => <ResourceMainPane resourceService={resourceService} />}
       SidebarNavigation={SidebarNavigation}
     >
       {page.children}

@@ -3,12 +3,12 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   ExecuteCommandButton,
   ExecuteCommandModal,
   ResetDataButton,
 } from '@codelab/frontend/modules/admin'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -21,7 +21,7 @@ import React from 'react'
 import tw from 'twin.macro'
 
 const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
+  const { adminService } = useStore()
 
   return (
     <>
@@ -33,7 +33,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
-          <ResetDataButton adminService={store.adminService} />
+          <ResetDataButton adminService={adminService} />
           <ExecuteCommandButton />
         </Space>
       </ContentSection>

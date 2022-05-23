@@ -37,7 +37,7 @@ export const pageRef = rootRef<Page>('@codelab/PageRef', {
 @model('@codelab/PageService')
 export class PageService
   extends Model({
-    pages: prop(() => objectMap<Page>()),
+    pages: prop(() => objectMap<IPage>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new PageModalService({})),
     deleteModal: prop(() => new PageModalService({})),
@@ -61,7 +61,7 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    page: Page,
+    page: IPage,
     { name, appId }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(
@@ -103,6 +103,17 @@ export class PageService
       }
     })
   })
+
+  // @modelFlow
+  // initTree = _async(function* (this: PageService, pageId: string) {
+  //   const elementService = getElementService(this)
+  //   const elements = yield* _await(elementService.getTree(pageId))
+  //   const elementTree = ElementTree.init(elements)
+  //   // const renderer = RenderService.init(elementTree)
+  //   // this.renderers.set(pageId, renderer)
+  //
+  //   return elementTree
+  // })
 
   @modelFlow
   @transaction

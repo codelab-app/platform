@@ -17,17 +17,4 @@ export interface IPageService
   deleteManyByAppId(id: string): Promise<void>
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
-
-  /**
-   * Queries
-   */
-  // getOne(id: string): Promise<Maybe<IPage>>
-  // getAll(where?: PageWhere): Promise<Array<IPage>>
-
-  /**
-   * Mutations
-   */
-  // create(data: ICreatePageDTO, ownerId: string): Promise<IPage>
-  // update(existing: IPage, data: IUpdatePageDTO): Promise<IPage>
-  // delete(id: string): Promise<IPage>
 }

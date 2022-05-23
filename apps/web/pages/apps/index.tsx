@@ -4,7 +4,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateAppButton,
   CreateAppModal,
@@ -14,6 +13,7 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -37,10 +37,10 @@ const items: MenuProps['items'] = [
 ]
 
 const AppsPageHeader = observer(() => {
-  const store = useStore()
+  const { appService } = useStore()
 
   const pageHeaderButtons = [
-    <CreateAppButton appService={store.appService} key={0} />,
+    <CreateAppButton appService={appService} key={0} />,
     <Dropdown key={1} overlay={<Menu items={items} />} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
@@ -50,16 +50,11 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  // console.debug('index.tsx', props)
+  const { appService, userService } = useStore()
 
-  const store = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.appService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
+  const [, { isLoading }] = useStatefulExecutor(() => appService.getAll(), {
+    executeOnMount: true,
+  })
 
   return (
     <>
@@ -67,25 +62,18 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal
-        appService={store.appService}
-        userService={store.userService}
-      />
-      <UpdateAppModal
-        appService={store.appService}
-        userService={store.userService}
-      />
-      <DeleteAppModal appService={store.appService} />
+      <CreateAppModal appService={appService} userService={userService} />
+      <UpdateAppModal appService={appService} userService={userService} />
+      <DeleteAppModal appService={appService} />
 
       <ContentSection>
         {isLoading && <Spin />}
-        {!isLoading && <GetAppsList appService={store.appService} />}
+        {!isLoading && <GetAppsList appService={appService} />}
       </ContentSection>
     </>
   )
 }
 
-//
 export default AppsPage
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr

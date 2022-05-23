@@ -1,6 +1,6 @@
 import { ArrayOrSingle } from 'ts-essentials'
 import { IAtomType } from '../atom'
-import { IRenderService } from '../builder'
+import { IRenderer } from '../builder'
 import { IElement } from '../element'
 import { IPropData, IPropDataByElementId } from '../prop'
 
@@ -23,7 +23,7 @@ export interface IRenderOutput {
 
 export type IBaseRenderPipe = {
   id: string
-  renderService: IRenderService
+  renderer: IRenderer
 }
 
 export interface IRenderPipe extends IBaseRenderPipe {

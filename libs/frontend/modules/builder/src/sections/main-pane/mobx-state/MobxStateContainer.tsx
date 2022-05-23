@@ -1,18 +1,18 @@
-import { IBuilderService, IRenderService } from '@codelab/shared/abstract/core'
+import { toAntd } from '@codelab/frontend/modules/store'
+import { IBuilderService, IRenderer } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { toAntd } from '../../../renderer/utils/platformState'
 import { MobxStateModal } from './MobxStateModal'
 import { MobxStateTree } from './MobxStateTree'
 
 type MobxStateContainerProps = {
-  renderService: IRenderService
+  renderer: IRenderer
   builderService: IBuilderService
 }
 
 export const MobxStateContainer = observer<MobxStateContainerProps>(
-  ({ builderService, renderService }) => {
-    const { platformState } = renderService
+  ({ builderService, renderer }) => {
+    const { platformState } = renderer
     const tree = toAntd(platformState, '')
 
     return (

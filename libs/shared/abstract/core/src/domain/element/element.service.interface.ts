@@ -98,5 +98,8 @@ export interface IElementService
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
   patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
-  // loadAllDetached(): Promise<Array<IElement>>
+  /**
+   * Get all descendant elements
+   */
+  getTree(root: IElementRef): Promise<Array<IElement>>
 }

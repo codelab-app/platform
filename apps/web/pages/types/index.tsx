@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateTypeButton,
   CreateTypeModal,
@@ -11,6 +10,7 @@ import {
   GetTypesTable,
   UpdateTypeModal,
 } from '@codelab/frontend/modules/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -23,11 +23,11 @@ import React from 'react'
 import tw from 'twin.macro'
 
 const Header = observer(() => {
-  const store = useStore()
+  const { typeService } = useStore()
 
   const headerButtons = [
     <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <CreateTypeButton key={0} typeService={store.typeService} />
+      <CreateTypeButton key={0} typeService={typeService} />
     </div>,
   ]
 
@@ -42,7 +42,7 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
+  const { typeService, userService } = useStore()
 
   return (
     <>
@@ -50,14 +50,11 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Types | Codelab</title>
       </Head>
 
-      <CreateTypeModal
-        typeService={store.typeService}
-        userService={store.userService}
-      />
-      <DeleteTypeModal typeService={store.typeService} />
-      <UpdateTypeModal typeService={store.typeService} />
+      <CreateTypeModal typeService={typeService} userService={userService} />
+      <DeleteTypeModal typeService={typeService} />
+      <UpdateTypeModal typeService={typeService} />
       <ContentSection>
-        <GetTypesTable typeService={store.typeService} />
+        <GetTypesTable typeService={typeService} />
       </ContentSection>
     </>
   )

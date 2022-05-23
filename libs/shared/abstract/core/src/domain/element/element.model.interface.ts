@@ -9,6 +9,16 @@ import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
 
+/**
+ * This is a non-element type node that contains the root element.
+ *
+ * - App, Page, Component
+ */
+export interface IElementContainer {
+  id: string
+  rootElementId: string
+}
+
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   owner: Nullable<IAuth0Id>
@@ -35,13 +45,13 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  // isComponentElement: boolean
+  siblings: Array<IElement>
 
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>
   setOrderInParent(order: number | null): void
-  addChild(child: IElement): void
+  addChild(id: string, child: Ref<IElement>): void
   hasChild(child: IElement): boolean
   removeChild(element: IElement): void
   applyPropMapBindings(sourceProps: IPropData): {

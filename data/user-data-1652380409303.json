@@ -3,7 +3,7 @@
     "__typename": "App",
     "id": "99893255-dd60-40c8-a3f0-f1284b61af7f",
     "name": "Mrhost Project",
-    "rootProviderElement": {
+    "rootElement": {
       "id": "a7e82354-1f57-4add-b560-0ef0bf927e5f"
     },
     "pages": [

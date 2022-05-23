@@ -4,7 +4,6 @@ import {
   ROOT_RENDER_CONTAINER_ID,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { withProvider } from '@codelab/frontend/presenter/container'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
@@ -54,5 +53,3 @@ export const BuilderContext = observer<
 })
 
 BuilderContext.displayName = 'BuilderContext'
-
-export const withBuilderContext = withProvider(BuilderContext)

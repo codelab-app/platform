@@ -1,31 +1,41 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
 import { IModalService } from '../../service'
-import { IBuilderDataNode } from '../../ui'
 import { IComponent } from '../component'
-import { IElement } from '../element'
+import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
 import { BuilderDragData } from './builder.interface'
 import { BuilderTab } from './builder-tab.interface'
+import { INode } from './node.interface'
 
 export interface StateModalProperties {
   node: Nullable<IStateTreeNode>
 }
 
 export interface IBuilderService {
-  builderTab: BuilderTab
-  _selectedElement: Nullable<Ref<IElement>>
+  activeBuilderTab: BuilderTab
+  /**
+   * Tells us which tree we are selecting in the main pane
+   */
   activeTree: RendererTab
-  selectedElement: Maybe<IElement>
-  hoveredElement: Nullable<Ref<IElement>>
-  selectedComponentRef: Nullable<Ref<IComponent>>
-  setSelectedComponentRef(component: Ref<IComponent>): void
 
-  setSelectedTreeNode(node: IBuilderDataNode | null): void
-  setHoveredElement(element: Nullable<Ref<IElement>>): void
+  _selectedNode: Nullable<Ref<INode>>
+  _hoveredNode: Nullable<Ref<INode>>
+  selectedNode: Nullable<INode>
+  hoveredNode: Nullable<INode>
   currentDragData: Nullable<Frozen<BuilderDragData>>
-  setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
-  setBuilderTab(data: BuilderTab): void
-  stateModal: IModalService<IStateTreeNode, StateModalProperties>
+  stateModal: IModalService<IStateTreeNode>
+  activeElementTree: Maybe<IElementTree>
+  /**
+   * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
+   */
+  activeComponent: Nullable<IComponent>
+
+  // setSelectedTreeNode(node: IBuilderDataNode | null): void
+  set_hoveredNode(element: Nullable<Ref<INode>>): void
+  set_selectedNode(node: Nullable<Ref<INode>>): void
+
   setActiveTree(tab: RendererTab): void
+  setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
+  setActiveBuilderTab(data: BuilderTab): void
 }

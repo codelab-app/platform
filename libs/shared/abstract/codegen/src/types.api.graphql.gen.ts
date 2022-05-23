@@ -323,9 +323,9 @@ export type App = WithOwner & {
   pages: Array<Page>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
-  rootProviderElement: Element
-  rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>
-  rootProviderElementConnection: AppRootProviderElementConnection
+  rootElement: Element
+  rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>
+  rootElementConnection: AppRootElementConnection
   store?: Maybe<Store>
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
   storeConnection: AppStoreConnection
@@ -369,23 +369,23 @@ export type AppPagesConnectionArgs = {
   where?: InputMaybe<AppPagesConnectionWhere>
 }
 
-export type AppRootProviderElementArgs = {
+export type AppRootElementArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<ElementOptions>
   where?: InputMaybe<ElementWhere>
 }
 
-export type AppRootProviderElementAggregateArgs = {
+export type AppRootElementAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<ElementWhere>
 }
 
-export type AppRootProviderElementConnectionArgs = {
+export type AppRootElementConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<AppRootProviderElementConnectionSort>>
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>
+  sort?: InputMaybe<Array<AppRootElementConnectionSort>>
+  where?: InputMaybe<AppRootElementConnectionWhere>
 }
 
 export type AppStoreArgs = {
@@ -417,14 +417,14 @@ export type AppAggregateSelection = {
 export type AppConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>
+  rootElement?: InputMaybe<AppRootElementConnectFieldInput>
   store?: InputMaybe<AppStoreConnectFieldInput>
 }
 
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
+  rootElement?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
   store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
 
@@ -441,21 +441,21 @@ export type AppCreateInput = {
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  rootProviderElement?: InputMaybe<AppRootProviderElementFieldInput>
+  rootElement?: InputMaybe<AppRootElementFieldInput>
   store?: InputMaybe<AppStoreFieldInput>
 }
 
 export type AppDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>
+  rootElement?: InputMaybe<AppRootElementDeleteFieldInput>
   store?: InputMaybe<AppStoreDeleteFieldInput>
 }
 
 export type AppDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>
+  rootElement?: InputMaybe<AppRootElementDisconnectFieldInput>
   store?: InputMaybe<AppStoreDisconnectFieldInput>
 }
 
@@ -465,14 +465,14 @@ export type AppEdge = {
   node: App
 }
 
-export type AppElementRootProviderElementAggregationSelection = {
-  __typename?: 'AppElementRootProviderElementAggregationSelection'
+export type AppElementRootElementAggregationSelection = {
+  __typename?: 'AppElementRootElementAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<AppElementRootProviderElementNodeAggregateSelection>
+  node?: Maybe<AppElementRootElementNodeAggregateSelection>
 }
 
-export type AppElementRootProviderElementNodeAggregateSelection = {
-  __typename?: 'AppElementRootProviderElementNodeAggregateSelection'
+export type AppElementRootElementNodeAggregateSelection = {
+  __typename?: 'AppElementRootElementNodeAggregateSelection'
   css: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -674,76 +674,76 @@ export type AppPagesUpdateFieldInput = {
 export type AppRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>
+  rootElement?: InputMaybe<AppRootElementCreateFieldInput>
   store?: InputMaybe<AppStoreCreateFieldInput>
 }
 
-export type AppRootProviderElementAggregateInput = {
-  AND?: InputMaybe<Array<AppRootProviderElementAggregateInput>>
-  OR?: InputMaybe<Array<AppRootProviderElementAggregateInput>>
+export type AppRootElementAggregateInput = {
+  AND?: InputMaybe<Array<AppRootElementAggregateInput>>
+  OR?: InputMaybe<Array<AppRootElementAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<AppRootProviderElementNodeAggregationWhereInput>
+  node?: InputMaybe<AppRootElementNodeAggregationWhereInput>
 }
 
-export type AppRootProviderElementConnectFieldInput = {
+export type AppRootElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type AppRootProviderElementConnectOrCreateFieldInput = {
-  onCreate: AppRootProviderElementConnectOrCreateFieldInputOnCreate
+export type AppRootElementConnectOrCreateFieldInput = {
+  onCreate: AppRootElementConnectOrCreateFieldInputOnCreate
   where: ElementConnectOrCreateWhere
 }
 
-export type AppRootProviderElementConnectOrCreateFieldInputOnCreate = {
+export type AppRootElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
 }
 
-export type AppRootProviderElementConnection = {
-  __typename?: 'AppRootProviderElementConnection'
-  edges: Array<AppRootProviderElementRelationship>
+export type AppRootElementConnection = {
+  __typename?: 'AppRootElementConnection'
+  edges: Array<AppRootElementRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type AppRootProviderElementConnectionSort = {
+export type AppRootElementConnectionSort = {
   node?: InputMaybe<ElementSort>
 }
 
-export type AppRootProviderElementConnectionWhere = {
-  AND?: InputMaybe<Array<AppRootProviderElementConnectionWhere>>
-  OR?: InputMaybe<Array<AppRootProviderElementConnectionWhere>>
+export type AppRootElementConnectionWhere = {
+  AND?: InputMaybe<Array<AppRootElementConnectionWhere>>
+  OR?: InputMaybe<Array<AppRootElementConnectionWhere>>
   node?: InputMaybe<ElementWhere>
   node_NOT?: InputMaybe<ElementWhere>
 }
 
-export type AppRootProviderElementCreateFieldInput = {
+export type AppRootElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
-export type AppRootProviderElementDeleteFieldInput = {
+export type AppRootElementDeleteFieldInput = {
   delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>
+  where?: InputMaybe<AppRootElementConnectionWhere>
 }
 
-export type AppRootProviderElementDisconnectFieldInput = {
+export type AppRootElementDisconnectFieldInput = {
   disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>
+  where?: InputMaybe<AppRootElementConnectionWhere>
 }
 
-export type AppRootProviderElementFieldInput = {
-  connect?: InputMaybe<AppRootProviderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootProviderElementCreateFieldInput>
+export type AppRootElementFieldInput = {
+  connect?: InputMaybe<AppRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<AppRootElementCreateFieldInput>
 }
 
-export type AppRootProviderElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppRootProviderElementNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<AppRootProviderElementNodeAggregationWhereInput>>
+export type AppRootElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>
   css_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   css_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   css_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -847,24 +847,24 @@ export type AppRootProviderElementNodeAggregationWhereInput = {
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type AppRootProviderElementRelationship = {
-  __typename?: 'AppRootProviderElementRelationship'
+export type AppRootElementRelationship = {
+  __typename?: 'AppRootElementRelationship'
   cursor: Scalars['String']
   node: Element
 }
 
-export type AppRootProviderElementUpdateConnectionInput = {
+export type AppRootElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
 
-export type AppRootProviderElementUpdateFieldInput = {
-  connect?: InputMaybe<AppRootProviderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>
-  create?: InputMaybe<AppRootProviderElementCreateFieldInput>
-  delete?: InputMaybe<AppRootProviderElementDeleteFieldInput>
-  disconnect?: InputMaybe<AppRootProviderElementDisconnectFieldInput>
-  update?: InputMaybe<AppRootProviderElementUpdateConnectionInput>
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>
+export type AppRootElementUpdateFieldInput = {
+  connect?: InputMaybe<AppRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<AppRootElementCreateFieldInput>
+  delete?: InputMaybe<AppRootElementDeleteFieldInput>
+  disconnect?: InputMaybe<AppRootElementDisconnectFieldInput>
+  update?: InputMaybe<AppRootElementUpdateConnectionInput>
+  where?: InputMaybe<AppRootElementConnectionWhere>
 }
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
@@ -1228,7 +1228,7 @@ export type AppUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>
+  rootElement?: InputMaybe<AppRootElementUpdateFieldInput>
   store?: InputMaybe<AppStoreUpdateFieldInput>
 }
 
@@ -1286,11 +1286,11 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  rootProviderElement?: InputMaybe<ElementWhere>
-  rootProviderElementAggregate?: InputMaybe<AppRootProviderElementAggregateInput>
-  rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>
-  rootProviderElementConnection_NOT?: InputMaybe<AppRootProviderElementConnectionWhere>
-  rootProviderElement_NOT?: InputMaybe<ElementWhere>
+  rootElement?: InputMaybe<ElementWhere>
+  rootElementAggregate?: InputMaybe<AppRootElementAggregateInput>
+  rootElementConnection?: InputMaybe<AppRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<AppRootElementConnectionWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
   store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<AppStoreAggregateInput>
   storeConnection?: InputMaybe<AppStoreConnectionWhere>

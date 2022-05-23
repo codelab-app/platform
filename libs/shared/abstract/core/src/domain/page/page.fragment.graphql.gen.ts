@@ -6,7 +6,7 @@ import { gql } from 'graphql-tag'
 export type PageFragment = {
   id: string
   name: string
-  app: { id: string; rootProviderElement: { id: string } }
+  app: { id: string; rootElement: { id: string } }
   rootElement: { id: string; name?: string | null }
 }
 
@@ -18,7 +18,7 @@ export const PageFragmentDoc = gql`
     name
     app {
       id
-      rootProviderElement {
+      rootElement {
         id
       }
     }

@@ -5,12 +5,13 @@ import {
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/modules/element'
+import { queryRenderedElementById } from '@codelab/frontend/modules/renderer'
 import { ClickOverlay } from '@codelab/frontend/view/components'
+import { isElement } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
 
 const StyledOverlayContainer = styled.div`
   display: flex;
@@ -38,17 +39,17 @@ const StyledOverlayButtonGroup = styled.div`
 export const BuilderClickOverlay = observer<
   WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
 >(({ builderService, elementService }) => {
-  const selectedElement = builderService.selectedElement
+  const selectedNode = builderService.selectedNode
 
-  if (!selectedElement) {
+  if (!selectedNode || !isElement(selectedNode)) {
     return null
   }
 
   const content = (
     <StyledOverlayContainer className="click-overlay-toolbar">
       <span>
-        {selectedElement.name}{' '}
-        {selectedElement.atom ? `(${selectedElement.atom?.current.name})` : ''}
+        {selectedNode.name}{' '}
+        {selectedNode.atom ? `(${selectedNode.atom?.current.name})` : ''}
       </span>
       <StyledOverlayButtonGroup>
         <Button
@@ -57,9 +58,9 @@ export const BuilderClickOverlay = observer<
             e.stopPropagation()
 
             elementService.createModal.open({
-              parentElement: selectedElement?.instanceOfComponent
+              parentElement: selectedNode?.instanceOfComponent
                 ? undefined
-                : elementRef(selectedElement.id),
+                : elementRef(selectedNode.id),
             })
           }}
           size="small"
@@ -72,7 +73,7 @@ export const BuilderClickOverlay = observer<
           onClick={(e) => {
             e.stopPropagation()
 
-            elementService.deleteModal.open(elementRef(selectedElement.id))
+            elementService.deleteModal.open(elementRef(selectedNode.id))
           }}
           size="small"
           type="text"
@@ -85,7 +86,7 @@ export const BuilderClickOverlay = observer<
     <ClickOverlay
       content={content}
       getOverlayElement={queryRenderedElementById}
-      nodeId={selectedElement.id}
+      nodeId={selectedNode.id}
     />
   )
 })

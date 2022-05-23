@@ -3,9 +3,9 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
+import { useStore } from '@codelab/frontend/presenter/container'
 import {
   DashboardTemplate,
   SidebarNavigation,

@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons'
+import { mobxStateKeyTemplate } from '@codelab/frontend/modules/store'
 import { copyTextToClipboard } from '@codelab/frontend/shared/utils'
 import { Button, message } from 'antd'
-import { mobxStateKeyTemplate } from '../../../renderer/utils/platformState'
 
 interface CopyPathButtonProps {
   path: string

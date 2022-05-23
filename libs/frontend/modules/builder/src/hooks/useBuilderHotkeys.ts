@@ -4,7 +4,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
-  'selectedElement' | 'setSelectedTreeNode'
+  'selectedNode' | 'set_selectedNode'
 > &
   Pick<IElementService, 'deleteModal'>
 
@@ -14,28 +14,28 @@ type UseBuilderHotkeysProps = Pick<
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = ({
-  selectedElement,
-  setSelectedTreeNode,
+  selectedNode,
+  set_selectedNode,
   deleteModal,
 }: UseBuilderHotkeysProps) => {
   useHotkeys(
     'del,backspace',
     () => {
-      if (selectedElement) {
-        deleteModal.open(elementRef(selectedElement.id))
+      if (selectedNode) {
+        deleteModal.open(elementRef(selectedNode.id))
       }
     },
-    { enabled: !!selectedElement },
+    { enabled: !!selectedNode },
     [],
   )
   useHotkeys(
     'esc',
     () => {
-      if (selectedElement) {
-        setSelectedTreeNode(null)
+      if (selectedNode) {
+        set_selectedNode(null)
       }
     },
-    { enabled: !!selectedElement },
+    { enabled: !!selectedNode },
     [],
   )
 }

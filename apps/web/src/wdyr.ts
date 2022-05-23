@@ -9,8 +9,14 @@ if (process.env.NODE_ENV === 'development') {
 
     whyDidYouRender(React, {
       // include: [/.*/],
+      /**
+       * Ant Design Tabs component causes multiple re-renders to show up as OperationNode.
+       */
+      exclude: [/OperationNode/],
       trackAllPureComponents: true,
-      // trackHooks: false,
+      // logOwnerReasons: true,
+      collapseGroups: true,
+      // trackHooks: true,
     })
   }
 }

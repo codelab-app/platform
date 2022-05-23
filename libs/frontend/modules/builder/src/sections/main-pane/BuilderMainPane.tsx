@@ -3,6 +3,7 @@ import {
   BUILDER_SERVICE,
   COMPONENT_SERVICE,
   ELEMENT_SERVICE,
+  RENDER_SERVICE,
   USER_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
@@ -16,20 +17,14 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
-import {
-  BuilderTab,
-  IBuilderDataNode,
-  IElementTree,
-  IRenderService,
-  RendererTab,
-} from '@codelab/shared/abstract/core'
+import { BuilderTab, RendererTab } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
-import { BuilderMainPaneHeader } from './BuilderMainPaneHeader'
+import { BuilderMainPaneHeader } from './BuilderMainPane-Header'
 import { MobxStateContainer } from './mobx-state/MobxStateContainer'
 import { Toolbox } from './toolbox/Toolbox'
 
@@ -45,10 +40,9 @@ type BuilderMainPaneProps = WithServices<
   | ELEMENT_SERVICE
   | BUILDER_SERVICE
   | USER_SERVICE
+  | RENDER_SERVICE
 > & {
-  pageElementTree: IElementTree
-  pageBuilderRenderService: IRenderService
-  componentBuilderRenderService: IRenderService
+  pageId: string
 }
 
 export const BuilderMainPane = observer<BuilderMainPaneProps>(
@@ -58,67 +52,37 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     elementService,
     componentService,
     userService,
-    pageElementTree,
-    pageBuilderRenderService,
-    componentBuilderRenderService,
+    pageId,
+    renderService,
   }) => {
-    const builderTab = builderService.builderTab
+    const builderTab = builderService.activeBuilderTab
     const [searchValue, setSearchValue] = useState('')
 
-    const debouncedSearch = useCallback(
-      (_v: string) =>
-        debounce((nextValue: string) => setSearchValue(nextValue), 200)(_v),
-      [],
-    )
+    const debouncedSearch = useCallback((value: string) => {
+      const debouncedSetSearchValue = debounce(
+        (nextValue: string) => setSearchValue(nextValue),
+        200,
+      )
 
-    const root = pageElementTree?.root
+      return debouncedSetSearchValue(value)
+    }, [])
+
+    const pageBuilderRenderer = renderService.renderers.get(pageId)
+
+    if (!pageBuilderRenderer) {
+      throw new Error('Missing page builder renderer')
+    }
+
+    const root = pageBuilderRenderer.pageTree?.current.root
+    const pageTree = pageBuilderRenderer.pageTree?.current
+    const componentId = builderService.activeComponent?.id
+
+    const componentTree = componentId
+      ? renderService.renderers.get(componentId)?.pageTree?.current
+      : null
+
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNodeV2
-
-    const BaseBuilderTree = observer(
-      ({
-        treeData,
-        className,
-        renderService,
-        setActiveTree,
-      }: {
-        treeData: IBuilderDataNode | undefined
-        className?: string
-        renderService: IRenderService
-        setActiveTree: () => void
-      }) => (
-        <BuilderTree
-          className={className}
-          component={componentService.component.bind(componentService)}
-          componentContextMenuProps={{
-            deleteModal: componentService.deleteModal,
-          }}
-          element={elementService.element.bind(elementService)}
-          elementContextMenuProps={{
-            createModal: elementService.createModal,
-            deleteModal: elementService.deleteModal,
-            duplicateElement:
-              elementService.duplicateElement.bind(elementService),
-            convertElementToComponent:
-              elementService.convertElementToComponent.bind(elementService),
-          }}
-          elementTree={pageElementTree}
-          moveElement={elementService.moveElement.bind(elementService)}
-          renderService={renderService}
-          selectedElement={builderService.selectedElement}
-          setActiveTree={setActiveTree}
-          setHoveredElement={builderService.setHoveredElement.bind(
-            builderService,
-          )}
-          setSelectedTreeNode={builderService.setSelectedTreeNode.bind(
-            builderService,
-          )}
-          treeData={treeData}
-        />
-      ),
-    )
-
-    BaseBuilderTree.displayName = 'BaseBuilderTree'
 
     return (
       <MainPaneTemplate
@@ -140,10 +104,10 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         title={paneTitles[builderTab]}
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          {antdTree ? (
-            <BaseBuilderTree
+          {antdTree && pageTree ? (
+            <BuilderTree
               className="page-builder"
-              renderService={pageBuilderRenderService}
+              elementTree={pageTree}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Page)
               }
@@ -154,9 +118,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {antdTree ? (
-            <BaseBuilderTree
-              renderService={componentBuilderRenderService}
+          {antdTree && componentTree ? (
+            <BuilderTree
+              elementTree={componentTree}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Component)
               }
@@ -168,7 +132,7 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
           <MobxStateContainer
             builderService={builderService}
-            renderService={pageBuilderRenderService}
+            renderer={pageBuilderRenderer}
           />
         </DisplayIf>
 
@@ -180,11 +144,15 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
           />
         </DisplayIf>
 
-        <CreateElementModal
-          elementService={elementService}
-          elementTree={pageElementTree}
-          userService={userService}
-        />
+        {pageTree && (
+          <CreateElementModal
+            componentService={componentService}
+            elementService={elementService}
+            elementTree={pageTree}
+            renderService={renderService}
+            userService={userService}
+          />
+        )}
         <CreateComponentModal
           componentService={componentService}
           userService={userService}

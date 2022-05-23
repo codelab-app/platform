@@ -1,11 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
-import { createMobxState, Renderer } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
+import { Renderer } from '@codelab/frontend/modules/renderer'
+import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useCurrentPageId,
+  useStore,
 } from '@codelab/frontend/presenter/container'
 import {
   extractErrorMessage,
@@ -24,14 +25,12 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     appService,
     typeService,
     componentService,
-    providerElementTree,
     storeService,
-    pageRenderService,
-    pageElementTree,
+    appRenderService,
   } = useStore()
 
-  const currentAppId = useCurrentAppId()
-  const currentPageId = useCurrentPageId()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
   const router = useRouter()
   // Load the pages list for the top bar
   useStatefulExecutor(() => pageService.getAll(), { executeOnMount: true })
@@ -42,8 +41,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const apps = await appService.getAll()
       // load all pages to provide them to mobxState
       const pages = await pageService.getAll()
-      const app = appService.app(currentAppId)
-      const page = pageService.page(currentPageId)
+      const app = appService.app(appId)
+      const page = pageService.page(pageId)
 
       if (!page) {
         throw new Error('Page not found')
@@ -55,27 +54,34 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
       // components are needed to build pageElementTree
       // therefore they must be loaded first
-      const components = await componentService.loadComponentTrees()
+      await componentService.loadComponentTrees()
 
-      // Get element tree and provider tree
-      const [elementTree, providerTree, types] = await Promise.all([
-        pageElementTree.getTree(page.rootElement.id),
-        providerElementTree.getTree(page.providerElement.id),
+      /**
+       * Construct the ElementTree's for
+       *
+       * - page tree
+       * - provider tree
+       */
+      const [pageElementTree, providerTree, types] = await Promise.all([
+        page.initTree(page.rootElement.id),
+        app.initTree(app.rootElement.id),
         typeService.getAll(),
       ])
 
       // initialize renderer
-      await pageRenderService.init(
+      const renderer = await appRenderService.addRenderer(
+        pageId,
         pageElementTree,
-        providerElementTree,
+        null,
         createMobxState(storeTree, apps, pages, router),
       )
 
       return {
         page,
-        elementTree,
+        pageElementTree,
         providerTree,
         storeTree,
+        renderer,
       }
     },
     { executeOnMount: true },
@@ -88,11 +94,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      {isDone && data?.elementTree ? (
-        <Renderer
-          isInitialized={pageRenderService.isInitialized}
-          renderRoot={pageRenderService.renderRoot.bind(pageRenderService)}
-        />
+      {isDone && data?.pageElementTree && data.renderer ? (
+        <Renderer renderRoot={data.renderer.renderRoot.bind(data.renderer)} />
       ) : null}
     </>
   )

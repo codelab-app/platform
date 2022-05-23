@@ -1,28 +1,27 @@
 import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { queryRenderedElementById } from '@codelab/frontend/modules/renderer'
 import { HoverOverlay } from '@codelab/frontend/view/components'
+import { isElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { queryRenderedElementById } from '../../renderer/utils/queryRenderedElementById'
 
 export const BuilderHoverOverlay = observer<WithServices<BUILDER_SERVICE>>(
   ({ builderService }) => {
-    const hoveredElement = builderService.hoveredElement?.current
+    const hoveredNode = builderService.hoveredNode
 
-    if (!hoveredElement) {
+    if (!hoveredNode || !isElement(hoveredNode)) {
       return null
     }
 
-    const content = `${hoveredElement.label} ${
-      hoveredElement.atom?.current
-        ? `(${hoveredElement.atom?.current?.name})`
-        : ''
+    const content = `${hoveredNode.label} ${
+      hoveredNode.atom?.current ? `(${hoveredNode.atom?.current?.name})` : ''
     }`
 
     return (
       <HoverOverlay
         content={content}
         getOverlayElement={queryRenderedElementById}
-        nodeId={hoveredElement.id}
+        nodeId={hoveredNode.id}
       />
     )
   },

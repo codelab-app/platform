@@ -3,37 +3,41 @@ import {
   DatabaseOutlined,
   PartitionOutlined,
 } from '@ant-design/icons'
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   SidebarContainer,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { BuilderTab } from '@codelab/shared/abstract/core'
+import { BuilderTab, IBuilderService } from '@codelab/shared/abstract/core'
 import { MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
-  ({ builderService }) => {
+type BuilderSidebarNavigationProps = Pick<
+  IBuilderService,
+  'activeBuilderTab' | 'setActiveBuilderTab'
+>
+
+export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
+  ({ activeBuilderTab, setActiveBuilderTab }) => {
     const items: MenuProps['items'] = [
       {
         label: 'Tree',
         icon: <PartitionOutlined title="Tree" />,
         key: BuilderTab.Tree,
-        onClick: () => builderService.setBuilderTab(BuilderTab.Tree),
+        onClick: () => setActiveBuilderTab(BuilderTab.Tree),
       },
       {
         label: 'Mobx State',
         icon: <DatabaseOutlined title="State" />,
         key: BuilderTab.MobxState,
-        onClick: (info) => builderService.setBuilderTab(BuilderTab.MobxState),
+        onClick: (info) => setActiveBuilderTab(BuilderTab.MobxState),
       },
       {
         label: 'Toolbox',
         icon: <AppstoreAddOutlined title="Toolbox" />,
         key: BuilderTab.Toolbox,
-        onClick: () => builderService.setBuilderTab(BuilderTab.Toolbox),
+        onClick: () => setActiveBuilderTab(BuilderTab.Toolbox),
       },
     ]
 
@@ -43,7 +47,7 @@ export const BuilderSidebarNavigation = observer<WithServices<BUILDER_SERVICE>>(
           defaultSelectedKeys={[BuilderTab.Tree]}
           fullHeight={false}
           items={items}
-          selectedKeys={[builderService.builderTab]}
+          selectedKeys={[activeBuilderTab]}
         />
         <SidebarNavigation />
       </div>

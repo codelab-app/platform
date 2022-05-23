@@ -2,11 +2,7 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
-import {
-  IElement,
-  IElementService,
-  IElementTree,
-} from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -18,10 +14,10 @@ export type ContextMenuProps = {
   onBlur?: () => any
 }
 
-export type ElementContextMenuProps = ContextMenuProps & {
+export type ElementContextMenuProps = {
   element: IElement
-  elementTree: IElementTree
-} & Pick<
+} & ContextMenuProps &
+  Pick<
     IElementService,
     | 'createModal'
     | 'deleteModal'
@@ -41,12 +37,11 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     deleteModal,
     duplicateElement,
     convertElementToComponent,
-    elementTree,
   }) => {
     const { push } = useRouter()
     const { user } = useUser()
-    const isComponentInstance = !!element.instanceOfComponent
-    const isRoot = elementTree.root?.id === element.id
+    const isComponentInstance = Boolean(element.instanceOfComponent)
+    const isRoot = !element.parentElement
 
     const onAddChild = () => {
       return createModal.open({

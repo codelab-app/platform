@@ -15,17 +15,4 @@ export interface IAppService
   apps: ObjectMap<IApp>
   app(id: string): IApp
   appsList: Array<IApp>
-
-  /**
-   * Query
-   */
-  // getOne(id: string): Promise<Maybe<IApp>>
-  // getAll(where?: AppWhere): Promise<Array<IApp>>
-
-  /**
-   * Mutation
-   */
-  // create(data: ICreateAppDTO, ownerId: string): Promise<IApp>
-  // update(existing: IApp, data: IUpdateAppDTO): Promise<IApp>
-  // delete(id: string): Promise<IApp>
 }

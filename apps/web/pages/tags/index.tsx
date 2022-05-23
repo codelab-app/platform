@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateTagButton,
   CreateTagModal,
@@ -13,6 +12,7 @@ import {
   GetTagsTree,
   UpdateTagModal,
 } from '@codelab/frontend/modules/tag'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -25,14 +25,11 @@ import Head from 'next/head'
 import React from 'react'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
+  const { tagService, userService } = useStore()
 
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.tagService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
+  const [, { isLoading }] = useStatefulExecutor(() => tagService.getAll(), {
+    executeOnMount: true,
+  })
 
   return (
     <>
@@ -40,15 +37,12 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Tags | Codelab</title>
       </Head>
 
-      <CreateTagModal
-        tagService={store.tagService}
-        userService={store.userService}
-      />
-      <UpdateTagModal tagService={store.tagService} />
-      <DeleteTagsModal tagService={store.tagService} />
+      <CreateTagModal tagService={tagService} userService={userService} />
+      <UpdateTagModal tagService={tagService} />
+      <DeleteTagsModal tagService={tagService} />
 
       <ContentSection>
-        <GetTagsTable loading={isLoading} tagService={store.tagService} />
+        <GetTagsTable loading={isLoading} tagService={tagService} />
       </ContentSection>
     </>
   )

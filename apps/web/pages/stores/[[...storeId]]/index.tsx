@@ -10,7 +10,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   AddResourceButton,
   AddResourceModal,
@@ -27,6 +26,7 @@ import {
   UpdateLocalStateForm,
   useCurrentStore,
 } from '@codelab/frontend/modules/store'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {

@@ -1968,13 +1968,13 @@ export type App = WithOwner & {
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>;
   pages: Array<Page>;
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>;
-  rootProviderElement: Element;
-  rootProviderElementAggregate?: Maybe<AppElementRootProviderElementAggregationSelection>;
+  rootElement: Element;
+  rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>;
   store?: Maybe<Store>;
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>;
   ownerConnection: WithOwnerOwnerConnection;
   pagesConnection: AppPagesConnection;
-  rootProviderElementConnection: AppRootProviderElementConnection;
+  rootElementConnection: AppRootElementConnection;
   storeConnection: AppStoreConnection;
 };
 
@@ -2000,13 +2000,13 @@ export type AppPagesAggregateArgs = {
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type AppRootProviderElementArgs = {
+export type AppRootElementArgs = {
   where?: InputMaybe<ElementWhere>;
   options?: InputMaybe<ElementOptions>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type AppRootProviderElementAggregateArgs = {
+export type AppRootElementAggregateArgs = {
   where?: InputMaybe<ElementWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -2038,12 +2038,12 @@ export type AppPagesConnectionArgs = {
   sort?: InputMaybe<Array<AppPagesConnectionSort>>;
 };
 
-export type AppRootProviderElementConnectionArgs = {
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>;
+export type AppRootElementConnectionArgs = {
+  where?: InputMaybe<AppRootElementConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<AppRootProviderElementConnectionSort>>;
+  sort?: InputMaybe<Array<AppRootElementConnectionSort>>;
 };
 
 export type AppStoreConnectionArgs = {
@@ -2067,14 +2067,14 @@ export type AppEdge = {
   node: App;
 };
 
-export type AppElementRootProviderElementAggregationSelection = {
-  __typename?: "AppElementRootProviderElementAggregationSelection";
+export type AppElementRootElementAggregationSelection = {
+  __typename?: "AppElementRootElementAggregationSelection";
   count: Scalars["Int"];
-  node?: Maybe<AppElementRootProviderElementNodeAggregateSelection>;
+  node?: Maybe<AppElementRootElementNodeAggregateSelection>;
 };
 
-export type AppElementRootProviderElementNodeAggregateSelection = {
-  __typename?: "AppElementRootProviderElementNodeAggregateSelection";
+export type AppElementRootElementNodeAggregateSelection = {
+  __typename?: "AppElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
   css: StringAggregateSelectionNullable;
@@ -2108,15 +2108,15 @@ export type AppPagesRelationship = {
   node: Page;
 };
 
-export type AppRootProviderElementConnection = {
-  __typename?: "AppRootProviderElementConnection";
-  edges: Array<AppRootProviderElementRelationship>;
+export type AppRootElementConnection = {
+  __typename?: "AppRootElementConnection";
+  edges: Array<AppRootElementRelationship>;
   totalCount: Scalars["Int"];
   pageInfo: PageInfo;
 };
 
-export type AppRootProviderElementRelationship = {
-  __typename?: "AppRootProviderElementRelationship";
+export type AppRootElementRelationship = {
+  __typename?: "AppRootElementRelationship";
   cursor: Scalars["String"];
   node: Element;
 };
@@ -6379,14 +6379,14 @@ export type ActionWhere = {
 export type AppConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>;
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectFieldInput>;
+  rootElement?: InputMaybe<AppRootElementConnectFieldInput>;
   store?: InputMaybe<AppStoreConnectFieldInput>;
 };
 
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>;
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>;
+  rootElement?: InputMaybe<AppRootElementConnectOrCreateFieldInput>;
   store?: InputMaybe<AppStoreConnectOrCreateFieldInput>;
 };
 
@@ -6403,21 +6403,21 @@ export type AppCreateInput = {
   name: Scalars["String"];
   owner?: InputMaybe<WithOwnerOwnerFieldInput>;
   pages?: InputMaybe<AppPagesFieldInput>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementFieldInput>;
+  rootElement?: InputMaybe<AppRootElementFieldInput>;
   store?: InputMaybe<AppStoreFieldInput>;
 };
 
 export type AppDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>;
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementDeleteFieldInput>;
+  rootElement?: InputMaybe<AppRootElementDeleteFieldInput>;
   store?: InputMaybe<AppStoreDeleteFieldInput>;
 };
 
 export type AppDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>;
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementDisconnectFieldInput>;
+  rootElement?: InputMaybe<AppRootElementDisconnectFieldInput>;
   store?: InputMaybe<AppStoreDisconnectFieldInput>;
 };
 
@@ -6589,69 +6589,69 @@ export type AppPagesUpdateFieldInput = {
 export type AppRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>;
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementCreateFieldInput>;
+  rootElement?: InputMaybe<AppRootElementCreateFieldInput>;
   store?: InputMaybe<AppStoreCreateFieldInput>;
 };
 
-export type AppRootProviderElementAggregateInput = {
+export type AppRootElementAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
   count_LTE?: InputMaybe<Scalars["Int"]>;
   count_GT?: InputMaybe<Scalars["Int"]>;
   count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<AppRootProviderElementAggregateInput>>;
-  OR?: InputMaybe<Array<AppRootProviderElementAggregateInput>>;
-  node?: InputMaybe<AppRootProviderElementNodeAggregationWhereInput>;
+  AND?: InputMaybe<Array<AppRootElementAggregateInput>>;
+  OR?: InputMaybe<Array<AppRootElementAggregateInput>>;
+  node?: InputMaybe<AppRootElementNodeAggregationWhereInput>;
 };
 
-export type AppRootProviderElementConnectFieldInput = {
+export type AppRootElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>;
   connect?: InputMaybe<ElementConnectInput>;
 };
 
-export type AppRootProviderElementConnectionSort = {
+export type AppRootElementConnectionSort = {
   node?: InputMaybe<ElementSort>;
 };
 
-export type AppRootProviderElementConnectionWhere = {
-  AND?: InputMaybe<Array<AppRootProviderElementConnectionWhere>>;
-  OR?: InputMaybe<Array<AppRootProviderElementConnectionWhere>>;
+export type AppRootElementConnectionWhere = {
+  AND?: InputMaybe<Array<AppRootElementConnectionWhere>>;
+  OR?: InputMaybe<Array<AppRootElementConnectionWhere>>;
   node?: InputMaybe<ElementWhere>;
   node_NOT?: InputMaybe<ElementWhere>;
 };
 
-export type AppRootProviderElementConnectOrCreateFieldInput = {
+export type AppRootElementConnectOrCreateFieldInput = {
   where: ElementConnectOrCreateWhere;
-  onCreate: AppRootProviderElementConnectOrCreateFieldInputOnCreate;
+  onCreate: AppRootElementConnectOrCreateFieldInputOnCreate;
 };
 
-export type AppRootProviderElementConnectOrCreateFieldInputOnCreate = {
+export type AppRootElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput;
 };
 
-export type AppRootProviderElementCreateFieldInput = {
+export type AppRootElementCreateFieldInput = {
   node: ElementCreateInput;
 };
 
-export type AppRootProviderElementDeleteFieldInput = {
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>;
+export type AppRootElementDeleteFieldInput = {
+  where?: InputMaybe<AppRootElementConnectionWhere>;
   delete?: InputMaybe<ElementDeleteInput>;
 };
 
-export type AppRootProviderElementDisconnectFieldInput = {
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>;
+export type AppRootElementDisconnectFieldInput = {
+  where?: InputMaybe<AppRootElementConnectionWhere>;
   disconnect?: InputMaybe<ElementDisconnectInput>;
 };
 
-export type AppRootProviderElementFieldInput = {
-  create?: InputMaybe<AppRootProviderElementCreateFieldInput>;
-  connect?: InputMaybe<AppRootProviderElementConnectFieldInput>;
-  connectOrCreate?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>;
+export type AppRootElementFieldInput = {
+  create?: InputMaybe<AppRootElementCreateFieldInput>;
+  connect?: InputMaybe<AppRootElementConnectFieldInput>;
+  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>;
 };
 
-export type AppRootProviderElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppRootProviderElementNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<AppRootProviderElementNodeAggregationWhereInput>>;
+export type AppRootElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<AppRootElementNodeAggregationWhereInput>>;
   id_EQUAL?: InputMaybe<Scalars["ID"]>;
   name_EQUAL?: InputMaybe<Scalars["String"]>;
   name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
@@ -6755,18 +6755,18 @@ export type AppRootProviderElementNodeAggregationWhereInput = {
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type AppRootProviderElementUpdateConnectionInput = {
+export type AppRootElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>;
 };
 
-export type AppRootProviderElementUpdateFieldInput = {
-  where?: InputMaybe<AppRootProviderElementConnectionWhere>;
-  update?: InputMaybe<AppRootProviderElementUpdateConnectionInput>;
-  connect?: InputMaybe<AppRootProviderElementConnectFieldInput>;
-  disconnect?: InputMaybe<AppRootProviderElementDisconnectFieldInput>;
-  create?: InputMaybe<AppRootProviderElementCreateFieldInput>;
-  delete?: InputMaybe<AppRootProviderElementDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<AppRootProviderElementConnectOrCreateFieldInput>;
+export type AppRootElementUpdateFieldInput = {
+  where?: InputMaybe<AppRootElementConnectionWhere>;
+  update?: InputMaybe<AppRootElementUpdateConnectionInput>;
+  connect?: InputMaybe<AppRootElementConnectFieldInput>;
+  disconnect?: InputMaybe<AppRootElementDisconnectFieldInput>;
+  create?: InputMaybe<AppRootElementCreateFieldInput>;
+  delete?: InputMaybe<AppRootElementDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<AppRootElementConnectOrCreateFieldInput>;
 };
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
@@ -7039,7 +7039,7 @@ export type AppUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>;
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>;
-  rootProviderElement?: InputMaybe<AppRootProviderElementUpdateFieldInput>;
+  rootElement?: InputMaybe<AppRootElementUpdateFieldInput>;
   store?: InputMaybe<AppStoreUpdateFieldInput>;
 };
 
@@ -7080,9 +7080,9 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>;
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>;
-  rootProviderElement?: InputMaybe<ElementWhere>;
-  rootProviderElement_NOT?: InputMaybe<ElementWhere>;
-  rootProviderElementAggregate?: InputMaybe<AppRootProviderElementAggregateInput>;
+  rootElement?: InputMaybe<ElementWhere>;
+  rootElement_NOT?: InputMaybe<ElementWhere>;
+  rootElementAggregate?: InputMaybe<AppRootElementAggregateInput>;
   store?: InputMaybe<StoreWhere>;
   store_NOT?: InputMaybe<StoreWhere>;
   storeAggregate?: InputMaybe<AppStoreAggregateInput>;
@@ -7094,8 +7094,8 @@ export type AppWhere = {
   pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>;
   pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>;
   pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>;
-  rootProviderElementConnection?: InputMaybe<AppRootProviderElementConnectionWhere>;
-  rootProviderElementConnection_NOT?: InputMaybe<AppRootProviderElementConnectionWhere>;
+  rootElementConnection?: InputMaybe<AppRootElementConnectionWhere>;
+  rootElementConnection_NOT?: InputMaybe<AppRootElementConnectionWhere>;
   storeConnection?: InputMaybe<AppStoreConnectionWhere>;
   storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>;
 };

@@ -1,18 +1,26 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { IElement, IElementRef } from './element.model.interface'
+import { INode } from '../builder'
+import { IElement } from './element.model.interface'
 
+/**
+ * Uses ref's only for the implementation
+ *
+ * Possibly could use computed tree to drive the elementTree from an original tree
+ *
+ * https://mobx-keystone.js.org/computed-trees
+ */
 export interface IElementTree {
   id: string
   _root: Nullable<Ref<IElement>>
   root: Maybe<IElement>
   elementsList: Array<IElement>
-  getPathFromRoot(element: IElement): Array<IElement>
+  getPathFromRoot(element: INode): Array<INode>
   element(id: string): Maybe<IElement>
-  buildTree(elements: Array<IElement>): void
+  buildTree(elements: Array<IElement>): IElementTree
+}
 
-  /**
-   * Modify it so it can build a tree from parameter
-   */
-  getTree(root: IElementRef): Promise<IElementTree>
+export interface IElementTreeService {
+  elementTree: IElementTree
+  initTree(rootElementId: string): Promise<IElementTree>
 }

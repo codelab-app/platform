@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/model/infra/mobx'
 import {
   CreateFieldButton,
   CreateFieldModal,
@@ -13,6 +12,7 @@ import {
   useCurrentInterfaceId,
   useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -27,11 +27,8 @@ import React from 'react'
 
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
   () => {
-    const store = useStore()
-
-    const { type, isLoading } = useGetCurrentInterfaceWithFields(
-      store.typeService,
-    )
+    const { typeService } = useStore()
+    const { type, isLoading } = useGetCurrentInterfaceWithFields(typeService)
 
     return (
       <>
@@ -41,18 +38,9 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
 
         {type && type.kind === ITypeKind.InterfaceType && (
           <>
-            <CreateFieldModal
-              interfaceType={type}
-              typeService={store.typeService}
-            />
-            <UpdateFieldModal
-              interfaceType={type}
-              typeService={store.typeService}
-            />
-            <DeleteFieldModal
-              interfaceType={type}
-              typeService={store.typeService}
-            />
+            <CreateFieldModal interfaceType={type} typeService={typeService} />
+            <UpdateFieldModal interfaceType={type} typeService={typeService} />
+            <DeleteFieldModal interfaceType={type} typeService={typeService} />
           </>
         )}
 
@@ -63,7 +51,7 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
             <FieldsTable
               interfaceType={type}
               isLoading={isLoading}
-              typeService={store.typeService}
+              typeService={typeService}
             />
           )}
         </ContentSection>
@@ -73,16 +61,16 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
 )
 
 const Header = observer(() => {
-  const store = useStore()
+  const { typeService } = useStore()
   const interfaceId = useCurrentInterfaceId()
   const router = useRouter()
-  const interfaceType = store.typeService.type(interfaceId)
+  const interfaceType = typeService.type(interfaceId)
 
   const headerButtons = [
     <CreateFieldButton
       interfaceId={interfaceId}
       key={0}
-      typeService={store.typeService}
+      typeService={typeService}
     />,
   ]
 

@@ -16,7 +16,7 @@ import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   IElementTree,
-  IRenderService,
+  IRenderer,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -25,7 +25,7 @@ import { MetaPaneTabContainer } from './MetaPane-TabContainer'
 
 type MetaPaneProps = {
   elementTree: IElementTree
-  renderService: IRenderService
+  renderService: IRenderer
 } & WithServices<
   | ATOM_SERVICE
   | TYPE_SERVICE
@@ -48,7 +48,7 @@ export const MetaPane = observer<MetaPaneProps>(
 
     return (
       <MetaPaneTabContainer
-        UpdateElementContent={({ node, trackPromises }) => {
+        UpdateElementContent={observer(({ node, trackPromises }) => {
           /**
            * The builder tree nodes could be a component as well, in which case we would show the form for components
            */
@@ -87,7 +87,7 @@ export const MetaPane = observer<MetaPaneProps>(
               ) : null}
             </>
           )
-        }}
+        })}
         atomService={atomService}
         builderService={builderService}
         elementService={elementService}

@@ -110,7 +110,7 @@ export class AppService
       name: app.name,
       owner: connectOwner(app.auth0Id),
       store: connectId(app.storeId),
-      rootProviderElement: {
+      rootElement: {
         create: {
           node: {
             id: v4(),
@@ -154,9 +154,7 @@ export class AppService
     yield* _await(pageService.deleteManyByAppId(id))
 
     yield* _await(
-      elementService.deleteElementSubgraph(
-        existing.rootProviderElement?.id as string,
-      ),
+      elementService.deleteElementSubgraph(existing.rootElement?.id as string),
     )
 
     const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))

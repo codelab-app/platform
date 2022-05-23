@@ -1,4 +1,5 @@
 import {
+  COMPONENT_SERVICE,
   ELEMENT_SERVICE,
   USER_SERVICE,
   WithServices,
@@ -10,7 +11,11 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateElementDTO, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  ICreateElementDTO,
+  IElementTree,
+  IRenderService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -20,15 +25,28 @@ import { createElementSchema } from './createElementSchema'
 
 type CreateElementModalProps = {
   elementTree: IElementTree
-} & WithServices<ELEMENT_SERVICE | USER_SERVICE>
+  renderService: IRenderService
+} & WithServices<ELEMENT_SERVICE | USER_SERVICE | COMPONENT_SERVICE>
 
 export const CreateElementModal = observer<CreateElementModalProps>(
-  ({ elementService, userService, elementTree }) => {
+  ({ elementService, userService, elementTree, renderService }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
-      const elements = await elementService.create([data])
-      elementTree.buildTree(elements)
+      const [element] = await elementService.create([data])
 
-      return Promise.resolve(elements)
+      // Build tree for page
+      elementTree.buildTree([element])
+
+      // Get the component tree for the current element
+      const componentId = element?.instanceOfComponent?.id
+
+      if (componentId) {
+        const componentTree =
+          renderService.renderers.get(componentId)?.pageTree?.current
+
+        componentTree?.buildTree([element])
+      }
+
+      return Promise.resolve([element])
     }
 
     const onSubmitError = createNotificationHandler({

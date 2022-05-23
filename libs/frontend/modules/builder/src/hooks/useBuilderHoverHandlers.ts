@@ -4,7 +4,7 @@ import { MouseEvent, useCallback } from 'react'
 
 type UseBuilderHoverHandlersProps = Pick<
   IBuilderService,
-  'setHoveredElement' | 'currentDragData'
+  'set_hoveredNode' | 'currentDragData'
 >
 
 /**
@@ -13,7 +13,7 @@ type UseBuilderHoverHandlersProps = Pick<
  */
 export const useBuilderHoverHandlers = ({
   currentDragData,
-  setHoveredElement,
+  set_hoveredNode,
 }: UseBuilderHoverHandlersProps) => {
   const handleMouseOver = useCallback((e: MouseEvent) => {
     if (currentDragData) {
@@ -23,7 +23,7 @@ export const useBuilderHoverHandlers = ({
     const target = e.target as HTMLElement
 
     if (!target) {
-      setHoveredElement(null)
+      set_hoveredNode(null)
 
       return
     }
@@ -41,14 +41,14 @@ export const useBuilderHoverHandlers = ({
     }
 
     if (elementId) {
-      setHoveredElement(elementRef(elementId))
+      set_hoveredNode(elementRef(elementId))
     } else {
-      setHoveredElement(null)
+      set_hoveredNode(null)
     }
   }, [])
 
   const handleMouseLeave = useCallback(() => {
-    setHoveredElement(null)
+    set_hoveredNode(null)
   }, [])
 
   return {
