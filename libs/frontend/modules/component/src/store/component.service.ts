@@ -232,7 +232,12 @@ export class ComponentService
     }
 
     const { deleteComponents } = yield* _await(
-      componentApi.DeleteComponents({ where: { id } }),
+      componentApi.DeleteComponents({
+        where: { id },
+        delete: {
+          api: {},
+        },
+      }),
     )
 
     if (deleteComponents.nodesDeleted === 0) {

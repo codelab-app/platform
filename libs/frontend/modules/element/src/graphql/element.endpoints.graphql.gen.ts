@@ -27,6 +27,7 @@ export type CreateElementsMutation = {
 
 export type DeleteElementsMutationVariables = Types.Exact<{
   where: Types.ElementWhere
+  delete?: Types.InputMaybe<Types.ElementDeleteInput>
 }>
 
 export type DeleteElementsMutation = {
@@ -77,8 +78,8 @@ export const CreateElementsDocument = gql`
   ${ElementFragmentDoc}
 `
 export const DeleteElementsDocument = gql`
-  mutation DeleteElements($where: ElementWhere!) {
-    deleteElements(where: $where) {
+  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
+    deleteElements(where: $where, delete: $delete) {
       nodesDeleted
     }
   }

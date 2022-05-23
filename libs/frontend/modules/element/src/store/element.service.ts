@@ -167,7 +167,10 @@ export class ElementService
    * Used to load the entire page tree
    */
   @modelFlow
-  getTree = _async(function* (this: ElementService, rootId: IElementRef) {
+  getDescendants = _async(function* (
+    this: ElementService,
+    rootId: IElementRef,
+  ) {
     const { elementGraph } = yield* _await(
       elementApi.GetElementGraph({ input: { rootId } }),
     )
@@ -350,9 +353,7 @@ export class ElementService
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
 
     for (const id of idsToDelete.reverse()) {
-      const ele = this.elements.get(id)
       this.elements.delete(id)
-      // ele?.parentElement?.removeChild(ele)
     }
 
     const {
@@ -361,6 +362,10 @@ export class ElementService
       elementApi.DeleteElements({
         where: {
           id_IN: idsToDelete,
+        },
+        delete: {
+          propMapBindings: [{}],
+          props: {},
         },
       }),
     )

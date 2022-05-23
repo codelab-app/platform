@@ -101,5 +101,5 @@ export interface IElementService
   /**
    * Get all descendant elements
    */
-  getTree(root: IElementRef): Promise<Array<IElement>>
+  getDescendants(root: IElementRef): Promise<Array<IElement>>
 }

@@ -1,5 +1,4 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { getPageService } from '@codelab/frontend/modules/page'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppWhere } from '@codelab/shared/abstract/codegen'
@@ -146,24 +145,48 @@ export class AppService
   @transaction
   delete = _async(function* (this: AppService, id: string) {
     const elementService = getElementService(this)
-    const pageService = getPageService(this)
-    const existing = throwIfUndefined(this.apps.get(id))
+    const app = throwIfUndefined(this.apps.get(id))
+    const appRootElement = app.rootElement.id
 
-    this.apps.delete(id)
-
-    yield* _await(pageService.deleteManyByAppId(id))
-
-    yield* _await(
-      elementService.deleteElementSubgraph(existing.rootElement?.id as string),
+    const pageRootElements = app.pages.map(
+      (page) => page.current.rootElement.id,
     )
 
-    const { deleteApps } = yield* _await(appApi.DeleteApps({ where: { id } }))
+    /**
+     * Delete all elements from app
+     */
+    yield* _await(elementService.deleteElementSubgraph(appRootElement))
+
+    /**
+     * Delete all elements from all pages
+     */
+    pageRootElements.forEach(async (root) => {
+      await elementService.deleteElementSubgraph(root)
+    })
+
+    const { deleteApps } = yield* _await(
+      appApi.DeleteApps({
+        where: { id },
+        delete: {
+          pages: [
+            {
+              where: {},
+              delete: {
+                rootElement: {},
+              },
+            },
+          ],
+          rootElement: {},
+          store: {},
+        },
+      }),
+    )
 
     if (deleteApps.nodesDeleted === 0) {
       // throw error so that the atomic middleware rolls back the changes
       throw new Error('App was not deleted')
     }
 
-    return existing
+    return app
   })
 }

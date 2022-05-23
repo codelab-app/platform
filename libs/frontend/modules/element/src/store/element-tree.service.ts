@@ -22,7 +22,7 @@ export class ElementTreeService
     rootElementId: string,
   ) {
     const elementService = getElementService(this)
-    const elements = yield* _await(elementService.getTree(rootElementId))
+    const elements = yield* _await(elementService.getDescendants(rootElementId))
 
     /**
      * Here we need to add to elementService

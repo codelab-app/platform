@@ -1,5 +1,4 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -104,17 +103,6 @@ export class PageService
     })
   })
 
-  // @modelFlow
-  // initTree = _async(function* (this: PageService, pageId: string) {
-  //   const elementService = getElementService(this)
-  //   const elements = yield* _await(elementService.getTree(pageId))
-  //   const elementTree = ElementTree.init(elements)
-  //   // const renderer = RenderService.init(elementTree)
-  //   // this.renderers.set(pageId, renderer)
-  //
-  //   return elementTree
-  // })
-
   @modelFlow
   @transaction
   getOne = _async(function* (this: PageService, id: string) {
@@ -187,47 +175,30 @@ export class PageService
     return existing
   })
 
-  @modelFlow
-  @transaction
-  deleteManyByAppId = _async(function* (this: PageService, id: string) {
-    const elementService = getElementService(this)
-    const pages = yield* _await(this.getAll({ app: { id } }))
-
-    yield* _await(
-      Promise.all(
-        pages.map((page) =>
-          elementService.deleteElementSubgraph(page.rootElement.id),
-        ),
-      ),
-    )
-
-    yield* _await(this.deleteMany(pages.map((page) => page.id)))
-  })
-
-  @modelFlow
-  @transaction
-  deleteMany = _async(function* (this: PageService, ids: Array<string>) {
-    if (ids.length === 0) {
-      return []
-    }
-
-    const existingPages: Array<IPage> = []
-
-    for (const id of ids) {
-      const existing = throwIfUndefined(this.pages.get(id))
-      existingPages.push(existing)
-      this.pages.delete(id)
-    }
-
-    const { deletePages } = yield* _await(
-      pageApi.DeletePages({ where: { id_IN: ids } }),
-    )
-
-    if (deletePages.nodesDeleted === 0) {
-      // throw error so that the atomic middleware rolls back the changes
-      throw new Error('Page was not deleted')
-    }
-
-    return existingPages
-  })
+  // @modelFlow
+  // @transaction
+  // deleteMany = _async(function* (this: PageService, ids: Array<string>) {
+  //   if (ids.length === 0) {
+  //     return []
+  //   }
+  //
+  //   const existingPages: Array<IPage> = []
+  //
+  //   for (const id of ids) {
+  //     const existing = throwIfUndefined(this.pages.get(id))
+  //     existingPages.push(existing)
+  //     this.pages.delete(id)
+  //   }
+  //
+  //   const { deletePages } = yield* _await(
+  //     pageApi.DeletePages({ where: { id_IN: ids } }),
+  //   )
+  //
+  //   if (deletePages.nodesDeleted === 0) {
+  //     // throw error so that the atomic middleware rolls back the changes
+  //     throw new Error('Page was not deleted')
+  //   }
+  //
+  //   return existingPages
+  // })
 }
