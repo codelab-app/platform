@@ -35,9 +35,5 @@ export const createTypeFactory = (
       type.kind === ITypeKind.UnionType
         ? makeTypesOfUnionTypeCreateInput(type)
         : undefined,
-    // fields:
-    //   type.kind === ITypeKind.InterfaceType
-    //     ? makeFieldsCreateInput(type)
-    //     : undefined,
   }))
 }

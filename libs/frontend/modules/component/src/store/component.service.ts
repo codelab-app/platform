@@ -186,11 +186,11 @@ export class ComponentService
 
     this.components.set(component.id, componentModel)
 
-    // const componentTree = yield* _await(
+    // const componentElements = yield* _await(
     //   this.elementService.getTree(component.rootElement.id),
     // )
 
-    // this.componentTrees.set(component.id, componentTree)
+    yield* _await(componentModel.initTree(component.rootElement.id))
 
     return [componentModel]
   })

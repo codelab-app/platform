@@ -24,6 +24,8 @@ export type PropsFormProps = {
  */
 export const PropsForm = observer<PropsFormProps>(
   ({ interfaceType, initialValue, onSubmit, autosave, context }) => {
+    console.log(initialValue)
+
     const form = useForm({ defaultValues: initialValue })
     const { handleSubmit, watch } = form
     const fields = [...interfaceType.fields.values()]

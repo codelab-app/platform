@@ -34,8 +34,6 @@ export class RenderService
   ) {
     const existing = this.renderers.get(id)
 
-    console.log(existing)
-
     if (!existing) {
       const renderer = Renderer.init(pageTree, appTree, platformState)
 
