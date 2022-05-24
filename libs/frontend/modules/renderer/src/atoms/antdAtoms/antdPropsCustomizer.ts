@@ -3,7 +3,7 @@ import {
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { atoms } from '../atoms'
+import { getAtom } from '../atoms'
 import { AtomCustomizer, AtomCustomizerFn } from '../types'
 
 const antDesignRglItemFn: AtomCustomizerFn = ({ node, props }) => ({
@@ -41,12 +41,14 @@ const antDesignModalFn: AtomCustomizerFn = ({ props }) => ({
  * Instead we move the icon type to the props, and use the key to destructure our icon default import
  */
 const antDesignIconFn: AtomCustomizerFn = ({ atomType, props }) => {
-  const ReactComponent = atoms[atomType]
+  const ReactComponent = getAtom(atomType, (mod: any) => mod[iconName])
   // We use a custom prop `iconName` to determine which icon to use
   const iconName = props['iconName']
 
+  console.log(props)
+
   return {
-    component: (ReactComponent as any)?.[iconName],
+    component: ReactComponent,
   }
 }
 
@@ -55,5 +57,5 @@ export const antdPropsCustomizer: AtomCustomizer = {
   [IAtomType.AntDesignRglResponsiveContainer]:
     antDesignRglResponsiveContainerFn,
   [IAtomType.AntDesignModal]: antDesignModalFn,
-  [IAtomType.AntDesignIcon]: antDesignIconFn,
+  // [IAtomType.AntDesignIcon]: antDesignIconFn,
 }

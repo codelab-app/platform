@@ -1,8 +1,14 @@
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'
 import { muiAtoms } from './muiAtoms'
-import { AtomCustomizer, AtomsRecord } from './types'
+import {
+  AtomCustomizer,
+  AtomsRecord,
+  IComponentType,
+  ModuleMapperFn,
+} from './types'
 
 // Add new atom records here
 const atomsArray: Array<AtomsRecord> = [
@@ -22,8 +28,12 @@ const propsCustomizerArray: Array<AtomCustomizer> = [
 
 /**
  * merge atom maps to into one single object
+ *
  */
-export const atoms: AtomsRecord = Object.assign({}, ...atomsArray)
+export const getAtom = (
+  atomType: IAtomType,
+  moduleMapper?: ModuleMapperFn,
+): IComponentType => Object.assign({}, ...atomsArray)[atomType](moduleMapper)
 
 /**
  * merge propsCustomizer maps to into one single object

@@ -1,18 +1,6 @@
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { Button, Tabs } from 'antd'
-import React, { useCallback, useState } from 'react'
-
-const { TabPane } = Tabs
-
-const useDemo = () => {
-  console.log('useDemo')
-
-  const sayHello = useCallback(() => {
-    console.log('hello')
-  }, [])
-
-  return {}
-}
+import { Button } from 'antd'
+import React, { useState } from 'react'
 
 const Counter = (props: any) => {
   console.log('Counter')

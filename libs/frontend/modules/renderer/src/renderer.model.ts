@@ -36,7 +36,7 @@ import { createTransformer } from 'mobx-utils'
 import React, { ComponentType, ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import { atoms } from './atoms'
+import { getAtom } from './atoms'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import {
@@ -196,7 +196,7 @@ export class Renderer
     const Providers = reduceComponentTree(
       providerOutputs
         .map((output) =>
-          output.atomType ? [atoms[output.atomType], output.props] : null,
+          output.atomType ? [getAtom(output.atomType), output.props] : null,
         )
         .filter((x): x is [ComponentType, IPropData] => !!x),
     )
