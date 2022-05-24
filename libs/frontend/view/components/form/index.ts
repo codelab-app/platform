@@ -1,3 +1,4 @@
+export * from './codeMirror/codeMirrorFieldGraphQLFactory'
 export * from './components/Form'
 export * from './components/FormModal'
 export * from './components/utils'
