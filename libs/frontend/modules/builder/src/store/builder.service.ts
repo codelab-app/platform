@@ -112,6 +112,8 @@ export class BuilderService
           return parent?.[modelTypeKey] === '@codelab/ElementTree'
         })
 
+        console.log(elementTree)
+
         return elementTree ? elementTree : prev
       }, undefined)
     }

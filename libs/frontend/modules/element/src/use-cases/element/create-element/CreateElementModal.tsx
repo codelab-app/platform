@@ -12,6 +12,7 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import {
+  IBuilderService,
   ICreateElementDTO,
   IElementTree,
   IRenderService,
@@ -24,20 +25,27 @@ import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
 type CreateElementModalProps = {
-  elementTree: IElementTree
+  pageTree: IElementTree
   renderService: IRenderService
+  builderService: IBuilderService
 } & WithServices<ELEMENT_SERVICE | USER_SERVICE | COMPONENT_SERVICE>
 
 export const CreateElementModal = observer<CreateElementModalProps>(
-  ({ elementService, userService, elementTree, renderService }) => {
+  ({
+    elementService,
+    builderService,
+    userService,
+    pageTree,
+    renderService,
+  }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const [element] = await elementService.create([data])
 
       // Build tree for page
-      elementTree.buildTree([element])
+      pageTree.buildTree([element])
 
-      // Get the component tree for the current element
-      const componentId = element?.instanceOfComponent?.id
+      // Get the component tree for the current element, so we can update the component tree
+      const componentId = builderService.activeComponent?.id
 
       if (componentId) {
         const componentTree =
@@ -92,7 +100,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={elementTree.elementsList
+                allElementOptions={pageTree.elementsList
                   .filter(
                     (element) =>
                       !element?.instanceOfComponent && !element?.component,

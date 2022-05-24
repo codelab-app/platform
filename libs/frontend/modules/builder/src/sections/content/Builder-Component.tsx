@@ -35,6 +35,8 @@ export const BuilderComponent = observer<BuilderComponentProps>(
   }) => {
     const activeComponentTree = builderService.activeElementTree
 
+    console.log(activeComponentTree)
+
     useEffect(() => {
       // eslint-disable-next-line padding-line-between-statements
       ;(async () => {

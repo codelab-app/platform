@@ -31,7 +31,13 @@ export class ElementTreeService
       elementService.elements.set(element.id, element)
     })
 
-    this.elementTree = ElementTree.init(elements)
+    if (!this.elementTree) {
+      this.elementTree = ElementTree.init(elements)
+
+      return this.elementTree
+    }
+
+    this.elementTree.buildTree(elements)
 
     return this.elementTree
   })

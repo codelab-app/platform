@@ -147,9 +147,10 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
 
         {pageTree && (
           <CreateElementModal
+            builderService={builderService}
             componentService={componentService}
             elementService={elementService}
-            elementTree={pageTree}
+            pageTree={pageTree}
             renderService={renderService}
             userService={userService}
           />
