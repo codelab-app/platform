@@ -41,6 +41,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
+      console.log(data)
+
       const promise = elementService.patchElement(element, {
         props: {
           update: {
