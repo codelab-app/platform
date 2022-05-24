@@ -2,15 +2,16 @@ import { DeleteOutlined, EditFilled } from '@ant-design/icons'
 import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { ListItemButton } from '@codelab/frontend/view/components'
+import { IResource } from '@codelab/shared/abstract/core'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { Resource, resourceRef } from '../../../store'
+import { resourceRef } from '../../../store'
 
 export type GetResourcesItemProps = WithServices<RESOURCE_SERVICE> & {
-  resource: Resource
+  resource: IResource
 }
 
 export const GetResourcesItem = observer<GetResourcesItemProps>(

@@ -7,15 +7,13 @@ import { AtomsRecord } from '../types'
 export const codelabAtoms: AtomsRecord = {
   [IAtomType.TextList]: dynamic(
     () =>
-      import('@codelab/frontend/view/components').then(
+      import('@codelab/frontend/platform/atoms').then(
         (mod) => mod.TextList,
       ) as any,
   ),
   [IAtomType.Text]: dynamic(
     () =>
-      import('@codelab/frontend/view/components').then(
-        (mod) => mod.Text,
-      ) as any,
+      import('@codelab/frontend/platform/atoms').then((mod) => mod.Text) as any,
   ),
   // [AtomType.State]: dynamic(
   //   () =>

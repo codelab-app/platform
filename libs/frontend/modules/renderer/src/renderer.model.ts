@@ -1,6 +1,7 @@
 import { elementTreeRef } from '@codelab/frontend/modules/element'
 import { getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementTree,
@@ -263,10 +264,14 @@ export class Renderer
     return mapOutput(output, appendGlobalProps)
   }
 
-  /** Renders the elements children */
+  /**
+   * Renders the elements children, createTransformer memoizes the function
+   */
   renderChildren = createTransformer(
     (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
-      const element = this.pageTree?.current.element(parentOutput.elementId)
+      // const element = this.pageTree?.current.element(parentOutput.elementId)
+      const elementService = getElementService(this)
+      const element = elementService.elements.get(parentOutput.elementId)
 
       if (!element) {
         console.warn(
