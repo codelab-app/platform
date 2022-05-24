@@ -1,8 +1,8 @@
 import {
+  exportInterfaceTypeSelectionSet,
   getDriver,
   getTypeDescendantsOGM,
   InterfaceTypeOGM,
-  interfaceTypeSelectionSet,
 } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
@@ -34,7 +34,7 @@ export const exportUserTypes = async (): Promise<ExportTypeData> => {
         count: 0,
       },
     },
-    selectionSet: interfaceTypeSelectionSet,
+    selectionSet: exportInterfaceTypeSelectionSet,
   })
 
   /**

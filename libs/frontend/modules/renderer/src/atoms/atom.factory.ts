@@ -20,7 +20,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   /**
    * get ReactComponent by atomType
    */
-  const ReactComponent = atoms[atomType]
+  let ReactComponent = atoms[atomType]
 
   if (!ReactComponent) {
     notify({
@@ -42,7 +42,11 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
   if (propsCustomizer) {
     // apply propsCustomizer and get the new props
-    props = propsCustomizer({ atomType, node, props })
+    props = propsCustomizer({ atomType, node, props }).props ?? props
+
+    // Allow us to destructure component during import if needed
+    ReactComponent =
+      propsCustomizer({ atomType, node, props }).component ?? ReactComponent
   }
 
   return [ReactComponent, props]
