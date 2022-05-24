@@ -1,4 +1,6 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
+import { CodeMirrorHTMLElement } from 'apps/web-e2e/src/types/CodeMirror'
+import CodeMirror from 'codemirror'
 import escapeRegExp from 'lodash/escapeRegExp'
 import forEach from 'lodash/forEach'
 import isArray from 'lodash/isArray'
@@ -81,6 +83,10 @@ export const getFormInput = (
     : wrapSubject(subject)
 
   switch (type) {
+    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
+      return scope.find('.CodeMirror', opts).then((elem) => {
+        return (elem[0] as CodeMirrorHTMLElement).CodeMirror
+      })
     case FIELD_TYPE.INPUT:
       return scope.find('.ant-input', opts)
     case FIELD_TYPE.NUMBER_INPUT:
@@ -488,6 +494,12 @@ export const setFormFieldValue = (
   // getField().scrollIntoView(opts)
 
   switch (type) {
+    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
+      getInput().then((codeMirrorEditor: CodeMirror.Editor) => {
+        codeMirrorEditor.setValue(String(value))
+      })
+
+      return
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
     case FIELD_TYPE.MONACO:

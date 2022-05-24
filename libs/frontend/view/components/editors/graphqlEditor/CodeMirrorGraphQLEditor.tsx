@@ -71,15 +71,15 @@ const CodeMirrorGraphQLEditor = ({
             ...editorOptions,
             extraKeys: { 'Ctrl-Space': 'autocomplete' },
             styleActiveLine: true,
-            // styleActiveSelected: true,
+            styleActiveSelected: true,
             matchBrackets: true,
             autoCloseBrackets: true,
             foldGutter: true,
             highlightSelectionMatches: true,
             mode: 'graphql',
-            // lint: {
-            //   schema,
-            // },
+            lint: {
+              schema,
+            },
             hintOptions: {
               schema,
               container: document.querySelector('.ant-modal-content'),

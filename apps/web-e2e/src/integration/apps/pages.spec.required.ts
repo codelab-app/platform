@@ -1,10 +1,23 @@
 import { pageName, updatedAppName, updatedPageName } from './app.data'
 
+const beforeHook = () => {
+  cy.getCard({ title: updatedAppName }).find('a').click()
+  cy.url({ timeout: 5000 }).should('include', 'pages')
+}
+
 describe('Pages CRUD', () => {
-  before(() => {
-    cy.getCard({ title: updatedAppName }).find('a').click()
-    cy.url({ timeout: 5000 }).should('include', 'pages')
+  beforeEach(() => {
+    cy.logInIfInAuth0Page().then((login) => {
+      if (!login) {
+        return
+      }
+
+      cy.visit('/apps')
+      beforeHook()
+    })
   })
+
+  before(beforeHook)
 
   describe('create', () => {
     it('should be able to create page', () => {

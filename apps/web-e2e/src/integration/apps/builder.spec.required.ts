@@ -47,36 +47,54 @@ const elements: Array<ElementData> = [
 
 const updatedElementName = 'Container updated'
 
+const goToTagPage = () => {
+  cy.visit('/apps')
+
+  cy.getCard({ title: updatedAppName }).find('a').click()
+
+  cy.url({ timeout: 5000 }).should('include', 'pages')
+
+  cy.contains('a', updatedPageName).click()
+
+  // select root now so we can update its child later
+  // there is an issue with tree interaction
+  cy.findByText(ROOT_ELEMENT_NAME, { timeout: 6000 })
+    .should('be.visible')
+    .click({ force: true })
+}
+
 describe('Elements CRUD', () => {
+  beforeEach(() => {
+    cy.logInIfInAuth0Page().then((login) => {
+      if (!login) {
+        return
+      }
+
+      goToTagPage
+    })
+  })
+
   before(() => {
-    cy.getCurrentUserId().then((userId) => {
-      const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
-        (atom) => ({
-          id: v4(),
-          name: atom.name,
-          type: atom.type,
-          api: {
-            create: {
-              node: {
-                id: v4(),
-                name: `${atom.name} API`,
-                owner: userId
-                  ? { connect: { where: { node: { auth0Id: userId } } } }
-                  : undefined,
+    cy.logInIfInAuth0Page().then(() => {
+      cy.getCurrentUserId().then((userId) => {
+        const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
+          (atom) => ({
+            id: v4(),
+            name: atom.name,
+            type: atom.type,
+            api: {
+              create: {
+                node: {
+                  id: v4(),
+                  name: `${atom.name} API`,
+                  owner: userId
+                    ? { connect: { where: { node: { auth0Id: userId } } } }
+                    : undefined,
+                },
               },
             },
-          },
-        }),
-      )
-
-      cy.createAtom(atomsInput).then((data) => {
-        cy.visit('/apps')
-
-        cy.getCard({ title: updatedAppName }).find('a').click()
-
-        cy.url({ timeout: 5000 }).should('include', 'pages')
-
-        cy.contains('a', updatedPageName).click()
+          }),
+        )
 
         // select root now so we can update its child later
         // there is an issue with tree interaction

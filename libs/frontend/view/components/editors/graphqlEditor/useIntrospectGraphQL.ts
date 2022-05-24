@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 export const useIntrospectGraphQLSchema = (serverUrl?: string) => {
   const [schema, setSchema] = useState<GraphQLSchema>(
     buildSchema(`
- type Query {hello:String}
+ type Query
   `),
   )
 
