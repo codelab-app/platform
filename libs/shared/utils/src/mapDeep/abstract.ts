@@ -6,8 +6,3 @@ export type IOutput = MaybeArray<IInput>
 export type Key = string | number
 export type IValueMapper = (value: IInput, key: Key) => IOutput
 export type IKeyMapper = (value: IInput, key: Key) => Key
-
-export enum MapType {
-  KEYS = 'keys',
-  VALUES = 'values',
-}

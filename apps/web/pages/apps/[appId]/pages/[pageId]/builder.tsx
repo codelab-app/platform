@@ -228,8 +228,8 @@ PageBuilder.Layout = observer((page) => {
           />
         )}
         headerHeight={38}
-      // Depending on pageBuilderRenderService causes an extra re-render
-      // key={pageBuilderRenderService.tree?.id}
+        // Depending on pageBuilderRenderService causes an extra re-render
+        // key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
       </BuilderDashboardTemplate>
