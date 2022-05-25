@@ -41,11 +41,18 @@ const antDesignModalFn: AtomCustomizerFn = ({ props }) => ({
  * Instead we move the icon type to the props, and use the key to destructure our icon default import
  */
 const antDesignIconFn: AtomCustomizerFn = ({ atomType, props }) => {
-  const ReactComponent = getAtom(atomType, (mod: any) => mod[iconName])
+  console.log(atomType)
+
   // We use a custom prop `iconName` to determine which icon to use
   const iconName = props['iconName']
 
-  console.log(props)
+  const ReactComponent = getAtom(atomType, (mod: any) => {
+    console.log(mod)
+
+    return mod[iconName]
+  })
+
+  console.log(props, ReactComponent)
 
   return {
     component: ReactComponent,
@@ -57,5 +64,5 @@ export const antdPropsCustomizer: AtomCustomizer = {
   [IAtomType.AntDesignRglResponsiveContainer]:
     antDesignRglResponsiveContainerFn,
   [IAtomType.AntDesignModal]: antDesignModalFn,
-  // [IAtomType.AntDesignIcon]: antDesignIconFn,
+  [IAtomType.AntDesignIcon]: antDesignIconFn,
 }

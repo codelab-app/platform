@@ -184,20 +184,16 @@ PageBuilder.Layout = observer((page) => {
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={pageService} />}
         MainPane={() => (
-          <>
-            {pageBuilderRenderer && (
-              <BuilderMainPane
-                atomService={atomService}
-                builderService={builderService}
-                componentService={componentService}
-                elementService={elementService}
-                key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                pageId={pageId}
-                renderService={builderRenderService}
-                userService={userService}
-              />
-            )}
-          </>
+          <BuilderMainPane
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            pageId={pageId}
+            renderService={builderRenderService}
+            userService={userService}
+          />
         )}
         MetaPane={observer(() => {
           const activeElementTree = builderService.activeElementTree

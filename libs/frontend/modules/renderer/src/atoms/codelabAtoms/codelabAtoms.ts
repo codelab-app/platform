@@ -6,11 +6,11 @@ import { AtomsRecord } from '../types'
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: AtomsRecord = {
   [IAtomType.TextList]: dynamicImport(
-    import('@codelab/frontend/platform/atoms'),
+    () => import('@codelab/frontend/platform/atoms'),
     (mod) => mod.TextList,
   ),
   [IAtomType.Text]: dynamicImport(
-    import('@codelab/frontend/platform/atoms'),
+    () => import('@codelab/frontend/platform/atoms'),
     (mod) => mod.Text,
   ),
   // [AtomType.State]: dynamic(

@@ -5,7 +5,7 @@ import {
 import { notify } from '@codelab/frontend/shared/utils'
 import { IPropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { atomPropsCustomizer, getAtom } from './atoms'
+import { allPropsCustomizer, getAtom } from './atoms'
 import { AtomFactoryInput, AtomFactoryResult } from './types'
 
 /**
@@ -42,7 +42,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
   let newProps = mergeProps(commonProps, props)
   // get propsCustomizer for atomType
-  const propsCustomizer = atomPropsCustomizer[atomType]
+  const propsCustomizer = allPropsCustomizer[atomType]
 
   if (propsCustomizer) {
     // apply propsCustomizer and get the new props

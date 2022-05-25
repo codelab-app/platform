@@ -11,20 +11,20 @@ import {
 } from './types'
 
 // Add new atom records here
-const atomsArray: Array<AtomsRecord> = [
-  htmlAtoms,
-  codelabAtoms,
-  antdAtoms,
-  muiAtoms,
-]
+const allAtoms: AtomsRecord = {
+  ...htmlAtoms,
+  ...codelabAtoms,
+  ...antdAtoms,
+  ...muiAtoms,
+}
 
 /**
  * Add a customizers here if you want to modify or add props to a specific element type
  */
-const propsCustomizerArray: Array<AtomCustomizer> = [
-  antdPropsCustomizer,
-  htmlPropsCustomizer,
-]
+export const allPropsCustomizer: AtomCustomizer = {
+  ...antdPropsCustomizer,
+  ...htmlPropsCustomizer,
+}
 
 /**
  * merge atom maps to into one single object
@@ -33,12 +33,4 @@ const propsCustomizerArray: Array<AtomCustomizer> = [
 export const getAtom = (
   atomType: IAtomType,
   moduleMapper?: ModuleMapperFn,
-): IComponentType => Object.assign({}, ...atomsArray)[atomType](moduleMapper)
-
-/**
- * merge propsCustomizer maps to into one single object
- */
-export const atomPropsCustomizer: AtomCustomizer = Object.assign(
-  {},
-  ...propsCustomizerArray,
-)
+): IComponentType | undefined => allAtoms[atomType]?.(moduleMapper)

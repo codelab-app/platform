@@ -71,7 +71,8 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const pageBuilderRenderer = renderService.renderers.get(pageId)
 
     if (!pageBuilderRenderer) {
-      throw new Error('Missing page builder renderer')
+      return null
+      // throw new Error('Missing page builder renderer')
     }
 
     const root = pageBuilderRenderer.pageTree?.current.root
