@@ -31,7 +31,7 @@ export const fieldRepository = {
             {
               where: {
                 edge: {
-                  key: args.field.key,
+                  id: args.field.id,
                 },
               },
             },
