@@ -12,11 +12,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import {
-  deepReplaceObjectValues,
-  deepReplaceObjectValuesAndKeys,
-  mergeProps,
-} from '@codelab/shared/utils'
+import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {
   AnyModel,
@@ -334,18 +330,22 @@ export class Renderer
       return props
     }
 
-    return deepReplaceObjectValuesAndKeys(props, (value, key) => ({
-      [getState(key, this.platformState)]: isString(value)
-        ? getState(value, this.platformState)
-        : value,
-    }))
+    props = mapDeep(
+      props,
+      // value mapper
+      (v, k) => (isString(v) ? getState(v, this.platformState) : v),
+      // key mapper
+      (v, k) => (isString(k) ? getState(k, this.platformState) : k),
+    )
+
+    return props
   }
 
   /**
    * Applies all the type transformers to the props
    */
   private applyPropTypeTransformers = (props: IPropData): IPropData =>
-    deepReplaceObjectValues(props, (value, key, innerObj) => {
+    mapDeep(props, (value, key) => {
       if (!isTypedValue(value)) {
         return value
       }

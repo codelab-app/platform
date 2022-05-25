@@ -1,11 +1,6 @@
 import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  emptyJsonSchema,
-  EmptyJsonSchemaType,
-  Form,
-  ModalForm,
-} from '@codelab/frontend/view/components'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -25,7 +20,7 @@ export const DeletePropMapBindingModal = observer<
       title={<span css={tw`font-semibold`}>Delete prop binding</span>}
       visible={elementService.deletePropMapBindingModal.isOpen}
     >
-      <Form<EmptyJsonSchemaType>
+      <ModalForm.Form
         model={{}}
         onSubmit={() => {
           if (!element || !pmb) {
@@ -48,7 +43,7 @@ export const DeletePropMapBindingModal = observer<
           - {pmb?.targetKey}"?
         </h4>
         <AutoFields />
-      </Form>
+      </ModalForm.Form>
     </ModalForm.Modal>
   )
 })

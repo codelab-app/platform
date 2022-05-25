@@ -11,6 +11,8 @@ import {
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
+import { toCamelCase } from '@codelab/shared/utils'
+import { merge } from 'lodash'
 import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -45,10 +47,20 @@ export const createMobxState = (
       })),
   }))
 
+  const pagesRoutes = pagesByApps
+    .flatMap((app) => app.pages)
+    .map((page) => {
+      const url = `${router?.basePath}/apps/${page.appId}/pages/${page.id}`
+
+      return { [toCamelCase(page.name)]: url }
+    })
+    .reduce(merge, {})
+
   // we inject here state globals
   const stateGlobals = {
     router,
     apps: pagesByApps,
+    pagesRoutes,
   }
 
   return rootStore.toMobxObservable(stateGlobals)
@@ -154,6 +166,8 @@ export const getState = (value: string, globalState: unknown) => {
   if (!templateExpressions) {
     return value
   }
+
+  console.log(templateExpressions)
 
   for (const templateExpression of templateExpressions) {
     const evaluated = evaluateTemplateExpression(

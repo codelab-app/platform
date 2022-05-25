@@ -9,15 +9,6 @@ const propsCustomizer = (value: any, srcValue: any, key: string) => {
     return `${value || ''} ${srcValue || ''}`
   }
 
-  if (key.toLowerCase().endsWith('ref')) {
-    // keep the value, don't want to clone refs
-    return value || srcValue
-  }
-
-  if (key === '__node') {
-    return value || srcValue
-  }
-
   return undefined
 }
 
