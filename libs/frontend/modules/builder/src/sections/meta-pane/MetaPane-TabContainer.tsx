@@ -123,7 +123,7 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
             {isElement(selectedNode) &&
-              (selectedNode.atom || selectedNode.instanceOfComponent) ? (
+            (selectedNode.atom || selectedNode.instanceOfComponent) ? (
               <UpdateElementPropsForm
                 autocomplete={renderService.platformState}
                 builderState={{
