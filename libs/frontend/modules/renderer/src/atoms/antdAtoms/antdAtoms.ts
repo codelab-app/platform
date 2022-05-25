@@ -7,13 +7,8 @@ export const antdAtoms: AtomsRecord = {
     () => import('antd/lib/grid/row'),
   ),
   [IAtomType.AntDesignIcon]: dynamicImport(
-    () => import('@ant-design/icons'),
-    // Comment this out to see the icon missing
-    (mod) => {
-      console.log(mod)
-
-      return mod.UserOutlined
-    },
+    () => import('@codelab/frontend/platform/atoms'),
+    (mod) => mod.Icon,
   ),
   [IAtomType.AntDesignMenu]: dynamicImport(() => import('antd/lib/menu')),
   [IAtomType.AntDesignMenuItem]: dynamicImport(

@@ -1,40 +1,29 @@
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { Button } from 'antd'
+/* eslint-disable padding-line-between-statements */
 import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
+import React, { ComponentType, useEffect } from 'react'
 
-const mapper = (mod: any) => mod.UserOutlined
-const Icon = dynamic(() => import('@ant-design/icons').then(mapper) as any)
+const getIcon = async () => {
+  const mod = (await import('@ant-design/icons').then((module) => {
+    console.log(module)
 
-// const MyButton = dynamic(() => import('antd/lib/button'))
+    return module.UserOutlined
+  })) as any
 
-const Counter = (props: any) => {
-  console.log('Counter')
+  console.log(mod)
 
-  return <span>{props.counter}</span>
+  return dynamic(() => mod)
 }
 
-Counter.displayName = 'Counter'
-
 const Demo = () => {
-  const [, state] = useStatefulExecutor(
-    () => {
-      return Promise.resolve({})
-    },
-    {
-      executeOnMount: true,
-    },
-  )
+  let Icon: ComponentType | null = null
 
-  const [counter, setCounter] = useState(0)
+  useEffect(() => {
+    ;(async () => {
+      Icon = await getIcon()
+    })()
+  }, [])
 
-  return (
-    <>
-      <Icon />
-      <Button onClick={() => setCounter(counter + 1)}>Click</Button>
-      <Counter counter={counter} />
-    </>
-  )
+  return <>{Icon ? <Icon /> : null}</>
 }
 
 export default Demo

@@ -21,7 +21,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   /**
    * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */
-  let ReactComponent = getAtom(atomType)
+  const ReactComponent = getAtom(atomType)
 
   if (!ReactComponent) {
     notify({
@@ -50,10 +50,6 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
     if (customizer.props) {
       newProps = customizer.props
-    }
-
-    if (customizer.component) {
-      ReactComponent = customizer.component
     }
   }
 

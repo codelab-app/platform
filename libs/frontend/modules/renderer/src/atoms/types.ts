@@ -14,9 +14,7 @@ export type ModuleMapperFn<T = unknown> = (mod: T) => any
  */
 export type IComponentType = React.ComponentType<any> | Nullable<string>
 
-export type AtomsRecord = Partial<
-  Record<IAtomType, (cb?: ModuleMapperFn) => IComponentType>
->
+export type AtomsRecord = Partial<Record<IAtomType, IComponentType>>
 
 export type AtomFactoryInput = {
   atomType: IAtomType
@@ -33,7 +31,6 @@ export type AtomCustomizerFn = (
   input: AtomFactoryInput & { props: IPropData },
 ) => {
   props?: IPropData
-  component?: IComponentType
 }
 
 export type AtomCustomizer = Partial<Record<IAtomType, AtomCustomizerFn>>

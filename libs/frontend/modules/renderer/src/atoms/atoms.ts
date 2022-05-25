@@ -3,12 +3,7 @@ import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'
 import { muiAtoms } from './muiAtoms'
-import {
-  AtomCustomizer,
-  AtomsRecord,
-  IComponentType,
-  ModuleMapperFn,
-} from './types'
+import { AtomCustomizer, AtomsRecord, IComponentType } from './types'
 
 // Add new atom records here
 const allAtoms: AtomsRecord = {
@@ -30,7 +25,5 @@ export const allPropsCustomizer: AtomCustomizer = {
  * merge atom maps to into one single object
  *
  */
-export const getAtom = (
-  atomType: IAtomType,
-  moduleMapper?: ModuleMapperFn,
-): IComponentType | undefined => allAtoms[atomType]?.(moduleMapper)
+export const getAtom = (atomType: IAtomType): IComponentType | undefined =>
+  allAtoms[atomType]
