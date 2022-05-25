@@ -1,218 +1,165 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { dynamicImport } from '../import'
+import dynamic from 'next/dynamic'
 import { AtomsRecord } from '../types'
 
 export const antdAtoms: AtomsRecord = {
-  [IAtomType.AntDesignGridRow]: dynamicImport(
-    () => import('antd/lib/grid/row'),
+  [IAtomType.AntDesignGridRow]: dynamic(() => import('antd/lib/grid/row')),
+  [IAtomType.AntDesignIcon]: dynamic(() =>
+    import('@codelab/frontend/platform/atoms').then((mod) => mod.Icon),
   ),
-  [IAtomType.AntDesignIcon]: dynamicImport(
-    () => import('@codelab/frontend/platform/atoms'),
-    (mod) => mod.Icon,
-  ),
-  [IAtomType.AntDesignMenu]: dynamicImport(() => import('antd/lib/menu')),
-  [IAtomType.AntDesignMenuItem]: dynamicImport(
+  [IAtomType.AntDesignMenu]: dynamic(() => import('antd/lib/menu')),
+  [IAtomType.AntDesignMenuItem]: dynamic(
     () => import('antd/lib/menu/MenuItem'),
   ),
-  [IAtomType.AntDesignMenuItemGroup]: dynamicImport(
-    () => import('antd/lib/menu'),
-    (mod) => mod.default.ItemGroup,
+  [IAtomType.AntDesignMenuItemGroup]: dynamic(() =>
+    import('antd/lib/menu').then((mod) => mod.default.ItemGroup),
   ),
-  [IAtomType.AntDesignMenuSubMenu]: dynamicImport(
+  [IAtomType.AntDesignMenuSubMenu]: dynamic(
     () => import('antd/lib/menu/SubMenu'),
   ),
-  [IAtomType.AntDesignGridCol]: dynamicImport(
-    () => import('antd/lib/grid/col'),
-  ),
-  [IAtomType.AntDesignCard]: dynamicImport(() => import('antd/lib/card')),
-  [IAtomType.AntDesignCardGrid]: dynamicImport(
-    () => import('antd/lib/card/Grid'),
-  ),
-  [IAtomType.AntDesignCardMeta]: dynamicImport(
-    () => import('antd/lib/card/Meta'),
-  ),
-  [IAtomType.AntDesignTypography]: dynamicImport(
-    () => import('antd/lib/typography'),
-  ),
-  [IAtomType.AntDesignTypographyTitle]: dynamicImport(
+  [IAtomType.AntDesignGridCol]: dynamic(() => import('antd/lib/grid/col')),
+  [IAtomType.AntDesignCard]: dynamic(() => import('antd/lib/card')),
+  [IAtomType.AntDesignCardGrid]: dynamic(() => import('antd/lib/card/Grid')),
+  [IAtomType.AntDesignCardMeta]: dynamic(() => import('antd/lib/card/Meta')),
+  [IAtomType.AntDesignTypography]: dynamic(() => import('antd/lib/typography')),
+  [IAtomType.AntDesignTypographyTitle]: dynamic(
     () => import('antd/lib/typography/Title'),
   ),
-  [IAtomType.AntDesignTypographyText]: dynamicImport(
+  [IAtomType.AntDesignTypographyText]: dynamic(
     () => import('antd/lib/typography/Text'),
   ),
-  [IAtomType.AntDesignTypographyParagraph]: dynamicImport(
+  [IAtomType.AntDesignTypographyParagraph]: dynamic(
     () => import('antd/lib/typography/Paragraph'),
   ),
-  [IAtomType.AntDesignAlert]: dynamicImport(() => import('antd/lib/alert')),
-  [IAtomType.AntDesignAffix]: dynamicImport(() => import('antd/lib/affix')),
-  [IAtomType.AntDesignAutoComplete]: dynamicImport(
+  [IAtomType.AntDesignAlert]: dynamic(() => import('antd/lib/alert')),
+  [IAtomType.AntDesignAffix]: dynamic(() => import('antd/lib/affix')),
+  [IAtomType.AntDesignAutoComplete]: dynamic(
     () => import('antd/lib/auto-complete'),
   ),
-  [IAtomType.AntDesignButton]: dynamicImport(() => import('antd/lib/button')),
-  [IAtomType.AntDesignBreadcrumb]: dynamicImport(
-    () => import('antd/lib/breadcrumb'),
+  [IAtomType.AntDesignButton]: dynamic(() => import('antd/lib/button')),
+  [IAtomType.AntDesignBreadcrumb]: dynamic(() => import('antd/lib/breadcrumb')),
+  [IAtomType.AntDesignBreadcrumbItem]: dynamic(() =>
+    import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
   ),
-  [IAtomType.AntDesignBreadcrumbItem]: dynamicImport(
-    () => import('antd/lib/breadcrumb'),
-    (mod) => mod.default.Item,
-  ),
-  [IAtomType.AntDesignDropdown]: dynamicImport(
-    () => import('antd/lib/dropdown'),
-  ),
-  [IAtomType.AntDesignForm]: dynamicImport(() => import('antd/lib/form')),
-  [IAtomType.AntDesignFormItem]: dynamicImport(
+  [IAtomType.AntDesignDropdown]: dynamic(() => import('antd/lib/dropdown')),
+  [IAtomType.AntDesignForm]: dynamic(() => import('antd/lib/form')),
+  [IAtomType.AntDesignFormItem]: dynamic(
     () => import('antd/lib/form/FormItem'),
   ),
-  [IAtomType.AntDesignFormList]: dynamicImport(
+  [IAtomType.AntDesignFormList]: dynamic(
     () => import('antd/lib/form/FormList'),
   ),
-  [IAtomType.AntDesignCheckbox]: dynamicImport(
-    () => import('antd/lib/checkbox'),
-  ),
-  [IAtomType.AntDesignInput]: dynamicImport(() => import('antd/lib/input')),
-  [IAtomType.AntDesignInputNumber]: dynamicImport(
+  [IAtomType.AntDesignCheckbox]: dynamic(() => import('antd/lib/checkbox')),
+  [IAtomType.AntDesignInput]: dynamic(() => import('antd/lib/input')),
+  [IAtomType.AntDesignInputNumber]: dynamic(
     () => import('antd/lib/input-number'),
   ),
-  [IAtomType.AntDesignSelect]: dynamicImport(() => import('antd/lib/select')),
-  [IAtomType.AntDesignSelectOption]: dynamicImport(
-    () => import('antd/lib/select'),
-    (mod) => mod.default.Option,
+  [IAtomType.AntDesignSelect]: dynamic(() => import('antd/lib/select')),
+  [IAtomType.AntDesignSelectOption]: dynamic(() =>
+    import('antd/lib/select').then((mod) => mod.default.Option),
   ),
-  [IAtomType.AntDesignRglContainer]: dynamicImport(
+  [IAtomType.AntDesignRglContainer]: dynamic(() => import('react-grid-layout')),
+  [IAtomType.AntDesignRglResponsiveContainer]: dynamic(
     () => import('react-grid-layout'),
   ),
-  [IAtomType.AntDesignRglResponsiveContainer]: dynamicImport(
-    () => import('react-grid-layout'),
-    (module) => null,
-  ),
-  [IAtomType.AntDesignModal]: dynamicImport(() => import('antd/lib/modal')),
-  [IAtomType.AntDesignRadioGroup]: dynamicImport(
+  [IAtomType.AntDesignModal]: dynamic(() => import('antd/lib/modal')),
+  [IAtomType.AntDesignRadioGroup]: dynamic(
     () => import('antd/lib/radio/group'),
   ),
-  [IAtomType.AntDesignRadio]: dynamicImport(() => import('antd/lib/radio')),
-  [IAtomType.AntDesignRate]: dynamicImport(() => import('antd/lib/rate')),
-  [IAtomType.AntDesignSlider]: dynamicImport(() => import('antd/lib/slider')),
-  [IAtomType.AntDesignSwitch]: dynamicImport(() => import('antd/lib/switch')),
-  [IAtomType.AntDesignSpace]: dynamicImport(() => import('antd/lib/space')),
-  [IAtomType.AntDesignDatePicker]: dynamicImport(
+  [IAtomType.AntDesignRadio]: dynamic(() => import('antd/lib/radio')),
+  [IAtomType.AntDesignRate]: dynamic(() => import('antd/lib/rate')),
+  [IAtomType.AntDesignSlider]: dynamic(() => import('antd/lib/slider') as any),
+  [IAtomType.AntDesignSwitch]: dynamic(() => import('antd/lib/switch')),
+  [IAtomType.AntDesignSpace]: dynamic(() => import('antd/lib/space')),
+  [IAtomType.AntDesignDatePicker]: dynamic(
     () => import('antd/lib/date-picker'),
   ),
-  [IAtomType.AntDesignDivider]: dynamicImport(() => import('antd/lib/divider')),
-  [IAtomType.AntDesignPagination]: dynamicImport(
-    () => import('antd/lib/pagination'),
-  ),
-  [IAtomType.AntDesignPageHeader]: dynamicImport(
+  [IAtomType.AntDesignDivider]: dynamic(() => import('antd/lib/divider')),
+  [IAtomType.AntDesignPagination]: dynamic(() => import('antd/lib/pagination')),
+  [IAtomType.AntDesignPageHeader]: dynamic(
     () => import('antd/lib/page-header'),
   ),
-  [IAtomType.AntDesignBadge]: dynamicImport(() => import('antd/lib/badge')),
-  [IAtomType.AntDesignAvatar]: dynamicImport(() => import('antd/lib/avatar')),
-  [IAtomType.AntDesignComment]: dynamicImport(() => import('antd/lib/comment')),
-  [IAtomType.AntDesignCalendar]: dynamicImport(
-    () => import('antd/lib/calendar'),
-  ),
-  [IAtomType.AntDesignDescriptions]: dynamicImport(
+  [IAtomType.AntDesignBadge]: dynamic(() => import('antd/lib/badge')),
+  [IAtomType.AntDesignAvatar]: dynamic(() => import('antd/lib/avatar')),
+  [IAtomType.AntDesignComment]: dynamic(() => import('antd/lib/comment')),
+  [IAtomType.AntDesignCalendar]: dynamic(() => import('antd/lib/calendar')),
+  [IAtomType.AntDesignDescriptions]: dynamic(
     () => import('antd/lib/descriptions'),
   ),
-  [IAtomType.AntDesignDescriptionsItem]: dynamicImport(
+  [IAtomType.AntDesignDescriptionsItem]: dynamic(
     () => import('antd/lib/descriptions/Item'),
   ),
-  [IAtomType.AntDesignEmpty]: dynamicImport(() => import('antd/lib/empty')),
-  [IAtomType.AntDesignTimeline]: dynamicImport(
-    () => import('antd/lib/timeline'),
-  ),
-  [IAtomType.AntDesignTimelineItem]: dynamicImport(
+  [IAtomType.AntDesignEmpty]: dynamic(() => import('antd/lib/empty')),
+  [IAtomType.AntDesignTimeline]: dynamic(() => import('antd/lib/timeline')),
+  [IAtomType.AntDesignTimelineItem]: dynamic(
     () => import('antd/lib/timeline/TimelineItem'),
   ),
-  [IAtomType.AntDesignTabs]: dynamicImport(() => import('antd/lib/tabs')),
-  [IAtomType.AntDesignTabsTabPane]: dynamicImport(
-    () => import('antd/lib/tabs'),
-    (mod) => mod.default.TabPane,
+  [IAtomType.AntDesignTabs]: dynamic(() => import('antd/lib/tabs')),
+  [IAtomType.AntDesignTabsTabPane]: dynamic(() =>
+    import('antd/lib/tabs').then((mod) => mod.default.TabPane),
   ),
-  [IAtomType.AntDesignStatistic]: dynamicImport(
-    () => import('antd/lib/statistic'),
+  [IAtomType.AntDesignStatistic]: dynamic(() => import('antd/lib/statistic')),
+  [IAtomType.AntDesignTooltip]: dynamic(() => import('antd/lib/tooltip')),
+  [IAtomType.AntDesignTag]: dynamic(() => import('antd/lib/tag')),
+  [IAtomType.AntDesignTree]: dynamic(() => import('antd/lib/tree')),
+  [IAtomType.AntDesignDrawer]: dynamic(() => import('antd/lib/drawer')),
+  [IAtomType.AntDesignProgress]: dynamic(
+    () => import('antd/lib/progress') as any,
   ),
-  [IAtomType.AntDesignTooltip]: dynamicImport(() => import('antd/lib/tooltip')),
-  [IAtomType.AntDesignTag]: dynamicImport(() => import('antd/lib/tag')),
-  [IAtomType.AntDesignTree]: dynamicImport(() => import('antd/lib/tree')),
-  [IAtomType.AntDesignDrawer]: dynamicImport(() => import('antd/lib/drawer')),
-  [IAtomType.AntDesignProgress]: dynamicImport(
-    () => import('antd/lib/progress'),
-  ),
-  [IAtomType.AntDesignResult]: dynamicImport(() => import('antd/lib/result')),
-  [IAtomType.AntDesignSpin]: dynamicImport(() => import('antd/lib/spin')),
-  [IAtomType.AntDesignSkeleton]: dynamicImport(
-    () => import('antd/lib/skeleton'),
-  ),
-  [IAtomType.AntDesignAnchor]: dynamicImport(() => import('antd/lib/anchor')),
-  [IAtomType.AntDesignAnchorLink]: dynamicImport(
+  [IAtomType.AntDesignResult]: dynamic(() => import('antd/lib/result')),
+  [IAtomType.AntDesignSpin]: dynamic(() => import('antd/lib/spin')),
+  [IAtomType.AntDesignSkeleton]: dynamic(() => import('antd/lib/skeleton')),
+  [IAtomType.AntDesignAnchor]: dynamic(() => import('antd/lib/anchor')),
+  [IAtomType.AntDesignAnchorLink]: dynamic(
     () => import('antd/lib/anchor/AnchorLink'),
   ),
-  [IAtomType.AntDesignBackTop]: dynamicImport(
-    () => import('antd/lib/back-top'),
-  ),
-  [IAtomType.AntDesignConfigProvider]: dynamicImport(
+  [IAtomType.AntDesignBackTop]: dynamic(() => import('antd/lib/back-top')),
+  [IAtomType.AntDesignConfigProvider]: dynamic(
     () => import('antd/lib/config-provider'),
   ),
-  [IAtomType.AntDesignPopconfirm]: dynamicImport(
-    () => import('antd/lib/popconfirm'),
-  ),
-  [IAtomType.AntDesignTreeSelect]: dynamicImport(
+  [IAtomType.AntDesignPopconfirm]: dynamic(() => import('antd/lib/popconfirm')),
+  [IAtomType.AntDesignTreeSelect]: dynamic(
     () => import('antd/lib/tree-select'),
   ),
-  [IAtomType.AntDesignTreeNode]: dynamicImport(
-    () => import('antd/lib/tree-select'),
-    (mod) => mod.default.TreeNode,
+  [IAtomType.AntDesignTreeNode]: dynamic(() =>
+    import('antd/lib/tree-select').then((mod) => mod.default.TreeNode),
   ),
-  [IAtomType.AntDesignTimePicker]: dynamicImport(
+  [IAtomType.AntDesignTimePicker]: dynamic(
     () => import('antd/lib/time-picker'),
   ),
-  [IAtomType.AntDesignUpload]: dynamicImport(() => import('antd/lib/upload')),
-  [IAtomType.AntDesignSteps]: dynamicImport(() => import('antd/lib/steps')),
-  [IAtomType.AntDesignStepsStep]: dynamicImport(
-    () => import('antd/lib/steps'),
-    (mod) => mod.default.Step,
+  [IAtomType.AntDesignUpload]: dynamic(() => import('antd/lib/upload')),
+  [IAtomType.AntDesignSteps]: dynamic(() => import('antd/lib/steps')),
+  [IAtomType.AntDesignStepsStep]: dynamic(() =>
+    import('antd/lib/steps').then((mod) => mod.default.Step),
   ),
-  [IAtomType.AntDesignCollapse]: dynamicImport(
-    () => import('antd/lib/collapse'),
-  ),
-  [IAtomType.AntDesignCollapsePanel]: dynamicImport(
+  [IAtomType.AntDesignCollapse]: dynamic(() => import('antd/lib/collapse')),
+  [IAtomType.AntDesignCollapsePanel]: dynamic(
     () => import('antd/lib/collapse/CollapsePanel'),
   ),
-  [IAtomType.AntDesignCarousel]: dynamicImport(
-    () => import('antd/lib/carousel'),
+  [IAtomType.AntDesignCarousel]: dynamic(() => import('antd/lib/carousel')),
+  [IAtomType.AntDesignList]: dynamic(() => import('antd/lib/list')),
+  [IAtomType.AntDesignListItem]: dynamic(() => import('antd/lib/list/Item')),
+  [IAtomType.AntDesignListItemMeta]: dynamic(() =>
+    import('antd/lib/list/Item').then((mod) => mod.default.Meta),
   ),
-  [IAtomType.AntDesignList]: dynamicImport(() => import('antd/lib/list')),
-  [IAtomType.AntDesignListItem]: dynamicImport(
-    () => import('antd/lib/list/Item'),
+  [IAtomType.AntDesignMentions]: dynamic(() => import('antd/lib/mentions')),
+  [IAtomType.AntDesignMentionsOption]: dynamic(() =>
+    import('antd/lib/mentions').then((mod) => mod.Option),
   ),
-  [IAtomType.AntDesignListItemMeta]: dynamicImport(
-    () => import('antd/lib/list/Item'),
-    (mod) => mod.default.Meta,
+  [IAtomType.AntDesignLayout]: dynamic(() => import('antd/lib/layout')),
+  [IAtomType.AntDesignLayoutHeader]: dynamic(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Header),
   ),
-  [IAtomType.AntDesignMentions]: dynamicImport(
-    () => import('antd/lib/mentions'),
-  ),
-  [IAtomType.AntDesignMentionsOption]: dynamicImport(
-    () => import('antd/lib/mentions'),
-    (mod) => mod.Option,
-  ),
-  [IAtomType.AntDesignLayout]: dynamicImport(() => import('antd/lib/layout')),
-  [IAtomType.AntDesignLayoutHeader]: dynamicImport(
-    () => import('antd/lib/layout'),
-    (mod) => mod.default.Header,
-  ),
-  [IAtomType.AntDesignLayoutSider]: dynamicImport(
+  [IAtomType.AntDesignLayoutSider]: dynamic(
     () => import('antd/lib/layout/Sider'),
   ),
-  [IAtomType.AntDesignLayoutContent]: dynamicImport(
-    () => import('antd/lib/layout'),
-    (mod) => mod.default.Content,
+  [IAtomType.AntDesignLayoutContent]: dynamic(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Content),
   ),
-  [IAtomType.AntDesignLayoutFooter]: dynamicImport(
-    () => import('antd/lib/layout'),
-    (mod) => mod.default.Footer,
+  [IAtomType.AntDesignLayoutFooter]: dynamic(() =>
+    import('antd/lib/layout').then((mod) => mod.default.Footer),
   ),
-  [IAtomType.AntDesignPopover]: dynamicImport(() => import('antd/lib/popover')),
-  [IAtomType.AntDesignTable]: dynamicImport(() => import('antd/lib/table')),
-  [IAtomType.AntDesignImage]: dynamicImport(() => import('antd/lib/image')),
+  [IAtomType.AntDesignPopover]: dynamic(() => import('antd/lib/popover')),
+  [IAtomType.AntDesignTable]: dynamic(() => import('antd/lib/table')),
+  [IAtomType.AntDesignImage]: dynamic(() => import('antd/lib/image')),
 }
