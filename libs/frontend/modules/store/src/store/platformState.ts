@@ -167,6 +167,8 @@ export const getState = (value: string, globalState: unknown) => {
     return value
   }
 
+  console.log(templateExpressions)
+
   for (const templateExpression of templateExpressions) {
     const evaluated = evaluateTemplateExpression(
       templateExpression,
