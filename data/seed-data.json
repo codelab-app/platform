@@ -2943,16 +2943,16 @@
       "primitiveKind": "String"
     },
     {
-      "__typename": "ReactNodeType",
-      "id": "1c56e146-0a4e-4ebb-8cea-d7ee05ec1b37",
-      "kind": "ReactNodeType",
-      "name": "ReactNodeType"
-    },
-    {
       "__typename": "RenderPropsType",
       "id": "0069b248-935e-4130-883a-580eb8dea05c",
       "kind": "RenderPropsType",
       "name": "RenderPropsType"
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "1c56e146-0a4e-4ebb-8cea-d7ee05ec1b37",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
     },
     {
       "__typename": "EnumType",
@@ -5290,6 +5290,18 @@
             "key": "className",
             "name": "Class Name",
             "description": "The className of Icon",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          },
+          {
+            "id": "c1827753-ae88-4e87-8b8b-e857cfe622e5",
+            "key": "name",
+            "name": "Name",
+            "description": "Custom field to tell Icon default import which icon to use",
             "node": {
               "__typename": "PrimitiveType",
               "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
