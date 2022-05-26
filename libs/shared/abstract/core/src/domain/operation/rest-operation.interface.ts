@@ -7,3 +7,9 @@ export enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
 }
+
+export interface IRestOperationConfig {
+  body: string
+  method: HttpMethod
+  queryParams: string
+}

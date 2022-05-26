@@ -16,22 +16,18 @@ export type CreateStoresMutation = {
   }
 }
 
-export type DeleteStoresSubgraphMutationVariables = Types.Exact<{
+export type DeleteStoresMutationVariables = Types.Exact<{
   where: Types.StoreWhere
 }>
 
-export type DeleteStoresSubgraphMutation = {
-  deleteStoresSubgraph: { nodesDeleted: number; relationshipsDeleted: number }
-}
+export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } }
 
 export type GetStoresQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
   options?: Types.InputMaybe<Types.StoreOptions>
 }>
 
-export type GetStoresQuery = {
-  stores: Array<{ descendants: Array<StoreFragment> } & StoreFragment>
-}
+export type GetStoresQuery = { stores: Array<StoreFragment> }
 
 export type UpdateStoresMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
@@ -56,11 +52,10 @@ export const CreateStoresDocument = gql`
   }
   ${StoreFragmentDoc}
 `
-export const DeleteStoresSubgraphDocument = gql`
-  mutation DeleteStoresSubgraph($where: StoreWhere!) {
-    deleteStoresSubgraph(where: $where) {
+export const DeleteStoresDocument = gql`
+  mutation DeleteStores($where: StoreWhere!) {
+    deleteStores(where: $where) {
       nodesDeleted
-      relationshipsDeleted
     }
   }
 `
@@ -68,9 +63,6 @@ export const GetStoresDocument = gql`
   query GetStores($where: StoreWhere, $options: StoreOptions) {
     stores(where: $where, options: $options) {
       ...Store
-      descendants {
-        ...Store
-      }
     }
   }
   ${StoreFragmentDoc}
@@ -118,18 +110,18 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteStoresSubgraph(
-      variables: DeleteStoresSubgraphMutationVariables,
+    DeleteStores(
+      variables: DeleteStoresMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteStoresSubgraphMutation> {
+    ): Promise<DeleteStoresMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteStoresSubgraphMutation>(
-            DeleteStoresSubgraphDocument,
+          client.request<DeleteStoresMutation>(
+            DeleteStoresDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteStoresSubgraph',
+        'DeleteStores',
         'mutation',
       )
     },

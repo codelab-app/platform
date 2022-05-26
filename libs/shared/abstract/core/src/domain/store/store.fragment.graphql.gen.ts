@@ -1,18 +1,26 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ActionFragment } from './action.fragment.graphql.gen'
+import {
+  PropFragment,
+  PropMapBindingFragment,
+} from '../prop/prop.fragment.graphql.gen'
+import { ActionFragment } from '../action/action.fragment.graphql.gen'
 import { ResourceFragment } from '../resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from './action.fragment.graphql.gen'
+import {
+  PropFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../prop/prop.fragment.graphql.gen'
+import { ActionFragmentDoc } from '../action/action.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../resource/resource.fragment.graphql.gen'
 export type StoreFragment = {
   __typename: 'Store'
   id: string
   name: string
-  localState: string
-  state: { id: string; name: string }
+  stateApi: { id: string; name: string }
+  state?: PropFragment | null
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null
   parentStoreConnection: { edges: Array<{ storeKey: string }> }
@@ -28,11 +36,13 @@ export const StoreFragmentDoc = gql`
     __typename
     id
     name
-    state {
+    stateApi {
       id
       name
     }
-    localState
+    state {
+      ...Prop
+    }
     actions {
       ...Action
     }
@@ -60,6 +70,7 @@ export const StoreFragmentDoc = gql`
       id
     }
   }
+  ${PropFragmentDoc}
   ${ActionFragmentDoc}
   ${ResourceFragmentDoc}
 `

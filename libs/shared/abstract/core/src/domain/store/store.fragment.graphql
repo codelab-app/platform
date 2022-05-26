@@ -2,11 +2,13 @@ fragment Store on Store {
   __typename
   id
   name
-  state {
+  stateApi {
     id
     name
   }
-  localState
+  state {
+    ...Prop
+  }
   actions {
     ...Action
   }

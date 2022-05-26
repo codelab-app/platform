@@ -67,8 +67,8 @@ const init = (
   platformState?: Nullish<ModelClass<AnyModel>>,
 ) => {
   return new Renderer({
-    appTree: appTree ? elementTreeRef(appTree.id) : null,
-    pageTree: elementTreeRef(pageTree.id),
+    appTree: appTree ? elementTreeRef(appTree) : null,
+    pageTree: elementTreeRef(pageTree),
     platformState,
   })
 }

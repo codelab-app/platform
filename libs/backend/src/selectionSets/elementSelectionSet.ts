@@ -1,19 +1,4 @@
-const componentSelectionSet = `
-  id
-  name
-  rootElement {
-    id
-    name
-  }
-  owner {
-    id
-    auth0Id
-  }
-  api {
-    id
-    name
-  }
-`
+import { componentSelectionSet } from './componentSelectionSet'
 
 export const elementSelectionSet = `{
   id
@@ -43,7 +28,7 @@ export const elementSelectionSet = `{
     }
   }
   props {
-      id
+    id
     data
   }
   hooks {

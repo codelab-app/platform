@@ -7,5 +7,7 @@ fragment Operation on Operation {
     name
   }
   runOnInit
-  config
+  config {
+    ...Prop
+  }
 }

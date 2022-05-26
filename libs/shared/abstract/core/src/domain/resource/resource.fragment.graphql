@@ -3,7 +3,9 @@ fragment Resource on Resource {
   id
   name
   type
-  config
+  config {
+    ...Prop
+  }
   operations {
     ...Operation
   }

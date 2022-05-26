@@ -1,7 +1,8 @@
+import { Prop } from '@codelab/frontend/modules/element'
 import { Resource, resourceRef } from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
-  IPropData,
+  IProp,
   IStore,
   IStoreDTO,
   IStoreResource,
@@ -22,6 +23,34 @@ import {
 } from 'mobx-keystone'
 import { Action, actionRef } from './action.model'
 
+export const hydrate = ({
+  actions,
+  children,
+  id,
+  localState,
+  name,
+  parentStoreConnection,
+  resources,
+  resourcesConnection,
+  state,
+  parentStore,
+}: Omit<IStoreDTO, '__typename'>): Store =>
+  new Store({
+    id,
+    children: children.map((x) => storeRef(x.id)),
+    name,
+    parentStore: parentStore?.id ? storeRef(parentStore.id) : null,
+    resources: resources.map((x) => resourceRef(x.id)),
+    resourcesKeys: resourcesConnection.edges.map((x) => ({
+      key: x.resourceKey,
+      resourceId: x.node.id,
+    })),
+    actions: actions.map((action) => actionRef(action.id)),
+    storeKey: parentStoreConnection?.edges?.[0]?.storeKey,
+    state: Prop.hydrate(state),
+    stateApi: typeRef(stateApi.id) as Ref<InterfaceType>,
+  })
+
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
@@ -36,8 +65,8 @@ export class Store
 
     name: prop<string>(),
     actions: prop<Array<Ref<Action>>>().withSetter(),
-    localState: prop<IPropData>(),
-    state: prop<Ref<InterfaceType>>().withSetter(),
+    state: prop<IProp>(),
+    stateApi: prop<Ref<InterfaceType>>().withSetter(),
   }))
   implements IStore
 {
@@ -73,8 +102,8 @@ export class Store
 
   @modelAction
   toMobxObservable(globals: any = {}) {
-    const storeState = [...this.state.current.fields.values()]
-      .map((field) => ({ [field.key]: this.localState[field.key] }))
+    const storeState = [...this.stateApi.current.fields.values()]
+      .map((field) => ({ [field.key]: this.state.data[field.key] }))
       .reduce(merge, {})
 
     const resources = this.resources
@@ -105,25 +134,7 @@ export class Store
     )
   }
 
-  static hydrate(store: IStoreDTO): Store {
-    return new Store({
-      id: store.id,
-      children: store.children.map((x) => storeRef(x.id)),
-      name: store.name,
-      parentStore: store.parentStore?.id
-        ? storeRef(store.parentStore.id)
-        : null,
-      resources: store.resources.map((x) => resourceRef(x.id)),
-      resourcesKeys: store.resourcesConnection.edges.map((x) => ({
-        key: x.resourceKey,
-        resourceId: x.node.id,
-      })),
-      actions: store.actions.map((action) => actionRef(action.id)),
-      storeKey: store.parentStoreConnection?.edges?.[0]?.storeKey,
-      localState: JSON.parse(store.localState),
-      state: typeRef(store.state.id) as Ref<InterfaceType>,
-    })
-  }
+  static;
 }
 
 export const storeRef = rootRef<Store>('@codelab/StoreRef', {

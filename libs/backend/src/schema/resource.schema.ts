@@ -11,17 +11,8 @@ export const resourceSchema = gql`
     id: ID! @id
     type: ResourceType!
     name: String!
-    config: String! @default(value: "{}")
+    config: Prop @relationship(type: "RESOURCE_CONFIG", direction: OUT)
     operations: [Operation!]!
       @relationship(type: "RESOURCE_OPERATION", direction: IN)
-  }
-
-  type Operation {
-    id: ID! @id
-    name: String!
-    runOnInit: Boolean @default(value: false)
-    resource: Resource!
-      @relationship(type: "RESOURCE_OPERATION", direction: OUT)
-    config: String! @default(value: "{}")
   }
 `

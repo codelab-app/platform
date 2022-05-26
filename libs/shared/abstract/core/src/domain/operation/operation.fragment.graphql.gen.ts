@@ -1,15 +1,23 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import {
+  PropFragment,
+  PropMapBindingFragment,
+} from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import {
+  PropFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../prop/prop.fragment.graphql.gen'
 export type OperationFragment = {
   __typename: 'Operation'
   id: string
   name: string
   runOnInit?: boolean | null
-  config: string
   resource: { id: string; name: string }
+  config?: PropFragment | null
 }
 
 export const OperationFragmentDoc = gql`
@@ -22,8 +30,11 @@ export const OperationFragmentDoc = gql`
       name
     }
     runOnInit
-    config
+    config {
+      ...Prop
+    }
   }
+  ${PropFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

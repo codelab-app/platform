@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-micro'
 import { print } from 'graphql'
+import { actionSchema } from './action.schema'
 import { adminSchema } from './admin.schema'
 import { appSchema } from './app.schema'
 import { atomSchema } from './atom.schema'
@@ -7,6 +8,7 @@ import { commonSchema } from './common.schema'
 import { componentSchema } from './component.schema'
 import { elementSchema } from './element.schema'
 import { hookSchema } from './hook.schema'
+import { operationSchema } from './operation.schema'
 import { pageSchema } from './page.schema'
 import { propSchema } from './prop.schema'
 import { resourceSchema } from './resource.schema'
@@ -29,8 +31,10 @@ export const typeDefs = print(gql`
   ${elementSchema}
   ${propSchema}
   ${hookSchema}
+  ${operationSchema}
   ${componentSchema}
   ${adminSchema}
   ${storeSchema}
+  ${actionSchema}
   ${resourceSchema}
 `)

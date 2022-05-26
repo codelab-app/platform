@@ -1,7 +1,7 @@
-import { IGraphQLResourceConfig } from './graphql-resource'
+import { IGraphQLResourceConfig } from './graphql-resource-config.interface'
 import { ResourceFragment } from './resource.fragment.graphql.gen'
-import { ResourceType } from './resource-type.enum'
-import { IRestResourceConfig } from './rest-resource'
+import { ResourceType } from './resource.model.interface'
+import { IRestResourceConfig } from './rest-resource-config.interface'
 
 export type ICreateResourceDTO = {
   name: string

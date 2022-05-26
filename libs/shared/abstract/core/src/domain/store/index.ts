@@ -1,6 +1,3 @@
-export * from './action.dto.interface'
-export * from './action.model.interface'
-export * from './action.service.interface'
 export * from './store.dto.interface'
 export * from './store.interface'
 export * from './store.service.interface'
