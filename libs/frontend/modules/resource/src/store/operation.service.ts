@@ -1,5 +1,8 @@
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { OperationWhere } from '@codelab/shared/abstract/codegen'
+import {
+  OperationCreateInput,
+  OperationWhere,
+} from '@codelab/shared/abstract/codegen'
 import {
   ICreateOperationDTO,
   IOperationDTO,
@@ -69,9 +72,15 @@ export class OperationService
     this: OperationService,
     data: Array<ICreateOperationDTO>,
   ) {
-    const input = data.map((operation) => ({
+    const input: Array<OperationCreateInput> = data.map((operation) => ({
       name: operation.name,
-      config: JSON.stringify(operation.config),
+      config: {
+        create: {
+          node: {
+            data: JSON.stringify(operation.config),
+          },
+        },
+      },
       runOnIt: operation.runOnInit,
       resource: connectId(operation.resource),
     }))
@@ -108,7 +117,14 @@ export class OperationService
 
     const { updateOperations } = yield* _await(
       operationApi.UpdateOperation({
-        update: { name, config: JSON.stringify(config), runOnInit },
+        update: {
+          name,
+          config: {
+            update: { node: { data: JSON.stringify(config) } },
+            where: {},
+          },
+          runOnInit,
+        },
         where: { id: operation.id },
       }),
     )
@@ -137,7 +153,7 @@ export class OperationService
 
     if (existing) {
       existing.name = operation.name
-      existing.config = JSON.parse(operation.config)
+      existing.config.updateCache(operation.config)
       existing.resourceId = operation.resource.id
       existing.runOnInit = Boolean(operation.runOnInit)
     } else {

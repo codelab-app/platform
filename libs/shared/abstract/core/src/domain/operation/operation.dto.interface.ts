@@ -1,7 +1,7 @@
-import { IGraphQLOperationConfig } from '../resource/graphql-resource'
 import { IResourceRef } from '../resource/resource.model.interface'
-import { IRestOperationConfig } from '../resource/rest-resource'
+import { IGraphQLOperationConfig } from './graphql-operation-config.interface'
 import { OperationFragment } from './operation.fragment.graphql.gen'
+import { IRestOperationConfig } from './rest-operation-config.interface'
 
 export type ICreateOperationDTO = {
   resource: IResourceRef

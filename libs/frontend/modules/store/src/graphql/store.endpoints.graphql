@@ -1,3 +1,14 @@
+query GetStoreGraph($input: StoreGraphInput!) {
+  storeGraph(input: $input) {
+    ...StoreGraph
+  }
+}
+
+fragment StoreGraph on StoreGraph {
+  id
+  descendants
+}
+
 mutation CreateStores($input: [StoreCreateInput!]!) {
   createStores(input: $input) {
     info {

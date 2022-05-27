@@ -1,4 +1,9 @@
-import { IOperation, IOperationDTO } from '@codelab/shared/abstract/core'
+import { Prop } from '@codelab/frontend/modules/element'
+import {
+  IOperation,
+  IOperationConfig,
+  IOperationDTO,
+} from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 @model('@codelab/Operation')
@@ -6,7 +11,7 @@ export class Operation
   extends Model({
     id: idProp,
     name: prop<string>(),
-    config: prop<IOperation['config']>(),
+    config: prop<IOperationConfig>(),
     resourceId: prop<string>(),
     runOnInit: prop<boolean>(false),
   })
@@ -16,7 +21,7 @@ export class Operation
     return new Operation({
       id: operation.id,
       name: operation.name,
-      config: JSON.parse(operation.config),
+      config: Prop.hydrate(operation.config) as IOperationConfig,
       resourceId: operation.resource.id,
       runOnInit: operation.runOnInit,
     })

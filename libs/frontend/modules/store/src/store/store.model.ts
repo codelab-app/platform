@@ -1,14 +1,15 @@
 import { Prop } from '@codelab/frontend/modules/element'
-import { Resource, resourceRef } from '@codelab/frontend/modules/resource'
+import { resourceRef } from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
   IProp,
+  IResource,
   IStore,
   IStoreDTO,
   IStoreResource,
+  STORE_NODE_TYPE,
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
 import { computed, makeAutoObservable } from 'mobx'
 import {
@@ -17,6 +18,7 @@ import {
   Model,
   model,
   modelAction,
+  objectMap,
   prop,
   Ref,
   rootRef,
@@ -27,17 +29,16 @@ export const hydrate = ({
   actions,
   children,
   id,
-  localState,
   name,
   parentStoreConnection,
   resources,
   resourcesConnection,
   state,
+  stateApi,
   parentStore,
-}: Omit<IStoreDTO, '__typename'>): Store =>
+}: Omit<IStoreDTO, '__typename'>) =>
   new Store({
     id,
-    children: children.map((x) => storeRef(x.id)),
     name,
     parentStore: parentStore?.id ? storeRef(parentStore.id) : null,
     resources: resources.map((x) => resourceRef(x.id)),
@@ -55,12 +56,14 @@ export const hydrate = ({
 export class Store
   extends Model(() => ({
     id: idProp,
-    parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
-    children: prop<Array<Ref<Store>>>().withSetter(),
-    // PARENT_OF_STORE relation property
+    __nodeType: prop<STORE_NODE_TYPE>(STORE_NODE_TYPE),
+
+    parentStore: prop<Nullish<Ref<IStore>>>().withSetter(),
+    children: prop(() => objectMap<Ref<IStore>>()),
+    // STORE_PARENT relation property
     storeKey: prop<Nullable<string>>(null).withSetter(),
 
-    resources: prop<Array<Ref<Resource>>>(() => []),
+    resources: prop<Array<Ref<IResource>>>(() => []),
     resourcesKeys: prop<Array<IStoreResource>>(() => []),
 
     name: prop<string>(),
@@ -81,6 +84,23 @@ export class Store
   }
 
   @computed
+  get childrenList() {
+    return [...this.children.values()].map((x) => x.current)
+  }
+
+  @computed
+  get antdNode() {
+    return {
+      key: this.id,
+      title: this.name,
+      type: STORE_NODE_TYPE as STORE_NODE_TYPE,
+      children: this.childrenList
+        ? this.childrenList.map((child) => child.antdNode)
+        : [],
+    }
+  }
+
+  @computed
   get resourcesList() {
     return this.resources.map((x) => ({
       id: x.current?.id,
@@ -92,12 +112,33 @@ export class Store
   }
 
   @modelAction
-  toTreeNode(): TreeDataNode {
-    return {
-      key: this.id,
-      title: this.name,
-      children: this.children.map((child) => child.current.toTreeNode()),
-    }
+  updateCache({
+    id,
+    name,
+    actions,
+    children,
+    parentStoreConnection,
+    resources,
+    resourcesConnection,
+    state,
+    stateApi,
+    parentStore,
+  }: Omit<IStoreDTO, '__typename'>) {
+    this.id = id
+    this.name = name
+    this.actions = actions.map((a) => actionRef(a.id))
+    this.resources = resources.map((r) => resourceRef(r.id))
+    this.parentStore = parentStore?.id ? storeRef(parentStore.id) : null
+    this.storeKey = parentStoreConnection?.edges[0]?.storeKey ?? null
+    this.stateApi = typeRef(stateApi.id) as Ref<InterfaceType>
+    this.state.updateCache(state)
+
+    this.resourcesKeys = resourcesConnection.edges.map((c) => ({
+      key: c.resourceKey,
+      resourceId: c.node.id,
+    }))
+
+    return this
   }
 
   @modelAction
@@ -123,9 +164,9 @@ export class Store
       }))
       .reduce(merge, {})
 
-    const childStores: any = this.children
+    const childStores: any = this.childrenList
       .map((x) => ({
-        [x.current.storeKey as string]: x.current.toMobxObservable(),
+        [x.storeKey as string]: x.toMobxObservable(),
       }))
       .reduce(merge, {})
 
@@ -134,10 +175,10 @@ export class Store
     )
   }
 
-  static;
+  static hydrate = hydrate
 }
 
-export const storeRef = rootRef<Store>('@codelab/StoreRef', {
+export const storeRef = rootRef<IStore>('@codelab/StoreRef', {
   onResolvedValueChange(ref, newStore, oldStore) {
     if (oldStore && !newStore) {
       detach(ref)

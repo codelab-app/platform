@@ -31,7 +31,7 @@ export const UpdateLocalStateForm = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSubmit = (localState: IPropData) => {
+  const onSubmit = (state: IPropData) => {
     if (!store) {
       throw new Error('Updated store is not set')
     }
@@ -42,7 +42,7 @@ export const UpdateLocalStateForm = observer<
         id: store.parentStore?.id as string,
         key: store.storeKey as string,
       },
-      localState: JSON.stringify(localState),
+      state: JSON.stringify(state),
     })
   }
 
@@ -58,7 +58,7 @@ export const UpdateLocalStateForm = observer<
             autosave
             interfaceType={data as InterfaceType}
             key={store?.id}
-            model={store?.localState || {}}
+            model={store?.state || {}}
             onSubmit={onSubmit}
             onSubmitError={onSubmitError}
             submitRef={undefined}

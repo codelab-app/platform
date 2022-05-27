@@ -27,7 +27,7 @@ export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
     const model = updateResource
       ? {
           name: updateResource.name,
-          config: updateResource.config,
+          config: updateResource.config.data,
           type: updateResource.type,
         }
       : {}

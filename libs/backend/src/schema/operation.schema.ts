@@ -7,6 +7,6 @@ export const operationSchema = gql`
     runOnInit: Boolean @default(value: false)
     resource: Resource!
       @relationship(type: "RESOURCE_OPERATION", direction: OUT)
-    config: Prop @relationship(type: "OPERATION_CONFIG", direction: OUT)
+    config: Prop! @relationship(type: "OPERATION_CONFIG", direction: OUT)
   }
 `

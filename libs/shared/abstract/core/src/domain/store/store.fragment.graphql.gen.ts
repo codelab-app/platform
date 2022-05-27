@@ -20,7 +20,7 @@ export type StoreFragment = {
   id: string
   name: string
   stateApi: { id: string; name: string }
-  state?: PropFragment | null
+  state: PropFragment
   actions: Array<ActionFragment>
   parentStore?: { id: string; name: string } | null
   parentStoreConnection: { edges: Array<{ storeKey: string }> }

@@ -17,7 +17,7 @@ export type OperationFragment = {
   name: string
   runOnInit?: boolean | null
   resource: { id: string; name: string }
-  config?: PropFragment | null
+  config: PropFragment
 }
 
 export const OperationFragmentDoc = gql`

@@ -1,8 +1,12 @@
+import { IRestResourceConfig } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { GraphQLClient } from 'graphql-request'
 import { BaseResource } from '../base-resource'
 
-export class GraphQLResource extends BaseResource<GraphQLClient> {
+export class GraphQLResource extends BaseResource<
+  GraphQLClient,
+  IRestResourceConfig
+> {
   private _client: Nullish<GraphQLClient> = null
 
   getInstance(): GraphQLClient {

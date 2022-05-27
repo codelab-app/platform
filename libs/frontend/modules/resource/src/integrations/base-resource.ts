@@ -1,7 +1,5 @@
-import { IResource } from '@codelab/shared/abstract/core'
-
-export abstract class BaseResource<R> {
-  constructor(protected _config: IResource['config']) {}
+export abstract class BaseResource<R, Config> {
+  constructor(protected _config: Config) {}
 
   abstract getInstance(): R
 }

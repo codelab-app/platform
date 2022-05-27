@@ -18,7 +18,7 @@ export type ResourceFragment = {
   id: string
   name: string
   type: Types.ResourceType
-  config?: PropFragment | null
+  config: PropFragment
   operations: Array<OperationFragment>
 }
 

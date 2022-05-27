@@ -7712,7 +7712,11 @@ type Mutation {
 }
 
 type Operation {
-  config(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  config(
+    directed: Boolean = true
+    options: PropOptions
+    where: PropWhere
+  ): Prop!
   configAggregate(
     directed: Boolean = true
     where: PropWhere
@@ -9947,6 +9951,7 @@ type Query {
     sort: [ResourceSort]
     where: ResourceWhere
   ): ResourcesConnection!
+  storeGraph(input: StoreGraphInput!): StoreGraph!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
   storesConnection(
@@ -10459,7 +10464,11 @@ type ResetDatabaseMutationResponsesConnection {
 }
 
 type Resource {
-  config(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  config(
+    directed: Boolean = true
+    options: PropOptions
+    where: PropWhere
+  ): Prop!
   configAggregate(
     directed: Boolean = true
     where: PropWhere
@@ -10962,7 +10971,7 @@ type Store {
     sort: [StoreResourcesConnectionSort!]
     where: StoreResourcesConnectionWhere
   ): StoreResourcesConnection!
-  state(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  state(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   stateAggregate(
     directed: Boolean = true
     where: PropWhere
@@ -11334,6 +11343,15 @@ input StoreDisconnectInput {
 type StoreEdge {
   cursor: String!
   node: Store!
+}
+
+type StoreGraph {
+  descendants: [ID!]!
+  id: ID!
+}
+
+input StoreGraphInput {
+  rootId: String!
 }
 
 type StoreInterfaceTypeStateApiAggregationSelection {

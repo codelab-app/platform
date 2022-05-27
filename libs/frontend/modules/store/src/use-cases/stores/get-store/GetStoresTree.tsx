@@ -20,7 +20,9 @@ export const GetStoresTree = observer<WithServices<STORE_SERVICE>>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const storesTrees: Array<TreeDataNode> = storeService.antdTree
+    const storesTrees: Array<TreeDataNode> = storeService.roots.map(
+      (r) => r.antdNode,
+    )
 
     return (
       <Spinner isLoading={isLoading}>
@@ -31,7 +33,7 @@ export const GetStoresTree = observer<WithServices<STORE_SERVICE>>(
           titleRender={(node) => (
             <TreeItemTitle node={node} storeService={storeService} />
           )}
-          treeData={storesTrees ? storesTrees : []}
+          treeData={storesTrees}
         />
       </Spinner>
     )

@@ -13,9 +13,7 @@ export const CreateStoreButton = observer<WithServices<STORE_SERVICE>>(
         icon={<PlusOutlined />}
         onClick={() => storeService.createModal.open()}
         type="primary"
-      >
-        Create Store
-      </Button>
+      />
     )
   },
 )

@@ -38,19 +38,19 @@ export const makeStoreCreateInput = (
           }
         : null,
     },
-    localState: '{}',
-    state: { create: { node: interfaceCreateInput } },
+    state: { create: { node: { data: '{}' } } },
+    stateApi: { create: { node: interfaceCreateInput } },
   }
 }
 
 export const makeStoreUpdateInput = (
   input: IUpdateStoreDTO,
 ): StoreUpdateInput => {
-  const { name, parentStore, localState } = input
+  const { name, parentStore, state } = input
 
   return {
     name,
-    localState,
+    state: { update: { node: { data: state } }, where: {} },
     parentStore: {
       disconnect: { where: {} },
       connect: parentStore?.id

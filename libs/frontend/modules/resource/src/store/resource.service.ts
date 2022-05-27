@@ -1,5 +1,8 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ResourceCreateInput,
+  ResourceWhere,
+} from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
   IResourceDTO,
@@ -78,10 +81,16 @@ export class ResourceService
     this: ResourceService,
     data: Array<ICreateResourceDTO>,
   ) {
-    const input = data.map((resource) => ({
+    const input: Array<ResourceCreateInput> = data.map((resource) => ({
       type: resource.type,
       name: resource.name,
-      config: JSON.stringify(resource.config),
+      config: {
+        create: {
+          node: {
+            data: JSON.stringify(resource.config),
+          },
+        },
+      },
     }))
 
     const {
@@ -119,7 +128,10 @@ export class ResourceService
         update: {
           name,
           type,
-          config: JSON.stringify(config),
+          config: {
+            update: { node: { data: JSON.stringify(config) } },
+            where: {},
+          },
         },
         where: { id: resource.id },
       }),
@@ -165,7 +177,7 @@ export class ResourceService
 
     if (existing) {
       existing.name = resource.name
-      existing.config = JSON.parse(resource.config)
+      existing.config.updateCache(resource.config)
       existing.type = resource.type
     } else {
       this.addResource(Resource.hydrate(resource))

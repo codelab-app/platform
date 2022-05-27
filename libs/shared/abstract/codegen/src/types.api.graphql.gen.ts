@@ -8379,7 +8379,7 @@ export type MutationUpsertFieldArgs = {
 
 export type Operation = {
   __typename?: 'Operation'
-  config?: Maybe<Prop>
+  config: Prop
   configAggregate?: Maybe<OperationPropConfigAggregationSelection>
   configConnection: OperationConfigConnection
   id: Scalars['ID']
@@ -10525,6 +10525,7 @@ export type Query = {
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
   resourcesConnection: ResourcesConnection
+  storeGraph: StoreGraph
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
   storesConnection: StoresConnection
@@ -10957,6 +10958,10 @@ export type QueryResourcesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<ResourceSort>>>
   where?: InputMaybe<ResourceWhere>
+}
+
+export type QueryStoreGraphArgs = {
+  input: StoreGraphInput
 }
 
 export type QueryStoresArgs = {
@@ -11591,7 +11596,7 @@ export type ResetDatabaseMutationResponsesConnection = {
 
 export type Resource = {
   __typename?: 'Resource'
-  config?: Maybe<Prop>
+  config: Prop
   configAggregate?: Maybe<ResourcePropConfigAggregationSelection>
   configConnection: ResourceConfigConnection
   id: Scalars['ID']
@@ -12052,7 +12057,7 @@ export type Store = {
   resources: Array<Resource>
   resourcesAggregate?: Maybe<StoreResourceResourcesAggregationSelection>
   resourcesConnection: StoreResourcesConnection
-  state?: Maybe<Prop>
+  state: Prop
   stateAggregate?: Maybe<StorePropStateAggregationSelection>
   stateApi: InterfaceType
   stateApiAggregate?: Maybe<StoreInterfaceTypeStateApiAggregationSelection>
@@ -12524,6 +12529,16 @@ export type StoreEdge = {
   __typename?: 'StoreEdge'
   cursor: Scalars['String']
   node: Store
+}
+
+export type StoreGraph = {
+  __typename?: 'StoreGraph'
+  descendants: Array<Scalars['ID']>
+  id: Scalars['ID']
+}
+
+export type StoreGraphInput = {
+  rootId: Scalars['String']
 }
 
 export type StoreInterfaceTypeStateApiAggregationSelection = {

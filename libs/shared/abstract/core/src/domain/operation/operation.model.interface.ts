@@ -1,12 +1,15 @@
-// export type IOperation = IRestOperation | IGraphQLOperation
+import { IProp } from '../prop'
+import { IGraphQLOperationConfig } from './graphql-operation-config.interface'
+import { IRestOperationConfig } from './rest-operation-config.interface'
 
-import { IGraphQLOperationConfig } from './graphql-resource'
-import { IRestOperationConfig } from './rest-resource'
+export type IOperationConfig = IProp<
+  IRestOperationConfig | IGraphQLOperationConfig
+>
 
 export interface IOperation {
   id: string
   name: string
-  config: IGraphQLOperationConfig | IRestOperationConfig
+  config: IOperationConfig
   resourceId: string
   runOnInit: boolean
 }

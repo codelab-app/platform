@@ -1,10 +1,15 @@
 import { gql } from 'apollo-server-micro'
 
 export const storeSchema = gql`
+  type StoreGraph @exclude {
+    id: ID!
+    descendants: [ID!]!
+  }
+
   type Store {
     id: ID! @id
     name: String!
-    state: Prop @relationship(type: "STORE_STATE", direction: OUT)
+    state: Prop! @relationship(type: "STORE_STATE", direction: OUT)
     stateApi: InterfaceType!
       @relationship(type: "STORE_STATE_API", direction: OUT)
 
@@ -29,6 +34,14 @@ export const storeSchema = gql`
         properties: "StoreResource"
         direction: OUT
       )
+  }
+
+  input StoreGraphInput {
+    rootId: String!
+  }
+
+  type Query {
+    storeGraph(input: StoreGraphInput!): StoreGraph!
   }
 
   interface StoreParent @relationshipProperties {

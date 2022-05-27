@@ -1,7 +1,9 @@
+import { Prop } from '@codelab/frontend/modules/element'
 import {
   IGraphQLOperationConfig,
   IResource,
   IResourceDTO,
+  IResourceOperation,
   IRestOperationConfig,
   ResourceType,
 } from '@codelab/shared/abstract/core'
@@ -24,7 +26,7 @@ export class Resource
   extends Model(() => ({
     id: idProp,
     name: prop<string>(),
-    config: prop<IResource['config']>(),
+    config: prop<IResourceOperation>(),
     type: prop<ResourceType>(),
     operations: prop<Array<Ref<Operation>>>(),
   }))
@@ -35,7 +37,7 @@ export class Resource
       id: resource.id,
       name: resource.name,
       type: resource.type,
-      config: JSON.parse(resource.config),
+      config: Prop.hydrate(resource.config) as IResourceOperation,
       operations: resource.operations.map((x) => operationRef(x.id)),
     })
   }
@@ -50,15 +52,15 @@ export class Resource
         switch (this.type) {
           case ResourceType.GraphQL:
             operationInstance = createGraphQLOperation(
-              this.config,
-              config as IGraphQLOperationConfig,
+              this.config.data,
+              config.data as IGraphQLOperationConfig,
               runOnInit,
             )
             break
           case ResourceType.Rest:
             operationInstance = createRestOperation(
-              this.config,
-              config as IRestOperationConfig,
+              this.config.data,
+              config.data as IRestOperationConfig,
               runOnInit,
             )
             break

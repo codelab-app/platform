@@ -1,8 +1,12 @@
+import { IRestResourceConfig } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import axios, { AxiosInstance } from 'axios'
 import { BaseResource } from '../base-resource'
 
-export class RestResource extends BaseResource<AxiosInstance> {
+export class RestResource extends BaseResource<
+  AxiosInstance,
+  IRestResourceConfig
+> {
   private _client: Nullish<AxiosInstance> = null
 
   getInstance(): AxiosInstance {
