@@ -17,13 +17,15 @@ export const getButton = (
       Cypress.Shadow
   >,
 ): CypressElement => {
-  Cypress.log({
-    displayName: 'Get Button',
-    // message: name,
-    name: 'Add new board',
-  })
+  // Cypress.log({
+  //   displayName: 'Get Button',
+  //   // message: name,
+  //   name: 'Add new board',
+  // })
 
   if (icon) {
+    console.log(subject)
+
     return subject
       ? cy
           .wrap(subject)

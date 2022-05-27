@@ -41,9 +41,3 @@ beforeEach(() => {
   )
   // cy.preserveAuth0CookiesOnce()
 })
-
-afterEach(() => {
-  // if (Cypress.currentTest. === 'failed') {
-  //   Cypress.runner.stop()
-  // }
-})
