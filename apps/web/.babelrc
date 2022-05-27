@@ -42,6 +42,14 @@
         "loose": true
       }
     ]
+    // This imports antd into our app
+//    [
+//      "import",
+//      {
+//        "libraryName": "antd",
+//        "style": true
+//      }
+//    ]
   ],
   "env": {
     "development": {

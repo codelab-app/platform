@@ -1,6 +1,8 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
 import '../src/styles/app.css'
+// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
+import '../src/styles/antd-theme.less'
 import 'animate.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
@@ -17,6 +19,7 @@ import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
+//
 /**
  * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
  */

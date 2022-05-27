@@ -3,12 +3,9 @@ import {
   DatabaseOutlined,
   PartitionOutlined,
 } from '@ant-design/icons'
-import {
-  SidebarContainer,
-  SidebarNavigation,
-} from '@codelab/frontend/view/templates'
+import { SidebarNavigation } from '@codelab/frontend/view/templates'
 import { BuilderTab, IBuilderService } from '@codelab/shared/abstract/core'
-import { MenuProps } from 'antd'
+import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -43,12 +40,7 @@ export const BuilderSidebarNavigation = observer<BuilderSidebarNavigationProps>(
 
     return (
       <div css={tw`flex flex-col justify-between`}>
-        <SidebarContainer
-          defaultSelectedKeys={[BuilderTab.Tree]}
-          fullHeight={false}
-          items={items}
-          selectedKeys={[activeBuilderTab]}
-        />
+        <Menu defaultOpenKeys={[]} items={items} mode="inline" />
         <SidebarNavigation />
       </div>
     )

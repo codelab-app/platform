@@ -2,8 +2,10 @@ const util = require('util')
 const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const { patchWebpackConfig } = require('next-global-css')
+const withAntdLess = require('next-plugin-antd-less')
 const path = require('path')
 const { merge } = require('lodash')
+const withLess = require('next-with-less')
 const withTM = require('next-transpile-modules')([
   // `monaco-editor` isn't published to npm correctly: it includes both CSS
   // imports and non-Node friendly syntax, so it needs to be compiled.
@@ -42,11 +44,40 @@ const withRawCypherFiles = (nextConfig = {}) => {
  */
 module.exports = withPlugins(
   [
-    withNx,
-    withTM,
-    withRawCypherFiles,
-    withBundleAnalyzer,
+    // withTM,
+    // [
+    //   withAntdLess,
+    //   {
+    //     // modifyVars: { '@primary-color': '#04f' },
+    //     lessVarsFilePath: './src/styles/antd-theme.less',
+    //     // lessVarsFilePathAppendToEndOfContent: false,
+    //     // lessLoaderOptions: {
+    //     //   javascriptEnabled: true,
+    //     // },
+    //   },
+    // ],
     [
+      withLess,
+      {
+        lessLoaderOptions: {},
+      },
+    ],
+    // withBundleAnalyzer,
+    // Keep withNx last
+    // [
+    //   withAntdLess,
+    //   {
+    //     // modifyVars: { '@layout-header-padding': '0px' },
+    //     lessVarsFilePath: './src/styles/antd-theme.less',
+    //     lessVarsFilePathAppendToEndOfContent: false,
+    //     lessLoaderOptions: {
+    //       javascriptEnabled: true,
+    //     },
+    //   },
+    // ],
+    withRawCypherFiles,
+    [
+      withNx,
       {
         /**
          * Issue with importing ESM modules from node_modules, such as monaco-editor
@@ -64,24 +95,11 @@ module.exports = withPlugins(
         experimental: {
           esmExternals: false,
         },
-        cssModules: true,
+        cssModules: false,
       },
     ],
   ],
-  {
-    webpack(config, options) {
-      /**
-       * Add alias for loading GraphQL files
-       */
-      config.resolve.alias = {
-        ...config.resolve.alias,
-      }
-
-      /**
-       * Use this to patch Global CSS issue https://github.com/vercel/next.js/issues/19936
-       */
-      // return patchWebpackConfig(config, options)
-      return config
-    },
-  },
+  // {
+  //   webpack: (config, options) => patchWebpackConfig(config, options),
+  // },
 )
