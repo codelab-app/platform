@@ -1,4 +1,4 @@
-import '@fancyapps/ui/dist/fancybox.css'
+import './fancybox.module.css'
 import { Fancybox as NativeFancybox } from '@fancyapps/ui/dist/fancybox.umd.js'
 import React, { useEffect } from 'react'
 
