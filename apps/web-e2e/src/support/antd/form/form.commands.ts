@@ -94,7 +94,7 @@ export const getFormInput = (
     case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
     case FIELD_TYPE.MONACO:
-      return scope.find('.monaco-editor textarea', opts)
+      return scope.find('textarea', opts)
     default:
       throw unsupportedFieldType(type)
   }

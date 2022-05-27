@@ -2,8 +2,15 @@ const util = require('util')
 const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const { patchWebpackConfig } = require('next-global-css')
+const withAntdLess = require('next-plugin-antd-less')
 const path = require('path')
 const { merge } = require('lodash')
+const withLess = require('next-with-less')
+const withTM = require('next-transpile-modules')([
+  // `monaco-editor` isn't published to npm correctly: it includes both CSS
+  // imports and non-Node friendly syntax, so it needs to be compiled.
+  '@fancyapps/ui',
+])
 
 const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
 
@@ -32,13 +39,45 @@ const withRawCypherFiles = (nextConfig = {}) => {
 
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
+ *
+ * Issue with monaco editor https://www.swyx.io/how-to-add-monaco-editor-to-a-next-js-app-ha3
  */
 module.exports = withPlugins(
   [
-    // withNx,
-    withRawCypherFiles,
-    withBundleAnalyzer,
+    // withTM,
+    // [
+    //   withAntdLess,
+    //   {
+    //     // modifyVars: { '@primary-color': '#04f' },
+    //     lessVarsFilePath: './src/styles/antd-theme.less',
+    //     // lessVarsFilePathAppendToEndOfContent: false,
+    //     // lessLoaderOptions: {
+    //     //   javascriptEnabled: true,
+    //     // },
+    //   },
+    // ],
     [
+      withLess,
+      {
+        lessLoaderOptions: {},
+      },
+    ],
+    // withBundleAnalyzer,
+    // Keep withNx last
+    // [
+    //   withAntdLess,
+    //   {
+    //     // modifyVars: { '@layout-header-padding': '0px' },
+    //     lessVarsFilePath: './src/styles/antd-theme.less',
+    //     lessVarsFilePathAppendToEndOfContent: false,
+    //     lessLoaderOptions: {
+    //       javascriptEnabled: true,
+    //     },
+    //   },
+    // ],
+    withRawCypherFiles,
+    [
+      withNx,
       {
         /**
          * Issue with importing ESM modules from node_modules, such as monaco-editor
@@ -60,38 +99,7 @@ module.exports = withPlugins(
       },
     ],
   ],
-  {
-    webpack(config, options) {
-      /**
-       * Add alias for loading GraphQL files
-       */
-      config.resolve.alias = {
-        ...config.resolve.alias,
-
-        /**
-         * Alias resolve has issues with @graphql-tool/import
-         *
-         * https://github.com/ardatan/graphql-tools/issues/1544
-         */
-        // '@codelab/graphql$': path.resolve(process.cwd(), 'schema.api.graphql'),
-        // '@codelab/graphql': path.resolve(process.cwd()),
-      }
-
-      /**
-       * Add GraphQL loader
-       *
-       * https://www.npmjs.com/package/graphql-tag#webpack-loading-and-preprocessing
-       */
-      // config.module.rules.push({
-      //   test: /\.(graphql|gql)$/,
-      //   exclude: /node_modules/,
-      //   loader: 'graphql-tag/loader',
-      // })
-
-      /**
-       * Use this to patch Global CSS issue https://github.com/vercel/next.js/issues/19936
-       */
-      return patchWebpackConfig(config, options)
-    },
-  },
+  // {
+  //   webpack: (config, options) => patchWebpackConfig(config, options),
+  // },
 )
