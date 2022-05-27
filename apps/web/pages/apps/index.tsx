@@ -15,7 +15,11 @@ import {
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -86,7 +90,12 @@ AppsPage.Layout = (page) => {
   return (
     <DashboardTemplate
       Header={AppsPageHeader}
-      SidebarNavigation={SidebarNavigation}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
     >
       {page.children}
     </DashboardTemplate>

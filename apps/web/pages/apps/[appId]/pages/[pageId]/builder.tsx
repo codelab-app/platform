@@ -7,7 +7,6 @@ import {
   BuilderContext,
   BuilderDashboardTemplate,
   BuilderMainPane,
-  BuilderSidebarNavigation,
   MetaPane,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
@@ -21,6 +20,13 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
+import {
+  adminMenuItems,
+  appMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
+import { SidebarNavigation } from '@codelab/frontend/view/templates'
 import { RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -175,6 +181,7 @@ PageBuilder.Layout = observer((page) => {
 
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+  const activeElementTree = builderService.activeElementTree
 
   return (
     <BuilderContext
@@ -195,34 +202,34 @@ PageBuilder.Layout = observer((page) => {
             userService={userService}
           />
         )}
-        MetaPane={observer(() => {
-          const activeElementTree = builderService.activeElementTree
-
-          return (
-            <>
-              {activeElementTree && pageBuilderRenderer ? (
-                <MetaPane
-                  atomService={atomService}
-                  builderService={builderService}
-                  componentService={componentService}
-                  elementService={elementService}
-                  // The element tree changes depending on whether a page or a component is selected
-                  elementTree={activeElementTree}
-                  key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                  renderService={pageBuilderRenderer}
-                  typeService={typeService}
-                />
-              ) : null}
-            </>
-          )
-        })}
+        MetaPane={
+          !activeElementTree || !pageBuilderRenderer
+            ? undefined
+            : observer(() => {
+                return (
+                  <MetaPane
+                    atomService={atomService}
+                    builderService={builderService}
+                    componentService={componentService}
+                    elementService={elementService}
+                    // The element tree changes depending on whether a page or a component is selected
+                    elementTree={activeElementTree}
+                    key={pageBuilderRenderer?.pageTree?.current.root?.id}
+                    renderService={pageBuilderRenderer}
+                    typeService={typeService}
+                  />
+                )
+              })
+        }
         SidebarNavigation={() => (
-          <BuilderSidebarNavigation
-            activeBuilderTab={builderService.activeBuilderTab}
-            key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
-              builderService,
-            )}
+          <SidebarNavigation
+            primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
+            secondaryItems={adminMenuItems}
+            // activeBuilderTab={builderService.activeBuilderTab}
+            // key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            // setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
+            //   builderService,
+            // )}
           />
         )}
         headerHeight={38}

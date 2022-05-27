@@ -9,7 +9,11 @@ import {
   ResetDataButton,
 } from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  commonMenuItems,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -51,7 +55,12 @@ AdminPage.Layout = (page) => {
   return (
     <DashboardTemplate
       Header={AdminHeader}
-      SidebarNavigation={SidebarNavigation}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={commonMenuItems}
+          secondaryItems={adminMenuItems}
+        />
+      )}
     >
       {page.children}
     </DashboardTemplate>

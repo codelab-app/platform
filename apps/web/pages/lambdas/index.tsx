@@ -13,7 +13,7 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  SidebarNavigation,
+  DefaultSidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
@@ -55,7 +55,10 @@ export const getServerSideProps = withPageAuthRequired()
 
 LambdasPage.Layout = (page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      Header={Header}
+      SidebarNavigation={DefaultSidebarNavigation}
+    >
       {page.children}
     </DashboardTemplate>
   )

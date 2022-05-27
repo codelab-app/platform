@@ -14,7 +14,11 @@ import {
 } from '@codelab/frontend/modules/tag'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -68,7 +72,12 @@ TagPage.Layout = observer((page) => {
     <DashboardTemplate
       Header={TagPageHeader}
       MainPane={() => <GetTagsTree tagService={store.tagService} />}
-      SidebarNavigation={SidebarNavigation}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
     >
       {page.children}
     </DashboardTemplate>

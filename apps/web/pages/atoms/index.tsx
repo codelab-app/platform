@@ -12,7 +12,11 @@ import {
 } from '@codelab/frontend/modules/atom'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -86,7 +90,15 @@ export const getServerSideProps = withPageAuthRequired({
 
 AtomsPage.Layout = (page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      Header={Header}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
+    >
       {page.children}
     </DashboardTemplate>
   )
