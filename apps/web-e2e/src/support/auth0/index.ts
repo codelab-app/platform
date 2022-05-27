@@ -30,5 +30,5 @@ export interface CypressAuth0Commands {
    * ## Docs
    * @see https://docs.cypress.io/api/cypress-api/cookies#Preserve-Once
    */
-  preserveAuth0Cookies(): CyElement
+  preserveAuth0CookiesOnce(): CyElement
 }

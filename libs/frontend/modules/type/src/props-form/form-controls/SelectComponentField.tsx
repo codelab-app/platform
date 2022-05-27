@@ -1,4 +1,4 @@
-import { IField } from '@codelab/shared/abstract/core'
+import { IField, IPropsFieldContext } from '@codelab/shared/abstract/core'
 import { Input, Select } from 'antd'
 import React from 'react'
 import { Controller, UseFormReturn } from 'react-hook-form'
@@ -7,6 +7,7 @@ import { useGetAllComponents } from '../../hooks'
 export interface SelectComponentFieldProps {
   field: IField
   form: UseFormReturn
+  context?: IPropsFieldContext
 }
 
 /**
@@ -17,8 +18,18 @@ export interface SelectComponentFieldProps {
 export const SelectComponentField = ({
   field,
   form,
+  context,
 }: SelectComponentFieldProps) => {
   const { options, isLoading } = useGetAllComponents()
+
+  console.log(field.key)
+
+  /**
+   * Need to exclude self so we don't have a recursive loop
+   */
+  const filteredOptions = options.filter(
+    (option) => option.value !== context?.builderState.componentId,
+  )
 
   return (
     <>
@@ -46,17 +57,22 @@ export const SelectComponentField = ({
          * Sets the reference to a componentId
          */
         name={`${field.key}.value`}
-        render={(control) => (
-          <Select
-            loading={isLoading}
-            onBlur={control.field.onBlur}
-            onChange={control.field.onChange}
-            optionFilterProp="label"
-            options={options}
-            showSearch
-            value={control.field.value}
-          />
-        )}
+        render={(control) => {
+          console.log(control.field.value)
+
+          return (
+            <Select
+              allowClear
+              loading={isLoading}
+              onBlur={control.field.onBlur}
+              onChange={control.field.onChange}
+              optionFilterProp="label"
+              options={filteredOptions}
+              showSearch
+              value={control.field.value}
+            />
+          )
+        }}
       />
     </>
   )

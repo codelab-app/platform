@@ -61,10 +61,6 @@ describe('Resource CRUD', () => {
   })
 
   describe('delete', () => {
-    before(() => {
-      cy.go('back')
-    })
-
     it('should be able to delete resource', () => {
       cy.getListItem(updatedResourceName).getButton({ icon: 'delete' }).click()
 

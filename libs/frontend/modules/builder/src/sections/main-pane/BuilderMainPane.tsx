@@ -130,14 +130,12 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
             />
           ) : null}
         </DisplayIf>
-
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
           <MobxStateContainer
             builderService={builderService}
             renderer={pageBuilderRenderer}
           />
         </DisplayIf>
-
         <DisplayIf condition={builderTab === BuilderTab.Toolbox}>
           <Toolbox
             atomService={atomService}
@@ -145,7 +143,6 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
             searchQuery={searchValue}
           />
         </DisplayIf>
-
         {pageTree && (
           <CreateElementModal
             builderService={builderService}

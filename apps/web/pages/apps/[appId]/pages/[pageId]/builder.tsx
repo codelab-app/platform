@@ -86,6 +86,8 @@ const PageBuilder: CodelabPage = observer(() => {
         createMobxState(storeTree, apps, pages, router),
       )
 
+      console.log('builder.tsxk')
+
       return {
         page,
         pageElementTree,
@@ -220,7 +222,9 @@ PageBuilder.Layout = observer((page) => {
           <BuilderSidebarNavigation
             activeBuilderTab={builderService.activeBuilderTab}
             key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            setActiveBuilderTab={builderService.setActiveBuilderTab}
+            setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
+              builderService,
+            )}
           />
         )}
         headerHeight={38}

@@ -28,7 +28,7 @@ export const ElementCssEditor = observer(
 
     const updateCss = useCallback(
       (newCss: string) => {
-        const promise = elementService.updateElementCss(element, newCss)
+        const promise = elementService.patchElement(element, { css: newCss })
 
         return trackPromise?.(promise) ?? promise
       },

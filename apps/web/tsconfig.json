@@ -44,5 +44,9 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
+  ]
 }

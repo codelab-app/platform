@@ -1,7 +1,7 @@
 import { Env } from './env'
 import { execCommand } from './run-tasks'
 
-const CMD_APP_DIST_PATH = 'dist/apps/cmd'
+const CMD_APP_DIST_PATH = 'dist/apps/cli'
 
 // `test` is used for pre-push checks. Only `test` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
 export const runCli = (env?: Env, cmd = '') => {

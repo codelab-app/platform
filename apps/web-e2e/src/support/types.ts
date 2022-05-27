@@ -20,7 +20,6 @@ declare global {
       extends CypressDatabaseCommands,
         CypressUICommands,
         CypressAuth0Commands,
-        // CypressSelectorsCommands,
         CypressHelpersCommands {}
   }
 }

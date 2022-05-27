@@ -1,13 +1,9 @@
 <!-- Please make sure that your commit message follows our format -->
 <!-- Example: `fix(libs-ui-component): must begin with lowercase` -->
 
-## Current Behavior
+## Description (Optional)
 
-<!-- This is the behavior we have today -->
-
-## Expected Behavior
-
-<!-- This is the behavior we should expect with the changes in this PR -->
+<!-- This is a short description on the Pull Request -->
 
 ## Related Issue(s)
 

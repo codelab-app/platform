@@ -39,7 +39,8 @@ describe('Pages CRUD', () => {
       cy.getModal().should('not.exist')
 
       cy.findByText(pageName).should('not.exist')
-      cy.findByText(updatedPageName).should('exist')
+      // Builder may take longer to load
+      cy.findByText(updatedPageName, { timeout: 10000 }).should('exist')
     })
   })
 

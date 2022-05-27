@@ -12,7 +12,7 @@ export const TabContainer = styled.div`
       ${tw`px-4 mb-0`}
     }
     .ant-tabs-content {
-      ${tw`px-4 py-2`}
+      ${tw`px-4 py-3 mb-3`}
     }
     // Remove antd tab padding so tooltip can cover more area
     .ant-tabs-tab {

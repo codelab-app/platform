@@ -24,6 +24,7 @@ const propsCustomizer = (value: any, srcValue: any, key: string) => {
 /**
  *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
  * The following edge cases are handled:
+ *
  * - Merging className strings together
  */
 

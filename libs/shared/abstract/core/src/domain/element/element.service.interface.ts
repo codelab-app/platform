@@ -77,7 +77,6 @@ export interface IElementService
   duplicateElement(target: IElement, auth0Id: IAuth0Id): Promise<void>
   convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
   element(id: string): Maybe<IElement>
-  updateElementCss(element: IElement, newCss: string): Promise<IElement>
 
   updateElementsPropTransformationJs(
     element: IElement,

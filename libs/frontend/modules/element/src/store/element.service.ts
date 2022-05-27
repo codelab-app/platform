@@ -234,34 +234,6 @@ export class ElementService
     return yield* _await(this.update(element, input))
   })
 
-  @modelFlow
-  @transaction
-  updateElementCss = _async(function* (
-    this: ElementService,
-    element: IElement,
-    newCss: string,
-  ) {
-    const input = { css: newCss }
-
-    return yield* _await(this.update(element, input))
-  })
-
-  // @modelFlow
-  // @transaction
-  // updateElementProps = _async(function* (
-  //   this: ElementService,
-  //   element: Element,
-  //   data: IPropData,
-  // ) {
-  //   const input = {
-  //     props: data,
-  //   }
-  //
-  //   console.log(element, input)
-  //
-  //   return yield* _await(this.update(element, input))
-  // })
-
   /**
    * Directly uses generated GraphQL operations
    */

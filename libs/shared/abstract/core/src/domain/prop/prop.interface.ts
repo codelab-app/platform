@@ -1,3 +1,4 @@
+import { IBuilderState } from '../builder'
 import { IElement } from '../element'
 import { IPropDTO } from './prop.dto.interface'
 
@@ -20,4 +21,5 @@ export type IPropDataByElementId = { [id: IElement['id']]: IPropData }
 
 export interface IPropsFieldContext {
   autocomplete?: IPropData
+  builderState: IBuilderState
 }

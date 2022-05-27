@@ -187,6 +187,8 @@ export class AppService
       throw new Error('App was not deleted')
     }
 
+    this.apps.delete(id)
+
     return app
   })
 }
