@@ -53,6 +53,7 @@ export const DashboardTemplate = observer(
           >
             <div css={tw`h-full`}>
               <SidebarNavigation />
+              Another one
             </div>
           </Sider>
         )}
