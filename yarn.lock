@@ -5217,31 +5217,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@monaco-editor/loader@npm:^1.2.0":
-  version: 1.3.2
-  resolution: "@monaco-editor/loader@npm:1.3.2"
-  dependencies:
-    state-local: ^1.0.6
-  peerDependencies:
-    monaco-editor: ">= 0.21.0 < 1"
-  checksum: 7a1b65052bbaf4ef826392687bd7cfaf839509611034d2d616783b5d3fee91ed304d9086517c3b5f9099707828c57c855ff43407b3c2f5ae480faebb104d4343
-  languageName: node
-  linkType: hard
-
-"@monaco-editor/react@npm:4.3.1":
-  version: 4.3.1
-  resolution: "@monaco-editor/react@npm:4.3.1"
-  dependencies:
-    "@monaco-editor/loader": ^1.2.0
-    prop-types: ^15.7.2
-  peerDependencies:
-    monaco-editor: ">= 0.25.0 < 1"
-    react: ^16.8.0 || ^17.0.0
-    react-dom: ^16.8.0 || ^17.0.0
-  checksum: 477349e64078ab3fc30e75577fbe51519c5af621cd1e3fa557e21f2a5e7291c4eabe34caa3013d578be0379c5bc43b199ee1c74853d571b05598ce866ad5a3a1
-  languageName: node
-  linkType: hard
-
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
   resolution: "@mrmlnc/readdir-enhanced@npm:2.2.1"
@@ -9620,13 +9595,6 @@ __metadata:
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: 527bddfe62db9012fccd7627794bd4c71beb77601861055d87e3ee464f2217c85fca7a4b56ae677478367bbd248dbde13553312b7d4dbc702a2f2bbf60c4018d
-  languageName: node
-  linkType: hard
-
-"@types/json-schema@npm:7.0.9":
-  version: 7.0.9
-  resolution: "@types/json-schema@npm:7.0.9"
-  checksum: 259d0e25f11a21ba5c708f7ea47196bd396e379fddb79c76f9f4f62c945879dc21657904914313ec2754e443c5018ea8372362f323f30e0792897fdb2098a705
   languageName: node
   linkType: hard
 
@@ -14067,7 +14035,6 @@ __metadata:
     "@graphql-tools/merge": 8.2.11
     "@hon2a/cypress-antd": 0.4.10
     "@ls-lint/ls-lint": 1.11.0
-    "@monaco-editor/react": 4.3.1
     "@mui/base": 5.0.0-alpha.79
     "@mui/lab": 5.0.0-alpha.80
     "@mui/material": 5.6.4
@@ -14263,8 +14230,6 @@ __metadata:
     mobx-keystone: 0.68.6
     mobx-react-lite: 3.4.0
     mobx-utils: 6.0.5
-    monaco-editor: 0.33.0
-    monaco-graphql: 1.0.17
     morphext: 2.4.7
     neo4j-driver: 4.4.3
     next: 12.1.5
@@ -14289,7 +14254,6 @@ __metadata:
     react-hotkeys-hook: 3.4.4
     react-is: 18.1.0
     react-json-view: 1.21.3
-    react-monaco-editor: 0.47.0
     react-query: 3.39.0
     react-resizable: 3.0.4
     react-slick: 0.28.1
@@ -20075,72 +20039,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service-interface@npm:2.8.4":
-  version: 2.8.4
-  resolution: "graphql-language-service-interface@npm:2.8.4"
-  dependencies:
-    graphql-language-service-parser: ^1.9.0
-    graphql-language-service-types: ^1.8.0
-    graphql-language-service-utils: ^2.5.1
-    vscode-languageserver-types: ^3.15.1
-  peerDependencies:
-    graphql: ">= v14.5.0 <= 15.5.0"
-  checksum: f4786bb123734150c303b53f54e75df7bed11e9b364478c31b9c31d4d2c82f22fe014f18b8620b0156f51d4fdc6e692b77878b57f5f1d6715cd36c8c4d83ec74
-  languageName: node
-  linkType: hard
-
-"graphql-language-service-parser@npm:^1.9.0, graphql-language-service-parser@npm:^1.9.3":
-  version: 1.10.4
-  resolution: "graphql-language-service-parser@npm:1.10.4"
-  dependencies:
-    graphql-language-service-types: ^1.8.7
-  peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
-  checksum: 80c8867cdd97b5dfe970280a29b56a6c913413717da6dde78091e119cc3157e79e4a3a43d73ec50f01b9280b4af18da5e6ccb083a5faabd81078278cce4143f6
-  languageName: node
-  linkType: hard
-
-"graphql-language-service-types@npm:^1.8.0, graphql-language-service-types@npm:^1.8.2, graphql-language-service-types@npm:^1.8.7":
-  version: 1.8.7
-  resolution: "graphql-language-service-types@npm:1.8.7"
-  dependencies:
-    graphql-config: ^4.1.0
-    vscode-languageserver-types: ^3.15.1
-  peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
-  checksum: 17d73316d52062988dfea2f737d655a47965eae0dd158d9dbfa23bddb12b1f153d2e51eb7c9c5a774ee8dcefcc92cdb6624f38ba5ed0c17777fe3ca60707a430
-  languageName: node
-  linkType: hard
-
-"graphql-language-service-utils@npm:^2.5.1, graphql-language-service-utils@npm:^2.5.3":
-  version: 2.7.1
-  resolution: "graphql-language-service-utils@npm:2.7.1"
-  dependencies:
-    "@types/json-schema": 7.0.9
-    graphql-language-service-types: ^1.8.7
-    nullthrows: ^1.0.0
-  peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
-  checksum: 36f2d5db18a514187477ee48b29280bdfa6c1fd97258bc21fcdc0ad47a07b115d24b0737be835c3e278362e0cde846d5c6fcf0a2a9f1f397a105460b01859d46
-  languageName: node
-  linkType: hard
-
-"graphql-language-service@npm:3.1.6":
-  version: 3.1.6
-  resolution: "graphql-language-service@npm:3.1.6"
-  dependencies:
-    graphql-language-service-interface: ^2.8.2
-    graphql-language-service-parser: ^1.9.3
-    graphql-language-service-types: ^1.8.2
-    graphql-language-service-utils: ^2.5.3
-  peerDependencies:
-    graphql: ">= v14.5.0 <= 15.5.0"
-  bin:
-    graphql: dist/temp-bin.js
-  checksum: bf8b4b4a6bbe42e4d4b2a07a98dc60eb2c83d8a891ab51b84ead01afd2e19b6c60c9cfa1a82407ed8a4d9c17a79f82d2a8a4deb50c79994bcbff16d11b35814e
-  languageName: node
-  linkType: hard
-
 "graphql-parse-resolve-info@npm:^4.12.0":
   version: 4.12.0
   resolution: "graphql-parse-resolve-info@npm:4.12.0"
@@ -25446,26 +25344,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.33.0":
-  version: 0.33.0
-  resolution: "monaco-editor@npm:0.33.0"
-  checksum: f88fd1c9be0d6845436aa92ee7f7bcc49f9e9bf452f73bb5efbbe52e50678d1c2aec4d612a943310f5e2282c1d9fcc41b792b65a5b9008e6054908e7e10311ea
-  languageName: node
-  linkType: hard
-
-"monaco-graphql@npm:1.0.17":
-  version: 1.0.17
-  resolution: "monaco-graphql@npm:1.0.17"
-  dependencies:
-    graphql-language-service: ^5.0.4
-    picomatch-browser: ^2.2.6
-  peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
-    monaco-editor: ^0.20.0
-  checksum: d6111e07a58bdf34a8cefe6482aab2539bcb5b4167a7bdfecea7de0365a0d30a2aad9124700de51ee62c5e789c988f306003418870c2ff02e4f340ed0fe9077c
-  languageName: node
-  linkType: hard
-
 "moo@npm:^0.5.0":
   version: 0.5.1
   resolution: "moo@npm:0.5.1"
@@ -26293,7 +26171,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nullthrows@npm:^1.0.0, nullthrows@npm:^1.1.1":
+"nullthrows@npm:^1.1.1":
   version: 1.1.1
   resolution: "nullthrows@npm:1.1.1"
   checksum: 10806b92121253eb1b08ecf707d92480f5331ba8ae5b23fa3eb0548ad24196eb797ed47606153006568a5733ea9e528a3579f21421f7828e09e7756f4bdd386f
@@ -27401,13 +27279,6 @@ __metadata:
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
   checksum: a2e8092dd86c8396bdba9f2b5481032848525b3dc295ce9b57896f931e63fc16f79805144321f72976383fc249584672a75cc18d6777c6b757603f372f745981
-  languageName: node
-  linkType: hard
-
-"picomatch-browser@npm:^2.2.6":
-  version: 2.2.6
-  resolution: "picomatch-browser@npm:2.2.6"
-  checksum: 946c50a8654da43167a0f9a90dd0b50f3d4e830ee71c0926ee9052d7e6f40d8907deaafba19cea71b97207b4aaa52c245335e4cd5bbaf78fe2ba567cd0c341fa
   languageName: node
   linkType: hard
 
@@ -29794,19 +29665,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-monaco-editor@npm:0.47.0":
-  version: 0.47.0
-  resolution: "react-monaco-editor@npm:0.47.0"
-  dependencies:
-    prop-types: ^15.8.1
-  peerDependencies:
-    "@types/react": ^17.x
-    monaco-editor: ^0.31.1
-    react: ^17.x
-  checksum: 647d84cfcf06f177559bec874eb7312b98b91dd7a2b251c882cff9c2d1dfffaf4099ff4ea410d6aed125f4045ca470e7efdec4d14bec90296383f240f96f2560
-  languageName: node
-  linkType: hard
-
 "react-popper-tooltip@npm:^3.1.1":
   version: 3.1.1
   resolution: "react-popper-tooltip@npm:3.1.1"
@@ -32165,13 +32023,6 @@ __metadata:
   version: 1.2.1
   resolution: "stackframe@npm:1.2.1"
   checksum: 1a3f281014bb1d2178b7c2ab26d657fb0f83c21d7d34ab33d858fd0b652a035254619fce8601278a2cf22ddb3382af21c4ea29b429806da75f3077fbd5e5bf17
-  languageName: node
-  linkType: hard
-
-"state-local@npm:^1.0.6":
-  version: 1.0.7
-  resolution: "state-local@npm:1.0.7"
-  checksum: d1afcf1429e7e6eb08685b3a94be8797db847369316d4776fd51f3962b15b984dacc7f8e401ad20968e5798c9565b4b377afedf4e4c4d60fe7495e1cbe14a251
   languageName: node
   linkType: hard
 
@@ -34764,7 +34615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-languageserver-types@npm:^3.15.1, vscode-languageserver-types@npm:^3.16.0":
+"vscode-languageserver-types@npm:^3.16.0":
   version: 3.17.1
   resolution: "vscode-languageserver-types@npm:3.17.1"
   checksum: ceb4145dfd840e026a51a6059af6ca2ced606763d945ab24851b1871bf8614f12e7f6fdb1f865ba6ea26f62db066ef188b183b1c830e0f38f28e08b584136464
