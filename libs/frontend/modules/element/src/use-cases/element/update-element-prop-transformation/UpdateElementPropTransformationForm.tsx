@@ -1,8 +1,7 @@
 import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
-  MonacoEditor,
-  MonacoEditorProps,
+  GraphqlEditorField,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
@@ -14,7 +13,7 @@ export type UpdateElementPropTransformationFormProp =
   WithServices<ELEMENT_SERVICE> & {
     element: IElement
     trackPromises?: UseTrackLoadingPromises
-    monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
+    monacoProps?: null
   }
 
 const defaultFn = `// Write a transformer function, you get the input props as parameter
@@ -75,20 +74,20 @@ export const UpdateElementPropTransformationForm =
       }, [valueDebounced, updateValue])
 
       return (
-        <MonacoEditor
-          containerProps={{
-            style: { height: '100%' },
-            ...(monacoProps?.containerProps || {}),
-          }}
-          editorOptions={{
-            language: 'javascript',
-            lineNumbers: 'off',
-            ...(monacoProps?.editorOptions || {}),
-          }}
-          onChange={(v) => setValue(v || '')}
-          value={value}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...monacoProps}
+        <GraphqlEditorField
+        // containerProps={{
+        //   style: { height: '100%' },
+        //   ...(monacoProps?.containerProps || {}),
+        // }}
+        // editorOptions={{
+        //   language: 'javascript',
+        //   lineNumbers: 'off',
+        //   ...(monacoProps?.editorOptions || {}),
+        // }}
+        // onChange={(v) => setValue(v || '')}
+        // value={value}
+        // // eslint-disable-next-line react/jsx-props-no-spreading
+        // {...monacoProps}
         />
       )
     },

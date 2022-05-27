@@ -1,13 +1,16 @@
+import { Input } from 'antd'
+import { TextAreaProps } from 'antd/lib/input/TextArea'
 import React from 'react'
-import { MonacoEditor } from '../monaco'
-import { EmotionCssEditorProps } from './EmotionCssEditorProps'
+
+export type EmotionCssEditorProps = TextAreaProps
+
+const { TextArea } = Input
 
 const EmotionCssEditor = (props: EmotionCssEditorProps) => {
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <MonacoEditor {...props} editorOptions={{ language: 'cssInJs' }} />
+  return <TextArea {...props} />
 }
 
 EmotionCssEditor.displayName = 'EmotionCssEditor'
 
 export { EmotionCssEditor }
-export default EmotionCssEditor

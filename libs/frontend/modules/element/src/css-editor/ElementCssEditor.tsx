@@ -67,7 +67,7 @@ export const ElementCssEditor = observer(
 
     return (
       <EmotionCssEditor
-        onChange={(v) => setCssString(v || '')}
+        onChange={(e) => setCssString(e.currentTarget.value || '')}
         value={cssString}
       />
     )

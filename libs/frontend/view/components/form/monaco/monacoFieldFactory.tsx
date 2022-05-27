@@ -1,7 +1,7 @@
 import { Form } from 'antd'
 import React, { Ref } from 'react'
 import { connectField, HTMLFieldProps } from 'uniforms'
-import { MonacoEditor, MonacoEditorProps } from '../../editors/monaco'
+import { MonacoEditor } from '../../editors/monaco'
 
 export type MonacoFieldProps = HTMLFieldProps<
   string,
@@ -9,9 +9,7 @@ export type MonacoFieldProps = HTMLFieldProps<
   { inputRef?: Ref<HTMLTextAreaElement> }
 >
 
-export const monacoFieldFactory = (
-  monacoProps: Omit<MonacoEditorProps, 'value' | 'onChange'>,
-) =>
+export const monacoFieldFactory = (monacoProps: any) =>
   connectField<MonacoFieldProps>(
     (props) => {
       return (
