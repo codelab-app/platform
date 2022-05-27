@@ -95,7 +95,7 @@ module.exports = withPlugins(
         experimental: {
           esmExternals: false,
         },
-        cssModules: false,
+        cssModules: true,
       },
     ],
   ],
