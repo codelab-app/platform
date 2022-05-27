@@ -16,7 +16,7 @@ export const monacoFieldFactory = (monacoProps: any) =>
         <Form.Item label={props.label ?? ''}>
           <MonacoEditor
             onChange={(e) => props.onChange(e.currentTarget.value)}
-            value={props.value as string}
+            value={props.value}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...monacoProps}
           />
