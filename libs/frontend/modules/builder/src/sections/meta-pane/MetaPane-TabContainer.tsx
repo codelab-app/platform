@@ -126,6 +126,9 @@ export const MetaPaneTabContainer = observer<MetaPaneBuilderProps>(
             (selectedNode.atom || selectedNode.instanceOfComponent) ? (
               <UpdateElementPropsForm
                 autocomplete={renderService.platformState}
+                builderState={{
+                  componentId: builderService.activeComponent?.id,
+                }}
                 element={selectedNode}
                 elementService={elementService}
                 key={selectedNode.id}

@@ -16,6 +16,7 @@ import {
   getRefsResolvingTo,
   Model,
   model,
+  modelTypeKey,
   prop,
   Ref,
 } from 'mobx-keystone'
@@ -56,9 +57,31 @@ export class BuilderService
   //   }
   // }
 
+  /**
+   * When we select an element within a component tree, we need to know which component we're in. This allows us to find the component and return it
+   */
   @computed
   get activeComponent() {
-    return isComponent(this.selectedNode) ? this.selectedNode : null
+    if (isComponent(this.selectedNode)) {
+      return this.selectedNode
+    }
+
+    /**
+     * If it's an element, we need to check whether this element is part of a Component
+     */
+    if (isElement(this.selectedNode)) {
+      const refs = getRefsResolvingTo(this.selectedNode, elementRef)
+
+      return [...refs.values()].reduce((prev, node) => {
+        const component = findParent(node, (parent: any) => {
+          return parent?.[modelTypeKey] === '@codelab/Component'
+        })
+
+        return component ? component : prev
+      }, null)
+    }
+
+    return null
   }
 
   /**
@@ -69,44 +92,27 @@ export class BuilderService
     const selectedNode = this.selectedNode
 
     /**
-     * Component tree
+     * If we're selecting the component
      */
-    if (this.activeTree === RendererTab.Component) {
-      /**
-       * If we're selecting the component
-       */
-      if (isComponent(selectedNode)) {
-        return selectedNode.elementTree
-      }
-
-      /**
-       * If we're selecting an element within the component
-       */
-      if (isElement(selectedNode)) {
-        return selectedNode.instanceOfComponent?.current.elementTree
-      }
+    if (isComponent(selectedNode)) {
+      return selectedNode.elementTree
     }
 
     /**
-     * Page tree
+     * If we're selecting an element within the component
      */
-    if (this.activeTree === RendererTab.Page) {
-      // Find the element tree that it belongs to
-      if (!selectedNode) {
-        return undefined
-      }
-
+    if (isElement(selectedNode)) {
       /**
        * Given the node, we want the reference that belongs to an ElementTree.
        */
       const refs = getRefsResolvingTo(selectedNode, elementRef)
 
-      return [...refs.values()].reduce((elementTree, node) => {
-        const found = findParent(node, (parent: any) => {
-          return parent?.$modelType === '@codelab/ElementTree'
+      return [...refs.values()].reduce((prev, node) => {
+        const elementTree = findParent(node, (parent: any) => {
+          return parent?.[modelTypeKey] === '@codelab/ElementTree'
         })
 
-        return found ? found : elementTree
+        return elementTree ? elementTree : prev
       }, undefined)
     }
 

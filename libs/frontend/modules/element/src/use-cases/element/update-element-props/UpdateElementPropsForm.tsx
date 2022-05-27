@@ -9,7 +9,11 @@ import {
   Spinner,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement, IPropData } from '@codelab/shared/abstract/core'
+import {
+  IBuilderState,
+  IElement,
+  IPropData,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 
@@ -17,10 +21,18 @@ export type UpdateElementPropsFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
+  builderState: IBuilderState
 } & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ elementService, element, trackPromises, typeService, autocomplete }) => {
+  ({
+    elementService,
+    element,
+    trackPromises,
+    builderState,
+    typeService,
+    autocomplete,
+  }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
     const initialPropsRef = useRef(element?.props?.values ?? {})
@@ -41,6 +53,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
+      console.log(data)
+
       const promise = elementService.patchElement(element, {
         props: {
           update: {
@@ -59,7 +73,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
         {interfaceType && (
           <PropsForm
             autosave
-            context={{ autocomplete }}
+            context={{ autocomplete, builderState }}
             initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}

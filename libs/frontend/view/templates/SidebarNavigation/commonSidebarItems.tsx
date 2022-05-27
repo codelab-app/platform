@@ -1,7 +1,6 @@
 import {
   ApiOutlined,
   AppstoreOutlined,
-  BuildOutlined,
   CloudServerOutlined,
   ClusterOutlined,
   DeploymentUnitOutlined,
@@ -57,11 +56,11 @@ export const commonSidebarItems: MenuProps['items'] = [
     icon: <ApiOutlined title="Types" />,
     key: PageType.Type,
   },
-  {
-    icon: <BuildOutlined title="Components" />,
-    key: PageType.ComponentList,
-    label: <Link href={PageType.ComponentList}>Components</Link>,
-  },
+  // {
+  //   icon: <BuildOutlined title="Components" />,
+  //   key: PageType.ComponentList,
+  //   label: <Link href={PageType.ComponentList}>Components</Link>,
+  // },
   {
     icon: <ClusterOutlined title="Stores" />,
     key: PageType.Store,

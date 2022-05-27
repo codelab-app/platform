@@ -4,23 +4,24 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
 import { IPropData } from '@codelab/shared/abstract/core'
-import { atomPropsCustomizer, atoms } from './atoms'
+import { mergeProps } from '@codelab/shared/utils'
+import { allPropsCustomizer, getAtom } from './atoms'
 import { AtomFactoryInput, AtomFactoryResult } from './types'
 
 /**
  * Creates a React Component and default props for it out of an node and an atom
  */
 export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
-  const { atomType, node } = input
+  const { atomType, node, props } = input
 
   if (!atomType || !node) {
     return [null, {}]
   }
 
   /**
-   * get ReactComponent by atomType
+   * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */
-  const ReactComponent = atoms[atomType]
+  const ReactComponent = getAtom(atomType)
 
   if (!ReactComponent) {
     notify({
@@ -31,19 +32,26 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
     return [null, {}]
   }
 
-  // common props passed to all rendered atoms
-  let props: IPropData = {
+  /**
+   * Common props passed to all rendered atoms, we don't include runtime props here
+   */
+  const commonProps: IPropData = {
     [DATA_ELEMENT_ID]: node.id,
     className: BUILDER_NONE_CLASS_NAME,
   }
 
+  let newProps = mergeProps(commonProps, props)
   // get propsCustomizer for atomType
-  const propsCustomizer = atomPropsCustomizer[atomType]
+  const propsCustomizer = allPropsCustomizer[atomType]
 
   if (propsCustomizer) {
     // apply propsCustomizer and get the new props
-    props = propsCustomizer({ atomType, node, props })
+    const customizer = propsCustomizer({ atomType, node, props: newProps })
+
+    if (customizer.props) {
+      newProps = customizer.props
+    }
   }
 
-  return [ReactComponent, props]
+  return [ReactComponent, newProps]
 }

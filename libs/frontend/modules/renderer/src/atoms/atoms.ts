@@ -1,34 +1,29 @@
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'
 import { muiAtoms } from './muiAtoms'
-import { AtomPropsCustomizer, AtomsRecord } from './types'
+import { AtomCustomizer, AtomsRecord, IComponentType } from './types'
 
 // Add new atom records here
-const atomsArray: Array<AtomsRecord> = [
-  htmlAtoms,
-  codelabAtoms,
-  antdAtoms,
-  muiAtoms,
-]
+const allAtoms: AtomsRecord = {
+  ...htmlAtoms,
+  ...codelabAtoms,
+  ...antdAtoms,
+  ...muiAtoms,
+}
 
 /**
  * Add a customizers here if you want to modify or add props to a specific element type
  */
-const propsCustomizerArray: Array<AtomPropsCustomizer> = [
-  antdPropsCustomizer,
-  htmlPropsCustomizer,
-]
+export const allPropsCustomizer: AtomCustomizer = {
+  ...antdPropsCustomizer,
+  ...htmlPropsCustomizer,
+}
 
 /**
  * merge atom maps to into one single object
+ *
  */
-export const atoms: AtomsRecord = Object.assign({}, ...atomsArray)
-
-/**
- * merge propsCustomizer maps to into one single object
- */
-export const atomPropsCustomizer: AtomPropsCustomizer = Object.assign(
-  {},
-  ...propsCustomizerArray,
-)
+export const getAtom = (atomType: IAtomType): IComponentType | undefined =>
+  allAtoms[atomType]

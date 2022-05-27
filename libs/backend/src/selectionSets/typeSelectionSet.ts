@@ -1,27 +1,39 @@
-const baseSelection = `
+import { userSelectionSet } from './userSelectionSet'
+
+/**
+ * We omit user during export, since this creates a non-reproducible file if exported from different accounts
+ */
+const exportBaseSelection = `
   __typename
   id
   kind
   name
 `
-// owner
-//   ${userSelectionSet}
 
-export const primitiveTypeSelectionSet = `{
-  ${baseSelection}
+const baseSelection = `
+  __typename
+  id
+  kind
+  name
+  owner
+    ${userSelectionSet}
+`
+
+export const exportPrimitiveTypeSelectionSet = `{
+  ${exportBaseSelection}
   primitiveKind
 }`
 
-export const reactNodeTypeSelectionSet = `{
-  ${baseSelection}
+export const exportReactNodeTypeSelectionSet = `{
+  ${exportBaseSelection}
 }`
 
-export const renderPropsTypeSelectionSet = `{
-  ${baseSelection}
+export const exportRenderPropsTypeSelectionSet = `{
+  ${exportBaseSelection}
 }`
 
-export const enumTypeSelectionSet = `{
-  ${baseSelection}
+export const exportEnumTypeSelectionSet = `{
+  ${exportBaseSelection}
   allowedValues {
     id
     name
@@ -29,9 +41,20 @@ export const enumTypeSelectionSet = `{
   }
 }`
 
-// export const interfaceTypeSelectionSet = `{
-//   ${baseSelection}
-// }`
+export const exportInterfaceTypeSelectionSet = `{
+  ${exportBaseSelection}
+  fieldsConnection {
+    edges {
+      id
+      key
+      name
+      description
+      node {
+        ${exportBaseSelection}
+      }
+    }
+  }
+}`
 
 export const interfaceTypeSelectionSet = `{
   ${baseSelection}
@@ -42,7 +65,7 @@ export const interfaceTypeSelectionSet = `{
       name
       description
       node {
-        ${baseSelection}
+        ${exportBaseSelection}
       }
     }
   }

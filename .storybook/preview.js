@@ -1,9 +1,9 @@
 import 'antd/dist/antd.css'
 
-// export const decorators = [
-//   (Story) => (
-//     <div style={{ margin: '3em' }}>
-//       <Story />
-//     </div>
-//   ),
-// ]
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+
+export const parameters = {
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+  },
+};

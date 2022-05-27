@@ -90,6 +90,9 @@
       "@codelab/frontend/modules/user": [
         "libs/frontend/modules/user/src/index.ts"
       ],
+      "@codelab/frontend/platform/atoms": [
+        "libs/frontend/platform/atoms/src/index.ts"
+      ],
       "@codelab/frontend/presenter/container": [
         "libs/frontend/presenter/container/src/index.ts"
       ],

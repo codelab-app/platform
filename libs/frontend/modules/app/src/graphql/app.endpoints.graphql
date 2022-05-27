@@ -14,8 +14,8 @@ mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   }
 }
 
-mutation DeleteApps($where: AppWhere!) {
-  deleteApps(where: $where) {
+mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
+  deleteApps(where: $where, delete: $delete) {
     nodesDeleted
   }
 }

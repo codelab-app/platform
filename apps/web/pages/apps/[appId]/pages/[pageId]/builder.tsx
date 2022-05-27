@@ -86,6 +86,8 @@ const PageBuilder: CodelabPage = observer(() => {
         createMobxState(storeTree, apps, pages, router),
       )
 
+      console.log('builder.tsxk')
+
       return {
         page,
         pageElementTree,
@@ -147,6 +149,7 @@ const PageBuilder: CodelabPage = observer(() => {
           {activeComponent ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
+              builderService={builderService}
               componentId={activeComponent.id}
               componentService={componentService}
               renderService={builderRenderService}
@@ -183,20 +186,16 @@ PageBuilder.Layout = observer((page) => {
       <BuilderDashboardTemplate
         Header={() => <PageDetailHeader pageService={pageService} />}
         MainPane={() => (
-          <>
-            {pageBuilderRenderer && (
-              <BuilderMainPane
-                atomService={atomService}
-                builderService={builderService}
-                componentService={componentService}
-                elementService={elementService}
-                key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                pageId={pageId}
-                renderService={builderRenderService}
-                userService={userService}
-              />
-            )}
-          </>
+          <BuilderMainPane
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            pageId={pageId}
+            renderService={builderRenderService}
+            userService={userService}
+          />
         )}
         MetaPane={observer(() => {
           const activeElementTree = builderService.activeElementTree
@@ -223,7 +222,9 @@ PageBuilder.Layout = observer((page) => {
           <BuilderSidebarNavigation
             activeBuilderTab={builderService.activeBuilderTab}
             key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            setActiveBuilderTab={builderService.setActiveBuilderTab}
+            setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
+              builderService,
+            )}
           />
         )}
         headerHeight={38}

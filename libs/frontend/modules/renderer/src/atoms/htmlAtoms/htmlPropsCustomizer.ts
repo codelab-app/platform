@@ -1,16 +1,18 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { AtomPropsCustomizer, PropsCustomizerFn } from '../types'
+import { AtomCustomizer, AtomCustomizerFn } from '../types'
 
-const reactFragmentFn: PropsCustomizerFn = ({ props }) => {
+const reactFragmentFn: AtomCustomizerFn = ({ props }) => {
   const { key } = props
 
   // Do not pass in any props for fragments, except key, because it creates an error
-  return { key }
+  return { props: { key } }
 }
 
-const htmlImageFn: PropsCustomizerFn = (input) => ({ src: '', alt: '' })
+// const htmlImageFn: AtomCustomizerFn = (input) => ({
+//   props: { src: '', alt: '' },
+// })
 
-export const htmlPropsCustomizer: AtomPropsCustomizer = {
+export const htmlPropsCustomizer: AtomCustomizer = {
   [IAtomType.ReactFragment]: reactFragmentFn,
-  [IAtomType.HtmlImage]: htmlImageFn,
+  // [IAtomType.HtmlImage]: htmlImageFn,
 }

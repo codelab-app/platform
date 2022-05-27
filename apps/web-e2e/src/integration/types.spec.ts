@@ -161,6 +161,8 @@ describe('Types CRUD', () => {
         .click()
 
       cy.url({ timeout: 5000 }).should('include', 'types/interfaces')
+      cy.getSpinner().should('not.exist')
+      cy.contains('.ant-page-header', interfaceTypeName)
 
       cy.getButton({
         icon: 'plus',

@@ -4,7 +4,6 @@ import {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
@@ -29,9 +28,10 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const [ReactComponent, atomProps] = atomFactory({
+    const [ReactComponent, newProps] = atomFactory({
       atomType: element.atom.current.type,
       node: element,
+      props,
     })
 
     if (!ReactComponent) {
@@ -42,7 +42,6 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const mergedProps = mergeProps(atomProps, props)
     const elCss = element.css ? css(evalCss(element.css)) : undefined
 
     if (this.renderer.debugMode) {
@@ -55,7 +54,7 @@ export class AtomRenderPipe
     return RenderOutput.withAtom({
       elementId: element.id,
       atomType: element.atom.current.type,
-      props: { ...mergedProps, css: elCss },
+      props: { ...newProps, css: elCss },
     })
   }
 }

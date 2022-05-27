@@ -1,6 +1,7 @@
 import { elementTreeRef } from '@codelab/frontend/modules/element'
 import { getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementTree,
@@ -35,7 +36,7 @@ import { createTransformer } from 'mobx-utils'
 import React, { ComponentType, ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import { atoms } from './atoms'
+import { getAtom } from './atoms'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import {
@@ -195,7 +196,7 @@ export class Renderer
     const Providers = reduceComponentTree(
       providerOutputs
         .map((output) =>
-          output.atomType ? [atoms[output.atomType], output.props] : null,
+          output.atomType ? [getAtom(output.atomType), output.props] : null,
         )
         .filter((x): x is [ComponentType, IPropData] => !!x),
     )
@@ -263,10 +264,14 @@ export class Renderer
     return mapOutput(output, appendGlobalProps)
   }
 
-  /** Renders the elements children */
+  /**
+   * Renders the elements children, createTransformer memoizes the function
+   */
   renderChildren = createTransformer(
     (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
-      const element = this.pageTree?.current.element(parentOutput.elementId)
+      // const element = this.pageTree?.current.element(parentOutput.elementId)
+      const elementService = getElementService(this)
+      const element = elementService.elements.get(parentOutput.elementId)
 
       if (!element) {
         console.warn(

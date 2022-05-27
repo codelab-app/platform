@@ -6,7 +6,7 @@ import {
 import { mergeProps } from '@codelab/shared/utils'
 import { isEmpty } from 'ramda'
 import React, { Fragment, ReactElement } from 'react'
-import { atoms } from '../atoms'
+import { getAtom } from '../atoms'
 import { withGlobalPropsProvider } from '../props/globalPropsContext'
 
 /**
@@ -33,7 +33,7 @@ export const withMaybeGlobalPropsProvider = (
 
 export const getReactComponent = (renderOutput: IRenderOutput) =>
   // Render the atom if it exists, otherwise use fragment
-  renderOutput.atomType ? atoms[renderOutput.atomType] ?? Fragment : Fragment
+  renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
 
 export const makeChildrenPropElement = (props: IPropData) =>
   React.createElement(Fragment, {}, props['children'])

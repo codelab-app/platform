@@ -206,35 +206,6 @@ export class TypeService
     }
 
     const input = createTypeFactory(data)
-    console.log(input)
-
-    const types = yield* _await(createTypeApi[data[0].kind](input))
-
-    if (!types.length) {
-      // Throw an error so that the transaction middleware rolls back the changes
-      throw new Error('Type was not created')
-    }
-
-    return types.map((type) => {
-      const typeModel = typeFactory(type)
-
-      this.types.set(type.id, typeModel)
-
-      return typeModel
-    })
-  })
-
-  @modelFlow
-  @transaction
-  import = _async(function* (
-    this: TypeService,
-    data: Array<ICreateTypeDTO> = [],
-  ) {
-    if (!data.length) {
-      return []
-    }
-
-    const input = createTypeFactory(data)
     const types = yield* _await(createTypeApi[data[0].kind](input))
 
     if (!types.length) {

@@ -1,14 +1,14 @@
 import {
   EnumTypeOGM,
-  enumTypeSelectionSet,
+  exportEnumTypeSelectionSet,
+  exportInterfaceTypeSelectionSet,
+  exportPrimitiveTypeSelectionSet,
+  exportReactNodeTypeSelectionSet,
+  exportRenderPropsTypeSelectionSet,
   InterfaceTypeOGM,
-  interfaceTypeSelectionSet,
   PrimitiveTypeOGM,
-  primitiveTypeSelectionSet,
   ReactNodeTypeOGM,
-  reactNodeTypeSelectionSet,
   RenderPropsTypeOGM,
-  renderPropsTypeSelectionSet,
 } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
@@ -22,7 +22,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
   const PrimitiveType = await PrimitiveTypeOGM()
 
   const primitiveTypes = await PrimitiveType.find({
-    selectionSet: primitiveTypeSelectionSet,
+    selectionSet: exportPrimitiveTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
@@ -35,7 +35,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
 
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
-    selectionSet: reactNodeTypeSelectionSet,
+    selectionSet: exportReactNodeTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
@@ -48,7 +48,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
 
   // Only 1 here
   const renderPropsTypes = await RenderPropsType.find({
-    selectionSet: renderPropsTypeSelectionSet,
+    selectionSet: exportRenderPropsTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
@@ -60,7 +60,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
   const EnumType = await EnumTypeOGM()
 
   const enumTypes = await EnumType.find({
-    selectionSet: enumTypeSelectionSet,
+    selectionSet: exportEnumTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
@@ -82,7 +82,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
-    selectionSet: interfaceTypeSelectionSet,
+    selectionSet: exportInterfaceTypeSelectionSet,
   })
 
   /**

@@ -1,7 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "jsx": "react",
     "emitDecoratorMetadata": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": ""
   },
   "files": [

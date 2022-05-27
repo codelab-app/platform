@@ -14,12 +14,13 @@
   "responseTimeout": 60000,
   "execTimeout": 60000,
   "pageLoadTimeout": 60000,
+  "experimentalSessionAndOrigin": false,
   "projectId": "86p5h3",
   "env": {},
   "testFiles": "**/*.spec.*",
   "numTestsKeptInMemory": 1,
   "retries": {
-    "runMode": 2,
+    "runMode": 1,
     "openMode": 0
   }
 }

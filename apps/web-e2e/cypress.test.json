@@ -14,11 +14,12 @@
   "responseTimeout": 10000,
   "execTimeout": 10000,
   "pageLoadTimeout": 10000,
+  "experimentalSessionAndOrigin": false,
   "projectId": "37q6ed",
   "env": {},
   "testFiles": "**/*.spec.*",
   "retries": {
-    "runMode": 2,
+    "runMode": 1,
     "openMode": 0
   }
 }

@@ -32,10 +32,16 @@ export class RenderService
     appTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
-    const renderer = Renderer.init(pageTree, appTree, platformState)
+    const existing = this.renderers.get(id)
 
-    this.renderers.set(id, renderer)
+    if (!existing) {
+      const renderer = Renderer.init(pageTree, appTree, platformState)
 
-    return renderer
+      this.renderers.set(id, renderer)
+
+      return renderer
+    }
+
+    return existing
   }
 }

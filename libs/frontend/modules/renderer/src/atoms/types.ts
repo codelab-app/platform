@@ -2,22 +2,35 @@ import { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 
-export type AtomsRecord = Partial<
-  Record<IAtomType, React.ComponentType<any> | Nullable<string>>
->
+/**
+ * Used by `dynamic(() => import('@package/name').then(mod => mod.name))`
+ *
+ * Some components like Icon need to be destructured
+ */
+export type ModuleMapperFn<T = unknown> = (mod: T) => any
+
+/**
+ * This is our representation of what kind of ReactComponent to use
+ */
+export type IComponentType = React.ComponentType<any> | Nullable<string>
+
+export type AtomsRecord = Partial<Record<IAtomType, IComponentType>>
 
 export type AtomFactoryInput = {
   atomType: IAtomType
   node: IEntity
+  props: IPropData
 }
 
-export type AtomFactoryResult = [
-  Nullable<React.ComponentType<any> | string>,
-  IPropData,
-]
+export type AtomFactoryResult = [IComponentType, IPropData]
 
-export type PropsCustomizerFn = (
+/**
+ * Allows us to transform the props, as well as the component (useful for destructuring component name such as Antd Icon)
+ */
+export type AtomCustomizerFn = (
   input: AtomFactoryInput & { props: IPropData },
-) => any
+) => {
+  props?: IPropData
+}
 
-export type AtomPropsCustomizer = Partial<Record<IAtomType, PropsCustomizerFn>>
+export type AtomCustomizer = Partial<Record<IAtomType, AtomCustomizerFn>>

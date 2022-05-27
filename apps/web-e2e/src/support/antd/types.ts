@@ -1,3 +1,4 @@
+import { Auth0Commands } from '../auth0/auth0.register'
 import type { AntButtonCommands } from './button'
 import type { AntCardCommands } from './card'
 import type { AntDrawerCommands } from './drawer'
@@ -45,6 +46,7 @@ declare global {
         AntSpinCommands,
         AntTableCommands,
         AntTreeCommands,
-        AntTooltipCommands {}
+        AntTooltipCommands,
+        Auth0Commands {}
   }
 }

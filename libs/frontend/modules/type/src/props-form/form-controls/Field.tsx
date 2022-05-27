@@ -30,7 +30,9 @@ export const Field = ({ field, form, context }: FieldProps) => {
       )
     case ITypeKind.ReactNodeType:
     case ITypeKind.RenderPropsType:
-      return <SelectComponentField field={field} form={form} />
+      return (
+        <SelectComponentField context={context} field={field} form={form} />
+      )
 
     case ITypeKind.InterfaceType:
       return (

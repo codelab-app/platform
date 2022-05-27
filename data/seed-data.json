@@ -2943,16 +2943,16 @@
       "primitiveKind": "String"
     },
     {
-      "__typename": "ReactNodeType",
-      "id": "1c56e146-0a4e-4ebb-8cea-d7ee05ec1b37",
-      "kind": "ReactNodeType",
-      "name": "ReactNodeType"
-    },
-    {
       "__typename": "RenderPropsType",
       "id": "0069b248-935e-4130-883a-580eb8dea05c",
       "kind": "RenderPropsType",
       "name": "RenderPropsType"
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "1c56e146-0a4e-4ebb-8cea-d7ee05ec1b37",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
     },
     {
       "__typename": "EnumType",
@@ -5290,6 +5290,18 @@
             "key": "className",
             "name": "Class Name",
             "description": "The className of Icon",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          },
+          {
+            "id": "c1827753-ae88-4e87-8b8b-e857cfe622e5",
+            "key": "name",
+            "name": "Name",
+            "description": "Custom field to tell Icon default import which icon to use",
             "node": {
               "__typename": "PrimitiveType",
               "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
@@ -9693,7 +9705,56 @@
       "kind": "InterfaceType",
       "name": "HtmlImage API",
       "fieldsConnection": {
-        "edges": []
+        "edges": [
+          {
+            "id": "7220665a-cad8-4381-95b7-0b7da3961a28",
+            "key": "alt",
+            "name": "",
+            "description": "",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          },
+          {
+            "id": "45781c9d-f708-4684-966d-68a5cf17477a",
+            "key": "height",
+            "name": "",
+            "description": "",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          },
+          {
+            "id": "2b244ace-88df-42c4-afc3-f26ac27a9a87",
+            "key": "src",
+            "name": "",
+            "description": "",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          },
+          {
+            "id": "6d9cb3f8-e2bd-4b11-a9c3-3933a7011479",
+            "key": "width",
+            "name": "",
+            "description": "",
+            "node": {
+              "__typename": "PrimitiveType",
+              "id": "51ba40e9-0763-41f9-adb5-96e326c636e8",
+              "kind": "PrimitiveType",
+              "name": "String"
+            }
+          }
+        ]
       }
     },
     {

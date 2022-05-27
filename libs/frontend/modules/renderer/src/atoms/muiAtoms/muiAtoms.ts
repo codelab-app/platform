@@ -1,5 +1,4 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
-import Input from '@mui/material/Input'
 import dynamic from 'next/dynamic'
 import { AtomsRecord } from '../types'
 
@@ -73,16 +72,16 @@ export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiClickAwayListener]: dynamic(
     () => import('@mui/material/ClickAwayListener'),
   ),
-  // [AtomType.MuiClockPicker]: dynamic(() => import('@mui/material/ClockPicker')), ??
+  // [AtomType.MuiClockPicker]: dynamic(() =>import('@mui/material/ClockPicker')), ??
   [IAtomType.MuiCollapse]: dynamic(() => import('@mui/material/Collapse')),
   [IAtomType.MuiContainer]: dynamic(() => import('@mui/material/Container')),
   [IAtomType.MuiCssBaseline]: dynamic(
     () => import('@mui/material/CssBaseline'),
   ),
-  // [AtomType.MuiDataGrid]: dynamic(() => import('@mui/x-data-grid')), // not working for some reason ,can't find @material-ui/core/badge?
+  // [AtomType.MuiDataGrid]: dynamic(() =>import('@mui/x-data-grid')), // not working for some reason ,can't find @material-ui/core/badge?
   [IAtomType.MuiDatePicker]: dynamic(() => import('@mui/lab/DatePicker')),
   [IAtomType.MuiDateRangePicker]: dynamic(
-    () => import('@mui/lab/DateRangePicker') as any,
+    () => import('@mui/lab/DateRangePicker'),
   ),
   [IAtomType.MuiDateRangePickerDay]: dynamic(
     () => import('@mui/lab/DateRangePickerDay'),
@@ -94,7 +93,7 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/lab/DesktopDatePicker'),
   ),
   [IAtomType.MuiDesktopDateRangePicker]: dynamic(
-    () => import('@mui/lab/DesktopDateRangePicker') as any,
+    () => import('@mui/lab/DesktopDateRangePicker'),
   ),
   [IAtomType.MuiDesktopDateTimePicker]: dynamic(
     () => import('@mui/lab/DesktopDateTimePicker'),
@@ -151,7 +150,7 @@ export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiImageListItemBar]: dynamic(
     () => import('@mui/material/ImageListItemBar'),
   ),
-  [IAtomType.MuiInput]: Input,
+  [IAtomType.MuiInput]: dynamic(() => import('@mui/material/Input')),
   [IAtomType.MuiInputAdornment]: dynamic(
     () => import('@mui/material/InputAdornment'),
   ),
@@ -190,7 +189,7 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/lab/MobileDatePicker'),
   ),
   [IAtomType.MuiMobileDateRangePicker]: dynamic(
-    () => import('@mui/lab/MobileDateRangePicker') as any,
+    () => import('@mui/lab/MobileDateRangePicker'),
   ),
   [IAtomType.MuiMobileDateTimePicker]: dynamic(
     () => import('@mui/lab/MobileDateTimePicker'),
@@ -251,7 +250,7 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/lab/StaticDatePicker'),
   ),
   [IAtomType.MuiStaticDateRangePicker]: dynamic(
-    () => import('@mui/lab/StaticDateRangePicker') as any,
+    () => import('@mui/lab/StaticDateRangePicker'),
   ),
   [IAtomType.MuiStaticDateTimePicker]: dynamic(
     () => import('@mui/lab/StaticDateTimePicker'),

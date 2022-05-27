@@ -10,7 +10,6 @@ export const Text = ({ text }: TextProps) => {
   return <>{text ?? ''}</>
 }
 
-// DEMO
 export const List = ({
   // We treat all UI as same type
   renderItem,

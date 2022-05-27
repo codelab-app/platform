@@ -32,6 +32,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     // Cache the initial element model, because when it updates it will interfere with what the user is typing
     const { current: model } = useRef({
+      id: element.id,
       atomId: element.atom?.id,
       name: element.name,
       renderForEachPropKey: element.renderForEachPropKey,
@@ -77,6 +78,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         })}
         schema={updateElementSchema}
       >
+        {element.id}
         <AutoFields
           omitFields={[
             'atomId',

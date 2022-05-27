@@ -23,6 +23,7 @@
     "frontend-modules-tag": "libs/frontend/modules/tag",
     "frontend-modules-type": "libs/frontend/modules/type",
     "frontend-modules-user": "libs/frontend/modules/user",
+    "frontend-platform-atoms": "libs/frontend/platform/atoms",
     "frontend-presenter-container": "libs/frontend/presenter/container",
     "frontend-shared-utils": "libs/frontend/shared/utils",
     "frontend-view": "libs/frontend/view",

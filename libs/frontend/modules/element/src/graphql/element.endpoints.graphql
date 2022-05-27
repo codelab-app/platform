@@ -12,8 +12,8 @@ mutation CreateElements($input: [ElementCreateInput!]!) {
   }
 }
 
-mutation DeleteElements($where: ElementWhere!) {
-  deleteElements(where: $where) {
+mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
+  deleteElements(where: $where, delete: $delete) {
     nodesDeleted
   }
 }

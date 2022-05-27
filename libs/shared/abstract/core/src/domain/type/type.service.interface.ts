@@ -7,11 +7,10 @@ import {
   IModalService,
   IQueryService,
 } from '../../service'
-import { IAuth0Id } from '../user'
 import { IField, IFieldRef } from './field'
 import { ICreateFieldDTO, IUpdateFieldDTO } from './field.dto.interface'
 import { ICreateTypeDTO, IUpdateTypeDTO } from './type.dto.interface'
-import { IAnyType, IInterfaceType, IInterfaceTypeRef, ITypeRef } from './types'
+import { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface IFieldModalMetadata {
   field: Ref<IField>
@@ -53,18 +52,4 @@ export interface ITypeService
   selectedIds: ArraySet<string>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
-
-  /**
-   * Issue with fieldConnections when creating multiple at a time
-   * @param data
-   */
-  import(data: Array<ICreateTypeDTO>): void
-}
-
-export interface IImportTypeService {
-  importTypes(
-    payloadString: string,
-    currentUserAuth0Id: IAuth0Id,
-  ): Promise<void>
-  exportTypes(ids: Array<ITypeRef>): Promise<string>
 }
