@@ -21,12 +21,12 @@ export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
 }
 
 export const createMobxState = (
-  rootStore: Maybe<IStore> | null,
+  appStore: Maybe<IStore> | null,
   apps: Array<IApp>,
   pages: Array<IPage>,
   router?: NextRouter,
 ) => {
-  if (!rootStore) {
+  if (!appStore) {
     return null
   }
 
@@ -63,7 +63,7 @@ export const createMobxState = (
     pagesRoutes,
   }
 
-  return rootStore.toMobxObservable(stateGlobals)
+  return appStore.toMobxObservable(stateGlobals)
 }
 
 export const toAntd = (

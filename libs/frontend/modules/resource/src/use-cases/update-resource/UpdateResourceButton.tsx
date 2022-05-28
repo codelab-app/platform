@@ -4,7 +4,7 @@ import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { resourceRef } from '../../../store'
+import { resourceRef } from '../../store'
 
 export type UpdateResourceButtonProps = UpdateButtonProps &
   WithServices<RESOURCE_SERVICE>

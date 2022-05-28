@@ -1,5 +1,3 @@
-import { operationSelectionSet } from './operationSelectionSet'
-
 export const resourceSelectionSet = `{ 
   id
   type
@@ -7,9 +5,6 @@ export const resourceSelectionSet = `{
   config {
     id
     data
-  }
-  operations {
-    ${operationSelectionSet}
   }
 }
 `

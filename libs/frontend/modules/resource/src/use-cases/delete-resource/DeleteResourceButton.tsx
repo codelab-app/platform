@@ -4,7 +4,7 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { resourceRef } from '../../../store'
+import { resourceRef } from '../../store'
 
 export type DeleteResourceButton = DeleteButtonProps &
   WithServices<RESOURCE_SERVICE>

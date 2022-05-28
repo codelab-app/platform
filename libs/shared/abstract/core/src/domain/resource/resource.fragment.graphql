@@ -6,7 +6,4 @@ fragment Resource on Resource {
   config {
     ...Prop
   }
-  operations {
-    ...Operation
-  }
 }

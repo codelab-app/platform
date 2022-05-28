@@ -8,7 +8,6 @@ import { commonSchema } from './common.schema'
 import { componentSchema } from './component.schema'
 import { elementSchema } from './element.schema'
 import { hookSchema } from './hook.schema'
-import { operationSchema } from './operation.schema'
 import { pageSchema } from './page.schema'
 import { propSchema } from './prop.schema'
 import { resourceSchema } from './resource.schema'
@@ -31,7 +30,6 @@ export const typeDefs = print(gql`
   ${elementSchema}
   ${propSchema}
   ${hookSchema}
-  ${operationSchema}
   ${componentSchema}
   ${adminSchema}
   ${storeSchema}

@@ -1,13 +1,10 @@
-import {
-  IGraphQLOperationConfig,
-  IPropData,
-} from '@codelab/shared/abstract/core'
+import { IGraphQLActionConfig, IPropData } from '@codelab/shared/abstract/core'
 import { BaseOperation } from '../base-operation'
 import { GraphQLResource } from './graphql-resource'
 
 export class GraphQlOperation extends BaseOperation<
   GraphQLResource,
-  IGraphQLOperationConfig,
+  IGraphQLActionConfig,
   IPropData
 > {
   fetch(): Promise<IPropData> {

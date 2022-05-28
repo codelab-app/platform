@@ -7,8 +7,6 @@ import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import { RenderService } from '@codelab/frontend/modules/renderer'
 import {
-  OperationService,
-  operationServiceContext,
   ResourceService,
   resourceServiceContext,
 } from '@codelab/frontend/modules/resource'
@@ -47,7 +45,6 @@ export const createRootStore = (
       actionService: prop(() => new ActionService({})),
       storeService: prop(() => new StoreService({})),
       resourceService: prop(() => new ResourceService({})),
-      operationService: prop(() => new OperationService({})),
       elementService: prop(() => new ElementService({})),
       builderService: prop(() => new BuilderService({})),
     })
@@ -61,7 +58,6 @@ export const createRootStore = (
       componentServiceContext.set(this, this.componentService)
       actionServiceContext.set(this, this.actionService)
       resourceServiceContext.set(this, this.resourceService)
-      operationServiceContext.set(this, this.operationService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)
     }

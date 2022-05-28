@@ -1,6 +1,5 @@
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
-import { TableProps as RcTableProps } from 'rc-table/lib/Table'
 import { INodeType, STORE_NODE_TYPE } from '../../base/node.interface'
 import { IBuilderDataNode } from '../../ui'
 import { IPropData as IProp } from '../prop'
@@ -15,9 +14,7 @@ export interface IStore extends INodeType<STORE_NODE_TYPE> {
   storeKey: Nullable<string>
   stateApi: Ref<IInterfaceType>
   state: IProp
-  resourcesList: RcTableProps<
-    Omit<IResource, 'operations' | 'toMobxObservable'>
-  >['data']
+  resourcesList: Array<IResource>
   children: ObjectMap<Ref<IStore>>
   childrenList: Array<IStore>
   antdNode: IBuilderDataNode

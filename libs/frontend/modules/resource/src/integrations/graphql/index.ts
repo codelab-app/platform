@@ -1,5 +1,5 @@
 import {
-  IGraphQLOperationConfig,
+  IGraphQLActionConfig,
   IGraphQLResourceConfig,
 } from '@codelab/shared/abstract/core'
 import { GraphQlOperation } from './graphql-operation'
@@ -7,7 +7,7 @@ import { GraphQLResource } from './graphql-resource'
 
 export const createGraphQLOperation = (
   resourceConfig: IGraphQLResourceConfig,
-  operationConfig: IGraphQLOperationConfig,
+  operationConfig: IGraphQLActionConfig,
   runOnInit: boolean,
 ) => {
   const resource = new GraphQLResource(resourceConfig)

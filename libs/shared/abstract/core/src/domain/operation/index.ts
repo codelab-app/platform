@@ -1,5 +1,0 @@
-export * from './graphql-operation-config.interface'
-export * from './operation.dto.interface'
-export * from './operation.model.interface'
-export * from './operation.service.interface'
-export * from './rest-operation-config.interface'

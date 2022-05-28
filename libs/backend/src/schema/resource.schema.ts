@@ -12,7 +12,5 @@ export const resourceSchema = gql`
     type: ResourceType!
     name: String!
     config: Prop! @relationship(type: "RESOURCE_CONFIG", direction: OUT)
-    operations: [Operation!]!
-      @relationship(type: "RESOURCE_OPERATION", direction: IN)
   }
 `

@@ -6,4 +6,13 @@ fragment Action on Action {
     id
     name
   }
+  config {
+    ...Prop
+  }
+  runOnInit
+  resource {
+    id
+    name
+    type
+  }
 }

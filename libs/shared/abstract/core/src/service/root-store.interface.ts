@@ -5,7 +5,6 @@ import { IAtomService } from '../domain/atom'
 import { IBuilderService, IRenderService } from '../domain/builder'
 import { IComponentService } from '../domain/component'
 import { IElementService } from '../domain/element'
-import { IOperationService } from '../domain/operation'
 import { IPageService } from '../domain/page'
 import { IResourceService } from '../domain/resource'
 import { IStoreService } from '../domain/store'
@@ -36,5 +35,4 @@ export type IRootStore = {
   elementService: IElementService
   builderService: IBuilderService
   resourceService: IResourceService
-  operationService: IOperationService
 }

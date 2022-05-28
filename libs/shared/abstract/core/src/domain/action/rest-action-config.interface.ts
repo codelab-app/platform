@@ -8,7 +8,7 @@ export enum HttpMethod {
   PUT = 'PUT',
 }
 
-export interface IRestOperationConfig {
+export interface IRestActionConfig {
   body: string
   method: HttpMethod
   queryParams: string
