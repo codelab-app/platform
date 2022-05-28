@@ -12,6 +12,7 @@ export interface IRenderer {
   pageTree: Nullable<Ref<IElementTree>>
   platformState?: any
   debugMode: boolean
+  setPlatformState: (platformState?: any) => void
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,

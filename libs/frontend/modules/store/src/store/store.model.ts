@@ -5,9 +5,7 @@ import {
 } from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
-  IGraphQLActionConfig,
   IProp,
-  IRestActionConfig,
   IStore,
   IStoreDTO,
   ResourceType,
@@ -118,35 +116,32 @@ export class Store
   @modelAction
   toMobxObservable(globals: any = {}) {
     const storeState = [...this.stateApi.current.fields.values()]
-      .map((field) => ({ [field.key]: this.state.data[field.key] }))
+      .map((field) => ({ [field.key]: this.state.values[field.key] }))
       .reduce(merge, {})
 
     const storeActions = this.actions
-      .map((actRef) => {
-        const action = actRef.current
-        let ac
+      .map(({ current: action }) => {
+        const isResourceOperation =
+          action.resource?.current && action.config?.values
 
-        if (action.resource) {
-          if (action.resource.current.type === ResourceType.GraphQL) {
-            ac = createGraphQLAction(
-              action.resource.current.config.values,
-              action.config?.values as IGraphQLActionConfig,
-              action.runOnInit,
-            )
-          } else if (action.resource.current.type === ResourceType.Rest) {
-            ac = createRestAction(
-              action.resource.current.config.values,
-              action.config?.values as IRestActionConfig,
-              action.runOnInit,
-            )
-          }
+        if (!isResourceOperation && !action.body) {
+          throw new Error(
+            'Action misconfigure, an action must have either a resource and config or a body or both ',
+          )
         }
 
-        const ac2 = action.body
-          ? { [action.name]: eval(`(${action.body})`) }
-          : {}
+        // an action that manipulates local state only
+        if (!isResourceOperation) {
+          // eslint-disable-next-line no-eval
+          return { [action.name]: eval(`(${action.body})`) }
+        }
 
-        return { ...ac2 }
+        const actionInst =
+          action.resource?.current.type === ResourceType.GraphQL
+            ? createGraphQLAction(action)
+            : createRestAction(action)
+
+        return { [action.name]: actionInst }
       })
       .reduce(merge, {})
 

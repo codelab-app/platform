@@ -88,8 +88,6 @@ const PageBuilder: CodelabPage = observer(() => {
         createMobxState(appStore, apps, pages, router),
       )
 
-      console.log('builder.tsxk')
-
       return {
         page,
         pageElementTree,

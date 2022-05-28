@@ -18,7 +18,7 @@ export const MobxStateContainer = observer<MobxStateContainerProps>(
     return (
       <>
         <MobxStateModal
-          close={builderService.stateModal.close}
+          close={() => builderService.stateModal.close()}
           isOpen={builderService.stateModal.isOpen}
           node={builderService.stateModal.node}
         />

@@ -19,6 +19,8 @@ export abstract class BaseActionImp<
     protected _resource: Resource,
     protected _config: Config,
     protected runOnInit: boolean,
+    // a function string to transform response after loading
+    protected responseTransformer: Nullish<string>,
   ) {
     this.$data = null
     this.$error = null
@@ -43,6 +45,12 @@ export abstract class BaseActionImp<
 
     try {
       this.$data = yield* _await(this.fetch())
+
+      if (this.responseTransformer) {
+        // eslint-disable-next-line no-eval
+        const transformFn = eval(`(${this.responseTransformer})`)
+        this.$data = transformFn(this.$data)
+      }
     } catch (error: any) {
       this.$error = error.message
     } finally {

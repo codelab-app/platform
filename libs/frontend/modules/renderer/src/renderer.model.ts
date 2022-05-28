@@ -64,11 +64,14 @@ const init = (
   appTree?: Nullable<IElementTree>,
   platformState?: any,
 ) => {
-  return new Renderer({
+  const renderer = new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
-    platformState,
   })
+
+  renderer.setPlatformState(platformState)
+
+  return renderer
 }
 
 /**
@@ -123,11 +126,6 @@ export class Renderer
        * Will log the render output and render pipe info to the console
        */
       debugMode: prop(false).withSetter(),
-
-      /**
-       * Set to any observable that will act as a source for the state of the rendered app
-       */
-      platformState: prop<any>(null),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {
@@ -141,11 +139,18 @@ export class Renderer
   )
   implements IRenderer
 {
+  platformState?: any
+
   /**
    * Like init, but skips the type fetching
    * Useful if you're sure that all types are already fetched
    * or for unit testing
    */
+  @modelAction
+  setPlatformState(platformState?: any) {
+    this.platformState = platformState
+  }
+
   @modelAction
   initForce(pageTree: IElementTree, platformState?: any) {
     this.pageTree = elementTreeRef(pageTree)
