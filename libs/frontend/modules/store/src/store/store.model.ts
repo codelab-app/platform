@@ -1,12 +1,16 @@
 import { Prop } from '@codelab/frontend/modules/element'
-import { resourceRef } from '@codelab/frontend/modules/resource'
+import {
+  createGraphQLAction,
+  createRestAction,
+} from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
+  IGraphQLActionConfig,
   IProp,
-  IResource,
+  IRestActionConfig,
   IStore,
   IStoreDTO,
-  IStoreResource,
+  ResourceType,
   STORE_NODE_TYPE,
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
@@ -31,8 +35,6 @@ export const hydrate = ({
   id,
   name,
   parentStoreConnection,
-  resources,
-  resourcesConnection,
   state,
   stateApi,
   parentStore,
@@ -41,11 +43,6 @@ export const hydrate = ({
     id,
     name,
     parentStore: parentStore?.id ? storeRef(parentStore.id) : null,
-    resources: resources.map((x) => resourceRef(x.id)),
-    resourcesKeys: resourcesConnection.edges.map((x) => ({
-      key: x.resourceKey,
-      resourceId: x.node.id,
-    })),
     actions: actions.map((action) => actionRef(action.id)),
     storeKey: parentStoreConnection?.edges?.[0]?.storeKey,
     state: Prop.hydrate(state),
@@ -62,9 +59,6 @@ export class Store
     children: prop(() => objectMap<Ref<IStore>>()),
     // STORE_PARENT relation property
     storeKey: prop<Nullable<string>>(null).withSetter(),
-
-    resources: prop<Array<Ref<IResource>>>(() => []),
-    resourcesKeys: prop<Array<IStoreResource>>(() => []),
 
     name: prop<string>(),
     actions: prop<Array<Ref<Action>>>().withSetter(),
@@ -100,25 +94,12 @@ export class Store
     }
   }
 
-  @computed
-  get resourcesList() {
-    return this.resources.map((x) => ({
-      id: x.current?.id,
-      name: x.current?.name,
-      config: x.current?.config,
-      type: x.current?.type,
-      key: this.resourcesKeys.find((y) => y.resourceId === x.id)?.key,
-    }))
-  }
-
   @modelAction
   updateCache({
     id,
     name,
     actions,
     parentStoreConnection,
-    resources,
-    resourcesConnection,
     state,
     stateApi,
     parentStore,
@@ -126,16 +107,10 @@ export class Store
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
-    this.resources = resources.map((r) => resourceRef(r.id))
     this.parentStore = parentStore?.id ? storeRef(parentStore.id) : null
     this.storeKey = parentStoreConnection?.edges[0]?.storeKey ?? null
     this.stateApi = typeRef(stateApi.id) as Ref<InterfaceType>
     this.state.updateCache(state)
-
-    this.resourcesKeys = resourcesConnection.edges.map((c) => ({
-      key: c.resourceKey,
-      resourceId: c.node.id,
-    }))
 
     return this
   }
@@ -147,10 +122,32 @@ export class Store
       .reduce(merge, {})
 
     const storeActions = this.actions
-      .map((action) => ({
-        // eslint-disable-next-line no-eval
-        [action.current.name]: eval(`(${action.current.body})`),
-      }))
+      .map((actRef) => {
+        const action = actRef.current
+        let ac
+
+        if (action.resource) {
+          if (action.resource.current.type === ResourceType.GraphQL) {
+            ac = createGraphQLAction(
+              action.resource.current.config.values,
+              action.config?.values as IGraphQLActionConfig,
+              action.runOnInit,
+            )
+          } else if (action.resource.current.type === ResourceType.Rest) {
+            ac = createRestAction(
+              action.resource.current.config.values,
+              action.config?.values as IRestActionConfig,
+              action.runOnInit,
+            )
+          }
+        }
+
+        const ac2 = action.body
+          ? { [action.name]: eval(`(${action.body})`) }
+          : {}
+
+        return { ...ac2 }
+      })
       .reduce(merge, {})
 
     const childStores: any = this.childrenList

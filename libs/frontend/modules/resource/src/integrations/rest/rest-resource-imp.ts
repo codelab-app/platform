@@ -1,9 +1,9 @@
 import { IRestResourceConfig } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import axios, { AxiosInstance } from 'axios'
-import { BaseResource } from '../base-resource'
+import { BaseResourceImp } from '../base-resource-imp'
 
-export class RestResource extends BaseResource<
+export class RestResourceImp extends BaseResourceImp<
   AxiosInstance,
   IRestResourceConfig
 > {

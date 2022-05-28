@@ -1,9 +1,9 @@
 import { IGraphQLActionConfig, IPropData } from '@codelab/shared/abstract/core'
-import { BaseOperation } from '../base-operation'
-import { GraphQLResource } from './graphql-resource'
+import { BaseActionImp } from '../base-action-imp'
+import { GraphQLResourceImp } from './graphql-resource-imp'
 
-export class GraphQlOperation extends BaseOperation<
-  GraphQLResource,
+export class GraphQlActionImp extends BaseActionImp<
+  GraphQLResourceImp,
   IGraphQLActionConfig,
   IPropData
 > {

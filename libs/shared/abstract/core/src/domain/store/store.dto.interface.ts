@@ -10,14 +10,4 @@ export interface ICreateStoreDTO {
 
 export type IUpdateStoreDTO = Omit<ICreateStoreDTO, 'auth0Id'>
 
-export type IAddStoreResourceDTO = {
-  key: string
-  resourceId: string
-}
-
-export type IRemoveStoreResourceDTO = {
-  key: string
-  resourceId: string
-}
-
 export type IStoreDTO = StoreFragment

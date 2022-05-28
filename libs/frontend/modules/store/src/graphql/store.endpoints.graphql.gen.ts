@@ -1,17 +1,21 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { StoreFragment } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
+import {
+  StoreGraphFragment,
+  StoreFragment,
+} from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { StoreFragmentDoc } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
+import {
+  StoreGraphFragmentDoc,
+  StoreFragmentDoc,
+} from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
 export type GetStoreGraphQueryVariables = Types.Exact<{
   input: Types.StoreGraphInput
 }>
 
 export type GetStoreGraphQuery = { storeGraph: StoreGraphFragment }
-
-export type StoreGraphFragment = { id: string; descendants: Array<string> }
 
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
@@ -46,12 +50,6 @@ export type UpdateStoresMutation = {
   updateStores: { stores: Array<StoreFragment> }
 }
 
-export const StoreGraphFragmentDoc = gql`
-  fragment StoreGraph on StoreGraph {
-    id
-    descendants
-  }
-`
 export const GetStoreGraphDocument = gql`
   query GetStoreGraph($input: StoreGraphInput!) {
     storeGraph(input: $input) {

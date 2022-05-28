@@ -2,15 +2,15 @@ import {
   IGraphQLActionConfig,
   IGraphQLResourceConfig,
 } from '@codelab/shared/abstract/core'
-import { GraphQlOperation } from './graphql-operation'
-import { GraphQLResource } from './graphql-resource'
+import { GraphQlActionImp } from './graphql-action-imp'
+import { GraphQLResourceImp } from './graphql-resource-imp'
 
-export const createGraphQLOperation = (
+export const createGraphQLAction = (
   resourceConfig: IGraphQLResourceConfig,
-  operationConfig: IGraphQLActionConfig,
+  actionConfig: IGraphQLActionConfig,
   runOnInit: boolean,
 ) => {
-  const resource = new GraphQLResource(resourceConfig)
+  const resource = new GraphQLResourceImp(resourceConfig)
 
-  return new GraphQlOperation(resource, operationConfig, runOnInit)
+  return new GraphQlActionImp(resource, actionConfig, runOnInit)
 }

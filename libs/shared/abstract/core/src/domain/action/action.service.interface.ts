@@ -16,4 +16,5 @@ export interface IActionService
   actionsList(storeId: Nullish<string>): Array<IAction>
   setSelectedActions(actions: Array<Ref<IAction>>): void
   updateCache(actions: Array<IActionDTO>): void
+  hydrateOrUpdateCache(actions: Array<IActionDTO>): Array<IAction>
 }

@@ -1,16 +1,16 @@
 import {
-  IRestOperationConfig,
+  IRestActionConfig,
   IRestResourceConfig,
 } from '@codelab/shared/abstract/core'
-import { RestOperation } from './rest-operation'
-import { RestResource } from './rest-resource'
+import { RestActionImp } from './rest-action-imp'
+import { RestResourceImp } from './rest-resource-imp'
 
-export const createRestOperation = (
+export const createRestAction = (
   resourceConfig: IRestResourceConfig,
-  operationConfig: IRestOperationConfig,
+  operationConfig: IRestActionConfig,
   runOnInit: boolean,
 ) => {
-  const resource = new RestResource(resourceConfig)
+  const resource = new RestResourceImp(resourceConfig)
 
-  return new RestOperation(resource, operationConfig, runOnInit)
+  return new RestActionImp(resource, operationConfig, runOnInit)
 }

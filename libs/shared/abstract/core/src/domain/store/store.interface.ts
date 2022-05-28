@@ -3,7 +3,6 @@ import { ObjectMap, Ref } from 'mobx-keystone'
 import { INodeType, STORE_NODE_TYPE } from '../../base/node.interface'
 import { IBuilderDataNode } from '../../ui'
 import { IPropData as IProp } from '../prop'
-import { IResource } from '../resource'
 import { IInterfaceType } from '../type'
 import { IStoreDTO } from './store.dto.interface'
 
@@ -14,7 +13,6 @@ export interface IStore extends INodeType<STORE_NODE_TYPE> {
   storeKey: Nullable<string>
   stateApi: Ref<IInterfaceType>
   state: IProp
-  resourcesList: Array<IResource>
   children: ObjectMap<Ref<IStore>>
   childrenList: Array<IStore>
   antdNode: IBuilderDataNode
@@ -25,8 +23,3 @@ export interface IStore extends INodeType<STORE_NODE_TYPE> {
 }
 
 export type IStoreRef = string
-
-export interface IStoreResource {
-  resourceId: string
-  key: string
-}

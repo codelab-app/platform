@@ -1,9 +1,7 @@
-import { getResourceService } from '@codelab/frontend/modules/resource'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
-  IAddStoreResourceDTO,
   ICreateStoreDTO,
   IStore,
   IStoreDTO,
@@ -24,12 +22,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { getActionService } from './action.service'
-import {
-  makeAddResourceInput,
-  makeRemoveResourceInput,
-  makeStoreCreateInput,
-  makeStoreUpdateInput,
-} from './api.utils'
+import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
 import { storeApi } from './store.api'
 import { Store, storeRef } from './store.model'
 import { StoreModalService } from './store-modal.service'
@@ -81,15 +74,7 @@ export class StoreService
     const actionService = getActionService(this)
     const actions = stores.flatMap((s) => s.actions)
 
-    return actionService.updateCache(actions)
-  }
-
-  @modelAction
-  private updateResourceCache(stores: Array<IStoreDTO>) {
-    const resourceService = getResourceService(this)
-    const resources = stores.flatMap((s) => s.resources)
-
-    return resourceService.updateCache(resources)
+    return actionService.hydrateOrUpdateCache(actions)
   }
 
   @modelAction
@@ -106,7 +91,6 @@ export class StoreService
     stores: Array<IStoreDTO>,
   ): Promise<Array<IStore>> => {
     this.updateActionsCache(stores)
-    this.updateResourceCache(stores)
     // it is very complex to load api with store fragment
     await this.fetchStatesApis(stores)
 
@@ -205,40 +189,6 @@ export class StoreService
       storeApi.UpdateStores({
         where: { id: store.id },
         update: makeStoreUpdateInput(input),
-      }),
-    )
-
-    return this.afterStoreUpdate(updateStores.stores, store)
-  })
-
-  @modelFlow
-  @transaction
-  addResource = _async(function* (
-    this: StoreService,
-    store: IStore,
-    input: IAddStoreResourceDTO,
-  ) {
-    const { updateStores } = yield* _await(
-      storeApi.UpdateStores({
-        where: { id: store.id },
-        update: makeAddResourceInput(input),
-      }),
-    )
-
-    return this.afterStoreUpdate(updateStores.stores, store)
-  })
-
-  @modelFlow
-  @transaction
-  removeResource = _async(function* (
-    this: StoreService,
-    store: IStore,
-    resourceId: string,
-  ) {
-    const { updateStores } = yield* _await(
-      storeApi.UpdateStores({
-        where: { id: store.id },
-        update: makeRemoveResourceInput(resourceId),
       }),
     )
 

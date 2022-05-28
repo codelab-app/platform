@@ -1,10 +1,10 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { flow, makeObservable, observable } from 'mobx'
 import { _await } from 'mobx-keystone'
-import { BaseResource } from './base-resource'
+import { BaseResourceImp } from './base-resource-imp'
 
-export abstract class BaseOperation<
-  Resource extends BaseResource<any, any>,
+export abstract class BaseActionImp<
+  Resource extends BaseResourceImp<any, any>,
   Config,
   DATA = any,
 > {

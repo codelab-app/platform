@@ -1,9 +1,9 @@
 import { IRestResourceConfig } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { GraphQLClient } from 'graphql-request'
-import { BaseResource } from '../base-resource'
+import { BaseResourceImp } from '../base-resource-imp'
 
-export class GraphQLResource extends BaseResource<
+export class GraphQLResourceImp extends BaseResourceImp<
   GraphQLClient,
   IRestResourceConfig
 > {

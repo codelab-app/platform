@@ -21,18 +21,12 @@ fragment Store on Store {
       storeKey
     }
   }
-  resourcesConnection {
-    edges {
-      node {
-        id
-      }
-      resourceKey
-    }
-  }
-  resources {
-    ...Resource
-  }
   children {
     id
   }
+}
+
+fragment StoreGraph on StoreGraph {
+  id
+  descendants
 }

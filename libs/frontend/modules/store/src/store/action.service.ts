@@ -8,6 +8,7 @@ import {
   ActionWhere,
 } from '@codelab/shared/abstract/codegen'
 import {
+  IAction,
   IActionDTO,
   IActionService,
   ICreateActionDTO,
@@ -118,7 +119,7 @@ export class ActionService
   })
 
   @modelAction
-  private updateResourceCache(actions: Array<IActionDTO>) {
+  updateResourceCache(actions: Array<IActionDTO>) {
     const resourceService = getResourceService(this)
 
     const resources: Array<IResourceDTO> = actions
@@ -128,13 +129,10 @@ export class ActionService
     resourceService.updateCache(resources)
   }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ActionService, where?: ActionWhere) {
-    this.actions.clear()
-
-    const { actions } = yield* _await(actionApi.GetActions({ where }))
-
+  @modelAction
+  public hydrateOrUpdateCache = (
+    actions: Array<IActionDTO>,
+  ): Array<IAction> => {
     this.updateResourceCache(actions)
 
     return actions.map((action) => {
@@ -143,6 +141,16 @@ export class ActionService
 
       return actionModel
     })
+  }
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: ActionService, where?: ActionWhere) {
+    this.actions.clear()
+
+    const { actions } = yield* _await(actionApi.GetActions({ where }))
+
+    return this.hydrateOrUpdateCache(actions)
   })
 
   @modelFlow
