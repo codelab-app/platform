@@ -1,12 +1,17 @@
 import { SelectStore } from '@codelab/frontend/modules/type'
 import { ICreateStoreDTO } from '@codelab/shared/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 
 export const createStoreSchema: JSONSchemaType<ICreateStoreDTO> = {
   title: 'Create Store',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      ...hideField,
+    },
     auth0Id: {
       type: 'string',
       disabled: true,

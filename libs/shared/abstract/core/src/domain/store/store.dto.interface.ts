@@ -9,6 +9,6 @@ export interface ICreateStoreDTO {
   state: string
 }
 
-export type IUpdateStoreDTO = Omit<ICreateStoreDTO, 'auth0Id'>
+export type IUpdateStoreDTO = Omit<ICreateStoreDTO, 'id' | 'auth0Id'>
 
 export type IStoreDTO = StoreFragment
