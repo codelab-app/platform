@@ -6,7 +6,6 @@ export interface ICreateAppDTO {
   id?: string
   name: string
   auth0Id: string
-  storeId?: string
 }
 
 export type IUpdateAppDTO = Omit<ICreateAppDTO, 'auth0Id' | 'id'>

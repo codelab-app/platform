@@ -608,7 +608,7 @@ type App implements WithOwner {
     directed: Boolean = true
     options: StoreOptions
     where: StoreWhere
-  ): Store
+  ): Store!
   storeAggregate(
     directed: Boolean = true
     where: StoreWhere
@@ -11017,6 +11017,7 @@ input StoreConnectWhere {
 input StoreCreateInput {
   actions: StoreActionsFieldInput
   children: StoreChildrenFieldInput
+  id: ID!
   name: String!
   parentStore: StoreParentStoreFieldInput
   resources: StoreResourcesFieldInput
@@ -11067,6 +11068,7 @@ type StoreInterfaceTypeStateApiNodeAggregateSelection {
 }
 
 input StoreOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -11714,6 +11716,7 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: [StoreActionsUpdateFieldInput!]
   children: [StoreChildrenUpdateFieldInput!]
+  id: ID
   name: String
   parentStore: StoreParentStoreUpdateFieldInput
   resources: [StoreResourcesUpdateFieldInput!]

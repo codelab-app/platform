@@ -7,7 +7,7 @@ export const storeSchema = gql`
   }
 
   type Store {
-    id: ID! @id
+    id: ID! @id(autogenerate: false)
     name: String!
     state: Prop! @relationship(type: "STORE_STATE", direction: OUT)
     stateApi: InterfaceType!

@@ -2,6 +2,7 @@ import { IAuth0Id } from '../user'
 import { StoreFragment } from './store.fragment.graphql.gen'
 
 export interface ICreateStoreDTO {
+  id: string
   name: string
   parentStore: { id: string; key: string }
   auth0Id: IAuth0Id

@@ -11,11 +11,10 @@ import {
   IRenderPipe,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {
-  AnyModel,
   detach,
   frozen,
   getSnapshot,
@@ -23,7 +22,6 @@ import {
   Model,
   model,
   modelAction,
-  ModelClass,
   prop,
   Ref,
   rootRef,
@@ -64,7 +62,7 @@ const initForBuilder = () => {
 const init = (
   pageTree: IElementTree,
   appTree?: Nullable<IElementTree>,
-  platformState?: Nullish<ModelClass<AnyModel>>,
+  platformState?: any,
 ) => {
   return new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
@@ -129,7 +127,7 @@ export class Renderer
       /**
        * Set to any observable that will act as a source for the state of the rendered app
        */
-      platformState: prop<Nullish<ModelClass<AnyModel>>>(null),
+      platformState: prop<any>(null),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {
@@ -149,10 +147,7 @@ export class Renderer
    * or for unit testing
    */
   @modelAction
-  initForce(
-    pageTree: IElementTree,
-    platformState?: Nullish<ModelClass<AnyModel>>,
-  ) {
+  initForce(pageTree: IElementTree, platformState?: any) {
     this.pageTree = elementTreeRef(pageTree)
     this.platformState = platformState
   }

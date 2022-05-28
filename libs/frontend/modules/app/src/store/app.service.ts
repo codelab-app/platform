@@ -1,14 +1,14 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { AppWhere } from '@codelab/shared/abstract/codegen'
+import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
   IAppService,
   ICreateAppDTO,
   IUpdateAppDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
-import { connectId, connectOwner } from '@codelab/shared/data'
+import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -62,16 +62,13 @@ export class AppService
   update = _async(function* (
     this: AppService,
     app: IEntity,
-    { name, storeId }: IUpdateAppDTO,
+    { name }: IUpdateAppDTO,
   ) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: {
-          name,
-          store: { connect: { where: { node: { id: storeId } } } },
-        },
+        update: { name },
         where: { id: app.id },
       }),
     )
@@ -104,11 +101,32 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, data: Array<ICreateAppDTO>) {
-    const input = data.map((app) => ({
+    const input: Array<AppCreateInput> = data.map((app) => ({
       id: app.id ?? v4(),
       name: app.name,
       owner: connectOwner(app.auth0Id),
-      store: connectId(app.storeId),
+      store: {
+        create: {
+          node: {
+            id: v4(),
+            name: `${app.name} Store`,
+            state: {
+              create: {
+                node: { data: '{}' },
+              },
+            },
+            stateApi: {
+              create: {
+                node: {
+                  id: v4(),
+                  name: `${app.name} Store API`,
+                  owner: connectOwner(app.auth0Id),
+                },
+              },
+            },
+          },
+        },
+      },
       rootElement: {
         create: {
           node: {

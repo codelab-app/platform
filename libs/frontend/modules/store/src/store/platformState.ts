@@ -56,9 +56,10 @@ export const createMobxState = (
     })
     .reduce(merge, {})
 
+  console.log(router)
+
   // we inject here state globals
   const stateGlobals = {
-    router,
     apps: pagesByApps,
     pagesRoutes,
   }

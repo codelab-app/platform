@@ -619,7 +619,7 @@ export type App = WithOwner & {
   rootElement: Element
   rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>
   rootElementConnection: AppRootElementConnection
-  store?: Maybe<Store>
+  store: Store
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
   storeConnection: AppStoreConnection
 }
@@ -12183,6 +12183,7 @@ export type StoreConnectWhere = {
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsFieldInput>
   children?: InputMaybe<StoreChildrenFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   parentStore?: InputMaybe<StoreParentStoreFieldInput>
   resources?: InputMaybe<StoreResourcesFieldInput>
@@ -12237,6 +12238,7 @@ export type StoreInterfaceTypeStateApiNodeAggregateSelection = {
 }
 
 export type StoreOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -12898,6 +12900,7 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
   children?: InputMaybe<Array<StoreChildrenUpdateFieldInput>>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   parentStore?: InputMaybe<StoreParentStoreUpdateFieldInput>
   resources?: InputMaybe<Array<StoreResourcesUpdateFieldInput>>
