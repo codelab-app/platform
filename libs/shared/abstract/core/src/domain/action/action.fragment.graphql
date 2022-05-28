@@ -11,8 +11,6 @@ fragment Action on Action {
   }
   runOnInit
   resource {
-    id
-    name
-    type
+    ...Resource
   }
 }

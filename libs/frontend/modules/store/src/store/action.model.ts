@@ -6,6 +6,7 @@ import {
   IActionDTO,
   IResource,
 } from '@codelab/shared/abstract/core'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
 
 @model('@codelab/Action')
@@ -13,21 +14,23 @@ export class Action
   extends Model({
     id: idProp,
     name: prop<string>(),
-    body: prop<string>(),
-    config: prop<IActionConfig>(),
-    resource: prop<Ref<IResource>>(),
+    body: prop<Nullable<string>>(),
+    config: prop<Nullish<IActionConfig>>(),
+    resource: prop<Nullish<Ref<IResource>>>(),
     runOnInit: prop<boolean>(),
+    storeId: prop<string>(),
   })
   implements IAction
 {
   static hydrate(action: IActionDTO) {
     return new Action({
-      body: action.body,
+      body: action.body ?? null,
       name: action.name,
       id: action.id,
-      config: Prop.hydrate(action.config),
+      config: Prop.hydrate(action.config) as IActionConfig,
       resource: action.resource ? resourceRef(action.resource.id) : null,
       runOnInit: action.runOnInit,
+      storeId: action.store.id,
     })
   }
 }

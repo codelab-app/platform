@@ -11,19 +11,14 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import {
-  AddResourceButton,
-  AddResourceModal,
   CreateActionButton,
   CreateActionModal,
   DeleteActionsModal,
   EditStateButton,
   GetActionsTable,
-  GetStoreResourcesTable,
-  RemoveResourceModal,
-  Store,
   StoreMainPane,
   UpdateActionModal,
-  UpdateLocalStateForm,
+  UpdateStateForm,
   useCurrentStore,
 } from '@codelab/frontend/modules/store'
 import { useStore } from '@codelab/frontend/presenter/container'
@@ -47,70 +42,36 @@ const LocalStatePage = observer<WithServices<STORE_SERVICE | TYPE_SERVICE>>(
         ghost={false}
         title="Local State"
       />
-      <UpdateLocalStateForm
-        storeService={storeService}
-        typeService={typeService}
-      />
+      <UpdateStateForm storeService={storeService} typeService={typeService} />
     </>
   ),
 )
 
-type StoreResourcePage = WithServices<RESOURCE_SERVICE | STORE_SERVICE> & {
-  store: Store
-}
-
-const StoreResourcePage = observer<StoreResourcePage>(
-  ({ storeService, resourceService, store }) => {
-    return (
-      <>
-        <PageHeader
-          extra={[<AddResourceButton resourceService={resourceService} />]}
-          ghost={false}
-          title="Store Resource"
-        />
-
-        <AddResourceModal
-          resourceService={resourceService}
-          store={store}
-          storeService={storeService}
-        />
-
-        <RemoveResourceModal
-          resourceService={resourceService}
-          store={store}
-          storeService={storeService}
-        />
-
-        <GetStoreResourcesTable
-          resourceService={resourceService}
-          storeService={storeService}
-        />
-      </>
-    )
-  },
-)
-
-const ActionPage = observer<WithServices<ACTION_SERVICE | STORE_SERVICE>>(
-  ({ actionService, storeService }) => (
-    <>
-      <PageHeader
-        extra={[<CreateActionButton actionService={actionService} />]}
-        ghost={false}
-        title="Actions"
-      />
-      <CreateActionModal
-        actionService={actionService}
-        storeService={storeService}
-      />
-      <UpdateActionModal actionService={actionService} />
-      <DeleteActionsModal actionService={actionService} />
-      <GetActionsTable
-        actionService={actionService}
-        storeService={storeService}
-      />
-    </>
-  ),
-)
+const ActionPage = observer<
+  WithServices<ACTION_SERVICE | STORE_SERVICE | RESOURCE_SERVICE>
+>(({ actionService, storeService, resourceService }) => (
+  <>
+    <PageHeader
+      extra={[<CreateActionButton actionService={actionService} />]}
+      ghost={false}
+      title="Actions"
+    />
+    <CreateActionModal
+      actionService={actionService}
+      resourceService={resourceService}
+      storeService={storeService}
+    />
+    <UpdateActionModal
+      actionService={actionService}
+      resourceService={resourceService}
+    />
+    <DeleteActionsModal actionService={actionService} />
+    <GetActionsTable
+      actionService={actionService}
+      storeService={storeService}
+    />
+  </>
+))
 
 const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { actionService, storeService, typeService, resourceService } =
@@ -130,15 +91,11 @@ const StoresPage: CodelabPage<DashboardTemplateProps> = observer(() => {
               storeService={storeService}
               typeService={typeService}
             />
-            <div css={tw`mb-5`} />
-            <StoreResourcePage
-              resourceService={resourceService}
-              store={store as Store}
-              storeService={storeService}
-            />
+
             <div css={tw`mb-5`} />
             <ActionPage
               actionService={actionService}
+              resourceService={resourceService}
               storeService={storeService}
             />
           </ContentSection>

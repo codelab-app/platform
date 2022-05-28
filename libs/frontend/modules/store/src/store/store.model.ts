@@ -18,7 +18,6 @@ import {
   Model,
   model,
   modelAction,
-  ObjectMap,
   objectMap,
   prop,
   Ref,
@@ -47,7 +46,6 @@ export const hydrate = ({
       key: x.resourceKey,
       resourceId: x.node.id,
     })),
-    children: new ObjectMap(children.map((c) => [c.id, storeRef(c.id)])),
     actions: actions.map((action) => actionRef(action.id)),
     storeKey: parentStoreConnection?.edges?.[0]?.storeKey,
     state: Prop.hydrate(state),
@@ -118,7 +116,6 @@ export class Store
     id,
     name,
     actions,
-    children,
     parentStoreConnection,
     resources,
     resourcesConnection,
@@ -149,16 +146,6 @@ export class Store
       .map((field) => ({ [field.key]: this.state.data[field.key] }))
       .reduce(merge, {})
 
-    const resources = this.resources
-      .map((r) => {
-        const key =
-          this.resourcesKeys.find((k) => k.resourceId === r.current.id)?.key ||
-          ''
-
-        return { [key]: r.current.toMobxObservable() }
-      })
-      .reduce(merge, {})
-
     const storeActions = this.actions
       .map((action) => ({
         // eslint-disable-next-line no-eval
@@ -173,7 +160,7 @@ export class Store
       .reduce(merge, {})
 
     return makeAutoObservable(
-      merge({}, storeState, storeActions, resources, childStores, globals),
+      merge({}, storeState, storeActions, childStores, globals),
     )
   }
 

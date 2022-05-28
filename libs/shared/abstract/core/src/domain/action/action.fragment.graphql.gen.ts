@@ -4,6 +4,7 @@ import {
   PropFragment,
   PropMapBindingFragment,
 } from '../prop/prop.fragment.graphql.gen'
+import { ResourceFragment } from '../resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -11,14 +12,15 @@ import {
   PropFragmentDoc,
   PropMapBindingFragmentDoc,
 } from '../prop/prop.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../resource/resource.fragment.graphql.gen'
 export type ActionFragment = {
   id: string
   name: string
-  body: string
-  runOnInit?: boolean | null
+  body?: string | null
+  runOnInit: boolean
   store: { id: string; name: string }
   config: PropFragment
-  resource: { id: string; name: string; type: Types.ResourceType }
+  resource?: ResourceFragment | null
 }
 
 export const ActionFragmentDoc = gql`
@@ -35,12 +37,11 @@ export const ActionFragmentDoc = gql`
     }
     runOnInit
     resource {
-      id
-      name
-      type
+      ...Resource
     }
   }
   ${PropFragmentDoc}
+  ${ResourceFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -1,5 +1,5 @@
 type Action {
-  body: String!
+  body: String
   config(
     directed: Boolean = true
     options: PropOptions
@@ -22,7 +22,7 @@ type Action {
     directed: Boolean = true
     options: ResourceOptions
     where: ResourceWhere
-  ): Resource!
+  ): Resource
   resourceAggregate(
     directed: Boolean = true
     where: ResourceWhere
@@ -34,7 +34,7 @@ type Action {
     sort: [ActionResourceConnectionSort!]
     where: ActionResourceConnectionWhere
   ): ActionResourceConnection!
-  runOnInit: Boolean
+  runOnInit: Boolean!
   store(
     directed: Boolean = true
     options: StoreOptions
@@ -54,7 +54,7 @@ type Action {
 }
 
 type ActionAggregateSelection {
-  body: StringAggregateSelectionNonNullable!
+  body: StringAggregateSelectionNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -185,11 +185,11 @@ input ActionConnectWhere {
 }
 
 input ActionCreateInput {
-  body: String!
+  body: String
   config: ActionConfigFieldInput
   name: String!
   resource: ActionResourceFieldInput
-  runOnInit: Boolean = false
+  runOnInit: Boolean! = false
   store: ActionStoreFieldInput
 }
 
@@ -211,9 +211,9 @@ type ActionEdge {
 }
 
 input ActionOnCreateInput {
-  body: String!
+  body: String
   name: String!
-  runOnInit: Boolean = false
+  runOnInit: Boolean! = false
 }
 
 input ActionOptions {
@@ -505,11 +505,11 @@ input ActionWhere {
   body: String
   body_CONTAINS: String
   body_ENDS_WITH: String
-  body_IN: [String!]
+  body_IN: [String]
   body_NOT: String
   body_NOT_CONTAINS: String
   body_NOT_ENDS_WITH: String
-  body_NOT_IN: [String!]
+  body_NOT_IN: [String]
   body_NOT_STARTS_WITH: String
   body_STARTS_WITH: String
   config: PropWhere
@@ -10709,7 +10709,7 @@ type StoreActionActionsAggregationSelection {
 }
 
 type StoreActionActionsNodeAggregateSelection {
-  body: StringAggregateSelectionNonNullable!
+  body: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }

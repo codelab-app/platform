@@ -3,7 +3,7 @@ import {
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { InterfaceForm, InterfaceType } from '@codelab/frontend/modules/type'
+import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
 import {
   createNotificationHandler,
   useStatefulExecutor,
@@ -12,21 +12,22 @@ import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { IPropData } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useCurrentStore } from '../../../hooks'
 
-export const UpdateLocalStateForm = observer<
+export const UpdateStateForm = observer<
   WithServices<STORE_SERVICE | TYPE_SERVICE>
 >(({ storeService, typeService }) => {
   const { store } = useCurrentStore(storeService)
+  const initialPropsRef = useRef(store?.state.values ?? {})
 
   const [getInterfaceType, { data, isLoading }] = useStatefulExecutor(
     (id: string) => typeService.getInterfaceAndDescendants(id),
   )
 
   useEffect(() => {
-    if (store?.state?.id) {
-      getInterfaceType(store.state.id)
+    if (store?.stateApi?.id) {
+      getInterfaceType(store.stateApi.id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -54,14 +55,12 @@ export const UpdateLocalStateForm = observer<
     <Spinner isLoading={isLoading}>
       <DisplayIf condition={Boolean(data)}>
         <Card>
-          <InterfaceForm
+          <PropsForm
             autosave
+            initialValue={initialPropsRef.current || {}}
             interfaceType={data as InterfaceType}
             key={store?.id}
-            model={store?.state || {}}
             onSubmit={onSubmit}
-            onSubmitError={onSubmitError}
-            submitRef={undefined}
           />
         </Card>
       </DisplayIf>

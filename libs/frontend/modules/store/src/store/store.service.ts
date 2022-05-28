@@ -96,9 +96,9 @@ export class StoreService
   private async fetchStatesApis(stores: Array<IStoreDTO>) {
     const typeService = getTypeService(this)
 
-    return await typeService.getAll({
-      id_IN: stores.map((x) => x.stateApi.id),
-    })
+    return await typeService.getAllWithDescendants(
+      stores.map((x) => x.stateApi.id),
+    )
   }
 
   @modelAction

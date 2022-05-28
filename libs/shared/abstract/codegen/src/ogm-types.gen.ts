@@ -1846,9 +1846,9 @@ export type Action = {
   __typename?: "Action";
   id: Scalars["ID"];
   name: Scalars["String"];
-  runOnInit?: Maybe<Scalars["Boolean"]>;
-  body: Scalars["String"];
-  resource: Resource;
+  runOnInit: Scalars["Boolean"];
+  body?: Maybe<Scalars["String"]>;
+  resource?: Maybe<Resource>;
   resourceAggregate?: Maybe<ActionResourceResourceAggregationSelection>;
   config: Prop;
   configAggregate?: Maybe<ActionPropConfigAggregationSelection>;
@@ -1921,7 +1921,7 @@ export type ActionAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  body: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
 };
 
 export type ActionConfigConnection = {
@@ -5096,7 +5096,7 @@ export type StoreActionActionsNodeAggregateSelection = {
   __typename?: "StoreActionActionsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  body: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
 };
 
 export type StoreActionsConnection = {
@@ -6263,8 +6263,8 @@ export type ActionConnectWhere = {
 
 export type ActionCreateInput = {
   name: Scalars["String"];
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  body: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
   resource?: InputMaybe<ActionResourceFieldInput>;
   config?: InputMaybe<ActionConfigFieldInput>;
   store?: InputMaybe<ActionStoreFieldInput>;
@@ -6284,8 +6284,8 @@ export type ActionDisconnectInput = {
 
 export type ActionOnCreateInput = {
   name: Scalars["String"];
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  body: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
 };
 
 export type ActionOptions = {
@@ -6541,8 +6541,8 @@ export type ActionWhere = {
   runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
   body?: InputMaybe<Scalars["String"]>;
   body_NOT?: InputMaybe<Scalars["String"]>;
-  body_IN?: InputMaybe<Array<Scalars["String"]>>;
-  body_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  body_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  body_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   body_CONTAINS?: InputMaybe<Scalars["String"]>;
   body_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
   body_STARTS_WITH?: InputMaybe<Scalars["String"]>;
@@ -18165,7 +18165,7 @@ export interface ActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
-  body?: StringAggregateInputNonNullable;
+  body?: StringAggregateInputNullable;
 }
 
 export declare class ActionModel {

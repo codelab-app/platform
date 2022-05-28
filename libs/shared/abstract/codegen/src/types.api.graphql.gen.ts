@@ -20,16 +20,16 @@ export type Scalars = {
 
 export type Action = {
   __typename?: 'Action'
-  body: Scalars['String']
+  body?: Maybe<Scalars['String']>
   config: Prop
   configAggregate?: Maybe<ActionPropConfigAggregationSelection>
   configConnection: ActionConfigConnection
   id: Scalars['ID']
   name: Scalars['String']
-  resource: Resource
+  resource?: Maybe<Resource>
   resourceAggregate?: Maybe<ActionResourceResourceAggregationSelection>
   resourceConnection: ActionResourceConnection
-  runOnInit?: Maybe<Scalars['Boolean']>
+  runOnInit: Scalars['Boolean']
   store: Store
   storeAggregate?: Maybe<ActionStoreStoreAggregationSelection>
   storeConnection: ActionStoreConnection
@@ -94,7 +94,7 @@ export type ActionStoreConnectionArgs = {
 
 export type ActionAggregateSelection = {
   __typename?: 'ActionAggregateSelection'
-  body: StringAggregateSelectionNonNullable
+  body: StringAggregateSelectionNullable
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -227,11 +227,11 @@ export type ActionConnectWhere = {
 }
 
 export type ActionCreateInput = {
-  body: Scalars['String']
+  body?: InputMaybe<Scalars['String']>
   config?: InputMaybe<ActionConfigFieldInput>
   name: Scalars['String']
   resource?: InputMaybe<ActionResourceFieldInput>
-  runOnInit?: InputMaybe<Scalars['Boolean']>
+  runOnInit?: Scalars['Boolean']
   store?: InputMaybe<ActionStoreFieldInput>
 }
 
@@ -254,9 +254,9 @@ export type ActionEdge = {
 }
 
 export type ActionOnCreateInput = {
-  body: Scalars['String']
+  body?: InputMaybe<Scalars['String']>
   name: Scalars['String']
-  runOnInit?: InputMaybe<Scalars['Boolean']>
+  runOnInit?: Scalars['Boolean']
 }
 
 export type ActionOptions = {
@@ -553,11 +553,11 @@ export type ActionWhere = {
   body?: InputMaybe<Scalars['String']>
   body_CONTAINS?: InputMaybe<Scalars['String']>
   body_ENDS_WITH?: InputMaybe<Scalars['String']>
-  body_IN?: InputMaybe<Array<Scalars['String']>>
+  body_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   body_NOT?: InputMaybe<Scalars['String']>
   body_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   body_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  body_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  body_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   body_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   body_STARTS_WITH?: InputMaybe<Scalars['String']>
   config?: InputMaybe<PropWhere>
@@ -11870,7 +11870,7 @@ export type StoreActionActionsAggregationSelection = {
 
 export type StoreActionActionsNodeAggregateSelection = {
   __typename?: 'StoreActionActionsNodeAggregateSelection'
-  body: StringAggregateSelectionNonNullable
+  body: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }

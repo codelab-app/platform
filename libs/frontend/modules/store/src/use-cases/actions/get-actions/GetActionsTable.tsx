@@ -27,10 +27,20 @@ export const GetActionsTable = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeId])
 
+  const actions = actionService.actionsList(storeId).map((x) => ({
+    name: x.name,
+    body: x.body,
+    config: x.config,
+    runOnInit: x.runOnInit,
+    id: x.id,
+    storeId: x.storeId,
+    resource: x.resource?.maybeCurrent?.name,
+  }))
+
   return (
     <Table
       columns={columns}
-      dataSource={actionService.actionsList(storeId)}
+      dataSource={actions}
       pagination={pagination}
       rowKey={(action) => action.id}
       rowSelection={rowSelection}

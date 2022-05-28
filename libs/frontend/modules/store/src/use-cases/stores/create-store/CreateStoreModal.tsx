@@ -50,7 +50,7 @@ export const CreateStoreModal = observer<
         onSubmitSuccess={closeModal}
         schema={createStoreSchema}
       >
-        <AutoFields omitFields={['parentStore', 'localState']} />
+        <AutoFields omitFields={['parentStore', 'state']} />
         <AutoField name="parentStore.id" />
         <DisplayIfParent>
           <AutoField name="parentStore.key" />

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { actionRef } from '../../../../store'
 
 type ActionColumnProps = WithServices<ACTION_SERVICE> & {
-  action: IAction
+  action: Omit<IAction, 'resource'>
 }
 
 export const ActionColumn = observer<ActionColumnProps>(
