@@ -8,6 +8,7 @@ export type ICreateResourceDTO = {
   name: string
   type: ResourceType
   config: IGraphQLResourceConfig | IRestResourceConfig
+  auth0Id: string
 }
 
 export type IUpdateResourceDTO = ICreateResourceDTO

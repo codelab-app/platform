@@ -1,19 +1,19 @@
-import { FIELD_TYPE } from '../support/antd/form'
-import { actionBody, actionName, updatedActionName } from './action.data'
-import { parentStoreInput } from './store.data'
+import { STORE_PAGE_NAME } from '@codelab/frontend/abstract/core'
+import { FIELD_TYPE } from '../../support/antd/form'
+import { actionBody, actionName, updatedActionName } from '../action.data'
+import { updatedAppName } from './app.data'
 
 describe('Action CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.getCurrentUserId().then((userId) => {
-          cy.createStore(parentStoreInput(userId)).then(([store]) => {
-            cy.visit(`/stores/${store.id}/`)
-            cy.getSpinner().should('not.exist')
-          })
-        })
-      })
-    })
+    cy.visit(`/apps`)
+    cy.getCard({ title: updatedAppName }).find('a').click()
+    cy.url({ timeout: 5000 }).should('include', 'pages')
+
+    cy.findByText(STORE_PAGE_NAME).click()
+
+    cy.url({ timeout: 5000 }).should('include', 'store')
+
+    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {

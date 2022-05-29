@@ -39,7 +39,10 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
         <title>Resources | Codelab</title>
       </Head>
 
-      <CreateResourceModal resourceService={store.resourceService} />
+      <CreateResourceModal
+        resourceService={store.resourceService}
+        userService={store.userService}
+      />
       <UpdateResourceModal resourceService={store.resourceService} />
       <DeleteResourcesModal resourceService={store.resourceService} />
       <ContentSection>

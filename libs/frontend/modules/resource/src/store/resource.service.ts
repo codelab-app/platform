@@ -9,6 +9,7 @@ import {
   IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -83,6 +84,7 @@ export class ResourceService
           },
         },
       },
+      owner: connectOwner(data.auth0Id),
     }))
 
     const {

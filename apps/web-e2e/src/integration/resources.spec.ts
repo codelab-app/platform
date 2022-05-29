@@ -41,7 +41,10 @@ describe('Resource CRUD', () => {
 
   describe('update', () => {
     it('should be able to update resource name', () => {
-      cy.getListItem(resourceName).getButton({ icon: 'edit' }).click()
+      cy.searchTableRow({ header: 'Name', row: resourceName })
+        .getButton({ icon: 'edit' })
+        .click()
+
       cy.getSpinner().should('not.exist')
 
       cy.getModal().setFormFieldValue({
@@ -62,8 +65,9 @@ describe('Resource CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete resource', () => {
-      cy.getListItem(updatedResourceName).getButton({ icon: 'delete' }).click()
-
+      cy.searchTableRow({ header: 'Name', row: resourceName })
+        .getButton({ icon: 'delete' })
+        .click()
       cy.getSpinner().should('not.exist')
 
       cy.getModal()
