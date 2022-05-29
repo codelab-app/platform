@@ -1,5 +1,6 @@
 export * from './button'
 export * from './conditionalView'
+export * from './editors/CodeMirror'
 export * from './editors/cssEditor'
 export * from './editors/graphqlEditor'
 export * from './editors/monaco'

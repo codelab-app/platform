@@ -42,6 +42,7 @@ import {
   rectangularSelection,
 } from '@codemirror/view'
 import { Command, EditorView } from '@uiw/react-codemirror'
+import { CodeMirrorInputProps } from './types'
 
 // Forbids from entering new lines in the field
 export const disallowNewLines = EditorState.transactionFilter.of((tr) =>
@@ -103,10 +104,15 @@ export const contextCompletionOptions = (
   }))
 }
 
-export const completionsFactory = (
-  defaultCompletionOptions?: Array<Completion>,
-  templateCompletionOptions?: Array<Completion>,
-): CompletionSource => {
+export const completionsFactory = ({
+  defaultCompletionOptions,
+  defaultCompletionSource,
+  templateCompletionOptions,
+}: {
+  defaultCompletionSource: CodeMirrorInputProps['defaultCompletionSource']
+  defaultCompletionOptions: CodeMirrorInputProps['defaultCompletionOptions']
+  templateCompletionOptions?: Array<Completion>
+}): CompletionSource => {
   // get all keys from autocompleteContext and add them as options
   // TODO allow nested object completion using . notation
 
@@ -115,10 +121,26 @@ export const completionsFactory = (
     const hasOpenLeftSideBracket = checkForOpenLeftSideBracket(context)
     const from = word?.from ?? context.pos
 
+    console.log({
+      hasOpenLeftSideBracket,
+    })
+
     if (!hasOpenLeftSideBracket) {
-      return defaultCompletionOptions
-        ? { from, options: defaultCompletionOptions }
-        : null
+      if (defaultCompletionSource) {
+        const results = defaultCompletionSource(context)
+        console.log({ results })
+
+        return results
+      }
+
+      if (defaultCompletionOptions) {
+        return {
+          from,
+          options: defaultCompletionOptions,
+        }
+      }
+
+      return null
     }
 
     return {
@@ -171,31 +193,38 @@ const insertBracketAndStartCompletion: Command = (view) => {
 }
 
 // customized version of the original default extension https://github.com/codemirror/basic-setup/blob/main/src/basic-setup.ts
-export const basicSetup: Extension = [
-  highlightActiveLineGutter(),
-  highlightSpecialChars(),
-  history(),
-  foldGutter(),
-  drawSelection(),
-  dropCursor(),
-  EditorState.allowMultipleSelections.of(true),
-  indentOnInput(),
-  syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-  bracketMatching(),
-  closeBrackets(),
-  rectangularSelection(),
-  crosshairCursor(),
-  highlightActiveLine(),
-  highlightSelectionMatches(),
-  keymap.of([
-    ...completionKeymap,
-    ...closeBracketsKeymap,
-    ...defaultKeymap,
-    ...searchKeymap,
-    ...historyKeymap,
-    ...foldKeymap,
-    ...lintKeymap,
-    { key: '{', run: insertBracketAndStartCompletion },
-  ]),
-  disallowNewLines,
-]
+export const basicSetup = (shouldDisableNewLines?: boolean): Extension => {
+  const exts = [
+    highlightActiveLineGutter(),
+    highlightSpecialChars(),
+    history(),
+    foldGutter(),
+    drawSelection(),
+    dropCursor(),
+    EditorState.allowMultipleSelections.of(true),
+    indentOnInput(),
+    syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+    bracketMatching(),
+    closeBrackets(),
+    rectangularSelection(),
+    crosshairCursor(),
+    highlightActiveLine(),
+    highlightSelectionMatches(),
+    keymap.of([
+      ...completionKeymap,
+      ...closeBracketsKeymap,
+      ...defaultKeymap,
+      ...searchKeymap,
+      ...historyKeymap,
+      ...foldKeymap,
+      ...lintKeymap,
+      { key: '{', run: insertBracketAndStartCompletion },
+    ]),
+  ]
+
+  if (shouldDisableNewLines) {
+    exts.push(disallowNewLines)
+  }
+
+  return exts
+}

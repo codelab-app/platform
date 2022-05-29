@@ -1,10 +1,10 @@
-import { Controller } from 'react-hook-form'
-import { FieldProps } from '../Field'
 import {
+  CodeMirrorInput,
   contextCompletionOptions,
   typeCompletionOptions,
-} from './codemirror-extensions'
-import { CodeMirrorInput } from './CodeMirrorInput'
+} from '@codelab/frontend/view/components'
+import { Controller } from 'react-hook-form'
+import { FieldProps } from '../Field'
 
 export const CodeMirrorField = ({ field, form, context }: FieldProps) => (
   <Controller
