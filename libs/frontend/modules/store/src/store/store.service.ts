@@ -158,7 +158,14 @@ export class StoreService
     }
 
     const { deleteStores } = yield* _await(
-      storeApi.DeleteStores({ where: { id: storeId } }),
+      storeApi.DeleteStores({
+        where: { id: storeId },
+        delete: {
+          state: { where: {} },
+          stateApi: { where: {} },
+          actions: [{ where: {} }],
+        },
+      }),
     )
 
     const { nodesDeleted } = deleteStores

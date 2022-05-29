@@ -11439,13 +11439,16 @@ export type ResetDatabaseMutationResponsesConnection = {
   totalCount: Scalars['Int']
 }
 
-export type Resource = {
+export type Resource = WithOwner & {
   __typename?: 'Resource'
   config: Prop
   configAggregate?: Maybe<ResourcePropConfigAggregationSelection>
   configConnection: ResourceConfigConnection
   id: Scalars['ID']
   name: Scalars['String']
+  owner: User
+  ownerAggregate?: Maybe<ResourceUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
   type: ResourceType
 }
 
@@ -11466,6 +11469,25 @@ export type ResourceConfigConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<ResourceConfigConnectionSort>>
   where?: InputMaybe<ResourceConfigConnectionWhere>
+}
+
+export type ResourceOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type ResourceOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type ResourceOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type ResourceAggregateSelection = {
@@ -11583,10 +11605,12 @@ export type ResourceConfigUpdateFieldInput = {
 
 export type ResourceConnectInput = {
   config?: InputMaybe<ResourceConfigConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
 }
 
 export type ResourceConnectOrCreateInput = {
   config?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
 }
 
 export type ResourceConnectOrCreateWhere = {
@@ -11600,15 +11624,18 @@ export type ResourceConnectWhere = {
 export type ResourceCreateInput = {
   config?: InputMaybe<ResourceConfigFieldInput>
   name: Scalars['String']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   type: ResourceType
 }
 
 export type ResourceDeleteInput = {
   config?: InputMaybe<ResourceConfigDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
 }
 
 export type ResourceDisconnectInput = {
   config?: InputMaybe<ResourceConfigDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
 }
 
 export type ResourceEdge = {
@@ -11628,6 +11655,63 @@ export type ResourceOptions = {
   sort?: InputMaybe<Array<ResourceSort>>
 }
 
+export type ResourceOwnerAggregateInput = {
+  AND?: InputMaybe<Array<ResourceOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ResourceOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ResourceOwnerNodeAggregationWhereInput>
+}
+
+export type ResourceOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ResourceOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ResourceOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+}
+
 export type ResourcePropConfigAggregationSelection = {
   __typename?: 'ResourcePropConfigAggregationSelection'
   count: Scalars['Int']
@@ -11642,6 +11726,7 @@ export type ResourcePropConfigNodeAggregateSelection = {
 
 export type ResourceRelationInput = {
   config?: InputMaybe<ResourceConfigCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
 }
 
 /** Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object. */
@@ -11663,7 +11748,21 @@ export type ResourceUniqueWhere = {
 export type ResourceUpdateInput = {
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   type?: InputMaybe<ResourceType>
+}
+
+export type ResourceUserOwnerAggregationSelection = {
+  __typename?: 'ResourceUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ResourceUserOwnerNodeAggregateSelection>
+}
+
+export type ResourceUserOwnerNodeAggregateSelection = {
+  __typename?: 'ResourceUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
 }
 
 export type ResourceWhere = {
@@ -11694,6 +11793,11 @@ export type ResourceWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ResourceOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   type?: InputMaybe<ResourceType>
   type_IN?: InputMaybe<Array<ResourceType>>
   type_NOT?: InputMaybe<ResourceType>
@@ -11719,7 +11823,7 @@ export enum SortDirection {
   DESC = 'DESC',
 }
 
-export type Store = WithOwner & {
+export type Store = {
   __typename?: 'Store'
   actions: Array<Action>
   actionsAggregate?: Maybe<StoreActionActionsAggregationSelection>
@@ -11729,9 +11833,6 @@ export type Store = WithOwner & {
   appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<StoreUserOwnerAggregationSelection>
-  ownerConnection: WithOwnerOwnerConnection
   state: Prop
   stateAggregate?: Maybe<StorePropStateAggregationSelection>
   stateApi: InterfaceType
@@ -11776,25 +11877,6 @@ export type StoreAppConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<StoreAppConnectionSort>>
   where?: InputMaybe<StoreAppConnectionWhere>
-}
-
-export type StoreOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type StoreOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type StoreOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
-  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoreStateArgs = {
@@ -12108,7 +12190,6 @@ export type StoreAppUpdateFieldInput = {
 export type StoreConnectInput = {
   actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>
   app?: InputMaybe<StoreAppConnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   state?: InputMaybe<StoreStateConnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>
 }
@@ -12116,7 +12197,6 @@ export type StoreConnectInput = {
 export type StoreConnectOrCreateInput = {
   actions?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>
   app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>
 }
@@ -12134,7 +12214,6 @@ export type StoreCreateInput = {
   app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
-  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   state?: InputMaybe<StoreStateFieldInput>
   stateApi?: InputMaybe<StoreStateApiFieldInput>
 }
@@ -12142,7 +12221,6 @@ export type StoreCreateInput = {
 export type StoreDeleteInput = {
   actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
   app?: InputMaybe<StoreAppDeleteFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   state?: InputMaybe<StoreStateDeleteFieldInput>
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>
 }
@@ -12150,7 +12228,6 @@ export type StoreDeleteInput = {
 export type StoreDisconnectInput = {
   actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
   app?: InputMaybe<StoreAppDisconnectFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>
 }
@@ -12185,63 +12262,6 @@ export type StoreOptions = {
   sort?: InputMaybe<Array<StoreSort>>
 }
 
-export type StoreOwnerAggregateInput = {
-  AND?: InputMaybe<Array<StoreOwnerAggregateInput>>
-  OR?: InputMaybe<Array<StoreOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
-}
-
-export type StoreOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
-  auth0Id_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  email_EQUAL?: InputMaybe<Scalars['String']>
-  email_GT?: InputMaybe<Scalars['Int']>
-  email_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  email_LT?: InputMaybe<Scalars['Int']>
-  email_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-}
-
 export type StorePropStateAggregationSelection = {
   __typename?: 'StorePropStateAggregationSelection'
   count: Scalars['Int']
@@ -12257,7 +12277,6 @@ export type StorePropStateNodeAggregateSelection = {
 export type StoreRelationInput = {
   actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>
   app?: InputMaybe<StoreAppCreateFieldInput>
-  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   state?: InputMaybe<StoreStateCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>
 }
@@ -12492,22 +12511,8 @@ export type StoreUpdateInput = {
   app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   state?: InputMaybe<StoreStateUpdateFieldInput>
   stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>
-}
-
-export type StoreUserOwnerAggregationSelection = {
-  __typename?: 'StoreUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<StoreUserOwnerNodeAggregateSelection>
-}
-
-export type StoreUserOwnerNodeAggregateSelection = {
-  __typename?: 'StoreUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
 }
 
 export type StoreWhere = {
@@ -12551,11 +12556,6 @@ export type StoreWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<StoreOwnerAggregateInput>
-  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
   state?: InputMaybe<PropWhere>
   stateAggregate?: InputMaybe<StoreStateAggregateInput>
   stateApi?: InputMaybe<InterfaceTypeWhere>

@@ -21,6 +21,7 @@ import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import {
   componentServiceContext,
   elementServiceContext,
+  storeServiceContext,
 } from '@codelab/frontend/presenter/container'
 import { IRootStore, RootStoreData } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
@@ -57,6 +58,7 @@ export const createRootStore = (
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)
       actionServiceContext.set(this, this.actionService)
+      storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)

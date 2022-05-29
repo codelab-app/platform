@@ -9,17 +9,15 @@ import {
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
-import { IPropData } from '@codelab/shared/abstract/core'
+import { IPropData, IStore } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
-import { useCurrentStore } from '../../../hooks'
 
 export const UpdateStateForm = observer<
-  WithServices<STORE_SERVICE | TYPE_SERVICE>
->(({ storeService, typeService }) => {
-  const { store } = useCurrentStore(storeService)
-  const initialPropsRef = useRef(store?.state.values ?? {})
+  WithServices<STORE_SERVICE | TYPE_SERVICE> & { store: IStore }
+>(({ storeService, typeService, store }) => {
+  const initialPropsRef = useRef(store.state.values ?? {})
 
   const [getInterfaceType, { data, isLoading }] = useStatefulExecutor(
     (id: string) => typeService.getInterfaceAndDescendants(id),
@@ -39,10 +37,6 @@ export const UpdateStateForm = observer<
 
     return storeService.update(store, {
       name: store?.name,
-      parentStore: {
-        id: store.parentStore?.id as string,
-        key: store.storeKey as string,
-      },
       state: JSON.stringify(state),
     })
   }
@@ -57,6 +51,10 @@ export const UpdateStateForm = observer<
         <Card>
           <PropsForm
             autosave
+            context={{
+              autocomplete: {},
+              builderState: { componentId: undefined },
+            }}
             initialValue={initialPropsRef.current || {}}
             interfaceType={data as InterfaceType}
             key={store?.id}

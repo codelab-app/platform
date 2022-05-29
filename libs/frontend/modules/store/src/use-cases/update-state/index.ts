@@ -1,2 +1,2 @@
 export * from './EditStateButton'
-export * from './UpdateForm'
+export * from './UpdateStateForm'

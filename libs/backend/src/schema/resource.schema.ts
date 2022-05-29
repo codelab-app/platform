@@ -7,10 +7,11 @@ const resourceType = `enum ResourceType {${values(ResourceType).join('\n')}}`
 export const resourceSchema = gql`
   ${resourceType}
 
-  type Resource {
+  type Resource implements WithOwner {
     id: ID! @id
     type: ResourceType!
     name: String!
     config: Prop! @relationship(type: "RESOURCE_CONFIG", direction: OUT)
+    owner: User!
   }
 `

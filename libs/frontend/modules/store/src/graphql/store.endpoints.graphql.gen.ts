@@ -17,7 +17,8 @@ export type CreateStoresMutation = {
 }
 
 export type DeleteStoresMutationVariables = Types.Exact<{
-  where: Types.StoreWhere
+  where?: Types.InputMaybe<Types.StoreWhere>
+  delete?: Types.InputMaybe<Types.StoreDeleteInput>
 }>
 
 export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } }
@@ -53,8 +54,8 @@ export const CreateStoresDocument = gql`
   ${StoreFragmentDoc}
 `
 export const DeleteStoresDocument = gql`
-  mutation DeleteStores($where: StoreWhere!) {
-    deleteStores(where: $where) {
+  mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
+    deleteStores(where: $where, delete: $delete) {
       nodesDeleted
     }
   }
@@ -111,7 +112,7 @@ export function getSdk(
       )
     },
     DeleteStores(
-      variables: DeleteStoresMutationVariables,
+      variables?: DeleteStoresMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
     ): Promise<DeleteStoresMutation> {
       return withWrapper(

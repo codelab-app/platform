@@ -10329,7 +10329,7 @@ type ResetDatabaseMutationResponsesConnection {
   totalCount: Int!
 }
 
-type Resource {
+type Resource implements WithOwner {
   config(
     directed: Boolean = true
     options: PropOptions
@@ -10348,6 +10348,18 @@ type Resource {
   ): ResourceConfigConnection!
   id: ID!
   name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ResourceUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   type: ResourceType!
 }
 
@@ -10463,10 +10475,12 @@ input ResourceConfigUpdateFieldInput {
 
 input ResourceConnectInput {
   config: ResourceConfigConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
 }
 
 input ResourceConnectOrCreateInput {
   config: ResourceConfigConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
 }
 
 input ResourceConnectOrCreateWhere {
@@ -10480,15 +10494,18 @@ input ResourceConnectWhere {
 input ResourceCreateInput {
   config: ResourceConfigFieldInput
   name: String!
+  owner: WithOwnerOwnerFieldInput
   type: ResourceType!
 }
 
 input ResourceDeleteInput {
   config: ResourceConfigDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
 }
 
 input ResourceDisconnectInput {
   config: ResourceConfigDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
 }
 
 type ResourceEdge {
@@ -10510,6 +10527,63 @@ input ResourceOptions {
   sort: [ResourceSort!]
 }
 
+input ResourceOwnerAggregateInput {
+  AND: [ResourceOwnerAggregateInput!]
+  OR: [ResourceOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ResourceOwnerNodeAggregationWhereInput
+}
+
+input ResourceOwnerNodeAggregationWhereInput {
+  AND: [ResourceOwnerNodeAggregationWhereInput!]
+  OR: [ResourceOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
 type ResourcePropConfigAggregationSelection {
   count: Int!
   node: ResourcePropConfigNodeAggregateSelection
@@ -10522,6 +10596,7 @@ type ResourcePropConfigNodeAggregateSelection {
 
 input ResourceRelationInput {
   config: ResourceConfigCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
 }
 
 """
@@ -10545,7 +10620,19 @@ input ResourceUniqueWhere {
 input ResourceUpdateInput {
   config: ResourceConfigUpdateFieldInput
   name: String
+  owner: WithOwnerOwnerUpdateFieldInput
   type: ResourceType
+}
+
+type ResourceUserOwnerAggregationSelection {
+  count: Int!
+  node: ResourceUserOwnerNodeAggregateSelection
+}
+
+type ResourceUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input ResourceWhere {
@@ -10576,6 +10663,11 @@ input ResourceWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: ResourceOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   type: ResourceType
   type_IN: [ResourceType!]
   type_NOT: ResourceType
@@ -10605,7 +10697,7 @@ enum SortDirection {
   DESC
 }
 
-type Store implements WithOwner {
+type Store {
   actions(
     directed: Boolean = true
     options: ActionOptions
@@ -10636,18 +10728,6 @@ type Store implements WithOwner {
   ): StoreAppConnection!
   id: ID!
   name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): StoreUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [WithOwnerOwnerConnectionSort!]
-    where: WithOwnerOwnerConnectionWhere
-  ): WithOwnerOwnerConnection!
   state(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   stateAggregate(
     directed: Boolean = true
@@ -10942,7 +11022,6 @@ input StoreAppUpdateFieldInput {
 input StoreConnectInput {
   actions: [StoreActionsConnectFieldInput!]
   app: StoreAppConnectFieldInput
-  owner: WithOwnerOwnerConnectFieldInput
   state: StoreStateConnectFieldInput
   stateApi: StoreStateApiConnectFieldInput
 }
@@ -10950,7 +11029,6 @@ input StoreConnectInput {
 input StoreConnectOrCreateInput {
   actions: [StoreActionsConnectOrCreateFieldInput!]
   app: StoreAppConnectOrCreateFieldInput
-  owner: WithOwnerOwnerConnectOrCreateFieldInput
   state: StoreStateConnectOrCreateFieldInput
   stateApi: StoreStateApiConnectOrCreateFieldInput
 }
@@ -10968,7 +11046,6 @@ input StoreCreateInput {
   app: StoreAppFieldInput
   id: ID!
   name: String!
-  owner: WithOwnerOwnerFieldInput
   state: StoreStateFieldInput
   stateApi: StoreStateApiFieldInput
 }
@@ -10976,7 +11053,6 @@ input StoreCreateInput {
 input StoreDeleteInput {
   actions: [StoreActionsDeleteFieldInput!]
   app: StoreAppDeleteFieldInput
-  owner: WithOwnerOwnerDeleteFieldInput
   state: StoreStateDeleteFieldInput
   stateApi: StoreStateApiDeleteFieldInput
 }
@@ -10984,7 +11060,6 @@ input StoreDeleteInput {
 input StoreDisconnectInput {
   actions: [StoreActionsDisconnectFieldInput!]
   app: StoreAppDisconnectFieldInput
-  owner: WithOwnerOwnerDisconnectFieldInput
   state: StoreStateDisconnectFieldInput
   stateApi: StoreStateApiDisconnectFieldInput
 }
@@ -11019,63 +11094,6 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
-input StoreOwnerAggregateInput {
-  AND: [StoreOwnerAggregateInput!]
-  OR: [StoreOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: StoreOwnerNodeAggregationWhereInput
-}
-
-input StoreOwnerNodeAggregationWhereInput {
-  AND: [StoreOwnerNodeAggregationWhereInput!]
-  OR: [StoreOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-}
-
 type StorePropStateAggregationSelection {
   count: Int!
   node: StorePropStateNodeAggregateSelection
@@ -11089,7 +11107,6 @@ type StorePropStateNodeAggregateSelection {
 input StoreRelationInput {
   actions: [StoreActionsCreateFieldInput!]
   app: StoreAppCreateFieldInput
-  owner: WithOwnerOwnerCreateFieldInput
   state: StoreStateCreateFieldInput
   stateApi: StoreStateApiCreateFieldInput
 }
@@ -11322,20 +11339,8 @@ input StoreUpdateInput {
   app: StoreAppUpdateFieldInput
   id: ID
   name: String
-  owner: WithOwnerOwnerUpdateFieldInput
   state: StoreStateUpdateFieldInput
   stateApi: StoreStateApiUpdateFieldInput
-}
-
-type StoreUserOwnerAggregationSelection {
-  count: Int!
-  node: StoreUserOwnerNodeAggregateSelection
-}
-
-type StoreUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
 }
 
 input StoreWhere {
@@ -11391,11 +11396,6 @@ input StoreWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: StoreOwnerAggregateInput
-  ownerConnection: WithOwnerOwnerConnectionWhere
-  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
-  owner_NOT: UserWhere
   state: PropWhere
   stateAggregate: StoreStateAggregateInput
   stateApi: InterfaceTypeWhere

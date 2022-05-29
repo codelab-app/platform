@@ -14,7 +14,7 @@ import { v4 } from 'uuid'
 export const makeStoreCreateInput = (
   input: ICreateStoreDTO,
 ): StoreCreateInput => {
-  const { name, parentStore, auth0Id } = input
+  const { name, auth0Id } = input
 
   const interfaceCreateInput: InterfaceTypeCreateInput = {
     id: v4(),
@@ -27,14 +27,6 @@ export const makeStoreCreateInput = (
   return {
     id: v4(),
     name,
-    parentStore: {
-      connect: parentStore?.id
-        ? {
-            where: { node: { id: parentStore.id } },
-            edge: { storeKey: parentStore.key },
-          }
-        : null,
-    },
     state: { create: { node: { data: '{}' } } },
     stateApi: { create: { node: interfaceCreateInput } },
   }
@@ -43,19 +35,10 @@ export const makeStoreCreateInput = (
 export const makeStoreUpdateInput = (
   input: IUpdateStoreDTO,
 ): StoreUpdateInput => {
-  const { name, parentStore, state } = input
+  const { name, state } = input
 
   return {
     name,
     state: { update: { node: { data: state } }, where: {} },
-    parentStore: {
-      disconnect: { where: {} },
-      connect: parentStore?.id
-        ? {
-            where: { node: { id: parentStore.id } },
-            edge: { storeKey: parentStore.key },
-          }
-        : null,
-    },
   }
 }

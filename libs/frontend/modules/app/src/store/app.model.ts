@@ -1,7 +1,7 @@
 import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { pageRef } from '@codelab/frontend/modules/page'
 import { IApp, IAppDTO, IPage } from '@codelab/shared/abstract/core'
-import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 import {
   detach,
   ExtendedModel,
@@ -18,7 +18,7 @@ const hydrate = (app: IAppDTO) => {
     name: app.name,
     ownerId: app.owner?.id,
     rootElement: { id: app.rootElement.id },
-    store: app.store?.id ? { id: app.store?.id as string } : undefined,
+    store: { id: app.store.id },
     pages: app.pages.map((page) => pageRef(page.id)),
   })
 }
@@ -30,7 +30,7 @@ export class App
     ownerId: prop<string>(),
     name: prop<string>(),
     rootElement: prop<IEntity>(),
-    store: prop<Nullable<IEntity>>(null),
+    store: prop<IEntity>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
   implements IApp

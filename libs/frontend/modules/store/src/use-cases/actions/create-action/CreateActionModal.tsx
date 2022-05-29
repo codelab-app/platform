@@ -1,24 +1,25 @@
 import {
   ACTION_SERVICE,
   RESOURCE_SERVICE,
-  STORE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { ICreateActionDTO, ResourceType } from '@codelab/shared/abstract/core'
+import {
+  ICreateActionDTO,
+  IStore,
+  ResourceType,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useCurrentStore } from '../../../hooks'
 import { createActionSchema } from './createActionSchema'
 
 export const CreateActionModal = observer<
-  WithServices<ACTION_SERVICE | STORE_SERVICE | RESOURCE_SERVICE>
->(({ actionService, storeService, resourceService }) => {
-  const { store } = useCurrentStore(storeService)
+  WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
+>(({ actionService, resourceService, store }) => {
   const closeModal = () => actionService.createModal.close()
 
   const onSubmit = (data: ICreateActionDTO) => {
@@ -41,7 +42,7 @@ export const CreateActionModal = observer<
       visible={actionService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{ storeId: store?.id }}
+        model={{ storeId: store.id }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}

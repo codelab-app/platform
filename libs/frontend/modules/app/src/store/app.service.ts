@@ -1,5 +1,8 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/presenter/container'
+import {
+  getElementService,
+  getStoreService,
+} from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
@@ -163,6 +166,7 @@ export class AppService
   @transaction
   delete = _async(function* (this: AppService, id: string) {
     const elementService = getElementService(this)
+    const storeService = getStoreService(this)
     const app = throwIfUndefined(this.apps.get(id))
     const appRootElement = app.rootElement.id
 
@@ -174,6 +178,8 @@ export class AppService
      * Delete all elements from app
      */
     yield* _await(elementService.deleteElementSubgraph(appRootElement))
+
+    yield _await(storeService.delete(app.store?.id))
 
     /**
      * Delete all elements from all pages
@@ -195,7 +201,6 @@ export class AppService
             },
           ],
           rootElement: {},
-          store: {},
         },
       }),
     )

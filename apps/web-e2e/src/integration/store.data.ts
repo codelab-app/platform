@@ -8,13 +8,15 @@ export const updateStoreName = `${storeName} updated`
 export const parentStoreName = 'Parent store'
 
 export const parentStoreInput = (ownerId: string): StoreCreateInput => ({
+  id: v4(),
   name: parentStoreName,
-  localState: '{}',
   actions: {},
-  children: {},
-  parentStore: {},
-  resources: {},
   state: {
+    create: {
+      node: { data: '{}' },
+    },
+  },
+  stateApi: {
     create: {
       node: {
         name: 'Test Store API',

@@ -60,10 +60,8 @@ export class Store
     id,
     name,
     actions,
-    parentStoreConnection,
     state,
     stateApi,
-    parentStore,
   }: Omit<IStoreDTO, '__typename'>) {
     this.id = id
     this.name = name
