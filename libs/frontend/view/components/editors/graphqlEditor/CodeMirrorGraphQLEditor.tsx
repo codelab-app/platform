@@ -46,11 +46,13 @@ const CodeMirrorGraphQLEditor = ({
     }
 
     const onMaskAnimationEnd = () => {
-      if (!editorRef.current?.editor?.refresh) {
-        return
-      }
+      setTimeout(() => {
+        if (!editorRef.current?.editor?.refresh) {
+          return
+        }
 
-      editorRef.current.editor.refresh()
+        editorRef.current.editor.refresh()
+      }, 100)
     }
 
     mask.addEventListener('animationend', onMaskAnimationEnd)

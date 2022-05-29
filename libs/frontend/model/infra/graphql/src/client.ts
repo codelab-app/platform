@@ -2,7 +2,7 @@ import { getSession } from '@auth0/nextjs-auth0'
 import { GraphQLClient } from 'graphql-request'
 import { GetServerSidePropsContext } from 'next'
 
-export const endpoint = `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`
+const endpoint = `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`
 
 export const client = new GraphQLClient(endpoint)
 

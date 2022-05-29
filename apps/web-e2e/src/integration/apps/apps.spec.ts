@@ -1,30 +1,16 @@
 import { appName, updatedAppName } from './app.data'
 
-const afterLogin = () => {
-  cy.visit('/apps')
-  cy.getSpinner().should('not.exist')
-}
-
-const beforeEachAppTest = () => {
-  cy.logInIfInAuth0Page().then((login) => {
-    if (!login) {
-      return
-    }
-
-    afterLogin()
-  })
-}
-
 describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
-      cy.login().then(afterLogin)
+      cy.login().then(() => {
+        cy.visit('/apps')
+        cy.getSpinner().should('not.exist')
+      })
     })
   })
 
   describe('create', () => {
-    before(beforeEachAppTest)
-
     it('should be able to create app', () => {
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
@@ -42,8 +28,6 @@ describe('Apps CRUD', () => {
   })
 
   describe('update', () => {
-    before(beforeEachAppTest)
-
     it('should be able to update app name', () => {
       cy.getCard({ title: appName }).getButton({ icon: 'ellipsis' }).click()
 
@@ -66,7 +50,6 @@ describe('Apps CRUD', () => {
   // require('./action.spec.required')
 
   describe('delete', () => {
-    before(beforeEachAppTest)
     before(() => {
       cy.visit('/apps')
     })

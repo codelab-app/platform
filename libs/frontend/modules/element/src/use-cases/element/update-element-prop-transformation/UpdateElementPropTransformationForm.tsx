@@ -1,10 +1,8 @@
 import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import {
-  GraphqlEditorField,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
+import TextArea from 'antd/lib/input/TextArea'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -74,7 +72,7 @@ export const UpdateElementPropTransformationForm =
       }, [valueDebounced, updateValue])
 
       return (
-        <GraphqlEditorField
+        <TextArea rows={4} />
         // containerProps={{
         //   style: { height: '100%' },
         //   ...(monacoProps?.containerProps || {}),
@@ -88,7 +86,6 @@ export const UpdateElementPropTransformationForm =
         // value={value}
         // // eslint-disable-next-line react/jsx-props-no-spreading
         // {...monacoProps}
-        />
       )
     },
   )

@@ -1,5 +1,4 @@
 import 'codemirror/mode/meta'
-import './ReactCodeMirror.css'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { IEditorInstance, IReactCodemirror } from '@uiw/react-codemirror3'
 import CodeMirror, { EditorFromTextArea } from 'codemirror'
@@ -10,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
+import { reactCodeMirrStyles } from './reactCodeMirrorStyles'
 
 const defaultOptions = {
   tabSize: 2,
@@ -168,7 +168,11 @@ const ReactCodeMirror = (
     setOptions(editor, { ...defaultOptions, ...options })
   }, [editor, options])
 
-  return <textarea ref={textareaRef} />
+  return (
+    <div css={reactCodeMirrStyles}>
+      <textarea ref={textareaRef} />
+    </div>
+  )
 }
 
 export default React.forwardRef(ReactCodeMirror)
