@@ -84,7 +84,7 @@ export class ResourceService
           },
         },
       },
-      owner: connectOwner(data.auth0Id),
+      owner: connectOwner(resource.auth0Id),
     }))
 
     const {

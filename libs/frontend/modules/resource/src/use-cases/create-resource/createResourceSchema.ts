@@ -1,6 +1,7 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
+import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
 
@@ -31,6 +32,11 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
       },
       label: '',
       required: ['url'],
+    },
+    auth0Id: {
+      type: 'string',
+      disabled: true,
+      ...showFieldOnDev(),
     },
   },
   required: ['name', 'type'],
