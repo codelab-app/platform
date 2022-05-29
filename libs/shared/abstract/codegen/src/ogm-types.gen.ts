@@ -2022,7 +2022,7 @@ export type App = WithOwner & {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>;
   rootElement: Element;
   rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>;
-  store?: Maybe<Store>;
+  store: Store;
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>;
   ownerConnection: WithOwnerOwnerConnection;
   pagesConnection: AppPagesConnection;
@@ -13489,6 +13489,7 @@ export type StoreConnectWhere = {
 };
 
 export type StoreCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
   state?: InputMaybe<StoreStateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiFieldInput>;
@@ -13562,6 +13563,7 @@ export type StoreGraphWhere = {
 };
 
 export type StoreOnCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
 };
 
@@ -14093,6 +14095,7 @@ export type StoreUniqueWhere = {
 };
 
 export type StoreUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   state?: InputMaybe<StoreStateUpdateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>;

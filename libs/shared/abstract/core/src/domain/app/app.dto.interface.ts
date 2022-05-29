@@ -12,7 +12,10 @@ export type IUpdateAppDTO = Omit<ICreateAppDTO, 'auth0Id' | 'id'>
 
 export type IAppDTO = AppFragment
 
-export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'rootElement'> & {
+export type IAppExport = Pick<
+  OGM_TYPES.App,
+  'id' | 'name' | 'rootElement' | 'store'
+> & {
   pages: Array<IPageExport>
   providerElements: Array<OGM_TYPES.Element>
 }

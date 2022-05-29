@@ -80,6 +80,11 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
             where: { node: { id: app.rootElement.id } },
           },
         },
+        store: {
+          connect: {
+            where: { node: { id: app.store.id } },
+          },
+        },
         pages: {
           create: app.pages.map((page) => ({
             node: {
