@@ -9,18 +9,15 @@ import {
   IStore,
   IStoreDTO,
   ResourceType,
-  STORE_NODE_TYPE,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { merge } from 'lodash'
-import { computed, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import {
   detach,
   idProp,
   Model,
   model,
   modelAction,
-  objectMap,
   prop,
   Ref,
   rootRef,
@@ -29,20 +26,15 @@ import { Action, actionRef } from './action.model'
 
 export const hydrate = ({
   actions,
-  children,
   id,
   name,
-  parentStoreConnection,
   state,
   stateApi,
-  parentStore,
 }: Omit<IStoreDTO, '__typename'>) =>
   new Store({
     id,
     name,
-    parentStore: parentStore?.id ? storeRef(parentStore.id) : null,
     actions: actions.map((action) => actionRef(action.id)),
-    storeKey: parentStoreConnection?.edges?.[0]?.storeKey,
     state: Prop.hydrate(state),
     stateApi: typeRef(stateApi.id) as Ref<InterfaceType>,
   })
@@ -51,13 +43,6 @@ export const hydrate = ({
 export class Store
   extends Model(() => ({
     id: idProp,
-    __nodeType: prop<STORE_NODE_TYPE>(STORE_NODE_TYPE),
-
-    parentStore: prop<Nullish<Ref<IStore>>>().withSetter(),
-    children: prop(() => objectMap<Ref<IStore>>()),
-    // STORE_PARENT relation property
-    storeKey: prop<Nullable<string>>(null).withSetter(),
-
     name: prop<string>(),
     actions: prop<Array<Ref<Action>>>().withSetter(),
     state: prop<IProp>(),
@@ -68,28 +53,6 @@ export class Store
   getRefId() {
     // when `getId` is not specified in the custom reference it will use this as id
     return this.id
-  }
-
-  @computed
-  get isRoot(): boolean {
-    return !this.parentStore
-  }
-
-  @computed
-  get childrenList() {
-    return [...this.children.values()].map((x) => x.current)
-  }
-
-  @computed
-  get antdNode() {
-    return {
-      key: this.id,
-      title: this.name,
-      type: STORE_NODE_TYPE as STORE_NODE_TYPE,
-      children: this.childrenList
-        ? this.childrenList.map((child) => child.antdNode)
-        : [],
-    }
   }
 
   @modelAction
@@ -105,8 +68,6 @@ export class Store
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
-    this.parentStore = parentStore?.id ? storeRef(parentStore.id) : null
-    this.storeKey = parentStoreConnection?.edges[0]?.storeKey ?? null
     this.stateApi = typeRef(stateApi.id) as Ref<InterfaceType>
     this.state.updateCache(state)
 
@@ -145,15 +106,7 @@ export class Store
       })
       .reduce(merge, {})
 
-    const childStores: any = this.childrenList
-      .map((x) => ({
-        [x.storeKey as string]: x.toMobxObservable(),
-      }))
-      .reduce(merge, {})
-
-    return makeAutoObservable(
-      merge({}, storeState, storeActions, childStores, globals),
-    )
+    return makeAutoObservable(merge({}, storeState, storeActions, globals))
   }
 
   static hydrate = hydrate

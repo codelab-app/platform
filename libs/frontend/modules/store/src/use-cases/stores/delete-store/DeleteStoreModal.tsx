@@ -27,7 +27,7 @@ export const DeleteStoresModal = observer<WithServices<STORE_SERVICE>>(
         throw new Error('Store to delete not found')
       }
 
-      return storeService.deleteStoresSubgraph(store?.id)
+      return storeService.deleteStore(store?.id)
     }
 
     const onSubmitError = createNotificationHandler({

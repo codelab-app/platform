@@ -12,21 +12,4 @@ fragment Store on Store {
   actions {
     ...Action
   }
-  parentStore {
-    id
-    name
-  }
-  parentStoreConnection {
-    edges {
-      storeKey
-    }
-  }
-  children {
-    id
-  }
-}
-
-fragment StoreGraph on StoreGraph {
-  id
-  descendants
 }

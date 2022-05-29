@@ -9818,7 +9818,6 @@ type Query {
     sort: [ResourceSort]
     where: ResourceWhere
   ): ResourcesConnection!
-  storeGraph(input: StoreGraphInput!): StoreGraph!
   stores(options: StoreOptions, where: StoreWhere): [Store!]!
   storesAggregate(where: StoreWhere): StoreAggregateSelection!
   storesConnection(
@@ -10606,7 +10605,7 @@ enum SortDirection {
   DESC
 }
 
-type Store {
+type Store implements WithOwner {
   actions(
     directed: Boolean = true
     options: ActionOptions
@@ -10623,56 +10622,32 @@ type Store {
     sort: [StoreActionsConnectionSort!]
     where: StoreActionsConnectionWhere
   ): StoreActionsConnection!
-  children(
+  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
+  appAggregate(
     directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): [Store!]!
-  childrenAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): StoreStoreChildrenAggregationSelection
-  childrenConnection(
+    where: AppWhere
+  ): StoreAppAppAggregationSelection
+  appConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [StoreChildrenConnectionSort!]
-    where: StoreChildrenConnectionWhere
-  ): StoreChildrenConnection!
+    sort: [StoreAppConnectionSort!]
+    where: StoreAppConnectionWhere
+  ): StoreAppConnection!
   id: ID!
   name: String!
-  parentStore(
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
     directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store
-  parentStoreAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): StoreStoreParentStoreAggregationSelection
-  parentStoreConnection(
+    where: UserWhere
+  ): StoreUserOwnerAggregationSelection
+  ownerConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [StoreParentStoreConnectionSort!]
-    where: StoreParentStoreConnectionWhere
-  ): StoreParentStoreConnection!
-  resources(
-    directed: Boolean = true
-    options: ResourceOptions
-    where: ResourceWhere
-  ): [Resource!]!
-  resourcesAggregate(
-    directed: Boolean = true
-    where: ResourceWhere
-  ): StoreResourceResourcesAggregationSelection
-  resourcesConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [StoreResourcesConnectionSort!]
-    where: StoreResourcesConnectionWhere
-  ): StoreResourcesConnection!
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   state(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   stateAggregate(
     directed: Boolean = true
@@ -10847,103 +10822,81 @@ type StoreAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
-input StoreChildrenAggregateInput {
-  AND: [StoreChildrenAggregateInput!]
-  OR: [StoreChildrenAggregateInput!]
+input StoreAppAggregateInput {
+  AND: [StoreAppAggregateInput!]
+  OR: [StoreAppAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: StoreChildrenEdgeAggregationWhereInput
-  node: StoreChildrenNodeAggregationWhereInput
+  node: StoreAppNodeAggregationWhereInput
 }
 
-input StoreChildrenConnectFieldInput {
-  connect: [StoreConnectInput!]
-  edge: StoreParentCreateInput!
-  where: StoreConnectWhere
+type StoreAppAppAggregationSelection {
+  count: Int!
+  node: StoreAppAppNodeAggregateSelection
 }
 
-input StoreChildrenConnectOrCreateFieldInput {
-  onCreate: StoreChildrenConnectOrCreateFieldInputOnCreate!
-  where: StoreConnectOrCreateWhere!
+type StoreAppAppNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
-input StoreChildrenConnectOrCreateFieldInputOnCreate {
-  edge: StoreParentCreateInput!
-  node: StoreOnCreateInput!
+input StoreAppConnectFieldInput {
+  connect: AppConnectInput
+  where: AppConnectWhere
 }
 
-type StoreChildrenConnection {
-  edges: [StoreChildrenRelationship!]!
+input StoreAppConnectOrCreateFieldInput {
+  onCreate: StoreAppConnectOrCreateFieldInputOnCreate!
+  where: AppConnectOrCreateWhere!
+}
+
+input StoreAppConnectOrCreateFieldInputOnCreate {
+  node: AppOnCreateInput!
+}
+
+type StoreAppConnection {
+  edges: [StoreAppRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input StoreChildrenConnectionSort {
-  edge: StoreParentSort
-  node: StoreSort
+input StoreAppConnectionSort {
+  node: AppSort
 }
 
-input StoreChildrenConnectionWhere {
-  AND: [StoreChildrenConnectionWhere!]
-  OR: [StoreChildrenConnectionWhere!]
-  edge: StoreParentWhere
-  edge_NOT: StoreParentWhere
-  node: StoreWhere
-  node_NOT: StoreWhere
+input StoreAppConnectionWhere {
+  AND: [StoreAppConnectionWhere!]
+  OR: [StoreAppConnectionWhere!]
+  node: AppWhere
+  node_NOT: AppWhere
 }
 
-input StoreChildrenCreateFieldInput {
-  edge: StoreParentCreateInput!
-  node: StoreCreateInput!
+input StoreAppCreateFieldInput {
+  node: AppCreateInput!
 }
 
-input StoreChildrenDeleteFieldInput {
-  delete: StoreDeleteInput
-  where: StoreChildrenConnectionWhere
+input StoreAppDeleteFieldInput {
+  delete: AppDeleteInput
+  where: StoreAppConnectionWhere
 }
 
-input StoreChildrenDisconnectFieldInput {
-  disconnect: StoreDisconnectInput
-  where: StoreChildrenConnectionWhere
+input StoreAppDisconnectFieldInput {
+  disconnect: AppDisconnectInput
+  where: StoreAppConnectionWhere
 }
 
-input StoreChildrenEdgeAggregationWhereInput {
-  AND: [StoreChildrenEdgeAggregationWhereInput!]
-  OR: [StoreChildrenEdgeAggregationWhereInput!]
-  storeKey_AVERAGE_EQUAL: Float
-  storeKey_AVERAGE_GT: Float
-  storeKey_AVERAGE_GTE: Float
-  storeKey_AVERAGE_LT: Float
-  storeKey_AVERAGE_LTE: Float
-  storeKey_EQUAL: String
-  storeKey_GT: Int
-  storeKey_GTE: Int
-  storeKey_LONGEST_EQUAL: Int
-  storeKey_LONGEST_GT: Int
-  storeKey_LONGEST_GTE: Int
-  storeKey_LONGEST_LT: Int
-  storeKey_LONGEST_LTE: Int
-  storeKey_LT: Int
-  storeKey_LTE: Int
-  storeKey_SHORTEST_EQUAL: Int
-  storeKey_SHORTEST_GT: Int
-  storeKey_SHORTEST_GTE: Int
-  storeKey_SHORTEST_LT: Int
-  storeKey_SHORTEST_LTE: Int
+input StoreAppFieldInput {
+  connect: StoreAppConnectFieldInput
+  connectOrCreate: StoreAppConnectOrCreateFieldInput
+  create: StoreAppCreateFieldInput
 }
 
-input StoreChildrenFieldInput {
-  connect: [StoreChildrenConnectFieldInput!]
-  connectOrCreate: [StoreChildrenConnectOrCreateFieldInput!]
-  create: [StoreChildrenCreateFieldInput!]
-}
-
-input StoreChildrenNodeAggregationWhereInput {
-  AND: [StoreChildrenNodeAggregationWhereInput!]
-  OR: [StoreChildrenNodeAggregationWhereInput!]
+input StoreAppNodeAggregationWhereInput {
+  AND: [StoreAppNodeAggregationWhereInput!]
+  OR: [StoreAppNodeAggregationWhereInput!]
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -10967,41 +10920,37 @@ input StoreChildrenNodeAggregationWhereInput {
   name_SHORTEST_LTE: Int
 }
 
-type StoreChildrenRelationship implements StoreParent {
+type StoreAppRelationship {
   cursor: String!
-  node: Store!
-  storeKey: String!
+  node: App!
 }
 
-input StoreChildrenUpdateConnectionInput {
-  edge: StoreParentUpdateInput
-  node: StoreUpdateInput
+input StoreAppUpdateConnectionInput {
+  node: AppUpdateInput
 }
 
-input StoreChildrenUpdateFieldInput {
-  connect: [StoreChildrenConnectFieldInput!]
-  connectOrCreate: [StoreChildrenConnectOrCreateFieldInput!]
-  create: [StoreChildrenCreateFieldInput!]
-  delete: [StoreChildrenDeleteFieldInput!]
-  disconnect: [StoreChildrenDisconnectFieldInput!]
-  update: StoreChildrenUpdateConnectionInput
-  where: StoreChildrenConnectionWhere
+input StoreAppUpdateFieldInput {
+  connect: StoreAppConnectFieldInput
+  connectOrCreate: StoreAppConnectOrCreateFieldInput
+  create: StoreAppCreateFieldInput
+  delete: StoreAppDeleteFieldInput
+  disconnect: StoreAppDisconnectFieldInput
+  update: StoreAppUpdateConnectionInput
+  where: StoreAppConnectionWhere
 }
 
 input StoreConnectInput {
   actions: [StoreActionsConnectFieldInput!]
-  children: [StoreChildrenConnectFieldInput!]
-  parentStore: StoreParentStoreConnectFieldInput
-  resources: [StoreResourcesConnectFieldInput!]
+  app: StoreAppConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   state: StoreStateConnectFieldInput
   stateApi: StoreStateApiConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: [StoreActionsConnectOrCreateFieldInput!]
-  children: [StoreChildrenConnectOrCreateFieldInput!]
-  parentStore: StoreParentStoreConnectOrCreateFieldInput
-  resources: [StoreResourcesConnectOrCreateFieldInput!]
+  app: StoreAppConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   state: StoreStateConnectOrCreateFieldInput
   stateApi: StoreStateApiConnectOrCreateFieldInput
 }
@@ -11016,29 +10965,26 @@ input StoreConnectWhere {
 
 input StoreCreateInput {
   actions: StoreActionsFieldInput
-  children: StoreChildrenFieldInput
+  app: StoreAppFieldInput
   id: ID!
   name: String!
-  parentStore: StoreParentStoreFieldInput
-  resources: StoreResourcesFieldInput
+  owner: WithOwnerOwnerFieldInput
   state: StoreStateFieldInput
   stateApi: StoreStateApiFieldInput
 }
 
 input StoreDeleteInput {
   actions: [StoreActionsDeleteFieldInput!]
-  children: [StoreChildrenDeleteFieldInput!]
-  parentStore: StoreParentStoreDeleteFieldInput
-  resources: [StoreResourcesDeleteFieldInput!]
+  app: StoreAppDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   state: StoreStateDeleteFieldInput
   stateApi: StoreStateApiDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: [StoreActionsDisconnectFieldInput!]
-  children: [StoreChildrenDisconnectFieldInput!]
-  parentStore: StoreParentStoreDisconnectFieldInput
-  resources: [StoreResourcesDisconnectFieldInput!]
+  app: StoreAppDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   state: StoreStateDisconnectFieldInput
   stateApi: StoreStateApiDisconnectFieldInput
 }
@@ -11046,15 +10992,6 @@ input StoreDisconnectInput {
 type StoreEdge {
   cursor: String!
   node: Store!
-}
-
-type StoreGraph {
-  descendants: [ID!]!
-  id: ID!
-}
-
-input StoreGraphInput {
-  rootId: String!
 }
 
 type StoreInterfaceTypeStateApiAggregationSelection {
@@ -11082,176 +11019,61 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
-interface StoreParent {
-  storeKey: String!
-}
-
-input StoreParentCreateInput {
-  storeKey: String!
-}
-
-input StoreParentSort {
-  storeKey: SortDirection
-}
-
-input StoreParentStoreAggregateInput {
-  AND: [StoreParentStoreAggregateInput!]
-  OR: [StoreParentStoreAggregateInput!]
+input StoreOwnerAggregateInput {
+  AND: [StoreOwnerAggregateInput!]
+  OR: [StoreOwnerAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  edge: StoreParentStoreEdgeAggregationWhereInput
-  node: StoreParentStoreNodeAggregationWhereInput
+  node: StoreOwnerNodeAggregationWhereInput
 }
 
-input StoreParentStoreConnectFieldInput {
-  connect: StoreConnectInput
-  edge: StoreParentCreateInput!
-  where: StoreConnectWhere
-}
-
-input StoreParentStoreConnectOrCreateFieldInput {
-  onCreate: StoreParentStoreConnectOrCreateFieldInputOnCreate!
-  where: StoreConnectOrCreateWhere!
-}
-
-input StoreParentStoreConnectOrCreateFieldInputOnCreate {
-  edge: StoreParentCreateInput!
-  node: StoreOnCreateInput!
-}
-
-type StoreParentStoreConnection {
-  edges: [StoreParentStoreRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreParentStoreConnectionSort {
-  edge: StoreParentSort
-  node: StoreSort
-}
-
-input StoreParentStoreConnectionWhere {
-  AND: [StoreParentStoreConnectionWhere!]
-  OR: [StoreParentStoreConnectionWhere!]
-  edge: StoreParentWhere
-  edge_NOT: StoreParentWhere
-  node: StoreWhere
-  node_NOT: StoreWhere
-}
-
-input StoreParentStoreCreateFieldInput {
-  edge: StoreParentCreateInput!
-  node: StoreCreateInput!
-}
-
-input StoreParentStoreDeleteFieldInput {
-  delete: StoreDeleteInput
-  where: StoreParentStoreConnectionWhere
-}
-
-input StoreParentStoreDisconnectFieldInput {
-  disconnect: StoreDisconnectInput
-  where: StoreParentStoreConnectionWhere
-}
-
-input StoreParentStoreEdgeAggregationWhereInput {
-  AND: [StoreParentStoreEdgeAggregationWhereInput!]
-  OR: [StoreParentStoreEdgeAggregationWhereInput!]
-  storeKey_AVERAGE_EQUAL: Float
-  storeKey_AVERAGE_GT: Float
-  storeKey_AVERAGE_GTE: Float
-  storeKey_AVERAGE_LT: Float
-  storeKey_AVERAGE_LTE: Float
-  storeKey_EQUAL: String
-  storeKey_GT: Int
-  storeKey_GTE: Int
-  storeKey_LONGEST_EQUAL: Int
-  storeKey_LONGEST_GT: Int
-  storeKey_LONGEST_GTE: Int
-  storeKey_LONGEST_LT: Int
-  storeKey_LONGEST_LTE: Int
-  storeKey_LT: Int
-  storeKey_LTE: Int
-  storeKey_SHORTEST_EQUAL: Int
-  storeKey_SHORTEST_GT: Int
-  storeKey_SHORTEST_GTE: Int
-  storeKey_SHORTEST_LT: Int
-  storeKey_SHORTEST_LTE: Int
-}
-
-input StoreParentStoreFieldInput {
-  connect: StoreParentStoreConnectFieldInput
-  connectOrCreate: StoreParentStoreConnectOrCreateFieldInput
-  create: StoreParentStoreCreateFieldInput
-}
-
-input StoreParentStoreNodeAggregationWhereInput {
-  AND: [StoreParentStoreNodeAggregationWhereInput!]
-  OR: [StoreParentStoreNodeAggregationWhereInput!]
+input StoreOwnerNodeAggregationWhereInput {
+  AND: [StoreOwnerNodeAggregationWhereInput!]
+  OR: [StoreOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
   id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type StoreParentStoreRelationship implements StoreParent {
-  cursor: String!
-  node: Store!
-  storeKey: String!
-}
-
-input StoreParentStoreUpdateConnectionInput {
-  edge: StoreParentUpdateInput
-  node: StoreUpdateInput
-}
-
-input StoreParentStoreUpdateFieldInput {
-  connect: StoreParentStoreConnectFieldInput
-  connectOrCreate: StoreParentStoreConnectOrCreateFieldInput
-  create: StoreParentStoreCreateFieldInput
-  delete: StoreParentStoreDeleteFieldInput
-  disconnect: StoreParentStoreDisconnectFieldInput
-  update: StoreParentStoreUpdateConnectionInput
-  where: StoreParentStoreConnectionWhere
-}
-
-input StoreParentUpdateInput {
-  storeKey: String
-}
-
-input StoreParentWhere {
-  AND: [StoreParentWhere!]
-  OR: [StoreParentWhere!]
-  storeKey: String
-  storeKey_CONTAINS: String
-  storeKey_ENDS_WITH: String
-  storeKey_IN: [String!]
-  storeKey_NOT: String
-  storeKey_NOT_CONTAINS: String
-  storeKey_NOT_ENDS_WITH: String
-  storeKey_NOT_IN: [String!]
-  storeKey_NOT_STARTS_WITH: String
-  storeKey_STARTS_WITH: String
 }
 
 type StorePropStateAggregationSelection {
@@ -11266,198 +11088,10 @@ type StorePropStateNodeAggregateSelection {
 
 input StoreRelationInput {
   actions: [StoreActionsCreateFieldInput!]
-  children: [StoreChildrenCreateFieldInput!]
-  parentStore: StoreParentStoreCreateFieldInput
-  resources: [StoreResourcesCreateFieldInput!]
+  app: StoreAppCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   state: StoreStateCreateFieldInput
   stateApi: StoreStateApiCreateFieldInput
-}
-
-interface StoreResource {
-  resourceKey: String!
-}
-
-input StoreResourceCreateInput {
-  resourceKey: String!
-}
-
-type StoreResourceResourcesAggregationSelection {
-  count: Int!
-  edge: StoreResourceResourcesEdgeAggregateSelection
-  node: StoreResourceResourcesNodeAggregateSelection
-}
-
-type StoreResourceResourcesEdgeAggregateSelection {
-  resourceKey: StringAggregateSelectionNonNullable!
-}
-
-type StoreResourceResourcesNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input StoreResourceSort {
-  resourceKey: SortDirection
-}
-
-input StoreResourceUpdateInput {
-  resourceKey: String
-}
-
-input StoreResourceWhere {
-  AND: [StoreResourceWhere!]
-  OR: [StoreResourceWhere!]
-  resourceKey: String
-  resourceKey_CONTAINS: String
-  resourceKey_ENDS_WITH: String
-  resourceKey_IN: [String!]
-  resourceKey_NOT: String
-  resourceKey_NOT_CONTAINS: String
-  resourceKey_NOT_ENDS_WITH: String
-  resourceKey_NOT_IN: [String!]
-  resourceKey_NOT_STARTS_WITH: String
-  resourceKey_STARTS_WITH: String
-}
-
-input StoreResourcesAggregateInput {
-  AND: [StoreResourcesAggregateInput!]
-  OR: [StoreResourcesAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  edge: StoreResourcesEdgeAggregationWhereInput
-  node: StoreResourcesNodeAggregationWhereInput
-}
-
-input StoreResourcesConnectFieldInput {
-  connect: [ResourceConnectInput!]
-  edge: StoreResourceCreateInput!
-  where: ResourceConnectWhere
-}
-
-input StoreResourcesConnectOrCreateFieldInput {
-  onCreate: StoreResourcesConnectOrCreateFieldInputOnCreate!
-  where: ResourceConnectOrCreateWhere!
-}
-
-input StoreResourcesConnectOrCreateFieldInputOnCreate {
-  edge: StoreResourceCreateInput!
-  node: ResourceOnCreateInput!
-}
-
-type StoreResourcesConnection {
-  edges: [StoreResourcesRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreResourcesConnectionSort {
-  edge: StoreResourceSort
-  node: ResourceSort
-}
-
-input StoreResourcesConnectionWhere {
-  AND: [StoreResourcesConnectionWhere!]
-  OR: [StoreResourcesConnectionWhere!]
-  edge: StoreResourceWhere
-  edge_NOT: StoreResourceWhere
-  node: ResourceWhere
-  node_NOT: ResourceWhere
-}
-
-input StoreResourcesCreateFieldInput {
-  edge: StoreResourceCreateInput!
-  node: ResourceCreateInput!
-}
-
-input StoreResourcesDeleteFieldInput {
-  delete: ResourceDeleteInput
-  where: StoreResourcesConnectionWhere
-}
-
-input StoreResourcesDisconnectFieldInput {
-  disconnect: ResourceDisconnectInput
-  where: StoreResourcesConnectionWhere
-}
-
-input StoreResourcesEdgeAggregationWhereInput {
-  AND: [StoreResourcesEdgeAggregationWhereInput!]
-  OR: [StoreResourcesEdgeAggregationWhereInput!]
-  resourceKey_AVERAGE_EQUAL: Float
-  resourceKey_AVERAGE_GT: Float
-  resourceKey_AVERAGE_GTE: Float
-  resourceKey_AVERAGE_LT: Float
-  resourceKey_AVERAGE_LTE: Float
-  resourceKey_EQUAL: String
-  resourceKey_GT: Int
-  resourceKey_GTE: Int
-  resourceKey_LONGEST_EQUAL: Int
-  resourceKey_LONGEST_GT: Int
-  resourceKey_LONGEST_GTE: Int
-  resourceKey_LONGEST_LT: Int
-  resourceKey_LONGEST_LTE: Int
-  resourceKey_LT: Int
-  resourceKey_LTE: Int
-  resourceKey_SHORTEST_EQUAL: Int
-  resourceKey_SHORTEST_GT: Int
-  resourceKey_SHORTEST_GTE: Int
-  resourceKey_SHORTEST_LT: Int
-  resourceKey_SHORTEST_LTE: Int
-}
-
-input StoreResourcesFieldInput {
-  connect: [StoreResourcesConnectFieldInput!]
-  connectOrCreate: [StoreResourcesConnectOrCreateFieldInput!]
-  create: [StoreResourcesCreateFieldInput!]
-}
-
-input StoreResourcesNodeAggregationWhereInput {
-  AND: [StoreResourcesNodeAggregationWhereInput!]
-  OR: [StoreResourcesNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-}
-
-type StoreResourcesRelationship implements StoreResource {
-  cursor: String!
-  node: Resource!
-  resourceKey: String!
-}
-
-input StoreResourcesUpdateConnectionInput {
-  edge: StoreResourceUpdateInput
-  node: ResourceUpdateInput
-}
-
-input StoreResourcesUpdateFieldInput {
-  connect: [StoreResourcesConnectFieldInput!]
-  connectOrCreate: [StoreResourcesConnectOrCreateFieldInput!]
-  create: [StoreResourcesCreateFieldInput!]
-  delete: [StoreResourcesDeleteFieldInput!]
-  disconnect: [StoreResourcesDisconnectFieldInput!]
-  update: StoreResourcesUpdateConnectionInput
-  where: StoreResourcesConnectionWhere
 }
 
 """
@@ -11679,49 +11313,29 @@ input StoreStateUpdateFieldInput {
   where: StoreStateConnectionWhere
 }
 
-type StoreStoreChildrenAggregationSelection {
-  count: Int!
-  edge: StoreStoreChildrenEdgeAggregateSelection
-  node: StoreStoreChildrenNodeAggregateSelection
-}
-
-type StoreStoreChildrenEdgeAggregateSelection {
-  storeKey: StringAggregateSelectionNonNullable!
-}
-
-type StoreStoreChildrenNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-type StoreStoreParentStoreAggregationSelection {
-  count: Int!
-  edge: StoreStoreParentStoreEdgeAggregateSelection
-  node: StoreStoreParentStoreNodeAggregateSelection
-}
-
-type StoreStoreParentStoreEdgeAggregateSelection {
-  storeKey: StringAggregateSelectionNonNullable!
-}
-
-type StoreStoreParentStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 input StoreUniqueWhere {
   id: ID
 }
 
 input StoreUpdateInput {
   actions: [StoreActionsUpdateFieldInput!]
-  children: [StoreChildrenUpdateFieldInput!]
+  app: StoreAppUpdateFieldInput
   id: ID
   name: String
-  parentStore: StoreParentStoreUpdateFieldInput
-  resources: [StoreResourcesUpdateFieldInput!]
+  owner: WithOwnerOwnerUpdateFieldInput
   state: StoreStateUpdateFieldInput
   stateApi: StoreStateApiUpdateFieldInput
+}
+
+type StoreUserOwnerAggregationSelection {
+  count: Int!
+  node: StoreUserOwnerNodeAggregateSelection
+}
+
+type StoreUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
 }
 
 input StoreWhere {
@@ -11752,31 +11366,11 @@ input StoreWhere {
   Return Stores where some of the related Actions match this filter
   """
   actions_SOME: ActionWhere
-  childrenAggregate: StoreChildrenAggregateInput
-  childrenConnection_ALL: StoreChildrenConnectionWhere
-  childrenConnection_NONE: StoreChildrenConnectionWhere
-  childrenConnection_SINGLE: StoreChildrenConnectionWhere
-  childrenConnection_SOME: StoreChildrenConnectionWhere
-
-  """
-  Return Stores where all of the related Stores match this filter
-  """
-  children_ALL: StoreWhere
-
-  """
-  Return Stores where none of the related Stores match this filter
-  """
-  children_NONE: StoreWhere
-
-  """
-  Return Stores where one of the related Stores match this filter
-  """
-  children_SINGLE: StoreWhere
-
-  """
-  Return Stores where some of the related Stores match this filter
-  """
-  children_SOME: StoreWhere
+  app: AppWhere
+  appAggregate: StoreAppAggregateInput
+  appConnection: StoreAppConnectionWhere
+  appConnection_NOT: StoreAppConnectionWhere
+  app_NOT: AppWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11797,36 +11391,11 @@ input StoreWhere {
   name_NOT_IN: [String!]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  parentStore: StoreWhere
-  parentStoreAggregate: StoreParentStoreAggregateInput
-  parentStoreConnection: StoreParentStoreConnectionWhere
-  parentStoreConnection_NOT: StoreParentStoreConnectionWhere
-  parentStore_NOT: StoreWhere
-  resourcesAggregate: StoreResourcesAggregateInput
-  resourcesConnection_ALL: StoreResourcesConnectionWhere
-  resourcesConnection_NONE: StoreResourcesConnectionWhere
-  resourcesConnection_SINGLE: StoreResourcesConnectionWhere
-  resourcesConnection_SOME: StoreResourcesConnectionWhere
-
-  """
-  Return Stores where all of the related Resources match this filter
-  """
-  resources_ALL: ResourceWhere
-
-  """
-  Return Stores where none of the related Resources match this filter
-  """
-  resources_NONE: ResourceWhere
-
-  """
-  Return Stores where one of the related Resources match this filter
-  """
-  resources_SINGLE: ResourceWhere
-
-  """
-  Return Stores where some of the related Resources match this filter
-  """
-  resources_SOME: ResourceWhere
+  owner: UserWhere
+  ownerAggregate: StoreOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   state: PropWhere
   stateAggregate: StoreStateAggregateInput
   stateApi: InterfaceTypeWhere

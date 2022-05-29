@@ -10,7 +10,7 @@ import {
   CreateStoreButton,
   CreateStoreModal,
   DeleteStoresModal,
-  GetStoresTree,
+  GetStoresList,
   UpdateStoreModal,
 } from '../use-cases'
 
@@ -21,7 +21,7 @@ export const StoreMainPane = observer<
     header={<CreateStoreButton key={0} storeService={storeService} />}
     title="Stores"
   >
-    <GetStoresTree storeService={storeService} />
+    <GetStoresList storeService={storeService} />
     <CreateStoreModal storeService={storeService} userService={userService} />
     <UpdateStoreModal storeService={storeService} />
     <DeleteStoresModal storeService={storeService} />

@@ -60,9 +60,7 @@ const PageBuilder: CodelabPage = observer(() => {
       }
 
       const appStore = app?.store?.id
-        ? (await storeService.getTree(app.store.id)).find(
-            (s) => s.id === app?.store?.id,
-          )
+        ? await storeService.getOne(app.store.id)
         : null
 
       // components are needed to build pageElementTree

@@ -1,11 +1,10 @@
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreateStoreDTO,
   IStore,
   IStoreDTO,
-  IStoreRef,
   IStoreService,
   IUpdateStoreDTO,
 } from '@codelab/shared/abstract/core'
@@ -24,49 +23,26 @@ import {
 import { getActionService } from './action.service'
 import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
 import { storeApi } from './store.api'
-import { Store, storeRef } from './store.model'
+import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')
 export class StoreService
   extends Model({
     stores: prop(() => objectMap<IStore>()),
-
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new StoreModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
   })
   implements IStoreService
 {
-  /**
-   * Used to load single store tree
-   */
-  @modelFlow
-  getTree = _async(function* (this: StoreService, rootId: IStoreRef) {
-    const { storeGraph } = yield* _await(
-      storeApi.GetStoreGraph({ input: { rootId } }),
-    )
-
-    const ids = [storeGraph.id, ...storeGraph.descendants]
-
-    const { stores } = yield* _await(
-      storeApi.GetStores({
-        where: {
-          id_IN: ids,
-        },
-      }),
-    )
-
-    return yield* _await(this.hydrateOrUpdateCache(stores))
-  })
-
   store(id: string) {
     return this.stores.get(id)
   }
 
   @computed
-  get roots() {
-    return [...this.stores.values()].filter((s) => s.isRoot)
+  get storesList() {
+    return [...this.stores.values()]
   }
 
   @modelAction
@@ -126,20 +102,6 @@ export class StoreService
     return this.stores.get(id)
   })
 
-  @modelAction
-  addStore(store: IStore) {
-    this.stores.set(store.id, store)
-  }
-
-  @modelAction
-  attachToParent(store: IStore) {
-    if (!store.parentStore?.id) {
-      return
-    }
-
-    this.store(store.parentStore?.id)?.children.set(store.id, storeRef(store))
-  }
-
   @modelFlow
   @transaction
   create = _async(function* (this: StoreService, data: Array<ICreateStoreDTO>) {
@@ -155,28 +117,11 @@ export class StoreService
 
     return stores.map((store) => {
       const storeModel = Store.hydrate(store)
-
-      this.addStore(storeModel)
-      this.attachToParent(storeModel)
+      this.stores.set(storeModel.id, storeModel)
 
       return storeModel
     })
   })
-
-  @modelAction
-  detachFromParent(store: IStore) {
-    if (!store.parentStore?.id) {
-      return
-    }
-
-    const oldParent = this.store(store.parentStore?.id)
-
-    const oldRefIndex = oldParent?.childrenList.findIndex(
-      (x) => x.id === store.id,
-    ) as number
-
-    oldParent?.childrenList.splice(oldRefIndex, 1)
-  }
 
   @modelFlow
   @transaction
@@ -192,44 +137,25 @@ export class StoreService
       }),
     )
 
-    return this.afterStoreUpdate(updateStores.stores, store)
+    const updatedStore = updateStores.stores[0]
+
+    if (!updatedStore) {
+      throw new Error('Failed to update store')
+    }
+
+    store.updateCache(updatedStore)
+
+    return store
   })
-
-  afterStoreUpdate(stores: Array<IStoreDTO>, store: IStore) {
-    const updatedStore = stores[0]
-    const storeModel = Store.hydrate(updatedStore)
-
-    // detach from old parent
-    this.detachFromParent(store)
-    // attach to new parent
-    this.attachToParent(storeModel)
-
-    this.stores.set(updatedStore.id, storeModel)
-
-    return storeModel
-  }
-
-  @modelAction
-  removeStoreAndDescendants(store: IStore) {
-    store.children.forEach((child) =>
-      this.removeStoreAndDescendants(child.current),
-    )
-    this.stores.delete(store.id)
-  }
 
   @modelFlow
   @transaction
-  deleteStoresSubgraph = _async(function* (
-    this: StoreService,
-    storeId: string,
-  ) {
-    const root = this.store(storeId)
+  delete = _async(function* (this: StoreService, storeId: string) {
+    const existing = throwIfUndefined(this.stores.get(storeId))
 
-    if (!root) {
+    if (!existing) {
       throw new Error('Deleted store not found')
     }
-
-    this.removeStoreAndDescendants(root)
 
     const { deleteStores } = yield* _await(
       storeApi.DeleteStores({ where: { id: storeId } }),
@@ -241,6 +167,6 @@ export class StoreService
       throw new Error('No stores deleted')
     }
 
-    return root
+    return existing
   })
 }

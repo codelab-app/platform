@@ -20,12 +20,7 @@ export type StoreFragment = {
   stateApi: { id: string; name: string }
   state: PropFragment
   actions: Array<ActionFragment>
-  parentStore?: { id: string; name: string } | null
-  parentStoreConnection: { edges: Array<{ storeKey: string }> }
-  children: Array<{ id: string }>
 }
-
-export type StoreGraphFragment = { id: string; descendants: Array<string> }
 
 export const StoreFragmentDoc = gql`
   fragment Store on Store {
@@ -42,27 +37,9 @@ export const StoreFragmentDoc = gql`
     actions {
       ...Action
     }
-    parentStore {
-      id
-      name
-    }
-    parentStoreConnection {
-      edges {
-        storeKey
-      }
-    }
-    children {
-      id
-    }
   }
   ${PropFragmentDoc}
   ${ActionFragmentDoc}
-`
-export const StoreGraphFragmentDoc = gql`
-  fragment StoreGraph on StoreGraph {
-    id
-    descendants
-  }
 `
 
 export type SdkFunctionWrapper = <T>(

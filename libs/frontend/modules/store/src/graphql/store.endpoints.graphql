@@ -1,9 +1,3 @@
-query GetStoreGraph($input: StoreGraphInput!) {
-  storeGraph(input: $input) {
-    ...StoreGraph
-  }
-}
-
 mutation CreateStores($input: [StoreCreateInput!]!) {
   createStores(input: $input) {
     info {

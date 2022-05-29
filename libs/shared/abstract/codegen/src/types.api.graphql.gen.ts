@@ -10391,7 +10391,6 @@ export type Query = {
   resources: Array<Resource>
   resourcesAggregate: ResourceAggregateSelection
   resourcesConnection: ResourcesConnection
-  storeGraph: StoreGraph
   stores: Array<Store>
   storesAggregate: StoreAggregateSelection
   storesConnection: StoresConnection
@@ -10808,10 +10807,6 @@ export type QueryResourcesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<ResourceSort>>>
   where?: InputMaybe<ResourceWhere>
-}
-
-export type QueryStoreGraphArgs = {
-  input: StoreGraphInput
 }
 
 export type QueryStoresArgs = {
@@ -11724,22 +11719,19 @@ export enum SortDirection {
   DESC = 'DESC',
 }
 
-export type Store = {
+export type Store = WithOwner & {
   __typename?: 'Store'
   actions: Array<Action>
   actionsAggregate?: Maybe<StoreActionActionsAggregationSelection>
   actionsConnection: StoreActionsConnection
-  children: Array<Store>
-  childrenAggregate?: Maybe<StoreStoreChildrenAggregationSelection>
-  childrenConnection: StoreChildrenConnection
+  app: App
+  appAggregate?: Maybe<StoreAppAppAggregationSelection>
+  appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
-  parentStore?: Maybe<Store>
-  parentStoreAggregate?: Maybe<StoreStoreParentStoreAggregationSelection>
-  parentStoreConnection: StoreParentStoreConnection
-  resources: Array<Resource>
-  resourcesAggregate?: Maybe<StoreResourceResourcesAggregationSelection>
-  resourcesConnection: StoreResourcesConnection
+  owner: User
+  ownerAggregate?: Maybe<StoreUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
   state: Prop
   stateAggregate?: Maybe<StorePropStateAggregationSelection>
   stateApi: InterfaceType
@@ -11767,61 +11759,42 @@ export type StoreActionsConnectionArgs = {
   where?: InputMaybe<StoreActionsConnectionWhere>
 }
 
-export type StoreChildrenArgs = {
+export type StoreAppArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<StoreOptions>
-  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
 }
 
-export type StoreChildrenAggregateArgs = {
+export type StoreAppAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<StoreWhere>
+  where?: InputMaybe<AppWhere>
 }
 
-export type StoreChildrenConnectionArgs = {
+export type StoreAppConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreChildrenConnectionSort>>
-  where?: InputMaybe<StoreChildrenConnectionWhere>
+  sort?: InputMaybe<Array<StoreAppConnectionSort>>
+  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
-export type StoreParentStoreArgs = {
+export type StoreOwnerArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<StoreOptions>
-  where?: InputMaybe<StoreWhere>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
 }
 
-export type StoreParentStoreAggregateArgs = {
+export type StoreOwnerAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<StoreWhere>
+  where?: InputMaybe<UserWhere>
 }
 
-export type StoreParentStoreConnectionArgs = {
+export type StoreOwnerConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreParentStoreConnectionSort>>
-  where?: InputMaybe<StoreParentStoreConnectionWhere>
-}
-
-export type StoreResourcesArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ResourceOptions>
-  where?: InputMaybe<ResourceWhere>
-}
-
-export type StoreResourcesAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<ResourceWhere>
-}
-
-export type StoreResourcesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreResourcesConnectionSort>>
-  where?: InputMaybe<StoreResourcesConnectionWhere>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type StoreStateArgs = {
@@ -12011,104 +11984,84 @@ export type StoreAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
-export type StoreChildrenAggregateInput = {
-  AND?: InputMaybe<Array<StoreChildrenAggregateInput>>
-  OR?: InputMaybe<Array<StoreChildrenAggregateInput>>
+export type StoreAppAggregateInput = {
+  AND?: InputMaybe<Array<StoreAppAggregateInput>>
+  OR?: InputMaybe<Array<StoreAppAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  edge?: InputMaybe<StoreChildrenEdgeAggregationWhereInput>
-  node?: InputMaybe<StoreChildrenNodeAggregationWhereInput>
+  node?: InputMaybe<StoreAppNodeAggregationWhereInput>
 }
 
-export type StoreChildrenConnectFieldInput = {
-  connect?: InputMaybe<Array<StoreConnectInput>>
-  edge: StoreParentCreateInput
-  where?: InputMaybe<StoreConnectWhere>
+export type StoreAppAppAggregationSelection = {
+  __typename?: 'StoreAppAppAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreAppAppNodeAggregateSelection>
 }
 
-export type StoreChildrenConnectOrCreateFieldInput = {
-  onCreate: StoreChildrenConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
+export type StoreAppAppNodeAggregateSelection = {
+  __typename?: 'StoreAppAppNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
-export type StoreChildrenConnectOrCreateFieldInputOnCreate = {
-  edge: StoreParentCreateInput
-  node: StoreOnCreateInput
+export type StoreAppConnectFieldInput = {
+  connect?: InputMaybe<AppConnectInput>
+  where?: InputMaybe<AppConnectWhere>
 }
 
-export type StoreChildrenConnection = {
-  __typename?: 'StoreChildrenConnection'
-  edges: Array<StoreChildrenRelationship>
+export type StoreAppConnectOrCreateFieldInput = {
+  onCreate: StoreAppConnectOrCreateFieldInputOnCreate
+  where: AppConnectOrCreateWhere
+}
+
+export type StoreAppConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput
+}
+
+export type StoreAppConnection = {
+  __typename?: 'StoreAppConnection'
+  edges: Array<StoreAppRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type StoreChildrenConnectionSort = {
-  edge?: InputMaybe<StoreParentSort>
-  node?: InputMaybe<StoreSort>
+export type StoreAppConnectionSort = {
+  node?: InputMaybe<AppSort>
 }
 
-export type StoreChildrenConnectionWhere = {
-  AND?: InputMaybe<Array<StoreChildrenConnectionWhere>>
-  OR?: InputMaybe<Array<StoreChildrenConnectionWhere>>
-  edge?: InputMaybe<StoreParentWhere>
-  edge_NOT?: InputMaybe<StoreParentWhere>
-  node?: InputMaybe<StoreWhere>
-  node_NOT?: InputMaybe<StoreWhere>
+export type StoreAppConnectionWhere = {
+  AND?: InputMaybe<Array<StoreAppConnectionWhere>>
+  OR?: InputMaybe<Array<StoreAppConnectionWhere>>
+  node?: InputMaybe<AppWhere>
+  node_NOT?: InputMaybe<AppWhere>
 }
 
-export type StoreChildrenCreateFieldInput = {
-  edge: StoreParentCreateInput
-  node: StoreCreateInput
+export type StoreAppCreateFieldInput = {
+  node: AppCreateInput
 }
 
-export type StoreChildrenDeleteFieldInput = {
-  delete?: InputMaybe<StoreDeleteInput>
-  where?: InputMaybe<StoreChildrenConnectionWhere>
+export type StoreAppDeleteFieldInput = {
+  delete?: InputMaybe<AppDeleteInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
-export type StoreChildrenDisconnectFieldInput = {
-  disconnect?: InputMaybe<StoreDisconnectInput>
-  where?: InputMaybe<StoreChildrenConnectionWhere>
+export type StoreAppDisconnectFieldInput = {
+  disconnect?: InputMaybe<AppDisconnectInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
-export type StoreChildrenEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreChildrenEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreChildrenEdgeAggregationWhereInput>>
-  storeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  storeKey_EQUAL?: InputMaybe<Scalars['String']>
-  storeKey_GT?: InputMaybe<Scalars['Int']>
-  storeKey_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  storeKey_LT?: InputMaybe<Scalars['Int']>
-  storeKey_LTE?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+export type StoreAppFieldInput = {
+  connect?: InputMaybe<StoreAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  create?: InputMaybe<StoreAppCreateFieldInput>
 }
 
-export type StoreChildrenFieldInput = {
-  connect?: InputMaybe<Array<StoreChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<StoreChildrenCreateFieldInput>>
-}
-
-export type StoreChildrenNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>
+export type StoreAppNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -12132,42 +12085,38 @@ export type StoreChildrenNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type StoreChildrenRelationship = StoreParent & {
-  __typename?: 'StoreChildrenRelationship'
+export type StoreAppRelationship = {
+  __typename?: 'StoreAppRelationship'
   cursor: Scalars['String']
-  node: Store
-  storeKey: Scalars['String']
+  node: App
 }
 
-export type StoreChildrenUpdateConnectionInput = {
-  edge?: InputMaybe<StoreParentUpdateInput>
-  node?: InputMaybe<StoreUpdateInput>
+export type StoreAppUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>
 }
 
-export type StoreChildrenUpdateFieldInput = {
-  connect?: InputMaybe<Array<StoreChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<StoreChildrenCreateFieldInput>>
-  delete?: InputMaybe<Array<StoreChildrenDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<StoreChildrenDisconnectFieldInput>>
-  update?: InputMaybe<StoreChildrenUpdateConnectionInput>
-  where?: InputMaybe<StoreChildrenConnectionWhere>
+export type StoreAppUpdateFieldInput = {
+  connect?: InputMaybe<StoreAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  create?: InputMaybe<StoreAppCreateFieldInput>
+  delete?: InputMaybe<StoreAppDeleteFieldInput>
+  disconnect?: InputMaybe<StoreAppDisconnectFieldInput>
+  update?: InputMaybe<StoreAppUpdateConnectionInput>
+  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
 export type StoreConnectInput = {
   actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenConnectFieldInput>>
-  parentStore?: InputMaybe<StoreParentStoreConnectFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesConnectFieldInput>>
+  app?: InputMaybe<StoreAppConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   state?: InputMaybe<StoreStateConnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
   actions?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>
-  parentStore?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>
+  app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>
 }
@@ -12182,29 +12131,26 @@ export type StoreConnectWhere = {
 
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsFieldInput>
-  children?: InputMaybe<StoreChildrenFieldInput>
+  app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
-  parentStore?: InputMaybe<StoreParentStoreFieldInput>
-  resources?: InputMaybe<StoreResourcesFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   state?: InputMaybe<StoreStateFieldInput>
   stateApi?: InputMaybe<StoreStateApiFieldInput>
 }
 
 export type StoreDeleteInput = {
   actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenDeleteFieldInput>>
-  parentStore?: InputMaybe<StoreParentStoreDeleteFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesDeleteFieldInput>>
+  app?: InputMaybe<StoreAppDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   state?: InputMaybe<StoreStateDeleteFieldInput>
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenDisconnectFieldInput>>
-  parentStore?: InputMaybe<StoreParentStoreDisconnectFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesDisconnectFieldInput>>
+  app?: InputMaybe<StoreAppDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>
 }
@@ -12213,16 +12159,6 @@ export type StoreEdge = {
   __typename?: 'StoreEdge'
   cursor: Scalars['String']
   node: Store
-}
-
-export type StoreGraph = {
-  __typename?: 'StoreGraph'
-  descendants: Array<Scalars['ID']>
-  id: Scalars['ID']
-}
-
-export type StoreGraphInput = {
-  rootId: Scalars['String']
 }
 
 export type StoreInterfaceTypeStateApiAggregationSelection = {
@@ -12249,178 +12185,61 @@ export type StoreOptions = {
   sort?: InputMaybe<Array<StoreSort>>
 }
 
-export type StoreParent = {
-  storeKey: Scalars['String']
-}
-
-export type StoreParentCreateInput = {
-  storeKey: Scalars['String']
-}
-
-export type StoreParentSort = {
-  storeKey?: InputMaybe<SortDirection>
-}
-
-export type StoreParentStoreAggregateInput = {
-  AND?: InputMaybe<Array<StoreParentStoreAggregateInput>>
-  OR?: InputMaybe<Array<StoreParentStoreAggregateInput>>
+export type StoreOwnerAggregateInput = {
+  AND?: InputMaybe<Array<StoreOwnerAggregateInput>>
+  OR?: InputMaybe<Array<StoreOwnerAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  edge?: InputMaybe<StoreParentStoreEdgeAggregationWhereInput>
-  node?: InputMaybe<StoreParentStoreNodeAggregationWhereInput>
+  node?: InputMaybe<StoreOwnerNodeAggregationWhereInput>
 }
 
-export type StoreParentStoreConnectFieldInput = {
-  connect?: InputMaybe<StoreConnectInput>
-  edge: StoreParentCreateInput
-  where?: InputMaybe<StoreConnectWhere>
-}
-
-export type StoreParentStoreConnectOrCreateFieldInput = {
-  onCreate: StoreParentStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type StoreParentStoreConnectOrCreateFieldInputOnCreate = {
-  edge: StoreParentCreateInput
-  node: StoreOnCreateInput
-}
-
-export type StoreParentStoreConnection = {
-  __typename?: 'StoreParentStoreConnection'
-  edges: Array<StoreParentStoreRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type StoreParentStoreConnectionSort = {
-  edge?: InputMaybe<StoreParentSort>
-  node?: InputMaybe<StoreSort>
-}
-
-export type StoreParentStoreConnectionWhere = {
-  AND?: InputMaybe<Array<StoreParentStoreConnectionWhere>>
-  OR?: InputMaybe<Array<StoreParentStoreConnectionWhere>>
-  edge?: InputMaybe<StoreParentWhere>
-  edge_NOT?: InputMaybe<StoreParentWhere>
-  node?: InputMaybe<StoreWhere>
-  node_NOT?: InputMaybe<StoreWhere>
-}
-
-export type StoreParentStoreCreateFieldInput = {
-  edge: StoreParentCreateInput
-  node: StoreCreateInput
-}
-
-export type StoreParentStoreDeleteFieldInput = {
-  delete?: InputMaybe<StoreDeleteInput>
-  where?: InputMaybe<StoreParentStoreConnectionWhere>
-}
-
-export type StoreParentStoreDisconnectFieldInput = {
-  disconnect?: InputMaybe<StoreDisconnectInput>
-  where?: InputMaybe<StoreParentStoreConnectionWhere>
-}
-
-export type StoreParentStoreEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreParentStoreEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreParentStoreEdgeAggregationWhereInput>>
-  storeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  storeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  storeKey_EQUAL?: InputMaybe<Scalars['String']>
-  storeKey_GT?: InputMaybe<Scalars['Int']>
-  storeKey_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  storeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  storeKey_LT?: InputMaybe<Scalars['Int']>
-  storeKey_LTE?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  storeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type StoreParentStoreFieldInput = {
-  connect?: InputMaybe<StoreParentStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreParentStoreCreateFieldInput>
-}
-
-export type StoreParentStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>
+export type StoreOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<StoreOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type StoreParentStoreRelationship = StoreParent & {
-  __typename?: 'StoreParentStoreRelationship'
-  cursor: Scalars['String']
-  node: Store
-  storeKey: Scalars['String']
-}
-
-export type StoreParentStoreUpdateConnectionInput = {
-  edge?: InputMaybe<StoreParentUpdateInput>
-  node?: InputMaybe<StoreUpdateInput>
-}
-
-export type StoreParentStoreUpdateFieldInput = {
-  connect?: InputMaybe<StoreParentStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreParentStoreCreateFieldInput>
-  delete?: InputMaybe<StoreParentStoreDeleteFieldInput>
-  disconnect?: InputMaybe<StoreParentStoreDisconnectFieldInput>
-  update?: InputMaybe<StoreParentStoreUpdateConnectionInput>
-  where?: InputMaybe<StoreParentStoreConnectionWhere>
-}
-
-export type StoreParentUpdateInput = {
-  storeKey?: InputMaybe<Scalars['String']>
-}
-
-export type StoreParentWhere = {
-  AND?: InputMaybe<Array<StoreParentWhere>>
-  OR?: InputMaybe<Array<StoreParentWhere>>
-  storeKey?: InputMaybe<Scalars['String']>
-  storeKey_CONTAINS?: InputMaybe<Scalars['String']>
-  storeKey_ENDS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_IN?: InputMaybe<Array<Scalars['String']>>
-  storeKey_NOT?: InputMaybe<Scalars['String']>
-  storeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  storeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  storeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  storeKey_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type StorePropStateAggregationSelection = {
@@ -12437,203 +12256,10 @@ export type StorePropStateNodeAggregateSelection = {
 
 export type StoreRelationInput = {
   actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenCreateFieldInput>>
-  parentStore?: InputMaybe<StoreParentStoreCreateFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesCreateFieldInput>>
+  app?: InputMaybe<StoreAppCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   state?: InputMaybe<StoreStateCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>
-}
-
-export type StoreResource = {
-  resourceKey: Scalars['String']
-}
-
-export type StoreResourceCreateInput = {
-  resourceKey: Scalars['String']
-}
-
-export type StoreResourceResourcesAggregationSelection = {
-  __typename?: 'StoreResourceResourcesAggregationSelection'
-  count: Scalars['Int']
-  edge?: Maybe<StoreResourceResourcesEdgeAggregateSelection>
-  node?: Maybe<StoreResourceResourcesNodeAggregateSelection>
-}
-
-export type StoreResourceResourcesEdgeAggregateSelection = {
-  __typename?: 'StoreResourceResourcesEdgeAggregateSelection'
-  resourceKey: StringAggregateSelectionNonNullable
-}
-
-export type StoreResourceResourcesNodeAggregateSelection = {
-  __typename?: 'StoreResourceResourcesNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
-export type StoreResourceSort = {
-  resourceKey?: InputMaybe<SortDirection>
-}
-
-export type StoreResourceUpdateInput = {
-  resourceKey?: InputMaybe<Scalars['String']>
-}
-
-export type StoreResourceWhere = {
-  AND?: InputMaybe<Array<StoreResourceWhere>>
-  OR?: InputMaybe<Array<StoreResourceWhere>>
-  resourceKey?: InputMaybe<Scalars['String']>
-  resourceKey_CONTAINS?: InputMaybe<Scalars['String']>
-  resourceKey_ENDS_WITH?: InputMaybe<Scalars['String']>
-  resourceKey_IN?: InputMaybe<Array<Scalars['String']>>
-  resourceKey_NOT?: InputMaybe<Scalars['String']>
-  resourceKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  resourceKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  resourceKey_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  resourceKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  resourceKey_STARTS_WITH?: InputMaybe<Scalars['String']>
-}
-
-export type StoreResourcesAggregateInput = {
-  AND?: InputMaybe<Array<StoreResourcesAggregateInput>>
-  OR?: InputMaybe<Array<StoreResourcesAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  edge?: InputMaybe<StoreResourcesEdgeAggregationWhereInput>
-  node?: InputMaybe<StoreResourcesNodeAggregationWhereInput>
-}
-
-export type StoreResourcesConnectFieldInput = {
-  connect?: InputMaybe<Array<ResourceConnectInput>>
-  edge: StoreResourceCreateInput
-  where?: InputMaybe<ResourceConnectWhere>
-}
-
-export type StoreResourcesConnectOrCreateFieldInput = {
-  onCreate: StoreResourcesConnectOrCreateFieldInputOnCreate
-  where: ResourceConnectOrCreateWhere
-}
-
-export type StoreResourcesConnectOrCreateFieldInputOnCreate = {
-  edge: StoreResourceCreateInput
-  node: ResourceOnCreateInput
-}
-
-export type StoreResourcesConnection = {
-  __typename?: 'StoreResourcesConnection'
-  edges: Array<StoreResourcesRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type StoreResourcesConnectionSort = {
-  edge?: InputMaybe<StoreResourceSort>
-  node?: InputMaybe<ResourceSort>
-}
-
-export type StoreResourcesConnectionWhere = {
-  AND?: InputMaybe<Array<StoreResourcesConnectionWhere>>
-  OR?: InputMaybe<Array<StoreResourcesConnectionWhere>>
-  edge?: InputMaybe<StoreResourceWhere>
-  edge_NOT?: InputMaybe<StoreResourceWhere>
-  node?: InputMaybe<ResourceWhere>
-  node_NOT?: InputMaybe<ResourceWhere>
-}
-
-export type StoreResourcesCreateFieldInput = {
-  edge: StoreResourceCreateInput
-  node: ResourceCreateInput
-}
-
-export type StoreResourcesDeleteFieldInput = {
-  delete?: InputMaybe<ResourceDeleteInput>
-  where?: InputMaybe<StoreResourcesConnectionWhere>
-}
-
-export type StoreResourcesDisconnectFieldInput = {
-  disconnect?: InputMaybe<ResourceDisconnectInput>
-  where?: InputMaybe<StoreResourcesConnectionWhere>
-}
-
-export type StoreResourcesEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreResourcesEdgeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreResourcesEdgeAggregationWhereInput>>
-  resourceKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  resourceKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  resourceKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  resourceKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  resourceKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  resourceKey_EQUAL?: InputMaybe<Scalars['String']>
-  resourceKey_GT?: InputMaybe<Scalars['Int']>
-  resourceKey_GTE?: InputMaybe<Scalars['Int']>
-  resourceKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  resourceKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  resourceKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  resourceKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  resourceKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  resourceKey_LT?: InputMaybe<Scalars['Int']>
-  resourceKey_LTE?: InputMaybe<Scalars['Int']>
-  resourceKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  resourceKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  resourceKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  resourceKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  resourceKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type StoreResourcesFieldInput = {
-  connect?: InputMaybe<Array<StoreResourcesConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<StoreResourcesCreateFieldInput>>
-}
-
-export type StoreResourcesNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreResourcesNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreResourcesNodeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type StoreResourcesRelationship = StoreResource & {
-  __typename?: 'StoreResourcesRelationship'
-  cursor: Scalars['String']
-  node: Resource
-  resourceKey: Scalars['String']
-}
-
-export type StoreResourcesUpdateConnectionInput = {
-  edge?: InputMaybe<StoreResourceUpdateInput>
-  node?: InputMaybe<ResourceUpdateInput>
-}
-
-export type StoreResourcesUpdateFieldInput = {
-  connect?: InputMaybe<Array<StoreResourcesConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>
-  create?: InputMaybe<Array<StoreResourcesCreateFieldInput>>
-  delete?: InputMaybe<Array<StoreResourcesDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<StoreResourcesDisconnectFieldInput>>
-  update?: InputMaybe<StoreResourcesUpdateConnectionInput>
-  where?: InputMaybe<StoreResourcesConnectionWhere>
 }
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -12857,55 +12483,31 @@ export type StoreStateUpdateFieldInput = {
   where?: InputMaybe<StoreStateConnectionWhere>
 }
 
-export type StoreStoreChildrenAggregationSelection = {
-  __typename?: 'StoreStoreChildrenAggregationSelection'
-  count: Scalars['Int']
-  edge?: Maybe<StoreStoreChildrenEdgeAggregateSelection>
-  node?: Maybe<StoreStoreChildrenNodeAggregateSelection>
-}
-
-export type StoreStoreChildrenEdgeAggregateSelection = {
-  __typename?: 'StoreStoreChildrenEdgeAggregateSelection'
-  storeKey: StringAggregateSelectionNonNullable
-}
-
-export type StoreStoreChildrenNodeAggregateSelection = {
-  __typename?: 'StoreStoreChildrenNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
-export type StoreStoreParentStoreAggregationSelection = {
-  __typename?: 'StoreStoreParentStoreAggregationSelection'
-  count: Scalars['Int']
-  edge?: Maybe<StoreStoreParentStoreEdgeAggregateSelection>
-  node?: Maybe<StoreStoreParentStoreNodeAggregateSelection>
-}
-
-export type StoreStoreParentStoreEdgeAggregateSelection = {
-  __typename?: 'StoreStoreParentStoreEdgeAggregateSelection'
-  storeKey: StringAggregateSelectionNonNullable
-}
-
-export type StoreStoreParentStoreNodeAggregateSelection = {
-  __typename?: 'StoreStoreParentStoreNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
 export type StoreUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
 }
 
 export type StoreUpdateInput = {
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
-  children?: InputMaybe<Array<StoreChildrenUpdateFieldInput>>
+  app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  parentStore?: InputMaybe<StoreParentStoreUpdateFieldInput>
-  resources?: InputMaybe<Array<StoreResourcesUpdateFieldInput>>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   state?: InputMaybe<StoreStateUpdateFieldInput>
   stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>
+}
+
+export type StoreUserOwnerAggregationSelection = {
+  __typename?: 'StoreUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreUserOwnerNodeAggregateSelection>
+}
+
+export type StoreUserOwnerNodeAggregateSelection = {
+  __typename?: 'StoreUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
 }
 
 export type StoreWhere = {
@@ -12924,19 +12526,11 @@ export type StoreWhere = {
   actions_SINGLE?: InputMaybe<ActionWhere>
   /** Return Stores where some of the related Actions match this filter */
   actions_SOME?: InputMaybe<ActionWhere>
-  childrenAggregate?: InputMaybe<StoreChildrenAggregateInput>
-  childrenConnection_ALL?: InputMaybe<StoreChildrenConnectionWhere>
-  childrenConnection_NONE?: InputMaybe<StoreChildrenConnectionWhere>
-  childrenConnection_SINGLE?: InputMaybe<StoreChildrenConnectionWhere>
-  childrenConnection_SOME?: InputMaybe<StoreChildrenConnectionWhere>
-  /** Return Stores where all of the related Stores match this filter */
-  children_ALL?: InputMaybe<StoreWhere>
-  /** Return Stores where none of the related Stores match this filter */
-  children_NONE?: InputMaybe<StoreWhere>
-  /** Return Stores where one of the related Stores match this filter */
-  children_SINGLE?: InputMaybe<StoreWhere>
-  /** Return Stores where some of the related Stores match this filter */
-  children_SOME?: InputMaybe<StoreWhere>
+  app?: InputMaybe<AppWhere>
+  appAggregate?: InputMaybe<StoreAppAggregateInput>
+  appConnection?: InputMaybe<StoreAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -12957,24 +12551,11 @@ export type StoreWhere = {
   name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  parentStore?: InputMaybe<StoreWhere>
-  parentStoreAggregate?: InputMaybe<StoreParentStoreAggregateInput>
-  parentStoreConnection?: InputMaybe<StoreParentStoreConnectionWhere>
-  parentStoreConnection_NOT?: InputMaybe<StoreParentStoreConnectionWhere>
-  parentStore_NOT?: InputMaybe<StoreWhere>
-  resourcesAggregate?: InputMaybe<StoreResourcesAggregateInput>
-  resourcesConnection_ALL?: InputMaybe<StoreResourcesConnectionWhere>
-  resourcesConnection_NONE?: InputMaybe<StoreResourcesConnectionWhere>
-  resourcesConnection_SINGLE?: InputMaybe<StoreResourcesConnectionWhere>
-  resourcesConnection_SOME?: InputMaybe<StoreResourcesConnectionWhere>
-  /** Return Stores where all of the related Resources match this filter */
-  resources_ALL?: InputMaybe<ResourceWhere>
-  /** Return Stores where none of the related Resources match this filter */
-  resources_NONE?: InputMaybe<ResourceWhere>
-  /** Return Stores where one of the related Resources match this filter */
-  resources_SINGLE?: InputMaybe<ResourceWhere>
-  /** Return Stores where some of the related Resources match this filter */
-  resources_SOME?: InputMaybe<ResourceWhere>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<StoreOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   state?: InputMaybe<PropWhere>
   stateAggregate?: InputMaybe<StoreStateAggregateInput>
   stateApi?: InputMaybe<InterfaceTypeWhere>
