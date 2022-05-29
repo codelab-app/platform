@@ -1,6 +1,7 @@
 import {
   PAGE_SERVICE,
   PROVIDER_TREE_PAGE_NAME,
+  STORE_PAGE_NAME,
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
@@ -26,7 +27,10 @@ export const GetPagesList = observer<WithServices<PAGE_SERVICE>>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const results = pagesList.concat([{ name: PROVIDER_TREE_PAGE_NAME }] as any)
+    const results = pagesList.concat([
+      { name: PROVIDER_TREE_PAGE_NAME },
+      { name: STORE_PAGE_NAME },
+    ] as any)
 
     return (
       <Spinner isLoading={isLoading}>
