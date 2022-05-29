@@ -7,13 +7,11 @@ describe('Action CRUD', () => {
   before(() => {
     cy.visit(`/apps`)
     cy.getCard({ title: updatedAppName }).find('a').click()
-    cy.url({ timeout: 5000 }).should('include', 'pages')
+    cy.url({ timeout: 10000 }).should('include', 'pages')
 
-    cy.findByText(STORE_PAGE_NAME).click()
+    cy.findByText(STORE_PAGE_NAME, { timeout: 5000 }).click()
 
-    cy.url({ timeout: 5000 }).should('include', 'store')
-
-    cy.getSpinner().should('not.exist')
+    cy.url({ timeout: 10000 }).should('include', 'store')
   })
 
   describe('create', () => {
