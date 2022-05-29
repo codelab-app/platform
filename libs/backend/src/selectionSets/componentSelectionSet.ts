@@ -3,10 +3,8 @@ export const componentSelectionSet = `{
   name
   rootElement {
     id
-    name
   }
   api {
     id
-    name
   }
 }`

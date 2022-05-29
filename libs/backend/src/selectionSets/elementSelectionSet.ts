@@ -4,12 +4,12 @@ export const elementSelectionSet = `{
   id
   name
   css
-  component {
+  component 
     ${componentSelectionSet}
-  }
-  instanceOfComponent {
+  
+  instanceOfComponent 
     ${componentSelectionSet}
-  }
+  
   parentElement {
     id
     name

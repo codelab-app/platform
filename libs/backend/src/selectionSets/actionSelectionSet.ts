@@ -1,10 +1,13 @@
-export const actionSelectionSet = `{ 
+export const actionSelectionSet = `
   id
   name
   body
-  store {
+  config {
     id
-    name
+    data
   }
-}
+  runOnInit
+  resource {
+    id
+  }
 `

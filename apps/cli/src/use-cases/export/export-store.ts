@@ -6,4 +6,6 @@ export const exportStore = async () => {
   const stores = await Store.find({
     selectionSet: storeSelectionSet,
   })
+
+  return { stores }
 }

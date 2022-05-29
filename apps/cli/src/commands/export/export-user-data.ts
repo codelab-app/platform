@@ -1,5 +1,7 @@
 import * as inquirer from 'inquirer'
 import { exportApp } from '../../use-cases/export/export-app'
+import { exportResource } from '../../use-cases/export/export-resource'
+import { exportStore } from '../../use-cases/export/export-store'
 import { exportUserTypes } from '../../use-cases/export/export-user-types'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
 import type { ExportedData } from './export.command'
@@ -28,10 +30,14 @@ export const exportUserData = async () => {
 
   // Types
   const typeData = confirmExportType ? await exportUserTypes() : { types: [] }
+  const resourceData = await exportResource()
+  const storeData = await exportStore()
 
   const exportData: Omit<ExportedData, 'atoms'> = {
     ...appData,
     ...typeData,
+    ...resourceData,
+    ...storeData,
   }
 
   if (confirmExportApp['confirm'] || confirmExportType['confirm']) {

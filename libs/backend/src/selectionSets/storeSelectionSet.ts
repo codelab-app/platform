@@ -1,5 +1,4 @@
 import { actionSelectionSet } from './actionSelectionSet'
-import { resourceSelectionSet } from './resourceSelectionSet'
 
 export const storeSelectionSet = `{
   id
@@ -15,8 +14,5 @@ export const storeSelectionSet = `{
   }
   actions {
     ${actionSelectionSet}
-  }
-  resources {
-    ${resourceSelectionSet}
   }
 }`
