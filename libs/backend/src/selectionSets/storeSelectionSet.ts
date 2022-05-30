@@ -1,6 +1,6 @@
 import { actionSelectionSet } from './actionSelectionSet'
 
-export const storeSelectionSet = `{
+export const storeSelectionSet = `
   id
   name
   stateApi { id }
@@ -15,4 +15,4 @@ export const storeSelectionSet = `{
   actions {
     ${actionSelectionSet}
   }
-}`
+`

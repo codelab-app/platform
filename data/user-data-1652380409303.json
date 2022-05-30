@@ -6,6 +6,19 @@
     "rootElement": {
       "id": "a7e82354-1f57-4add-b560-0ef0bf927e5f"
     },
+    "store": {
+      "__typename": "Store",
+      "id": "1f2cc4a5-68ea-4d5a-8558-6870e77d1835",
+      "name": "Mrhost Project Store",
+      "state": {
+        "id": "ad7abfbe-534e-419f-bd68-3193ab641b14",
+        "data": "{}"
+      },
+      "stateApi": {
+        "id": "af8c6db6-2735-4fff-a67e-a8ca4c06a54d"
+      },
+      "actions": []
+    },
     "pages": [
       {
         "id": "5b2d9adb-19c4-43b5-9924-c3ce05156873",
@@ -7949,7 +7962,7 @@
       "__typename": "InterfaceType",
       "id": "af8c6db6-2735-4fff-a67e-a8ca4c06a54d",
       "kind": "InterfaceType",
-      "name": "Mrhost project store State",
+      "name": "Mrhost project Store API",
       "fieldsConnection": {
         "edges": []
       }
@@ -8132,5 +8145,6 @@
         ]
       }
     }
-  ]
+  ],
+  "resources": []
 }
