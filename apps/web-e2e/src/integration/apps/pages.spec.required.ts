@@ -4,6 +4,7 @@ describe('Pages CRUD', () => {
   before(() => {
     cy.getCard({ title: updatedAppName }).find('a').click()
     cy.url({ timeout: 5000 }).should('include', 'pages')
+    cy.findByText('Pages').should('be.visible')
   })
 
   describe('create', () => {

@@ -35,9 +35,7 @@ describe('CSS CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.get('.monaco-editor')
-        .find('textarea')
-        .type(createBackgroundColorStyle(backgroundColor1))
+      cy.get('textarea').type(createBackgroundColorStyle(backgroundColor1))
 
       cy.get('#render-root')
         .find('button')
@@ -52,8 +50,7 @@ describe('CSS CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.get('.monaco-editor')
-        .find('textarea')
+      cy.get('textarea')
         .clear()
         .type(createBackgroundColorStyle(backgroundColor2))
 
@@ -70,7 +67,7 @@ describe('CSS CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.get('.monaco-editor').find('textarea').clear().type(' ')
+      cy.get('textarea').clear().type(' ')
 
       cy.get('#render-root')
         .find('button')
