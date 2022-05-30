@@ -5,7 +5,7 @@ const backgroundColor2 = 'rgb(182, 99, 48)'
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
   `background-color: ${backgroundColorValue} !important; visibility: visible !important;`
 
-describe('CSS CEUD', () => {
+describe('CSS CRUD', () => {
   before(() => {
     /**
      * Expand the element tree to make the button visible (clickable)
@@ -30,10 +30,7 @@ describe('CSS CEUD', () => {
 
   describe('Add css', () => {
     it('should be able to add some css styling', () => {
-      cy.findByText(ELEMENT_BUTTON).should('be.visible')
       cy.findByText(ELEMENT_BUTTON).click()
-
-      cy.get('[aria-label="format-painter"]').should('be.visible')
       cy.get('[aria-label="format-painter"]').click()
 
       cy.getSpinner().should('not.exist')
@@ -50,10 +47,7 @@ describe('CSS CEUD', () => {
 
   describe('Update css', () => {
     it('should be able to update the css styling', () => {
-      cy.findByText(ELEMENT_BUTTON).should('be.visible')
       cy.findByText(ELEMENT_BUTTON).click()
-
-      cy.get('[aria-label="format-painter"]').should('be.visible')
       cy.get('[aria-label="format-painter"]').click()
 
       cy.getSpinner().should('not.exist')
@@ -71,10 +65,7 @@ describe('CSS CEUD', () => {
 
   describe('Remove css', () => {
     it('should be able to remove the css styling', () => {
-      cy.findByText(ELEMENT_BUTTON).should('be.visible')
       cy.findByText(ELEMENT_BUTTON).click()
-
-      cy.get('[aria-label="format-painter"]').should('be.visible')
       cy.get('[aria-label="format-painter"]').click()
 
       cy.getSpinner().should('not.exist')
