@@ -8,10 +8,6 @@ export const storeSelectionSet = `
     id
     data
   }
-  parentStore {
-    id
-    name
-  }
   actions {
     ${actionSelectionSet}
   }
