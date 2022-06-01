@@ -20,7 +20,7 @@ type BuilderMainPaneHeaderProps = WithServices<
 
 const { Search } = Input
 
-export const BuilderMainPaneHeader = observer(
+export const BuilderExplorerPaneHeader = observer(
   ({
     tab,
     root,
@@ -53,4 +53,4 @@ export const BuilderMainPaneHeader = observer(
   },
 )
 
-BuilderMainPaneHeader.displayName = 'BuilderMainPaneHeader'
+BuilderExplorerPaneHeader.displayName = 'BuilderMainPaneHeader'

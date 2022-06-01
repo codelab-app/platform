@@ -21,7 +21,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { usePropCompletion } from '../../hooks'
-import { MetaPaneTabContainer } from './MetaPane-TabContainer'
+import { ConfigPaneTabContainer } from './ConfigPane-TabContainer'
 
 type MetaPaneProps = {
   elementTree: IElementTree
@@ -34,7 +34,7 @@ type MetaPaneProps = {
   | COMPONENT_SERVICE
 >
 
-export const MetaPane = observer<MetaPaneProps>(
+export const ConfigPane = observer<MetaPaneProps>(
   ({
     typeService,
     atomService,
@@ -47,7 +47,7 @@ export const MetaPane = observer<MetaPaneProps>(
     const { providePropCompletion } = usePropCompletion(renderService)
 
     return (
-      <MetaPaneTabContainer
+      <ConfigPaneTabContainer
         UpdateElementContent={observer(({ node, trackPromises }) => {
           /**
            * The builder tree nodes could be a component as well, in which case we would show the form for components
@@ -99,4 +99,4 @@ export const MetaPane = observer<MetaPaneProps>(
   },
 )
 
-MetaPane.displayName = 'MetaPane'
+ConfigPane.displayName = 'MetaPane'

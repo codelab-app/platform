@@ -1,4 +1,5 @@
+export * from './config-pane'
 export * from './content'
-export * from './main-pane'
-export * from './meta-pane'
+export * from './editor-pane'
+export * from './explorer-pane'
 export * from './overlay-toolbar'

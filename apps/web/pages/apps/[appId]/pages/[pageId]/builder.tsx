@@ -5,9 +5,9 @@ import {
   Builder,
   BuilderComponent,
   BuilderContext,
-  BuilderDashboardTemplate,
-  BuilderMainPane,
-  MetaPane,
+  BuilderExplorerPane,
+  ConfigPane,
+  EditorPaneBuilder,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { createMobxState } from '@codelab/frontend/modules/store'
@@ -26,7 +26,10 @@ import {
   resourceMenuItem,
   storeMenuItem,
 } from '@codelab/frontend/view/sections'
-import { SidebarNavigation } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -188,26 +191,13 @@ PageBuilder.Layout = observer((page) => {
       builderService={builderService}
       elementService={elementService}
     >
-      <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pageService={pageService} />}
-        MainPane={() => (
-          <BuilderMainPane
-            atomService={atomService}
-            builderService={builderService}
-            componentService={componentService}
-            elementService={elementService}
-            key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            pageId={pageId}
-            renderService={builderRenderService}
-            userService={userService}
-          />
-        )}
-        MetaPane={
+      <DashboardTemplate
+        ConfigPane={
           !activeElementTree || !pageBuilderRenderer
             ? undefined
             : observer(() => {
                 return (
-                  <MetaPane
+                  <ConfigPane
                     atomService={atomService}
                     builderService={builderService}
                     componentService={componentService}
@@ -221,6 +211,20 @@ PageBuilder.Layout = observer((page) => {
                 )
               })
         }
+        EditorPane={() => <EditorPaneBuilder />}
+        ExplorerPane={() => (
+          <BuilderExplorerPane
+            atomService={atomService}
+            builderService={builderService}
+            componentService={componentService}
+            elementService={elementService}
+            key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            pageId={pageId}
+            renderService={builderRenderService}
+            userService={userService}
+          />
+        )}
+        Header={() => <PageDetailHeader pageService={pageService} />}
         SidebarNavigation={() => (
           <SidebarNavigation
             primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
@@ -232,12 +236,13 @@ PageBuilder.Layout = observer((page) => {
             // )}
           />
         )}
+        contentStyles={{ paddingTop: '0rem' }}
         headerHeight={38}
         // Depending on pageBuilderRenderService causes an extra re-render
         // key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
-      </BuilderDashboardTemplate>
+      </DashboardTemplate>
     </BuilderContext>
   )
 })

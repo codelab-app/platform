@@ -5,21 +5,21 @@ import tw from 'twin.macro'
 import { UseResizable } from '../../components'
 import { sidebarWidth } from './constants'
 
-export interface DashboardTemplateMainPaneProps {
-  MainPane: ComponentType
+export type ExplorerPaneProps = {
   hasHeader: boolean
   headerHeight: number
   hasSidebarNavigation: boolean
   resizable: UseResizable
+  ExplorerPane: ComponentType
 }
 
-export const DashboardTemplateMainPane = ({
+export const DashboardTemplateExplorerPane = ({
   hasHeader,
   hasSidebarNavigation,
   resizable,
   headerHeight,
-  MainPane,
-}: DashboardTemplateMainPaneProps) => {
+  ExplorerPane,
+}: ExplorerPaneProps) => {
   return (
     <motion.div
       css={tw`fixed left-0 top-0 bottom-0 h-full`}
@@ -29,7 +29,7 @@ export const DashboardTemplateMainPane = ({
         ...resizable.containerProps.style,
         marginTop: hasHeader ? headerHeight : 0,
         marginLeft: hasSidebarNavigation ? sidebarWidth : 0,
-        zIndex: 60,
+        // zIndex: 60,
       }}
     >
       <Sider
@@ -39,7 +39,7 @@ export const DashboardTemplateMainPane = ({
       >
         <div css={tw`relative max-h-full h-full flex flex-row`}>
           <motion.div css={tw`h-full flex-1`}>
-            <MainPane />
+            <ExplorerPane />
           </motion.div>
           <motion.div
             css={[tw`bg-gray-200 h-full z-10`, `width: 2px`]}
@@ -52,4 +52,4 @@ export const DashboardTemplateMainPane = ({
   )
 }
 
-DashboardTemplateMainPane.displayName = 'DashboardTemplateMainPane'
+DashboardTemplateExplorerPane.displayName = 'DashboardTemplateExplorerPane'

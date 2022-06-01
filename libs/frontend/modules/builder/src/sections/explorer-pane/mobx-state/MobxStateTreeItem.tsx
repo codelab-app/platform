@@ -1,5 +1,4 @@
 import { EyeOutlined } from '@ant-design/icons'
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { IModalService, IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Button, Tag } from 'antd'
 import { observer } from 'mobx-react-lite'
