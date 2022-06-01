@@ -1,14 +1,21 @@
-import { Input } from 'antd'
-import { TextAreaProps } from 'antd/lib/input/TextArea'
-import React from 'react'
+import { css, cssCompletionSource } from '@codemirror/lang-css'
+import { CodeMirrorInput } from '../CodeMirror/CodeMirrorInput'
+import { CodeMirrorInputProps } from '../CodeMirror/types'
 
-export type EmotionCssEditorProps = TextAreaProps
+const EmotionCssEditor = (props: CodeMirrorInputProps) => {
+  const { extensions = [] } = props
+  const mergedExtensions = [css(), ...extensions]
 
-const { TextArea } = Input
-
-const EmotionCssEditor = (props: EmotionCssEditorProps) => {
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <TextArea {...props} />
+  return (
+    <CodeMirrorInput
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      defaultCompletionSource={cssCompletionSource}
+      extensions={mergedExtensions}
+      shouldDisableNewLines={false}
+    />
+  )
 }
 
 EmotionCssEditor.displayName = 'EmotionCssEditor'

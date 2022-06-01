@@ -50,6 +50,7 @@
     "@aws-sdk/client-s3": "3.51.0",
     "@babel/runtime": "7.17.2",
     "@codemirror/autocomplete": "0.20.0",
+    "@codemirror/lang-css": "^0.20.0",
     "@dnd-kit/core": "5.0.3",
     "@emotion/react": "11.9.0",
     "@emotion/server": "11.4.0",
