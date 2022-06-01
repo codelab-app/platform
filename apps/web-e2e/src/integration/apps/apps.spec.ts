@@ -47,7 +47,7 @@ describe('Apps CRUD', () => {
 
   // Insert page test here
   require('./pages.spec.required')
-  require('./action.spec.required')
+  // require('./action.spec.required')
 
   describe('delete', () => {
     before(() => {
