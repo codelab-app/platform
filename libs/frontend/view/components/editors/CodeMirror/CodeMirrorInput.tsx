@@ -1,43 +1,42 @@
 import {
   autocompletion,
   closeCompletion,
-  Completion,
   startCompletion,
 } from '@codemirror/autocomplete'
 import { css } from '@emotion/react'
 import { useCodeMirror, ViewUpdate } from '@uiw/react-codemirror'
 import React, { useEffect, useRef } from 'react'
 import { basicSetup, completionsFactory } from './codemirror-extensions'
-
-export interface CodeMirrorInputProps {
-  value: string
-  onChange: (value: string) => void
-  onBlur?: () => void
-  defaultCompletionOptions?: Array<Completion>
-  templateCompletionOptions?: Array<Completion>
-}
+import { CodeMirrorInputProps } from './types'
 
 export const CodeMirrorInput = ({
   value,
   onChange,
   onBlur,
-  defaultCompletionOptions,
+  defaultCompletionSource,
   templateCompletionOptions,
+  extensions = [],
+  shouldDisableNewLines = true,
+  defaultCompletionOptions,
+  height = '30px',
+  ...props
 }: CodeMirrorInputProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
 
   const extensionsRef = useRef([
-    basicSetup,
+    basicSetup(shouldDisableNewLines),
     autocompletion({
       defaultKeymap: false,
       activateOnTyping: true,
       override: [
-        completionsFactory(
-          defaultCompletionOptions,
-          templateCompletionOptions ?? [],
-        ),
+        completionsFactory({
+          defaultCompletionSource,
+          templateCompletionOptions: templateCompletionOptions ?? [],
+          defaultCompletionOptions: defaultCompletionOptions ?? [],
+        }),
       ],
     }),
+    ...extensions,
   ])
 
   const { setContainer } = useCodeMirror({
@@ -45,7 +44,7 @@ export const CodeMirrorInput = ({
     basicSetup: false,
     value,
     onChange,
-    height: '30px',
+    height,
     onBlur,
     extensions: extensionsRef.current,
     onUpdate(viewUpdate: ViewUpdate): void {
@@ -58,6 +57,7 @@ export const CodeMirrorInput = ({
         }
       }
     },
+    ...props,
   })
 
   useEffect(() => {

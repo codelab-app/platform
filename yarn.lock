@@ -3239,6 +3239,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codemirror/lang-css@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "@codemirror/lang-css@npm:0.20.0"
+  dependencies:
+    "@codemirror/autocomplete": ^0.20.0
+    "@codemirror/language": ^0.20.0
+    "@codemirror/state": ^0.20.0
+    "@lezer/css": ^0.16.0
+  checksum: a922c76fe51a13d5af6e019fe36cd344d9d855aeb8a6ee8b01d2c757d015b3615907984c99dfa1866a81ef1fac465251b959a08e4d15d79b8ed2a4a35f3eed5e
+  languageName: node
+  linkType: hard
+
 "@codemirror/language@npm:^0.20.0":
   version: 0.20.0
   resolution: "@codemirror/language@npm:0.20.0"
@@ -5132,6 +5144,16 @@ __metadata:
   version: 0.16.0
   resolution: "@lezer/common@npm:0.16.0"
   checksum: 344476eee85172c1dc00a74db7c3a973703eab10c3a537ea27f885069e4fd3edffa2c32388321934a39bff5e1049ef680385e1d5a7ee9f091fa9b0d1c21873a4
+  languageName: node
+  linkType: hard
+
+"@lezer/css@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@lezer/css@npm:0.16.0"
+  dependencies:
+    "@lezer/highlight": ^0.16.0
+    "@lezer/lr": ^0.16.0
+  checksum: c88151f2d0f3cbc00e21a9f2f18960298ffe566a321996fa0e2b676b804535c1b20053bc8f81f8510c8523169a00cbbabe808775b5e980c371b64912d19c6dc9
   languageName: node
   linkType: hard
 
@@ -13714,6 +13736,7 @@ __metadata:
     "@babel/preset-typescript": 7.16.7
     "@babel/runtime": 7.17.2
     "@codemirror/autocomplete": 0.20.0
+    "@codemirror/lang-css": ^0.20.0
     "@commitlint/cli": 16.0.2
     "@commitlint/config-conventional": 16.0.0
     "@cypress/react": 5.12.4
