@@ -1,6 +1,9 @@
+import { logInIfInAuth0Page } from './commands'
+
 type CyElement = Cypress.Chainable<Element>
 
 export interface CypressAuth0Commands {
+  logInIfInAuth0Page: typeof logInIfInAuth0Page
   // Copied from https://github.com/sir-dunxalot/cypress-nextjs-auth0/blob/main/types/index.d.ts
   // declaration merging not working
   /**
@@ -32,3 +35,7 @@ export interface CypressAuth0Commands {
    */
   preserveAuth0CookiesOnce(): CyElement
 }
+
+export const auth0Commands = [
+  { name: 'logInIfInAuth0Page', fn: logInIfInAuth0Page },
+]

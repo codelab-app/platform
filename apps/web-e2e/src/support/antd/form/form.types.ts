@@ -25,6 +25,7 @@ export const FIELD_TYPE = {
   RADIO: 'radio' as FieldType,
   DATE: 'date' as FieldType,
   MONACO: 'monaco' as FieldType,
+  CODE_MIRROR_GRAPHQL: 'code_mirror_graphql' as FieldType,
 }
 
 export type FormFieldOptions = { label?: string }
