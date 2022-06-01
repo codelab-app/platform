@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ActionFragment } from '../../../../../shared/abstract/core/src/domain/store/action.fragment.graphql.gen'
+import { ActionFragment } from '../../../../../shared/abstract/core/src/domain/action/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/store/action.fragment.graphql.gen'
+import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/action.fragment.graphql.gen'
 export type CreateActionsMutationVariables = Types.Exact<{
   input: Array<Types.ActionCreateInput> | Types.ActionCreateInput
 }>

@@ -1,11 +1,15 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import {
+  ResourceCreateInput,
+  ResourceWhere,
+} from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
   IResourceDTO,
   IResourceService,
   IUpdateResourceDTO,
 } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   _async,
@@ -19,7 +23,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { getOperationService } from './operation.service'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
 import { ResourceModalService } from './resource-modal.service'
@@ -44,17 +47,10 @@ export class ResourceService
     return this.resources.get(id)
   }
 
-  @modelAction
-  fetchOperations(operations: IResourceDTO['operations']) {
-    getOperationService(this).updateCache(operations)
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
-
-    this.fetchOperations(resources.flatMap((x) => x.operations))
 
     return resources.map((resource) => {
       const resourceModel = Resource.hydrate(resource)
@@ -78,10 +74,17 @@ export class ResourceService
     this: ResourceService,
     data: Array<ICreateResourceDTO>,
   ) {
-    const input = data.map((resource) => ({
+    const input: Array<ResourceCreateInput> = data.map((resource) => ({
       type: resource.type,
       name: resource.name,
-      config: JSON.stringify(resource.config),
+      config: {
+        create: {
+          node: {
+            data: JSON.stringify(resource.config),
+          },
+        },
+      },
+      owner: connectOwner(resource.auth0Id),
     }))
 
     const {
@@ -119,7 +122,10 @@ export class ResourceService
         update: {
           name,
           type,
-          config: JSON.stringify(config),
+          config: {
+            update: { node: { data: JSON.stringify(config) } },
+            where: {},
+          },
         },
         where: { id: resource.id },
       }),
@@ -154,8 +160,6 @@ export class ResourceService
   updateCache(resources: Array<IResourceDTO>) {
     for (const resource of resources) {
       this.addOrUpdate(resource)
-      // when loading the store we load operations inside resources too
-      getOperationService(this).updateCache(resource.operations)
     }
   }
 
@@ -165,7 +169,7 @@ export class ResourceService
 
     if (existing) {
       existing.name = resource.name
-      existing.config = JSON.parse(resource.config)
+      existing.config.updateCache(resource.config)
       existing.type = resource.type
     } else {
       this.addResource(Resource.hydrate(resource))

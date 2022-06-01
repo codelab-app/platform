@@ -1,15 +1,21 @@
-import { Ref } from 'mobx-keystone'
-import { IGraphQLResourceConfig } from './graphql-resource'
-import { IOperation } from './operation.model.interface'
-import { ResourceType } from './resource-type.enum'
-import { IRestResourceConfig } from './rest-resource'
+import { IProp } from '../prop'
+import { IGraphQLResourceConfig } from './graphql-resource-config.interface'
+import { IRestResourceConfig } from './rest-resource-config.interface'
+
+export enum ResourceType {
+  GraphQL = 'GraphQL',
+  Rest = 'Rest',
+}
+
+export type IResourceConfig = IProp<
+  IGraphQLResourceConfig | IRestResourceConfig
+>
 
 export interface IResource {
   id: string
   name: string
-  config: IGraphQLResourceConfig | IRestResourceConfig
+  config: IResourceConfig
   type: ResourceType
-  operations: Array<Ref<IOperation>>
 }
 
 export type IResourceRef = string

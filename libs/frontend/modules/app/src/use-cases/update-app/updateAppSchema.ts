@@ -1,4 +1,3 @@
-import { SelectStore } from '@codelab/frontend/modules/type'
 import { IUpdateAppDTO } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 
@@ -9,12 +8,6 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
     name: {
       type: 'string',
       autoFocus: true,
-    },
-    storeId: {
-      type: 'string',
-      label: 'Mobx Store',
-      uniforms: { component: SelectStore },
-      nullable: true,
     },
   },
   required: ['name'],

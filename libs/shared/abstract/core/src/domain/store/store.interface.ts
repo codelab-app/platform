@@ -1,24 +1,15 @@
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { TableProps as RcTableProps } from 'rc-table/lib/Table'
-import { IPropData } from '../prop'
-import { IResource } from '../resource'
+import { IPropData as IProp } from '../prop'
 import { IInterfaceType } from '../type'
+import { IStoreDTO } from './store.dto.interface'
 
 export interface IStore {
   id: string
   name: string
-  parentStore: Nullish<Ref<IStore>>
-  storeKey: Nullable<string>
-  state: Ref<IInterfaceType>
-  localState: IPropData
-  resourcesList: RcTableProps<Omit<IResource, 'operations'>>['data']
+  stateApi: Ref<IInterfaceType>
+  state: IProp
+  updateCache(data: Omit<IStoreDTO, '__typename'>): IStore
   toMobxObservable(globals?: any): any
 }
 
 export type IStoreRef = string
-
-export interface IStoreResource {
-  resourceId: string
-  key: string
-}

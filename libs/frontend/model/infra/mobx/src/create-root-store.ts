@@ -7,8 +7,6 @@ import { ElementService } from '@codelab/frontend/modules/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import { RenderService } from '@codelab/frontend/modules/renderer'
 import {
-  OperationService,
-  operationServiceContext,
   ResourceService,
   resourceServiceContext,
 } from '@codelab/frontend/modules/resource'
@@ -23,6 +21,7 @@ import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import {
   componentServiceContext,
   elementServiceContext,
+  storeServiceContext,
 } from '@codelab/frontend/presenter/container'
 import { IRootStore, RootStoreData } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
@@ -47,7 +46,6 @@ export const createRootStore = (
       actionService: prop(() => new ActionService({})),
       storeService: prop(() => new StoreService({})),
       resourceService: prop(() => new ResourceService({})),
-      operationService: prop(() => new OperationService({})),
       elementService: prop(() => new ElementService({})),
       builderService: prop(() => new BuilderService({})),
     })
@@ -60,8 +58,8 @@ export const createRootStore = (
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)
       actionServiceContext.set(this, this.actionService)
+      storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)
-      operationServiceContext.set(this, this.operationService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)
     }

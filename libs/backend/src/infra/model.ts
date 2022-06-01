@@ -44,6 +44,11 @@ let storeInst: OGM_TYPES.StoreModel
 export const StoreOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
   await getOgmInstance<'Store'>(storeInst, 'Store', ogm)
 
+let resourceInst: OGM_TYPES.ResourceModel
+
+export const ResourceOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
+  await getOgmInstance<'Resource'>(resourceInst, 'Resource', ogm)
+
 let pageInst: OGM_TYPES.PageModel
 
 export const PageOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>

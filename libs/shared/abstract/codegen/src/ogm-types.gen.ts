@@ -114,21 +114,15 @@ export type Query = {
   components: Array<Component>;
   componentsAggregate: ComponentAggregateSelection;
   componentsConnection: ComponentsConnection;
-  actions: Array<Action>;
-  actionsAggregate: ActionAggregateSelection;
-  actionsConnection: ActionsConnection;
   stores: Array<Store>;
   storesAggregate: StoreAggregateSelection;
   storesConnection: StoresConnection;
-  deleteInfos: Array<DeleteInfo>;
-  deleteInfosAggregate: DeleteInfoAggregateSelection;
-  deleteInfosConnection: DeleteInfosConnection;
+  actions: Array<Action>;
+  actionsAggregate: ActionAggregateSelection;
+  actionsConnection: ActionsConnection;
   resources: Array<Resource>;
   resourcesAggregate: ResourceAggregateSelection;
   resourcesConnection: ResourcesConnection;
-  operations: Array<Operation>;
-  operationsAggregate: OperationAggregateSelection;
-  operationsConnection: OperationsConnection;
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
   isTypeDescendantOf?: Maybe<Scalars["Boolean"]>;
   /**
@@ -601,22 +595,6 @@ export type QueryComponentsConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ComponentSort>>>;
 };
 
-export type QueryActionsArgs = {
-  where?: InputMaybe<ActionWhere>;
-  options?: InputMaybe<ActionOptions>;
-};
-
-export type QueryActionsAggregateArgs = {
-  where?: InputMaybe<ActionWhere>;
-};
-
-export type QueryActionsConnectionArgs = {
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<ActionWhere>;
-  sort?: InputMaybe<Array<InputMaybe<ActionSort>>>;
-};
-
 export type QueryStoresArgs = {
   where?: InputMaybe<StoreWhere>;
   options?: InputMaybe<StoreOptions>;
@@ -633,20 +611,20 @@ export type QueryStoresConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<StoreSort>>>;
 };
 
-export type QueryDeleteInfosArgs = {
-  where?: InputMaybe<DeleteInfoWhere>;
-  options?: InputMaybe<DeleteInfoOptions>;
+export type QueryActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  options?: InputMaybe<ActionOptions>;
 };
 
-export type QueryDeleteInfosAggregateArgs = {
-  where?: InputMaybe<DeleteInfoWhere>;
+export type QueryActionsAggregateArgs = {
+  where?: InputMaybe<ActionWhere>;
 };
 
-export type QueryDeleteInfosConnectionArgs = {
+export type QueryActionsConnectionArgs = {
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<DeleteInfoWhere>;
-  sort?: InputMaybe<Array<InputMaybe<DeleteInfoSort>>>;
+  where?: InputMaybe<ActionWhere>;
+  sort?: InputMaybe<Array<InputMaybe<ActionSort>>>;
 };
 
 export type QueryResourcesArgs = {
@@ -665,22 +643,6 @@ export type QueryResourcesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ResourceSort>>>;
 };
 
-export type QueryOperationsArgs = {
-  where?: InputMaybe<OperationWhere>;
-  options?: InputMaybe<OperationOptions>;
-};
-
-export type QueryOperationsAggregateArgs = {
-  where?: InputMaybe<OperationWhere>;
-};
-
-export type QueryOperationsConnectionArgs = {
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  where?: InputMaybe<OperationWhere>;
-  sort?: InputMaybe<Array<InputMaybe<OperationSort>>>;
-};
-
 export type QueryIsTypeDescendantOfArgs = {
   parentTypeId: Scalars["ID"];
   descendantTypeId: Scalars["ID"];
@@ -693,7 +655,6 @@ export type QueryGetTypeReferencesArgs = {
 export type Mutation = {
   __typename?: "Mutation";
   upsertField: InterfaceType;
-  deleteStoresSubgraph: DeleteInfo;
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse;
   deleteResetDatabaseMutationResponses: DeleteInfo;
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse;
@@ -781,21 +742,15 @@ export type Mutation = {
   createComponents: CreateComponentsMutationResponse;
   deleteComponents: DeleteInfo;
   updateComponents: UpdateComponentsMutationResponse;
-  createActions: CreateActionsMutationResponse;
-  deleteActions: DeleteInfo;
-  updateActions: UpdateActionsMutationResponse;
   createStores: CreateStoresMutationResponse;
   deleteStores: DeleteInfo;
   updateStores: UpdateStoresMutationResponse;
-  createDeleteInfos: CreateDeleteInfosMutationResponse;
-  deleteDeleteInfos: DeleteInfo;
-  updateDeleteInfos: UpdateDeleteInfosMutationResponse;
+  createActions: CreateActionsMutationResponse;
+  deleteActions: DeleteInfo;
+  updateActions: UpdateActionsMutationResponse;
   createResources: CreateResourcesMutationResponse;
   deleteResources: DeleteInfo;
   updateResources: UpdateResourcesMutationResponse;
-  createOperations: CreateOperationsMutationResponse;
-  deleteOperations: DeleteInfo;
-  updateOperations: UpdateOperationsMutationResponse;
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>;
 };
 
@@ -803,11 +758,6 @@ export type MutationUpsertFieldArgs = {
   interfaceTypeId: Scalars["ID"];
   fieldTypeId: Scalars["ID"];
   field: FieldCreateInput;
-};
-
-export type MutationDeleteStoresSubgraphArgs = {
-  delete?: InputMaybe<StoreDeleteInput>;
-  where?: InputMaybe<StoreWhere>;
 };
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
@@ -1319,25 +1269,6 @@ export type MutationUpdateComponentsArgs = {
   connectOrCreate?: InputMaybe<ComponentConnectOrCreateInput>;
 };
 
-export type MutationCreateActionsArgs = {
-  input: Array<ActionCreateInput>;
-};
-
-export type MutationDeleteActionsArgs = {
-  where?: InputMaybe<ActionWhere>;
-  delete?: InputMaybe<ActionDeleteInput>;
-};
-
-export type MutationUpdateActionsArgs = {
-  where?: InputMaybe<ActionWhere>;
-  update?: InputMaybe<ActionUpdateInput>;
-  connect?: InputMaybe<ActionConnectInput>;
-  disconnect?: InputMaybe<ActionDisconnectInput>;
-  create?: InputMaybe<ActionRelationInput>;
-  delete?: InputMaybe<ActionDeleteInput>;
-  connectOrCreate?: InputMaybe<ActionConnectOrCreateInput>;
-};
-
 export type MutationCreateStoresArgs = {
   input: Array<StoreCreateInput>;
 };
@@ -1357,17 +1288,23 @@ export type MutationUpdateStoresArgs = {
   connectOrCreate?: InputMaybe<StoreConnectOrCreateInput>;
 };
 
-export type MutationCreateDeleteInfosArgs = {
-  input: Array<DeleteInfoCreateInput>;
+export type MutationCreateActionsArgs = {
+  input: Array<ActionCreateInput>;
 };
 
-export type MutationDeleteDeleteInfosArgs = {
-  where?: InputMaybe<DeleteInfoWhere>;
+export type MutationDeleteActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  delete?: InputMaybe<ActionDeleteInput>;
 };
 
-export type MutationUpdateDeleteInfosArgs = {
-  where?: InputMaybe<DeleteInfoWhere>;
-  update?: InputMaybe<DeleteInfoUpdateInput>;
+export type MutationUpdateActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  update?: InputMaybe<ActionUpdateInput>;
+  connect?: InputMaybe<ActionConnectInput>;
+  disconnect?: InputMaybe<ActionDisconnectInput>;
+  create?: InputMaybe<ActionRelationInput>;
+  delete?: InputMaybe<ActionDeleteInput>;
+  connectOrCreate?: InputMaybe<ActionConnectOrCreateInput>;
 };
 
 export type MutationCreateResourcesArgs = {
@@ -1387,25 +1324,6 @@ export type MutationUpdateResourcesArgs = {
   create?: InputMaybe<ResourceRelationInput>;
   delete?: InputMaybe<ResourceDeleteInput>;
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>;
-};
-
-export type MutationCreateOperationsArgs = {
-  input: Array<OperationCreateInput>;
-};
-
-export type MutationDeleteOperationsArgs = {
-  where?: InputMaybe<OperationWhere>;
-  delete?: InputMaybe<OperationDeleteInput>;
-};
-
-export type MutationUpdateOperationsArgs = {
-  where?: InputMaybe<OperationWhere>;
-  update?: InputMaybe<OperationUpdateInput>;
-  connect?: InputMaybe<OperationConnectInput>;
-  disconnect?: InputMaybe<OperationDisconnectInput>;
-  create?: InputMaybe<OperationRelationInput>;
-  delete?: InputMaybe<OperationDeleteInput>;
-  connectOrCreate?: InputMaybe<OperationConnectOrCreateInput>;
 };
 
 export enum AtomType {
@@ -1845,14 +1763,6 @@ export type ParentOfElement = {
   order?: Maybe<Scalars["Int"]>;
 };
 
-export type ParentOfStore = {
-  storeKey: Scalars["String"];
-};
-
-export type StoreResource = {
-  resourceKey: Scalars["String"];
-};
-
 export type TypeBase = {
   owner: User;
   ownerConnection: TypeBaseOwnerConnection;
@@ -1888,10 +1798,39 @@ export type Action = {
   __typename?: "Action";
   id: Scalars["ID"];
   name: Scalars["String"];
-  body: Scalars["String"];
+  runOnInit: Scalars["Boolean"];
+  body?: Maybe<Scalars["String"]>;
+  resource?: Maybe<Resource>;
+  resourceAggregate?: Maybe<ActionResourceResourceAggregationSelection>;
+  config: Prop;
+  configAggregate?: Maybe<ActionPropConfigAggregationSelection>;
   store: Store;
   storeAggregate?: Maybe<ActionStoreStoreAggregationSelection>;
+  resourceConnection: ActionResourceConnection;
+  configConnection: ActionConfigConnection;
   storeConnection: ActionStoreConnection;
+};
+
+export type ActionResourceArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  options?: InputMaybe<ResourceOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionResourceAggregateArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionConfigArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionConfigAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type ActionStoreArgs = {
@@ -1903,6 +1842,22 @@ export type ActionStoreArgs = {
 export type ActionStoreAggregateArgs = {
   where?: InputMaybe<StoreWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionResourceConnectionArgs = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionResourceConnectionSort>>;
+};
+
+export type ActionConfigConnectionArgs = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionConfigConnectionSort>>;
 };
 
 export type ActionStoreConnectionArgs = {
@@ -1918,13 +1873,63 @@ export type ActionAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  body: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
+};
+
+export type ActionConfigConnection = {
+  __typename?: "ActionConfigConnection";
+  edges: Array<ActionConfigRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ActionConfigRelationship = {
+  __typename?: "ActionConfigRelationship";
+  cursor: Scalars["String"];
+  node: Prop;
 };
 
 export type ActionEdge = {
   __typename?: "ActionEdge";
   cursor: Scalars["String"];
   node: Action;
+};
+
+export type ActionPropConfigAggregationSelection = {
+  __typename?: "ActionPropConfigAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionPropConfigNodeAggregateSelection>;
+};
+
+export type ActionPropConfigNodeAggregateSelection = {
+  __typename?: "ActionPropConfigNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  data: StringAggregateSelectionNonNullable;
+};
+
+export type ActionResourceConnection = {
+  __typename?: "ActionResourceConnection";
+  edges: Array<ActionResourceRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ActionResourceRelationship = {
+  __typename?: "ActionResourceRelationship";
+  cursor: Scalars["String"];
+  node: Resource;
+};
+
+export type ActionResourceResourceAggregationSelection = {
+  __typename?: "ActionResourceResourceAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionResourceResourceNodeAggregateSelection>;
+};
+
+export type ActionResourceResourceNodeAggregateSelection = {
+  __typename?: "ActionResourceResourceNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
 };
 
 export type ActionsConnection = {
@@ -1957,7 +1962,6 @@ export type ActionStoreStoreNodeAggregateSelection = {
   __typename?: "ActionStoreStoreNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  localState: StringAggregateSelectionNonNullable;
 };
 
 export type App = WithOwner & {
@@ -1970,7 +1974,7 @@ export type App = WithOwner & {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>;
   rootElement: Element;
   rootElementAggregate?: Maybe<AppElementRootElementAggregationSelection>;
-  store?: Maybe<Store>;
+  store: Store;
   storeAggregate?: Maybe<AppStoreStoreAggregationSelection>;
   ownerConnection: WithOwnerOwnerConnection;
   pagesConnection: AppPagesConnection;
@@ -2151,7 +2155,6 @@ export type AppStoreStoreNodeAggregateSelection = {
   __typename?: "AppStoreStoreNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  localState: StringAggregateSelectionNonNullable;
 };
 
 /** Allows picking a app from the list of apps */
@@ -2471,7 +2474,7 @@ export type AtomTagTagsNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
-export type Component = {
+export type Component = WithOwner & {
   __typename?: "Component";
   id: Scalars["ID"];
   name: Scalars["String"];
@@ -2483,7 +2486,7 @@ export type Component = {
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>;
   rootElementConnection: ComponentRootElementConnection;
   apiConnection: ComponentApiConnection;
-  ownerConnection: ComponentOwnerConnection;
+  ownerConnection: WithOwnerOwnerConnection;
 };
 
 export type ComponentRootElementArgs = {
@@ -2536,11 +2539,11 @@ export type ComponentApiConnectionArgs = {
 };
 
 export type ComponentOwnerConnectionArgs = {
-  where?: InputMaybe<ComponentOwnerConnectionWhere>;
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ComponentOwnerConnectionSort>>;
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>;
 };
 
 export type ComponentAggregateSelection = {
@@ -2595,19 +2598,6 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
   __typename?: "ComponentInterfaceTypeApiNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-};
-
-export type ComponentOwnerConnection = {
-  __typename?: "ComponentOwnerConnection";
-  edges: Array<ComponentOwnerRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ComponentOwnerRelationship = {
-  __typename?: "ComponentOwnerRelationship";
-  cursor: Scalars["String"];
-  node: User;
 };
 
 export type ComponentRootElementConnection = {
@@ -2683,12 +2673,6 @@ export type CreateCreateInfosMutationResponse = {
   __typename?: "CreateCreateInfosMutationResponse";
   info: CreateInfo;
   createInfos: Array<CreateInfo>;
-};
-
-export type CreateDeleteInfosMutationResponse = {
-  __typename?: "CreateDeleteInfosMutationResponse";
-  info: CreateInfo;
-  deleteInfos: Array<DeleteInfo>;
 };
 
 export type CreateElementGraphsMutationResponse = {
@@ -2771,12 +2755,6 @@ export type CreateMonacoTypesMutationResponse = {
   __typename?: "CreateMonacoTypesMutationResponse";
   info: CreateInfo;
   monacoTypes: Array<MonacoType>;
-};
-
-export type CreateOperationsMutationResponse = {
-  __typename?: "CreateOperationsMutationResponse";
-  info: CreateInfo;
-  operations: Array<Operation>;
 };
 
 export type CreatePagesMutationResponse = {
@@ -2880,27 +2858,6 @@ export type DeleteInfo = {
   bookmark?: Maybe<Scalars["String"]>;
   nodesDeleted: Scalars["Int"];
   relationshipsDeleted: Scalars["Int"];
-};
-
-export type DeleteInfoAggregateSelection = {
-  __typename?: "DeleteInfoAggregateSelection";
-  count: Scalars["Int"];
-  bookmark: StringAggregateSelectionNullable;
-  nodesDeleted: IntAggregateSelectionNonNullable;
-  relationshipsDeleted: IntAggregateSelectionNonNullable;
-};
-
-export type DeleteInfoEdge = {
-  __typename?: "DeleteInfoEdge";
-  cursor: Scalars["String"];
-  node: DeleteInfo;
-};
-
-export type DeleteInfosConnection = {
-  __typename?: "DeleteInfosConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<DeleteInfoEdge>;
 };
 
 export type Element = {
@@ -4210,83 +4167,6 @@ export type MonacoTypeUserOwnerNodeAggregateSelection = {
   email: StringAggregateSelectionNonNullable;
 };
 
-export type Operation = {
-  __typename?: "Operation";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  runOnInit?: Maybe<Scalars["Boolean"]>;
-  config: Scalars["String"];
-  resource: Resource;
-  resourceAggregate?: Maybe<OperationResourceResourceAggregationSelection>;
-  resourceConnection: OperationResourceConnection;
-};
-
-export type OperationResourceArgs = {
-  where?: InputMaybe<ResourceWhere>;
-  options?: InputMaybe<ResourceOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type OperationResourceAggregateArgs = {
-  where?: InputMaybe<ResourceWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type OperationResourceConnectionArgs = {
-  where?: InputMaybe<OperationResourceConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<OperationResourceConnectionSort>>;
-};
-
-export type OperationAggregateSelection = {
-  __typename?: "OperationAggregateSelection";
-  count: Scalars["Int"];
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  config: StringAggregateSelectionNonNullable;
-};
-
-export type OperationEdge = {
-  __typename?: "OperationEdge";
-  cursor: Scalars["String"];
-  node: Operation;
-};
-
-export type OperationResourceConnection = {
-  __typename?: "OperationResourceConnection";
-  edges: Array<OperationResourceRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type OperationResourceRelationship = {
-  __typename?: "OperationResourceRelationship";
-  cursor: Scalars["String"];
-  node: Resource;
-};
-
-export type OperationResourceResourceAggregationSelection = {
-  __typename?: "OperationResourceResourceAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<OperationResourceResourceNodeAggregateSelection>;
-};
-
-export type OperationResourceResourceNodeAggregateSelection = {
-  __typename?: "OperationResourceResourceNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  config: StringAggregateSelectionNonNullable;
-};
-
-export type OperationsConnection = {
-  __typename?: "OperationsConnection";
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-  edges: Array<OperationEdge>;
-};
-
 export type Page = {
   __typename?: "Page";
   id: Scalars["ID"];
@@ -4940,34 +4820,55 @@ export type ResetDatabaseMutationResponsesConnection = {
   edges: Array<ResetDatabaseMutationResponseEdge>;
 };
 
-export type Resource = {
+export type Resource = WithOwner & {
   __typename?: "Resource";
   id: Scalars["ID"];
   name: Scalars["String"];
-  config: Scalars["String"];
   type: ResourceType;
-  operations: Array<Operation>;
-  operationsAggregate?: Maybe<ResourceOperationOperationsAggregationSelection>;
-  operationsConnection: ResourceOperationsConnection;
+  config: Prop;
+  configAggregate?: Maybe<ResourcePropConfigAggregationSelection>;
+  owner: User;
+  ownerAggregate?: Maybe<ResourceUserOwnerAggregationSelection>;
+  configConnection: ResourceConfigConnection;
+  ownerConnection: WithOwnerOwnerConnection;
 };
 
-export type ResourceOperationsArgs = {
-  where?: InputMaybe<OperationWhere>;
-  options?: InputMaybe<OperationOptions>;
+export type ResourceConfigArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type ResourceOperationsAggregateArgs = {
-  where?: InputMaybe<OperationWhere>;
+export type ResourceConfigAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type ResourceOperationsConnectionArgs = {
-  where?: InputMaybe<ResourceOperationsConnectionWhere>;
+export type ResourceOwnerArgs = {
+  where?: InputMaybe<UserWhere>;
+  options?: InputMaybe<UserOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ResourceOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ResourceConfigConnectionArgs = {
+  where?: InputMaybe<ResourceConfigConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<ResourceOperationsConnectionSort>>;
+  sort?: InputMaybe<Array<ResourceConfigConnectionSort>>;
+};
+
+export type ResourceOwnerConnectionArgs = {
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>;
 };
 
 export type ResourceAggregateSelection = {
@@ -4975,7 +4876,19 @@ export type ResourceAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  config: StringAggregateSelectionNonNullable;
+};
+
+export type ResourceConfigConnection = {
+  __typename?: "ResourceConfigConnection";
+  edges: Array<ResourceConfigRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ResourceConfigRelationship = {
+  __typename?: "ResourceConfigRelationship";
+  cursor: Scalars["String"];
+  node: Prop;
 };
 
 export type ResourceEdge = {
@@ -4984,30 +4897,16 @@ export type ResourceEdge = {
   node: Resource;
 };
 
-export type ResourceOperationOperationsAggregationSelection = {
-  __typename?: "ResourceOperationOperationsAggregationSelection";
+export type ResourcePropConfigAggregationSelection = {
+  __typename?: "ResourcePropConfigAggregationSelection";
   count: Scalars["Int"];
-  node?: Maybe<ResourceOperationOperationsNodeAggregateSelection>;
+  node?: Maybe<ResourcePropConfigNodeAggregateSelection>;
 };
 
-export type ResourceOperationOperationsNodeAggregateSelection = {
-  __typename?: "ResourceOperationOperationsNodeAggregateSelection";
+export type ResourcePropConfigNodeAggregateSelection = {
+  __typename?: "ResourcePropConfigNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  config: StringAggregateSelectionNonNullable;
-};
-
-export type ResourceOperationsConnection = {
-  __typename?: "ResourceOperationsConnection";
-  edges: Array<ResourceOperationsRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type ResourceOperationsRelationship = {
-  __typename?: "ResourceOperationsRelationship";
-  cursor: Scalars["String"];
-  node: Operation;
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type ResourcesConnection = {
@@ -5017,36 +4916,55 @@ export type ResourcesConnection = {
   edges: Array<ResourceEdge>;
 };
 
+export type ResourceUserOwnerAggregationSelection = {
+  __typename?: "ResourceUserOwnerAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ResourceUserOwnerNodeAggregateSelection>;
+};
+
+export type ResourceUserOwnerNodeAggregateSelection = {
+  __typename?: "ResourceUserOwnerNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  auth0Id: StringAggregateSelectionNonNullable;
+  email: StringAggregateSelectionNonNullable;
+};
+
 export type Store = {
   __typename?: "Store";
   id: Scalars["ID"];
   name: Scalars["String"];
-  localState: Scalars["String"];
-  descendants: Array<Store>;
-  state: InterfaceType;
-  stateAggregate?: Maybe<StoreInterfaceTypeStateAggregationSelection>;
+  state: Prop;
+  stateAggregate?: Maybe<StorePropStateAggregationSelection>;
+  stateApi: InterfaceType;
+  stateApiAggregate?: Maybe<StoreInterfaceTypeStateApiAggregationSelection>;
   actions: Array<Action>;
   actionsAggregate?: Maybe<StoreActionActionsAggregationSelection>;
-  parentStore?: Maybe<Store>;
-  parentStoreAggregate?: Maybe<StoreStoreParentStoreAggregationSelection>;
-  children: Array<Store>;
-  childrenAggregate?: Maybe<StoreStoreChildrenAggregationSelection>;
-  resources: Array<Resource>;
-  resourcesAggregate?: Maybe<StoreResourceResourcesAggregationSelection>;
+  app: App;
+  appAggregate?: Maybe<StoreAppAppAggregationSelection>;
   stateConnection: StoreStateConnection;
+  stateApiConnection: StoreStateApiConnection;
   actionsConnection: StoreActionsConnection;
-  parentStoreConnection: StoreParentStoreConnection;
-  childrenConnection: StoreChildrenConnection;
-  resourcesConnection: StoreResourcesConnection;
+  appConnection: StoreAppConnection;
 };
 
 export type StoreStateArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type StoreStateAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type StoreStateApiArgs = {
   where?: InputMaybe<InterfaceTypeWhere>;
   options?: InputMaybe<InterfaceTypeOptions>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type StoreStateAggregateArgs = {
+export type StoreStateApiAggregateArgs = {
   where?: InputMaybe<InterfaceTypeWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -5062,36 +4980,14 @@ export type StoreActionsAggregateArgs = {
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type StoreParentStoreArgs = {
-  where?: InputMaybe<StoreWhere>;
-  options?: InputMaybe<StoreOptions>;
+export type StoreAppArgs = {
+  where?: InputMaybe<AppWhere>;
+  options?: InputMaybe<AppOptions>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type StoreParentStoreAggregateArgs = {
-  where?: InputMaybe<StoreWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type StoreChildrenArgs = {
-  where?: InputMaybe<StoreWhere>;
-  options?: InputMaybe<StoreOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type StoreChildrenAggregateArgs = {
-  where?: InputMaybe<StoreWhere>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type StoreResourcesArgs = {
-  where?: InputMaybe<ResourceWhere>;
-  options?: InputMaybe<ResourceOptions>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type StoreResourcesAggregateArgs = {
-  where?: InputMaybe<ResourceWhere>;
+export type StoreAppAggregateArgs = {
+  where?: InputMaybe<AppWhere>;
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -5103,6 +4999,14 @@ export type StoreStateConnectionArgs = {
   sort?: InputMaybe<Array<StoreStateConnectionSort>>;
 };
 
+export type StoreStateApiConnectionArgs = {
+  where?: InputMaybe<StoreStateApiConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<StoreStateApiConnectionSort>>;
+};
+
 export type StoreActionsConnectionArgs = {
   where?: InputMaybe<StoreActionsConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
@@ -5111,28 +5015,12 @@ export type StoreActionsConnectionArgs = {
   sort?: InputMaybe<Array<StoreActionsConnectionSort>>;
 };
 
-export type StoreParentStoreConnectionArgs = {
-  where?: InputMaybe<StoreParentStoreConnectionWhere>;
+export type StoreAppConnectionArgs = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
   first?: InputMaybe<Scalars["Int"]>;
   after?: InputMaybe<Scalars["String"]>;
   directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<StoreParentStoreConnectionSort>>;
-};
-
-export type StoreChildrenConnectionArgs = {
-  where?: InputMaybe<StoreChildrenConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<StoreChildrenConnectionSort>>;
-};
-
-export type StoreResourcesConnectionArgs = {
-  where?: InputMaybe<StoreResourcesConnectionWhere>;
-  first?: InputMaybe<Scalars["Int"]>;
-  after?: InputMaybe<Scalars["String"]>;
-  directed?: InputMaybe<Scalars["Boolean"]>;
-  sort?: InputMaybe<Array<StoreResourcesConnectionSort>>;
+  sort?: InputMaybe<Array<StoreAppConnectionSort>>;
 };
 
 export type StoreActionActionsAggregationSelection = {
@@ -5145,7 +5033,7 @@ export type StoreActionActionsNodeAggregateSelection = {
   __typename?: "StoreActionActionsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  body: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
 };
 
 export type StoreActionsConnection = {
@@ -5166,21 +5054,31 @@ export type StoreAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
-  localState: StringAggregateSelectionNonNullable;
 };
 
-export type StoreChildrenConnection = {
-  __typename?: "StoreChildrenConnection";
-  edges: Array<StoreChildrenRelationship>;
+export type StoreAppAppAggregationSelection = {
+  __typename?: "StoreAppAppAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<StoreAppAppNodeAggregateSelection>;
+};
+
+export type StoreAppAppNodeAggregateSelection = {
+  __typename?: "StoreAppAppNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type StoreAppConnection = {
+  __typename?: "StoreAppConnection";
+  edges: Array<StoreAppRelationship>;
   totalCount: Scalars["Int"];
   pageInfo: PageInfo;
 };
 
-export type StoreChildrenRelationship = ParentOfStore & {
-  __typename?: "StoreChildrenRelationship";
+export type StoreAppRelationship = {
+  __typename?: "StoreAppRelationship";
   cursor: Scalars["String"];
-  node: Store;
-  storeKey: Scalars["String"];
+  node: App;
 };
 
 export type StoreEdge = {
@@ -5189,63 +5087,28 @@ export type StoreEdge = {
   node: Store;
 };
 
-export type StoreInterfaceTypeStateAggregationSelection = {
-  __typename?: "StoreInterfaceTypeStateAggregationSelection";
+export type StoreInterfaceTypeStateApiAggregationSelection = {
+  __typename?: "StoreInterfaceTypeStateApiAggregationSelection";
   count: Scalars["Int"];
-  node?: Maybe<StoreInterfaceTypeStateNodeAggregateSelection>;
+  node?: Maybe<StoreInterfaceTypeStateApiNodeAggregateSelection>;
 };
 
-export type StoreInterfaceTypeStateNodeAggregateSelection = {
-  __typename?: "StoreInterfaceTypeStateNodeAggregateSelection";
+export type StoreInterfaceTypeStateApiNodeAggregateSelection = {
+  __typename?: "StoreInterfaceTypeStateApiNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
 };
 
-export type StoreParentStoreConnection = {
-  __typename?: "StoreParentStoreConnection";
-  edges: Array<StoreParentStoreRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type StoreParentStoreRelationship = ParentOfStore & {
-  __typename?: "StoreParentStoreRelationship";
-  cursor: Scalars["String"];
-  node: Store;
-  storeKey: Scalars["String"];
-};
-
-export type StoreResourceResourcesAggregationSelection = {
-  __typename?: "StoreResourceResourcesAggregationSelection";
+export type StorePropStateAggregationSelection = {
+  __typename?: "StorePropStateAggregationSelection";
   count: Scalars["Int"];
-  node?: Maybe<StoreResourceResourcesNodeAggregateSelection>;
-  edge?: Maybe<StoreResourceResourcesEdgeAggregateSelection>;
+  node?: Maybe<StorePropStateNodeAggregateSelection>;
 };
 
-export type StoreResourceResourcesEdgeAggregateSelection = {
-  __typename?: "StoreResourceResourcesEdgeAggregateSelection";
-  resourceKey: StringAggregateSelectionNonNullable;
-};
-
-export type StoreResourceResourcesNodeAggregateSelection = {
-  __typename?: "StoreResourceResourcesNodeAggregateSelection";
+export type StorePropStateNodeAggregateSelection = {
+  __typename?: "StorePropStateNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  config: StringAggregateSelectionNonNullable;
-};
-
-export type StoreResourcesConnection = {
-  __typename?: "StoreResourcesConnection";
-  edges: Array<StoreResourcesRelationship>;
-  totalCount: Scalars["Int"];
-  pageInfo: PageInfo;
-};
-
-export type StoreResourcesRelationship = StoreResource & {
-  __typename?: "StoreResourcesRelationship";
-  cursor: Scalars["String"];
-  node: Resource;
-  resourceKey: Scalars["String"];
+  data: StringAggregateSelectionNonNullable;
 };
 
 export type StoresConnection = {
@@ -5253,6 +5116,19 @@ export type StoresConnection = {
   totalCount: Scalars["Int"];
   pageInfo: PageInfo;
   edges: Array<StoreEdge>;
+};
+
+export type StoreStateApiConnection = {
+  __typename?: "StoreStateApiConnection";
+  edges: Array<StoreStateApiRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type StoreStateApiRelationship = {
+  __typename?: "StoreStateApiRelationship";
+  cursor: Scalars["String"];
+  node: InterfaceType;
 };
 
 export type StoreStateConnection = {
@@ -5265,45 +5141,7 @@ export type StoreStateConnection = {
 export type StoreStateRelationship = {
   __typename?: "StoreStateRelationship";
   cursor: Scalars["String"];
-  node: InterfaceType;
-};
-
-export type StoreStoreChildrenAggregationSelection = {
-  __typename?: "StoreStoreChildrenAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<StoreStoreChildrenNodeAggregateSelection>;
-  edge?: Maybe<StoreStoreChildrenEdgeAggregateSelection>;
-};
-
-export type StoreStoreChildrenEdgeAggregateSelection = {
-  __typename?: "StoreStoreChildrenEdgeAggregateSelection";
-  storeKey: StringAggregateSelectionNonNullable;
-};
-
-export type StoreStoreChildrenNodeAggregateSelection = {
-  __typename?: "StoreStoreChildrenNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  localState: StringAggregateSelectionNonNullable;
-};
-
-export type StoreStoreParentStoreAggregationSelection = {
-  __typename?: "StoreStoreParentStoreAggregationSelection";
-  count: Scalars["Int"];
-  node?: Maybe<StoreStoreParentStoreNodeAggregateSelection>;
-  edge?: Maybe<StoreStoreParentStoreEdgeAggregateSelection>;
-};
-
-export type StoreStoreParentStoreEdgeAggregateSelection = {
-  __typename?: "StoreStoreParentStoreEdgeAggregateSelection";
-  storeKey: StringAggregateSelectionNonNullable;
-};
-
-export type StoreStoreParentStoreNodeAggregateSelection = {
-  __typename?: "StoreStoreParentStoreNodeAggregateSelection";
-  id: IdAggregateSelectionNonNullable;
-  name: StringAggregateSelectionNonNullable;
-  localState: StringAggregateSelectionNonNullable;
+  node: Prop;
 };
 
 export type StringAggregateSelectionNonNullable = {
@@ -5723,12 +5561,6 @@ export type UpdateCreateInfosMutationResponse = {
   createInfos: Array<CreateInfo>;
 };
 
-export type UpdateDeleteInfosMutationResponse = {
-  __typename?: "UpdateDeleteInfosMutationResponse";
-  info: UpdateInfo;
-  deleteInfos: Array<DeleteInfo>;
-};
-
 export type UpdateElementGraphsMutationResponse = {
   __typename?: "UpdateElementGraphsMutationResponse";
   info: UpdateInfo;
@@ -5790,12 +5622,6 @@ export type UpdateMonacoTypesMutationResponse = {
   __typename?: "UpdateMonacoTypesMutationResponse";
   info: UpdateInfo;
   monacoTypes: Array<MonacoType>;
-};
-
-export type UpdateOperationsMutationResponse = {
-  __typename?: "UpdateOperationsMutationResponse";
-  info: UpdateInfo;
-  operations: Array<Operation>;
 };
 
 export type UpdatePagesMutationResponse = {
@@ -6157,11 +5983,108 @@ export type WithOwnerOwnerRelationship = {
   node: User;
 };
 
+export type ActionConfigAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ActionConfigAggregateInput>>;
+  OR?: InputMaybe<Array<ActionConfigAggregateInput>>;
+  node?: InputMaybe<ActionConfigNodeAggregationWhereInput>;
+};
+
+export type ActionConfigConnectFieldInput = {
+  where?: InputMaybe<PropConnectWhere>;
+};
+
+export type ActionConfigConnectionSort = {
+  node?: InputMaybe<PropSort>;
+};
+
+export type ActionConfigConnectionWhere = {
+  AND?: InputMaybe<Array<ActionConfigConnectionWhere>>;
+  OR?: InputMaybe<Array<ActionConfigConnectionWhere>>;
+  node?: InputMaybe<PropWhere>;
+  node_NOT?: InputMaybe<PropWhere>;
+};
+
+export type ActionConfigConnectOrCreateFieldInput = {
+  where: PropConnectOrCreateWhere;
+  onCreate: ActionConfigConnectOrCreateFieldInputOnCreate;
+};
+
+export type ActionConfigConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput;
+};
+
+export type ActionConfigCreateFieldInput = {
+  node: PropCreateInput;
+};
+
+export type ActionConfigDeleteFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+};
+
+export type ActionConfigDisconnectFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+};
+
+export type ActionConfigFieldInput = {
+  create?: InputMaybe<ActionConfigCreateFieldInput>;
+  connect?: InputMaybe<ActionConfigConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ActionConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionConfigNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionConfigNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  data_EQUAL?: InputMaybe<Scalars["String"]>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_GT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_GTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_LT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_LTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionConfigUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>;
+};
+
+export type ActionConfigUpdateFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+  update?: InputMaybe<ActionConfigUpdateConnectionInput>;
+  connect?: InputMaybe<ActionConfigConnectFieldInput>;
+  disconnect?: InputMaybe<ActionConfigDisconnectFieldInput>;
+  create?: InputMaybe<ActionConfigCreateFieldInput>;
+  delete?: InputMaybe<ActionConfigDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
+};
+
 export type ActionConnectInput = {
+  resource?: InputMaybe<ActionResourceConnectFieldInput>;
+  config?: InputMaybe<ActionConfigConnectFieldInput>;
   store?: InputMaybe<ActionStoreConnectFieldInput>;
 };
 
 export type ActionConnectOrCreateInput = {
+  resource?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
+  config?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
   store?: InputMaybe<ActionStoreConnectOrCreateFieldInput>;
 };
 
@@ -6175,21 +6098,29 @@ export type ActionConnectWhere = {
 
 export type ActionCreateInput = {
   name: Scalars["String"];
-  body: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ActionResourceFieldInput>;
+  config?: InputMaybe<ActionConfigFieldInput>;
   store?: InputMaybe<ActionStoreFieldInput>;
 };
 
 export type ActionDeleteInput = {
+  resource?: InputMaybe<ActionResourceDeleteFieldInput>;
+  config?: InputMaybe<ActionConfigDeleteFieldInput>;
   store?: InputMaybe<ActionStoreDeleteFieldInput>;
 };
 
 export type ActionDisconnectInput = {
+  resource?: InputMaybe<ActionResourceDisconnectFieldInput>;
+  config?: InputMaybe<ActionConfigDisconnectFieldInput>;
   store?: InputMaybe<ActionStoreDisconnectFieldInput>;
 };
 
 export type ActionOnCreateInput = {
   name: Scalars["String"];
-  body: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
 };
 
 export type ActionOptions = {
@@ -6200,13 +6131,112 @@ export type ActionOptions = {
 };
 
 export type ActionRelationInput = {
+  resource?: InputMaybe<ActionResourceCreateFieldInput>;
+  config?: InputMaybe<ActionConfigCreateFieldInput>;
   store?: InputMaybe<ActionStoreCreateFieldInput>;
+};
+
+export type ActionResourceAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ActionResourceAggregateInput>>;
+  OR?: InputMaybe<Array<ActionResourceAggregateInput>>;
+  node?: InputMaybe<ActionResourceNodeAggregationWhereInput>;
+};
+
+export type ActionResourceConnectFieldInput = {
+  where?: InputMaybe<ResourceConnectWhere>;
+  connect?: InputMaybe<ResourceConnectInput>;
+};
+
+export type ActionResourceConnectionSort = {
+  node?: InputMaybe<ResourceSort>;
+};
+
+export type ActionResourceConnectionWhere = {
+  AND?: InputMaybe<Array<ActionResourceConnectionWhere>>;
+  OR?: InputMaybe<Array<ActionResourceConnectionWhere>>;
+  node?: InputMaybe<ResourceWhere>;
+  node_NOT?: InputMaybe<ResourceWhere>;
+};
+
+export type ActionResourceConnectOrCreateFieldInput = {
+  where: ResourceConnectOrCreateWhere;
+  onCreate: ActionResourceConnectOrCreateFieldInputOnCreate;
+};
+
+export type ActionResourceConnectOrCreateFieldInputOnCreate = {
+  node: ResourceOnCreateInput;
+};
+
+export type ActionResourceCreateFieldInput = {
+  node: ResourceCreateInput;
+};
+
+export type ActionResourceDeleteFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  delete?: InputMaybe<ResourceDeleteInput>;
+};
+
+export type ActionResourceDisconnectFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  disconnect?: InputMaybe<ResourceDisconnectInput>;
+};
+
+export type ActionResourceFieldInput = {
+  create?: InputMaybe<ActionResourceCreateFieldInput>;
+  connect?: InputMaybe<ActionResourceConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
+};
+
+export type ActionResourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionResourceNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionResourceNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionResourceUpdateConnectionInput = {
+  node?: InputMaybe<ResourceUpdateInput>;
+};
+
+export type ActionResourceUpdateFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  update?: InputMaybe<ActionResourceUpdateConnectionInput>;
+  connect?: InputMaybe<ActionResourceConnectFieldInput>;
+  disconnect?: InputMaybe<ActionResourceDisconnectFieldInput>;
+  create?: InputMaybe<ActionResourceCreateFieldInput>;
+  delete?: InputMaybe<ActionResourceDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
 };
 
 /** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
 export type ActionSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+  runOnInit?: InputMaybe<SortDirection>;
   body?: InputMaybe<SortDirection>;
 };
 
@@ -6290,26 +6320,6 @@ export type ActionStoreNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_EQUAL?: InputMaybe<Scalars["String"]>;
-  localState_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_GT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_LT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ActionStoreUpdateConnectionInput = {
@@ -6332,7 +6342,10 @@ export type ActionUniqueWhere = {
 
 export type ActionUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
+  runOnInit?: InputMaybe<Scalars["Boolean"]>;
   body?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ActionResourceUpdateFieldInput>;
+  config?: InputMaybe<ActionConfigUpdateFieldInput>;
   store?: InputMaybe<ActionStoreUpdateFieldInput>;
 };
 
@@ -6359,19 +6372,31 @@ export type ActionWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  runOnInit?: InputMaybe<Scalars["Boolean"]>;
+  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
   body?: InputMaybe<Scalars["String"]>;
   body_NOT?: InputMaybe<Scalars["String"]>;
-  body_IN?: InputMaybe<Array<Scalars["String"]>>;
-  body_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  body_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  body_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   body_CONTAINS?: InputMaybe<Scalars["String"]>;
   body_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
   body_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   body_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   body_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   body_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ResourceWhere>;
+  resource_NOT?: InputMaybe<ResourceWhere>;
+  resourceAggregate?: InputMaybe<ActionResourceAggregateInput>;
+  config?: InputMaybe<PropWhere>;
+  config_NOT?: InputMaybe<PropWhere>;
+  configAggregate?: InputMaybe<ActionConfigAggregateInput>;
   store?: InputMaybe<StoreWhere>;
   store_NOT?: InputMaybe<StoreWhere>;
   storeAggregate?: InputMaybe<ActionStoreAggregateInput>;
+  resourceConnection?: InputMaybe<ActionResourceConnectionWhere>;
+  resourceConnection_NOT?: InputMaybe<ActionResourceConnectionWhere>;
+  configConnection?: InputMaybe<ActionConfigConnectionWhere>;
+  configConnection_NOT?: InputMaybe<ActionConfigConnectionWhere>;
   storeConnection?: InputMaybe<ActionStoreConnectionWhere>;
   storeConnection_NOT?: InputMaybe<ActionStoreConnectionWhere>;
 };
@@ -6855,26 +6880,6 @@ export type AppStoreNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_EQUAL?: InputMaybe<Scalars["String"]>;
-  localState_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_GT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_LT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type AppStoreUpdateConnectionInput = {
@@ -7711,13 +7716,13 @@ export type ComponentApiUpdateFieldInput = {
 export type ComponentConnectInput = {
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>;
   api?: InputMaybe<ComponentApiConnectFieldInput>;
-  owner?: InputMaybe<ComponentOwnerConnectFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>;
 };
 
 export type ComponentConnectOrCreateInput = {
   rootElement?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>;
   api?: InputMaybe<ComponentApiConnectOrCreateFieldInput>;
-  owner?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>;
 };
 
 export type ComponentConnectOrCreateWhere = {
@@ -7733,19 +7738,19 @@ export type ComponentCreateInput = {
   name: Scalars["String"];
   rootElement?: InputMaybe<ComponentRootElementFieldInput>;
   api?: InputMaybe<ComponentApiFieldInput>;
-  owner?: InputMaybe<ComponentOwnerFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>;
 };
 
 export type ComponentDeleteInput = {
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>;
   api?: InputMaybe<ComponentApiDeleteFieldInput>;
-  owner?: InputMaybe<ComponentOwnerDeleteFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>;
 };
 
 export type ComponentDisconnectInput = {
   rootElement?: InputMaybe<ComponentRootElementDisconnectFieldInput>;
   api?: InputMaybe<ComponentApiDisconnectFieldInput>;
-  owner?: InputMaybe<ComponentOwnerDisconnectFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>;
 };
 
 export type ComponentOnCreateInput = {
@@ -7769,51 +7774,6 @@ export type ComponentOwnerAggregateInput = {
   AND?: InputMaybe<Array<ComponentOwnerAggregateInput>>;
   OR?: InputMaybe<Array<ComponentOwnerAggregateInput>>;
   node?: InputMaybe<ComponentOwnerNodeAggregationWhereInput>;
-};
-
-export type ComponentOwnerConnectFieldInput = {
-  where?: InputMaybe<UserConnectWhere>;
-  connect?: InputMaybe<UserConnectInput>;
-};
-
-export type ComponentOwnerConnectionSort = {
-  node?: InputMaybe<UserSort>;
-};
-
-export type ComponentOwnerConnectionWhere = {
-  AND?: InputMaybe<Array<ComponentOwnerConnectionWhere>>;
-  OR?: InputMaybe<Array<ComponentOwnerConnectionWhere>>;
-  node?: InputMaybe<UserWhere>;
-  node_NOT?: InputMaybe<UserWhere>;
-};
-
-export type ComponentOwnerConnectOrCreateFieldInput = {
-  where: UserConnectOrCreateWhere;
-  onCreate: ComponentOwnerConnectOrCreateFieldInputOnCreate;
-};
-
-export type ComponentOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput;
-};
-
-export type ComponentOwnerCreateFieldInput = {
-  node: UserCreateInput;
-};
-
-export type ComponentOwnerDeleteFieldInput = {
-  where?: InputMaybe<ComponentOwnerConnectionWhere>;
-  delete?: InputMaybe<UserDeleteInput>;
-};
-
-export type ComponentOwnerDisconnectFieldInput = {
-  where?: InputMaybe<ComponentOwnerConnectionWhere>;
-  disconnect?: InputMaybe<UserDisconnectInput>;
-};
-
-export type ComponentOwnerFieldInput = {
-  create?: InputMaybe<ComponentOwnerCreateFieldInput>;
-  connect?: InputMaybe<ComponentOwnerConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>;
 };
 
 export type ComponentOwnerNodeAggregationWhereInput = {
@@ -7862,24 +7822,10 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type ComponentOwnerUpdateConnectionInput = {
-  node?: InputMaybe<UserUpdateInput>;
-};
-
-export type ComponentOwnerUpdateFieldInput = {
-  where?: InputMaybe<ComponentOwnerConnectionWhere>;
-  update?: InputMaybe<ComponentOwnerUpdateConnectionInput>;
-  connect?: InputMaybe<ComponentOwnerConnectFieldInput>;
-  disconnect?: InputMaybe<ComponentOwnerDisconnectFieldInput>;
-  create?: InputMaybe<ComponentOwnerCreateFieldInput>;
-  delete?: InputMaybe<ComponentOwnerDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>;
-};
-
 export type ComponentRelationInput = {
   rootElement?: InputMaybe<ComponentRootElementCreateFieldInput>;
   api?: InputMaybe<ComponentApiCreateFieldInput>;
-  owner?: InputMaybe<ComponentOwnerCreateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>;
 };
 
 export type ComponentRootElementAggregateInput = {
@@ -8073,7 +8019,7 @@ export type ComponentUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>;
   api?: InputMaybe<ComponentApiUpdateFieldInput>;
-  owner?: InputMaybe<ComponentOwnerUpdateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>;
 };
 
 export type ComponentWhere = {
@@ -8112,8 +8058,8 @@ export type ComponentWhere = {
   rootElementConnection_NOT?: InputMaybe<ComponentRootElementConnectionWhere>;
   apiConnection?: InputMaybe<ComponentApiConnectionWhere>;
   apiConnection_NOT?: InputMaybe<ComponentApiConnectionWhere>;
-  ownerConnection?: InputMaybe<ComponentOwnerConnectionWhere>;
-  ownerConnection_NOT?: InputMaybe<ComponentOwnerConnectionWhere>;
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>;
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>;
 };
 
 export type CreateInfoCreateInput = {
@@ -8171,63 +8117,6 @@ export type CreateInfoWhere = {
   relationshipsCreated_LTE?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated_GT?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type DeleteInfoCreateInput = {
-  bookmark?: InputMaybe<Scalars["String"]>;
-  nodesDeleted: Scalars["Int"];
-  relationshipsDeleted: Scalars["Int"];
-};
-
-export type DeleteInfoOptions = {
-  /** Specify one or more DeleteInfoSort objects to sort DeleteInfos by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<DeleteInfoSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-/** Fields to sort DeleteInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteInfoSort object. */
-export type DeleteInfoSort = {
-  bookmark?: InputMaybe<SortDirection>;
-  nodesDeleted?: InputMaybe<SortDirection>;
-  relationshipsDeleted?: InputMaybe<SortDirection>;
-};
-
-export type DeleteInfoUpdateInput = {
-  bookmark?: InputMaybe<Scalars["String"]>;
-  nodesDeleted?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted?: InputMaybe<Scalars["Int"]>;
-};
-
-export type DeleteInfoWhere = {
-  OR?: InputMaybe<Array<DeleteInfoWhere>>;
-  AND?: InputMaybe<Array<DeleteInfoWhere>>;
-  bookmark?: InputMaybe<Scalars["String"]>;
-  bookmark_NOT?: InputMaybe<Scalars["String"]>;
-  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  bookmark_CONTAINS?: InputMaybe<Scalars["String"]>;
-  bookmark_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  bookmark_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  bookmark_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  nodesDeleted?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_NOT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  nodesDeleted_NOT_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  nodesDeleted_LT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_LTE?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_GT?: InputMaybe<Scalars["Int"]>;
-  nodesDeleted_GTE?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_NOT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  relationshipsDeleted_NOT_IN?: InputMaybe<Array<Scalars["Int"]>>;
-  relationshipsDeleted_LT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_LTE?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_GT?: InputMaybe<Scalars["Int"]>;
-  relationshipsDeleted_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementAppAggregateInput = {
@@ -11454,231 +11343,6 @@ export type MonacoTypeWhere = {
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
 
-export type OperationConnectInput = {
-  resource?: InputMaybe<OperationResourceConnectFieldInput>;
-};
-
-export type OperationConnectOrCreateInput = {
-  resource?: InputMaybe<OperationResourceConnectOrCreateFieldInput>;
-};
-
-export type OperationConnectOrCreateWhere = {
-  node: OperationUniqueWhere;
-};
-
-export type OperationConnectWhere = {
-  node: OperationWhere;
-};
-
-export type OperationCreateInput = {
-  name: Scalars["String"];
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  config?: Scalars["String"];
-  resource?: InputMaybe<OperationResourceFieldInput>;
-};
-
-export type OperationDeleteInput = {
-  resource?: InputMaybe<OperationResourceDeleteFieldInput>;
-};
-
-export type OperationDisconnectInput = {
-  resource?: InputMaybe<OperationResourceDisconnectFieldInput>;
-};
-
-export type OperationOnCreateInput = {
-  name: Scalars["String"];
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  config?: Scalars["String"];
-};
-
-export type OperationOptions = {
-  /** Specify one or more OperationSort objects to sort Operations by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<OperationSort>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
-};
-
-export type OperationRelationInput = {
-  resource?: InputMaybe<OperationResourceCreateFieldInput>;
-};
-
-export type OperationResourceAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<OperationResourceAggregateInput>>;
-  OR?: InputMaybe<Array<OperationResourceAggregateInput>>;
-  node?: InputMaybe<OperationResourceNodeAggregationWhereInput>;
-};
-
-export type OperationResourceConnectFieldInput = {
-  where?: InputMaybe<ResourceConnectWhere>;
-  connect?: InputMaybe<ResourceConnectInput>;
-};
-
-export type OperationResourceConnectionSort = {
-  node?: InputMaybe<ResourceSort>;
-};
-
-export type OperationResourceConnectionWhere = {
-  AND?: InputMaybe<Array<OperationResourceConnectionWhere>>;
-  OR?: InputMaybe<Array<OperationResourceConnectionWhere>>;
-  node?: InputMaybe<ResourceWhere>;
-  node_NOT?: InputMaybe<ResourceWhere>;
-};
-
-export type OperationResourceConnectOrCreateFieldInput = {
-  where: ResourceConnectOrCreateWhere;
-  onCreate: OperationResourceConnectOrCreateFieldInputOnCreate;
-};
-
-export type OperationResourceConnectOrCreateFieldInputOnCreate = {
-  node: ResourceOnCreateInput;
-};
-
-export type OperationResourceCreateFieldInput = {
-  node: ResourceCreateInput;
-};
-
-export type OperationResourceDeleteFieldInput = {
-  where?: InputMaybe<OperationResourceConnectionWhere>;
-  delete?: InputMaybe<ResourceDeleteInput>;
-};
-
-export type OperationResourceDisconnectFieldInput = {
-  where?: InputMaybe<OperationResourceConnectionWhere>;
-  disconnect?: InputMaybe<ResourceDisconnectInput>;
-};
-
-export type OperationResourceFieldInput = {
-  create?: InputMaybe<OperationResourceCreateFieldInput>;
-  connect?: InputMaybe<OperationResourceConnectFieldInput>;
-  connectOrCreate?: InputMaybe<OperationResourceConnectOrCreateFieldInput>;
-};
-
-export type OperationResourceNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<OperationResourceNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<OperationResourceNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_EQUAL?: InputMaybe<Scalars["String"]>;
-  config_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_GT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_GTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_LT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_LTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type OperationResourceUpdateConnectionInput = {
-  node?: InputMaybe<ResourceUpdateInput>;
-};
-
-export type OperationResourceUpdateFieldInput = {
-  where?: InputMaybe<OperationResourceConnectionWhere>;
-  update?: InputMaybe<OperationResourceUpdateConnectionInput>;
-  connect?: InputMaybe<OperationResourceConnectFieldInput>;
-  disconnect?: InputMaybe<OperationResourceDisconnectFieldInput>;
-  create?: InputMaybe<OperationResourceCreateFieldInput>;
-  delete?: InputMaybe<OperationResourceDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<OperationResourceConnectOrCreateFieldInput>;
-};
-
-/** Fields to sort Operations by. The order in which sorts are applied is not guaranteed when specifying many fields in one OperationSort object. */
-export type OperationSort = {
-  id?: InputMaybe<SortDirection>;
-  name?: InputMaybe<SortDirection>;
-  runOnInit?: InputMaybe<SortDirection>;
-  config?: InputMaybe<SortDirection>;
-};
-
-export type OperationUniqueWhere = {
-  id?: InputMaybe<Scalars["ID"]>;
-};
-
-export type OperationUpdateInput = {
-  name?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  config?: InputMaybe<Scalars["String"]>;
-  resource?: InputMaybe<OperationResourceUpdateFieldInput>;
-};
-
-export type OperationWhere = {
-  OR?: InputMaybe<Array<OperationWhere>>;
-  AND?: InputMaybe<Array<OperationWhere>>;
-  id?: InputMaybe<Scalars["ID"]>;
-  id_NOT?: InputMaybe<Scalars["ID"]>;
-  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
-  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
-  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  name_NOT?: InputMaybe<Scalars["String"]>;
-  name_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  name_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  runOnInit?: InputMaybe<Scalars["Boolean"]>;
-  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
-  config?: InputMaybe<Scalars["String"]>;
-  config_NOT?: InputMaybe<Scalars["String"]>;
-  config_IN?: InputMaybe<Array<Scalars["String"]>>;
-  config_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  config_CONTAINS?: InputMaybe<Scalars["String"]>;
-  config_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  config_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  config_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  config_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  config_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  resource?: InputMaybe<ResourceWhere>;
-  resource_NOT?: InputMaybe<ResourceWhere>;
-  resourceAggregate?: InputMaybe<OperationResourceAggregateInput>;
-  resourceConnection?: InputMaybe<OperationResourceConnectionWhere>;
-  resourceConnection_NOT?: InputMaybe<OperationResourceConnectionWhere>;
-};
-
 export type PageAppAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -12217,33 +11881,6 @@ export type ParentOfElementWhere = {
   order_LTE?: InputMaybe<Scalars["Int"]>;
   order_GT?: InputMaybe<Scalars["Int"]>;
   order_GTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ParentOfStoreCreateInput = {
-  storeKey: Scalars["String"];
-};
-
-export type ParentOfStoreSort = {
-  storeKey?: InputMaybe<SortDirection>;
-};
-
-export type ParentOfStoreUpdateInput = {
-  storeKey?: InputMaybe<Scalars["String"]>;
-};
-
-export type ParentOfStoreWhere = {
-  OR?: InputMaybe<Array<ParentOfStoreWhere>>;
-  AND?: InputMaybe<Array<ParentOfStoreWhere>>;
-  storeKey?: InputMaybe<Scalars["String"]>;
-  storeKey_NOT?: InputMaybe<Scalars["String"]>;
-  storeKey_IN?: InputMaybe<Array<Scalars["String"]>>;
-  storeKey_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  storeKey_CONTAINS?: InputMaybe<Scalars["String"]>;
-  storeKey_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  storeKey_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  storeKey_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  storeKey_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  storeKey_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
 };
 
 export type PrimitiveTypeConnectInput = {
@@ -13226,12 +12863,107 @@ export type ResetDatabaseMutationResponseWhere = {
   success_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
 
+export type ResourceConfigAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ResourceConfigAggregateInput>>;
+  OR?: InputMaybe<Array<ResourceConfigAggregateInput>>;
+  node?: InputMaybe<ResourceConfigNodeAggregationWhereInput>;
+};
+
+export type ResourceConfigConnectFieldInput = {
+  where?: InputMaybe<PropConnectWhere>;
+};
+
+export type ResourceConfigConnectionSort = {
+  node?: InputMaybe<PropSort>;
+};
+
+export type ResourceConfigConnectionWhere = {
+  AND?: InputMaybe<Array<ResourceConfigConnectionWhere>>;
+  OR?: InputMaybe<Array<ResourceConfigConnectionWhere>>;
+  node?: InputMaybe<PropWhere>;
+  node_NOT?: InputMaybe<PropWhere>;
+};
+
+export type ResourceConfigConnectOrCreateFieldInput = {
+  where: PropConnectOrCreateWhere;
+  onCreate: ResourceConfigConnectOrCreateFieldInputOnCreate;
+};
+
+export type ResourceConfigConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput;
+};
+
+export type ResourceConfigCreateFieldInput = {
+  node: PropCreateInput;
+};
+
+export type ResourceConfigDeleteFieldInput = {
+  where?: InputMaybe<ResourceConfigConnectionWhere>;
+};
+
+export type ResourceConfigDisconnectFieldInput = {
+  where?: InputMaybe<ResourceConfigConnectionWhere>;
+};
+
+export type ResourceConfigFieldInput = {
+  create?: InputMaybe<ResourceConfigCreateFieldInput>;
+  connect?: InputMaybe<ResourceConfigConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>;
+};
+
+export type ResourceConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ResourceConfigNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ResourceConfigNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  data_EQUAL?: InputMaybe<Scalars["String"]>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_GT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_GTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_LT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_LTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ResourceConfigUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>;
+};
+
+export type ResourceConfigUpdateFieldInput = {
+  where?: InputMaybe<ResourceConfigConnectionWhere>;
+  update?: InputMaybe<ResourceConfigUpdateConnectionInput>;
+  connect?: InputMaybe<ResourceConfigConnectFieldInput>;
+  disconnect?: InputMaybe<ResourceConfigDisconnectFieldInput>;
+  create?: InputMaybe<ResourceConfigCreateFieldInput>;
+  delete?: InputMaybe<ResourceConfigDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>;
+};
+
 export type ResourceConnectInput = {
-  operations?: InputMaybe<Array<ResourceOperationsConnectFieldInput>>;
+  config?: InputMaybe<ResourceConfigConnectFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>;
 };
 
 export type ResourceConnectOrCreateInput = {
-  operations?: InputMaybe<Array<ResourceOperationsConnectOrCreateFieldInput>>;
+  config?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>;
 };
 
 export type ResourceConnectOrCreateWhere = {
@@ -13244,142 +12976,23 @@ export type ResourceConnectWhere = {
 
 export type ResourceCreateInput = {
   name: Scalars["String"];
-  config?: Scalars["String"];
   type: ResourceType;
-  operations?: InputMaybe<ResourceOperationsFieldInput>;
+  config?: InputMaybe<ResourceConfigFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>;
 };
 
 export type ResourceDeleteInput = {
-  operations?: InputMaybe<Array<ResourceOperationsDeleteFieldInput>>;
+  config?: InputMaybe<ResourceConfigDeleteFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>;
 };
 
 export type ResourceDisconnectInput = {
-  operations?: InputMaybe<Array<ResourceOperationsDisconnectFieldInput>>;
+  config?: InputMaybe<ResourceConfigDisconnectFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>;
 };
 
 export type ResourceOnCreateInput = {
   name: Scalars["String"];
-  config?: Scalars["String"];
-};
-
-export type ResourceOperationsAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<ResourceOperationsAggregateInput>>;
-  OR?: InputMaybe<Array<ResourceOperationsAggregateInput>>;
-  node?: InputMaybe<ResourceOperationsNodeAggregationWhereInput>;
-};
-
-export type ResourceOperationsConnectFieldInput = {
-  where?: InputMaybe<OperationConnectWhere>;
-  connect?: InputMaybe<Array<OperationConnectInput>>;
-};
-
-export type ResourceOperationsConnectionSort = {
-  node?: InputMaybe<OperationSort>;
-};
-
-export type ResourceOperationsConnectionWhere = {
-  AND?: InputMaybe<Array<ResourceOperationsConnectionWhere>>;
-  OR?: InputMaybe<Array<ResourceOperationsConnectionWhere>>;
-  node?: InputMaybe<OperationWhere>;
-  node_NOT?: InputMaybe<OperationWhere>;
-};
-
-export type ResourceOperationsConnectOrCreateFieldInput = {
-  where: OperationConnectOrCreateWhere;
-  onCreate: ResourceOperationsConnectOrCreateFieldInputOnCreate;
-};
-
-export type ResourceOperationsConnectOrCreateFieldInputOnCreate = {
-  node: OperationOnCreateInput;
-};
-
-export type ResourceOperationsCreateFieldInput = {
-  node: OperationCreateInput;
-};
-
-export type ResourceOperationsDeleteFieldInput = {
-  where?: InputMaybe<ResourceOperationsConnectionWhere>;
-  delete?: InputMaybe<OperationDeleteInput>;
-};
-
-export type ResourceOperationsDisconnectFieldInput = {
-  where?: InputMaybe<ResourceOperationsConnectionWhere>;
-  disconnect?: InputMaybe<OperationDisconnectInput>;
-};
-
-export type ResourceOperationsFieldInput = {
-  create?: InputMaybe<Array<ResourceOperationsCreateFieldInput>>;
-  connect?: InputMaybe<Array<ResourceOperationsConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<ResourceOperationsConnectOrCreateFieldInput>
-  >;
-};
-
-export type ResourceOperationsNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ResourceOperationsNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<ResourceOperationsNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_EQUAL?: InputMaybe<Scalars["String"]>;
-  config_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_GT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_GTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_LT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_LTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type ResourceOperationsUpdateConnectionInput = {
-  node?: InputMaybe<OperationUpdateInput>;
-};
-
-export type ResourceOperationsUpdateFieldInput = {
-  where?: InputMaybe<ResourceOperationsConnectionWhere>;
-  update?: InputMaybe<ResourceOperationsUpdateConnectionInput>;
-  connect?: InputMaybe<Array<ResourceOperationsConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<ResourceOperationsDisconnectFieldInput>>;
-  create?: InputMaybe<Array<ResourceOperationsCreateFieldInput>>;
-  delete?: InputMaybe<Array<ResourceOperationsDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<
-    Array<ResourceOperationsConnectOrCreateFieldInput>
-  >;
 };
 
 export type ResourceOptions = {
@@ -13389,15 +13002,72 @@ export type ResourceOptions = {
   offset?: InputMaybe<Scalars["Int"]>;
 };
 
+export type ResourceOwnerAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ResourceOwnerAggregateInput>>;
+  OR?: InputMaybe<Array<ResourceOwnerAggregateInput>>;
+  node?: InputMaybe<ResourceOwnerNodeAggregationWhereInput>;
+};
+
+export type ResourceOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ResourceOwnerNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ResourceOwnerNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  auth0Id_EQUAL?: InputMaybe<Scalars["String"]>;
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_EQUAL?: InputMaybe<Scalars["String"]>;
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_GT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_GTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_LT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_LTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
 export type ResourceRelationInput = {
-  operations?: InputMaybe<Array<ResourceOperationsCreateFieldInput>>;
+  config?: InputMaybe<ResourceConfigCreateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>;
 };
 
 /** Fields to sort Resources by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResourceSort object. */
 export type ResourceSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
-  config?: InputMaybe<SortDirection>;
   type?: InputMaybe<SortDirection>;
 };
 
@@ -13407,9 +13077,9 @@ export type ResourceUniqueWhere = {
 
 export type ResourceUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
-  config?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<ResourceType>;
-  operations?: InputMaybe<Array<ResourceOperationsUpdateFieldInput>>;
+  config?: InputMaybe<ResourceConfigUpdateFieldInput>;
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>;
 };
 
 export type ResourceWhere = {
@@ -13435,37 +13105,20 @@ export type ResourceWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  config?: InputMaybe<Scalars["String"]>;
-  config_NOT?: InputMaybe<Scalars["String"]>;
-  config_IN?: InputMaybe<Array<Scalars["String"]>>;
-  config_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  config_CONTAINS?: InputMaybe<Scalars["String"]>;
-  config_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  config_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  config_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  config_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  config_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<ResourceType>;
   type_NOT?: InputMaybe<ResourceType>;
   type_IN?: InputMaybe<Array<ResourceType>>;
   type_NOT_IN?: InputMaybe<Array<ResourceType>>;
-  operations?: InputMaybe<OperationWhere>;
-  operations_NOT?: InputMaybe<OperationWhere>;
-  operationsAggregate?: InputMaybe<ResourceOperationsAggregateInput>;
-  /** Return Resources where all of the related Operations match this filter */
-  operations_ALL?: InputMaybe<OperationWhere>;
-  /** Return Resources where none of the related Operations match this filter */
-  operations_NONE?: InputMaybe<OperationWhere>;
-  /** Return Resources where one of the related Operations match this filter */
-  operations_SINGLE?: InputMaybe<OperationWhere>;
-  /** Return Resources where some of the related Operations match this filter */
-  operations_SOME?: InputMaybe<OperationWhere>;
-  operationsConnection?: InputMaybe<ResourceOperationsConnectionWhere>;
-  operationsConnection_NOT?: InputMaybe<ResourceOperationsConnectionWhere>;
-  operationsConnection_ALL?: InputMaybe<ResourceOperationsConnectionWhere>;
-  operationsConnection_NONE?: InputMaybe<ResourceOperationsConnectionWhere>;
-  operationsConnection_SINGLE?: InputMaybe<ResourceOperationsConnectionWhere>;
-  operationsConnection_SOME?: InputMaybe<ResourceOperationsConnectionWhere>;
+  config?: InputMaybe<PropWhere>;
+  config_NOT?: InputMaybe<PropWhere>;
+  configAggregate?: InputMaybe<ResourceConfigAggregateInput>;
+  owner?: InputMaybe<UserWhere>;
+  owner_NOT?: InputMaybe<UserWhere>;
+  ownerAggregate?: InputMaybe<ResourceOwnerAggregateInput>;
+  configConnection?: InputMaybe<ResourceConfigConnectionWhere>;
+  configConnection_NOT?: InputMaybe<ResourceConfigConnectionWhere>;
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>;
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>;
 };
 
 export type StoreActionsAggregateInput = {
@@ -13584,97 +13237,65 @@ export type StoreActionsUpdateFieldInput = {
   connectOrCreate?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>;
 };
 
-export type StoreChildrenAggregateInput = {
+export type StoreAppAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
   count_LTE?: InputMaybe<Scalars["Int"]>;
   count_GT?: InputMaybe<Scalars["Int"]>;
   count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<StoreChildrenAggregateInput>>;
-  OR?: InputMaybe<Array<StoreChildrenAggregateInput>>;
-  node?: InputMaybe<StoreChildrenNodeAggregationWhereInput>;
-  edge?: InputMaybe<StoreChildrenEdgeAggregationWhereInput>;
+  AND?: InputMaybe<Array<StoreAppAggregateInput>>;
+  OR?: InputMaybe<Array<StoreAppAggregateInput>>;
+  node?: InputMaybe<StoreAppNodeAggregationWhereInput>;
 };
 
-export type StoreChildrenConnectFieldInput = {
-  where?: InputMaybe<StoreConnectWhere>;
-  connect?: InputMaybe<Array<StoreConnectInput>>;
-  edge: ParentOfStoreCreateInput;
+export type StoreAppConnectFieldInput = {
+  where?: InputMaybe<AppConnectWhere>;
+  connect?: InputMaybe<AppConnectInput>;
 };
 
-export type StoreChildrenConnectionSort = {
-  edge?: InputMaybe<ParentOfStoreSort>;
-  node?: InputMaybe<StoreSort>;
+export type StoreAppConnectionSort = {
+  node?: InputMaybe<AppSort>;
 };
 
-export type StoreChildrenConnectionWhere = {
-  AND?: InputMaybe<Array<StoreChildrenConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreChildrenConnectionWhere>>;
-  edge?: InputMaybe<ParentOfStoreWhere>;
-  edge_NOT?: InputMaybe<ParentOfStoreWhere>;
-  node?: InputMaybe<StoreWhere>;
-  node_NOT?: InputMaybe<StoreWhere>;
+export type StoreAppConnectionWhere = {
+  AND?: InputMaybe<Array<StoreAppConnectionWhere>>;
+  OR?: InputMaybe<Array<StoreAppConnectionWhere>>;
+  node?: InputMaybe<AppWhere>;
+  node_NOT?: InputMaybe<AppWhere>;
 };
 
-export type StoreChildrenConnectOrCreateFieldInput = {
-  where: StoreConnectOrCreateWhere;
-  onCreate: StoreChildrenConnectOrCreateFieldInputOnCreate;
+export type StoreAppConnectOrCreateFieldInput = {
+  where: AppConnectOrCreateWhere;
+  onCreate: StoreAppConnectOrCreateFieldInputOnCreate;
 };
 
-export type StoreChildrenConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput;
-  edge: ParentOfStoreCreateInput;
+export type StoreAppConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput;
 };
 
-export type StoreChildrenCreateFieldInput = {
-  node: StoreCreateInput;
-  edge: ParentOfStoreCreateInput;
+export type StoreAppCreateFieldInput = {
+  node: AppCreateInput;
 };
 
-export type StoreChildrenDeleteFieldInput = {
-  where?: InputMaybe<StoreChildrenConnectionWhere>;
-  delete?: InputMaybe<StoreDeleteInput>;
+export type StoreAppDeleteFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  delete?: InputMaybe<AppDeleteInput>;
 };
 
-export type StoreChildrenDisconnectFieldInput = {
-  where?: InputMaybe<StoreChildrenConnectionWhere>;
-  disconnect?: InputMaybe<StoreDisconnectInput>;
+export type StoreAppDisconnectFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  disconnect?: InputMaybe<AppDisconnectInput>;
 };
 
-export type StoreChildrenEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreChildrenEdgeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreChildrenEdgeAggregationWhereInput>>;
-  storeKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  storeKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  storeKey_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_LTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+export type StoreAppFieldInput = {
+  create?: InputMaybe<StoreAppCreateFieldInput>;
+  connect?: InputMaybe<StoreAppConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
 };
 
-export type StoreChildrenFieldInput = {
-  create?: InputMaybe<Array<StoreChildrenCreateFieldInput>>;
-  connect?: InputMaybe<Array<StoreChildrenConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>;
-};
-
-export type StoreChildrenNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreChildrenNodeAggregationWhereInput>>;
+export type StoreAppNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>;
   id_EQUAL?: InputMaybe<Scalars["ID"]>;
   name_EQUAL?: InputMaybe<Scalars["String"]>;
   name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
@@ -13696,57 +13317,34 @@ export type StoreChildrenNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_EQUAL?: InputMaybe<Scalars["String"]>;
-  localState_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_GT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_LT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type StoreChildrenUpdateConnectionInput = {
-  node?: InputMaybe<StoreUpdateInput>;
-  edge?: InputMaybe<ParentOfStoreUpdateInput>;
+export type StoreAppUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>;
 };
 
-export type StoreChildrenUpdateFieldInput = {
-  where?: InputMaybe<StoreChildrenConnectionWhere>;
-  update?: InputMaybe<StoreChildrenUpdateConnectionInput>;
-  connect?: InputMaybe<Array<StoreChildrenConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<StoreChildrenDisconnectFieldInput>>;
-  create?: InputMaybe<Array<StoreChildrenCreateFieldInput>>;
-  delete?: InputMaybe<Array<StoreChildrenDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>;
+export type StoreAppUpdateFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  update?: InputMaybe<StoreAppUpdateConnectionInput>;
+  connect?: InputMaybe<StoreAppConnectFieldInput>;
+  disconnect?: InputMaybe<StoreAppDisconnectFieldInput>;
+  create?: InputMaybe<StoreAppCreateFieldInput>;
+  delete?: InputMaybe<StoreAppDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
 };
 
 export type StoreConnectInput = {
   state?: InputMaybe<StoreStateConnectFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiConnectFieldInput>;
   actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreConnectFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenConnectFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesConnectFieldInput>>;
+  app?: InputMaybe<StoreAppConnectFieldInput>;
 };
 
 export type StoreConnectOrCreateInput = {
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
   actions?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenConnectOrCreateFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>;
+  app?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
 };
 
 export type StoreConnectOrCreateWhere = {
@@ -13758,34 +13356,31 @@ export type StoreConnectWhere = {
 };
 
 export type StoreCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
-  localState?: Scalars["String"];
   state?: InputMaybe<StoreStateFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiFieldInput>;
   actions?: InputMaybe<StoreActionsFieldInput>;
-  parentStore?: InputMaybe<StoreParentStoreFieldInput>;
-  children?: InputMaybe<StoreChildrenFieldInput>;
-  resources?: InputMaybe<StoreResourcesFieldInput>;
+  app?: InputMaybe<StoreAppFieldInput>;
 };
 
 export type StoreDeleteInput = {
   state?: InputMaybe<StoreStateDeleteFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>;
   actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreDeleteFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenDeleteFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesDeleteFieldInput>>;
+  app?: InputMaybe<StoreAppDeleteFieldInput>;
 };
 
 export type StoreDisconnectInput = {
   state?: InputMaybe<StoreStateDisconnectFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>;
   actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreDisconnectFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenDisconnectFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesDisconnectFieldInput>>;
+  app?: InputMaybe<StoreAppDisconnectFieldInput>;
 };
 
 export type StoreOnCreateInput = {
+  id: Scalars["ID"];
   name: Scalars["String"];
-  localState?: Scalars["String"];
 };
 
 export type StoreOptions = {
@@ -13795,344 +13390,17 @@ export type StoreOptions = {
   offset?: InputMaybe<Scalars["Int"]>;
 };
 
-export type StoreParentStoreAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<StoreParentStoreAggregateInput>>;
-  OR?: InputMaybe<Array<StoreParentStoreAggregateInput>>;
-  node?: InputMaybe<StoreParentStoreNodeAggregationWhereInput>;
-  edge?: InputMaybe<StoreParentStoreEdgeAggregationWhereInput>;
-};
-
-export type StoreParentStoreConnectFieldInput = {
-  where?: InputMaybe<StoreConnectWhere>;
-  connect?: InputMaybe<StoreConnectInput>;
-  edge: ParentOfStoreCreateInput;
-};
-
-export type StoreParentStoreConnectionSort = {
-  edge?: InputMaybe<ParentOfStoreSort>;
-  node?: InputMaybe<StoreSort>;
-};
-
-export type StoreParentStoreConnectionWhere = {
-  AND?: InputMaybe<Array<StoreParentStoreConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreParentStoreConnectionWhere>>;
-  edge?: InputMaybe<ParentOfStoreWhere>;
-  edge_NOT?: InputMaybe<ParentOfStoreWhere>;
-  node?: InputMaybe<StoreWhere>;
-  node_NOT?: InputMaybe<StoreWhere>;
-};
-
-export type StoreParentStoreConnectOrCreateFieldInput = {
-  where: StoreConnectOrCreateWhere;
-  onCreate: StoreParentStoreConnectOrCreateFieldInputOnCreate;
-};
-
-export type StoreParentStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput;
-  edge: ParentOfStoreCreateInput;
-};
-
-export type StoreParentStoreCreateFieldInput = {
-  node: StoreCreateInput;
-  edge: ParentOfStoreCreateInput;
-};
-
-export type StoreParentStoreDeleteFieldInput = {
-  where?: InputMaybe<StoreParentStoreConnectionWhere>;
-  delete?: InputMaybe<StoreDeleteInput>;
-};
-
-export type StoreParentStoreDisconnectFieldInput = {
-  where?: InputMaybe<StoreParentStoreConnectionWhere>;
-  disconnect?: InputMaybe<StoreDisconnectInput>;
-};
-
-export type StoreParentStoreEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreParentStoreEdgeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreParentStoreEdgeAggregationWhereInput>>;
-  storeKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  storeKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  storeKey_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  storeKey_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  storeKey_LTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  storeKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  storeKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type StoreParentStoreFieldInput = {
-  create?: InputMaybe<StoreParentStoreCreateFieldInput>;
-  connect?: InputMaybe<StoreParentStoreConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>;
-};
-
-export type StoreParentStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreParentStoreNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_EQUAL?: InputMaybe<Scalars["String"]>;
-  localState_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  localState_GT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  localState_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  localState_LT?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  localState_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  localState_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  localState_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type StoreParentStoreUpdateConnectionInput = {
-  node?: InputMaybe<StoreUpdateInput>;
-  edge?: InputMaybe<ParentOfStoreUpdateInput>;
-};
-
-export type StoreParentStoreUpdateFieldInput = {
-  where?: InputMaybe<StoreParentStoreConnectionWhere>;
-  update?: InputMaybe<StoreParentStoreUpdateConnectionInput>;
-  connect?: InputMaybe<StoreParentStoreConnectFieldInput>;
-  disconnect?: InputMaybe<StoreParentStoreDisconnectFieldInput>;
-  create?: InputMaybe<StoreParentStoreCreateFieldInput>;
-  delete?: InputMaybe<StoreParentStoreDeleteFieldInput>;
-  connectOrCreate?: InputMaybe<StoreParentStoreConnectOrCreateFieldInput>;
-};
-
 export type StoreRelationInput = {
   state?: InputMaybe<StoreStateCreateFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiCreateFieldInput>;
   actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreCreateFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenCreateFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesCreateFieldInput>>;
-};
-
-export type StoreResourceCreateInput = {
-  resourceKey: Scalars["String"];
-};
-
-export type StoreResourcesAggregateInput = {
-  count?: InputMaybe<Scalars["Int"]>;
-  count_LT?: InputMaybe<Scalars["Int"]>;
-  count_LTE?: InputMaybe<Scalars["Int"]>;
-  count_GT?: InputMaybe<Scalars["Int"]>;
-  count_GTE?: InputMaybe<Scalars["Int"]>;
-  AND?: InputMaybe<Array<StoreResourcesAggregateInput>>;
-  OR?: InputMaybe<Array<StoreResourcesAggregateInput>>;
-  node?: InputMaybe<StoreResourcesNodeAggregationWhereInput>;
-  edge?: InputMaybe<StoreResourcesEdgeAggregationWhereInput>;
-};
-
-export type StoreResourcesConnectFieldInput = {
-  where?: InputMaybe<ResourceConnectWhere>;
-  connect?: InputMaybe<Array<ResourceConnectInput>>;
-  edge: StoreResourceCreateInput;
-};
-
-export type StoreResourcesConnectionSort = {
-  edge?: InputMaybe<StoreResourceSort>;
-  node?: InputMaybe<ResourceSort>;
-};
-
-export type StoreResourcesConnectionWhere = {
-  AND?: InputMaybe<Array<StoreResourcesConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreResourcesConnectionWhere>>;
-  edge?: InputMaybe<StoreResourceWhere>;
-  edge_NOT?: InputMaybe<StoreResourceWhere>;
-  node?: InputMaybe<ResourceWhere>;
-  node_NOT?: InputMaybe<ResourceWhere>;
-};
-
-export type StoreResourcesConnectOrCreateFieldInput = {
-  where: ResourceConnectOrCreateWhere;
-  onCreate: StoreResourcesConnectOrCreateFieldInputOnCreate;
-};
-
-export type StoreResourcesConnectOrCreateFieldInputOnCreate = {
-  node: ResourceOnCreateInput;
-  edge: StoreResourceCreateInput;
-};
-
-export type StoreResourcesCreateFieldInput = {
-  node: ResourceCreateInput;
-  edge: StoreResourceCreateInput;
-};
-
-export type StoreResourcesDeleteFieldInput = {
-  where?: InputMaybe<StoreResourcesConnectionWhere>;
-  delete?: InputMaybe<ResourceDeleteInput>;
-};
-
-export type StoreResourcesDisconnectFieldInput = {
-  where?: InputMaybe<StoreResourcesConnectionWhere>;
-  disconnect?: InputMaybe<ResourceDisconnectInput>;
-};
-
-export type StoreResourcesEdgeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreResourcesEdgeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreResourcesEdgeAggregationWhereInput>>;
-  resourceKey_EQUAL?: InputMaybe<Scalars["String"]>;
-  resourceKey_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  resourceKey_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  resourceKey_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  resourceKey_GT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  resourceKey_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_GTE?: InputMaybe<Scalars["Int"]>;
-  resourceKey_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  resourceKey_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  resourceKey_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  resourceKey_LT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  resourceKey_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  resourceKey_LTE?: InputMaybe<Scalars["Int"]>;
-  resourceKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  resourceKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  resourceKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type StoreResourcesFieldInput = {
-  create?: InputMaybe<Array<StoreResourcesCreateFieldInput>>;
-  connect?: InputMaybe<Array<StoreResourcesConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>;
-};
-
-export type StoreResourcesNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreResourcesNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreResourcesNodeAggregationWhereInput>>;
-  id_EQUAL?: InputMaybe<Scalars["ID"]>;
-  name_EQUAL?: InputMaybe<Scalars["String"]>;
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  name_GT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  name_GTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  name_LT?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  name_LTE?: InputMaybe<Scalars["Int"]>;
-  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_EQUAL?: InputMaybe<Scalars["String"]>;
-  config_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
-  config_GT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
-  config_GTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
-  config_LT?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
-  config_LTE?: InputMaybe<Scalars["Int"]>;
-  config_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
-  config_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
-  config_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
-};
-
-export type StoreResourceSort = {
-  resourceKey?: InputMaybe<SortDirection>;
-};
-
-export type StoreResourcesUpdateConnectionInput = {
-  node?: InputMaybe<ResourceUpdateInput>;
-  edge?: InputMaybe<StoreResourceUpdateInput>;
-};
-
-export type StoreResourcesUpdateFieldInput = {
-  where?: InputMaybe<StoreResourcesConnectionWhere>;
-  update?: InputMaybe<StoreResourcesUpdateConnectionInput>;
-  connect?: InputMaybe<Array<StoreResourcesConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<StoreResourcesDisconnectFieldInput>>;
-  create?: InputMaybe<Array<StoreResourcesCreateFieldInput>>;
-  delete?: InputMaybe<Array<StoreResourcesDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<StoreResourcesConnectOrCreateFieldInput>>;
-};
-
-export type StoreResourceUpdateInput = {
-  resourceKey?: InputMaybe<Scalars["String"]>;
-};
-
-export type StoreResourceWhere = {
-  OR?: InputMaybe<Array<StoreResourceWhere>>;
-  AND?: InputMaybe<Array<StoreResourceWhere>>;
-  resourceKey?: InputMaybe<Scalars["String"]>;
-  resourceKey_NOT?: InputMaybe<Scalars["String"]>;
-  resourceKey_IN?: InputMaybe<Array<Scalars["String"]>>;
-  resourceKey_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  resourceKey_CONTAINS?: InputMaybe<Scalars["String"]>;
-  resourceKey_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  resourceKey_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  resourceKey_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  resourceKey_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  resourceKey_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  app?: InputMaybe<StoreAppCreateFieldInput>;
 };
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
 export type StoreSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
-  localState?: InputMaybe<SortDirection>;
 };
 
 export type StoreStateAggregateInput = {
@@ -14146,54 +13414,65 @@ export type StoreStateAggregateInput = {
   node?: InputMaybe<StoreStateNodeAggregationWhereInput>;
 };
 
-export type StoreStateConnectFieldInput = {
+export type StoreStateApiAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<StoreStateApiAggregateInput>>;
+  OR?: InputMaybe<Array<StoreStateApiAggregateInput>>;
+  node?: InputMaybe<StoreStateApiNodeAggregationWhereInput>;
+};
+
+export type StoreStateApiConnectFieldInput = {
   where?: InputMaybe<InterfaceTypeConnectWhere>;
   connect?: InputMaybe<InterfaceTypeConnectInput>;
 };
 
-export type StoreStateConnectionSort = {
+export type StoreStateApiConnectionSort = {
   node?: InputMaybe<InterfaceTypeSort>;
 };
 
-export type StoreStateConnectionWhere = {
-  AND?: InputMaybe<Array<StoreStateConnectionWhere>>;
-  OR?: InputMaybe<Array<StoreStateConnectionWhere>>;
+export type StoreStateApiConnectionWhere = {
+  AND?: InputMaybe<Array<StoreStateApiConnectionWhere>>;
+  OR?: InputMaybe<Array<StoreStateApiConnectionWhere>>;
   node?: InputMaybe<InterfaceTypeWhere>;
   node_NOT?: InputMaybe<InterfaceTypeWhere>;
 };
 
-export type StoreStateConnectOrCreateFieldInput = {
+export type StoreStateApiConnectOrCreateFieldInput = {
   where: InterfaceTypeConnectOrCreateWhere;
-  onCreate: StoreStateConnectOrCreateFieldInputOnCreate;
+  onCreate: StoreStateApiConnectOrCreateFieldInputOnCreate;
 };
 
-export type StoreStateConnectOrCreateFieldInputOnCreate = {
+export type StoreStateApiConnectOrCreateFieldInputOnCreate = {
   node: InterfaceTypeOnCreateInput;
 };
 
-export type StoreStateCreateFieldInput = {
+export type StoreStateApiCreateFieldInput = {
   node: InterfaceTypeCreateInput;
 };
 
-export type StoreStateDeleteFieldInput = {
-  where?: InputMaybe<StoreStateConnectionWhere>;
+export type StoreStateApiDeleteFieldInput = {
+  where?: InputMaybe<StoreStateApiConnectionWhere>;
   delete?: InputMaybe<InterfaceTypeDeleteInput>;
 };
 
-export type StoreStateDisconnectFieldInput = {
-  where?: InputMaybe<StoreStateConnectionWhere>;
+export type StoreStateApiDisconnectFieldInput = {
+  where?: InputMaybe<StoreStateApiConnectionWhere>;
   disconnect?: InputMaybe<InterfaceTypeDisconnectInput>;
 };
 
-export type StoreStateFieldInput = {
-  create?: InputMaybe<StoreStateCreateFieldInput>;
-  connect?: InputMaybe<StoreStateConnectFieldInput>;
-  connectOrCreate?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
+export type StoreStateApiFieldInput = {
+  create?: InputMaybe<StoreStateApiCreateFieldInput>;
+  connect?: InputMaybe<StoreStateApiConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
 };
 
-export type StoreStateNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
-  OR?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
+export type StoreStateApiNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreStateApiNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreStateApiNodeAggregationWhereInput>>;
   id_EQUAL?: InputMaybe<Scalars["ID"]>;
   name_EQUAL?: InputMaybe<Scalars["String"]>;
   name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
@@ -14217,8 +13496,90 @@ export type StoreStateNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
-export type StoreStateUpdateConnectionInput = {
+export type StoreStateApiUpdateConnectionInput = {
   node?: InputMaybe<InterfaceTypeUpdateInput>;
+};
+
+export type StoreStateApiUpdateFieldInput = {
+  where?: InputMaybe<StoreStateApiConnectionWhere>;
+  update?: InputMaybe<StoreStateApiUpdateConnectionInput>;
+  connect?: InputMaybe<StoreStateApiConnectFieldInput>;
+  disconnect?: InputMaybe<StoreStateApiDisconnectFieldInput>;
+  create?: InputMaybe<StoreStateApiCreateFieldInput>;
+  delete?: InputMaybe<StoreStateApiDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
+};
+
+export type StoreStateConnectFieldInput = {
+  where?: InputMaybe<PropConnectWhere>;
+};
+
+export type StoreStateConnectionSort = {
+  node?: InputMaybe<PropSort>;
+};
+
+export type StoreStateConnectionWhere = {
+  AND?: InputMaybe<Array<StoreStateConnectionWhere>>;
+  OR?: InputMaybe<Array<StoreStateConnectionWhere>>;
+  node?: InputMaybe<PropWhere>;
+  node_NOT?: InputMaybe<PropWhere>;
+};
+
+export type StoreStateConnectOrCreateFieldInput = {
+  where: PropConnectOrCreateWhere;
+  onCreate: StoreStateConnectOrCreateFieldInputOnCreate;
+};
+
+export type StoreStateConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput;
+};
+
+export type StoreStateCreateFieldInput = {
+  node: PropCreateInput;
+};
+
+export type StoreStateDeleteFieldInput = {
+  where?: InputMaybe<StoreStateConnectionWhere>;
+};
+
+export type StoreStateDisconnectFieldInput = {
+  where?: InputMaybe<StoreStateConnectionWhere>;
+};
+
+export type StoreStateFieldInput = {
+  create?: InputMaybe<StoreStateCreateFieldInput>;
+  connect?: InputMaybe<StoreStateConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
+};
+
+export type StoreStateNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreStateNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  data_EQUAL?: InputMaybe<Scalars["String"]>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_GT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_GTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_LT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_LTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type StoreStateUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>;
 };
 
 export type StoreStateUpdateFieldInput = {
@@ -14236,13 +13597,12 @@ export type StoreUniqueWhere = {
 };
 
 export type StoreUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
-  localState?: InputMaybe<Scalars["String"]>;
   state?: InputMaybe<StoreStateUpdateFieldInput>;
+  stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>;
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>;
-  parentStore?: InputMaybe<StoreParentStoreUpdateFieldInput>;
-  children?: InputMaybe<Array<StoreChildrenUpdateFieldInput>>;
-  resources?: InputMaybe<Array<StoreResourcesUpdateFieldInput>>;
+  app?: InputMaybe<StoreAppUpdateFieldInput>;
 };
 
 export type StoreWhere = {
@@ -14268,19 +13628,12 @@ export type StoreWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  localState?: InputMaybe<Scalars["String"]>;
-  localState_NOT?: InputMaybe<Scalars["String"]>;
-  localState_IN?: InputMaybe<Array<Scalars["String"]>>;
-  localState_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
-  localState_CONTAINS?: InputMaybe<Scalars["String"]>;
-  localState_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
-  localState_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  localState_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
-  localState_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  localState_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  state?: InputMaybe<InterfaceTypeWhere>;
-  state_NOT?: InputMaybe<InterfaceTypeWhere>;
+  state?: InputMaybe<PropWhere>;
+  state_NOT?: InputMaybe<PropWhere>;
   stateAggregate?: InputMaybe<StoreStateAggregateInput>;
+  stateApi?: InputMaybe<InterfaceTypeWhere>;
+  stateApi_NOT?: InputMaybe<InterfaceTypeWhere>;
+  stateApiAggregate?: InputMaybe<StoreStateApiAggregateInput>;
   actions?: InputMaybe<ActionWhere>;
   actions_NOT?: InputMaybe<ActionWhere>;
   actionsAggregate?: InputMaybe<StoreActionsAggregateInput>;
@@ -14292,53 +13645,21 @@ export type StoreWhere = {
   actions_SINGLE?: InputMaybe<ActionWhere>;
   /** Return Stores where some of the related Actions match this filter */
   actions_SOME?: InputMaybe<ActionWhere>;
-  parentStore?: InputMaybe<StoreWhere>;
-  parentStore_NOT?: InputMaybe<StoreWhere>;
-  parentStoreAggregate?: InputMaybe<StoreParentStoreAggregateInput>;
-  children?: InputMaybe<StoreWhere>;
-  children_NOT?: InputMaybe<StoreWhere>;
-  childrenAggregate?: InputMaybe<StoreChildrenAggregateInput>;
-  /** Return Stores where all of the related Stores match this filter */
-  children_ALL?: InputMaybe<StoreWhere>;
-  /** Return Stores where none of the related Stores match this filter */
-  children_NONE?: InputMaybe<StoreWhere>;
-  /** Return Stores where one of the related Stores match this filter */
-  children_SINGLE?: InputMaybe<StoreWhere>;
-  /** Return Stores where some of the related Stores match this filter */
-  children_SOME?: InputMaybe<StoreWhere>;
-  resources?: InputMaybe<ResourceWhere>;
-  resources_NOT?: InputMaybe<ResourceWhere>;
-  resourcesAggregate?: InputMaybe<StoreResourcesAggregateInput>;
-  /** Return Stores where all of the related Resources match this filter */
-  resources_ALL?: InputMaybe<ResourceWhere>;
-  /** Return Stores where none of the related Resources match this filter */
-  resources_NONE?: InputMaybe<ResourceWhere>;
-  /** Return Stores where one of the related Resources match this filter */
-  resources_SINGLE?: InputMaybe<ResourceWhere>;
-  /** Return Stores where some of the related Resources match this filter */
-  resources_SOME?: InputMaybe<ResourceWhere>;
+  app?: InputMaybe<AppWhere>;
+  app_NOT?: InputMaybe<AppWhere>;
+  appAggregate?: InputMaybe<StoreAppAggregateInput>;
   stateConnection?: InputMaybe<StoreStateConnectionWhere>;
   stateConnection_NOT?: InputMaybe<StoreStateConnectionWhere>;
+  stateApiConnection?: InputMaybe<StoreStateApiConnectionWhere>;
+  stateApiConnection_NOT?: InputMaybe<StoreStateApiConnectionWhere>;
   actionsConnection?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_NOT?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_ALL?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>;
-  parentStoreConnection?: InputMaybe<StoreParentStoreConnectionWhere>;
-  parentStoreConnection_NOT?: InputMaybe<StoreParentStoreConnectionWhere>;
-  childrenConnection?: InputMaybe<StoreChildrenConnectionWhere>;
-  childrenConnection_NOT?: InputMaybe<StoreChildrenConnectionWhere>;
-  childrenConnection_ALL?: InputMaybe<StoreChildrenConnectionWhere>;
-  childrenConnection_NONE?: InputMaybe<StoreChildrenConnectionWhere>;
-  childrenConnection_SINGLE?: InputMaybe<StoreChildrenConnectionWhere>;
-  childrenConnection_SOME?: InputMaybe<StoreChildrenConnectionWhere>;
-  resourcesConnection?: InputMaybe<StoreResourcesConnectionWhere>;
-  resourcesConnection_NOT?: InputMaybe<StoreResourcesConnectionWhere>;
-  resourcesConnection_ALL?: InputMaybe<StoreResourcesConnectionWhere>;
-  resourcesConnection_NONE?: InputMaybe<StoreResourcesConnectionWhere>;
-  resourcesConnection_SINGLE?: InputMaybe<StoreResourcesConnectionWhere>;
-  resourcesConnection_SOME?: InputMaybe<StoreResourcesConnectionWhere>;
+  appConnection?: InputMaybe<StoreAppConnectionWhere>;
+  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>;
 };
 
 export type TagChildrenAggregateInput = {
@@ -18165,86 +17486,10 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface ActionAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  name?: StringAggregateInputNonNullable;
-  body?: StringAggregateInputNonNullable;
-}
-
-export declare class ActionModel {
-  public find(args?: {
-    where?: ActionWhere;
-
-    options?: ActionOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<Action[]>;
-  public create(args: {
-    input: ActionCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateActionsMutationResponse>;
-  public update(args: {
-    where?: ActionWhere;
-    update?: ActionUpdateInput;
-    connect?: ActionConnectInput;
-    disconnect?: ActionDisconnectInput;
-    create?: ActionCreateInput;
-    connectOrCreate?: ActionConnectOrCreateInput;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateActionsMutationResponse>;
-  public delete(args: {
-    where?: ActionWhere;
-    delete?: ActionDeleteInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: ActionWhere;
-
-    aggregate: ActionAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<ActionAggregateSelection>;
-}
-
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
 export interface StoreAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
-  localState?: StringAggregateInputNonNullable;
 }
 
 export declare class StoreModel {
@@ -18315,52 +17560,55 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
-export interface DeleteInfoAggregateSelectionInput {
+export interface ActionAggregateSelectionInput {
   count?: boolean;
-  bookmark?: StringAggregateInputNullable;
-  nodesDeleted?: IntAggregateInputNonNullable;
-  relationshipsDeleted?: IntAggregateInputNonNullable;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  body?: StringAggregateInputNullable;
 }
 
-export declare class DeleteInfoModel {
+export declare class ActionModel {
   public find(args?: {
-    where?: DeleteInfoWhere;
+    where?: ActionWhere;
 
-    options?: DeleteInfoOptions;
+    options?: ActionOptions;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<DeleteInfo[]>;
+  }): Promise<Action[]>;
   public create(args: {
-    input: DeleteInfoCreateInput[];
+    input: ActionCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<CreateDeleteInfosMutationResponse>;
+  }): Promise<CreateActionsMutationResponse>;
   public update(args: {
-    where?: DeleteInfoWhere;
-    update?: DeleteInfoUpdateInput;
-
+    where?: ActionWhere;
+    update?: ActionUpdateInput;
+    connect?: ActionConnectInput;
+    disconnect?: ActionDisconnectInput;
+    create?: ActionCreateInput;
+    connectOrCreate?: ActionConnectOrCreateInput;
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
-  }): Promise<UpdateDeleteInfosMutationResponse>;
+  }): Promise<UpdateActionsMutationResponse>;
   public delete(args: {
-    where?: DeleteInfoWhere;
-
+    where?: ActionWhere;
+    delete?: ActionDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
   public aggregate(args: {
-    where?: DeleteInfoWhere;
+    where?: ActionWhere;
 
-    aggregate: DeleteInfoAggregateSelectionInput;
+    aggregate: ActionAggregateSelectionInput;
     context?: any;
     rootValue?: any;
-  }): Promise<DeleteInfoAggregateSelection>;
+  }): Promise<ActionAggregateSelection>;
 }
 
 export interface IdAggregateInputNonNullable {
@@ -18391,7 +17639,6 @@ export interface ResourceAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
-  config?: StringAggregateInputNonNullable;
 }
 
 export declare class ResourceModel {
@@ -18438,81 +17685,6 @@ export declare class ResourceModel {
   }): Promise<ResourceAggregateSelection>;
 }
 
-export interface IdAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNonNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface StringAggregateInputNullable {
-  shortest?: boolean;
-  longest?: boolean;
-}
-export interface IntAggregateInputNonNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface IntAggregateInputNullable {
-  max?: boolean;
-  min?: boolean;
-  average?: boolean;
-  sum?: boolean;
-}
-export interface OperationAggregateSelectionInput {
-  count?: boolean;
-  id?: IdAggregateInputNonNullable;
-  name?: StringAggregateInputNonNullable;
-  config?: StringAggregateInputNonNullable;
-}
-
-export declare class OperationModel {
-  public find(args?: {
-    where?: OperationWhere;
-
-    options?: OperationOptions;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<Operation[]>;
-  public create(args: {
-    input: OperationCreateInput[];
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<CreateOperationsMutationResponse>;
-  public update(args: {
-    where?: OperationWhere;
-    update?: OperationUpdateInput;
-    connect?: OperationConnectInput;
-    disconnect?: OperationDisconnectInput;
-    create?: OperationCreateInput;
-    connectOrCreate?: OperationConnectOrCreateInput;
-    selectionSet?: string | DocumentNode | SelectionSetNode;
-    args?: any;
-    context?: any;
-    rootValue?: any;
-  }): Promise<UpdateOperationsMutationResponse>;
-  public delete(args: {
-    where?: OperationWhere;
-    delete?: OperationDeleteInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-  public aggregate(args: {
-    where?: OperationWhere;
-
-    aggregate: OperationAggregateSelectionInput;
-    context?: any;
-    rootValue?: any;
-  }): Promise<OperationAggregateSelection>;
-}
-
 export interface ModelMap {
   ResetDatabaseMutationResponse: ResetDatabaseMutationResponseModel;
   User: UserModel;
@@ -18543,9 +17715,7 @@ export interface ModelMap {
   PropMapBinding: PropMapBindingModel;
   Hook: HookModel;
   Component: ComponentModel;
-  Action: ActionModel;
   Store: StoreModel;
-  DeleteInfo: DeleteInfoModel;
+  Action: ActionModel;
   Resource: ResourceModel;
-  Operation: OperationModel;
 }

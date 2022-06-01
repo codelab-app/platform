@@ -1,7 +1,8 @@
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { IAction, IActionService } from '@codelab/shared/abstract/core'
-import { TableColumnProps } from 'antd'
+import { Nullish } from '@codelab/shared/abstract/types'
+import { Switch, TableColumnProps } from 'antd'
 import {
   TablePaginationConfig,
   TableRowSelection,
@@ -9,14 +10,30 @@ import {
 import { actionRef } from '../../../store'
 import { ActionColumn } from './columns'
 
+type ActionRow = Omit<IAction, 'resource'> & { resource: Nullish<string> }
+
 export const useActionTable = (actionService: IActionService) => {
-  const columns: Array<TableColumnProps<IAction>> = [
+  const columns: Array<TableColumnProps<ActionRow>> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
       ...useColumnSearchProps('name'),
+    },
+    {
+      title: 'Resource',
+      dataIndex: 'resource',
+      key: 'resource',
+      onHeaderCell: headerCellProps,
+      ...useColumnSearchProps('resource'),
+    },
+    {
+      title: 'Run on init',
+      dataIndex: 'runOnInit',
+      key: 'runOnInit',
+      onHeaderCell: headerCellProps,
+      render: (text, action) => <Switch checked={action.runOnInit} disabled />,
     },
     {
       title: 'Body',
@@ -36,9 +53,9 @@ export const useActionTable = (actionService: IActionService) => {
     },
   ]
 
-  const rowSelection: TableRowSelection<IAction> = {
+  const rowSelection: TableRowSelection<ActionRow> = {
     type: 'checkbox',
-    onChange: (_: Array<React.Key>, selectedRows: Array<IAction>) => {
+    onChange: (_: Array<React.Key>, selectedRows: Array<ActionRow>) => {
       actionService.setSelectedActions(selectedRows.map((a) => actionRef(a.id)))
     },
   }

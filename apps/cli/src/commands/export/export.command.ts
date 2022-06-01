@@ -1,6 +1,7 @@
 import {
   IAppExport,
   IAtomExport,
+  IResourceExport,
   ITypeExport,
 } from '@codelab/shared/abstract/core'
 import { config } from 'dotenv'
@@ -15,6 +16,7 @@ export type ExportedData = {
   app: IAppExport | null
   atoms: Array<IAtomExport>
   types: Array<ITypeExport>
+  resources: Array<IResourceExport>
 }
 
 /**

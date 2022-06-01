@@ -6,7 +6,6 @@ import {
   IBuilderService,
   IComponentService,
   IElementService,
-  IOperationService,
   IPageService,
   IRenderService,
   IResourceService,
@@ -63,7 +62,6 @@ export type DomainServices = {
   [STORE_SERVICE]: IStoreService
   [ACTION_SERVICE]: IActionService
   [RESOURCE_SERVICE]: IResourceService
-  [OPERATION_SERVICE]: IOperationService
 }
 
 export type WithServices<T extends keyof DomainServices> = {

@@ -38,7 +38,7 @@ export class Prop
     return this
   }
 
-  public static hydrate({ id, data }: IPropDTO): Prop {
+  public static hydrate({ id, data }: IPropDTO): IProp {
     return new Prop({ id, data: frozen(JSON.parse(data)) })
   }
 

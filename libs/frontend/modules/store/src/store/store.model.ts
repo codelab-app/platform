@@ -1,15 +1,17 @@
-import { Resource, resourceRef } from '@codelab/frontend/modules/resource'
+import { Prop } from '@codelab/frontend/modules/element'
+import {
+  createGraphQLAction,
+  createRestAction,
+} from '@codelab/frontend/modules/resource'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
 import {
-  IPropData,
+  IProp,
   IStore,
   IStoreDTO,
-  IStoreResource,
+  ResourceType,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { TreeDataNode } from 'antd'
 import { merge } from 'lodash'
-import { computed, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import {
   detach,
   idProp,
@@ -22,22 +24,29 @@ import {
 } from 'mobx-keystone'
 import { Action, actionRef } from './action.model'
 
+export const hydrate = ({
+  actions,
+  id,
+  name,
+  state,
+  stateApi,
+}: Omit<IStoreDTO, '__typename'>) =>
+  new Store({
+    id,
+    name,
+    actions: actions.map((action) => actionRef(action.id)),
+    state: Prop.hydrate(state),
+    stateApi: typeRef(stateApi.id) as Ref<InterfaceType>,
+  })
+
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
     id: idProp,
-    parentStore: prop<Nullish<Ref<Store>>>().withSetter(),
-    children: prop<Array<Ref<Store>>>().withSetter(),
-    // PARENT_OF_STORE relation property
-    storeKey: prop<Nullable<string>>(null).withSetter(),
-
-    resources: prop<Array<Ref<Resource>>>(() => []),
-    resourcesKeys: prop<Array<IStoreResource>>(() => []),
-
     name: prop<string>(),
     actions: prop<Array<Ref<Action>>>().withSetter(),
-    localState: prop<IPropData>(),
-    state: prop<Ref<InterfaceType>>().withSetter(),
+    state: prop<IProp>(),
+    stateApi: prop<Ref<InterfaceType>>().withSetter(),
   }))
   implements IStore
 {
@@ -46,87 +55,62 @@ export class Store
     return this.id
   }
 
-  @computed
-  get isRoot(): boolean {
-    return !this.parentStore
-  }
-
-  @computed
-  get resourcesList() {
-    return this.resources.map((x) => ({
-      id: x.current?.id,
-      name: x.current?.name,
-      config: x.current?.config,
-      type: x.current?.type,
-      key: this.resourcesKeys.find((y) => y.resourceId === x.id)?.key,
-    }))
-  }
-
   @modelAction
-  toTreeNode(): TreeDataNode {
-    return {
-      key: this.id,
-      title: this.name,
-      children: this.children.map((child) => child.current.toTreeNode()),
-    }
+  updateCache({
+    id,
+    name,
+    actions,
+    state,
+    stateApi,
+  }: Omit<IStoreDTO, '__typename'>) {
+    this.id = id
+    this.name = name
+    this.actions = actions.map((a) => actionRef(a.id))
+    this.stateApi = typeRef(stateApi.id) as Ref<InterfaceType>
+    this.state.updateCache(state)
+
+    return this
   }
 
   @modelAction
   toMobxObservable(globals: any = {}) {
-    const storeState = [...this.state.current.fields.values()]
-      .map((field) => ({ [field.key]: this.localState[field.key] }))
-      .reduce(merge, {})
-
-    const resources = this.resources
-      .map((r) => {
-        const key =
-          this.resourcesKeys.find((k) => k.resourceId === r.current.id)?.key ||
-          ''
-
-        return { [key]: r.current.toMobxObservable() }
-      })
+    const storeState = [...this.stateApi.current.fields.values()]
+      .map((field) => ({ [field.key]: this.state.values[field.key] }))
       .reduce(merge, {})
 
     const storeActions = this.actions
-      .map((action) => ({
-        // eslint-disable-next-line no-eval
-        [action.current.name]: eval(`(${action.current.body})`),
-      }))
+      .map(({ current: action }) => {
+        const isResourceOperation =
+          action.resource?.current && action.config?.values
+
+        if (!isResourceOperation && !action.body) {
+          throw new Error(
+            'Action misconfigure, an action must have either a resource and config or a body or both ',
+          )
+        }
+
+        // an action that manipulates local state only
+        if (!isResourceOperation) {
+          // eslint-disable-next-line no-eval
+          return { [action.name]: eval(`(${action.body})`) }
+        }
+
+        const actionInst =
+          action.resource?.current.type === ResourceType.GraphQL
+            ? createGraphQLAction(action)
+            : createRestAction(action)
+
+        return { [action.name]: actionInst }
+      })
       .reduce(merge, {})
 
-    const childStores: any = this.children
-      .map((x) => ({
-        [x.current.storeKey as string]: x.current.toMobxObservable(),
-      }))
-      .reduce(merge, {})
-
-    return makeAutoObservable(
-      merge({}, storeState, storeActions, resources, childStores, globals),
-    )
+    return makeAutoObservable(merge({}, storeState, storeActions, globals))
   }
 
-  static hydrate(store: IStoreDTO): Store {
-    return new Store({
-      id: store.id,
-      children: store.children.map((x) => storeRef(x.id)),
-      name: store.name,
-      parentStore: store.parentStore?.id
-        ? storeRef(store.parentStore.id)
-        : null,
-      resources: store.resources.map((x) => resourceRef(x.id)),
-      resourcesKeys: store.resourcesConnection.edges.map((x) => ({
-        key: x.resourceKey,
-        resourceId: x.node.id,
-      })),
-      actions: store.actions.map((action) => actionRef(action.id)),
-      storeKey: store.parentStoreConnection?.edges?.[0]?.storeKey,
-      localState: JSON.parse(store.localState),
-      state: typeRef(store.state.id) as Ref<InterfaceType>,
-    })
-  }
+  static hydrate = hydrate
 }
 
-export const storeRef = rootRef<Store>('@codelab/StoreRef', {
+export const storeRef = rootRef<IStore>('@codelab/StoreRef', {
   onResolvedValueChange(ref, newStore, oldStore) {
     if (oldStore && !newStore) {
       detach(ref)

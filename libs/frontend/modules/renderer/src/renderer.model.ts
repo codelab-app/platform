@@ -11,11 +11,10 @@ import {
   IRenderPipe,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {
-  AnyModel,
   detach,
   frozen,
   getSnapshot,
@@ -23,7 +22,6 @@ import {
   Model,
   model,
   modelAction,
-  ModelClass,
   prop,
   Ref,
   rootRef,
@@ -64,13 +62,16 @@ const initForBuilder = () => {
 const init = (
   pageTree: IElementTree,
   appTree?: Nullable<IElementTree>,
-  platformState?: Nullish<ModelClass<AnyModel>>,
+  platformState?: any,
 ) => {
-  return new Renderer({
-    appTree: appTree ? elementTreeRef(appTree.id) : null,
-    pageTree: elementTreeRef(pageTree.id),
-    platformState,
+  const renderer = new Renderer({
+    appTree: appTree ? elementTreeRef(appTree) : null,
+    pageTree: elementTreeRef(pageTree),
   })
+
+  renderer.setPlatformState(platformState)
+
+  return renderer
 }
 
 /**
@@ -125,11 +126,6 @@ export class Renderer
        * Will log the render output and render pipe info to the console
        */
       debugMode: prop(false).withSetter(),
-
-      /**
-       * Set to any observable that will act as a source for the state of the rendered app
-       */
-      platformState: prop<Nullish<ModelClass<AnyModel>>>(null),
     },
     {
       toSnapshotProcessor(sn, modelInstance) {
@@ -143,16 +139,20 @@ export class Renderer
   )
   implements IRenderer
 {
+  platformState?: any
+
   /**
    * Like init, but skips the type fetching
    * Useful if you're sure that all types are already fetched
    * or for unit testing
    */
   @modelAction
-  initForce(
-    pageTree: IElementTree,
-    platformState?: Nullish<ModelClass<AnyModel>>,
-  ) {
+  setPlatformState(platformState?: any) {
+    this.platformState = platformState
+  }
+
+  @modelAction
+  initForce(pageTree: IElementTree, platformState?: any) {
     this.pageTree = elementTreeRef(pageTree)
     this.platformState = platformState
   }

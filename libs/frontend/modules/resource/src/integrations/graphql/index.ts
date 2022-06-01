@@ -1,16 +1,32 @@
 import {
-  IGraphQLOperationConfig,
+  IAction,
+  IGraphQLActionConfig,
   IGraphQLResourceConfig,
 } from '@codelab/shared/abstract/core'
-import { GraphQlOperation } from './graphql-operation'
-import { GraphQLResource } from './graphql-resource'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { GraphQlActionImp } from './graphql-action-imp'
+import { GraphQLResourceImp } from './graphql-resource-imp'
 
-export const createGraphQLOperation = (
-  resourceConfig: IGraphQLResourceConfig,
-  operationConfig: IGraphQLOperationConfig,
-  runOnInit: boolean,
-) => {
-  const resource = new GraphQLResource(resourceConfig)
+export const createGraphQLAction = (action: IAction) => {
+  const resourceConfig: Nullish<IGraphQLResourceConfig> =
+    action.resource?.current.config.values
 
-  return new GraphQlOperation(resource, operationConfig, runOnInit)
+  const actionConfig = action.config?.values as Maybe<IGraphQLActionConfig>
+
+  if (!resourceConfig) {
+    throw new Error('Failed to create Action, missing resource config')
+  }
+
+  if (!actionConfig) {
+    throw new Error('Failed to create Action, missing action config')
+  }
+
+  const resource = new GraphQLResourceImp(resourceConfig)
+
+  return new GraphQlActionImp(
+    resource,
+    actionConfig,
+    action.runOnInit,
+    action.body,
+  )
 }

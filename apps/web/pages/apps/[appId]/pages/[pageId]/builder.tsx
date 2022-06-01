@@ -59,7 +59,7 @@ const PageBuilder: CodelabPage = observer(() => {
         throw new Error('Page not found')
       }
 
-      const storeTree = app?.store?.id
+      const appStore = app?.store?.id
         ? await storeService.getOne(app.store.id)
         : null
 
@@ -83,16 +83,14 @@ const PageBuilder: CodelabPage = observer(() => {
         pageId,
         pageElementTree,
         null,
-        createMobxState(storeTree, apps, pages, router),
+        createMobxState(appStore, apps, pages, router),
       )
-
-      console.log('builder.tsxk')
 
       return {
         page,
         pageElementTree,
         providerTree,
-        storeTree,
+        storeTree: appStore,
         types,
         components,
         renderer,

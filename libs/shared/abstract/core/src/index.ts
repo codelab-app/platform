@@ -1,4 +1,5 @@
 export * from './base/node.interface'
+export * from './domain/action'
 export * from './domain/admin'
 export * from './domain/app'
 export * from './domain/atom'

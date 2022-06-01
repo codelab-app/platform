@@ -1,4 +1,3 @@
-import { SelectStore } from '@codelab/frontend/modules/type'
 import { ICreateAppDTO } from '@codelab/shared/abstract/core'
 import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
@@ -15,12 +14,6 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     name: {
       type: 'string',
       autoFocus: true,
-    },
-    storeId: {
-      type: 'string',
-      label: 'Mobx Store',
-      uniforms: { component: SelectStore },
-      nullable: true,
     },
     auth0Id: {
       type: 'string',

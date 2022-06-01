@@ -8,7 +8,7 @@ import { ModalForm } from '@codelab/frontend/view/components'
 import { ICreateAppDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { createAppSchema } from './createAppSchema'
 
 export const CreateAppModal = observer<
@@ -38,11 +38,6 @@ export const CreateAppModal = observer<
         schema={createAppSchema}
       >
         <AutoFields omitFields={['storeId']} />
-        <AutoField
-          name="storeId"
-          // get root stores only
-          where={{ parentStoreAggregate: { count: 0 } }}
-        />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

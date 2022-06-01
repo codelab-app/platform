@@ -15,6 +15,7 @@ import {
   IElementRef,
   IElementService,
   isAtomDTO,
+  ITypeKind,
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
@@ -454,7 +455,21 @@ export class ElementService
               id: v4(),
               name: element.label,
               owner: { connect: { where: { node: { auth0Id } } } },
-              rootElement: { connect: { where: { node: { id: element.id } } } },
+              rootElement: {
+                connect: { where: { node: { id: element.id } } },
+              },
+              api: {
+                create: {
+                  node: {
+                    id: v4(),
+                    name: `${element.label} API`,
+                    fields: {},
+                    kind: ITypeKind.InterfaceType,
+                    apiOfAtoms: {},
+                    owner: { connect: { where: { node: { auth0Id } } } },
+                  },
+                },
+              },
             },
           },
         },

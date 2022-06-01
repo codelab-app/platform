@@ -1,12 +1,9 @@
-import { getResourceService } from '@codelab/frontend/modules/resource'
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { StoreWhere } from '@codelab/shared/abstract/codegen'
 import {
-  IActionDTO,
-  IAddStoreResourceDTO,
   ICreateStoreDTO,
-  IResourceDTO,
+  IStore,
   IStoreDTO,
   IStoreService,
   IUpdateStoreDTO,
@@ -24,87 +21,75 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { getActionService } from './action.service'
-import {
-  makeAddResourceInput,
-  makeRemoveResourceInput,
-  makeStoreCreateInput,
-  makeStoreUpdateInput,
-} from './api.utils'
+import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
 import { storeApi } from './store.api'
-import { Store, storeRef } from './store.model'
+import { Store } from './store.model'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')
 export class StoreService
   extends Model({
-    stores: prop(() => objectMap<Store>()),
-
+    stores: prop(() => objectMap<IStore>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new StoreModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
   })
   implements IStoreService
 {
-  @computed
-  get antdTree() {
-    return [...this.stores.values()]
-      .filter((s) => s.isRoot)
-      .map((s) => s.toTreeNode())
-  }
-
   store(id: string) {
     return this.stores.get(id)
   }
 
+  @computed
+  get storesList() {
+    return [...this.stores.values()]
+  }
+
   @modelAction
-  async fetchStates(state: Array<IStoreDTO['state']>) {
-    // loading state interface within store fragment is hard so we load it separately
-    return await getTypeService(this).getAllWithDescendants(
-      state.map((x) => x.id),
+  private updateActionsCache(stores: Array<IStoreDTO>) {
+    const actionService = getActionService(this)
+    const actions = stores.flatMap((s) => s.actions)
+
+    return actionService.hydrateOrUpdateCache(actions)
+  }
+
+  @modelAction
+  private async fetchStatesApis(stores: Array<IStoreDTO>) {
+    const typeService = getTypeService(this)
+
+    return await typeService.getAllWithDescendants(
+      stores.map((x) => x.stateApi.id),
     )
   }
 
   @modelAction
-  fetchResources(resources: Array<IResourceDTO>) {
-    // loading state interface within store fragment is hard so we load it separately
-    getResourceService(this).updateCache(resources)
-  }
+  public hydrateOrUpdateCache = async (
+    stores: Array<IStoreDTO>,
+  ): Promise<Array<IStore>> => {
+    this.updateActionsCache(stores)
+    // it is very complex to load api with store fragment
+    await this.fetchStatesApis(stores)
 
-  @modelAction
-  fetchActions(actions: Array<IActionDTO>) {
-    getActionService(this).updateCache(actions)
+    return stores.map((store) => {
+      if (this.stores.has(store.id)) {
+        const storeModel = this.stores.get(store.id)!
+
+        return storeModel.updateCache(store)
+      }
+
+      const storeModel = Store.hydrate(store)
+      this.stores.set(store.id, storeModel)
+
+      return storeModel
+    })
   }
 
   @modelFlow
   @transaction
   getAll = _async(function* (this: StoreService, where?: StoreWhere) {
-    this.stores.clear()
+    const { stores } = yield* _await(storeApi.GetStores({ where }))
 
-    const { stores } = yield* _await(
-      storeApi.GetStores({
-        where: {
-          // query only root stores and the reset will be descendants
-          parentStoreAggregate: { count: 0 },
-          AND: where ? [where] : [],
-        },
-      }),
-    )
-
-    const states = stores.map((x) => x.state)
-    const actions = stores.flatMap((x) => x.actions)
-    const resources = stores.flatMap((x) => x.resources)
-
-    yield* _await(this.fetchStates(states))
-    this.fetchActions(actions)
-    this.fetchResources(resources)
-
-    const descendants = stores.flatMap((x) => x.descendants)
-
-    descendants.concat(stores).forEach((store) => {
-      this.stores.set(store.id, Store.hydrate(store))
-    })
-
-    return [...this.stores.values()]
+    return yield* _await(this.hydrateOrUpdateCache(stores))
   })
 
   @modelFlow
@@ -116,20 +101,6 @@ export class StoreService
 
     return this.stores.get(id)
   })
-
-  @modelAction
-  addStore(store: Store) {
-    this.stores.set(store.id, store)
-  }
-
-  @modelAction
-  attachToParent(store: Store) {
-    if (!store.parentStore?.id) {
-      return
-    }
-
-    this.store(store.parentStore?.id)?.children.push(storeRef(store))
-  }
 
   @modelFlow
   @transaction
@@ -146,34 +117,17 @@ export class StoreService
 
     return stores.map((store) => {
       const storeModel = Store.hydrate(store)
-
-      this.addStore(storeModel)
-      this.attachToParent(storeModel)
+      this.stores.set(storeModel.id, storeModel)
 
       return storeModel
     })
   })
 
-  @modelAction
-  detachFromParent(store: Store) {
-    if (!store.parentStore?.id) {
-      return
-    }
-
-    const oldParent = this.store(store.parentStore?.id)
-
-    const oldRefIndex = oldParent?.children.findIndex(
-      (x) => x.current.id === store.id,
-    ) as number
-
-    oldParent?.children.splice(oldRefIndex, 1)
-  }
-
   @modelFlow
   @transaction
   update = _async(function* (
     this: StoreService,
-    store: Store,
+    store: IStore,
     input: IUpdateStoreDTO,
   ) {
     const { updateStores } = yield* _await(
@@ -183,89 +137,43 @@ export class StoreService
       }),
     )
 
-    return this.afterStoreUpdate(updateStores.stores, store)
+    const updatedStore = updateStores.stores[0]
+
+    if (!updatedStore) {
+      throw new Error('Failed to update store')
+    }
+
+    store.updateCache(updatedStore)
+
+    return store
   })
 
   @modelFlow
   @transaction
-  addResource = _async(function* (
-    this: StoreService,
-    store: Store,
-    input: IAddStoreResourceDTO,
-  ) {
-    const { updateStores } = yield* _await(
-      storeApi.UpdateStores({
-        where: { id: store.id },
-        update: makeAddResourceInput(input),
-      }),
-    )
+  delete = _async(function* (this: StoreService, storeId: string) {
+    const existing = throwIfUndefined(this.stores.get(storeId))
 
-    return this.afterStoreUpdate(updateStores.stores, store)
-  })
-
-  @modelFlow
-  @transaction
-  removeResource = _async(function* (
-    this: StoreService,
-    store: Store,
-    resourceId: string,
-  ) {
-    const { updateStores } = yield* _await(
-      storeApi.UpdateStores({
-        where: { id: store.id },
-        update: makeRemoveResourceInput(resourceId),
-      }),
-    )
-
-    return this.afterStoreUpdate(updateStores.stores, store)
-  })
-
-  afterStoreUpdate(stores: Array<IStoreDTO>, store: Store) {
-    const updatedStore = stores[0]
-    const storeModel = Store.hydrate(updatedStore)
-
-    // detach from old parent
-    this.detachFromParent(store)
-    // attach to new parent
-    this.attachToParent(storeModel)
-
-    this.stores.set(updatedStore.id, storeModel)
-
-    return storeModel
-  }
-
-  @modelAction
-  removeStoreAndDescendants(store: Store) {
-    store.children.forEach((child) =>
-      this.removeStoreAndDescendants(child.current),
-    )
-    this.stores.delete(store.id)
-  }
-
-  @modelFlow
-  @transaction
-  deleteStoresSubgraph = _async(function* (
-    this: StoreService,
-    storeId: string,
-  ) {
-    const root = this.store(storeId)
-
-    if (!root) {
+    if (!existing) {
       throw new Error('Deleted store not found')
     }
 
-    this.removeStoreAndDescendants(root)
-
-    const { deleteStoresSubgraph } = yield* _await(
-      storeApi.DeleteStoresSubgraph({ where: { id: storeId } }),
+    const { deleteStores } = yield* _await(
+      storeApi.DeleteStores({
+        where: { id: storeId },
+        delete: {
+          state: { where: {} },
+          stateApi: { where: {} },
+          actions: [{ where: {} }],
+        },
+      }),
     )
 
-    const { nodesDeleted } = deleteStoresSubgraph
+    const { nodesDeleted } = deleteStores
 
     if (nodesDeleted === 0) {
       throw new Error('No stores deleted')
     }
 
-    return root
+    return existing
   })
 }

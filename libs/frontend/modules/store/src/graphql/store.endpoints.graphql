@@ -10,19 +10,15 @@ mutation CreateStores($input: [StoreCreateInput!]!) {
   }
 }
 
-mutation DeleteStoresSubgraph($where: StoreWhere!) {
-  deleteStoresSubgraph(where: $where) {
+mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
+  deleteStores(where: $where, delete: $delete) {
     nodesDeleted
-    relationshipsDeleted
   }
 }
 
 query GetStores($where: StoreWhere, $options: StoreOptions) {
   stores(where: $where, options: $options) {
     ...Store
-    descendants {
-      ...Store
-    }
   }
 }
 

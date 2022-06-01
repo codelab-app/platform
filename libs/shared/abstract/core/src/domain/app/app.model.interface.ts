@@ -1,4 +1,4 @@
-import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { IElementTreeService } from '../element'
 import { IPage } from '../page'
@@ -7,7 +7,7 @@ export interface IApp extends IElementTreeService {
   id: IAppRef
   ownerId: string
   name: string
-  store: Nullable<IEntity>
+  store: IEntity
   pages: Array<Ref<IPage>>
   rootElement: IEntity
 }

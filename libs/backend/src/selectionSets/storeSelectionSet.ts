@@ -1,45 +1,14 @@
-export const storeSelectionSet = `{
+import { actionSelectionSet } from './actionSelectionSet'
+
+export const storeSelectionSet = `
   id
   name
-  state {
+  stateApi { id }
+  state { 
     id
-    name
-    state {
-      id
-      name
-    }
-    localState
-    parentStore {
-      id
-      name
-    }
-    resources {
-      id
-      name
-      type
-      operations {
-        id
-        name
-        runOnInit
-        config
-      }
-    }
-    parentStoreConnection {
-      edges {
-          storeKey
-      }
-    }
-    resourcesConnection {
-      edges {
-        node {
-          id
-        }
-        resourceKey
-      }
-    }
-    actions {
-      id
-      name
-    }
+    data
   }
-}`
+  actions {
+    ${actionSelectionSet}
+  }
+`

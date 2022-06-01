@@ -2,11 +2,11 @@ import { IBuilderState } from '../builder'
 import { IElement } from '../element'
 import { IPropDTO } from './prop.dto.interface'
 
-export interface IProp {
+export interface IProp<T = IPropData> {
   id: string
-  data: IPropData
+  data: T
   jsonString: string
-  values: IPropData
+  values: T
 
   updateCache(props: IPropDTO): IProp
   set(key: string, value: any): void

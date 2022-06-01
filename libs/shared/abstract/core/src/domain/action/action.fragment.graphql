@@ -1,0 +1,16 @@
+fragment Action on Action {
+  id
+  name
+  body
+  store {
+    id
+    name
+  }
+  config {
+    ...Prop
+  }
+  runOnInit
+  resource {
+    ...Resource
+  }
+}

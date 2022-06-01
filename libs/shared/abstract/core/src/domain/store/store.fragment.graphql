@@ -2,35 +2,14 @@ fragment Store on Store {
   __typename
   id
   name
-  state {
+  stateApi {
     id
     name
   }
-  localState
+  state {
+    ...Prop
+  }
   actions {
     ...Action
-  }
-  parentStore {
-    id
-    name
-  }
-  parentStoreConnection {
-    edges {
-      storeKey
-    }
-  }
-  resourcesConnection {
-    edges {
-      node {
-        id
-      }
-      resourceKey
-    }
-  }
-  resources {
-    ...Resource
-  }
-  children {
-    id
   }
 }

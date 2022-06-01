@@ -1,9 +1,18 @@
-import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { ActionWhere } from '@codelab/shared/abstract/codegen'
 import {
+  getResourceService,
+  resourceRef,
+} from '@codelab/frontend/modules/resource'
+import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import {
+  ActionCreateInput,
+  ActionWhere,
+} from '@codelab/shared/abstract/codegen'
+import {
+  IAction,
   IActionDTO,
   IActionService,
   ICreateActionDTO,
+  IResourceDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -56,7 +65,13 @@ export class ActionService
 
     if (existing) {
       existing.name = action.name
-      existing.body = action.body
+      existing.body = action.body ?? ''
+      existing.resource = action.resource
+        ? resourceRef(action.resource.id)
+        : null
+      existing.runOnInit = action.runOnInit
+      existing.storeId = action.store.id
+      existing.config?.updateCache(action.config)
     } else {
       this.addAction(Action.hydrate(action))
     }
@@ -82,6 +97,16 @@ export class ActionService
         update: {
           body: input.body,
           name: input.name,
+          resource: input.resourceId
+            ? {
+                disconnect: {},
+                connect: { where: { node: { id: input.resourceId } } },
+              }
+            : undefined,
+          runOnInit: input.runOnInit,
+          config: {
+            update: { node: { data: JSON.stringify(input.config) } },
+          },
         },
       }),
     )
@@ -93,12 +118,22 @@ export class ActionService
     return actionModel
   })
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ActionService, where?: ActionWhere) {
-    this.actions.clear()
+  @modelAction
+  updateResourceCache(actions: Array<IActionDTO>) {
+    const resourceService = getResourceService(this)
 
-    const { actions } = yield* _await(actionApi.GetActions({ where }))
+    const resources: Array<IResourceDTO> = actions
+      .map((a) => a.resource)
+      .filter((r): r is IResourceDTO => Boolean(r))
+
+    resourceService.updateCache(resources)
+  }
+
+  @modelAction
+  public hydrateOrUpdateCache = (
+    actions: Array<IActionDTO>,
+  ): Array<IAction> => {
+    this.updateResourceCache(actions)
 
     return actions.map((action) => {
       const actionModel = Action.hydrate(action)
@@ -106,6 +141,16 @@ export class ActionService
 
       return actionModel
     })
+  }
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: ActionService, where?: ActionWhere) {
+    this.actions.clear()
+
+    const { actions } = yield* _await(actionApi.GetActions({ where }))
+
+    return this.hydrateOrUpdateCache(actions)
   })
 
   @modelFlow
@@ -122,10 +167,15 @@ export class ActionService
     this: ActionService,
     data: Array<ICreateActionDTO>,
   ) {
-    const input = data.map((action) => ({
+    const input: Array<ActionCreateInput> = data.map((action) => ({
       name: action.name,
       body: action.body,
       store: { connect: { where: { node: { id: action.storeId } } } },
+      config: { create: { node: { data: JSON.stringify(action.config) } } },
+      resource: action.resourceId
+        ? { connect: { where: { node: { id: action.resourceId } } } }
+        : undefined,
+      runOnInit: action.runOnInit,
     }))
 
     const {
