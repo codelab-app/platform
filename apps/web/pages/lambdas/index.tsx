@@ -11,10 +11,7 @@ import {
   UpdateLambdaModal,
 } from '@codelab/frontend/modules/lambda'
 import { ContentSection } from '@codelab/frontend/view/sections'
-import {
-  DashboardTemplate,
-  DefaultSidebarNavigation,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -55,10 +52,7 @@ export const getServerSideProps = withPageAuthRequired()
 
 LambdasPage.Layout = (page) => {
   return (
-    <DashboardTemplate
-      Header={Header}
-      SidebarNavigation={DefaultSidebarNavigation}
-    >
+    <DashboardTemplate Header={Header} SidebarNavigation={() => null}>
       {page.children}
     </DashboardTemplate>
   )

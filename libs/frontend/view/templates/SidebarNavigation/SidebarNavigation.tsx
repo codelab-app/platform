@@ -34,19 +34,28 @@ export const SidebarNavigation = ({
   const router = useRouter()
 
   return (
-    <div css={tw`flex flex-col justify-between h-full`}>
-      <div>
+    <div
+      css={tw`flex flex-col justify-between h-full border-solid border-gray-200 border-r box-border`}
+      // Set the width on the outermost container
+      style={{
+        width: `${sidebarWidth}px`,
+      }}
+    >
+      <div css={tw`box-border`}>
         <Menu
+          css={tw`border-none box-border`}
           defaultOpenKeys={[]}
           // defaultSelectedKeys={[PageType.AppList]}
           items={primaryItems}
           mode="inline"
           selectedKeys={transformSelectedKeys([router.pathname])}
-          style={{
-            width: `${sidebarWidth}px`,
-            // height: fullHeight ? '100%' : undefined,
-            // maxHeight: '100vh',
-          }}
+          style={
+            {
+              // width: `${sidebarWidth}px`,
+              // height: fullHeight ? '100%' : undefined,
+              // maxHeight: '100vh',
+            }
+          }
         />
       </div>
       <Menu

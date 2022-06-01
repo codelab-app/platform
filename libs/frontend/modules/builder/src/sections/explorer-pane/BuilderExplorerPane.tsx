@@ -17,7 +17,7 @@ import {
   DeleteElementModal,
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
-import { MainPaneTemplate } from '@codelab/frontend/view/templates'
+import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { BuilderTab, RendererTab } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { debounce } from 'lodash'
@@ -25,7 +25,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 import { BuilderTree } from './builder-tree'
-import { BuilderMainPaneHeader } from './BuilderMainPane-Header'
+import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
 import { MobxStateContainer } from './mobx-state/MobxStateContainer'
 import { Toolbox } from './toolbox/Toolbox'
 
@@ -46,7 +46,7 @@ type BuilderMainPaneProps = WithServices<
   pageId: string
 }
 
-export const BuilderMainPane = observer<BuilderMainPaneProps>(
+export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
   ({
     atomService,
     builderService,
@@ -87,14 +87,14 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
     const componentsAntdTree = componentService.componentAntdNode
 
     return (
-      <MainPaneTemplate
+      <ExplorerPaneTemplate
         containerProps={{
           onClick: () => {
             // builderService.set_selectedElement(null)
           },
         }}
         header={
-          <BuilderMainPaneHeader
+          <BuilderExplorerPaneHeader
             builderService={builderService}
             elementService={elementService}
             onSearch={debouncedSearch}
@@ -159,9 +159,9 @@ export const BuilderMainPane = observer<BuilderMainPaneProps>(
         />
         <DeleteComponentModal componentService={componentService} />
         <DeleteElementModal elementService={elementService} />
-      </MainPaneTemplate>
+      </ExplorerPaneTemplate>
     )
   },
 )
 
-BuilderMainPane.displayName = 'BuilderMainPane'
+BuilderExplorerPane.displayName = 'BuilderMainPane'

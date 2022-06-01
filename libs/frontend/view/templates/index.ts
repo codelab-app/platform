@@ -1,3 +1,3 @@
 export * from './Dashboard'
-export * from './MainPaneTemplate'
+export * from './ExplorerPaneTemplate'
 export * from './SidebarNavigation'

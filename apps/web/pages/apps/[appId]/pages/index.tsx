@@ -4,7 +4,7 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
-import { PageMainPane } from '@codelab/frontend/modules/page'
+import { ExplorerPanePage } from '@codelab/frontend/modules/page'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -41,7 +41,7 @@ Pages.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      MainPane={() => <PageMainPane pageService={store.pageService} />}
+      ExplorerPane={() => <ExplorerPanePage pageService={store.pageService} />}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[appMenuItem, storeMenuItem]}

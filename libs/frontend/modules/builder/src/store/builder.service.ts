@@ -34,6 +34,8 @@ export class BuilderService
 
     activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
     stateModal: prop(() => new StateModalService({})),
+
+    // configPaneWidth: prop(0),
   })
   implements IBuilderService
 {

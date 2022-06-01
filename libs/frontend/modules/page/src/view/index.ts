@@ -1,2 +1,2 @@
+export * from './ExplorerPane-Page'
 export * from './PageDetailHeader'
-export * from './PageMainPane'

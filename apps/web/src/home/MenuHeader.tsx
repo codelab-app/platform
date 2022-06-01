@@ -60,14 +60,6 @@ export const HomeMenuHeader = () => {
           ...disableMenuHoverEffects,
         }}
       />
-      {/* Empty filler */}
-      {/* <Menu.Item */}
-      {/*  key="5" */}
-      {/*  style={{ */}
-      {/*    visibility: 'hidden', */}
-      {/*    flexGrow: 1, */}
-      {/*  }} */}
-      {/*/ > */}
     </>
   )
 

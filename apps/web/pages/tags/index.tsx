@@ -70,8 +70,8 @@ TagPage.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
+      ExplorerPane={() => <GetTagsTree tagService={store.tagService} />}
       Header={TagPageHeader}
-      MainPane={() => <GetTagsTree tagService={store.tagService} />}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[appMenuItem]}
