@@ -10,20 +10,16 @@ describe('CSS CRUD', () => {
     /**
      * Expand the element tree to make the button visible (clickable)
      */
-    cy.findByText('Row').click()
+    cy.findByText('Row').click({ force: true })
     // Although the element is visible, it is not clickable unless we wait for a bit
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-    cy.findByText('Col B').click()
-
-    // Although the element is visible, it is not clickable unless we wait for a bit
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
+    // Use force click instead
+    // cy.wait(1000)
+    cy.findByText('Col B').click({ force: true })
   })
 
   after(() => {
     /**
-     * Collabse the element tree for the next tests to work
+     * Collapse the element tree for the next tests to work
      */
     cy.findByText('Row').click()
   })

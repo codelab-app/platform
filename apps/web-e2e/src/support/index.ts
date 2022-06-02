@@ -31,7 +31,6 @@ Cypress.on('uncaught:exception', (err) => {
  * https://docs.cypress.io/api/cypress-api/cookies#Defaults
  */
 beforeEach(() => {
-  console.log('global beforeEach')
   Cypress.Cookies.preserveOnce(
     'appSession',
     'appSession.0',
