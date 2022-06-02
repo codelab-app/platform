@@ -450,6 +450,9 @@ export class ElementService
     const order =
       element.orderInParent ?? element.parentElement.lastChildOrder + 1
 
+    // read label before detaching or else ref won't work
+    const name = element.label
+
     element.parentElement.removeChild(element)
 
     yield* _await(
@@ -459,7 +462,7 @@ export class ElementService
           create: {
             node: {
               id: v4(),
-              name: element.label,
+              name,
               owner: { connect: { where: { node: { auth0Id } } } },
               rootElement: {
                 connect: { where: { node: { id: element.id } } },
@@ -468,7 +471,7 @@ export class ElementService
                 create: {
                   node: {
                     id: v4(),
-                    name: `${element.label} API`,
+                    name: `${name} API`,
                     fields: {},
                     kind: ITypeKind.InterfaceType,
                     apiOfAtoms: {},
@@ -493,7 +496,7 @@ export class ElementService
     const [newElement] = yield* _await(
       this.create([
         {
-          name: element.label,
+          name,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
           order,

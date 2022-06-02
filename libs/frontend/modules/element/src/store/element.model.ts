@@ -214,9 +214,9 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.atom?.maybeCurrent?.name ||
-      (this.atom?.maybeCurrent
-        ? pascalCaseToWords(this.atom.current.type)
+      this.atom?.current?.name ||
+      (this.atom?.current
+        ? pascalCaseToWords(this.atom?.current.type)
         : undefined) ||
       this.component?.current?.name ||
       this.instanceOfComponent?.current?.name ||
