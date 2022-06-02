@@ -142,6 +142,7 @@
     "recoil": "^0.7.3",
     "reflect-metadata": "0.1.13",
     "regenerator-runtime": "0.13.9",
+    "rooks": "^5.11.2",
     "rxjs": "6.6.3",
     "sanitize-filename": "1.6.3",
     "tsconfig-paths": "3.12.0",

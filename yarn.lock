@@ -14106,6 +14106,7 @@ __metadata:
     recoil: ^0.7.3
     reflect-metadata: 0.1.13
     regenerator-runtime: 0.13.9
+    rooks: ^5.11.2
     rxjs: 6.6.3
     sanitize-filename: 1.6.3
     speed-measure-webpack-plugin: 1.5.0
@@ -30800,6 +30801,19 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 3dca122129f560acc3c54dd5bd5f9470dd562d74f61c652c57b6a4355a963c0828640382ebff544f1b0e71387733a51fb963d6f761ae1f05a84f5923bbde883c
+  languageName: node
+  linkType: hard
+
+"rooks@npm:^5.11.2":
+  version: 5.11.2
+  resolution: "rooks@npm:5.11.2"
+  dependencies:
+    lodash.debounce: ^4.0.8
+    raf: ^3.4.1
+  peerDependencies:
+    react: ^16.8.0  || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+  checksum: d233308dd26eb53b7835605dcecc8241c7416783756a838a22db8df0a65e13e6111013fb6dc621e8dc49e2826ce39b2d4fe86e84378f79bd020c9e8190df9cb9
   languageName: node
   linkType: hard
 
