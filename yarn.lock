@@ -9785,6 +9785,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-stickynode@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@types/react-stickynode@npm:4.0.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: e38f4678384d4f60311349ab847a4d5f34dd9fbf923e4a7c607816b13ced6f00c3e4057bab3670f0315f465dfe4c12c2d7603be221b377128638bf811b2143a2
+  languageName: node
+  linkType: hard
+
 "@types/react-syntax-highlighter@npm:11.0.5":
   version: 11.0.5
   resolution: "@types/react-syntax-highlighter@npm:11.0.5"
@@ -13958,6 +13967,7 @@ __metadata:
     "@types/react-resizable": 1.7.4
     "@types/react-responsive": ^8.0.5
     "@types/react-slick": 0.23.8
+    "@types/react-stickynode": ^4.0.0
     "@types/stringify-object": 4.0.1
     "@types/testing-library__cypress": 5.0.9
     "@types/testing-library__jest-dom": 5.14.2
