@@ -1,11 +1,11 @@
 import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import {
-  getElementService,
-  getStoreService,
-} from '@codelab/frontend/presenter/container'
+import { getPageService } from '@codelab/frontend/modules/page'
+import { getElementService } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IApp,
+  IAppDTO,
   IAppService,
   ICreateAppDTO,
   IUpdateAppDTO,
@@ -18,6 +18,7 @@ import {
   _await,
   Model,
   model,
+  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -31,7 +32,7 @@ import { AppModalService } from './app-modal.service'
 @model('@codelab/AppService')
 export class AppService
   extends Model({
-    apps: prop(() => objectMap<App>()),
+    apps: prop(() => objectMap<IApp>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),
@@ -47,10 +48,21 @@ export class AppService
     return throwIfUndefined(this.apps.get(id))
   }
 
+  @modelAction
+  private updatePagesCache(apps: Array<IAppDTO>) {
+    // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
+    const pageService = getPageService(this)
+    const pages = apps.flatMap((app) => app.pages)
+
+    pageService.updateCache(pages)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: AppService, where?: AppWhere) {
     const { apps } = yield* _await(appApi.GetApps({ where }))
+
+    this.updatePagesCache(apps)
 
     return apps.map((app) => {
       const appModel = App.hydrate(app)
@@ -166,7 +178,6 @@ export class AppService
   @transaction
   delete = _async(function* (this: AppService, id: string) {
     const elementService = getElementService(this)
-    const storeService = getStoreService(this)
     const app = throwIfUndefined(this.apps.get(id))
     const appRootElement = app.rootElement.id
 
@@ -178,8 +189,6 @@ export class AppService
      * Delete all elements from app
      */
     yield* _await(elementService.deleteElementSubgraph(appRootElement))
-
-    yield _await(storeService.delete(app.store?.id))
 
     /**
      * Delete all elements from all pages
@@ -201,6 +210,14 @@ export class AppService
             },
           ],
           rootElement: {},
+          store: {
+            where: {},
+            delete: {
+              state: { where: {} },
+              stateApi: { where: {} },
+              actions: [{ where: {} }],
+            },
+          },
         },
       }),
     )

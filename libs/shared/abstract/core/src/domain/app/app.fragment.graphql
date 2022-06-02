@@ -5,7 +5,7 @@ fragment App on App {
     id
   }
   pages {
-    id
+    ...Page
   }
   rootElement {
     id

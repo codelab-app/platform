@@ -7,6 +7,7 @@ import {
   IComponent,
   IElement,
   IElementDTO,
+  IElementTree,
   IHook,
   IProp,
   IPropData,
@@ -19,15 +20,19 @@ import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
   detach,
+  findParent,
   getParent,
+  getRefsResolvingTo,
   idProp,
   Model,
   model,
   modelAction,
+  modelTypeKey,
   objectMap,
   prop,
   Ref,
 } from 'mobx-keystone'
+import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
 
@@ -77,6 +82,18 @@ export const hydrate = ({
         : [],
     ),
   })
+}
+
+export const getElementTree = (element: IElement): Maybe<IElementTree> => {
+  const refs = getRefsResolvingTo<IElement>(element, elementRef)
+
+  return [...refs.values()].reduce((prev, node) => {
+    const elementTree = findParent(node, (parent: any) => {
+      return parent?.[modelTypeKey] === '@codelab/ElementTree'
+    })
+
+    return elementTree ? elementTree : prev
+  }, undefined)
 }
 
 @model('@codelab/Element')
@@ -417,6 +434,8 @@ export class Element
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   public static hydrate = hydrate
+
+  public static getElementTree = getElementTree
 }
 
 export const compareOrder = (a: IElement, b: IElement) =>

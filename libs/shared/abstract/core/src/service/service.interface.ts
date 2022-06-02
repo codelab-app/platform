@@ -7,6 +7,11 @@ export interface ICRUDService<Entity, CreateDTO, UpdateDTO> {
   deleteMany?(ids: Array<string>): Promise<Array<Entity>>
 }
 
+export interface CacheService<Entity, CreateDTO> {
+  updateCache(data: Array<CreateDTO>): Array<Entity>
+  addOrUpdate(data: CreateDTO): Entity
+}
+
 export interface IQueryService<Entity, EntityWhere> {
   getOne(id: string): Promise<Maybe<Entity>>
   getAll(where?: EntityWhere): Promise<Array<Entity>>

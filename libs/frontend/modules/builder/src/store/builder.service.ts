@@ -1,4 +1,4 @@
-import { elementRef } from '@codelab/frontend/modules/element'
+import { Element, elementRef } from '@codelab/frontend/modules/element'
 import {
   BuilderDragData,
   BuilderTab,
@@ -107,15 +107,7 @@ export class BuilderService
       /**
        * Given the node, we want the reference that belongs to an ElementTree.
        */
-      const refs = getRefsResolvingTo(selectedNode, elementRef)
-
-      return [...refs.values()].reduce((prev, node) => {
-        const elementTree = findParent(node, (parent: any) => {
-          return parent?.[modelTypeKey] === '@codelab/ElementTree'
-        })
-
-        return elementTree ? elementTree : prev
-      }, undefined)
+      return Element.getElementTree(selectedNode)
     }
 
     return undefined

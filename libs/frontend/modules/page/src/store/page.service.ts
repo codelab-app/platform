@@ -4,6 +4,7 @@ import { PageWhere } from '@codelab/shared/abstract/codegen'
 import {
   ICreatePageDTO,
   IPage,
+  IPageDTO,
   IPageService,
   IUpdatePageDTO,
 } from '@codelab/shared/abstract/core'
@@ -174,6 +175,23 @@ export class PageService
 
     return existing
   })
+
+  updateCache(pages: Array<IPageDTO>): Array<IPage> {
+    return pages.map((page) => this.addOrUpdate(page))
+  }
+
+  addOrUpdate(page: IPageDTO): IPage {
+    let pageModel = this.page(page.id)
+
+    if (pageModel) {
+      pageModel.updateCache(page)
+    } else {
+      pageModel = Page.hydrate(page)
+      this.pages.set(page.id, pageModel)
+    }
+
+    return pageModel
+  }
 
   // @modelFlow
   // @transaction

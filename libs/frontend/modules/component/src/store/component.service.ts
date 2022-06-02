@@ -250,21 +250,21 @@ export class ComponentService
   })
 
   @modelAction
-  updateCache(componentFragment: IComponentDTO) {
-    const existing = this.component(componentFragment.id)
+  addOrUpdate(componentFragment: IComponentDTO) {
+    let componentModel = this.component(componentFragment.id)
 
-    if (existing) {
-      existing.updateCache(componentFragment)
+    if (componentModel) {
+      componentModel.updateCache(componentFragment)
     } else {
-      const component = Component.hydrate(componentFragment)
-      this.components.set(component.id, component)
+      componentModel = Component.hydrate(componentFragment)
+      this.components.set(componentModel.id, componentModel)
     }
+
+    return componentModel
   }
 
   @modelAction
-  updateCaches(components: Array<IComponentDTO>) {
-    for (const component of components) {
-      this.updateCache(component)
-    }
+  updateCache(components: Array<IComponentDTO>) {
+    return components.map((component) => this.addOrUpdate(component))
   }
 }
