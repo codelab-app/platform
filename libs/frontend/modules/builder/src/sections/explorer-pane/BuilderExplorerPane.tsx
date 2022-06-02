@@ -85,6 +85,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
 
     const antdTree = root?.antdNode
     const componentsAntdTree = componentService.componentAntdNode
+    const isPageTree = antdTree && pageTree
 
     return (
       <ExplorerPaneTemplate
@@ -106,7 +107,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         title={paneTitles[builderTab]}
       >
         <DisplayIf condition={builderTab === BuilderTab.Tree}>
-          {antdTree && pageTree ? (
+          {isPageTree && (
             <BuilderTree
               className="page-builder"
               elementTree={pageTree}
@@ -115,12 +116,12 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               }
               treeData={antdTree}
             />
-          ) : null}
+          )}
           <Divider />
           <div css={tw`flex justify-end`}>
             <CreateComponentButton componentService={componentService} />
           </div>
-          {antdTree ? (
+          {antdTree && (
             <BuilderTree
               elementTree={componentTree ?? null}
               setActiveTree={() =>
@@ -128,7 +129,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               }
               treeData={componentsAntdTree}
             />
-          ) : null}
+          )}
         </DisplayIf>
         <DisplayIf condition={builderTab === BuilderTab.MobxState}>
           <MobxStateContainer

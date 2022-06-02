@@ -11,12 +11,10 @@ export type UseElementTreeDropProps = Pick<IElementService, 'moveElement'> & {
  * This can be optimized to be handled in the API
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
-export const useElementTreeDrop = ({
-  elementTree,
-  moveElement,
-}: UseElementTreeDropProps) => {
-  // const [moveElement, { isLoading }] = useMoveElementsMutation()
-
+export const useElementTreeDrop = (
+  elementTree: Nullable<IElementTree>,
+  elementService: IElementService,
+) => {
   const handleDrop: TreeProps['onDrop'] = (info) => {
     const dragNodeId = info.dragNode.key.toString()
     const dropNodeId = info.node.key.toString()
@@ -35,14 +33,18 @@ export const useElementTreeDrop = ({
             ? dropElementOrder + 1
             : dropElementOrder
 
-        return moveElement(dragNodeId, dropNodeParentId, order)
+        return elementService.moveElement(dragNodeId, dropNodeParentId, order)
       }
     } else {
       // FIXME
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
-      return moveElement(dragNodeId, dropNodeId, info.dropPosition)
+      return elementService.moveElement(
+        dragNodeId,
+        dropNodeId,
+        info.dropPosition,
+      )
     }
 
     return void 0

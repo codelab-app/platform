@@ -19,7 +19,6 @@ import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
-  detach,
   findParent,
   getParent,
   getRefsResolvingTo,
@@ -294,7 +293,7 @@ export class Element
 
   @modelAction
   removeChild(element: IElement) {
-    detach(element)
+    this.children.delete(element.id)
   }
 
   /**

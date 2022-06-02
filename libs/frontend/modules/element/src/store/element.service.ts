@@ -102,7 +102,7 @@ export class ElementService
     const componentService = getComponentService(this)
 
     const allComponents = elements
-      .map((v) => v.component || v.instanceOfComponent)
+      .map((v) => v.component)
       .filter(Boolean) as Array<IComponentDTO>
 
     componentService.updateCache(allComponents)
@@ -267,7 +267,7 @@ export class ElementService
   /**
    * Moves an element to a different parent and/or order
    */
-  @modelAction
+  @modelFlow
   @transaction
   moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
     const element = this.element(elementId)
@@ -276,6 +276,7 @@ export class ElementService
       throw new Error(`Element ${elementId} not found`)
     }
 
+    const tree = Element.getElementTree(element)
     const existingParent = element.parentElement
     const newParent = this.element(newParentId)
 
@@ -287,6 +288,8 @@ export class ElementService
     if (newParent.id === element.id || element.findDescendant(newParent.id)) {
       throw new Error(`Cannot move element ${elementId} to itself`)
     }
+
+    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
 
     if (existingParent) {
       existingParent.detachChild(element)
@@ -450,9 +453,6 @@ export class ElementService
     const order =
       element.orderInParent ?? element.parentElement.lastChildOrder + 1
 
-    // read label before detaching or else ref won't work
-    const name = element.label
-
     element.parentElement.removeChild(element)
 
     yield* _await(
@@ -462,7 +462,7 @@ export class ElementService
           create: {
             node: {
               id: v4(),
-              name,
+              name: element.label,
               owner: { connect: { where: { node: { auth0Id } } } },
               rootElement: {
                 connect: { where: { node: { id: element.id } } },
@@ -471,7 +471,7 @@ export class ElementService
                 create: {
                   node: {
                     id: v4(),
-                    name: `${name} API`,
+                    name: `${element.label} API`,
                     fields: {},
                     kind: ITypeKind.InterfaceType,
                     apiOfAtoms: {},
@@ -496,7 +496,7 @@ export class ElementService
     const [newElement] = yield* _await(
       this.create([
         {
-          name,
+          name: element.label,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
           order,

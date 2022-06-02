@@ -40,17 +40,17 @@ export const BuilderTree = observer<BuilderTreeProps>(
       elementTree,
     })
 
-    const { isMoving, handleDrop } = useElementTreeDrop({
+    const { isMoving, handleDrop } = useElementTreeDrop(
       elementTree,
-      moveElement: elementService.moveElement,
-    })
+      elementService,
+    )
 
     return (
       <AntdTree<IBuilderDataNode>
         blockNode
         className={`${className} draggable-tree`}
         css={[disableTreeNodeWrapperHoverStyle]}
-        // disabled={isMoving}
+        disabled={isMoving}
         draggable={{
           icon: false,
           nodeDraggable: (node: AntTreeNodeProps) => {
@@ -58,9 +58,10 @@ export const BuilderTree = observer<BuilderTreeProps>(
             return checkIfValidUUID(node?.key)
           },
         }}
+        // disabled={isMoving}
         expandedKeys={expandedNodeIds}
         onClick={(e) => e.stopPropagation()}
-        // onDrop={handleDrop}
+        onDrop={handleDrop}
         onExpand={(expandedKeys) => {
           return setExpandedNodeIds(expandedKeys)
         }}
