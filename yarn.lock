@@ -14093,7 +14093,7 @@ __metadata:
     react-slick: 0.28.1
     react-stickynode: ^4.0.0
     react-test-renderer: 18.1.0
-    recoil: ^0.7.0
+    recoil: ^0.7.3
     reflect-metadata: 0.1.13
     regenerator-runtime: 0.13.9
     rxjs: 6.6.3
@@ -29952,9 +29952,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "recoil@npm:0.7.0"
+"recoil@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "recoil@npm:0.7.3"
   dependencies:
     hamt_plus: 1.0.2
   peerDependencies:
@@ -29964,7 +29964,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: e190db5153e322ba8ca824e97701e756c41681080da23f3e87d104544da2e8c9eea44ada8a36857ef9a1ade368dfe6ea3af7d51796441b08c40272c0a1386c81
+  checksum: 6f48077eea4da8a4b0434eb9567210b74d603086bf5760810719bb12cc74d31b93291e7b80d26caa1e3b7e8cf3ec5fc44308fae8be22228cbcc64c78b048751e
   languageName: node
   linkType: hard
 

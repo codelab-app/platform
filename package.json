@@ -139,7 +139,7 @@
     "react-resizable": "3.0.4",
     "react-slick": "0.28.1",
     "react-stickynode": "^4.0.0",
-    "recoil": "^0.7.0",
+    "recoil": "^0.7.3",
     "reflect-metadata": "0.1.13",
     "regenerator-runtime": "0.13.9",
     "rxjs": "6.6.3",
