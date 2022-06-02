@@ -210,15 +210,13 @@ export class ComponentService
       }),
     )
 
-    const updatedComponent = updateComponents?.components[0]
-
     if (!component) {
       throw new Error('Failed to update component')
     }
 
-    const componentModel = Component.hydrate(updatedComponent)
+    const componentModel = this.components.get(component.id)
 
-    this.components.set(component.id, componentModel)
+    componentModel?.updateCache(updateComponents.components[0])
 
     return componentModel
   })
