@@ -1,5 +1,7 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
+import 'animate.css'
+import 'node_modules/morphext/dist/morphext.css'
 import '../src/styles/app.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import '../src/styles/antd-theme.less'
@@ -15,6 +17,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { ConfigProvider } from 'antd'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
@@ -37,32 +40,34 @@ const App = ({ pageProps, Component }: IAppProps) => {
 
   return (
     <StoreProvider value={store}>
-      <UserProvider>
-        <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={DateFnsAdapter}>
-            <ConfigProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  slickCssFix,
-                  ...globalTailwindFix,
-                ]}
-              />
-              <Layout>
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
+      <RecoilRoot>
+        <UserProvider>
+          <QueryClientProvider client={queryClient}>
+            <LocalizationProvider dateAdapter={DateFnsAdapter}>
+              <ConfigProvider>
+                <GlobalStyles />
+                <Global
+                  styles={[
+                    css({
+                      '#__next': {
+                        height: '100%',
+                      },
+                    }),
+                    slickCssFix,
+                    ...globalTailwindFix,
+                  ]}
                 />
-              </Layout>
-            </ConfigProvider>
-          </LocalizationProvider>
-        </QueryClientProvider>
-      </UserProvider>
+                <Layout>
+                  <Component
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...pageProps}
+                  />
+                </Layout>
+              </ConfigProvider>
+            </LocalizationProvider>
+          </QueryClientProvider>
+        </UserProvider>
+      </RecoilRoot>
     </StoreProvider>
   )
 }

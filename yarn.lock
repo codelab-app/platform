@@ -4129,6 +4129,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.1.1":
+  version: 6.1.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.1.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.1.1%2Ffontawesome-common-types-6.1.1.tgz"
+  checksum: 4db285557dd9d178e313a9596ad1c4ba84e9d47efb53dea3206de1bf98252574e0d95c3a0b114cc3cb5f162e2622a2cf8f037011fc98818ccade7bfb6c0c335b
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-pro@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "@fortawesome/fontawesome-pro@npm:6.1.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-pro%2F-%2F6.1.1%2Ffontawesome-pro-6.1.1.tgz"
+  checksum: d56b1c0a9c2d0a8274a3011ebd800b89d30eb3132cd81a723a9c38767fca997ff58aa1ce11716c6bbd09c7b7dc9a20d0daca360857df0b1f37ac2ef6a4eef03e
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.1.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.1.1%2Ffontawesome-svg-core-6.1.1.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.1.1
+  checksum: bf3b09a1ec3c5d6be30ea04c83dffb921c5a457c547fb1b99b814591489efabf939f669878cc5b48deb9771ef705209a1bb1b3088e66f6873cc9b34cbf4c781c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-regular-svg-icons@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.1.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.1.1%2Fpro-regular-svg-icons-6.1.1.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.1.1
+  checksum: 8e2b7966dcc079aedc69d78aba2f62126666aa485b6a50e2678f98ff891aad622f4420e18c217951988ae285f41c3909642e6f3965f163e4e845190f093e971d
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:latest":
+  version: 0.1.18
+  resolution: "@fortawesome/react-fontawesome@npm:0.1.18::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Freact-fontawesome%2F-%2F0.1.18%2Freact-fontawesome-0.1.18.tgz"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6
+    react: ">=16.x"
+  checksum: eba711234541928e1877435905bcd94ab6aea1cf228833a55fc7c6a2fc18dd08d3f7f327ca4af0f3ba365188ad0869d7ecd31be5940d27f4e2bbe7e12cbcf520
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -9723,6 +9767,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-responsive@npm:^8.0.5":
+  version: 8.0.5
+  resolution: "@types/react-responsive@npm:8.0.5"
+  dependencies:
+    "@types/react": "*"
+  checksum: 11ffb510568c922f27288defcf96a916353fe646f586cd002ea4abd47ad03d4cdc7473cfd725fd63fd9478e1bf2bc8497c1e321f0b6dbc0f461f55dd44e56fcb
+  languageName: node
+  linkType: hard
+
 "@types/react-slick@npm:0.23.8":
   version: 0.23.8
   resolution: "@types/react-slick@npm:0.23.8"
@@ -13541,7 +13594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
+"classnames@npm:2.x, classnames@npm:^2.0.0, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
@@ -13791,6 +13844,10 @@ __metadata:
     "@emotion/server": 11.4.0
     "@emotion/styled": 11.8.1
     "@fancyapps/ui": 4.0.16
+    "@fortawesome/fontawesome-pro": ^6.1.1
+    "@fortawesome/fontawesome-svg-core": ^6.1.1
+    "@fortawesome/pro-regular-svg-icons": ^6.1.1
+    "@fortawesome/react-fontawesome": latest
     "@graphql-codegen/cli": 2.6.2
     "@graphql-codegen/import-types-preset": 2.1.18
     "@graphql-codegen/introspection": 2.1.1
@@ -13899,6 +13956,7 @@ __metadata:
     "@types/react-dom": 18.0.3
     "@types/react-grid-layout": 1.3.1
     "@types/react-resizable": 1.7.4
+    "@types/react-responsive": ^8.0.5
     "@types/react-slick": 0.23.8
     "@types/stringify-object": 4.0.1
     "@types/testing-library__cypress": 5.0.9
@@ -14033,8 +14091,9 @@ __metadata:
     react-query: 3.39.0
     react-resizable: 3.0.4
     react-slick: 0.28.1
+    react-stickynode: ^4.0.0
     react-test-renderer: 18.1.0
-    recoil: 0.5.2
+    recoil: ^0.7.0
     reflect-metadata: 0.1.13
     regenerator-runtime: 0.13.9
     rxjs: 6.6.3
@@ -17905,7 +17964,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventemitter3@npm:^3.1.0":
+"eventemitter3@npm:^3.0.0, eventemitter3@npm:^3.1.0":
   version: 3.1.2
   resolution: "eventemitter3@npm:3.1.2"
   checksum: 81e4e82b8418f5cfd986d2b4a2fa5397ac4eb8134e09bcb47005545e22fdf8e9e61d5c053d34651112245aae411bdfe6d0ad5511da0400743fef5fc38bfcfbe3
@@ -28450,7 +28509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raf@npm:^3.4.0, raf@npm:^3.4.1":
+"raf@npm:^3.0.0, raf@npm:^3.4.0, raf@npm:^3.4.1":
   version: 3.4.1
   resolution: "raf@npm:3.4.1"
   dependencies:
@@ -29644,6 +29703,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-stickynode@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-stickynode@npm:4.0.0"
+  dependencies:
+    classnames: ^2.0.0
+    core-js: ^3.6.5
+    prop-types: ^15.6.0
+    shallowequal: ^1.0.0
+    subscribe-ui-event: ^2.0.6
+  peerDependencies:
+    react: ^0.14.2 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^0.14.2 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 51c0cb132af5875441bcd2d849cd29f21073ace105eef8eac00e2971c5d11050d516b2c78b515f91846b17b0b6c8022fd935385071da66329d0e11fd698523f5
+  languageName: node
+  linkType: hard
+
 "react-syntax-highlighter@npm:^13.5.3":
   version: 13.5.3
   resolution: "react-syntax-highlighter@npm:13.5.3"
@@ -29877,9 +29952,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:0.5.2":
-  version: 0.5.2
-  resolution: "recoil@npm:0.5.2"
+"recoil@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "recoil@npm:0.7.0"
   dependencies:
     hamt_plus: 1.0.2
   peerDependencies:
@@ -29889,7 +29964,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 1daf09f969c2ffc0ac628dc4ac1306aef4e162506b0ed1700cc4aa1e68e921fad450d047843d49ba39510f24b87224e9d4ac74b1c6f111e1abeb5ba9cd2a3f78
+  checksum: e190db5153e322ba8ca824e97701e756c41681080da23f3e87d104544da2e8c9eea44ada8a36857ef9a1ade368dfe6ea3af7d51796441b08c40272c0a1386c81
   languageName: node
   linkType: hard
 
@@ -31270,7 +31345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shallowequal@npm:^1.1.0":
+"shallowequal@npm:^1.0.0, shallowequal@npm:^1.1.0":
   version: 1.1.0
   resolution: "shallowequal@npm:1.1.0"
   checksum: f4c1de0837f106d2dbbfd5d0720a5d059d1c66b42b580965c8f06bb1db684be8783538b684092648c981294bf817869f743a066538771dbecb293df78f765e00
@@ -32401,6 +32476,17 @@ __metadata:
   bin:
     stylus: bin/stylus
   checksum: 5ec06f3186aaa4802cc2f04f93665a71348954e3d10f6cb26d7cdba7108fcdfa5e9a330fa7694fa0d0d31d8decf6b18349f49bbaadde96351e30d549dfb272c7
+  languageName: node
+  linkType: hard
+
+"subscribe-ui-event@npm:^2.0.6":
+  version: 2.0.7
+  resolution: "subscribe-ui-event@npm:2.0.7"
+  dependencies:
+    eventemitter3: ^3.0.0
+    lodash: ^4.17.15
+    raf: ^3.0.0
+  checksum: 60c78c1930bedd58cb18fda4b88e271f7181aaf02ee83d6071a414de13a9fdb3941ea1d6222fa92c109d59f16d17d8f7110f88d9afd94609951977fc5c9834b3
   languageName: node
   linkType: hard
 

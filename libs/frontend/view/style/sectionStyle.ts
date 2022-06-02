@@ -1,3 +1,5 @@
+import { css } from '@emotion/react'
+
 export const sectionStyle = {
   margin: '1rem',
 }
@@ -8,6 +10,12 @@ export const disableMenuHoverEffects = {
   backgroundColor: 'initial',
   cursor: 'inherit',
 }
+
+export const removeHoverBorder = css`
+  &:hover::after {
+    border-color: transparent !important;
+  }
+`
 
 export const twoGridCol = {
   xs: 24,

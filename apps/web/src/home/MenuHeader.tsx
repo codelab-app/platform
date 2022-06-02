@@ -1,4 +1,8 @@
-import { HomeOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import { useUser } from '@auth0/nextjs-auth0'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -6,16 +10,23 @@ import {
   RegisterUserButton,
   SignOutUserButton,
 } from '@codelab/frontend/modules/user'
-import { disableMenuHoverEffects } from '@codelab/frontend/view/style'
-import { Menu } from 'antd'
+import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
+import {
+  disableMenuHoverEffects,
+  removeHoverBorder,
+} from '@codelab/frontend/view/style'
+import { Button, Menu } from 'antd'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import tw from 'twin.macro'
 
 /**
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
   const { user } = useUser()
+  const [collapsed, setCollapsed] = useState(true)
+  const isMobileOrTablet = useMobileOrTabletMediaQuery()
 
   const authenticatedUserMenu = (
     <>
@@ -32,19 +43,13 @@ export const HomeMenuHeader = () => {
       >
         <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
-      {/* <Menu.Item */}
-      {/*  key="5" */}
-      {/*  style={{ */}
-      {/*    visibility: 'hidden', */}
-      {/*    flexGrow: 1, */}
-      {/*  }} */}
-      {/*/ > */}
     </>
   )
 
   const guestUserMenu = (
     <>
       <Menu.Item
+        css={[removeHoverBorder]}
         icon={<RegisterUserButton />}
         key="3"
         style={{
@@ -53,6 +58,7 @@ export const HomeMenuHeader = () => {
         }}
       />
       <Menu.Item
+        css={[removeHoverBorder]}
         icon={<LoginUserButton />}
         key="4"
         style={{
@@ -60,41 +66,54 @@ export const HomeMenuHeader = () => {
           ...disableMenuHoverEffects,
         }}
       />
-      {/* Empty filler */}
-      {/* <Menu.Item */}
-      {/*  key="5" */}
-      {/*  style={{ */}
-      {/*    visibility: 'hidden', */}
-      {/*    flexGrow: 1, */}
-      {/*  }} */}
-      {/*/ > */}
     </>
   )
 
   return (
-    <>
-      <div className="logo" />
+    <div style={{ width: collapsed ? 0 : '100%' }}>
+      <Button
+        onClick={() => setCollapsed(!collapsed)}
+        style={{ marginBottom: 16 }}
+        type="primary"
+      >
+        <>{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</>
+      </Button>
       <Menu
-        mode="horizontal"
-        theme="dark"
-        // defaultSelectedKeys={['2']}
+        css={tw`justify-end flex-grow`}
+        inlineCollapsed={collapsed}
+        mode={isMobileOrTablet ? 'inline' : 'horizontal'}
+        style={
+          isMobileOrTablet
+            ? {
+                width: '100%',
+              }
+            : {}
+        }
         triggerSubMenuAction="click"
       >
-        <Menu.Item
-          icon={
-            <Link href={PageType.Home}>
-              <HomeOutlined />
-            </Link>
-          }
-          key="1"
-        />
-        <Menu.Item key="2">
-          <Link href={PageType.AppList}>
-            <a>Apps</a>
+        <Menu.Item key="features">
+          <Link href={PageType.Features}>
+            <a>Features</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="docs">
+          <Link href={PageType.Docs}>
+            <a>Docs</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="pricing">
+          <Link href={PageType.Pricing}>
+            <a>Pricing</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="tutorials">
+          <Link href={PageType.Tutorials}>
+            <a>Tutorials</a>
           </Link>
         </Menu.Item>
         {user ? authenticatedUserMenu : guestUserMenu}
       </Menu>
-    </>
+      {/* </section> */}
+    </div>
   )
 }

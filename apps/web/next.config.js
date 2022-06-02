@@ -37,6 +37,10 @@ const withRawCypherFiles = (nextConfig = {}) => {
   })
 }
 
+const pathToLessFileWithVariables = path.resolve(
+  'apps/web/src/styles/antd-theme.less',
+)
+
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
  *
@@ -78,6 +82,21 @@ module.exports = withPlugins(
     withRawCypherFiles,
     [
       withNx,
+      {
+        lessLoaderOptions: {
+          // lessOptions: {
+          //   modifyVars: {
+          //     'primary-color': '#9900FF',
+          //     'border-radius-base': '2px',
+          //   },
+          // },
+          additionalData: (content) =>
+            `${content}\n\n
+            @import '${pathToLessFileWithVariables}';`,
+        },
+      },
+    ],
+    [
       {
         /**
          * Issue with importing ESM modules from node_modules, such as monaco-editor

@@ -1,5 +1,4 @@
-@import './_text.css';
 @import './_container.css';
+@import './tailwind.css';
 
 /* Vendor imports */
-@import 'node_modules/morphext/dist/morphext.css';
