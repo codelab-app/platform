@@ -216,7 +216,11 @@ export class ComponentService
 
     const componentModel = this.components.get(component.id)
 
-    componentModel?.updateCache(updateComponents.components[0])
+    if (!componentModel) {
+      throw new Error('Updated component not found ')
+    }
+
+    componentModel.updateCache(updateComponents.components[0])
 
     return componentModel
   })

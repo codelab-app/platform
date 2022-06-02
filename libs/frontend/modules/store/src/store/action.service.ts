@@ -61,27 +61,30 @@ export class ActionService
 
   @modelAction
   addOrUpdate(action: IActionDTO) {
-    const existing = this.action(action.id)
+    let actionModel = this.action(action.id)
 
-    if (existing) {
-      existing.name = action.name
-      existing.body = action.body ?? ''
-      existing.resource = action.resource
+    if (actionModel) {
+      actionModel.name = action.name
+      actionModel.body = action.body ?? ''
+      actionModel.resource = action.resource
         ? resourceRef(action.resource.id)
         : null
-      existing.runOnInit = action.runOnInit
-      existing.storeId = action.store.id
-      existing.config?.updateCache(action.config)
+      actionModel.runOnInit = action.runOnInit
+      actionModel.storeId = action.store.id
+      actionModel.config?.updateCache(action.config)
+
+      return actionModel
     } else {
-      this.addAction(Action.hydrate(action))
+      actionModel = Action.hydrate(action)
+      this.actions.set(actionModel.id, actionModel)
+
+      return actionModel
     }
   }
 
   @modelAction
   updateCache(actions: Array<IActionDTO>) {
-    for (const action of actions) {
-      this.addOrUpdate(action)
-    }
+    return actions.map((action) => this.addOrUpdate(action))
   }
 
   @modelFlow

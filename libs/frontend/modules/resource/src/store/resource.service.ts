@@ -158,22 +158,22 @@ export class ResourceService
 
   @modelAction
   updateCache(resources: Array<IResourceDTO>) {
-    for (const resource of resources) {
-      this.addOrUpdate(resource)
-    }
+    return resources.map((r) => this.addOrUpdate(r))
   }
 
   @modelAction
   addOrUpdate(resource: IResourceDTO) {
-    const existing = this.resource(resource.id)
+    let resourceModel = this.resource(resource.id)
 
-    if (existing) {
-      existing.name = resource.name
-      existing.config.updateCache(resource.config)
-      existing.type = resource.type
+    if (resourceModel) {
+      resourceModel.name = resource.name
+      resourceModel.config.updateCache(resource.config)
+      resourceModel.type = resource.type
     } else {
-      this.addResource(Resource.hydrate(resource))
+      resourceModel = Resource.hydrate(resource)
     }
+
+    return resourceModel
   }
 
   @modelAction
