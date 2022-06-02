@@ -6,11 +6,8 @@ import {
 import { SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import {
-  ICreateActionDTO,
-  IStore,
-  ResourceType,
-} from '@codelab/shared/abstract/core'
+import { ResourceType } from '@codelab/shared/abstract/codegen'
+import { ICreateActionDTO, IStore } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'

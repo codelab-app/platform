@@ -25,7 +25,12 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -134,7 +139,14 @@ const StorePage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 StorePage.Layout = observer((page) => {
   return (
-    <DashboardTemplate SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem, storeMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
+    >
       {page.children}
     </DashboardTemplate>
   )
