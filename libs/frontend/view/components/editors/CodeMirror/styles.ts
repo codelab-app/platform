@@ -17,12 +17,13 @@ export const ExpandButton = styled(Button)`
 export const containerStyles = css`
   position: relative;
 
-  ${ExpandButton} {
+  // Can be improved by selecting the styled component, but need to figure out how to config jest to load emotion
+  .CodeMirrorInput--btnExpand {
     display: none;
   }
 
   &:hover {
-    ${ExpandButton} {
+    .CodeMirrorInput--btnExpand {
       display: block;
     }
   }

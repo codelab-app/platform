@@ -91,6 +91,7 @@ export const CodeMirrorInput = ({
       {expandable && (
         <React.Fragment>
           <ExpandButton
+            className="CodeMirrorInput--btnExpand"
             icon={<ExpandAltOutlined width="12px" />}
             onClick={toggleExpand}
             type="primary"
