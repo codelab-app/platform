@@ -43,16 +43,17 @@ export interface AccessTokenPayload {
  */
 export interface IDTokenPayload {
   [JWT_CLAIMS]: CodelabApiClaims
-  given_name: string
-  family_name: string
   nickname: string
   name: string
   picture: string
-  locale: string
   updated_at: string
   email: string
   email_verified: false
+  iss: string
   sub: string
+  aud: string
+  iat: number
+  exp: number
 }
 
 export interface Auth0SessionUser {
