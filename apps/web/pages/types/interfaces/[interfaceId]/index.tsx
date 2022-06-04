@@ -2,10 +2,8 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
-  CreateFieldModal,
-  DeleteFieldModal,
+  FieldModals,
   FieldsTable,
-  UpdateFieldModal,
   useCurrentInterfaceId,
   useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
