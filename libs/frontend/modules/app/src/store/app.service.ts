@@ -6,6 +6,7 @@ import {
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
+  IApp,
   IAppService,
   ICreateAppDTO,
   IUpdateAppDTO,
@@ -31,7 +32,7 @@ import { AppModalService } from './app-modal.service'
 @model('@codelab/AppService')
 export class AppService
   extends Model({
-    apps: prop(() => objectMap<App>()),
+    apps: prop(() => objectMap<IApp>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new AppModalService({})),
     deleteModal: prop(() => new AppModalService({})),

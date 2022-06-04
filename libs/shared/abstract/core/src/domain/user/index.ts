@@ -1,7 +1,7 @@
 export * from './jwt.interface'
 export * from './role.enum'
 export * from './roles'
-export * from './user.dto'
+export * from './user.dto.interface'
 // export * from './user.fragment.graphql.gen'
 export * from './user.interface'
 export * from './user.service.interface'

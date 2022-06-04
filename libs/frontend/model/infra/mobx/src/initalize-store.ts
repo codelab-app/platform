@@ -1,5 +1,5 @@
 import {
-  AccessTokenPayload,
+  IDTokenPayload,
   IPageProps,
   IRootStore,
   JWT_CLAIMS,
@@ -16,7 +16,7 @@ let _store: IRootStore | null = null
  */
 export const initializeStore = (
   pageProps?: IPageProps & {
-    user?: AccessTokenPayload
+    user?: IDTokenPayload
   },
 ) => {
   /**
@@ -28,11 +28,16 @@ export const initializeStore = (
   // Create the store once in the client
   if (!_store) {
     _store = createRootStore({
-      user: {
-        id: user?.sub ?? '',
-        auth0Id: user?.sub ?? '',
-        roles: user?.[JWT_CLAIMS]?.roles ?? [],
-      },
+      user: user?.sub
+        ? {
+            id: user?.sub,
+            auth0Id: user?.sub,
+            roles: user?.[JWT_CLAIMS]?.roles ?? [],
+            email: user?.email,
+            username: user?.nickname,
+            apps: [],
+          }
+        : undefined,
     })
 
     registerRootStore(_store)

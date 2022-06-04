@@ -26,10 +26,7 @@ import {
 import { IRootStore, RootStoreData } from '@codelab/shared/abstract/core'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = (
-  { user }: RootStoreData,
-  props?: Partial<IRootStore>,
-) => {
+export const createRootStore = ({ user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
@@ -65,5 +62,5 @@ export const createRootStore = (
     }
   }
 
-  return new RootStore(props ?? ({} as any)) as IRootStore
+  return new RootStore({}) as IRootStore
 }

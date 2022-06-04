@@ -2221,6 +2221,7 @@ export type AppTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type AppUserOwnerAggregationSelection = {
@@ -2234,6 +2235,7 @@ export type AppUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /**
@@ -2351,6 +2353,7 @@ export type ArrayTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type Atom = {
@@ -2631,6 +2634,7 @@ export type ComponentUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type CreateActionsMutationResponse = {
@@ -3513,6 +3517,7 @@ export type ElementTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /**
@@ -3658,6 +3663,7 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type EnumTypeValue = {
@@ -4032,6 +4038,7 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /** Allows picking a lambda */
@@ -4098,6 +4105,7 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /** Allows editing the value using a monaco editor */
@@ -4165,6 +4173,7 @@ export type MonacoTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type Page = {
@@ -4364,6 +4373,7 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
@@ -4431,6 +4441,7 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type Prop = {
@@ -4689,6 +4700,7 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 /**
@@ -4795,6 +4807,7 @@ export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type ResetDatabaseMutationResponse = {
@@ -4927,6 +4940,7 @@ export type ResourceUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type Store = {
@@ -5377,6 +5391,7 @@ export type TagUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type TypeBaseOwnerConnection = {
@@ -5517,6 +5532,7 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type UpdateActionsMutationResponse = {
@@ -5725,7 +5741,8 @@ export type User = {
   id: Scalars["ID"];
   auth0Id: Scalars["String"];
   email: Scalars["String"];
-  roles?: Maybe<Array<Role>>;
+  username: Scalars["String"];
+  roles: Array<Role>;
   types: Array<TypeBase>;
   apps: Array<App>;
   appsAggregate?: Maybe<UserAppAppsAggregationSelection>;
@@ -5838,6 +5855,7 @@ export type UserAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+  username: StringAggregateSelectionNonNullable;
 };
 
 export type UserAppAppsAggregationSelection = {
@@ -6513,6 +6531,26 @@ export type AppOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type AppPagesAggregateInput = {
@@ -6981,6 +7019,26 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type AppTypeRelationInput = {
@@ -7242,6 +7300,26 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ArrayTypeRelationInput = {
@@ -7820,6 +7898,26 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ComponentRelationInput = {
@@ -9569,6 +9667,26 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementTypeRelationInput = {
@@ -10014,6 +10132,26 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type EnumTypeRelationInput = {
@@ -10973,6 +11111,26 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type InterfaceTypeRelationInput = {
@@ -11143,6 +11301,26 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type LambdaTypeRelationInput = {
@@ -11283,6 +11461,26 @@ export type MonacoTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MonacoTypeRelationInput = {
@@ -11758,6 +11956,26 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PageTypeRelationInput = {
@@ -11969,6 +12187,26 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PrimitiveTypeRelationInput = {
@@ -12643,6 +12881,26 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ReactNodeTypeRelationInput = {
@@ -12782,6 +13040,26 @@ export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type RenderPropsTypeRelationInput = {
@@ -13057,6 +13335,26 @@ export type ResourceOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ResourceRelationInput = {
@@ -14004,6 +14302,26 @@ export type TagOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type TagOwnerUpdateConnectionInput = {
@@ -14409,6 +14727,26 @@ export type TypeBaseOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type TypeBaseOwnerUpdateConnectionInput = {
@@ -14616,6 +14954,26 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type UnionTypeRelationInput = {
@@ -14948,7 +15306,8 @@ export type UserConnectWhere = {
 export type UserCreateInput = {
   auth0Id: Scalars["String"];
   email: Scalars["String"];
-  roles?: InputMaybe<Array<Role>>;
+  username: Scalars["String"];
+  roles: Array<Role>;
   types?: InputMaybe<UserTypesFieldInput>;
   apps?: InputMaybe<UserAppsFieldInput>;
   elements?: InputMaybe<UserElementsFieldInput>;
@@ -15151,6 +15510,7 @@ export type UserElementsUpdateFieldInput = {
 export type UserOnCreateInput = {
   auth0Id: Scalars["String"];
   email: Scalars["String"];
+  username: Scalars["String"];
 };
 
 export type UserOptions = {
@@ -15173,6 +15533,7 @@ export type UserSort = {
   id?: InputMaybe<SortDirection>;
   auth0Id?: InputMaybe<SortDirection>;
   email?: InputMaybe<SortDirection>;
+  username?: InputMaybe<SortDirection>;
 };
 
 export type UserTagsAggregateInput = {
@@ -15322,11 +15683,13 @@ export type UserTypesUpdateFieldInput = {
 export type UserUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
   auth0Id?: InputMaybe<Scalars["String"]>;
+  username?: InputMaybe<Scalars["String"]>;
 };
 
 export type UserUpdateInput = {
   auth0Id?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
+  username?: InputMaybe<Scalars["String"]>;
   roles?: InputMaybe<Array<Role>>;
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>;
   apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>;
@@ -15368,6 +15731,16 @@ export type UserWhere = {
   email_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   email_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   email_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  username?: InputMaybe<Scalars["String"]>;
+  username_NOT?: InputMaybe<Scalars["String"]>;
+  username_IN?: InputMaybe<Array<Scalars["String"]>>;
+  username_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  username_CONTAINS?: InputMaybe<Scalars["String"]>;
+  username_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  username_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  username_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  username_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  username_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   roles?: InputMaybe<Array<Role>>;
   roles_NOT?: InputMaybe<Array<Role>>;
   roles_INCLUDES?: InputMaybe<Role>;
@@ -15565,6 +15938,7 @@ export interface UserAggregateSelectionInput {
   id?: IdAggregateInputNonNullable;
   auth0Id?: StringAggregateInputNonNullable;
   email?: StringAggregateInputNonNullable;
+  username?: StringAggregateInputNonNullable;
 }
 
 export declare class UserModel {

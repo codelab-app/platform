@@ -762,6 +762,26 @@ input AppOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 type AppPagePagesAggregationSelection {
@@ -1320,6 +1340,26 @@ input AppTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input AppTypeRelationInput {
@@ -1350,6 +1390,7 @@ type AppTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input AppTypeWhere {
@@ -1414,6 +1455,7 @@ type AppUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input AppWhere {
@@ -1684,6 +1726,26 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input ArrayTypeRelationInput {
@@ -1716,6 +1778,7 @@ type ArrayTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input ArrayTypeWhere {
@@ -2851,6 +2914,26 @@ input ComponentOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input ComponentRelationInput {
@@ -3075,6 +3158,7 @@ type ComponentUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input ComponentWhere {
@@ -5242,6 +5326,26 @@ input ElementTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input ElementTypeRelationInput {
@@ -5274,6 +5378,7 @@ type ElementTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input ElementTypeWhere {
@@ -5806,6 +5911,26 @@ input EnumTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input EnumTypeRelationInput {
@@ -5842,6 +5967,7 @@ type EnumTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 type EnumTypeValue {
@@ -7084,6 +7210,26 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input InterfaceTypeRelationInput {
@@ -7122,6 +7268,7 @@ type InterfaceTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input InterfaceTypeWhere {
@@ -7313,6 +7460,26 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input LambdaTypeRelationInput {
@@ -7343,6 +7510,7 @@ type LambdaTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input LambdaTypeWhere {
@@ -7516,6 +7684,26 @@ input MonacoTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input MonacoTypeRelationInput {
@@ -7548,6 +7736,7 @@ type MonacoTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input MonacoTypeWhere {
@@ -8539,6 +8728,26 @@ input PageTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input PageTypeRelationInput {
@@ -8569,6 +8778,7 @@ type PageTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input PageTypeWhere {
@@ -8821,6 +9031,26 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input PrimitiveTypeRelationInput {
@@ -8853,6 +9083,7 @@ type PrimitiveTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input PrimitiveTypeWhere {
@@ -10006,6 +10237,26 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input ReactNodeTypeRelationInput {
@@ -10036,6 +10287,7 @@ type ReactNodeTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input ReactNodeTypeWhere {
@@ -10206,6 +10458,26 @@ input RenderPropsTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input RenderPropsTypeRelationInput {
@@ -10236,6 +10508,7 @@ type RenderPropsTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input RenderPropsTypeWhere {
@@ -10582,6 +10855,26 @@ input ResourceOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 type ResourcePropConfigAggregationSelection {
@@ -10633,6 +10926,7 @@ type ResourceUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input ResourceWhere {
@@ -11825,6 +12119,26 @@ input TagOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 type TagOwnerRelationship {
@@ -12009,6 +12323,7 @@ type TagUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input TagWhere {
@@ -12316,6 +12631,26 @@ input TypeBaseOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 type TypeBaseOwnerRelationship {
@@ -12620,6 +12955,26 @@ input UnionTypeOwnerNodeAggregationWhereInput {
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
   id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
 }
 
 input UnionTypeRelationInput {
@@ -12711,6 +13066,7 @@ type UnionTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input UnionTypeWhere {
@@ -12958,7 +13314,7 @@ type User {
   ): UserElementsConnection!
   email: String!
   id: ID!
-  roles: [Role!]
+  roles: [Role!]!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -12983,6 +13339,7 @@ type User {
     sort: [UserTypesConnectionSort!]
     where: UserTypesConnectionWhere
   ): UserTypesConnection!
+  username: String!
 }
 
 type UserAggregateSelection {
@@ -12990,6 +13347,7 @@ type UserAggregateSelection {
   count: Int!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 type UserAppAppsAggregationSelection {
@@ -13248,9 +13606,10 @@ input UserCreateInput {
   components: UserComponentsFieldInput
   elements: UserElementsFieldInput
   email: String!
-  roles: [Role!]
+  roles: [Role!]!
   tags: UserTagsFieldInput
   types: UserTypesFieldInput
+  username: String!
 }
 
 input UserDeleteInput {
@@ -13478,6 +13837,7 @@ input UserElementsUpdateFieldInput {
 input UserOnCreateInput {
   auth0Id: String!
   email: String!
+  username: String!
 }
 
 input UserOptions {
@@ -13497,6 +13857,7 @@ input UserSort {
   auth0Id: SortDirection
   email: SortDirection
   id: SortDirection
+  username: SortDirection
 }
 
 type UserTagTagsAggregationSelection {
@@ -13678,6 +14039,7 @@ input UserTypesUpdateFieldInput {
 input UserUniqueWhere {
   auth0Id: String
   id: ID
+  username: String
 }
 
 input UserUpdateInput {
@@ -13689,6 +14051,7 @@ input UserUpdateInput {
   roles: [Role!]
   tags: [UserTagsUpdateFieldInput!]
   types: [UserTypesUpdateFieldInput!]
+  username: String
 }
 
 input UserWhere {
@@ -13832,6 +14195,16 @@ input UserWhere {
   typesConnection_NONE: UserTypesConnectionWhere
   typesConnection_SINGLE: UserTypesConnectionWhere
   typesConnection_SOME: UserTypesConnectionWhere
+  username: String
+  username_CONTAINS: String
+  username_ENDS_WITH: String
+  username_IN: [String!]
+  username_NOT: String
+  username_NOT_CONTAINS: String
+  username_NOT_ENDS_WITH: String
+  username_NOT_IN: [String!]
+  username_NOT_STARTS_WITH: String
+  username_STARTS_WITH: String
 }
 
 type UsersConnection {

@@ -12,6 +12,12 @@ export type AppFragment = {
   store: { id: string }
 }
 
+export type AppPreviewFragment = {
+  id: string
+  name: string
+  pages: Array<{ id: string; name: string }>
+}
+
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
@@ -27,6 +33,16 @@ export const AppFragmentDoc = gql`
     }
     store {
       id
+    }
+  }
+`
+export const AppPreviewFragmentDoc = gql`
+  fragment AppPreview on App {
+    id
+    name
+    pages {
+      id
+      name
     }
   }
 `
