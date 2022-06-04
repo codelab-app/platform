@@ -10,8 +10,6 @@ export type PageFragment = {
   rootElement: { id: string; name?: string | null }
 }
 
-export type PageFullFragment = PageFragment
-
 export const PageFragmentDoc = gql`
   fragment Page on Page {
     id
@@ -27,12 +25,6 @@ export const PageFragmentDoc = gql`
       name
     }
   }
-`
-export const PageFullFragmentDoc = gql`
-  fragment PageFull on Page {
-    ...Page
-  }
-  ${PageFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

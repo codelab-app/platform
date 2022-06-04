@@ -1,6 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IPageExport } from '../page'
-import { AppFragment } from './app.fragment.graphql.gen'
+import { AppPreviewFragment } from './app.fragment.graphql.gen'
 
 export interface ICreateAppDTO {
   id?: string
@@ -10,7 +10,7 @@ export interface ICreateAppDTO {
 
 export type IUpdateAppDTO = Omit<ICreateAppDTO, 'auth0Id' | 'id'>
 
-export type IAppDTO = AppFragment
+export type IAppDTO = AppPreviewFragment
 
 export type IAppExport = Pick<
   OGM_TYPES.App,

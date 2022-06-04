@@ -1,7 +1,7 @@
 mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
     apps {
-      ...App
+      ...AppPreview
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateApps($input: [AppCreateInput!]!) {
 mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   updateApps(where: $where, update: $update) {
     apps {
-      ...App
+      ...AppPreview
     }
   }
 }
@@ -22,6 +22,6 @@ mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
 
 query GetApps($options: AppOptions, $where: AppWhere) {
   apps: apps(options: $options, where: $where) {
-    ...App
+    ...AppPreview
   }
 }

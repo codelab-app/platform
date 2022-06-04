@@ -95,6 +95,8 @@ export const passwordRealmGrantType = async (): Promise<Auth0FileData> => {
       auth0Id: user.sub,
       email: user.email,
       roles: user[JWT_CLAIMS].roles,
+      username: user.nickname,
+      apps: [],
     }
 
     fs.writeFileSync(auth0DataFilePath, JSON.stringify(auth0Data))

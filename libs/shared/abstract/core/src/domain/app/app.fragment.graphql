@@ -1,4 +1,4 @@
-fragment App on App {
+fragment AppPreview on App {
   id
   name
   owner {
@@ -15,11 +15,19 @@ fragment App on App {
   }
 }
 
-fragment AppPreview on App {
+fragment App on App {
   id
   name
-  pages {
+  owner {
     id
-    name
+  }
+  pages {
+    ...Page
+  }
+  rootElement {
+    id
+  }
+  store {
+    id
   }
 }
