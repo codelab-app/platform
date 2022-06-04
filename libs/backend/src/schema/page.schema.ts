@@ -13,7 +13,7 @@ export const pageSchema = gql`
     @auth(
       rules: [
         {
-          operations: [READ, CREATE, UPDATE]
+          operations: [CREATE, UPDATE]
           roles: ["User"]
           where: { app: { owner: { auth0Id: "$jwt.sub" } } }
           bind: { app: { owner: { auth0Id: "$jwt.sub" } } }

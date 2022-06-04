@@ -18,7 +18,19 @@ export const upsertUser = async (
     })
 
     if (existing) {
-      // console.log(`User with email ${user.email} already exists!`)
+      console.log(`User with email ${user.email} already exists!`)
+
+      const { users } = await User.update({
+        where: {
+          auth0Id: user.sub,
+        },
+        update: {
+          auth0Id: user.sub,
+          email: user.email,
+          username: user.nickname,
+          roles: [],
+        },
+      })
     } else {
       try {
         const { users } = await User.create({
@@ -26,6 +38,8 @@ export const upsertUser = async (
             {
               auth0Id: user.sub,
               email: user.email,
+              username: user.email,
+              roles: [],
             },
           ],
         })

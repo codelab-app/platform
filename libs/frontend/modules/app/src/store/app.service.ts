@@ -5,7 +5,6 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
   IApp,
-  IAppDTO,
   IAppService,
   ICreateAppDTO,
   IUpdateAppDTO,

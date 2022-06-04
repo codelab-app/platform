@@ -76,6 +76,7 @@
       "options": {
         "buildTarget": "web:build",
         "dev": true,
+        "hostname": "localhost",
         "port": 3000,
         "maxWorkers": 4
       },

@@ -14,3 +14,12 @@ fragment App on App {
     id
   }
 }
+
+fragment AppPreview on App {
+  id
+  name
+  pages {
+    id
+    name
+  }
+}
