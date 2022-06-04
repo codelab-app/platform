@@ -51,18 +51,8 @@ export class UserService
   @modelFlow
   loadUsers = _async(function* (this: UserService) {
     const { users } = yield* _await(userApi.GetUsers())
-    const appService = getAppService(this)
-    const pageService = getPageService(this)
 
-    users.forEach((user) => {
-      user.apps.forEach((app) => {
-        appService.apps.set(app.id, App.hydrate(app))
-
-        app.pages.forEach((page) => {
-          pageService.pages.set(page.id, Page.hydrate(page))
-        })
-      })
-
+    users.map((user) => {
       this.users.set(user.id, User.hydrate(user))
     })
 

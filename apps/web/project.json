@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/next:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "root": "apps/web",
         "outputPath": "dist/apps/web"
@@ -30,7 +32,9 @@
     "_build": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["nx build web"]
+        "commands": [
+          "nx build web"
+        ]
       },
       "configurations": {
         "test": {
@@ -76,7 +80,7 @@
       "options": {
         "buildTarget": "web:build",
         "dev": true,
-        "hostname": "0.0.0.0",
+        "hostname": "localhost",
         "port": 3000,
         "maxWorkers": 4
       },
@@ -131,9 +135,13 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/web/**/*.{ts,tsx,js,jsx}"
+        ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -143,15 +151,21 @@
       },
       "configurations": {
         "test": {
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPattern": [
+            "i.spec.ts"
+          ],
           "runInBand": true
         },
         "ci": {
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPattern": [
+            "i.spec.ts"
+          ],
           "runInBand": true
         }
       },
-      "outputs": ["coverage/apps/web"]
+      "outputs": [
+        "coverage/apps/web"
+      ]
     },
     "storybook": {
       "executor": "@nrwl/storybook:storybook",
@@ -170,7 +184,9 @@
     },
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/web",
@@ -185,6 +201,8 @@
       }
     }
   },
-  "tags": ["scope:frontend"],
+  "tags": [
+    "scope:frontend"
+  ],
   "implicitDependencies": []
 }

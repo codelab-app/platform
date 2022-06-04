@@ -1,5 +1,5 @@
 import {
-  Auth0SessionUser,
+  IDTokenPayload,
   IPageProps,
   IRootStore,
   JWT_CLAIMS,
@@ -16,7 +16,7 @@ let _store: IRootStore | null = null
  */
 export const initializeStore = (
   pageProps?: IPageProps & {
-    user?: Auth0SessionUser
+    user?: IDTokenPayload
   },
 ) => {
   /**

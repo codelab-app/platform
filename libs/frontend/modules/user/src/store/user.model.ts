@@ -1,12 +1,12 @@
-import { appRef } from '@codelab/frontend/modules/app'
-import type { IApp, IUser, IUserDTO } from '@codelab/shared/abstract/core'
-import { IRole } from '@codelab/shared/abstract/core'
+import { App } from '@codelab/frontend/modules/app'
+import { IApp, IRole, IUser, IUserDTO } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,
   Model,
   model,
   modelAction,
+  objectMap,
   prop,
   Ref,
   rootRef,
@@ -20,7 +20,13 @@ const hydrate = (user: IUserDTO) => {
     username: user.username,
     auth0Id: user.auth0Id,
     roles: user.roles,
-    apps: user.apps.map((app) => appRef(app.id)),
+    apps: objectMap(
+      user.apps.map((app) => {
+        console.log('app', app)
+
+        return [app.id, App.hydrate(app)]
+      }),
+    ),
   })
 }
 
@@ -37,7 +43,7 @@ export class User
     username: prop<string>(),
     auth0Id: prop<string>(),
     roles: prop<Array<IRole>>(() => []),
-    apps: prop<Array<Ref<IApp>>>(() => []),
+    apps: prop(() => objectMap<IApp>()),
   })
   implements IUser
 {

@@ -40,26 +40,13 @@ export const RedirectedAppFragmentDoc = gql`
     }
   }
 `
-export const AppPreviewFragmentDoc = gql`
-  fragment AppPreview on App {
-    id
-    name
-    slug
-    owner {
-      id
-    }
-    pages {
-      ...Page
-    }
-    rootElement {
-      id
-    }
-    store {
-      id
-    }
-  }
-  ${PageFragmentDoc}
-`
+
+export type AppPreviewFragment = {
+  id: string
+  name: string
+  pages: Array<{ id: string; name: string }>
+}
+
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
@@ -79,6 +66,16 @@ export const AppFragmentDoc = gql`
     }
   }
   ${PageFragmentDoc}
+`
+export const AppPreviewFragmentDoc = gql`
+  fragment AppPreview on App {
+    id
+    name
+    pages {
+      id
+      name
+    }
+  }
 `
 
 export type SdkFunctionWrapper = <T>(

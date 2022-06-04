@@ -5,6 +5,7 @@ fragment User on User {
   auth0Id
   roles
   apps {
+    #    ...AppPreview
     ...App
   }
 }

@@ -80,9 +80,16 @@ const Index = (props: PageProps) => {
       ])
 
       // initialize renderer
+      const appStore = await storeService.getOne(app.store.id)
+
+      if (!appStore) {
+        throw new Error('App store not found')
+      }
+
       const renderer = await appRenderService.addRenderer(
         page.id,
         pageElementTree,
+        appStore,
         null,
         createMobxState(storeTree, [app], [page], router),
       )

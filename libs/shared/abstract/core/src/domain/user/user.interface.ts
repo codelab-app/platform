@@ -1,4 +1,4 @@
-import { Ref } from 'mobx-keystone'
+import { ObjectMap } from 'mobx-keystone'
 import { IApp } from '../app'
 import { IRole } from './role.enum'
 
@@ -8,8 +8,7 @@ export interface IUser {
   auth0Id: string
   username: string
   roles: Array<IRole>
-  apps: Array<Ref<IApp>>
-  // apps: ObjectMap<IApp>
+  apps: ObjectMap<IApp>
 }
 
 // export type IUserRef = string
