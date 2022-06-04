@@ -5,7 +5,7 @@ import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { InterfaceType } from '../../../store'
@@ -40,7 +40,13 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           schema={createFieldSchema}
         >
           <AutoFields omitFields={['fieldType']} />
-          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
+          <AutoField
+            component={(props: any) => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <TypeSelect {...props} label="Type" typeService={typeService} />
+            )}
+            name="fieldType"
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

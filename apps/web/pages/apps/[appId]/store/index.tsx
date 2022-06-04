@@ -1,108 +1,50 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  ACTION_SERVICE,
-  RESOURCE_SERVICE,
-  STORE_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  CreateActionButton,
-  CreateActionModal,
-  DeleteActionsModal,
-  EditStateButton,
-  GetActionsTable,
-  UpdateActionModal,
-  UpdateStateForm,
-} from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { Spinner } from '@codelab/frontend/view/components'
+import {
+  extractErrorMessage,
+  useStatefulExecutor,
+} from '@codelab/frontend/shared/utils'
+import { DisplayIf } from '@codelab/frontend/view/components'
 import {
   adminMenuItems,
   appMenuItem,
-  ContentSection,
   storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { IStore } from '@codelab/shared/abstract/core'
-import { PageHeader } from 'antd'
+import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
-const StatePage = observer<
-  WithServices<STORE_SERVICE | TYPE_SERVICE> & { store: IStore }
->(({ storeService, typeService, store }) => (
-  <>
-    <PageHeader
-      extra={[<EditStateButton store={store} />]}
-      ghost={false}
-      title="State"
-    />
-    <UpdateStateForm
-      store={store}
-      storeService={storeService}
-      typeService={typeService}
-    />
-  </>
-))
-
-type ActionPageProps = {
-  store: IStore
-} & WithServices<ACTION_SERVICE | STORE_SERVICE | RESOURCE_SERVICE>
-
-const ActionPage = observer<ActionPageProps>(
-  ({ actionService, storeService, resourceService, store }) => (
-    <>
-      <PageHeader
-        extra={[<CreateActionButton actionService={actionService} />]}
-        ghost={false}
-        title="Actions"
-      />
-      <CreateActionModal
-        actionService={actionService}
-        resourceService={resourceService}
-        store={store}
-      />
-      <UpdateActionModal
-        actionService={actionService}
-        resourceService={resourceService}
-      />
-      <DeleteActionsModal actionService={actionService} />
-      <GetActionsTable
-        actionService={actionService}
-        store={store}
-        storeService={storeService}
-      />
-    </>
-  ),
-)
-
-const StorePage: CodelabPage<DashboardTemplateProps> = observer(() => {
+const StorePage: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
-  const store = useStore()
+  const { appService, storeService } = useStore()
 
-  const [, { isLoading, data }] = useStatefulExecutor(
+  const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
-      const app = await store.appService.getOne(appId)
+      const app = await appService.getOne(appId)
 
       if (!app) {
-        throw new Error('App not found')
+        throw new Error('Failed to load app')
       }
 
-      const appStore = await store.storeService.getOne(app.store.id)
+      const appStore = await storeService.getOne(app.store.id)
 
-      return { appStore, app }
+      if (!appStore) {
+        throw new Error('Failed to load store')
+      }
+
+      return {
+        app,
+        appStore,
+      }
     },
     { executeOnMount: true },
   )
@@ -110,32 +52,23 @@ const StorePage: CodelabPage<DashboardTemplateProps> = observer(() => {
   return (
     <>
       <Head>
-        <title>Stores | Codelab</title>
+        <title>{data?.app?.name} | Store | Codelab</title>
       </Head>
-      <Spinner isLoading={isLoading}>
-        {data?.appStore && (
-          <ContentSection>
-            <StatePage
-              store={data?.appStore}
-              storeService={store.storeService}
-              typeService={store.typeService}
-            />
-
-            <div css={tw`mb-5`} />
-            <ActionPage
-              actionService={store.actionService}
-              resourceService={store.resourceService}
-              store={data?.appStore}
-              storeService={store.storeService}
-            />
-          </ContentSection>
-        )}
-      </Spinner>
+      <DisplayIf condition={Boolean(error)}>
+        <Alert message={extractErrorMessage(error)} type="error" />
+      </DisplayIf>
+      <DisplayIf condition={isLoading}>
+        <Spin />
+      </DisplayIf>
     </>
   )
 })
 
+export const getServerSideProps = withPageAuthRequired({})
+
 StorePage.Layout = observer((page) => {
+  const store = useStore()
+
   return (
     <DashboardTemplate
       SidebarNavigation={() => (
@@ -150,6 +83,6 @@ StorePage.Layout = observer((page) => {
   )
 })
 
-export const getServerSideProps = withPageAuthRequired()
-
 export default StorePage
+
+StorePage.displayName = 'StorePage'

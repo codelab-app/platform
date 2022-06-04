@@ -11,6 +11,7 @@ import { ITypeKind } from '../base-type/type-kind.enum'
 export interface IInterfaceType extends IBaseType {
   kind: ITypeKind.InterfaceType
   fields: ObjectMap<IField>
+  fieldList: Array<IField>
 }
 
 export type IInterfaceTypeRef = string
