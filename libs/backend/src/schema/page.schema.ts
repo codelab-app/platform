@@ -18,7 +18,7 @@ export const pageSchema = gql`
           where: { app: { owner: { auth0Id: "$jwt.sub" } } }
           bind: { app: { owner: { auth0Id: "$jwt.sub" } } }
         }
-        { operations: [READ, CREATE, UPDATE], roles: ["Admin"] }
+        { operations: [CREATE, UPDATE], roles: ["Admin"] }
       ]
     )
 `

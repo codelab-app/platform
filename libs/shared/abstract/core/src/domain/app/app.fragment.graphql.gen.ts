@@ -5,6 +5,15 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
+export type AppPreviewFragment = {
+  id: string
+  name: string
+  owner: { id: string }
+  pages: Array<PageFragment>
+  rootElement: { id: string }
+  store: { id: string }
+}
+
 export type AppFragment = {
   id: string
   name: string
@@ -14,12 +23,25 @@ export type AppFragment = {
   store: { id: string }
 }
 
-export type AppPreviewFragment = {
-  id: string
-  name: string
-  pages: Array<{ id: string; name: string }>
-}
-
+export const AppPreviewFragmentDoc = gql`
+  fragment AppPreview on App {
+    id
+    name
+    owner {
+      id
+    }
+    pages {
+      ...Page
+    }
+    rootElement {
+      id
+    }
+    store {
+      id
+    }
+  }
+  ${PageFragmentDoc}
+`
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
@@ -38,16 +60,6 @@ export const AppFragmentDoc = gql`
     }
   }
   ${PageFragmentDoc}
-`
-export const AppPreviewFragmentDoc = gql`
-  fragment AppPreview on App {
-    id
-    name
-    pages {
-      id
-      name
-    }
-  }
 `
 
 export type SdkFunctionWrapper = <T>(

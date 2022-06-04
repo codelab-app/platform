@@ -1,5 +1,6 @@
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { GetStaticPaths } from 'next'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 /**
@@ -10,10 +11,14 @@ import React from 'react'
  * Custom domain will be able to hook up to this
  */
 const Index = (props: any) => {
+  const router = useRouter()
+
+  console.log(router)
+
   return (
     <>
       <h1>Hello</h1>
-      <span>{JSON.stringify(props)}</span>
+      <span>{JSON.stringify(router.query)}</span>
     </>
   )
 }
@@ -32,11 +37,11 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 
       return [...user.apps.values()]
         .map((app) => {
-          return app.pages.map((page) => {
+          return app.current.pages.map((page) => {
             return {
               params: {
                 user: user.username,
-                app: app.name,
+                app: app.current.name,
                 page: page.current.name,
               },
             }
@@ -49,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   console.log('paths', paths)
 
   return {
-    paths: [],
+    paths,
     // fallback true allows sites to be generated using ISR
     fallback: true,
   }
