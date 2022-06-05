@@ -14,6 +14,21 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
+const defaultTransformFn = `
+function transform(response) {
+  return response
+}
+`
+
+const defaultActionBody = `/**
+ * use the keyword [this] to reference state variables
+ * example : this.count = this.count + 1;
+ */
+
+function action() {
+}
+`
+
 export const CreateActionModal = observer<
   WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
 >(({ actionService, resourceService, store }) => {
