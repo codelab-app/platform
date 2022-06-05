@@ -81,7 +81,7 @@ export class TypeService
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      return typeModel.updateCache(fragment)
+      typeModel.updateCache(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
@@ -119,12 +119,6 @@ export class TypeService
     const types = yield* _await(getAllTypes(ids))
 
     return types.map((type) => {
-      if (this.types.has(type.id)) {
-        const typeModel = this.types.get(type.id)!
-
-        return typeModel.updateCache(type)
-      }
-
       const typeModel = typeFactory(type)
 
       this.types.set(type.id, typeModel)

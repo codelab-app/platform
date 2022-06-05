@@ -80,7 +80,7 @@ export class Store
     const storeState = [...stateApi.fields.values()]
       .map((field) => ({ [field.key]: this.state.values[field.key] }))
       .reduce(merge, {})
-
+    */
     const storeActions = this.actions
       .map(({ current: action }) => {
         const isResourceOperation =
