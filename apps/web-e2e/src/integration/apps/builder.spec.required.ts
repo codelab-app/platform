@@ -135,6 +135,8 @@ describe('Elements CRUD', () => {
     })
   })
 
+  require('./container.spec.required')
+
   require('./css.spec.required')
 
   describe(`delete`, () => {
