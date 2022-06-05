@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/modules/app'
 import {
   useCurrentAppId,
   useStore,
