@@ -81,7 +81,7 @@ export class TypeService
     let typeModel = this.types.get(fragment.id)
 
     if (typeModel) {
-      return typeModel.updateCache(fragment)
+      typeModel.updateCache(fragment)
     } else {
       typeModel = typeFactory(fragment)
       this.types.set(fragment.id, typeModel)
@@ -119,12 +119,6 @@ export class TypeService
     const types = yield* _await(getAllTypes(ids))
 
     return types.map((type) => {
-      if (this.types.has(type.id)) {
-        const typeModel = this.types.get(type.id)!
-
-        return typeModel.updateCache(type)
-      }
-
       const typeModel = typeFactory(type)
 
       this.types.set(type.id, typeModel)
@@ -320,10 +314,10 @@ export class TypeService
   @transaction
   deleteField = _async(function* (
     this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
+    interfaceId: IInterfaceTypeRef,
     fieldId: IFieldRef,
   ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+    const interfaceType = throwIfUndefined(this.type(interfaceId))
 
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
 
@@ -333,7 +327,7 @@ export class TypeService
       return
     }
 
-    const input = { where: { id: fieldId }, interfaceId: interfaceTypeId }
+    const input = { where: { id: fieldId }, interfaceId }
     const res = yield* _await(fieldApi.DeleteField(input))
 
     // Returns current edges, not deleted edges

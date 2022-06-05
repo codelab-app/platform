@@ -1,29 +1,23 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import { useGetAllTypesQuery } from '../hooks'
 
-export type CreateTypeSelectOptions = (
-  getTypesResult?: ReturnType<typeof useGetAllTypesQuery>,
-) => Array<{ label: string; value: string }>
+type Option = { label: string; value: string }
+type CreateOptions = (types?: Array<IAnyType>) => Array<Option>
 
-export type TypeSelectProps = {
+export interface TypeSelectProps {
+  types: Array<IAnyType>
   name: string
   label: string
-  createTypeOptions?: CreateTypeSelectOptions
-} & WithServices<TYPE_SERVICE>
+  createTypeOptions?: CreateOptions
+}
 
-const defaultCreateTypeOptions: CreateTypeSelectOptions = (getTypesResult) =>
-  getTypesResult?.data?.map((i: any) => ({
-    label: i.name,
-    value: i.id,
-  })) || []
+const defaultCreateTypeOptions: CreateOptions = (types) =>
+  types?.map((t) => ({ label: t.name, value: t.id })) ?? []
 
 export const TypeSelect = observer<TypeSelectProps>(
-  ({ name, label, createTypeOptions, typeService }) => {
-    const types = useGetAllTypesQuery(undefined, typeService)
-
+  ({ name, label, createTypeOptions, types }) => {
     const typeOptions = createTypeOptions
       ? createTypeOptions(types)
       : defaultCreateTypeOptions(types)
@@ -31,7 +25,6 @@ export const TypeSelect = observer<TypeSelectProps>(
     return (
       <SelectField
         label={label}
-        loading={types.isLoading}
         name={name}
         optionFilterProp="label"
         options={typeOptions}

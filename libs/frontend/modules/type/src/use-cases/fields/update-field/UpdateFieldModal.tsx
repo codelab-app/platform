@@ -7,15 +7,12 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType } from '../../../store'
 import { createFieldSchema } from '../create-field'
 
-export type UpdateFieldModalProps = {
-  interfaceType: InterfaceType
-} & WithServices<TYPE_SERVICE>
+export type UpdateFieldModalProps = WithServices<TYPE_SERVICE>
 
 export const UpdateFieldModal = observer<UpdateFieldModalProps>(
-  ({ interfaceType, typeService }) => {
+  ({ typeService }) => {
     const closeModal = () => typeService.fieldUpdateModal.close()
     const field = typeService.fieldUpdateModal.field
 
@@ -42,7 +39,11 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
         <ModalForm.Form<IUpdateFieldDTO>
           model={model}
           onSubmit={(input) =>
-            typeService.updateField(interfaceType.id, field.key, input)
+            typeService.updateField(
+              typeService.fieldUpdateModal.interface.id,
+              field.key,
+              input,
+            )
           }
           onSubmitError={createNotificationHandler({
             title: 'Error while updating field',
@@ -52,7 +53,11 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
           schema={createFieldSchema}
         >
           <AutoFields fields={['key', 'name', 'description']} />
-          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
+          <TypeSelect
+            label="Type"
+            name="fieldType"
+            types={typeService.typesList}
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

@@ -1,10 +1,10 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { CreateTypeSelectOptions } from './TypeSelect'
+import { CreateTypeOptions } from './TypeSelect'
 
 /**
  * Non-union type select
  */
-export const typeSelectOptions: CreateTypeSelectOptions = (getTypesResult) => {
+export const typeSelectOptions: CreateTypeOptions = (getTypesResult) => {
   const types = getTypesResult?.data || []
 
   return types

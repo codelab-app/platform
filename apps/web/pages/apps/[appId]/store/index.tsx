@@ -1,5 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
+import { useCurrentApp } from '@codelab/frontend/modules/app'
 import {
   useCurrentAppId,
   useStore,
@@ -25,7 +26,7 @@ import React from 'react'
 
 const StorePage: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
-  const { appService, storeService } = useStore()
+  const { appService, storeService, typeService } = useStore()
 
   const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
@@ -41,9 +42,13 @@ const StorePage: CodelabPage = observer(() => {
         throw new Error('Failed to load store')
       }
 
+      // load all types once for TypeSelect form field
+      const types = await typeService.getAll()
+
       return {
         app,
         appStore,
+        types,
       }
     },
     { executeOnMount: true },
@@ -67,8 +72,6 @@ const StorePage: CodelabPage = observer(() => {
 export const getServerSideProps = withPageAuthRequired({})
 
 StorePage.Layout = observer((page) => {
-  const store = useStore()
-
   return (
     <DashboardTemplate
       SidebarNavigation={() => (

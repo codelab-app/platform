@@ -1,84 +1,40 @@
 import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
-  FieldModals,
-  fieldRef,
+  CreateFieldModal,
+  DeleteFieldModal,
   InterfaceType,
-  typeRef,
+  UpdateFieldModal,
 } from '@codelab/frontend/modules/type'
-import {
-  ListItemCreateButton,
-  ListItemDeleteButton,
-  ListItemEditButton,
-} from '@codelab/frontend/view/components'
-import { IStateNode, IStore, ITypeKind } from '@codelab/shared/abstract/core'
-import styled from '@emotion/styled'
+import { IStore } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Tree } from 'antd'
-import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
+import { StateTreeItem } from './StateTreeItem'
 
-const StateTitle = styled.div`
-  max-width: 100px;
-`
-
-type StateTreeItemProp = WithServices<TYPE_SERVICE> & {
-  node: IStateNode
-  interfaceRef: Ref<InterfaceType>
+export type GetStateTreeProps = WithServices<TYPE_SERVICE> & {
+  store: IStore
 }
-
-const StateTreeItem = observer<StateTreeItemProp>(
-  ({ node, typeService, interfaceRef }) => {
-    const onCreate = () => null
-
-    const onEdit = () => {
-      console.log(typeService.typesList.map((x) => x.id))
-      typeService.fieldUpdateModal.open({
-        field: fieldRef(node.key),
-        interface: interfaceRef,
-      })
-    }
-
-    const onDelete = () => null
-
-    return (
-      <div css={tw`flex justify-between`}>
-        <StateTitle>{node.title}</StateTitle>
-        <div>
-          {node.type.current.kind === ITypeKind.InterfaceType && (
-            <ListItemCreateButton onClick={onCreate} />
-          )}
-          <ListItemEditButton onClick={onEdit} />
-          <ListItemDeleteButton onClick={onDelete} />
-        </div>
-      </div>
-    )
-  },
-)
-
-export type GetStateTreeProps = WithServices<TYPE_SERVICE> & { store: IStore }
 
 export const GetStateTree = observer<GetStateTreeProps>(
   ({ store, typeService }) => {
-    const stateFields = store.stateApi.current.fieldList.map((f) => f.antdNode)
+    const api = typeService.type(store.stateApiId) as Maybe<InterfaceType>
+    const stateFields = api?.fieldList.map((f) => f.antdNode(store.stateApiId))
 
     return (
       <>
         <Tree
           blockNode
           titleRender={(node) => (
-            <StateTreeItem
-              interfaceRef={typeRef(store.stateApi.id) as Ref<InterfaceType>}
-              node={node}
-              typeService={typeService}
-            />
+            <StateTreeItem node={node} typeService={typeService} />
           )}
           treeData={stateFields}
         />
-        <FieldModals
-          type={store.stateApi.current as InterfaceType}
-          typeService={typeService}
-        />
+        <>
+          <CreateFieldModal typeService={typeService} />
+          <UpdateFieldModal typeService={typeService} />
+          <DeleteFieldModal typeService={typeService} />
+        </>
       </>
     )
   },

@@ -2,8 +2,10 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
-  FieldModals,
+  CreateFieldModal,
+  DeleteFieldModal,
   FieldsTable,
+  UpdateFieldModal,
   useCurrentInterfaceId,
   useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
@@ -37,7 +39,11 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = observer(
         </Head>
 
         {type && type.kind === ITypeKind.InterfaceType && (
-          <FieldModals type={type} typeService={typeService} />
+          <>
+            <CreateFieldModal typeService={typeService} />
+            <UpdateFieldModal typeService={typeService} />
+            <DeleteFieldModal typeService={typeService} />
+          </>
         )}
 
         <ContentSection>
