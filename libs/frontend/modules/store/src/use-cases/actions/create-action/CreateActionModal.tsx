@@ -14,6 +14,21 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
+const defaultTransformFn = `
+function transform(response) {
+  return response
+}
+`
+
+const defaultActionBody = `/**
+ * use the keyword [this] to reference state variables
+ * example : this.count = this.count + 1;
+ */
+
+function action() {
+}
+`
+
 export const CreateActionModal = observer<
   WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
 >(({ actionService, resourceService, store }) => {
@@ -45,7 +60,7 @@ export const CreateActionModal = observer<
         onSubmitSuccess={closeModal}
         schema={createActionSchema}
       >
-        <AutoFields omitFields={['storeId', 'resourceId', 'config']} />
+        <AutoFields omitFields={['storeId', 'resourceId', 'config', 'body']} />
 
         <AutoField
           component={observer((props) => (
@@ -68,6 +83,12 @@ export const CreateActionModal = observer<
         >
           <AutoField name="config.query" />
           <AutoField name="config.variables" />
+          <AutoField label="Transform Response" name="body" />
+          <AutoField
+            label="Transform Response"
+            name="body"
+            value={defaultTransformFn}
+          />
         </DisplayIfField>
 
         {/**
@@ -81,6 +102,21 @@ export const CreateActionModal = observer<
           <AutoField name="config.method" />
           <AutoField name="config.body" />
           <AutoField name="config.queryParams" />
+          <AutoField
+            label="Transform Response"
+            name="body"
+            value={defaultTransformFn}
+          />
+        </DisplayIfField>
+
+        <DisplayIfField<ICreateActionDTO>
+          condition={(c) => !c.model.resourceId}
+        >
+          <AutoField
+            label="Action code"
+            name="body"
+            value={defaultActionBody}
+          />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>
