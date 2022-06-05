@@ -1,22 +1,24 @@
 import {
+  APP_SERVICE,
   STORE_SERVICE,
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
 import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
-import { IPropData, IStore } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
+import { useCurrentStore } from '../hooks'
 
-interface StoreMetaPaneProps
-  extends WithServices<STORE_SERVICE | TYPE_SERVICE> {
-  store: Nullish<IStore>
-}
+type StoreMetaPaneProps = WithServices<
+  STORE_SERVICE | TYPE_SERVICE | APP_SERVICE
+>
 
 export const StoreMetaPane = observer<StoreMetaPaneProps>(
-  ({ storeService, typeService, store }) => {
+  ({ storeService, typeService, appService }) => {
+    const { store } = useCurrentStore(appService, storeService)
+
     if (!store) {
       return null
     }

@@ -1,6 +1,16 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
+  CreateActionModal,
+  DeleteActionsModal,
+  UpdateActionModal,
+} from '@codelab/frontend/modules/store'
+import {
+  CreateFieldModal,
+  DeleteFieldModal,
+  UpdateFieldModal,
+} from '@codelab/frontend/modules/type'
+import {
   useCurrentAppId,
   useStore,
 } from '@codelab/frontend/presenter/container'
@@ -25,7 +35,14 @@ import React from 'react'
 
 const StorePage: CodelabPage = observer(() => {
   const appId = useCurrentAppId()
-  const { appService, storeService, typeService } = useStore()
+
+  const {
+    appService,
+    storeService,
+    typeService,
+    actionService,
+    resourceService,
+  } = useStore()
 
   const [, { isLoading, error, data }] = useStatefulExecutor(
     async () => {
@@ -64,6 +81,23 @@ const StorePage: CodelabPage = observer(() => {
       <DisplayIf condition={isLoading}>
         <Spin />
       </DisplayIf>
+      <CreateFieldModal typeService={typeService} />
+      <UpdateFieldModal typeService={typeService} />
+      <DeleteFieldModal typeService={typeService} />
+      {data?.appStore && (
+        <>
+          <CreateActionModal
+            actionService={actionService}
+            resourceService={resourceService}
+            store={data.appStore}
+          />
+          <UpdateActionModal
+            actionService={actionService}
+            resourceService={resourceService}
+          />
+          <DeleteActionsModal actionService={actionService} />
+        </>
+      )}
     </>
   )
 })

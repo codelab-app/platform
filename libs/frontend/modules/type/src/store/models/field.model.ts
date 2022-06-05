@@ -1,10 +1,4 @@
-import {
-  IAnyType,
-  IField,
-  IFieldDTO,
-  IStateNode,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -49,29 +43,6 @@ export class Field
     this.description = fragment.description
     this.key = fragment.key
     this.type = typeRef(fragment.fieldType.id)
-  }
-
-  antdNode(interfaceId: string): IStateNode {
-    return {
-      key: this.id,
-      title: this.name,
-      type: {
-        id: this.type.id,
-        kind: this.type.current.kind,
-      },
-      interfaceId,
-      children:
-        this.type.current.kind === ITypeKind.InterfaceType
-          ? this.type.current.fieldList.flatMap((f) =>
-              // pass the current interface instead of parent
-              {
-                console.log(this.type.current)
-
-                return f.antdNode(this.type.id)
-              },
-            )
-          : [],
-    }
   }
 
   @modelAction
