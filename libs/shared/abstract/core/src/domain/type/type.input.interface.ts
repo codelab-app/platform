@@ -9,6 +9,7 @@ export interface IUpdateTypeArgs {
 
 export type ICreateTypeInput =
   | cg.AppTypeCreateInput
+  | cg.ActionTypeCreateInput
   | cg.ArrayTypeCreateInput
   | cg.ElementTypeCreateInput
   | cg.EnumTypeCreateInput

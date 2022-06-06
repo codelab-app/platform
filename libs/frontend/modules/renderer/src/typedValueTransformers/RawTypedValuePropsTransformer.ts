@@ -26,6 +26,7 @@ export class RawTypedValuePropsTransformer
   implements ITypedValueTransformer
 {
   public readonly handledKinds: ReadonlySet<ITypeKind> = new Set([
+    ITypeKind.ActionType,
     ITypeKind.AppType,
     ITypeKind.ArrayType,
     ITypeKind.EnumType,

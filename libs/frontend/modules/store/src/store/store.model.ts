@@ -3,6 +3,7 @@ import {
   createGraphQLAction,
   createRestAction,
 } from '@codelab/frontend/modules/resource'
+import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   IProp,
   IStore,
@@ -73,13 +74,13 @@ export class Store
 
   @modelAction
   toMobxObservable(globals: any = {}) {
-    const storeState = {}
+    const typeService = getTypeService(this)
+    const stateApi = typeService.type(this.stateApiId) as InterfaceType
 
-    /* 
-    [...current.fields.values()]
+    const storeState = [...stateApi.fields.values()]
       .map((field) => ({ [field.key]: this.state.values[field.key] }))
       .reduce(merge, {})
-    */
+
     const storeActions = this.actions
       .map(({ current: action }) => {
         const isResourceOperation =

@@ -1,7 +1,10 @@
 import { elementTreeRef } from '@codelab/frontend/modules/element'
 import { getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
-import { getElementService } from '@codelab/frontend/presenter/container'
+import {
+  getElementService,
+  storeRef,
+} from '@codelab/frontend/presenter/container'
 import {
   IElement,
   IElementTree,
@@ -9,6 +12,7 @@ import {
   IRenderer,
   IRenderOutput,
   IRenderPipe,
+  IStore,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -61,12 +65,14 @@ const initForBuilder = () => {
 
 const init = (
   pageTree: IElementTree,
+  appStore: IStore,
   appTree?: Nullable<IElementTree>,
   platformState?: any,
 ) => {
   const renderer = new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
+    appStore: storeRef(appStore),
   })
 
   renderer.setPlatformState(platformState)
@@ -99,6 +105,11 @@ export class Renderer
        * A tree of providers that will get rendered before all of the regular elements
        */
       appTree: prop<Nullable<Ref<IElementTree>>>(null),
+
+      /**
+       * Store attached to app, needed to access its actions
+       */
+      appStore: prop<Nullable<Ref<IStore>>>(null),
 
       /**
        * The tree that's being rendered, we assume that this is properly constructed

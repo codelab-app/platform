@@ -10,6 +10,7 @@ import { UseFormReturn } from 'react-hook-form'
 import { ArrayField } from './ArrayField'
 import { CheckboxField } from './CheckboxField'
 import { CodeMirrorField } from './CodeMirror'
+import { SelectActionField } from './SelectActionField'
 import { SelectComponentField } from './SelectComponentField'
 
 export type FieldProps = {
@@ -35,6 +36,9 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
       return (
         <SelectComponentField context={context} field={field} form={form} />
       )
+
+    case ITypeKind.ActionType:
+      return <SelectActionField context={context} field={field} form={form} />
 
     case ITypeKind.InterfaceType:
       return (

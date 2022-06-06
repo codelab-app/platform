@@ -1,3 +1,4 @@
+export * from './action-type'
 export * from './app-type'
 export * from './array-type'
 export * from './base-type'

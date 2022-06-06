@@ -3,6 +3,14 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+export type TypeBase_ActionType_Fragment = {
+  __typename: 'ActionType'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
 export type TypeBase_AppType_Fragment = {
   __typename: 'AppType'
   kind: Types.TypeKind
@@ -100,6 +108,7 @@ export type TypeBase_UnionType_Fragment = {
 }
 
 export type TypeBaseFragment =
+  | TypeBase_ActionType_Fragment
   | TypeBase_AppType_Fragment
   | TypeBase_ArrayType_Fragment
   | TypeBase_ElementType_Fragment

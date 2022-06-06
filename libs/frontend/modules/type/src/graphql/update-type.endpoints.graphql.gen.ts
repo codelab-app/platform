@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ElementType_Fragment,
@@ -159,6 +160,19 @@ export type UpdateAppTypesMutationVariables = Types.Exact<{
 
 export type UpdateAppTypesMutation = {
   types: { types: Array<Type_AppType_Fragment> }
+}
+
+export type UpdateActionTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.ActionTypeConnectInput>
+  create?: Types.InputMaybe<Types.ActionTypeRelationInput>
+  delete?: Types.InputMaybe<Types.ActionTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.ActionTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.ActionTypeUpdateInput>
+  where?: Types.InputMaybe<Types.ActionTypeWhere>
+}>
+
+export type UpdateActionTypesMutation = {
+  types: { types: Array<Type_ActionType_Fragment> }
 }
 
 export type UpdateMonacoTypesMutationVariables = Types.Exact<{
@@ -438,6 +452,30 @@ export const UpdateAppTypesDocument = gql`
   }
   ${TypeFragmentDoc}
 `
+export const UpdateActionTypesDocument = gql`
+  mutation UpdateActionTypes(
+    $connect: ActionTypeConnectInput
+    $create: ActionTypeRelationInput
+    $delete: ActionTypeDeleteInput
+    $disconnect: ActionTypeDisconnectInput
+    $update: ActionTypeUpdateInput
+    $where: ActionTypeWhere
+  ) {
+    types: updateActionTypes(
+      connect: $connect
+      create: $create
+      delete: $delete
+      disconnect: $disconnect
+      update: $update
+      where: $where
+    ) {
+      types: actionTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+`
 export const UpdateMonacoTypesDocument = gql`
   mutation UpdateMonacoTypes(
     $connect: MonacoTypeConnectInput
@@ -642,6 +680,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'UpdateAppTypes',
+        'mutation',
+      )
+    },
+    UpdateActionTypes(
+      variables?: UpdateActionTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<UpdateActionTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateActionTypesMutation>(
+            UpdateActionTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateActionTypes',
         'mutation',
       )
     },

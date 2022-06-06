@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ElementType_Fragment,
@@ -106,6 +107,14 @@ export type CreateAppTypesMutationVariables = Types.Exact<{
 
 export type CreateAppTypesMutation = {
   types: { types: Array<Type_AppType_Fragment> }
+}
+
+export type CreateActionTypesMutationVariables = Types.Exact<{
+  input: Array<Types.ActionTypeCreateInput> | Types.ActionTypeCreateInput
+}>
+
+export type CreateActionTypesMutation = {
+  types: { types: Array<Type_ActionType_Fragment> }
 }
 
 export type CreateMonacoTypesMutationVariables = Types.Exact<{
@@ -220,6 +229,16 @@ export const CreateAppTypesDocument = gql`
   mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
     types: createAppTypes(input: $input) {
       types: appTypes {
+        ...Type
+      }
+    }
+  }
+  ${TypeFragmentDoc}
+`
+export const CreateActionTypesDocument = gql`
+  mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
+    types: createActionTypes(input: $input) {
+      types: actionTypes {
         ...Type
       }
     }
@@ -416,6 +435,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'CreateAppTypes',
+        'mutation',
+      )
+    },
+    CreateActionTypes(
+      variables: CreateActionTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<CreateActionTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateActionTypesMutation>(
+            CreateActionTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'CreateActionTypes',
         'mutation',
       )
     },

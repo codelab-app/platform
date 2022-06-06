@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
   TypeBase_ElementType_Fragment,

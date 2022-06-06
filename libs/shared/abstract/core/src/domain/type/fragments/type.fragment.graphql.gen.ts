@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
   TypeBase_ElementType_Fragment,
@@ -25,6 +26,7 @@ import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
 import { MonacoTypeFragment } from './monaco-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
+import { ActionTypeFragment } from './action-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -40,6 +42,10 @@ import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
 import { MonacoTypeFragmentDoc } from './monaco-type.fragment.graphql.gen'
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
+import { ActionTypeFragmentDoc } from './action-type.fragment.graphql.gen'
+export type Type_ActionType_Fragment = TypeBase_ActionType_Fragment &
+  ActionTypeFragment
+
 export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 
 export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
@@ -75,6 +81,7 @@ export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment &
   UnionTypeFragment
 
 export type TypeFragment =
+  | Type_ActionType_Fragment
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
   | Type_ElementType_Fragment
@@ -102,6 +109,7 @@ export const TypeFragmentDoc = gql`
     ...MonacoType
     ...PageType
     ...AppType
+    ...ActionType
   }
   ${TypeBaseFragmentDoc}
   ${ArrayTypeFragmentDoc}
@@ -115,6 +123,7 @@ export const TypeFragmentDoc = gql`
   ${MonacoTypeFragmentDoc}
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
+  ${ActionTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

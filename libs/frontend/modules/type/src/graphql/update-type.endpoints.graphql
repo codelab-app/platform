@@ -238,6 +238,27 @@ mutation UpdateAppTypes(
     }
   }
 }
+mutation UpdateActionTypes(
+  $connect: ActionTypeConnectInput
+  $create: ActionTypeRelationInput
+  $delete: ActionTypeDeleteInput
+  $disconnect: ActionTypeDisconnectInput
+  $update: ActionTypeUpdateInput
+  $where: ActionTypeWhere
+) {
+  types: updateActionTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    types: actionTypes {
+      ...Type
+    }
+  }
+}
 
 mutation UpdateMonacoTypes(
   $connect: MonacoTypeConnectInput

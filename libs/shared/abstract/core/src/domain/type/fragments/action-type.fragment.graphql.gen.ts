@@ -19,10 +19,10 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
-export type RenderPropsTypeFragment = TypeBase_RenderPropsType_Fragment
+export type ActionTypeFragment = TypeBase_ActionType_Fragment
 
-export const RenderPropsTypeFragmentDoc = gql`
-  fragment RenderPropsType on RenderPropsType {
+export const ActionTypeFragmentDoc = gql`
+  fragment ActionType on ActionType {
     ...TypeBase
   }
   ${TypeBaseFragmentDoc}

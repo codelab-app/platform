@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
   TypeBase_ElementType_Fragment,
@@ -20,6 +21,7 @@ import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
 export type UnionTypeFragment = {
   typesOfUnionType: Array<
+    | { id: string; name: string }
     | { id: string; name: string }
     | { id: string; name: string }
     | { id: string; name: string }

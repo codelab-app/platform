@@ -87,6 +87,14 @@ mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
   }
 }
 
+mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
+  types: createActionTypes(input: $input) {
+    types: actionTypes {
+      ...Type
+    }
+  }
+}
+
 mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
   types: createMonacoTypes(input: $input) {
     types: monacoTypes {

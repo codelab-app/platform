@@ -5,10 +5,12 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { IElement, IElementTree } from '../element'
 import { IExtraElementProps, IPropData } from '../prop'
 import { IRenderOutput } from '../render'
+import { IStore } from '../store'
 
 export interface IRenderer {
   renderRoot(): ReactElement | null
   appTree: Nullable<Ref<IElementTree>>
+  appStore: Nullable<Ref<IStore>>
   pageTree: Nullable<Ref<IElementTree>>
   platformState?: any
   debugMode: boolean

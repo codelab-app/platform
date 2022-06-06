@@ -99,6 +99,11 @@ let appTypeInst: OGM_TYPES.AppTypeModel
 export const AppTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
   await getOgmInstance<'AppType'>(appTypeInst, 'AppType', ogm)
 
+let actionTypeInst: OGM_TYPES.ActionTypeModel
+
+export const ActionTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
+  await getOgmInstance<'ActionType'>(actionTypeInst, 'ActionType', ogm)
+
 let renderPropsInst: OGM_TYPES.RenderPropsTypeModel
 
 export const RenderPropsTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>

@@ -103,6 +103,15 @@ export type DeleteAppTypesMutation = {
   deleteAppTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
+export type DeleteActionTypesMutationVariables = Types.Exact<{
+  delete?: Types.InputMaybe<Types.ActionTypeDeleteInput>
+  where?: Types.InputMaybe<Types.ActionTypeWhere>
+}>
+
+export type DeleteActionTypesMutation = {
+  deleteActionTypes: { relationshipsDeleted: number; nodesDeleted: number }
+}
+
 export type DeleteMonacoTypesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.MonacoTypeDeleteInput>
   where?: Types.InputMaybe<Types.MonacoTypeWhere>
@@ -228,6 +237,17 @@ export const DeletePageTypesDocument = gql`
 export const DeleteAppTypesDocument = gql`
   mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {
     deleteAppTypes(delete: $delete, where: $where) {
+      relationshipsDeleted
+      nodesDeleted
+    }
+  }
+`
+export const DeleteActionTypesDocument = gql`
+  mutation DeleteActionTypes(
+    $delete: ActionTypeDeleteInput
+    $where: ActionTypeWhere
+  ) {
+    deleteActionTypes(delete: $delete, where: $where) {
       relationshipsDeleted
       nodesDeleted
     }
@@ -424,6 +444,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'DeleteAppTypes',
+        'mutation',
+      )
+    },
+    DeleteActionTypes(
+      variables?: DeleteActionTypesMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<DeleteActionTypesMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteActionTypesMutation>(
+            DeleteActionTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteActionTypes',
         'mutation',
       )
     },

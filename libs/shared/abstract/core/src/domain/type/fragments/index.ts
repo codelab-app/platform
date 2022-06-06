@@ -1,3 +1,4 @@
+export type { ActionTypeFragment } from './action-type.fragment.graphql.gen'
 export type { AppTypeFragment } from './app-type.fragment.graphql.gen'
 export type { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 export type { ElementTypeFragment } from './element-type.fragment.graphql.gen'

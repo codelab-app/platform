@@ -1,6 +1,7 @@
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import {
+  ActionType,
   AppType,
   ArrayType,
   ElementType,
@@ -19,6 +20,9 @@ export const typeFactory = (type: ITypeDTO) => {
   switch (type.__typename) {
     case ITypeKind.AppType:
       return AppType.hydrate(type)
+
+    case ITypeKind.ActionType:
+      return ActionType.hydrate(type)
 
     case ITypeKind.ElementType:
       return ElementType.hydrate(type)

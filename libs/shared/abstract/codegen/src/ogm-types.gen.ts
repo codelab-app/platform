@@ -84,6 +84,9 @@ export type Query = {
   appTypes: Array<AppType>;
   appTypesAggregate: AppTypeAggregateSelection;
   appTypesConnection: AppTypesConnection;
+  actionTypes: Array<ActionType>;
+  actionTypesAggregate: ActionTypeAggregateSelection;
+  actionTypesConnection: ActionTypesConnection;
   monacoTypes: Array<MonacoType>;
   monacoTypesAggregate: MonacoTypeAggregateSelection;
   monacoTypesConnection: MonacoTypesConnection;
@@ -440,6 +443,22 @@ export type QueryAppTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<AppTypeSort>>>;
 };
 
+export type QueryActionTypesArgs = {
+  where?: InputMaybe<ActionTypeWhere>;
+  options?: InputMaybe<ActionTypeOptions>;
+};
+
+export type QueryActionTypesAggregateArgs = {
+  where?: InputMaybe<ActionTypeWhere>;
+};
+
+export type QueryActionTypesConnectionArgs = {
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  where?: InputMaybe<ActionTypeWhere>;
+  sort?: InputMaybe<Array<InputMaybe<ActionTypeSort>>>;
+};
+
 export type QueryMonacoTypesArgs = {
   where?: InputMaybe<MonacoTypeWhere>;
   options?: InputMaybe<MonacoTypeOptions>;
@@ -712,6 +731,9 @@ export type Mutation = {
   createAppTypes: CreateAppTypesMutationResponse;
   deleteAppTypes: DeleteInfo;
   updateAppTypes: UpdateAppTypesMutationResponse;
+  createActionTypes: CreateActionTypesMutationResponse;
+  deleteActionTypes: DeleteInfo;
+  updateActionTypes: UpdateActionTypesMutationResponse;
   createMonacoTypes: CreateMonacoTypesMutationResponse;
   deleteMonacoTypes: DeleteInfo;
   updateMonacoTypes: UpdateMonacoTypesMutationResponse;
@@ -1101,6 +1123,25 @@ export type MutationUpdateAppTypesArgs = {
   create?: InputMaybe<AppTypeRelationInput>;
   delete?: InputMaybe<AppTypeDeleteInput>;
   connectOrCreate?: InputMaybe<AppTypeConnectOrCreateInput>;
+};
+
+export type MutationCreateActionTypesArgs = {
+  input: Array<ActionTypeCreateInput>;
+};
+
+export type MutationDeleteActionTypesArgs = {
+  where?: InputMaybe<ActionTypeWhere>;
+  delete?: InputMaybe<ActionTypeDeleteInput>;
+};
+
+export type MutationUpdateActionTypesArgs = {
+  where?: InputMaybe<ActionTypeWhere>;
+  update?: InputMaybe<ActionTypeUpdateInput>;
+  connect?: InputMaybe<ActionTypeConnectInput>;
+  disconnect?: InputMaybe<ActionTypeDisconnectInput>;
+  create?: InputMaybe<ActionTypeRelationInput>;
+  delete?: InputMaybe<ActionTypeDeleteInput>;
+  connectOrCreate?: InputMaybe<ActionTypeConnectOrCreateInput>;
 };
 
 export type MutationCreateMonacoTypesArgs = {
@@ -1750,6 +1791,7 @@ export enum TypeKind {
   MonacoType = "MonacoType",
   PageType = "PageType",
   AppType = "AppType",
+  ActionType = "ActionType",
 }
 
 export type Field = {
@@ -1962,6 +2004,72 @@ export type ActionStoreStoreNodeAggregateSelection = {
   __typename?: "ActionStoreStoreNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+};
+
+/** Allows picking a action from the list of actions */
+export type ActionType = TypeBase & {
+  __typename?: "ActionType";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  kind: TypeKind;
+  owner: User;
+  ownerAggregate?: Maybe<ActionTypeUserOwnerAggregationSelection>;
+  ownerConnection: TypeBaseOwnerConnection;
+};
+
+/** Allows picking a action from the list of actions */
+export type ActionTypeOwnerArgs = {
+  where?: InputMaybe<UserWhere>;
+  options?: InputMaybe<UserOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** Allows picking a action from the list of actions */
+export type ActionTypeOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** Allows picking a action from the list of actions */
+export type ActionTypeOwnerConnectionArgs = {
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>;
+};
+
+export type ActionTypeAggregateSelection = {
+  __typename?: "ActionTypeAggregateSelection";
+  count: Scalars["Int"];
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type ActionTypeEdge = {
+  __typename?: "ActionTypeEdge";
+  cursor: Scalars["String"];
+  node: ActionType;
+};
+
+export type ActionTypesConnection = {
+  __typename?: "ActionTypesConnection";
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+  edges: Array<ActionTypeEdge>;
+};
+
+export type ActionTypeUserOwnerAggregationSelection = {
+  __typename?: "ActionTypeUserOwnerAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type ActionTypeUserOwnerNodeAggregateSelection = {
+  __typename?: "ActionTypeUserOwnerNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  auth0Id: StringAggregateSelectionNonNullable;
+  email: StringAggregateSelectionNonNullable;
 };
 
 export type App = WithOwner & {
@@ -2638,6 +2746,12 @@ export type CreateActionsMutationResponse = {
   __typename?: "CreateActionsMutationResponse";
   info: CreateInfo;
   actions: Array<Action>;
+};
+
+export type CreateActionTypesMutationResponse = {
+  __typename?: "CreateActionTypesMutationResponse";
+  info: CreateInfo;
+  actionTypes: Array<ActionType>;
 };
 
 export type CreateAppsMutationResponse = {
@@ -5526,6 +5640,12 @@ export type UpdateActionsMutationResponse = {
   actions: Array<Action>;
 };
 
+export type UpdateActionTypesMutationResponse = {
+  __typename?: "UpdateActionTypesMutationResponse";
+  info: UpdateInfo;
+  actionTypes: Array<ActionType>;
+};
+
 export type UpdateAppsMutationResponse = {
   __typename?: "UpdateAppsMutationResponse";
   info: UpdateInfo;
@@ -6335,6 +6455,145 @@ export type ActionStoreUpdateFieldInput = {
   create?: InputMaybe<ActionStoreCreateFieldInput>;
   delete?: InputMaybe<ActionStoreDeleteFieldInput>;
   connectOrCreate?: InputMaybe<ActionStoreConnectOrCreateFieldInput>;
+};
+
+export type ActionTypeConnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
+};
+
+export type ActionTypeConnectOrCreateInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
+};
+
+export type ActionTypeCreateInput = {
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  kind?: TypeKind;
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>;
+};
+
+export type ActionTypeDeleteInput = {
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
+};
+
+export type ActionTypeDisconnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
+};
+
+export type ActionTypeOptions = {
+  /** Specify one or more ActionTypeSort objects to sort ActionTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ActionTypeSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionTypeOwnerAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ActionTypeOwnerAggregateInput>>;
+  OR?: InputMaybe<Array<ActionTypeOwnerAggregateInput>>;
+  node?: InputMaybe<ActionTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type ActionTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionTypeOwnerNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionTypeOwnerNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  auth0Id_EQUAL?: InputMaybe<Scalars["String"]>;
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  auth0Id_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_EQUAL?: InputMaybe<Scalars["String"]>;
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  email_GT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  email_GTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  email_LT?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  email_LTE?: InputMaybe<Scalars["Int"]>;
+  email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionTypeRelationInput = {
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
+};
+
+/** Fields to sort ActionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionTypeSort object. */
+export type ActionTypeSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  kind?: InputMaybe<SortDirection>;
+};
+
+export type ActionTypeUpdateInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
+};
+
+export type ActionTypeWhere = {
+  OR?: InputMaybe<Array<ActionTypeWhere>>;
+  AND?: InputMaybe<Array<ActionTypeWhere>>;
+  id?: InputMaybe<Scalars["ID"]>;
+  id_NOT?: InputMaybe<Scalars["ID"]>;
+  id_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_NOT_IN?: InputMaybe<Array<Scalars["ID"]>>;
+  id_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_NOT_CONTAINS?: InputMaybe<Scalars["ID"]>;
+  id_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  name_NOT?: InputMaybe<Scalars["String"]>;
+  name_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  name_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  name_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  kind?: InputMaybe<TypeKind>;
+  kind_NOT?: InputMaybe<TypeKind>;
+  kind_IN?: InputMaybe<Array<TypeKind>>;
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>;
+  owner?: InputMaybe<UserWhere>;
+  owner_NOT?: InputMaybe<UserWhere>;
+  ownerAggregate?: InputMaybe<ActionTypeOwnerAggregateInput>;
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
 };
 
 export type ActionUniqueWhere = {
@@ -14215,6 +14474,7 @@ export type TypeBaseCreateInput = {
   LambdaType?: InputMaybe<LambdaTypeCreateInput>;
   PageType?: InputMaybe<PageTypeCreateInput>;
   AppType?: InputMaybe<AppTypeCreateInput>;
+  ActionType?: InputMaybe<ActionTypeCreateInput>;
   MonacoType?: InputMaybe<MonacoTypeCreateInput>;
 };
 
@@ -14240,6 +14500,7 @@ export type TypeBaseImplementationsConnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>;
   PageType?: InputMaybe<Array<PageTypeConnectInput>>;
   AppType?: InputMaybe<Array<AppTypeConnectInput>>;
+  ActionType?: InputMaybe<Array<ActionTypeConnectInput>>;
   MonacoType?: InputMaybe<Array<MonacoTypeConnectInput>>;
 };
 
@@ -14255,6 +14516,7 @@ export type TypeBaseImplementationsDeleteInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>;
   PageType?: InputMaybe<Array<PageTypeDeleteInput>>;
   AppType?: InputMaybe<Array<AppTypeDeleteInput>>;
+  ActionType?: InputMaybe<Array<ActionTypeDeleteInput>>;
   MonacoType?: InputMaybe<Array<MonacoTypeDeleteInput>>;
 };
 
@@ -14270,6 +14532,7 @@ export type TypeBaseImplementationsDisconnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>;
   PageType?: InputMaybe<Array<PageTypeDisconnectInput>>;
   AppType?: InputMaybe<Array<AppTypeDisconnectInput>>;
+  ActionType?: InputMaybe<Array<ActionTypeDisconnectInput>>;
   MonacoType?: InputMaybe<Array<MonacoTypeDisconnectInput>>;
 };
 
@@ -14285,6 +14548,7 @@ export type TypeBaseImplementationsUpdateInput = {
   LambdaType?: InputMaybe<LambdaTypeUpdateInput>;
   PageType?: InputMaybe<PageTypeUpdateInput>;
   AppType?: InputMaybe<AppTypeUpdateInput>;
+  ActionType?: InputMaybe<ActionTypeUpdateInput>;
   MonacoType?: InputMaybe<MonacoTypeUpdateInput>;
 };
 
@@ -14300,6 +14564,7 @@ export type TypeBaseImplementationsWhere = {
   LambdaType?: InputMaybe<LambdaTypeWhere>;
   PageType?: InputMaybe<PageTypeWhere>;
   AppType?: InputMaybe<AppTypeWhere>;
+  ActionType?: InputMaybe<ActionTypeWhere>;
   MonacoType?: InputMaybe<MonacoTypeWhere>;
 };
 
@@ -16762,6 +17027,74 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
+export interface ActionTypeAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+}
+
+export declare class ActionTypeModel {
+  public find(args?: {
+    where?: ActionTypeWhere;
+
+    options?: ActionTypeOptions;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ActionType[]>;
+  public create(args: {
+    input: ActionTypeCreateInput[];
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<CreateActionTypesMutationResponse>;
+  public update(args: {
+    where?: ActionTypeWhere;
+    update?: ActionTypeUpdateInput;
+    connect?: ActionTypeConnectInput;
+    disconnect?: ActionTypeDisconnectInput;
+    create?: ActionTypeCreateInput;
+    connectOrCreate?: ActionTypeConnectOrCreateInput;
+    selectionSet?: string | DocumentNode | SelectionSetNode;
+    args?: any;
+    context?: any;
+    rootValue?: any;
+  }): Promise<UpdateActionTypesMutationResponse>;
+  public delete(args: {
+    where?: ActionTypeWhere;
+    delete?: ActionTypeDeleteInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
+  public aggregate(args: {
+    where?: ActionTypeWhere;
+
+    aggregate: ActionTypeAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ActionTypeAggregateSelection>;
+}
+
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean;
+  min?: boolean;
+  average?: boolean;
+  sum?: boolean;
+}
 export interface MonacoTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -17706,6 +18039,7 @@ export interface ModelMap {
   LambdaType: LambdaTypeModel;
   PageType: PageTypeModel;
   AppType: AppTypeModel;
+  ActionType: ActionTypeModel;
   MonacoType: MonacoTypeModel;
   Tag: TagModel;
   TagGraphOptions: TagGraphOptionsModel;

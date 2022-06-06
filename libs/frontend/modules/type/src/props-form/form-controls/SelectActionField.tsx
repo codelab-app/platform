@@ -7,14 +7,14 @@ import { useQuery } from 'react-query'
 import tw from 'twin.macro'
 import { interfaceFormApi } from '../../store'
 
-export const useGetAllComponents = () => {
+export const useGetAllActions = () => {
   const { data, isLoading, error } = useQuery(
-    'interface-form/select-component',
-    () => interfaceFormApi.InterfaceForm_GetComponents({}),
+    'interface-form/select-action',
+    () => interfaceFormApi.InterfaceForm_GetActions(),
   )
 
   const options =
-    data?.components.map((c) => ({
+    data?.actions.map((c) => ({
       label: c.name,
       value: c.id,
     })) ?? []
@@ -22,7 +22,7 @@ export const useGetAllComponents = () => {
   return { data, options, isLoading, error }
 }
 
-export interface SelectComponentFieldProps {
+export interface SelectActionFieldProps {
   field: IField
   form: UseFormReturn
   context?: IPropsFieldContext
@@ -33,18 +33,9 @@ export interface SelectComponentFieldProps {
  *
  * `[propName].type` & `[propName].value` as seen by `TypeValue`
  */
-export const SelectComponentField = observer(
-  ({ field, form, context }: SelectComponentFieldProps) => {
-    const { options, isLoading } = useGetAllComponents()
-
-    console.log(field.key)
-
-    /**
-     * Need to exclude self so we don't have a recursive loop
-     */
-    const filteredOptions = options.filter(
-      (option) => option.value !== context?.builderState.componentId,
-    )
+export const SelectActionField = observer(
+  ({ field, form, context }: SelectActionFieldProps) => {
+    const { options, isLoading } = useGetAllActions()
 
     return (
       <>
@@ -69,7 +60,7 @@ export const SelectComponentField = observer(
         <Controller
           control={form.control}
           /**
-           * Sets the reference to a componentId
+           * Sets the reference to a actionId
            */
           name={`${field.key}.value`}
           render={(control) => {
@@ -83,7 +74,7 @@ export const SelectComponentField = observer(
                 onBlur={control.field.onBlur}
                 onChange={control.field.onChange}
                 optionFilterProp="label"
-                options={filteredOptions}
+                options={options}
                 showSearch
                 value={control.field.value}
               />

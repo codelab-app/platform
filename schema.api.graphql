@@ -486,6 +486,198 @@ input ActionStoreUpdateFieldInput {
   where: ActionStoreConnectionWhere
 }
 
+"""
+Allows picking a action from the list of actions
+"""
+type ActionType implements TypeBase {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): ActionTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type ActionTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ActionTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input ActionTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input ActionTypeCreateInput {
+  id: ID!
+  kind: TypeKind! = ActionType
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input ActionTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input ActionTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type ActionTypeEdge {
+  cursor: String!
+  node: ActionType!
+}
+
+input ActionTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ActionTypeSort objects to sort ActionTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ActionTypeSort!]
+}
+
+input ActionTypeOwnerAggregateInput {
+  AND: [ActionTypeOwnerAggregateInput!]
+  OR: [ActionTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ActionTypeOwnerNodeAggregationWhereInput
+}
+
+input ActionTypeOwnerNodeAggregationWhereInput {
+  AND: [ActionTypeOwnerNodeAggregationWhereInput!]
+  OR: [ActionTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input ActionTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort ActionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionTypeSort object.
+"""
+input ActionTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input ActionTypeUpdateInput {
+  id: ID
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type ActionTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: ActionTypeUserOwnerNodeAggregateSelection
+}
+
+type ActionTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input ActionTypeWhere {
+  AND: [ActionTypeWhere!]
+  OR: [ActionTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: ActionTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+type ActionTypesConnection {
+  edges: [ActionTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input ActionUniqueWhere {
   id: ID
 }
@@ -3122,6 +3314,11 @@ type ComponentsConnection {
   edges: [ComponentEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type CreateActionTypesMutationResponse {
+  actionTypes: [ActionType!]!
+  info: CreateInfo!
 }
 
 type CreateActionsMutationResponse {
@@ -7596,6 +7793,9 @@ type MonacoTypesConnection {
 }
 
 type Mutation {
+  createActionTypes(
+    input: [ActionTypeCreateInput!]!
+  ): CreateActionTypesMutationResponse!
   createActions(input: [ActionCreateInput!]!): CreateActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
@@ -7664,6 +7864,10 @@ type Mutation {
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
+  deleteActionTypes(
+    delete: ActionTypeDeleteInput
+    where: ActionTypeWhere
+  ): DeleteInfo!
   deleteActions(delete: ActionDeleteInput, where: ActionWhere): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
@@ -7742,6 +7946,15 @@ type Mutation {
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   resetDatabase: ResetDatabaseMutationResponse
+  updateActionTypes(
+    connect: ActionTypeConnectInput
+    connectOrCreate: ActionTypeConnectOrCreateInput
+    create: ActionTypeRelationInput
+    delete: ActionTypeDeleteInput
+    disconnect: ActionTypeDisconnectInput
+    update: ActionTypeUpdateInput
+    where: ActionTypeWhere
+  ): UpdateActionTypesMutationResponse!
   updateActions(
     connect: ActionConnectInput
     connectOrCreate: ActionConnectOrCreateInput
@@ -9568,6 +9781,17 @@ type PropsConnection {
 }
 
 type Query {
+  actionTypes(
+    options: ActionTypeOptions
+    where: ActionTypeWhere
+  ): [ActionType!]!
+  actionTypesAggregate(where: ActionTypeWhere): ActionTypeAggregateSelection!
+  actionTypesConnection(
+    after: String
+    first: Int
+    sort: [ActionTypeSort]
+    where: ActionTypeWhere
+  ): ActionTypesConnection!
   actions(options: ActionOptions, where: ActionWhere): [Action!]!
   actionsAggregate(where: ActionWhere): ActionAggregateSelection!
   actionsConnection(
@@ -12102,6 +12326,7 @@ input TypeBaseConnectWhere {
 }
 
 input TypeBaseCreateInput {
+  ActionType: ActionTypeCreateInput
   AppType: AppTypeCreateInput
   ArrayType: ArrayTypeCreateInput
   ElementType: ElementTypeCreateInput
@@ -12127,6 +12352,7 @@ input TypeBaseDisconnectInput {
 }
 
 input TypeBaseImplementationsConnectInput {
+  ActionType: [ActionTypeConnectInput!]
   AppType: [AppTypeConnectInput!]
   ArrayType: [ArrayTypeConnectInput!]
   ElementType: [ElementTypeConnectInput!]
@@ -12142,6 +12368,7 @@ input TypeBaseImplementationsConnectInput {
 }
 
 input TypeBaseImplementationsDeleteInput {
+  ActionType: [ActionTypeDeleteInput!]
   AppType: [AppTypeDeleteInput!]
   ArrayType: [ArrayTypeDeleteInput!]
   ElementType: [ElementTypeDeleteInput!]
@@ -12157,6 +12384,7 @@ input TypeBaseImplementationsDeleteInput {
 }
 
 input TypeBaseImplementationsDisconnectInput {
+  ActionType: [ActionTypeDisconnectInput!]
   AppType: [AppTypeDisconnectInput!]
   ArrayType: [ArrayTypeDisconnectInput!]
   ElementType: [ElementTypeDisconnectInput!]
@@ -12172,6 +12400,7 @@ input TypeBaseImplementationsDisconnectInput {
 }
 
 input TypeBaseImplementationsUpdateInput {
+  ActionType: ActionTypeUpdateInput
   AppType: AppTypeUpdateInput
   ArrayType: ArrayTypeUpdateInput
   ElementType: ElementTypeUpdateInput
@@ -12187,6 +12416,7 @@ input TypeBaseImplementationsUpdateInput {
 }
 
 input TypeBaseImplementationsWhere {
+  ActionType: ActionTypeWhere
   AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
   ElementType: ElementTypeWhere
@@ -12388,6 +12618,7 @@ input TypeBaseWhere {
 }
 
 enum TypeKind {
+  ActionType
   AppType
   ArrayType
   ElementType
@@ -12756,6 +12987,11 @@ type UnionTypesConnection {
   edges: [UnionTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type UpdateActionTypesMutationResponse {
+  actionTypes: [ActionType!]!
+  info: UpdateInfo!
 }
 
 type UpdateActionsMutationResponse {
