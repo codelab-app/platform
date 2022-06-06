@@ -4,16 +4,16 @@ import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
 type Option = { label: string; value: string }
-type CreateOptions = (types?: Array<IAnyType>) => Array<Option>
+export type CreateTypeOptions = (types?: Array<IAnyType>) => Array<Option>
 
 export interface TypeSelectProps {
   types: Array<IAnyType>
   name: string
   label: string
-  createTypeOptions?: CreateOptions
+  createTypeOptions?: CreateTypeOptions
 }
 
-const defaultCreateTypeOptions: CreateOptions = (types) =>
+const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
   types?.map((t) => ({ label: t.name, value: t.id })) ?? []
 
 export const TypeSelect = observer<TypeSelectProps>(

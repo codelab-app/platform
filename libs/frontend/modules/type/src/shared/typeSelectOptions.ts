@@ -4,8 +4,8 @@ import { CreateTypeOptions } from './TypeSelect'
 /**
  * Non-union type select
  */
-export const typeSelectOptions: CreateTypeOptions = (getTypesResult) => {
-  const types = getTypesResult?.data || []
+export const typeSelectOptions: CreateTypeOptions = (typesDTO) => {
+  const types = typesDTO || []
 
   return types
     .filter((type) => type.kind !== ITypeKind.UnionType)

@@ -40,7 +40,7 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
             }
 
             return typeService.deleteField(
-              typeService.fieldDeleteModal.interface.id,
+              typeService.fieldDeleteModal?.interface?.id as string,
               field.id,
             )
           }}

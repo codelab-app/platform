@@ -6,7 +6,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
-import { InterfaceType } from './models'
 
 @model('@codelab/FieldModalService')
 export class FieldModalService
@@ -18,8 +17,7 @@ export class FieldModalService
 {
   @computed
   get interface() {
-    // interface is required so we can't open modal without it
-    return this.metadata?.interface.current as InterfaceType
+    return this.metadata?.interface?.current
   }
 
   @computed

@@ -40,7 +40,7 @@ export const UpdateFieldModal = observer<UpdateFieldModalProps>(
           model={model}
           onSubmit={(input) =>
             typeService.updateField(
-              typeService.fieldUpdateModal.interface.id,
+              typeService.fieldUpdateModal?.interface?.id as string,
               field.key,
               input,
             )

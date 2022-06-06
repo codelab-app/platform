@@ -30,7 +30,7 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           }}
           onSubmit={(input) =>
             typeService.addField(
-              typeService.fieldCreateModal.interface.id,
+              typeService.fieldCreateModal?.interface?.id as string,
               input,
             )
           }
