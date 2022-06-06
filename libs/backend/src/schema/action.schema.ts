@@ -60,7 +60,7 @@ export const actionSchema = gql`
   type PipelineAction implements BaseAction {
     id: ID!
     name: String! @unique
-    type: TypeKind! @default(value: Resource)
+    type: TypeKind! @default(value: Pipeline)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
