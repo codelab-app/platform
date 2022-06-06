@@ -19,7 +19,7 @@ export interface IFieldModalMetadata {
 
 export interface IFieldModalProperties {
   field: Maybe<IField>
-  interface: IInterfaceType
+  interface: Maybe<IInterfaceType>
 }
 
 export interface ITypeService
@@ -32,7 +32,7 @@ export interface ITypeService
   typesList: Array<IAnyType>
   fieldCreateModal: IModalService<
     Ref<IInterfaceType>,
-    { interface: IInterfaceType }
+    { interface: Maybe<IInterfaceType> }
   >
   fieldUpdateModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
   fieldDeleteModal: IModalService<IFieldModalMetadata, IFieldModalProperties>
