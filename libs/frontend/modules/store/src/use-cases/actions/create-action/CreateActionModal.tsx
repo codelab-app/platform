@@ -14,21 +14,6 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
-const defaultTransformFn = `
-function transform(response) {
-  return response
-}
-`
-
-const defaultActionBody = `/**
- * use the keyword [this] to reference state variables
- * example : this.count = this.count + 1;
- */
-
-function action() {
-}
-`
-
 export const CreateActionModal = observer<
   WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
 >(({ actionService, resourceService, store }) => {
@@ -54,7 +39,9 @@ export const CreateActionModal = observer<
       visible={actionService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{ storeId: store.id }}
+        model={{
+          storeId: store.id,
+        }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
@@ -84,11 +71,6 @@ export const CreateActionModal = observer<
           <AutoField name="config.query" />
           <AutoField name="config.variables" />
           <AutoField label="Transform Response" name="body" />
-          <AutoField
-            label="Transform Response"
-            name="body"
-            value={defaultTransformFn}
-          />
         </DisplayIfField>
 
         {/**
@@ -102,21 +84,13 @@ export const CreateActionModal = observer<
           <AutoField name="config.method" />
           <AutoField name="config.body" />
           <AutoField name="config.queryParams" />
-          <AutoField
-            label="Transform Response"
-            name="body"
-            value={defaultTransformFn}
-          />
+          <AutoField label="Transform Response" name="body" />
         </DisplayIfField>
 
         <DisplayIfField<ICreateActionDTO>
           condition={(c) => !c.model.resourceId}
         >
-          <AutoField
-            label="Action code"
-            name="body"
-            value={defaultActionBody}
-          />
+          <AutoField label="Action code" name="body" />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>
