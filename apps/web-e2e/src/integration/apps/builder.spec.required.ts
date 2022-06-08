@@ -135,7 +135,7 @@ describe('Elements CRUD', () => {
     })
   })
 
-  require('./container.spec.required')
+  require('./component.spec.required')
 
   require('./css.spec.required')
 
