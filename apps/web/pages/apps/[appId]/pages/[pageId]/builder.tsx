@@ -211,7 +211,9 @@ PageBuilder.Layout = observer((page) => {
                 )
               })
         }
-        EditorPane={() => <EditorPaneBuilder />}
+        EditorPane={({ resizable }) => (
+          <EditorPaneBuilder resizable={resizable} />
+        )}
         ExplorerPane={() => (
           <BuilderExplorerPane
             atomService={atomService}

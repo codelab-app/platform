@@ -1,4 +1,5 @@
 import { JSXElementConstructor } from 'react'
+import { UseResizable } from '../../components'
 
 export interface DashboardTemplateProps {
   Header?: JSXElementConstructor<unknown>
@@ -13,7 +14,7 @@ export interface DashboardTemplateProps {
   /**
    * The bottom panel used for workflow & editors
    */
-  EditorPane?: JSXElementConstructor<unknown>
+  EditorPane?: JSXElementConstructor<{ resizable: UseResizable }>
   /**
    * The vertical icon only menu
    */

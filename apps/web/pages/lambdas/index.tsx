@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateLambdaButton,
   CreateLambdaModal,
@@ -11,7 +8,10 @@ import {
   UpdateLambdaModal,
 } from '@codelab/frontend/modules/lambda'
 import { ContentSection } from '@codelab/frontend/view/sections'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  DashboardTemplateProps,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'

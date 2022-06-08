@@ -6666,6 +6666,95 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-hook/debounce@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@react-hook/debounce@npm:3.0.0"
+  dependencies:
+    "@react-hook/latest": ^1.0.2
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 3e4aad1daa3b6194c8bb41e6dbcf9f089a0af8480025152a72bd563558e5eee483a5080ccedcd21c2a1f9822f4e8010ab8113642e9dd8c015b3e0081f84aa23d
+  languageName: node
+  linkType: hard
+
+"@react-hook/event@npm:^1.2.1":
+  version: 1.2.6
+  resolution: "@react-hook/event@npm:1.2.6"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 993855566ca081858347ad5e3ef10dec5026eb84ae199a4d860cd86ebd06d56f1cc8778cc7d8f5aaa0733f3901f690d3d6c78275b45119c0a12dbf0f3265dc7f
+  languageName: node
+  linkType: hard
+
+"@react-hook/latest@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "@react-hook/latest@npm:1.0.3"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 2408c9cd35c5cfa7697b6da3bc5eebef254a932ade70955074c474f23be7dd3e2f81bbba12edcc9208bd0f89c6ed366d6b11d4f6d7b1052877a0bac8f74afad4
+  languageName: node
+  linkType: hard
+
+"@react-hook/passive-layout-effect@npm:^1.2.0":
+  version: 1.2.1
+  resolution: "@react-hook/passive-layout-effect@npm:1.2.1"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 217cb8aa90fb8e677672319a9a466d7752890cf4357c76df000b207696e9cc717cf2ee88080671cc9dae238a82f92093ab4f61ab2f6032d2a8db958fc7d99b5d
+  languageName: node
+  linkType: hard
+
+"@react-hook/resize-observer@npm:^1.2.1":
+  version: 1.2.5
+  resolution: "@react-hook/resize-observer@npm:1.2.5"
+  dependencies:
+    "@juggle/resize-observer": ^3.3.1
+    "@react-hook/latest": ^1.0.2
+    "@react-hook/passive-layout-effect": ^1.2.0
+    "@types/raf-schd": ^4.0.0
+    raf-schd: ^4.0.2
+  peerDependencies:
+    react: ">=16.8"
+  checksum: a2f3b333e344adb3d7a4cfd2bc77fd75054b07063fba706d57bef0c497650c3e82038eafb64fa4148c08527e8b0a34f2f70392da1700a7a0d9676ee8ba795c16
+  languageName: node
+  linkType: hard
+
+"@react-hook/size@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@react-hook/size@npm:2.1.2"
+  dependencies:
+    "@react-hook/passive-layout-effect": ^1.2.0
+    "@react-hook/resize-observer": ^1.2.1
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 89876e93957f420ba63518b60992b46ca82b0d12da0cf50ad487461e0b4230ec0e036ecf100840e2b2e93c9101895ad33e8bd6bc02a25641c28c904a09ab2563
+  languageName: node
+  linkType: hard
+
+"@react-hook/throttle@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@react-hook/throttle@npm:2.2.0"
+  dependencies:
+    "@react-hook/latest": ^1.0.2
+  peerDependencies:
+    react: ">=16.8"
+  checksum: fb763dc559602d1ba0b5c601ccfb5f1d872454727c8e827079e41819467d906b6524dbc43c7f78b6818249a31bd96c726b7ed12e68214e0cc5a00b15e939ccca
+  languageName: node
+  linkType: hard
+
+"@react-hook/window-size@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "@react-hook/window-size@npm:3.0.7"
+  dependencies:
+    "@react-hook/debounce": ^3.0.0
+    "@react-hook/event": ^1.2.1
+    "@react-hook/throttle": ^2.2.0
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 11f3b0a38631ab114b45ab77eff1df124d240acc7dc63e5a020479957ed676ecc76ef330c12bcb9f469a7c1169c4df297b639f1ad2e002914f3aa59f74c3ba99
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-babel@npm:^5.3.0":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -9932,6 +10021,13 @@ __metadata:
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
   checksum: 7fd6f9c25053e9b5bb6bc9f9f76c1d89e6c04f7707a7ba0e44cc01f17ef5284adb82f230f542c2d5557d69407c9a40f0f3515e8319afd14e1e16b5543ac6cdba
+  languageName: node
+  linkType: hard
+
+"@types/raf-schd@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "@types/raf-schd@npm:4.0.1"
+  checksum: 0babaa85541aadc6e5f8aa64ec79cd68bf67ea56abb7610c8daf3ca5f4b1a75d12e4e147a0b5434938a4031650ebddc733021ec4e7db4f11f7955390ec32c917
   languageName: node
   linkType: hard
 
@@ -14233,6 +14329,8 @@ __metadata:
     "@nrwl/storybook": 14.1.7
     "@nrwl/web": 14.1.7
     "@nrwl/workspace": 14.1.7
+    "@react-hook/size": ^2.1.2
+    "@react-hook/window-size": ^3.0.7
     "@slack/web-api": 6.5.1
     "@storybook/addon-essentials": 6.4.22
     "@storybook/addon-knobs": 6.4.0
@@ -28946,6 +29044,13 @@ __metadata:
   version: 1.0.0
   resolution: "quote-unquote@npm:1.0.0"
   checksum: 955a2ead534f5b6a3f8d4dc5a4b95ac6468213d3fb11f8c1592a0a56345c45a3d14d5ca04d3de2bc9891493fcac38c03dfa91c48a6159aef50124e9c5afcea49
+  languageName: node
+  linkType: hard
+
+"raf-schd@npm:^4.0.2":
+  version: 4.0.3
+  resolution: "raf-schd@npm:4.0.3"
+  checksum: 45514041c5ad31fa96aef3bb3c572a843b92da2f2cd1cb4a47c9ad58e48761d3a4126e18daa32b2bfa0bc2551a42d8f324a0e40e536cb656969929602b4e8b58
   languageName: node
   linkType: hard
 

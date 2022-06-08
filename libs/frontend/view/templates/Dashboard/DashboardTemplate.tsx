@@ -1,15 +1,21 @@
-import { DashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { css } from '@emotion/react'
+import useSize from '@react-hook/size'
+import { useWindowHeight } from '@react-hook/window-size'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { JSXElementConstructor, useMemo, useRef } from 'react'
 import tw from 'twin.macro'
-import { useResizable } from '../../components'
-import { defaultHeaderHeight, sidebarWidth } from './constants'
+import { UseResizable, useResizable } from '../../components'
+import {
+  defaultHeaderHeight,
+  editorPaneHeight,
+  sidebarWidth,
+} from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
-import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane'
+import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane/DashboardTemplate-EditorPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
+import { DashboardTemplateProps } from './types'
 
 const { Sider, Header: AntDesignHeader } = Layout
 
@@ -33,8 +39,30 @@ export const DashboardTemplate = observer(
       reverse: true,
     })
 
+    const windowHeight = useWindowHeight()
+    const headerContainerRef = useRef<HTMLDivElement>(null)
+    const sideNavigationContainerRef = useRef<HTMLDivElement>(null)
+    const [sideNavigationContainerWidth] = useSize(sideNavigationContainerRef)
+
+    const mainContentMarginLeft = useMemo(() => {
+      let result = sideNavigationContainerWidth
+
+      if (ExplorerPane) {
+        const w = mainPaneResizable.width.get()
+        result += w
+      }
+
+      return result
+    }, [sideNavigationContainerWidth, ExplorerPane])
+
+    console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
+
     const editorPaneResizable = useResizable({
-      height: { default: 300, max: 460, min: 240 },
+      height: {
+        default: 300,
+        max: windowHeight - (headerContainerRef.current?.clientHeight || 0),
+        min: editorPaneHeight.collapsed,
+      },
     })
 
     return (
@@ -57,7 +85,9 @@ export const DashboardTemplate = observer(
             }}
             theme="light"
           >
-            <SidebarNavigation />
+            <div ref={sideNavigationContainerRef}>
+              <SidebarNavigation />
+            </div>
           </Sider>
         )}
 
@@ -77,7 +107,9 @@ export const DashboardTemplate = observer(
                 background: 'initial',
               }}
             >
-              <Header />
+              <div ref={headerContainerRef}>
+                <Header />
+              </div>
             </AntDesignHeader>
           )}
 
@@ -98,17 +130,11 @@ export const DashboardTemplate = observer(
               css={tw`relative p-2 flex-auto`}
               style={{
                 marginTop: Header ? headerHeight ?? defaultHeaderHeight : 0,
-                marginLeft: ExplorerPane ? mainPaneResizable.width : undefined,
+                marginLeft: mainContentMarginLeft,
                 marginRight: ConfigPane ? metaPaneResizable.width : undefined,
               }}
             >
-              <div
-                style={{
-                  marginLeft: SidebarNavigation ? sidebarWidth : 0,
-                }}
-              >
-                {children}
-              </div>
+              <div>{children}</div>
             </motion.main>
 
             {/* Config Pane */}
@@ -128,7 +154,9 @@ export const DashboardTemplate = observer(
             <AnimatePresence initial={false}>
               {EditorPane && (
                 <DashboardTemplateEditorPane
+                  ConfigPane={ConfigPane}
                   EditorPane={EditorPane}
+                  metaPaneResizable={metaPaneResizable}
                   resizable={editorPaneResizable}
                 />
               )}

@@ -121,10 +121,6 @@ export const completionsFactory = ({
     const hasOpenLeftSideBracket = checkForOpenLeftSideBracket(context)
     const from = word?.from ?? context.pos
 
-    console.log({
-      hasOpenLeftSideBracket,
-    })
-
     if (!hasOpenLeftSideBracket) {
       if (defaultCompletionSource) {
         const results = defaultCompletionSource(context)

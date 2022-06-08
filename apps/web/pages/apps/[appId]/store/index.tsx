@@ -6,10 +6,7 @@ import {
   TYPE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateActionButton,
   CreateActionModal,
@@ -33,6 +30,7 @@ import {
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { IStore } from '@codelab/shared/abstract/core'
