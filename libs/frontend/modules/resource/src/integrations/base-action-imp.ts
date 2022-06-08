@@ -3,7 +3,7 @@ import { flow, makeObservable, observable } from 'mobx'
 import { _await } from 'mobx-keystone'
 import { BaseResourceImp } from './base-resource-imp'
 
-export abstract class BaseActionImp<
+export abstract class ActionBaseImp<
   Resource extends BaseResourceImp<any, any>,
   Config,
   DATA = any,

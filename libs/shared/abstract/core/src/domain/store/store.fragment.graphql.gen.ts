@@ -4,7 +4,11 @@ import {
   PropFragment,
   PropMapBindingFragment,
 } from '../prop/prop.fragment.graphql.gen'
-import { ActionFragment } from '../action/action.fragment.graphql.gen'
+import {
+  Action_CustomAction_Fragment,
+  Action_PipelineAction_Fragment,
+  Action_ResourceAction_Fragment,
+} from '../action/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -19,7 +23,11 @@ export type StoreFragment = {
   name: string
   stateApi: { id: string; name: string }
   state: PropFragment
-  actions: Array<ActionFragment>
+  actions: Array<
+    | Action_CustomAction_Fragment
+    | Action_PipelineAction_Fragment
+    | Action_ResourceAction_Fragment
+  >
 }
 
 export const StoreFragmentDoc = gql`

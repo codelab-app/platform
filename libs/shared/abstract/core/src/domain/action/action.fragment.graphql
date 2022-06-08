@@ -1,16 +1,44 @@
-fragment Action on Action {
+fragment Action on ActionBase {
+  ...ActionBase
+  ...CustomAction
+  ...ResourceAction
+  ...PipelineAction
+}
+fragment ActionBase on ActionBase {
   id
   name
-  body
   store {
     id
     name
   }
-  config {
-    ...Prop
-  }
   runOnInit
+}
+
+fragment CustomAction on CustomAction {
+  ...ActionBase
+  code
+}
+
+fragment ResourceAction on ResourceAction {
+  ...ActionBase
+  success {
+    ...ActionBase
+  }
+  error {
+    ...ActionBase
+  }
   resource {
     ...Resource
+  }
+  config {
+    id
+    data
+  }
+}
+
+fragment PipelineAction on PipelineAction {
+  ...ActionBase
+  actions {
+    ...ActionBase
   }
 }

@@ -1,0 +1,11 @@
+query GetActions($storeId: ID) {
+  customActions(where: { store: { id: $storeId } }) {
+    ...Action
+  }
+  resourceActions(where: { store: { id: $storeId } }) {
+    ...Action
+  }
+  pipelineActions(where: { store: { id: $storeId } }) {
+    ...Action
+  }
+}

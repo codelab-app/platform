@@ -18,18 +18,18 @@ export const actionSchema = gql`
     Pipeline
   }
 
-  interface BaseAction {
+  interface ActionBase {
     id: ID! @id(autogenerate: false)
     name: String!
-    type: TypeKind! @readonly
+    type: ActionKind! @readonly
     runOnInit: Boolean! @default(value: false)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
   }
 
-  type CustomAction implements BaseAction {
+  type CustomAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: TypeKind! @default(value: Custom)
+    type: ActionKind! @default(value: Custom)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
@@ -39,23 +39,23 @@ export const actionSchema = gql`
     code: String!
   }
 
-  type ResourceAction implements BaseAction {
+  type ResourceAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: TypeKind! @default(value: Resource)
+    type: ActionKind! @default(value: Resource)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
     """
     Response handlers
     """
-    success: BaseAction! @relationship(type: "SUCCESS_ACTION", direction: IN)
-    error: BaseAction! @relationship(type: "ERROR_ACTION", direction: IN)
+    success: ActionBase! @relationship(type: "SUCCESS_ACTION", direction: IN)
+    error: ActionBase! @relationship(type: "ERROR_ACTION", direction: IN)
 
     """
     Resource to fetch data from
     """
-    resource: Resource @relationship(type: "RESOURCE_ACTION", direction: OUT)
+    resource: Resource! @relationship(type: "RESOURCE_ACTION", direction: OUT)
     config: Prop! @relationship(type: "ACTION_CONFIG", direction: OUT)
   }
 
@@ -63,17 +63,17 @@ export const actionSchema = gql`
     order: Int
   }
 
-  type PipelineAction implements BaseAction {
+  type PipelineAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: TypeKind! @default(value: Pipeline)
+    type: ActionKind! @default(value: Pipeline)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
     """
     List of actions to run in order
     """
-    actions: [BaseAction!]!
+    actions: [ActionBase!]!
       @relationship(
         type: "ACTION_PIPELINE"
         properties: "ActionsPipeLine"

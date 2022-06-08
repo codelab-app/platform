@@ -2,9 +2,9 @@ import { Prop } from '@codelab/frontend/modules/element'
 import { resourceRef } from '@codelab/frontend/modules/resource'
 import {
   IAction,
-  IActionConfig,
   IActionDTO,
   IResource,
+  IResourceActionConfig,
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { detach, idProp, Model, model, prop, Ref, rootRef } from 'mobx-keystone'
@@ -15,7 +15,7 @@ export class Action
     id: idProp,
     name: prop<string>(),
     body: prop<Nullable<string>>(),
-    config: prop<Nullish<IActionConfig>>(),
+    config: prop<Nullish<IResourceActionConfig>>(),
     resource: prop<Nullish<Ref<IResource>>>(),
     runOnInit: prop<boolean>(),
     storeId: prop<string>(),
@@ -27,7 +27,7 @@ export class Action
       body: action.body ?? null,
       name: action.name,
       id: action.id,
-      config: Prop.hydrate(action.config) as IActionConfig,
+      config: Prop.hydrate(action.config) as IResourceActionConfig,
       resource: action.resource ? resourceRef(action.resource.id) : null,
       runOnInit: action.runOnInit,
       storeId: action.store.id,

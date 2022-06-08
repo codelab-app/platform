@@ -29,7 +29,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { actionApi } from './action.api'
+import { getActionApi, getActionsByStore } from './action.api'
 import { Action } from './action.model'
 import { ActionModalService } from './action-modal.service'
 
@@ -95,7 +95,7 @@ export class ActionService
     input: IUpdateActionDTO,
   ) {
     const { updateActions } = yield* _await(
-      actionApi.UpdateActions({
+      getActionApi.UpdateActions({
         where: { id: action.id },
         update: {
           body: input.body,
@@ -149,9 +149,8 @@ export class ActionService
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, where?: ActionWhere) {
-    this.actions.clear()
-
-    const { actions } = yield* _await(actionApi.GetActions({ where }))
+    const storeId = where?.store?.id
+    const actions = yield* _await(getActionsByStore(storeId))
 
     return this.hydrateOrUpdateCache(actions)
   })
@@ -184,7 +183,7 @@ export class ActionService
     const {
       createActions: { actions },
     } = yield* _await(
-      actionApi.CreateActions({
+      getActionApi.CreateActions({
         input,
       }),
     )
@@ -213,7 +212,7 @@ export class ActionService
     }
 
     const { deleteActions } = yield* _await(
-      actionApi.DeleteActions({ where: { id } }),
+      getActionApi.DeleteActions({ where: { id } }),
     )
 
     if (deleteActions.nodesDeleted === 0) {

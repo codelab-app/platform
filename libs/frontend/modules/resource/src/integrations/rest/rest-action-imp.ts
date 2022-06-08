@@ -1,9 +1,9 @@
 import { IPropData, IRestActionConfig } from '@codelab/shared/abstract/core'
 import { Method } from 'axios'
-import { BaseActionImp } from '../base-action-imp'
+import { ActionBaseImp } from '../base-action-imp'
 import { RestResourceImp } from './rest-resource-imp'
 
-export class RestActionImp extends BaseActionImp<
+export class RestActionImp extends ActionBaseImp<
   RestResourceImp,
   IRestActionConfig,
   IPropData

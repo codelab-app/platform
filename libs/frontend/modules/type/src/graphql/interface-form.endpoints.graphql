@@ -5,13 +5,6 @@ query InterfaceForm_GetApps($options: AppOptions, $where: AppWhere) {
   }
 }
 
-query InterfaceForm_GetActions($options: ActionOptions, $where: ActionWhere) {
-  actions(options: $options, where: $where) {
-    id
-    name
-  }
-}
-
 query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
   atoms(options: $options, where: $where) {
     id
