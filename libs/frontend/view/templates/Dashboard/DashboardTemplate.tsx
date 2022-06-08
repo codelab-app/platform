@@ -1,17 +1,20 @@
-import { DashboardTemplateProps } from '@codelab/frontend/abstract/types'
+import { JSXElementConstructor } from 'react'
 import { css } from '@emotion/react'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useRef } from 'react'
 import tw from 'twin.macro'
-import { useResizable } from '../../components'
-import { defaultHeaderHeight, sidebarWidth } from './constants'
+import { UseResizable, useResizable } from '../../components'
+import { defaultHeaderHeight, editorPaneHeight, sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
-import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane'
+import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane/DashboardTemplate-EditorPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
+import { useWindowHeight } from '@react-hook/window-size'
+import { DashboardTemplateProps } from './types'
 
 const { Sider, Header: AntDesignHeader } = Layout
+
 
 export const DashboardTemplate = observer(
   ({
@@ -33,8 +36,11 @@ export const DashboardTemplate = observer(
       reverse: true,
     })
 
+    let windowHeight = useWindowHeight()
+    const headerContainerRef = useRef<HTMLDivElement>(null)
+
     const editorPaneResizable = useResizable({
-      height: { default: 300, max: 460, min: 240 },
+      height: { default: 300, max: windowHeight - (headerContainerRef.current?.clientHeight || 0), min: editorPaneHeight.collapsed },
     })
 
     return (
@@ -77,7 +83,9 @@ export const DashboardTemplate = observer(
                 background: 'initial',
               }}
             >
-              <Header />
+              <div ref={headerContainerRef}>
+                <Header />
+              </div>
             </AntDesignHeader>
           )}
 
@@ -130,6 +138,8 @@ export const DashboardTemplate = observer(
                 <DashboardTemplateEditorPane
                   EditorPane={EditorPane}
                   resizable={editorPaneResizable}
+                  metaPaneResizable={metaPaneResizable}
+                  ConfigPane={ConfigPane}
                 />
               )}
             </AnimatePresence>

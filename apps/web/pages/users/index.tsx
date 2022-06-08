@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'

@@ -1,3 +1,4 @@
+export * from './pane'
 export * from './button'
 export * from './conditionalView'
 export * from './editors/CodeMirror'
