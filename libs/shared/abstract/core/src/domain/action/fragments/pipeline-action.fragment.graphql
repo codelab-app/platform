@@ -1,0 +1,6 @@
+fragment PipelineAction on PipelineAction {
+  ...ActionBase
+  actions {
+    ...ActionBase
+  }
+}

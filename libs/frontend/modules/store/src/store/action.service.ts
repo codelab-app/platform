@@ -3,15 +3,16 @@ import {
   resourceRef,
 } from '@codelab/frontend/modules/resource'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ActionBaseWhere } from '@codelab/shared/abstract/codegen'
 import {
-  ActionCreateInput,
-  ActionWhere,
-} from '@codelab/shared/abstract/codegen'
-import {
-  IAction,
   IActionDTO,
-  IActionService,
+  IActionKind,
+  IAnyAction,
+  IAnyActionService,
   ICreateActionDTO,
+  ICreateActionInput,
+  ICustomAction,
+  IResourceAction,
   IResourceDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
@@ -29,20 +30,27 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { getActionApi, getActionsByStore } from './action.api'
-import { Action } from './action.model'
+import { v4 } from 'uuid'
+import { actionFactory } from './action.factory'
 import { ActionModalService } from './action-modal.service'
+import {
+  createActionApi,
+  deleteActionApi,
+  getActionsByStore,
+  updateActionApi,
+} from './apis'
+import { actionRef } from './models'
 
 @model('@codelab/ActionService')
 export class ActionService
   extends Model({
-    actions: prop(() => objectMap<Action>()),
+    actions: prop(() => objectMap<IAnyAction>()),
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ActionModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
-    selectedActions: prop(() => Array<Ref<Action>>()).withSetter(),
+    selectedActions: prop(() => Array<Ref<IAnyAction>>()).withSetter(),
   })
-  implements IActionService
+  implements IAnyActionService
 {
   actionsList(storeId: Nullish<string>) {
     const actions = [...this.actions.values()]
@@ -55,7 +63,7 @@ export class ActionService
   }
 
   @modelAction
-  addAction(action: Action) {
+  addAction(action: IAnyAction) {
     this.actions.set(action.id, action)
   }
 
@@ -65,21 +73,42 @@ export class ActionService
 
     if (actionModel) {
       actionModel.name = action.name
-      actionModel.body = action.body ?? ''
-      actionModel.resource = action.resource
-        ? resourceRef(action.resource.id)
-        : null
       actionModel.runOnInit = action.runOnInit
       actionModel.storeId = action.store.id
-      actionModel.config?.updateCache(action.config)
+      actionModel.type = action.type
+
+      if (
+        action.__typename === IActionKind.CustomAction &&
+        // used for linting
+        actionModel.type === IActionKind.CustomAction
+      ) {
+        actionModel.code = action.code
+      }
+
+      if (
+        action.__typename === IActionKind.ResourceAction &&
+        actionModel.type === IActionKind.ResourceAction
+      ) {
+        actionModel.resource = resourceRef(action.resource.id)
+        actionModel.config.updateCache(action.config)
+        actionModel.error = actionRef(action.error.id)
+        actionModel.success = actionRef(action.success.id)
+      }
+
+      if (
+        action.__typename === IActionKind.PipelineAction &&
+        actionModel.type === IActionKind.PipelineAction
+      ) {
+        actionModel.actions = action.actions.map((a) => actionRef(a.id))
+      }
 
       return actionModel
     } else {
-      actionModel = Action.hydrate(action)
+      actionModel = actionFactory(action)
       this.actions.set(actionModel.id, actionModel)
-
-      return actionModel
     }
+
+    return actionModel
   }
 
   @modelAction
@@ -91,31 +120,51 @@ export class ActionService
   @transaction
   update = _async(function* (
     this: ActionService,
-    action: Action,
+    action: IAnyAction,
     input: IUpdateActionDTO,
   ) {
-    const { updateActions } = yield* _await(
-      getActionApi.UpdateActions({
+    const [updatedAction] = yield* _await(
+      updateActionApi[action.type]({
         where: { id: action.id },
         update: {
-          body: input.body,
           name: input.name,
-          resource: input.resourceId
+          runOnInit: input.runOnInit,
+
+          resource: IActionKind.ResourceAction
             ? {
                 disconnect: {},
                 connect: { where: { node: { id: input.resourceId } } },
               }
             : undefined,
-          runOnInit: input.runOnInit,
-          config: {
-            update: { node: { data: JSON.stringify(input.config) } },
-          },
+
+          config:
+            input.type === IActionKind.ResourceAction
+              ? { update: { node: { data: JSON.stringify(input.config) } } }
+              : undefined,
+          error:
+            input.type === IActionKind.ResourceAction
+              ? { connect: { where: { node: { id: input.errorId } } } }
+              : undefined,
+          success:
+            input.type === IActionKind.ResourceAction
+              ? { connect: { where: { node: { id: input.successId } } } }
+              : undefined,
+
+          actions:
+            input.type === IActionKind.PipelineAction
+              ? input.actionsIds?.map((actionId) => ({
+                  disconnect: [{ where: {} }],
+                  connect: [{ where: { node: { id: actionId } } }],
+                }))
+              : undefined,
+
+          code:
+            input.type === IActionKind.CustomAction ? input.code : undefined,
         },
       }),
     )
 
-    const updatedAction = updateActions.actions[0]
-    const actionModel = Action.hydrate(updatedAction)
+    const actionModel = actionFactory(updatedAction)
     this.actions.set(updatedAction.id, actionModel)
 
     return actionModel
@@ -126,7 +175,13 @@ export class ActionService
     const resourceService = getResourceService(this)
 
     const resources: Array<IResourceDTO> = actions
-      .map((a) => a.resource)
+      .map((action) => {
+        if (action.__typename === IActionKind.ResourceAction) {
+          return action.resource
+        }
+
+        return undefined
+      })
       .filter((r): r is IResourceDTO => Boolean(r))
 
     resourceService.updateCache(resources)
@@ -135,11 +190,11 @@ export class ActionService
   @modelAction
   public hydrateOrUpdateCache = (
     actions: Array<IActionDTO>,
-  ): Array<IAction> => {
+  ): Array<IAnyAction> => {
     this.updateResourceCache(actions)
 
     return actions.map((action) => {
-      const actionModel = Action.hydrate(action)
+      const actionModel = actionFactory(action)
       this.actions.set(action.id, actionModel)
 
       return actionModel
@@ -148,7 +203,7 @@ export class ActionService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ActionService, where?: ActionWhere) {
+  getAll = _async(function* (this: ActionService, where?: ActionBaseWhere) {
     const storeId = where?.store?.id
     const actions = yield* _await(getActionsByStore(storeId))
 
@@ -169,32 +224,44 @@ export class ActionService
     this: ActionService,
     data: Array<ICreateActionDTO>,
   ) {
-    const input: Array<ActionCreateInput> = data.map((action) => ({
+    const input: Array<ICreateActionInput> = data.map((action) => ({
+      id: v4(),
       name: action.name,
-      body: action.body,
+      code: action.code,
+      runOnInit: action.runOnInit,
+      type: action.type,
       store: { connect: { where: { node: { id: action.storeId } } } },
-      config: { create: { node: { data: JSON.stringify(action.config) } } },
+
+      config: action.config
+        ? { create: { node: { data: JSON.stringify(action.config) } } }
+        : undefined,
+
       resource: action.resourceId
         ? { connect: { where: { node: { id: action.resourceId } } } }
         : undefined,
-      runOnInit: action.runOnInit,
+
+      error: action.errorId
+        ? { connect: { where: { node: { id: action.errorId } } } }
+        : undefined,
+
+      success: action.successId
+        ? { connect: { where: { node: { id: action.successId } } } }
+        : undefined,
+
+      actions: action.actionsIds?.map((id) => ({
+        connect: { where: { node: { id } } },
+      })),
     }))
 
-    const {
-      createActions: { actions },
-    } = yield* _await(
-      getActionApi.CreateActions({
-        input,
-      }),
-    )
+    const createdActions = yield* _await(createActionApi[data[0].type](input))
 
-    if (!actions.length) {
+    if (!createdActions?.length) {
       // Throw an error so that the transaction middleware rolls back the changes
       throw new Error('Action was not created')
     }
 
-    return actions.map((action) => {
-      const actionModel = Action.hydrate(action)
+    return createdActions.map((action) => {
+      const actionModel = actionFactory(action)
 
       this.actions.set(action.id, actionModel)
 
@@ -211,11 +278,11 @@ export class ActionService
       this.actions.delete(id)
     }
 
-    const { deleteActions } = yield* _await(
-      getActionApi.DeleteActions({ where: { id } }),
+    const { nodesDeleted } = yield* _await(
+      deleteActionApi[existing.type]({ where: { id } }),
     )
 
-    if (deleteActions.nodesDeleted === 0) {
+    if (nodesDeleted === 0) {
       // throw error so that the actionic middleware rolls back the changes
       throw new Error('Action was not deleted')
     }
@@ -224,7 +291,7 @@ export class ActionService
   })
 }
 
-export const actionServiceContext = createContext<IActionService>()
+export const actionServiceContext = createContext<IAnyActionService>()
 
 export const getActionService = (self: object) => {
   const actionStore = actionServiceContext.get(self)

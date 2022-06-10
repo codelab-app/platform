@@ -1,8 +1,8 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
-  IActionDTO,
   IActionKind,
-  IActionWhere,
+  IAnyActionDTO,
+  IAnyActionWhere,
   IConnectActionInput,
   ICreateActionInput,
   IDeleteActionInput,
@@ -12,13 +12,13 @@ import {
 import { UnboxArray } from '@codelab/shared/abstract/types'
 import { Maybe } from 'graphql/jsutils/Maybe'
 import { flatten } from 'lodash'
-import { getSdk as getCreateSdk } from '../graphql/create-action.endpoints.graphql.gen'
-import { getSdk as getDeleteSdk } from '../graphql/delete-action.endpoints.graphql.gen'
+import { getSdk as getCreateSdk } from '../../graphql/create-action.endpoints.graphql.gen'
+import { getSdk as getDeleteSdk } from '../../graphql/delete-action.endpoints.graphql.gen'
 import {
   GetActionsQuery,
   getSdk as getGetSdk,
-} from '../graphql/get-action.endpoints.graphql.gen'
-import { getSdk as getUpdateSdk } from '../graphql/update-action.endpoints.graphql.gen'
+} from '../../graphql/get-action.endpoints.graphql.gen'
+import { getSdk as getUpdateSdk } from '../../graphql/update-action.endpoints.graphql.gen'
 
 export const getActionApi = getGetSdk(client)
 
@@ -34,24 +34,24 @@ type CreateActions = Record<
   IActionKind,
   (
     input: ICreateActionInput | Array<ICreateActionInput>,
-  ) => Promise<Array<IActionDTO>>
+  ) => Promise<Array<IAnyActionDTO>>
 >
 
 type UpdateActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IActionWhere
+    where: IAnyActionWhere
     update: IUpdateActionInput
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
     connect?: IConnectActionInput
-  }) => Promise<Array<IActionDTO>>
+  }) => Promise<Array<IAnyActionDTO>>
 >
 
 type DeleteActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IActionWhere
+    where: IAnyActionWhere
   }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
 >
 
@@ -64,49 +64,49 @@ export const getActionsByStore = async (
 }
 
 export const createActionApi: CreateActions = {
-  [IActionKind.Custom]: (input) =>
+  [IActionKind.CustomAction]: (input) =>
     _createActionApi
       .CreateCustomActions({ input: input as any })
       .then((response) => response.createCustomActions.customActions),
 
-  [IActionKind.Resource]: (input) =>
+  [IActionKind.ResourceAction]: (input) =>
     _createActionApi
       .CreateResourceActions({ input })
       .then((response) => response.createResourceActions.resourceActions),
 
-  [IActionKind.Pipeline]: (input) =>
+  [IActionKind.PipelineAction]: (input) =>
     _createActionApi
       .CreatePipelineActions({ input })
       .then((response) => response.createResourceActions.resourceActions),
 }
 
 export const updateActionApi: UpdateActionsRecord = {
-  [IActionKind.Custom]: (vars) =>
+  [IActionKind.CustomAction]: (vars) =>
     _updateActionApi
       .UpdateCustomActions(vars)
       .then((response) => response.updateCustomActions.customActions),
 
-  [IActionKind.Resource]: (vars) =>
+  [IActionKind.ResourceAction]: (vars) =>
     _updateActionApi
       .UpdateResourceActions(vars)
       .then((response) => response.updateResourceActions.resourceActions),
 
-  [IActionKind.Pipeline]: (vars) =>
+  [IActionKind.PipelineAction]: (vars) =>
     _updateActionApi
       .UpdatePipelineActions(vars)
       .then((response) => response.updatePipelineActions.pipelineActions),
 }
 
 export const deleteActionApi: DeleteActionsRecord = {
-  [IActionKind.Custom]: (vars) =>
+  [IActionKind.CustomAction]: (vars) =>
     _deleteActionApi
       .DeleteCustomActions(vars)
       .then((r) => r.deleteCustomActions),
-  [IActionKind.Resource]: (vars) =>
+  [IActionKind.ResourceAction]: (vars) =>
     _deleteActionApi
       .DeleteResourceActions(vars)
       .then((r) => r.deleteResourceActions),
-  [IActionKind.Pipeline]: (vars) =>
+  [IActionKind.PipelineAction]: (vars) =>
     _deleteActionApi
       .DeletePipelineActions(vars)
       .then((r) => r.deletePipelineActions),

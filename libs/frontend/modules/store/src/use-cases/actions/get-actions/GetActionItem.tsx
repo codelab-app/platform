@@ -3,14 +3,14 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { IAction, IActionService } from '@codelab/shared/abstract/core'
+import { IAnyAction, IAnyActionService } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { actionRef } from '../../../store'
 
 export type GetActionItemProps = {
-  action: IAction
-  actionService: IActionService
+  action: IAnyAction
+  actionService: IAnyActionService
 }
 
 export const GetActionItem = observer<GetActionItemProps>(

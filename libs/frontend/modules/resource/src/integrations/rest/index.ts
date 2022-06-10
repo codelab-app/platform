@@ -1,5 +1,5 @@
 import {
-  IAction,
+  IAnyAction,
   IRestActionConfig,
   IRestResourceConfig,
 } from '@codelab/shared/abstract/core'
@@ -7,7 +7,7 @@ import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { RestActionImp } from './rest-action-imp'
 import { RestResourceImp } from './rest-resource-imp'
 
-export const createRestAction = (action: IAction) => {
+export const createRestAction = (action: IAnyAction) => {
   const resourceConfig: Nullish<IRestResourceConfig> =
     action.resource?.current.config.values
 

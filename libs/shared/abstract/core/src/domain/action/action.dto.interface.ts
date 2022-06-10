@@ -1,27 +1,31 @@
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { ActionFragment } from './action.fragment.graphql.gen'
+import { IProp } from '../prop'
 import { IActionKind } from './action-kind.enum'
-import { IGraphQLActionConfig } from './graphql-action-config.interface'
-import { IRestActionConfig } from './rest-action-config.interface'
+import { IGraphQLActionConfig, IRestActionConfig } from './actions'
+import { ActionFragment } from './fragments'
 
-export interface ICreateActionDTO {
-  storeId: string
+export type IResourceActionConfig = IProp<
+  IRestActionConfig | IGraphQLActionConfig
+>
+
+export interface IActionBaseDTO {
+  id: string
   name: string
-  type: IActionKind
-  body: Nullable<string>
   runOnInit: boolean
+  storeId: string
+  type: IActionKind
 
-  // custom action
   code?: string
 
-  // resource action
-  resourceId?: Nullish<string>
-  config?: Nullish<IRestActionConfig | IGraphQLActionConfig>
+  resourceId?: string
+  config?: IResourceActionConfig
+  successId?: string
+  errorId?: string
 
-  // pipeline action
-  actionIds?: Array<string>
+  actionsIds?: Array<string>
 }
 
-export type IUpdateActionDTO = ICreateActionDTO
+export type ICreateActionDTO = IActionBaseDTO
+
+export type IUpdateActionDTO = IActionBaseDTO
 
 export type IActionDTO = ActionFragment

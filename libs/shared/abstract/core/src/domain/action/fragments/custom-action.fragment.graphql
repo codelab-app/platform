@@ -1,0 +1,4 @@
+fragment CustomAction on CustomAction {
+  ...ActionBase
+  code
+}

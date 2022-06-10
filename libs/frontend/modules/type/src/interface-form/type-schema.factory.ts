@@ -1,6 +1,6 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
-  IActionType,
+  IAnyActionType,
   IAnyType,
   IAppType,
   IArrayType,
@@ -143,7 +143,7 @@ export class TypeSchemaFactory {
     return this.simpleReferenceType(type)
   }
 
-  fromActionType(type: IActionType): JsonSchema {
+  fromActionType(type: IAnyActionType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 

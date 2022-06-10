@@ -8,7 +8,7 @@ import {
   Action_CustomAction_Fragment,
   Action_PipelineAction_Fragment,
   Action_ResourceAction_Fragment,
-} from '../action/action.fragment.graphql.gen'
+} from '../action/fragments/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -16,7 +16,7 @@ import {
   PropFragmentDoc,
   PropMapBindingFragmentDoc,
 } from '../prop/prop.fragment.graphql.gen'
-import { ActionFragmentDoc } from '../action/action.fragment.graphql.gen'
+import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 export type StoreFragment = {
   __typename: 'Store'
   id: string

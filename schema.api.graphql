@@ -246,17 +246,17 @@ enum ActionKind {
   """
   Action with custom code
   """
-  Custom
+  CustomAction
 
   """
   Represents a list of actions that runs in a certain order
   """
-  Pipeline
+  PipelineAction
 
   """
   Action responsible for fetching data from a resource
   """
-  Resource
+  ResourceAction
 }
 
 """
@@ -3346,7 +3346,7 @@ input CustomActionCreateInput {
   name: String!
   runOnInit: Boolean! = false
   store: ActionBaseStoreFieldInput
-  type: ActionKind! = Custom
+  type: ActionKind! = CustomAction
 }
 
 input CustomActionDeleteInput {
@@ -9005,7 +9005,7 @@ input PipelineActionCreateInput {
   name: String!
   runOnInit: Boolean! = false
   store: ActionBaseStoreFieldInput
-  type: ActionKind! = Pipeline
+  type: ActionKind! = PipelineAction
 }
 
 input PipelineActionDeleteInput {
@@ -11082,7 +11082,7 @@ input ResourceActionCreateInput {
   runOnInit: Boolean! = false
   store: ActionBaseStoreFieldInput
   success: ResourceActionSuccessFieldInput
-  type: ActionKind! = Resource
+  type: ActionKind! = ResourceAction
 }
 
 input ResourceActionDeleteInput {

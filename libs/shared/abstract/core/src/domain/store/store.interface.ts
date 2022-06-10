@@ -1,5 +1,5 @@
 import { Ref } from 'mobx-keystone'
-import { IAction } from '../action'
+import { IAnyAction } from '../action'
 import { IProp } from '../prop'
 import { IStoreDTO } from './store.dto.interface'
 
@@ -8,7 +8,7 @@ export interface IStore {
   name: string
   stateApiId: string
   state: IProp
-  actions: Array<Ref<IAction>>
+  actions: Array<Ref<IAnyAction>>
   updateCache(data: Omit<IStoreDTO, '__typename'>): IStore
   toMobxObservable(globals?: any): any
 }

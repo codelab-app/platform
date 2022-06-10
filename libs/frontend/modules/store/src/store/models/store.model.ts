@@ -5,6 +5,8 @@ import {
 } from '@codelab/frontend/modules/resource'
 import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
+  IActionKind,
+  IAnyAction,
   IProp,
   IStore,
   IStoreDTO,
@@ -22,7 +24,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
-import { Action, actionRef } from './action.model'
+import { actionRef } from './action.ref'
 
 export const hydrate = ({
   actions,
@@ -44,7 +46,7 @@ export class Store
   extends Model(() => ({
     id: idProp,
     name: prop<string>(),
-    actions: prop<Array<Ref<Action>>>().withSetter(),
+    actions: prop<Array<Ref<IAnyAction>>>().withSetter(),
     state: prop<IProp>(),
     stateApiId: prop<string>().withSetter(),
   }))
@@ -83,27 +85,24 @@ export class Store
 
     const storeActions = this.actions
       .map(({ current: action }) => {
-        const isResourceOperation =
-          action.resource?.current && action.config?.values
-
-        if (!isResourceOperation && !action.body) {
-          throw new Error(
-            'Action misconfigure, an action must have either a resource and config or a body or both ',
-          )
-        }
-
         // an action that manipulates local state only
-        if (!isResourceOperation) {
+        if (action.type === IActionKind.CustomAction) {
           // eslint-disable-next-line no-eval
-          return { [action.name]: eval(`(${action.body})`) }
+          return { [action.name]: eval(`(${action.code})`) }
         }
 
-        const actionInst =
-          action.resource?.current.type === ResourceType.GraphQL
-            ? createGraphQLAction(action)
-            : createRestAction(action)
+        if (action.type === IActionKind.ResourceAction) {
+          const actionInst =
+            action.resource?.current.type === ResourceType.GraphQL
+              ? createGraphQLAction(action)
+              : createRestAction(action)
 
-        return { [action.name]: actionInst }
+          return { [action.name]: actionInst }
+        }
+
+        if (action.type === IActionKind.PipelineAction) {
+          // TODO: implement pipeline action
+        }
       })
       .reduce(merge, {})
 

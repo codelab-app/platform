@@ -1,6 +1,6 @@
 import * as cg from '@codelab/shared/abstract/codegen'
 
-export type IActionWhere = cg.CustomActionWhere &
+export type IAnyActionWhere = cg.CustomActionWhere &
   cg.ResourceActionWhere &
   cg.PipelineActionWhere
 

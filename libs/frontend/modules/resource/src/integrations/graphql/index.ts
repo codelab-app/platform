@@ -1,5 +1,5 @@
 import {
-  IAction,
+  IAnyAction,
   IGraphQLActionConfig,
   IGraphQLResourceConfig,
 } from '@codelab/shared/abstract/core'
@@ -7,7 +7,7 @@ import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { GraphQlActionImp } from './graphql-action-imp'
 import { GraphQLResourceImp } from './graphql-resource-imp'
 
-export const createGraphQLAction = (action: IAction) => {
+export const createGraphQLAction = (action: IAnyAction) => {
   const resourceConfig: Nullish<IGraphQLResourceConfig> =
     action.resource?.current.config.values
 

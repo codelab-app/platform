@@ -4,11 +4,11 @@ import {
   Action_CustomAction_Fragment,
   Action_PipelineAction_Fragment,
   Action_ResourceAction_Fragment,
-} from '../../../../../shared/abstract/core/src/domain/action/action.fragment.graphql.gen'
+} from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/action.fragment.graphql.gen'
+import { ActionFragmentDoc } from '../../../../../shared/abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 export type UpdateCustomActionsMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.CustomActionConnectInput>
   create?: Types.InputMaybe<Types.CustomActionRelationInput>

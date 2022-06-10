@@ -1,4 +1,3 @@
-import { ActionWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import {
@@ -7,19 +6,16 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import {
-  IActionDTO,
-  ICreateActionDTO,
-  IUpdateActionDTO,
-} from './action.dto.interface'
-import { IAction } from './action.model.interface'
+import { IActionDTO, ICreateActionDTO, IUpdateActionDTO } from '../action'
+import { IAnyActionWhere } from './action.where.interface'
+import { IAnyAction } from './actions'
 
-export interface IActionService
-  extends ICRUDService<IAction, ICreateActionDTO, IUpdateActionDTO>,
-    IQueryService<IAction, ActionWhere>,
-    ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }>,
-    CacheService<IAction, IActionDTO> {
-  actionsList(storeId: Nullish<string>): Array<IAction>
-  setSelectedActions(actions: Array<Ref<IAction>>): void
-  hydrateOrUpdateCache(actions: Array<IActionDTO>): Array<IAction>
+export interface IAnyActionService
+  extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,
+    IQueryService<IAnyAction, IAnyActionWhere>,
+    ICRUDModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>,
+    CacheService<IAnyAction, IActionDTO> {
+  actionsList(storeId: Nullish<string>): Array<IAnyAction>
+  setSelectedActions(actions: Array<Ref<IAnyAction>>): void
+  hydrateOrUpdateCache(actions: Array<IActionDTO>): Array<IAnyAction>
 }

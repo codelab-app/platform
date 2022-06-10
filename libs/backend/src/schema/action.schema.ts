@@ -5,17 +5,17 @@ export const actionSchema = gql`
     """
     Action with custom code
     """
-    Custom
+    CustomAction
 
     """
     Action responsible for fetching data from a resource
     """
-    Resource
+    ResourceAction
 
     """
     Represents a list of actions that runs in a certain order
     """
-    Pipeline
+    PipelineAction
   }
 
   interface ActionBase {
@@ -29,7 +29,7 @@ export const actionSchema = gql`
   type CustomAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: ActionKind! @default(value: Custom)
+    type: ActionKind! @default(value: CustomAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
@@ -42,7 +42,7 @@ export const actionSchema = gql`
   type ResourceAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: ActionKind! @default(value: Resource)
+    type: ActionKind! @default(value: ResourceAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 
@@ -66,7 +66,7 @@ export const actionSchema = gql`
   type PipelineAction implements ActionBase {
     id: ID!
     name: String! @unique
-    type: ActionKind! @default(value: Pipeline)
+    type: ActionKind! @default(value: PipelineAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!
 

@@ -39,58 +39,61 @@ export const CreateActionModal = observer<
       visible={actionService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{
-          storeId: store.id,
-        }}
+        model={{ storeId: store.id }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createActionSchema}
       >
-        <AutoFields omitFields={['storeId', 'resourceId', 'config', 'body']} />
-
-        <AutoField
-          component={observer((props) => (
-            <SelectResource
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...(props as any)}
-              resourceService={resourceService}
-            />
-          ))}
-          name="resourceId"
+        <AutoFields
+          omitFields={[
+            'code',
+            'resourceId',
+            'config',
+            'successId',
+            'errorId',
+            'actionsIds',
+          ]}
         />
 
-        {/**
-         *
-         *  GraphQL Operation Config Form
-         *
-         */}
+        {/** Custom Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+          condition={(c) => c.model.type === IActionKind.CustomAction}
         >
-          <AutoField name="config.query" />
-          <AutoField name="config.variables" />
-          <AutoField label="Transform Response" name="body" />
+          <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
-        {/**
-         *
-         *  Rest Operation Config Form
-         *
-         */}
+        {/** Resource Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => getResourceType(c) === ResourceType.Rest}
+          condition={(c) => c.model.type === IActionKind.ResourceAction}
         >
-          <AutoField name="config.method" />
-          <AutoField name="config.body" />
-          <AutoField name="config.queryParams" />
-          <AutoField label="Transform Response" name="body" />
+          <SelectResource name="resourceId" resourceService={resourceService} />
+
+          {/** GraphQL Operation Config Form */}
+          <DisplayIfField<ICreateActionDTO>
+            condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+          >
+            <AutoField name="config.query" />
+            <AutoField name="config.variables" />
+            <AutoField label="Transform Response" name="code" />
+          </DisplayIfField>
+
+          {/** Rest Operation Config Form */}
+          <DisplayIfField<ICreateActionDTO>
+            condition={(c) => getResourceType(c) === ResourceType.Rest}
+          >
+            <AutoField name="config.method" />
+            <AutoField name="config.code" />
+            <AutoField name="config.queryParams" />
+            <AutoField label="Transform Response" name="code" />
+          </DisplayIfField>
         </DisplayIfField>
 
+        {/** Pipeline Action */}
         <DisplayIfField<ICreateActionDTO>
-          condition={(c) => !c.model.resourceId}
+          condition={(c) => c.model.type === IActionKind.PipelineAction}
         >
-          <AutoField label="Action code" name="body" />
+          <AutoField label="Actions" name="actionsIds" />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

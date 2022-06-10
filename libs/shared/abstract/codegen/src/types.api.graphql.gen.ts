@@ -265,11 +265,11 @@ export type ActionBaseWhere = {
 
 export enum ActionKind {
   /** Action with custom code */
-  Custom = 'Custom',
+  CustomAction = 'CustomAction',
   /** Represents a list of actions that runs in a certain order */
-  Pipeline = 'Pipeline',
+  PipelineAction = 'PipelineAction',
   /** Action responsible for fetching data from a resource */
-  Resource = 'Resource',
+  ResourceAction = 'ResourceAction',
 }
 
 /** Allows picking a action from the list of actions */

@@ -6,7 +6,11 @@ import {
 import { SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateActionDTO, ResourceType } from '@codelab/shared/abstract/core'
+import {
+  IActionKind,
+  IUpdateActionDTO,
+  ResourceType,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
@@ -32,12 +36,38 @@ export const UpdateActionModal = observer<
   })
 
   const model = {
-    storeId: actionService.updateModal.action?.storeId,
-    runOnInit: actionService.updateModal.action?.runOnInit,
-    config: actionService.updateModal.action?.config?.values,
-    resourceId: actionService.updateModal.action?.resource?.id,
-    name: actionService.updateModal.action?.name,
-    body: actionService.updateModal.action?.body || '',
+    storeId: updateAction?.storeId,
+    runOnInit: updateAction?.runOnInit,
+    name: updateAction?.name,
+    type: updateAction?.type,
+    id: updateAction?.id,
+
+    actionsIds:
+      updateAction?.type === IActionKind.PipelineAction
+        ? updateAction.actionsSorted.map((a) => a.id)
+        : undefined,
+
+    config:
+      updateAction?.type === IActionKind.ResourceAction
+        ? updateAction?.config?.values
+        : undefined,
+    resourceId:
+      updateAction?.type === IActionKind.ResourceAction
+        ? updateAction?.resource?.id
+        : undefined,
+    successId:
+      updateAction?.type === IActionKind.ResourceAction
+        ? updateAction?.success?.id
+        : undefined,
+    errorId:
+      updateAction?.type === IActionKind.ResourceAction
+        ? updateAction.error.id
+        : undefined,
+
+    code:
+      updateAction?.type === IActionKind.CustomAction
+        ? updateAction?.code
+        : undefined,
   }
 
   const getResourceType = (c: Context<IUpdateActionDTO>) =>
@@ -58,50 +88,55 @@ export const UpdateActionModal = observer<
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
       >
-        <AutoFields omitFields={['storeId', 'resourceId', 'config']} />
-
-        <AutoField
-          component={observer((props) => (
-            <SelectResource
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...(props as any)}
-              resourceService={resourceService}
-            />
-          ))}
-          name="resourceId"
+        <AutoFields
+          omitFields={[
+            'code',
+            'resourceId',
+            'config',
+            'successId',
+            'errorId',
+            'actionsIds',
+          ]}
         />
 
-        {/**
-         *
-         *  GraphQL Operation Config Form
-         *
-         */}
+        {/** Custom Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+          condition={(c) => c.model.type === IActionKind.CustomAction}
         >
-          <AutoField name="config.query" />
-          <AutoField name="config.variables" />
-          <AutoField label="Transform Response" name="body" />
+          <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
-        {/**
-         *
-         *  Rest Operation Config Form
-         *
-         */}
+        {/** Resource Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => getResourceType(c) === ResourceType.Rest}
+          condition={(c) => c.model.type === IActionKind.ResourceAction}
         >
-          <AutoField name="config.method" />
-          <AutoField name="config.body" />
-          <AutoField name="config.queryParams" />
-          <AutoField label="Transform Response" name="body" />
+          <SelectResource name="resourceId" resourceService={resourceService} />
+
+          {/** GraphQL Operation Config Form */}
+          <DisplayIfField<IUpdateActionDTO>
+            condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+          >
+            <AutoField name="config.query" />
+            <AutoField name="config.variables" />
+            <AutoField label="Transform Response" name="code" />
+          </DisplayIfField>
+
+          {/** Rest Operation Config Form */}
+          <DisplayIfField<IUpdateActionDTO>
+            condition={(c) => getResourceType(c) === ResourceType.Rest}
+          >
+            <AutoField name="config.method" />
+            <AutoField name="config.code" />
+            <AutoField name="config.queryParams" />
+            <AutoField label="Transform Response" name="code" />
+          </DisplayIfField>
         </DisplayIfField>
 
+        {/** Pipeline Action */}
         <DisplayIfField<IUpdateActionDTO>
-          condition={(c) => !c.model.resourceId}
+          condition={(c) => c.model.type === IActionKind.PipelineAction}
         >
-          <AutoField label="Action code" name="body" />
+          <AutoField label="Actions" name="actionsIds" />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>
