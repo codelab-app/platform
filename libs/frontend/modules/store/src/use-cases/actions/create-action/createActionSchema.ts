@@ -70,7 +70,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       label: '',
       nullable: true,
       properties: {
-        /** Graphql Operation fields */
         query: {
           type: 'string',
           nullable: true,
@@ -81,18 +80,17 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
         },
-        /** Rest Operation fields */
-        body: {
-          type: 'string',
-          nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
-        },
         method: {
           type: 'string',
           enum: keys(HttpMethod) as Array<HttpMethod>,
           showSearch: true,
         },
         queryParams: {
+          type: 'string',
+          nullable: true,
+          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+        },
+        transformFn: {
           type: 'string',
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },

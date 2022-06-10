@@ -53,6 +53,10 @@ export class ResourceService
     const { resources } = yield* _await(resourceApi.GetResources({ where }))
 
     return resources.map((resource) => {
+      if (this.resources.has(resource.id)) {
+        return this.resources.get(resource.id)!
+      }
+
       const resourceModel = Resource.hydrate(resource)
       this.resources.set(resource.id, resourceModel)
 
@@ -174,11 +178,6 @@ export class ResourceService
     }
 
     return resourceModel
-  }
-
-  @modelAction
-  addResource(resource: Resource) {
-    this.resources.set(resource.id, resource)
   }
 }
 

@@ -4,7 +4,6 @@ import {
   assertIsActionKind,
   IActionKind,
   IAnyAction,
-  IProp,
   IResource,
   IResourceAction,
   IResourceActionConfig,
@@ -23,8 +22,8 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
     runOnInit: action.runOnInit,
     storeId: action.store.id,
     type: action.type,
-    config: Prop.hydrate(action.config) as IProp<IResourceActionConfig>,
-    resource: resourceRef(action.id),
+    config: Prop.hydrate(action.config) as IResourceActionConfig,
+    resource: resourceRef(action.resource.id),
     success: actionRef(action.success.id),
     error: actionRef(action.error.id),
   })
@@ -34,7 +33,7 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
 export class ResourceAction
   extends ExtendedModel(createActionBase(IActionKind.ResourceAction), {
     resource: prop<Ref<IResource>>(),
-    config: prop<IProp<IResourceActionConfig>>(),
+    config: prop<IResourceActionConfig>(),
     success: prop<Ref<IAnyAction>>(),
     error: prop<Ref<IAnyAction>>(),
   })

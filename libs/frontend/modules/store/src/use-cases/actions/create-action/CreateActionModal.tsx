@@ -3,7 +3,7 @@ import {
   RESOURCE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { SelectResource } from '@codelab/frontend/modules/type'
+import { SelectAction, SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
@@ -69,23 +69,35 @@ export const CreateActionModal = observer<
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
 
-          {/** GraphQL Operation Config Form */}
+          <SelectAction
+            actionService={actionService}
+            name="successId"
+            storeId={store.id}
+          />
+
+          <SelectAction
+            actionService={actionService}
+            name="errorId"
+            storeId={store.id}
+          />
+
+          {/** GraphQL Config Form */}
           <DisplayIfField<ICreateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.GraphQL}
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
-            <AutoField label="Transform Response" name="code" />
+            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
 
-          {/** Rest Operation Config Form */}
+          {/** Rest Config Form */}
           <DisplayIfField<ICreateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.Rest}
           >
             <AutoField name="config.method" />
             <AutoField name="config.code" />
             <AutoField name="config.queryParams" />
-            <AutoField label="Transform Response" name="code" />
+            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
         </DisplayIfField>
 

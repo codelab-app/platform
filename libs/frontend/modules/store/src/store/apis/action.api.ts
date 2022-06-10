@@ -1,7 +1,7 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
 import {
+  IActionDTO,
   IActionKind,
-  IAnyActionDTO,
   IAnyActionWhere,
   IConnectActionInput,
   ICreateActionInput,
@@ -34,7 +34,7 @@ type CreateActions = Record<
   IActionKind,
   (
     input: ICreateActionInput | Array<ICreateActionInput>,
-  ) => Promise<Array<IAnyActionDTO>>
+  ) => Promise<Array<IActionDTO>>
 >
 
 type UpdateActionsRecord = Record<
@@ -45,7 +45,7 @@ type UpdateActionsRecord = Record<
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
     connect?: IConnectActionInput
-  }) => Promise<Array<IAnyActionDTO>>
+  }) => Promise<Array<IActionDTO>>
 >
 
 type DeleteActionsRecord = Record<

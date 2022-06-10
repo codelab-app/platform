@@ -5,15 +5,14 @@ import {
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ActionBaseWhere } from '@codelab/shared/abstract/codegen'
 import {
+  ActionFragment,
   IActionDTO,
   IActionKind,
   IAnyAction,
   IAnyActionService,
   ICreateActionDTO,
   ICreateActionInput,
-  ICustomAction,
-  IResourceAction,
-  IResourceDTO,
+  IResourceActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -37,6 +36,7 @@ import {
   createActionApi,
   deleteActionApi,
   getActionsByStore,
+  makeActionUpdateInput,
   updateActionApi,
 } from './apis'
 import { actionRef } from './models'
@@ -123,45 +123,12 @@ export class ActionService
     action: IAnyAction,
     input: IUpdateActionDTO,
   ) {
+    const updateInput = makeActionUpdateInput(action, input)
+
+    console.log(updateInput)
+
     const [updatedAction] = yield* _await(
-      updateActionApi[action.type]({
-        where: { id: action.id },
-        update: {
-          name: input.name,
-          runOnInit: input.runOnInit,
-
-          resource: IActionKind.ResourceAction
-            ? {
-                disconnect: {},
-                connect: { where: { node: { id: input.resourceId } } },
-              }
-            : undefined,
-
-          config:
-            input.type === IActionKind.ResourceAction
-              ? { update: { node: { data: JSON.stringify(input.config) } } }
-              : undefined,
-          error:
-            input.type === IActionKind.ResourceAction
-              ? { connect: { where: { node: { id: input.errorId } } } }
-              : undefined,
-          success:
-            input.type === IActionKind.ResourceAction
-              ? { connect: { where: { node: { id: input.successId } } } }
-              : undefined,
-
-          actions:
-            input.type === IActionKind.PipelineAction
-              ? input.actionsIds?.map((actionId) => ({
-                  disconnect: [{ where: {} }],
-                  connect: [{ where: { node: { id: actionId } } }],
-                }))
-              : undefined,
-
-          code:
-            input.type === IActionKind.CustomAction ? input.code : undefined,
-        },
-      }),
+      updateActionApi[action.type](updateInput),
     )
 
     const actionModel = actionFactory(updatedAction)
@@ -174,17 +141,11 @@ export class ActionService
   updateResourceCache(actions: Array<IActionDTO>) {
     const resourceService = getResourceService(this)
 
-    const resources: Array<IResourceDTO> = actions
-      .map((action) => {
-        if (action.__typename === IActionKind.ResourceAction) {
-          return action.resource
-        }
+    const resources = actions
+      .filter((action) => action.__typename === IActionKind.ResourceAction)
+      .map((action) => (action as IResourceActionDTO).resource)
 
-        return undefined
-      })
-      .filter((r): r is IResourceDTO => Boolean(r))
-
-    resourceService.updateCache(resources)
+    return resourceService.updateCache(resources)
   }
 
   @modelAction
@@ -232,28 +193,45 @@ export class ActionService
       type: action.type,
       store: { connect: { where: { node: { id: action.storeId } } } },
 
-      config: action.config
-        ? { create: { node: { data: JSON.stringify(action.config) } } }
-        : undefined,
+      config:
+        action.type === IActionKind.ResourceAction && action.config
+          ? { create: { node: { data: JSON.stringify(action.config) } } }
+          : undefined,
 
-      resource: action.resourceId
-        ? { connect: { where: { node: { id: action.resourceId } } } }
-        : undefined,
+      resource:
+        action.type === IActionKind.ResourceAction && action.resourceId
+          ? { connect: { where: { node: { id: action.resourceId } } } }
+          : undefined,
 
-      error: action.errorId
-        ? { connect: { where: { node: { id: action.errorId } } } }
-        : undefined,
+      error:
+        action.type === IActionKind.ResourceAction && action.errorId
+          ? { connect: { where: { node: { id: action.errorId } } } }
+          : undefined,
 
-      success: action.successId
-        ? { connect: { where: { node: { id: action.successId } } } }
-        : undefined,
+      success:
+        action.type === IActionKind.ResourceAction && action.successId
+          ? { connect: { where: { node: { id: action.successId } } } }
+          : undefined,
 
-      actions: action.actionsIds?.map((id) => ({
-        connect: { where: { node: { id } } },
-      })),
+      actions:
+        action.type === IActionKind.PipelineAction && action.actionsIds
+          ? action.actionsIds?.map((id) => ({
+              connect: { where: { node: { id } } },
+            }))
+          : undefined,
     }))
 
-    const createdActions = yield* _await(createActionApi[data[0].type](input))
+    const createdActions: Array<ActionFragment> = yield* _await(
+      Promise.all(
+        input.map((action) => {
+          if (!action.type) {
+            throw new Error('Action type must be provided')
+          }
+
+          return createActionApi[action.type](action)
+        }),
+      ).then((res) => res.flat()),
+    )
 
     if (!createdActions?.length) {
       // Throw an error so that the transaction middleware rolls back the changes

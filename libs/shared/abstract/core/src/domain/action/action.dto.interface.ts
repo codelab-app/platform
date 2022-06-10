@@ -17,7 +17,7 @@ export interface IActionBaseDTO {
   code?: string
 
   resourceId?: string
-  config?: IResourceActionConfig
+  config?: IRestActionConfig | IGraphQLActionConfig
   successId?: string
   errorId?: string
 

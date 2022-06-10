@@ -60,11 +60,16 @@ const StorePage: CodelabPage = observer(() => {
 
       // load all types once for TypeSelect form field
       const types = await typeService.getAll()
+      // load all resources once for ResourceSelect
+      const resources = await resourceService.getAll()
+
+      console.log(resources)
 
       return {
         app,
         appStore,
         types,
+        resources,
       }
     },
     { executeOnMount: true },
