@@ -123,9 +123,7 @@ export const makeActionUpdateInput = (
 
       resource:
         input.type === IActionKind.ResourceAction
-          ? {
-              connect: { where: { node: { id: input.resourceId } } },
-            }
+          ? { connect: { where: { node: { id: input.resourceId } } } }
           : undefined,
 
       config:
@@ -141,7 +139,10 @@ export const makeActionUpdateInput = (
           ? { connect: { where: { node: { id: input.successId } } } }
           : undefined,
 
-      actions: [{ disconnect, connect }],
+      actions:
+        input.type === IActionKind.PipelineAction
+          ? [{ disconnect, connect }]
+          : undefined,
 
       code: input.type === IActionKind.CustomAction ? input.code : undefined,
     },
