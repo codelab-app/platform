@@ -29,7 +29,6 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { actionFactory } from './action.factory'
 import { ActionModalService } from './action-modal.service'
 import {
@@ -37,6 +36,7 @@ import {
   deleteActionApi,
   getActionsByStore,
   makeActionUpdateInput,
+  makeCreateUpdateInput,
   updateActionApi,
 } from './apis'
 import { actionRef } from './models'
@@ -125,8 +125,6 @@ export class ActionService
   ) {
     const updateInput = makeActionUpdateInput(action, input)
 
-    console.log(updateInput)
-
     const [updatedAction] = yield* _await(
       updateActionApi[action.type](updateInput),
     )
@@ -185,41 +183,9 @@ export class ActionService
     this: ActionService,
     data: Array<ICreateActionDTO>,
   ) {
-    const input: Array<ICreateActionInput> = data.map((action) => ({
-      id: v4(),
-      name: action.name,
-      code: action.code,
-      runOnInit: action.runOnInit,
-      type: action.type,
-      store: { connect: { where: { node: { id: action.storeId } } } },
-
-      config:
-        action.type === IActionKind.ResourceAction && action.config
-          ? { create: { node: { data: JSON.stringify(action.config) } } }
-          : undefined,
-
-      resource:
-        action.type === IActionKind.ResourceAction && action.resourceId
-          ? { connect: { where: { node: { id: action.resourceId } } } }
-          : undefined,
-
-      error:
-        action.type === IActionKind.ResourceAction && action.errorId
-          ? { connect: { where: { node: { id: action.errorId } } } }
-          : undefined,
-
-      success:
-        action.type === IActionKind.ResourceAction && action.successId
-          ? { connect: { where: { node: { id: action.successId } } } }
-          : undefined,
-
-      actions:
-        action.type === IActionKind.PipelineAction && action.actionsIds
-          ? action.actionsIds?.map((id) => ({
-              connect: { where: { node: { id } } },
-            }))
-          : undefined,
-    }))
+    const input: Array<ICreateActionInput> = data.map((action) =>
+      makeCreateUpdateInput(action),
+    )
 
     const createdActions: Array<ActionFragment> = yield* _await(
       Promise.all(

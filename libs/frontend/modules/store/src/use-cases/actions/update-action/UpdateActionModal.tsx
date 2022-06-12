@@ -3,7 +3,7 @@ import {
   RESOURCE_SERVICE,
   WithServices,
 } from '@codelab/frontend/abstract/core'
-import { SelectResource } from '@codelab/frontend/modules/type'
+import { SelectAction, SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
@@ -14,7 +14,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Context } from 'uniforms'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, ListField, ListItemField } from 'uniforms-antd'
 import { updateActionSchema } from './updateActionSchema'
 
 export const UpdateActionModal = observer<
@@ -112,7 +112,19 @@ export const UpdateActionModal = observer<
         >
           <SelectResource name="resourceId" resourceService={resourceService} />
 
-          {/** GraphQL Operation Config Form */}
+          <SelectAction
+            actionService={actionService}
+            name="successId"
+            storeId={updateAction?.storeId as string}
+          />
+
+          <SelectAction
+            actionService={actionService}
+            name="errorId"
+            storeId={updateAction?.storeId as string}
+          />
+
+          {/** GraphQL Config Form */}
           <DisplayIfField<IUpdateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.GraphQL}
           >
@@ -121,12 +133,12 @@ export const UpdateActionModal = observer<
             <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
 
-          {/** Rest Operation Config Form */}
+          {/** Rest Config Form */}
           <DisplayIfField<IUpdateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.Rest}
           >
             <AutoField name="config.method" />
-            <AutoField name="config.code" />
+            <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
             <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
@@ -136,7 +148,15 @@ export const UpdateActionModal = observer<
         <DisplayIfField<IUpdateActionDTO>
           condition={(c) => c.model.type === IActionKind.PipelineAction}
         >
-          <AutoField label="Actions" name="actionsIds" />
+          <ListField label="Actions" name="actionsIds">
+            <ListItemField name="$">
+              <SelectAction
+                actionService={actionService}
+                name=""
+                storeId={updateAction?.storeId as string}
+              />
+            </ListItemField>
+          </ListField>
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

@@ -77,7 +77,7 @@ export const createActionApi: CreateActions = {
   [IActionKind.PipelineAction]: (input) =>
     _createActionApi
       .CreatePipelineActions({ input })
-      .then((response) => response.createResourceActions.resourceActions),
+      .then((response) => response.createPipelineActions.pipelineActions),
 }
 
 export const updateActionApi: UpdateActionsRecord = {

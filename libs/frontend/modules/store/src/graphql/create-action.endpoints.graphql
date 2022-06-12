@@ -14,9 +14,9 @@ mutation CreateResourceActions($input: [ResourceActionCreateInput!]!) {
   }
 }
 
-mutation CreatePipelineActions($input: [ResourceActionCreateInput!]!) {
-  createResourceActions(input: $input) {
-    resourceActions {
+mutation CreatePipelineActions($input: [PipelineActionCreateInput!]!) {
+  createPipelineActions(input: $input) {
+    pipelineActions {
       ...Action
     }
   }

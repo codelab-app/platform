@@ -31,13 +31,13 @@ export type CreateResourceActionsMutation = {
 
 export type CreatePipelineActionsMutationVariables = Types.Exact<{
   input:
-    | Array<Types.ResourceActionCreateInput>
-    | Types.ResourceActionCreateInput
+    | Array<Types.PipelineActionCreateInput>
+    | Types.PipelineActionCreateInput
 }>
 
 export type CreatePipelineActionsMutation = {
-  createResourceActions: {
-    resourceActions: Array<Action_ResourceAction_Fragment>
+  createPipelineActions: {
+    pipelineActions: Array<Action_PipelineAction_Fragment>
   }
 }
 
@@ -62,9 +62,9 @@ export const CreateResourceActionsDocument = gql`
   ${ActionFragmentDoc}
 `
 export const CreatePipelineActionsDocument = gql`
-  mutation CreatePipelineActions($input: [ResourceActionCreateInput!]!) {
-    createResourceActions(input: $input) {
-      resourceActions {
+  mutation CreatePipelineActions($input: [PipelineActionCreateInput!]!) {
+    createPipelineActions(input: $input) {
+      pipelineActions {
         ...Action
       }
     }
