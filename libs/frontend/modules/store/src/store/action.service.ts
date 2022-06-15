@@ -7,7 +7,7 @@ import {
   ActionCreateInput,
   ActionWhere,
 } from '@codelab/shared/abstract/codegen'
-import {
+import type {
   IAction,
   IActionDTO,
   IActionService,
@@ -15,7 +15,7 @@ import {
   IResourceDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,

@@ -35,9 +35,6 @@
       }
     ]
   },
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
   "defaultProject": "web",
   "generators": {
     "@nrwl/workspace": {
@@ -109,5 +106,6 @@
         "style": "@emotion/styled"
       }
     }
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }

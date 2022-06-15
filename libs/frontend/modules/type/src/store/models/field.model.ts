@@ -1,5 +1,5 @@
-import { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { IAnyType, IField, IFieldDTO } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   detach,
   idProp,

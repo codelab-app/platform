@@ -7,8 +7,7 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
-import {
-  COMPONENT_NODE_TYPE,
+import type {
   IBuilderDataNode,
   IComponent,
   IComponentDTO,
@@ -16,6 +15,7 @@ import {
   ICreateComponentDTO,
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
+import { COMPONENT_NODE_TYPE } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
