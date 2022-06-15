@@ -1,5 +1,6 @@
 import { appRef } from '@codelab/frontend/modules/app'
-import { IApp, IRole, IUser, IUserDTO } from '@codelab/shared/abstract/core'
+import type { IApp, IUser, IUserDTO } from '@codelab/shared/abstract/core'
+import { IRole } from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,
