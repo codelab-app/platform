@@ -1,10 +1,10 @@
-import {
+import type {
   IElementTree,
   IRenderer,
   IRenderService,
   IStore,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   AnyModel,
   Model,

@@ -1,12 +1,11 @@
-import {
-  assertIsTypeKind,
+import type {
   IEnumType,
   IEnumTypeDTO,
   IEnumTypeValueDTO,
   ITypeDTO,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import {
   ExtendedModel,
   idProp,

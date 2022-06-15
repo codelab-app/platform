@@ -1,6 +1,6 @@
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AtomWhere } from '@codelab/shared/abstract/codegen'
-import {
+import type {
   IAtom,
   IAtomDTO,
   IAtomService,

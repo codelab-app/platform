@@ -1,6 +1,11 @@
 import { tagRef } from '@codelab/frontend/modules/tag'
 import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
-import { IAtom, IAtomDTO, IAtomType, ITag } from '@codelab/shared/abstract/core'
+import type {
+  IAtom,
+  IAtomDTO,
+  IAtomType,
+  ITag,
+} from '@codelab/shared/abstract/core'
 import {
   detach,
   idProp,

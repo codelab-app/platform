@@ -5,7 +5,7 @@ import {
   getElementService,
   storeRef,
 } from '@codelab/frontend/presenter/container'
-import {
+import type {
   IElement,
   IElementTree,
   IPropData,
@@ -15,7 +15,7 @@ import {
   IStore,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {

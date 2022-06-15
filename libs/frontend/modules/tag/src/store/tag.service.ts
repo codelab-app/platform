@@ -1,6 +1,6 @@
 import { ModalService } from '@codelab/frontend/shared/utils'
-import { TagGraph, TagWhere } from '@codelab/shared/abstract/codegen'
-import {
+import { TagWhere } from '@codelab/shared/abstract/codegen'
+import type {
   ICreateTagDTO,
   IGraphQLTagNode,
   ITagDTO,
@@ -9,7 +9,7 @@ import {
   ITagTreeNode,
   IUpdateTagDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import { computed } from 'mobx'
 import {
@@ -28,7 +28,7 @@ import {
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
-import { Node, TreeService } from './tree.service'
+import { TreeService } from './tree.service'
 
 @model('@codelab/TagService')
 export class TagService

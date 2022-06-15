@@ -1,11 +1,10 @@
-import {
-  assertIsTypeKind,
+import type {
   IAnyType,
   ITypeDTO,
-  ITypeKind,
   IUnionType,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import {
   detach,
   ExtendedModel,
