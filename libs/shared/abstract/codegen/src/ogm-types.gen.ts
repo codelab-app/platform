@@ -84,9 +84,6 @@ export type Query = {
   appTypes: Array<AppType>;
   appTypesAggregate: AppTypeAggregateSelection;
   appTypesConnection: AppTypesConnection;
-  actionTypes: Array<ActionType>;
-  actionTypesAggregate: ActionTypeAggregateSelection;
-  actionTypesConnection: ActionTypesConnection;
   monacoTypes: Array<MonacoType>;
   monacoTypesAggregate: MonacoTypeAggregateSelection;
   monacoTypesConnection: MonacoTypesConnection;
@@ -120,6 +117,7 @@ export type Query = {
   stores: Array<Store>;
   storesAggregate: StoreAggregateSelection;
   storesConnection: StoresConnection;
+<<<<<<< HEAD
   customActions: Array<CustomAction>;
   customActionsAggregate: CustomActionAggregateSelection;
   customActionsConnection: CustomActionsConnection;
@@ -129,6 +127,11 @@ export type Query = {
   pipelineActions: Array<PipelineAction>;
   pipelineActionsAggregate: PipelineActionAggregateSelection;
   pipelineActionsConnection: PipelineActionsConnection;
+=======
+  actions: Array<Action>;
+  actionsAggregate: ActionAggregateSelection;
+  actionsConnection: ActionsConnection;
+>>>>>>> wip: working slug that renders individual pages for production
   resources: Array<Resource>;
   resourcesAggregate: ResourceAggregateSelection;
   resourcesConnection: ResourcesConnection;
@@ -449,6 +452,7 @@ export type QueryAppTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<AppTypeSort>>>;
 };
 
+<<<<<<< HEAD
 export type QueryActionTypesArgs = {
   where?: InputMaybe<ActionTypeWhere>;
   options?: InputMaybe<ActionTypeOptions>;
@@ -465,6 +469,8 @@ export type QueryActionTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ActionTypeSort>>>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type QueryMonacoTypesArgs = {
   where?: InputMaybe<MonacoTypeWhere>;
   options?: InputMaybe<MonacoTypeOptions>;
@@ -636,6 +642,7 @@ export type QueryStoresConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<StoreSort>>>;
 };
 
+<<<<<<< HEAD
 export type QueryCustomActionsArgs = {
   where?: InputMaybe<CustomActionWhere>;
   options?: InputMaybe<CustomActionOptions>;
@@ -682,6 +689,22 @@ export type QueryPipelineActionsConnectionArgs = {
   after?: InputMaybe<Scalars["String"]>;
   where?: InputMaybe<PipelineActionWhere>;
   sort?: InputMaybe<Array<InputMaybe<PipelineActionSort>>>;
+=======
+export type QueryActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  options?: InputMaybe<ActionOptions>;
+};
+
+export type QueryActionsAggregateArgs = {
+  where?: InputMaybe<ActionWhere>;
+};
+
+export type QueryActionsConnectionArgs = {
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  where?: InputMaybe<ActionWhere>;
+  sort?: InputMaybe<Array<InputMaybe<ActionSort>>>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type QueryResourcesArgs = {
@@ -769,9 +792,12 @@ export type Mutation = {
   createAppTypes: CreateAppTypesMutationResponse;
   deleteAppTypes: DeleteInfo;
   updateAppTypes: UpdateAppTypesMutationResponse;
+<<<<<<< HEAD
   createActionTypes: CreateActionTypesMutationResponse;
   deleteActionTypes: DeleteInfo;
   updateActionTypes: UpdateActionTypesMutationResponse;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   createMonacoTypes: CreateMonacoTypesMutationResponse;
   deleteMonacoTypes: DeleteInfo;
   updateMonacoTypes: UpdateMonacoTypesMutationResponse;
@@ -805,6 +831,7 @@ export type Mutation = {
   createStores: CreateStoresMutationResponse;
   deleteStores: DeleteInfo;
   updateStores: UpdateStoresMutationResponse;
+<<<<<<< HEAD
   createCustomActions: CreateCustomActionsMutationResponse;
   deleteCustomActions: DeleteInfo;
   updateCustomActions: UpdateCustomActionsMutationResponse;
@@ -814,6 +841,11 @@ export type Mutation = {
   createPipelineActions: CreatePipelineActionsMutationResponse;
   deletePipelineActions: DeleteInfo;
   updatePipelineActions: UpdatePipelineActionsMutationResponse;
+=======
+  createActions: CreateActionsMutationResponse;
+  deleteActions: DeleteInfo;
+  updateActions: UpdateActionsMutationResponse;
+>>>>>>> wip: working slug that renders individual pages for production
   createResources: CreateResourcesMutationResponse;
   deleteResources: DeleteInfo;
   updateResources: UpdateResourcesMutationResponse;
@@ -1169,6 +1201,7 @@ export type MutationUpdateAppTypesArgs = {
   connectOrCreate?: InputMaybe<AppTypeConnectOrCreateInput>;
 };
 
+<<<<<<< HEAD
 export type MutationCreateActionTypesArgs = {
   input: Array<ActionTypeCreateInput>;
 };
@@ -1188,6 +1221,8 @@ export type MutationUpdateActionTypesArgs = {
   connectOrCreate?: InputMaybe<ActionTypeConnectOrCreateInput>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type MutationCreateMonacoTypesArgs = {
   input: Array<MonacoTypeCreateInput>;
 };
@@ -1373,6 +1408,7 @@ export type MutationUpdateStoresArgs = {
   connectOrCreate?: InputMaybe<StoreConnectOrCreateInput>;
 };
 
+<<<<<<< HEAD
 export type MutationCreateCustomActionsArgs = {
   input: Array<CustomActionCreateInput>;
 };
@@ -1428,6 +1464,25 @@ export type MutationUpdatePipelineActionsArgs = {
   create?: InputMaybe<PipelineActionRelationInput>;
   delete?: InputMaybe<PipelineActionDeleteInput>;
   connectOrCreate?: InputMaybe<PipelineActionConnectOrCreateInput>;
+=======
+export type MutationCreateActionsArgs = {
+  input: Array<ActionCreateInput>;
+};
+
+export type MutationDeleteActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  delete?: InputMaybe<ActionDeleteInput>;
+};
+
+export type MutationUpdateActionsArgs = {
+  where?: InputMaybe<ActionWhere>;
+  update?: InputMaybe<ActionUpdateInput>;
+  connect?: InputMaybe<ActionConnectInput>;
+  disconnect?: InputMaybe<ActionDisconnectInput>;
+  create?: InputMaybe<ActionRelationInput>;
+  delete?: InputMaybe<ActionDeleteInput>;
+  connectOrCreate?: InputMaybe<ActionConnectOrCreateInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type MutationCreateResourcesArgs = {
@@ -1449,6 +1504,7 @@ export type MutationUpdateResourcesArgs = {
   connectOrCreate?: InputMaybe<ResourceConnectOrCreateInput>;
 };
 
+<<<<<<< HEAD
 export enum ActionKind {
   /** Action with custom code */
   CustomAction = "CustomAction",
@@ -1458,6 +1514,8 @@ export enum ActionKind {
   PipelineAction = "PipelineAction",
 }
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export enum AtomType {
   HookQueryLambda = "HookQueryLambda",
   HookQueryConfig = "HookQueryConfig",
@@ -1882,6 +1940,7 @@ export enum TypeKind {
   MonacoType = "MonacoType",
   PageType = "PageType",
   AppType = "AppType",
+<<<<<<< HEAD
   ActionType = "ActionType",
 }
 
@@ -1914,6 +1973,10 @@ export type ActionsPipeLine = {
   orders?: Maybe<Array<Scalars["String"]>>;
 };
 
+=======
+}
+
+>>>>>>> wip: working slug that renders individual pages for production
 export type Field = {
   id: Scalars["ID"];
   key: Scalars["String"];
@@ -1956,6 +2019,7 @@ export type WithOwner = {
   ownerConnection: WithOwnerOwnerConnection;
 };
 
+<<<<<<< HEAD
 export type ActionBaseStoreConnection = {
   __typename?: "ActionBaseStoreConnection";
   edges: Array<ActionBaseStoreRelationship>;
@@ -2033,12 +2097,186 @@ export type ActionTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+=======
+export type Action = {
+  __typename?: "Action";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  runOnInit: Scalars["Boolean"];
+  body?: Maybe<Scalars["String"]>;
+  resource?: Maybe<Resource>;
+  resourceAggregate?: Maybe<ActionResourceResourceAggregationSelection>;
+  config: Prop;
+  configAggregate?: Maybe<ActionPropConfigAggregationSelection>;
+  store: Store;
+  storeAggregate?: Maybe<ActionStoreStoreAggregationSelection>;
+  resourceConnection: ActionResourceConnection;
+  configConnection: ActionConfigConnection;
+  storeConnection: ActionStoreConnection;
+};
+
+export type ActionResourceArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  options?: InputMaybe<ResourceOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionResourceAggregateArgs = {
+  where?: InputMaybe<ResourceWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionConfigArgs = {
+  where?: InputMaybe<PropWhere>;
+  options?: InputMaybe<PropOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionConfigAggregateArgs = {
+  where?: InputMaybe<PropWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionStoreArgs = {
+  where?: InputMaybe<StoreWhere>;
+  options?: InputMaybe<StoreOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionStoreAggregateArgs = {
+  where?: InputMaybe<StoreWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type ActionResourceConnectionArgs = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionResourceConnectionSort>>;
+};
+
+export type ActionConfigConnectionArgs = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionConfigConnectionSort>>;
+};
+
+export type ActionStoreConnectionArgs = {
+  where?: InputMaybe<ActionStoreConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<ActionStoreConnectionSort>>;
+};
+
+export type ActionAggregateSelection = {
+  __typename?: "ActionAggregateSelection";
+  count: Scalars["Int"];
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
+};
+
+export type ActionConfigConnection = {
+  __typename?: "ActionConfigConnection";
+  edges: Array<ActionConfigRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ActionConfigRelationship = {
+  __typename?: "ActionConfigRelationship";
+  cursor: Scalars["String"];
+  node: Prop;
+};
+
+export type ActionEdge = {
+  __typename?: "ActionEdge";
+  cursor: Scalars["String"];
+  node: Action;
+};
+
+export type ActionPropConfigAggregationSelection = {
+  __typename?: "ActionPropConfigAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionPropConfigNodeAggregateSelection>;
+};
+
+export type ActionPropConfigNodeAggregateSelection = {
+  __typename?: "ActionPropConfigNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  data: StringAggregateSelectionNonNullable;
+};
+
+export type ActionResourceConnection = {
+  __typename?: "ActionResourceConnection";
+  edges: Array<ActionResourceRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ActionResourceRelationship = {
+  __typename?: "ActionResourceRelationship";
+  cursor: Scalars["String"];
+  node: Resource;
+};
+
+export type ActionResourceResourceAggregationSelection = {
+  __typename?: "ActionResourceResourceAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionResourceResourceNodeAggregateSelection>;
+};
+
+export type ActionResourceResourceNodeAggregateSelection = {
+  __typename?: "ActionResourceResourceNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+};
+
+export type ActionsConnection = {
+  __typename?: "ActionsConnection";
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+  edges: Array<ActionEdge>;
+};
+
+export type ActionStoreConnection = {
+  __typename?: "ActionStoreConnection";
+  edges: Array<ActionStoreRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type ActionStoreRelationship = {
+  __typename?: "ActionStoreRelationship";
+  cursor: Scalars["String"];
+  node: Store;
+};
+
+export type ActionStoreStoreAggregationSelection = {
+  __typename?: "ActionStoreStoreAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<ActionStoreStoreNodeAggregateSelection>;
+};
+
+export type ActionStoreStoreNodeAggregateSelection = {
+  __typename?: "ActionStoreStoreNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type App = WithOwner & {
   __typename?: "App";
   id: Scalars["ID"];
   name: Scalars["String"];
+<<<<<<< HEAD
+=======
+  slug: Scalars["String"];
+>>>>>>> wip: working slug that renders individual pages for production
   owner: User;
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>;
   pages: Array<Page>;
@@ -2134,6 +2372,10 @@ export type AppAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppEdge = {
@@ -2152,8 +2394,12 @@ export type AppElementRootElementNodeAggregateSelection = {
   __typename?: "AppElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -2169,6 +2415,10 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename?: "AppPagePagesNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppPagesConnection = {
@@ -2293,6 +2543,10 @@ export type AppTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppUserOwnerAggregationSelection = {
@@ -2306,6 +2560,10 @@ export type AppUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /**
@@ -2423,6 +2681,10 @@ export type ArrayTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type Atom = {
@@ -2550,7 +2812,10 @@ export type Component = WithOwner & {
   __typename?: "Component";
   id: Scalars["ID"];
   name: Scalars["String"];
+<<<<<<< HEAD
   descendantComponentIds: Array<Scalars["ID"]>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   rootElement: Element;
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>;
   api: InterfaceType;
@@ -2655,8 +2920,12 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: "ComponentElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -2705,12 +2974,22 @@ export type ComponentUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
 };
 
 export type CreateActionTypesMutationResponse = {
   __typename?: "CreateActionTypesMutationResponse";
   info: CreateInfo;
   actionTypes: Array<ActionType>;
+=======
+  username: StringAggregateSelectionNonNullable;
+};
+
+export type CreateActionsMutationResponse = {
+  __typename?: "CreateActionsMutationResponse";
+  info: CreateInfo;
+  actions: Array<Action>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type CreateAppsMutationResponse = {
@@ -2749,12 +3028,15 @@ export type CreateCreateInfosMutationResponse = {
   createInfos: Array<CreateInfo>;
 };
 
+<<<<<<< HEAD
 export type CreateCustomActionsMutationResponse = {
   __typename?: "CreateCustomActionsMutationResponse";
   info: CreateInfo;
   customActions: Array<CustomAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type CreateElementGraphsMutationResponse = {
   __typename?: "CreateElementGraphsMutationResponse";
   info: CreateInfo;
@@ -2849,12 +3131,15 @@ export type CreatePageTypesMutationResponse = {
   pageTypes: Array<PageType>;
 };
 
+<<<<<<< HEAD
 export type CreatePipelineActionsMutationResponse = {
   __typename?: "CreatePipelineActionsMutationResponse";
   info: CreateInfo;
   pipelineActions: Array<PipelineAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type CreatePrimitiveTypesMutationResponse = {
   __typename?: "CreatePrimitiveTypesMutationResponse";
   info: CreateInfo;
@@ -2891,12 +3176,15 @@ export type CreateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
 };
 
+<<<<<<< HEAD
 export type CreateResourceActionsMutationResponse = {
   __typename?: "CreateResourceActionsMutationResponse";
   info: CreateInfo;
   resourceActions: Array<ResourceAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type CreateResourcesMutationResponse = {
   __typename?: "CreateResourcesMutationResponse";
   info: CreateInfo;
@@ -2945,6 +3233,7 @@ export type CreateUsersMutationResponse = {
   users: Array<User>;
 };
 
+<<<<<<< HEAD
 export type CustomAction = ActionBase & {
   __typename?: "CustomAction";
   id: Scalars["ID"];
@@ -3010,6 +3299,8 @@ export type CustomActionStoreStoreNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type DeleteInfo = {
   __typename?: "DeleteInfo";
   bookmark?: Maybe<Scalars["String"]>;
@@ -3021,8 +3312,12 @@ export type Element = {
   __typename?: "Element";
   id: Scalars["ID"];
   name?: Maybe<Scalars["String"]>;
+<<<<<<< HEAD
   customCss?: Maybe<Scalars["String"]>;
   guiCss?: Maybe<Scalars["String"]>;
+=======
+  css?: Maybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: Maybe<Scalars["String"]>;
   renderForEachPropKey?: Maybe<Scalars["String"]>;
   renderIfPropKey?: Maybe<Scalars["String"]>;
@@ -3253,8 +3548,12 @@ export type ElementAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3270,6 +3569,10 @@ export type ElementAppAppNodeAggregateSelection = {
   __typename?: "ElementAppAppNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ElementAppConnection = {
@@ -3383,8 +3686,12 @@ export type ElementElementChildrenNodeAggregateSelection = {
   __typename?: "ElementElementChildrenNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3406,8 +3713,12 @@ export type ElementElementParentElementNodeAggregateSelection = {
   __typename?: "ElementElementParentElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3492,6 +3803,10 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename?: "ElementPagePageNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ElementPageRelationship = {
@@ -3674,6 +3989,10 @@ export type ElementTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /**
@@ -3819,6 +4138,10 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type EnumTypeValue = {
@@ -3988,8 +4311,12 @@ export type HookElementElementNodeAggregateSelection = {
   __typename?: "HookElementElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4194,6 +4521,10 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /** Allows picking a lambda */
@@ -4260,6 +4591,10 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /** Allows editing the value using a monaco editor */
@@ -4327,12 +4662,20 @@ export type MonacoTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type Page = {
   __typename?: "Page";
   id: Scalars["ID"];
   name: Scalars["String"];
+<<<<<<< HEAD
+=======
+  slug: Scalars["String"];
+>>>>>>> wip: working slug that renders individual pages for production
   rootElement: Element;
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>;
   app: App;
@@ -4384,6 +4727,10 @@ export type PageAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageAppAppAggregationSelection = {
@@ -4396,6 +4743,10 @@ export type PageAppAppNodeAggregateSelection = {
   __typename?: "PageAppAppNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageAppConnection = {
@@ -4427,8 +4778,12 @@ export type PageElementRootElementNodeAggregateSelection = {
   __typename?: "PageElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4527,6 +4882,7 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
 };
 
 export type PipelineAction = ActionBase & {
@@ -4620,6 +4976,9 @@ export type PipelineActionStoreStoreNodeAggregateSelection = {
   __typename?: "PipelineActionStoreStoreNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
@@ -4687,6 +5046,10 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type Prop = {
@@ -4790,8 +5153,12 @@ export type PropMapBindingElementElementNodeAggregateSelection = {
   __typename?: "PropMapBindingElementElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4813,8 +5180,12 @@ export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   __typename?: "PropMapBindingElementTargetElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4947,6 +5318,10 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /**
@@ -5053,6 +5428,10 @@ export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ResetDatabaseMutationResponse = {
@@ -5129,6 +5508,7 @@ export type ResourceOwnerConnectionArgs = {
   sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>;
 };
 
+<<<<<<< HEAD
 export type ResourceAction = ActionBase & {
   __typename?: "ResourceAction";
   id: Scalars["ID"];
@@ -5345,6 +5725,8 @@ export type ResourceActionSuccessActionRelationship = {
   node: ActionBase;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type ResourceAggregateSelection = {
   __typename?: "ResourceAggregateSelection";
   count: Scalars["Int"];
@@ -5401,6 +5783,10 @@ export type ResourceUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type Store = {
@@ -5411,10 +5797,21 @@ export type Store = {
   stateAggregate?: Maybe<StorePropStateAggregationSelection>;
   stateApi: InterfaceType;
   stateApiAggregate?: Maybe<StoreInterfaceTypeStateApiAggregationSelection>;
+<<<<<<< HEAD
   actions: Array<ActionBase>;
   stateConnection: StoreStateConnection;
   stateApiConnection: StoreStateApiConnection;
   actionsConnection: StoreActionsConnection;
+=======
+  actions: Array<Action>;
+  actionsAggregate?: Maybe<StoreActionActionsAggregationSelection>;
+  app: App;
+  appAggregate?: Maybe<StoreAppAppAggregationSelection>;
+  stateConnection: StoreStateConnection;
+  stateApiConnection: StoreStateApiConnection;
+  actionsConnection: StoreActionsConnection;
+  appConnection: StoreAppConnection;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreStateArgs = {
@@ -5440,8 +5837,29 @@ export type StoreStateApiAggregateArgs = {
 };
 
 export type StoreActionsArgs = {
+<<<<<<< HEAD
   options?: InputMaybe<ActionBaseOptions>;
   where?: InputMaybe<ActionBaseWhere>;
+=======
+  where?: InputMaybe<ActionWhere>;
+  options?: InputMaybe<ActionOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type StoreActionsAggregateArgs = {
+  where?: InputMaybe<ActionWhere>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type StoreAppArgs = {
+  where?: InputMaybe<AppWhere>;
+  options?: InputMaybe<AppOptions>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type StoreAppAggregateArgs = {
+  where?: InputMaybe<AppWhere>;
+>>>>>>> wip: working slug that renders individual pages for production
   directed?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -5469,6 +5887,30 @@ export type StoreActionsConnectionArgs = {
   sort?: InputMaybe<Array<StoreActionsConnectionSort>>;
 };
 
+<<<<<<< HEAD
+=======
+export type StoreAppConnectionArgs = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  directed?: InputMaybe<Scalars["Boolean"]>;
+  sort?: InputMaybe<Array<StoreAppConnectionSort>>;
+};
+
+export type StoreActionActionsAggregationSelection = {
+  __typename?: "StoreActionActionsAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<StoreActionActionsNodeAggregateSelection>;
+};
+
+export type StoreActionActionsNodeAggregateSelection = {
+  __typename?: "StoreActionActionsNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  body: StringAggregateSelectionNullable;
+};
+
+>>>>>>> wip: working slug that renders individual pages for production
 export type StoreActionsConnection = {
   __typename?: "StoreActionsConnection";
   edges: Array<StoreActionsRelationship>;
@@ -5479,7 +5921,11 @@ export type StoreActionsConnection = {
 export type StoreActionsRelationship = {
   __typename?: "StoreActionsRelationship";
   cursor: Scalars["String"];
+<<<<<<< HEAD
   node: ActionBase;
+=======
+  node: Action;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreAggregateSelection = {
@@ -5489,6 +5935,35 @@ export type StoreAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
+<<<<<<< HEAD
+=======
+export type StoreAppAppAggregationSelection = {
+  __typename?: "StoreAppAppAggregationSelection";
+  count: Scalars["Int"];
+  node?: Maybe<StoreAppAppNodeAggregateSelection>;
+};
+
+export type StoreAppAppNodeAggregateSelection = {
+  __typename?: "StoreAppAppNodeAggregateSelection";
+  id: IdAggregateSelectionNonNullable;
+  name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
+};
+
+export type StoreAppConnection = {
+  __typename?: "StoreAppConnection";
+  edges: Array<StoreAppRelationship>;
+  totalCount: Scalars["Int"];
+  pageInfo: PageInfo;
+};
+
+export type StoreAppRelationship = {
+  __typename?: "StoreAppRelationship";
+  cursor: Scalars["String"];
+  node: App;
+};
+
+>>>>>>> wip: working slug that renders individual pages for production
 export type StoreEdge = {
   __typename?: "StoreEdge";
   cursor: Scalars["String"];
@@ -5785,6 +6260,10 @@ export type TagUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type TypeBaseOwnerConnection = {
@@ -5925,12 +6404,22 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
 };
 
 export type UpdateActionTypesMutationResponse = {
   __typename?: "UpdateActionTypesMutationResponse";
   info: UpdateInfo;
   actionTypes: Array<ActionType>;
+=======
+  username: StringAggregateSelectionNonNullable;
+};
+
+export type UpdateActionsMutationResponse = {
+  __typename?: "UpdateActionsMutationResponse";
+  info: UpdateInfo;
+  actions: Array<Action>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UpdateAppsMutationResponse = {
@@ -5969,12 +6458,15 @@ export type UpdateCreateInfosMutationResponse = {
   createInfos: Array<CreateInfo>;
 };
 
+<<<<<<< HEAD
 export type UpdateCustomActionsMutationResponse = {
   __typename?: "UpdateCustomActionsMutationResponse";
   info: UpdateInfo;
   customActions: Array<CustomAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type UpdateElementGraphsMutationResponse = {
   __typename?: "UpdateElementGraphsMutationResponse";
   info: UpdateInfo;
@@ -6050,12 +6542,15 @@ export type UpdatePageTypesMutationResponse = {
   pageTypes: Array<PageType>;
 };
 
+<<<<<<< HEAD
 export type UpdatePipelineActionsMutationResponse = {
   __typename?: "UpdatePipelineActionsMutationResponse";
   info: UpdateInfo;
   pipelineActions: Array<PipelineAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type UpdatePrimitiveTypesMutationResponse = {
   __typename?: "UpdatePrimitiveTypesMutationResponse";
   info: UpdateInfo;
@@ -6092,12 +6587,15 @@ export type UpdateResetDatabaseMutationResponsesMutationResponse = {
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>;
 };
 
+<<<<<<< HEAD
 export type UpdateResourceActionsMutationResponse = {
   __typename?: "UpdateResourceActionsMutationResponse";
   info: UpdateInfo;
   resourceActions: Array<ResourceAction>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type UpdateResourcesMutationResponse = {
   __typename?: "UpdateResourcesMutationResponse";
   info: UpdateInfo;
@@ -6151,7 +6649,12 @@ export type User = {
   id: Scalars["ID"];
   auth0Id: Scalars["String"];
   email: Scalars["String"];
+<<<<<<< HEAD
   roles?: Maybe<Array<Role>>;
+=======
+  username: Scalars["String"];
+  roles: Array<Role>;
+>>>>>>> wip: working slug that renders individual pages for production
   types: Array<TypeBase>;
   apps: Array<App>;
   appsAggregate?: Maybe<UserAppAppsAggregationSelection>;
@@ -6264,6 +6767,10 @@ export type UserAggregateSelection = {
   id: IdAggregateSelectionNonNullable;
   auth0Id: StringAggregateSelectionNonNullable;
   email: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  username: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserAppAppsAggregationSelection = {
@@ -6276,6 +6783,10 @@ export type UserAppAppsNodeAggregateSelection = {
   __typename?: "UserAppAppsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+<<<<<<< HEAD
+=======
+  slug: StringAggregateSelectionNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserAppsConnection = {
@@ -6332,8 +6843,12 @@ export type UserElementElementsNodeAggregateSelection = {
   __typename?: "UserElementElementsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
+<<<<<<< HEAD
   customCss: StringAggregateSelectionNullable;
   guiCss: StringAggregateSelectionNullable;
+=======
+  css: StringAggregateSelectionNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -6410,6 +6925,7 @@ export type WithOwnerOwnerRelationship = {
   node: User;
 };
 
+<<<<<<< HEAD
 export type ActionBaseConnectInput = {
   store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
   _on?: InputMaybe<ActionBaseImplementationsConnectInput>;
@@ -6481,11 +6997,168 @@ export type ActionBaseSort = {
 };
 
 export type ActionBaseStoreAggregateInput = {
+=======
+export type ActionConfigAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
   count_LTE?: InputMaybe<Scalars["Int"]>;
   count_GT?: InputMaybe<Scalars["Int"]>;
   count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ActionConfigAggregateInput>>;
+  OR?: InputMaybe<Array<ActionConfigAggregateInput>>;
+  node?: InputMaybe<ActionConfigNodeAggregationWhereInput>;
+};
+
+export type ActionConfigConnectFieldInput = {
+  where?: InputMaybe<PropConnectWhere>;
+};
+
+export type ActionConfigConnectionSort = {
+  node?: InputMaybe<PropSort>;
+};
+
+export type ActionConfigConnectionWhere = {
+  AND?: InputMaybe<Array<ActionConfigConnectionWhere>>;
+  OR?: InputMaybe<Array<ActionConfigConnectionWhere>>;
+  node?: InputMaybe<PropWhere>;
+  node_NOT?: InputMaybe<PropWhere>;
+};
+
+export type ActionConfigConnectOrCreateFieldInput = {
+  where: PropConnectOrCreateWhere;
+  onCreate: ActionConfigConnectOrCreateFieldInputOnCreate;
+};
+
+export type ActionConfigConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput;
+};
+
+export type ActionConfigCreateFieldInput = {
+  node: PropCreateInput;
+};
+
+export type ActionConfigDeleteFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+};
+
+export type ActionConfigDisconnectFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+};
+
+export type ActionConfigFieldInput = {
+  create?: InputMaybe<ActionConfigCreateFieldInput>;
+  connect?: InputMaybe<ActionConfigConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ActionConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionConfigNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionConfigNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  data_EQUAL?: InputMaybe<Scalars["String"]>;
+  data_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  data_GT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  data_GTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  data_LT?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  data_LTE?: InputMaybe<Scalars["Int"]>;
+  data_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  data_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  data_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionConfigUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>;
+};
+
+export type ActionConfigUpdateFieldInput = {
+  where?: InputMaybe<ActionConfigConnectionWhere>;
+  update?: InputMaybe<ActionConfigUpdateConnectionInput>;
+  connect?: InputMaybe<ActionConfigConnectFieldInput>;
+  disconnect?: InputMaybe<ActionConfigDisconnectFieldInput>;
+  create?: InputMaybe<ActionConfigCreateFieldInput>;
+  delete?: InputMaybe<ActionConfigDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
+};
+
+export type ActionConnectInput = {
+  resource?: InputMaybe<ActionResourceConnectFieldInput>;
+  config?: InputMaybe<ActionConfigConnectFieldInput>;
+  store?: InputMaybe<ActionStoreConnectFieldInput>;
+};
+
+export type ActionConnectOrCreateInput = {
+  resource?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
+  config?: InputMaybe<ActionConfigConnectOrCreateFieldInput>;
+  store?: InputMaybe<ActionStoreConnectOrCreateFieldInput>;
+};
+
+export type ActionConnectOrCreateWhere = {
+  node: ActionUniqueWhere;
+};
+
+export type ActionConnectWhere = {
+  node: ActionWhere;
+};
+
+export type ActionCreateInput = {
+  name: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ActionResourceFieldInput>;
+  config?: InputMaybe<ActionConfigFieldInput>;
+  store?: InputMaybe<ActionStoreFieldInput>;
+};
+
+export type ActionDeleteInput = {
+  resource?: InputMaybe<ActionResourceDeleteFieldInput>;
+  config?: InputMaybe<ActionConfigDeleteFieldInput>;
+  store?: InputMaybe<ActionStoreDeleteFieldInput>;
+};
+
+export type ActionDisconnectInput = {
+  resource?: InputMaybe<ActionResourceDisconnectFieldInput>;
+  config?: InputMaybe<ActionConfigDisconnectFieldInput>;
+  store?: InputMaybe<ActionStoreDisconnectFieldInput>;
+};
+
+export type ActionOnCreateInput = {
+  name: Scalars["String"];
+  runOnInit?: Scalars["Boolean"];
+  body?: InputMaybe<Scalars["String"]>;
+};
+
+export type ActionOptions = {
+  /** Specify one or more ActionSort objects to sort Actions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ActionSort>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionRelationInput = {
+  resource?: InputMaybe<ActionResourceCreateFieldInput>;
+  config?: InputMaybe<ActionConfigCreateFieldInput>;
+  store?: InputMaybe<ActionStoreCreateFieldInput>;
+};
+
+export type ActionResourceAggregateInput = {
+>>>>>>> wip: working slug that renders individual pages for production
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
   AND?: InputMaybe<Array<ActionBaseStoreAggregateInput>>;
   OR?: InputMaybe<Array<ActionBaseStoreAggregateInput>>;
   node?: InputMaybe<ActionBaseStoreNodeAggregationWhereInput>;
@@ -6539,6 +7212,61 @@ export type ActionBaseStoreFieldInput = {
 export type ActionBaseStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ActionBaseStoreNodeAggregationWhereInput>>;
   OR?: InputMaybe<Array<ActionBaseStoreNodeAggregationWhereInput>>;
+=======
+  AND?: InputMaybe<Array<ActionResourceAggregateInput>>;
+  OR?: InputMaybe<Array<ActionResourceAggregateInput>>;
+  node?: InputMaybe<ActionResourceNodeAggregationWhereInput>;
+};
+
+export type ActionResourceConnectFieldInput = {
+  where?: InputMaybe<ResourceConnectWhere>;
+  connect?: InputMaybe<ResourceConnectInput>;
+};
+
+export type ActionResourceConnectionSort = {
+  node?: InputMaybe<ResourceSort>;
+};
+
+export type ActionResourceConnectionWhere = {
+  AND?: InputMaybe<Array<ActionResourceConnectionWhere>>;
+  OR?: InputMaybe<Array<ActionResourceConnectionWhere>>;
+  node?: InputMaybe<ResourceWhere>;
+  node_NOT?: InputMaybe<ResourceWhere>;
+};
+
+export type ActionResourceConnectOrCreateFieldInput = {
+  where: ResourceConnectOrCreateWhere;
+  onCreate: ActionResourceConnectOrCreateFieldInputOnCreate;
+};
+
+export type ActionResourceConnectOrCreateFieldInputOnCreate = {
+  node: ResourceOnCreateInput;
+};
+
+export type ActionResourceCreateFieldInput = {
+  node: ResourceCreateInput;
+};
+
+export type ActionResourceDeleteFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  delete?: InputMaybe<ResourceDeleteInput>;
+};
+
+export type ActionResourceDisconnectFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  disconnect?: InputMaybe<ResourceDisconnectInput>;
+};
+
+export type ActionResourceFieldInput = {
+  create?: InputMaybe<ActionResourceCreateFieldInput>;
+  connect?: InputMaybe<ActionResourceConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
+};
+
+export type ActionResourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionResourceNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionResourceNodeAggregationWhereInput>>;
+>>>>>>> wip: working slug that renders individual pages for production
   id_EQUAL?: InputMaybe<Scalars["ID"]>;
   name_EQUAL?: InputMaybe<Scalars["String"]>;
   name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
@@ -6562,6 +7290,7 @@ export type ActionBaseStoreNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
+<<<<<<< HEAD
 export type ActionBaseStoreUpdateConnectionInput = {
   node?: InputMaybe<StoreUpdateInput>;
 };
@@ -6749,6 +7478,142 @@ export type ActionTypeUpdateInput = {
 export type ActionTypeWhere = {
   OR?: InputMaybe<Array<ActionTypeWhere>>;
   AND?: InputMaybe<Array<ActionTypeWhere>>;
+=======
+export type ActionResourceUpdateConnectionInput = {
+  node?: InputMaybe<ResourceUpdateInput>;
+};
+
+export type ActionResourceUpdateFieldInput = {
+  where?: InputMaybe<ActionResourceConnectionWhere>;
+  update?: InputMaybe<ActionResourceUpdateConnectionInput>;
+  connect?: InputMaybe<ActionResourceConnectFieldInput>;
+  disconnect?: InputMaybe<ActionResourceDisconnectFieldInput>;
+  create?: InputMaybe<ActionResourceCreateFieldInput>;
+  delete?: InputMaybe<ActionResourceDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ActionResourceConnectOrCreateFieldInput>;
+};
+
+/** Fields to sort Actions by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionSort object. */
+export type ActionSort = {
+  id?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  runOnInit?: InputMaybe<SortDirection>;
+  body?: InputMaybe<SortDirection>;
+};
+
+export type ActionStoreAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<ActionStoreAggregateInput>>;
+  OR?: InputMaybe<Array<ActionStoreAggregateInput>>;
+  node?: InputMaybe<ActionStoreNodeAggregationWhereInput>;
+};
+
+export type ActionStoreConnectFieldInput = {
+  where?: InputMaybe<StoreConnectWhere>;
+  connect?: InputMaybe<StoreConnectInput>;
+};
+
+export type ActionStoreConnectionSort = {
+  node?: InputMaybe<StoreSort>;
+};
+
+export type ActionStoreConnectionWhere = {
+  AND?: InputMaybe<Array<ActionStoreConnectionWhere>>;
+  OR?: InputMaybe<Array<ActionStoreConnectionWhere>>;
+  node?: InputMaybe<StoreWhere>;
+  node_NOT?: InputMaybe<StoreWhere>;
+};
+
+export type ActionStoreConnectOrCreateFieldInput = {
+  where: StoreConnectOrCreateWhere;
+  onCreate: ActionStoreConnectOrCreateFieldInputOnCreate;
+};
+
+export type ActionStoreConnectOrCreateFieldInputOnCreate = {
+  node: StoreOnCreateInput;
+};
+
+export type ActionStoreCreateFieldInput = {
+  node: StoreCreateInput;
+};
+
+export type ActionStoreDeleteFieldInput = {
+  where?: InputMaybe<ActionStoreConnectionWhere>;
+  delete?: InputMaybe<StoreDeleteInput>;
+};
+
+export type ActionStoreDisconnectFieldInput = {
+  where?: InputMaybe<ActionStoreConnectionWhere>;
+  disconnect?: InputMaybe<StoreDisconnectInput>;
+};
+
+export type ActionStoreFieldInput = {
+  create?: InputMaybe<ActionStoreCreateFieldInput>;
+  connect?: InputMaybe<ActionStoreConnectFieldInput>;
+  connectOrCreate?: InputMaybe<ActionStoreConnectOrCreateFieldInput>;
+};
+
+export type ActionStoreNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<ActionStoreNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ActionStoreUpdateConnectionInput = {
+  node?: InputMaybe<StoreUpdateInput>;
+};
+
+export type ActionStoreUpdateFieldInput = {
+  where?: InputMaybe<ActionStoreConnectionWhere>;
+  update?: InputMaybe<ActionStoreUpdateConnectionInput>;
+  connect?: InputMaybe<ActionStoreConnectFieldInput>;
+  disconnect?: InputMaybe<ActionStoreDisconnectFieldInput>;
+  create?: InputMaybe<ActionStoreCreateFieldInput>;
+  delete?: InputMaybe<ActionStoreDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<ActionStoreConnectOrCreateFieldInput>;
+};
+
+export type ActionUniqueWhere = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type ActionUpdateInput = {
+  name?: InputMaybe<Scalars["String"]>;
+  runOnInit?: InputMaybe<Scalars["Boolean"]>;
+  body?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ActionResourceUpdateFieldInput>;
+  config?: InputMaybe<ActionConfigUpdateFieldInput>;
+  store?: InputMaybe<ActionStoreUpdateFieldInput>;
+};
+
+export type ActionWhere = {
+  OR?: InputMaybe<Array<ActionWhere>>;
+  AND?: InputMaybe<Array<ActionWhere>>;
+>>>>>>> wip: working slug that renders individual pages for production
   id?: InputMaybe<Scalars["ID"]>;
   id_NOT?: InputMaybe<Scalars["ID"]>;
   id_IN?: InputMaybe<Array<Scalars["ID"]>>;
@@ -6769,6 +7634,7 @@ export type ActionTypeWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
   kind?: InputMaybe<TypeKind>;
   kind_NOT?: InputMaybe<TypeKind>;
   kind_IN?: InputMaybe<Array<TypeKind>>;
@@ -6784,6 +7650,35 @@ export type AnyActionWhere = {
   PipelineAction?: InputMaybe<PipelineActionWhere>;
   ResourceAction?: InputMaybe<ResourceActionWhere>;
   CustomAction?: InputMaybe<CustomActionWhere>;
+=======
+  runOnInit?: InputMaybe<Scalars["Boolean"]>;
+  runOnInit_NOT?: InputMaybe<Scalars["Boolean"]>;
+  body?: InputMaybe<Scalars["String"]>;
+  body_NOT?: InputMaybe<Scalars["String"]>;
+  body_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  body_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  body_CONTAINS?: InputMaybe<Scalars["String"]>;
+  body_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  body_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  body_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  body_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  body_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  resource?: InputMaybe<ResourceWhere>;
+  resource_NOT?: InputMaybe<ResourceWhere>;
+  resourceAggregate?: InputMaybe<ActionResourceAggregateInput>;
+  config?: InputMaybe<PropWhere>;
+  config_NOT?: InputMaybe<PropWhere>;
+  configAggregate?: InputMaybe<ActionConfigAggregateInput>;
+  store?: InputMaybe<StoreWhere>;
+  store_NOT?: InputMaybe<StoreWhere>;
+  storeAggregate?: InputMaybe<ActionStoreAggregateInput>;
+  resourceConnection?: InputMaybe<ActionResourceConnectionWhere>;
+  resourceConnection_NOT?: InputMaybe<ActionResourceConnectionWhere>;
+  configConnection?: InputMaybe<ActionConfigConnectionWhere>;
+  configConnection_NOT?: InputMaybe<ActionConfigConnectionWhere>;
+  storeConnection?: InputMaybe<ActionStoreConnectionWhere>;
+  storeConnection_NOT?: InputMaybe<ActionStoreConnectionWhere>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppConnectInput = {
@@ -6834,6 +7729,10 @@ export type AppDisconnectInput = {
 export type AppOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+<<<<<<< HEAD
+=======
+  slug: Scalars["String"];
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppOptions = {
@@ -6898,6 +7797,29 @@ export type AppOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppPagesAggregateInput = {
@@ -6980,6 +7902,29 @@ export type AppPagesNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppPagesUpdateConnectionInput = {
@@ -7183,6 +8128,10 @@ export type AppRootElementUpdateFieldInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+<<<<<<< HEAD
+=======
+  slug?: InputMaybe<SortDirection>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppStoreAggregateInput = {
@@ -7366,6 +8315,29 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type AppTypeRelationInput = {
@@ -7456,6 +8428,19 @@ export type AppWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
+=======
+  slug?: InputMaybe<Scalars["String"]>;
+  slug_NOT?: InputMaybe<Scalars["String"]>;
+  slug_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   owner?: InputMaybe<UserWhere>;
   owner_NOT?: InputMaybe<UserWhere>;
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>;
@@ -7627,6 +8612,29 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ArrayTypeRelationInput = {
@@ -8205,6 +9213,29 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ComponentRelationInput = {
@@ -8504,6 +9535,7 @@ export type CreateInfoWhere = {
   relationshipsCreated_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
+<<<<<<< HEAD
 export type CustomActionConnectInput = {
   store?: InputMaybe<ActionBaseStoreConnectFieldInput>;
 };
@@ -8661,6 +9693,8 @@ export type CustomActionWhere = {
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type ElementAppAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -8741,6 +9775,29 @@ export type ElementAppNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ElementAppUpdateConnectionInput = {
@@ -9202,8 +10259,12 @@ export type ElementConnectWhere = {
 export type ElementCreateInput = {
   id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
   customCss?: InputMaybe<Scalars["String"]>;
   guiCss?: InputMaybe<Scalars["String"]>;
+=======
+  css?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -9467,8 +10528,12 @@ export type ElementInstanceOfComponentUpdateFieldInput = {
 export type ElementOnCreateInput = {
   id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
   customCss?: InputMaybe<Scalars["String"]>;
   guiCss?: InputMaybe<Scalars["String"]>;
+=======
+  css?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -9561,6 +10626,29 @@ export type ElementPageNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ElementPageUpdateConnectionInput = {
@@ -10021,8 +11109,12 @@ export type ElementRelationInput = {
 export type ElementSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+<<<<<<< HEAD
   customCss?: InputMaybe<SortDirection>;
   guiCss?: InputMaybe<SortDirection>;
+=======
+  css?: InputMaybe<SortDirection>;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: InputMaybe<SortDirection>;
   renderForEachPropKey?: InputMaybe<SortDirection>;
   renderIfPropKey?: InputMaybe<SortDirection>;
@@ -10114,6 +11206,29 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ElementTypeRelationInput = {
@@ -10181,8 +11296,12 @@ export type ElementUniqueWhere = {
 export type ElementUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
   customCss?: InputMaybe<Scalars["String"]>;
   guiCss?: InputMaybe<Scalars["String"]>;
+=======
+  css?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -10221,8 +11340,12 @@ export type ElementWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
   customCss?: InputMaybe<Scalars["String"]>;
   guiCss?: InputMaybe<Scalars["String"]>;
+=======
+  css?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   css_NOT?: InputMaybe<Scalars["String"]>;
   css_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   css_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -10561,6 +11684,29 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type EnumTypeRelationInput = {
@@ -11520,6 +12666,29 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type InterfaceTypeRelationInput = {
@@ -11690,6 +12859,29 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type LambdaTypeRelationInput = {
@@ -11830,6 +13022,29 @@ export type MonacoTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type MonacoTypeRelationInput = {
@@ -11970,6 +13185,29 @@ export type PageAppNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageAppUpdateConnectionInput = {
@@ -12024,6 +13262,10 @@ export type PageDisconnectInput = {
 export type PageOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+<<<<<<< HEAD
+=======
+  slug: Scalars["String"];
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageOptions = {
@@ -12218,6 +13460,10 @@ export type PageRootElementUpdateFieldInput = {
 export type PageSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+<<<<<<< HEAD
+=======
+  slug?: InputMaybe<SortDirection>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageTypeConnectInput = {
@@ -12305,6 +13551,29 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PageTypeRelationInput = {
@@ -12393,6 +13662,19 @@ export type PageWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
+=======
+  slug?: InputMaybe<Scalars["String"]>;
+  slug_NOT?: InputMaybe<Scalars["String"]>;
+  slug_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   rootElement?: InputMaybe<ElementWhere>;
   rootElement_NOT?: InputMaybe<ElementWhere>;
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>;
@@ -12430,6 +13712,7 @@ export type ParentOfElementWhere = {
   order_GTE?: InputMaybe<Scalars["Int"]>;
 };
 
+<<<<<<< HEAD
 export type PipelineActionActionsConnectInput = {
   CustomAction?: InputMaybe<
     Array<PipelineActionActionsCustomActionConnectFieldInput>
@@ -12902,6 +14185,8 @@ export type PipelineActionWhere = {
   actionsConnection_SOME?: InputMaybe<PipelineActionActionsConnectionWhere>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type PrimitiveTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
@@ -12988,6 +14273,29 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type PrimitiveTypeRelationInput = {
@@ -13577,11 +14885,14 @@ export type PropWhere = {
   data_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
 };
 
+<<<<<<< HEAD
 export type QueryOptions = {
   offset?: InputMaybe<Scalars["Int"]>;
   limit?: InputMaybe<Scalars["Int"]>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type ReactNodeTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
 };
@@ -13667,6 +14978,29 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ReactNodeTypeRelationInput = {
@@ -13806,6 +15140,29 @@ export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type RenderPropsTypeRelationInput = {
@@ -13887,6 +15244,7 @@ export type ResetDatabaseMutationResponseWhere = {
   success_NOT?: InputMaybe<Scalars["Boolean"]>;
 };
 
+<<<<<<< HEAD
 export type ResourceActionConfigAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -14355,6 +15713,8 @@ export type ResourceActionWhere = {
   configConnection_NOT?: InputMaybe<ResourceActionConfigConnectionWhere>;
 };
 
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export type ResourceConfigAggregateInput = {
   count?: InputMaybe<Scalars["Int"]>;
   count_LT?: InputMaybe<Scalars["Int"]>;
@@ -14549,6 +15909,29 @@ export type ResourceOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type ResourceRelationInput = {
@@ -14613,6 +15996,7 @@ export type ResourceWhere = {
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>;
 };
 
+<<<<<<< HEAD
 export type StoreActionsConnectFieldInput = {
   connect?: InputMaybe<ActionBaseConnectInput>;
   where?: InputMaybe<ActionBaseConnectWhere>;
@@ -14620,11 +16004,32 @@ export type StoreActionsConnectFieldInput = {
 
 export type StoreActionsConnectionSort = {
   node?: InputMaybe<ActionBaseSort>;
+=======
+export type StoreActionsAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<StoreActionsAggregateInput>>;
+  OR?: InputMaybe<Array<StoreActionsAggregateInput>>;
+  node?: InputMaybe<StoreActionsNodeAggregationWhereInput>;
+};
+
+export type StoreActionsConnectFieldInput = {
+  where?: InputMaybe<ActionConnectWhere>;
+  connect?: InputMaybe<Array<ActionConnectInput>>;
+};
+
+export type StoreActionsConnectionSort = {
+  node?: InputMaybe<ActionSort>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreActionsConnectionWhere = {
   AND?: InputMaybe<Array<StoreActionsConnectionWhere>>;
   OR?: InputMaybe<Array<StoreActionsConnectionWhere>>;
+<<<<<<< HEAD
   node?: InputMaybe<ActionBaseWhere>;
   node_NOT?: InputMaybe<ActionBaseWhere>;
 };
@@ -14641,11 +16046,39 @@ export type StoreActionsDeleteFieldInput = {
 export type StoreActionsDisconnectFieldInput = {
   disconnect?: InputMaybe<ActionBaseDisconnectInput>;
   where?: InputMaybe<StoreActionsConnectionWhere>;
+=======
+  node?: InputMaybe<ActionWhere>;
+  node_NOT?: InputMaybe<ActionWhere>;
+};
+
+export type StoreActionsConnectOrCreateFieldInput = {
+  where: ActionConnectOrCreateWhere;
+  onCreate: StoreActionsConnectOrCreateFieldInputOnCreate;
+};
+
+export type StoreActionsConnectOrCreateFieldInputOnCreate = {
+  node: ActionOnCreateInput;
+};
+
+export type StoreActionsCreateFieldInput = {
+  node: ActionCreateInput;
+};
+
+export type StoreActionsDeleteFieldInput = {
+  where?: InputMaybe<StoreActionsConnectionWhere>;
+  delete?: InputMaybe<ActionDeleteInput>;
+};
+
+export type StoreActionsDisconnectFieldInput = {
+  where?: InputMaybe<StoreActionsConnectionWhere>;
+  disconnect?: InputMaybe<ActionDisconnectInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreActionsFieldInput = {
   create?: InputMaybe<Array<StoreActionsCreateFieldInput>>;
   connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>;
+<<<<<<< HEAD
 };
 
 export type StoreActionsUpdateConnectionInput = {
@@ -14659,17 +16092,205 @@ export type StoreActionsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>;
   update?: InputMaybe<StoreActionsUpdateConnectionInput>;
   where?: InputMaybe<StoreActionsConnectionWhere>;
+=======
+  connectOrCreate?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>;
+};
+
+export type StoreActionsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreActionsNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreActionsNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  body_EQUAL?: InputMaybe<Scalars["String"]>;
+  body_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  body_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  body_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  body_GT?: InputMaybe<Scalars["Int"]>;
+  body_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  body_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  body_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  body_GTE?: InputMaybe<Scalars["Int"]>;
+  body_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  body_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  body_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  body_LT?: InputMaybe<Scalars["Int"]>;
+  body_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  body_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  body_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  body_LTE?: InputMaybe<Scalars["Int"]>;
+  body_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  body_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  body_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type StoreActionsUpdateConnectionInput = {
+  node?: InputMaybe<ActionUpdateInput>;
+};
+
+export type StoreActionsUpdateFieldInput = {
+  where?: InputMaybe<StoreActionsConnectionWhere>;
+  update?: InputMaybe<StoreActionsUpdateConnectionInput>;
+  connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>;
+  disconnect?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>;
+  create?: InputMaybe<Array<StoreActionsCreateFieldInput>>;
+  delete?: InputMaybe<Array<StoreActionsDeleteFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>;
+};
+
+export type StoreAppAggregateInput = {
+  count?: InputMaybe<Scalars["Int"]>;
+  count_LT?: InputMaybe<Scalars["Int"]>;
+  count_LTE?: InputMaybe<Scalars["Int"]>;
+  count_GT?: InputMaybe<Scalars["Int"]>;
+  count_GTE?: InputMaybe<Scalars["Int"]>;
+  AND?: InputMaybe<Array<StoreAppAggregateInput>>;
+  OR?: InputMaybe<Array<StoreAppAggregateInput>>;
+  node?: InputMaybe<StoreAppNodeAggregationWhereInput>;
+};
+
+export type StoreAppConnectFieldInput = {
+  where?: InputMaybe<AppConnectWhere>;
+  connect?: InputMaybe<AppConnectInput>;
+};
+
+export type StoreAppConnectionSort = {
+  node?: InputMaybe<AppSort>;
+};
+
+export type StoreAppConnectionWhere = {
+  AND?: InputMaybe<Array<StoreAppConnectionWhere>>;
+  OR?: InputMaybe<Array<StoreAppConnectionWhere>>;
+  node?: InputMaybe<AppWhere>;
+  node_NOT?: InputMaybe<AppWhere>;
+};
+
+export type StoreAppConnectOrCreateFieldInput = {
+  where: AppConnectOrCreateWhere;
+  onCreate: StoreAppConnectOrCreateFieldInputOnCreate;
+};
+
+export type StoreAppConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput;
+};
+
+export type StoreAppCreateFieldInput = {
+  node: AppCreateInput;
+};
+
+export type StoreAppDeleteFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  delete?: InputMaybe<AppDeleteInput>;
+};
+
+export type StoreAppDisconnectFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  disconnect?: InputMaybe<AppDisconnectInput>;
+};
+
+export type StoreAppFieldInput = {
+  create?: InputMaybe<StoreAppCreateFieldInput>;
+  connect?: InputMaybe<StoreAppConnectFieldInput>;
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
+};
+
+export type StoreAppNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>;
+  OR?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>;
+  id_EQUAL?: InputMaybe<Scalars["ID"]>;
+  name_EQUAL?: InputMaybe<Scalars["String"]>;
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  name_GT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  name_GTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  name_LT?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  name_LTE?: InputMaybe<Scalars["Int"]>;
+  name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+};
+
+export type StoreAppUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>;
+};
+
+export type StoreAppUpdateFieldInput = {
+  where?: InputMaybe<StoreAppConnectionWhere>;
+  update?: InputMaybe<StoreAppUpdateConnectionInput>;
+  connect?: InputMaybe<StoreAppConnectFieldInput>;
+  disconnect?: InputMaybe<StoreAppDisconnectFieldInput>;
+  create?: InputMaybe<StoreAppCreateFieldInput>;
+  delete?: InputMaybe<StoreAppDeleteFieldInput>;
+  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreConnectInput = {
   state?: InputMaybe<StoreStateConnectFieldInput>;
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>;
   actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppConnectFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreConnectOrCreateInput = {
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>;
+<<<<<<< HEAD
+=======
+  actions?: InputMaybe<Array<StoreActionsConnectOrCreateFieldInput>>;
+  app?: InputMaybe<StoreAppConnectOrCreateFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreConnectOrCreateWhere = {
@@ -14686,18 +16307,30 @@ export type StoreCreateInput = {
   state?: InputMaybe<StoreStateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiFieldInput>;
   actions?: InputMaybe<StoreActionsFieldInput>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreDeleteInput = {
   state?: InputMaybe<StoreStateDeleteFieldInput>;
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>;
   actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppDeleteFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreDisconnectInput = {
   state?: InputMaybe<StoreStateDisconnectFieldInput>;
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>;
   actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppDisconnectFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreOnCreateInput = {
@@ -14716,6 +16349,10 @@ export type StoreRelationInput = {
   state?: InputMaybe<StoreStateCreateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>;
   actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppCreateFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -14923,6 +16560,10 @@ export type StoreUpdateInput = {
   state?: InputMaybe<StoreStateUpdateFieldInput>;
   stateApi?: InputMaybe<StoreStateApiUpdateFieldInput>;
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>;
+<<<<<<< HEAD
+=======
+  app?: InputMaybe<StoreAppUpdateFieldInput>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type StoreWhere = {
@@ -14954,6 +16595,23 @@ export type StoreWhere = {
   stateApi?: InputMaybe<InterfaceTypeWhere>;
   stateApi_NOT?: InputMaybe<InterfaceTypeWhere>;
   stateApiAggregate?: InputMaybe<StoreStateApiAggregateInput>;
+<<<<<<< HEAD
+=======
+  actions?: InputMaybe<ActionWhere>;
+  actions_NOT?: InputMaybe<ActionWhere>;
+  actionsAggregate?: InputMaybe<StoreActionsAggregateInput>;
+  /** Return Stores where all of the related Actions match this filter */
+  actions_ALL?: InputMaybe<ActionWhere>;
+  /** Return Stores where none of the related Actions match this filter */
+  actions_NONE?: InputMaybe<ActionWhere>;
+  /** Return Stores where one of the related Actions match this filter */
+  actions_SINGLE?: InputMaybe<ActionWhere>;
+  /** Return Stores where some of the related Actions match this filter */
+  actions_SOME?: InputMaybe<ActionWhere>;
+  app?: InputMaybe<AppWhere>;
+  app_NOT?: InputMaybe<AppWhere>;
+  appAggregate?: InputMaybe<StoreAppAggregateInput>;
+>>>>>>> wip: working slug that renders individual pages for production
   stateConnection?: InputMaybe<StoreStateConnectionWhere>;
   stateConnection_NOT?: InputMaybe<StoreStateConnectionWhere>;
   stateApiConnection?: InputMaybe<StoreStateApiConnectionWhere>;
@@ -14964,6 +16622,11 @@ export type StoreWhere = {
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>;
+<<<<<<< HEAD
+=======
+  appConnection?: InputMaybe<StoreAppConnectionWhere>;
+  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type TagChildrenAggregateInput = {
@@ -15308,6 +16971,29 @@ export type TagOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type TagOwnerUpdateConnectionInput = {
@@ -15518,7 +17204,10 @@ export type TypeBaseCreateInput = {
   LambdaType?: InputMaybe<LambdaTypeCreateInput>;
   PageType?: InputMaybe<PageTypeCreateInput>;
   AppType?: InputMaybe<AppTypeCreateInput>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<ActionTypeCreateInput>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<MonacoTypeCreateInput>;
 };
 
@@ -15544,7 +17233,10 @@ export type TypeBaseImplementationsConnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>;
   PageType?: InputMaybe<Array<PageTypeConnectInput>>;
   AppType?: InputMaybe<Array<AppTypeConnectInput>>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<Array<ActionTypeConnectInput>>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<Array<MonacoTypeConnectInput>>;
 };
 
@@ -15560,7 +17252,10 @@ export type TypeBaseImplementationsDeleteInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>;
   PageType?: InputMaybe<Array<PageTypeDeleteInput>>;
   AppType?: InputMaybe<Array<AppTypeDeleteInput>>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<Array<ActionTypeDeleteInput>>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<Array<MonacoTypeDeleteInput>>;
 };
 
@@ -15576,7 +17271,10 @@ export type TypeBaseImplementationsDisconnectInput = {
   LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>;
   PageType?: InputMaybe<Array<PageTypeDisconnectInput>>;
   AppType?: InputMaybe<Array<AppTypeDisconnectInput>>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<Array<ActionTypeDisconnectInput>>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<Array<MonacoTypeDisconnectInput>>;
 };
 
@@ -15592,7 +17290,10 @@ export type TypeBaseImplementationsUpdateInput = {
   LambdaType?: InputMaybe<LambdaTypeUpdateInput>;
   PageType?: InputMaybe<PageTypeUpdateInput>;
   AppType?: InputMaybe<AppTypeUpdateInput>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<ActionTypeUpdateInput>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<MonacoTypeUpdateInput>;
 };
 
@@ -15608,7 +17309,10 @@ export type TypeBaseImplementationsWhere = {
   LambdaType?: InputMaybe<LambdaTypeWhere>;
   PageType?: InputMaybe<PageTypeWhere>;
   AppType?: InputMaybe<AppTypeWhere>;
+<<<<<<< HEAD
   ActionType?: InputMaybe<ActionTypeWhere>;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType?: InputMaybe<MonacoTypeWhere>;
 };
 
@@ -15719,6 +17423,29 @@ export type TypeBaseOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type TypeBaseOwnerUpdateConnectionInput = {
@@ -15926,6 +17653,29 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
   email_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   email_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   email_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  username_EQUAL?: InputMaybe<Scalars["String"]>;
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  username_GT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  username_GTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  username_LT?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  username_LTE?: InputMaybe<Scalars["Int"]>;
+  username_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  username_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  username_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UnionTypeRelationInput = {
@@ -16120,6 +17870,29 @@ export type UserAppsNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+<<<<<<< HEAD
+=======
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserAppsUpdateConnectionInput = {
@@ -16258,7 +18031,12 @@ export type UserConnectWhere = {
 export type UserCreateInput = {
   auth0Id: Scalars["String"];
   email: Scalars["String"];
+<<<<<<< HEAD
   roles?: InputMaybe<Array<Role>>;
+=======
+  username: Scalars["String"];
+  roles: Array<Role>;
+>>>>>>> wip: working slug that renders individual pages for production
   types?: InputMaybe<UserTypesFieldInput>;
   apps?: InputMaybe<UserAppsFieldInput>;
   elements?: InputMaybe<UserElementsFieldInput>;
@@ -16461,6 +18239,10 @@ export type UserElementsUpdateFieldInput = {
 export type UserOnCreateInput = {
   auth0Id: Scalars["String"];
   email: Scalars["String"];
+<<<<<<< HEAD
+=======
+  username: Scalars["String"];
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserOptions = {
@@ -16483,6 +18265,10 @@ export type UserSort = {
   id?: InputMaybe<SortDirection>;
   auth0Id?: InputMaybe<SortDirection>;
   email?: InputMaybe<SortDirection>;
+<<<<<<< HEAD
+=======
+  username?: InputMaybe<SortDirection>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserTagsAggregateInput = {
@@ -16632,11 +18418,19 @@ export type UserTypesUpdateFieldInput = {
 export type UserUniqueWhere = {
   id?: InputMaybe<Scalars["ID"]>;
   auth0Id?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
+=======
+  username?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
 };
 
 export type UserUpdateInput = {
   auth0Id?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
+=======
+  username?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   roles?: InputMaybe<Array<Role>>;
   types?: InputMaybe<Array<UserTypesUpdateFieldInput>>;
   apps?: InputMaybe<Array<UserAppsUpdateFieldInput>>;
@@ -16678,6 +18472,19 @@ export type UserWhere = {
   email_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   email_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   email_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+<<<<<<< HEAD
+=======
+  username?: InputMaybe<Scalars["String"]>;
+  username_NOT?: InputMaybe<Scalars["String"]>;
+  username_IN?: InputMaybe<Array<Scalars["String"]>>;
+  username_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  username_CONTAINS?: InputMaybe<Scalars["String"]>;
+  username_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  username_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  username_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  username_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  username_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+>>>>>>> wip: working slug that renders individual pages for production
   roles?: InputMaybe<Array<Role>>;
   roles_NOT?: InputMaybe<Array<Role>>;
   roles_INCLUDES?: InputMaybe<Role>;
@@ -16875,6 +18682,10 @@ export interface UserAggregateSelectionInput {
   id?: IdAggregateInputNonNullable;
   auth0Id?: StringAggregateInputNonNullable;
   email?: StringAggregateInputNonNullable;
+<<<<<<< HEAD
+=======
+  username?: StringAggregateInputNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 }
 
 export declare class UserModel {
@@ -16933,6 +18744,10 @@ export interface AppAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
+<<<<<<< HEAD
+=======
+  slug?: StringAggregateInputNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 }
 
 export declare class AppModel {
@@ -17125,6 +18940,10 @@ export interface PageAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
+<<<<<<< HEAD
+=======
+  slug?: StringAggregateInputNonNullable;
+>>>>>>> wip: working slug that renders individual pages for production
 }
 
 export declare class PageModel {
@@ -18071,6 +19890,7 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
+<<<<<<< HEAD
 export interface ActionTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -18139,6 +19959,8 @@ export interface IntAggregateInputNonNullable {
   average?: boolean;
   sum?: boolean;
 }
+=======
+>>>>>>> wip: working slug that renders individual pages for production
 export interface MonacoTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -18497,8 +20319,12 @@ export interface ElementAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNullable;
+<<<<<<< HEAD
   customCss?: StringAggregateInputNullable;
   guiCss?: StringAggregateInputNullable;
+=======
+  css?: StringAggregateInputNullable;
+>>>>>>> wip: working slug that renders individual pages for production
   propTransformationJs?: StringAggregateInputNullable;
   renderForEachPropKey?: StringAggregateInputNullable;
   renderIfPropKey?: StringAggregateInputNullable;
@@ -18939,6 +20765,7 @@ export interface IntAggregateInputNullable {
   average?: boolean;
   sum?: boolean;
 }
+<<<<<<< HEAD
 export interface CustomActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -19099,17 +20926,38 @@ export declare class PipelineActionModel {
     where?: PipelineActionWhere;
 
     options?: PipelineActionOptions;
+=======
+export interface ActionAggregateSelectionInput {
+  count?: boolean;
+  id?: IdAggregateInputNonNullable;
+  name?: StringAggregateInputNonNullable;
+  body?: StringAggregateInputNullable;
+}
+
+export declare class ActionModel {
+  public find(args?: {
+    where?: ActionWhere;
+
+    options?: ActionOptions;
+>>>>>>> wip: working slug that renders individual pages for production
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
+<<<<<<< HEAD
   }): Promise<PipelineAction[]>;
   public create(args: {
     input: PipelineActionCreateInput[];
+=======
+  }): Promise<Action[]>;
+  public create(args: {
+    input: ActionCreateInput[];
+>>>>>>> wip: working slug that renders individual pages for production
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
+<<<<<<< HEAD
   }): Promise<CreatePipelineActionsMutationResponse>;
   public update(args: {
     where?: PipelineActionWhere;
@@ -19118,24 +20966,50 @@ export declare class PipelineActionModel {
     disconnect?: PipelineActionDisconnectInput;
     create?: PipelineActionCreateInput;
     connectOrCreate?: PipelineActionConnectOrCreateInput;
+=======
+  }): Promise<CreateActionsMutationResponse>;
+  public update(args: {
+    where?: ActionWhere;
+    update?: ActionUpdateInput;
+    connect?: ActionConnectInput;
+    disconnect?: ActionDisconnectInput;
+    create?: ActionCreateInput;
+    connectOrCreate?: ActionConnectOrCreateInput;
+>>>>>>> wip: working slug that renders individual pages for production
     selectionSet?: string | DocumentNode | SelectionSetNode;
     args?: any;
     context?: any;
     rootValue?: any;
+<<<<<<< HEAD
   }): Promise<UpdatePipelineActionsMutationResponse>;
   public delete(args: {
     where?: PipelineActionWhere;
     delete?: PipelineActionDeleteInput;
+=======
+  }): Promise<UpdateActionsMutationResponse>;
+  public delete(args: {
+    where?: ActionWhere;
+    delete?: ActionDeleteInput;
+>>>>>>> wip: working slug that renders individual pages for production
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
   public aggregate(args: {
+<<<<<<< HEAD
     where?: PipelineActionWhere;
 
     aggregate: PipelineActionAggregateSelectionInput;
     context?: any;
     rootValue?: any;
   }): Promise<PipelineActionAggregateSelection>;
+=======
+    where?: ActionWhere;
+
+    aggregate: ActionAggregateSelectionInput;
+    context?: any;
+    rootValue?: any;
+  }): Promise<ActionAggregateSelection>;
+>>>>>>> wip: working slug that renders individual pages for production
 }
 
 export interface IdAggregateInputNonNullable {
@@ -19232,7 +21106,10 @@ export interface ModelMap {
   LambdaType: LambdaTypeModel;
   PageType: PageTypeModel;
   AppType: AppTypeModel;
+<<<<<<< HEAD
   ActionType: ActionTypeModel;
+=======
+>>>>>>> wip: working slug that renders individual pages for production
   MonacoType: MonacoTypeModel;
   Tag: TagModel;
   TagGraphOptions: TagGraphOptionsModel;
@@ -19244,8 +21121,12 @@ export interface ModelMap {
   Hook: HookModel;
   Component: ComponentModel;
   Store: StoreModel;
+<<<<<<< HEAD
   CustomAction: CustomActionModel;
   ResourceAction: ResourceActionModel;
   PipelineAction: PipelineActionModel;
+=======
+  Action: ActionModel;
+>>>>>>> wip: working slug that renders individual pages for production
   Resource: ResourceModel;
 }

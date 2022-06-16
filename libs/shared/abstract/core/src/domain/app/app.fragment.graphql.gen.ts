@@ -8,6 +8,7 @@ import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 export type AppPreviewFragment = {
   id: string
   name: string
+  slug: string
   owner: { id: string }
   pages: Array<PageFragment>
   rootElement: { id: string }
@@ -17,6 +18,7 @@ export type AppPreviewFragment = {
 export type AppFragment = {
   id: string
   name: string
+  slug: string
   owner: { id: string }
   pages: Array<PageFragment>
   rootElement: { id: string }
@@ -27,6 +29,7 @@ export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id
     name
+    slug
     owner {
       id
     }
@@ -46,6 +49,7 @@ export const AppFragmentDoc = gql`
   fragment App on App {
     id
     name
+    slug
     owner {
       id
     }
