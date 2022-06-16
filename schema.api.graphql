@@ -604,6 +604,7 @@ type App implements WithOwner {
     sort: [AppRootElementConnectionSort!]
     where: AppRootElementConnectionWhere
   ): AppRootElementConnection!
+  slug: String!
   store(
     directed: Boolean = true
     options: StoreOptions
@@ -626,6 +627,7 @@ type AppAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input AppConnectInput {
@@ -695,6 +697,7 @@ type AppElementRootElementNodeAggregateSelection {
 input AppOnCreateInput {
   id: ID!
   name: String!
+  slug: String!
 }
 
 input AppOptions {
@@ -792,6 +795,7 @@ type AppPagePagesAggregationSelection {
 type AppPagePagesNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input AppPagesAggregateInput {
@@ -880,6 +884,26 @@ input AppPagesNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type AppPagesRelationship {
@@ -1101,6 +1125,7 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   id: SortDirection
   name: SortDirection
+  slug: SortDirection
 }
 
 input AppStoreAggregateInput {
@@ -1516,6 +1541,16 @@ input AppWhere {
   rootElementConnection: AppRootElementConnectionWhere
   rootElementConnection_NOT: AppRootElementConnectionWhere
   rootElement_NOT: ElementWhere
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String!]
+  slug_NOT: String
+  slug_NOT_CONTAINS: String
+  slug_NOT_ENDS_WITH: String
+  slug_NOT_IN: [String!]
+  slug_NOT_STARTS_WITH: String
+  slug_STARTS_WITH: String
   store: StoreWhere
   storeAggregate: AppStoreAggregateInput
   storeConnection: AppStoreConnectionWhere
@@ -3631,6 +3666,7 @@ type ElementAppAppAggregationSelection {
 type ElementAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input ElementAppConnectFieldInput {
@@ -3708,6 +3744,26 @@ input ElementAppNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementAppRelationship {
@@ -4638,6 +4694,26 @@ input ElementPageNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type ElementPagePageAggregationSelection {
@@ -4648,6 +4724,7 @@ type ElementPagePageAggregationSelection {
 type ElementPagePageNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 type ElementPageRelationship {
@@ -8204,12 +8281,14 @@ type Page {
     sort: [PageRootElementConnectionSort!]
     where: PageRootElementConnectionWhere
   ): PageRootElementConnection!
+  slug: String!
 }
 
 type PageAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input PageAppAggregateInput {
@@ -8231,6 +8310,7 @@ type PageAppAppAggregationSelection {
 type PageAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input PageAppConnectFieldInput {
@@ -8308,6 +8388,26 @@ input PageAppNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type PageAppRelationship {
@@ -8396,6 +8496,7 @@ type PageInfo {
 input PageOnCreateInput {
   id: ID!
   name: String!
+  slug: String!
 }
 
 input PageOptions {
@@ -8606,6 +8707,7 @@ Fields to sort Pages by. The order in which sorts are applied is not guaranteed 
 input PageSort {
   id: SortDirection
   name: SortDirection
+  slug: SortDirection
 }
 
 """
@@ -8865,6 +8967,16 @@ input PageWhere {
   rootElementConnection: PageRootElementConnectionWhere
   rootElementConnection_NOT: PageRootElementConnectionWhere
   rootElement_NOT: ElementWhere
+  slug: String
+  slug_CONTAINS: String
+  slug_ENDS_WITH: String
+  slug_IN: [String!]
+  slug_NOT: String
+  slug_NOT_CONTAINS: String
+  slug_NOT_ENDS_WITH: String
+  slug_NOT_IN: [String!]
+  slug_NOT_STARTS_WITH: String
+  slug_STARTS_WITH: String
 }
 
 type PagesConnection {
@@ -11215,6 +11327,7 @@ type StoreAppAppAggregationSelection {
 type StoreAppAppNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input StoreAppConnectFieldInput {
@@ -11292,6 +11405,26 @@ input StoreAppNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type StoreAppRelationship {
@@ -13358,6 +13491,7 @@ type UserAppAppsAggregationSelection {
 type UserAppAppsNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  slug: StringAggregateSelectionNonNullable!
 }
 
 input UserAppsAggregateInput {
@@ -13446,6 +13580,26 @@ input UserAppsNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  slug_AVERAGE_EQUAL: Float
+  slug_AVERAGE_GT: Float
+  slug_AVERAGE_GTE: Float
+  slug_AVERAGE_LT: Float
+  slug_AVERAGE_LTE: Float
+  slug_EQUAL: String
+  slug_GT: Int
+  slug_GTE: Int
+  slug_LONGEST_EQUAL: Int
+  slug_LONGEST_GT: Int
+  slug_LONGEST_GTE: Int
+  slug_LONGEST_LT: Int
+  slug_LONGEST_LTE: Int
+  slug_LT: Int
+  slug_LTE: Int
+  slug_SHORTEST_EQUAL: Int
+  slug_SHORTEST_GT: Int
+  slug_SHORTEST_GTE: Int
+  slug_SHORTEST_LT: Int
+  slug_SHORTEST_LTE: Int
 }
 
 type UserAppsRelationship {

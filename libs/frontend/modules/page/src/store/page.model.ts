@@ -7,6 +7,7 @@ const hydrate = (page: IPageDTO) => {
   return new Page({
     id: page.id,
     name: page.name,
+    slug: page.slug,
     rootElement: { id: page.rootElement.id },
     app: { id: page.app.id },
   })
@@ -18,6 +19,7 @@ export class Page
     id: idProp,
     app: prop<IEntity>(),
     name: prop<string>(),
+    slug: prop<string>(),
     rootElement: prop<IEntity>(),
   })
   implements IPage

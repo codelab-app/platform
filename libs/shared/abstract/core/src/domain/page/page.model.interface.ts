@@ -4,5 +4,6 @@ import { IElementTreeService } from '../element'
 export interface IPage extends IEntity, IElementTreeService {
   app: { id: string }
   name: string
+  slug: string
   rootElement: { id: string }
 }

@@ -1,6 +1,7 @@
 fragment Page on Page {
   id
   name
+  slug
   app {
     id
     rootElement {

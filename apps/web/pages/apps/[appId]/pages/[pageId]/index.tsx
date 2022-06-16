@@ -79,8 +79,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       return {
         page,
         pageElementTree,
-        providerTree,
-        storeTree,
+        // providerTree,
+        // storeTree,
         renderer,
       }
     },

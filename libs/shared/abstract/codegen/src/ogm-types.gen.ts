@@ -1968,6 +1968,7 @@ export type App = WithOwner & {
   __typename?: "App";
   id: Scalars["ID"];
   name: Scalars["String"];
+  slug: Scalars["String"];
   owner: User;
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>;
   pages: Array<Page>;
@@ -2063,6 +2064,7 @@ export type AppAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type AppEdge = {
@@ -2097,6 +2099,7 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename?: "AppPagePagesNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type AppPagesConnection = {
@@ -3115,6 +3118,7 @@ export type ElementAppAppNodeAggregateSelection = {
   __typename?: "ElementAppAppNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type ElementAppConnection = {
@@ -3335,6 +3339,7 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename?: "ElementPagePageNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type ElementPageRelationship = {
@@ -4180,6 +4185,7 @@ export type Page = {
   __typename?: "Page";
   id: Scalars["ID"];
   name: Scalars["String"];
+  slug: Scalars["String"];
   rootElement: Element;
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>;
   app: App;
@@ -4231,6 +4237,7 @@ export type PageAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type PageAppAppAggregationSelection = {
@@ -4243,6 +4250,7 @@ export type PageAppAppNodeAggregateSelection = {
   __typename?: "PageAppAppNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type PageAppConnection = {
@@ -5080,6 +5088,7 @@ export type StoreAppAppNodeAggregateSelection = {
   __typename?: "StoreAppAppNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type StoreAppConnection = {
@@ -5868,6 +5877,7 @@ export type UserAppAppsNodeAggregateSelection = {
   __typename?: "UserAppAppsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  slug: StringAggregateSelectionNonNullable;
 };
 
 export type UserAppsConnection = {
@@ -6467,6 +6477,7 @@ export type AppDisconnectInput = {
 export type AppOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+  slug: Scalars["String"];
 };
 
 export type AppOptions = {
@@ -6633,6 +6644,26 @@ export type AppPagesNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type AppPagesUpdateConnectionInput = {
@@ -6836,6 +6867,7 @@ export type AppRootElementUpdateFieldInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+  slug?: InputMaybe<SortDirection>;
 };
 
 export type AppStoreAggregateInput = {
@@ -7129,6 +7161,16 @@ export type AppWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug?: InputMaybe<Scalars["String"]>;
+  slug_NOT?: InputMaybe<Scalars["String"]>;
+  slug_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<UserWhere>;
   owner_NOT?: InputMaybe<UserWhere>;
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>;
@@ -8297,6 +8339,26 @@ export type ElementAppNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementAppUpdateConnectionInput = {
@@ -9115,6 +9177,26 @@ export type ElementPageNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementPageUpdateConnectionInput = {
@@ -11621,6 +11703,26 @@ export type PageAppNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PageAppUpdateConnectionInput = {
@@ -11675,6 +11777,7 @@ export type PageDisconnectInput = {
 export type PageOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+  slug: Scalars["String"];
 };
 
 export type PageOptions = {
@@ -11869,6 +11972,7 @@ export type PageRootElementUpdateFieldInput = {
 export type PageSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+  slug?: InputMaybe<SortDirection>;
 };
 
 export type PageTypeConnectInput = {
@@ -12064,6 +12168,16 @@ export type PageWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug?: InputMaybe<Scalars["String"]>;
+  slug_NOT?: InputMaybe<Scalars["String"]>;
+  slug_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_NOT_IN?: InputMaybe<Array<Scalars["String"]>>;
+  slug_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  slug_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   rootElement?: InputMaybe<ElementWhere>;
   rootElement_NOT?: InputMaybe<ElementWhere>;
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>;
@@ -13615,6 +13729,26 @@ export type StoreAppNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type StoreAppUpdateConnectionInput = {
@@ -15168,6 +15302,26 @@ export type UserAppsNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_EQUAL?: InputMaybe<Scalars["String"]>;
+  slug_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  slug_GT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  slug_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  slug_LT?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  slug_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  slug_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  slug_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type UserAppsUpdateConnectionInput = {
@@ -15997,6 +16151,7 @@ export interface AppAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
+  slug?: StringAggregateInputNonNullable;
 }
 
 export declare class AppModel {
@@ -16189,6 +16344,7 @@ export interface PageAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
+  slug?: StringAggregateInputNonNullable;
 }
 
 export declare class PageModel {

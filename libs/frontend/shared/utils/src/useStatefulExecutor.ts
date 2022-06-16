@@ -27,6 +27,9 @@ export const defaultNotifyFactory = (error: any): NotificationOptions => ({
   content: extractErrorMessage(error),
 })
 
+/**
+ * Use this instead of useEffect with async, since we can't return anything using that approach
+ */
 export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
   executor: (...args: TArgs) => Promise<TOut>,
   options?: UseLoadingStateOptions<TArgs>,
