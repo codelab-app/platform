@@ -31,9 +31,9 @@ describe('CSS CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.get('[role="textbox"]').type(
-        createBackgroundColorStyle(backgroundColor1),
-      )
+      cy.get('[role="textbox"]')
+        .click({ force: true })
+        .type(createBackgroundColorStyle(backgroundColor1))
 
       cy.get('#render-root')
         .find('button')
@@ -49,6 +49,7 @@ describe('CSS CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.get('[role="textbox"]')
+        .click({ force: true })
         .clear()
         .type(createBackgroundColorStyle(backgroundColor2))
 
@@ -65,7 +66,7 @@ describe('CSS CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.get('[role="textbox"]').clear().type(' ')
+      cy.get('[role="textbox"]').click({ force: true }).clear().type(' ')
 
       cy.get('#render-root')
         .find('button')

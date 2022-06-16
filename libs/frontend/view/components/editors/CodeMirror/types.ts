@@ -1,7 +1,9 @@
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { Extension, ReactCodeMirrorProps } from '@uiw/react-codemirror'
 
-export interface CodeMirrorInputProps extends ReactCodeMirrorProps {
+export interface CodeMirrorInputProps
+  extends Omit<ReactCodeMirrorProps, 'title'> {
   value: string
   onChange: (value: string) => void
   onBlur?: () => void
@@ -10,4 +12,6 @@ export interface CodeMirrorInputProps extends ReactCodeMirrorProps {
   templateCompletionOptions?: Array<Completion>
   extensions?: Array<Extension>
   shouldDisableNewLines?: boolean
+  expandable?: boolean
+  title?: Nullish<string>
 }

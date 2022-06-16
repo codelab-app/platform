@@ -18,6 +18,7 @@ export const CodeMirrorField = ({ field, form, context }: FieldProps) => (
         templateCompletionOptions={contextCompletionOptions(
           context?.autocomplete || {},
         )}
+        title={field.name}
         value={control.field.value}
       />
     )}

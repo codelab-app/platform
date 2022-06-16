@@ -14,6 +14,7 @@ const EmotionCssEditor = (props: CodeMirrorInputProps) => {
       defaultCompletionSource={cssCompletionSource}
       extensions={mergedExtensions}
       shouldDisableNewLines={false}
+      title="CSS Editor"
     />
   )
 }
