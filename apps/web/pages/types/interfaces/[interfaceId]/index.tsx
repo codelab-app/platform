@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
   CreateFieldModal,
@@ -13,9 +10,14 @@ import {
   useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -90,7 +92,15 @@ export const getServerSideProps = withPageAuthRequired()
 
 InterfaceDetailPage.Layout = observer((page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      Header={Header}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
+    >
       {page.children}
     </DashboardTemplate>
   )

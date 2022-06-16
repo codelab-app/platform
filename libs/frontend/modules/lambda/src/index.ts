@@ -1,2 +1,2 @@
-export * from './MainPaneLambda'
+export * from './ExplorerPaneLambda'
 export * from './use-cases'

@@ -44,7 +44,7 @@ const StyledContainer = styled.div`
   }
 `
 
-export const MainPaneTemplate = ({
+export const ExplorerPaneTemplate = ({
   children,
   header,
   title,

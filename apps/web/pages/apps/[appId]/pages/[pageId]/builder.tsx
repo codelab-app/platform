@@ -5,10 +5,9 @@ import {
   Builder,
   BuilderComponent,
   BuilderContext,
-  BuilderDashboardTemplate,
-  BuilderMainPane,
-  BuilderSidebarNavigation,
-  MetaPane,
+  BuilderExplorerPane,
+  ConfigPane,
+  EditorPaneBuilder,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { createMobxState } from '@codelab/frontend/modules/store'
@@ -21,6 +20,16 @@ import {
   extractErrorMessage,
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
+import {
+  adminMenuItems,
+  appMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { RendererTab } from '@codelab/shared/abstract/core'
 import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -175,16 +184,38 @@ PageBuilder.Layout = observer((page) => {
 
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+  const activeElementTree = builderService.activeElementTree
 
   return (
     <BuilderContext
       builderService={builderService}
       elementService={elementService}
     >
-      <BuilderDashboardTemplate
-        Header={() => <PageDetailHeader pageService={pageService} />}
-        MainPane={() => (
-          <BuilderMainPane
+      <DashboardTemplate
+        ConfigPane={
+          !activeElementTree || !pageBuilderRenderer
+            ? undefined
+            : observer(() => {
+                return (
+                  <ConfigPane
+                    atomService={atomService}
+                    builderService={builderService}
+                    componentService={componentService}
+                    elementService={elementService}
+                    // The element tree changes depending on whether a page or a component is selected
+                    elementTree={activeElementTree}
+                    key={pageBuilderRenderer?.pageTree?.current.root?.id}
+                    renderService={pageBuilderRenderer}
+                    typeService={typeService}
+                  />
+                )
+              })
+        }
+        EditorPane={({ resizable }) => (
+          <EditorPaneBuilder resizable={resizable} />
+        )}
+        ExplorerPane={() => (
+          <BuilderExplorerPane
             atomService={atomService}
             builderService={builderService}
             componentService={componentService}
@@ -195,42 +226,25 @@ PageBuilder.Layout = observer((page) => {
             userService={userService}
           />
         )}
-        MetaPane={observer(() => {
-          const activeElementTree = builderService.activeElementTree
-
-          return (
-            <>
-              {activeElementTree && pageBuilderRenderer ? (
-                <MetaPane
-                  atomService={atomService}
-                  builderService={builderService}
-                  componentService={componentService}
-                  elementService={elementService}
-                  // The element tree changes depending on whether a page or a component is selected
-                  elementTree={activeElementTree}
-                  key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                  renderService={pageBuilderRenderer}
-                  typeService={typeService}
-                />
-              ) : null}
-            </>
-          )
-        })}
+        Header={() => <PageDetailHeader pageService={pageService} />}
         SidebarNavigation={() => (
-          <BuilderSidebarNavigation
-            activeBuilderTab={builderService.activeBuilderTab}
-            key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
-              builderService,
-            )}
+          <SidebarNavigation
+            primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
+            secondaryItems={adminMenuItems}
+            // activeBuilderTab={builderService.activeBuilderTab}
+            // key={pageBuilderRenderer?.pageTree?.current.root?.id}
+            // setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
+            //   builderService,
+            // )}
           />
         )}
+        contentStyles={{ paddingTop: '0rem' }}
         headerHeight={38}
         // Depending on pageBuilderRenderService causes an extra re-render
         // key={pageBuilderRenderService.tree?.id}
       >
         {page.children}
-      </BuilderDashboardTemplate>
+      </DashboardTemplate>
     </BuilderContext>
   )
 })

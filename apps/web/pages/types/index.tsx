@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateTypeButton,
   CreateTypeModal,
@@ -11,9 +8,14 @@ import {
   UpdateTypeModal,
 } from '@codelab/frontend/modules/type'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -66,7 +68,15 @@ export const getServerSideProps = withPageAuthRequired()
 
 TypesPage.Layout = observer((page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      Header={Header}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
+    >
       {page.children}
     </DashboardTemplate>
   )

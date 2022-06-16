@@ -48,17 +48,17 @@ const clampSet = (
   delta: number,
   minMax?: MinMaxValue,
 ) => {
-  let newWidth = mValue.get() + delta
+  let newValue = mValue.get() + delta
 
-  if (minMax?.min && newWidth < minMax.min) {
-    newWidth = minMax.min
+  if (minMax?.min && newValue < minMax.min) {
+    newValue = minMax.min
   }
 
-  if (minMax?.max && newWidth > minMax.max) {
-    newWidth = minMax.max
+  if (minMax?.max && newValue > minMax.max) {
+    newValue = minMax.max
   }
 
-  mValue.set(newWidth)
+  mValue.set(newValue)
 }
 
 export const useResizable = ({
@@ -148,7 +148,11 @@ export const useResizable = ({
         cursor: 'row-resize',
       },
       onDragEnd: () => setIsDraggingY(false),
-      onDragStart: () => setIsDraggingY(true),
+      onDragStart: () => {
+        console.log('etstadasdas')
+
+        setIsDraggingY(true)
+      },
       drag: 'y',
       ...commonDragProps,
     },

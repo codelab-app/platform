@@ -1,27 +1,21 @@
-import { motion, MotionValue } from 'framer-motion'
+import { motion } from 'framer-motion'
 import React, { ComponentType } from 'react'
 import tw from 'twin.macro'
 import { UseResizable } from '../../components'
-import { defaultHeaderHeight, sidebarWidth } from './constants'
+import { defaultHeaderHeight } from './constants'
 
-export interface DashboardTemplateMetaPaneProps {
-  hasSidebarNavigation: boolean
-  MetaPane: ComponentType
+export type ConfigPaneProps = {
+  // hasSidebarNavigation: boolean
+  ConfigPane: ComponentType
   resizable: UseResizable
-  hasMainPane: boolean
-  mainPaneWidth: MotionValue<number>
+  // hasConfigPane: boolean
+  // mainPaneWidth: MotionValue<number>
 }
 
-export const DashboardTemplateMetaPane = ({
-  hasSidebarNavigation,
-  hasMainPane,
-  mainPaneWidth,
+export const DashboardTemplateConfigPane = ({
   resizable,
-  MetaPane,
-}: DashboardTemplateMetaPaneProps) => {
-  const sidebarNavMarginLeft = hasSidebarNavigation ? sidebarWidth : 0
-  const mainPaneMarginLeft = hasMainPane ? mainPaneWidth : 0
-
+  ConfigPane,
+}: ConfigPaneProps) => {
   return (
     <motion.div
       css={tw`fixed top-0 right-0 bottom-0 h-full bg-white z-50 flex flex-row`}
@@ -40,10 +34,10 @@ export const DashboardTemplateMetaPane = ({
         {...resizable.xDragHandleProps}
       />
       <div css={tw`flex-1 overflow-y-auto`}>
-        <MetaPane />
+        <ConfigPane />
       </div>
     </motion.div>
   )
 }
 
-DashboardTemplateMetaPane.displayName = 'DashboardTemplateMetaPane'
+DashboardTemplateConfigPane.displayName = 'DashboardTemplateMetaPane'

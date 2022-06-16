@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateResourceButton,
   CreateResourceModal,
@@ -12,9 +9,16 @@ import {
 } from '@codelab/frontend/modules/resource'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  appMenuItem,
+  ContentSection,
+  resourceMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -82,7 +86,15 @@ export const getServerSideProps = withPageAuthRequired({
 
 ResourcesPage.Layout = (page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate
+      Header={Header}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
+    >
       {page.children}
     </DashboardTemplate>
   )

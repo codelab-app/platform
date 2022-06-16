@@ -48,7 +48,7 @@
     "@auth0/nextjs-auth0": "1.8.0",
     "@aws-sdk/client-lambda": "3.51.0",
     "@aws-sdk/client-s3": "3.51.0",
-    "@babel/runtime": "7.17.2",
+    "@babel/runtime": "7.18.3",
     "@codemirror/autocomplete": "0.20.0",
     "@codemirror/lang-css": "^0.20.0",
     "@dnd-kit/core": "5.0.3",
@@ -68,6 +68,8 @@
     "@neo4j/graphql-ogm": "3.2.0",
     "@neo4j/graphql-plugin-auth": "1.0.0",
     "@next/bundle-analyzer": "12.0.7",
+    "@react-hook/size": "^2.1.2",
+    "@react-hook/window-size": "^3.0.7",
     "@slack/web-api": "6.5.1",
     "@storybook/core-server": "6.4.22",
     "@uiw/react-codemirror": "4.7.0",
@@ -157,14 +159,15 @@
   },
   "devDependencies": {
     "@apollo/graphql": "14.5.0",
-    "@babel/core": "7.17.2",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "7.16.7",
-    "@babel/plugin-transform-modules-commonjs": "7.17.9",
-    "@babel/plugin-transform-runtime": "7.17.0",
-    "@babel/plugin-transform-typescript": "7.16.8",
-    "@babel/preset-env": "7.16.11",
-    "@babel/preset-react": "7.16.7",
-    "@babel/preset-typescript": "7.16.7",
+    "@babel/core": "7.18.2",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.17.12",
+    "@babel/plugin-transform-modules-commonjs": "7.18.2",
+    "@babel/plugin-transform-runtime": "7.18.2",
+    "@babel/plugin-transform-typescript": "7.18.1",
+    "@babel/preset-env": "7.18.2",
+    "@babel/preset-react": "7.17.12",
+    "@babel/preset-typescript": "7.17.12",
+    "@babel/types": "7.18.2",
     "@commitlint/cli": "16.0.2",
     "@commitlint/config-conventional": "16.0.0",
     "@cypress/react": "5.12.4",
@@ -354,6 +357,8 @@
     "why-is-node-running": "2.2.0"
   },
   "resolutions": {
+    "@babel/core": "7.18.2",
+    "@babel/types": "7.18.2",
     "rxjs": "6.6.3"
   }
 }

@@ -1,17 +1,19 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ExecuteCommandButton,
   ExecuteCommandModal,
   ResetDataButton,
 } from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  commonMenuItems,
+  ContentSection,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader, Space } from 'antd'
@@ -51,7 +53,12 @@ AdminPage.Layout = (page) => {
   return (
     <DashboardTemplate
       Header={AdminHeader}
-      SidebarNavigation={SidebarNavigation}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={commonMenuItems}
+          secondaryItems={adminMenuItems}
+        />
+      )}
     >
       {page.children}
     </DashboardTemplate>

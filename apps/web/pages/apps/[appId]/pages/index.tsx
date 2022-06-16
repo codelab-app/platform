@@ -1,13 +1,16 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
-import { PageMainPane } from '@codelab/frontend/modules/page'
+import { ExplorerPanePage } from '@codelab/frontend/modules/page'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
+  adminMenuItems,
+  appMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
+import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
@@ -36,8 +39,13 @@ Pages.Layout = observer((page) => {
 
   return (
     <DashboardTemplate
-      MainPane={() => <PageMainPane pageService={store.pageService} />}
-      SidebarNavigation={SidebarNavigation}
+      ExplorerPane={() => <ExplorerPanePage pageService={store.pageService} />}
+      SidebarNavigation={() => (
+        <SidebarNavigation
+          primaryItems={[appMenuItem, storeMenuItem]}
+          secondaryItems={adminMenuItems}
+        />
+      )}
     >
       {page.children}
     </DashboardTemplate>

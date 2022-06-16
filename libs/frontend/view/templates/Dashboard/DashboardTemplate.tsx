@@ -1,14 +1,21 @@
-import { BuilderDashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { css } from '@emotion/react'
+import useSize from '@react-hook/size'
+import { useWindowHeight } from '@react-hook/window-size'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { JSXElementConstructor, useMemo, useRef } from 'react'
 import tw from 'twin.macro'
-import { useResizable } from '../../components'
-import { defaultHeaderHeight, sidebarWidth } from './constants'
-import { DashboardTemplateMainPane } from './DashboardTemplateMainPane'
-import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
+import { UseResizable, useResizable } from '../../components'
+import {
+  defaultHeaderHeight,
+  editorPaneHeight,
+  sidebarWidth,
+} from './constants'
+import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
+import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane/DashboardTemplate-EditorPane'
+import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
+import { DashboardTemplateProps } from './types'
 
 const { Sider, Header: AntDesignHeader } = Layout
 
@@ -16,12 +23,13 @@ export const DashboardTemplate = observer(
   ({
     children,
     Header,
-    MetaPane,
+    ExplorerPane,
     SidebarNavigation,
-    MainPane,
+    ConfigPane,
+    EditorPane,
     headerHeight,
     contentStyles,
-  }: React.PropsWithChildren<BuilderDashboardTemplateProps>) => {
+  }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const mainPaneResizable = useResizable({
       width: { default: 240, max: 460, min: 240 },
     })
@@ -29,6 +37,32 @@ export const DashboardTemplate = observer(
     const metaPaneResizable = useResizable({
       width: { default: 300, max: 460, min: 240 },
       reverse: true,
+    })
+
+    const windowHeight = useWindowHeight()
+    const headerContainerRef = useRef<HTMLDivElement>(null)
+    const sideNavigationContainerRef = useRef<HTMLDivElement>(null)
+    const [sideNavigationContainerWidth] = useSize(sideNavigationContainerRef)
+
+    const mainContentMarginLeft = useMemo(() => {
+      let result = sideNavigationContainerWidth
+
+      if (ExplorerPane) {
+        const w = mainPaneResizable.width.get()
+        result += w
+      }
+
+      return result
+    }, [sideNavigationContainerWidth, ExplorerPane])
+
+    console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
+
+    const editorPaneResizable = useResizable({
+      height: {
+        default: 300,
+        max: windowHeight - (headerContainerRef.current?.clientHeight || 0),
+        min: editorPaneHeight.collapsed,
+      },
     })
 
     return (
@@ -43,7 +77,7 @@ export const DashboardTemplate = observer(
             collapsedWidth={sidebarWidth}
             style={{
               zIndex: 50,
-              maxHeight: '100vh',
+              height: '100vh',
               position: 'fixed',
               top: 0,
               left: 0,
@@ -51,13 +85,14 @@ export const DashboardTemplate = observer(
             }}
             theme="light"
           >
-            <div css={tw`h-full`}>
+            <div ref={sideNavigationContainerRef}>
               <SidebarNavigation />
             </div>
           </Sider>
         )}
 
         <Layout>
+          {/* Header */}
           {Header && (
             <AntDesignHeader
               style={{
@@ -72,14 +107,17 @@ export const DashboardTemplate = observer(
                 background: 'initial',
               }}
             >
-              <Header />
+              <div ref={headerContainerRef}>
+                <Header />
+              </div>
             </AntDesignHeader>
           )}
 
+          {/* Explorer Pane */}
           <Layout style={contentStyles}>
-            {MainPane && (
-              <DashboardTemplateMainPane
-                MainPane={MainPane}
+            {ExplorerPane && (
+              <DashboardTemplateExplorerPane
+                ExplorerPane={ExplorerPane}
                 hasHeader={!!Header}
                 hasSidebarNavigation={!!SidebarNavigation}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
@@ -87,31 +125,39 @@ export const DashboardTemplate = observer(
               />
             )}
 
+            {/* Main Content */}
             <motion.main
               css={tw`relative p-2 flex-auto`}
               style={{
                 marginTop: Header ? headerHeight ?? defaultHeaderHeight : 0,
-                marginLeft: MainPane ? mainPaneResizable.width : undefined,
-                marginRight: MetaPane ? metaPaneResizable.width : undefined,
+                marginLeft: mainContentMarginLeft,
+                marginRight: ConfigPane ? metaPaneResizable.width : undefined,
               }}
             >
-              <div
-                style={{
-                  marginLeft: SidebarNavigation ? sidebarWidth : 0,
-                }}
-              >
-                {children}
-              </div>
+              <div>{children}</div>
             </motion.main>
 
+            {/* Config Pane */}
             <AnimatePresence initial={false}>
-              {MetaPane && (
-                <DashboardTemplateMetaPane
-                  MetaPane={MetaPane}
-                  hasMainPane={Boolean(MainPane)}
-                  hasSidebarNavigation={Boolean(SidebarNavigation)}
-                  mainPaneWidth={mainPaneResizable.width}
+              {ConfigPane && (
+                <DashboardTemplateConfigPane
+                  ConfigPane={ConfigPane}
+                  // hasConfigPane={Boolean(ExplorerPane)}
+                  // hasSidebarNavigation={Boolean(SidebarNavigation)}
+                  // mainPaneWidth={mainPaneResizable.width}
                   resizable={metaPaneResizable}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Editor Pane */}
+            <AnimatePresence initial={false}>
+              {EditorPane && (
+                <DashboardTemplateEditorPane
+                  ConfigPane={ConfigPane}
+                  EditorPane={EditorPane}
+                  metaPaneResizable={metaPaneResizable}
+                  resizable={editorPaneResizable}
                 />
               )}
             </AnimatePresence>

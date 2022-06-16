@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  CodelabPage,
-  DashboardTemplateProps,
-} from '@codelab/frontend/abstract/types'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateLambdaButton,
   CreateLambdaModal,
@@ -13,7 +10,7 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  SidebarNavigation,
+  DashboardTemplateProps,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
@@ -55,7 +52,7 @@ export const getServerSideProps = withPageAuthRequired()
 
 LambdasPage.Layout = (page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+    <DashboardTemplate Header={Header} SidebarNavigation={() => null}>
       {page.children}
     </DashboardTemplate>
   )
