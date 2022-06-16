@@ -80,7 +80,7 @@
       "options": {
         "buildTarget": "web:build",
         "dev": true,
-        "hostname": "localhost",
+        "hostname": "0.0.0.0",
         "port": 3000,
         "maxWorkers": 4
       },

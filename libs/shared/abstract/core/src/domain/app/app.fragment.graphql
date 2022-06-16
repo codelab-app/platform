@@ -45,6 +45,7 @@ fragment App on App {
 fragment App on App {
   id
   name
+  slug
   owner {
     id
   }
