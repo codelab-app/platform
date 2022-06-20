@@ -102,7 +102,7 @@ const PageBuilder: CodelabPage = observer(() => {
         page,
         pageElementTree,
         providerTree,
-        storeTree: appStore,
+        appStore,
         types,
         components,
         renderer,
@@ -156,9 +156,10 @@ const PageBuilder: CodelabPage = observer(() => {
           style={{ height: '100%' }}
           tab="Component"
         >
-          {activeComponent ? (
+          {data && activeComponent ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
+              appStore={data.appStore}
               builderService={builderService}
               componentId={activeComponent.id}
               componentService={componentService}

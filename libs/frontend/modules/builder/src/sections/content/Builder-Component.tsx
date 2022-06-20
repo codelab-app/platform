@@ -4,6 +4,7 @@ import {
   IElementTree,
   IRenderer,
   IRenderService,
+  IStore,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { JSXElementConstructor, useEffect } from 'react'
@@ -16,6 +17,7 @@ export type BaseBuilderProps = {
 type BuilderComponentProps = {
   componentId: string
   componentService: IComponentService
+  appStore: IStore
   // Pass in BaseBuilder so we don't have to initialize props again
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
   renderService: IRenderService
@@ -29,6 +31,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
   ({
     componentId,
     componentService,
+    appStore,
     builderService,
     renderService,
     BaseBuilder,
@@ -46,7 +49,13 @@ export const BuilderComponent = observer<BuilderComponentProps>(
 
         const componentTree = component.elementTree
 
-        await renderService.addRenderer(componentId, componentTree, null, null)
+        await renderService.addRenderer(
+          componentId,
+          componentTree,
+          appStore,
+          null,
+          null,
+        )
       })()
     }, [componentId])
 
