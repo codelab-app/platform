@@ -1,16 +1,10 @@
 import { Prop } from '@codelab/frontend/modules/element'
-import {
-  createGraphQLAction,
-  createRestAction,
-} from '@codelab/frontend/modules/resource'
 import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
-  IActionKind,
   IAnyAction,
   IProp,
   IStore,
   IStoreDTO,
-  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 import { makeAutoObservable } from 'mobx'
@@ -79,34 +73,17 @@ export class Store
     const typeService = getTypeService(this)
     const stateApi = typeService.type(this.stateApiId) as InterfaceType
 
-    const storeState = [...stateApi.fields.values()]
-      .map((field) => ({ [field.key]: this.state.values[field.key] }))
-      .reduce(merge, {})
+    const storeState = [...stateApi.fields.values()].map((field) => ({
+      [field.key]: this.state.values[field.key],
+    }))
 
-    const storeActions = this.actions
-      .map(({ current: action }) => {
-        // an action that manipulates local state only
-        if (action.type === IActionKind.CustomAction) {
-          // eslint-disable-next-line no-eval
-          return { [action.name]: eval(`(${action.code})`) }
-        }
+    const storeActions = this.actions.map(({ current: action }) => ({
+      [action.name]: action.run,
+    }))
 
-        if (action.type === IActionKind.ResourceAction) {
-          const actionInst =
-            action.resource?.current.type === ResourceType.GraphQL
-              ? createGraphQLAction(action)
-              : createRestAction(action)
-
-          return { [action.name]: actionInst }
-        }
-
-        if (action.type === IActionKind.PipelineAction) {
-          // TODO: implement pipeline action
-        }
-      })
-      .reduce(merge, {})
-
-    return makeAutoObservable(merge({}, storeState, storeActions, globals))
+    return makeAutoObservable(
+      merge({}, ...storeState, ...storeActions, globals),
+    )
   }
 
   static hydrate = hydrate

@@ -6,6 +6,8 @@ export interface IActionBase {
   runOnInit: boolean
   type: IActionKind
   storeId: string
+
+  run(): void
 }
 
 export type IActionRef = string

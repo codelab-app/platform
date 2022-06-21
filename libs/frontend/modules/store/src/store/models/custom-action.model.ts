@@ -4,7 +4,7 @@ import {
   ICustomAction,
   ICustomActionDTO,
 } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createActionBase } from './action-base.model'
 
 const hydrate = (action: ICustomActionDTO): ICustomAction => {
@@ -28,4 +28,10 @@ export class CustomAction
   implements ICustomAction
 {
   static hydrate = hydrate
+
+  @modelAction
+  run() {
+    // eslint-disable-next-line no-eval
+    return eval(`(${this.code})`)
+  }
 }

@@ -24,7 +24,6 @@ import {
   adminMenuItems,
   appMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -233,7 +232,7 @@ PageBuilder.Layout = observer((page) => {
         Header={() => <PageDetailHeader pageService={pageService} />}
         SidebarNavigation={() => (
           <SidebarNavigation
-            primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
+            primaryItems={[appMenuItem, resourceMenuItem]}
             secondaryItems={adminMenuItems}
           // activeBuilderTab={builderService.activeBuilderTab}
           // key={pageBuilderRenderer?.pageTree?.current.root?.id}

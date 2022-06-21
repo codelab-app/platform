@@ -12,5 +12,4 @@ export interface IRestActionConfig {
   body: string
   method: HttpMethod
   queryParams: string
-  transformFn: string
 }

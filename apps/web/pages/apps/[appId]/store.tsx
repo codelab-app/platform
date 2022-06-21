@@ -19,11 +19,7 @@ import {
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DisplayIf } from '@codelab/frontend/view/components'
-import {
-  adminMenuItems,
-  appMenuItem,
-  storeMenuItem,
-} from '@codelab/frontend/view/sections'
+import { adminMenuItems, appMenuItem } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -114,7 +110,7 @@ StorePage.Layout = observer((page) => {
     <DashboardTemplate
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem, storeMenuItem]}
+          primaryItems={[appMenuItem]}
           secondaryItems={adminMenuItems}
         />
       )}

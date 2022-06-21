@@ -36,4 +36,8 @@ export class PipelineAction
   }
 
   static hydrate = hydrate
+
+  run(): void {
+    this.actionsSorted.forEach((x) => x.run())
+  }
 }

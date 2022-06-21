@@ -1,8 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import {
-  PROVIDER_TREE_PAGE_NAME,
-  STORE_PAGE_NAME,
-} from '@codelab/frontend/abstract/core'
+import { PROVIDER_TREE_PAGE_NAME } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
@@ -24,12 +21,9 @@ export const GetPagesItem = observer<GetPagesItemProps>(
   ({ page, pageService }) => {
     const router = useRouter()
     const isProviderTreePage = page.name === PROVIDER_TREE_PAGE_NAME
-    const isStorePage = page.name === STORE_PAGE_NAME
 
     const href = isProviderTreePage
       ? { pathname: PageType.AppProviderDetail, query: router.query }
-      : isStorePage
-      ? { pathname: PageType.Store, query: router.query }
       : {
           pathname: PageType.PageBuilder,
           query: { ...router.query, pageId: page.id },
@@ -46,7 +40,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(
             <a>{page.name}</a>
           </Link>
         </Space>
-        {!isProviderTreePage && !isStorePage && (
+        {!isProviderTreePage && (
           <Space>
             <ListItemEditButton onClick={onClickEdit} />
             <ListItemDeleteButton onClick={onClickDelete} />
