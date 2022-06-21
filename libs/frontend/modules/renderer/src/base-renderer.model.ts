@@ -35,6 +35,7 @@ export class BaseRenderer
   initRenderer(
     id: string,
     pageTree: IElementTree,
+    appStore: IStore,
     appTree: Nullable<IElementTree>,
     appStore: IStore,
     platformState?: Nullish<ModelClass<AnyModel>>,

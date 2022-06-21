@@ -8,6 +8,5 @@ export const storeSchema = gql`
     stateApi: InterfaceType!
       @relationship(type: "STORE_STATE_API", direction: OUT)
     actions: [ActionBase!]! @relationship(type: "STORE_ACTION", direction: OUT)
-    app: App! @relationship(type: "STORE_OF_APP", direction: OUT)
   }
 `

@@ -13013,9 +13013,6 @@ export type Store = {
   __typename?: 'Store'
   actions: Array<ActionBase>
   actionsConnection: StoreActionsConnection
-  app: App
-  appAggregate?: Maybe<StoreAppAppAggregationSelection>
-  appConnection: StoreAppConnection
   id: Scalars['ID']
   name: Scalars['String']
   state: Prop
@@ -13038,25 +13035,6 @@ export type StoreActionsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<StoreActionsConnectionSort>>
   where?: InputMaybe<StoreActionsConnectionWhere>
-}
-
-export type StoreAppArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}
-
-export type StoreAppAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<AppWhere>
-}
-
-export type StoreAppConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreAppConnectionSort>>
-  where?: InputMaybe<StoreAppConnectionWhere>
 }
 
 export type StoreStateArgs = {
@@ -13165,136 +13143,13 @@ export type StoreAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
-export type StoreAppAggregateInput = {
-  AND?: InputMaybe<Array<StoreAppAggregateInput>>
-  OR?: InputMaybe<Array<StoreAppAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<StoreAppNodeAggregationWhereInput>
-}
-
-export type StoreAppAppAggregationSelection = {
-  __typename?: 'StoreAppAppAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<StoreAppAppNodeAggregateSelection>
-}
-
-export type StoreAppAppNodeAggregateSelection = {
-  __typename?: 'StoreAppAppNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
-export type StoreAppConnectFieldInput = {
-  connect?: InputMaybe<AppConnectInput>
-  where?: InputMaybe<AppConnectWhere>
-}
-
-export type StoreAppConnectOrCreateFieldInput = {
-  onCreate: StoreAppConnectOrCreateFieldInputOnCreate
-  where: AppConnectOrCreateWhere
-}
-
-export type StoreAppConnectOrCreateFieldInputOnCreate = {
-  node: AppOnCreateInput
-}
-
-export type StoreAppConnection = {
-  __typename?: 'StoreAppConnection'
-  edges: Array<StoreAppRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type StoreAppConnectionSort = {
-  node?: InputMaybe<AppSort>
-}
-
-export type StoreAppConnectionWhere = {
-  AND?: InputMaybe<Array<StoreAppConnectionWhere>>
-  OR?: InputMaybe<Array<StoreAppConnectionWhere>>
-  node?: InputMaybe<AppWhere>
-  node_NOT?: InputMaybe<AppWhere>
-}
-
-export type StoreAppCreateFieldInput = {
-  node: AppCreateInput
-}
-
-export type StoreAppDeleteFieldInput = {
-  delete?: InputMaybe<AppDeleteInput>
-  where?: InputMaybe<StoreAppConnectionWhere>
-}
-
-export type StoreAppDisconnectFieldInput = {
-  disconnect?: InputMaybe<AppDisconnectInput>
-  where?: InputMaybe<StoreAppConnectionWhere>
-}
-
-export type StoreAppFieldInput = {
-  connect?: InputMaybe<StoreAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreAppCreateFieldInput>
-}
-
-export type StoreAppNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<StoreAppNodeAggregationWhereInput>>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  name_GT?: InputMaybe<Scalars['Int']>
-  name_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  name_LT?: InputMaybe<Scalars['Int']>
-  name_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type StoreAppRelationship = {
-  __typename?: 'StoreAppRelationship'
-  cursor: Scalars['String']
-  node: App
-}
-
-export type StoreAppUpdateConnectionInput = {
-  node?: InputMaybe<AppUpdateInput>
-}
-
-export type StoreAppUpdateFieldInput = {
-  connect?: InputMaybe<StoreAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreAppConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreAppCreateFieldInput>
-  delete?: InputMaybe<StoreAppDeleteFieldInput>
-  disconnect?: InputMaybe<StoreAppDisconnectFieldInput>
-  update?: InputMaybe<StoreAppUpdateConnectionInput>
-  where?: InputMaybe<StoreAppConnectionWhere>
-}
-
 export type StoreConnectInput = {
   actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  app?: InputMaybe<StoreAppConnectFieldInput>
   state?: InputMaybe<StoreStateConnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
-  app?: InputMaybe<StoreAppConnectOrCreateFieldInput>
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>
 }
@@ -13309,7 +13164,6 @@ export type StoreConnectWhere = {
 
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsFieldInput>
-  app?: InputMaybe<StoreAppFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
   state?: InputMaybe<StoreStateFieldInput>
@@ -13318,14 +13172,12 @@ export type StoreCreateInput = {
 
 export type StoreDeleteInput = {
   actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
-  app?: InputMaybe<StoreAppDeleteFieldInput>
   state?: InputMaybe<StoreStateDeleteFieldInput>
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
-  app?: InputMaybe<StoreAppDisconnectFieldInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>
 }
@@ -13374,7 +13226,6 @@ export type StorePropStateNodeAggregateSelection = {
 
 export type StoreRelationInput = {
   actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>
-  app?: InputMaybe<StoreAppCreateFieldInput>
   state?: InputMaybe<StoreStateCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>
 }
@@ -13606,7 +13457,6 @@ export type StoreUniqueWhere = {
 
 export type StoreUpdateInput = {
   actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
-  app?: InputMaybe<StoreAppUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   state?: InputMaybe<StoreStateUpdateFieldInput>
@@ -13620,11 +13470,6 @@ export type StoreWhere = {
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>
-  app?: InputMaybe<AppWhere>
-  appAggregate?: InputMaybe<StoreAppAggregateInput>
-  appConnection?: InputMaybe<StoreAppConnectionWhere>
-  appConnection_NOT?: InputMaybe<StoreAppConnectionWhere>
-  app_NOT?: InputMaybe<AppWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>

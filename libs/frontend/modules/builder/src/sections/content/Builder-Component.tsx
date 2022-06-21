@@ -21,6 +21,7 @@ type BuilderComponentProps = {
   // Pass in BaseBuilder so we don't have to initialize props again
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
   renderService: IRenderService
+  appStore: IStore
   builderService: IBuilderService
 }
 
@@ -34,6 +35,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
     appStore,
     builderService,
     renderService,
+    appStore,
     BaseBuilder,
   }) => {
     const activeComponentTree = builderService.activeElementTree

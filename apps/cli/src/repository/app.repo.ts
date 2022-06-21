@@ -1,4 +1,4 @@
-import { AppOGM, PageOGM, pageSelectionSet } from '@codelab/backend'
+import { AppOGM, PageOGM, pageSelectionSet, StoreOGM } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
@@ -8,6 +8,7 @@ import { validate } from '../commands/import/validate'
 import type { ExportAppData } from '../use-cases/export/export-app'
 import { getElementAndDescendants } from '../use-cases/export/get-element'
 import { getPageData } from '../use-cases/export/get-page'
+import { exportActions, importActions } from './action.repo'
 import { createComponent } from './component.repo'
 import { importElementInitial, updateImportedElement } from './element.repo'
 
@@ -15,6 +16,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
   cLog(omit(app, ['pages']))
 
   const App = await AppOGM()
+  const Store = await StoreOGM()
   const { pages, providerElements } = app
   await validate(pages)
 
@@ -61,9 +63,31 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
       },
       delete: {
         pages: [{ where: {} }],
+        store: { where: {} },
       },
     })
   }
+
+  console.log('Creating store...')
+
+  const {
+    stores: [appStore],
+  } = await Store.create({
+    input: [
+      {
+        id: app.store.id,
+        name: app.store.name,
+        state: { create: { node: { data: app.store.state.data } } },
+        stateApi: {
+          connect: { where: { node: { id: app.store.stateApi.id } } },
+        },
+      },
+    ],
+  })
+
+  console.log('Creating actions...')
+
+  await importActions(app.store.actions, appStore.id)
 
   console.log('Creating new app...')
 
@@ -80,31 +104,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
             where: { node: { id: app.rootElement.id } },
           },
         },
-        store: {
-          create: {
-            node: {
-              id: app.store.id,
-              name: app.store.name,
-              actions: {
-                create: app.store.actions.map((c) => ({
-                  node: {
-                    name: c.name,
-                    body: c.body,
-                    config: { create: { node: { data: c.config.data } } },
-                    runOnInit: c.runOnInit,
-                    resource: c.resource
-                      ? { connect: { where: { node: { id: c.resource.id } } } }
-                      : undefined,
-                  },
-                })),
-              },
-              state: { create: { node: { data: app.store.state.data } } },
-              stateApi: {
-                connect: { where: { node: { id: app.store.stateApi.id } } },
-              },
-            },
-          },
-        },
+        store: { connect: { where: { node: { id: appStore.id } } } },
         pages: {
           create: app.pages.map((page) => ({
             node: {
@@ -130,6 +130,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
  */
 export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const Page = await PageOGM()
+  const actions = await exportActions(app.store.id)
 
   const pages = await Page.find({
     where: { app: { id: app.id } },
@@ -155,5 +156,12 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
 
   const providerElements = await getElementAndDescendants(app.rootElement.id)
 
-  return { app: { ...app, pages: pagesData, providerElements } }
+  return {
+    app: {
+      ...app,
+      pages: pagesData,
+      providerElements,
+      store: { ...app.store, actions },
+    },
+  }
 }
