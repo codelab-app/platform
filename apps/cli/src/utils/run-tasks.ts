@@ -1,6 +1,14 @@
 /* eslint-disable no-case-declarations */
 import { spawn } from 'child_process'
+import concurrently from 'concurrently'
 import execa from 'execa'
+import fs from 'fs'
+import fse from 'fs-extra'
+import glob from 'glob'
+import path from 'path'
+import { sync as rm } from 'rimraf'
+import { combineLatest, forkJoin, zip } from 'rxjs'
+import * as util from 'util'
 import { TaskEnv } from './env'
 import { Tasks } from './tasks'
 
@@ -26,6 +34,15 @@ export const execCommand = (command: string) => {
 
 export const runTasks = (env: TaskEnv, task: string, args?: string) => {
   switch (task) {
+    // POC to serve only the api page, could be useful later, and improve start server time to some margin
+    // case Tasks.ServeApi:
+    //   const startServer = `nx _serve web -c api`
+    //   const tempApiDir = path.resolve(process.cwd(), 'tmp/api')
+    //   const apiDir = path.resolve(process.cwd(), 'apps/web/pages/api')
+    //   rm(tempApiDir)
+    //   fse.copySync(apiDir, tempApiDir, { recursive: true, overwrite: true })
+    //   execCommand(startServer)
+    //   break
     case Tasks.Build:
       if (env === TaskEnv.Test) {
         // Added since many times can't find production build of next during push
@@ -37,7 +54,54 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand('npx nx affected:build -c ci --verbose')
+        const startServer = `nx serve web -c ci --verbose`
+        // need try 2 times here (-n 2), time 1 will fail because https://github.com/vercel/next.js/issues/15880, but 2 will success
+        const buildWeb = `npx wait-on tcp:3000 && npx retry -n 2 nx run web:build:ci`
+
+        const buildLib =
+          'npx nx affected:build -c ci --verbose --exclude=web,/cli'
+
+        const { commands, result } = concurrently(
+          [
+            { command: startServer, name: 'Start Dev Server' },
+            { command: buildWeb, name: 'Build Web' },
+            { command: "echo 'a'", name: 'Build lib' },
+          ],
+          {
+            killOthers: ['failure'],
+            prefixColors: ['yellow', 'green'],
+            pauseInputStreamOnFinish: false,
+          },
+        )
+
+        result.catch((e) => {
+          // process error should be logged in std channel
+        })
+
+        combineLatest([commands[1].close, commands[2].close]).subscribe(
+          (events) => {
+            const failEvent = events.find((e) => e.exitCode !== 0)
+
+            if (failEvent) {
+              console.error(
+                `Command ${failEvent.command.command} exited with status code ${failEvent.exitCode} `,
+              )
+              process.exit(1)
+            }
+
+            console.log(
+              'Complete building. Sending SIGNTERM to [Start Dev Server]',
+            )
+
+            if (commands[0]?.process?.stdout) {
+              commands[0].process.stdout = null
+            }
+
+            commands[0].kill()
+            // if don't exit here, process 1 will log error which is annoying because we intentionally send SIGNTERM to it
+            process.exit(0)
+          },
+        )
       }
 
       break
@@ -115,7 +179,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
           process.exit(code)
 
           // Child process will exit by itself
-          // if (runSpecsChildProcess.pid) {
+          // i (runSpecsChildProcess.pid) {
           //   process.kill(-runSpecsChildProcess.pid)
           // }
         })

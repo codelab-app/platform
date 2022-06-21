@@ -4,7 +4,7 @@ import {
   typeDefs,
   UserOGM,
 } from '@codelab/backend'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { OGM_TYPES, Role } from '@codelab/shared/abstract/codegen'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { OGM } from '@neo4j/graphql-ogm'
 import { v4 } from 'uuid'
@@ -26,6 +26,8 @@ describe.skip('Export', () => {
         {
           auth0Id: v4(),
           email: 'admin@codelab.ai',
+          username: 'admin@codelab.ai',
+          roles: [Role.Admin],
         },
       ],
     })

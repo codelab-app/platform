@@ -53,6 +53,12 @@ yargs(hideBin(process.argv))
         .command(Tasks.Build, 'Build projects', requireTestEnvOptions, (argv) =>
           runTasks(argv.env, `${argv._[1]}`),
         )
+        // .command(
+        //   Tasks.ServeApi,
+        //   'Serve Api For Building',
+        //   requireTestEnvOptions,
+        //   (argv) => runTasks(argv.env, `${argv._[1]}`),
+        // )
         .demandCommand(1, 'Please provide a task').argv,
   )
 

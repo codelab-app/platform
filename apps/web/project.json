@@ -20,7 +20,6 @@
           "root": "apps/web",
           "outputPath": "dist/apps/web"
         },
-        "production": {},
         "development": {}
       },
       "defaultConfiguration": "production"
@@ -69,6 +68,22 @@
         }
       }
     },
+    "_serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "web:build",
+        "dev": true,
+        "hostname": "localhost",
+        "port": 3000,
+        "maxWorkers": 4
+      },
+      "configurations": {
+        "api": {
+          "root": "tmp/api"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
     "serve": {
       "executor": "@nrwl/next:server",
       "options": {
@@ -79,7 +94,6 @@
         "maxWorkers": 4
       },
       "configurations": {
-        "ci": {},
         "test": {
           "buildTarget": "web:build:test",
           "memoryLimit": 8192,

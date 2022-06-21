@@ -4,7 +4,9 @@ export enum Tasks {
   E2e = 'e2e',
   Lint = 'lint',
   Build = 'build',
+  BuildWeb = 'build-web',
   Commitlint = 'commitlint',
   Format = 'format',
   Circularlint = 'circular-lint',
+  // ServeApi = 'serve-api',
 }

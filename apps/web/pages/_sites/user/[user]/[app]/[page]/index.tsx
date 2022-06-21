@@ -121,6 +121,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   await userService.loadUsers()
 
   const paths = [...userService.users.values()]
+    .filter((user) => user.username)
     .map((user) => {
       console.log('apps', [...user.apps.values()])
 

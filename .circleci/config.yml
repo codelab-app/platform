@@ -50,7 +50,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.18-browsers
+      - image: cimg/node:16.15.1-browsers
     resource_class: large
 
 commands:
@@ -137,8 +137,11 @@ jobs:
       #            npx cypress cache clear
       #            npx jest --clearCache
       - run:
+          name: 'Build CLI'
+          command: npx nx run-many --target=build --projects=cli --configuration=ci --verbose
+      - run:
           name: 'Build CI'
-          command: npx nx run-many --target=build --projects=web,cli --configuration=ci --verbose
+          command: yarn cli tasks build --env ci
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
