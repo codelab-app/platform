@@ -2,7 +2,12 @@ import { IElement, IPropData, IRenderer } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useContext } from 'react'
+import React, {
+  createContext,
+  Fragment,
+  PropsWithChildren,
+  useContext,
+} from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import {
@@ -22,6 +27,33 @@ export interface ElementWrapperProps {
   extraProps?: IPropData
 }
 
+// Used to track components up the tree to prevent a render loop if we have circular references between components
+interface ComponentRenderContext {
+  ancestorComponentIds: Array<string>
+}
+
+const ComponentRenderContext = createContext<ComponentRenderContext>({
+  ancestorComponentIds: [],
+})
+
+const ComponentRenderProviderFactory =
+  (currentContext: ComponentRenderContext, element: IElement) =>
+  ({ children }: PropsWithChildren<any>) =>
+    React.createElement(ComponentRenderContext.Provider, {
+      value: {
+        ancestorComponentIds: element.instanceOfComponent?.id
+          ? [
+              ...currentContext.ancestorComponentIds,
+              element.instanceOfComponent?.id,
+            ]
+          : currentContext.ancestorComponentIds,
+      },
+      children,
+    })
+
+const NullWrapper = ({ children }: PropsWithChildren<any>) =>
+  React.createElement(Fragment, children)
+
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
  *
@@ -29,8 +61,22 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ renderService, element, extraProps }) => {
+    const componentRenderContext = useContext(ComponentRenderContext)
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext?.[element.id]
+
+    if (
+      element.instanceOfComponent?.id &&
+      componentRenderContext?.ancestorComponentIds.includes(
+        element.instanceOfComponent.id,
+      )
+    ) {
+      console.warn(
+        `Render loop detected for component id ${element.instanceOfComponent.id}, remove the circular reference`,
+      )
+
+      return null
+    }
 
     // Render the element to an intermediate output
     const renderOutputs = renderService.renderIntermediateElement(
@@ -68,10 +114,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return withMaybeProviders(IntermediateChildren)
     })
 
-    // If we have an array, wrap it in a fragment
-    return Array.isArray(Children)
-      ? React.createElement(Fragment, {}, Children)
-      : Children
+    // Wrap with ComponentContext provider if the element has a component
+    const ComponentContextWrapper = element.instanceOfComponent?.id
+      ? ComponentRenderProviderFactory(componentRenderContext, element)
+      : NullWrapper
+
+    return React.createElement(ComponentContextWrapper, Children)
   },
 )
 
