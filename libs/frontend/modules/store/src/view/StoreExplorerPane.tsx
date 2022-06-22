@@ -16,11 +16,11 @@ import tw from 'twin.macro'
 import { useCurrentStore } from '../hooks'
 import { GetActionsList, GetStateList } from '../use-cases'
 
-type StoreMainPaneProps = WithServices<
+type StoreExplorerPaneProps = WithServices<
   TYPE_SERVICE | ACTION_SERVICE | APP_SERVICE | STORE_SERVICE
 >
 
-export const StoreMainPane = observer<StoreMainPaneProps>(
+export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
   ({ typeService, actionService, appService, storeService }) => {
     const { store } = useCurrentStore(appService, storeService)
 

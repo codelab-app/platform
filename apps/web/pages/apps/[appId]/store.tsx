@@ -3,6 +3,8 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateActionModal,
   DeleteActionsModal,
+  StoreConfigPane,
+  StoreExplorerPane,
   UpdateActionModal,
 } from '@codelab/frontend/modules/store'
 import {
@@ -106,8 +108,25 @@ const StorePage: CodelabPage = observer(() => {
 export const getServerSideProps = withPageAuthRequired({})
 
 StorePage.Layout = observer((page) => {
+  const { actionService, appService, typeService, storeService } = useStore()
+
   return (
     <DashboardTemplate
+      ConfigPane={() => (
+        <StoreConfigPane
+          appService={appService}
+          storeService={storeService}
+          typeService={typeService}
+        />
+      )}
+      ExplorerPane={() => (
+        <StoreExplorerPane
+          actionService={actionService}
+          appService={appService}
+          storeService={storeService}
+          typeService={typeService}
+        />
+      )}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[appMenuItem]}

@@ -8,14 +8,14 @@ import {
   ActionFragment,
   IActionDTO,
   IActionKind,
+  IActionService,
   IAnyAction,
-  IAnyActionService,
   ICreateActionDTO,
   ICreateActionInput,
   IResourceActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullish } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -50,12 +50,11 @@ export class ActionService
     deleteModal: prop(() => new ActionModalService({})),
     selectedActions: prop(() => Array<Ref<IAnyAction>>()).withSetter(),
   })
-  implements IAnyActionService
+  implements IActionService
 {
-  actionsList(storeId: Nullish<string>) {
-    const actions = [...this.actions.values()]
-
-    return storeId ? actions.filter((x) => x.storeId === storeId) : actions
+  @computed
+  get actionsList() {
+    return [...this.actions.values()]
   }
 
   action(id: string) {
@@ -235,7 +234,7 @@ export class ActionService
   })
 }
 
-export const actionServiceContext = createContext<IAnyActionService>()
+export const actionServiceContext = createContext<IActionService>()
 
 export const getActionService = (self: object) => {
   const actionStore = actionServiceContext.get(self)

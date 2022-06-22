@@ -183,6 +183,7 @@ PageBuilder.Layout = observer((page) => {
     builderService,
     typeService,
     builderRenderService,
+    actionService,
   } = useStore()
 
   const pageId = useCurrentPageId()

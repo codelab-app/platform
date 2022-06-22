@@ -1,2 +1,2 @@
-export * from './StoreMainPane'
-export * from './StoreMetaPane'
+export * from './StoreConfigPane'
+export * from './StoreExplorerPane'

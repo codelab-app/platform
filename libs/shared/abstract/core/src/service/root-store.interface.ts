@@ -1,4 +1,4 @@
-import { IAnyActionService } from '../domain/action'
+import { IActionService } from '../domain/action'
 import { IAdminService } from '../domain/admin'
 import { IAppService } from '../domain/app'
 import { IAtomService } from '../domain/atom'
@@ -28,7 +28,7 @@ export type IRootStore = {
   tagService: ITagService
   adminService: IAdminService
   componentService: IComponentService
-  actionService: IAnyActionService
+  actionService: IActionService
   storeService: IStoreService
   appRenderService: IRenderService
   builderRenderService: IRenderService

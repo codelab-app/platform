@@ -1,6 +1,6 @@
 import {
+  IActionService,
   IAdminService,
-  IAnyActionService,
   IAppService,
   IAtomService,
   IBuilderService,
@@ -60,7 +60,7 @@ export type DomainServices = {
   [RENDER_SERVICE]: IRenderService
   [TYPE_SERVICE]: ITypeService
   [STORE_SERVICE]: IStoreService
-  [ACTION_SERVICE]: IAnyActionService
+  [ACTION_SERVICE]: IActionService
   [RESOURCE_SERVICE]: IResourceService
 }
 

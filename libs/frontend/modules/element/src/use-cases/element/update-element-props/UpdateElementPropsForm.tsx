@@ -10,6 +10,7 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
+  IAnyAction,
   IBuilderState,
   IElement,
   IPropData,
@@ -17,12 +18,15 @@ import {
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 
-export type UpdateElementPropsFormProps = {
+export interface UpdateElementPropsFormProps
+  extends WithServices<TYPE_SERVICE | ELEMENT_SERVICE> {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
   builderState: IBuilderState
-} & WithServices<TYPE_SERVICE | ELEMENT_SERVICE>
+
+  actionList?: Array<IAnyAction>
+}
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({
@@ -32,6 +36,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     builderState,
     typeService,
     autocomplete,
+    actionList,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
@@ -73,7 +78,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
         {interfaceType && (
           <PropsForm
             autosave
-            context={{ autocomplete, builderState }}
+            context={{ autocomplete, builderState, actionList }}
             initialValue={initialPropsRef.current}
             interfaceType={interfaceType}
             key={element.id}

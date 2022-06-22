@@ -11,11 +11,11 @@ import React from 'react'
 import tw from 'twin.macro'
 import { useCurrentStore } from '../hooks'
 
-type StoreMetaPaneProps = WithServices<
+type StoreConfigPaneProps = WithServices<
   STORE_SERVICE | TYPE_SERVICE | APP_SERVICE
 >
 
-export const StoreMetaPane = observer<StoreMetaPaneProps>(
+export const StoreConfigPane = observer<StoreConfigPaneProps>(
   ({ storeService, typeService, appService }) => {
     const { store } = useCurrentStore(appService, storeService)
 
