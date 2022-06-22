@@ -12,7 +12,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { toCamelCase } from '@codelab/shared/utils'
-import { merge } from 'lodash'
+import { isArray, merge } from 'lodash'
 import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -126,6 +126,11 @@ const expressionFnFactory = (expression: string, globalState: any): any => {
         },
         get(target, key) {
           const value = globalState[key]
+
+          // handle pipeline actions
+          if (isArray(value) && typeof value[0] === 'function') {
+            return () => value.forEach((x) => x.bind(globalState)())
+          }
 
           if (typeof value === 'function') {
             return value.bind(globalState)

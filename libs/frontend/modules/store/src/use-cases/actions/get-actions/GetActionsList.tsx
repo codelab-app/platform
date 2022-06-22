@@ -18,7 +18,7 @@ export const GetActionsList = observer<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.id])
 
-  const actions = actionService.actionsList(store.id)
+  const actions = actionService.actionsList
 
   return (
     <List

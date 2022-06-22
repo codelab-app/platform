@@ -78,7 +78,7 @@ export class Store
     }))
 
     const storeActions = this.actions.map(({ current: action }) => ({
-      [action.name]: action.run,
+      [action.name]: action.run(),
     }))
 
     return makeAutoObservable(

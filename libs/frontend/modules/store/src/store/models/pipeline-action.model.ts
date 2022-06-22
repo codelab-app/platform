@@ -37,7 +37,8 @@ export class PipelineAction
 
   static hydrate = hydrate
 
-  run(): void {
-    this.actionsSorted.forEach((x) => x.run())
+  run() {
+    // eslint-disable-next-line no-new-func
+    return this.actionsSorted.map((a) => a.run())
   }
 }

@@ -23,7 +23,7 @@ export const SelectAction = ({
   }, [])
 
   const actionOptions =
-    actionService?.actionsList(storeId).map((action) => ({
+    actionService?.actionsList.map((action) => ({
       label: action.name,
       value: action.id,
     })) ?? []

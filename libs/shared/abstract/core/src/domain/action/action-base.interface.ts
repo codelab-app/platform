@@ -7,7 +7,7 @@ export interface IActionBase {
   type: IActionKind
   storeId: string
 
-  run(): void
+  run(): any
 }
 
 export type IActionRef = string
