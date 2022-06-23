@@ -115,7 +115,13 @@ const Index = (props: PageProps) => {
 export default Index
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  console.log('getStaticPaths')
+  console.log('getStaticPaths', `env ${process.env.NODE_ENV}`)
+
+  const isProd = process.env.NODE_ENV === 'production'
+
+  if (isProd) {
+    return { paths: [], fallback: 'blocking' }
+  }
 
   const { userService } = initializeStore()
   await userService.loadUsers()

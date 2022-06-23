@@ -50,7 +50,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.18-browsers
+      - image: cimg/node:16.15.1-browsers
     resource_class: large
 
 commands:

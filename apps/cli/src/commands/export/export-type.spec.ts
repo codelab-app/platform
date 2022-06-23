@@ -26,6 +26,8 @@ describe.skip('Export', () => {
         {
           auth0Id: v4(),
           email: 'admin@codelab.ai',
+          roles: [],
+          username: '',
         },
       ],
     })
