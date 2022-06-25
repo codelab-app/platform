@@ -39,20 +39,23 @@ const ComponentRenderContext = createContext<ComponentRenderContext>({
 const ComponentRenderProviderFactory =
   (currentContext: ComponentRenderContext, element: IElement) =>
   ({ children }: PropsWithChildren<any>) =>
-    React.createElement(ComponentRenderContext.Provider, {
-      value: {
-        ancestorComponentIds: element.instanceOfComponent?.id
-          ? [
-              ...currentContext.ancestorComponentIds,
-              element.instanceOfComponent?.id,
-            ]
-          : currentContext.ancestorComponentIds,
+    React.createElement(
+      ComponentRenderContext.Provider,
+      {
+        value: {
+          ancestorComponentIds: element.instanceOfComponent?.id
+            ? [
+                ...currentContext.ancestorComponentIds,
+                element.instanceOfComponent?.id,
+              ]
+            : currentContext.ancestorComponentIds,
+        },
       },
       children,
-    })
+    )
 
 const NullWrapper = ({ children }: PropsWithChildren<any>) =>
-  React.createElement(Fragment, children)
+  React.createElement(Fragment, {}, children)
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -119,7 +122,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       ? ComponentRenderProviderFactory(componentRenderContext, element)
       : NullWrapper
 
-    return React.createElement(ComponentContextWrapper, Children)
+    return React.createElement(ComponentContextWrapper, { children: Children })
   },
 )
 

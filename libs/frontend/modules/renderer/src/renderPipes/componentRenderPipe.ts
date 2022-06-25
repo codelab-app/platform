@@ -32,7 +32,7 @@ export class ComponentRenderPipe
     const elementService = getElementService(this)
     const rootElement = elementService.elements.get(component.rootElementId)
 
-    if (!rootElement) {
+    if (!rootElement || rootElement.id === element.id) {
       ComponentRenderPipe.logRootElementNotFound(this.renderer, element)
 
       return this.next.render(element, props)

@@ -111,6 +111,8 @@ export class Element
   })
   implements IElement
 {
+  calculatingDescendants = false
+
   @computed
   get childrenSorted(): Array<IElement> {
     return [...this.children.values()].map((x) => x.current).sort(compareOrder)
@@ -149,11 +151,17 @@ export class Element
   @computed
   get descendants(): Array<IElement> {
     const descendants: Array<IElement> = []
+    this.calculatingDescendants = true
 
     for (const child of this.childrenSorted) {
       descendants.push(child)
-      descendants.push(...child.descendants)
+
+      if (!child.calculatingDescendants) {
+        descendants.push(...child.descendants)
+      }
     }
+
+    this.calculatingDescendants = false
 
     return descendants
   }

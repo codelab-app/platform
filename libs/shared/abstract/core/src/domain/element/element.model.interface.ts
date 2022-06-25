@@ -21,6 +21,7 @@ export interface IElementContainer {
 
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
+  calculatingDescendants?: boolean
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
   css: Nullable<string>
