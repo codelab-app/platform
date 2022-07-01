@@ -37,6 +37,7 @@ query InterfaceForm_GetComponents(
   components(options: $options, where: $where) {
     id
     name
+    descendantComponentIds
   }
 }
 

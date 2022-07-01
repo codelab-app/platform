@@ -6,6 +6,7 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
+  IBuilderService,
   IElement,
   IUpdateBaseElementDTO,
   IUpdateElementDTO,
@@ -19,11 +20,18 @@ export type UpdateElementFormProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
+  builderService: IBuilderService
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ elementService, element, trackPromises, providePropCompletion }) => {
+  ({
+    elementService,
+    builderService,
+    element,
+    trackPromises,
+    providePropCompletion,
+  }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [propCompleteOptions, setPropCompleteOptions] = useState<
@@ -90,7 +98,11 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'css',
           ]}
         />
-        <AutoField component={SelectComponent} name="instanceOfComponentId" />
+        <AutoField
+          activeComponentId={builderService.activeComponent?.id}
+          component={SelectComponent}
+          name="instanceOfComponentId"
+        />
         <AutoField component={SelectAtom} name="atomId" />
         {/* <AutoCompleteField */}
         {/*  name="renderIfPropKey" */}

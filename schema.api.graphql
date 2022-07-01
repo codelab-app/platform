@@ -2550,7 +2550,11 @@ type AtomsConnection {
   totalCount: Int!
 }
 
-type Component implements WithOwner {
+interface WithDescendantComponentIds {
+  descendantComponentIds: [ID!]!
+}
+
+type Component implements WithOwner & WithDescendantComponentIds {
   api(
     directed: Boolean = true
     options: InterfaceTypeOptions
@@ -2570,6 +2574,7 @@ type Component implements WithOwner {
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  descendantComponentIds: [ID!]!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere

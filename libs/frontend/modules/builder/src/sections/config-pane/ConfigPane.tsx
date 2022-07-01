@@ -57,6 +57,7 @@ export const ConfigPane = observer<MetaPaneProps>(
               {node.__nodeType === ELEMENT_NODE_TYPE ? (
                 <>
                   <UpdateElementForm
+                    builderService={builderService}
                     element={node}
                     elementService={elementService}
                     key={node.id + '_update_form'}
