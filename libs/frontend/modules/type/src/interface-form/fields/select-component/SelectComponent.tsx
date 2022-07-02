@@ -4,9 +4,15 @@ import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export type SelectComponentProps = HTMLFieldProps<string, SelectFieldProps>
+export type SelectComponentProps = HTMLFieldProps<string, SelectFieldProps> & {
+  activeComponentId: string
+}
 
-export const SelectComponent = ({ name, error }: SelectComponentProps) => {
+export const SelectComponent = ({
+  name,
+  error,
+  activeComponentId,
+}: SelectComponentProps) => {
   const {
     data,
     isLoading,
@@ -15,8 +21,14 @@ export const SelectComponent = ({ name, error }: SelectComponentProps) => {
     interfaceFormApi.InterfaceForm_GetComponents(),
   )
 
+  // remove the components that refer the current component to avoid creating circular references
+  const filteredComponents = data?.components?.filter(
+    (component) =>
+      component.descendantComponentIds.indexOf(activeComponentId) === -1,
+  )
+
   const componentOptions =
-    data?.components.map((component) => ({
+    filteredComponents?.map((component) => ({
       label: component.name,
       value: component.id,
     })) ?? []

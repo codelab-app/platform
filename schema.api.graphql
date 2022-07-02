@@ -2570,6 +2570,7 @@ type Component implements WithOwner {
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  descendantComponentIds: [ID!]!
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere

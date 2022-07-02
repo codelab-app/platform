@@ -2702,6 +2702,7 @@ export type Component = WithOwner & {
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElementConnection: ComponentRootElementConnection
+  descendantComponentIds: Array<Scalars["ID"]>;
 }
 
 export type ComponentApiArgs = {

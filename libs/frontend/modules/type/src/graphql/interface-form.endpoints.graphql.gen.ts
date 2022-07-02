@@ -45,7 +45,7 @@ export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
 }>
 
 export type InterfaceForm_GetComponentsQuery = {
-  components: Array<{ id: string; name: string }>
+  components: Array<{ id: string; name: string; descendantComponentIds: Array<string> }>
 }
 
 export type InterfaceForm_GetPagesQueryVariables = Types.Exact<{
@@ -101,6 +101,7 @@ export const InterfaceForm_GetComponentsDocument = gql`
     components(options: $options, where: $where) {
       id
       name
+      descendantComponentIds
     }
   }
 `
@@ -200,7 +201,7 @@ export function getSdk(
             InterfaceForm_GetComponentsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
+        ),
         'InterfaceForm_GetComponents',
         'query',
       )

@@ -2487,6 +2487,7 @@ export type Component = WithOwner & {
   rootElementConnection: ComponentRootElementConnection;
   apiConnection: ComponentApiConnection;
   ownerConnection: WithOwnerOwnerConnection;
+  descendantComponentIds: Array<Scalars["ID"]>;
 };
 
 export type ComponentRootElementArgs = {

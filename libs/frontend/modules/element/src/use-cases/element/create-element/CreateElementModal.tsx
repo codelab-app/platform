@@ -112,7 +112,11 @@ export const CreateElementModal = observer<CreateElementModalProps>(
           />
           <AutoField name="order" />
           <AutoField component={SelectAtom} name="atomId" />
-          <AutoField component={SelectComponent} name="instanceOfComponentId" />
+          <AutoField
+            activeComponentId={builderService.activeComponent?.id}
+            component={SelectComponent}
+            name="instanceOfComponentId"
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )
