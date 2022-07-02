@@ -2550,11 +2550,7 @@ type AtomsConnection {
   totalCount: Int!
 }
 
-interface WithDescendantComponentIds {
-  descendantComponentIds: [ID!]!
-}
-
-type Component implements WithOwner & WithDescendantComponentIds {
+type Component implements WithOwner {
   api(
     directed: Boolean = true
     options: InterfaceTypeOptions

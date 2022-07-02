@@ -2,18 +2,13 @@ import { gql } from 'apollo-server-micro'
 import getDescendantComponentIds from '../repositories/component/getDescendantComponentIds.cypher'
 
 export const componentSchema = gql`
-  interface WithDescendantComponentIds {
-    descendantComponentIds: [ID!]!
-        @cypher(statement: """${getDescendantComponentIds}""")
-  }
-
-  type Component implements WithOwner & WithDescendantComponentIds {
+  type Component implements WithOwner {
     id: ID! @id(autogenerate: false)
     name: String!
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User!
-    descendantComponentIds: [ID!]!
+    descendantComponentIds: [ID!]! @cypher(statement: """${getDescendantComponentIds}""")
   }
 
   extend type Component

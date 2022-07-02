@@ -2689,11 +2689,7 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']
 }
 
-interface WithDescendantComponentIds {
-  descendantComponentIds: Array<Scalars["ID"]>;
-};
-
-export type Component = WithOwner & WithDescendantComponentIds & {
+export type Component = WithOwner & {
   __typename?: 'Component'
   api: InterfaceType
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>

@@ -2474,11 +2474,7 @@ export type AtomTagTagsNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable;
 };
 
-interface WithDescendantComponentIds {
-  descendantComponentIds: Array<Scalars["ID"]>;
-};
-
-export type Component = WithOwner & WithDescendantComponentIds & {
+export type Component = WithOwner & {
   __typename?: "Component";
   id: Scalars["ID"];
   name: Scalars["String"];

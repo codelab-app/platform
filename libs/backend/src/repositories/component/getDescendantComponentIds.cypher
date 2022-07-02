@@ -7,6 +7,6 @@ CALL apoc.path.subgraphAll(
 
 UNWIND descendants AS descendant
   WITH descendant
-    WHERE NOT 'Element' IN LABELS(descendant)
+    WHERE 'Component' IN LABELS(descendant)
 
 RETURN collect(DISTINCT descendant.id)
