@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0'
+// import { getSession } from '@auth0/nextjs-auth0'
 import { GraphQLClient } from 'graphql-request'
 import { GetServerSidePropsContext } from 'next'
 
@@ -14,11 +14,13 @@ export const client = new GraphQLClient(endpoint)
 export const setClientAuthHeaders = async (
   context: GetServerSidePropsContext,
 ) => {
-  const session = await getSession(context.req, context.res)
+  // const session = await getSession(context.req, context.res)
 
-  client.setHeaders({
-    authorization: session?.accessToken ? `Bearer ${session.accessToken}` : '',
-  })
+  // client.setHeaders({
+  //   authorization: session?.accessToken ? `Bearer ${session.accessToken}` : '',
+  // })
 
-  return session
+  // return session
+
+  return {}
 }

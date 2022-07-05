@@ -5,6 +5,12 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
+export type RedirectedAppFragment = {
+  id: string
+  name: string
+  owner: { username: string }
+}
+
 export type AppPreviewFragment = {
   id: string
   name: string
@@ -25,6 +31,15 @@ export type AppFragment = {
   store: { id: string }
 }
 
+export const RedirectedAppFragmentDoc = gql`
+  fragment RedirectedApp on App {
+    id
+    name
+    owner {
+      username
+    }
+  }
+`
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id

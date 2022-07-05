@@ -11,6 +11,7 @@ import { Config } from '@codelab/shared/utils'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
+import { DocumentNode } from 'graphql'
 
 const driver = getDriver()
 const neoSchema = getSchema(driver)

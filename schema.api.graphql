@@ -779,6 +779,7 @@ type ActionsConnection {
 }
 
 type App implements WithOwner {
+  domains: [String!]!
   id: ID!
 >>>>>>> wip: working slug that renders individual pages for production
   name: String!
@@ -1106,6 +1107,7 @@ input AppConnectWhere {
 }
 
 input AppCreateInput {
+  domains: [String!]!
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
@@ -1148,6 +1150,7 @@ type AppElementRootElementNodeAggregateSelection {
 }
 
 input AppOnCreateInput {
+  domains: [String!]!
   id: ID!
   name: String!
 <<<<<<< HEAD
@@ -1937,6 +1940,7 @@ input AppUniqueWhere {
 }
 
 input AppUpdateInput {
+  domains: [String!]
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
@@ -1963,6 +1967,10 @@ type AppUserOwnerNodeAggregateSelection {
 input AppWhere {
   AND: [AppWhere!]
   OR: [AppWhere!]
+  domains: [String!]
+  domains_INCLUDES: String
+  domains_NOT: [String!]
+  domains_NOT_INCLUDES: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

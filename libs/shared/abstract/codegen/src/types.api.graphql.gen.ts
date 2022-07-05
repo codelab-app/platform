@@ -832,6 +832,7 @@ export type ActionsConnection = {
 
 export type App = WithOwner & {
   __typename?: 'App'
+  domains: Array<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
   owner: User
@@ -891,7 +892,12 @@ export type ActionTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
 
+<<<<<<< HEAD
 export type ActionTypeCreateInput = {
+=======
+export type AppCreateInput = {
+  domains: Array<Scalars['String']>
+>>>>>>> feat: integrate middleware (wip)
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -909,7 +915,34 @@ export type ActionTypeDisconnectInput = {
 export type ActionTypeEdge = {
   __typename?: 'ActionTypeEdge'
   cursor: Scalars['String']
+<<<<<<< HEAD
   node: ActionType
+=======
+  node: App
+}
+
+export type AppElementRootElementAggregationSelection = {
+  __typename?: 'AppElementRootElementAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AppElementRootElementNodeAggregateSelection>
+}
+
+export type AppElementRootElementNodeAggregateSelection = {
+  __typename?: 'AppElementRootElementNodeAggregateSelection'
+  css: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  propTransformationJs: StringAggregateSelectionNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfPropKey: StringAggregateSelectionNullable
+}
+
+export type AppOnCreateInput = {
+  domains: Array<Scalars['String']>
+  id: Scalars['ID']
+  name: Scalars['String']
+  slug: Scalars['String']
+>>>>>>> feat: integrate middleware (wip)
 }
 
 export type ActionTypeOptions = {
@@ -1432,11 +1465,22 @@ export type AppPagesConnectionSort = {
   node?: InputMaybe<PageSort>
 }
 
+<<<<<<< HEAD
 export type AppPagesConnectionWhere = {
   AND?: InputMaybe<Array<AppPagesConnectionWhere>>
   OR?: InputMaybe<Array<AppPagesConnectionWhere>>
   node?: InputMaybe<PageWhere>
   node_NOT?: InputMaybe<PageWhere>
+=======
+export type AppUpdateInput = {
+  domains?: InputMaybe<Array<Scalars['String']>>
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
+  rootElement?: InputMaybe<AppRootElementUpdateFieldInput>
+  store?: InputMaybe<AppStoreUpdateFieldInput>
+>>>>>>> feat: integrate middleware (wip)
 }
 
 export type AppPagesCreateFieldInput = {
@@ -1448,9 +1492,77 @@ export type AppPagesDeleteFieldInput = {
   where?: InputMaybe<AppPagesConnectionWhere>
 }
 
+<<<<<<< HEAD
 export type AppPagesDisconnectFieldInput = {
   disconnect?: InputMaybe<PageDisconnectInput>
   where?: InputMaybe<AppPagesConnectionWhere>
+=======
+export type AppWhere = {
+  AND?: InputMaybe<Array<AppWhere>>
+  OR?: InputMaybe<Array<AppWhere>>
+  domains?: InputMaybe<Array<Scalars['String']>>
+  domains_INCLUDES?: InputMaybe<Scalars['String']>
+  domains_NOT?: InputMaybe<Array<Scalars['String']>>
+  domains_NOT_INCLUDES?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AppOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  pagesAggregate?: InputMaybe<AppPagesAggregateInput>
+  pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
+  pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
+  /** Return Apps where all of the related Pages match this filter */
+  pages_ALL?: InputMaybe<PageWhere>
+  /** Return Apps where none of the related Pages match this filter */
+  pages_NONE?: InputMaybe<PageWhere>
+  /** Return Apps where one of the related Pages match this filter */
+  pages_SINGLE?: InputMaybe<PageWhere>
+  /** Return Apps where some of the related Pages match this filter */
+  pages_SOME?: InputMaybe<PageWhere>
+  rootElement?: InputMaybe<ElementWhere>
+  rootElementAggregate?: InputMaybe<AppRootElementAggregateInput>
+  rootElementConnection?: InputMaybe<AppRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<AppRootElementConnectionWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
+  slug?: InputMaybe<Scalars['String']>
+  slug_CONTAINS?: InputMaybe<Scalars['String']>
+  slug_ENDS_WITH?: InputMaybe<Scalars['String']>
+  slug_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_NOT?: InputMaybe<Scalars['String']>
+  slug_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  slug_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  slug_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  slug_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  slug_STARTS_WITH?: InputMaybe<Scalars['String']>
+  store?: InputMaybe<StoreWhere>
+  storeAggregate?: InputMaybe<AppStoreAggregateInput>
+  storeConnection?: InputMaybe<AppStoreConnectionWhere>
+  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
+  store_NOT?: InputMaybe<StoreWhere>
+>>>>>>> feat: integrate middleware (wip)
 }
 
 export type AppPagesFieldInput = {

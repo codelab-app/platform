@@ -1,44 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { redirectExternalDomain } from '../src/middleware/redirectExternalDomain'
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
-  // Get hostname (e.g. vercel.com, test.vercel.app, etc.)
   const hostname = req.headers.get('host')
-  // If localhost, assign the host value manually
-  // If prod, get the custom domain/subdomain value by removing the root URL
-  // (in the case of "test.vercel.app", "vercel.app" is the root URL)
-  // const currentHost =
-  //   process.env.NODE_ENV == 'production'
-  //     ? hostname?.replace(`.${process.env.NEXT_PUBLIC_ROOT_URL}`, '')
-  //     : process.env.CURR_HOST
-  const currentHost = ''
+  const publicRootUrl = process.env.NEXT_PUBLIC_ROOT_URL
+  const isRootHostName = hostname === publicRootUrl
 
-  // console.log('hostname', hostname)
-  // console.log('currentHost', currentHost)
-  // console.log('pathname', pathname)
+  if (!hostname) return NextResponse.next()
+  const isApi = pathname.includes('api')
+  const isSites = pathname.includes('_sites')
 
-  // Prevent security issues – users should not be able to canonically access
-  // the pages/sites folder and its respective contents. This can also be done
-  // via rewrites to a custom 404 page
-  // if (pathname.startsWith(`/_sites`)) {
-  //   return new Response(null, { status: 404 })
-  // }
+  console.log({
+    publicRootUrl,
+    hostname,
+    pathname,
+    isApi,
+    isRootHostName,
+  })
 
-  if (
-    // exclude all files in the public folder
-    pathname.startsWith('/user')
-    // &&
-    // !pathname.includes('.') &&
-    // // exclude all API routes
-    // !pathname.startsWith('/api')
-  ) {
-    // rewrite to the current hostname under the pages/sites folder
-    // the main logic component will happen in pages/sites/[site]/index.tsx
-    // return NextResponse.rewrite(`/_sites/${currentHost}${pathname}`)
-    const url = new URL(`/_sites${pathname}`, req.url)
-
-    return NextResponse.rewrite(url)
+  if (isApi || isSites) {
+    return NextResponse.next()
   }
 
-  return
+  if (!isRootHostName) {
+    // return NextResponse.next()
+    return await redirectExternalDomain({
+      req,
+      publicRootUrl,
+      hostname,
+      pathname,
+    })
+  }
+
+  return NextResponse.next()
 }

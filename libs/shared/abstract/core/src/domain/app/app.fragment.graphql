@@ -1,3 +1,11 @@
+fragment RedirectedApp on App {
+  id
+  name
+  owner {
+    username
+  }
+}
+
 fragment AppPreview on App {
   id
   name
