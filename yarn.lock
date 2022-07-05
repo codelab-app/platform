@@ -16592,6 +16592,7 @@ __metadata:
     nx: 14.3.6
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> test: ci
     postcss: 7
     prettier: 2.7.0
@@ -16600,6 +16601,9 @@ __metadata:
     path: ^0.12.7
 =======
 >>>>>>> wip: working slug that renders individual pages for production
+=======
+    path: ^0.12.7
+>>>>>>> feat: integrate middleware (wip)
     postcss: 7
     prettier: 2.7.0
     proxyquire: ^2.1.3
