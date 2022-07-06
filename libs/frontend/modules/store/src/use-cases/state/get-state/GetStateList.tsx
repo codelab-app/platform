@@ -1,6 +1,6 @@
 import { InterfaceType } from '@codelab/frontend/modules/type'
+import { Maybe } from '@codelab/shared/abstract/codegen'
 import { IStore, ITypeService } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -99,42 +99,19 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
         id: app.id,
         name: app.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
+        slug: app.name,
         rootElement: {
           connect: {
             where: { node: { id: app.rootElement.id } },
           },
         },
-        domains: [],
-        store: {
-          create: {
-            node: {
-              id: app.store.id,
-              name: app.store.name,
-              actions: {
-                create: app.store.actions.map((c) => ({
-                  node: {
-                    name: c.name,
-                    body: c.body,
-                    config: { create: { node: { data: c.config.data } } },
-                    runOnInit: c.runOnInit,
-                    resource: c.resource
-                      ? { connect: { where: { node: { id: c.resource.id } } } }
-                      : undefined,
-                  },
-                })),
-              },
-              state: { create: { node: { data: app.store.state.data } } },
-              stateApi: {
-                connect: { where: { node: { id: app.store.stateApi.id } } },
-              },
-            },
-          },
-        },
+        store: { connect: { where: { node: { id: appStore.id } } } },
         pages: {
           create: app.pages.map((page) => ({
             node: {
               id: page.id ?? v4(),
               name: page.name,
+              slug: page.slug,
               rootElement: {
                 connect: {
                   where: { node: { id: page.rootElement.id } },
@@ -169,6 +146,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
       return {
         id: page.id,
         name: page.name,
+        slug: page.slug,
         rootElement: {
           id: page.rootElement.id,
           name: page?.rootElement?.name ?? null,

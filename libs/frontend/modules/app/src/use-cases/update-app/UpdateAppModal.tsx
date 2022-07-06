@@ -29,6 +29,7 @@ export const UpdateAppModal = observer<{
 
   const model = {
     name: app?.name,
+    slug: app.slug,
     ownerId: userService?.user.auth0Id,
     storeId: app?.store?.id,
   }

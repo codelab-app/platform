@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { Renderer } from '@codelab/frontend/modules/renderer'
@@ -82,8 +82,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       return {
         page,
         pageElementTree,
-        // providerTree,
-        // storeTree,
+        providerTree,
+        appStore,
         renderer,
       }
     },
@@ -106,7 +106,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
 export default PageRenderer
 
-export const getServerSideProps = withPageAuthRequired({})
+export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageRenderer.Layout = observer((page) => {
   const store = useStore()

@@ -2,118 +2,78 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { Renderer } from '@codelab/frontend/modules/renderer'
 import { createMobxState } from '@codelab/frontend/modules/store'
 import { useStore } from '@codelab/frontend/presenter/container'
-import {
-  extractErrorMessage,
-  useStatefulExecutor,
-} from '@codelab/frontend/shared/utils'
-import { Alert, Spin } from 'antd'
+import { IElement } from '@codelab/shared/abstract/core'
+import { getSnapshot, SnapshotOutOfObject } from 'mobx-keystone'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 type PageProps = {
   user: string
-  app: string
-  page: string
+  json: string
+
+  pageSnapshot: SnapshotOutOfObject<any>
+  appSnapshot: SnapshotOutOfObject<any>
+  pageElementTreeSnapshot: SnapshotOutOfObject<any>
+  appStoreSnapshot: SnapshotOutOfObject<any>
+  appStoreStateApiSnapshot: SnapshotOutOfObject<any>
 }
 
-/**
- * Routes will be /user/codelab/demo/home
- *
- * /user is only required so we can use pathname.startsWith('/user')
- *
- * Custom domain will be able to hook up to this
- *
- */
 const Index = (props: PageProps) => {
-  const {
-    pageService,
-    appService,
-    typeService,
-    componentService,
-    storeService,
-    appRenderService,
-  } = useStore()
-
+  const store = useStore()
+  const { pageService, storeService, appService, builderRenderService } = store
   const router = useRouter()
+  const { pageId, appStoreId, appId } = props as any
+  const app = appService.app(appId)
+  const appStore = storeService.store(appStoreId)
+  const page = pageService.pages.get(pageId)
 
-  console.log(router)
+  // const pageElementTree = useMemo(() => {
+  //   const pageElementTreeElements = pageElementTreeElementIds
+  //     .map((id: string) => elementService.element(id))
+  //     .filter((e: Maybe<IElement>) => e)
 
-  // console.log('props', props)
+  //   // the instance is ElementTree snapshot from server, and it's not linked in the context
+  //   const newPageElementTree = ElementTree.init(pageElementTreeElements)
 
-  const { user: userSlug, app: appSlug, page: pageSlug } = router.query
+  //   page?.setElementTree(newPageElementTree)
 
-  console.log(appSlug, pageSlug)
+  //   return newPageElementTree
+  // }, [pageId])
 
-  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
-    async () => {
-      const [app] = await appService.getAll({
-        slug: appSlug as string,
-      })
+  const renderer = useMemo(() => {
+    if (!page || !appStore) {
+      return
+    }
 
-      console.log('app', app)
+    const result = builderRenderService.addRenderer(
+      pageId,
+      page.elementTree,
+      appStore,
+      null,
+      createMobxState(appStore, [app], [page], router),
+    )
 
-      const [page] = await pageService.getAll({
-        slug: pageSlug as string,
-      })
+    return result
+  }, [pageId])
 
-      const storeTree = app?.store?.id
-        ? await storeService.getOne(app.store.id)
-        : null
+  if (!page) {
+    throw new Error('Page not found')
+  }
 
-      // components are needed to build pageElementTree
-      // therefore they must be loaded first
-      // This requires a current userId to work
-      // await componentService.loadComponentTrees()
-
-      /**
-       * Construct the ElementTree's for
-       *
-       * - page tree
-       * - provider tree
-       */
-      const [pageElementTree, providerTree, types] = await Promise.all([
-        page.initTree(page.rootElement.id),
-        app.initTree(app.rootElement.id),
-        typeService.getAll(),
-      ])
-
-      // initialize renderer
-      const appStore = await storeService.getOne(app.store.id)
-
-      if (!appStore) {
-        throw new Error('App store not found')
-      }
-
-      const renderer = await appRenderService.addRenderer(
-        page.id,
-        pageElementTree,
-        appStore,
-        null,
-        createMobxState(storeTree, [app], [page], router),
-      )
-
-      return {
-        page,
-        pageElementTree,
-        // providerTree,
-        // storeTree,
-        renderer,
-      }
-    },
-    { executeOnMount: true },
-  )
+  if (!appStore) {
+    throw new Error('App store not found')
+  }
 
   return (
     <>
       <Head>
-        <title>{data?.page?.name}</title>
+        <title>{page?.name}</title>
       </Head>
-      {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {isLoading && <Spin />}
-      {isDone && data?.pageElementTree && data.renderer ? (
-        <Renderer renderRoot={data.renderer.renderRoot.bind(data.renderer)} />
+
+      {page.elementTree && renderer ? (
+        <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />
       ) : null}
     </>
   )
@@ -143,8 +103,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
             return {
               params: {
                 user: user.username,
-                app: app.current.name,
-                page: page.current.name,
+                app: app.current.slug,
+                page: page.current.slug,
               },
             }
           })
@@ -153,7 +113,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     })
     .flat()
 
-  console.log('paths', paths)
+  console.log('getStaticPaths', paths)
 
   return {
     paths,
@@ -163,23 +123,71 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  console.log('getStaticProps', context)
+  if (!context.params) {
+    throw new Error('No context params ')
+  }
+
+  const store = initializeStore({})
+  const { appService, pageService, storeService, typeService } = store
+  const { app: appSlug, page: pageSlug } = context.params
+  // const typeServiceSnapshot = getSnapshot(typeService)
+
+  const apps = await appService.getAll({
+    slug: String(appSlug),
+  })
+
+  const app = apps[0]
+
+  if (!app) {
+    throw new Error(`App with slug ${appSlug} not found`)
+  }
+
+  // const appServiceSnapshot = getSnapshot(appService)
+
+  const [page] = await pageService.getAll({
+    slug: pageSlug as string,
+  })
+
+  if (!page) {
+    throw new Error(`Page ${pageSlug} of App ${appSlug} Not found`)
+  }
+
+  // const pageServiceSnapshot = getSnapshot(pageService)
+
+  const appStore = app?.store?.id
+    ? await storeService.getOne(app.store.id)
+    : null
+
+  if (appStore?.stateApiId) {
+    typeService.types.get(appStore?.stateApiId)
+  }
+
+  // const storeServiceSnapshot = getSnapshot(storeService)
+  // components are needed to build pageElementTree
+  // therefore they must be loaded first
+  // This requires a current userId to work
+  // await componentService.loadComponentTrees()
+  //
+  // Construct the ElementTree's for
+  // page tree
+  // provider tree
+  const pageElementTree = await page.initTree(page.rootElement.id)
+  // const elementServiceSnapshot = getSnapshot(elementService)
+
+  const pageElementTreeElementIds = pageElementTree.elementsList.map(
+    (e: IElement) => e.id,
+  )
+
+  const storeSnapshot = getSnapshot(store)
 
   return {
-    props: {},
-    /**
-     * Getting odd error if we enable this
-     *
-     * rror: tweak can only work over models, observable objects/arrays, or primitives, but got function sub() { [native code] }
-     *
-     * Instead, we access query from router instead
-     */
-    // props: {
-    //   ...context.params,
-    // },
-    /**
-     * https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
-     */
+    props: {
+      storeSnapshot,
+      appId: app?.id,
+      pageId: page.id,
+      appStoreId: app?.store?.id,
+      pageElementTreeElementIds,
+    },
     revalidate: 10,
   }
 }

@@ -14,17 +14,17 @@ import { IRenderPropsType } from './render-props-type'
 import type { IUnionType } from './union-type'
 
 export type IAnyType =
+  | IAppType
+  | IAnyActionType
   | IArrayType
   | IElementType
   | IEnumType
   | IInterfaceType
   | ILambdaType
   | IPageType
-  | IAppType
-  | IAnyActionType
   | IPrimitiveType
-  | IRenderPropsType
   | IReactNodeType
+  | IRenderPropsType
   | IUnionType
   | IMonacoType
 

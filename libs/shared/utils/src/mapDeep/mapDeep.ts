@@ -1,9 +1,12 @@
 import { isArray, isObjectLike, map, toPairsIn } from 'lodash'
+import { isServer } from '../env'
 import { IInput, IKeyMapper, IOutput, IValueMapper, Key } from './abstract'
 
 const isReactNode = (obj: IInput) => Boolean(obj['$$typeof'])
 const isMobxModel = (obj: IInput) => Boolean(obj['$modelType'])
-const isHtmlNode = (obj: IInput) => obj instanceof HTMLElement
+
+const isHtmlNode = (obj: IInput) =>
+  isServer ? false : obj instanceof HTMLElement
 
 const isCyclic = (obj: IInput) =>
   isReactNode(obj) || isMobxModel(obj) || isHtmlNode(obj)

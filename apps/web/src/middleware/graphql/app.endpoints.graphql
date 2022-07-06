@@ -3,3 +3,9 @@ query GetRedirectedApps($options: AppOptions, $where: AppWhere) {
     ...RedirectedApp
   }
 }
+
+query GetApps($options: AppOptions, $where: AppWhere) {
+  apps: apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+}

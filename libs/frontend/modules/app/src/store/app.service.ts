@@ -5,6 +5,7 @@ import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { AppCreateInput, AppWhere } from '@codelab/shared/abstract/codegen'
 import {
   IApp,
+  IAppDTO,
   IAppService,
   ICreateAppDTO,
   IUpdateAppDTO,
@@ -23,6 +24,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import slugify from 'slugify'
 import { v4 } from 'uuid'
 import { appApi } from './app.api'
 import { App } from './app.model'
@@ -76,13 +78,13 @@ export class AppService
   update = _async(function* (
     this: AppService,
     app: IEntity,
-    { name }: IUpdateAppDTO,
+    { name, slug }: IUpdateAppDTO,
   ) {
     const {
       updateApps: { apps },
     } = yield* _await(
       appApi.UpdateApps({
-        update: { name },
+        update: { name, slug: slugify(slug) },
         where: { id: app.id },
       }),
     )
@@ -119,6 +121,7 @@ export class AppService
       id: app.id ?? v4(),
       name: app.name,
       owner: connectOwner(app.auth0Id),
+      slug: slugify(app.slug),
       store: {
         create: {
           node: {

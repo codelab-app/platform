@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ExecuteCommandButton,
@@ -45,7 +45,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 export default AdminPage
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = (page) => {
   const AdminHeader = () => <PageHeader ghost={false} title="Admin" />

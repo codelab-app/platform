@@ -12,6 +12,9 @@ export const updatePageSchema: JSONSchemaType<IUpdatePageDTO> = {
       type: 'string',
       autoFocus: true,
     },
+    slug: {
+      type: 'string',
+    },
   },
-  required: ['name'],
+  required: ['name', 'slug'],
 } as const

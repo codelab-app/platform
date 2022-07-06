@@ -6,6 +6,7 @@ import { appSchema } from './app.schema'
 import { atomSchema } from './atom.schema'
 import { commonSchema } from './common.schema'
 import { componentSchema } from './component.schema'
+import { domainSchema } from './domain.schema'
 import { elementSchema } from './element.schema'
 import { hookSchema } from './hook.schema'
 import { pageSchema } from './page.schema'
@@ -35,4 +36,5 @@ export const typeDefs = print(gql`
   ${storeSchema}
   ${actionSchema}
   ${resourceSchema}
+  ${domainSchema}
 `)

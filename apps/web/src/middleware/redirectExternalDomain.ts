@@ -1,17 +1,19 @@
+/* eslint-disable */
 import { NextRequest, NextResponse } from 'next/server'
 import { appApi } from './graphql/app.api'
 
 interface RedirectExternalDomainParams {
-  req: NextRequest
+  req: any
   hostname: string
   pathname: string
-  publicRootUrl: string
+  redirectedDomainUrl: string
 }
 
 const stripTrailingSlash = (str: string) => {
   if (str.charAt(str.length - 1) == '/') {
     str = str.substring(0, str.length - 1)
   }
+
   return str
 }
 
@@ -19,10 +21,12 @@ export const redirectExternalDomain = async ({
   req,
   hostname,
   pathname,
-  publicRootUrl,
+  redirectedDomainUrl,
 }: RedirectExternalDomainParams) => {
+  console.log({ redirectedDomainUrl })
+
   const { apps } = await appApi.GetRedirectedApps({
-    where: { domains_INCLUDES: hostname },
+    where: { domains_SOME: { name_IN: [hostname] } },
   })
 
   const app = apps[0]
@@ -30,13 +34,22 @@ export const redirectExternalDomain = async ({
   if (app?.owner.username) {
     const url = new URL(
       stripTrailingSlash(
-        `/_sites/user/${app.owner.username}/${app.name}/page1`,
+        `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
       ),
-      publicRootUrl,
+      // redirectedDomainUrl,
+      `https://${hostname}`,
     )
+
+    console.log('redirectExternalDomain', {
+      owner: app?.owner.username,
+      redirectExternalDomain: JSON.stringify(url),
+      hostname,
+    })
 
     return NextResponse.rewrite(url)
   }
 
-  return NextResponse.next()
+  const notFoundURL = new URL('/404', redirectedDomainUrl)
+
+  return NextResponse.rewrite(notFoundURL)
 }

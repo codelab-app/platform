@@ -1,14 +1,11 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web/src",
   "projectType": "application",
   "generators": {},
   "targets": {
     "build": {
       "executor": "@nrwl/next:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "root": "apps/web",
         "outputPath": "dist/apps/web"
@@ -32,9 +29,7 @@
     "_build": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": [
-          "nx build web"
-        ]
+        "commands": ["nx build web"]
       },
       "configurations": {
         "test": {
@@ -80,8 +75,8 @@
       "options": {
         "buildTarget": "web:build",
         "dev": true,
-        "hostname": "0.0.0.0",
         "port": 3000,
+        "hostname": "0.0.0.0",
         "maxWorkers": 4
       },
       "configurations": {
@@ -135,13 +130,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/web/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -151,21 +142,15 @@
       },
       "configurations": {
         "test": {
-          "testPathPattern": [
-            "i.spec.ts"
-          ],
+          "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         },
         "ci": {
-          "testPathPattern": [
-            "i.spec.ts"
-          ],
+          "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         }
       },
-      "outputs": [
-        "coverage/apps/web"
-      ]
+      "outputs": ["coverage/apps/web"]
     },
     "storybook": {
       "executor": "@nrwl/storybook:storybook",
@@ -184,9 +169,7 @@
     },
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/web",
@@ -201,8 +184,6 @@
       }
     }
   },
-  "tags": [
-    "scope:frontend"
-  ],
+  "tags": ["scope:frontend"],
   "implicitDependencies": []
 }

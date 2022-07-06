@@ -1,6 +1,6 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { OGM } from '@neo4j/graphql-ogm'
-import { neo4jGraphqlConfig, typeDefs } from '../schema'
+import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 
 // Keep a single OGM instance if possible
@@ -11,7 +11,6 @@ export const getOgm = async () => {
     ogm = new OGM({
       typeDefs,
       driver: getDriver(),
-      ...neo4jGraphqlConfig,
     })
     await ogm.init()
   }

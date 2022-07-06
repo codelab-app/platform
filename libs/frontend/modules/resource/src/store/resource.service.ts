@@ -1,4 +1,3 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ResourceCreateInput,
   ResourceWhere,

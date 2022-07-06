@@ -25,9 +25,12 @@ export const createPageSchema: JSONSchemaType<ICreatePageDTO> = {
       type: 'string',
       autoFocus: true,
     },
+    slug: {
+      type: 'string',
+    },
     appId: {
       type: 'string',
     },
   },
-  required: ['name'],
+  required: ['name', 'slug'],
 } as const

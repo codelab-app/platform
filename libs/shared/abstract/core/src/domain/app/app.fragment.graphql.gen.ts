@@ -8,6 +8,7 @@ import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 export type RedirectedAppFragment = {
   id: string
   name: string
+  slug: string
   owner: { username: string }
 }
 
@@ -16,7 +17,7 @@ export type AppPreviewFragment = {
   name: string
   slug: string
   owner: { id: string }
-  pages: Array<{ id: string }>
+  pages: Array<PageFragment>
   rootElement: { id: string }
   store: { id: string }
 }
@@ -35,6 +36,7 @@ export const RedirectedAppFragmentDoc = gql`
   fragment RedirectedApp on App {
     id
     name
+    slug
     owner {
       username
     }
@@ -49,7 +51,7 @@ export const AppPreviewFragmentDoc = gql`
       id
     }
     pages {
-      id
+      ...Page
     }
     rootElement {
       id
@@ -58,6 +60,7 @@ export const AppPreviewFragmentDoc = gql`
       id
     }
   }
+  ${PageFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {

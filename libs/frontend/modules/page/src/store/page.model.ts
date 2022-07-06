@@ -1,6 +1,9 @@
 import { ElementTreeService } from '@codelab/frontend/modules/element'
-import { IPage, IPageDTO } from '@codelab/shared/abstract/core'
+import { getElementService } from '@codelab/frontend/presenter/container'
+import type { IPageDTO } from '@codelab/shared/abstract/core'
+import { IPage } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 
 const hydrate = (page: IPageDTO) => {
@@ -24,6 +27,11 @@ export class Page
   })
   implements IPage
 {
+  @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
   @modelAction
   updateCache(page: IPageDTO) {
     this.name = page.name

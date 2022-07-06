@@ -1,5 +1,5 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateAppButton,
@@ -82,7 +82,7 @@ export default AppsPage
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AppsPage.Layout = (page) => {
   return (

@@ -1,3 +1,4 @@
+import { IAnyType } from '@codelab/shared/abstract/core'
 import { ActionType } from './action-type.model'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'
@@ -20,9 +21,9 @@ export type AnyType =
   | EnumType
   | InterfaceType
   | LambdaType
-  | MonacoType
   | PageType
   | PrimitiveType
   | ReactNodeType
   | RenderPropsType
   | UnionType
+  | MonacoType

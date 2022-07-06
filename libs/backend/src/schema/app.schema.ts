@@ -5,11 +5,11 @@ export const appSchema = gql`
     id: ID! @id(autogenerate: false)
     owner: User!
     name: String!
-    slug: String! @callback(operations: [CREATE, UPDATE], name: "slug")
+    slug: String!
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     rootElement: Element! @relationship(type: "ROOT_APP_ELEMENT", direction: IN)
     store: Store! @relationship(type: "STORE_OF_APP", direction: IN)
-    domains: [String!]!
+    domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
 
   extend type App

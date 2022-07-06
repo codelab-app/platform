@@ -38,6 +38,7 @@
         //          }
         //        ],
         "react/jsx-sort-props": "error",
+        "jest/expect-expect": "off",
         "react/jsx-props-no-spreading": [
           "error",
           {

@@ -1,9 +1,11 @@
 // specific graphql-request bundled by esbuild, ignores node code, utilizes web api only
 // for edge run time: https://nextjs.org/docs/api-reference/edge-runtime
+import { apiOrigin } from '@codelab/shared/data'
 import { DocumentNode, getOperationAST } from 'graphql'
 import { print } from 'graphql/language/printer'
 
-const endpoint = `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`
+const endpoint = `${apiOrigin}/api/graphql`
+
 export const client = {
   request: async (
     ast: DocumentNode,

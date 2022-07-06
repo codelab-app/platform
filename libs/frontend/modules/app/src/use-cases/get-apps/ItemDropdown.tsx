@@ -2,10 +2,12 @@ import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons'
 import { IApp, IAppService } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import React, { CSSProperties } from 'react'
 import { appRef } from '../../store'
 
@@ -29,6 +31,10 @@ const menuItemIconStyle: CSSProperties = {
 export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
   const onEditClick = () => appService.updateModal.open(appRef(app.id))
   const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
+  const router = useRouter()
+
+  const goToDomainsPage = () =>
+    router.push(`${router.pathname}/${app.id}/domains`)
 
   const menuItems: MenuProps['items'] = [
     {
@@ -37,6 +43,13 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
       onClick: onEditClick,
       style: menuItemStyle,
       icon: <EditOutlined style={menuItemIconStyle} />,
+    },
+    {
+      label: 'Domains',
+      key: 'domains',
+      onClick: goToDomainsPage,
+      style: menuItemStyle,
+      icon: <GlobalOutlined style={menuItemIconStyle} />,
     },
     {
       label: 'Delete',

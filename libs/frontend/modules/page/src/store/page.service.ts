@@ -21,6 +21,7 @@ import {
   rootRef,
   transaction,
 } from 'mobx-keystone'
+import slugify from 'slugify'
 import { v4 } from 'uuid'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
@@ -62,12 +63,13 @@ export class PageService
   update = _async(function* (
     this: PageService,
     page: IPage,
-    { name, appId }: IUpdatePageDTO,
+    { name, appId, slug }: IUpdatePageDTO,
   ) {
     const { updatePages } = yield* _await(
       pageApi.UpdatePages({
         update: {
           name,
+          slug: slugify(slug),
           app: { connect: { where: { node: { id: appId } } } },
         },
         where: { id: page.id },
@@ -122,6 +124,7 @@ export class PageService
     const input = data.map((page) => ({
       id: page.id ?? v4(),
       name: page.name,
+      slug: slugify(page.slug),
       app: { connect: { where: { node: { id: page.appId } } } },
       rootElement: {
         create: {

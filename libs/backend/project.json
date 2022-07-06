@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/src",
   "projectType": "library",
   "targets": {
@@ -8,6 +7,14 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/backend/**/*.ts"]
+      }
+    },
+    "generate-ogm": {
+      "executor": "@nrwl/workspace:run-commands",
+      "configurations": {
+        "my-script": {
+          "commands": ["ts-node libs/backend/src/infra/generate-ogm-types.ts"]
+        }
       }
     }
   },

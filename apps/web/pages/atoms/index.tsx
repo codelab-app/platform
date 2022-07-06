@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateAtomButton,
@@ -75,7 +75,7 @@ const Header = () => {
 
 export default AtomsPage
 
-export const getServerSideProps = withPageAuthRequired({
+export const getServerSideProps = auth0Instance.withPageAuthRequired({
   getServerSideProps: async ({ req, res }: GetServerSidePropsContext) => {
     // const store = initializeStore({ user })
 

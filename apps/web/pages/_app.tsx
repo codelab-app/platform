@@ -23,12 +23,9 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 /**
  * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
  */
-
 const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: IAppProps) => {
-  // console.debug('_app.tsx', pageProps)
-
   const store = useMemo(() => initializeStore(pageProps), [pageProps.snapshot])
 
   const {

@@ -1,11 +1,13 @@
-import { appName, updatedAppName } from './app.data'
+/* eslint-disable jest/expect-expect */
+import { appName, appSlug, updatedAppName, updatedAppSlug } from './app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
     cy.resetDatabase().then(() => {
+      cy.clearAuth0Cookies()
       cy.login().then(() => {
         cy.visit('/apps')
-        cy.getSpinner().should('not.exist')
+        // cy.getSpinner().should('not.exist')
       })
     })
   })
@@ -18,6 +20,8 @@ describe('Apps CRUD', () => {
       cy.getButton({ label: /Create App/ }).click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
+      cy.getModal().setFormFieldValue({ label: 'Slug', value: appSlug })
+
       cy.getModal()
         .getModalAction(/Create App/)
         .click()
@@ -35,6 +39,8 @@ describe('Apps CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAppName })
+      cy.getModal().setFormFieldValue({ label: 'Slug', value: updatedAppSlug })
+
       cy.getModal()
         .getModalAction(/Update App/)
         .click()
@@ -45,7 +51,7 @@ describe('Apps CRUD', () => {
     })
   })
 
-  // Insert page test here
+  // // Insert page test here
   require('./pages.spec.required')
   require('./store.spec.required')
 

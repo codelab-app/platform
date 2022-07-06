@@ -3,7 +3,15 @@ import {
   IElementTree,
   IElementTreeService,
 } from '@codelab/shared/abstract/core'
-import { _async, _await, Model, model, modelFlow, prop } from 'mobx-keystone'
+import {
+  _async,
+  _await,
+  Model,
+  model,
+  modelAction,
+  modelFlow,
+  prop,
+} from 'mobx-keystone'
 import { ElementTree } from './element-tree.model'
 
 /**
@@ -12,10 +20,15 @@ import { ElementTree } from './element-tree.model'
 @model('@codelab/ElementTreeService')
 export class ElementTreeService
   extends Model({
-    elementTree: prop<IElementTree>(null!),
+    elementTree: prop<IElementTree>(null!).withSetter(),
   })
   implements IElementTreeService
 {
+  @modelAction
+  test(t: any) {
+    this.elementTree = t
+  }
+
   @modelFlow
   initTree = _async(function* (
     this: ElementTreeService,
@@ -32,6 +45,8 @@ export class ElementTreeService
     })
 
     if (!this.elementTree) {
+      console.log('init like this..')
+
       this.elementTree = ElementTree.init(elements)
 
       return this.elementTree

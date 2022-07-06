@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateActionModal,
@@ -105,7 +105,7 @@ const StorePage: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = withPageAuthRequired({})
+export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 StorePage.Layout = observer((page) => {
   const { actionService, appService, typeService, storeService } = useStore()

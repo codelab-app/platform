@@ -52,7 +52,7 @@ export const UpdateAtomModal = observer<{
       >
         <AutoFields omitFields={['tags']} />
         <SelectField
-          label="Connecte Tag"
+          label="Connect Tag"
           mode="multiple"
           name="tags"
           optionFilterProp="label"

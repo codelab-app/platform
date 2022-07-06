@@ -9,6 +9,9 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppDTO> = {
       type: 'string',
       autoFocus: true,
     },
+    slug: {
+      type: 'string',
+    },
   },
-  required: ['name'],
+  required: ['name', 'slug'],
 } as const

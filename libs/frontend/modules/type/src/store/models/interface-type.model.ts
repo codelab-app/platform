@@ -5,6 +5,7 @@ import type {
   ITypeDTO,
 } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import {
   ExtendedModel,
   model,
@@ -46,6 +47,11 @@ export class InterfaceType
   })
   implements IInterfaceType
 {
+  @computed
+  get fieldList() {
+    return [...this.fields.values()]
+  }
+
   field(id: string): Field | undefined {
     return this.fields.get(id)
   }

@@ -1,7 +1,6 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Config } from '@codelab/shared/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
-import { Neo4jGraphQLCallback } from '@neo4j/graphql/dist/types'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
 import { Driver } from 'neo4j-driver'
 import { resolvers } from '../resolvers'
@@ -12,18 +11,6 @@ import { typeDefs } from './typeDefs'
  */
 const escapeDotPathKeys = (key: string) => {
   return key.replace(/\./g, '\\.')
-}
-
-const slugCallback: Neo4jGraphQLCallback = async (parent: any) => {
-  return `${parent.name.toLowerCase()}`
-}
-
-export const neo4jGraphqlConfig = {
-  config: {
-    callbacks: {
-      slug: slugCallback,
-    },
-  },
 }
 
 /**
@@ -66,5 +53,4 @@ export const getSchema = (driver: Driver) =>
         rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
       }),
     },
-    ...neo4jGraphqlConfig,
   })

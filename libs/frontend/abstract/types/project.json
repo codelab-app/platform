@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/abstract/types/src",
   "projectType": "library",
   "targets": {
