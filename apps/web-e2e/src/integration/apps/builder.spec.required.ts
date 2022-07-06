@@ -81,7 +81,7 @@ describe('Elements CRUD', () => {
         // select root now so we can update its child later
         // there is an issue with tree interaction
         // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 20000 })
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
           .should('be.visible')
           .click({ force: true })
       })

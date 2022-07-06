@@ -2694,6 +2694,7 @@ export type Component = WithOwner & {
   api: InterfaceType
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>
   apiConnection: ComponentApiConnection
+  descendantComponentIds: Array<Scalars['ID']>
   id: Scalars['ID']
   name: Scalars['String']
   owner: User
@@ -2702,7 +2703,6 @@ export type Component = WithOwner & {
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElementConnection: ComponentRootElementConnection
-  descendantComponentIds: Array<Scalars["ID"]>;
 }
 
 export type ComponentApiArgs = {

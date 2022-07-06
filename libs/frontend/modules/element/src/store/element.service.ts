@@ -268,12 +268,7 @@ export class ElementService
    */
   @modelAction
   @transaction
-  moveElement = _async(function* (
-    this: ElementService,
-    elementId: string,
-    newParentId: string,
-    newOrder?: number,
-  ) {
+  moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
     const element = this.element(elementId)
 
     if (!element) {
@@ -293,7 +288,7 @@ export class ElementService
     }
 
     if (existingParent) {
-      existingParent.removeChild(element)
+      existingParent.detachChild(element)
     }
 
     newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
@@ -310,8 +305,8 @@ export class ElementService
       },
     }
 
-    return yield* _await(this.update({ id: elementId }, input))
-  })
+    return this.patchElement(element, input)
+  }
 
   @modelFlow
   @transaction

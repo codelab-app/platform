@@ -4,16 +4,16 @@ import { useWindowHeight } from '@react-hook/window-size'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { JSXElementConstructor, useMemo, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import tw from 'twin.macro'
-import { UseResizable, useResizable } from '../../components'
+import { useResizable } from '../../components'
 import {
   defaultHeaderHeight,
   editorPaneHeight,
   sidebarWidth,
 } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
-import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane/DashboardTemplate-EditorPane'
+import { DashboardTemplateEditorPane } from './DashboardTemplate-EditorPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
 import { DashboardTemplateProps } from './types'
 
@@ -55,7 +55,7 @@ export const DashboardTemplate = observer(
       return result
     }, [sideNavigationContainerWidth, ExplorerPane])
 
-    console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
+    // console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
 
     const editorPaneResizable = useResizable({
       height: {
