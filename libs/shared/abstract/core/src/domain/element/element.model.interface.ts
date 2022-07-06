@@ -53,7 +53,14 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   setOrderInParent(order: number | null): void
   addChild(id: string, child: Ref<IElement>): void
   hasChild(child: IElement): boolean
+  /**
+   * Removes the ref
+   */
   removeChild(element: IElement): void
+  /**
+   * Keeps the ref in place
+   */
+  detachChild(element: IElement): void
   applyPropMapBindings(sourceProps: IPropData): {
     localProps: IPropData
     globalProps: IPropData

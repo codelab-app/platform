@@ -271,6 +271,11 @@ export class Element
   }
 
   @modelAction
+  detachChild(element: IElement) {
+    this.children.delete(element.id)
+  }
+
+  @modelAction
   removeChild(element: IElement) {
     detach(element)
   }
