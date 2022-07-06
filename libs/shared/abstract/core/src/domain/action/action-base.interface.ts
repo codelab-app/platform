@@ -7,7 +7,8 @@ export interface IActionBase {
   type: IActionKind
   storeId: string
 
-  run(): Promise<any>
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  getQueue(): Promise<Array<Function>>
 }
 
 export type IActionRef = string

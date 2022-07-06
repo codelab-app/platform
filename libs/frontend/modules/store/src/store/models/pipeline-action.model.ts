@@ -5,6 +5,7 @@ import {
   IPipelineAction,
   IPipelineActionDTO,
 } from '@codelab/shared/abstract/core'
+import { flatten } from 'lodash'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop, Ref } from 'mobx-keystone'
 import { actionRef } from './action.ref'
@@ -37,7 +38,11 @@ export class PipelineAction
 
   static hydrate = hydrate
 
-  run() {
-    return Promise.resolve(this.actionsSorted.map((a) => a.run()))
+  getQueue() {
+    return Promise.resolve(
+      Promise.all(this.actionsSorted.map((a) => a.getQueue())).then((a) =>
+        flatten(a),
+      ),
+    )
   }
 }

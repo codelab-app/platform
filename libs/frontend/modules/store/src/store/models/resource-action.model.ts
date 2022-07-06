@@ -10,6 +10,7 @@ import {
   IResourceActionConfig,
   IResourceActionDTO,
   IRestActionConfig,
+  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -74,18 +75,31 @@ export class ResourceAction
       const client = this.resource.current.graphqlClient
       const config = this.config.values as IGraphQLActionConfig
       const data = yield* _await(this.graphqlFetch(client, config))
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      let successQueue: Array<Function> = []
 
       if (this.successAction.current) {
-        this.successAction.current.run()
+        successQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      return new Function(`this.${this.name}.response=${JSON.stringify(data)}`)
+      return [
+        // eslint-disable-next-line no-new-func
+        new Function(`this.${this.name}.response=${JSON.stringify(data)}`),
+        ...successQueue,
+      ]
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      let errorQueue: Array<Function> = []
+
       if (this.errorAction.current) {
-        this.errorAction.current.run()
+        errorQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      return new Function(`this.${this.name}.error=${JSON.stringify(error)}`)
+      return [
+        // eslint-disable-next-line no-new-func
+        new Function(`this.${this.name}.error=${JSON.stringify(error)}`),
+        ...errorQueue,
+      ]
     }
   })
 
@@ -94,22 +108,40 @@ export class ResourceAction
     try {
       const client = this.resource.current.restClient
       const config = this.config.values as IRestActionConfig
-
-      yield _await(this.restFetch(client, config))
+      const data = yield _await(this.restFetch(client, config))
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      let successQueue: Array<Function> = []
 
       if (this.successAction.current) {
-        this.successAction.current.run()
+        successQueue = yield* _await(this.successAction.current.getQueue())
       }
+
+      return [
+        // eslint-disable-next-line no-new-func
+        new Function(`this.${this.name}.response=${JSON.stringify(data)}`),
+        ...successQueue,
+      ]
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      let errorQueue: Array<Function> = []
+
       if (this.errorAction.current) {
-        this.errorAction.current.run()
+        errorQueue = yield* _await(this.successAction.current.getQueue())
       }
+
+      return [
+        // eslint-disable-next-line no-new-func
+        new Function(`this.${this.name}.error=${JSON.stringify(error)}`),
+        ...errorQueue,
+      ]
     }
   })
 
   @modelAction
-  run() {
+  getQueue() {
     // eslint-disable-next-line no-new-func
-    return this.runGraphql()
+    return this.resource.current.type === ResourceType.GraphQL
+      ? this.runGraphql()
+      : this.runRest()
   }
 }

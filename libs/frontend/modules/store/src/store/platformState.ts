@@ -4,6 +4,7 @@ import {
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
 import {
+  IAnyAction,
   IApp,
   IPage,
   IStateTreeNode,
@@ -12,7 +13,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { toCamelCase } from '@codelab/shared/utils'
-import { get, isArray, isString, merge } from 'lodash'
+import { get, isString, merge } from 'lodash'
 import { NextRouter } from 'next/router'
 
 export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
@@ -20,7 +21,7 @@ export const mobxStateKeyTemplate: MobxStateKeyTemplate = {
   end: STATE_PATH_TEMPLATE_END,
 }
 
-export const createMobxState = async (
+export const createMobxState = (
   appStore: Maybe<IStore> | null,
   apps: Array<IApp>,
   pages: Array<IPage>,
@@ -63,7 +64,7 @@ export const createMobxState = async (
     pagesRoutes,
   }
 
-  return await appStore.toMobxObservable(stateGlobals)
+  return appStore.toMobxObservable(stateGlobals)
 }
 
 export const toAntd = (
@@ -111,12 +112,10 @@ export const getState = (value: string, state: unknown): any => {
   const possibleAction = get(state, stripExpression(value), {})
 
   if (possibleAction.isAction) {
-    return isArray(possibleAction.run)
-      ? () =>
-          possibleAction.run.forEach((x: Promise<any>) =>
-            x.then((p) => p.bind(state)()),
-          )
-      : possibleAction.run.bind(state)
+    return async () =>
+      await (possibleAction.action as IAnyAction)
+        .getQueue()
+        .then((queue) => queue.forEach((x) => x.bind(state)()))
   }
 
   /**

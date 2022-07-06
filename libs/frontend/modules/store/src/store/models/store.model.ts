@@ -3,20 +3,18 @@ import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   IAnyAction,
   IProp,
+  IPropData,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 import { makeAutoObservable } from 'mobx'
 import {
-  _async,
-  _await,
   detach,
   idProp,
   Model,
   model,
   modelAction,
-  modelFlow,
   prop,
   Ref,
   rootRef,
@@ -71,8 +69,8 @@ export class Store
     return this
   }
 
-  @modelFlow
-  toMobxObservable = _async(function* (this: Store, globals: any = {}) {
+  @modelAction
+  toMobxObservable(globals: IPropData = {}) {
     const typeService = getTypeService(this)
     const stateApi = typeService.type(this.stateApiId) as InterfaceType
 
@@ -80,22 +78,17 @@ export class Store
       [field.key]: this.state.values[field.key],
     }))
 
-    const storeActions = yield* _await(
-      Promise.all(
-        this.actions.map(async ({ current: action }) => ({
-          [action.name]: {
-            run: await action.run(),
-            type: action.type,
-            isAction: true,
-          },
-        })),
-      ),
-    )
+    const storeActions = this.actions
+      .map((action) => ({
+        [action.current.name]: {
+          action: action.current,
+          isAction: true,
+        },
+      }))
+      .reduce(merge, {})
 
-    return makeAutoObservable(
-      merge({}, ...storeState, storeActions.reduce(merge, {}), globals),
-    )
-  })
+    return makeAutoObservable(merge({}, ...storeState, storeActions, globals))
+  }
 
   static hydrate = hydrate
 }

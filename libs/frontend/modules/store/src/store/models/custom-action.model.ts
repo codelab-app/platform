@@ -29,8 +29,8 @@ export class CustomAction
 {
   static hydrate = hydrate
 
-  run() {
+  getQueue() {
     // eslint-disable-next-line  no-new-func
-    return Promise.resolve(new Function(this.code))
+    return Promise.resolve([new Function(this.code)])
   }
 }
