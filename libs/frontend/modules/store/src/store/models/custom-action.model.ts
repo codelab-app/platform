@@ -31,6 +31,6 @@ export class CustomAction
 
   run() {
     // eslint-disable-next-line  no-new-func
-    return new Function(this.code)
+    return Promise.resolve(new Function(this.code))
   }
 }

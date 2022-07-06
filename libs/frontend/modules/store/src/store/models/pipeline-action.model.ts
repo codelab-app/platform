@@ -38,7 +38,6 @@ export class PipelineAction
   static hydrate = hydrate
 
   run() {
-    // eslint-disable-next-line no-new-func
-    return this.actionsSorted.map((a) => a.run())
+    return Promise.resolve(this.actionsSorted.map((a) => a.run()))
   }
 }

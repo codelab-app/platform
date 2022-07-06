@@ -10,7 +10,6 @@ import {
   IResourceActionConfig,
   IResourceActionDTO,
   IRestActionConfig,
-  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -38,8 +37,8 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
     type: action.type,
     config: Prop.hydrate(action.config) as IResourceActionConfig,
     resource: resourceRef(action.resource.id),
-    success: actionRef(action.success.id),
-    error: actionRef(action.error.id),
+    success: actionRef(action.successAction.id),
+    error: actionRef(action.errorAction.id),
   })
 }
 
@@ -74,16 +73,19 @@ export class ResourceAction
     try {
       const client = this.resource.current.graphqlClient
       const config = this.config.values as IGraphQLActionConfig
-
-      yield _await(this.graphqlFetch(client, config))
+      const data = yield* _await(this.graphqlFetch(client, config))
 
       if (this.success.current) {
         this.success.current.run()
       }
+
+      return new Function(`this.${this.name}.response=${JSON.stringify(data)}`)
     } catch (error) {
       if (this.error.current) {
         this.error.current.run()
       }
+
+      return new Function(`this.${this.name}.error=${JSON.stringify(error)}`)
     }
   })
 
@@ -106,11 +108,8 @@ export class ResourceAction
   })
 
   @modelAction
-  run(): void {
-    if (this.resource.current.type === ResourceType.GraphQL) {
-      this.runGraphql()
-    } else {
-      this.runRest()
-    }
+  run() {
+    // eslint-disable-next-line no-new-func
+    return this.runGraphql()
   }
 }

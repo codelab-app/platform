@@ -9,11 +9,14 @@ import {
 import { merge } from 'lodash'
 import { makeAutoObservable } from 'mobx'
 import {
+  _async,
+  _await,
   detach,
   idProp,
   Model,
   model,
   modelAction,
+  modelFlow,
   prop,
   Ref,
   rootRef,
@@ -68,8 +71,8 @@ export class Store
     return this
   }
 
-  @modelAction
-  toMobxObservable(globals: any = {}) {
+  @modelFlow
+  toMobxObservable = _async(function* (this: Store, globals: any = {}) {
     const typeService = getTypeService(this)
     const stateApi = typeService.type(this.stateApiId) as InterfaceType
 
@@ -77,14 +80,22 @@ export class Store
       [field.key]: this.state.values[field.key],
     }))
 
-    const storeActions = this.actions.map(({ current: action }) => ({
-      [action.name]: action.run(),
-    }))
+    const storeActions = yield* _await(
+      Promise.all(
+        this.actions.map(async ({ current: action }) => ({
+          [action.name]: {
+            run: await action.run(),
+            type: action.type,
+            isAction: true,
+          },
+        })),
+      ),
+    )
 
     return makeAutoObservable(
-      merge({}, ...storeState, ...storeActions, globals),
+      merge({}, ...storeState, storeActions.reduce(merge, {}), globals),
     )
-  }
+  })
 
   static hydrate = hydrate
 }
