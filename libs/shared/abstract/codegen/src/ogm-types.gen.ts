@@ -2951,9 +2951,13 @@ export type Component = WithOwner & {
   id: Scalars["ID"];
   name: Scalars["String"];
 <<<<<<< HEAD
+<<<<<<< HEAD
   descendantComponentIds: Array<Scalars["ID"]>;
 =======
 >>>>>>> feat: integrate middleware (wip)
+=======
+  descendantComponentIds: Array<Scalars["ID"]>;
+>>>>>>> wip: merge resolution, fix type error
   rootElement: Element;
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>;
   api: InterfaceType;

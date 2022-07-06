@@ -104,7 +104,32 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
             where: { node: { id: app.rootElement.id } },
           },
         },
-        store: { connect: { where: { node: { id: appStore.id } } } },
+        domains: [],
+        store: {
+          create: {
+            node: {
+              id: app.store.id,
+              name: app.store.name,
+              actions: {
+                create: app.store.actions.map((c) => ({
+                  node: {
+                    name: c.name,
+                    body: c.body,
+                    config: { create: { node: { data: c.config.data } } },
+                    runOnInit: c.runOnInit,
+                    resource: c.resource
+                      ? { connect: { where: { node: { id: c.resource.id } } } }
+                      : undefined,
+                  },
+                })),
+              },
+              state: { create: { node: { data: app.store.state.data } } },
+              stateApi: {
+                connect: { where: { node: { id: app.store.stateApi.id } } },
+              },
+            },
+          },
+        },
         pages: {
           create: app.pages.map((page) => ({
             node: {
