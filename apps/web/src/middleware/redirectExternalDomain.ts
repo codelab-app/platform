@@ -26,24 +26,14 @@ export const redirectExternalDomain = async ({
   })
 
   const app = apps[0]
-  console.log({ app })
 
   if (app?.owner.username) {
-    // const redirectedUrl = stripTrailingSlash(`${publicRootUrl}`)
-    // console.log({ redirectedUrl })
-    // const nextUrl = req.nextUrl.clone()
-    // nextUrl.pathname =
-
-    console.log(`/_sites/${app.owner.username}/${app.name}/`, publicRootUrl)
-
     const url = new URL(
       stripTrailingSlash(
         `/_sites/user/${app.owner.username}/${app.name}/page1`,
       ),
       publicRootUrl,
     )
-
-    console.log(url.toString())
 
     return NextResponse.rewrite(url)
   }

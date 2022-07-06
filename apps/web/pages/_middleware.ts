@@ -19,18 +19,23 @@ export default async function middleware(req: NextRequest) {
     isRootHostName,
   })
 
-  if (isApi || isSites) {
+  if (isApi || isSites || !publicRootUrl) {
     return NextResponse.next()
   }
 
   if (!isRootHostName) {
-    // return NextResponse.next()
-    return await redirectExternalDomain({
-      req,
-      publicRootUrl,
-      hostname,
-      pathname,
-    })
+    try {
+      // return NextResponse.next()
+      return await redirectExternalDomain({
+        req,
+        publicRootUrl,
+        hostname,
+        pathname,
+      })
+    } catch (err: any) {
+      console.error(err)
+      return NextResponse.next()
+    }
   }
 
   return NextResponse.next()
