@@ -10879,18 +10879,18 @@ type ResourceAction implements ActionBase {
     sort: [ResourceActionConfigConnectionSort!]
     where: ResourceActionConfigConnectionWhere
   ): ResourceActionConfigConnection!
-  error(
+  errorAction(
     directed: Boolean = true
     options: ActionBaseOptions
     where: ActionBaseWhere
   ): ActionBase!
-  errorConnection(
+  errorActionConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ResourceActionErrorConnectionSort!]
-    where: ResourceActionErrorConnectionWhere
-  ): ResourceActionErrorConnection!
+    sort: [ResourceActionErrorActionConnectionSort!]
+    where: ResourceActionErrorActionConnectionWhere
+  ): ResourceActionErrorActionConnection!
   id: ID!
   name: String!
 
@@ -10934,18 +10934,18 @@ type ResourceAction implements ActionBase {
   """
   Response handlers
   """
-  success(
+  successAction(
     directed: Boolean = true
     options: ActionBaseOptions
     where: ActionBaseWhere
   ): ActionBase!
-  successConnection(
+  successActionConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ResourceActionSuccessConnectionSort!]
-    where: ResourceActionSuccessConnectionWhere
-  ): ResourceActionSuccessConnection!
+    sort: [ResourceActionSuccessActionConnectionSort!]
+    where: ResourceActionSuccessActionConnectionWhere
+  ): ResourceActionSuccessActionConnection!
   type: ActionKind!
 }
 
@@ -11061,10 +11061,10 @@ input ResourceActionConfigUpdateFieldInput {
 
 input ResourceActionConnectInput {
   config: ResourceActionConfigConnectFieldInput
-  error: ResourceActionErrorConnectFieldInput
+  errorAction: ResourceActionErrorActionConnectFieldInput
   resource: ResourceActionResourceConnectFieldInput
   store: ActionBaseStoreConnectFieldInput
-  success: ResourceActionSuccessConnectFieldInput
+  successAction: ResourceActionSuccessActionConnectFieldInput
 }
 
 input ResourceActionConnectOrCreateInput {
@@ -11075,30 +11075,30 @@ input ResourceActionConnectOrCreateInput {
 
 input ResourceActionCreateInput {
   config: ResourceActionConfigFieldInput
-  error: ResourceActionErrorFieldInput
+  errorAction: ResourceActionErrorActionFieldInput
   id: ID!
   name: String!
   resource: ResourceActionResourceFieldInput
   runOnInit: Boolean! = false
   store: ActionBaseStoreFieldInput
-  success: ResourceActionSuccessFieldInput
+  successAction: ResourceActionSuccessActionFieldInput
   type: ActionKind! = ResourceAction
 }
 
 input ResourceActionDeleteInput {
   config: ResourceActionConfigDeleteFieldInput
-  error: ResourceActionErrorDeleteFieldInput
+  errorAction: ResourceActionErrorActionDeleteFieldInput
   resource: ResourceActionResourceDeleteFieldInput
   store: ActionBaseStoreDeleteFieldInput
-  success: ResourceActionSuccessDeleteFieldInput
+  successAction: ResourceActionSuccessActionDeleteFieldInput
 }
 
 input ResourceActionDisconnectInput {
   config: ResourceActionConfigDisconnectFieldInput
-  error: ResourceActionErrorDisconnectFieldInput
+  errorAction: ResourceActionErrorActionDisconnectFieldInput
   resource: ResourceActionResourceDisconnectFieldInput
   store: ActionBaseStoreDisconnectFieldInput
-  success: ResourceActionSuccessDisconnectFieldInput
+  successAction: ResourceActionSuccessActionDisconnectFieldInput
 }
 
 type ResourceActionEdge {
@@ -11106,63 +11106,63 @@ type ResourceActionEdge {
   node: ResourceAction!
 }
 
-input ResourceActionErrorConnectFieldInput {
+input ResourceActionErrorActionConnectFieldInput {
   connect: ActionBaseConnectInput
   where: ActionBaseConnectWhere
 }
 
-type ResourceActionErrorConnection {
-  edges: [ResourceActionErrorRelationship!]!
+type ResourceActionErrorActionConnection {
+  edges: [ResourceActionErrorActionRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ResourceActionErrorConnectionSort {
+input ResourceActionErrorActionConnectionSort {
   node: ActionBaseSort
 }
 
-input ResourceActionErrorConnectionWhere {
-  AND: [ResourceActionErrorConnectionWhere!]
-  OR: [ResourceActionErrorConnectionWhere!]
+input ResourceActionErrorActionConnectionWhere {
+  AND: [ResourceActionErrorActionConnectionWhere!]
+  OR: [ResourceActionErrorActionConnectionWhere!]
   node: ActionBaseWhere
   node_NOT: ActionBaseWhere
 }
 
-input ResourceActionErrorCreateFieldInput {
+input ResourceActionErrorActionCreateFieldInput {
   node: ActionBaseCreateInput!
 }
 
-input ResourceActionErrorDeleteFieldInput {
+input ResourceActionErrorActionDeleteFieldInput {
   delete: ActionBaseDeleteInput
-  where: ResourceActionErrorConnectionWhere
+  where: ResourceActionErrorActionConnectionWhere
 }
 
-input ResourceActionErrorDisconnectFieldInput {
+input ResourceActionErrorActionDisconnectFieldInput {
   disconnect: ActionBaseDisconnectInput
-  where: ResourceActionErrorConnectionWhere
+  where: ResourceActionErrorActionConnectionWhere
 }
 
-input ResourceActionErrorFieldInput {
-  connect: ResourceActionErrorConnectFieldInput
-  create: ResourceActionErrorCreateFieldInput
+input ResourceActionErrorActionFieldInput {
+  connect: ResourceActionErrorActionConnectFieldInput
+  create: ResourceActionErrorActionCreateFieldInput
 }
 
-type ResourceActionErrorRelationship {
+type ResourceActionErrorActionRelationship {
   cursor: String!
   node: ActionBase!
 }
 
-input ResourceActionErrorUpdateConnectionInput {
+input ResourceActionErrorActionUpdateConnectionInput {
   node: ActionBaseUpdateInput
 }
 
-input ResourceActionErrorUpdateFieldInput {
-  connect: ResourceActionErrorConnectFieldInput
-  create: ResourceActionErrorCreateFieldInput
-  delete: ResourceActionErrorDeleteFieldInput
-  disconnect: ResourceActionErrorDisconnectFieldInput
-  update: ResourceActionErrorUpdateConnectionInput
-  where: ResourceActionErrorConnectionWhere
+input ResourceActionErrorActionUpdateFieldInput {
+  connect: ResourceActionErrorActionConnectFieldInput
+  create: ResourceActionErrorActionCreateFieldInput
+  delete: ResourceActionErrorActionDeleteFieldInput
+  disconnect: ResourceActionErrorActionDisconnectFieldInput
+  update: ResourceActionErrorActionUpdateConnectionInput
+  where: ResourceActionErrorActionConnectionWhere
 }
 
 input ResourceActionOptions {
@@ -11187,10 +11187,10 @@ type ResourceActionPropConfigNodeAggregateSelection {
 
 input ResourceActionRelationInput {
   config: ResourceActionConfigCreateFieldInput
-  error: ResourceActionErrorCreateFieldInput
+  errorAction: ResourceActionErrorActionCreateFieldInput
   resource: ResourceActionResourceCreateFieldInput
   store: ActionBaseStoreCreateFieldInput
-  success: ResourceActionSuccessCreateFieldInput
+  successAction: ResourceActionSuccessActionCreateFieldInput
 }
 
 input ResourceActionResourceAggregateInput {
@@ -11367,74 +11367,74 @@ type ResourceActionStoreStoreNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
-input ResourceActionSuccessConnectFieldInput {
+input ResourceActionSuccessActionConnectFieldInput {
   connect: ActionBaseConnectInput
   where: ActionBaseConnectWhere
 }
 
-type ResourceActionSuccessConnection {
-  edges: [ResourceActionSuccessRelationship!]!
+type ResourceActionSuccessActionConnection {
+  edges: [ResourceActionSuccessActionRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ResourceActionSuccessConnectionSort {
+input ResourceActionSuccessActionConnectionSort {
   node: ActionBaseSort
 }
 
-input ResourceActionSuccessConnectionWhere {
-  AND: [ResourceActionSuccessConnectionWhere!]
-  OR: [ResourceActionSuccessConnectionWhere!]
+input ResourceActionSuccessActionConnectionWhere {
+  AND: [ResourceActionSuccessActionConnectionWhere!]
+  OR: [ResourceActionSuccessActionConnectionWhere!]
   node: ActionBaseWhere
   node_NOT: ActionBaseWhere
 }
 
-input ResourceActionSuccessCreateFieldInput {
+input ResourceActionSuccessActionCreateFieldInput {
   node: ActionBaseCreateInput!
 }
 
-input ResourceActionSuccessDeleteFieldInput {
+input ResourceActionSuccessActionDeleteFieldInput {
   delete: ActionBaseDeleteInput
-  where: ResourceActionSuccessConnectionWhere
+  where: ResourceActionSuccessActionConnectionWhere
 }
 
-input ResourceActionSuccessDisconnectFieldInput {
+input ResourceActionSuccessActionDisconnectFieldInput {
   disconnect: ActionBaseDisconnectInput
-  where: ResourceActionSuccessConnectionWhere
+  where: ResourceActionSuccessActionConnectionWhere
 }
 
-input ResourceActionSuccessFieldInput {
-  connect: ResourceActionSuccessConnectFieldInput
-  create: ResourceActionSuccessCreateFieldInput
+input ResourceActionSuccessActionFieldInput {
+  connect: ResourceActionSuccessActionConnectFieldInput
+  create: ResourceActionSuccessActionCreateFieldInput
 }
 
-type ResourceActionSuccessRelationship {
+type ResourceActionSuccessActionRelationship {
   cursor: String!
   node: ActionBase!
 }
 
-input ResourceActionSuccessUpdateConnectionInput {
+input ResourceActionSuccessActionUpdateConnectionInput {
   node: ActionBaseUpdateInput
 }
 
-input ResourceActionSuccessUpdateFieldInput {
-  connect: ResourceActionSuccessConnectFieldInput
-  create: ResourceActionSuccessCreateFieldInput
-  delete: ResourceActionSuccessDeleteFieldInput
-  disconnect: ResourceActionSuccessDisconnectFieldInput
-  update: ResourceActionSuccessUpdateConnectionInput
-  where: ResourceActionSuccessConnectionWhere
+input ResourceActionSuccessActionUpdateFieldInput {
+  connect: ResourceActionSuccessActionConnectFieldInput
+  create: ResourceActionSuccessActionCreateFieldInput
+  delete: ResourceActionSuccessActionDeleteFieldInput
+  disconnect: ResourceActionSuccessActionDisconnectFieldInput
+  update: ResourceActionSuccessActionUpdateConnectionInput
+  where: ResourceActionSuccessActionConnectionWhere
 }
 
 input ResourceActionUpdateInput {
   config: ResourceActionConfigUpdateFieldInput
-  error: ResourceActionErrorUpdateFieldInput
+  errorAction: ResourceActionErrorActionUpdateFieldInput
   id: ID
   name: String
   resource: ResourceActionResourceUpdateFieldInput
   runOnInit: Boolean
   store: ActionBaseStoreUpdateFieldInput
-  success: ResourceActionSuccessUpdateFieldInput
+  successAction: ResourceActionSuccessActionUpdateFieldInput
 }
 
 input ResourceActionWhere {
@@ -11445,8 +11445,8 @@ input ResourceActionWhere {
   configConnection: ResourceActionConfigConnectionWhere
   configConnection_NOT: ResourceActionConfigConnectionWhere
   config_NOT: PropWhere
-  errorConnection: ResourceActionErrorConnectionWhere
-  errorConnection_NOT: ResourceActionErrorConnectionWhere
+  errorActionConnection: ResourceActionErrorActionConnectionWhere
+  errorActionConnection_NOT: ResourceActionErrorActionConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11479,8 +11479,8 @@ input ResourceActionWhere {
   storeConnection: ActionBaseStoreConnectionWhere
   storeConnection_NOT: ActionBaseStoreConnectionWhere
   store_NOT: StoreWhere
-  successConnection: ResourceActionSuccessConnectionWhere
-  successConnection_NOT: ResourceActionSuccessConnectionWhere
+  successActionConnection: ResourceActionSuccessActionConnectionWhere
+  successActionConnection_NOT: ResourceActionSuccessActionConnectionWhere
   type: ActionKind
   type_IN: [ActionKind!]
   type_NOT: ActionKind

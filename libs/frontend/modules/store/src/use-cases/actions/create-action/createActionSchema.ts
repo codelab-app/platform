@@ -55,12 +55,12 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       nullable: true,
       label: 'Resource',
     },
-    successId: {
+    successActionId: {
       type: 'string',
       nullable: true,
       label: 'Success Action',
     },
-    errorId: {
+    errorActionId: {
       type: 'string',
       nullable: true,
       label: 'Error Action',

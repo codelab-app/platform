@@ -12,11 +12,11 @@ import { gql } from 'graphql-tag'
 import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../resource/resource.fragment.graphql.gen'
 export type ResourceActionFragment = {
-  success:
+  successAction:
     | ActionBase_CustomAction_Fragment
     | ActionBase_PipelineAction_Fragment
     | ActionBase_ResourceAction_Fragment
-  error:
+  errorAction:
     | ActionBase_CustomAction_Fragment
     | ActionBase_PipelineAction_Fragment
     | ActionBase_ResourceAction_Fragment
@@ -27,10 +27,10 @@ export type ResourceActionFragment = {
 export const ResourceActionFragmentDoc = gql`
   fragment ResourceAction on ResourceAction {
     ...ActionBase
-    success {
+    successAction {
       ...ActionBase
     }
-    error {
+    errorAction {
       ...ActionBase
     }
     resource {

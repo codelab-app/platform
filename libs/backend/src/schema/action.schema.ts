@@ -49,8 +49,9 @@ export const actionSchema = gql`
     """
     Response handlers
     """
-    success: ActionBase! @relationship(type: "SUCCESS_ACTION", direction: IN)
-    error: ActionBase! @relationship(type: "ERROR_ACTION", direction: IN)
+    successAction: ActionBase!
+      @relationship(type: "SUCCESS_ACTION", direction: IN)
+    errorAction: ActionBase! @relationship(type: "ERROR_ACTION", direction: IN)
 
     """
     Resource to fetch data from

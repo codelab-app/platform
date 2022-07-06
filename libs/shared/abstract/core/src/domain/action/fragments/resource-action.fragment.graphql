@@ -1,9 +1,9 @@
 fragment ResourceAction on ResourceAction {
   ...ActionBase
-  success {
+  successAction {
     ...ActionBase
   }
-  error {
+  errorAction {
     ...ActionBase
   }
   resource {

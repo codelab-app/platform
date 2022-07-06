@@ -111,7 +111,6 @@ export const CreateActionModal = observer<
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
-            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
@@ -121,7 +120,6 @@ export const CreateActionModal = observer<
             <AutoField name="config.method" />
             <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
-            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
         </DisplayIfField>
 

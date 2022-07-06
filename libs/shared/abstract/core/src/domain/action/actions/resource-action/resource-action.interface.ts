@@ -9,6 +9,6 @@ export interface IResourceAction extends IActionBase {
   type: IActionKind.ResourceAction
   resource: Ref<IResource>
   config: IResourceActionConfig
-  success: Ref<IAnyAction>
-  error: Ref<IAnyAction>
+  successAction: Ref<IAnyAction>
+  errorAction: Ref<IAnyAction>
 }

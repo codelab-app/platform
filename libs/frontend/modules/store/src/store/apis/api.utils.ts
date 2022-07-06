@@ -71,12 +71,12 @@ export const makeCreateUpdateInput = (action: ICreateActionDTO) => ({
       ? { connect: { where: { node: { id: action.resourceId } } } }
       : undefined,
 
-  error:
+  errorAction:
     action.type === IActionKind.ResourceAction && action.errorId
       ? { connect: { where: { node: { id: action.errorId } } } }
       : undefined,
 
-  success:
+  successAction:
     action.type === IActionKind.ResourceAction && action.successId
       ? { connect: { where: { node: { id: action.successId } } } }
       : undefined,
@@ -130,11 +130,11 @@ export const makeActionUpdateInput = (
         input.type === IActionKind.ResourceAction
           ? { update: { node: { data: JSON.stringify(input.config) } } }
           : undefined,
-      error:
+      errorAction:
         input.type === IActionKind.ResourceAction
           ? { connect: { where: { node: { id: input.errorId } } } }
           : undefined,
-      success:
+      successAction:
         input.type === IActionKind.ResourceAction
           ? { connect: { where: { node: { id: input.successId } } } }
           : undefined,

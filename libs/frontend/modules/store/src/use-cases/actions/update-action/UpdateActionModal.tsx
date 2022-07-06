@@ -57,11 +57,11 @@ export const UpdateActionModal = observer<
         : undefined,
     successId:
       updateAction?.type === IActionKind.ResourceAction
-        ? updateAction.success?.id
+        ? updateAction.successAction?.id
         : undefined,
     errorId:
       updateAction?.type === IActionKind.ResourceAction
-        ? updateAction.error.id
+        ? updateAction.errorAction.id
         : undefined,
 
     code:
@@ -130,7 +130,6 @@ export const UpdateActionModal = observer<
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
-            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
@@ -140,7 +139,6 @@ export const UpdateActionModal = observer<
             <AutoField name="config.method" />
             <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
-            <AutoField label="Transform Response" name="config.transformFn" />
           </DisplayIfField>
         </DisplayIfField>
 

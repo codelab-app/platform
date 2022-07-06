@@ -12017,8 +12017,8 @@ export type ResourceAction = ActionBase & {
   config: Prop
   configAggregate?: Maybe<ResourceActionPropConfigAggregationSelection>
   configConnection: ResourceActionConfigConnection
-  error: ActionBase
-  errorConnection: ResourceActionErrorConnection
+  errorAction: ActionBase
+  errorActionConnection: ResourceActionErrorActionConnection
   id: Scalars['ID']
   name: Scalars['String']
   /** Resource to fetch data from */
@@ -12030,8 +12030,8 @@ export type ResourceAction = ActionBase & {
   storeAggregate?: Maybe<ResourceActionStoreStoreAggregationSelection>
   storeConnection: ActionBaseStoreConnection
   /** Response handlers */
-  success: ActionBase
-  successConnection: ResourceActionSuccessConnection
+  successAction: ActionBase
+  successActionConnection: ResourceActionSuccessActionConnection
   type: ActionKind
 }
 
@@ -12054,18 +12054,18 @@ export type ResourceActionConfigConnectionArgs = {
   where?: InputMaybe<ResourceActionConfigConnectionWhere>
 }
 
-export type ResourceActionErrorArgs = {
+export type ResourceActionErrorActionArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<ActionBaseOptions>
   where?: InputMaybe<ActionBaseWhere>
 }
 
-export type ResourceActionErrorConnectionArgs = {
+export type ResourceActionErrorActionConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ResourceActionErrorConnectionSort>>
-  where?: InputMaybe<ResourceActionErrorConnectionWhere>
+  sort?: InputMaybe<Array<ResourceActionErrorActionConnectionSort>>
+  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
 }
 
 export type ResourceActionResourceArgs = {
@@ -12106,18 +12106,18 @@ export type ResourceActionStoreConnectionArgs = {
   where?: InputMaybe<ActionBaseStoreConnectionWhere>
 }
 
-export type ResourceActionSuccessArgs = {
+export type ResourceActionSuccessActionArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<ActionBaseOptions>
   where?: InputMaybe<ActionBaseWhere>
 }
 
-export type ResourceActionSuccessConnectionArgs = {
+export type ResourceActionSuccessActionConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ResourceActionSuccessConnectionSort>>
-  where?: InputMaybe<ResourceActionSuccessConnectionWhere>
+  sort?: InputMaybe<Array<ResourceActionSuccessActionConnectionSort>>
+  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
 }
 
 export type ResourceActionAggregateSelection = {
@@ -12235,10 +12235,10 @@ export type ResourceActionConfigUpdateFieldInput = {
 
 export type ResourceActionConnectInput = {
   config?: InputMaybe<ResourceActionConfigConnectFieldInput>
-  error?: InputMaybe<ResourceActionErrorConnectFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
   resource?: InputMaybe<ResourceActionResourceConnectFieldInput>
   store?: InputMaybe<ActionBaseStoreConnectFieldInput>
-  success?: InputMaybe<ResourceActionSuccessConnectFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
 }
 
 export type ResourceActionConnectOrCreateInput = {
@@ -12249,30 +12249,30 @@ export type ResourceActionConnectOrCreateInput = {
 
 export type ResourceActionCreateInput = {
   config?: InputMaybe<ResourceActionConfigFieldInput>
-  error?: InputMaybe<ResourceActionErrorFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionFieldInput>
   id: Scalars['ID']
   name: Scalars['String']
   resource?: InputMaybe<ResourceActionResourceFieldInput>
   runOnInit?: Scalars['Boolean']
   store?: InputMaybe<ActionBaseStoreFieldInput>
-  success?: InputMaybe<ResourceActionSuccessFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionFieldInput>
   type?: ActionKind
 }
 
 export type ResourceActionDeleteInput = {
   config?: InputMaybe<ResourceActionConfigDeleteFieldInput>
-  error?: InputMaybe<ResourceActionErrorDeleteFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionDeleteFieldInput>
   resource?: InputMaybe<ResourceActionResourceDeleteFieldInput>
   store?: InputMaybe<ActionBaseStoreDeleteFieldInput>
-  success?: InputMaybe<ResourceActionSuccessDeleteFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionDeleteFieldInput>
 }
 
 export type ResourceActionDisconnectInput = {
   config?: InputMaybe<ResourceActionConfigDisconnectFieldInput>
-  error?: InputMaybe<ResourceActionErrorDisconnectFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionDisconnectFieldInput>
   resource?: InputMaybe<ResourceActionResourceDisconnectFieldInput>
   store?: InputMaybe<ActionBaseStoreDisconnectFieldInput>
-  success?: InputMaybe<ResourceActionSuccessDisconnectFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionDisconnectFieldInput>
 }
 
 export type ResourceActionEdge = {
@@ -12281,65 +12281,65 @@ export type ResourceActionEdge = {
   node: ResourceAction
 }
 
-export type ResourceActionErrorConnectFieldInput = {
+export type ResourceActionErrorActionConnectFieldInput = {
   connect?: InputMaybe<ActionBaseConnectInput>
   where?: InputMaybe<ActionBaseConnectWhere>
 }
 
-export type ResourceActionErrorConnection = {
-  __typename?: 'ResourceActionErrorConnection'
-  edges: Array<ResourceActionErrorRelationship>
+export type ResourceActionErrorActionConnection = {
+  __typename?: 'ResourceActionErrorActionConnection'
+  edges: Array<ResourceActionErrorActionRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type ResourceActionErrorConnectionSort = {
+export type ResourceActionErrorActionConnectionSort = {
   node?: InputMaybe<ActionBaseSort>
 }
 
-export type ResourceActionErrorConnectionWhere = {
-  AND?: InputMaybe<Array<ResourceActionErrorConnectionWhere>>
-  OR?: InputMaybe<Array<ResourceActionErrorConnectionWhere>>
+export type ResourceActionErrorActionConnectionWhere = {
+  AND?: InputMaybe<Array<ResourceActionErrorActionConnectionWhere>>
+  OR?: InputMaybe<Array<ResourceActionErrorActionConnectionWhere>>
   node?: InputMaybe<ActionBaseWhere>
   node_NOT?: InputMaybe<ActionBaseWhere>
 }
 
-export type ResourceActionErrorCreateFieldInput = {
+export type ResourceActionErrorActionCreateFieldInput = {
   node: ActionBaseCreateInput
 }
 
-export type ResourceActionErrorDeleteFieldInput = {
+export type ResourceActionErrorActionDeleteFieldInput = {
   delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<ResourceActionErrorConnectionWhere>
+  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
 }
 
-export type ResourceActionErrorDisconnectFieldInput = {
+export type ResourceActionErrorActionDisconnectFieldInput = {
   disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<ResourceActionErrorConnectionWhere>
+  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
 }
 
-export type ResourceActionErrorFieldInput = {
-  connect?: InputMaybe<ResourceActionErrorConnectFieldInput>
-  create?: InputMaybe<ResourceActionErrorCreateFieldInput>
+export type ResourceActionErrorActionFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionCreateFieldInput>
 }
 
-export type ResourceActionErrorRelationship = {
-  __typename?: 'ResourceActionErrorRelationship'
+export type ResourceActionErrorActionRelationship = {
+  __typename?: 'ResourceActionErrorActionRelationship'
   cursor: Scalars['String']
   node: ActionBase
 }
 
-export type ResourceActionErrorUpdateConnectionInput = {
+export type ResourceActionErrorActionUpdateConnectionInput = {
   node?: InputMaybe<ActionBaseUpdateInput>
 }
 
-export type ResourceActionErrorUpdateFieldInput = {
-  connect?: InputMaybe<ResourceActionErrorConnectFieldInput>
-  create?: InputMaybe<ResourceActionErrorCreateFieldInput>
-  delete?: InputMaybe<ResourceActionErrorDeleteFieldInput>
-  disconnect?: InputMaybe<ResourceActionErrorDisconnectFieldInput>
-  update?: InputMaybe<ResourceActionErrorUpdateConnectionInput>
-  where?: InputMaybe<ResourceActionErrorConnectionWhere>
+export type ResourceActionErrorActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionErrorActionConnectFieldInput>
+  create?: InputMaybe<ResourceActionErrorActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionErrorActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionErrorActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionErrorActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionErrorActionConnectionWhere>
 }
 
 export type ResourceActionOptions = {
@@ -12363,10 +12363,10 @@ export type ResourceActionPropConfigNodeAggregateSelection = {
 
 export type ResourceActionRelationInput = {
   config?: InputMaybe<ResourceActionConfigCreateFieldInput>
-  error?: InputMaybe<ResourceActionErrorCreateFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionCreateFieldInput>
   resource?: InputMaybe<ResourceActionResourceCreateFieldInput>
   store?: InputMaybe<ActionBaseStoreCreateFieldInput>
-  success?: InputMaybe<ResourceActionSuccessCreateFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionCreateFieldInput>
 }
 
 export type ResourceActionResourceAggregateInput = {
@@ -12547,76 +12547,76 @@ export type ResourceActionStoreStoreNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
-export type ResourceActionSuccessConnectFieldInput = {
+export type ResourceActionSuccessActionConnectFieldInput = {
   connect?: InputMaybe<ActionBaseConnectInput>
   where?: InputMaybe<ActionBaseConnectWhere>
 }
 
-export type ResourceActionSuccessConnection = {
-  __typename?: 'ResourceActionSuccessConnection'
-  edges: Array<ResourceActionSuccessRelationship>
+export type ResourceActionSuccessActionConnection = {
+  __typename?: 'ResourceActionSuccessActionConnection'
+  edges: Array<ResourceActionSuccessActionRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type ResourceActionSuccessConnectionSort = {
+export type ResourceActionSuccessActionConnectionSort = {
   node?: InputMaybe<ActionBaseSort>
 }
 
-export type ResourceActionSuccessConnectionWhere = {
-  AND?: InputMaybe<Array<ResourceActionSuccessConnectionWhere>>
-  OR?: InputMaybe<Array<ResourceActionSuccessConnectionWhere>>
+export type ResourceActionSuccessActionConnectionWhere = {
+  AND?: InputMaybe<Array<ResourceActionSuccessActionConnectionWhere>>
+  OR?: InputMaybe<Array<ResourceActionSuccessActionConnectionWhere>>
   node?: InputMaybe<ActionBaseWhere>
   node_NOT?: InputMaybe<ActionBaseWhere>
 }
 
-export type ResourceActionSuccessCreateFieldInput = {
+export type ResourceActionSuccessActionCreateFieldInput = {
   node: ActionBaseCreateInput
 }
 
-export type ResourceActionSuccessDeleteFieldInput = {
+export type ResourceActionSuccessActionDeleteFieldInput = {
   delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<ResourceActionSuccessConnectionWhere>
+  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
 }
 
-export type ResourceActionSuccessDisconnectFieldInput = {
+export type ResourceActionSuccessActionDisconnectFieldInput = {
   disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<ResourceActionSuccessConnectionWhere>
+  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
 }
 
-export type ResourceActionSuccessFieldInput = {
-  connect?: InputMaybe<ResourceActionSuccessConnectFieldInput>
-  create?: InputMaybe<ResourceActionSuccessCreateFieldInput>
+export type ResourceActionSuccessActionFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionCreateFieldInput>
 }
 
-export type ResourceActionSuccessRelationship = {
-  __typename?: 'ResourceActionSuccessRelationship'
+export type ResourceActionSuccessActionRelationship = {
+  __typename?: 'ResourceActionSuccessActionRelationship'
   cursor: Scalars['String']
   node: ActionBase
 }
 
-export type ResourceActionSuccessUpdateConnectionInput = {
+export type ResourceActionSuccessActionUpdateConnectionInput = {
   node?: InputMaybe<ActionBaseUpdateInput>
 }
 
-export type ResourceActionSuccessUpdateFieldInput = {
-  connect?: InputMaybe<ResourceActionSuccessConnectFieldInput>
-  create?: InputMaybe<ResourceActionSuccessCreateFieldInput>
-  delete?: InputMaybe<ResourceActionSuccessDeleteFieldInput>
-  disconnect?: InputMaybe<ResourceActionSuccessDisconnectFieldInput>
-  update?: InputMaybe<ResourceActionSuccessUpdateConnectionInput>
-  where?: InputMaybe<ResourceActionSuccessConnectionWhere>
+export type ResourceActionSuccessActionUpdateFieldInput = {
+  connect?: InputMaybe<ResourceActionSuccessActionConnectFieldInput>
+  create?: InputMaybe<ResourceActionSuccessActionCreateFieldInput>
+  delete?: InputMaybe<ResourceActionSuccessActionDeleteFieldInput>
+  disconnect?: InputMaybe<ResourceActionSuccessActionDisconnectFieldInput>
+  update?: InputMaybe<ResourceActionSuccessActionUpdateConnectionInput>
+  where?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
 }
 
 export type ResourceActionUpdateInput = {
   config?: InputMaybe<ResourceActionConfigUpdateFieldInput>
-  error?: InputMaybe<ResourceActionErrorUpdateFieldInput>
+  errorAction?: InputMaybe<ResourceActionErrorActionUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   resource?: InputMaybe<ResourceActionResourceUpdateFieldInput>
   runOnInit?: InputMaybe<Scalars['Boolean']>
   store?: InputMaybe<ActionBaseStoreUpdateFieldInput>
-  success?: InputMaybe<ResourceActionSuccessUpdateFieldInput>
+  successAction?: InputMaybe<ResourceActionSuccessActionUpdateFieldInput>
 }
 
 export type ResourceActionWhere = {
@@ -12627,8 +12627,8 @@ export type ResourceActionWhere = {
   configConnection?: InputMaybe<ResourceActionConfigConnectionWhere>
   configConnection_NOT?: InputMaybe<ResourceActionConfigConnectionWhere>
   config_NOT?: InputMaybe<PropWhere>
-  errorConnection?: InputMaybe<ResourceActionErrorConnectionWhere>
-  errorConnection_NOT?: InputMaybe<ResourceActionErrorConnectionWhere>
+  errorActionConnection?: InputMaybe<ResourceActionErrorActionConnectionWhere>
+  errorActionConnection_NOT?: InputMaybe<ResourceActionErrorActionConnectionWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -12661,8 +12661,8 @@ export type ResourceActionWhere = {
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>
   store_NOT?: InputMaybe<StoreWhere>
-  successConnection?: InputMaybe<ResourceActionSuccessConnectionWhere>
-  successConnection_NOT?: InputMaybe<ResourceActionSuccessConnectionWhere>
+  successActionConnection?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
+  successActionConnection_NOT?: InputMaybe<ResourceActionSuccessActionConnectionWhere>
   type?: InputMaybe<ActionKind>
   type_IN?: InputMaybe<Array<ActionKind>>
   type_NOT?: InputMaybe<ActionKind>
