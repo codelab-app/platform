@@ -39,7 +39,6 @@ import {
 } from './api.utils'
 import { elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
-import { elementRef } from './element.ref'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -268,38 +267,35 @@ export class ElementService
    */
   @modelAction
   @transaction
-  moveElement = _async(function* (
-    this: ElementService,
-    elementId: string,
-    newParentId: string,
-    newOrder?: number,
-  ) {
+  moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
+    console.log(elementId, newParentId, newOrder)
+
     const element = this.element(elementId)
 
     if (!element) {
       throw new Error(`Element ${elementId} not found`)
     }
 
-    const existingParent = element.parentElement
-    const newParent = this.element(newParentId)
-
-    if (!newParent) {
-      throw new Error(`Parent element ${newParentId} not found`)
-    }
-
-    // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
-      throw new Error(`Cannot move element ${elementId} to itself`)
-    }
-
-    if (existingParent) {
-      existingParent.removeChild(element)
-    }
-
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
-    element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(element.id, elementRef(element))
-
+    // const existingParent = element.parentElement
+    // const newParent = this.element(newParentId)
+    //
+    // if (!newParent) {
+    //   throw new Error(`Parent element ${newParentId} not found`)
+    // }
+    //
+    // // make sure it won't be a child of itself or a descendant
+    // if (newParent.id === element.id || element.findDescendant(newParent.id)) {
+    //   throw new Error(`Cannot move element ${elementId} to itself`)
+    // }
+    //
+    // if (existingParent) {
+    //   existingParent.removeChild(element)
+    // }
+    //
+    // newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
+    // element.setOrderInParent(newOrder ?? null)
+    // newParent.addChild(element.id, elementRef(element))
+    //
     const input: ElementUpdateInput = {
       parentElement: {
         disconnect: { where: {} },
@@ -310,8 +306,10 @@ export class ElementService
       },
     }
 
-    return yield* _await(this.update({ id: elementId }, input))
-  })
+    console.log(input)
+
+    return this.patchElement(element, input)
+  }
 
   @modelFlow
   @transaction

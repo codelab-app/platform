@@ -45,7 +45,11 @@ export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
 }>
 
 export type InterfaceForm_GetComponentsQuery = {
-  components: Array<{ id: string; name: string; descendantComponentIds: Array<string> }>
+  components: Array<{
+    id: string
+    name: string
+    descendantComponentIds: Array<string>
+  }>
 }
 
 export type InterfaceForm_GetPagesQueryVariables = Types.Exact<{
@@ -201,7 +205,7 @@ export function getSdk(
             InterfaceForm_GetComponentsDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
-        ),
+          ),
         'InterfaceForm_GetComponents',
         'query',
       )

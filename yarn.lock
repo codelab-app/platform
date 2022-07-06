@@ -14528,6 +14528,7 @@ __metadata:
     react-hotkeys-hook: 3.4.4
     react-is: 18.1.0
     react-json-view: 1.21.3
+    react-promise-tracker: ^2.1.0
     react-query: 3.39.0
     react-resizable: 3.0.4
     react-slick: 0.28.1
@@ -30109,6 +30110,15 @@ __metadata:
     react: ^16.8.0 || ^17 || ^18
     react-dom: ^16.8.0 || ^17 || ^18
   checksum: 837111c98738011c69b3069a464ea5bdcbf487105b6148e8faf90cb7337e134edb1b98b8824322941c378756cca30a15c18c25f558e53b85ed5762fa0dc8e6b2
+  languageName: node
+  linkType: hard
+
+"react-promise-tracker@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-promise-tracker@npm:2.1.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: d926f024bccbaca25e55c5e2928a1c02813b10dc726787771fe526b372901d4d6069d33907fb5c89c9986a93ba32f795985ddc34b607afa529e1da931edc5737
   languageName: node
   linkType: hard
 

@@ -36,6 +36,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       const promise = elementService.moveElement(
         element.id,
         data.parentElementId,
+        data.order,
       )
 
       if (trackPromise) {
@@ -56,7 +57,6 @@ export const MoveElementForm = observer<MoveElementFormProps>(
         onSubmitError={createNotificationHandler({
           title: 'Error while moving element',
         })}
-        onSubmitSuccess={[]}
         schema={moveElementSchema}
       >
         <AutoFields omitFields={['parentElementId']} />
