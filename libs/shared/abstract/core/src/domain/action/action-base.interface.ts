@@ -7,7 +7,7 @@ export interface IActionBase {
   type: IActionKind
   storeId: string
 
-  run(): any
+  run(): Promise<any>
 }
 
 export type IActionRef = string

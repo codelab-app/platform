@@ -55,11 +55,11 @@ export const UpdateActionModal = observer<
       updateAction?.type === IActionKind.ResourceAction
         ? updateAction.resource?.id
         : undefined,
-    successId:
+    successActionId:
       updateAction?.type === IActionKind.ResourceAction
         ? updateAction.successAction?.id
         : undefined,
-    errorId:
+    errorActionId:
       updateAction?.type === IActionKind.ResourceAction
         ? updateAction.errorAction.id
         : undefined,
@@ -93,8 +93,8 @@ export const UpdateActionModal = observer<
             'code',
             'resourceId',
             'config',
-            'successId',
-            'errorId',
+            'successActionId',
+            'errorActionId',
             'actionsIds',
           ]}
         />
@@ -114,13 +114,13 @@ export const UpdateActionModal = observer<
 
           <SelectAction
             actionService={actionService}
-            name="successId"
+            name="successActionId"
             storeId={updateAction?.storeId as string}
           />
 
           <SelectAction
             actionService={actionService}
-            name="errorId"
+            name="errorActionId"
             storeId={updateAction?.storeId as string}
           />
 

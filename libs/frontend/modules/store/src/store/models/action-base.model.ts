@@ -10,4 +10,4 @@ export const createActionBase = <T extends IActionKind>(type: T) =>
       type: prop<T>(() => type),
       storeId: prop<string>(),
     })
-    implements IActionBase {}
+    implements Omit<IActionBase, 'run'> {}

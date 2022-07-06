@@ -37,8 +37,8 @@ const hydrate = (action: IResourceActionDTO): IResourceAction => {
     type: action.type,
     config: Prop.hydrate(action.config) as IResourceActionConfig,
     resource: resourceRef(action.resource.id),
-    success: actionRef(action.successAction.id),
-    error: actionRef(action.errorAction.id),
+    successAction: actionRef(action.successAction.id),
+    errorAction: actionRef(action.errorAction.id),
   })
 }
 
@@ -47,8 +47,8 @@ export class ResourceAction
   extends ExtendedModel(createActionBase(IActionKind.ResourceAction), {
     resource: prop<Ref<IResource>>(),
     config: prop<IResourceActionConfig>(),
-    success: prop<Ref<IAnyAction>>(),
-    error: prop<Ref<IAnyAction>>(),
+    successAction: prop<Ref<IAnyAction>>(),
+    errorAction: prop<Ref<IAnyAction>>(),
   })
   implements IResourceAction
 {
@@ -75,14 +75,14 @@ export class ResourceAction
       const config = this.config.values as IGraphQLActionConfig
       const data = yield* _await(this.graphqlFetch(client, config))
 
-      if (this.success.current) {
-        this.success.current.run()
+      if (this.successAction.current) {
+        this.successAction.current.run()
       }
 
       return new Function(`this.${this.name}.response=${JSON.stringify(data)}`)
     } catch (error) {
-      if (this.error.current) {
-        this.error.current.run()
+      if (this.errorAction.current) {
+        this.errorAction.current.run()
       }
 
       return new Function(`this.${this.name}.error=${JSON.stringify(error)}`)
@@ -97,12 +97,12 @@ export class ResourceAction
 
       yield _await(this.restFetch(client, config))
 
-      if (this.success.current) {
-        this.success.current.run()
+      if (this.successAction.current) {
+        this.successAction.current.run()
       }
     } catch (error) {
-      if (this.error.current) {
-        this.error.current.run()
+      if (this.errorAction.current) {
+        this.errorAction.current.run()
       }
     }
   })

@@ -22,10 +22,6 @@ import { createActionSchema } from './createActionSchema'
 const defaultCustomAction = `function action(){
 }`
 
-const defaultTransformFn = `function transform(response){
-  return response
-}`
-
 export const CreateActionModal = observer<
   WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
 >(({ actionService, resourceService, store }) => {
@@ -56,7 +52,6 @@ export const CreateActionModal = observer<
           code: defaultCustomAction,
           actionsIds: [],
           config: {
-            transformFn: defaultTransformFn,
             body: '{}',
             method: HttpMethod.GET,
             query: '',
@@ -74,8 +69,8 @@ export const CreateActionModal = observer<
             'code',
             'resourceId',
             'config',
-            'successId',
-            'errorId',
+            'successActionId',
+            'errorActionId',
             'actionsIds',
           ]}
         />
@@ -95,13 +90,13 @@ export const CreateActionModal = observer<
 
           <SelectAction
             actionService={actionService}
-            name="successId"
+            name="successActionId"
             storeId={store.id}
           />
 
           <SelectAction
             actionService={actionService}
-            name="errorId"
+            name="errorActionId"
             storeId={store.id}
           />
 
