@@ -124,7 +124,10 @@ export const makeUpdateInput = (
     : { disconnect: { where: {} } }
 
   const instanceOfComponent = input.instanceOfComponentId
-    ? { connect: { where: { node: { id: input.instanceOfComponentId } } } }
+    ? {
+        disconnect: { where: {} },
+        connect: { where: { node: { id: input.instanceOfComponentId } } },
+      }
     : { disconnect: { where: {} } }
 
   return {
