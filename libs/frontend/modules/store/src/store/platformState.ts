@@ -112,10 +112,16 @@ export const getState = (value: string, state: unknown): any => {
   const possibleAction = get(state, stripExpression(value), {})
 
   if (possibleAction.isAction) {
-    return async () =>
+    const actionFn = async () =>
       await (possibleAction.action as IAnyAction)
         .getQueue()
         .then((queue) => queue.forEach((x) => x.bind(state)()))
+
+    if (possibleAction.action.runOnInit) {
+      actionFn()
+    }
+
+    return actionFn
   }
 
   /**
