@@ -19,8 +19,7 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields, ListField, ListItemField } from 'uniforms-antd'
 import { createActionSchema } from './createActionSchema'
 
-const defaultCustomAction = `function action(){
-}`
+const defaultCustomAction = `// ex: this.count = this.count + 1`
 
 export const CreateActionModal = observer<
   WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
