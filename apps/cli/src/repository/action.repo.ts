@@ -19,11 +19,11 @@ export const importActions = async (
 
   for (const action of actions) {
     if (action.__typename === IActionKind.CustomAction) {
-      customActions.push(action)
+      customActions.push(action as OGM_TYPES.CustomAction)
     } else if (action.__typename === IActionKind.PipelineAction) {
-      pipelineActions.push(action)
+      pipelineActions.push(action as OGM_TYPES.PipelineAction)
     } else if (action.__typename === IActionKind.ResourceAction) {
-      resourceActions.push(action)
+      resourceActions.push(action as OGM_TYPES.ResourceAction)
     } else {
       throw new Error(`Unknown action type : ${action.type}`)
     }
@@ -74,8 +74,10 @@ export const importActions = async (
     await ResourceAction.update({
       where: { id: r.id },
       update: {
-        error: { connect: { where: { node: { id: r.error.id } } } },
-        success: { connect: { where: { node: { id: r.success.id } } } },
+        errorAction: { connect: { where: { node: { id: r.errorAction.id } } } },
+        successAction: {
+          connect: { where: { node: { id: r.successAction.id } } },
+        },
       },
     })
   }
@@ -86,9 +88,32 @@ export const importActions = async (
     await PipelineAction.update({
       where: { id: p.id },
       update: {
-        actions: [
-          { connect: p.actions.map(({ id }) => ({ where: { node: { id } } })) },
-        ],
+        actions: {
+          CustomAction: [
+            {
+              connect: p.actionsConnection.edges.map((e) => ({
+                where: { node: { id: e.node.id } },
+                edge: { orders: e.orders },
+              })),
+            },
+          ],
+          ResourceAction: [
+            {
+              connect: p.actionsConnection.edges.map((e) => ({
+                where: { node: { id: e.node.id } },
+                edge: { orders: e.orders },
+              })),
+            },
+          ],
+          PipelineAction: [
+            {
+              connect: p.actionsConnection.edges.map((e) => ({
+                where: { node: { id: e.node.id } },
+                edge: { orders: e.orders },
+              })),
+            },
+          ],
+        },
       },
     })
   }

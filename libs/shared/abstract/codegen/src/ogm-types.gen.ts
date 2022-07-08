@@ -1911,7 +1911,7 @@ export type ActionBaseStoreConnectionArgs = {
 };
 
 export type ActionsPipeLine = {
-  orders: Array<Scalars["Int"]>;
+  orders?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type Field = {
@@ -4579,7 +4579,7 @@ export type PipelineActionActionsRelationship = ActionsPipeLine & {
   __typename?: "PipelineActionActionsRelationship";
   cursor: Scalars["String"];
   node: AnyAction;
-  orders: Array<Scalars["Int"]>;
+  orders?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type PipelineActionAggregateSelection = {
@@ -6610,7 +6610,7 @@ export type ActionBaseWhere = {
 };
 
 export type ActionsPipeLineCreateInput = {
-  orders: Array<Scalars["Int"]>;
+  orders?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type ActionsPipeLineSort = {
@@ -6618,16 +6618,16 @@ export type ActionsPipeLineSort = {
 };
 
 export type ActionsPipeLineUpdateInput = {
-  orders?: InputMaybe<Array<Scalars["Int"]>>;
+  orders?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type ActionsPipeLineWhere = {
   OR?: InputMaybe<Array<ActionsPipeLineWhere>>;
   AND?: InputMaybe<Array<ActionsPipeLineWhere>>;
-  orders?: InputMaybe<Array<Scalars["Int"]>>;
-  orders_NOT?: InputMaybe<Array<Scalars["Int"]>>;
-  orders_INCLUDES?: InputMaybe<Scalars["Int"]>;
-  orders_NOT_INCLUDES?: InputMaybe<Scalars["Int"]>;
+  orders?: InputMaybe<Array<Scalars["String"]>>;
+  orders_NOT?: InputMaybe<Array<Scalars["String"]>>;
+  orders_INCLUDES?: InputMaybe<Scalars["String"]>;
+  orders_NOT_INCLUDES?: InputMaybe<Scalars["String"]>;
 };
 
 export type ActionTypeConnectInput = {
@@ -12469,7 +12469,7 @@ export type PipelineActionActionsCreateInput = {
 export type PipelineActionActionsCustomActionConnectFieldInput = {
   where?: InputMaybe<CustomActionConnectWhere>;
   connect?: InputMaybe<Array<CustomActionConnectInput>>;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsCustomActionConnectionWhere = {
@@ -12489,12 +12489,12 @@ export type PipelineActionActionsCustomActionConnectOrCreateFieldInput = {
 export type PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate =
   {
     node: CustomActionOnCreateInput;
-    edge: ActionsPipeLineCreateInput;
+    edge?: InputMaybe<ActionsPipeLineCreateInput>;
   };
 
 export type PipelineActionActionsCustomActionCreateFieldInput = {
   node: CustomActionCreateInput;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsCustomActionDeleteFieldInput = {
@@ -12565,7 +12565,7 @@ export type PipelineActionActionsDisconnectInput = {
 export type PipelineActionActionsPipelineActionConnectFieldInput = {
   where?: InputMaybe<PipelineActionConnectWhere>;
   connect?: InputMaybe<Array<PipelineActionConnectInput>>;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsPipelineActionConnectionWhere = {
@@ -12585,12 +12585,12 @@ export type PipelineActionActionsPipelineActionConnectOrCreateFieldInput = {
 export type PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate =
   {
     node: PipelineActionOnCreateInput;
-    edge: ActionsPipeLineCreateInput;
+    edge?: InputMaybe<ActionsPipeLineCreateInput>;
   };
 
 export type PipelineActionActionsPipelineActionCreateFieldInput = {
   node: PipelineActionCreateInput;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsPipelineActionDeleteFieldInput = {
@@ -12643,7 +12643,7 @@ export type PipelineActionActionsPipelineActionUpdateFieldInput = {
 export type PipelineActionActionsResourceActionConnectFieldInput = {
   where?: InputMaybe<ResourceActionConnectWhere>;
   connect?: InputMaybe<Array<ResourceActionConnectInput>>;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsResourceActionConnectionWhere = {
@@ -12663,12 +12663,12 @@ export type PipelineActionActionsResourceActionConnectOrCreateFieldInput = {
 export type PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate =
   {
     node: ResourceActionOnCreateInput;
-    edge: ActionsPipeLineCreateInput;
+    edge?: InputMaybe<ActionsPipeLineCreateInput>;
   };
 
 export type PipelineActionActionsResourceActionCreateFieldInput = {
   node: ResourceActionCreateInput;
-  edge: ActionsPipeLineCreateInput;
+  edge?: InputMaybe<ActionsPipeLineCreateInput>;
 };
 
 export type PipelineActionActionsResourceActionDeleteFieldInput = {

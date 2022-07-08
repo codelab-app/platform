@@ -6,9 +6,13 @@ import {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import { IActionDTO, ICreateActionDTO, IUpdateActionDTO } from '../action'
+import {
+  IActionDTO,
+  IAnyAction,
+  ICreateActionDTO,
+  IUpdateActionDTO,
+} from '../action'
 import { IAnyActionWhere } from './action.where.interface'
-import { IAnyAction } from './actions'
 
 export interface IActionService
   extends ICRUDService<IAnyAction, ICreateActionDTO, IUpdateActionDTO>,
