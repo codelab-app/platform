@@ -35,8 +35,8 @@ import {
   createActionApi,
   deleteActionApi,
   getActionsByStore,
+  makeActionCreateInput,
   makeActionUpdateInput,
-  makeCreateUpdateInput,
   updateActionApi,
 } from './apis'
 import { actionRef } from './models'
@@ -183,7 +183,7 @@ export class ActionService
     data: Array<ICreateActionDTO>,
   ) {
     const input: Array<ICreateActionInput> = data.map((action) =>
-      makeCreateUpdateInput(action),
+      makeActionCreateInput(action),
     )
 
     const createdActions: Array<ActionFragment> = yield* _await(

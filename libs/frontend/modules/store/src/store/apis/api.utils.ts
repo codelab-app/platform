@@ -12,13 +12,42 @@ import {
   IAnyAction,
   IAnyActionWhere,
   ICreateActionDTO,
+  ICreateActionInput,
   ICreateStoreDTO,
   IUpdateActionDTO,
   IUpdateActionInput,
   IUpdateStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { capitalize, difference } from 'lodash'
+import { capitalize, keys } from 'lodash'
 import { v4 } from 'uuid'
+
+type ActionsOrders = { [key: string]: Array<string> }
+
+const makePipelineActionsUpdateInput = (actionsOrders: ActionsOrders) => [
+  {
+    disconnect: [{ where: {} }],
+    connect: keys(actionsOrders).map((id) => ({
+      where: { node: { id } },
+      edge: { orders: actionsOrders[id] },
+    })),
+  },
+]
+
+const makePipelineActionsCreateInput = (actionsOrders: ActionsOrders) => ({
+  connect: keys(actionsOrders).map((id) => ({
+    where: { node: { id } },
+    edge: { orders: actionsOrders[id] },
+  })),
+})
+
+const groupActionsOrders = (actionsIds: Array<string>) =>
+  actionsIds.reduce(
+    (all, current, index) => ({
+      ...all,
+      [current]: [String(index)].concat(all[current] || []),
+    }),
+    {} as ActionsOrders,
+  )
 
 export const makeStoreCreateInput = (
   input: ICreateStoreDTO,
@@ -52,44 +81,50 @@ export const makeStoreUpdateInput = (
   }
 }
 
-export const makeCreateUpdateInput = (action: ICreateActionDTO) => ({
-  id: v4(),
-  name: action.name,
-  runOnInit: action.runOnInit,
-  type: action.type,
-  store: { connect: { where: { node: { id: action.storeId } } } },
+export const makeActionCreateInput = (
+  action: ICreateActionDTO,
+): ICreateActionInput => {
+  const actionsOrders = groupActionsOrders(action.actionsIds || [])
 
-  code: action.type === IActionKind.CustomAction ? action.code : undefined,
+  return {
+    id: v4(),
+    name: action.name,
+    runOnInit: action.runOnInit,
+    type: action.type,
+    store: { connect: { where: { node: { id: action.storeId } } } },
 
-  config:
-    action.type === IActionKind.ResourceAction
-      ? { create: { node: { data: JSON.stringify(action.config || {}) } } }
-      : undefined,
+    code: action.type === IActionKind.CustomAction ? action.code : undefined,
 
-  resource:
-    action.type === IActionKind.ResourceAction
-      ? { connect: { where: { node: { id: action.resourceId } } } }
-      : undefined,
+    config:
+      action.type === IActionKind.ResourceAction
+        ? { create: { node: { data: JSON.stringify(action.config || {}) } } }
+        : undefined,
 
-  errorAction:
-    action.type === IActionKind.ResourceAction && action.errorActionId
-      ? { connect: { where: { node: { id: action.errorActionId } } } }
-      : undefined,
+    resource:
+      action.type === IActionKind.ResourceAction
+        ? { connect: { where: { node: { id: action.resourceId } } } }
+        : undefined,
 
-  successAction:
-    action.type === IActionKind.ResourceAction && action.successActionId
-      ? { connect: { where: { node: { id: action.successActionId } } } }
-      : undefined,
+    errorAction:
+      action.type === IActionKind.ResourceAction && action.errorActionId
+        ? { connect: { where: { node: { id: action.errorActionId } } } }
+        : undefined,
 
-  actions:
-    action.type === IActionKind.PipelineAction && action.actionsIds
-      ? {
-          connect: action.actionsIds?.map((id) => ({
-            where: { node: { id } },
-          })),
-        }
-      : undefined,
-})
+    successAction:
+      action.type === IActionKind.ResourceAction && action.successActionId
+        ? { connect: { where: { node: { id: action.successActionId } } } }
+        : undefined,
+
+    actions:
+      action.type === IActionKind.PipelineAction
+        ? {
+            CustomAction: makePipelineActionsCreateInput(actionsOrders),
+            PipelineAction: makePipelineActionsCreateInput(actionsOrders),
+            ResourceAction: makePipelineActionsCreateInput(actionsOrders),
+          }
+        : undefined,
+  }
+}
 
 export const makeActionUpdateInput = (
   action: IAnyAction,
@@ -98,22 +133,7 @@ export const makeActionUpdateInput = (
   where: IAnyActionWhere
   update: IUpdateActionInput
 } => {
-  const previousIds =
-    action.type === IActionKind.PipelineAction
-      ? action.actions?.map((a) => a.id)
-      : []
-
-  const newIds = input.actionsIds || []
-  const removedId = difference(previousIds, newIds)
-  const addedId = difference(newIds, previousIds)
-
-  const connect = addedId.length
-    ? [{ where: { node: { id_IN: addedId } } }]
-    : undefined
-
-  const disconnect = removedId.length
-    ? [{ where: { node: { id_IN: removedId } } }]
-    : undefined
+  const actionsOrders = groupActionsOrders(input.actionsIds || [])
 
   return {
     where: { id: action.id },
@@ -140,10 +160,13 @@ export const makeActionUpdateInput = (
           : undefined,
 
       actions:
-        input.type === IActionKind.PipelineAction
-          ? [{ disconnect, connect }]
+        action.type === IActionKind.PipelineAction
+          ? {
+              CustomAction: makePipelineActionsUpdateInput(actionsOrders),
+              PipelineAction: makePipelineActionsUpdateInput(actionsOrders),
+              ResourceAction: makePipelineActionsUpdateInput(actionsOrders),
+            }
           : undefined,
-
       code: input.type === IActionKind.CustomAction ? input.code : undefined,
     },
   }

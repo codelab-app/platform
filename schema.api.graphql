@@ -452,32 +452,36 @@ type ActionTypesConnection {
 }
 
 interface ActionsPipeLine {
-  order: Int
+  orders: [String!]
 }
 
 input ActionsPipeLineCreateInput {
-  order: Int
+  orders: [String!]
 }
 
 input ActionsPipeLineSort {
-  order: SortDirection
+  orders: SortDirection
 }
 
 input ActionsPipeLineUpdateInput {
-  order: Int
+  orders: [String!]
 }
 
 input ActionsPipeLineWhere {
   AND: [ActionsPipeLineWhere!]
   OR: [ActionsPipeLineWhere!]
-  order: Int
-  order_GT: Int
-  order_GTE: Int
-  order_IN: [Int]
-  order_LT: Int
-  order_LTE: Int
-  order_NOT: Int
-  order_NOT_IN: [Int]
+  orders: [String!]
+  orders_INCLUDES: String
+  orders_NOT: [String!]
+  orders_NOT_INCLUDES: String
+}
+
+union AnyAction = CustomAction | PipelineAction | ResourceAction
+
+input AnyActionWhere {
+  CustomAction: CustomActionWhere
+  PipelineAction: PipelineActionWhere
+  ResourceAction: ResourceActionWhere
 }
 
 type App implements WithOwner {
@@ -3340,6 +3344,14 @@ input CustomActionConnectOrCreateInput {
   store: ActionBaseStoreConnectOrCreateFieldInput
 }
 
+input CustomActionConnectOrCreateWhere {
+  node: CustomActionUniqueWhere!
+}
+
+input CustomActionConnectWhere {
+  node: CustomActionWhere!
+}
+
 input CustomActionCreateInput {
   code: String!
   id: ID!
@@ -3360,6 +3372,13 @@ input CustomActionDisconnectInput {
 type CustomActionEdge {
   cursor: String!
   node: CustomAction!
+}
+
+input CustomActionOnCreateInput {
+  code: String!
+  id: ID!
+  name: String!
+  runOnInit: Boolean! = false
 }
 
 input CustomActionOptions {
@@ -3432,6 +3451,11 @@ type CustomActionStoreStoreAggregationSelection {
 type CustomActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+}
+
+input CustomActionUniqueWhere {
+  id: ID
+  name: String
 }
 
 input CustomActionUpdateInput {
@@ -8886,9 +8910,9 @@ type PipelineAction implements ActionBase {
   """
   actions(
     directed: Boolean = true
-    options: ActionBaseOptions
-    where: ActionBaseWhere
-  ): [ActionBase!]!
+    options: QueryOptions
+    where: AnyActionWhere
+  ): [AnyAction!]!
   actionsConnection(
     after: String
     directed: Boolean = true
@@ -8918,10 +8942,16 @@ type PipelineAction implements ActionBase {
   type: ActionKind!
 }
 
-input PipelineActionActionsConnectFieldInput {
-  connect: ActionBaseConnectInput
-  edge: ActionsPipeLineCreateInput
-  where: ActionBaseConnectWhere
+input PipelineActionActionsConnectInput {
+  CustomAction: [PipelineActionActionsCustomActionConnectFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionConnectFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionConnectFieldInput!]
+}
+
+input PipelineActionActionsConnectOrCreateInput {
+  CustomAction: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
 }
 
 type PipelineActionActionsConnection {
@@ -8932,56 +8962,231 @@ type PipelineActionActionsConnection {
 
 input PipelineActionActionsConnectionSort {
   edge: ActionsPipeLineSort
-  node: ActionBaseSort
 }
 
 input PipelineActionActionsConnectionWhere {
-  AND: [PipelineActionActionsConnectionWhere!]
-  OR: [PipelineActionActionsConnectionWhere!]
-  edge: ActionsPipeLineWhere
-  edge_NOT: ActionsPipeLineWhere
-  node: ActionBaseWhere
-  node_NOT: ActionBaseWhere
+  CustomAction: PipelineActionActionsCustomActionConnectionWhere
+  PipelineAction: PipelineActionActionsPipelineActionConnectionWhere
+  ResourceAction: PipelineActionActionsResourceActionConnectionWhere
 }
 
 input PipelineActionActionsCreateFieldInput {
-  edge: ActionsPipeLineCreateInput!
-  node: ActionBaseCreateInput!
+  CustomAction: [PipelineActionActionsCustomActionCreateFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionCreateFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionCreateFieldInput!]
 }
 
-input PipelineActionActionsDeleteFieldInput {
-  delete: ActionBaseDeleteInput
-  where: PipelineActionActionsConnectionWhere
+input PipelineActionActionsCreateInput {
+  CustomAction: PipelineActionActionsCustomActionFieldInput
+  PipelineAction: PipelineActionActionsPipelineActionFieldInput
+  ResourceAction: PipelineActionActionsResourceActionFieldInput
 }
 
-input PipelineActionActionsDisconnectFieldInput {
-  disconnect: ActionBaseDisconnectInput
-  where: PipelineActionActionsConnectionWhere
+input PipelineActionActionsCustomActionConnectFieldInput {
+  connect: [CustomActionConnectInput!]
+  edge: ActionsPipeLineCreateInput
+  where: CustomActionConnectWhere
 }
 
-input PipelineActionActionsFieldInput {
-  connect: [PipelineActionActionsConnectFieldInput!]
-  create: [PipelineActionActionsCreateFieldInput!]
+input PipelineActionActionsCustomActionConnectOrCreateFieldInput {
+  onCreate: PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate!
+  where: CustomActionConnectOrCreateWhere!
+}
+
+input PipelineActionActionsCustomActionConnectOrCreateFieldInputOnCreate {
+  edge: ActionsPipeLineCreateInput
+  node: CustomActionOnCreateInput!
+}
+
+input PipelineActionActionsCustomActionConnectionWhere {
+  AND: [PipelineActionActionsCustomActionConnectionWhere!]
+  OR: [PipelineActionActionsCustomActionConnectionWhere!]
+  edge: ActionsPipeLineWhere
+  edge_NOT: ActionsPipeLineWhere
+  node: CustomActionWhere
+  node_NOT: CustomActionWhere
+}
+
+input PipelineActionActionsCustomActionCreateFieldInput {
+  edge: ActionsPipeLineCreateInput
+  node: CustomActionCreateInput!
+}
+
+input PipelineActionActionsCustomActionDeleteFieldInput {
+  delete: CustomActionDeleteInput
+  where: PipelineActionActionsCustomActionConnectionWhere
+}
+
+input PipelineActionActionsCustomActionDisconnectFieldInput {
+  disconnect: CustomActionDisconnectInput
+  where: PipelineActionActionsCustomActionConnectionWhere
+}
+
+input PipelineActionActionsCustomActionFieldInput {
+  connect: [PipelineActionActionsCustomActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsCustomActionCreateFieldInput!]
+}
+
+input PipelineActionActionsCustomActionUpdateConnectionInput {
+  edge: ActionsPipeLineUpdateInput
+  node: CustomActionUpdateInput
+}
+
+input PipelineActionActionsCustomActionUpdateFieldInput {
+  connect: [PipelineActionActionsCustomActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsCustomActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsCustomActionCreateFieldInput!]
+  delete: [PipelineActionActionsCustomActionDeleteFieldInput!]
+  disconnect: [PipelineActionActionsCustomActionDisconnectFieldInput!]
+  update: PipelineActionActionsCustomActionUpdateConnectionInput
+  where: PipelineActionActionsCustomActionConnectionWhere
+}
+
+input PipelineActionActionsDeleteInput {
+  CustomAction: [PipelineActionActionsCustomActionDeleteFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionDeleteFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionDeleteFieldInput!]
+}
+
+input PipelineActionActionsDisconnectInput {
+  CustomAction: [PipelineActionActionsCustomActionDisconnectFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionDisconnectFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionDisconnectFieldInput!]
+}
+
+input PipelineActionActionsPipelineActionConnectFieldInput {
+  connect: [PipelineActionConnectInput!]
+  edge: ActionsPipeLineCreateInput
+  where: PipelineActionConnectWhere
+}
+
+input PipelineActionActionsPipelineActionConnectOrCreateFieldInput {
+  onCreate: PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate!
+  where: PipelineActionConnectOrCreateWhere!
+}
+
+input PipelineActionActionsPipelineActionConnectOrCreateFieldInputOnCreate {
+  edge: ActionsPipeLineCreateInput
+  node: PipelineActionOnCreateInput!
+}
+
+input PipelineActionActionsPipelineActionConnectionWhere {
+  AND: [PipelineActionActionsPipelineActionConnectionWhere!]
+  OR: [PipelineActionActionsPipelineActionConnectionWhere!]
+  edge: ActionsPipeLineWhere
+  edge_NOT: ActionsPipeLineWhere
+  node: PipelineActionWhere
+  node_NOT: PipelineActionWhere
+}
+
+input PipelineActionActionsPipelineActionCreateFieldInput {
+  edge: ActionsPipeLineCreateInput
+  node: PipelineActionCreateInput!
+}
+
+input PipelineActionActionsPipelineActionDeleteFieldInput {
+  delete: PipelineActionDeleteInput
+  where: PipelineActionActionsPipelineActionConnectionWhere
+}
+
+input PipelineActionActionsPipelineActionDisconnectFieldInput {
+  disconnect: PipelineActionDisconnectInput
+  where: PipelineActionActionsPipelineActionConnectionWhere
+}
+
+input PipelineActionActionsPipelineActionFieldInput {
+  connect: [PipelineActionActionsPipelineActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsPipelineActionCreateFieldInput!]
+}
+
+input PipelineActionActionsPipelineActionUpdateConnectionInput {
+  edge: ActionsPipeLineUpdateInput
+  node: PipelineActionUpdateInput
+}
+
+input PipelineActionActionsPipelineActionUpdateFieldInput {
+  connect: [PipelineActionActionsPipelineActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsPipelineActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsPipelineActionCreateFieldInput!]
+  delete: [PipelineActionActionsPipelineActionDeleteFieldInput!]
+  disconnect: [PipelineActionActionsPipelineActionDisconnectFieldInput!]
+  update: PipelineActionActionsPipelineActionUpdateConnectionInput
+  where: PipelineActionActionsPipelineActionConnectionWhere
 }
 
 type PipelineActionActionsRelationship implements ActionsPipeLine {
   cursor: String!
-  node: ActionBase!
-  order: Int
+  node: AnyAction!
+  orders: [String!]
 }
 
-input PipelineActionActionsUpdateConnectionInput {
+input PipelineActionActionsResourceActionConnectFieldInput {
+  connect: [ResourceActionConnectInput!]
+  edge: ActionsPipeLineCreateInput
+  where: ResourceActionConnectWhere
+}
+
+input PipelineActionActionsResourceActionConnectOrCreateFieldInput {
+  onCreate: PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate!
+  where: ResourceActionConnectOrCreateWhere!
+}
+
+input PipelineActionActionsResourceActionConnectOrCreateFieldInputOnCreate {
+  edge: ActionsPipeLineCreateInput
+  node: ResourceActionOnCreateInput!
+}
+
+input PipelineActionActionsResourceActionConnectionWhere {
+  AND: [PipelineActionActionsResourceActionConnectionWhere!]
+  OR: [PipelineActionActionsResourceActionConnectionWhere!]
+  edge: ActionsPipeLineWhere
+  edge_NOT: ActionsPipeLineWhere
+  node: ResourceActionWhere
+  node_NOT: ResourceActionWhere
+}
+
+input PipelineActionActionsResourceActionCreateFieldInput {
+  edge: ActionsPipeLineCreateInput
+  node: ResourceActionCreateInput!
+}
+
+input PipelineActionActionsResourceActionDeleteFieldInput {
+  delete: ResourceActionDeleteInput
+  where: PipelineActionActionsResourceActionConnectionWhere
+}
+
+input PipelineActionActionsResourceActionDisconnectFieldInput {
+  disconnect: ResourceActionDisconnectInput
+  where: PipelineActionActionsResourceActionConnectionWhere
+}
+
+input PipelineActionActionsResourceActionFieldInput {
+  connect: [PipelineActionActionsResourceActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsResourceActionCreateFieldInput!]
+}
+
+input PipelineActionActionsResourceActionUpdateConnectionInput {
   edge: ActionsPipeLineUpdateInput
-  node: ActionBaseUpdateInput
+  node: ResourceActionUpdateInput
 }
 
-input PipelineActionActionsUpdateFieldInput {
-  connect: [PipelineActionActionsConnectFieldInput!]
-  create: [PipelineActionActionsCreateFieldInput!]
-  delete: [PipelineActionActionsDeleteFieldInput!]
-  disconnect: [PipelineActionActionsDisconnectFieldInput!]
-  update: PipelineActionActionsUpdateConnectionInput
-  where: PipelineActionActionsConnectionWhere
+input PipelineActionActionsResourceActionUpdateFieldInput {
+  connect: [PipelineActionActionsResourceActionConnectFieldInput!]
+  connectOrCreate: [PipelineActionActionsResourceActionConnectOrCreateFieldInput!]
+  create: [PipelineActionActionsResourceActionCreateFieldInput!]
+  delete: [PipelineActionActionsResourceActionDeleteFieldInput!]
+  disconnect: [PipelineActionActionsResourceActionDisconnectFieldInput!]
+  update: PipelineActionActionsResourceActionUpdateConnectionInput
+  where: PipelineActionActionsResourceActionConnectionWhere
+}
+
+input PipelineActionActionsUpdateInput {
+  CustomAction: [PipelineActionActionsCustomActionUpdateFieldInput!]
+  PipelineAction: [PipelineActionActionsPipelineActionUpdateFieldInput!]
+  ResourceAction: [PipelineActionActionsResourceActionUpdateFieldInput!]
 }
 
 type PipelineActionAggregateSelection {
@@ -8991,16 +9196,25 @@ type PipelineActionAggregateSelection {
 }
 
 input PipelineActionConnectInput {
-  actions: [PipelineActionActionsConnectFieldInput!]
+  actions: PipelineActionActionsConnectInput
   store: ActionBaseStoreConnectFieldInput
 }
 
 input PipelineActionConnectOrCreateInput {
+  actions: PipelineActionActionsConnectOrCreateInput
   store: ActionBaseStoreConnectOrCreateFieldInput
 }
 
+input PipelineActionConnectOrCreateWhere {
+  node: PipelineActionUniqueWhere!
+}
+
+input PipelineActionConnectWhere {
+  node: PipelineActionWhere!
+}
+
 input PipelineActionCreateInput {
-  actions: PipelineActionActionsFieldInput
+  actions: PipelineActionActionsCreateInput
   id: ID!
   name: String!
   runOnInit: Boolean! = false
@@ -9009,18 +9223,24 @@ input PipelineActionCreateInput {
 }
 
 input PipelineActionDeleteInput {
-  actions: [PipelineActionActionsDeleteFieldInput!]
+  actions: PipelineActionActionsDeleteInput
   store: ActionBaseStoreDeleteFieldInput
 }
 
 input PipelineActionDisconnectInput {
-  actions: [PipelineActionActionsDisconnectFieldInput!]
+  actions: PipelineActionActionsDisconnectInput
   store: ActionBaseStoreDisconnectFieldInput
 }
 
 type PipelineActionEdge {
   cursor: String!
   node: PipelineAction!
+}
+
+input PipelineActionOnCreateInput {
+  id: ID!
+  name: String!
+  runOnInit: Boolean! = false
 }
 
 input PipelineActionOptions {
@@ -9034,7 +9254,7 @@ input PipelineActionOptions {
 }
 
 input PipelineActionRelationInput {
-  actions: [PipelineActionActionsCreateFieldInput!]
+  actions: PipelineActionActionsCreateFieldInput
   store: ActionBaseStoreCreateFieldInput
 }
 
@@ -9095,8 +9315,13 @@ type PipelineActionStoreStoreNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+input PipelineActionUniqueWhere {
+  id: ID
+  name: String
+}
+
 input PipelineActionUpdateInput {
-  actions: [PipelineActionActionsUpdateFieldInput!]
+  actions: PipelineActionActionsUpdateInput
   id: ID
   name: String
   runOnInit: Boolean
@@ -10378,6 +10603,11 @@ type Query {
   ): UsersConnection!
 }
 
+input QueryOptions {
+  limit: Int
+  offset: Int
+}
+
 """
 Allows picking a Component from the list of components.
 It is passed to the rendered element as a React node: `ReactNode`
@@ -11073,6 +11303,14 @@ input ResourceActionConnectOrCreateInput {
   store: ActionBaseStoreConnectOrCreateFieldInput
 }
 
+input ResourceActionConnectOrCreateWhere {
+  node: ResourceActionUniqueWhere!
+}
+
+input ResourceActionConnectWhere {
+  node: ResourceActionWhere!
+}
+
 input ResourceActionCreateInput {
   config: ResourceActionConfigFieldInput
   errorAction: ResourceActionErrorActionFieldInput
@@ -11163,6 +11401,12 @@ input ResourceActionErrorActionUpdateFieldInput {
   disconnect: ResourceActionErrorActionDisconnectFieldInput
   update: ResourceActionErrorActionUpdateConnectionInput
   where: ResourceActionErrorActionConnectionWhere
+}
+
+input ResourceActionOnCreateInput {
+  id: ID!
+  name: String!
+  runOnInit: Boolean! = false
 }
 
 input ResourceActionOptions {
@@ -11424,6 +11668,11 @@ input ResourceActionSuccessActionUpdateFieldInput {
   disconnect: ResourceActionSuccessActionDisconnectFieldInput
   update: ResourceActionSuccessActionUpdateConnectionInput
   where: ResourceActionSuccessActionConnectionWhere
+}
+
+input ResourceActionUniqueWhere {
+  id: ID
+  name: String
 }
 
 input ResourceActionUpdateInput {

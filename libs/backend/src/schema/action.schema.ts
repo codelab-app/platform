@@ -61,8 +61,11 @@ export const actionSchema = gql`
   }
 
   interface ActionsPipeLine @relationshipProperties {
-    order: Int
+    # use array because the same action could repeat
+    # use String instead of Int due to : https://github.com/neo4j/graphql/issues/167
+    orders: [String!]
   }
+  union AnyAction = PipelineAction | ResourceAction | CustomAction
 
   type PipelineAction implements ActionBase {
     id: ID!
@@ -74,7 +77,7 @@ export const actionSchema = gql`
     """
     List of actions to run in order
     """
-    actions: [ActionBase!]!
+    actions: [AnyAction!]!
       @relationship(
         type: "ACTION_PIPELINE"
         properties: "ActionsPipeLine"
