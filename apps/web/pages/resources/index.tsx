@@ -1,18 +1,10 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  CreateResourceButton,
-  CreateResourceModal,
-  DeleteResourcesModal,
-  GetResourcesTable,
-  UpdateResourceModal,
-} from '@codelab/frontend/modules/resource'
+import { ExplorerPaneResource } from '@codelab/frontend/modules/resource'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   appMenuItem,
-  ContentSection,
   resourceMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
@@ -20,73 +12,33 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { PageHeader } from 'antd'
-import { GetServerSidePropsContext } from 'next'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
-const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
-  const store = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.tagService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
-
-  return (
-    <>
-      <Head>
-        <title>Resources | Codelab</title>
-      </Head>
-
-      <CreateResourceModal
-        resourceService={store.resourceService}
-        userService={store.userService}
-      />
-      <UpdateResourceModal resourceService={store.resourceService} />
-      <DeleteResourcesModal resourceService={store.resourceService} />
-      <ContentSection>
-        <GetResourcesTable resourceService={store.resourceService} />
-      </ContentSection>
-    </>
-  )
-}
-
-const Header = () => {
-  const store = useStore()
-
-  const pageHeaderButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`} key="create">
-      <CreateResourceButton
-        key="create"
-        resourceService={store.resourceService}
-      />
-    </div>,
-  ]
-
-  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Resource" />
-}
+const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => (
+  <>
+    <Head>
+      <title>Resources | Codelab</title>
+    </Head>
+  </>
+)
 
 export default ResourcesPage
 
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }: GetServerSidePropsContext) => {
-    // const store = initializeStore({ user })
+export const getServerSideProps = withPageAuthRequired()
 
-    return {
-      // props: { snapshot: getSnapshot(store) },
-      props: {},
-    }
-  },
-})
+ResourcesPage.Layout = observer((resource) => {
+  const store = useStore()
 
-ResourcesPage.Layout = (page) => {
   return (
     <DashboardTemplate
-      Header={Header}
+      ExplorerPane={() => (
+        <ExplorerPaneResource
+          resourceService={store.resourceService}
+          userService={store.userService}
+        />
+      )}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[appMenuItem, resourceMenuItem]}
@@ -94,7 +46,7 @@ ResourcesPage.Layout = (page) => {
         />
       )}
     >
-      {page.children}
+      {resource.children}
     </DashboardTemplate>
   )
-}
+})
