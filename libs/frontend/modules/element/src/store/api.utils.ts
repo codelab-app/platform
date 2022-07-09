@@ -77,18 +77,6 @@ export const makeDuplicateInput = (
     ? { create: { node: { data: element.props.jsonString } } }
     : undefined
 
-  const component: ElementCreateInput['component'] = element.component
-    ? {
-        create: {
-          node: {
-            id: v4(),
-            name: element.component.current.name,
-            owner: { connect: { where: { node: { auth0Id: userId } } } },
-          },
-        },
-      }
-    : undefined
-
   const parentElement: ElementCreateInput['parentElement'] = {
     connect: {
       where: {
@@ -109,7 +97,6 @@ export const makeDuplicateInput = (
     renderForEachPropKey: element.renderForEachPropKey,
     name: element.name,
     css: element.css,
-    component,
   }
 }
 

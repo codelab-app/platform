@@ -64,7 +64,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      return duplicateElement(element, user.sub)
+      return duplicateElement(element, user.sub, elementTree)
     }
 
     const onConvert = () => {

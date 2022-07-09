@@ -4,6 +4,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
+import { IElementTree } from '../..'
 import {
   ICRUDModalService,
   ICRUDService,
@@ -75,12 +76,12 @@ export interface IElementService
     newParentId: string,
     newOrder?: number,
   ): Promise<IElement>
-  duplicateElement(target: IElement, auth0Id: IAuth0Id): Promise<void>
-  convertElementToComponent(
-    element: IElement,
+  duplicateElement(
+    target: IElement,
     auth0Id: IAuth0Id,
     elementTree: IElementTree | null,
   ): Promise<void>
+  convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
   element(id: string): Maybe<IElement>
 
   updateElementsPropTransformationJs(
