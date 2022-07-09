@@ -2,7 +2,11 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
-import { IElement, IElementService } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -16,6 +20,7 @@ export type ContextMenuProps = {
 
 export type ElementContextMenuProps = {
   element: IElement
+  elementTree: IElementTree | null
 } & ContextMenuProps &
   Pick<
     IElementService,
@@ -37,6 +42,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     deleteModal,
     duplicateElement,
     convertElementToComponent,
+    elementTree,
   }) => {
     const { push } = useRouter()
     const { user } = useUser()
@@ -66,7 +72,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      return convertElementToComponent(element, user.sub)
+      return convertElementToComponent(element, user.sub, elementTree)
     }
 
     const onEditComponent = () => {

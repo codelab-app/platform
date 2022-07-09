@@ -141,6 +141,7 @@ export class ComponentService
         } else {
           const componentModel = Component.hydrate(component)
           this.components.set(component.id, componentModel)
+          componentModel.initTree(component.rootElement.id)
 
           return componentModel
         }
