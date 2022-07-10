@@ -10,6 +10,7 @@ export type ExplorerPaneProps = {
   headerHeight: number
   hasSidebarNavigation: boolean
   resizable: UseResizable
+  paddingBottom: number
   ExplorerPane: ComponentType
 }
 
@@ -19,6 +20,7 @@ export const DashboardTemplateExplorerPane = ({
   resizable,
   headerHeight,
   ExplorerPane,
+  paddingBottom,
 }: ExplorerPaneProps) => {
   return (
     <motion.div
@@ -29,6 +31,7 @@ export const DashboardTemplateExplorerPane = ({
         ...resizable.containerProps.style,
         marginTop: hasHeader ? headerHeight : 0,
         marginLeft: hasSidebarNavigation ? sidebarWidth : 0,
+        paddingBottom: paddingBottom,
         // zIndex: 60,
       }}
     >

@@ -53,7 +53,7 @@ export const DashboardTemplate = observer(
       }
 
       return result
-    }, [sideNavigationContainerWidth, ExplorerPane])
+    }, [sideNavigationContainerWidth, ExplorerPane, mainPaneResizable])
 
     // console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
 
@@ -64,6 +64,17 @@ export const DashboardTemplate = observer(
         min: editorPaneHeight.collapsed,
       },
     })
+
+    const explorerPanePaddingBottom = useMemo(() => {
+      let result = 40
+
+      if (EditorPane) {
+        const w = editorPaneResizable.height.get()
+        result += w
+      }
+
+      return result
+    }, [EditorPane, editorPaneResizable])
 
     return (
       <Layout
@@ -121,6 +132,7 @@ export const DashboardTemplate = observer(
                 hasHeader={!!Header}
                 hasSidebarNavigation={!!SidebarNavigation}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
+                paddingBottom={explorerPanePaddingBottom}
                 resizable={mainPaneResizable}
               />
             )}
