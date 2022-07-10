@@ -6,6 +6,44 @@ export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedNode'> & {
   elementTree: Nullable<IElementTree>
 }
 
+const memoryState: {
+  [key: string]: any
+} = {}
+
+type OnChangeParams<T> = T | ((prevState: T) => T)
+type OnChangeType<T> = (nextState: OnChangeParams<T>) => void
+type useMemoryStateType = <T>(
+  key: string,
+  initialState: T,
+) => [T, OnChangeType<T>]
+
+const useMemoryState: useMemoryStateType = <T,>(
+  key: string,
+  initialState: T,
+) => {
+  const [state, setState] = useState(() => {
+    const memValue = memoryState[key]
+
+    return memValue
+      ? memValue
+      : typeof initialState === 'function'
+      ? initialState()
+      : initialState
+  })
+
+  const onChange: OnChangeType<T> = (nextState) => {
+    const nextStateVal =
+      typeof nextState === 'function'
+        ? (nextState as (prevState: T) => T)(state)
+        : nextState
+
+    memoryState[key] = nextStateVal
+    setState(nextStateVal)
+  }
+
+  return [state, onChange]
+}
+
 /**
  * Destructured mobx classes don't work for hooks, I think it's because autorun works on objects only
  */
@@ -13,7 +51,10 @@ export const useExpandedNodes = ({
   selectedNode,
   elementTree,
 }: UseExpandedNodesProps) => {
-  const [expandedNodeIds, setExpandedNodeIds] = useState<Array<Key>>([])
+  const [expandedNodeIds, setExpandedNodeIds] = useMemoryState<Array<Key>>(
+    'expanded-node-ids',
+    [],
+  )
 
   // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
