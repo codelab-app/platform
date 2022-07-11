@@ -1,59 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
-import Icon, {
-  CustomIconComponentProps,
-} from '@ant-design/icons/lib/components/Icon'
 import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu } from 'antd'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { ReactComponent as GraphQlSvg } from '../../icons/graphql.svg'
-import { ReactComponent as MongoDBSvg } from '../../icons/mongodb.svg'
-import { ReactComponent as MySqlSvg } from '../../icons/mysql.svg'
-import { ReactComponent as OracleSvg } from '../../icons/oracle.svg'
-import { ReactComponent as PostgreSqlSvg } from '../../icons/postgresql.svg'
-import { ReactComponent as RestSvg } from '../../icons/rest.svg'
-import { ReactComponent as SqlServerSvg } from '../../icons/sql-server.svg'
-
-const RestIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={RestSvg} {...props} />
-)
-
-const GraphQlIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon
-    component={GraphQlSvg}
-    style={{ color: 'rgb(225, 0, 152)' }}
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-  />
-)
-
-const SqlServerIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={SqlServerSvg} {...props} />
-)
-
-const PostgreSqlIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={PostgreSqlSvg} {...props} />
-)
-
-const OracleIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={OracleSvg} {...props} />
-)
-
-const MySqlIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={MySqlSvg} {...props} />
-)
-
-const MongoDBIcon = (props: Partial<CustomIconComponentProps>) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={MongoDBSvg} {...props} />
-)
+import { ResourceIcon } from '../../view'
 
 export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
@@ -63,11 +16,45 @@ export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
         type: 'group',
         label: 'Databases',
         children: [
-          { key: 'mysql', label: 'MySQL', icon: <MySqlIcon /> },
-          { key: 'postgresql', label: 'PostgreSQL', icon: <PostgreSqlIcon /> },
-          { key: 'sql-server', label: 'SQL Server', icon: <SqlServerIcon /> },
-          { key: 'mongodb', label: 'MongoDB', icon: <MongoDBIcon /> },
-          { key: 'oracle', label: 'Oracle', icon: <OracleIcon /> },
+          {
+            key: 'mysql',
+            label: 'MySQL',
+            onClick: () =>
+              resourceService.createModal.open({ type: IResourceType.MySql }),
+            icon: <ResourceIcon type={IResourceType.MySql} />,
+          },
+          {
+            key: 'postgresql',
+            label: 'PostgreSQL',
+            onClick: () =>
+              resourceService.createModal.open({
+                type: IResourceType.PostgreSql,
+              }),
+            icon: <ResourceIcon type={IResourceType.PostgreSql} />,
+          },
+          {
+            key: 'sql-server',
+            label: 'SQL Server',
+            onClick: () =>
+              resourceService.createModal.open({
+                type: IResourceType.SqlServer,
+              }),
+            icon: <ResourceIcon type={IResourceType.SqlServer} />,
+          },
+          {
+            key: 'mongodb',
+            label: 'MongoDB',
+            onClick: () =>
+              resourceService.createModal.open({ type: IResourceType.MongoDB }),
+            icon: <ResourceIcon type={IResourceType.MongoDB} />,
+          },
+          {
+            key: 'oracle',
+            label: 'Oracle',
+            onClick: () =>
+              resourceService.createModal.open({ type: IResourceType.Oracle }),
+            icon: <ResourceIcon type={IResourceType.Oracle} />,
+          },
         ],
       },
       {
@@ -78,14 +65,16 @@ export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
           {
             label: 'GraphQL API',
             key: 'graphql',
-            onClick: () => undefined,
-            icon: <GraphQlIcon />,
+            onClick: () =>
+              resourceService.createModal.open({ type: IResourceType.GraphQL }),
+            icon: <ResourceIcon type={IResourceType.GraphQL} />,
           },
           {
             label: 'Rest API',
-            icon: <RestIcon />,
+            icon: <ResourceIcon type={IResourceType.Rest} />,
             key: 'rest',
-            onClick: () => undefined,
+            onClick: () =>
+              resourceService.createModal.open({ type: IResourceType.Rest }),
           },
         ],
       },
@@ -93,12 +82,9 @@ export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
 
     return (
       <Dropdown overlay={<Menu items={menuItems} />}>
-        <Button
-          css={tw`flex justify-center items-center`}
-          icon={<PlusOutlined />}
-          size="small"
-          type="primary"
-        />
+        <Button css={tw`h-full w-full`} icon={<PlusOutlined />} type="primary">
+          Connect
+        </Button>
       </Dropdown>
     )
   },

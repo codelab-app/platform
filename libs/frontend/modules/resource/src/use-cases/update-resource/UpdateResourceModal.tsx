@@ -1,7 +1,10 @@
 import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
+import {
+  IResourceType,
+  IUpdateResourceDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -53,7 +56,7 @@ export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
            *
            */}
           <DisplayIfField<IUpdateResourceDTO>
-            condition={(c) => c.model.type === ResourceType.GraphQL}
+            condition={(c) => c.model.type === IResourceType.GraphQL}
           >
             <AutoField name="config.url" />
             <AutoField name="config.headers" />
@@ -66,7 +69,7 @@ export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
            *
            */}
           <DisplayIfField<IUpdateResourceDTO>
-            condition={(c) => c.model.type === ResourceType.Rest}
+            condition={(c) => c.model.type === IResourceType.Rest}
           >
             <AutoField name="config.url" />
             <AutoField name="config.headers" />

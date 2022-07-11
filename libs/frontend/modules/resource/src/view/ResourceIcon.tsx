@@ -1,0 +1,13 @@
+import Icon from '@ant-design/icons'
+import { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon'
+import { IResourceType } from '@codelab/shared/abstract/core'
+import { icons } from '../icons'
+
+interface ResourceIconProps extends Partial<CustomIconComponentProps> {
+  type: IResourceType
+}
+
+export const ResourceIcon = ({ type, ...props }: ResourceIconProps) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <Icon component={icons[type]} {...props} />
+)
