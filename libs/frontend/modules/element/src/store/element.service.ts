@@ -14,6 +14,7 @@ import {
   IElementDTO,
   IElementRef,
   IElementService,
+  IElementTree,
   isAtomDTO,
   ITypeKind,
   IUpdateElementDTO,
@@ -428,6 +429,7 @@ export class ElementService
     this: ElementService,
     element: Element,
     auth0Id: IAuth0Id,
+    elementTree: IElementTree,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
@@ -479,7 +481,7 @@ export class ElementService
     yield* _await(getComponentService(this).getOne(element.component.id))
 
     // 3. Make an intermediate element with instance of the Component
-    yield* _await(
+    const [newElement] = yield* _await(
       this.create([
         {
           name: element.label,
@@ -489,6 +491,10 @@ export class ElementService
         },
       ]),
     )
+
+    if (elementTree) {
+      elementTree.buildTree([newElement])
+    }
   })
 
   @modelFlow

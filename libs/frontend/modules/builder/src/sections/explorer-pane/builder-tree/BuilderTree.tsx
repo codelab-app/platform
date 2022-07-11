@@ -125,6 +125,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
                   elementService.duplicateElement.bind(elementService),
                 convertElementToComponent:
                   elementService.convertElementToComponent.bind(elementService),
+                elementTree: elementTree,
               }}
               node={node}
             />

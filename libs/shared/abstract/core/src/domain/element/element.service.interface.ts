@@ -22,6 +22,7 @@ import {
   IUpdateElementDTO,
 } from './element.dto.interface'
 import { IElement, IElementRef } from './element.model.interface'
+import { IElementTree } from './element-tree.interface.model'
 
 /**
  * Used for modal input
@@ -75,7 +76,11 @@ export interface IElementService
     newOrder?: number,
   ): Promise<IElement>
   duplicateElement(target: IElement, auth0Id: IAuth0Id): Promise<void>
-  convertElementToComponent(element: IElement, auth0Id: IAuth0Id): Promise<void>
+  convertElementToComponent(
+    element: IElement,
+    auth0Id: IAuth0Id,
+    elementTree: IElementTree | null,
+  ): Promise<void>
   element(id: string): Maybe<IElement>
 
   updateElementsPropTransformationJs(
