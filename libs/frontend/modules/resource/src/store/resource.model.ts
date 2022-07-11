@@ -3,7 +3,7 @@ import {
   IResource,
   IResourceConfig,
   IResourceDTO,
-  ResourceType,
+  IResourceType,
 } from '@codelab/shared/abstract/core'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -16,7 +16,7 @@ export class Resource
     id: idProp,
     name: prop<string>(),
     config: prop<IResourceConfig>(),
-    type: prop<ResourceType>(),
+    type: prop<IResourceType>(),
   }))
   implements IResource
 {

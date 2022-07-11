@@ -3,13 +3,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import React, { useRouter } from 'next/router'
-import {
-  CreatePageButton,
-  CreatePageModal,
-  DeletePageModal,
-  GetPagesList,
-  UpdatePageModal,
-} from '../use-cases'
+import { CreatePageButton, GetPagesList } from '../use-cases'
 
 export const ExplorerPanePage = observer<WithServices<PAGE_SERVICE>>(
   ({ pageService }) => {
@@ -26,9 +20,6 @@ export const ExplorerPanePage = observer<WithServices<PAGE_SERVICE>>(
         title="Pages"
       >
         <GetPagesList pageService={pageService} />
-        <CreatePageModal pageService={pageService} />
-        <UpdatePageModal pageService={pageService} />
-        <DeletePageModal pageService={pageService} />
       </ExplorerPaneTemplate>
     )
   },

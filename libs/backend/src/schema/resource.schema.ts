@@ -1,8 +1,8 @@
-import { ResourceType } from '@codelab/shared/abstract/core'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { gql } from 'apollo-server-micro'
 import { values } from 'lodash'
 
-const resourceType = `enum ResourceType {${values(ResourceType).join('\n')}}`
+const resourceType = `enum ResourceType {${values(IResourceType).join('\n')}}`
 
 export const resourceSchema = gql`
   ${resourceType}

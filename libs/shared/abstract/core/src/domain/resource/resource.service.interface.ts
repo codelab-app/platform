@@ -5,6 +5,7 @@ import {
   CacheService,
   ICRUDModalService,
   ICRUDService,
+  IModalService,
   IQueryService,
 } from '../../service'
 import {
@@ -12,16 +13,31 @@ import {
   IResourceDTO,
   IUpdateResourceDTO,
 } from './resource.dto.interface'
-import { IResource, IResourceRef } from './resource.model.interface'
+import {
+  IResource,
+  IResourceRef,
+  IResourceType,
+} from './resource.model.interface'
 
+export interface CreateResourceData {
+  type?: IResourceType
+}
+
+export interface CreateResourceProperties {
+  type?: IResourceType
+}
 export interface IResourceService
   extends Pick<
       ICRUDService<IResource, ICreateResourceDTO, IUpdateResourceDTO>,
       'create' | 'update'
     >,
     IQueryService<IResource, ResourceWhere>,
-    ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
-    CacheService<IResource, IResourceDTO> {
+    CacheService<IResource, IResourceDTO>,
+    Omit<
+      ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
+      'createModal'
+    > {
+  createModal: IModalService<CreateResourceData, { type?: IResourceType }>
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
 }
