@@ -4,7 +4,6 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
-import { IElementTree } from '../..'
 import {
   ICRUDModalService,
   ICRUDService,
