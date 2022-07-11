@@ -481,7 +481,7 @@ export class ElementService
     yield* _await(getComponentService(this).getOne(element.component.id))
 
     // 3. Make an intermediate element with instance of the Component
-    const [new_element] = yield* _await(
+    const [newElement] = yield* _await(
       this.create([
         {
           name: element.label,
@@ -493,7 +493,7 @@ export class ElementService
     )
 
     if (elementTree) {
-      elementTree.buildTree([new_element])
+      elementTree.buildTree([newElement])
     }
   })
 
