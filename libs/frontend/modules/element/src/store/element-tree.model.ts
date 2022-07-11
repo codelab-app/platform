@@ -103,19 +103,6 @@ export class ElementTree
         if (!component) {
           throw new Error('Missing component')
         }
-
-        const componentRootElementId = component?.rootElementId
-
-        const componentRootElement = this.elementService.elements.get(
-          componentRootElementId,
-        )
-
-        if (componentRootElement) {
-          element.addChild(
-            componentRootElement.id,
-            elementRef(componentRootElement),
-          )
-        }
       }
 
       const parentId = element.parentElement?.id
