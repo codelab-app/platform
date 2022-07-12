@@ -15,6 +15,7 @@ import {
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
+  IElement,
   IElementTree,
   IRenderer,
 } from '@codelab/shared/abstract/core'
@@ -45,6 +46,7 @@ export const ConfigPane = observer<MetaPaneProps>(
     elementTree,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
+    const isRootElement = (element: IElement) => !element.parentElement
 
     return (
       <ConfigPaneTabContainer
@@ -74,6 +76,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                     trackPromises={trackPromises}
                   />
                   <DeleteElementButton
+                    disabled={isRootElement(node)}
                     element={node}
                     elementService={elementService}
                   />
