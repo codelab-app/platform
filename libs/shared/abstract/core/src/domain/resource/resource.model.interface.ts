@@ -7,12 +7,6 @@ import { IRestResourceConfig } from './rest-resource-config.interface'
 export enum IResourceType {
   GraphQL = 'GraphQL',
   Rest = 'Rest',
-
-  MySql = 'MySql',
-  PostgreSql = 'PostgreSql',
-  SqlServer = 'SqlServer',
-  Oracle = 'Oracle',
-  MongoDB = 'MongoDB',
 }
 
 export type IResourceConfig = IProp<

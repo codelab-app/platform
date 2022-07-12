@@ -12,52 +12,6 @@ export const CreateResourceButton = observer<WithServices<RESOURCE_SERVICE>>(
   ({ resourceService }) => {
     const menuItems: Array<ItemType> = [
       {
-        key: 'databases',
-        type: 'group',
-        label: 'Databases',
-        children: [
-          {
-            key: 'mysql',
-            label: 'MySQL',
-            onClick: () =>
-              resourceService.createModal.open({ type: IResourceType.MySql }),
-            icon: <ResourceIcon type={IResourceType.MySql} />,
-          },
-          {
-            key: 'postgresql',
-            label: 'PostgreSQL',
-            onClick: () =>
-              resourceService.createModal.open({
-                type: IResourceType.PostgreSql,
-              }),
-            icon: <ResourceIcon type={IResourceType.PostgreSql} />,
-          },
-          {
-            key: 'sql-server',
-            label: 'SQL Server',
-            onClick: () =>
-              resourceService.createModal.open({
-                type: IResourceType.SqlServer,
-              }),
-            icon: <ResourceIcon type={IResourceType.SqlServer} />,
-          },
-          {
-            key: 'mongodb',
-            label: 'MongoDB',
-            onClick: () =>
-              resourceService.createModal.open({ type: IResourceType.MongoDB }),
-            icon: <ResourceIcon type={IResourceType.MongoDB} />,
-          },
-          {
-            key: 'oracle',
-            label: 'Oracle',
-            onClick: () =>
-              resourceService.createModal.open({ type: IResourceType.Oracle }),
-            icon: <ResourceIcon type={IResourceType.Oracle} />,
-          },
-        ],
-      },
-      {
         key: 'apis',
         type: 'group',
         label: 'APIs',
