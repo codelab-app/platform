@@ -126,7 +126,7 @@ export class ResourceAction
       let errorQueue: Array<Function> = []
 
       if (this.errorAction.current) {
-        errorQueue = yield* _await(this.successAction.current.getQueue())
+        errorQueue = yield* _await(this.errorAction.current.getQueue())
       }
 
       return [
