@@ -30,7 +30,16 @@ export class CustomAction
   static hydrate = hydrate
 
   getQueue() {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    let functionQueue: Array<Function> = []
+
+    try {
+      functionQueue = [new Function(this.code)]
+    } catch (error) {
+      console.log(error)
+    }
+
     // eslint-disable-next-line  no-new-func
-    return Promise.resolve([new Function(this.code)])
+    return Promise.resolve(functionQueue)
   }
 }
