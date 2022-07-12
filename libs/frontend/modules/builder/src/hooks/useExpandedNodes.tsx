@@ -1,7 +1,7 @@
 import { IBuilderService, IElementTree } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { useEffect } from 'react'
-import { BuilderTreeModel } from '../store/BuilderTree.model'
+import { BuilderTreeModel } from '../store'
 
 export type UseExpandedNodesProps = Pick<IBuilderService, 'selectedNode'> & {
   elementTree: Nullable<IElementTree>
