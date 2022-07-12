@@ -20,7 +20,7 @@ import {
   IUpdateElementDTO,
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
@@ -434,7 +434,7 @@ export class ElementService
     this: ElementService,
     element: Element,
     auth0Id: IAuth0Id,
-    elementTree: IElementTree,
+    elementTree: Nullable<IElementTree>,
   ) {
     if (!element.parentElement) {
       throw new Error("Can't convert root element")
