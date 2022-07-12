@@ -2586,6 +2586,7 @@ export type Component = WithOwner & {
   __typename?: "Component";
   id: Scalars["ID"];
   name: Scalars["String"];
+  descendantComponentIds: Array<Scalars["ID"]>;
   rootElement: Element;
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>;
   api: InterfaceType;
@@ -2595,7 +2596,6 @@ export type Component = WithOwner & {
   rootElementConnection: ComponentRootElementConnection;
   apiConnection: ComponentApiConnection;
   ownerConnection: WithOwnerOwnerConnection;
-  descendantComponentIds: Array<Scalars["ID"]>;
 };
 
 export type ComponentRootElementArgs = {
