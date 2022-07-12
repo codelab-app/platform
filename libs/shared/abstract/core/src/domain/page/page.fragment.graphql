@@ -12,7 +12,3 @@ fragment Page on Page {
     name
   }
 }
-
-fragment PageFull on Page {
-  ...Page
-}

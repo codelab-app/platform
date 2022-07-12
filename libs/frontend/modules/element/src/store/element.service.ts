@@ -105,7 +105,7 @@ export class ElementService
       .map((v) => v.component)
       .filter(Boolean) as Array<IComponentDTO>
 
-    componentService.updateCaches(allComponents)
+    componentService.updateCache(allComponents)
   }
 
   @modelAction
@@ -267,7 +267,7 @@ export class ElementService
   /**
    * Moves an element to a different parent and/or order
    */
-  @modelAction
+  @modelFlow
   @transaction
   moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
     const element = this.element(elementId)
@@ -276,6 +276,7 @@ export class ElementService
       throw new Error(`Element ${elementId} not found`)
     }
 
+    const tree = Element.getElementTree(element)
     const existingParent = element.parentElement
     const newParent = this.element(newParentId)
 
@@ -287,6 +288,8 @@ export class ElementService
     if (newParent.id === element.id || element.findDescendant(newParent.id)) {
       throw new Error(`Cannot move element ${elementId} to itself`)
     }
+
+    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
 
     if (existingParent) {
       existingParent.detachChild(element)
@@ -440,7 +443,11 @@ export class ElementService
       throw new Error("Can't convert root element")
     }
 
-    // 1. Attach a Component to the Element and detach it from the parent
+    if (!elementTree) {
+      throw new Error('Element is not attached to a tree')
+    }
+
+    // 2. Attach a Component to the Element and detach it from the parent
     const parentId = element.parentElement.id
 
     const order =
@@ -482,8 +489,8 @@ export class ElementService
       throw new Error('Could not find component')
     }
 
-    // 2. Load component so we can use reference
-    yield* _await(getComponentService(this).getOne(element.component.id))
+    // 3. Load component so we can use reference
+    const componentService = getComponentService(this)
 
     // 3. Make an intermediate element with instance of the Component
     const [newElement] = yield* _await(

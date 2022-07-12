@@ -1,7 +1,12 @@
 import { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { ICRUDModalService, ICRUDService, IQueryService } from '../../service'
+import {
+  CacheService,
+  ICRUDModalService,
+  ICRUDService,
+  IQueryService,
+} from '../../service'
 import {
   ICreateResourceDTO,
   IResourceDTO,
@@ -15,8 +20,8 @@ export interface IResourceService
       'create' | 'update'
     >,
     IQueryService<IResource, ResourceWhere>,
-    ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }> {
+    ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
+    CacheService<IResource, IResourceDTO> {
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
-  updateCache(resources: Array<IResourceDTO>): void
 }
