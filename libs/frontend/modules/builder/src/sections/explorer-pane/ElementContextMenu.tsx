@@ -1,15 +1,15 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRef } from '@codelab/frontend/modules/element'
+import { componentRef, useStore } from '@codelab/frontend/presenter/container'
 import { Key } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IElementTree,
+  RendererTab,
 } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -44,7 +44,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     convertElementToComponent,
     elementTree,
   }) => {
-    const { push } = useRouter()
+    const { builderService, componentService } = useStore()
     const { user } = useUser()
     const isComponentInstance = Boolean(element.instanceOfComponent)
     const isRoot = !element.parentElement
@@ -76,10 +76,17 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onEditComponent = () => {
-      push({
-        pathname: PageType.ComponentDetail,
-        query: { componentId: element.instanceOfComponent?.id },
-      })
+      if (!element.instanceOfComponent) {
+        return
+      }
+
+      builderService.setActiveTree(RendererTab.Component)
+
+      const component = componentService.components.get(
+        element.instanceOfComponent.id.toString(),
+      )
+
+      component && builderService.set_selectedNode(componentRef(component))
     }
 
     const menuItems = [
