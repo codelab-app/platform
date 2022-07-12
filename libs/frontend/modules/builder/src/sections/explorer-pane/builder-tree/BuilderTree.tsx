@@ -35,7 +35,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     const { elementService, builderService, componentService } = useStore()
     const selectedNode = builderService.selectedNode
 
-    const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes({
+    const { expandedNodeIds, setExpandedNodeIds } = useExpandedNodes({
       selectedNode,
       elementTree,
     })
