@@ -1,7 +1,7 @@
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IGraphQLResourceConfig } from './graphql-resource-config.interface'
 import { ResourceFragment } from './resource.fragment.graphql.gen'
-import { IResourceType } from './resource.model.interface'
+import { IResourceType } from './resource-type.enum'
 import { IRestResourceConfig } from './rest-resource-config.interface'
 
 export type ICreateResourceDTO = {
