@@ -13,11 +13,8 @@ import {
   IResourceDTO,
   IUpdateResourceDTO,
 } from './resource.dto.interface'
-import {
-  IResource,
-  IResourceRef,
-  IResourceType,
-} from './resource.model.interface'
+import { IResource, IResourceRef } from './resource.model.interface'
+import { IResourceType } from './resource-type.enum'
 
 export interface CreateResourceData {
   type?: IResourceType
