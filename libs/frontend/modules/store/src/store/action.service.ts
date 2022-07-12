@@ -90,15 +90,21 @@ export class ActionService
       ) {
         actionModel.resource = resourceRef(action.resource.id)
         actionModel.config.updateCache(action.config)
-        actionModel.error = actionRef(action.error.id)
-        actionModel.success = actionRef(action.success.id)
+        actionModel.errorAction = actionRef(action.errorAction.id)
+        actionModel.successAction = actionRef(action.successAction.id)
       }
 
       if (
         action.__typename === IActionKind.PipelineAction &&
         actionModel.type === IActionKind.PipelineAction
       ) {
-        actionModel.actions = action.actions.map((a) => actionRef(a.id))
+        actionModel.actions = action.actionsConnection.edges.flatMap(
+          (x) =>
+            x.orders?.map((y) => ({
+              order: +y || 0,
+              action: actionRef(x.node.id),
+            })) || [],
+        )
       }
 
       return actionModel
