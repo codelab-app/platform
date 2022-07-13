@@ -4,7 +4,7 @@ import { useWindowHeight } from '@react-hook/window-size'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import { useResizable } from '../../components'
 import {
@@ -44,18 +44,26 @@ export const DashboardTemplate = observer(
     const sideNavigationContainerRef = useRef<HTMLDivElement>(null)
     const [sideNavigationContainerWidth] = useSize(sideNavigationContainerRef)
 
+    const [cuMainPaneWidth, setCurMainPaneWidth] = useState(
+      mainPaneResizable.width.get(),
+    )
+
+    mainPaneResizable.width.onChange(() => {
+      if (ExplorerPane) {
+        setCurMainPaneWidth(mainPaneResizable.width.get())
+      }
+    })
+
     const mainContentMarginLeft = useMemo(() => {
       let result = sideNavigationContainerWidth
 
       if (ExplorerPane) {
-        const w = mainPaneResizable.width.get()
+        const w = cuMainPaneWidth
         result += w
       }
 
       return result
-    }, [sideNavigationContainerWidth, ExplorerPane])
-
-    // console.log({ mainContentMarginLeft, sideNavigationContainerWidth })
+    }, [sideNavigationContainerWidth, ExplorerPane, cuMainPaneWidth])
 
     const editorPaneResizable = useResizable({
       height: {
@@ -64,6 +72,25 @@ export const DashboardTemplate = observer(
         min: editorPaneHeight.collapsed,
       },
     })
+
+    const [curEditorPaneHeight, setCurEditorPaneHeight] = useState(
+      editorPaneResizable.height.get(),
+    )
+
+    editorPaneResizable.height.onChange(() => {
+      setCurEditorPaneHeight(editorPaneResizable.height.get())
+    })
+
+    const explorerPanePaddingBottom = useMemo(() => {
+      let result = 40
+
+      if (EditorPane) {
+        const w = curEditorPaneHeight
+        result += w
+      }
+
+      return result
+    }, [EditorPane, curEditorPaneHeight])
 
     return (
       <Layout
@@ -121,6 +148,7 @@ export const DashboardTemplate = observer(
                 hasHeader={!!Header}
                 hasSidebarNavigation={!!SidebarNavigation}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
+                paddingBottom={explorerPanePaddingBottom}
                 resizable={mainPaneResizable}
               />
             )}
