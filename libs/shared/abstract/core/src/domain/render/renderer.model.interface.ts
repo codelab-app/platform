@@ -15,7 +15,6 @@ export interface IBaseRenderer {
     pageTree: IElementTree,
     appStore: IStore,
     appTree: Nullable<IElementTree>,
-    appStore: IStore,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ): IRenderer
 }

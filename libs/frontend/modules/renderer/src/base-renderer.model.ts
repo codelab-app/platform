@@ -37,7 +37,6 @@ export class BaseRenderer
     pageTree: IElementTree,
     appStore: IStore,
     appTree: Nullable<IElementTree>,
-    appStore: IStore,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
     const renderer = Renderer.init(pageTree, appStore, appTree, platformState)
