@@ -5,6 +5,7 @@ import {
   ICustomActionDTO,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { createQueue } from '../createQueue'
 import { createActionBase } from './action-base.model'
 
 const hydrate = (action: ICustomActionDTO): ICustomAction => {
@@ -30,16 +31,6 @@ export class CustomAction
   static hydrate = hydrate
 
   getQueue() {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    let functionQueue: Array<Function> = []
-
-    try {
-      functionQueue = [new Function(this.code)]
-    } catch (error) {
-      console.log(error)
-    }
-
-    // eslint-disable-next-line  no-new-func
-    return Promise.resolve(functionQueue)
+    return Promise.resolve(createQueue(this.code))
   }
 }

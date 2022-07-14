@@ -24,6 +24,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { createQueue } from '../createQueue'
 import { actionRef } from './action.ref'
 import { createActionBase } from './action-base.model'
 
@@ -74,7 +75,7 @@ export class ResourceAction
     try {
       const client = this.resource.current.graphqlClient
       const config = this.config.values as IGraphQLActionConfig
-      const data = yield* _await(this.graphqlFetch(client, config))
+      const data: any = yield* _await(this.graphqlFetch(client, config))
       // eslint-disable-next-line @typescript-eslint/ban-types
       let successQueue: Array<Function> = []
 
@@ -82,11 +83,11 @@ export class ResourceAction
         successQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      return [
-        // eslint-disable-next-line no-new-func
-        new Function(`this.${this.name}.response=${JSON.stringify(data)}`),
-        ...successQueue,
-      ]
+      const setResponseCode = `this.${this.name}.response=${JSON.stringify(
+        data,
+      )}`
+
+      return createQueue(setResponseCode).concat(successQueue)
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/ban-types
       let errorQueue: Array<Function> = []
@@ -95,11 +96,9 @@ export class ResourceAction
         errorQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      return [
-        // eslint-disable-next-line no-new-func
-        new Function(`this.${this.name}.error=${JSON.stringify(error)}`),
-        ...errorQueue,
-      ]
+      const setErrorCode = `this.${this.name}.error=${JSON.stringify(error)}`
+
+      return createQueue(setErrorCode).concat(errorQueue)
     }
   })
 
@@ -116,11 +115,11 @@ export class ResourceAction
         successQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      return [
-        // eslint-disable-next-line no-new-func
-        new Function(`this.${this.name}.response=${JSON.stringify(data)}`),
-        ...successQueue,
-      ]
+      const setResponseCode = `this.${this.name}.response=${JSON.stringify(
+        data,
+      )}`
+
+      return createQueue(setResponseCode).concat(successQueue)
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/ban-types
       let errorQueue: Array<Function> = []
@@ -129,11 +128,9 @@ export class ResourceAction
         errorQueue = yield* _await(this.errorAction.current.getQueue())
       }
 
-      return [
-        // eslint-disable-next-line no-new-func
-        new Function(`this.${this.name}.error=${JSON.stringify(error)}`),
-        ...errorQueue,
-      ]
+      const setErrorCode = `this.${this.name}.error=${JSON.stringify(error)}`
+
+      return createQueue(setErrorCode).concat(errorQueue)
     }
   })
 
