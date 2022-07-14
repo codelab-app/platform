@@ -3,24 +3,7 @@ import { Input, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Controller, UseFormReturn } from 'react-hook-form'
-import { useQuery } from 'react-query'
 import tw from 'twin.macro'
-import { interfaceFormApi } from '../../store'
-
-export const useGetAllActions = () => {
-  const { data, isLoading, error } = useQuery(
-    'interface-form/select-action',
-    () => interfaceFormApi.InterfaceForm_GetActions(),
-  )
-
-  const options =
-    data?.actions.map((c) => ({
-      label: c.name,
-      value: c.id,
-    })) ?? []
-
-  return { data, options, isLoading, error }
-}
 
 export interface SelectActionFieldProps {
   field: IField
@@ -35,7 +18,10 @@ export interface SelectActionFieldProps {
  */
 export const SelectActionField = observer(
   ({ field, form, context }: SelectActionFieldProps) => {
-    const { options, isLoading } = useGetAllActions()
+    const options = (context?.actionList ?? []).map((action) => ({
+      label: action.name,
+      value: action.id,
+    }))
 
     return (
       <>
@@ -70,7 +56,6 @@ export const SelectActionField = observer(
               <Select
                 allowClear
                 css={tw`w-full`}
-                loading={isLoading}
                 onBlur={control.field.onBlur}
                 onChange={control.field.onChange}
                 optionFilterProp="label"

@@ -1,4 +1,5 @@
 import {
+  IAnyAction,
   IField,
   IPrimitiveTypeKind,
   IPropsFieldContext,
@@ -17,47 +18,52 @@ export type FieldProps = {
   field: IField
   form: UseFormReturn
   context?: IPropsFieldContext
+
+  actionsList?: Array<IAnyAction>
 }
 
-export const Field = observer(({ field, form, context }: FieldProps) => {
-  switch (field.type.current.kind) {
-    case ITypeKind.ArrayType:
-      return (
-        <ArrayField
-          field={field}
-          form={form}
-          renderItemField={(itemField) => (
-            <Field context={context} field={itemField} form={form} />
-          )}
-        />
-      )
-    case ITypeKind.ReactNodeType:
-    case ITypeKind.RenderPropsType:
-      return (
-        <SelectComponentField context={context} field={field} form={form} />
-      )
+export const Field = observer(
+  ({ field, form, context, actionsList }: FieldProps) => {
+    switch (field.type.current.kind) {
+      case ITypeKind.ArrayType:
+        return (
+          <ArrayField
+            field={field}
+            form={form}
+            renderItemField={(itemField) => (
+              <Field context={context} field={itemField} form={form} />
+            )}
+          />
+        )
+      case ITypeKind.ReactNodeType:
+      case ITypeKind.RenderPropsType:
+        return (
+          <SelectComponentField context={context} field={field} form={form} />
+        )
 
-    case ITypeKind.ActionType:
-      return <SelectActionField context={context} field={field} form={form} />
+      case ITypeKind.ActionType:
+        return <SelectActionField context={context} field={field} form={form} />
 
-    case ITypeKind.InterfaceType:
-      return (
-        <>
-          {[...field.type.current.fields.values()].map((f, i) => (
-            <Field context={context} field={f} form={form} />
-          ))}
-        </>
-      )
+      case ITypeKind.InterfaceType:
+        return (
+          <>
+            {[...field.type.current.fields.values()].map((f, i) => (
+              <Field context={context} field={f} form={form} />
+            ))}
+          </>
+        )
 
-    case ITypeKind.PrimitiveType: {
-      return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
-        <CheckboxField field={field} form={form} />
-      ) : (
-        <CodeMirrorField context={context} field={field} form={form} />
-      )
+      case ITypeKind.PrimitiveType: {
+        return field.type.current.primitiveKind ===
+          IPrimitiveTypeKind.Boolean ? (
+          <CheckboxField field={field} form={form} />
+        ) : (
+          <CodeMirrorField context={context} field={field} form={form} />
+        )
+      }
+
+      default:
+        return <CodeMirrorField context={context} field={field} form={form} />
     }
-
-    default:
-      return <CodeMirrorField context={context} field={field} form={form} />
-  }
-})
+  },
+)

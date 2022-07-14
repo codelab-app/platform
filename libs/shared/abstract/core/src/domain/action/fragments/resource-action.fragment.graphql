@@ -1,0 +1,16 @@
+fragment ResourceAction on ResourceAction {
+  ...ActionBase
+  successAction {
+    ...ActionBase
+  }
+  errorAction {
+    ...ActionBase
+  }
+  resource {
+    ...Resource
+  }
+  config {
+    id
+    data
+  }
+}

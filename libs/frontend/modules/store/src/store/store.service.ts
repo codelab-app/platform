@@ -21,9 +21,9 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { getActionService } from './action.service'
-import { makeStoreCreateInput, makeStoreUpdateInput } from './api.utils'
-import { storeApi } from './store.api'
-import { Store } from './store.model'
+import { makeStoreCreateInput, makeStoreUpdateInput } from './apis/api.utils'
+import { storeApi } from './apis/store.api'
+import { Store } from './models/store.model'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')

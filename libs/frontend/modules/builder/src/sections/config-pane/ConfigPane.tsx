@@ -1,4 +1,5 @@
 import {
+  ACTION_SERVICE,
   ATOM_SERVICE,
   BUILDER_SERVICE,
   COMPONENT_SERVICE,
@@ -33,6 +34,7 @@ type MetaPaneProps = {
   | BUILDER_SERVICE
   | ELEMENT_SERVICE
   | COMPONENT_SERVICE
+  | ACTION_SERVICE
 >
 
 export const ConfigPane = observer<MetaPaneProps>(
@@ -44,6 +46,7 @@ export const ConfigPane = observer<MetaPaneProps>(
     componentService,
     renderService,
     elementTree,
+    actionService,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
     const isRootElement = (element: IElement) => !element.parentElement
@@ -92,6 +95,7 @@ export const ConfigPane = observer<MetaPaneProps>(
             </>
           )
         })}
+        actionService={actionService}
         atomService={atomService}
         builderService={builderService}
         elementService={elementService}

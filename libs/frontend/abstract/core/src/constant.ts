@@ -25,7 +25,6 @@ export const PROVIDER_ROOT_ELEMENT_NAME = 'Provider Root Element'
 export const DETACHED_ROOT_ELEMENT_NAME = 'Detached Root Element'
 
 export const PROVIDER_TREE_PAGE_NAME = 'Provider Tree'
-export const STORE_PAGE_NAME = 'Store Page'
 export const STATE_PATH_TEMPLATE_START = '{{'
 export const STATE_PATH_TEMPLATE_START_REGEX = /\{\{/g
 // start bracket that is not closed with }}

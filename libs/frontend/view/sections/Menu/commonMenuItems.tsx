@@ -1,8 +1,4 @@
-import {
-  AppstoreOutlined,
-  CloudServerOutlined,
-  ClusterOutlined,
-} from '@ant-design/icons'
+import { AppstoreOutlined, CloudServerOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { MenuProps } from 'antd'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
@@ -13,12 +9,6 @@ export const appMenuItem: ItemType = {
   icon: <AppstoreOutlined data-testid="app-tab-trigger" title="Apps" />,
   key: PageType.AppList,
   label: <Link href={PageType.AppList}>Apps</Link>,
-}
-
-export const storeMenuItem: ItemType = {
-  icon: <ClusterOutlined title="Stores" />,
-  key: PageType.Store,
-  label: <Link href={PageType.Store}>Stores</Link>,
 }
 
 export const resourceMenuItem: ItemType = {

@@ -3,11 +3,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { ExplorerPanePage } from '@codelab/frontend/modules/page'
 import { useStore } from '@codelab/frontend/presenter/container'
-import {
-  adminMenuItems,
-  appMenuItem,
-  storeMenuItem,
-} from '@codelab/frontend/view/sections'
+import { adminMenuItems, appMenuItem } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   DashboardTemplateProps,
@@ -42,7 +38,7 @@ Pages.Layout = observer((page) => {
       ExplorerPane={() => <ExplorerPanePage pageService={store.pageService} />}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem, storeMenuItem]}
+          primaryItems={[appMenuItem]}
           secondaryItems={adminMenuItems}
         />
       )}

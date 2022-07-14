@@ -1,7 +1,12 @@
+import { SelectAction } from '@codelab/frontend/modules/type'
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
-import { HttpMethod, ICreateActionDTO } from '@codelab/shared/abstract/core'
-import { showFieldOnDev } from '@codelab/shared/utils'
+import {
+  HttpMethod,
+  IActionKind,
+  ICreateActionDTO,
+} from '@codelab/shared/abstract/core'
+import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
 
@@ -24,6 +29,11 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
   title: 'Create Action',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      nullable: true,
+      ...hideField,
+    },
     storeId: {
       type: 'string',
       disabled: true,
@@ -36,37 +46,36 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
     runOnInit: {
       type: 'boolean',
     },
+    type: {
+      type: 'string',
+      enum: Object.values(IActionKind),
+    },
     resourceId: {
       type: 'string',
       nullable: true,
       label: 'Resource',
+    },
+    successActionId: {
+      type: 'string',
+      nullable: true,
+      label: 'Success Action',
+    },
+    errorActionId: {
+      type: 'string',
+      nullable: true,
+      label: 'Error Action',
     },
     config: {
       type: 'object',
       label: '',
       nullable: true,
       properties: {
-        /**
-         *
-         * Graphql Operation fields
-         *
-         */
         query: {
           type: 'string',
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoGraphQLOptions) },
         },
         variables: {
-          type: 'string',
-          nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
-        },
-        /**
-         *
-         * Rest Operation fields
-         *
-         */
-        body: {
           type: 'string',
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
@@ -81,14 +90,30 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
         },
+        transformFn: {
+          type: 'string',
+          nullable: true,
+          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+        },
       },
       required: [],
     },
-    body: {
+    code: {
       type: 'string',
       nullable: true,
       uniforms: { component: monacoFieldFactory(monacoTypescriptOptions) },
     },
+    actionsIds: {
+      type: 'array',
+      label: 'Actions',
+      items: {
+        type: 'string',
+        label: '',
+        uniforms: { component: SelectAction },
+        nullable: true,
+      },
+      nullable: true,
+    },
   },
-  required: ['name', 'storeId'],
+  required: ['name', 'type', 'storeId'],
 } as const

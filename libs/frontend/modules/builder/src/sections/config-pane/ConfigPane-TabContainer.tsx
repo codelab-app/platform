@@ -6,6 +6,7 @@ import {
   SwapOutlined,
 } from '@ant-design/icons'
 import {
+  ACTION_SERVICE,
   ATOM_SERVICE,
   BUILDER_SERVICE,
   ELEMENT_SERVICE,
@@ -54,7 +55,11 @@ export type MetaPaneBuilderProps = {
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
 } & WithServices<
-  TYPE_SERVICE | ATOM_SERVICE | BUILDER_SERVICE | ELEMENT_SERVICE
+  | TYPE_SERVICE
+  | ATOM_SERVICE
+  | BUILDER_SERVICE
+  | ELEMENT_SERVICE
+  | ACTION_SERVICE
 >
 
 type TooltipIconProps = {
@@ -85,6 +90,7 @@ export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
     typeService,
     renderService,
     elementService,
+    actionService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
@@ -125,6 +131,7 @@ export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
             {isElement(selectedNode) &&
             (selectedNode.atom || selectedNode.instanceOfComponent) ? (
               <UpdateElementPropsForm
+                actionList={actionService.actionsList}
                 autocomplete={renderService.platformState}
                 builderState={{
                   componentId: builderService.activeComponent?.id,

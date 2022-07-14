@@ -1,0 +1,11 @@
+fragment ActionBase on ActionBase {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+  runOnInit
+}

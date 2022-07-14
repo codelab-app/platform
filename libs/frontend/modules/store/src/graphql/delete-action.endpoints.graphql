@@ -1,0 +1,20 @@
+mutation DeleteCustomActions($where: CustomActionWhere!) {
+  deleteCustomActions(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+
+mutation DeleteResourceActions($where: ResourceActionWhere!) {
+  deleteResourceActions(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+
+mutation DeletePipelineActions($where: PipelineActionWhere!) {
+  deletePipelineActions(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}

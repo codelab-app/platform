@@ -31,9 +31,9 @@ export const BuilderComponent = observer<BuilderComponentProps>(
   ({
     componentId,
     componentService,
-    appStore,
     builderService,
     renderService,
+    appStore,
     BaseBuilder,
   }) => {
     const activeComponentTree = builderService.activeElementTree

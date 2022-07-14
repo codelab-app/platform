@@ -1,4 +1,4 @@
-import { IActionType } from './action-type'
+import { IAnyActionType } from './action-type'
 import { IAppType } from './app-type'
 import { IArrayType } from './array-type'
 import { ITypeKind } from './base-type'
@@ -21,7 +21,7 @@ export type IAnyType =
   | ILambdaType
   | IPageType
   | IAppType
-  | IActionType
+  | IAnyActionType
   | IPrimitiveType
   | IRenderPropsType
   | IReactNodeType

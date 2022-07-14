@@ -1,4 +1,3 @@
-import { STORE_PAGE_NAME } from '@codelab/frontend/abstract/core'
 import { FIELD_TYPE } from '../../support/antd/form'
 import { actionBody, actionName, updatedActionName } from '../action.data'
 import { updatedAppName } from './app.data'
@@ -8,8 +7,6 @@ describe('Action CRUD', () => {
     cy.visit(`/apps`)
     cy.getCard({ title: updatedAppName }).find('a').click()
     cy.url({ timeout: 10000 }).should('include', 'pages')
-
-    cy.findByText(STORE_PAGE_NAME, { timeout: 5000 }).click()
 
     cy.url({ timeout: 10000 }).should('include', 'store')
   })

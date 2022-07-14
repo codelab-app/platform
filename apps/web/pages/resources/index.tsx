@@ -14,7 +14,6 @@ import {
   appMenuItem,
   ContentSection,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -90,7 +89,7 @@ ResourcesPage.Layout = (page) => {
       Header={Header}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem, storeMenuItem, resourceMenuItem]}
+          primaryItems={[appMenuItem, resourceMenuItem]}
           secondaryItems={adminMenuItems}
         />
       )}
