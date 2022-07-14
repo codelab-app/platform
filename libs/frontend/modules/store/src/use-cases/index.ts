@@ -1,2 +1,2 @@
 export * from './actions'
-export * from './update-state'
+export * from './state'

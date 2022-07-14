@@ -115,7 +115,6 @@ export class TypeService
   @transaction
   getAll = _async(function* (this: TypeService, where?: TypeBaseWhere) {
     const ids = where?.id_IN ?? undefined
-    // Work on caching later
     // const idsToFetch = ids?.filter((id) => !this.types.has(id))
     const types = yield* _await(getAllTypes(ids))
 
@@ -315,10 +314,10 @@ export class TypeService
   @transaction
   deleteField = _async(function* (
     this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
+    interfaceId: IInterfaceTypeRef,
     fieldId: IFieldRef,
   ) {
-    const interfaceType = throwIfUndefined(this.type(interfaceTypeId))
+    const interfaceType = throwIfUndefined(this.type(interfaceId))
 
     assertIsTypeKind(interfaceType.kind, ITypeKind.InterfaceType)
 
@@ -328,7 +327,7 @@ export class TypeService
       return
     }
 
-    const input = { where: { id: fieldId }, interfaceId: interfaceTypeId }
+    const input = { where: { id: fieldId }, interfaceId }
     const res = yield* _await(fieldApi.DeleteField(input))
 
     // Returns current edges, not deleted edges

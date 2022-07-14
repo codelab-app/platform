@@ -40,6 +40,8 @@ type CreateTypesRecord = Record<
 export const createTypeApi: CreateTypesRecord = {
   [ITypeKind.AppType]: (input) =>
     _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
+  [ITypeKind.ActionType]: (input) =>
+    _createApi.CreateActionTypes({ input }).then((r) => r.types.types),
   [ITypeKind.PrimitiveType]: (input) =>
     _createApi
       .CreatePrimitiveTypes({ input: input as any })
@@ -72,8 +74,6 @@ export const createTypeApi: CreateTypesRecord = {
       .then((r) => r.types.types),
   [ITypeKind.PageType]: (input) =>
     _createApi.CreatePageTypes({ input }).then((r) => r.types.types),
-  [ITypeKind.AppType]: (input) =>
-    _createApi.CreateAppTypes({ input }).then((r) => r.types.types),
 }
 
 export const getTypeApi = getGetSdk(client)
@@ -105,6 +105,8 @@ type UpdateTypesRecord = Record<
 export const updateTypeApi: UpdateTypesRecord = {
   [ITypeKind.AppType]: (vars) =>
     _updateApi.UpdateAppTypes(vars).then((r) => r.types.types),
+  [ITypeKind.ActionType]: (vars) =>
+    _updateApi.UpdateActionTypes(vars).then((r) => r.types.types),
   [ITypeKind.PrimitiveType]: (vars) =>
     _updateApi.UpdatePrimitiveTypes(vars).then((r) => r.types.types),
   [ITypeKind.ArrayType]: (vars) =>
@@ -146,6 +148,8 @@ type DeleteTypesRecord = Record<
 export const deleteTypeApi: DeleteTypesRecord = {
   [ITypeKind.AppType]: (vars) =>
     _deleteApi.DeleteAppTypes(vars).then((r) => r.deleteAppTypes),
+  [ITypeKind.ActionType]: (vars) =>
+    _deleteApi.DeleteActionTypes(vars).then((r) => r.deleteActionTypes),
   [ITypeKind.PrimitiveType]: (vars) =>
     _deleteApi.DeletePrimitiveTypes(vars).then((r) => r.deletePrimitiveTypes),
   [ITypeKind.ArrayType]: (vars) =>
@@ -170,6 +174,4 @@ export const deleteTypeApi: DeleteTypesRecord = {
     _deleteApi.DeleteMonacoTypes(vars).then((r) => r.deleteMonacoTypes),
   [ITypeKind.PageType]: (vars) =>
     _deleteApi.DeletePageTypes(vars).then((r) => r.deletePageTypes),
-  [ITypeKind.AppType]: (vars) =>
-    _deleteApi.DeleteAppTypes(vars).then((r) => r.deleteAppTypes),
 }

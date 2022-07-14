@@ -1,0 +1,3 @@
+fragment ActionType on ActionType {
+  ...TypeBase
+}

@@ -11,4 +11,5 @@ fragment Type on TypeBase {
   ...MonacoType
   ...PageType
   ...AppType
+  ...ActionType
 }

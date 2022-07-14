@@ -2,6 +2,7 @@ import {
   IElementTree,
   IRenderer,
   IRenderService,
+  IStore,
 } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -29,13 +30,14 @@ export class RenderService
   addRenderer(
     id: string,
     pageTree: IElementTree,
+    appStore: IStore,
     appTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ) {
     const existing = this.renderers.get(id)
 
     if (!existing) {
-      const renderer = Renderer.init(pageTree, appTree, platformState)
+      const renderer = Renderer.init(pageTree, appStore, appTree, platformState)
 
       this.renderers.set(id, renderer)
 

@@ -17,6 +17,7 @@ export const typeSchema = gql`
     MonacoType
     PageType
     AppType
+    ActionType
   }
 
   type TypeReference {
@@ -305,6 +306,17 @@ export const typeSchema = gql`
   type AppType implements TypeBase {
     id: ID!
     kind: TypeKind! @default(value: AppType)
+    name: String!
+    owner: User!
+#    fieldFor: [TypeBase!]!
+  }
+
+  """
+  Allows picking a action from the list of actions
+  """
+  type ActionType implements TypeBase {
+    id: ID!
+    kind: TypeKind! @default(value: ActionType)
     name: String!
     owner: User!
 #    fieldFor: [TypeBase!]!

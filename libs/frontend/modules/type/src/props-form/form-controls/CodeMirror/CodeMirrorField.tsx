@@ -3,6 +3,7 @@ import {
   contextCompletionOptions,
   typeCompletionOptions,
 } from '@codelab/frontend/view/components'
+import React from 'react'
 import { Controller } from 'react-hook-form'
 import { FieldProps } from '../Field'
 

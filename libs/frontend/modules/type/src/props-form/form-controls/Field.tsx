@@ -4,10 +4,13 @@ import {
   IPropsFieldContext,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { ArrayField } from './ArrayField'
 import { CheckboxField } from './CheckboxField'
 import { CodeMirrorField } from './CodeMirror'
+import { SelectActionField } from './SelectActionField'
 import { SelectComponentField } from './SelectComponentField'
 
 export type FieldProps = {
@@ -16,7 +19,7 @@ export type FieldProps = {
   context?: IPropsFieldContext
 }
 
-export const Field = ({ field, form, context }: FieldProps) => {
+export const Field = observer(({ field, form, context }: FieldProps) => {
   switch (field.type.current.kind) {
     case ITypeKind.ArrayType:
       return (
@@ -33,6 +36,9 @@ export const Field = ({ field, form, context }: FieldProps) => {
       return (
         <SelectComponentField context={context} field={field} form={form} />
       )
+
+    case ITypeKind.ActionType:
+      return <SelectActionField context={context} field={field} form={form} />
 
     case ITypeKind.InterfaceType:
       return (
@@ -54,4 +60,4 @@ export const Field = ({ field, form, context }: FieldProps) => {
     default:
       return <CodeMirrorField context={context} field={field} form={form} />
   }
-}
+})

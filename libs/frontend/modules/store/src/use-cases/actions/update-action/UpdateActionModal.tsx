@@ -81,6 +81,7 @@ export const UpdateActionModal = observer<
         >
           <AutoField name="config.query" />
           <AutoField name="config.variables" />
+          <AutoField label="Transform Response" name="body" />
         </DisplayIfField>
 
         {/**
@@ -94,6 +95,13 @@ export const UpdateActionModal = observer<
           <AutoField name="config.method" />
           <AutoField name="config.body" />
           <AutoField name="config.queryParams" />
+          <AutoField label="Transform Response" name="body" />
+        </DisplayIfField>
+
+        <DisplayIfField<IUpdateActionDTO>
+          condition={(c) => !c.model.resourceId}
+        >
+          <AutoField label="Action code" name="body" />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

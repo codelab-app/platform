@@ -1,5 +1,6 @@
 import { IAnyType, ITypeKind, ITypeOf } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
+import { actionTypeUiProperties } from './actionTypeUiProperties'
 import { appTypeUiProperties } from './appTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
 import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
@@ -24,6 +25,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.MonacoType]: monacoTypeUiProperties,
   [ITypeKind.LambdaType]: lambdaTypeUiProperties,
   [ITypeKind.AppType]: appTypeUiProperties,
+  [ITypeKind.ActionType]: actionTypeUiProperties,
   [ITypeKind.PageType]: pageTypeUiProperties,
 }
 

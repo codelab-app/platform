@@ -48,9 +48,11 @@ const PageRenderer: CodelabPage<any> = observer(() => {
         throw new Error('Page not found')
       }
 
-      const storeTree = app?.store?.id
-        ? await storeService.getOne(app.store.id)
-        : null
+      const appStore = await storeService.getOne(app.store.id)
+
+      if (!appStore) {
+        throw new Error('Store not found')
+      }
 
       // components are needed to build pageElementTree
       // therefore they must be loaded first
@@ -72,15 +74,16 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const renderer = await appRenderService.addRenderer(
         pageId,
         pageElementTree,
+        appStore,
         null,
-        createMobxState(storeTree, apps, pages, router),
+        createMobxState(appStore, apps, pages, router),
       )
 
       return {
         page,
         pageElementTree,
         providerTree,
-        storeTree,
+        appStore,
         renderer,
       }
     },

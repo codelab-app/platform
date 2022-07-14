@@ -1,5 +1,6 @@
 import { IField } from '@codelab/shared/abstract/core'
 import { Checkbox } from 'antd'
+import { observer } from 'mobx-react-lite'
 import { Controller, UseFormReturn } from 'react-hook-form'
 
 interface CheckboxFieldProps {
@@ -7,7 +8,7 @@ interface CheckboxFieldProps {
   form: UseFormReturn
 }
 
-export const CheckboxField = ({ field, form }: CheckboxFieldProps) => (
+export const CheckboxField = observer(({ field, form }: CheckboxFieldProps) => (
   <Controller
     control={form.control}
     name={field.key}
@@ -19,4 +20,4 @@ export const CheckboxField = ({ field, form }: CheckboxFieldProps) => (
       />
     )}
   />
-)
+))

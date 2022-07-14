@@ -1,6 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
+  Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ElementType_Fragment,
@@ -36,6 +37,7 @@ export type GetTypesQuery = {
   lambdaTypes: Array<Type_LambdaType_Fragment>
   pageTypes: Array<Type_PageType_Fragment>
   appTypes: Array<Type_AppType_Fragment>
+  actionTypes: Array<Type_ActionType_Fragment>
   monacoTypes: Array<Type_MonacoType_Fragment>
 }
 
@@ -132,6 +134,13 @@ export type GetAppTypesQueryVariables = Types.Exact<{
 
 export type GetAppTypesQuery = { types: Array<Type_AppType_Fragment> }
 
+export type GetActionTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.ActionTypeOptions>
+  where?: Types.InputMaybe<Types.ActionTypeWhere>
+}>
+
+export type GetActionTypesQuery = { types: Array<Type_ActionType_Fragment> }
+
 export type GetMonacoTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.MonacoTypeOptions>
   where?: Types.InputMaybe<Types.MonacoTypeWhere>
@@ -172,6 +181,9 @@ export const GetTypesDocument = gql`
       ...Type
     }
     appTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    actionTypes(where: { id_IN: $ids }) {
       ...Type
     }
     monacoTypes(where: { id_IN: $ids }) {
@@ -291,6 +303,14 @@ export const GetPageTypesDocument = gql`
 export const GetAppTypesDocument = gql`
   query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
     types: appTypes(where: $where, options: $options) {
+      ...Type
+    }
+  }
+  ${TypeFragmentDoc}
+`
+export const GetActionTypesDocument = gql`
+  query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
+    types: actionTypes(where: $where, options: $options) {
       ...Type
     }
   }
@@ -508,6 +528,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetAppTypes',
+        'query',
+      )
+    },
+    GetActionTypes(
+      variables?: GetActionTypesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetActionTypesQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetActionTypesQuery>(
+            GetActionTypesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetActionTypes',
         'query',
       )
     },

@@ -77,7 +77,7 @@ export const CreateTypeModal = observer<
           <TypeSelect
             label="Array item type"
             name="arrayTypeId"
-            typeService={typeService}
+            types={typeService.typesList}
           />
         </DisplayIfKind>
 

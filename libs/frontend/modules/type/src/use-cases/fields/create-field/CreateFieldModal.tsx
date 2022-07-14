@@ -8,15 +8,12 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
-import { InterfaceType } from '../../../store'
 import { createFieldSchema } from './createFieldSchema'
 
-export type CreateFieldModalProps = {
-  interfaceType: InterfaceType
-} & WithServices<TYPE_SERVICE>
+export type CreateFieldModalProps = WithServices<TYPE_SERVICE>
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
-  ({ interfaceType, typeService }) => {
+  ({ typeService }) => {
     const closeModal = () => typeService.fieldCreateModal.close()
 
     return (
@@ -31,7 +28,12 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           model={{
             id: v4(),
           }}
-          onSubmit={(input) => typeService.addField(interfaceType.id, input)}
+          onSubmit={(input) =>
+            typeService.addField(
+              typeService.fieldCreateModal?.interface?.id as string,
+              input,
+            )
+          }
           onSubmitError={createNotificationHandler({
             title: 'Error while creating field',
             type: 'error',
@@ -40,7 +42,11 @@ export const CreateFieldModal = observer<CreateFieldModalProps>(
           schema={createFieldSchema}
         >
           <AutoFields omitFields={['fieldType']} />
-          <TypeSelect label="Type" name="fieldType" typeService={typeService} />
+          <TypeSelect
+            label="Type"
+            name="fieldType"
+            types={typeService.typesList}
+          />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

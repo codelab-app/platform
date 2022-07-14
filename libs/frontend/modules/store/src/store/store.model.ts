@@ -3,7 +3,7 @@ import {
   createGraphQLAction,
   createRestAction,
 } from '@codelab/frontend/modules/resource'
-import { InterfaceType, typeRef } from '@codelab/frontend/modules/type'
+import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   IProp,
   IStore,
@@ -36,7 +36,7 @@ export const hydrate = ({
     name,
     actions: actions.map((action) => actionRef(action.id)),
     state: Prop.hydrate(state),
-    stateApi: typeRef(stateApi.id) as Ref<InterfaceType>,
+    stateApiId: stateApi.id,
   })
 
 @model('@codelab/Store')
@@ -46,7 +46,7 @@ export class Store
     name: prop<string>(),
     actions: prop<Array<Ref<Action>>>().withSetter(),
     state: prop<IProp>(),
-    stateApi: prop<Ref<InterfaceType>>().withSetter(),
+    stateApiId: prop<string>().withSetter(),
   }))
   implements IStore
 {
@@ -66,7 +66,7 @@ export class Store
     this.id = id
     this.name = name
     this.actions = actions.map((a) => actionRef(a.id))
-    this.stateApi = typeRef(stateApi.id) as Ref<InterfaceType>
+    this.stateApiId = stateApi.id
     this.state.updateCache(state)
 
     return this
@@ -74,7 +74,10 @@ export class Store
 
   @modelAction
   toMobxObservable(globals: any = {}) {
-    const storeState = [...this.stateApi.current.fields.values()]
+    const typeService = getTypeService(this)
+    const stateApi = typeService.type(this.stateApiId) as InterfaceType
+
+    const storeState = [...stateApi.fields.values()]
       .map((field) => ({ [field.key]: this.state.values[field.key] }))
       .reduce(merge, {})
 

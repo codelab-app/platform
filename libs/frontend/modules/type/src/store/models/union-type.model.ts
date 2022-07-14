@@ -16,7 +16,6 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
-import { AnyType } from './any-type.model'
 import { createTypeBase } from './base-type.model'
 
 const hydrate = ({
@@ -69,7 +68,7 @@ export class UnionType
   public static hydrate = hydrate
 }
 
-export const typeRef = rootRef<AnyType>('@codelab/TypeRef', {
+export const typeRef = rootRef<IAnyType>('@codelab/TypeRef', {
   onResolvedValueChange(ref, newType, oldType) {
     if (oldType && !newType) {
       detach(ref)

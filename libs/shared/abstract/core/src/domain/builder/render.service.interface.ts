@@ -1,4 +1,4 @@
-import { IElementTree, IRenderer } from '@codelab/shared/abstract/core'
+import { IElementTree, IRenderer, IStore } from '@codelab/shared/abstract/core'
 import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { AnyModel, ModelClass, ObjectMap } from 'mobx-keystone'
 
@@ -8,6 +8,7 @@ export interface IRenderService {
   addRenderer(
     id: string,
     pageTree: IElementTree,
+    appStore: IStore,
     appTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
   ): IRenderer

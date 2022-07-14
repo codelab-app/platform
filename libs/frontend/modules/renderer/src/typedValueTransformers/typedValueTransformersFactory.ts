@@ -1,4 +1,5 @@
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import { ActionTypedValueTransformer } from './ActionTypedValueTransformer'
 import { ElementTypedValueTransformer } from './ElementTypedValueTransformer'
 import { RawTypedValuePropsTransformer } from './RawTypedValuePropsTransformer'
 import { ReactNodeTypedValueTransformer } from './ReactNodeTypedValueTransformer'
@@ -9,5 +10,6 @@ export const typedValueTransformersFactory =
     new ReactNodeTypedValueTransformer({}),
     new RenderPropsTypedValueTransformer({}),
     new ElementTypedValueTransformer({}),
+    new ActionTypedValueTransformer({}),
     new RawTypedValuePropsTransformer({}),
   ]

@@ -32,6 +32,9 @@ query GetTypes($ids: [ID!]) {
   appTypes(where: { id_IN: $ids }) {
     ...Type
   }
+  actionTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
   monacoTypes(where: { id_IN: $ids }) {
     ...Type
   }
@@ -123,6 +126,12 @@ query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
 
 query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
   types: appTypes(where: $where, options: $options) {
+    ...Type
+  }
+}
+
+query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
+  types: actionTypes(where: $where, options: $options) {
     ...Type
   }
 }

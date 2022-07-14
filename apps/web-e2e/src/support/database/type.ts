@@ -2,6 +2,7 @@ import { TypeBaseCreateInput } from '@codelab/shared/abstract/codegen'
 import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { DocumentNode, print } from 'graphql'
 import {
+  CreateActionTypesDocument,
   CreateAppTypesDocument,
   CreateArrayTypesDocument,
   CreateElementTypesDocument,
@@ -29,6 +30,7 @@ const createTypeQuery: { [key in ITypeKind]: DocumentNode } = {
   [ITypeKind.ReactNodeType]: CreateReactNodeTypesDocument,
   [ITypeKind.MonacoType]: CreateMonacoTypesDocument,
   [ITypeKind.LambdaType]: CreateLambdaTypesDocument,
+  [ITypeKind.ActionType]: CreateActionTypesDocument,
 }
 
 export const createType = (input: TypeBaseCreateInput, typeKind: ITypeKind) =>

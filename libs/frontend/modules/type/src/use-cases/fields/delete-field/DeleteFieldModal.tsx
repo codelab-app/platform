@@ -9,14 +9,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceType } from '../../../store'
 
-type DeleteFieldModalProps = {
-  interfaceType: InterfaceType
-} & WithServices<TYPE_SERVICE>
+type DeleteFieldModalProps = WithServices<TYPE_SERVICE>
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
-  ({ interfaceType, typeService }) => {
+  ({ typeService }) => {
     const closeModal = () => typeService.fieldDeleteModal.close()
     const { field } = typeService.fieldDeleteModal
 
@@ -42,7 +39,10 @@ export const DeleteFieldModal = observer<DeleteFieldModalProps>(
               )
             }
 
-            return typeService.deleteField(interfaceType.id, field.id)
+            return typeService.deleteField(
+              typeService.fieldDeleteModal?.interface?.id as string,
+              field.id,
+            )
           }}
           onSubmitError={createNotificationHandler({
             title: 'Error while deleting field',

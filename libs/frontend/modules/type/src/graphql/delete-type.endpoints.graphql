@@ -103,6 +103,15 @@ mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {
     nodesDeleted
   }
 }
+mutation DeleteActionTypes(
+  $delete: ActionTypeDeleteInput
+  $where: ActionTypeWhere
+) {
+  deleteActionTypes(delete: $delete, where: $where) {
+    relationshipsDeleted
+    nodesDeleted
+  }
+}
 
 mutation DeleteMonacoTypes(
   $delete: MonacoTypeDeleteInput
