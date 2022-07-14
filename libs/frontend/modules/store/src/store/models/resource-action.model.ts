@@ -9,8 +9,8 @@ import {
   IResourceAction,
   IResourceActionConfig,
   IResourceActionDTO,
+  IResourceType,
   IRestActionConfig,
-  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -137,7 +137,7 @@ export class ResourceAction
   @modelAction
   getQueue() {
     // eslint-disable-next-line no-new-func
-    return this.resource.current.type === ResourceType.GraphQL
+    return this.resource.current.type === IResourceType.GraphQL
       ? this.runGraphql()
       : this.runRest()
   }
