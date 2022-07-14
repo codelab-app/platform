@@ -13,7 +13,7 @@ export interface IResource {
   id: string
   name: string
   config: IResourceConfig
-  type: ResourceType
+  type: IResourceType
 
   graphqlClient: GraphQLClient
 
