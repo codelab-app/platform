@@ -31,7 +31,6 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
       properties: {
         url: { type: 'string' },
         headers: { type: 'string', uniforms: { component: monacoFieldJson } },
-        cookies: { type: 'string', uniforms: { component: monacoFieldJson } },
       },
       label: '',
       required: ['url'],

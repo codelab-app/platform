@@ -1,5 +1,6 @@
 import { Prop } from '@codelab/frontend/modules/element'
 import { resourceRef } from '@codelab/frontend/modules/resource'
+import { tryParse, tryStringify } from '@codelab/frontend/shared/utils'
 import {
   assertIsActionKind,
   IActionKind,
@@ -58,16 +59,26 @@ export class ResourceAction
 
   @modelAction
   restFetch(client: AxiosInstance, config: IRestActionConfig) {
+    const data = tryParse(config.body)
+    const params = tryParse(config.queryParams)
+    const headers = tryParse(config.headers)
+
     return client.request({
       method: config.method as Method,
-      data: config.body,
-      params: config.queryParams,
+      url: config.urlSegment,
+      responseType: config.responseType,
+      data,
+      params,
+      headers,
     })
   }
 
   @modelAction
   graphqlFetch(client: GraphQLClient, config: IGraphQLActionConfig) {
-    return client.request(config.query, JSON.parse(config.variables || '{}'))
+    const headers = tryParse(config.headers)
+    const variables = tryParse(config.variables)
+
+    return client.request(config.query, variables, headers)
   }
 
   @modelFlow
@@ -83,9 +94,7 @@ export class ResourceAction
         successQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      const setResponseCode = `this.${this.name}.response=${JSON.stringify(
-        data,
-      )}`
+      const setResponseCode = `this.${this.name}.response=${tryStringify(data)}`
 
       return createQueue(setResponseCode).concat(successQueue)
     } catch (error) {
@@ -96,7 +105,7 @@ export class ResourceAction
         errorQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      const setErrorCode = `this.${this.name}.error=${JSON.stringify(error)}`
+      const setErrorCode = `this.${this.name}.error=${tryStringify(error)}`
 
       return createQueue(setErrorCode).concat(errorQueue)
     }
@@ -107,7 +116,7 @@ export class ResourceAction
     try {
       const client = this.resource.current.restClient
       const config = this.config.values as IRestActionConfig
-      const data = yield _await(this.restFetch(client, config))
+      const data: any = yield _await(this.restFetch(client, config))
       // eslint-disable-next-line @typescript-eslint/ban-types
       let successQueue: Array<Function> = []
 
@@ -115,9 +124,7 @@ export class ResourceAction
         successQueue = yield* _await(this.successAction.current.getQueue())
       }
 
-      const setResponseCode = `this.${this.name}.response=${JSON.stringify(
-        data,
-      )}`
+      const setResponseCode = `this.${this.name}.response=${tryStringify(data)}`
 
       return createQueue(setResponseCode).concat(successQueue)
     } catch (error) {
@@ -128,7 +135,7 @@ export class ResourceAction
         errorQueue = yield* _await(this.errorAction.current.getQueue())
       }
 
-      const setErrorCode = `this.${this.name}.error=${JSON.stringify(error)}`
+      const setErrorCode = `this.${this.name}.error=${tryStringify(error)}`
 
       return createQueue(setErrorCode).concat(errorQueue)
     }
@@ -136,8 +143,7 @@ export class ResourceAction
 
   @modelAction
   getQueue() {
-    // eslint-disable-next-line no-new-func
-    return this.resource.current.type === IResourceType.GraphQL
+    return this.resource.current.type === ResourceType.GraphQL
       ? this.runGraphql()
       : this.runRest()
   }
