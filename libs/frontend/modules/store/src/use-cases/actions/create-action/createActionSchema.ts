@@ -90,7 +90,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
         },
-        transformFn: {
+        headers: {
           type: 'string',
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },

@@ -130,6 +130,7 @@ export const UpdateActionModal = observer<
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
+            <AutoField name="config.headers" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
@@ -139,6 +140,7 @@ export const UpdateActionModal = observer<
             <AutoField name="config.method" />
             <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
+            <AutoField name="config.headers" />
           </DisplayIfField>
         </DisplayIfField>
 
