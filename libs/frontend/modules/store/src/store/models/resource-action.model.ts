@@ -143,7 +143,7 @@ export class ResourceAction
 
   @modelAction
   getQueue() {
-    return this.resource.current.type === ResourceType.GraphQL
+    return this.resource.current.type === IResourceType.GraphQL
       ? this.runGraphql()
       : this.runRest()
   }
