@@ -49,7 +49,6 @@ export const CreateResourceModal = observer<
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />
-          <AutoField name="config.cookies" />
         </DisplayIfField>
 
         {/**
@@ -60,7 +59,6 @@ export const CreateResourceModal = observer<
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />
-          <AutoField name="config.cookies" />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

@@ -47,11 +47,6 @@ export class Store
   }))
   implements IStore
 {
-  getRefId() {
-    // when `getId` is not specified in the custom reference it will use this as id
-    return this.id
-  }
-
   @modelAction
   updateCache({
     id,
@@ -78,16 +73,16 @@ export class Store
       [field.key]: this.state.values[field.key],
     }))
 
-    const storeActions = this.actions
-      .map((action) => ({
-        [action.current.name]: {
-          action: action.current,
-          isAction: true,
-        },
-      }))
-      .reduce(merge, {})
+    const storeActions = this.actions.map((action) => ({
+      [action.current.name]: {
+        action: action.current,
+        isAction: true,
+      },
+    }))
 
-    return makeAutoObservable(merge({}, ...storeState, storeActions, globals))
+    return makeAutoObservable(
+      merge({}, ...storeState, ...storeActions, globals),
+    )
   }
 
   static hydrate = hydrate

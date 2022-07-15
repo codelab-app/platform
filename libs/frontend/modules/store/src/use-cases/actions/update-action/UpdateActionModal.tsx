@@ -130,15 +130,19 @@ export const UpdateActionModal = observer<
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
+            <AutoField name="config.headers" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
           <DisplayIfField<IUpdateActionDTO>
             condition={(c) => getResourceType(c) === IResourceType.Rest}
           >
+            <AutoField name="config.urlSegment" />
             <AutoField name="config.method" />
             <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
+            <AutoField name="config.headers" />
+            <AutoField name="config.responseType" />
           </DisplayIfField>
         </DisplayIfField>
 

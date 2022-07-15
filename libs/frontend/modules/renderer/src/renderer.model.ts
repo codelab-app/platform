@@ -349,8 +349,6 @@ export class Renderer
       (v, k) => (isString(k) ? getState(k, this.platformState) : k),
     )
 
-    console.log(props)
-
     return props
   }
 

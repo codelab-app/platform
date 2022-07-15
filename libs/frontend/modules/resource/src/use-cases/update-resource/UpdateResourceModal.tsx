@@ -60,7 +60,6 @@ export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
           >
             <AutoField name="config.url" />
             <AutoField name="config.headers" />
-            <AutoField name="config.cookies" />
           </DisplayIfField>
 
           {/**
@@ -73,7 +72,6 @@ export const UpdateResourceModal = observer<WithServices<RESOURCE_SERVICE>>(
           >
             <AutoField name="config.url" />
             <AutoField name="config.headers" />
-            <AutoField name="config.cookies" />
           </DisplayIfField>
         </ModalForm.Form>
       </ModalForm.Modal>
