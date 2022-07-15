@@ -1,5 +1,6 @@
 import { Prop } from '@codelab/frontend/modules/element'
 import { resourceRef } from '@codelab/frontend/modules/resource'
+import { tryParse } from '@codelab/frontend/shared/utils'
 import {
   assertIsActionKind,
   IActionKind,
@@ -58,16 +59,24 @@ export class ResourceAction
 
   @modelAction
   restFetch(client: AxiosInstance, config: IRestActionConfig) {
+    const data = tryParse(config.body)
+    const params = tryParse(config.queryParams)
+    const headers = tryParse(config.headers)
+
     return client.request({
       method: config.method as Method,
-      data: config.body,
-      params: config.queryParams,
+      data,
+      params,
+      headers,
     })
   }
 
   @modelAction
   graphqlFetch(client: GraphQLClient, config: IGraphQLActionConfig) {
-    return client.request(config.query, JSON.parse(config.variables || '{}'))
+    const headers = tryParse(config.headers)
+    const variables = tryParse(config.variables)
+
+    return client.request(config.query, variables, { headers })
   }
 
   @modelFlow

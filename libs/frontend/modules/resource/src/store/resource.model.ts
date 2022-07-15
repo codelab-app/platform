@@ -1,4 +1,5 @@
 import { Prop } from '@codelab/frontend/modules/element'
+import { tryParse } from '@codelab/frontend/shared/utils'
 import {
   IResource,
   IResourceConfig,
@@ -23,7 +24,7 @@ export class Resource
   @computed
   get graphqlClient() {
     const { headers, url } = this.config.values
-    const options = { headers: JSON.parse(headers || '{}') }
+    const options = { headers: tryParse(headers) }
 
     return new GraphQLClient(url, options)
   }
@@ -32,7 +33,7 @@ export class Resource
   get restClient() {
     return axios.create({
       baseURL: this.config.values.url,
-      headers: JSON.parse(this.config.values.headers || '{}'),
+      headers: tryParse(this.config.values.headers),
     })
   }
 
