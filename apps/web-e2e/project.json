@@ -7,7 +7,7 @@
       "options": {
         "cypressConfig": "apps/web-e2e/cypress.json",
         "tsConfig": "./tsconfig.base.json",
-        "baseUrl": "http://127.0.0.1:3001",
+        "baseUrl": "http://127.0.0.1:3000",
         "browser": "electron"
       },
       "configurations": {
@@ -46,7 +46,7 @@
         "dev": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
               "command": "npx env-cmd -f .env.test nx serve web -c test",
@@ -68,10 +68,10 @@
         "test": {
           "commands": [
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3001",
+              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3000",
               "forwardAllArgs": false
             }
           ]

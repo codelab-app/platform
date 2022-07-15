@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteResourcesModal = observer<WithServices<any>>(
+export const DeleteResourceModal = observer<WithServices<any>>(
   ({ resourceService }) => {
     const router = useRouter()
     const resourceId = useCurrentResourceId()

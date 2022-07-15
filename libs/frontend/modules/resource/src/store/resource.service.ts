@@ -1,4 +1,3 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   ResourceCreateInput,
   ResourceWhere,
@@ -26,14 +25,17 @@ import {
 } from 'mobx-keystone'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
-import { ResourceModalService } from './resource-modal.service'
+import {
+  CreateResourceModalService,
+  ResourceModalService,
+} from './resource-modal.service'
 
 @model('@codelab/Resource')
 export class ResourceService
   extends Model({
     resources: prop(() => objectMap<IResource>()),
 
-    createModal: prop(() => new ModalService({})),
+    createModal: prop(() => new CreateResourceModalService({})),
     updateModal: prop(() => new ResourceModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
   })

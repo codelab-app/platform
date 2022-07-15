@@ -1,6 +1,9 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
-import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
+import {
+  ICreateResourceDTO,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
@@ -20,7 +23,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
     },
     type: {
       type: 'string',
-      enum: keys(ResourceType) as Array<ResourceType>,
+      enum: keys(IResourceType) as Array<IResourceType>,
       showSearch: true,
     },
     config: {

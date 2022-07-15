@@ -3,12 +3,11 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateResourceButton,
   CreateResourceModal,
-  DeleteResourcesModal,
-  GetResourcesTable,
+  DeleteResourceModal,
+  GetResourcesList,
   UpdateResourceModal,
 } from '@codelab/frontend/modules/resource'
 import { useStore } from '@codelab/frontend/presenter/container'
-import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   appMenuItem,
@@ -21,72 +20,54 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
-import { GetServerSidePropsContext } from 'next'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
+
+const ResourcesPageHeader = observer(() => {
+  const { resourceService } = useStore()
+
+  return (
+    <PageHeader
+      extra={[
+        <CreateResourceButton key={0} resourceService={resourceService} />,
+      ]}
+      ghost={false}
+      title="Resources"
+    />
+  )
+})
 
 const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
-
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.tagService.getAll(),
-    {
-      executeOnMount: true,
-    },
-  )
 
   return (
     <>
       <Head>
         <title>Resources | Codelab</title>
       </Head>
-
-      <CreateResourceModal
-        resourceService={store.resourceService}
-        userService={store.userService}
-      />
-      <UpdateResourceModal resourceService={store.resourceService} />
-      <DeleteResourcesModal resourceService={store.resourceService} />
       <ContentSection>
-        <GetResourcesTable resourceService={store.resourceService} />
+        <CreateResourceModal
+          resourceService={store.resourceService}
+          userService={store.userService}
+        />
+        <UpdateResourceModal resourceService={store.resourceService} />
+        <DeleteResourceModal resourceService={store.resourceService} />
+
+        <GetResourcesList resourceService={store.resourceService} />
       </ContentSection>
     </>
   )
 }
 
-const Header = () => {
-  const store = useStore()
-
-  const pageHeaderButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`} key="create">
-      <CreateResourceButton
-        key="create"
-        resourceService={store.resourceService}
-      />
-    </div>,
-  ]
-
-  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Resource" />
-}
-
 export default ResourcesPage
 
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }: GetServerSidePropsContext) => {
-    // const store = initializeStore({ user })
+export const getServerSideProps = withPageAuthRequired()
 
-    return {
-      // props: { snapshot: getSnapshot(store) },
-      props: {},
-    }
-  },
-})
-
-ResourcesPage.Layout = (page) => {
+ResourcesPage.Layout = observer((resource) => {
   return (
     <DashboardTemplate
-      Header={Header}
+      Header={ResourcesPageHeader}
       SidebarNavigation={() => (
         <SidebarNavigation
           primaryItems={[appMenuItem, resourceMenuItem]}
@@ -94,7 +75,7 @@ ResourcesPage.Layout = (page) => {
         />
       )}
     >
-      {page.children}
+      {resource.children}
     </DashboardTemplate>
   )
-}
+})

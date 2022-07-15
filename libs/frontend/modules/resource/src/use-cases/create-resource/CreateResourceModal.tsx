@@ -5,7 +5,10 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
-import { ICreateResourceDTO, ResourceType } from '@codelab/shared/abstract/core'
+import {
+  ICreateResourceDTO,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -21,6 +24,8 @@ export const CreateResourceModal = observer<
     title: 'Error while creating resource',
   })
 
+  const type = resourceService.createModal.type
+
   return (
     <ModalForm.Modal
       okText="Create Resource"
@@ -28,7 +33,7 @@ export const CreateResourceModal = observer<
       visible={resourceService.createModal.isOpen}
     >
       <ModalForm.Form
-        model={{ auth0Id: userService.auth0Id }}
+        model={{ auth0Id: userService.auth0Id, type }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
@@ -40,7 +45,7 @@ export const CreateResourceModal = observer<
          *  GraphQL Resource Config Form
          */}
         <DisplayIfField<ICreateResourceDTO>
-          condition={(c) => c.model.type === ResourceType.GraphQL}
+          condition={(c) => c.model.type === IResourceType.GraphQL}
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />
@@ -50,7 +55,7 @@ export const CreateResourceModal = observer<
          *  Rest Resource Config Form
          */}
         <DisplayIfField<ICreateResourceDTO>
-          condition={(c) => c.model.type === ResourceType.Rest}
+          condition={(c) => c.model.type === IResourceType.Rest}
         >
           <AutoField name="config.url" />
           <AutoField name="config.headers" />

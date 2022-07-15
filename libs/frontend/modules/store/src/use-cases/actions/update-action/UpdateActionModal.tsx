@@ -8,8 +8,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
   IActionKind,
+  IResourceType,
   IUpdateActionDTO,
-  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -126,7 +126,7 @@ export const UpdateActionModal = observer<
 
           {/** GraphQL Config Form */}
           <DisplayIfField<IUpdateActionDTO>
-            condition={(c) => getResourceType(c) === ResourceType.GraphQL}
+            condition={(c) => getResourceType(c) === IResourceType.GraphQL}
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
@@ -135,7 +135,7 @@ export const UpdateActionModal = observer<
 
           {/** Rest Config Form */}
           <DisplayIfField<IUpdateActionDTO>
-            condition={(c) => getResourceType(c) === ResourceType.Rest}
+            condition={(c) => getResourceType(c) === IResourceType.Rest}
           >
             <AutoField name="config.urlSegment" />
             <AutoField name="config.method" />

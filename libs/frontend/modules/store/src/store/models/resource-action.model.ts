@@ -10,8 +10,8 @@ import {
   IResourceAction,
   IResourceActionConfig,
   IResourceActionDTO,
+  IResourceType,
   IRestActionConfig,
-  ResourceType,
 } from '@codelab/shared/abstract/core'
 import { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
