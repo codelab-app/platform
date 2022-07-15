@@ -3,6 +3,7 @@ import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   HttpMethod,
+  HttpResponseType,
   IActionKind,
   ICreateActionDTO,
 } from '@codelab/shared/abstract/core'
@@ -80,6 +81,15 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
         },
+        body: {
+          type: 'string',
+          nullable: true,
+          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+        },
+        urlSegment: {
+          type: 'string',
+          nullable: true,
+        },
         method: {
           type: 'string',
           enum: keys(HttpMethod) as Array<HttpMethod>,
@@ -94,6 +104,11 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           type: 'string',
           nullable: true,
           uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+        },
+        responseType: {
+          type: 'string',
+          enum: Object.values(HttpResponseType),
+          showSearch: true,
         },
       },
       required: [],

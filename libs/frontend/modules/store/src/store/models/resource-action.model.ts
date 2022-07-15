@@ -65,6 +65,8 @@ export class ResourceAction
 
     return client.request({
       method: config.method as Method,
+      url: config.urlSegment,
+      responseType: config.responseType,
       data,
       params,
       headers,

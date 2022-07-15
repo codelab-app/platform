@@ -8,9 +8,20 @@ export enum HttpMethod {
   PUT = 'PUT',
 }
 
+export enum HttpResponseType {
+  ArrayBuffer = 'arraybuffer',
+  Blob = 'blob',
+  Document = 'document',
+  Json = 'json',
+  Text = 'text',
+  Stream = 'stream',
+}
+
 export interface IRestActionConfig {
   body: string
   method: HttpMethod
   queryParams: string
   headers: string
+  urlSegment: string
+  responseType: HttpResponseType
 }
