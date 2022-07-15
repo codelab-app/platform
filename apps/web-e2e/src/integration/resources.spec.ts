@@ -21,6 +21,7 @@ describe('Resource CRUD', () => {
       cy.findAllByText(resourceName).should('not.exist')
 
       cy.getButton({ icon: 'plus' }).click()
+      cy.getDropdownItem('GraphQL API').click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
       cy.getModal().setFormFieldValue({
@@ -41,9 +42,11 @@ describe('Resource CRUD', () => {
 
   describe('update', () => {
     it('should be able to update resource name', () => {
-      cy.searchTableRow({ header: 'Name', row: resourceName })
-        .getButton({ icon: 'edit' })
+      cy.getCard({ title: resourceName })
+        .getButton({ icon: 'ellipsis' })
         .click()
+
+      cy.getDropdownItem('Edit').click()
 
       cy.getSpinner().should('not.exist')
 
@@ -65,9 +68,11 @@ describe('Resource CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete resource', () => {
-      cy.searchTableRow({ header: 'Name', row: resourceName })
-        .getButton({ icon: 'delete' })
+      cy.getCard({ title: updatedResourceName })
+        .getButton({ icon: 'ellipsis' })
         .click()
+
+      cy.getDropdownItem('Delete').click()
       cy.getSpinner().should('not.exist')
 
       cy.getModal()
