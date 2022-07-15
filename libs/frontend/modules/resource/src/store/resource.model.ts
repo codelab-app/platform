@@ -11,6 +11,14 @@ import { GraphQLClient } from 'graphql-request'
 import { computed } from 'mobx'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
+const hydrate = (resource: IResourceDTO) =>
+  new Resource({
+    id: resource.id,
+    name: resource.name,
+    type: resource.type,
+    config: Prop.hydrate(resource.config) as IResourceConfig,
+  })
+
 @model('@codelab/Resource')
 export class Resource
   extends Model(() => ({
@@ -37,17 +45,10 @@ export class Resource
     })
   }
 
-  static hydrate(resource: IResourceDTO) {
-    return new Resource({
-      id: resource.id,
-      name: resource.name,
-      type: resource.type,
-      config: Prop.hydrate(resource.config) as IResourceConfig,
-    })
-  }
+  static hydrate = hydrate
 }
 
-export const resourceRef = rootRef<Resource>('ResourceRef', {
+export const resourceRef = rootRef<IResource>('@codelab/ResourceRef', {
   onResolvedValueChange(ref, newResource, oldResource) {
     if (oldResource && !newResource) {
       detach(ref)

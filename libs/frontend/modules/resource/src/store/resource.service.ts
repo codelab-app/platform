@@ -5,6 +5,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
+  IResource,
   IResourceDTO,
   IResourceService,
   IUpdateResourceDTO,
@@ -30,7 +31,7 @@ import { ResourceModalService } from './resource-modal.service'
 @model('@codelab/Resource')
 export class ResourceService
   extends Model({
-    resources: prop(() => objectMap<Resource>()),
+    resources: prop(() => objectMap<IResource>()),
 
     createModal: prop(() => new ModalService({})),
     updateModal: prop(() => new ResourceModalService({})),
@@ -173,8 +174,10 @@ export class ResourceService
       resourceModel.name = resource.name
       resourceModel.config.updateCache(resource.config)
       resourceModel.type = resource.type
+      resourceModel.id = resource.id
     } else {
       resourceModel = Resource.hydrate(resource)
+      this.resources.set(resourceModel.id, resourceModel)
     }
 
     return resourceModel
@@ -184,11 +187,11 @@ export class ResourceService
 export const resourceServiceContext = createContext<IResourceService>()
 
 export const getResourceService = (self: object) => {
-  const resourceStore = resourceServiceContext.get(self)
+  const resourceService = resourceServiceContext.get(self)
 
-  if (!resourceStore) {
+  if (!resourceService) {
     throw new Error('ResourceService context is not defined')
   }
 
-  return resourceStore
+  return resourceService
 }
