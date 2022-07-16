@@ -42,7 +42,7 @@ describe('Store', () => {
   describe('State CRUD', () => {
     describe('create', () => {
       it('should be able to create state variable', () => {
-        cy.findByTitle('Create State').click()
+        cy.findByTitle('Create State').click({ force: true })
 
         cy.getModal().setFormFieldValue({ label: 'Key', value: stateVarName })
 
@@ -104,7 +104,7 @@ describe('Store', () => {
   describe('Action CRUD', () => {
     describe('create', () => {
       it('should be able to create  action', () => {
-        cy.findByTitle('Create Action').click()
+        cy.findByTitle('Create Action').click({ force: true })
 
         cy.getModal().setFormFieldValue({ label: 'Name', value: actionName })
 
