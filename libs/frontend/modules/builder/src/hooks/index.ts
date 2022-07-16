@@ -1,6 +1,5 @@
 export * from './useBuilderHotkeys'
 export * from './useBuilderHoverHandlers'
 export * from './useElementTreeDrop'
-export * from './useExpandedNodes'
 export * from './usePropCompletion'
 export * from './usePropsInspector'

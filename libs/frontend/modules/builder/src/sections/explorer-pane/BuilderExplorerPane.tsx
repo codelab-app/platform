@@ -111,9 +111,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             <BuilderTree
               className="page-builder"
               elementTree={pageTree}
+              expandedNodeIds={builderService.expandedNodeIds}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Page)
               }
+              setExpandedNodeIds={builderService.setExpandedNodeIds.bind(
+                builderService,
+              )}
               treeData={antdTree}
             />
           )}
@@ -124,9 +128,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           {antdTree && (
             <BuilderTree
               elementTree={componentTree ?? null}
+              expandedNodeIds={builderService.expandedNodeIds}
               setActiveTree={() =>
                 builderService.setActiveTree(RendererTab.Component)
               }
+              setExpandedNodeIds={builderService.setExpandedNodeIds.bind(
+                builderService,
+              )}
               treeData={componentsAntdTree}
             />
           )}

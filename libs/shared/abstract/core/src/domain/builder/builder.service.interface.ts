@@ -26,6 +26,7 @@ export interface IBuilderService {
   currentDragData: Nullable<Frozen<BuilderDragData>>
   stateModal: IModalService<IStateTreeNode>
   activeElementTree: Maybe<IElementTree>
+  expandedNodeIds: Array<string>
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
@@ -34,6 +35,7 @@ export interface IBuilderService {
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void
   set_selectedNode(node: Nullable<Ref<INode>>): void
+  setExpandedNodeIds(expandedNodeIds: Array<string>): void
 
   setActiveTree(tab: RendererTab): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void

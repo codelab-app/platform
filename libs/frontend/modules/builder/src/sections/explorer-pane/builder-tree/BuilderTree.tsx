@@ -11,8 +11,7 @@ import { Tree as AntdTree } from 'antd'
 import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useElementTreeDrop, useExpandedNodes } from '../../../hooks'
+import { useElementTreeDrop } from '../../../hooks'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
 import {
   DISABLE_HOVER_CLASSNAME,
@@ -25,20 +24,24 @@ type BuilderTreeProps = {
   className?: string
   elementTree: IElementTree | null
   setActiveTree: () => void
+  setExpandedNodeIds: (ids: Array<string>) => void
+  expandedNodeIds: Array<string>
 }
 
 /**
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
 export const BuilderTree = observer<BuilderTreeProps>(
-  ({ className, treeData, elementTree, setActiveTree }) => {
+  ({
+    className,
+    treeData,
+    elementTree,
+    setActiveTree,
+    setExpandedNodeIds,
+    expandedNodeIds,
+  }) => {
     const { elementService, builderService, componentService } = useStore()
     const selectedNode = builderService.selectedNode
-
-    const { expandedNodeIds, setExpandedNodeIds } = useExpandedNodes({
-      selectedNode,
-      elementTree,
-    })
 
     const { isMoving, handleDrop } = useElementTreeDrop(
       elementTree,
@@ -63,7 +66,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onClick={(e) => e.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
-          return setExpandedNodeIds(expandedKeys)
+          return setExpandedNodeIds(expandedKeys as Array<string>)
         }}
         onMouseEnter={({ node, event }) => {
           // Selectable by default, unless it's not
