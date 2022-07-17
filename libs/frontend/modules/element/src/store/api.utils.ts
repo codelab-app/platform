@@ -96,7 +96,8 @@ export const makeDuplicateInput = (
     renderIfPropKey: element.renderIfPropKey,
     renderForEachPropKey: element.renderForEachPropKey,
     name: element.name,
-    css: element.css,
+    customCss: element.customCss,
+    guiCss: element.guiCss,
   }
 }
 
@@ -127,7 +128,8 @@ export const makeUpdateInput = (
         },
       },
     },
-    css: input.css,
+    customCss: input.customCss,
+    guiCss: input.guiCss,
     renderForEachPropKey: input.renderForEachPropKey,
     instanceOfComponent,
     renderIfPropKey: input.renderIfPropKey,

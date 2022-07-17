@@ -2152,7 +2152,8 @@ export type AppElementRootElementNodeAggregateSelection = {
   __typename?: "AppElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -2654,7 +2655,8 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: "ComponentElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3019,7 +3021,8 @@ export type Element = {
   __typename?: "Element";
   id: Scalars["ID"];
   name?: Maybe<Scalars["String"]>;
-  css?: Maybe<Scalars["String"]>;
+  customCss?: Maybe<Scalars["String"]>;
+  guiCss?: Maybe<Scalars["String"]>;
   propTransformationJs?: Maybe<Scalars["String"]>;
   renderForEachPropKey?: Maybe<Scalars["String"]>;
   renderIfPropKey?: Maybe<Scalars["String"]>;
@@ -3250,7 +3253,8 @@ export type ElementAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3379,7 +3383,8 @@ export type ElementElementChildrenNodeAggregateSelection = {
   __typename?: "ElementElementChildrenNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3401,7 +3406,8 @@ export type ElementElementParentElementNodeAggregateSelection = {
   __typename?: "ElementElementParentElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -3982,7 +3988,8 @@ export type HookElementElementNodeAggregateSelection = {
   __typename?: "HookElementElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4420,7 +4427,8 @@ export type PageElementRootElementNodeAggregateSelection = {
   __typename?: "PageElementRootElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4782,7 +4790,8 @@ export type PropMapBindingElementElementNodeAggregateSelection = {
   __typename?: "PropMapBindingElementElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -4804,7 +4813,8 @@ export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   __typename?: "PropMapBindingElementTargetElementNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -6322,7 +6332,8 @@ export type UserElementElementsNodeAggregateSelection = {
   __typename?: "UserElementElementsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNullable;
-  css: StringAggregateSelectionNullable;
+  customCss: StringAggregateSelectionNullable;
+  guiCss: StringAggregateSelectionNullable;
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
@@ -9191,7 +9202,8 @@ export type ElementConnectWhere = {
 export type ElementCreateInput = {
   id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
-  css?: InputMaybe<Scalars["String"]>;
+  customCss?: InputMaybe<Scalars["String"]>;
+  guiCss?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -9455,7 +9467,8 @@ export type ElementInstanceOfComponentUpdateFieldInput = {
 export type ElementOnCreateInput = {
   id: Scalars["ID"];
   name?: InputMaybe<Scalars["String"]>;
-  css?: InputMaybe<Scalars["String"]>;
+  customCss?: InputMaybe<Scalars["String"]>;
+  guiCss?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -10008,7 +10021,8 @@ export type ElementRelationInput = {
 export type ElementSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
-  css?: InputMaybe<SortDirection>;
+  customCss?: InputMaybe<SortDirection>;
+  guiCss?: InputMaybe<SortDirection>;
   propTransformationJs?: InputMaybe<SortDirection>;
   renderForEachPropKey?: InputMaybe<SortDirection>;
   renderIfPropKey?: InputMaybe<SortDirection>;
@@ -10167,7 +10181,8 @@ export type ElementUniqueWhere = {
 export type ElementUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
-  css?: InputMaybe<Scalars["String"]>;
+  customCss?: InputMaybe<Scalars["String"]>;
+  guiCss?: InputMaybe<Scalars["String"]>;
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
@@ -10206,7 +10221,8 @@ export type ElementWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
-  css?: InputMaybe<Scalars["String"]>;
+  customCss?: InputMaybe<Scalars["String"]>;
+  guiCss?: InputMaybe<Scalars["String"]>;
   css_NOT?: InputMaybe<Scalars["String"]>;
   css_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   css_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -18481,7 +18497,8 @@ export interface ElementAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNullable;
-  css?: StringAggregateInputNullable;
+  customCss?: StringAggregateInputNullable;
+  guiCss?: StringAggregateInputNullable;
   propTransformationJs?: StringAggregateInputNullable;
   renderForEachPropKey?: StringAggregateInputNullable;
   renderIfPropKey?: StringAggregateInputNullable;

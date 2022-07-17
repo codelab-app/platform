@@ -2,7 +2,8 @@ fragment Element on Element {
   __typename
   id
   name
-  css
+  customCss
+  guiCss
   component {
     ...Component
   }

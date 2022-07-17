@@ -43,7 +43,8 @@ type TransformFn = (props: IPropData) => IPropData
 export const hydrate = ({
   id,
   name,
-  css,
+  customCss,
+  guiCss,
   atom,
 
   component,
@@ -63,7 +64,8 @@ export const hydrate = ({
   return new Element({
     id,
     name,
-    css,
+    customCss: customCss,
+    guiCss: guiCss,
     parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
     props: props ? Prop.hydrate(props) : null,
@@ -110,7 +112,8 @@ export class Element
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<Nullable<string>>(null).withSetter(),
-    css: prop<Nullable<string>>(null).withSetter(),
+    customCss: prop<Nullable<string>>(null).withSetter(),
+    guiCss: prop<Nullable<string>>(null).withSetter(),
     atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     props: prop<Nullable<IProp>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -385,7 +388,8 @@ export class Element
   updateCache({
     id,
     name,
-    css,
+    customCss,
+    guiCss,
     atom,
     component,
     instanceOfComponent,
@@ -400,7 +404,8 @@ export class Element
   }: Omit<IElementDTO, '__typename'>) {
     this.id = id
     this.name = name ?? null
-    this.css = css ?? null
+    this.customCss = customCss ?? null
+    this.guiCss = guiCss ?? null
     this.propTransformationJs = propTransformationJs ?? null
     this.renderIfPropKey = renderIfPropKey ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null

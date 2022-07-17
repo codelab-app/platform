@@ -44,7 +44,8 @@ export const elementSchema = gql`
       )
     # fixedId: String!, // This could be no longer needed with neo4j
     name: String
-    css: String
+    customCss: String
+    guiCss: String
     propTransformationJs: String
     renderForEachPropKey: String
     renderIfPropKey: String

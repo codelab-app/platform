@@ -21,7 +21,8 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name?: string | null
-  css?: string | null
+  customCss?: string | null
+  guiCss?: string | null
   renderForEachPropKey?: string | null
   renderIfPropKey?: string | null
   propTransformationJs?: string | null
@@ -47,7 +48,8 @@ export const ElementFragmentDoc = gql`
     __typename
     id
     name
-    css
+    customCss
+    guiCss
     component {
       ...Component
     }

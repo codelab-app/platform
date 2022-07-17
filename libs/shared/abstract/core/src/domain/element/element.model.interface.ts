@@ -23,7 +23,8 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
-  css: Nullable<string>
+  customCss: Nullable<string>
+  guiCss: Nullable<string>
   props?: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
   orderInParent: Nullable<number>

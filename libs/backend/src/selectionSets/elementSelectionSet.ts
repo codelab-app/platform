@@ -3,7 +3,8 @@ import { componentSelectionSet } from './componentSelectionSet'
 export const elementSelectionSet = `{
   id
   name
-  css
+  customCss
+  guiCss
   component 
     ${componentSelectionSet}
   
