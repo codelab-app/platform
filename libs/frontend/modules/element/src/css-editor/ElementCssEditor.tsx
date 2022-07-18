@@ -18,17 +18,34 @@ export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
 type cssMap = { [prop: string]: string }
 
 type FlexBoxEditorProps = {
-  onChange: (css: cssMap) => void
+  element: IElement
 }
 
-const FlexBoxEditor = observer(({ onChange }: FlexBoxEditorProps) => {
-  // const [css, setCss] = useState('')
+/*
+
+  TODO:
+  - Setup the guiCss here so that element is patched whenever guiCss has changed - DONE
+  - in any component, use appendToGuiCss to add css to the guiCss - DONE
+  - in any component, use deleteFromGuiCss to remove css from the guiCss - DONE
+
+  // Next steps: 
+  - Design the UI -> must be pretty using icons etc.
+  - implement the UI for Layout Editor
+  
+
+  // Also do:
+  - define the interfaces for what Css changes are possible? basically what potential values
+    can guiCss be set to?
+  */
+
+const FlexBoxEditor = observer(({ element }: FlexBoxEditorProps) => {
+  const [css, setCss] = useState<cssMap>({})
   const [flex, setFlex] = useState('none')
 
   const updateFlex = (newVal: string) => {
     if (flex !== newVal) {
       setFlex(newVal)
-      onChange({
+      element.appendToGuiCss({
         'background-color': 'red',
         width: '100%',
         display: 'flex',
@@ -39,12 +56,7 @@ const FlexBoxEditor = observer(({ onChange }: FlexBoxEditorProps) => {
     }
 
     setFlex('none')
-    onChange({
-      'background-color': 'red',
-      width: '100%',
-      display: 'flex',
-      'flex-direction': 'none',
-    })
+    element.deleteFromGuiCss(['flex-direction', 'display'])
   }
 
   return (
@@ -83,32 +95,14 @@ export const ElementCssEditor = observer(
       element.customCss || '',
     )
 
-    const [guiCss, setGuiCss] = useState<cssMap>(
-      JSON.parse(element.guiCss || '{}'),
-    )
-
     // Keep the css string value in a ref so we can access it when unmounting the component
     const customCssStringRef = useRef(customCssString)
     customCssStringRef.current = customCssString
-
-    const guiCssRef = useRef(guiCss)
-    guiCssRef.current = guiCss
 
     const updateCustomCss = useCallback(
       (newCustomCss: string) => {
         const promise = elementService.patchElement(element, {
           customCss: newCustomCss,
-        })
-
-        return trackPromise?.(promise) ?? promise
-      },
-      [element, elementService, trackPromise],
-    )
-
-    const updateGuiCss = useCallback(
-      (newGuiCss: string) => {
-        const promise = elementService.patchElement(element, {
-          guiCss: newGuiCss,
         })
 
         return trackPromise?.(promise) ?? promise
@@ -126,12 +120,6 @@ export const ElementCssEditor = observer(
       }
     }, [updateCustomCss])
 
-    useEffect(() => {
-      return () => {
-        updateGuiCss(JSON.stringify(guiCssRef.current)).then()
-      }
-    }, [updateGuiCss])
-
     /*
      * Debounce autosave, otherwise it will be too quick
      * Getting a dgraph  error if this is too fast, like 500ms
@@ -141,60 +129,15 @@ export const ElementCssEditor = observer(
       customCssString,
     )
 
-    const [guiCssDebounced, setGuiCssDebounced] = useDebouncedState(
-      1000,
-      guiCss,
-    )
-
     useEffect(() => {
       setCustomCssDebounced(customCssString)
     }, [customCssString, setCustomCssDebounced])
-
-    useEffect(() => {
-      setGuiCssDebounced(guiCss)
-    }, [guiCss, setGuiCssDebounced])
 
     useEffect(() => {
       if (isString(customCssDebounced)) {
         updateCustomCss(customCssDebounced)
       }
     }, [customCssDebounced, updateCustomCss])
-
-    useEffect(() => {
-      if (guiCssDebounced) {
-        updateGuiCss(JSON.stringify(guiCssDebounced))
-      }
-    }, [guiCssDebounced, updateGuiCss])
-
-    // const updateCssProps = (newCssProps: cssMap) => {
-    //   // find the css property and replace it with the new value
-    //   const newProps = Object.keys(newCssProps)
-    //   const updatedProps: Array<string> = []
-    //   let newCssString = customCssString
-    //   newProps.forEach((prop) => {
-    //     // find the css property and replace it with the new value
-    //     const match = newCssString
-    //       .match(new RegExp(`(^|(;( |\n)*))(${prop})( )*:[^;]*;?`))?.[0]
-    //       .match(new RegExp(`(${prop})( )*:[^;]*;?`))?.[0]
-
-    //     if (match) {
-    //       updatedProps.push(prop)
-    //       newCssString = newCssString.replace(
-    //         RegExp(match, 'g'),
-    //         `${prop}: ${newCssProps[prop]};`,
-    //       )
-    //     }
-    //   })
-
-    //   // add new css properties
-    //   newProps.forEach((prop) => {
-    //     if (!updatedProps.includes(prop)) {
-    //       newCssString += `\n${prop}: ${newCssProps[prop]};`
-    //     }
-    //   })
-
-    //   setCustomCssString(newCssString)
-    // }
 
     if (!element.atom) {
       return <>Add an atom to this element to edit its CSS</>
@@ -207,7 +150,7 @@ export const ElementCssEditor = observer(
           onChange={(value) => setCustomCssString(value)}
           value={customCssString}
         />
-        <FlexBoxEditor onChange={setGuiCss} />
+        <FlexBoxEditor element={element} />
       </>
     )
   },

@@ -19,6 +19,8 @@ export interface IElementContainer {
   rootElementId: string
 }
 
+export type cssMap = { [prop: string]: string }
+
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   owner: Nullable<IAuth0Id>
@@ -67,6 +69,9 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
     globalProps: IPropData
   }
   executePropTransformJs(props: IPropData): IPropData
+
+  appendToGuiCss(css: cssMap): void
+  deleteFromGuiCss(propNames: Array<string>): void
 }
 
 export type IElementRef = string
