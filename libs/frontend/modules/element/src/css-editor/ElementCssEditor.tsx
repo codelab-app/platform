@@ -5,83 +5,23 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
-import { Radio } from 'antd'
+import { Divider } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { FlexBoxEditor } from './css-layout-editor/FlexBoxEditor'
 
 export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
 }
 
-type cssMap = { [prop: string]: string }
-
-type FlexBoxEditorProps = {
-  element: IElement
-}
-
 /*
 
-  TODO:
-  - Setup the guiCss here so that element is patched whenever guiCss has changed - DONE
-  - in any component, use appendToGuiCss to add css to the guiCss - DONE
-  - in any component, use deleteFromGuiCss to remove css from the guiCss - DONE
-
-  // Next steps: 
-  - Design the UI -> must be pretty using icons etc.
-  - implement the UI for Layout Editor
-  
-
-  // Also do:
+  TODO: later
   - define the interfaces for what Css changes are possible? basically what potential values
     can guiCss be set to?
   */
-
-const FlexBoxEditor = observer(({ element }: FlexBoxEditorProps) => {
-  const [css, setCss] = useState<cssMap>({})
-  const [flex, setFlex] = useState('none')
-
-  const updateFlex = (newVal: string) => {
-    if (flex !== newVal) {
-      setFlex(newVal)
-      element.appendToGuiCss({
-        'background-color': 'red',
-        width: '100%',
-        display: 'flex',
-        'flex-direction': newVal,
-      })
-
-      return
-    }
-
-    setFlex('none')
-    element.deleteFromGuiCss(['flex-direction', 'display'])
-  }
-
-  return (
-    <Radio.Group defaultValue="none" size="small" value={flex}>
-      <Radio.Button onClick={() => updateFlex('row')} value="row">
-        row
-      </Radio.Button>
-      <Radio.Button
-        onClick={() => updateFlex('row-reverse')}
-        value="row-reverse"
-      >
-        row-reverse
-      </Radio.Button>
-      <Radio.Button onClick={() => updateFlex('column')} value="column">
-        column
-      </Radio.Button>
-      <Radio.Button
-        onClick={() => updateFlex('column-reverse')}
-        value="column-reverse"
-      >
-        column-reverse
-      </Radio.Button>
-    </Radio.Group>
-  )
-})
 
 export const ElementCssEditor = observer(
   ({
@@ -139,6 +79,22 @@ export const ElementCssEditor = observer(
       }
     }, [customCssDebounced, updateCustomCss])
 
+    // TODO: Probably need to debounce this??
+    const updateGuiCss = useCallback(
+      (newGuiCss: string) => {
+        const promise = elementService.patchElement(element, {
+          guiCss: newGuiCss,
+        })
+
+        return trackPromise?.(promise) ?? promise
+      },
+      [element, elementService, trackPromise],
+    )
+
+    useEffect(() => {
+      updateGuiCss(element.guiCss ?? '{}').then()
+    }, [element.guiCss, updateGuiCss])
+
     if (!element.atom) {
       return <>Add an atom to this element to edit its CSS</>
     }
@@ -150,6 +106,9 @@ export const ElementCssEditor = observer(
           onChange={(value) => setCustomCssString(value)}
           value={customCssString}
         />
+        <Divider orientation="left" plain>
+          FlexBox
+        </Divider>
         <FlexBoxEditor element={element} />
       </>
     )
