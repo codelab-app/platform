@@ -34,7 +34,7 @@ import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const { TabPane } = Tabs
 
@@ -54,7 +54,7 @@ const PageBuilder: CodelabPage = observer(() => {
   const pageId = useCurrentPageId()
   const router = useRouter()
 
-  const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
+  const [init, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
       // load all apps to provide them to mobxState
       const apps = await appService.getAll()
@@ -109,6 +109,11 @@ const PageBuilder: CodelabPage = observer(() => {
     },
     { executeOnMount: true },
   )
+
+  useEffect(() => {
+    // reload on pageId change
+    init()
+  }, [appId, init, pageId])
 
   const activeComponent = builderService.activeComponent
 

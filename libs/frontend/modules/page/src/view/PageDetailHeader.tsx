@@ -1,18 +1,25 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useCurrentPageId } from '@codelab/frontend/presenter/container'
+import {
+  useCurrentAppId,
+  useCurrentPageId,
+} from '@codelab/frontend/presenter/container'
 import { IPageService } from '@codelab/shared/abstract/core'
 import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 export const PageDetailHeader = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const router = useRouter()
+    const currentAppId = useCurrentAppId()
     const pageId = useCurrentPageId()
-    const pagesList = pageService.pagesList
+
+    const pagesList = pageService.pagesList.filter(
+      (p) => p.app.id === currentAppId,
+    )
+
     const currentPage = pagesList?.find((x) => x?.id === pageId)
     const isBuilder = router.pathname === PageType.PageBuilder
 
@@ -30,16 +37,16 @@ export const PageDetailHeader = observer<{ pageService: IPageService }>(
         title: currentPage?.name,
         children: pagesList?.map((page) => ({
           key: page.id,
-          label: (
-            <Link
-              href={{
+          label: <span>{page?.name}</span>,
+          onClick: () =>
+            router.push(
+              {
                 pathname: PageType.PageBuilder,
-                query: { ...router.query, pageId: page?.id },
-              }}
-            >
-              <a>{page?.name}</a>
-            </Link>
-          ),
+                query: { ...router.query, pageId: page.id },
+              },
+              undefined,
+              { shallow: false },
+            ),
         })),
       },
       {
