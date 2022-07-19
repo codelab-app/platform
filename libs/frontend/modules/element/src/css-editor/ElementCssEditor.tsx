@@ -9,7 +9,7 @@ import { Divider } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlexBoxEditor } from './css-layout-editor'
+import { FlexBoxEditor, MarginsEditor } from './css-layout-editor'
 
 export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
@@ -118,6 +118,10 @@ export const ElementCssEditor = observer(
           FlexBox
         </Divider>
         <FlexBoxEditor element={element} guiCssObj={guiCssObj} />
+        <Divider orientation="left" plain>
+          Margins
+        </Divider>
+        <MarginsEditor element={element} guiCssObj={guiCssObj} />
       </>
     )
   },
