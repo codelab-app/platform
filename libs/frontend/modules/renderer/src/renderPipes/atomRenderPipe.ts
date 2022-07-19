@@ -42,9 +42,13 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const elCss = element.customCss
-      ? css([JSON.parse(element.guiCss || '{}'), evalCss(element.customCss)])
-      : undefined
+    const elCss =
+      element.customCss || element.guiCss
+        ? css([
+            JSON.parse(element.guiCss || '{}'),
+            evalCss(element.customCss || ''),
+          ])
+        : undefined
 
     if (this.renderer.debugMode) {
       console.info(

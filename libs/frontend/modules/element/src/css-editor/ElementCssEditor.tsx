@@ -4,12 +4,12 @@ import {
   EmotionCssEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
+import { cssMap, IElement } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlexBoxEditor } from './css-layout-editor/FlexBoxEditor'
+import { FlexBoxEditor } from './css-layout-editor'
 
 export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
@@ -30,6 +30,14 @@ export const ElementCssEditor = observer(
     elementService,
   }: ElementCssEditorInternalProps) => {
     const { trackPromise } = trackPromises ?? {}
+
+    const [guiCssObj, setGuiCssObj] = useState<cssMap>(
+      JSON.parse(element.guiCss ?? '{}'),
+    )
+
+    useEffect(() => {
+      setGuiCssObj(JSON.parse(element.guiCss ?? '{}'))
+    }, [element.guiCss])
 
     const [customCssString, setCustomCssString] = useState(
       element.customCss || '',
@@ -109,7 +117,7 @@ export const ElementCssEditor = observer(
         <Divider orientation="left" plain>
           FlexBox
         </Divider>
-        <FlexBoxEditor element={element} />
+        <FlexBoxEditor element={element} guiCssObj={guiCssObj} />
       </>
     )
   },
