@@ -16,6 +16,7 @@ import {
   getRefsResolvingTo,
   Model,
   model,
+  modelAction,
   modelTypeKey,
   prop,
   Ref,
@@ -27,13 +28,15 @@ export class BuilderService
   extends Model({
     activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
 
-    _selectedNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
+    _selectedNode: prop<Nullable<Ref<INode>>>(null),
     _hoveredNode: prop<Nullable<Ref<INode>>>(null).withSetter(),
 
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
 
     activeBuilderTab: prop<BuilderTab>(BuilderTab.Tree).withSetter(),
     stateModal: prop(() => new StateModalService({})),
+
+    expandedNodeIds: prop<Array<string>>(() => []).withSetter(),
 
     // configPaneWidth: prop(0),
   })
@@ -47,6 +50,41 @@ export class BuilderService
   @computed
   get hoveredNode() {
     return this._hoveredNode?.current ?? null
+  }
+
+  @modelAction
+  set_selectedNode(node: Nullable<Ref<INode>>) {
+    this._selectedNode = node
+
+    if (!node) {
+      return
+    }
+
+    const findNodesToExpand = (
+      selectedNode: INode,
+      alreadyExpandedNodeIds: Array<string>,
+    ): Array<string> => {
+      /**
+       * If we delete an element, the whole tree collapses. Instead,
+       * we want to show the sibling or parent as selected.
+       */
+      const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
+      const expandedSet = new Set(alreadyExpandedNodeIds)
+
+      // go through each node of the path and keep track of all nodes that need to get expanded
+      const toExpand = pathResult
+        ?.filter((el) => !expandedSet.has(el.id))
+        .map((el) => {
+          return el.id
+        })
+
+      return toExpand ?? []
+    }
+
+    this.expandedNodeIds = [
+      ...this.expandedNodeIds,
+      ...findNodesToExpand(node.current, this.expandedNodeIds),
+    ]
   }
 
   // @modelAction
