@@ -11,6 +11,7 @@ import { importUserData } from './import-user-data'
  */
 export const importCommand: CommandModule<any, any> = {
   command: 'import',
+  describe: 'Import data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
   builder: {
     file: {
