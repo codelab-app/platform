@@ -1,10 +1,10 @@
-import { ModalService } from '@codelab/frontend/shared/utils'
 import {
   ResourceCreateInput,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
+  IResource,
   IResourceDTO,
   IResourceService,
   IUpdateResourceDTO,
@@ -25,14 +25,17 @@ import {
 } from 'mobx-keystone'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
-import { ResourceModalService } from './resource-modal.service'
+import {
+  CreateResourceModalService,
+  ResourceModalService,
+} from './resource-modal.service'
 
 @model('@codelab/Resource')
 export class ResourceService
   extends Model({
-    resources: prop(() => objectMap<Resource>()),
+    resources: prop(() => objectMap<IResource>()),
 
-    createModal: prop(() => new ModalService({})),
+    createModal: prop(() => new CreateResourceModalService({})),
     updateModal: prop(() => new ResourceModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
   })
@@ -173,8 +176,10 @@ export class ResourceService
       resourceModel.name = resource.name
       resourceModel.config.updateCache(resource.config)
       resourceModel.type = resource.type
+      resourceModel.id = resource.id
     } else {
       resourceModel = Resource.hydrate(resource)
+      this.resources.set(resourceModel.id, resourceModel)
     }
 
     return resourceModel
@@ -184,11 +189,11 @@ export class ResourceService
 export const resourceServiceContext = createContext<IResourceService>()
 
 export const getResourceService = (self: object) => {
-  const resourceStore = resourceServiceContext.get(self)
+  const resourceService = resourceServiceContext.get(self)
 
-  if (!resourceStore) {
+  if (!resourceService) {
     throw new Error('ResourceService context is not defined')
   }
 
-  return resourceStore
+  return resourceService
 }

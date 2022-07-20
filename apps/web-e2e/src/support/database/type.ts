@@ -37,6 +37,6 @@ export const createType = (input: TypeBaseCreateInput, typeKind: ITypeKind) =>
   cy
     .graphqlRequest({
       query: print(createTypeQuery[typeKind]),
-      variables: { input },
+      variables: { input: input[typeKind] },
     })
     .then((result) => result.body.data?.createType as ITypeDTO)

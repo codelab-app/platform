@@ -49,22 +49,18 @@ export const SelectActionField = observer(
            * Sets the reference to a actionId
            */
           name={`${field.key}.value`}
-          render={(control) => {
-            console.log(control.field.value)
-
-            return (
-              <Select
-                allowClear
-                css={tw`w-full`}
-                onBlur={control.field.onBlur}
-                onChange={control.field.onChange}
-                optionFilterProp="label"
-                options={options}
-                showSearch
-                value={control.field.value}
-              />
-            )
-          }}
+          render={(control) => (
+            <Select
+              allowClear
+              css={tw`w-full`}
+              onBlur={control.field.onBlur}
+              onChange={control.field.onChange}
+              optionFilterProp="label"
+              options={options}
+              showSearch
+              value={control.field.value}
+            />
+          )}
         />
       </>
     )

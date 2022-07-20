@@ -54,8 +54,10 @@ export const CreateActionModal = observer<
             body: '{}',
             method: HttpMethod.GET,
             query: '',
+            headers: '{}',
             variables: '{}',
             queryParams: '{}',
+            urlSegment: '',
           },
         }}
         onSubmit={onSubmit}
@@ -105,15 +107,19 @@ export const CreateActionModal = observer<
           >
             <AutoField name="config.query" />
             <AutoField name="config.variables" />
+            <AutoField name="config.headers" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
           <DisplayIfField<ICreateActionDTO>
             condition={(c) => getResourceType(c) === ResourceType.Rest}
           >
+            <AutoField name="config.urlSegment" />
             <AutoField name="config.method" />
             <AutoField name="config.body" />
             <AutoField name="config.queryParams" />
+            <AutoField name="config.headers" />
+            <AutoField name="config.responseType" />
           </DisplayIfField>
         </DisplayIfField>
 
