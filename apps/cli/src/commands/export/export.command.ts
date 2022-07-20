@@ -28,6 +28,7 @@ export type ExportedData = {
  */
 export const exportCommand: CommandModule<any, any> = {
   command: 'export',
+  describe: 'Export data',
   handler: async () => {
     const confirmExportSeedData = await inquirer.prompt([
       {
