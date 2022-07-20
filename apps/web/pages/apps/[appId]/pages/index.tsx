@@ -2,8 +2,15 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { ExplorerPanePage } from '@codelab/frontend/modules/page'
-import { useStore } from '@codelab/frontend/presenter/container'
-import { adminMenuItems, appMenuItem } from '@codelab/frontend/view/sections'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
+import {
+  adminMenuItems,
+  appMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   DashboardTemplateProps,
@@ -32,13 +39,14 @@ export const getServerSideProps = withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
   const store = useStore()
+  const appId = useCurrentAppId()
 
   return (
     <DashboardTemplate
       ExplorerPane={() => <ExplorerPanePage pageService={store.pageService} />}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[appMenuItem, storeMenuItem(appId)]}
           secondaryItems={adminMenuItems}
         />
       )}

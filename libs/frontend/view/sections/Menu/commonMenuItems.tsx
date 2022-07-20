@@ -1,4 +1,8 @@
-import { AppstoreOutlined, CloudServerOutlined } from '@ant-design/icons'
+import {
+  AppstoreOutlined,
+  CloudServerOutlined,
+  DatabaseOutlined,
+} from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { MenuProps } from 'antd'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
@@ -10,6 +14,14 @@ export const appMenuItem: ItemType = {
   key: PageType.AppList,
   label: <Link href={PageType.AppList}>Apps</Link>,
 }
+
+export const storeMenuItem = (appId: string): ItemType => ({
+  icon: <DatabaseOutlined data-testid="store-tab-trigger" title="Store" />,
+  key: PageType.Store,
+  label: (
+    <Link href={{ pathname: PageType.Store, query: { appId } }}>Store</Link>
+  ),
+})
 
 export const resourceMenuItem: ItemType = {
   icon: (

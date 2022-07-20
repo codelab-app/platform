@@ -38,6 +38,7 @@ export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
           )
         }}
         size="small"
+        title="Create State"
         type="primary"
       />
     )
@@ -50,6 +51,7 @@ export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
           actionService.createModal.open()
         }}
         size="small"
+        title="Create Action"
         type="primary"
       />
     )
