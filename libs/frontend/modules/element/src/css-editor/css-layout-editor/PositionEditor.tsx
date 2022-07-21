@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons'
 import { cssMap, IElement } from '@codelab/shared/abstract/core'
-import { Button, Col, Dropdown, InputNumber, Row, Space } from 'antd'
+import { Button, Col, Dropdown, InputNumber, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useState } from 'react'
 import { makeAddonAfterNumber, makeMenu, updateGuiCssProperty } from '../utils'
@@ -102,53 +102,54 @@ export const PositionEditor = observer(
     )
 
     return (
-      <Space>
-        <Row gutter={[32, 24]}>
-          <Col>
+      <>
+        <Row>
+          <Col span={8}>
+            <span>position: </span>
+          </Col>
+          <Col span={16}>
             <Dropdown overlay={positionMenu}>
-              <Button>
-                <Space>
-                  position: <span>{guiCssObj['position'] ?? 'static'}</span>
-                  <DownOutlined />
-                </Space>
+              <Button style={{ width: '100%' }}>
+                <span style={{ width: '90%' }}>
+                  {guiCssObj['position'] ?? 'static'}
+                </span>
+                <DownOutlined style={{ width: '10%' }} />
               </Button>
             </Dropdown>
           </Col>
-          {!guiCssObj['position'] ||
-          guiCssObj['position'] === 'static' ? null : (
-            <>
-              {options.map((option, i) => (
-                <Col>
-                  <Row>
-                    <Col span={6}>
-                      <span>{option.name}: </span>
-                    </Col>
-                    <Col span={18}>
-                      <InputNumber
-                        addonAfter={selectAfter(
-                          option.name,
-                          optValue[option.name].unit,
-                        )}
-                        defaultValue={optValue[option.name].value}
-                        disabled={optValue[option.name].unit === 'auto'}
-                        onChange={(val) => {
-                          setOptValue({
-                            ...optValue,
-                            [option.name]: {
-                              ...optValue[option.name],
-                              value: val,
-                            },
-                          })
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              ))}
-            </>
-          )}
         </Row>
-      </Space>
+        {!guiCssObj['position'] || guiCssObj['position'] === 'static' ? null : (
+          <>
+            {options.map((option, i) => (
+              <Row>
+                <Col span={8}>
+                  <span>{option.name}: </span>
+                </Col>
+                <Col span={16}>
+                  <InputNumber
+                    addonAfter={selectAfter(
+                      option.name,
+                      optValue[option.name].unit,
+                    )}
+                    defaultValue={optValue[option.name].value}
+                    disabled={optValue[option.name].unit === 'auto'}
+                    onChange={(val) => {
+                      setOptValue({
+                        ...optValue,
+                        [option.name]: {
+                          ...optValue[option.name],
+                          value: val,
+                        },
+                      })
+                    }}
+                    style={{ width: '100%' }}
+                  />
+                </Col>
+              </Row>
+            ))}
+          </>
+        )}
+      </>
     )
   },
 )

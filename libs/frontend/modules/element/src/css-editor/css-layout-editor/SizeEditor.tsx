@@ -1,5 +1,5 @@
 import { cssMap, IElement } from '@codelab/shared/abstract/core'
-import { Col, InputNumber, Row, Space } from 'antd'
+import { Col, InputNumber, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useState } from 'react'
 import { makeAddonAfterNumber, updateGuiCssProperty } from '../utils'
@@ -79,35 +79,34 @@ export const SizeEditor = observer(
     )
 
     return (
-      <Space>
-        <Row gutter={[32, 24]}>
-          {options.map((option, i) => (
-            <Col>
-              <Row>
-                <Col span={6}>
-                  <span>{option}: </span>
-                </Col>
-                <Col span={18}>
-                  <InputNumber
-                    addonAfter={selectAfter(option, optValue[option].unit)}
-                    defaultValue={optValue[option].value}
-                    disabled={optValue[option].unit === 'auto'}
-                    onChange={(val) => {
-                      setOptValue({
-                        ...optValue,
-                        [option]: {
-                          ...optValue[option],
-                          value: val,
-                        },
-                      })
-                    }}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          ))}
-        </Row>
-      </Space>
+      <>
+        {options.map((option, i) => (
+          <Col>
+            <Row>
+              <Col span={8}>
+                <span>{option}: </span>
+              </Col>
+              <Col span={16}>
+                <InputNumber
+                  addonAfter={selectAfter(option, optValue[option].unit)}
+                  defaultValue={optValue[option].value}
+                  disabled={optValue[option].unit === 'auto'}
+                  onChange={(val) => {
+                    setOptValue({
+                      ...optValue,
+                      [option]: {
+                        ...optValue[option],
+                        value: val,
+                      },
+                    })
+                  }}
+                  style={{ width: '100%' }}
+                />
+              </Col>
+            </Row>
+          </Col>
+        ))}
+      </>
     )
   },
 )
