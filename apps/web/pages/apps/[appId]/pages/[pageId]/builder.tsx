@@ -93,8 +93,9 @@ const PageBuilder: CodelabPage = observer(() => {
         pageId,
         pageElementTree,
         appStore,
-        null,
+        providerTree,
         createMobxState(appStore, apps, pages, router),
+        true,
       )
 
       return {
