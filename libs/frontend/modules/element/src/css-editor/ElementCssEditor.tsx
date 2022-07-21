@@ -9,7 +9,11 @@ import { Divider } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlexBoxEditor, MarginsEditor } from './css-layout-editor'
+import {
+  FlexBoxEditor,
+  MarginsEditor,
+  PaddingEditor,
+} from './css-layout-editor'
 
 export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
@@ -43,9 +47,13 @@ export const ElementCssEditor = observer(
       element.customCss || '',
     )
 
+    const [guiCssString, setGuiCssString] = useState(element.guiCss || '{}')
     // Keep the css string value in a ref so we can access it when unmounting the component
     const customCssStringRef = useRef(customCssString)
     customCssStringRef.current = customCssString
+
+    const guiCssStringRef = useRef(guiCssString)
+    guiCssStringRef.current = guiCssString
 
     const updateCustomCss = useCallback(
       (newCustomCss: string) => {
@@ -68,10 +76,6 @@ export const ElementCssEditor = observer(
       }
     }, [updateCustomCss])
 
-    /*
-     * Debounce autosave, otherwise it will be too quick
-     * Getting a dgraph  error if this is too fast, like 500ms
-     */
     const [customCssDebounced, setCustomCssDebounced] = useDebouncedState(
       1000,
       customCssString,
@@ -100,8 +104,33 @@ export const ElementCssEditor = observer(
     )
 
     useEffect(() => {
-      updateGuiCss(element.guiCss ?? '{}').then()
-    }, [element.guiCss, updateGuiCss])
+      /*
+       * Make sure the new string is saved when unmounting the component
+       * because if the panel is closed too quickly, the autosave won't catch the latest changes
+       */
+      return () => {
+        updateGuiCss(guiCssStringRef.current).then()
+      }
+    }, [updateGuiCss])
+
+    const [guiCssDebounced, setGuiCssDebounced] = useDebouncedState(
+      1000,
+      guiCssString,
+    )
+
+    useEffect(() => {
+      setGuiCssDebounced(guiCssString)
+    }, [guiCssString, setGuiCssDebounced])
+
+    useEffect(() => {
+      if (isString(guiCssDebounced)) {
+        updateGuiCss(guiCssDebounced)
+      }
+    }, [guiCssDebounced, updateGuiCss])
+
+    useEffect(() => {
+      setGuiCssString(element.guiCss ?? '{}')
+    }, [element.guiCss, setGuiCssString])
 
     if (!element.atom) {
       return <>Add an atom to this element to edit its CSS</>
@@ -122,6 +151,10 @@ export const ElementCssEditor = observer(
           Margins
         </Divider>
         <MarginsEditor element={element} guiCssObj={guiCssObj} />
+        <Divider orientation="left" plain>
+          Padding
+        </Divider>
+        <PaddingEditor element={element} guiCssObj={guiCssObj} />
       </>
     )
   },

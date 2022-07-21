@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useState } from 'react'
 import { makeAddonAfterNumber, updateGuiCssProperty } from '../utils'
 
-type MarginsEditorProps = {
+type PaddingEditorProps = {
   element: IElement
   guiCssObj: cssMap
 }
@@ -18,11 +18,18 @@ type optUnitMap = {
 
 const matchNumber = new RegExp(/[0-9]+\.?([0-9]+)?/)
 const matchUnit = new RegExp(/[a-z]+|%/)
-const options = ['margin-top', 'margin-right', 'margin-bottom', 'margin-left']
+
+const options = [
+  'padding-top',
+  'padding-right',
+  'padding-bottom',
+  'padding-left',
+]
+
 const units = ['px', '%', 'em', 'rem', 'ch', 'vh', 'vw']
 
-export const MarginsEditor = observer(
-  ({ element, guiCssObj }: MarginsEditorProps) => {
+export const PaddingEditor = observer(
+  ({ element, guiCssObj }: PaddingEditorProps) => {
     const [optValue, setOptValue] = useState<optUnitMap>(
       options.reduce(
         (acc, opt) => ({
