@@ -14,6 +14,7 @@ import {
   FlexBoxEditor as DisplayEditor,
   MarginsEditor,
   PaddingEditor,
+  PositionEditor,
   SizeEditor,
 } from './css-layout-editor'
 
@@ -178,6 +179,13 @@ export const ElementCssEditor = observer(
           </Panel>
           <Panel className="site-collapse-custom-panel" header="Size" key="4">
             <SizeEditor element={element} guiCssObj={guiCssObj} />
+          </Panel>
+          <Panel
+            className="site-collapse-custom-panel"
+            header="Position"
+            key="5"
+          >
+            <PositionEditor element={element} guiCssObj={guiCssObj} />
           </Panel>
         </Collapse>
       </>

@@ -1,4 +1,5 @@
 export * from './FlexBoxEditor'
 export * from './MarginsEditor'
 export * from './PaddingEditor'
+export * from './PositionEditor'
 export * from './SizeEditor'
