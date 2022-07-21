@@ -55,6 +55,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           appStore,
           null,
           null,
+          true,
         )
       })()
     }, [componentId])

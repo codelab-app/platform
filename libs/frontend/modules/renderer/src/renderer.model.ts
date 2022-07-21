@@ -49,16 +49,28 @@ import { mapOutput } from './utils/renderOutputUtils'
 /**
  * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
  */
+const builderGlobals = {
+  onClick: () => {
+    //
+  },
+  href: '#',
+}
+
 const init = (
   pageTree: IElementTree,
   appStore: IStore,
   appTree?: Nullable<IElementTree>,
   platformState?: any,
+  isBuilder?: boolean,
 ) => {
   const renderer = new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
     appStore: storeRef(appStore),
+    extraElementProps: new ExtraElementProps({
+      // pass
+      global: frozen(isBuilder ? builderGlobals : {}),
+    }),
   })
 
   renderer.setPlatformState(platformState)

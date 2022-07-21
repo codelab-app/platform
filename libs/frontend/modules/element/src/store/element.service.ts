@@ -102,7 +102,7 @@ export class ElementService
     const componentService = getComponentService(this)
 
     const allComponents = elements
-      .map((v) => v.component)
+      .map((v) => v.component || v.instanceOfComponent)
       .filter(Boolean) as Array<IComponentDTO>
 
     componentService.updateCache(allComponents)
