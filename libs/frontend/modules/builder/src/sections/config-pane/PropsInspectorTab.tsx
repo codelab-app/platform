@@ -1,24 +1,19 @@
-import {
-  BUILDER_SERVICE,
-  ELEMENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
-import { MonacoEditor } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
+import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IElement, IRenderer } from '@codelab/shared/abstract/core'
 import Button from 'antd/lib/button'
+import TextArea from 'antd/lib/input/TextArea'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
-export type ElementPropsSectionProps = WithServices<
-  BUILDER_SERVICE | ELEMENT_SERVICE
-> & {
+export interface PropsInspectorProps extends WithServices<ELEMENT_SERVICE> {
   element: IElement
+  renderer: IRenderer
 }
 
 const PropsInspectorTab = observer(
-  ({ element, builderService, elementService }: ElementPropsSectionProps) => {
+  ({ element, renderer, elementService }: PropsInspectorProps) => {
     const {
       save,
       lastRenderedPropsString,
@@ -26,41 +21,29 @@ const PropsInspectorTab = observer(
       setPersistedProps,
       isLoading,
       setExtraPropsForElement,
-    } = usePropsInspector(element, builderService, elementService)
+    } = usePropsInspector(element, renderer, elementService)
+
+    const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+      const props = event.target.value
+      setPersistedProps(props)
+
+      try {
+        setExtraPropsForElement(JSON.parse(props))
+      } catch (error) {
+        //
+        console.log(error)
+      }
+    }
 
     return (
-      <div css={tw`grid grid-cols-2 gap-x-8 h-full`}>
-        <div>
-          <h3 css={tw`text-gray-700`}>Current props</h3>
-          <MonacoEditor
-            containerProps={{ style: { height: '100%' } }}
-            editorOptions={{ language: 'json', readOnly: true }}
-            value={lastRenderedPropsString}
-          />
-        </div>
-
-        <div>
-          <div css={tw`flex flex-row justify-between items-center px-8`}>
-            <h3 css={tw`text-gray-700`}>Element props</h3>
-            <Button loading={isLoading} onClick={() => save()}>
-              Save
-            </Button>
-          </div>
-          <MonacoEditor
-            containerProps={{ style: { height: '100%' } }}
-            editorOptions={{ language: 'json' }}
-            onChange={(v) => {
-              setPersistedProps(v)
-
-              try {
-                setExtraPropsForElement(JSON.parse(v))
-              } catch (e) {
-                //
-              }
-            }}
-            value={persistedProps}
-          />
-        </div>
+      <div>
+        <h3 css={tw`text-gray-700`}>Current props</h3>
+        <TextArea readOnly rows={10} value={lastRenderedPropsString} />
+        <h3 css={tw`text-gray-700`}>Element props</h3>
+        <TextArea onChange={onChange} rows={10} value={persistedProps} />
+        <Button loading={isLoading} onClick={() => save()}>
+          Save
+        </Button>
       </div>
     )
   },

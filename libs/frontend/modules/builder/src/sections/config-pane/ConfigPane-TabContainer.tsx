@@ -1,4 +1,5 @@
 import {
+  CodeOutlined,
   FormatPainterOutlined,
   FunctionOutlined,
   NodeIndexOutlined,
@@ -37,6 +38,7 @@ import React, { ReactNode } from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
 import { TabContainer } from './ConfigPane-TabContainerStyle'
+import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -177,18 +179,22 @@ export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
           {/*  /> */}
           {/* </Tabs.TabPane> */}
 
-          {/* <Tabs.TabPane */}
-          {/*  key={selectedNode.id + '_tab5'} */}
-          {/*  style={{ overflow: 'auto', maxHeight: '100%' }} */}
-          {/*  tab="Props Inspector" */}
-          {/* > */}
-          {/*  <PropsInspectorTab */}
-          {/*    builderService={builderService} */}
-          {/*    element={selectedNode} */}
-          {/*    elementService={elementService} */}
-          {/*    key={selectedNode.id} */}
-          {/*  /> */}
-          {/* </Tabs.TabPane> */}
+          <Tabs.TabPane
+            key={selectedNode.id + '_tab5'}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
+            tab={
+              <TooltipIcon icon={<CodeOutlined />} title="Props Inspector" />
+            }
+          >
+            {isElement(selectedNode) && (
+              <PropsInspectorTab
+                element={selectedNode}
+                elementService={elementService}
+                key={selectedNode.id}
+                renderer={renderService}
+              />
+            )}
+          </Tabs.TabPane>
 
           <Tabs.TabPane
             key={selectedNode.id + '_tab6'}

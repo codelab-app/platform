@@ -33,11 +33,18 @@ export class RenderService
     appStore: IStore,
     appTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
+    isBuilder?: boolean,
   ) {
     const existing = this.renderers.get(id)
 
     if (!existing) {
-      const renderer = Renderer.init(pageTree, appStore, appTree, platformState)
+      const renderer = Renderer.init(
+        pageTree,
+        appStore,
+        appTree,
+        platformState,
+        isBuilder,
+      )
 
       this.renderers.set(id, renderer)
 
