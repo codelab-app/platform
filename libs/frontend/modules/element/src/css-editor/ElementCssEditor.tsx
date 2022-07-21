@@ -1,3 +1,4 @@
+import { CaretRightOutlined } from '@ant-design/icons'
 import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
@@ -5,15 +6,18 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { cssMap, IElement } from '@codelab/shared/abstract/core'
-import { Divider } from 'antd'
+import { Collapse } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  FlexBoxEditor,
+  FlexBoxEditor as DisplayEditor,
   MarginsEditor,
   PaddingEditor,
+  SizeEditor,
 } from './css-layout-editor'
+
+const { Panel } = Collapse
 
 export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
   element: IElement
@@ -143,18 +147,39 @@ export const ElementCssEditor = observer(
           onChange={(value) => setCustomCssString(value)}
           value={customCssString}
         />
-        <Divider orientation="left" plain>
-          FlexBox
-        </Divider>
-        <FlexBoxEditor element={element} guiCssObj={guiCssObj} />
-        <Divider orientation="left" plain>
-          Margins
-        </Divider>
-        <MarginsEditor element={element} guiCssObj={guiCssObj} />
-        <Divider orientation="left" plain>
-          Padding
-        </Divider>
-        <PaddingEditor element={element} guiCssObj={guiCssObj} />
+        <Collapse
+          bordered={false}
+          className="site-collapse-custom-collapse"
+          defaultActiveKey={['1']}
+          expandIcon={({ isActive }) => (
+            <CaretRightOutlined rotate={isActive ? 90 : 0} />
+          )}
+        >
+          <Panel
+            className="site-collapse-custom-panel"
+            header="Display"
+            key="1"
+          >
+            <DisplayEditor element={element} guiCssObj={guiCssObj} />
+          </Panel>
+          <Panel
+            className="site-collapse-custom-panel"
+            header="Margins"
+            key="2"
+          >
+            <MarginsEditor element={element} guiCssObj={guiCssObj} />
+          </Panel>
+          <Panel
+            className="site-collapse-custom-panel"
+            header="Padding"
+            key="3"
+          >
+            <PaddingEditor element={element} guiCssObj={guiCssObj} />
+          </Panel>
+          <Panel className="site-collapse-custom-panel" header="Size" key="4">
+            <SizeEditor element={element} guiCssObj={guiCssObj} />
+          </Panel>
+        </Collapse>
       </>
     )
   },
