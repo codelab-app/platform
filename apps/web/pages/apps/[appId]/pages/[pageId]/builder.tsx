@@ -1,25 +1,18 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
-  BaseBuilderProps,
-  Builder,
-  BuilderComponent,
   BuilderContext,
   BuilderExplorerPane,
+  BuilderTabs,
   ConfigPane,
   EditorPaneBuilder,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import { createMobxState } from '@codelab/frontend/modules/store'
 import {
-  useCurrentAppId,
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import {
-  extractErrorMessage,
-  useStatefulExecutor,
-} from '@codelab/frontend/shared/utils'
+import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
   appMenuItem,
@@ -29,110 +22,19 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { RendererTab } from '@codelab/shared/abstract/core'
-import { Alert, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-
-const { TabPane } = Tabs
+import React from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const {
-    pageService,
-    appService,
-    elementService,
-    componentService,
-    storeService,
-    typeService,
-    builderService,
-    builderRenderService,
-  } = useStore()
-
-  const appId = useCurrentAppId()
+  const store = useStore()
   const pageId = useCurrentPageId()
-  const router = useRouter()
 
-  const [init, { isLoading, error, data, isDone }] = useStatefulExecutor(
-    async () => {
-      // load all apps to provide them to mobxState
-      const apps = await appService.getAll()
-      // load all pages to provide them to mobxState
-      const pages = await pageService.getAll()
-      const app = appService.app(appId)
-      const page = pageService.page(pageId)
-
-      if (!page) {
-        throw new Error('Page not found')
-      }
-
-      const appStore = await storeService.getOne(app.store.id)
-
-      if (!appStore) {
-        throw new Error('App store not found')
-      }
-
-      // components are needed to build pageElementTree
-      // therefore they must be loaded first
-      const components = await componentService.loadComponentTrees()
-
-      /**
-       * Construct the ElementTree's for
-       *
-       * - page tree
-       * - provider tree
-       */
-      const [pageElementTree, providerTree, types] = await Promise.all([
-        page.initTree(page.rootElement.id),
-        app.initTree(app.rootElement.id),
-        typeService.getAll(),
-      ])
-
-      const renderer = await builderRenderService.addRenderer(
-        pageId,
-        pageElementTree,
-        appStore,
-        providerTree,
-        createMobxState(appStore, apps, pages, router),
-        true,
-      )
-
-      return {
-        page,
-        pageElementTree,
-        providerTree,
-        appStore,
-        types,
-        components,
-        renderer,
-      }
-    },
+  const [, { data }] = useStatefulExecutor(
+    async () => ({
+      page: await store.pageService.getOne(pageId),
+    }),
     { executeOnMount: true },
-  )
-
-  useEffect(() => {
-    // reload on pageId change
-    init()
-  }, [appId, init, pageId])
-
-  const activeComponent = builderService.activeComponent
-
-  const BaseBuilder = observer<BaseBuilderProps>(
-    ({ elementTree, renderer }) => (
-      <Builder
-        currentDragData={builderService.currentDragData}
-        deleteModal={elementService.deleteModal}
-        elementTree={elementTree}
-        key={renderer.pageTree?.current.root?.id}
-        rendererProps={{
-          renderRoot: renderer.renderRoot.bind(renderer),
-        }}
-        selectedNode={builderService.selectedNode}
-        set_hoveredNode={builderService.set_hoveredNode.bind(builderService)}
-        set_selectedNode={builderService.set_selectedNode.bind(builderService)}
-      />
-    ),
   )
 
   return (
@@ -140,39 +42,17 @@ const PageBuilder: CodelabPage = observer(() => {
       <Head>
         <title>{data?.page?.name} | Builder | Codelab</title>
       </Head>
-      {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {isLoading && <Spin />}
-      <Tabs
-        activeKey={builderService.activeTree}
-        defaultActiveKey={RendererTab.Page}
-        onChange={(key) => console.log(key)}
-        type="card"
-      >
-        <TabPane key={RendererTab.Page} tab="Page">
-          {data?.pageElementTree && isDone && data.renderer ? (
-            <BaseBuilder
-              elementTree={data.pageElementTree}
-              renderer={data.renderer}
-            />
-          ) : null}
-        </TabPane>
-        <TabPane
-          key={RendererTab.Component}
-          style={{ height: '100%' }}
-          tab="Component"
-        >
-          {data && activeComponent ? (
-            <BuilderComponent
-              BaseBuilder={BaseBuilder}
-              appStore={data.appStore}
-              builderService={builderService}
-              componentId={activeComponent.id}
-              componentService={componentService}
-              renderService={builderRenderService}
-            />
-          ) : null}
-        </TabPane>
-      </Tabs>
+
+      <BuilderTabs
+        appService={store.appService}
+        builderRenderService={store.builderRenderService}
+        builderService={store.builderService}
+        componentService={store.componentService}
+        elementService={store.elementService}
+        pageService={store.pageService}
+        storeService={store.storeService}
+        typeService={store.typeService}
+      />
     </>
   )
 })
@@ -202,42 +82,41 @@ PageBuilder.Layout = observer((page) => {
       elementService={elementService}
     >
       <DashboardTemplate
-        ConfigPane={
-          !activeElementTree || !pageBuilderRenderer
-            ? undefined
-            : observer(() => {
-                return (
-                  <ConfigPane
-                    actionService={actionService}
-                    atomService={atomService}
-                    builderService={builderService}
-                    componentService={componentService}
-                    elementService={elementService}
-                    // The element tree changes depending on whether a page or a component is selected
-                    elementTree={activeElementTree}
-                    key={pageBuilderRenderer?.pageTree?.current.root?.id}
-                    renderService={pageBuilderRenderer}
-                    typeService={typeService}
-                  />
-                )
-              })
-        }
-        EditorPane={({ resizable }) => (
+        ConfigPane={observer(() => (
+          <>
+            {activeElementTree && pageBuilderRenderer ? (
+              <ConfigPane
+                actionService={actionService}
+                atomService={atomService}
+                builderService={builderService}
+                componentService={componentService}
+                elementService={elementService}
+                // The element tree changes depending on whether a page or a component is selected
+                elementTree={activeElementTree}
+                key={pageBuilderRenderer?.pageTree?.current.root?.id}
+                renderService={pageBuilderRenderer}
+                typeService={typeService}
+              />
+            ) : null}
+          </>
+        ))}
+        EditorPane={observer(({ resizable }) => (
           <EditorPaneBuilder resizable={resizable} />
-        )}
-        ExplorerPane={() => (
+        ))}
+        ExplorerPane={observer(() => (
           <BuilderExplorerPane
             atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
-            key={pageBuilderRenderer?.pageTree?.current.root?.id}
             pageId={pageId}
             renderService={builderRenderService}
             userService={userService}
           />
-        )}
-        Header={() => <PageDetailHeader pageService={pageService} />}
+        ))}
+        Header={observer(() => (
+          <PageDetailHeader pageService={pageService} />
+        ))}
         SidebarNavigation={() => (
           <SidebarNavigation
             primaryItems={[appMenuItem, resourceMenuItem]}
@@ -251,8 +130,7 @@ PageBuilder.Layout = observer((page) => {
         )}
         contentStyles={{ paddingTop: '0rem' }}
         headerHeight={38}
-        // Depending on pageBuilderRenderService causes an extra re-render
-        // key={pageBuilderRenderService.tree?.id}
+        key={pageBuilderRenderer?.pageTree?.current.root?.id}
       >
         {page.children}
       </DashboardTemplate>
