@@ -91,7 +91,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'atomId',
               'instanceOfComponentId',
               'order',
-              'css',
+              'customCss',
+              'guiCss',
               'propsData',
             ]}
           />
