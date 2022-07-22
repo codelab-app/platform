@@ -10,13 +10,7 @@ import { Collapse } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  FlexBoxEditor as DisplayEditor,
-  MarginsEditor,
-  PaddingEditor,
-  PositionEditor,
-  SizeEditor,
-} from './css-layout-editor'
+import { LayoutEditor } from './css-layout-editor'
 
 const { Panel } = Collapse
 
@@ -96,7 +90,6 @@ export const ElementCssEditor = observer(
       }
     }, [customCssDebounced, updateCustomCss])
 
-    // TODO: Probably need to debounce this??
     const updateGuiCss = useCallback(
       (newGuiCss: string) => {
         const promise = elementService.patchElement(element, {
@@ -156,36 +149,8 @@ export const ElementCssEditor = observer(
             <CaretRightOutlined rotate={isActive ? 90 : 0} />
           )}
         >
-          <Panel
-            className="site-collapse-custom-panel"
-            header="Display"
-            key="1"
-          >
-            <DisplayEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-          <Panel
-            className="site-collapse-custom-panel"
-            header="Margins"
-            key="2"
-          >
-            <MarginsEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-          <Panel
-            className="site-collapse-custom-panel"
-            header="Padding"
-            key="3"
-          >
-            <PaddingEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-          <Panel className="site-collapse-custom-panel" header="Size" key="4">
-            <SizeEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-          <Panel
-            className="site-collapse-custom-panel"
-            header="Position"
-            key="5"
-          >
-            <PositionEditor element={element} guiCssObj={guiCssObj} />
+          <Panel className="site-collapse-custom-panel" header="Layout" key="1">
+            <LayoutEditor element={element} guiCssObj={guiCssObj} />
           </Panel>
         </Collapse>
       </>
