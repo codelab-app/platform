@@ -14,7 +14,6 @@ import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { LayoutEditor } from './css-layout-editor'
-import { TypographyEditor } from './css-typography-editor/TypographyEditor'
 
 const { Panel } = Collapse
 
@@ -156,13 +155,6 @@ export const ElementCssEditor = observer(
         >
           <Panel className="site-collapse-custom-panel" header="Layout" key="1">
             <LayoutEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-          <Panel
-            className="site-collapse-custom-panel"
-            header="Typography"
-            key="2"
-          >
-            <TypographyEditor element={element} guiCssObj={guiCssObj} />
           </Panel>
         </Collapse>
       </>
