@@ -59,7 +59,10 @@ export const PositionEditor = observer(
               }
               name={name}
               onChange={(value, unit) =>
-                updateGuiCssProperty(element, name)(`${value}${unit}`)
+                updateGuiCssProperty(
+                  element,
+                  name,
+                )(unit === 'auto' ? unit : `${value}${unit}`)
               }
               units={units}
             />

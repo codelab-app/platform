@@ -36,7 +36,10 @@ export const SizeEditor = observer(
           }
           name={option}
           onChange={(value, unit) =>
-            updateGuiCssProperty(element, option)(`${value}${unit}`)
+            updateGuiCssProperty(
+              element,
+              option,
+            )(unit === 'auto' ? unit : `${value}${unit}`)
           }
           units={units}
         />
