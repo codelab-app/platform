@@ -9,7 +9,7 @@ export const CssPropEditorItem = ({
   children: EmotionJSX.Element
 }) => (
   <Row>
-    <Col span={8}>{name}:</Col>
+    <Col span={8}>{name}</Col>
     <Col span={16}>{children}</Col>
   </Row>
 )
