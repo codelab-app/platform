@@ -17,78 +17,78 @@ type BordersEditorProps = {
 
 const props = [
   {
-    name: 'border-bottom-width',
+    name: 'borderBottomWidth',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-bottom-style',
+    name: 'borderBottomStyle',
     type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
   },
   {
-    name: 'border-bottom-color',
+    name: 'borderBottomColor',
     type: 'color-picker',
   },
   {
-    name: 'border-left-width',
+    name: 'borderLeftWidth',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-left-style',
+    name: 'borderLeftStyle',
     type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
   },
   {
-    name: 'border-left-color',
+    name: 'borderLeftColor',
     type: 'color-picker',
   },
   {
-    name: 'border-right-width',
+    name: 'borderRightWidth',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-right-style',
+    name: 'borderRightStyle',
     type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
   },
   {
-    name: 'border-right-color',
+    name: 'borderRightColor',
     type: 'color-picker',
   },
   {
-    name: 'border-top-width',
+    name: 'borderTopWidth',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-top-style',
+    name: 'borderTopStyle',
     type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
   },
   {
-    name: 'border-top-color',
+    name: 'borderTopColor',
     type: 'color-picker',
   },
   {
-    name: 'border-top-left-radius',
+    name: 'borderTopLeftRadius',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-top-right-radius',
+    name: 'borderTopRightRadius',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-bottom-left-radius',
+    name: 'borderBottomLeftRadius',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'border-bottom-right-radius',
+    name: 'borderBottomRightRadius',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
