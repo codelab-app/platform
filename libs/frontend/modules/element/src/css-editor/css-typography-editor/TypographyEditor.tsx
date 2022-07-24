@@ -17,7 +17,7 @@ type TypographyEditorProps = {
 
 const props = [
   {
-    name: 'font-family',
+    name: 'fontFamily',
     type: 'select',
     options: [
       'Arial',
@@ -33,17 +33,17 @@ const props = [
     ],
   },
   {
-    name: 'font-size',
+    name: 'fontSize',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'line-height',
+    name: 'lineHeight',
     type: 'input-number-with-unit',
     units: ['unset', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw'],
   },
   {
-    name: 'font-weight',
+    name: 'fontWeight',
     type: 'select',
     options: [
       'unset',
@@ -59,22 +59,22 @@ const props = [
     ],
   },
   {
-    name: 'text-align',
+    name: 'textAlign',
     type: 'select',
     options: ['unset', 'left', 'center', 'right', 'justify'],
   },
   {
-    name: 'vertical-align',
+    name: 'verticalAlign',
     type: 'select',
     options: ['unset', 'top', 'middle', 'bottom'],
   },
   {
-    name: 'font-style',
+    name: 'fontStyle',
     type: 'select',
     options: ['unset', 'normal', 'italic', 'oblique'],
   },
   {
-    name: 'text-decoration',
+    name: 'textDecoration',
     type: 'select',
     options: ['unset', 'none', 'underline', 'line-through', 'overline'],
   },
