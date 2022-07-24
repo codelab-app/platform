@@ -1,5 +1,5 @@
 import { InputNumber } from 'antd'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { makeAddonAfterNumber } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
@@ -31,18 +31,6 @@ export const InputNumberWithUnits = ({
   const [value, setValue] = useState<number>(currentValue)
   const [unit, setUnit] = useState<string>(currentUnit ?? '')
 
-  useEffect(() => {
-    onValueChange?.(value)
-  }, [value, onValueChange])
-
-  useEffect(() => {
-    onUnitChange?.(unit)
-  }, [unit, onUnitChange])
-
-  useEffect(() => {
-    onChange?.(value, unit)
-  }, [value, unit, onChange])
-
   const selectAfter = useCallback(
     (unitList: Array<string>) =>
       makeAddonAfterNumber(
@@ -51,9 +39,13 @@ export const InputNumberWithUnits = ({
           title: aUnit,
         })),
         unit,
-        setUnit,
+        (selectedUnit) => {
+          onUnitChange?.(selectedUnit)
+          onChange?.(value, selectedUnit)
+          setUnit(selectedUnit)
+        },
       ),
-    [unit],
+    [onUnitChange, onChange, unit, value],
   )
 
   return (
@@ -64,7 +56,11 @@ export const InputNumberWithUnits = ({
         disabled={disabled}
         max={max}
         min={min}
-        onChange={setValue}
+        onChange={(e) => {
+          onValueChange?.(e)
+          onChange?.(e, unit)
+          setValue(e)
+        }}
         step={step}
         style={{ width: '100%' }}
       />

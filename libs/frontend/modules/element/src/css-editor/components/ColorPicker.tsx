@@ -1,5 +1,5 @@
 import { Input } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 type PropValueSelectorProps = {
@@ -23,10 +23,6 @@ export const ColorPicker = ({
 }: PropValueSelectorProps) => {
   const [color, setColor] = useState<string>(currentValue)
 
-  useEffect(() => {
-    onChange(color)
-  }, [color, onChange])
-
   return (
     <CssPropEditorItem
       checked={checked}
@@ -36,7 +32,10 @@ export const ColorPicker = ({
     >
       <Input
         disabled={disabled}
-        onChange={(e) => setColor(e.target.value)}
+        onChange={(e) => {
+          onChange(e.target.value)
+          setColor(e.target.value)
+        }}
         type="color"
         value={disabled ? '#D1D1D1' : color}
       />

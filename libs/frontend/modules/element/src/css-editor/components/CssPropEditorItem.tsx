@@ -1,6 +1,6 @@
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { Checkbox, Col, Row } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const CssPropEditorItem = ({
   title: name,
@@ -15,13 +15,9 @@ export const CssPropEditorItem = ({
   checked?: boolean
   enableCheckbox?: boolean
 }) => {
-  const [checkedState, setCheckedState] = useState<boolean>(
+  const [checkedState] = useState<boolean>(
     checked === undefined ? !enableCheckbox : checked,
   )
-
-  useEffect(() => {
-    onChange?.(checkedState)
-  }, [checkedState, onChange])
 
   return (
     <Row align="middle">
@@ -29,7 +25,7 @@ export const CssPropEditorItem = ({
         <Checkbox
           defaultChecked={checkedState}
           disabled={!enableCheckbox}
-          onChange={(e) => setCheckedState(e.target.checked)}
+          onChange={(e) => onChange?.(e.target.checked)}
           value={checkedState}
         />
       </Col>

@@ -15,7 +15,7 @@ export const makeAddonAfterNumber = (
     <Select
       defaultValue={defaultValue}
       onChange={onChange}
-      style={{ width: 100 }}
+      style={{ width: 80 }}
     >
       {options.map((option) => (
         <Option value={option.value}>{option.title}</Option>
