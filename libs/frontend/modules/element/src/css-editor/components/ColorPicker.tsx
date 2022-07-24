@@ -25,12 +25,13 @@ export const ColorPicker = ({
 
   return (
     <CssPropEditorItem
-      checked={checked}
+      defaultChecked={checked}
       enableCheckbox={enableCheckbox}
       onChange={onCheckedChange}
       title={name}
     >
       <Input
+        defaultValue={color}
         disabled={disabled}
         onChange={(e) => {
           onChange(e.target.value)

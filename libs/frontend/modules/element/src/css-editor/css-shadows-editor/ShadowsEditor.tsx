@@ -3,6 +3,7 @@ import { cssMap, IElement } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { BoxShadow } from './BoxShadow'
+import { TextShadow } from './TextShadow'
 
 const { Panel } = Collapse
 
@@ -28,6 +29,13 @@ export const ShadowsEditor = observer(
           key="1"
         >
           <BoxShadow element={element} guiCssObj={guiCssObj} />
+        </Panel>
+        <Panel
+          className="site-collapse-custom-panel"
+          header="TextShadow"
+          key="2"
+        >
+          <TextShadow element={element} guiCssObj={guiCssObj} />
         </Panel>
       </Collapse>
     )

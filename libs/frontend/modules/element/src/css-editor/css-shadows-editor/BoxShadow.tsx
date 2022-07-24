@@ -88,7 +88,7 @@ const props: BoxShadowState = {
   color: {
     name: 'color',
     type: 'color-picker',
-    value: '#000',
+    value: '#000000',
   },
 }
 
@@ -101,12 +101,13 @@ const parseBoxShadow = (boxShadow: Nullish<string>): BoxShadowState => {
   const inset = boxShadow.includes('inset')
 
   if (inset) {
-    boxShadow = boxShadow.replace('inset', '')
+    boxShadow = boxShadow.replace('inset ', '')
   }
 
   // extract color if it exists
-  const color =
+  const color = (
     boxShadow.match(/\s*(#[0-9a-fA-F]{3,6}|rgba?\([^)]+\))/)?.[0] ?? ''
+  ).trim()
 
   if (color !== '') {
     boxShadow = boxShadow.replace(color, '')
@@ -171,8 +172,7 @@ export const BoxShadow = observer(
           ? null
           : `${
               boxShadowState['inset'].value ? 'inset ' : ''
-            }${`${boxShadowState['offsetX'].value}${boxShadowState['offsetX'].unit}`} 
-            ${`${boxShadowState['offsetY'].value}${boxShadowState['offsetY'].unit}`} ${
+            }${`${boxShadowState['offsetX'].value}${boxShadowState['offsetX'].unit}`} ${`${boxShadowState['offsetY'].value}${boxShadowState['offsetY'].unit}`} ${
               boxShadowState['blurRadius'].unit !== 'unset'
                 ? `${boxShadowState['blurRadius'].value}${boxShadowState['blurRadius'].unit}`
                 : '0'
@@ -189,7 +189,7 @@ export const BoxShadow = observer(
         {Object.values(boxShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
-              checked={property.value}
+              defaultChecked={property.value}
               enableCheckbox
               onChange={(val) =>
                 setBoxShadowState({
