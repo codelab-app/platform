@@ -16,15 +16,15 @@ const props = [
     options: ['block', 'flex'],
   },
   {
-    name: 'flex-direction',
+    name: 'flexDirection',
     options: ['row', 'row-reverse', 'column', 'column-reverse'],
   },
   {
-    name: 'flex-wrap',
+    name: 'flexWrap',
     options: ['nowrap', 'wrap', 'wrap-reverse'],
   },
   {
-    name: 'justify-content',
+    name: 'justifyContent',
     options: [
       'flex-start',
       'flex-end',
@@ -35,7 +35,7 @@ const props = [
     ],
   },
   {
-    name: 'align-items',
+    name: 'alignItems',
     options: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
   },
 ]
@@ -67,12 +67,12 @@ export const DisplayEditor = observer(
           </>
         )}
         <InputNumberWithUnits
-          currentValue={parseFloat(guiCssObj['flex-grow'] ?? '0')}
+          currentValue={parseFloat(guiCssObj['flexGrow'] ?? '0')}
           max={1}
           min={0}
-          name="flex-grow"
+          name="flexGrow"
           onValueChange={(val) =>
-            updateGuiCssProperty(element, 'flex-grow')(`${val}`)
+            updateGuiCssProperty(element, 'flexGrow')(`${val}`)
           }
           step={0.1}
         />
