@@ -1,4 +1,5 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web/src",
   "projectType": "application",
   "generators": {},
@@ -20,7 +21,9 @@
           "outputPath": "dist/apps/web"
         },
         "production": {},
-        "development": {}
+        "development": {
+          "outputPath": "tmp/apps/web/src"
+        }
       },
       "defaultConfiguration": "production"
     },
