@@ -1,11 +1,13 @@
 import { EditOutlined } from '@ant-design/icons'
-import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
+import { ITagService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 
 export const UpdateTagButton = observer<
-  WithServices<TAG_SERVICE> & UpdateButtonProps
+  {
+    tagService: ITagService
+  } & UpdateButtonProps
 >(({ id, disabled, tagService }) => {
   const onClick = () => {
     if (!id) {

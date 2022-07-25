@@ -1,18 +1,17 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import TextArea from 'antd/lib/input/TextArea'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-export type UpdateElementPropTransformationFormProp =
-  WithServices<ELEMENT_SERVICE> & {
-    element: IElement
-    trackPromises?: UseTrackLoadingPromises
-    monacoProps?: null
-  }
+export type UpdateElementPropTransformationFormProp = {
+  element: IElement
+  trackPromises?: UseTrackLoadingPromises
+  monacoProps?: null
+  elementService: IElementService
+}
 
 const defaultFn = `// Write a transformer function, you get the input props as parameter
 // All returned props will get merged with the original ones

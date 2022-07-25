@@ -1,4 +1,3 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -8,6 +7,7 @@ import {
 import {
   IBuilderService,
   IElement,
+  IElementService,
   IUpdateBaseElementDTO,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
@@ -16,11 +16,12 @@ import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateElementSchema } from './updateElementSchema'
 
-export type UpdateElementFormProps = WithServices<ELEMENT_SERVICE> & {
+export type UpdateElementFormProps = {
   element: IElement
   providePropCompletion?: (searchValue: string) => Array<string>
   trackPromises?: UseTrackLoadingPromises
   builderService: IBuilderService
+  elementService: IElementService
 }
 
 /** Not intended to be used in a modal */

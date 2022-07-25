@@ -1,5 +1,4 @@
-import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IResource } from '@codelab/shared/abstract/core'
+import { IResource, IResourceService } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { capitalize } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -7,8 +6,9 @@ import React from 'react'
 import { ResourceIcon } from '../../view'
 import { ItemDropdown } from './ItemDropdown'
 
-interface GetResourceItemProps extends WithServices<RESOURCE_SERVICE> {
+interface GetResourceItemProps {
   resource: IResource
+  resourceService: IResourceService
 }
 
 export const GetResourcesItem = observer<GetResourceItemProps>(

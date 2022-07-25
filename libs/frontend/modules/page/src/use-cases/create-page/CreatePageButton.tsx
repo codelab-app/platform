@@ -1,10 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IPageService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const CreatePageButton = observer<WithServices<PAGE_SERVICE>>(
+export const CreatePageButton = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const onClick = () => pageService.createModal.open()
 

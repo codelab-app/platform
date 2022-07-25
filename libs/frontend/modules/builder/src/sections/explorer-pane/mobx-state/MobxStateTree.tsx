@@ -1,12 +1,12 @@
-import { BUILDER_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IStateTreeNode } from '@codelab/shared/abstract/core'
+import { IBuilderService, IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Tree } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { MobxStateTreeItem } from './MobxStateTreeItem'
 
-type StateTreeProps = WithServices<BUILDER_SERVICE> & {
+type StateTreeProps = {
   state: Array<IStateTreeNode>
   parentPath: string
+  builderService: IBuilderService
 }
 
 export const MobxStateTree = observer<StateTreeProps>(

@@ -1,14 +1,14 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { IElementService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeletePropMapBindingModal = observer<
-  WithServices<ELEMENT_SERVICE>
->(({ elementService }) => {
+export const DeletePropMapBindingModal = observer<{
+  elementService: IElementService
+}>(({ elementService }) => {
   const element = elementService.deletePropMapBindingModal.element
   const pmb = elementService.deletePropMapBindingModal.propMapBinding
   const closeModal = () => elementService.deletePropMapBindingModal.close()

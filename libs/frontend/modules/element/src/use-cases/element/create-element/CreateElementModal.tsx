@@ -1,10 +1,4 @@
 import {
-  COMPONENT_SERVICE,
-  ELEMENT_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
-import {
   SelectAnyElement,
   SelectAtom,
   SelectComponent,
@@ -13,9 +7,12 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import {
   IBuilderService,
+  IComponentService,
   ICreateElementDTO,
+  IElementService,
   IElementTree,
   IRenderService,
+  IUserService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -28,7 +25,10 @@ type CreateElementModalProps = {
   pageTree: IElementTree
   renderService: IRenderService
   builderService: IBuilderService
-} & WithServices<ELEMENT_SERVICE | USER_SERVICE | COMPONENT_SERVICE>
+  elementService: IElementService
+  userService: IUserService
+  componentService: IComponentService
+}
 
 export const CreateElementModal = observer<CreateElementModalProps>(
   ({

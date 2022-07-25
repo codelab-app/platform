@@ -1,18 +1,18 @@
-import {
-  BUILDER_SERVICE,
-  ELEMENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { CreateElementButton } from '@codelab/frontend/modules/element'
-import { BuilderTab, IElement } from '@codelab/shared/abstract/core'
+import {
+  BuilderTab,
+  IBuilderService,
+  IElement,
+  IElementService,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-type BuilderMainPaneHeaderProps = WithServices<
-  ELEMENT_SERVICE | BUILDER_SERVICE
-> & {
+type BuilderMainPaneHeaderProps = {
+  elementService: IElementService
+  builderService: IBuilderService
   tab: BuilderTab
   root: Nullable<IElement>
   onSearch: (input: string) => void

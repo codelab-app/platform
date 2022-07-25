@@ -1,8 +1,3 @@
-import {
-  ELEMENT_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { PropsForm } from '@codelab/frontend/modules/type'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
@@ -13,13 +8,16 @@ import {
   IAnyAction,
   IBuilderState,
   IElement,
+  IElementService,
   IPropData,
+  ITypeService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 
-export interface UpdateElementPropsFormProps
-  extends WithServices<TYPE_SERVICE | ELEMENT_SERVICE> {
+export interface UpdateElementPropsFormProps {
+  typeService: ITypeService
+  elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData

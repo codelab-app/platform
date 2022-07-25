@@ -1,22 +1,20 @@
-import {
-  RESOURCE_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
   ICreateResourceDTO,
+  IResourceService,
   IResourceType,
+  IUserService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { createResourceSchema } from './createResourceSchema'
 
-export const CreateResourceModal = observer<
-  WithServices<RESOURCE_SERVICE | USER_SERVICE>
->(({ resourceService, userService }) => {
+export const CreateResourceModal = observer<{
+  resourceService: IResourceService
+  userService: IUserService
+}>(({ resourceService, userService }) => {
   const closeModal = () => resourceService.createModal.close()
   const onSubmit = (data: ICreateResourceDTO) => resourceService.create([data])
 

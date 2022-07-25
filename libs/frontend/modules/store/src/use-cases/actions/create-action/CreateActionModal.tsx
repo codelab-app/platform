@@ -1,8 +1,3 @@
-import {
-  ACTION_SERVICE,
-  RESOURCE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
@@ -10,7 +5,9 @@ import { ResourceType } from '@codelab/shared/abstract/codegen'
 import {
   HttpMethod,
   IActionKind,
+  IActionService,
   ICreateActionDTO,
+  IResourceService,
   IStore,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -21,9 +18,11 @@ import { createActionSchema } from './createActionSchema'
 
 const defaultCustomAction = `// ex: this.count = this.count + 1`
 
-export const CreateActionModal = observer<
-  WithServices<ACTION_SERVICE | RESOURCE_SERVICE> & { store: IStore }
->(({ actionService, resourceService, store }) => {
+export const CreateActionModal = observer<{
+  actionService: IActionService
+  resourceService: IResourceService
+  store: IStore
+}>(({ actionService, resourceService, store }) => {
   const closeModal = () => actionService.createModal.close()
 
   const onSubmit = (data: ICreateActionDTO) => {

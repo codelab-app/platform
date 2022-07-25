@@ -1,12 +1,12 @@
-import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
+import { IAtomService } from '@codelab/shared/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
 
-export const GetAtomsTable = observer<WithServices<ATOM_SERVICE>>(
+export const GetAtomsTable = observer<{ atomService: IAtomService }>(
   ({ atomService }) => {
     const { columns, rowSelection, pagination } = useAtomTable(atomService)
 

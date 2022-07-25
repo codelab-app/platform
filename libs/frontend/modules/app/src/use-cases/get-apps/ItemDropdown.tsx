@@ -3,8 +3,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { APP_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IApp } from '@codelab/shared/abstract/core'
+import { IApp, IAppService } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
@@ -12,7 +11,8 @@ import { appRef } from '../../store'
 
 export type ItemMenuProps = {
   app: IApp
-} & WithServices<APP_SERVICE>
+  appService: IAppService
+}
 
 const menuItemStyle: CSSProperties = {
   display: 'flex',
@@ -46,7 +46,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, appService }) => {
       icon: <DeleteOutlined style={menuItemIconStyle} />,
     },
 
-    /*     
+    /*
       {
         label: 'Export',
         key: 'export',

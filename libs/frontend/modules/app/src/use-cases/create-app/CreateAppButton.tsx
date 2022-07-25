@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { APP_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IAppService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
 
 export const CreateAppButton = observer<
-  PropsWithChildren<WithServices<APP_SERVICE>>
+  PropsWithChildren<{ appService: IAppService }>
 >(({ appService, children }) => {
   const icon = !children && <PlusOutlined />
   const onClick = () => appService.createModal.open()

@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const CreateTypeButton = observer<WithServices<TYPE_SERVICE>>(
+export const CreateTypeButton = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     return (
       <Button

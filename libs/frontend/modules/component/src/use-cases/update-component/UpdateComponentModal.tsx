@@ -1,54 +1,53 @@
-import {
-  COMPONENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateComponentDTO } from '@codelab/shared/abstract/core'
+import {
+  IComponentService,
+  IUpdateComponentDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './createComponentSchema'
 
-export const UpdateComponentModal = observer<WithServices<COMPONENT_SERVICE>>(
-  ({ componentService }) => {
-    const updatedComponent = componentService.updateModal.component
+export const UpdateComponentModal = observer<{
+  componentService: IComponentService
+}>(({ componentService }) => {
+  const updatedComponent = componentService.updateModal.component
 
+  if (!updatedComponent) {
+    return null
+  }
+
+  const handleSubmit = (input: IUpdateComponentDTO) => {
     if (!updatedComponent) {
-      return null
+      throw new Error('componentStore.updateModal.component is null')
     }
 
-    const handleSubmit = (input: IUpdateComponentDTO) => {
-      if (!updatedComponent) {
-        throw new Error('componentStore.updateModal.component is null')
-      }
+    return componentService.update(updatedComponent, input)
+  }
 
-      return componentService.update(updatedComponent, input)
-    }
+  const model = { name: updatedComponent.name }
+  const closeModal = () => componentService.updateModal.close()
 
-    const model = { name: updatedComponent.name }
-    const closeModal = () => componentService.updateModal.close()
-
-    return (
-      <ModalForm.Modal
-        okText="Update Component"
-        onCancel={closeModal}
-        title={<span css={tw`font-semibold`}>Update component</span>}
-        visible={componentService.updateModal.isOpen}
+  return (
+    <ModalForm.Modal
+      okText="Update Component"
+      onCancel={closeModal}
+      title={<span css={tw`font-semibold`}>Update component</span>}
+      visible={componentService.updateModal.isOpen}
+    >
+      <ModalForm.Form<IUpdateComponentDTO>
+        model={model}
+        onSubmit={handleSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating component',
+          type: 'error',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={updateComponentSchema}
       >
-        <ModalForm.Form<IUpdateComponentDTO>
-          model={model}
-          onSubmit={handleSubmit}
-          onSubmitError={createNotificationHandler({
-            title: 'Error while creating component',
-            type: 'error',
-          })}
-          onSubmitSuccess={closeModal}
-          schema={updateComponentSchema}
-        >
-          <AutoFields />
-        </ModalForm.Form>
-      </ModalForm.Modal>
-    )
-  },
-)
+        <AutoFields />
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})

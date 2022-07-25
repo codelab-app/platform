@@ -1,16 +1,16 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
   ModalForm,
 } from '@codelab/frontend/view/components'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
-type DeleteFieldModalProps = WithServices<TYPE_SERVICE>
+type DeleteFieldModalProps = { typeService: ITypeService }
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
   ({ typeService }) => {

@@ -3,15 +3,15 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IResource } from '@codelab/shared/abstract/core'
+import { IResource, IResourceService } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
 import { resourceRef } from '../../store'
 
-export interface ItemMenuProps extends WithServices<RESOURCE_SERVICE> {
+export interface ItemMenuProps {
   resource: IResource
+  resourceService: IResourceService
 }
 
 const menuItemStyle: CSSProperties = {

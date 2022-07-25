@@ -1,7 +1,7 @@
-import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
+import { IResourceService } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -15,7 +15,7 @@ const buttonContainerStyle: React.CSSProperties = {
   textAlign: 'center',
 }
 
-export const GetResourcesList = observer<WithServices<RESOURCE_SERVICE>>(
+export const GetResourcesList = observer<{ resourceService: IResourceService }>(
   ({ resourceService }) => {
     const [getResources, { isLoading }] = useStatefulExecutor(() =>
       resourceService.getAll(),

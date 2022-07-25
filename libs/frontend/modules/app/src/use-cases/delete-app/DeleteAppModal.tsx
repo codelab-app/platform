@@ -1,11 +1,11 @@
-import { APP_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { IAppService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteAppModal = observer<WithServices<APP_SERVICE>>(
+export const DeleteAppModal = observer<{ appService: IAppService }>(
   ({ appService }) => {
     const app = appService.deleteModal.app
 

@@ -1,18 +1,19 @@
 import { RightCircleOutlined } from '@ant-design/icons'
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { typeRef } from '../../../../store'
 import { TypeRecord } from './types'
 
-type ActionColumnProps = WithServices<TYPE_SERVICE> & {
+type ActionColumnProps = {
   type: TypeRecord
+  typeService: ITypeService
 }
 
 export const ActionColumn = observer<ActionColumnProps>(

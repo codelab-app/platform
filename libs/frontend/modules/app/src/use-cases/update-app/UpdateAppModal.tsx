@@ -1,19 +1,19 @@
-import {
-  APP_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateAppDTO } from '@codelab/shared/abstract/core'
+import {
+  IAppService,
+  IUpdateAppDTO,
+  IUserService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './updateAppSchema'
 
-export const UpdateAppModal = observer<
-  WithServices<APP_SERVICE | USER_SERVICE>
->(({ appService, userService }) => {
+export const UpdateAppModal = observer<{
+  appService: IAppService
+  userService: IUserService
+}>(({ appService, userService }) => {
   const app = appService.updateModal.app
 
   if (!app) {

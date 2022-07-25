@@ -6,14 +6,6 @@ import {
   SwapOutlined,
 } from '@ant-design/icons'
 import {
-  ACTION_SERVICE,
-  ATOM_SERVICE,
-  BUILDER_SERVICE,
-  ELEMENT_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
-import {
   ElementCssEditor,
   PropMapBindingSection,
   UpdateElementPropsForm,
@@ -25,10 +17,15 @@ import {
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
+  IActionService,
+  IAtomService,
+  IBuilderService,
+  IElementService,
   IElementTree,
   INode,
   IRenderer,
   isElement,
+  ITypeService,
 } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
@@ -54,13 +51,12 @@ export type MetaPaneBuilderProps = {
     node: INode
     trackPromises: UseTrackLoadingPromises
   }) => React.ReactElement | null
-} & WithServices<
-  | TYPE_SERVICE
-  | ATOM_SERVICE
-  | BUILDER_SERVICE
-  | ELEMENT_SERVICE
-  | ACTION_SERVICE
->
+  typeService: ITypeService
+  atomService: IAtomService
+  builderService: IBuilderService
+  elementService: IElementService
+  actionService: IActionService
+}
 
 type TooltipIconProps = {
   title: string

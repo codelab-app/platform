@@ -1,19 +1,19 @@
-import {
-  ATOM_SERVICE,
-  TAG_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IUpdateAtomDTO } from '@codelab/shared/abstract/core'
+import {
+  IAtomService,
+  ITagService,
+  IUpdateAtomDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomModal = observer<
-  WithServices<ATOM_SERVICE | TAG_SERVICE>
->(({ atomService, tagService }) => {
+export const UpdateAtomModal = observer<{
+  atomService: IAtomService
+  tagService: ITagService
+}>(({ atomService, tagService }) => {
   const atom = atomService.updateModal.atom
   const closeModal = () => atomService.updateModal.close()
 

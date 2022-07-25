@@ -1,11 +1,11 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'
 
-type DeleteElementProps = WithServices<ELEMENT_SERVICE> & {
+type DeleteElementProps = {
+  elementService: IElementService
   element: IElement
   disabled: boolean
 }
