@@ -1,5 +1,5 @@
-import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
+  IAtomService,
   IAtomType,
   IInterfaceTypeRef,
   ITag,
@@ -24,7 +24,8 @@ export type PropsColumnProps = {
 
 export type ActionColumnProps = {
   atom: AtomRecord
-} & WithServices<ATOM_SERVICE>
+  atomService: IAtomService
+}
 
 export type TagsColumnProps = {
   tags: Array<Ref<ITag>>

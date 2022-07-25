@@ -1,13 +1,12 @@
-import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IUpdatePageDTO } from '@codelab/shared/abstract/core'
+import { IPageService, IUpdatePageDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updatePageSchema } from './updatePageSchema'
 
-export const UpdatePageModal = observer<WithServices<PAGE_SERVICE>>(
+export const UpdatePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const closeModal = () => pageService.updateModal.close()
     const page = pageService.updateModal.page

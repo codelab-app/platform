@@ -1,5 +1,5 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import { Observer, observer } from 'mobx-react-lite'
@@ -11,7 +11,7 @@ export type FieldsTableProps = {
   interfaceType?: InterfaceType
   isLoading: boolean
   hideActions?: boolean
-} & WithServices<TYPE_SERVICE>
+} & { typeService: ITypeService }
 
 interface CellData {
   id: string

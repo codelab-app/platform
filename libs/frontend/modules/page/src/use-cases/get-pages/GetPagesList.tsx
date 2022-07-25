@@ -1,17 +1,14 @@
-import {
-  PAGE_SERVICE,
-  PROVIDER_TREE_PAGE_NAME,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
+import { PROVIDER_TREE_PAGE_NAME } from '@codelab/frontend/abstract/core'
 import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
+import { IPageService } from '@codelab/shared/abstract/core'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { GetPagesItem } from './GetPagesItem'
 
-export const GetPagesList = observer<WithServices<PAGE_SERVICE>>(
+export const GetPagesList = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const appId = useCurrentAppId()
 

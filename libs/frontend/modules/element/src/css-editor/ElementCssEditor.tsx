@@ -1,11 +1,14 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   EmotionCssEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { cssMap, IElement } from '@codelab/shared/abstract/core'
+import {
+  cssMap,
+  IElement,
+  IElementService,
+} from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -14,9 +17,10 @@ import { LayoutEditor } from './css-layout-editor'
 
 const { Panel } = Collapse
 
-export type ElementCssEditorInternalProps = WithServices<ELEMENT_SERVICE> & {
+export type ElementCssEditorInternalProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
+  elementService: IElementService
 }
 
 /*

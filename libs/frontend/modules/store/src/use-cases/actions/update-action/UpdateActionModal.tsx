@@ -1,13 +1,10 @@
-import {
-  ACTION_SERVICE,
-  RESOURCE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import {
   IActionKind,
+  IActionService,
+  IResourceService,
   IResourceType,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
@@ -17,9 +14,10 @@ import { Context } from 'uniforms'
 import { AutoField, AutoFields, ListField, ListItemField } from 'uniforms-antd'
 import { updateActionSchema } from './updateActionSchema'
 
-export const UpdateActionModal = observer<
-  WithServices<ACTION_SERVICE | RESOURCE_SERVICE>
->(({ actionService, resourceService }) => {
+export const UpdateActionModal = observer<{
+  actionService: IActionService
+  resourceService: IResourceService
+}>(({ actionService, resourceService }) => {
   const closeModal = () => actionService.updateModal.close()
   const updateAction = actionService.updateModal.action
 

@@ -1,13 +1,11 @@
-import {
-  ATOM_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
+import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 
 export type ElementHookSectionProps = {
   elementId: string
-} & WithServices<TYPE_SERVICE | ATOM_SERVICE>
+  typeService: ITypeService
+  atomService: IAtomService
+}
 
 export const ElementHookSection = observer<ElementHookSectionProps>(
   ({ elementId, typeService, atomService }) => {

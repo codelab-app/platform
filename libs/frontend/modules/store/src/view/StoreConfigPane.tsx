@@ -1,19 +1,20 @@
-import {
-  APP_SERVICE,
-  STORE_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
-import { IPropData } from '@codelab/shared/abstract/core'
+import {
+  IAppService,
+  IPropData,
+  IStoreService,
+  ITypeService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { useCurrentStore } from '../hooks'
 
-type StoreConfigPaneProps = WithServices<
-  STORE_SERVICE | TYPE_SERVICE | APP_SERVICE
->
+type StoreConfigPaneProps = {
+  storeService: IStoreService
+  typeService: ITypeService
+  appService: IAppService
+}
 
 export const StoreConfigPane = observer<StoreConfigPaneProps>(
   ({ storeService, typeService, appService }) => {

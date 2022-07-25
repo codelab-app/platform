@@ -1,11 +1,11 @@
-import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { IPageService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeletePageModal = observer<WithServices<PAGE_SERVICE>>(
+export const DeletePageModal = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const deletingPage = pageService.deleteModal.page
     const isOpen = pageService.deleteModal.isOpen

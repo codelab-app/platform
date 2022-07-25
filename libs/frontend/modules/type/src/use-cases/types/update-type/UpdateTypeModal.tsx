@@ -1,7 +1,10 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ITypeKind, IUpdateTypeDTO } from '@codelab/shared/abstract/core'
+import {
+  ITypeKind,
+  ITypeService,
+  IUpdateTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -9,7 +12,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateTypeSchema } from './update-type.schema'
 import { validateNonRecursive } from './validate-non-recursive'
 
-export const UpdateTypeModal = observer<WithServices<TYPE_SERVICE>>(
+export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const closeModal = () => typeService.updateModal.close()
     const typeToUpdate = typeService.updateModal.type

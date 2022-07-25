@@ -1,11 +1,11 @@
-import {
-  TYPE_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  ICreateTypeDTO,
+  ITypeKind,
+  ITypeService,
+  IUserService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -15,9 +15,10 @@ import { TypeSelect, typeSelectOptions } from '../../../shared'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
 
-export const CreateTypeModal = observer<
-  WithServices<TYPE_SERVICE | USER_SERVICE>
->(({ typeService, userService }) => {
+export const CreateTypeModal = observer<{
+  typeService: ITypeService
+  userService: IUserService
+}>(({ typeService, userService }) => {
   const closeModal = () => typeService.createModal.close()
   const user = userService?.user
 

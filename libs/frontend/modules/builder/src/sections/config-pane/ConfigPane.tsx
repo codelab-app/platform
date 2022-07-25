@@ -1,12 +1,3 @@
-import {
-  ACTION_SERVICE,
-  ATOM_SERVICE,
-  BUILDER_SERVICE,
-  COMPONENT_SERVICE,
-  ELEMENT_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { UpdateComponentForm } from '@codelab/frontend/modules/component'
 import {
   DeleteElementButton,
@@ -16,9 +7,15 @@ import {
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
+  IActionService,
+  IAtomService,
+  IBuilderService,
+  IComponentService,
   IElement,
+  IElementService,
   IElementTree,
   IRenderer,
+  ITypeService,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -28,14 +25,13 @@ import { ConfigPaneTabContainer } from './ConfigPane-TabContainer'
 type MetaPaneProps = {
   elementTree: IElementTree
   renderService: IRenderer
-} & WithServices<
-  | ATOM_SERVICE
-  | TYPE_SERVICE
-  | BUILDER_SERVICE
-  | ELEMENT_SERVICE
-  | COMPONENT_SERVICE
-  | ACTION_SERVICE
->
+  atomService: IAtomService
+  typeService: ITypeService
+  builderService: IBuilderService
+  elementService: IElementService
+  componentService: IComponentService
+  actionService: IActionService
+}
 
 export const ConfigPane = observer<MetaPaneProps>(
   ({

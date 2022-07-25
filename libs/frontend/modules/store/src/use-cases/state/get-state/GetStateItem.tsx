@@ -1,19 +1,23 @@
 import { FileOutlined } from '@ant-design/icons'
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/modules/type'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
-import { IField, IInterfaceType } from '@codelab/shared/abstract/core'
+import {
+  IField,
+  IInterfaceType,
+  ITypeService,
+} from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export interface StateTreeItemProp extends WithServices<TYPE_SERVICE> {
+export interface StateTreeItemProp {
   field: IField
   storeApiId: string
+  typeService: ITypeService
 }
 
 export const GetStateItem = observer<StateTreeItemProp>(

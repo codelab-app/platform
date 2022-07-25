@@ -22,21 +22,10 @@
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true,
-        "accessToken": "NGMyNmRhNjctZjVjMi00MTcxLTkxZDEtMzJlNTI3N2ZiODAzfHJlYWQ=",
+        "accessToken": "ZmNjNjM4ZmYtMmIzOC00ZDNjLTgzMzUtZmFiNDZkMGI4MjEzfHJlYWQ=",
         "parallel": 3
       }
     }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/next"
   },
   "defaultProject": "web",
   "generators": {
@@ -108,6 +97,12 @@
       "application": {
         "style": "@emotion/styled"
       }
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }

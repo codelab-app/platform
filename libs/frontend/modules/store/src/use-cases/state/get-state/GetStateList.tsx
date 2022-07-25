@@ -1,14 +1,14 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { InterfaceType } from '@codelab/frontend/modules/type'
-import { IStore } from '@codelab/shared/abstract/core'
+import { IStore, ITypeService } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { GetStateItem } from './GetStateItem'
 
-export type GetStateTreeProps = WithServices<TYPE_SERVICE> & {
+export type GetStateTreeProps = {
   store: IStore
+  typeService: ITypeService
 }
 
 export const GetStateList = observer<GetStateTreeProps>(

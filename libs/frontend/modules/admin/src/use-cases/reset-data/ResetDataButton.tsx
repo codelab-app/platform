@@ -1,9 +1,9 @@
-import { ADMIN_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useNotify } from '@codelab/frontend/shared/utils'
+import { IAdminService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 
-export const ResetDataButton = observer<WithServices<ADMIN_SERVICE>>(
+export const ResetDataButton = observer<{ adminService: IAdminService }>(
   ({ adminService }) => {
     const { onSuccess, onError } = useNotify(
       { title: 'Data has been reset successfully' },

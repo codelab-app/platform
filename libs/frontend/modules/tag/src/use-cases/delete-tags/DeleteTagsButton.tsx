@@ -1,12 +1,12 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
+import { ITagService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { nodeRef } from '../../store'
 
 export const DeleteTagsButton = observer<
-  WithServices<TAG_SERVICE> & Omit<DeleteButtonProps, 'ids'>
+  { tagService: ITagService } & Omit<DeleteButtonProps, 'ids'>
 >(({ disabled, tagService }) => {
   const ids = tagService.checkedTags.map((c) => c.id)
 

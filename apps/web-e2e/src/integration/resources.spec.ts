@@ -20,7 +20,7 @@ describe('Resource CRUD', () => {
     it('should be able to create resource', () => {
       cy.findAllByText(resourceName).should('not.exist')
 
-      cy.getButton({ icon: 'plus' }).click()
+      cy.get('.ant-page-header-heading').getButton({ icon: 'plus' }).click()
       cy.getDropdownItem('GraphQL API').click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })

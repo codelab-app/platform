@@ -1,19 +1,19 @@
-import {
-  COMPONENT_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
+import {
+  IComponentService,
+  ICreateComponentDTO,
+  IUserService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { createComponentSchema } from './createComponentSchema'
 
-export const CreateComponentModal = observer<
-  WithServices<COMPONENT_SERVICE | USER_SERVICE>
->(({ componentService, userService }) => {
+export const CreateComponentModal = observer<{
+  componentService: IComponentService
+  userService: IUserService
+}>(({ componentService, userService }) => {
   const user = userService.user
 
   const handleSubmit = (data: ICreateComponentDTO) => {

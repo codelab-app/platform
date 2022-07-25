@@ -1,7 +1,6 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateFieldDTO } from '@codelab/shared/abstract/core'
+import { ICreateFieldDTO, ITypeService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -10,7 +9,7 @@ import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
 
-export type CreateFieldModalProps = WithServices<TYPE_SERVICE>
+export type CreateFieldModalProps = { typeService: ITypeService }
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ typeService }) => {

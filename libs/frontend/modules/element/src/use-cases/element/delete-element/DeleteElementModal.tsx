@@ -1,13 +1,13 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IElementService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
 
-export const DeleteElementModal = observer<WithServices<ELEMENT_SERVICE>>(
+export const DeleteElementModal = observer<{ elementService: IElementService }>(
   ({ elementService }) => {
     const closeModal = () => elementService.deleteModal.close()
 
@@ -41,7 +41,7 @@ export const DeleteElementModal = observer<WithServices<ELEMENT_SERVICE>>(
           schema={deleteElementSchema}
         >
           <h4>
-            Are you sure you want to delete{" "}
+            Are you sure you want to delete{' '}
             {elementToDelete?.name
               ? `the element "${elementToDelete?.name}"`
               : 'that element'}

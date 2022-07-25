@@ -1,10 +1,6 @@
-import {
-  ATOM_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { InterfaceForm } from '@codelab/frontend/modules/type'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { IAtomService, ITypeService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -14,7 +10,9 @@ import { useAddHookToElementForm } from './useAddHookToElementForm'
 
 export type AddHookToElementModalProps = {
   elementId: string
-} & WithServices<TYPE_SERVICE | ATOM_SERVICE>
+  typeService: ITypeService
+  atomService: IAtomService
+}
 
 export const AddHookToElementModal = observer<AddHookToElementModalProps>(
   ({ elementId, typeService, atomService }) => {

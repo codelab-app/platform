@@ -1,11 +1,11 @@
-import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { IAtomService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteAtomsModal = observer<WithServices<ATOM_SERVICE>>(
+export const DeleteAtomsModal = observer<{ atomService: IAtomService }>(
   ({ atomService }) => {
     const atoms = atomService.deleteManyModal.atoms ?? []
     const onSubmit = () => atomService.deleteMany(atoms.map((atom) => atom.id))

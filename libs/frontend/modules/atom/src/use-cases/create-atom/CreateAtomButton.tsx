@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { ATOM_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IAtomService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const CreateAtomButton = observer<WithServices<ATOM_SERVICE>>(
+export const CreateAtomButton = observer<{ atomService: IAtomService }>(
   ({ atomService }) => {
     return (
       <Button

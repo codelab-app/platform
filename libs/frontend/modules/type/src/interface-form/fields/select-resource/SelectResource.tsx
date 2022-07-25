@@ -1,10 +1,11 @@
-import { RESOURCE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { IResourceService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectResourcesProps = WithServices<RESOURCE_SERVICE> & {
+export type SelectResourcesProps = {
   name: string
+  resourceService: IResourceService
 }
 
 export const SelectResource = observer<SelectResourcesProps>(

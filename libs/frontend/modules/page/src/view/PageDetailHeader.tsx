@@ -1,14 +1,14 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
-import { PAGE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useCurrentPageId } from '@codelab/frontend/presenter/container'
+import { IPageService } from '@codelab/shared/abstract/core'
 import { Menu, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export const PageDetailHeader = observer<WithServices<PAGE_SERVICE>>(
+export const PageDetailHeader = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
     const router = useRouter()
     const pageId = useCurrentPageId()

@@ -1,13 +1,13 @@
-import { TAG_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ITagService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields, ListField } from 'uniforms-antd'
 import { DeleteTagsData, deleteTagsSchema } from './deleteTagsSchema'
 
-export const DeleteTagsModal = observer<WithServices<TAG_SERVICE>>(
+export const DeleteTagsModal = observer<{ tagService: ITagService }>(
   ({ tagService }) => {
     const tags = tagService.deleteManyModal.tags
     const onSubmit = () => tagService.deleteMany(tags.map((tag) => tag.id))

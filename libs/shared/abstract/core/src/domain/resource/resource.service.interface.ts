@@ -37,4 +37,5 @@ export interface IResourceService
   createModal: IModalService<CreateResourceData, { type?: IResourceType }>
   resource(resource: IResourceRef): Maybe<IResource>
   resourceList: Array<IResource>
+  deleteResource(id: string): Promise<{ nodesDeleted: number }>
 }

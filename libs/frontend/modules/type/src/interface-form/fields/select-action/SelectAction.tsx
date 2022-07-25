@@ -1,11 +1,12 @@
-import { ACTION_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
+import { IActionService } from '@codelab/shared/abstract/core'
 import React, { useEffect } from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectActionProps = WithServices<ACTION_SERVICE> & {
+export type SelectActionProps = {
   name: string
   storeId: string
+  actionService: IActionService
 }
 
 export const SelectAction = ({

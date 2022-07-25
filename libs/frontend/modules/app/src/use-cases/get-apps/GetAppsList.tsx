@@ -1,6 +1,6 @@
-import { APP_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
+import { IAppService } from '@codelab/shared/abstract/core'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -11,7 +11,7 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const GetAppsList = observer<WithServices<APP_SERVICE>>(
+export const GetAppsList = observer<{ appService: IAppService }>(
   ({ appService }) => {
     const appList = appService.appsList
 

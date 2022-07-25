@@ -1,18 +1,18 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, IElementService } from '@codelab/shared/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'
 import { propMapBindingRef } from '../../../store/prop-map-binding.ref'
 
-export type PropMapBindingsTableProps = WithServices<ELEMENT_SERVICE> & {
+export type PropMapBindingsTableProps = {
+  elementService: IElementService
   element: IElement
 }
 

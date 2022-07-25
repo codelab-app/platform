@@ -1,13 +1,12 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import {
-  BUILDER_SERVICE,
-  ELEMENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { queryRenderedElementById } from '@codelab/frontend/modules/renderer'
 import { ClickOverlay } from '@codelab/frontend/view/components'
-import { isElement } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElementService,
+  isElement,
+} from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -36,9 +35,10 @@ const StyledOverlayButtonGroup = styled.div`
   }
 `
 
-export const BuilderClickOverlay = observer<
-  WithServices<BUILDER_SERVICE | ELEMENT_SERVICE>
->(({ builderService, elementService }) => {
+export const BuilderClickOverlay = observer<{
+  builderService: IBuilderService
+  elementService: IElementService
+}>(({ builderService, elementService }) => {
   const selectedNode = builderService.selectedNode
 
   if (!selectedNode || !isElement(selectedNode)) {

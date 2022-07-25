@@ -1,16 +1,16 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
   ModalForm,
 } from '@codelab/frontend/view/components'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { typeApi } from '../../../store'
 
-export const DeleteTypeModal = observer<WithServices<TYPE_SERVICE>>(
+export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const closeModal = () => typeService.deleteModal.close()
     const typeToDelete = typeService.deleteModal.type

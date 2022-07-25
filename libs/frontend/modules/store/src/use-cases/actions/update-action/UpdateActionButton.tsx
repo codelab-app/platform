@@ -1,12 +1,14 @@
 import { EditOutlined } from '@ant-design/icons'
-import { ACTION_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
+import { IActionService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { actionRef } from '../../../store'
 
-type UpdateActionButtonProps = WithServices<ACTION_SERVICE> & UpdateButtonProps
+type UpdateActionButtonProps = UpdateButtonProps & {
+  actionService: IActionService
+}
 
 export const UpdateActionButton = observer<UpdateActionButtonProps>(
   ({ id, disabled, actionService }) => (

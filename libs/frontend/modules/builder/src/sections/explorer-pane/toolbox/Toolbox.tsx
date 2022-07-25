@@ -1,11 +1,11 @@
-import {
-  ATOM_SERVICE,
-  COMPONENT_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spinner } from '@codelab/frontend/view/components'
-import { IAtom, IComponent } from '@codelab/shared/abstract/core'
+import {
+  IAtom,
+  IAtomService,
+  IComponent,
+  IComponentService,
+} from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import Fuse from 'fuse.js'
@@ -41,8 +41,10 @@ const componentToolboxItemFactory = (
   }
 }
 
-export type ToolboxProps = WithServices<ATOM_SERVICE | COMPONENT_SERVICE> & {
+export type ToolboxProps = {
   searchQuery?: string
+  atomService: IAtomService
+  componentService: IComponentService
 }
 
 export const Toolbox = observer<ToolboxProps>(

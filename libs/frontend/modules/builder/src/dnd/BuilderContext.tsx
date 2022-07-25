@@ -1,9 +1,5 @@
-import {
-  BUILDER_SERVICE,
-  ELEMENT_SERVICE,
-  ROOT_RENDER_CONTAINER_ID,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
@@ -15,7 +11,10 @@ import { useBuilderDnd } from './useBuilderDnd'
  * Provides the DnD context for the builder
  */
 export const BuilderContext = observer<
-  PropsWithChildren<WithServices<ELEMENT_SERVICE | BUILDER_SERVICE>>
+  PropsWithChildren<{
+    elementService: IElementService
+    builderService: IBuilderService
+  }>
 >(({ children, elementService, builderService }) => {
   const { onDragEnd, onDragStart } = useBuilderDnd(
     builderService,

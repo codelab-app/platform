@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
@@ -9,7 +9,8 @@ import { InterfaceType, typeRef } from '../../../store'
 
 export type CreateFieldButtonProps = {
   interfaceId: string
-} & WithServices<TYPE_SERVICE>
+  typeService: ITypeService
+}
 
 export const CreateFieldButton = observer<CreateFieldButtonProps>(
   ({ interfaceId, typeService }) => {

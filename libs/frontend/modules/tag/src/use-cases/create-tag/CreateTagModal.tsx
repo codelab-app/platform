@@ -1,19 +1,19 @@
-import {
-  TAG_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { ICreateTagDTO } from '@codelab/shared/abstract/core'
+import {
+  ICreateTagDTO,
+  ITagService,
+  IUserService,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { createTagSchema } from './createTagSchema'
 
-export const CreateTagModal = observer<
-  WithServices<TAG_SERVICE | USER_SERVICE>
->(({ tagService, userService }) => {
+export const CreateTagModal = observer<{
+  tagService: ITagService
+  userService: IUserService
+}>(({ tagService, userService }) => {
   const onSubmit = (input: ICreateTagDTO) => {
     return tagService.create([input])
   }

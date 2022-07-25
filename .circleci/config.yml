@@ -23,8 +23,8 @@ executor-config: &executor-config
     SLACK_ASSIM: <@U02GJN72TKR>
     GITHUB_NGHIA: phmngocnghia
     SLACK_NGHIA: <@U02DX6U7YGP>
-    GITHUB_HAN: railway17
-    SLACK_HAN: <@U032DCE59SB>
+    GITHUB_YASEEN: mohasarc
+    SLACK_YASEEN: <@U03B5N7J2N9>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -93,8 +93,8 @@ commands:
             elif [ $CIRCLE_USERNAME == $GITHUB_NGHIA ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_NGHIA}' >> $BASH_ENV
 
-            elif [ $CIRCLE_USERNAME == $GITHUB_HAN ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_HAN}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_YASEEN ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_YASEEN}' >> $BASH_ENV
 
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV

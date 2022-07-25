@@ -1,13 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
-import {
-  ACTION_SERVICE,
-  APP_SERVICE,
-  STORE_SERVICE,
-  TYPE_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/modules/type'
-import { IInterfaceType } from '@codelab/shared/abstract/core'
+import {
+  IActionService,
+  IAppService,
+  IInterfaceType,
+  IStoreService,
+  ITypeService,
+} from '@codelab/shared/abstract/core'
 import { Button, Collapse } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
@@ -16,9 +15,12 @@ import tw from 'twin.macro'
 import { useCurrentStore } from '../hooks'
 import { GetActionsList, GetStateList } from '../use-cases'
 
-type StoreExplorerPaneProps = WithServices<
-  TYPE_SERVICE | ACTION_SERVICE | APP_SERVICE | STORE_SERVICE
->
+type StoreExplorerPaneProps = {
+  typeService: ITypeService
+  actionService: IActionService
+  appService: IAppService
+  storeService: IStoreService
+}
 
 export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
   ({ typeService, actionService, appService, storeService }) => {

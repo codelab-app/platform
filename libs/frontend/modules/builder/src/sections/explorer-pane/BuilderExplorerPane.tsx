@@ -1,13 +1,4 @@
 import {
-  ATOM_SERVICE,
-  BUILDER_SERVICE,
-  COMPONENT_SERVICE,
-  ELEMENT_SERVICE,
-  RENDER_SERVICE,
-  USER_SERVICE,
-  WithServices,
-} from '@codelab/frontend/abstract/core'
-import {
   CreateComponentButton,
   CreateComponentModal,
   DeleteComponentModal,
@@ -18,7 +9,16 @@ import {
 } from '@codelab/frontend/modules/element'
 import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
-import { BuilderTab, RendererTab } from '@codelab/shared/abstract/core'
+import {
+  BuilderTab,
+  IAtomService,
+  IBuilderService,
+  IComponentService,
+  IElementService,
+  IRenderService,
+  IUserService,
+  RendererTab,
+} from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
 import { debounce } from 'lodash'
 import { observer } from 'mobx-react-lite'
@@ -35,14 +35,13 @@ const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.Tree]: 'Page',
 }
 
-type BuilderMainPaneProps = WithServices<
-  | ATOM_SERVICE
-  | COMPONENT_SERVICE
-  | ELEMENT_SERVICE
-  | BUILDER_SERVICE
-  | USER_SERVICE
-  | RENDER_SERVICE
-> & {
+type BuilderMainPaneProps = {
+  atomService: IAtomService
+  componentService: IComponentService
+  elementService: IElementService
+  builderService: IBuilderService
+  userService: IUserService
+  renderService: IRenderService
   pageId: string
 }
 

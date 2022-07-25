@@ -1,5 +1,8 @@
-import { ELEMENT_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
-import { IElement, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  IElement,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
 import {
@@ -10,10 +13,11 @@ import {
   UpdatePropMapBindingModal,
 } from '../use-cases'
 
-export type PropMapBindingSectionProps = WithServices<ELEMENT_SERVICE> & {
+export type PropMapBindingSectionProps = {
   element: IElement
   elementTree: IElementTree
   providePropCompletion?: (searchValue: string) => Array<string>
+  elementService: IElementService
 }
 
 export const PropMapBindingSection = ({

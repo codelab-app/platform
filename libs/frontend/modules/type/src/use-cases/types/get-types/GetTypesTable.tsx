@@ -1,12 +1,12 @@
-import { TYPE_SERVICE, WithServices } from '@codelab/frontend/abstract/core'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
+import { ITypeService } from '@codelab/shared/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { TypeRecord } from './columns'
 import { useTypesTable } from './useGetTypesTable'
 
-export const GetTypesTable = observer<WithServices<TYPE_SERVICE>>(
+export const GetTypesTable = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     const { columns, rowSelection } = useTypesTable(typeService)
 
