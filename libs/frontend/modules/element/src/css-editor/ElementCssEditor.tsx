@@ -9,11 +9,14 @@ import {
   IElement,
   IElementService,
 } from '@codelab/shared/abstract/core'
-import { Collapse } from 'antd'
+import { Col, Collapse, Row } from 'antd'
 import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
+import { EffectsEditor } from './css-effects-editor/EffectsEditor'
 import { LayoutEditor } from './css-layout-editor'
+import { TypographyEditor } from './css-typography-editor/TypographyEditor'
 
 const { Panel } = Collapse
 
@@ -139,25 +142,54 @@ export const ElementCssEditor = observer(
     }
 
     return (
-      <>
-        <EmotionCssEditor
-          height="100%"
-          onChange={(value) => setCustomCssString(value)}
-          value={customCssString}
-        />
-        <Collapse
-          bordered={false}
-          className="site-collapse-custom-collapse"
-          defaultActiveKey={['1']}
-          expandIcon={({ isActive }) => (
-            <CaretRightOutlined rotate={isActive ? 90 : 0} />
-          )}
-        >
-          <Panel className="site-collapse-custom-panel" header="Layout" key="1">
-            <LayoutEditor element={element} guiCssObj={guiCssObj} />
-          </Panel>
-        </Collapse>
-      </>
+      <Row style={{ marginBottom: '10%' }}>
+        <Col span={24}>
+          <EmotionCssEditor
+            height="100%"
+            onChange={(value) => setCustomCssString(value)}
+            value={customCssString}
+          />
+        </Col>
+        <Col span={24}>
+          <Collapse
+            bordered={false}
+            className="site-collapse-custom-collapse"
+            defaultActiveKey={['1']}
+            expandIcon={({ isActive }) => (
+              <CaretRightOutlined rotate={isActive ? 90 : 0} />
+            )}
+          >
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Layout"
+              key="1"
+            >
+              <LayoutEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Typography"
+              key="2"
+            >
+              <TypographyEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Background"
+              key="3"
+            >
+              <BackgroundEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+            <Panel
+              className="site-collapse-custom-panel"
+              header="effects"
+              key="4"
+            >
+              <EffectsEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+          </Collapse>
+        </Col>
+      </Row>
     )
   },
 )
