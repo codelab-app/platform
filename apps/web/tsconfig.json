@@ -6,7 +6,7 @@
     "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "lib": ["es2021"],
     "allowSyntheticDefaultImports": true,
     "types": ["node", "worker-loader", "window", "@fancyapps/ui", "cypher"],
