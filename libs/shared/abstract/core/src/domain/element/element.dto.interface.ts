@@ -13,7 +13,8 @@ export interface ICreateElementDTO {
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
-  css?: Nullish<string>
+  customCss?: Nullish<string>
+  guiCss?: Nullish<string>
   propsData?: string
 }
 
@@ -23,7 +24,8 @@ export type IUpdateElementDTO = {
   atomId?: Nullable<string>
   renderForEachPropKey?: Nullable<string>
   renderIfPropKey?: Nullable<string>
-  css?: Nullable<string>
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
   props?: Nullable<IPropData>
 }
 

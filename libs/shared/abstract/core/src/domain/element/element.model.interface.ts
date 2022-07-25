@@ -19,11 +19,14 @@ export interface IElementContainer {
   rootElementId: string
 }
 
+export type cssMap = { [prop: string]: string }
+
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
   owner: Nullable<IAuth0Id>
   name: Nullable<string>
-  css: Nullable<string>
+  customCss: Nullable<string>
+  guiCss: Nullable<string>
   props?: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
   orderInParent: Nullable<number>
@@ -66,6 +69,9 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
     globalProps: IPropData
   }
   executePropTransformJs(props: IPropData): IPropData
+
+  appendToGuiCss(css: cssMap): void
+  deleteFromGuiCss(propNames: Array<string>): void
 }
 
 export type IElementRef = string

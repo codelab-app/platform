@@ -3581,7 +3581,8 @@ type Element {
     sort: [ElementComponentConnectionSort!]
     where: ElementComponentConnectionWhere
   ): ElementComponentConnection!
-  css: String
+  customCss: String
+  guiCss: String
   hooks(
     directed: Boolean = true
     options: HookOptions

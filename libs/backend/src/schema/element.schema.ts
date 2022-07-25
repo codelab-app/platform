@@ -44,7 +44,12 @@ export const elementSchema = gql`
       )
     # fixedId: String!, // This could be no longer needed with neo4j
     name: String
-    css: String
+    # Used for the css the user types it manually using the integrated code editor. This is
+    # a pure css string.
+    customCss: String
+    # Used for the css set by the styling UI. This is a stringified json object of the form:
+    # {[prop: string]: string}, where the prop is a css property and the value is its value.
+    guiCss: String
     propTransformationJs: String
     renderForEachPropKey: String
     renderIfPropKey: String

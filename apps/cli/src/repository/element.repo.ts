@@ -47,7 +47,8 @@ export const importElementInitial = async (
             },
           },
          */
-          css: element.css,
+          customCss: element.customCss,
+          guiCss: element.guiCss,
           atom: element.atom
             ? { connect: { where: { node: { id: element.atom.id } } } }
             : undefined,

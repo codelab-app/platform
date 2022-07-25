@@ -95,7 +95,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'propTransformationJs',
             'instanceOfComponentId',
             // We edit it in the css tab
-            'css',
+            'customCss',
+            'guiCss',
           ]}
         />
         <AutoField

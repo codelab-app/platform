@@ -36,7 +36,11 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       nullable: true,
       label: 'Component',
     },
-    css: {
+    customCss: {
+      type: 'string',
+      nullable: true,
+    },
+    guiCss: {
       type: 'string',
       nullable: true,
     },

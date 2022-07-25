@@ -117,7 +117,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentRootElement = new Element({
       id: compRootElementId,
       name: '01',
-      css: '',
+      customCss: '',
+      guiCss: '',
       atom: atomRef(data.textAtom.id),
       component: componentRef(data.componentToRender),
       props: new Prop({
@@ -144,7 +145,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.elementToRender = new Element({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      css: '',
+      customCss: '',
+      guiCss: '',
       atom: atomRef(data.divAtom.id),
       props: new Prop({
         id: v4(),
