@@ -1,9 +1,12 @@
 import { IElement } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 
 export const updateGuiCssProperty =
-  (element: IElement, propName: string) => (val: string) => {
-    if (val === 'none') {
+  (element: IElement, propName: string) => (val: Nullable<string>) => {
+    if (val === null) {
       element.deleteFromGuiCss([propName])
+
+      return
     }
 
     element.appendToGuiCss({
