@@ -35,40 +35,62 @@ const options = [
   },
   {
     name: 'zIndex',
-    units: ['auto', ' '],
   },
 ]
 
 export const PositionEditor = observer(
-  ({ element, guiCssObj }: PositionEditorProps) => (
-    <>
-      <CssPropValueSelector
-        currentValue={guiCssObj['position'] ?? 'static'}
-        name="position"
-        onClick={updateGuiCssProperty(element, 'position')}
-        options={['static', 'relative', 'fixed', 'absolute', 'sticky']}
-      />
-      {!guiCssObj['position'] || guiCssObj['position'] === 'static' ? null : (
-        <>
-          {options.map(({ name, units }) => (
+  ({ element, guiCssObj }: PositionEditorProps) => {
+    const [zIndex, setZIndex] = React.useState(
+      matchCssPropNumber(guiCssObj['zIndex'] ?? '') ?? 0,
+    )
+
+    return (
+      <>
+        <CssPropValueSelector
+          currentValue={guiCssObj['position'] ?? 'static'}
+          name="position"
+          onClick={updateGuiCssProperty(element, 'position')}
+          options={['static', 'relative', 'fixed', 'absolute', 'sticky']}
+        />
+        {!guiCssObj['position'] || guiCssObj['position'] === 'static' ? null : (
+          <>
+            {options.map(({ name, units }) => (
+              <InputNumberWithUnits
+                currentUnit={matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto'}
+                currentValue={matchCssPropNumber(guiCssObj[name] ?? '') ?? 0}
+                disabled={
+                  (matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto') === 'auto'
+                }
+                name={name}
+                onChange={(value, unit) =>
+                  updateGuiCssProperty(
+                    element,
+                    name,
+                  )(unit === 'auto' ? unit : `${value}${unit}`)
+                }
+                units={units}
+              />
+            ))}
             <InputNumberWithUnits
-              currentUnit={matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto'}
-              currentValue={matchCssPropNumber(guiCssObj[name] ?? '') ?? 0}
-              disabled={
-                (matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto') === 'auto'
-              }
-              name={name}
-              onChange={(value, unit) =>
+              currentValue={zIndex}
+              defaultChecked={guiCssObj['zIndex'] !== 'auto'}
+              disabled={matchCssPropUnit(guiCssObj['zIndex'] ?? '') === 'auto'}
+              enableCheckBox
+              name="zIndex"
+              onChange={(value) => {
+                updateGuiCssProperty(element, 'zIndex')(`${value}`)
+                setZIndex(value)
+              }}
+              onCheckedChange={(checked) =>
                 updateGuiCssProperty(
                   element,
-                  name,
-                )(unit === 'auto' ? unit : `${value}${unit}`)
+                  'zIndex',
+                )(!checked ? 'auto' : `${zIndex}`)
               }
-              units={units}
             />
-          ))}
-        </>
-      )}
-    </>
-  ),
+          </>
+        )}
+      </>
+    )
+  },
 )
