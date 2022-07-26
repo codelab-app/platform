@@ -14,8 +14,10 @@ import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
+import { BordersEditor } from './css-borders-editor/BordersEditor'
 import { EffectsEditor } from './css-effects-editor/EffectsEditor'
 import { LayoutEditor } from './css-layout-editor'
+import { ShadowsEditor } from './css-shadows-editor'
 import { TypographyEditor } from './css-typography-editor/TypographyEditor'
 
 const { Panel } = Collapse
@@ -182,10 +184,24 @@ export const ElementCssEditor = observer(
             </Panel>
             <Panel
               className="site-collapse-custom-panel"
-              header="effects"
+              header="Effects"
               key="4"
             >
               <EffectsEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Borders"
+              key="5"
+            >
+              <BordersEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Shadows"
+              key="6"
+            >
+              <ShadowsEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
           </Collapse>
         </Col>
