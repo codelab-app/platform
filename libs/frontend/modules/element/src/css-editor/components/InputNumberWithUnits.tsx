@@ -15,6 +15,9 @@ export const InputNumberWithUnits = ({
   max,
   step,
   disabled,
+  enableCheckBox,
+  defaultChecked,
+  onCheckedChange,
 }: {
   name: string
   currentValue: number
@@ -27,6 +30,9 @@ export const InputNumberWithUnits = ({
   max?: number
   step?: number
   disabled?: boolean
+  enableCheckBox?: boolean
+  defaultChecked?: boolean
+  onCheckedChange?: (checked: boolean) => void
 }) => {
   const [value, setValue] = useState<number>(currentValue)
   const [unit, setUnit] = useState<string>(currentUnit ?? '')
@@ -49,7 +55,12 @@ export const InputNumberWithUnits = ({
   )
 
   return (
-    <CssPropEditorItem title={name}>
+    <CssPropEditorItem
+      defaultChecked={defaultChecked}
+      enableCheckbox={enableCheckBox}
+      onChange={onCheckedChange}
+      title={name}
+    >
       <InputNumber
         addonAfter={units ? selectAfter(units) : null}
         defaultValue={value}
