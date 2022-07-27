@@ -18,33 +18,33 @@ import {
 
 describe('Store', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.getCurrentUserId().then((userId) => {
-          cy.createType(
-            {
-              PrimitiveType: {
-                id: v4(),
-                name: IPrimitiveTypeKind.Integer,
-                primitiveKind: IPrimitiveTypeKind.Integer,
-                kind: ITypeKind.PrimitiveType,
-                owner: connectOwner(userId),
-              },
+    cy.resetDatabase()
+    cy.login()
+    cy.getCurrentUserId()
+      .then((userId) => {
+        cy.createType(
+          {
+            PrimitiveType: {
+              id: v4(),
+              name: IPrimitiveTypeKind.Integer,
+              primitiveKind: IPrimitiveTypeKind.Integer,
+              kind: ITypeKind.PrimitiveType,
+              owner: connectOwner(userId),
             },
-            ITypeKind.PrimitiveType,
-          )
+          },
+          ITypeKind.PrimitiveType,
+        )
 
-          cy.createApp(userId).then((apps) => {
-            const app = apps[0]
-
-            cy.visit(`/apps/${app?.id}/pages`)
-            cy.getSpinner().should('not.exist')
-            cy.findByText('Store').click()
-            cy.url({ timeout: 10000 }).should('include', 'store')
-          })
-        })
+        return cy.createApp(userId)
       })
-    })
+      .then((apps) => {
+        const app = apps[0]
+
+        cy.visit(`/apps/${app?.id}/pages`)
+        cy.getSpinner().should('not.exist')
+        cy.findByText('Store').click()
+        cy.url({ timeout: 10000 }).should('include', 'store')
+      })
   })
 
   describe('State CRUD', () => {
