@@ -14,10 +14,7 @@ describe('Pages CRUD', () => {
         return cy.createApp(String(userId))
       })
       .then((apps) => {
-        console.log({ apps })
-
         const app = apps[0]
-
         cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
       })

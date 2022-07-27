@@ -68,8 +68,6 @@ describe('Component CRUD', () => {
         return cy.createApp(userId, appInput)
       })
       .then((apps) => {
-        cy.get(`@${createAtomRequestId}`)
-
         const app = apps[0]
         const pageId = app.pages[0].id
         cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)

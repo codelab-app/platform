@@ -1,10 +1,15 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import {
+  AppCreateInput,
+  AppPagesFieldInput,
+  AtomCreateInput,
+} from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsData } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
-import { updatedAppName, updatedPageName } from './apps/app.data'
+import { createAppInput } from '../support/database/app'
+import { createPageInput } from '../support/database/page'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -49,34 +54,43 @@ const updatedElementName = 'Container updated'
 
 describe('Elements CRUD', () => {
   before(() => {
-    cy.getCurrentUserId().then((userId) => {
-      const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
-        (atom) => ({
-          id: v4(),
-          name: atom.name,
-          type: atom.type,
-          api: {
-            create: {
-              node: {
-                id: v4(),
-                name: `${atom.name} API`,
-                owner: userId
-                  ? { connect: { where: { node: { auth0Id: userId } } } }
-                  : undefined,
+    cy.resetDatabase()
+    cy.login()
+    cy.getCurrentUserId()
+      .then((userId) => {
+        const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
+          (atom) => ({
+            id: v4(),
+            name: atom.name,
+            type: atom.type,
+            api: {
+              create: {
+                node: {
+                  id: v4(),
+                  name: `${atom.name} API`,
+                  owner: userId
+                    ? { connect: { where: { node: { auth0Id: userId } } } }
+                    : undefined,
+                },
               },
             },
-          },
-        }),
-      )
+          }),
+        )
 
-      cy.createAtom(atomsInput).then((data) => {
-        cy.visit('/apps')
+        cy.createAtom(atomsInput)
 
-        cy.getCard({ title: updatedAppName }).find('a').click()
+        const appInput: AppCreateInput = createAppInput(userId)
+        appInput.pages = {
+          create: [{ node: createPageInput() }],
+        } as AppPagesFieldInput
 
-        cy.url({ timeout: 5000 }).should('include', 'pages')
-
-        cy.contains('a', updatedPageName).click()
+        return cy.createApp(userId, appInput)
+      })
+      .then((apps) => {
+        const app = apps[0]
+        const pageId = app.pages[0].id
+        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        cy.getSpinner().should('not.exist')
 
         // select root now so we can update its child later
         // there is an issue with tree interaction
@@ -85,7 +99,6 @@ describe('Elements CRUD', () => {
           .should('be.visible')
           .click({ force: true })
       })
-    })
   })
 
   describe('create', () => {
@@ -135,9 +148,7 @@ describe('Elements CRUD', () => {
     })
   })
 
-  require('./component.spec.required')
-
-  require('./css.spec.required')
+  // require('./css.spec.required')
 
   describe(`delete`, () => {
     it(`should be able to delete element sub tree`, () => {

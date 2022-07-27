@@ -1,8 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
+  "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
     "@typescript-eslint",
@@ -26,12 +24,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         //        "unused-imports/no-unused-imports-ts": "error",
         //        "prefer-destructuring": [
@@ -236,9 +229,7 @@
           "error",
           "always",
           {
-            "markers": [
-              "/"
-            ],
+            "markers": ["/"],
             "block": {
               "balanced": true
             }
@@ -248,14 +239,7 @@
         "simple-import-sort/imports": [
           "error",
           {
-            "groups": [
-              [
-                "^\\u0000",
-                "^@?\\w",
-                "^[^.]",
-                "^\\."
-              ]
-            ]
+            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
           }
         ],
         "simple-import-sort/exports": "error",
@@ -284,10 +268,7 @@
               // "type": ["concrete", "abstract"]
               {
                 "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": [
-                  "type:abstract",
-                  "scope:codegen"
-                ]
+                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
               },
               // {
               //   "sourceTag": "scope:backend",
@@ -350,10 +331,7 @@
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": [
-                  "scope:shared",
-                  "type:abstract"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
               // {
               //   "sourceTag": "layer:domain:backend",
@@ -367,9 +345,7 @@
               // },
               {
                 "sourceTag": "scope:publishable",
-                "onlyDependOnLibsWithTags": [
-                  "scope:publishable"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:publishable"]
               }
             ]
           }
@@ -396,87 +372,40 @@
           },
           {
             "blankLine": "always",
-            "prev": [
-              "const",
-              "let",
-              "var",
-              "if",
-              "block-like"
-            ],
+            "prev": ["const", "let", "var", "if", "block-like"],
             "next": "*"
           },
           {
             "blankLine": "any",
-            "prev": [
-              "const",
-              "let",
-              "var"
-            ],
-            "next": [
-              "const",
-              "let",
-              "var",
-              "expression"
-            ]
+            "prev": ["const", "let", "var"],
+            "next": ["const", "let", "var", "expression"]
           },
           {
             "blankLine": "never",
-            "prev": [
-              "singleline-const",
-              "singleline-let",
-              "singleline-var"
-            ],
-            "next": [
-              "singleline-const",
-              "singleline-let",
-              "singleline-var"
-            ]
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
           },
           {
             "blankLine": "always",
-            "prev": [
-              "*"
-            ],
-            "next": [
-              "multiline-const",
-              "multiline-let",
-              "multiline-var"
-            ]
+            "prev": ["*"],
+            "next": ["multiline-const", "multiline-let", "multiline-var"]
           },
           {
             "blankLine": "always",
-            "prev": [
-              "multiline-const",
-              "multiline-let",
-              "multiline-var"
-            ],
-            "next": [
-              "*"
-            ]
+            "prev": ["multiline-const", "multiline-let", "multiline-var"],
+            "next": ["*"]
           },
           {
             "blankLine": "any",
-            "prev": [
-              "cjs-import"
-            ],
-            "next": [
-              "const",
-              "let",
-              "var"
-            ]
+            "prev": ["cjs-import"],
+            "next": ["const", "let", "var"]
           }
         ],
-        "lines-between-class-members": [
-          "error",
-          "always"
-        ]
+        "lines-between-class-members": ["error", "always"]
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@nrwl/nx/typescript",
         "plugin:jest-formatting/strict"
@@ -507,9 +436,7 @@
             }
           }
         ],
-        "@typescript-eslint/no-shadow": [
-          "error"
-        ],
+        "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/array-type": [
           "error",
           {
@@ -520,31 +447,18 @@
       }
     },
     {
-      "files": [
-        "*.stories.jsx",
-        "*.stories.tsx"
-      ],
+      "files": ["*.stories.jsx", "*.stories.tsx"],
       "rules": {
         "react/jsx-props-no-spreading": "off"
       }
     },
     {
-      "files": [
-        "*.jsx",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:react-hooks/recommended"
-      ]
+      "files": ["*.jsx", "*.tsx"],
+      "extends": ["plugin:react-hooks/recommended"]
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
     // {
