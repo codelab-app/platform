@@ -40,6 +40,7 @@ describe('Pages CRUD', () => {
       cy.findByText(pageName).click()
       cy.getSpinner().should('not.exist')
       cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
+      cy.go('back')
     })
   })
 

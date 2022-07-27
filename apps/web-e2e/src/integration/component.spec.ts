@@ -7,7 +7,6 @@ import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
-import { createAtomRequestId } from '../support/database/atom'
 import { createPageInput } from '../support/database/page'
 
 const NEW_COMP_NAME = `new component`
