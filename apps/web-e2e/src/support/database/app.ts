@@ -6,7 +6,7 @@ import { print } from 'graphql'
 import { v4 } from 'uuid'
 import { CreateAppsDocument } from '../../../../../libs/frontend/modules/app/src/graphql/app.endpoints.graphql.gen'
 
-const createDefaultInput = (userId: string): AppCreateInput => {
+export const createAppInput = (userId: string): AppCreateInput => {
   const appId = v4()
 
   return {
@@ -45,6 +45,6 @@ export const createApp = (userId: string, input?: AppCreateInput) =>
   cy
     .graphqlRequest({
       query: print(CreateAppsDocument),
-      variables: { input: input || createDefaultInput(userId) },
+      variables: { input: input || createAppInput(userId) },
     })
     .then((result) => result.body.data?.createApps.apps as Array<IAppDTO>)

@@ -5,6 +5,8 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   const hostname = req.headers.get('host')
 
+  return NextResponse.next()
+
   const publicRootDomains =
     process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
 
