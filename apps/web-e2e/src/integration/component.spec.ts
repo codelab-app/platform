@@ -25,56 +25,56 @@ const componentChildren: Array<ComponentChildData> = [
 
 describe('Component CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.login().then(() => {
-        cy.getCurrentUserId().then((userId) => {
-          cy.createAtom([
-            {
-              name: IAtomType.AntDesignButton,
-              type: IAtomType.AntDesignButton,
-              id: v4(),
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${IAtomType.AntDesignButton} API`,
-                    owner: connectOwner(userId),
-                  },
+    cy.resetDatabase()
+    cy.login()
+    cy.getCurrentUserId()
+      .then((userId) => {
+        cy.createAtom([
+          {
+            name: IAtomType.AntDesignButton,
+            type: IAtomType.AntDesignButton,
+            id: v4(),
+            api: {
+              create: {
+                node: {
+                  id: v4(),
+                  name: `${IAtomType.AntDesignButton} API`,
+                  owner: connectOwner(userId),
                 },
               },
             },
-            {
-              name: IAtomType.AntDesignTypographyText,
-              type: IAtomType.AntDesignTypographyText,
-              id: v4(),
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${IAtomType.AntDesignTypographyText} API`,
-                    owner: connectOwner(userId),
-                  },
+          },
+          {
+            name: IAtomType.AntDesignTypographyText,
+            type: IAtomType.AntDesignTypographyText,
+            id: v4(),
+            api: {
+              create: {
+                node: {
+                  id: v4(),
+                  name: `${IAtomType.AntDesignTypographyText} API`,
+                  owner: connectOwner(userId),
                 },
               },
             },
-          ])
+          },
+        ])
 
-          const appInput: AppCreateInput = createAppInput(userId)
-          appInput.pages = {
-            create: [{ node: createPageInput() }],
-          } as AppPagesFieldInput
+        const appInput: AppCreateInput = createAppInput(userId)
+        appInput.pages = {
+          create: [{ node: createPageInput() }],
+        } as AppPagesFieldInput
 
-          cy.createApp(userId, appInput).then((apps) => {
-            cy.get(`@${createAtomRequestId}`)
-
-            const app = apps[0]
-            const pageId = app.pages[0].id
-            cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
-            cy.getSpinner().should('not.exist')
-          })
-        })
+        return cy.createApp(userId, appInput)
       })
-    })
+      .then((apps) => {
+        cy.get(`@${createAtomRequestId}`)
+
+        const app = apps[0]
+        const pageId = app.pages[0].id
+        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        cy.getSpinner().should('not.exist')
+      })
   })
 
   describe('Add component', () => {
