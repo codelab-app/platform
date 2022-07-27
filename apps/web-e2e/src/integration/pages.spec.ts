@@ -1,26 +1,33 @@
 import {
   pageName,
   pageSlug,
-  updatedAppName,
   updatedPageName,
   updatedPageSlug,
-} from './app.data'
+} from './apps/app.data'
 
 describe('Pages CRUD', () => {
   before(() => {
-    cy.getCard({ title: updatedAppName }).find('a').click()
-    cy.url({ timeout: 5000 }).should('include', 'pages')
-    cy.findByText('Pages').should('be.visible')
-    // cy.login().then(() => {
-    //   cy.visit('/apps')
-    // })
+    cy.resetDatabase()
+    cy.login()
+    cy.getCurrentUserId()
+      .then((userId) => {
+        return cy.createApp(String(userId))
+      })
+      .then((apps) => {
+        console.log({ apps })
+
+        const app = apps[0]
+
+        cy.visit(`/apps/${app.id}/pages`)
+        cy.getSpinner().should('not.exist')
+      })
   })
 
   describe('create', () => {
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getSider().getButton({ icon: 'plus' }).eq(0).click()
 
       cy.getModal().findByLabelText('Name').type(pageName)
       cy.getModal().findByLabelText('Slug').type(pageSlug)
@@ -55,14 +62,7 @@ describe('Pages CRUD', () => {
     })
   })
 
-  // Run builder spec here
-  require('./builder.spec.required')
-
   describe('delete', () => {
-    before(() => {
-      cy.go('back')
-    })
-
     it('should be able to delete page', () => {
       cy.getListItem(updatedPageName)
         .getButton({
