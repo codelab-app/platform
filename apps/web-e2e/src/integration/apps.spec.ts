@@ -1,5 +1,9 @@
-/* eslint-disable jest/expect-expect */
-import { appName, appSlug, updatedAppName, updatedAppSlug } from './app.data'
+import {
+  appName,
+  appSlug,
+  updatedAppName,
+  updatedAppSlug,
+} from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
@@ -50,10 +54,6 @@ describe('Apps CRUD', () => {
       cy.findByText(updatedAppName).should('exist')
     })
   })
-
-  // // Insert page test here
-  require('./pages.spec.required')
-  require('./store.spec.required')
 
   describe('delete', () => {
     before(() => {

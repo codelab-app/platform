@@ -1,3 +1,4 @@
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import {
   pageName,
   pageSlug,
@@ -14,7 +15,10 @@ describe('Pages CRUD', () => {
         return cy.createApp(String(userId))
       })
       .then((apps) => {
+        console.log({ apps })
+
         const app = apps[0]
+
         cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
       })
@@ -33,7 +37,9 @@ describe('Pages CRUD', () => {
         .click()
 
       cy.getModal().should('not.exist')
-      cy.findByText(pageName).should('exist')
+      cy.findByText(pageName).click()
+      cy.getSpinner().should('not.exist')
+      cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
     })
   })
 
