@@ -1,6 +1,7 @@
 import { SnapshotOutOfModel } from 'mobx-keystone/src/snapshot/SnapshotOf'
 import { AppProps } from 'next/app'
 import { Overwrite } from 'utility-types'
+import { Auth0SessionUser } from '../domain/user'
 
 /**
  * Used by `_app.tsx`
@@ -17,6 +18,7 @@ export type IAppProps = Overwrite<
  */
 export interface IPageProps {
   storeSnapshot?: SnapshotOutOfModel<any>
+  user?: Auth0SessionUser
   snapshot?: {
     // rootStore: SnapshotOutOfModel<any>
     appService: SnapshotOutOfModel<any>
