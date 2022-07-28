@@ -148,8 +148,6 @@ describe('Elements CRUD', () => {
     })
   })
 
-  // require('./css.spec.required')
-
   describe(`delete`, () => {
     it(`should be able to delete element sub tree`, () => {
       cy.findByText(/Container/).rightclick()

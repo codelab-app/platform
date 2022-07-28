@@ -54,7 +54,6 @@ describe('CSS CRUD', () => {
 
     cy.then(function () {
       const app = this[appCache][0]
-      console.log({ app })
 
       cy.createElement({
         id: v4(),

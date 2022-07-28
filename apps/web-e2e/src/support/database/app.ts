@@ -11,7 +11,7 @@ export const createAppInput = (userId: string): AppCreateInput => {
 
   return {
     id: appId,
-    name: `Test app ${v4()}`,
+    name: `Test app ${appId}`,
     rootElement: {
       create: { node: { name: PROVIDER_ROOT_ELEMENT_NAME, id: v4() } },
     },

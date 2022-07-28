@@ -15,8 +15,6 @@ describe('Pages CRUD', () => {
         return cy.createApp(String(userId))
       })
       .then((apps) => {
-        console.log({ apps })
-
         const app = apps[0]
 
         cy.visit(`/apps/${app.id}/pages`)
@@ -28,7 +26,7 @@ describe('Pages CRUD', () => {
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getSider().getButton({ icon: 'plus' }).eq(0).click()
+      cy.getSider().getButton({ icon: 'plus' }).click()
 
       cy.getModal().findByLabelText('Name').type(pageName)
       cy.getModal().findByLabelText('Slug').type(pageSlug)
@@ -37,6 +35,9 @@ describe('Pages CRUD', () => {
         .click()
 
       cy.getModal().should('not.exist')
+    })
+
+    it('should have accessible page link on sidebar', () => {
       cy.findByText(pageName).click()
       cy.getSpinner().should('not.exist')
       cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')

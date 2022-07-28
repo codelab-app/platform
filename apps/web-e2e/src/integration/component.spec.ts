@@ -9,7 +9,7 @@ import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 import { createPageInput } from '../support/database/page'
 
-const NEW_COMP_NAME = `new component`
+const NEW_COMP_NAME = 'new component'
 const CHILD_BUTTON = 'Button'
 const CHILD_TEXT = 'Text'
 const waitTimeout = 500
