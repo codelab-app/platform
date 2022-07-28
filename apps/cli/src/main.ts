@@ -1,6 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
+import './utils/loadEnv'
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
 import { exportCommand } from './commands/export/export.command'
