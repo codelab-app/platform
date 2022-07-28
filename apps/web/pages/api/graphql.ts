@@ -1,8 +1,9 @@
-import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import {
+  auth0Instance,
   generateOgmTypes,
   getDriver,
   getSchema,
+  NextApiRequest,
   UserOGM,
 } from '@codelab/backend'
 import { upsertUser } from '@codelab/frontend/modules/user'
@@ -23,11 +24,12 @@ const startServer = neoSchema
   .then(async (schema) => {
     apolloServer = new ApolloServer({
       schema,
-      context: ({ req }) => {
-        // console.log(req.headers)
+      context: ({ req }: { req: NextApiRequest }) => {
+        const user = req.user
 
         return {
           req,
+          user,
         }
       },
       formatError: (err) => {
@@ -78,9 +80,13 @@ const handler: NextApiHandler = async (req, res) => {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    session = await getSession(req, res)
-    accessToken = (await getAccessToken(req, res)).accessToken
+    session = await auth0Instance.getSession(req, res)
+    ;(req as any).user = session?.user
+
+    accessToken = (await auth0Instance.getAccessToken(req, res)).accessToken
   } catch (e) {
+    console.log('error when get access token', e)
+
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
       process.env.NODE_ENV !== 'development' ||

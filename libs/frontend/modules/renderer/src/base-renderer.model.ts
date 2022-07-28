@@ -1,10 +1,10 @@
-import {
+import type {
   IBaseRenderer,
   IElementTree,
   IRenderer,
   IStore,
 } from '@codelab/shared/abstract/core'
-import { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   AnyModel,
   Model,
@@ -15,6 +15,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
+
 /**
  * Used by models to extend for adding renderers to the model
  */

@@ -16,6 +16,7 @@ const hydrate = (app: IAppDTO) => {
   return new App({
     id: app.id,
     name: app.name,
+    slug: app.slug,
     ownerId: app.owner?.id,
     rootElement: { id: app.rootElement.id },
     store: { id: app.store.id },
@@ -29,6 +30,7 @@ export class App
     id: idProp,
     ownerId: prop<string>(),
     name: prop<string>(),
+    slug: prop<string>(),
     rootElement: prop<IEntity>(),
     store: prop<IEntity>(),
     pages: prop<Array<Ref<IPage>>>(() => []),

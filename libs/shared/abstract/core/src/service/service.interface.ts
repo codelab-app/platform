@@ -1,5 +1,9 @@
 import { IEntity, Maybe } from '@codelab/shared/abstract/types'
 
+export type ICreateServiceSingleEntitiy<Entity, CreateDTO> = (
+  data: CreateDTO,
+) => Promise<Array<Entity>>
+
 export interface ICRUDService<Entity, CreateDTO, UpdateDTO> {
   create(data: Array<CreateDTO>): Promise<Array<Entity>>
   update(existing: IEntity, data: UpdateDTO): Promise<Entity>

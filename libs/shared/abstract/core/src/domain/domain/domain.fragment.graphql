@@ -1,0 +1,10 @@
+fragment Domain on Domain {
+  id
+  name
+  domainConfig {
+    misconfigured
+  }
+  projectDomainData {
+    verified
+  }
+}

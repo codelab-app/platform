@@ -6,19 +6,6 @@ export const elementSchema = gql`
     descendants: [ID!]!
   }
 
-  extend type Page
-    @auth(
-      rules: [
-        {
-          operations: [READ, CREATE, UPDATE]
-          roles: ["User"]
-          where: { app: { owner: { auth0Id: "$jwt.sub" } } }
-          bind: { app: { owner: { auth0Id: "$jwt.sub" } } }
-        }
-        { operations: [READ, CREATE, UPDATE], roles: ["Admin"] }
-      ]
-    )
-
   interface ParentOfElement @relationshipProperties {
     order: Int
   }

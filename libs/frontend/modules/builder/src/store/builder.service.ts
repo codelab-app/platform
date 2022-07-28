@@ -8,7 +8,7 @@ import {
   isElement,
   RendererTab,
 } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   findParent,

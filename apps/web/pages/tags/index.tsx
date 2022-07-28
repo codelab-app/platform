@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateTagButton,
@@ -82,4 +82,4 @@ TagPage.Layout = observer((page) => {
   )
 })
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()

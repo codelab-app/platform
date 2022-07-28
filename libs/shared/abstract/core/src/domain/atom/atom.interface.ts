@@ -1,7 +1,7 @@
 import { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { ITag } from '../tag'
-import { IAnyType } from '../type'
+import { IAnyType, IInterfaceType } from '../type'
 import { IAtomDTO } from './atom.dto.interface'
 import { IAtomType } from './atom-type.enum'
 

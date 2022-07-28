@@ -5,6 +5,7 @@ import { PageFragment } from './page.fragment.graphql.gen'
 
 export interface ICreatePageDTO {
   id?: string
+  slug: string
   // Allow us to specify rootElementId
   rootElementId?: string
 
@@ -20,7 +21,7 @@ export type IUpdatePageDTO = Omit<
 
 export type IPageDTO = PageFragment
 
-export type IPageExport = Pick<OGM_TYPES.Page, 'id' | 'name'> & {
+export type IPageExport = Pick<OGM_TYPES.Page, 'id' | 'name' | 'slug'> & {
   rootElement: Pick<IElementExport, 'id' | 'name'>
   elements: Array<OGM_TYPES.Element>
   components: Array<OGM_TYPES.Component>

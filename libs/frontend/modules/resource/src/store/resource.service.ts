@@ -1,8 +1,8 @@
-import {
+import type {
   ResourceCreateInput,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
-import {
+import type {
   ICreateResourceDTO,
   IResource,
   IResourceDTO,

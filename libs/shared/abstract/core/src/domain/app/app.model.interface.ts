@@ -7,6 +7,7 @@ export interface IApp extends IElementTreeService {
   id: IAppRef
   ownerId: string
   name: string
+  slug: string
   store: IEntity
   pages: Array<Ref<IPage>>
   rootElement: IEntity

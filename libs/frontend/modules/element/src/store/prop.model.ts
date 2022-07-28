@@ -1,4 +1,4 @@
-import { IProp, IPropData, IPropDTO } from '@codelab/shared/abstract/core'
+import type { IProp, IPropData, IPropDTO } from '@codelab/shared/abstract/core'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'

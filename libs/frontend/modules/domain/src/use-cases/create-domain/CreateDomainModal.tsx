@@ -1,0 +1,56 @@
+import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import { useNotify } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import {
+  ICreateDomainDTO,
+  IDomainService,
+  IUserService,
+} from '@codelab/shared/abstract/core'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
+import { handleDomainExistError } from '../../errors'
+import { createDomainSchema } from './createDomainSchema'
+
+export const CreateDomainModal = observer<{
+  domainService: IDomainService
+  userService: IUserService
+}>(({ domainService, userService }) => {
+  const currentAppId = useCurrentAppId()
+
+  const model = {
+    auth0Id: userService.user?.auth0Id,
+    appId: currentAppId,
+  }
+
+  const onSubmit = (data: ICreateDomainDTO) => {
+    return domainService.create(data)
+  }
+
+  const closeModal = () => domainService.createModal.close()
+  const { onError } = useNotify({}, {})
+
+  const onSubmitError = (error: any) => {
+    if (!handleDomainExistError(error, onError)) {
+      onError('Error while adding app domain')
+    }
+  }
+
+  return (
+    <ModalForm.Modal
+      okText="Create Domain"
+      onCancel={closeModal}
+      visible={domainService.createModal.isOpen}
+    >
+      <ModalForm.Form
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeModal}
+        schema={createDomainSchema}
+      >
+        <AutoFields />
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})

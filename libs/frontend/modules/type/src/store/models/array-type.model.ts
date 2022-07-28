@@ -1,11 +1,10 @@
-import {
-  assertIsTypeKind,
+import type {
   IAnyType,
   IArrayType,
   IArrayTypeDTO,
   ITypeDTO,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'

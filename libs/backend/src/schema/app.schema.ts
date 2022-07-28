@@ -5,21 +5,24 @@ export const appSchema = gql`
     id: ID! @id(autogenerate: false)
     owner: User!
     name: String!
+    slug: String!
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     rootElement: Element! @relationship(type: "ROOT_APP_ELEMENT", direction: IN)
     store: Store! @relationship(type: "STORE_OF_APP", direction: IN)
+    domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
+
   extend type App
     @auth(
       rules: [
         {
-          operations: [READ, UPDATE, CREATE, DELETE]
+          operations: [UPDATE, CREATE, DELETE]
           roles: ["User"]
           where: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }
         {
-          operations: [READ, UPDATE, CREATE, DELETE]
+          operations: [UPDATE, CREATE, DELETE]
           roles: ["Admin"]
           bind: { owner: { auth0Id: "$jwt.sub" } }
         }

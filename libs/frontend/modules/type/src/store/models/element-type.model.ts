@@ -1,9 +1,11 @@
-import {
-  assertIsTypeKind,
-  ElementTypeKind,
+import type {
   IElementType,
   IElementTypeDTO,
   ITypeDTO,
+} from '@codelab/shared/abstract/core'
+import {
+  assertIsTypeKind,
+  ElementTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

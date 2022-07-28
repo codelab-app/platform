@@ -16,6 +16,7 @@ export type IAppProps = Overwrite<
  * The `props` used by each page component
  */
 export interface IPageProps {
+  storeSnapshot?: SnapshotOutOfModel<any>
   snapshot?: {
     // rootStore: SnapshotOutOfModel<any>
     appService: SnapshotOutOfModel<any>

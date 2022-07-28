@@ -57,6 +57,15 @@ export interface IDTokenPayload {
 }
 
 export interface Auth0SessionUser {
-  sub: string
+  [JWT_CLAIMS]: CodelabApiClaims
+  given_name: string
+  family_name: string
+  nickname: string
+  name: string
+  picture: string
+  locale: string
+  updated_at: string
   email: string
+  email_verified: false
+  sub: string
 }

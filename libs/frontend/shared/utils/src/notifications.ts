@@ -57,7 +57,7 @@ export const notify = <TEvent>(
   }
 }
 
-type UseNotifyReturnType = {
+export type UseNotifyReturnType = {
   onSuccess: () => void
   onError: (e: any) => void
 }

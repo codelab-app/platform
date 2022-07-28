@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web/src",
   "projectType": "application",
   "generators": {},
@@ -77,6 +76,7 @@
         "buildTarget": "web:build",
         "dev": true,
         "port": 3000,
+        "hostname": "0.0.0.0",
         "maxWorkers": 4
       },
       "configurations": {

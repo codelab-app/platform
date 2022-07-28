@@ -1,11 +1,10 @@
 import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
-import {
-  assertIsTypeKind,
+import type {
   IMonacoType,
   IMonacoTypeDTO,
   ITypeDTO,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createTypeBase } from './base-type.model'

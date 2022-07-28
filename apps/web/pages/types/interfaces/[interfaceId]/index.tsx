@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
@@ -88,7 +88,7 @@ const Header = observer(() => {
 
 export default InterfaceDetailPage
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 InterfaceDetailPage.Layout = observer((page) => {
   return (

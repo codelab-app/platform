@@ -4,10 +4,9 @@ import {
 } from '@codelab/frontend/modules/resource'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ActionBaseWhere } from '@codelab/shared/abstract/codegen'
-import {
+import type {
   ActionFragment,
   IActionDTO,
-  IActionKind,
   IActionService,
   IAnyAction,
   ICreateActionDTO,
@@ -15,6 +14,7 @@ import {
   IResourceActionDTO,
   IUpdateActionDTO,
 } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,

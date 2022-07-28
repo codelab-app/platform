@@ -5,19 +5,68 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
-export type AppFragment = {
+export type RedirectedAppFragment = {
   id: string
   name: string
+  slug: string
+  owner: { username: string }
+}
+
+export type AppPreviewFragment = {
+  id: string
+  name: string
+  slug: string
   owner: { id: string }
   pages: Array<PageFragment>
   rootElement: { id: string }
   store: { id: string }
 }
 
+export type AppFragment = {
+  id: string
+  name: string
+  slug: string
+  owner: { id: string }
+  pages: Array<PageFragment>
+  rootElement: { id: string }
+  store: { id: string }
+}
+
+export const RedirectedAppFragmentDoc = gql`
+  fragment RedirectedApp on App {
+    id
+    name
+    slug
+    owner {
+      username
+    }
+  }
+`
+export const AppPreviewFragmentDoc = gql`
+  fragment AppPreview on App {
+    id
+    name
+    slug
+    owner {
+      id
+    }
+    pages {
+      ...Page
+    }
+    rootElement {
+      id
+    }
+    store {
+      id
+    }
+  }
+  ${PageFragmentDoc}
+`
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
     name
+    slug
     owner {
       id
     }

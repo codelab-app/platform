@@ -20,6 +20,7 @@ const defaultInput: PageCreateInput = {
   id: v4(),
   name: 'Test Page',
   rootElement: { create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } } },
+  slug: 'test',
 }
 
 export const createPage = (input: Partial<PageCreateInput>) =>

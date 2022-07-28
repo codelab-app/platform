@@ -65,6 +65,8 @@ export const createMobxState = (
   }
 
   return appStore.toMobxObservable(stateGlobals)
+
+  return null
 }
 
 export const toAntd = (

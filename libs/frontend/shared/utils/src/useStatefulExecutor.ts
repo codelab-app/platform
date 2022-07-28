@@ -4,6 +4,7 @@ import { NotificationOptions, notify } from './notifications'
 
 interface BaseOptions {
   notifyFactory?: typeof defaultNotifyFactory
+  executorDeps?: Array<any>
 }
 
 export type UseLoadingStateOptions<TArgs extends Array<any>> = BaseOptions &
@@ -27,6 +28,9 @@ export const defaultNotifyFactory = (error: any): NotificationOptions => ({
   content: extractErrorMessage(error),
 })
 
+/**
+ * Use this instead of useEffect with async, since we can't return anything using that approach
+ */
 export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
   executor: (...args: TArgs) => Promise<TOut>,
   options?: UseLoadingStateOptions<TArgs>,
@@ -45,13 +49,13 @@ export const useStatefulExecutor = <TArgs extends Array<any>, TOut>(
   )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const executorCallback = useMemo(() => executor, [])
+  const executorCallback = useMemo(() => executor, options?.executorDeps || [])
 
   const statefulExecutor = useCallback(
     async (...args: TArgs) => {
-      setState({ isLoading: true, error: null, data: null, isDone: false })
-
       try {
+        setState({ isLoading: true, error: null, data: null, isDone: false })
+
         const data = await executorCallback(...args)
         setState({ isLoading: false, error: null, data, isDone: true })
 

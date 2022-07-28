@@ -1,19 +1,21 @@
 import { Prop } from '@codelab/frontend/modules/element'
 import { resourceRef } from '@codelab/frontend/modules/resource'
 import { tryParse, tryStringify } from '@codelab/frontend/shared/utils'
-import {
-  assertIsActionKind,
-  IActionKind,
+import type {
   IAnyAction,
   IGraphQLActionConfig,
   IResource,
   IResourceAction,
   IResourceActionConfig,
   IResourceActionDTO,
-  IResourceType,
   IRestActionConfig,
 } from '@codelab/shared/abstract/core'
-import { AxiosInstance, Method } from 'axios'
+import {
+  assertIsActionKind,
+  IActionKind,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
+import type { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import {
   _async,

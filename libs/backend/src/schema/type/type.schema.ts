@@ -67,27 +67,24 @@ export const typeSchema = gql`
   }
 
   # https://github.com/neo4j/graphql/issues/1105
-  extend interface TypeBase
-  @auth(
-    rules: [
-      {
-        operations: [READ]
-      }
-      {
-        operations: [UPDATE, CREATE, DELETE]
-        roles: ["User"]
-        where: { owner: { auth0Id: "$jwt.sub" } }
-        bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-      {
+ extend interface TypeBase
+ @auth(
+   rules: [
+     {
+       operations: [UPDATE, CREATE, DELETE]
+       roles: ["User"]
+       where: { owner: { auth0Id: "$jwt.sub" } }
+       bind: { owner: { auth0Id: "$jwt.sub" } }
+     }
+     {
         operations: [UPDATE, CREATE, DELETE]
         roles: ["Admin"]
         # Admin can access all types, so no need for where
-#        where: { owner: { auth0Id: "$jwt.sub" } }
+        # where: { owner: { auth0Id: "$jwt.sub" } }
         bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-    ]
-  )
+     }
+   ]
+ )
 
   interface WithDescendants {
     descendantTypesIds: [ID!]!

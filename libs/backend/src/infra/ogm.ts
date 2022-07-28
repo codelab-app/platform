@@ -8,7 +8,10 @@ let ogm: OGM<OGM_TYPES.ModelMap>
 
 export const getOgm = async () => {
   if (!ogm) {
-    ogm = new OGM({ typeDefs, driver: getDriver() })
+    ogm = new OGM({
+      typeDefs,
+      driver: getDriver(),
+    })
     await ogm.init()
   }
 

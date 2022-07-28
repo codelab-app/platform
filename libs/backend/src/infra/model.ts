@@ -10,14 +10,28 @@ import { getOgm } from './ogm'
 const getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
   inst: OGM_TYPES.ModelMap[ModelKey],
   name: keyof OGM_TYPES.ModelMap,
-  ogm?: OGM<OGM_TYPES.ModelMap>,
+  inputOgm?: OGM<OGM_TYPES.ModelMap>,
 ) => {
-  if (ogm) {
-    return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
+  if (inputOgm) {
+    return inputOgm.model(name) as OGM_TYPES.ModelMap[ModelKey]
   }
 
-  return (inst ??= (await getOgm()).model(name))
+  // return (inst ??= (await getOgm()).model(name))
+  if (!inst) {
+    const ogm = await getOgm()
+    const mod = ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
+    inst = mod
+
+    return mod
+  }
+
+  return inst
 }
+
+let domainInst: OGM_TYPES.DomainModel
+
+export const DomainOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
+  await getOgmInstance<'Domain'>(domainInst, 'Domain', ogm)
 
 let userInst: OGM_TYPES.UserModel
 

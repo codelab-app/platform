@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { ExplorerPanePage } from '@codelab/frontend/modules/page'
@@ -35,7 +35,7 @@ const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 export default Pages
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
   const store = useStore()

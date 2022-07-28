@@ -20,7 +20,7 @@ export const atomSchema = gql`
     @auth(
       rules: [
         { operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }
-        { operations: [CONNECT, DISCONNECT, READ], roles: ["Admin", "User"] }
+        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
       ]
     )
 

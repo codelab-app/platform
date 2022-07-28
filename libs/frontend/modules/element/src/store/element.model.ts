@@ -1,9 +1,7 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
-import {
-  cssMap,
-  ELEMENT_NODE_TYPE,
+import type {
   IAtom,
   IComponent,
   IElement,
@@ -15,7 +13,8 @@ import {
   IPropDataByElementId,
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'

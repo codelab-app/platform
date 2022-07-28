@@ -1,7 +1,6 @@
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { TypeBaseWhere } from '@codelab/shared/abstract/codegen'
-import {
-  assertIsTypeKind,
+import type {
   IAnyType,
   ICreateFieldDTO,
   ICreateTypeDTO,
@@ -9,11 +8,11 @@ import {
   IInterfaceType,
   IInterfaceTypeRef,
   ITypeDTO,
-  ITypeKind,
   ITypeService,
   IUpdateFieldDTO,
   IUpdateTypeDTO,
 } from '@codelab/shared/abstract/core'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { flatMap } from 'lodash'
 import { computed } from 'mobx'
 import {
@@ -38,7 +37,7 @@ import {
   updateTypeApi,
 } from './apis/type.api'
 import { FieldModalService } from './field.service'
-import { AnyType } from './models'
+import type { AnyType } from './models'
 import { typeFactory } from './type.factory'
 import {
   InterfaceTypeModalService,

@@ -1,11 +1,11 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
-import {
+import type {
   IElement,
   IPropData,
   IPropMapBinding,
   IPropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { get, isObjectLike, set } from 'lodash'
 import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
 import { elementRef } from './element.ref'

@@ -1,10 +1,19 @@
-import { pageName, updatedAppName, updatedPageName } from './app.data'
+import {
+  pageName,
+  pageSlug,
+  updatedAppName,
+  updatedPageName,
+  updatedPageSlug,
+} from './app.data'
 
 describe('Pages CRUD', () => {
   before(() => {
     cy.getCard({ title: updatedAppName }).find('a').click()
     cy.url({ timeout: 5000 }).should('include', 'pages')
     cy.findByText('Pages').should('be.visible')
+    // cy.login().then(() => {
+    //   cy.visit('/apps')
+    // })
   })
 
   describe('create', () => {
@@ -14,6 +23,7 @@ describe('Pages CRUD', () => {
       cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getModal().findByLabelText('Name').type(pageName)
+      cy.getModal().findByLabelText('Slug').type(pageSlug)
       cy.getModal()
         .getModalAction(/Create Page/)
         .click()
@@ -33,6 +43,7 @@ describe('Pages CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.getModal().findByLabelText('Name').clear().type(updatedPageName)
+      cy.getModal().findByLabelText('Slug').clear().type(updatedPageSlug)
 
       cy.getModal()
         .getModalAction(/Update Page/)

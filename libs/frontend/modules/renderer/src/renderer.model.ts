@@ -5,7 +5,7 @@ import {
   getElementService,
   storeRef,
 } from '@codelab/frontend/presenter/container'
-import {
+import type {
   IElement,
   IElementTree,
   IPropData,
@@ -15,7 +15,7 @@ import {
   IStore,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { flatMap, isEmpty, isString } from 'lodash'
 import {
@@ -49,20 +49,6 @@ import { mapOutput } from './utils/renderOutputUtils'
 /**
  * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
  */
-const initForBuilder = () => {
-  const voidClick = () => {
-    //
-  }
-
-  const globalProps = { onClick: voidClick, href: '#' }
-
-  return new Renderer({
-    extraElementProps: new ExtraElementProps({
-      global: frozen(globalProps),
-    }),
-  })
-}
-
 const init = (
   pageTree: IElementTree,
   appStore: IStore,
@@ -178,6 +164,7 @@ export class Renderer
     }
 
     const rootElement = this.renderElement(root)
+    console.log({ rootElement, root })
 
     return this.renderWithProviders(rootElement)
   }
