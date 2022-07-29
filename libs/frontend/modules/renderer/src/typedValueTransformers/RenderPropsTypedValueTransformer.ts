@@ -3,7 +3,6 @@ import {
   getElementService,
 } from '@codelab/frontend/presenter/container'
 import { IElement, ITypeKind, TypedValue } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
@@ -55,7 +54,7 @@ export class RenderPropsTypedValueTransformer
   }
 
   private makeRenderProp(element: IElement) {
-    return (...renderPropArgs: Array<any>) =>
-      this.renderer.renderElement(element, mergeProps(...renderPropArgs))
+    return (renderPropArgs: Array<any>) =>
+      this.renderer.renderElement(element, renderPropArgs)
   }
 }

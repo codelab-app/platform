@@ -79,7 +79,9 @@ export const muiAtoms: AtomsRecord = {
     () => import('@mui/material/CssBaseline'),
   ),
   // [AtomType.MuiDataGrid]: dynamic(() =>import('@mui/x-data-grid')), // not working for some reason ,can't find @material-ui/core/badge?
-  [IAtomType.MuiDatePicker]: dynamic(() => import('@mui/lab/DatePicker')),
+  [IAtomType.MuiDatePicker]: dynamic(() =>
+    import('@mui/x-date-pickers/DatePicker').then((x) => x.DatePicker as any),
+  ),
   [IAtomType.MuiDateRangePicker]: dynamic(
     () => import('@mui/lab/DateRangePicker'),
   ),

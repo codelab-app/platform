@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const usePropsInspector = (
   element: IElement,
-  renderService: IRenderer,
+  renderer: IRenderer,
   elementService: IElementService,
 ) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +22,7 @@ export const usePropsInspector = (
   )
 
   // this is memoized by createTransformer, so we're effectively getting the last rendered output
-  const renderOutput = renderService.renderIntermediateElement(element)
+  const renderOutput = renderer.renderIntermediateElement(element)
 
   const lastRenderedProps = Array.isArray(renderOutput)
     ? mergeProps(renderOutput.map((o) => o.props))
@@ -30,8 +30,8 @@ export const usePropsInspector = (
 
   const setExtraProps = useCallback(
     (props: IPropData) =>
-      renderService.extraElementProps.setForElement(element.id, props),
-    [renderService.extraElementProps, element.id],
+      renderer.extraElementProps.setForElement(element.id, props),
+    [renderer.extraElementProps, element.id],
   )
 
   const save = async () => {

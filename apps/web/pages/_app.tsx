@@ -10,8 +10,8 @@ import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import { StoreProvider } from '@codelab/frontend/presenter/container'
 import { IAppProps } from '@codelab/shared/abstract/core'
 import { css, Global } from '@emotion/react'
-import DateFnsAdapter from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -39,7 +39,7 @@ const App = ({ pageProps, Component }: IAppProps) => {
     <StoreProvider value={store}>
       <UserProvider>
         <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={DateFnsAdapter}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
             <ConfigProvider>
               <GlobalStyles />
               <Global

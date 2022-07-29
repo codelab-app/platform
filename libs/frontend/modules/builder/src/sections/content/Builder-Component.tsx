@@ -1,18 +1,13 @@
 import {
   IBuilderService,
   IComponentService,
-  IElementTree,
-  IRenderer,
+  IElementService,
   IRenderService,
   IStore,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { JSXElementConstructor, useEffect } from 'react'
-
-export type BaseBuilderProps = {
-  elementTree: IElementTree
-  renderer: IRenderer
-}
+import { BaseBuilderProps } from './BaseBuilder'
 
 type BuilderComponentProps = {
   componentId: string
@@ -22,6 +17,7 @@ type BuilderComponentProps = {
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
   renderService: IRenderService
   builderService: IBuilderService
+  elementService: IElementService
 }
 
 /**
@@ -34,6 +30,7 @@ export const BuilderComponent = observer<BuilderComponentProps>(
     builderService,
     renderService,
     appStore,
+    elementService,
     BaseBuilder,
   }) => {
     const activeComponentTree = builderService.activeElementTree
@@ -55,18 +52,24 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           appStore,
           null,
           null,
+          true,
         )
       })()
     }, [componentId])
 
     const renderer = renderService.renderers.get(componentId)
 
+    if (!activeComponentTree || !renderer) {
+      return null
+    }
+
     return (
-      <>
-        {activeComponentTree && renderer ? (
-          <BaseBuilder elementTree={activeComponentTree} renderer={renderer} />
-        ) : null}
-      </>
+      <BaseBuilder
+        builderService={builderService}
+        elementService={elementService}
+        elementTree={activeComponentTree}
+        renderer={renderer}
+      />
     )
   },
 )

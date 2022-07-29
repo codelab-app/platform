@@ -46,9 +46,14 @@ export class RawTypedValuePropsTransformer
     return true
   }
 
-  public transform(props: TypedValue<any>): any {
+  public transform(props: TypedValue<any>, typeKind: ITypeKind): any {
     if (!props?.value) {
       return props
+    }
+
+    if (typeKind === ITypeKind.MonacoType) {
+      // eslint-disable-next-line no-eval
+      return eval(`(${props.value})`)
     }
 
     return props.value

@@ -195,9 +195,13 @@ export class AppService
     /**
      * Delete all elements from all pages
      */
-    pageRootElements.forEach(async (root) => {
-      await elementService.deleteElementSubgraph(root)
-    })
+    yield* _await(
+      Promise.all(
+        pageRootElements.map(async (root) => {
+          await elementService.deleteElementSubgraph(root)
+        }),
+      ),
+    )
 
     const { deleteApps } = yield* _await(
       appApi.DeleteApps({
@@ -206,12 +210,9 @@ export class AppService
           pages: [
             {
               where: {},
-              delete: {
-                rootElement: {},
-              },
+              delete: {},
             },
           ],
-          rootElement: {},
           store: {
             where: {},
             delete: {

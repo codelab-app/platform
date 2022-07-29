@@ -36,7 +36,7 @@ describe('CSS CRUD', () => {
         .type(createBackgroundColorStyle(backgroundColor1))
 
       cy.get('#render-root')
-        .find('button')
+        .find('.ant-btn')
         .should('have.css', 'background-color', backgroundColor1)
     })
   })
@@ -54,7 +54,7 @@ describe('CSS CRUD', () => {
         .type(createBackgroundColorStyle(backgroundColor2))
 
       cy.get('#render-root')
-        .find('button')
+        .find('.ant-btn')
         .should('have.css', 'background-color', backgroundColor2)
     })
   })
@@ -69,11 +69,11 @@ describe('CSS CRUD', () => {
       cy.get('[role="textbox"]').click({ force: true }).clear().type(' ')
 
       cy.get('#render-root')
-        .find('button')
+        .find('.ant-btn')
         .should('not.have.css', 'background-color', backgroundColor1)
 
       cy.get('#render-root')
-        .find('button')
+        .find('.ant-btn')
         .should('not.have.css', 'background-color', backgroundColor2)
     })
   })

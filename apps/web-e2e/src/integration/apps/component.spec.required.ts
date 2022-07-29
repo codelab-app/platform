@@ -50,7 +50,7 @@ describe('Component CRUD', () => {
         .each((child: ComponentChildData) => {
           const { name, atom } = child
           cy.get(`[title="${NEW_COMP_NAME}"]`).eq(1).rightclick()
-          cy.contains(/Add child/).click()
+          cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({
             label: 'Name',
@@ -70,7 +70,7 @@ describe('Component CRUD', () => {
         })
         .then(() => {
           // check if the elements exist in the render root
-          cy.get('#Builder').find('button').should('exist')
+          cy.get('#Builder').find('.ant-btn').should('exist')
           cy.get('#Builder').find('.ant-typography').should('exist')
         })
     })
@@ -90,7 +90,7 @@ describe('Component CRUD', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(waitTimeout)
       cy.get(`[title="${UPDATED_COMP_NAME}"]`).rightclick()
-      cy.contains(/Delete/).click()
+      cy.contains(/Delete/).click({ force: true })
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
