@@ -128,7 +128,7 @@ describe('Component CRUD', () => {
         .each((child: ComponentChildData) => {
           const { name, atom } = child
           cy.get(`[title="${NEW_COMP_NAME}"]`).eq(1).rightclick()
-          cy.contains(/Add child/).click()
+          cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({
             label: 'Name',

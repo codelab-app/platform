@@ -7,13 +7,10 @@ import {
 
 describe('Apps CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.clearAuth0Cookies()
-      cy.login().then(() => {
-        cy.visit('/apps')
-        // cy.getSpinner().should('not.exist')
-      })
-    })
+    cy.resetDatabase()
+    cy.login()
+    cy.visit('/apps')
+    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {
