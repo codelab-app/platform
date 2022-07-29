@@ -23,6 +23,7 @@ export interface RootStoreData {
 }
 
 export type IRootStore = {
+  setUserService(userService: IUserService): void
   userService: IUserService
   appService: IAppService
   pageService: IPageService

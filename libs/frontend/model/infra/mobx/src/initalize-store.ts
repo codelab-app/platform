@@ -1,3 +1,4 @@
+import { UserService } from '@codelab/frontend/modules/user'
 import {
   Auth0SessionUser,
   IPageProps,
@@ -14,11 +15,7 @@ let _store: IRootStore | null = null
  *
  * @param pageProps
  */
-export const initializeStore = (
-  pageProps?: IPageProps & {
-    user?: Auth0SessionUser
-  },
-): IRootStore => {
+export const initializeStore = (pageProps?: IPageProps): IRootStore => {
   /**
    * Using snapshot on SSR is a bit tricky, since model data may be out of sync on serverside and client side. Passing snapshot data from backend to frontend is also very costly in terms of bandwidth.
    */
@@ -54,16 +51,24 @@ export const initializeStore = (
   })
 
   // Create the store once in the client
-  if (_store) {
-    return _store
+  if (!_store) {
+    _store = createRootStore({
+      servicesFromSnapshot,
+      user,
+    }) as IRootStore
+
+    registerRootStore(_store as IRootStore)
   }
 
-  _store = createRootStore({
-    servicesFromSnapshot,
-    user,
-  }) as IRootStore
-
-  registerRootStore(_store as IRootStore)
+  if (!_store.userService.user?.auth0Id && user) {
+    /**
+     * need to replace the instance because
+     * set user prop on the service doesn't work
+     *
+     * Nghia: I think mobx keystone does some internal initializations behind the scence, and we can't set nested service data until the process is done
+     */
+    _store.setUserService(UserService.init(user))
+  }
 
   return _store
 

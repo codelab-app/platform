@@ -37,7 +37,7 @@ export const createRootStore = ({
 }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore extends Model({
-    userService: prop(() => UserService.init(user)),
+    userService: prop(() => UserService.init(user)).withSetter(),
     appService: prop(() => new AppService({})),
     pageService: prop(() => new PageService({})),
     typeService: prop(() => new TypeService({})),

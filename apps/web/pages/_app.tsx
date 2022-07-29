@@ -26,7 +26,10 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 const queryClient = new QueryClient()
 
 const App = ({ pageProps, Component }: IAppProps) => {
-  const store = useMemo(() => initializeStore(pageProps), [pageProps.snapshot])
+  const store = useMemo(
+    () => initializeStore(pageProps),
+    [pageProps.snapshot, pageProps.user],
+  )
 
   const {
     Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
