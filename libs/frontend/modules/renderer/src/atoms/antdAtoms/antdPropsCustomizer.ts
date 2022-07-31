@@ -39,4 +39,5 @@ export const antdPropsCustomizer: AtomCustomizer = {
   [IAtomType.AntDesignRglResponsiveContainer]:
     antDesignRglResponsiveContainerFn,
   [IAtomType.AntDesignModal]: antDesignModalFn,
+  [IAtomType.AntDesignDrawer]: antDesignModalFn,
 }

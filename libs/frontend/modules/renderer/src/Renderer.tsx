@@ -31,7 +31,10 @@ export type RendererProps = Pick<IRenderer, 'renderRoot'>
 export const Renderer = observer<RendererProps>(({ renderRoot }) => {
   return (
     <ErrorBoundary>
-      <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
+      <div
+        id={ROOT_RENDER_CONTAINER_ID}
+        style={{ minHeight: '100%', transform: 'translatex(0)' }}
+      >
         {renderRoot()}
       </div>
     </ErrorBoundary>

@@ -2,7 +2,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antdAtoms'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms, htmlPropsCustomizer } from './htmlAtoms'
-import { muiAtoms } from './muiAtoms'
+import { muiAtoms, muiPropsCustomizer } from './muiAtoms'
 import { AtomCustomizer, AtomsRecord, IComponentType } from './types'
 
 // Add new atom records here
@@ -19,6 +19,7 @@ const allAtoms: AtomsRecord = {
 export const allPropsCustomizer: AtomCustomizer = {
   ...antdPropsCustomizer,
   ...htmlPropsCustomizer,
+  ...muiPropsCustomizer,
 }
 
 /**
