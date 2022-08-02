@@ -35,7 +35,7 @@ export const HomeJumbo = () => {
   return (
     <Row css={tw`my-8 justify-center`}>
       <Col css={tw`flex-col flex items-center`} style={{ width: '62rem' }}>
-        <h1 css={tw`text-center !text-5xl leading-tight`}>
+        <h1 css={tw`text-center !text-5xl leading-tight font-bold`}>
           Build Using&nbsp;
           <span css={tw`bg-red-100 inline-block`} style={{ minWidth: '20rem' }}>
             <span

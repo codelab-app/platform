@@ -1,7 +1,5 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
-import 'animate.css'
-// import 'node_modules/morphext/dist/morphext.css'
 import '../src/styles/app.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import '../src/styles/antd-theme.less'

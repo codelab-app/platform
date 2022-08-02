@@ -64,7 +64,7 @@
 }
 .btn-primary {
   @apply !bg-purple-500 text-white whitespace-nowrap;
-  &:hover {
+   &:hover {
     @apply text-white !bg-purple-400;
   }
 }
@@ -79,17 +79,21 @@ nav.nav {
 
 menu.menu {
   @apply bg-white;
+
   ul {
     @apply flex;
+
     li {
       @apply flex mx-2 items-center;
     }
   }
+
   &.menu-horizontal {
     ul {
       @apply h-full flex-row justify-end;
     }
   }
+
   &.menu-vertical {
     ul {
       @apply flex-col;
