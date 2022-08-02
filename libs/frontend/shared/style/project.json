@@ -1,0 +1,15 @@
+{
+  "root": "libs/frontend/shared/style",
+  "sourceRoot": "libs/frontend/shared/style/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/shared/style/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

@@ -99,6 +99,9 @@
       "@codelab/frontend/presenter/container": [
         "libs/frontend/presenter/container/src/index.ts"
       ],
+      "@codelab/frontend/shared/style": [
+        "libs/frontend/shared/style/src/index.ts"
+      ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],

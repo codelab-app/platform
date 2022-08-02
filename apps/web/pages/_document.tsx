@@ -20,6 +20,8 @@ export default class MyDocument extends Document {
   }
 
   render() {
+    // const isMenuOpen = useRecoilValue(menuState)
+
     return (
       <Html>
         <Head>
@@ -29,8 +31,13 @@ export default class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             rel="preconnect"
           />
+          {/*
+            normal: 400
+            bold: 700
+            black: 900
+          */}
           <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@300;400&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Roboto:wght@300;400&family=Nunito:wght@300;400;500;600&family=IBM+Plex+Sans+Thai&display=swap"
             rel="stylesheet"
           />
           <link

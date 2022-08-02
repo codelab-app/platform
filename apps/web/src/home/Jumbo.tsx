@@ -34,9 +34,9 @@ export const HomeJumbo = () => {
 
   return (
     <Row css={tw`my-8 justify-center`}>
-      <Col css={tw`flex-col`} style={{ width: '60rem' }}>
-        <Title css={tw`text-center !text-6xl leading-6 !font-extrabold`}>
-          Build using&nbsp;
+      <Col css={tw`flex-col flex items-center`} style={{ width: '62rem' }}>
+        <h1 css={tw`text-center !text-5xl leading-tight`}>
+          Build Using&nbsp;
           <span css={tw`bg-red-100 inline-block`} style={{ minWidth: '20rem' }}>
             <span
               className="animate__animated animate__fadeIn"
@@ -47,12 +47,14 @@ export const HomeJumbo = () => {
             <br />
           </span>
           <br />
-          without template limitations
-        </Title>
-        <Paragraph css={tw`text-center text-2xl px-16 leading-9 font-light`}>
+          Without Template Limitations
+        </h1>
+        <p
+          css={tw`text-center text-lg px-16 py-4 leading-normal font-light w-3/4`}
+        >
           Nest components or HTML to construct the DOM tree as you would in
           code. Configure props provided by UI frameworks so you can save time.
-        </Paragraph>
+        </p>
         <Space align="center" css={tw`w-full justify-center`} size="large">
           <Fancybox
             options={{
