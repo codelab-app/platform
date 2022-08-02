@@ -1,5 +1,3 @@
-import { actionSelectionSet } from './actionSelectionSet'
-
 export const storeSelectionSet = `
   id
   name
@@ -7,8 +5,5 @@ export const storeSelectionSet = `
   state { 
     id
     data
-  }
-  actions {
-    ${actionSelectionSet}
   }
 `
