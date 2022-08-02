@@ -1,15 +1,23 @@
-import { faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useUser } from '@auth0/nextjs-auth0'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
 
 export const MenuDesktop = () => {
+  const { user } = useUser()
+
   return (
     <nav className="nav">
-      <menu className="menu menu-horizontal" css={[tw`m-0 p-0`]}>
-        <ul css={tw`tablet:justify-between`}>
-          <li css={tw`justify-start`}>
+      <menu
+        className="menu menu-horizontal"
+        css={[tw`m-0 p-0`]}
+        style={{
+          height: '50px',
+        }}
+      >
+        <ul css={[tw`tablet:justify-between flex-row flex h-full`]}>
+          <li css={tw`justify-start flex`}>
             <a css={tw`flex items-center`}>
               <Image
                 alt="Codelab Logo"
@@ -22,30 +30,44 @@ export const MenuDesktop = () => {
           </li>
           {/* Used to push other items to the end */}
           <li css={tw`flex-grow hidden laptop:flex`}>{}</li>
-          <li css={tw`hidden laptop:flex`}>
-            <a>Features</a>
+          <li css={tw`hidden laptop:flex flex`}>
+            <a css={tw`flex items-center`}>Features</a>
           </li>
           <li css={tw`hidden laptop:flex`}>
-            <a>Docs</a>
+            <a css={tw`flex items-center`}>Docs</a>
           </li>
           <li css={tw`hidden laptop:flex`}>
-            <a>Pricing</a>
+            <a css={tw`flex items-center`}>Pricing</a>
           </li>
           <li css={tw`hidden laptop:flex`}>
-            <a>Tutorials</a>
+            <a css={tw`flex items-center`}>Tutorials</a>
           </li>
-          <li css={tw`tablet:w-8 laptop:w-auto`}>
-            <a className="btn-primary inverse">
-              <FontAwesomeIcon
-                css={tw`laptop:hidden`}
-                icon={faArrowRightToBracket}
-              />
-              <span css={tw`hidden laptop:block`}>Log In</span>
-            </a>
-          </li>
-          <li css={tw`hidden laptop:flex`}>
-            <a className="btn-primary">Sign Up</a>
-          </li>
+          {user ? (
+            <>
+              <li css={tw`hidden laptop:flex`}>
+                <Link className="btn-primary" href="/api/auth/logout">
+                  <a css={tw`flex items-center`}>Register</a>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li css={tw`tablet:w-8 laptop:w-auto laptop:flex`}>
+                <Link className="btn-primary inverse" href="/api/auth/login">
+                  {/* <FontAwesomeIcon */}
+                  {/*  css={tw`laptop:hidden`} */}
+                  {/*  icon={faArrowRightToBracket} */}
+                  {/*/ > */}
+                  <a css={tw`hidden laptop:flex items-center`}>Login</a>
+                </Link>
+              </li>
+              <li css={tw`hidden laptop:flex`}>
+                <Link className="btn-primary" href="/api/auth/login">
+                  <a css={tw`flex items-center`}>Register</a>
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </menu>
     </nav>
