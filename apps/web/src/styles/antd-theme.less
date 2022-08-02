@@ -15,31 +15,26 @@ span.anticon {
 
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
-// @gray-darker: rgb(54, 53, 64);
-// @gray: rgb(65, 64, 77);
-
-// @component-background: @gray;
-
-@font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+@font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
   'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
 
 // Menu
 @menu-item-height: calc(@layout-header-height - 1px);
 @menu-item-padding: 0 10px;
-// @menu-item-active-bg: lighten(@gray, 20%);
-// @menu-highlight-color: lighten(@gray, 0.2);
-// @divider-color: @white;
+@menu-item-font-size: 14px;
 
 @menu-inline-toplevel-item-height: 36px;
 
 // @divider-text-padding: 0.5em;;
-// @primary-color: rgb(62, 45, 99);
+@primary-color: #a855f7;
 // @heading-color: @primary-color;
 
 .ant-divider-horizontal {
   margin: 16px 0;
 }
+
+@border-radius-base: 4px;
 
 // Page Header
 @page-header-padding-vertical: @padding-xss;
@@ -50,15 +45,3 @@ span.anticon {
 @layout-header-padding: 0px;
 
 @card-padding-base: 16px;
-
-// .ant-menu {
-//   height: 100%;
-//   &.ant-menu-vertical {
-//     .ant-menu-item {
-//       margin: 0 !important;
-//     }
-//     // > .ant-menu-item-divider {
-//     //   background-color: @divider-color;
-//     // }
-//   }
-// }

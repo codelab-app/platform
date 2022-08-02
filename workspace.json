@@ -26,6 +26,7 @@
     "frontend-modules-user": "libs/frontend/modules/user",
     "frontend-platform-atoms": "libs/frontend/platform/atoms",
     "frontend-presenter-container": "libs/frontend/presenter/container",
+    "frontend-shared-style": "libs/frontend/shared/style",
     "frontend-shared-utils": "libs/frontend/shared/utils",
     "frontend-view": "libs/frontend/view",
     "shared-abstract-codegen": "libs/shared/abstract/codegen",
