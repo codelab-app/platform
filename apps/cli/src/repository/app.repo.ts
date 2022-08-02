@@ -87,7 +87,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
 
   console.log('Creating actions...')
 
-  // await importActions(app.store.actions, appStore.id)
+  await importActions(app.store.actions, appStore.id)
 
   console.log('Creating new app...')
 

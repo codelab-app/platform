@@ -18,11 +18,11 @@ export const importActions = async (
   const pipelineActions: Array<OGM_TYPES.PipelineAction> = []
 
   for (const action of actions) {
-    if (action.__typename === IActionKind.CustomAction) {
+    if (action.type === IActionKind.CustomAction) {
       customActions.push(action as OGM_TYPES.CustomAction)
-    } else if (action.__typename === IActionKind.PipelineAction) {
+    } else if (action.type === IActionKind.PipelineAction) {
       pipelineActions.push(action as OGM_TYPES.PipelineAction)
-    } else if (action.__typename === IActionKind.ResourceAction) {
+    } else if (action.type === IActionKind.ResourceAction) {
       resourceActions.push(action as OGM_TYPES.ResourceAction)
     } else {
       throw new Error(`Unknown action type : ${action.type}`)
@@ -138,9 +138,5 @@ export const exportActions = async (
     where: { store: { id: storeId } },
   })
 
-  return {
-    ...customActions,
-    ...pipelineActions,
-    ...resourceActions,
-  }
+  return [...customActions, ...pipelineActions, ...resourceActions]
 }
