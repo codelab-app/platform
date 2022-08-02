@@ -99,7 +99,7 @@ export const createApp = async (app: IAppExport, selectedUser: string) => {
         id: app.id,
         name: app.name,
         owner: { connect: { where: { node: { id: selectedUser } } } },
-        slug: app.name,
+        slug: app.slug,
         rootElement: {
           connect: {
             where: { node: { id: app.rootElement.id } },

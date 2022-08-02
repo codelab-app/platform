@@ -41,6 +41,89 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     componentService,
     builderRenderService,
   }) => {
+    const router = useRouter()
+    const appId = useCurrentAppId()
+    const pageId = useCurrentPageId()
+
+    const [, { data, error, isLoading }] = useStatefulExecutor(
+      async () => {
+        /**
+         *
+         * load all apps to provide them to mobxState
+         */
+        const apps = await appService.getAll()
+        const app = appService.app(appId)
+        /**
+         *
+         * load app store
+         *
+         */
+        const appStore = await storeService.getOne(app.store.id)
+
+        if (!appStore) {
+          throw new Error('App store not found')
+        }
+
+        /**
+         *
+         * load all pages to provide them to mobxState
+         *
+         * */
+        const pages = await pageService.getAll()
+        const page = pageService.page(pageId)
+
+        if (!page) {
+          throw new Error('Page not found')
+        }
+
+        /**
+         *
+         * components are needed to build pageElementTree
+         *
+         */
+        const components = await componentService.loadComponentTrees()
+        /**
+         *
+         * load all types
+         *
+         */
+        const types = await typeService.getAll()
+        /**
+         *
+         * construct provider tree
+         *
+         */
+        const providerTree = await app.initTree(app.rootElement.id)
+        /**
+         *
+         * page Element tree
+         *
+         */
+        const pageElementTree = await page.initTree(page.rootElement.id)
+
+        const renderer = await builderRenderService.addRenderer(
+          pageId,
+          pageElementTree,
+          appStore,
+          providerTree,
+          createMobxState(appStore, apps, pages, router),
+          true,
+          builderService.set_selectedNode.bind(builderService),
+        )
+
+        return {
+          page,
+          pageElementTree,
+          providerTree,
+          appStore,
+          types,
+          components,
+          renderer,
+        }
+      },
+      { executeOnMount: true },
+    )
+
     return (
       <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
