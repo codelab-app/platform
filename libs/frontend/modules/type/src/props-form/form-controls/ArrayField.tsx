@@ -1,15 +1,40 @@
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons'
-import { IArrayType, IField } from '@codelab/shared/abstract/core'
+import {
+  IAnyType,
+  IArrayType,
+  IField,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useFieldArray, UseFormReturn } from 'react-hook-form'
 import tw from 'twin.macro'
-import { Field } from '../../store'
 
 export interface ArrayFieldProps {
   field: IField
   form: UseFormReturn
   renderItemField: (itemField: IField, index: number) => React.ReactElement
+}
+
+const primitivesDefaults = {
+  [IPrimitiveTypeKind.Boolean]: false,
+  [IPrimitiveTypeKind.Float]: 0.0,
+  [IPrimitiveTypeKind.Integer]: 0,
+  [IPrimitiveTypeKind.String]: '',
+}
+
+const defaultValue = (type: IAnyType) => {
+  switch (type.kind) {
+    case ITypeKind.PrimitiveType:
+      return primitivesDefaults[type.primitiveKind]
+    case ITypeKind.ArrayType:
+      return []
+    case ITypeKind.EnumType:
+      return type.allowedValues[0]
+    default:
+      return {}
+  }
 }
 
 export const ArrayField = observer(
@@ -19,14 +44,16 @@ export const ArrayField = observer(
       name: field.key,
     })
 
+    const itemType = (field.type.current as IArrayType).itemType
+
     const createField = (id: string, index: number) => {
-      return new Field({
+      return {
         key: `${field.key}.${index}`,
-        type: (field.type.current as IArrayType).itemType,
+        type: itemType,
         id,
         description: field.description,
         name: `${field.key}.${index}`,
-      })
+      }
     }
 
     return (
@@ -37,7 +64,10 @@ export const ArrayField = observer(
             <Button icon={<DeleteFilled />} onClick={() => remove(index)} />
           </div>
         ))}
-        <Button icon={<PlusOutlined />} onClick={() => append({})} />
+        <Button
+          icon={<PlusOutlined />}
+          onClick={() => append(defaultValue(itemType.current))}
+        />
       </div>
     )
   },
