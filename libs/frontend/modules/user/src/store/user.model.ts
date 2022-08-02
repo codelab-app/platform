@@ -14,8 +14,6 @@ import {
 } from 'mobx-keystone'
 
 const hydrate = (user: IUserDTO) => {
-  console.log('user', user)
-
   return new User({
     id: user.id,
     username: user.username,
