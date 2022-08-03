@@ -4,12 +4,20 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
+import { v4 } from 'uuid'
 import { CreateResourcesDocument } from '../../../../../libs/frontend/modules/resource/src/graphql/resource.endpoints.graphql.gen'
 
 const defaultInput: ResourceCreateInput = {
+  id: v4(),
   name: 'countries',
   type: ResourceType.GraphQL,
-  config: JSON.stringify({ url: 'https://countries.trevorblades.com/' }),
+  config: {
+    create: {
+      node: {
+        data: JSON.stringify({ url: 'https://countries.trevorblades.com/' }),
+      },
+    },
+  },
 }
 
 export const createResource = (input: ResourceCreateInput = defaultInput) =>

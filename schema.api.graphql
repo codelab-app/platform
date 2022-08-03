@@ -3829,7 +3829,6 @@ type CustomActionStoreStoreNodeAggregateSelection {
 
 input CustomActionUniqueWhere {
   id: ID
-  name: String
 }
 
 input CustomActionUpdateInput {
@@ -10387,7 +10386,6 @@ type PipelineActionStoreStoreNodeAggregateSelection {
 
 input PipelineActionUniqueWhere {
   id: ID
-  name: String
 }
 
 input PipelineActionUpdateInput {
@@ -12892,7 +12890,6 @@ input ResourceActionSuccessActionUpdateFieldInput {
 
 input ResourceActionUniqueWhere {
   id: ID
-  name: String
 }
 
 input ResourceActionUpdateInput {
@@ -13092,6 +13089,7 @@ input ResourceConnectWhere {
 
 input ResourceCreateInput {
   config: ResourceConfigFieldInput
+  id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
   type: ResourceType!
@@ -13113,6 +13111,7 @@ type ResourceEdge {
 }
 
 input ResourceOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -13238,6 +13237,7 @@ input ResourceUniqueWhere {
 
 input ResourceUpdateInput {
   config: ResourceConfigUpdateFieldInput
+  id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   type: ResourceType

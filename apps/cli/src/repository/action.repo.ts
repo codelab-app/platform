@@ -1,10 +1,15 @@
 import {
   CustomActionOGM,
+  customActionSelectionSet,
   PipelineActionOGM,
   ResourceActionOGM,
 } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
+import {
+  exportPipelineActionSelectionSet,
+  exportResourceActionSelectionSet,
+} from '../selectionSets/actionSelectionSet'
 
 export const importActions = async (
   actions: Array<IActionExport>,
@@ -128,14 +133,17 @@ export const exportActions = async (
 
   const customActions = await CustomAction.find({
     where: { store: { id: storeId } },
+    selectionSet: customActionSelectionSet,
   })
 
   const resourceActions = await ResourceAction.find({
     where: { store: { id: storeId } },
+    selectionSet: exportResourceActionSelectionSet,
   })
 
   const pipelineActions = await PipelineAction.find({
     where: { store: { id: storeId } },
+    selectionSet: exportPipelineActionSelectionSet,
   })
 
   return [...customActions, ...pipelineActions, ...resourceActions]

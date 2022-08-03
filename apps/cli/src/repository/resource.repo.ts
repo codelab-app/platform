@@ -8,6 +8,7 @@ export const createResource = async (
   const Resource = await ResourceOGM()
 
   const input = {
+    id: resource.id,
     name: resource.name,
     type: resource.type,
     owner: { connect: { where: { node: { id: selectedUser } } } },

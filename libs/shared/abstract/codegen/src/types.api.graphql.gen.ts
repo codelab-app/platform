@@ -4013,7 +4013,6 @@ export type CustomActionStoreStoreNodeAggregateSelection = {
 
 export type CustomActionUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
 }
 
 export type CustomActionUpdateInput = {
@@ -11246,7 +11245,6 @@ export type PipelineActionStoreStoreNodeAggregateSelection = {
 
 export type PipelineActionUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
 }
 
 export type PipelineActionUpdateInput = {
@@ -14244,7 +14242,6 @@ export type ResourceActionSuccessActionUpdateFieldInput = {
 
 export type ResourceActionUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
 }
 
 export type ResourceActionUpdateInput = {
@@ -14448,6 +14445,7 @@ export type ResourceConnectWhere = {
 
 export type ResourceCreateInput = {
   config?: InputMaybe<ResourceConfigFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   type: ResourceType
@@ -14470,6 +14468,7 @@ export type ResourceEdge = {
 }
 
 export type ResourceOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -14592,6 +14591,7 @@ export type ResourceUniqueWhere = {
 
 export type ResourceUpdateInput = {
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   type?: InputMaybe<ResourceType>
