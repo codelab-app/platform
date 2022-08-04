@@ -1,5 +1,6 @@
 import * as inquirer from 'inquirer'
 import { exportApp } from '../../use-cases/export/export-app'
+import { exportDomain } from '../../use-cases/export/export-domain'
 import { exportResource } from '../../use-cases/export/export-resource'
 import { exportUserTypes } from '../../use-cases/export/export-user-types'
 import { saveExportFile } from '../../use-cases/export/save-export-file'
@@ -27,6 +28,10 @@ export const exportUserData = async () => {
     ? await exportApp()
     : { app: null }
 
+  const domainData = confirmExportApp['confirm']
+    ? await exportDomain()
+    : { domains: [] }
+
   // Types
   const typeData = confirmExportType ? await exportUserTypes() : { types: [] }
   const resourceData = await exportResource()
@@ -35,6 +40,7 @@ export const exportUserData = async () => {
     ...appData,
     ...typeData,
     ...resourceData,
+    ...domainData,
   }
 
   if (confirmExportApp['confirm'] || confirmExportType['confirm']) {

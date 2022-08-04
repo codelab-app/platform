@@ -1,4 +1,4 @@
-import { baseHeaders, projectApiUrl, teamIdParam } from '../../const'
+import { baseHeaders, projectApiUrl, teamIdParam } from '../const'
 
 export const update = (oldName: string, newName: string) => {
   return fetch(`${projectApiUrl()}/domains/${oldName}${teamIdParam}`, {

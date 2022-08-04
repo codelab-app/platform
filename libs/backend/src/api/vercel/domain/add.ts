@@ -1,4 +1,4 @@
-import { baseHeaders, projectApiUrl, teamIdParam } from '../../const'
+import { baseHeaders, projectApiUrl, teamIdParam } from '../const'
 
 export const add = (name: string) => {
   const url = `${projectApiUrl()}/domains${teamIdParam}`
