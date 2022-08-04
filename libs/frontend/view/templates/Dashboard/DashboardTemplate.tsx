@@ -175,7 +175,6 @@ export const DashboardTemplate = observer(
             >
               <div
                 style={{
-                  overflow: 'scroll',
                   height: mainHeight,
                 }}
               >
