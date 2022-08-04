@@ -146,15 +146,16 @@ export const BuilderTabs = observer<BuilderTabsProps>(
           </Tabs>
         </Header>
         <Content>
-          {data?.pageElementTree && data?.renderer ? (
-            <BaseBuilder
-              builderService={builderService}
-              elementService={elementService}
-              elementTree={data?.pageElementTree}
-              renderer={data?.renderer}
-            />
-          ) : null}
-          {builderService.activeComponent && data?.appStore ? (
+          {builderService.activeTree === RendererTab.Page ? (
+            data?.pageElementTree && data?.renderer ? (
+              <BaseBuilder
+                builderService={builderService}
+                elementService={elementService}
+                elementTree={data?.pageElementTree}
+                renderer={data?.renderer}
+              />
+            ) : null
+          ) : builderService.activeComponent && data?.appStore ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
               appStore={data?.appStore}
