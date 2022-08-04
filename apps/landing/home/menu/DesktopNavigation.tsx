@@ -43,13 +43,11 @@ export const MenuDesktop = () => {
             <a css={tw`flex items-center`}>Tutorials</a>
           </li>
           {user ? (
-            <>
-              <li css={tw`hidden laptop:flex px-2`}>
-                <Link className="btn-primary" href="/api/auth/logout">
-                  <a css={tw`flex items-center`}>Register</a>
-                </Link>
-              </li>
-            </>
+            <li css={tw`hidden laptop:flex px-2`}>
+              <Link className="btn-primary" href="/api/auth/login">
+                <a css={tw`flex items-center`}>Logout</a>
+              </Link>
+            </li>
           ) : (
             <>
               <li css={tw`tablet:w-8 laptop:w-auto laptop:flex px-2`}>
@@ -62,7 +60,7 @@ export const MenuDesktop = () => {
                 </Link>
               </li>
               <li css={tw`hidden laptop:flex px-2`}>
-                <Link className="btn-primary" href="/api/auth/login">
+                <Link className="btn-primary" href="/api/auth/logout">
                   <a css={tw`flex items-center`}>Register</a>
                 </Link>
               </li>

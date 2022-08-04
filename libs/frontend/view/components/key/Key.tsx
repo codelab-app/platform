@@ -15,7 +15,8 @@ export const Key = ({ children }: React.PropsWithChildren<unknown>) => {
             rgba(245, 245, 245, 1) 100%
           );
         `,
-        tw`rounded px-1 py-0.5 text-gray-600 border border-gray-200 text-xs font-mono`,
+        // font-mono failed
+        tw`rounded px-1 py-0.5 text-gray-600 border border-gray-200 text-xs`,
       ]}
     >
       {children}

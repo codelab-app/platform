@@ -40,17 +40,17 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Roboto:wght@300;400&family=Nunito:wght@300;400;500;600&family=IBM+Plex+Sans+Thai&display=swap"
             rel="stylesheet"
           />
-          {/* <link */}
-          {/*  charSet="UTF-8" */}
-          {/*  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" */}
-          {/*  rel="stylesheet" */}
-          {/*  type="text/css" */}
-          {/*/ > */}
-          {/* <link */}
-          {/*  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" */}
-          {/*  rel="stylesheet" */}
-          {/*  type="text/css" */}
-          {/*/ > */}
+          <link
+            charSet="UTF-8"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+            rel="stylesheet"
+            type="text/css"
+          />
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+            rel="stylesheet"
+            type="text/css"
+          />
           {/* <style */}
           {/*  data-emotion-css={this.props.ids.join(' ')} */}
           {/*  dangerouslySetInnerHTML={{ __html: this.props.css }} */}

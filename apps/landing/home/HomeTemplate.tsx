@@ -8,7 +8,7 @@ import { CodelabMenuContainer } from './menu/MenuContainer'
 import { menuState } from './menu/menuState'
 import { MenuMobile } from './menu/MobileNavigation'
 
-export type HomeTemplateProps = React.PropsWithChildren<unknown>
+export type HomeTemplateProps = React.PropsWithChildren
 
 const Header = ({ children }: PropsWithChildren<any>) => {
   return <header>{children}</header>

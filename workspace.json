@@ -29,6 +29,7 @@
     "frontend-shared-style": "libs/frontend/shared/style",
     "frontend-shared-utils": "libs/frontend/shared/utils",
     "frontend-view": "libs/frontend/view",
+    "landing": "apps/landing",
     "shared-abstract-codegen": "libs/shared/abstract/codegen",
     "shared-abstract-core": "libs/shared/abstract/core",
     "shared-abstract-types": "libs/shared/abstract/types",

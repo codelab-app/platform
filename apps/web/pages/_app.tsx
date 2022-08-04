@@ -1,8 +1,7 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
-import '../src/styles/app.css'
-// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import '../src/styles/antd-theme.less'
+// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { initializeStore } from '@codelab/frontend/model/infra/mobx'

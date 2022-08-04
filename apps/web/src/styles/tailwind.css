@@ -40,11 +40,14 @@
   h6 {
     /* @apply text-sm; */
   }
+
 }
+
+
 
 @layer components {
   .btn-primary {
-    @apply !bg-purple-500 text-white;
+    /*@apply !bg-purple-500 text-white;*/
     /* &:hover {
       @apply text-white !bg-purple-400;
     } */
@@ -55,19 +58,19 @@
   }
 }
 
-.hover-text {
-  @apply hover:text-purple-500;
-}
+/*.hover-text {*/
+/*  @apply hover:text-purple-500;*/
+/*}*/
 
-.btn {
-  @apply px-3 py-1 rounded flex items-center;
-}
-.btn-primary {
-  @apply !bg-purple-500 text-white whitespace-nowrap;
-   &:hover {
-    @apply text-white !bg-purple-400;
-  }
-}
+/*.btn {*/
+/*  @apply px-3 py-1 rounded flex items-center;*/
+/*}*/
+/*.btn-primary {*/
+/*  @apply !bg-purple-500 text-white whitespace-nowrap;*/
+/*   &:hover {*/
+/*    @apply text-white !bg-purple-400;*/
+/*  }*/
+/*}*/
 
 a {
   @apply !transition-none;
@@ -103,6 +106,7 @@ menu.menu {
     }
   }
 }
+
 
 @layer utilities {
   /* .filter-none {

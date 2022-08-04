@@ -452,10 +452,10 @@
         "react/jsx-props-no-spreading": "off"
       }
     },
-    {
-      "files": ["*.jsx", "*.tsx"],
-      "extends": ["plugin:react-hooks/recommended"]
-    },
+    //    {
+    //      "files": ["*.jsx", "*.tsx"],
+    //      "extends": ["plugin:react-hooks/recommended"]
+    //    },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],

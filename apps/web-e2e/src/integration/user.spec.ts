@@ -23,7 +23,7 @@ describe('User', () => {
         // cy.findByLabelText('user').click()
         // cy.contains('li', email).should('exist')
 
-        cy.contains('a', 'Register').click()
+        cy.contains('a', 'Logout').click()
         cy.contains('a', 'Login').should('exist')
       })
     })

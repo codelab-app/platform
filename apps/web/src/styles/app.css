@@ -1,6 +1,0 @@
-@import './container.css';
-@import './tailwind.css';
-
-/* Vendor imports */
-@import 'morphext/dist/morphext.css';
-@import 'animate.css';

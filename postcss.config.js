@@ -4,7 +4,7 @@ module.exports = {
     'postcss-import': {},
     // Required for scss like rules for .css files
     'tailwindcss/nesting': {},
-    tailwindcss: {},
+    tailwindcss: { config: './tailwind.config.js' },
     autoprefixer: {},
   },
 }

@@ -2,7 +2,7 @@
   "root": "libs/frontend/shared/style",
   "sourceRoot": "libs/frontend/shared/style/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:shared"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

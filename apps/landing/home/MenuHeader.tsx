@@ -4,21 +4,23 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { useUser } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/abstract/types'
-import {
-  LoginUserButton,
-  RegisterUserButton,
-  SignOutUserButton,
-} from '@codelab/frontend/modules/user'
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
-import {
-  disableMenuHoverEffects,
-  removeHoverBorder,
-} from '@codelab/frontend/view/style'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
+import { disableMenuHoverEffects, removeHoverBorder } from '../styles/style'
+import { LoginUserButton } from './auth/LoginUserButton'
+import { RegisterUserButton } from './auth/RegisterUserButton'
+import { SignOutUserButton } from './auth/SignOutUserButton'
+
+export enum PageType {
+  Home = '/',
+  Features = '/features',
+  Docs = '/docs',
+  Pricing = '/pricing',
+  Tutorials = '/tutorials',
+}
 
 /**
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
