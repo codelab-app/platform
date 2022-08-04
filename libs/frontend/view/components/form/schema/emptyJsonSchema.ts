@@ -1,6 +1,7 @@
 import { JSONSchemaType } from 'ajv'
 
-export type EmptyJsonSchemaType = Record<string, unknown>
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type EmptyJsonSchemaType = {}
 
 export const emptyJsonSchema: JSONSchemaType<EmptyJsonSchemaType> = {
   title: 'Empty Schema',

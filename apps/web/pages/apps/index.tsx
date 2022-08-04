@@ -9,7 +9,6 @@ import {
   ImportAppButton,
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
-import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
@@ -34,7 +33,11 @@ const items: MenuProps['items'] = [
   },
   {
     key: '0',
-    icon: <SignOutUserButton type="link" />,
+    icon: (
+      <Button href="/api/auth/logout" type="link">
+        Sign Out
+      </Button>
+    ),
   },
 ]
 

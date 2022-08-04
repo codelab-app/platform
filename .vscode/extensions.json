@@ -9,7 +9,6 @@
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
     "firsttris.vscode-jest-runner",
-    "wholroyd.hcl",
     "hashicorp.terraform"
   ]
 }

@@ -31,20 +31,20 @@ export default async function middleware(req: NextRequest) {
     process.env.NEXT_REDIRECT_TENANT_DOMAIN_URL ||
     `http://${process.env.VERCEL_URL}`
 
-  console.log('Redirect middleware', {
-    url: JSON.stringify(req.nextUrl),
-    hostname,
-    pathname,
-    redirectedDomainUrl,
-    publicRootDomains,
-    isApi,
-    isSites,
-    matchedPublicDomains,
-    matchedVercelDomain,
-    vercelURL,
-    isInternal,
-    isLocal,
-  })
+  // console.debug('Redirect middleware', {
+  //   url: JSON.stringify(req.nextUrl),
+  //   hostname,
+  //   pathname,
+  //   redirectedDomainUrl,
+  //   publicRootDomains,
+  //   isApi,
+  //   isSites,
+  //   matchedPublicDomains,
+  //   matchedVercelDomain,
+  //   vercelURL,
+  //   isInternal,
+  //   isLocal,
+  // })
 
   if (
     isApi ||

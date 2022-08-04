@@ -6,14 +6,14 @@ import {
   KeyOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
+import { Card, Col, Row } from 'antd'
+import React from 'react'
 import {
   alignFullGridStyle,
   cardStyle,
   padding,
   threeGridCol,
-} from '@codelab/frontend/view/style'
-import { Card, Col, Row } from 'antd'
-import React from 'react'
+} from '../styles/style'
 
 export const Features = () => {
   const colProps = {

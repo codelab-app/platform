@@ -12,13 +12,13 @@
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
     // Removed to solve https://github.com/vercel/next.js/issues/37080
-//    [
-//      "@babel/preset-typescript",
-//      {
-//        // For mobx-keystone
-//        "allowDeclareFields": true
-//      }
-//    ]
+    //    [
+    //      "@babel/preset-typescript",
+    //      {
+    //        // For mobx-keystone
+    //        "allowDeclareFields": true
+    //      }
+    //    ]
   ],
   "plugins": [
     "@emotion",
@@ -44,13 +44,13 @@
       }
     ]
     // This imports antd into our app
-//    [
-//      "import",
-//      {
-//        "libraryName": "antd",
-//        "style": true
-//      }
-//    ]
+    //    [
+    //      "import",
+    //      {
+    //        "libraryName": "antd",
+    //        "style": true
+    //      }
+    //    ]
   ],
   "env": {
     "development": {
