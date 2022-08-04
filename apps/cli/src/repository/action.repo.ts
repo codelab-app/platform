@@ -1,10 +1,15 @@
 import {
   CustomActionOGM,
+  customActionSelectionSet,
   PipelineActionOGM,
   ResourceActionOGM,
 } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionExport, IActionKind } from '@codelab/shared/abstract/core'
+import {
+  exportPipelineActionSelectionSet,
+  exportResourceActionSelectionSet,
+} from '../selectionSets/actionSelectionSet'
 
 export const importActions = async (
   actions: Array<IActionExport>,
@@ -18,11 +23,11 @@ export const importActions = async (
   const pipelineActions: Array<OGM_TYPES.PipelineAction> = []
 
   for (const action of actions) {
-    if (action.__typename === IActionKind.CustomAction) {
+    if (action.type === IActionKind.CustomAction) {
       customActions.push(action as OGM_TYPES.CustomAction)
-    } else if (action.__typename === IActionKind.PipelineAction) {
+    } else if (action.type === IActionKind.PipelineAction) {
       pipelineActions.push(action as OGM_TYPES.PipelineAction)
-    } else if (action.__typename === IActionKind.ResourceAction) {
+    } else if (action.type === IActionKind.ResourceAction) {
       resourceActions.push(action as OGM_TYPES.ResourceAction)
     } else {
       throw new Error(`Unknown action type : ${action.type}`)
@@ -128,19 +133,18 @@ export const exportActions = async (
 
   const customActions = await CustomAction.find({
     where: { store: { id: storeId } },
+    selectionSet: customActionSelectionSet,
   })
 
   const resourceActions = await ResourceAction.find({
     where: { store: { id: storeId } },
+    selectionSet: exportResourceActionSelectionSet,
   })
 
   const pipelineActions = await PipelineAction.find({
     where: { store: { id: storeId } },
+    selectionSet: exportPipelineActionSelectionSet,
   })
 
-  return {
-    ...customActions,
-    ...pipelineActions,
-    ...resourceActions,
-  }
+  return [...customActions, ...pipelineActions, ...resourceActions]
 }

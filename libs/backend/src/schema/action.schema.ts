@@ -28,7 +28,7 @@ export const actionSchema = gql`
 
   type CustomAction implements ActionBase {
     id: ID!
-    name: String! @unique
+    name: String!
     type: ActionKind! @default(value: CustomAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!
@@ -41,7 +41,7 @@ export const actionSchema = gql`
 
   type ResourceAction implements ActionBase {
     id: ID!
-    name: String! @unique
+    name: String!
     type: ActionKind! @default(value: ResourceAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!
@@ -65,11 +65,12 @@ export const actionSchema = gql`
     # use String instead of Int due to : https://github.com/neo4j/graphql/issues/167
     orders: [String!]
   }
+
   union AnyAction = PipelineAction | ResourceAction | CustomAction
 
   type PipelineAction implements ActionBase {
     id: ID!
-    name: String! @unique
+    name: String!
     type: ActionKind! @default(value: PipelineAction)
     runOnInit: Boolean! @default(value: false)
     store: Store!

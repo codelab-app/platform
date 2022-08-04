@@ -23,6 +23,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { resourceApi } from './resource.api'
 import { Resource } from './resource.model'
 import {
@@ -82,6 +83,7 @@ export class ResourceService
     data: Array<ICreateResourceDTO>,
   ) {
     const input: Array<ResourceCreateInput> = data.map((resource) => ({
+      id: v4(),
       type: resource.type,
       name: resource.name,
       config: {

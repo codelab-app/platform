@@ -1,13 +1,13 @@
-export const actionSelectionSet = `
+export const actionSelectionProperties = `
   id
   name
-  body
-  config {
-    id
-    data
-  }
+  type
   runOnInit
-  resource {
-    id
-  }
+`
+
+export const customActionSelectionSet = `
+ {
+  ${actionSelectionProperties}
+  code
+ }
 `

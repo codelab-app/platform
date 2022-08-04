@@ -7,18 +7,20 @@ export const createResource = async (
 ) => {
   const Resource = await ResourceOGM()
 
+  const input = {
+    id: resource.id,
+    name: resource.name,
+    type: resource.type,
+    owner: { connect: { where: { node: { id: selectedUser } } } },
+    config: {
+      create: { node: { data: resource.config.data } },
+    },
+  }
+
   const {
     resources: [createdResource],
   } = await Resource.create({
-    input: [
-      {
-        name: resource.id,
-        type: resource.type,
-        config: {
-          create: { node: { data: resource.config.data } },
-        },
-      },
-    ],
+    input: [input],
   })
 
   return createdResource
