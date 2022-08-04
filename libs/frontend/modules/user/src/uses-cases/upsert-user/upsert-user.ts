@@ -18,7 +18,7 @@ export const upsertUser = async (
     })
 
     if (existing) {
-      console.log(`User with email ${user.email} already exists!`)
+      console.debug(`User with email ${user.email} already exists!`)
 
       const { users } = await User.update({
         where: {
