@@ -2,8 +2,10 @@
   "extends": [
     "plugin:@nrwl/nx/react-typescript",
     "../../.eslintrc.json",
-    "next",
-    "next/core-web-vitals"
+    "plugin:@next/next/recommended"
+    // Has conflict with react-hooks
+    //    "next",
+    //    "next/core-web-vitals"
   ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
