@@ -16,17 +16,17 @@ export const getPages = (input: PageWhere) =>
     })
     .then((result) => result.body.data?.pages as Array<IPageDTO>)
 
-const defaultInput: PageCreateInput = {
+export const createPageInput = (): PageCreateInput => ({
   id: v4(),
   name: 'Test Page',
   rootElement: { create: { node: { id: v4(), name: ROOT_ELEMENT_NAME } } },
   slug: 'test',
-}
+})
 
 export const createPage = (input: Partial<PageCreateInput>) =>
   cy
     .graphqlRequest({
       query: print(CreatePagesDocument),
-      variables: { input: { ...defaultInput, ...input } },
+      variables: { input: { ...createPageInput(), ...input } },
     })
     .then((result) => result.body.data?.createPages.pages as Array<IPageDTO>)

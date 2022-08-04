@@ -1,15 +1,16 @@
-/* eslint-disable jest/expect-expect */
-import { appName, appSlug, updatedAppName, updatedAppSlug } from './app.data'
+import {
+  appName,
+  appSlug,
+  updatedAppName,
+  updatedAppSlug,
+} from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
-      cy.clearAuth0Cookies()
-      cy.login().then(() => {
-        cy.visit('/apps')
-        // cy.getSpinner().should('not.exist')
-      })
-    })
+    cy.resetDatabase()
+    cy.login()
+    cy.visit('/apps')
+    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {
@@ -50,10 +51,6 @@ describe('Apps CRUD', () => {
       cy.findByText(updatedAppName).should('exist')
     })
   })
-
-  // // Insert page test here
-  require('./pages.spec.required')
-  require('./store.spec.required')
 
   describe('delete', () => {
     before(() => {

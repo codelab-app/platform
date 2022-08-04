@@ -28,16 +28,21 @@ export const aliasGraphQLOperation = (
   }
 }
 
+export const DefaultGraphQLRequestID = 'GraphqlRequest'
+
 export const graphqlRequest = (
   body: string | Record<string, any>,
+  alias = DefaultGraphQLRequestID,
   config?: any,
 ) =>
-  cy.request({
-    method: 'POST',
-    url: '/api/graphql',
-    body,
-    ...config,
-  })
+  cy
+    .request({
+      method: 'POST',
+      url: '/api/graphql',
+      body,
+      ...config,
+    })
+    .as(alias)
 
 export interface CypressGraphQLHelpersCommands {
   interceptGraphQL: typeof interceptGraphQL

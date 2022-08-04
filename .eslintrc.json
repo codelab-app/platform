@@ -48,6 +48,7 @@
             "exceptions": []
           }
         ],
+        "jest/expect-expect": "off",
         "react/jsx-curly-brace-presence": "error",
         // https://github.com/microsoft/TypeScript/issues/14306
         "no-restricted-globals": [

@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import {
   IActionKind,
   IPrimitiveTypeKind,
@@ -5,61 +6,62 @@ import {
 } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
-import { FIELD_TYPE } from '../../support/antd/form'
+import { FIELD_TYPE } from '../support/antd/form'
+import { updatedAppName } from './apps/app.data'
 import {
   actionBody,
   actionName,
   stateVarName,
   updatedActionName,
   updatedStateVarName,
-} from '../store.data'
-import { updatedAppName } from './app.data'
+} from './store.data'
 
 describe('Store', () => {
   before(() => {
-    cy.getCurrentUserId().then((userId) => {
-      cy.createType(
-        {
-          PrimitiveType: {
-            id: v4(),
-            name: IPrimitiveTypeKind.Integer,
-            primitiveKind: IPrimitiveTypeKind.Integer,
-            kind: ITypeKind.PrimitiveType,
-            owner: connectOwner(userId),
+    cy.resetDatabase()
+    cy.login()
+    cy.getCurrentUserId()
+      .then((userId) => {
+        cy.createType(
+          {
+            PrimitiveType: {
+              id: v4(),
+              name: IPrimitiveTypeKind.Integer,
+              primitiveKind: IPrimitiveTypeKind.Integer,
+              kind: ITypeKind.PrimitiveType,
+              owner: connectOwner(userId),
+            },
           },
-        },
-        ITypeKind.PrimitiveType,
-      ).then(() => {
-        cy.visit(`/apps`)
-        cy.getCard({ title: updatedAppName }).find('a').click()
-        cy.url({ timeout: 10000 }).should('include', 'pages')
+          ITypeKind.PrimitiveType,
+        )
+
+        return cy.createApp(userId)
+      })
+      .then((apps) => {
+        const app = apps[0]
+
+        cy.visit(`/apps/${app?.id}/pages`)
+        cy.getSpinner().should('not.exist')
         cy.findByText('Store').click()
         cy.url({ timeout: 10000 }).should('include', 'store')
       })
-    })
   })
 
   describe('State CRUD', () => {
     describe('create', () => {
       it('should be able to create state variable', () => {
         cy.findByTitle('Create State').click({ force: true })
-
         cy.getModal().setFormFieldValue({ label: 'Key', value: stateVarName })
-
         cy.getModal().setFormFieldValue({ label: 'Name', value: stateVarName })
-
         cy.getModal().setFormFieldValue({
           label: 'Type',
           value: IPrimitiveTypeKind.Integer,
           type: FIELD_TYPE.SELECT,
         })
-
         cy.getModal()
           .getModalAction(/Create/)
           .click()
-
         cy.getModal().should('not.exist')
-
         cy.findByTitle(stateVarName).should('exist')
       })
     })
