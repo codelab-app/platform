@@ -7,7 +7,6 @@ import {
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
-import { updatedAppName } from './apps/app.data'
 import {
   actionBody,
   actionName,

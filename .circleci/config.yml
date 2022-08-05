@@ -4,6 +4,12 @@ filters-pr: &filters-pr
       ignore:
         - master
 
+filters-master: &filters-master
+  filters:
+    branches:
+      only:
+        - master
+
 executor-params: &executor-params
   parameters:
     e:
@@ -144,7 +150,7 @@ jobs:
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/builder/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/
@@ -188,8 +194,8 @@ jobs:
       - setup-workspace
       #      - run:
       #          command: |
-      #            ls ~/projects/apps/web/specs/setup
-      #            cat ~/projects/apps/web/specs/setup/auth0-token.json
+      #            ls ~/projects/apps/builder/specs/setup
+      #            cat ~/projects/apps/builder/specs/setup/auth0-token.json
       - run: yarn cli tasks int --env ci
       - notify-failure
 
@@ -201,10 +207,10 @@ jobs:
       - run: npx cypress verify
       - run: yarn cli tasks e2e --env ci
       - store_artifacts:
-          path: ~/project/apps/web-e2e/src/videos
+          path: ~/project/apps/builder-e2e/src/videos
           destination: cypress/videos
       - store_artifacts:
-          path: ~/project/apps/web-e2e/src/screenshots
+          path: ~/project/apps/builder-e2e/src/screenshots
           destination: cypress/screenshots
       - notify-failure
 
@@ -328,3 +334,29 @@ workflows:
             - unit
             # - integration
             - e2e
+
+  app:
+    jobs:
+      - install-and-build-workspace:
+          <<: *filters-pr
+          e: docker-node
+          context: CI
+      - lint:
+          <<: *filters-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - unit:
+          <<: *filters-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - notify-success:
+          <<: *filters-pr
+          context: CI
+          e: docker-node
+          requires:
+            - lint
+            - unit

@@ -3,16 +3,13 @@
     "plugin:@nrwl/nx/react-typescript",
     "../../.eslintrc.json",
     "plugin:@next/next/recommended"
-    // Has conflict with react-hooks
-    //    "next",
-    //    "next/core-web-vitals"
   ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/web/pages/"],
+        "@next/next/no-html-link-for-pages": ["error", "apps/builder/pages"],
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off",
         "@nrwl/nx/enforce-module-boundaries": "off",

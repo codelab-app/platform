@@ -10,7 +10,7 @@ module.exports = {
   // darkMode: 'class',
   content: [
     path.resolve(process.cwd(), 'apps/landing/**/*.{ts,tsx}'),
-    path.resolve(process.cwd(), 'apps/web/**/*.{ts,tsx}'),
+    path.resolve(process.cwd(), 'apps/builder/**/*.{ts,tsx}'),
     path.resolve(process.cwd(), 'libs/**/*.{ts,tsx}'),
   ],
   theme: {

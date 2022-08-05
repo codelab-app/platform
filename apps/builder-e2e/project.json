@@ -1,11 +1,12 @@
 {
-  "sourceRoot": "apps/web-e2e/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/builder-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/web-e2e/cypress.json",
+        "cypressConfig": "apps/builder-e2e/cypress.json",
         "tsConfig": "./tsconfig.base.json",
         "baseUrl": "http://127.0.0.1:3001",
         "browser": "electron"
@@ -13,23 +14,23 @@
       "configurations": {
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
-          "cypressConfig": "apps/web-e2e/cypress.ci.json",
-          "devServerTarget": "web-e2e:serve:ci",
+          "cypressConfig": "apps/builder-e2e/cypress.ci.json",
+          "devServerTarget": "builder-e2e:serve:ci",
           "record": true
         },
         "test": {
-          "cypressConfig": "apps/web-e2e/cypress.test.json",
-          "devServerTarget": "web-e2e:serve:test",
+          "cypressConfig": "apps/builder-e2e/cypress.test.json",
+          "devServerTarget": "builder-e2e:serve:test",
           "record": false
         },
         "dev": {
-          "cypressConfig": "apps/web-e2e/cypress.test.json",
-          "devServerTarget": "web-e2e:serve:dev",
+          "cypressConfig": "apps/builder-e2e/cypress.test.json",
+          "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         },
         "start": {
-          "cypressConfig": "apps/web-e2e/cypress.ci.json",
+          "cypressConfig": "apps/builder-e2e/cypress.ci.json",
           "baseUrl": "http://127.0.0.1:3000",
           "watch": true,
           "exit": false
@@ -60,7 +61,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3000' && echo 'READY'"
             },
             {
-              "command": "npx next start dist/apps/web --port 3000",
+              "command": "npx next start dist/apps/builder --port 3000",
               "forwardAllArgs": false
             }
           ]
@@ -71,7 +72,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3001",
+              "command": "npx env-cmd -f .env.test next start dist/apps/builder-test --port 3001",
               "forwardAllArgs": false
             }
           ]
@@ -81,11 +82,11 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/builder-e2e/**/*.{js,ts}"]
       },
       "outputs": ["{options.outputFile}"]
     }
   },
   "tags": [],
-  "implicitDependencies": ["web"]
+  "implicitDependencies": ["builder"]
 }

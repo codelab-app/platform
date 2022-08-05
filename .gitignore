@@ -22,8 +22,8 @@ tmp/
 out-tsc/
 
 # Cypress
-apps/web-e2e/src/videos
-apps/web-e2e/src/screenshots
+apps/builder-e2e/src/videos
+apps/builder-e2e/src/screenshots
 
 # dependencies
 node_modules/

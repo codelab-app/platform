@@ -27,7 +27,7 @@
       }
     }
   },
-  "defaultProject": "web",
+  "defaultProject": "builder",
   "generators": {
     "@nrwl/workspace": {
       "library": {
