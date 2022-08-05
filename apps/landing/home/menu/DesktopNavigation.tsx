@@ -16,7 +16,7 @@ export const MenuDesktop = () => {
           height: '50px',
         }}
       >
-        <ul css={[tw`tablet:justify-between flex-row flex h-full`]}>
+        <ul css={[tw`tablet:justify-between p-0 flex-row flex h-full`]}>
           <li css={tw`justify-start flex px-2`}>
             <a css={tw`flex items-center`}>
               <Image

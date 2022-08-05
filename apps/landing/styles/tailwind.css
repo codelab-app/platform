@@ -74,7 +74,7 @@ a {
 }
 
 nav.nav {
-  @apply h-10 flex items-center bg-white;
+  @apply flex items-center bg-white;
 }
 
 menu.menu {

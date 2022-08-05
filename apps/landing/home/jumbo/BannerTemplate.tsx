@@ -1,10 +1,11 @@
-import { ArrowRightOutlined, PlayCircleOutlined } from '@ant-design/icons'
+import { ArrowRightOutlined } from '@ant-design/icons'
 import { Fancybox } from '@codelab/frontend/view/components'
-import { css } from '@emotion/react'
-import { Button, Col, Image, Row, Space, Typography } from 'antd'
+import { Button, Col, Row, Space, Typography } from 'antd'
 import $ from 'jquery'
 import React, { useEffect, useRef } from 'react'
 import tw from 'twin.macro'
+import { BuilderDemo } from '../demo/BuilderDemo'
+import { CurveAccent } from './CurveAccent'
 
 const { Title, Text, Paragraph } = Typography
 
@@ -13,7 +14,7 @@ const { Title, Text, Paragraph } = Typography
 //   { ssr: false },
 // )
 
-export const HomeJumbo = () => {
+export const BannerTemplate = () => {
   const jsRotatingRef = useRef(null)
 
   useEffect(() => {
@@ -76,18 +77,16 @@ export const HomeJumbo = () => {
                   closeButton: 'outside',
                 }}
               >
-                <p>
-                  <Button
-                    css={tw`bg-purple-700`}
-                    data-fancybox="gallery"
-                    data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
-                    icon={<ArrowRightOutlined />}
-                    size="large"
-                    type="primary"
-                  >
-                    Watch Tutorial
-                  </Button>
-                </p>
+                <Button
+                  css={tw`bg-purple-700`}
+                  data-fancybox="gallery"
+                  data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
+                  icon={<ArrowRightOutlined />}
+                  size="large"
+                  type="primary"
+                >
+                  Watch Tutorial
+                </Button>
               </Fancybox>
               <Button
                 ghost
@@ -99,74 +98,11 @@ export const HomeJumbo = () => {
               </Button>
             </Space>
           </Col>
-
-          <div
-            css={[
-              css`
-                &:hover img {
-                  transform: scale(0.92);
-                  transition-duration: 0.6s;
-                }
-                &:hover .watch-content {
-                  transform: scale(1.08);
-                  transition-duration: 0.6s;
-                }
-                & img,
-                & .watch-content {
-                  transition-duration: 0.6s;
-                }
-              `,
-              tw`hover:cursor-pointer relative`,
-            ]}
-          >
-            <Image
-              css={tw`mt-8 `}
-              preview={false}
-              src="/banner-screenshot.png"
-            />
-            <div
-              className="watch-content"
-              css={[
-                tw`absolute bg-white z-10 text-2xl flex justify-center`,
-                css`
-                  width: 640px;
-                  height: 80px;
-                  left: calc(50% - 320px);
-                  top: calc(50% - 40px);
-                `,
-              ]}
-            >
-              <PlayCircleOutlined css={tw`w-12 text-3xl mt-6`} />
-              <span
-                css={[
-                  tw`flex self-center text-2xl`,
-                  css`
-                    line-height: 80px;
-                  `,
-                ]}
-              >
-                Watch how to build a products page with Shopify.
-              </span>
-            </div>
-          </div>
+          {/* <WatchTutorial /> */}
         </Row>
+        <BuilderDemo />
       </section>
-      <div css={tw`relative`}>
-        {/* Generated from https://getwaves.io/ */}
-        <svg
-          // css={tw`fill-yellow-500`}
-          viewBox="0 0 1440 320"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,64L80,96C160,128,320,192,480,218.7C640,245,800,235,960,202.7C1120,171,1280,117,1360,90.7L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-            // <svg /> fill-yellow-500 has issues
-            // fill="#eab308"
-            fill="#facc15"
-            fillOpacity="1"
-          ></path>
-        </svg>
-      </div>
+      <CurveAccent />
     </>
   )
 }

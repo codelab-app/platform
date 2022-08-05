@@ -8,7 +8,7 @@ import { BestPractices } from '../home/bestPractices/BestPractices'
  * We are using some jQuery components, so SSR can't work because jQuery needs to be loaded first
  */
 const DynamicHomeJumbo = dynamic<any>(
-  () => import('../home').then((mod) => mod.HomeJumbo),
+  () => import('../home').then((mod) => mod.BannerTemplate),
   { ssr: false },
 )
 
