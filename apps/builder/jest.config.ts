@@ -34,7 +34,7 @@ module.exports = {
   },
   moduleNameMapper: {},
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/apps/web',
-  displayName: 'web',
+  coverageDirectory: '../../coverage/apps/builder',
+  displayName: 'builder',
   preset: '../../jest.preset.ts',
 }

@@ -40,10 +40,7 @@
   h6 {
     /* @apply text-sm; */
   }
-
 }
-
-
 
 @layer components {
   .btn-primary {
@@ -106,7 +103,6 @@ menu.menu {
     }
   }
 }
-
 
 @layer utilities {
   /* .filter-none {

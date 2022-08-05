@@ -30,7 +30,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       if (env === TaskEnv.Test) {
         // Added since many times can't find production build of next during push
         // Maybe related? https://github.com/nrwl/nx/issues/2839
-        execCommand(`${NX_TEST} build web -c test`)
+        execCommand(`${NX_TEST} build builder -c test`)
         execCommand(
           `${NX_TEST} affected:build -c test --exclude=tools-plugins-codelab`,
         )
@@ -73,8 +73,8 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
     case Tasks.Int:
       if (env === TaskEnv.Test) {
-        const startServer = `${NX_TEST} serve-test web -c test`
-        const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test web -c test`
+        const startServer = `${NX_TEST} serve-test builder -c test`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3001' && ${NX_TEST} test builder -c test`
 
         const runSpecsChildProcess = spawn(runSpecs, {
           stdio: 'inherit',
@@ -122,8 +122,8 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       }
 
       if (env === TaskEnv.Ci) {
-        const startServer = `nx serve-test web -c ci`
-        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test web -c ci --verbose`
+        const startServer = `nx serve-test builder -c ci`
+        const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && nx test builder -c ci --verbose`
 
         const runSpecsChildProcess = spawn(runSpecs, {
           stdio: 'inherit',
@@ -159,11 +159,11 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
      */
     case Tasks.E2e:
       if (env === TaskEnv.Test) {
-        execCommand(`${NX_TEST} run web-e2e:e2e:test --verbose`)
+        execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(`npx nx run web-e2e:e2e:ci --record`)
+        execCommand(`npx nx run builder-e2e:e2e:ci --record`)
       }
 
       break

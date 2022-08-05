@@ -1,5 +1,4 @@
 import { FIELD_TYPE } from '../../antd/form'
-import { aliasGraphQLOperation } from '../../helpers/graphql.commands'
 
 const modalName = 'Create Tag'
 

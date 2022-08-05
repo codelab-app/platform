@@ -1,5 +1,6 @@
 {
-  "sourceRoot": "apps/web/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/builder/src",
   "projectType": "application",
   "generators": {},
   "targets": {
@@ -7,21 +8,21 @@
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "root": "apps/web",
-        "outputPath": "dist/apps/web"
+        "root": "apps/builder",
+        "outputPath": "dist/apps/builder"
       },
       "configurations": {
         "test": {
-          "root": "apps/web",
-          "outputPath": "dist/apps/web-test"
+          "root": "apps/builder",
+          "outputPath": "dist/apps/builder-test"
         },
         "ci": {
-          "root": "apps/web",
-          "outputPath": "dist/apps/web"
+          "root": "apps/builder",
+          "outputPath": "dist/apps/builder"
         },
         "production": {},
         "development": {
-          "outputPath": "tmp/apps/web/src"
+          "outputPath": "tmp/apps/builder/src"
         }
       },
       "defaultConfiguration": "production"
@@ -29,13 +30,13 @@
     "_build": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["nx build web"]
+        "commands": ["nx build builder"]
       },
       "configurations": {
         "test": {
           "commands": [
             {
-              "command": "npx env-cmd -f .env.test nx build web -c test",
+              "command": "npx env-cmd -f .env.test nx build builder -c test",
               "forwardAllArgs": false
             }
           ]
@@ -55,7 +56,7 @@
         "test": {
           "commands": [
             {
-              "command": "npx env-cmd -f .env.test next start dist/apps/web-test --port 3001",
+              "command": "npx env-cmd -f .env.test next start dist/apps/builder-test --port 3001",
               "forwardAllArgs": false
             }
           ]
@@ -63,7 +64,7 @@
         "ci": {
           "commands": [
             {
-              "command": "npx next start dist/apps/web --port 3000",
+              "command": "npx next start dist/apps/builder --port 3000",
               "forwardAllArgs": false
             }
           ]
@@ -73,7 +74,7 @@
     "serve": {
       "executor": "@nrwl/next:server",
       "options": {
-        "buildTarget": "web:build",
+        "buildTarget": "builder:build",
         "dev": true,
         "port": 3000,
         "hostname": "0.0.0.0",
@@ -82,16 +83,16 @@
       "configurations": {
         "ci": {},
         "test": {
-          "buildTarget": "web:build:test",
+          "buildTarget": "builder:build:test",
           "memoryLimit": 8192,
           "port": 3001
         },
         "production": {
-          "buildTarget": "web:build:production",
+          "buildTarget": "builder:build:production",
           "dev": false
         },
         "development": {
-          "buildTarget": "web:build:development",
+          "buildTarget": "builder:build:development",
           "dev": true
         }
       },
@@ -124,20 +125,20 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "web:build:production"
+        "buildTarget": "builder:build:production"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/builder/**/*.{ts,tsx,js,jsx}"]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/web/jest.config.ts",
+        "jestConfig": "apps/builder/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -150,7 +151,7 @@
           "runInBand": true
         }
       },
-      "outputs": ["coverage/apps/web"]
+      "outputs": ["coverage/apps/builder"]
     },
     "storybook": {
       "executor": "@nrwl/storybook:storybook",
@@ -158,7 +159,7 @@
         "uiFramework": "@storybook/react",
         "port": 4400,
         "config": {
-          "configFolder": "apps/web/.storybook"
+          "configFolder": "apps/builder/.storybook"
         }
       },
       "configurations": {
@@ -174,7 +175,7 @@
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/web",
         "config": {
-          "configFolder": "apps/web/.storybook"
+          "configFolder": "apps/builder/.storybook"
         }
       },
       "configurations": {
