@@ -159,11 +159,11 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
      */
     case Tasks.E2e:
       if (env === TaskEnv.Test) {
-        execCommand(`${NX_TEST} run web-e2e:e2e:test --verbose`)
+        execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
       }
 
       if (env === TaskEnv.Ci) {
-        execCommand(`npx nx run web-e2e:e2e:ci --record`)
+        execCommand(`npx nx run builder-e2e:e2e:ci --record`)
       }
 
       break
