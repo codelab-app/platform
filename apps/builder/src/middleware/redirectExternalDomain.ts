@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { appApi } from './graphql/app.api'
 
 interface RedirectExternalDomainParams {
-  req: any
   hostname: string
   pathname: string
   redirectedDomainUrl: string
@@ -18,7 +17,6 @@ const stripTrailingSlash = (str: string) => {
 }
 
 export const redirectExternalDomain = async ({
-  req,
   hostname,
   pathname,
   redirectedDomainUrl,
@@ -36,13 +34,12 @@ export const redirectExternalDomain = async ({
       stripTrailingSlash(
         `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
       ),
-      // redirectedDomainUrl,
-      `https://${hostname}`,
+      redirectedDomainUrl,
     )
 
     console.log('redirectExternalDomain', {
       owner: app?.owner.username,
-      redirectExternalDomain: JSON.stringify(url),
+      redirectedUrl: JSON.stringify(url),
       hostname,
     })
 

@@ -26,10 +26,7 @@ export default async function middleware(req: NextRequest) {
   const isInternal = pathname.includes('_next')
   const isFavicon = pathname.includes('favicon.ico')
   const isLocal = hostname.includes('127.0.0.1')
-
-  const redirectedDomainUrl =
-    process.env.NEXT_REDIRECT_TENANT_DOMAIN_URL ||
-    `http://${process.env.VERCEL_URL}`
+  const redirectedDomainUrl = `http://${hostname}`
 
   // console.debug('Redirect middleware', {
   //   url: JSON.stringify(req.nextUrl),
@@ -62,7 +59,6 @@ export default async function middleware(req: NextRequest) {
 
   try {
     return await redirectExternalDomain({
-      req,
       redirectedDomainUrl,
       hostname,
       pathname,
