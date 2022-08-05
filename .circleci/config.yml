@@ -338,23 +338,23 @@ workflows:
   app:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-pr
+          <<: *filters-master
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-pr
+          <<: *filters-master
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-pr
+          <<: *filters-master
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *filters-pr
+          <<: *filters-master
           context: CI
           e: docker-node
           requires:
