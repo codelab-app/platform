@@ -1,10 +1,9 @@
-import { Button, Card, Typography } from 'antd'
 import React from 'react'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
-const { Meta } = Card
-const { Text } = Typography
-
-const App = () => (
+export const DOMTreeCode = () => {
+  const codeString = `
   <Card
     cover={
       <img src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg" />
@@ -28,6 +27,11 @@ const App = () => (
       ADD TO CART
     </Button>
   </Card>
-)
+  `
 
-export default App
+  return (
+    <SyntaxHighlighter language="javascript" style={materialDark}>
+      {codeString}
+    </SyntaxHighlighter>
+  )
+}
