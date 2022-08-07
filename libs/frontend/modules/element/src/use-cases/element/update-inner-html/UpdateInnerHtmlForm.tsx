@@ -7,9 +7,10 @@ import {
   IElementService,
   IPropData,
 } from '@codelab/shared/abstract/core'
+import { html, htmlCompletionSource } from '@codemirror/lang-html'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -23,7 +24,6 @@ export type UpdateInnerHtmlFormProps = {
 export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
-    const initialPropsRef = useRef(element?.props?.values ?? {})
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -31,8 +31,6 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
     )
 
     const onSubmit = (data: IPropData) => {
-      console.log(data)
-
       const promise = elementService.patchElement(element, {
         props: {
           update: {
@@ -55,17 +53,21 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
         </Col>
         <Col span={20}>
           <CodeMirrorInput
+            defaultCompletionSource={htmlCompletionSource}
             editable={inEditMode()}
+            extensions={[html()]}
+            height="150px"
             onChange={(newInnerHTML) => {
               onSubmit({
-                ...initialPropsRef.current,
+                ...element.props?.values,
                 dangerouslySetInnerHTML: {
                   __html: newInnerHTML,
                 },
               })
             }}
+            shouldDisableNewLines={false}
             title="InnerHtml"
-            value={initialPropsRef.current?.['dangerouslySetInnerHTML']?.__html}
+            value={element.props?.values?.['dangerouslySetInnerHTML']?.__html}
           />
         </Col>
       </Row>

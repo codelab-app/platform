@@ -4057,6 +4057,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codemirror/lang-html@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "@codemirror/lang-html@npm:0.20.0"
+  dependencies:
+    "@codemirror/autocomplete": ^0.20.0
+    "@codemirror/lang-css": ^0.20.0
+    "@codemirror/lang-javascript": ^0.20.0
+    "@codemirror/language": ^0.20.0
+    "@codemirror/state": ^0.20.0
+    "@lezer/common": ^0.16.0
+    "@lezer/html": ^0.16.0
+  checksum: ee02952c0409da4040e6f8aa522e69b2f5f7b0c16c704360cf0c7b2ac6010e8aed2a643f6096ccc877f8c3f784d1b5ce7136c92300dc63ddf5e971793aad0944
+  languageName: node
+  linkType: hard
+
+"@codemirror/lang-javascript@npm:^0.20.0":
+  version: 0.20.1
+  resolution: "@codemirror/lang-javascript@npm:0.20.1"
+  dependencies:
+    "@codemirror/autocomplete": ^0.20.0
+    "@codemirror/language": ^0.20.0
+    "@codemirror/lint": ^0.20.0
+    "@codemirror/state": ^0.20.0
+    "@codemirror/view": ^0.20.0
+    "@lezer/common": ^0.16.1
+    "@lezer/javascript": ^0.16.0
+  checksum: 169ed50ec2ef0171cc0719c48a971371a12b2a36180d42151f592bae3611f13331f422f67dd0cbbfc6938a5840fe8a96c90278de5606234896345391f15eff46
+  languageName: node
+  linkType: hard
+
 "@codemirror/language@npm:^0.20.0":
   version: 0.20.2
   resolution: "@codemirror/language@npm:0.20.2"
@@ -6206,6 +6236,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lezer/common@npm:^0.16.1":
+  version: 0.16.1
+  resolution: "@lezer/common@npm:0.16.1"
+  checksum: ee27598a8c2a4e5bcba285cf091b7c1aee36e5a5e8352b63ce65520e7279f6305e1272d8adede150fc4aee0073c1e3e93fb11271d538815db72bdff341c4be65
+  languageName: node
+  linkType: hard
+
 "@lezer/css@npm:^0.16.0":
   version: 0.16.0
   resolution: "@lezer/css@npm:0.16.0"
@@ -6222,6 +6259,26 @@ __metadata:
   dependencies:
     "@lezer/common": ^0.16.0
   checksum: f1be44044096c6e58d7f48b8eb50eb3c6b561d72b1537e239e50df3c7686ea46fce3c068cb95ef4a79bb1eb939caf700ff4a3dcddb39dd0ae6bce46aeccbdaf3
+  languageName: node
+  linkType: hard
+
+"@lezer/html@npm:^0.16.0":
+  version: 0.16.1
+  resolution: "@lezer/html@npm:0.16.1"
+  dependencies:
+    "@lezer/highlight": ^0.16.0
+    "@lezer/lr": ^0.16.0
+  checksum: a94ad6561e5effc21eaee24e141e566ed247c18a52ee5ab9e7a100bc9317ad068219934adae8054be318fc89652ead28de989b94e322c5d71799a2687eb5db3d
+  languageName: node
+  linkType: hard
+
+"@lezer/javascript@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@lezer/javascript@npm:0.16.0"
+  dependencies:
+    "@lezer/highlight": ^0.16.0
+    "@lezer/lr": ^0.16.0
+  checksum: 164c1dcadc47610e588fee1e1c1f1cb478a296373ab3654e04b41dd6feb375f0abe0df6b5d339e70aaa444df573873cf2302d21abe3f372cbaa0bebfd1cf7f5a
   languageName: node
   linkType: hard
 
@@ -15664,6 +15721,7 @@ __metadata:
     "@babel/types": 7.18.2
     "@codemirror/autocomplete": 0.20.0
     "@codemirror/lang-css": ^0.20.0
+    "@codemirror/lang-html": ^0.20.0
     "@commitlint/cli": 16.0.2
     "@commitlint/config-conventional": 16.0.0
     "@cypress/react": 5.12.4
