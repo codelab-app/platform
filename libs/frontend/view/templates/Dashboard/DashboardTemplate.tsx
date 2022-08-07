@@ -85,12 +85,23 @@ export const DashboardTemplate = observer(
       let result = 40
 
       if (EditorPane) {
-        const w = curEditorPaneHeight
-        result += w
+        const h = curEditorPaneHeight
+        result += h
       }
 
       return result
     }, [EditorPane, curEditorPaneHeight])
+
+    const mainHeight = useMemo(() => {
+      let result = windowHeight - 50
+
+      if (EditorPane) {
+        const h = curEditorPaneHeight
+        result -= h
+      }
+
+      return result
+    }, [EditorPane, curEditorPaneHeight, windowHeight])
 
     return (
       <Layout
@@ -162,7 +173,13 @@ export const DashboardTemplate = observer(
                 marginRight: ConfigPane ? metaPaneResizable.width : undefined,
               }}
             >
-              <div>{children}</div>
+              <div
+                style={{
+                  height: mainHeight,
+                }}
+              >
+                {children}
+              </div>
             </motion.main>
 
             {/* Config Pane */}

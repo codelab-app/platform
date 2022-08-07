@@ -18,7 +18,8 @@ import {
   ITypeService,
   RendererTab,
 } from '@codelab/shared/abstract/core'
-import { Alert, Spin, Tabs } from 'antd'
+import { Alert, Layout, Spin, Tabs } from 'antd'
+import { Content, Header } from 'antd/lib/layout/layout'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -130,41 +131,43 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     )
 
     return (
-      <>
+      <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
         {isLoading && <Spin />}
-        <Tabs
-          activeKey={builderService.activeTree}
-          defaultActiveKey={RendererTab.Page}
-          onChange={(key) => console.log(key)}
-          type="card"
-        >
-          <Tabs.TabPane key={RendererTab.Page} tab="Page">
-            {data?.pageElementTree && data?.renderer ? (
+        <Header style={{ background: 'rgba(0,0,0,0)', marginBottom: '5px' }}>
+          <Tabs
+            activeKey={builderService.activeTree}
+            defaultActiveKey={RendererTab.Page}
+            onChange={(key) => console.log(key)}
+            type="card"
+          >
+            <Tabs.TabPane key={RendererTab.Page} tab="Page" />
+            <Tabs.TabPane key={RendererTab.Component} tab="Component" />
+          </Tabs>
+        </Header>
+        <Content>
+          {builderService.activeTree === RendererTab.Page ? (
+            data?.pageElementTree && data?.renderer ? (
               <BaseBuilder
                 builderService={builderService}
                 elementService={elementService}
                 elementTree={data?.pageElementTree}
                 renderer={data?.renderer}
               />
-            ) : null}
-          </Tabs.TabPane>
-
-          <Tabs.TabPane key={RendererTab.Component} tab="Component">
-            {builderService.activeComponent && data?.appStore ? (
-              <BuilderComponent
-                BaseBuilder={BaseBuilder}
-                appStore={data?.appStore}
-                builderService={builderService}
-                componentId={builderService.activeComponent.id}
-                componentService={componentService}
-                elementService={elementService}
-                renderService={builderRenderService}
-              />
-            ) : null}
-          </Tabs.TabPane>
-        </Tabs>
-      </>
+            ) : null
+          ) : builderService.activeComponent && data?.appStore ? (
+            <BuilderComponent
+              BaseBuilder={BaseBuilder}
+              appStore={data?.appStore}
+              builderService={builderService}
+              componentId={builderService.activeComponent.id}
+              componentService={componentService}
+              elementService={elementService}
+              renderService={builderRenderService}
+            />
+          ) : null}
+        </Content>
+      </Layout>
     )
   },
 )
