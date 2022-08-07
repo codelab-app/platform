@@ -127,27 +127,27 @@ export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
             // needed to update props if we change them in the prop inspector tab
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
-            {isElement(selectedNode) && (
-              <UpdateInnerHtmlForm
-                element={selectedNode}
-                elementService={elementService}
-                trackPromises={trackPromises}
-              />
-            )}
             {isElement(selectedNode) &&
             (selectedNode.atom || selectedNode.instanceOfComponent) ? (
-              <UpdateElementPropsForm
-                actionList={actionService.actionsList}
-                autocomplete={renderService.platformState}
-                builderState={{
-                  componentId: builderService.activeComponent?.id,
-                }}
-                element={selectedNode}
-                elementService={elementService}
-                key={selectedNode.id}
-                trackPromises={trackPromises}
-                typeService={typeService}
-              />
+              <>
+                <UpdateInnerHtmlForm
+                  element={selectedNode}
+                  elementService={elementService}
+                  trackPromises={trackPromises}
+                />
+                <UpdateElementPropsForm
+                  actionList={actionService.actionsList}
+                  autocomplete={renderService.platformState}
+                  builderState={{
+                    componentId: builderService.activeComponent?.id,
+                  }}
+                  element={selectedNode}
+                  elementService={elementService}
+                  key={selectedNode.id}
+                  trackPromises={trackPromises}
+                  typeService={typeService}
+                />
+              </>
             ) : (
               `Add an atom or a component to this element to edit its props`
             )}
