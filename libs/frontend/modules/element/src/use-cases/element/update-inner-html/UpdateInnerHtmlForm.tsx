@@ -9,7 +9,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -24,6 +24,11 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
     const initialPropsRef = useRef(element?.props?.values ?? {})
+
+    const inEditMode = useCallback(
+      () => element.children.size === 0,
+      [element.children.size],
+    )
 
     const onSubmit = (data: IPropData) => {
       console.log(data)
@@ -44,10 +49,13 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
     return (
       <Row align="middle">
         <Col span={4}>
-          <p style={{ color: '#000000' }}>InnerHtml</p>
+          <p style={{ color: inEditMode() ? '#000000' : '#D1D1D1' }}>
+            InnerHtml
+          </p>
         </Col>
         <Col span={20}>
           <CodeMirrorInput
+            editable={inEditMode()}
             onChange={(newInnerHTML) => {
               onSubmit({
                 ...initialPropsRef.current,
@@ -57,7 +65,7 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
               })
             }}
             title="InnerHtml"
-            value={initialPropsRef.current['dangerouslySetInnerHTML'].__html}
+            value={initialPropsRef.current?.['dangerouslySetInnerHTML']?.__html}
           />
         </Col>
       </Row>
