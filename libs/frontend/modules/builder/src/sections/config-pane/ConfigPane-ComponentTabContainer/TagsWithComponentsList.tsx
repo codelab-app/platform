@@ -13,7 +13,7 @@ export const TagsWithComponentsList = (
     <div css={tw`mb-5`}>
       {tagsWithComponents.map((tag) => (
         <div>
-          <Typography.Title level={4}>{tag.name}</Typography.Title>
+          <Typography.Title level={2}>{tag.name}</Typography.Title>
           <GetComponentsList components={tag.components} />
         </div>
       ))}

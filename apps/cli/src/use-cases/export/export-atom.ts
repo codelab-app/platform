@@ -8,9 +8,9 @@ export type ExportAtomData = {
 export const exportAtom = async (): Promise<ExportAtomData> => {
   const Atom = await AtomOGM()
 
-  const atoms = await Atom.find({
+  const atoms = (await Atom.find({
     selectionSet: atomSelectionSet,
-  })
+  })) as Array<IAtomExport>
 
   // const confirmExportAtom = await inquirer.prompt([
   //   {

@@ -4,6 +4,7 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type AtomFragment = {
+  icon?: string | null
   id: string
   name: string
   type: Types.AtomType
@@ -13,6 +14,7 @@ export type AtomFragment = {
 
 export const AtomFragmentDoc = gql`
   fragment Atom on Atom {
+    icon
     id
     name
     type

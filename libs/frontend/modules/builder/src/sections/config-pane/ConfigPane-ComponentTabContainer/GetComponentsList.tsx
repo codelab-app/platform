@@ -13,8 +13,12 @@ export const GetComponentsList = observer<{
       {components.map((component) => {
         return (
           <div css={tw`m-1 mb-6 mr-6 cursor-pointer`}>
-            <Card css={tw`mr-16`} hoverable title={<b>{component.name}</b>}>
-              <img alt="" src="/codelab-logo-default.svg" />
+            <Card
+              css={tw`mr-16`}
+              hoverable
+              title={<span>{component.name}</span>}
+            >
+              <img alt="" src={component.icon || '/codelab-logo-default.svg'} />
             </Card>
           </div>
         )

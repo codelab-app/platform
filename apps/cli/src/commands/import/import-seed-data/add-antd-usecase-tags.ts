@@ -1,4 +1,5 @@
 import { IAtomExport } from '@codelab/shared/abstract/core'
+import { searchRelatedParentName } from './utils'
 
 const atomNamesByTag: Record<string, Array<string>> = {
   General: ['Button', 'Icon', 'Typography'],
@@ -81,13 +82,13 @@ export const addAntdUsecaseTags = (atoms: Array<IAtomExport>) => {
 
     const nameWithoutAntDesign = name.replace('AntDesign', '')
 
-    const relatedParentName = antdCompNames.find(
-      (antdName) =>
-        name !== antdName && nameWithoutAntDesign.startsWith(antdName),
+    const relatedParentName = searchRelatedParentName(
+      nameWithoutAntDesign,
+      antdCompNames,
     )
 
     const foundTag = antUsecaseTags.find((tag) =>
-      atomNamesByTag[tag].includes(relatedParentName || name),
+      atomNamesByTag[tag].includes(relatedParentName || nameWithoutAntDesign),
     )
 
     if (!foundTag) {

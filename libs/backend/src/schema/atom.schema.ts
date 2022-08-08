@@ -14,6 +14,7 @@ export const atomSchema = gql`
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
+    icon: String
   }
 
   extend type Atom
