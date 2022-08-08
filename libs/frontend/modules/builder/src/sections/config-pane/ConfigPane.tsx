@@ -61,7 +61,7 @@ export const ConfigPane = observer<MetaPaneProps>(
 
     return (
       <TabContainer>
-        <Tabs defaultActiveKey={selectedNode.id + '_tab1'} size="small">
+        <Tabs defaultActiveKey={selectedNode.id + '_tab2'} size="small">
           <Tabs.TabPane
             destroyInactiveTabPane
             key="tab1"

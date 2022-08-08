@@ -170,12 +170,14 @@ PageBuilder.Layout = observer((page) => {
     typeService,
     builderRenderService,
     actionService,
+    appRenderService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
+  const pageTree = pageBuilderRenderer?.pageTree?.current
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)

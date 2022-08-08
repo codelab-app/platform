@@ -1,6 +1,6 @@
 import {
   BuilderDndType,
-  BuilderDragData,
+  BuilderDropData,
   ICreateElementDTO,
   IElementRef,
 } from '@codelab/shared/abstract/core'
@@ -10,7 +10,7 @@ export const useCreateElementDroppable = (
   id: IElementRef,
   input: ICreateElementDTO,
 ) => {
-  const data: BuilderDragData = {
+  const data: BuilderDropData = {
     type: BuilderDndType.CreateElement,
     createElementInput: input,
   }

@@ -1,9 +1,15 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElementService,
+  IElementTree,
+  IRenderService,
+} from '@codelab/shared/abstract/core'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
+import { GetComponentItem } from '../sections/config-pane/ConfigPane-ComponentTabContainer/GetComponentItem'
 import { builderCollisionDetection } from './builderCollisionDetection'
 import { useBuilderDnd } from './useBuilderDnd'
 
@@ -42,8 +48,11 @@ export const BuilderContext = observer<
 
       <DragOverlay dropAnimation={null}>
         {builderService.currentDragData ? (
-          <div css={tw`p-2 text-sm border-gray-200 border w-24`}>
-            {builderService.currentDragData.data.createElementInput.name}
+          <div css={tw`p-2 text-sm border-gray-200 border w-[300px]`}>
+            <GetComponentItem
+              component={builderService.currentDragData.data}
+              css={tw`opacity-40`}
+            />
           </div>
         ) : null}
       </DragOverlay>
