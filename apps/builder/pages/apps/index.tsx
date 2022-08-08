@@ -13,8 +13,12 @@ import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
   ContentSection,
+  pageBuilderMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -88,12 +92,23 @@ export default AppsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AppsPage.Layout = (page) => {
+  const { userService } = useStore()
+
   return (
     <DashboardTemplate
       Header={AppsPageHeader}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(userService.user?.curAppId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(userService.user?.curAppId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}

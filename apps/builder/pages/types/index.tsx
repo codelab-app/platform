@@ -10,8 +10,12 @@ import {
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
   ContentSection,
+  pageBuilderMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -67,12 +71,23 @@ export default TypesPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 TypesPage.Layout = observer((page) => {
+  const { userService } = useStore()
+
   return (
     <DashboardTemplate
       Header={Header}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(userService.user?.curAppId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(userService.user?.curAppId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}

@@ -15,8 +15,12 @@ import {
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
   ContentSection,
+  pageBuilderMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -97,12 +101,23 @@ export default DomainsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 DomainsPage.Layout = (page) => {
+  const { userService } = useStore()
+
   return (
     <DashboardTemplate
       Header={DomainsPageHeader}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(userService.user?.curAppId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(userService.user?.curAppId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}

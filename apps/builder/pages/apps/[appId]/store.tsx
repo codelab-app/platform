@@ -21,7 +21,14 @@ import {
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DisplayIf } from '@codelab/frontend/view/components'
-import { adminMenuItems, appMenuItem } from '@codelab/frontend/view/sections'
+import {
+  adminMenuItems,
+  allPagesMenuItem,
+  appMenuItem,
+  pageBuilderMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
+} from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -108,7 +115,8 @@ const StorePage: CodelabPage = observer(() => {
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 StorePage.Layout = observer((page) => {
-  const { actionService, appService, typeService, storeService } = useStore()
+  const { actionService, appService, typeService, storeService, userService } =
+    useStore()
 
   return (
     <DashboardTemplate
@@ -129,7 +137,16 @@ StorePage.Layout = observer((page) => {
       )}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(userService.user?.curAppId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(userService.user?.curAppId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}

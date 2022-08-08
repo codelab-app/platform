@@ -9,14 +9,18 @@ import {
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import {
+  useCurrentAppId,
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
+  pageBuilderMenuItem,
   resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -24,7 +28,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
   const store = useStore()
@@ -72,9 +76,15 @@ PageBuilder.Layout = observer((page) => {
     actionService,
   } = useStore()
 
+  const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
+
+  useEffect(() => {
+    userService.user?.setCurAppId(appId)
+    userService.user?.setCurPageId(pageId)
+  }, [appId, pageId])
 
   return (
     <BuilderContext
@@ -119,7 +129,13 @@ PageBuilder.Layout = observer((page) => {
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation
-            primaryItems={[appMenuItem, resourceMenuItem]}
+            primaryItems={[
+              appMenuItem,
+              allPagesMenuItem(appId),
+              pageBuilderMenuItem(appId, pageId),
+              storeMenuItem(appId),
+              resourceMenuItem,
+            ]}
             secondaryItems={adminMenuItems}
             // activeBuilderTab={builderService.activeBuilderTab}
             // key={pageBuilderRenderer?.pageTree?.current.root?.id}

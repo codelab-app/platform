@@ -13,8 +13,12 @@ import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
   ContentSection,
+  pageBuilderMenuItem,
+  resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -64,15 +68,24 @@ const TagPageHeader = observer(() => {
 export default TagPage
 
 TagPage.Layout = observer((page) => {
-  const store = useStore()
+  const { tagService, userService } = useStore()
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <GetTagsTree tagService={store.tagService} />}
+      ExplorerPane={() => <GetTagsTree tagService={tagService} />}
       Header={TagPageHeader}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(userService.user?.curAppId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(userService.user?.curAppId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}

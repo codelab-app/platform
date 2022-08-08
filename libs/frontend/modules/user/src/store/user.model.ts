@@ -1,6 +1,7 @@
 import { appRef } from '@codelab/frontend/modules/app'
 import type { IApp, IUser, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import {
   detach,
   idProp,
@@ -38,6 +39,8 @@ export class User
     auth0Id: prop<string>(),
     roles: prop<Array<IRole>>(() => []),
     apps: prop<Array<Ref<IApp>>>(() => []),
+    curAppId: prop<Nullable<string>>(null).withSetter(),
+    curPageId: prop<Nullable<string>>(null).withSetter(),
   })
   implements IUser
 {
