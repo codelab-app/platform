@@ -1,4 +1,6 @@
+import { getAtomService } from '@codelab/frontend/modules/atom'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
+import { getComponentService } from '@codelab/frontend/presenter/container'
 import {
   BuilderDragData,
   BuilderTab,
@@ -42,6 +44,13 @@ export class BuilderService
   })
   implements IBuilderService
 {
+  get components() {
+    const atomService = getAtomService(this)
+    const componentService = getComponentService(this)
+
+    return [...atomService.atoms, ...componentService.components.values()]
+  }
+
   @computed
   get selectedNode() {
     return this._selectedNode?.current ?? null

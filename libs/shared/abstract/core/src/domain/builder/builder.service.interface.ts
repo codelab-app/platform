@@ -1,6 +1,7 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Frozen, Ref } from 'mobx-keystone'
 import { IModalService } from '../../service'
+import { IAtom } from '../atom/atom.interface'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
@@ -31,6 +32,7 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<IComponent>
+  components: Array<IAtom | IComponent>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void
