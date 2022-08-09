@@ -1,6 +1,6 @@
 import { IPropData } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { merge } from 'lodash'
+import { mergeWith } from 'lodash'
 
 type PropsArray = Array<Nullish<IPropData>>
 
@@ -21,6 +21,6 @@ const propsCustomizer = (value: any, srcValue: any, key: string) => {
 
 export const mergeProps = (...propsArray: PropsArray): IPropData => {
   return propsArray.reduce<IPropData>((mergedProps, nextProps) => {
-    return merge(mergedProps, nextProps)
+    return mergeWith(mergedProps, nextProps, propsCustomizer)
   }, {})
 }
