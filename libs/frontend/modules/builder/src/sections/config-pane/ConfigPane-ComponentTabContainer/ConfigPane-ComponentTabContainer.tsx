@@ -3,6 +3,7 @@ import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { GetComponentsList } from './GetComponentsList'
+import { TagsWithComponentsList } from './TagsWithComponentsList'
 
 export const ConfigPaneComponentTabContainer = observer(() => {
   /**
@@ -23,17 +24,15 @@ export const ConfigPaneComponentTabContainer = observer(() => {
     componentService.getAll(),
   )
 
-  console.log({
-    isLoadingAtoms,
-    isLoadingComponents,
-    comp: builderService.components,
-  })
-
   const isLoading = isLoadingAtoms || isLoadingComponents
 
   if (isLoading) {
     return <Spin />
   }
 
-  return <GetComponentsList components={builderService.components} />
+  return (
+    <TagsWithComponentsList
+      tagsWithComponents={builderService.tagsWithComponents}
+    />
+  )
 })

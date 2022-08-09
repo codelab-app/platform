@@ -5,6 +5,7 @@ import { IAtom } from '../atom/atom.interface'
 import { IComponent } from '../component'
 import { IElementTree } from '../element'
 import { IStateTreeNode, RendererTab } from '../render'
+import { ITag } from '../tag'
 import { BuilderDragData } from './builder.interface'
 import { BuilderTab } from './builder-tab.interface'
 import { INode } from './node.interface'
@@ -12,6 +13,8 @@ import { INode } from './node.interface'
 export interface StateModalProperties {
   node: Nullable<IStateTreeNode>
 }
+
+export type IBuilderComponent = IAtom | IComponent
 
 export interface IBuilderService {
   activeBuilderTab: BuilderTab
@@ -32,7 +35,10 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<IComponent>
-  components: Array<IAtom | IComponent>
+  componentUsecaseTags: Array<ITag>
+  tagsWithComponents: Array<
+    Pick<ITag, 'name' | 'id'> & { components: Array<IBuilderComponent> }
+  >
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void

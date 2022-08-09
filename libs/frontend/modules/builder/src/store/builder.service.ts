@@ -1,6 +1,9 @@
-import { getAtomService } from '@codelab/frontend/modules/atom'
+import { atomRef, getAtomService } from '@codelab/frontend/modules/atom'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
-import { getComponentService } from '@codelab/frontend/presenter/container'
+import {
+  componentRef,
+  getComponentService,
+} from '@codelab/frontend/presenter/container'
 import {
   BuilderDragData,
   BuilderTab,
@@ -11,7 +14,7 @@ import {
   RendererTab,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
+import { computed, toJS } from 'mobx'
 import {
   findParent,
   Frozen,
@@ -23,7 +26,11 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { StateModalService } from './state-modal.service'
+
+const randomInt = (max: number, min: number) =>
+  Math.round(Math.random() * (max - min)) + min
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -44,11 +51,38 @@ export class BuilderService
   })
   implements IBuilderService
 {
-  get components() {
+  get componentUsecaseTags() {
+    return [
+      { name: 'Presentation', id: v4() },
+      { name: 'General', id: v4() },
+      { name: 'Layout', id: v4() },
+      { name: 'Data Entry', id: v4() },
+      { name: 'Data Display', id: v4() },
+    ] as any
+  }
+
+  get tagsWithComponents() {
     const atomService = getAtomService(this)
     const componentService = getComponentService(this)
 
-    return [...atomService.atoms, ...componentService.components.values()]
+    const components = [
+      ...atomService.atoms,
+      ...[...componentService.components.values()],
+    ]
+
+    const componentUsecaseTags = this.componentUsecaseTags
+
+    components.forEach((component) => {
+      const randomTag = componentUsecaseTags[randomInt(0, 4)]
+
+      if (!randomTag.components) {
+        randomTag.components = []
+      }
+
+      randomTag.components.push(component)
+    })
+
+    return componentUsecaseTags
   }
 
   @computed

@@ -25,7 +25,7 @@ import {
 import { v4 } from 'uuid'
 import { makeTagConnectData } from '../use-cases/helper'
 import { atomApi } from './atom.api'
-import { Atom } from './atom.model'
+import { Atom, atomRef } from './atom.model'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 @model('@codelab/AtomService')
@@ -106,7 +106,10 @@ export class AtomService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AtomService, where?: AtomWhere) {
-    const { atoms } = yield* _await(atomApi.GetAtoms({ where }))
+    const { atoms: test } = yield* _await(atomApi.GetAtoms({ where }))
+    const atoms = test
+
+    console.log({ atoms })
 
     return atoms.map((atom) => {
       const atomModel = Atom.hydrate(atom)
