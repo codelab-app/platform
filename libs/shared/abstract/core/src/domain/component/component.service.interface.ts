@@ -8,6 +8,7 @@ import {
   IQueryService,
 } from '../../service'
 import { IBuilderDataNode } from '../../ui'
+import { IAuth0Id } from '../user'
 import {
   IComponentDTO,
   ICreateComponentDTO,
@@ -23,5 +24,5 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
-  loadComponentTrees(): Promise<any>
+  loadComponentTrees(auth0Id: IAuth0Id): Promise<any>
 }

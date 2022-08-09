@@ -27,6 +27,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     componentService,
     storeService,
     appRenderService,
+    userService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -56,7 +57,7 @@ const PageRenderer: CodelabPage<any> = observer(() => {
 
       // components are needed to build pageElementTree
       // therefore they must be loaded first
-      await componentService.loadComponentTrees()
+      await componentService.loadComponentTrees(userService.auth0Id)
 
       /**
        * Construct the ElementTree's for

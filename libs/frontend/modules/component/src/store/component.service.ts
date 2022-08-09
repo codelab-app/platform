@@ -1,6 +1,5 @@
 import { COMPONENT_TREE_CONTAINER } from '@codelab/frontend/abstract/core'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
-import { getUserService } from '@codelab/frontend/modules/user'
 import {
   elementServiceContext,
   getElementService,
@@ -8,6 +7,7 @@ import {
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import type {
+  IAuth0Id,
   IBuilderDataNode,
   IComponent,
   IComponentDTO,
@@ -83,16 +83,11 @@ export class ComponentService
   }
 
   @modelFlow
-  loadComponentTrees = _async(function* (this: ComponentService) {
-    const userService = getUserService(this)
-
-    const components = yield* _await(
-      this.getAll({
-        owner: {
-          auth0Id: userService.auth0Id,
-        },
-      }),
-    )
+  loadComponentTrees = _async(function* (
+    this: ComponentService,
+    auth0Id: IAuth0Id,
+  ) {
+    const components = yield* _await(this.getAll({ owner: { auth0Id } }))
 
     const rootElement = new Element({
       id: 'components',

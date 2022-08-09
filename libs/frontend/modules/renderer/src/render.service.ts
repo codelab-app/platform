@@ -1,4 +1,5 @@
 import type {
+  IBuilderService,
   IElementTree,
   IRenderer,
   IRenderService,
@@ -34,6 +35,7 @@ export class RenderService
     appStore: IStore,
     platformState?: Nullish<ModelClass<AnyModel>>,
     isBuilder?: boolean,
+    set_selectedNode?: IBuilderService['set_selectedNode'],
   ) {
     const existing = this.renderers.get(id)
 
@@ -44,6 +46,7 @@ export class RenderService
         appTree,
         platformState,
         isBuilder,
+        set_selectedNode,
       )
 
       this.renderers.set(id, renderer)

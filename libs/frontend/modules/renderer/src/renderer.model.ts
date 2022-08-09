@@ -1,4 +1,5 @@
-import { elementTreeRef } from '@codelab/frontend/modules/element'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import { elementRef, elementTreeRef } from '@codelab/frontend/modules/element'
 import { getState } from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
@@ -6,6 +7,7 @@ import {
   storeRef,
 } from '@codelab/frontend/presenter/container'
 import type {
+  IBuilderService,
   IElement,
   IElementTree,
   IPropData,
@@ -46,23 +48,34 @@ import { isTypedValue } from './utils/isTypedValue'
 import { reduceComponentTree } from './utils/reduceComponentTree'
 import { mapOutput } from './utils/renderOutputUtils'
 
-/**
- * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
- */
-const builderGlobals = {
-  onClick: () => {
-    //
-  },
-  href: '#',
-}
-
 const init = (
   pageTree: IElementTree,
   appStore: IStore,
   appTree?: Nullable<IElementTree>,
   platformState?: any,
   isBuilder?: boolean,
+  set_selectedNode?: IBuilderService['set_selectedNode'],
 ) => {
+  /**
+   * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
+   */
+  const builderGlobals = {
+    onClick: (e: React.MouseEvent) => {
+      if (!isBuilder) {
+        return
+      }
+
+      e.stopPropagation()
+
+      const elementId = e.currentTarget.getAttribute(DATA_ELEMENT_ID)
+
+      if (elementId !== null) {
+        set_selectedNode?.(elementRef(elementId))
+      }
+    },
+    href: '#',
+  }
+
   const renderer = new Renderer({
     appTree: appTree ? elementTreeRef(appTree) : null,
     pageTree: elementTreeRef(pageTree),
@@ -176,7 +189,6 @@ export class Renderer
     }
 
     const rootElement = this.renderElement(root)
-    console.log({ rootElement, root })
 
     return this.renderWithProviders(rootElement)
   }

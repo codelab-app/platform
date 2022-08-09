@@ -45,8 +45,6 @@ export class ElementTreeService
     })
 
     if (!this.elementTree) {
-      console.log('init like this..')
-
       this.elementTree = ElementTree.init(elements)
 
       return this.elementTree

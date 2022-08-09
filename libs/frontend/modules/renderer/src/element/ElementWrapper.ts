@@ -1,6 +1,7 @@
 import { IElement, IPropData, IRenderer } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
+import { merge } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useContext } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
@@ -56,7 +57,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const IntermediateChildren = jsx(
         ReactComponent,
-        mergeProps(extractedProps),
+        // merge because some refs are not resolved
+        merge(extraProps, extractedProps),
         children,
       )
 

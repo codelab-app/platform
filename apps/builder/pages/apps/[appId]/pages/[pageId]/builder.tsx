@@ -42,6 +42,7 @@ const PageBuilder: CodelabPage = observer(() => {
     builderRenderService,
     elementService,
     builderService,
+    userService,
   } = useStore()
 
   const router = useRouter()
@@ -84,7 +85,10 @@ const PageBuilder: CodelabPage = observer(() => {
        * components are needed to build pageElementTree
        *
        */
-      const components = await componentService.loadComponentTrees()
+      const components = await componentService.loadComponentTrees(
+        userService.auth0Id,
+      )
+
       /**
        *
        * load all types
