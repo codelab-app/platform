@@ -8,14 +8,6 @@ interface RedirectExternalDomainParams {
   redirectedDomainUrl: string
 }
 
-const stripTrailingSlash = (str: string) => {
-  if (str.charAt(str.length - 1) == '/') {
-    str = str.substring(0, str.length - 1)
-  }
-
-  return str
-}
-
 export const redirectExternalDomain = async ({
   hostname,
   pathname,
@@ -31,9 +23,7 @@ export const redirectExternalDomain = async ({
 
   if (app?.owner.username) {
     const url = new URL(
-      stripTrailingSlash(
-        `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
-      ),
+      `/_sites/user/${app.owner.username}/${app.slug}${pathname}`,
       redirectedDomainUrl,
     )
 
