@@ -189,7 +189,6 @@ export class Renderer
     }
 
     const rootElement = this.renderElement(root)
-    console.log({ rootElement, root })
 
     return this.renderWithProviders(rootElement)
   }

@@ -17,11 +17,8 @@ import {
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
-  allPagesMenuItem,
   appMenuItem,
-  pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -42,6 +39,7 @@ const PageBuilder: CodelabPage = observer(() => {
     builderRenderService,
     elementService,
     builderService,
+    userService,
   } = useStore()
 
   const router = useRouter()
@@ -84,7 +82,10 @@ const PageBuilder: CodelabPage = observer(() => {
        * components are needed to build pageElementTree
        *
        */
-      const components = await componentService.loadComponentTrees()
+      const components = await componentService.loadComponentTrees(
+        userService.auth0Id,
+      )
+
       /**
        *
        * load all types
@@ -215,13 +216,7 @@ PageBuilder.Layout = observer((page) => {
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation
-            primaryItems={[
-              appMenuItem,
-              allPagesMenuItem(appId),
-              pageBuilderMenuItem(appId, pageId),
-              storeMenuItem(appId),
-              resourceMenuItem,
-            ]}
+            primaryItems={[appMenuItem, resourceMenuItem]}
             secondaryItems={adminMenuItems}
             // activeBuilderTab={builderService.activeBuilderTab}
             // key={pageBuilderRenderer?.pageTree?.current.root?.id}
