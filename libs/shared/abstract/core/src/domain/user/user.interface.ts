@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import { IApp } from '../app'
 import { IRole } from './role.enum'
@@ -9,6 +10,10 @@ export interface IUser {
   username: string
   roles: Array<IRole>
   apps: Array<Ref<IApp>>
+  curAppId: Nullable<string>
+  curPageId: Nullable<string>
+  setCurAppId(appId: string): void
+  setCurPageId(pageId: string): void
   // apps: ObjectMap<IApp>
 }
 

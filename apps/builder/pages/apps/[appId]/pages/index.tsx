@@ -8,7 +8,10 @@ import {
 } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
+  pageBuilderMenuItem,
+  resourceMenuItem,
   storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
@@ -18,7 +21,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
@@ -38,15 +41,28 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
-  const store = useStore()
+  const { userService, pageService } = useStore()
   const appId = useCurrentAppId()
+
+  useEffect(() => {
+    userService.user?.setCurAppId(appId)
+  }, [appId])
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <ExplorerPanePage pageService={store.pageService} />}
+      ExplorerPane={() => <ExplorerPanePage pageService={pageService} />}
       SidebarNavigation={() => (
         <SidebarNavigation
-          primaryItems={[appMenuItem, storeMenuItem(appId)]}
+          primaryItems={[
+            appMenuItem,
+            allPagesMenuItem(appId),
+            pageBuilderMenuItem(
+              userService.user?.curAppId,
+              userService.user?.curPageId,
+            ),
+            storeMenuItem(appId),
+            resourceMenuItem,
+          ]}
           secondaryItems={adminMenuItems}
         />
       )}
