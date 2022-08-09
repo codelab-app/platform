@@ -43,6 +43,7 @@ const PageBuilder: CodelabPage = observer(() => {
     componentService,
     builderRenderService,
     typeService,
+    userService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -73,7 +74,10 @@ const PageBuilder: CodelabPage = observer(() => {
        * components are needed to build pageElementTree
        *
        */
-      const components = await componentService.loadComponentTrees()
+      const components = await componentService.loadComponentTrees(
+        userService.auth0Id,
+      )
+
       /**
        *
        * load all types
