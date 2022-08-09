@@ -1,14 +1,20 @@
 import { ErrorBoundary } from '@codelab/frontend/view/components'
 import { IBuilderService } from '@codelab/shared/abstract/core'
+import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import tw from 'twin.macro'
 
 export const GetComponentsList = observer<Pick<IBuilderService, 'components'>>(
   ({ components = [] }) => {
     return (
       <ErrorBoundary>
         {components.map((component) => (
-          <div>{component.name}</div>
+          <div css={tw`m-1 mb-6 mr-6 cursor-pointer`}>
+            <Card css={tw`mr-16`} hoverable title={component.name}>
+              <img alt="" src="/codelab-logo-default.svg" />
+            </Card>
+          </div>
         ))}
       </ErrorBoundary>
     )
