@@ -17,8 +17,11 @@ import {
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
   adminMenuItems,
+  allPagesMenuItem,
   appMenuItem,
+  pageBuilderMenuItem,
   resourceMenuItem,
+  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -216,7 +219,13 @@ PageBuilder.Layout = observer((page) => {
         ))}
         SidebarNavigation={() => (
           <SidebarNavigation
-            primaryItems={[appMenuItem, resourceMenuItem]}
+            primaryItems={[
+              appMenuItem,
+              allPagesMenuItem(appId),
+              pageBuilderMenuItem(appId, pageId),
+              storeMenuItem(appId),
+              resourceMenuItem,
+            ]}
             secondaryItems={adminMenuItems}
             // activeBuilderTab={builderService.activeBuilderTab}
             // key={pageBuilderRenderer?.pageTree?.current.root?.id}
