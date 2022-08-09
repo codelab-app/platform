@@ -8,8 +8,8 @@ export interface IRenderService {
   addRenderer(
     id: string,
     pageTree: IElementTree,
+    appTree: Nullable<IElementTree>,
     appStore: IStore,
-    appTree?: Nullable<IElementTree>,
     platformState?: Nullish<ModelClass<AnyModel>>,
     isBuilder?: boolean,
   ): IRenderer

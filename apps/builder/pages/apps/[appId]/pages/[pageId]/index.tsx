@@ -74,8 +74,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       const renderer = await appRenderService.addRenderer(
         pageId,
         pageElementTree,
+        app.elementTree,
         appStore,
-        null,
         await createMobxState(appStore, apps, pages, router),
         false,
       )
