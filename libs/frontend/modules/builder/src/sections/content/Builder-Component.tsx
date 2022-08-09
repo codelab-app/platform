@@ -49,8 +49,8 @@ export const BuilderComponent = observer<BuilderComponentProps>(
         await renderService.addRenderer(
           componentId,
           componentTree,
-          appStore,
           null,
+          appStore,
           null,
           true,
         )

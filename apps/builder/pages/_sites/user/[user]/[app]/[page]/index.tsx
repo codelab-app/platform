@@ -50,8 +50,8 @@ const Index = (props: PageProps) => {
     const result = builderRenderService.addRenderer(
       pageId,
       page.elementTree,
+      app.elementTree,
       appStore,
-      null,
       createMobxState(appStore, [app], [page], router),
     )
 
