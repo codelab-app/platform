@@ -42,12 +42,7 @@ export const createActionFn = (action: IAnyAction, context: any) => {
           })
 
     case IActionKind.PipelineAction:
-      return (...args: Array<any>) => {
-        action.actionsSorted.map(async (a) => {
-          const result = createActionFn(a, context)(...args)
-
-          return result instanceof Promise ? await result : result
-        })
-      }
+      return (...args: Array<any>) =>
+        action.actionsSorted.map((a) => createActionFn(a, context)(...args))
   }
 }
