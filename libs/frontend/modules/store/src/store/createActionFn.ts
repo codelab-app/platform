@@ -20,7 +20,7 @@ export const createActionFn = (action: IAnyAction, context: any) => {
             set(context, `${action.name}.response`, data)
 
             if (action.successAction.current) {
-              return getActionRunner(
+              return createActionFn(
                 action.successAction.current,
                 context,
               )(...args)
@@ -32,7 +32,7 @@ export const createActionFn = (action: IAnyAction, context: any) => {
             set(context, `${action.name}.error`, error)
 
             if (action.errorAction.current) {
-              return getActionRunner(
+              return createActionFn(
                 action.errorAction.current,
                 context,
               )(...args)
@@ -43,6 +43,6 @@ export const createActionFn = (action: IAnyAction, context: any) => {
 
     case IActionKind.PipelineAction:
       return (...args: Array<any>) =>
-        action.actionsSorted.map((a) => getActionRunner(a, context)(...args))
+        action.actionsSorted.map((a) => createActionFn(a, context)(...args))
   }
 }
