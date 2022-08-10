@@ -8,8 +8,8 @@ export const TagsColumn = ({ tags }: TagsColumnProps) => {
     <div>
       {tags?.map((tag: any) => {
         return (
-          <Tag color={GEEK_BLUE_COLOR} key={tag?.maybeCurrent.id}>
-            {tag?.maybeCurrent.name}
+          <Tag color={GEEK_BLUE_COLOR} key={tag?.id}>
+            {tag?.name}
           </Tag>
         )
       })}

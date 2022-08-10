@@ -1,12 +1,14 @@
 import { fieldRepository } from '@codelab/backend'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
+import { flow } from 'lodash'
 import path from 'path'
-import { importAtom } from '../../use-cases/import/import-atom'
-import { importType } from '../../use-cases/import/import-type'
-import { createAntDesignAtomsData } from '../../use-cases/parser/ant-design'
-import { ParserService } from '../../use-cases/parser/parser.service'
-import type { ExportedData } from '../export/export.command'
+import { importAtom } from '../../../use-cases/import/import-atom'
+import { importType } from '../../../use-cases/import/import-type'
+import { createAntDesignAtomsData } from '../../../use-cases/parser/ant-design'
+import { ParserService } from '../../../use-cases/parser/parser.service'
+import type { ExportedData } from '../../export/export.command'
+import { addAntdUsecaseTags } from './add-antd-usecase-tags'
 
 export const seedFilePath = path.resolve('data', 'seed-data.json')
 
@@ -22,7 +24,9 @@ export const importSeedData = async (selectedUser: string) => {
   // ID's must be in sync
   await importType(types, selectedUser)
 
-  await importAtom(atoms, selectedUser)
+  const atomFactory = flow(addAntdUsecaseTags)
+
+  await importAtom(atomFactory(atoms), selectedUser)
 }
 
 /**
