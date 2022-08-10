@@ -7,6 +7,7 @@ import {
   ConfigPane,
   EditorPaneBuilder,
 } from '@codelab/frontend/modules/builder'
+import { elementRef } from '@codelab/frontend/modules/element'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { createMobxState } from '@codelab/frontend/modules/store'
 import {
@@ -107,6 +108,11 @@ const PageBuilder: CodelabPage = observer(() => {
        *
        */
       const pageElementTree = await page.initTree(page.rootElement.id)
+      const pageRootElement = elementService.element(page.rootElement.id)
+
+      if (pageRootElement) {
+        builderService.set_selectedNode(elementRef(pageRootElement))
+      }
 
       const renderer = await builderRenderService.addRenderer(
         pageId,
@@ -227,11 +233,11 @@ PageBuilder.Layout = observer((page) => {
               resourceMenuItem,
             ]}
             secondaryItems={adminMenuItems}
-            // activeBuilderTab={builderService.activeBuilderTab}
-            // key={pageBuilderRenderer?.pageTree?.current.root?.id}
-            // setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
-            //   builderService,
-            // )}
+          // activeBuilderTab={builderService.activeBuilderTab}
+          // key={pageBuilderRenderer?.pageTree?.current.root?.id}
+          // setActiveBuilderTab={builderService.setActiveBuilderTab.bind(
+          //   builderService,
+          // )}
           />
         )}
         contentStyles={{ paddingTop: '0rem' }}

@@ -1,9 +1,6 @@
-import { atomRef, getAtomService } from '@codelab/frontend/modules/atom'
+import { getAtomService } from '@codelab/frontend/modules/atom'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
-import {
-  componentRef,
-  getComponentService,
-} from '@codelab/frontend/presenter/container'
+import { getTagService, Tag } from '@codelab/frontend/modules/tag'
 import {
   BuilderDragData,
   BuilderTab,
@@ -12,8 +9,10 @@ import {
   isComponent,
   isElement,
   RendererTab,
+  TagWithComponents,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { componentUsecaseTagName } from '@codelab/shared/data'
 import { computed, toJS } from 'mobx'
 import {
   findParent,
@@ -52,34 +51,53 @@ export class BuilderService
   implements IBuilderService
 {
   get componentUsecaseTags() {
-    return [
-      { name: 'Presentation', id: v4() },
-      { name: 'General', id: v4() },
-      { name: 'Layout', id: v4() },
-      { name: 'Data Entry', id: v4() },
-      { name: 'Data Display', id: v4() },
-    ] as any
+    const tagService = getTagService(this)
+    const tags = tagService.tags
+
+    const componentUsecaseTag = tags.find(
+      (tag) => tag.name === componentUsecaseTagName,
+    )
+
+    if (!componentUsecaseTag) {
+      return []
+    }
+
+    return (
+      componentUsecaseTag.children
+        .map((id) => tagService.tag(id))
+        // filter empty
+        .filter((t) => t)
+        // cast as truthy
+        .map((tag) => toJS(tag) as Tag)
+    )
   }
 
   get tagsWithComponents() {
     const atomService = getAtomService(this)
-    const componentService = getComponentService(this)
+    // const componentService = getComponentService(this)
 
     const components = [
       ...atomService.atoms,
-      ...[...componentService.components.values()],
+      // ...[...componentService.components.values()],
     ]
 
-    const componentUsecaseTags = this.componentUsecaseTags
+    const componentUsecaseTags = this.componentUsecaseTags.map((t) => ({
+      ...t,
+      components: [],
+    }))
 
     components.forEach((component) => {
-      const randomTag = componentUsecaseTags[randomInt(0, 4)]
+      const tagNames = component.tags.map((t) => t.current.name)
 
-      if (!randomTag.components) {
-        randomTag.components = []
+      const foundComponentusecaseTag = componentUsecaseTags.find((usecaseTag) =>
+        tagNames.includes(usecaseTag.name),
+      ) as TagWithComponents | undefined
+
+      if (!foundComponentusecaseTag) {
+        return
       }
 
-      randomTag.components.push(component)
+      foundComponentusecaseTag.components.push(component)
     })
 
     return componentUsecaseTags

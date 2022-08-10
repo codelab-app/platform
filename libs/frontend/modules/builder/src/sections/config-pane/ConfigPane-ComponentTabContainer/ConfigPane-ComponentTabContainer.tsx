@@ -2,16 +2,19 @@ import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { GetComponentsList } from './GetComponentsList'
 import { TagsWithComponentsList } from './TagsWithComponentsList'
 
 export const ConfigPaneComponentTabContainer = observer(() => {
   /**
    * TODO:
-   * handle dnd to page
-   * handle dnd to tree
+   * handle component
    */
-  const { atomService, componentService, builderService } = useStore()
+  const {
+    atomService,
+    // componentService,
+    builderService,
+    tagService,
+  } = useStore()
 
   const [, { isLoading: isLoadingAtoms }] = useStatefulExecutor(
     () => atomService.getAll(),
@@ -20,11 +23,19 @@ export const ConfigPaneComponentTabContainer = observer(() => {
     },
   )
 
-  const [, { isLoading: isLoadingComponents }] = useStatefulExecutor(() =>
-    componentService.getAll(),
+  // const [, { isLoading: isLoadingComponents }] = useStatefulExecutor(() =>
+  //   componentService.getAll(),
+  // )
+
+  const [, { isLoading: isLoadingUsecaseTags }] = useStatefulExecutor(
+    () => tagService.getAll(),
+    {
+      executeOnMount: true,
+    },
   )
 
-  const isLoading = isLoadingAtoms || isLoadingComponents
+  // eslint-disable-next-line no-inline-comments
+  const isLoading = isLoadingAtoms || isLoadingUsecaseTags // isLoadingComponents
 
   if (isLoading) {
     return <Spin />

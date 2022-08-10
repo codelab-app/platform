@@ -14,7 +14,11 @@ export interface StateModalProperties {
   node: Nullable<IStateTreeNode>
 }
 
-export type IBuilderComponent = IAtom | IComponent
+// eslint-disable-next-line no-inline-comments
+export type IBuilderComponent = IAtom // TBC: | IComponent
+export type TagWithComponents = Pick<ITag, 'name' | 'id'> & {
+  components: Array<IBuilderComponent>
+}
 
 export interface IBuilderService {
   activeBuilderTab: BuilderTab
@@ -36,9 +40,7 @@ export interface IBuilderService {
    */
   activeComponent: Nullable<IComponent>
   componentUsecaseTags: Array<ITag>
-  tagsWithComponents: Array<
-    Pick<ITag, 'name' | 'id'> & { components: Array<IBuilderComponent> }
-  >
+  tagsWithComponents: Array<TagWithComponents>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void
   set_hoveredNode(element: Nullable<Ref<INode>>): void
