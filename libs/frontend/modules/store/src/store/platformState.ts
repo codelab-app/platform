@@ -4,7 +4,6 @@ import {
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
 import {
-  IAnyAction,
   IApp,
   IPage,
   IStateTreeNode,
@@ -65,8 +64,6 @@ export const createMobxState = (
   }
 
   return appStore.toMobxObservable(stateGlobals)
-
-  return null
 }
 
 export const toAntd = (
@@ -114,16 +111,7 @@ export const getState = (value: string, state: unknown): any => {
   const possibleAction = get(state, stripExpression(value), {})
 
   if (possibleAction.isAction) {
-    const actionFn = async () =>
-      await (possibleAction.action as IAnyAction)
-        .getQueue()
-        .then((queue) => queue.forEach((x) => x.bind(state)()))
-
-    if (possibleAction.action.runOnInit) {
-      actionFn()
-    }
-
-    return actionFn
+    return possibleAction.run
   }
 
   /**

@@ -7,7 +7,7 @@ import {
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { merge } from 'lodash'
+import { keys, merge } from 'lodash'
 import { makeAutoObservable } from 'mobx'
 import {
   detach,
@@ -19,6 +19,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
+import { createActionFn } from '../createActionFn'
 import { actionRef } from './action.ref'
 
 export const hydrate = ({
@@ -80,9 +81,17 @@ export class Store
       },
     }))
 
-    return makeAutoObservable(
+    const state = makeAutoObservable(
       merge({}, ...storeState, ...storeActions, globals),
     )
+
+    for (const key of keys(state)) {
+      if (state[key].isAction) {
+        state[key].run = createActionFn(state[key].action, state)
+      }
+    }
+
+    return state
   }
 
   static hydrate = hydrate
