@@ -19,7 +19,7 @@ import {
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
   typeService: ITypeService
@@ -82,22 +82,29 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={isLoading}>
         {interfaceType && (
-          <PropsForm
-            autosave
-            context={{ autocomplete, builderState, actionList }}
-            initialValue={initialPropsRef.current}
-            interfaceType={interfaceType}
-            key={element.id}
-            onSubmit={onSubmit}
-          />
+          <>
+            <PropsForm
+              autosave
+              context={{ autocomplete, builderState, actionList }}
+              initialValue={initialPropsRef.current}
+              interfaceType={interfaceType}
+              key={element.id}
+              onSubmit={onSubmit}
+            />
+            {isAdmin(userService.user) ? (
+              <Link
+                href={{
+                  pathname: PageType.InterfaceDetail,
+                  query: { interfaceId: interfaceType.id },
+                }}
+              >
+                <Button>
+                  <PlusOutlined />
+                </Button>
+              </Link>
+            ) : null}
+          </>
         )}
-        {isAdmin(userService.user) ? (
-          <Link href={PageType.Atom}>
-            <Button>
-              <PlusOutlined />
-            </Button>
-          </Link>
-        ) : null}
       </Spinner>
     )
   },
