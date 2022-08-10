@@ -180,6 +180,7 @@ PageBuilder.Layout = observer((page) => {
                 key={appBuilderRenderer?.pageTree?.current.root?.id}
                 renderService={appBuilderRenderer}
                 typeService={typeService}
+                userService={userService}
               />
             ) : null}
           </>

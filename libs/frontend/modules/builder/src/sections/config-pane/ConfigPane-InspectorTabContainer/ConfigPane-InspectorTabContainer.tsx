@@ -28,6 +28,7 @@ import {
   IRenderer,
   isElement,
   ITypeService,
+  IUserService,
 } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
@@ -59,6 +60,7 @@ export type MetaPaneBuilderProps = {
   builderService: IBuilderService
   elementService: IElementService
   actionService: IActionService
+  userService: IUserService
 }
 
 type TooltipIconProps = {
@@ -90,6 +92,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     renderService,
     elementService,
     actionService,
+    userService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)
@@ -146,6 +149,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   key={selectedNode.id}
                   trackPromises={trackPromises}
                   typeService={typeService}
+                  userService={userService}
                 />
               </>
             ) : (

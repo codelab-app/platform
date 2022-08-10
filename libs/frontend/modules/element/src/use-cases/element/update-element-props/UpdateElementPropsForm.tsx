@@ -1,3 +1,5 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { PropsForm } from '@codelab/frontend/modules/type'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
@@ -10,9 +12,13 @@ import {
   IElement,
   IElementService,
   IPropData,
+  isAdmin,
   ITypeService,
+  IUserService,
 } from '@codelab/shared/abstract/core'
+import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
@@ -22,6 +28,7 @@ export interface UpdateElementPropsFormProps {
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
   builderState: IBuilderState
+  userService: IUserService
 
   actionList?: Array<IAnyAction>
 }
@@ -35,6 +42,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     typeService,
     autocomplete,
     actionList,
+    userService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
@@ -83,6 +91,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             onSubmit={onSubmit}
           />
         )}
+        {isAdmin(userService.user) ? (
+          <Link href={PageType.Atom}>
+            <Button>
+              <PlusOutlined />
+            </Button>
+          </Link>
+        ) : null}
       </Spinner>
     )
   },
