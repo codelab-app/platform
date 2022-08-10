@@ -67,8 +67,9 @@ const atomNamesByTag: Record<string, Array<string>> = {
   Other: ['Anchor', 'BackTop'],
 }
 
-const usecaseTags = Object.keys(atomNamesByTag)
-const antdCompNames = usecaseTags.flatMap((tag) => atomNamesByTag[tag])
+export const antUsecaseTags = Object.keys(atomNamesByTag)
+
+const antdCompNames = antUsecaseTags.flatMap((tag) => atomNamesByTag[tag])
 
 export const addAntdUsecaseTags = (atoms: Array<IAtomExport>) => {
   return atoms.map((atom) => {
@@ -85,7 +86,7 @@ export const addAntdUsecaseTags = (atoms: Array<IAtomExport>) => {
         name !== antdName && nameWithoutAntDesign.startsWith(antdName),
     )
 
-    const foundTag = usecaseTags.find((tag) =>
+    const foundTag = antUsecaseTags.find((tag) =>
       atomNamesByTag[tag].includes(relatedParentName || name),
     )
 
