@@ -1,5 +1,6 @@
 import { PageType } from '@codelab/frontend/abstract/types'
 import Link from 'next/link'
+import React from 'react'
 import { ComponentColumnData } from './types'
 
 export type NameColumnProps = {

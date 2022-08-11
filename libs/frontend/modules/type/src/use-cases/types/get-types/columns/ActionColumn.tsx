@@ -8,6 +8,7 @@ import { ITypeService } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
+import React from 'react'
 import { typeRef } from '../../../../store'
 import { TypeRecord } from './types'
 

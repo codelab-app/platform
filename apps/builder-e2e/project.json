@@ -50,7 +50,7 @@
               "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve web -c test",
+              "command": "npx env-cmd -f .env.test nx serve builder -c test",
               "forwardAllArgs": false
             }
           ]

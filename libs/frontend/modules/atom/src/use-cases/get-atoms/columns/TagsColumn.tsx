@@ -1,4 +1,5 @@
 import { Tag } from 'antd'
+import React from 'react'
 import { TagsColumnProps } from './types'
 
 const GEEK_BLUE_COLOR = 'geekblue'

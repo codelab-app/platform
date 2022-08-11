@@ -7,7 +7,7 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import tw from 'twin.macro'
 import {
   ComponentContextMenu,
@@ -108,7 +108,11 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       )
     }
 
-    return <ItemTitleStyle node={data}>{data.title}</ItemTitleStyle>
+    return (
+      <ItemTitleStyle node={data}>
+        <>{data.title}</>
+      </ItemTitleStyle>
+    )
   },
 )
 

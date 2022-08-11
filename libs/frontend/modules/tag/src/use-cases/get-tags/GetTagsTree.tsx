@@ -5,6 +5,7 @@ import { ITagService } from '@codelab/shared/abstract/core'
 import { Tree, TreeProps } from 'antd'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { tagRef } from '../../store'
 
 export const GetTagsTree = observer<{ tagService: ITagService }>(

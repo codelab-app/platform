@@ -2,6 +2,7 @@ import { CopyOutlined } from '@ant-design/icons'
 import { mobxStateKeyTemplate } from '@codelab/frontend/modules/store'
 import { copyTextToClipboard } from '@codelab/frontend/shared/utils'
 import { Button, message } from 'antd'
+import React from 'react'
 
 interface CopyPathButtonProps {
   path: string

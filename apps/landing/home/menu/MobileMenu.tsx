@@ -1,15 +1,17 @@
-import './mobileNavigation.module.css'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { faBars } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import tw from 'twin.macro'
 import { menuState } from './menuState'
+import style from './mobileNavigation.module.css'
+
+console.log(style)
 
 const SpaceEvenly = styled.div(
   tw`
@@ -83,7 +85,7 @@ export const MenuMobile = () => {
           isMenuOpen ? tw`` : tw`-translate-x-full`,
           tw`transition transform-gpu duration-300`,
         ]}
-        id="mobile-menu"
+        id={style.mobileMenu}
       >
         <ul>
           <li>

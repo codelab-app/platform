@@ -6,11 +6,10 @@ import {
   IBuilderDataNode,
   IElementTree,
 } from '@codelab/shared/abstract/core'
-import { checkIfValidUUID } from '@codelab/shared/utils'
 import { Tree as AntdTree } from 'antd'
-import { AntTreeNodeProps } from 'antd/lib/tree/Tree'
 import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
 import {
@@ -56,10 +55,10 @@ export const BuilderTree = observer<BuilderTreeProps>(
         disabled={isMoving}
         draggable={{
           icon: false,
-          nodeDraggable: (node: AntTreeNodeProps) => {
-            // Only real nodes have uuid
-            return checkIfValidUUID(node?.key)
-          },
+          // nodeDraggable: (node: AntTreeNode) => {
+          //   // Only real nodes have uuid
+          //   return checkIfValidUUID(node)
+          // },
         }}
         // disabled={isMoving}
         expandedKeys={expandedNodeIds}

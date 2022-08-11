@@ -7,6 +7,7 @@ import {
   TableRowSelection,
 } from 'antd/lib/table/interface'
 import { arraySet } from 'mobx-keystone'
+import React from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AtomRecord } from './columns/types'
 

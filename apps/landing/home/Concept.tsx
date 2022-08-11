@@ -1,4 +1,5 @@
 import { Typography } from 'antd'
+import React from 'react'
 import tw from 'twin.macro'
 
 const { Text, Link, Title } = Typography

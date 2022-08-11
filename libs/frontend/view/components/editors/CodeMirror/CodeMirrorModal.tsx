@@ -1,7 +1,7 @@
 import { Nullish } from '@codelab/shared/abstract/types'
 import { UseCodeMirror, useCodeMirror } from '@uiw/react-codemirror'
 import AntdModal from 'antd/lib/modal'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface CodeMirrorModalProps {
   visible: boolean

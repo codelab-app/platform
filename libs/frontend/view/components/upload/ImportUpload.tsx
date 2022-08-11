@@ -2,7 +2,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { Button, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { UploadProgressEvent } from 'rc-upload/es/interface'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 export interface ImportUploadProps {
   fetchFn: (data: any) => Promise<any>

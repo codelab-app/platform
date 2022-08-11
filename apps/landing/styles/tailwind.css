@@ -42,74 +42,13 @@
   }
 }
 
-@layer components {
-  .btn-primary {
-    /*@apply !bg-purple-500 text-white;*/
-    /* &:hover {
-      @apply text-white !bg-purple-400;
-    } */
-
-    /* &.inverse {
-      @apply border !border-purple-500 hover: text-purple-500 text-purple-500 hover: !bg-purple-100
-    } */
-  }
-}
-
-/*.hover-text {*/
-/*  @apply hover:text-purple-500;*/
-/*}*/
-
-/*.btn {*/
-/*  @apply px-3 py-1 rounded flex items-center;*/
-/*}*/
-/*.btn-primary {*/
-/*  @apply !bg-purple-500 text-white whitespace-nowrap;*/
-/*   &:hover {*/
-/*    @apply text-white !bg-purple-400;*/
-/*  }*/
-/*}*/
-
-a {
-  @apply !transition-none;
-}
-
-nav.nav {
-  @apply h-10 flex items-center bg-white;
-}
-
-menu.menu {
-  @apply bg-white;
-
-  ul {
-    @apply flex;
-
-    li {
-      @apply flex mx-2 items-center;
-    }
-  }
-
-  &.menu-horizontal {
-    ul {
-      @apply h-full flex-row justify-end;
-    }
-  }
-
-  &.menu-vertical {
-    ul {
-      @apply flex-col;
-      li {
-        @apply py-2 text-lg;
-      }
-    }
-  }
-}
-
 @layer utilities {
-  /* .filter-none {
-    filter: none;
-  }
-
-  .filter-grayscale {
-    filter: grayscale(100%);
-  } */
 }
+
+/*.container {*/
+/*  @apply 2xl:container xl:container;*/
+/*}*/
+
+/*a {*/
+/*  @apply !transition-none;*/
+/*}*/

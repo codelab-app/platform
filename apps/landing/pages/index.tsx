@@ -1,16 +1,9 @@
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import React from 'react'
-import { Clients, HomeTemplate } from '../home'
+import { BannerSection, Clients, HomeTemplate } from '../home'
+import { Architecture } from '../home/architecture/Architecture'
 import { BestPractices } from '../home/bestPractices/BestPractices'
-
-/**
- * We are using some jQuery components, so SSR can't work because jQuery needs to be loaded first
- */
-const DynamicHomeJumbo = dynamic<any>(
-  () => import('../home').then((mod) => mod.HomeJumbo),
-  { ssr: false },
-)
+import { JoinCommunity } from '../home/community/JoinCommunity'
 
 const HomePage = () => {
   return (
@@ -18,10 +11,11 @@ const HomePage = () => {
       <Head>
         <title>Codelab</title>
       </Head>
-      <DynamicHomeJumbo />
+      <BannerSection />
       <Clients />
+      <Architecture />
       <BestPractices />
-      {/* <Features /> */}
+      <JoinCommunity />
     </>
   )
 }

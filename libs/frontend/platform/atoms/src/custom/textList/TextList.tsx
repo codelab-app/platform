@@ -1,4 +1,5 @@
 import List, { ListProps } from 'antd/lib/list'
+import React from 'react'
 
 /**
  * Wrapper for {@link List} that renders the items as plain text

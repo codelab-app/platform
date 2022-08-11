@@ -1,5 +1,5 @@
 import CodeMirror from 'codemirror'
-import { DetailedHTMLProps, HTMLAttributes } from 'react'
+import React, { DetailedHTMLProps, HTMLAttributes } from 'react'
 import CodeMirrorGraphQLEditor, {
   CodeMirrorGraphQLEditorProps,
 } from './CodeMirrorGraphQLEditor'
