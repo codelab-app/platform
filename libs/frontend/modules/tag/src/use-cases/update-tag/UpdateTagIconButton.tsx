@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
-import { CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 
 const iconStyle: CSSProperties = {
   width: 'inherit',

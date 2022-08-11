@@ -1,6 +1,7 @@
 import { IBuilderService, IStateTreeNode } from '@codelab/shared/abstract/core'
 import { Tree } from 'antd'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { MobxStateTreeItem } from './MobxStateTreeItem'
 
 type StateTreeProps = {

@@ -15,9 +15,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // colors: {
-      //   // purple: '#8344ff',
-      // },
+      colors: {
+        primary: colors.violet['700'],
+      },
+      // colors: ({ theme }) => ({
+      //   primary: theme('colors.violet')
+      // }),
       screens: {
         tablet: '0px',
         laptop: '768px',
@@ -41,11 +44,14 @@ module.exports = {
       '2xl': '1600px',
       // => @media (min-width: 1600px) { ... }
     },
+    container: {
+      center: true,
+    },
   },
   variants: {},
   plugins: [],
   corePlugins: {
-    // Disable preflight styles in twin
+    // Reset adds `background:transparent`, which background-color can't override
     preflight: false,
   },
 }

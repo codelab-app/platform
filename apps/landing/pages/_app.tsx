@@ -14,7 +14,6 @@ import { ConfigProvider } from 'antd'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
-// import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
 //
@@ -45,8 +44,18 @@ const App = ({ pageProps, Component }: IAppProps) => {
                     height: '100%',
                   },
                 }),
-                // slickCssFix,
-                // ...globalTailwindFix,
+                css`
+                  img,
+                  svg,
+                  video,
+                  canvas,
+                  audio,
+                  iframe,
+                  embed,
+                  object {
+                    display: inline;
+                  }
+                `,
               ]}
             />
             <Layout>

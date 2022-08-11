@@ -30,9 +30,8 @@ const App = ({ pageProps, Component }: IAppProps) => {
     [pageProps.snapshot, pageProps.user],
   )
 
-  const {
-    Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
-  } = Component as CodelabPage<unknown>
+  const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
+    Component as CodelabPage<unknown>
 
   return (
     <StoreProvider value={store}>

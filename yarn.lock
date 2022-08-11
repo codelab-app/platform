@@ -5045,6 +5045,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-brands-svg-icons@npm:^6.1.2":
+  version: 6.1.2
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.1.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffree-brands-svg-icons%2F-%2F6.1.2%2Ffree-brands-svg-icons-6.1.2.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.1.2
+  checksum: 178b7f97bf64dcc1589bff74fc73cd0de32f002d585254e5dfb362d16c21011a77c61439dd507873d288f3c93de615cfc63235622968b037d8d8ded2d56f1d81
+  languageName: node
+  linkType: hard
+
 "@fortawesome/pro-duotone-svg-icons@npm:^6.1.2":
   version: 6.1.2
   resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.1.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.1.2%2Fpro-duotone-svg-icons-6.1.2.tgz"
@@ -5817,14 +5826,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hon2a/cypress-antd@npm:0.4.10":
-  version: 0.4.10
-  resolution: "@hon2a/cypress-antd@npm:0.4.10"
+"@hon2a/cypress-antd@npm:0.4.11":
+  version: 0.4.11
+  resolution: "@hon2a/cypress-antd@npm:0.4.11"
   dependencies:
     "@babel/runtime": 7.16.3
     "@hon2a/cypress-without": 1.1.8
     lodash: ^4.17.21
-  checksum: afd042335f4e89b29553ca78c550c694f869a444df63c91b61acd82d80292ea318f3f93383a3c67e41425c3ac2430808fbf826131578cd3424c6d325dbee29d4
+  checksum: 48b9fb191c49742e4c78562d424c6ea672d8a410f333ab0589c85b4706cf46d2fdf84003a0120f74a70102c138a26e84ce8f2d9b64302b39b337d171b67c33bd
   languageName: node
   linkType: hard
 
@@ -11541,6 +11550,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-syntax-highlighter@npm:^15.5.4":
+  version: 15.5.4
+  resolution: "@types/react-syntax-highlighter@npm:15.5.4"
+  dependencies:
+    "@types/react": "*"
+  checksum: 5008a8752f95502d8029b9c067d516050c1a04a898fcaf34fe5ed00ec563cc7aa3df0d6c2e585320d4cd07780d438e7bcaaddba96a72f1ae25ca19c285aad570
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "@types/react-transition-group@npm:4.4.5"
@@ -15787,6 +15805,7 @@ __metadata:
     "@fancyapps/ui": 4.0.16
     "@fortawesome/fontawesome-pro": ^6.1.2
     "@fortawesome/fontawesome-svg-core": ^6.1.2
+    "@fortawesome/free-brands-svg-icons": ^6.1.2
     "@fortawesome/pro-duotone-svg-icons": ^6.1.2
     "@fortawesome/pro-light-svg-icons": ^6.1.2
     "@fortawesome/pro-regular-svg-icons": ^6.1.2
@@ -15807,7 +15826,7 @@ __metadata:
     "@graphql-tools/load": 7.5.11
     "@graphql-tools/load-files": 6.5.3
     "@graphql-tools/merge": 8.2.11
-    "@hon2a/cypress-antd": 0.4.10
+    "@hon2a/cypress-antd": 0.4.11
     "@ls-lint/ls-lint": 1.11.0
     "@mui/base": 5.0.0-alpha.90
     "@mui/lab": 5.0.0-alpha.91
@@ -15908,6 +15927,7 @@ __metadata:
     "@types/react-responsive": ^8.0.5
     "@types/react-slick": 0.23.10
     "@types/react-stickynode": ^4.0.0
+    "@types/react-syntax-highlighter": ^15.5.4
     "@types/stringify-object": 4.0.1
     "@types/testing-library__cypress": 5.0.9
     "@types/testing-library__jest-dom": 5.14.2
@@ -16054,9 +16074,10 @@ __metadata:
     react-resizable: 3.0.4
     react-responsive: ^9.0.0-beta.10
     react-slick: 0.29.0
-    react-stickynode: ^4.0.0
+    react-stickynode: 4.1.0
+    react-syntax-highlighter: ^15.5.0
     react-test-renderer: 18.2.0
-    recoil: ^0.7.3
+    recoil: ^0.7.4
     reflect-metadata: 0.1.13
     regenerator-runtime: 0.13.9
     rooks: ^5.11.2
@@ -32169,7 +32190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-stickynode@npm:^4.0.0":
+"react-stickynode@npm:4.1.0":
   version: 4.1.0
   resolution: "react-stickynode@npm:4.1.0"
   dependencies:
@@ -32200,7 +32221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-syntax-highlighter@npm:^15.4.5":
+"react-syntax-highlighter@npm:^15.4.5, react-syntax-highlighter@npm:^15.5.0":
   version: 15.5.0
   resolution: "react-syntax-highlighter@npm:15.5.0"
   dependencies:
@@ -32454,7 +32475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.7.3":
+"recoil@npm:^0.7.4":
   version: 0.7.4
   resolution: "recoil@npm:0.7.4"
   dependencies:

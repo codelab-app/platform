@@ -17,7 +17,7 @@ export const FeatureCard = (props: FeatureCardProps) => {
     <Card style={cardStyle}>
       <Card.Meta
         avatar={
-          <div css={tw`flex p-2 bg-violet-100 rounded-lg`}>
+          <div css={tw`flex bg-violet-100 rounded-lg`}>
             <FontAwesomeIcon
               css={[
                 css`

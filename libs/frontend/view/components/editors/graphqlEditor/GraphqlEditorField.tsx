@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Input } from 'antd'
-import { Ref } from 'react'
+import React, { Ref } from 'react'
 import { HTMLFieldProps } from 'uniforms'
 
 export type GraphqlEditorFieldProps = HTMLFieldProps<

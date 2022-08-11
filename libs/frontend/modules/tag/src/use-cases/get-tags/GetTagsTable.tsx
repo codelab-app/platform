@@ -5,7 +5,8 @@ import {
 import { ITagService } from '@codelab/shared/abstract/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { nodeRef, tagRef } from '../../store'
+import React from 'react'
+import { nodeRef } from '../../store'
 
 export interface TagRecord {
   id: string

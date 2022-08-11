@@ -1,5 +1,5 @@
 import { TreeSelect, TreeSelectProps } from 'antd'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { connectField, FieldProps } from 'uniforms'
 
 export type CustomTreeSelectProps = FieldProps<Array<string>, TreeSelectProps>

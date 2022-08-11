@@ -1,5 +1,6 @@
 import { CheckCircleOutlined, WarningOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
+import React from 'react'
 import tw from 'twin.macro'
 
 const Container = styled.div`

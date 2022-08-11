@@ -16,7 +16,7 @@ import 'codemirror/addon/fold/foldgutter'
 import { IEditorInstance } from '@uiw/react-codemirror3'
 import { EditorConfiguration } from 'codemirror'
 import { GraphQLSchema } from 'graphql'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import CodeMirror from './ReactCodeMirror'
 
 export type CodeMirrorGraphQLEditorProps = {

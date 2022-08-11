@@ -10,6 +10,7 @@ import { IComponentService } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
+import React from 'react'
 import { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {

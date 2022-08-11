@@ -1,5 +1,6 @@
 import { PageType } from '@codelab/frontend/abstract/types'
 import Link from 'next/link'
+import React from 'react'
 import tw from 'twin.macro'
 import { PropsColumnProps } from './types'
 

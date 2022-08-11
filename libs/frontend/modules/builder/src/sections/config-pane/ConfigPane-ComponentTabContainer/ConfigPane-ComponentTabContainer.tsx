@@ -2,6 +2,7 @@ import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { TagsWithComponentsList } from './TagsWithComponentsList'
 
 export const ConfigPaneComponentTabContainer = observer(() => {
