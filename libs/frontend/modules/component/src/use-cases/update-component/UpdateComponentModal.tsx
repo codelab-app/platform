@@ -5,6 +5,7 @@ import {
   IUpdateComponentDTO,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './createComponentSchema'

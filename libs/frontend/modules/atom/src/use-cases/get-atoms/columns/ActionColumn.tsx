@@ -4,6 +4,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { atomRef } from '../../../store'
 import { ActionColumnProps } from './types'
 

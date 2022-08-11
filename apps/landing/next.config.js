@@ -35,7 +35,7 @@ module.exports = withPlugins(
         experimental: {
           esmExternals: false,
         },
-        cssModules: false,
+        cssModules: true,
         // Landing page is handled by a separate nx app
         // redirects: async () => [
         //   {

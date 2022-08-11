@@ -3,6 +3,7 @@ import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { ITagService } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { nodeRef } from '../../store'
 
 export const DeleteTagsButton = observer<

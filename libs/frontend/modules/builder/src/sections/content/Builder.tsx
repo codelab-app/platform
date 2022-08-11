@@ -10,6 +10,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
+import React from 'react'
 import { BuilderDropHandler } from '../../dnd/BuilderDropHandler'
 import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'

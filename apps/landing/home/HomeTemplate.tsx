@@ -1,12 +1,12 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
-import { contentStyle } from '@codelab/frontend/view/style'
 import React, { PropsWithChildren } from 'react'
 import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
+import { Footer } from '../sections/footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
 import { CodelabMenuContainer } from './menu/MenuContainer'
 import { menuState } from './menu/menuState'
-import { MenuMobile } from './menu/MobileNavigation'
+import { MenuMobile } from './menu/MobileMenu'
 
 export type HomeTemplateProps = React.PropsWithChildren
 
@@ -28,10 +28,6 @@ const Content = ({ children }: PropsWithChildren<any>) => {
   return <section>{children}</section>
 }
 
-const Footer = ({ children }: PropsWithChildren<any>) => {
-  return <footer>{children}</footer>
-}
-
 export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
 
@@ -46,12 +42,8 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
           <>{isMobileOrTablet ? <MenuMobile /> : <MenuDesktop />}</>
         </CodelabMenuContainer>
       </Header>
-      <Content className="container" style={contentStyle}>
-        {children}
-      </Content>
-      <Footer>
-        <span>Codelab.ai ©2020</span>
-      </Footer>
+      <Content>{children}</Content>
+      <Footer></Footer>
     </Layout>
   )
 }

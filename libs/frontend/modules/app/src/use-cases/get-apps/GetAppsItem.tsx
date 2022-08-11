@@ -3,6 +3,7 @@ import { IApp, IAppService } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
+import React from 'react'
 import { ItemDropdown } from './ItemDropdown'
 
 export type GetAppsItemProps = {

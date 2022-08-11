@@ -1,4 +1,5 @@
 import { Tag } from 'antd'
+import React from 'react'
 import { LibraryColumnProps } from './types'
 
 const DEFAUT_LIBRARY = 'Ant Design'

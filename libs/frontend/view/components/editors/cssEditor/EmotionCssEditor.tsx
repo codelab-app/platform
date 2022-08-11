@@ -1,6 +1,6 @@
 import { css, cssCompletionSource } from '@codemirror/lang-css'
-import { CodeMirrorInput } from '../CodeMirror/CodeMirrorInput'
-import { CodeMirrorInputProps } from '../CodeMirror/types'
+import React from 'react'
+import { CodeMirrorInput, CodeMirrorInputProps } from '../CodeMirror'
 
 const EmotionCssEditor = (props: CodeMirrorInputProps) => {
   const { extensions = [] } = props

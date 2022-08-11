@@ -2,7 +2,7 @@ import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import { ITypeService } from '@codelab/shared/abstract/core'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { TypeRecord } from './columns'
 import { useTypesTable } from './useGetTypesTable'
 

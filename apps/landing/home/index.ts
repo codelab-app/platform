@@ -1,6 +1,6 @@
 export * from './Clients'
 export * from './Concept'
 export * from './Features'
+export * from './hero/BannerSection'
 export * from './HomeTemplate'
-export * from './Jumbo'
 export * from './MenuHeader'
