@@ -44,11 +44,11 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    return (
+    return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
         <Col span={4}>
           <p style={{ color: inEditMode() ? '#000000' : '#D1D1D1' }}>
-            InnerHtml
+            Custom Text
           </p>
         </Col>
         <Col span={20}>
@@ -57,20 +57,18 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
             editable={inEditMode()}
             extensions={[html()]}
             height="150px"
-            onChange={(newInnerHTML) => {
+            onChange={(newCustomText) => {
               onSubmit({
                 ...element.props?.values,
-                dangerouslySetInnerHTML: {
-                  __html: newInnerHTML,
-                },
+                CustomText: newCustomText,
               })
             }}
             shouldDisableNewLines={false}
-            title="InnerHtml"
-            value={element.props?.values?.['dangerouslySetInnerHTML']?.__html}
+            title="CustomText"
+            value={element.props?.values?.['CustomText']}
           />
         </Col>
       </Row>
-    )
+    ) : null
   },
 )

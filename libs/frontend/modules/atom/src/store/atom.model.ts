@@ -6,6 +6,7 @@ import type {
   IAtomType,
   ITag,
 } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import {
   detach,
   idProp,
@@ -16,6 +17,7 @@ import {
   Ref,
   rootRef,
 } from 'mobx-keystone'
+import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const hydrate = (atom: IAtomDTO) => {
   return new Atom({
@@ -38,6 +40,14 @@ export class Atom
   })
   implements IAtom
 {
+  /**
+   * Determines whether the atom accepts children and text make sense for the type.
+   */
+  @computed
+  get allowCustomTextInjection(): boolean {
+    return customTextInjectionWhiteList.indexOf(this.type) > -1
+  }
+
   @modelAction
   updateCache(atom: IAtomDTO) {
     this.name = atom.name
