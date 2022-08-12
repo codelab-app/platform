@@ -1,16 +1,14 @@
-import {
-  CodeMirrorInput,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import 'react-quill/dist/quill.snow.css'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IPropData,
 } from '@codelab/shared/abstract/core'
-import { html, htmlCompletionSource } from '@codemirror/lang-html'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import QuillNoSSRWrapper from './QuillNoSSRWrapper'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -24,10 +22,7 @@ export type UpdateInnerHtmlFormProps = {
 export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
-
-    const [customText, setCustomText] = useState(
-      element.props?.values?.['customText'],
-    )
+    const [value, setValue] = useState(element.props?.values?.['CustomText'])
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -48,6 +43,10 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
+    useEffect(() => {
+      console.log('ReactQuill Value changed', value)
+    }, [value])
+
     return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
         <Col span={4}>
@@ -56,21 +55,16 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
           </p>
         </Col>
         <Col span={20}>
-          <CodeMirrorInput
-            defaultCompletionSource={htmlCompletionSource}
-            editable={inEditMode()}
-            extensions={[html()]}
-            height="150px"
+          <QuillNoSSRWrapper
             onChange={(newCustomText) => {
-              setCustomText(newCustomText)
+              setValue(newCustomText)
               onSubmit({
                 ...element.props?.values,
                 customText: newCustomText,
               })
             }}
-            shouldDisableNewLines={false}
-            title="customText"
-            value={customText}
+            theme="snow"
+            value={value}
           />
         </Col>
       </Row>
