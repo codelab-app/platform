@@ -10,7 +10,7 @@ import {
 import { html, htmlCompletionSource } from '@codemirror/lang-html'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -24,6 +24,10 @@ export type UpdateInnerHtmlFormProps = {
 export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
+
+    const [customText, setCustomText] = useState(
+      element.props?.values?.['customText'],
+    )
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -58,14 +62,15 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
             extensions={[html()]}
             height="150px"
             onChange={(newCustomText) => {
+              setCustomText(newCustomText)
               onSubmit({
                 ...element.props?.values,
-                CustomText: newCustomText,
+                customText: newCustomText,
               })
             }}
             shouldDisableNewLines={false}
-            title="CustomText"
-            value={element.props?.values?.['CustomText']}
+            title="customText"
+            value={customText}
           />
         </Col>
       </Row>

@@ -38,7 +38,7 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
 export const makeChildrenPropElement = (props: IPropData) =>
   React.createElement('span', {
     dangerouslySetInnerHTML: {
-      __html: props?.['CustomText'],
+      __html: props?.['customText'],
     },
   })
 

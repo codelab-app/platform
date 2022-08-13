@@ -1,13 +1,9 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import { IPropData } from '@codelab/shared/abstract/core'
 import { List as AntList, ListProps } from 'antd'
-import React from 'react'
+import React, { Fragment } from 'react'
 
-export interface TextProps {
-  text: Nullish<string>
-}
-
-export const Text = ({ text }: TextProps) => {
-  return <>{text ?? ''}</>
+export const Text = (props: IPropData) => {
+  return React.createElement(Fragment, props)
 }
 
 export const List = ({
