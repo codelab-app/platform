@@ -3,7 +3,7 @@ import { List as AntList, ListProps } from 'antd'
 import React, { Fragment } from 'react'
 
 export const Text = (props: IPropData) => {
-  return React.createElement(Fragment, props)
+  return React.createElement(Fragment, {}, props['children'])
 }
 
 export const List = ({

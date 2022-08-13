@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/modules/component'
 import {
   Element,
-  elementRef,
   ElementService,
   ElementTree,
   Prop,
@@ -125,7 +124,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         id: v4(),
         data: frozen({
           componentProp: 'original',
-          text: "I'm a component",
+          customText: "I'm a component",
         }),
       }),
     })
@@ -159,13 +158,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           },
         }),
       }),
-      children: objectMap([
-        [data.elementToRender02.id, elementRef(data.elementToRender02)],
-        [
-          data.componentInstanceElementToRender.id,
-          elementRef(data.componentInstanceElementToRender),
-        ],
-      ]),
       propTransformationJs: `
   // Write a transformer function, you get the input props as parameter
   // All returned props will get merged with the original ones
