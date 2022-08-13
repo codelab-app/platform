@@ -7,7 +7,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import QuillNoSSRWrapper from './QuillNoSSRWrapper'
 
 export type UpdateInnerHtmlFormProps = {
@@ -22,7 +22,7 @@ export type UpdateInnerHtmlFormProps = {
 export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
-    const [value, setValue] = useState(element.props?.values?.['CustomText'])
+    const [value, setValue] = useState(element.props?.values?.['customText'])
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -43,18 +43,14 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    useEffect(() => {
-      console.log('ReactQuill Value changed', value)
-    }, [value])
-
     return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
-        <Col span={4}>
+        <Col span={24}>
           <p style={{ color: inEditMode() ? '#000000' : '#D1D1D1' }}>
             Custom Text
           </p>
         </Col>
-        <Col span={20}>
+        <Col span={24}>
           <QuillNoSSRWrapper
             onChange={(newCustomText) => {
               setValue(newCustomText)
