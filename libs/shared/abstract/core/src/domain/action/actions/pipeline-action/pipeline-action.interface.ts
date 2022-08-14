@@ -11,5 +11,5 @@ export interface ActionWithOrder {
 export interface IPipelineAction extends IActionBase {
   type: IActionKind.PipelineAction
   actions: Array<ActionWithOrder>
-  actionsSorted: Array<IActionBase>
+  actionsSorted: Array<IAnyAction>
 }

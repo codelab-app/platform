@@ -11,4 +11,6 @@ export interface IResourceAction extends IActionBase {
   config: IResourceActionConfig
   successAction: Ref<IAnyAction>
   errorAction: Ref<IAnyAction>
+
+  run: () => Promise<any>
 }
