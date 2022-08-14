@@ -8,6 +8,7 @@ import { json } from '@codemirror/lang-json'
 import Button from 'antd/lib/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
 export type ElementPropsSectionProps = {
@@ -40,6 +41,7 @@ const PropsInspectorTab = observer(
 
     return (
       <div>
+        <h3 css={tw`text-gray-700`}>Current props</h3>
         <CodeMirrorInput
           extensions={[json()]}
           height="150px"
@@ -49,6 +51,8 @@ const PropsInspectorTab = observer(
           title="Current props"
           value={lastRenderedPropsString}
         />
+
+        <h3 css={tw`text-gray-700`}>Element props</h3>
         <CodeMirrorInput
           extensions={[json()]}
           height="150px"
