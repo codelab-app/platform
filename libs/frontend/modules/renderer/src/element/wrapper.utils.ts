@@ -36,9 +36,9 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
   renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
 
 export const makeChildrenPropElement = (props: IPropData) =>
-  React.createElement('span', {
+  React.createElement('div', {
     dangerouslySetInnerHTML: {
-      __html: props?.['customText'],
+      __html: `${props?.['customText']}`,
     },
   })
 

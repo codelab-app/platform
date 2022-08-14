@@ -16,6 +16,22 @@ export type UpdateInnerHtmlFormProps = {
   trackPromises?: UseTrackLoadingPromises
 }
 
+const modules = {
+  toolbar: [
+    [{ font: [] }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ color: [] }, { background: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    // ['blockquote', 'code-block'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    // eslint-disable-next-line no-inline-comments
+    [/* { indent: '-1' }, { indent: '+1' } */ { align: [] }],
+    ['link', 'image', 'video'],
+    ['clean'],
+  ],
+}
+
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
@@ -52,6 +68,7 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
         </Col>
         <Col span={24}>
           <QuillNoSSRWrapper
+            modules={modules}
             onChange={(newCustomText) => {
               setValue(newCustomText)
               onSubmit({
