@@ -96,6 +96,7 @@ export const CodeMirrorInput = ({
             className="CodeMirrorInput--btnExpand"
             icon={<ExpandAltOutlined width="12px" />}
             onClick={toggleExpand}
+            size="small"
             type="primary"
           />
           <CodeMirrorModal
