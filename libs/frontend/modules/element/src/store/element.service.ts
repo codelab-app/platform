@@ -267,7 +267,6 @@ export class ElementService
   /**
    * Moves an element to a different parent and/or order
    */
-  @modelFlow
   @transaction
   moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
     const element = this.element(elementId)
@@ -276,7 +275,6 @@ export class ElementService
       throw new Error(`Element ${elementId} not found`)
     }
 
-    const tree = Element.getElementTree(element)
     const existingParent = element.parentElement
     const newParent = this.element(newParentId)
 
