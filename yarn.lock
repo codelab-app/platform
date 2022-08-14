@@ -4087,6 +4087,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codemirror/lang-json@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "@codemirror/lang-json@npm:0.20.0"
+  dependencies:
+    "@codemirror/language": ^0.20.0
+    "@lezer/json": ^0.16.0
+  checksum: 20bbf0a480852fd11b0904561d4c7fe151f7a5cbe49b36516890ce7d729b4fd51e7c0443fb27463fd25e69e5ed693c3ce5e346ba60669a012f313cf8b06db13e
+  languageName: node
+  linkType: hard
+
 "@codemirror/language@npm:^0.20.0":
   version: 0.20.2
   resolution: "@codemirror/language@npm:0.20.2"
@@ -6288,6 +6298,16 @@ __metadata:
     "@lezer/highlight": ^0.16.0
     "@lezer/lr": ^0.16.0
   checksum: 164c1dcadc47610e588fee1e1c1f1cb478a296373ab3654e04b41dd6feb375f0abe0df6b5d339e70aaa444df573873cf2302d21abe3f372cbaa0bebfd1cf7f5a
+  languageName: node
+  linkType: hard
+
+"@lezer/json@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@lezer/json@npm:0.16.0"
+  dependencies:
+    "@lezer/highlight": ^0.16.0
+    "@lezer/lr": ^0.16.0
+  checksum: 3fe14dcd8879c9318dc74e77c3543fff21e2f7b45b344b93e58e67eae48ea0c603c6b602129967d85a8ade1fa88b2c6abe43b3772b57829890fd91b111676f13
   languageName: node
   linkType: hard
 
@@ -15791,6 +15811,7 @@ __metadata:
     "@codemirror/autocomplete": 0.20.0
     "@codemirror/lang-css": ^0.20.0
     "@codemirror/lang-html": ^0.20.0
+    "@codemirror/lang-json": ^0.20.0
     "@commitlint/cli": 16.0.2
     "@commitlint/config-conventional": 16.0.0
     "@cypress/react": 5.12.4

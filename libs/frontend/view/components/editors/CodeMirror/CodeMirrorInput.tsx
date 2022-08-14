@@ -21,6 +21,7 @@ export const CodeMirrorInput = ({
   shouldDisableNewLines = true,
   defaultCompletionOptions,
   height = '30px',
+  readOnly = false,
   title = '',
   expandable = true,
   ...props
@@ -70,6 +71,7 @@ export const CodeMirrorInput = ({
       onUpdate: codeMirrorOnUpdate,
       ...props,
       ...overWriteOpts,
+      readOnly,
     }
   }
 
