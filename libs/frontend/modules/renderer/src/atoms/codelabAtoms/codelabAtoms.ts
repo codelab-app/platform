@@ -11,6 +11,9 @@ export const codelabAtoms: AtomsRecord = {
   [IAtomType.Text]: dynamic(() =>
     import('@codelab/frontend/platform/atoms').then((mod) => mod.Text),
   ),
+  [IAtomType.Script]: dynamic(() =>
+    import('@codelab/frontend/platform/atoms').then((mod) => mod.CodelabScript),
+  ),
   // [AtomType.State]: dynamic(
   //   () =>
   //     import('@codelab/frontend/view/components').then(

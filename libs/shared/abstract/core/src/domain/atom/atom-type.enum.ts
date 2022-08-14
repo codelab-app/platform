@@ -300,6 +300,7 @@ export enum __AtomType {
   Query = 'Query',
   TextList = 'TextList',
   Text = 'Text',
+  Script = 'Script',
   State = 'State',
 
   // React
