@@ -1,3 +1,4 @@
+import { Tag } from '@codelab/shared/abstract/codegen'
 import { ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
@@ -30,6 +31,7 @@ export type IAtomExport = {
   api?: {
     id: string | undefined
   }
+  tags?: Array<Tag>
 }
 
 // export type IAtomExport = Pick<OGM_TYPES.Atom, 'id' | 'name' | 'type' | 'api'>

@@ -17,3 +17,9 @@ export type ITagDTO = TagFragment
 export type ITagGraphDTO = ITagDTO & {
   descendants: Array<ITagRef>
 }
+
+export type ITagExport = {
+  name: string
+  children: Array<Pick<ICreateTagDTO, 'name'>>
+  parent?: Pick<ICreateTagDTO, 'name'>
+}

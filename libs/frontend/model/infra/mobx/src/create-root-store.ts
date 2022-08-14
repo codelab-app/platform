@@ -19,7 +19,7 @@ import {
   actionServiceContext,
   StoreService,
 } from '@codelab/frontend/modules/store'
-import { TagService } from '@codelab/frontend/modules/tag'
+import { TagService, tagServiceContext } from '@codelab/frontend/modules/tag'
 import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import {
@@ -66,6 +66,7 @@ export const createRootStore = ({
       resourceServiceContext.set(this, this.resourceService)
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)
+      tagServiceContext.set(this, this.tagService)
     }
   }
 

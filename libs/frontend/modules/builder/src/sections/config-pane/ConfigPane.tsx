@@ -1,3 +1,4 @@
+import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
 import { UpdateComponentForm } from '@codelab/frontend/modules/component'
 import {
   DeleteElementButton,
@@ -17,10 +18,13 @@ import {
   IRenderer,
   ITypeService,
 } from '@codelab/shared/abstract/core'
+import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { usePropCompletion } from '../../hooks'
-import { ConfigPaneTabContainer } from './ConfigPane-TabContainer'
+import { ConfigPaneComponentTabContainer } from './ConfigPane-ComponentTabContainer'
+import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContainer'
+import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
 type MetaPaneProps = {
   elementTree: IElementTree
@@ -46,59 +50,93 @@ export const ConfigPane = observer<MetaPaneProps>(
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
     const isRootElement = (element: IElement) => !element.parentElement
+    const selectedNode = builderService.selectedNode
+
+    if (!selectedNode) {
+      return null
+    }
 
     return (
-      <ConfigPaneTabContainer
-        UpdateElementContent={observer(({ node, trackPromises }) => {
-          /**
-           * The builder tree nodes could be a component as well, in which case we would show the form for components
-           */
-          return (
-            <>
-              {node.__nodeType === ELEMENT_NODE_TYPE ? (
-                <>
-                  <UpdateElementForm
-                    builderService={builderService}
-                    element={node}
-                    elementService={elementService}
-                    key={node.id + '_update_form'}
-                    providePropCompletion={(value) =>
-                      providePropCompletion(value, node.id)
-                    }
-                    trackPromises={trackPromises}
-                  />
-                  <MoveElementForm
-                    element={node}
-                    elementService={elementService}
-                    elementTree={elementTree}
-                    key={node.id + '_move_form'}
-                    trackPromises={trackPromises}
-                  />
-                  <DeleteElementButton
-                    disabled={isRootElement(node)}
-                    element={node}
-                    elementService={elementService}
-                  />
-                </>
-              ) : null}
+      <TabContainer>
+        <Tabs defaultActiveKey={selectedNode.id + '_tab1'} size="small">
+          <Tabs.TabPane
+            destroyInactiveTabPane
+            key={selectedNode.id + '_tab1'}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
+            tab={
+              <div>
+                <EditOutlined />
+                Inspector
+              </div>
+            }
+          >
+            <ConfigPaneInspectorTabContainer
+              UpdateElementContent={observer(({ node, trackPromises }) => {
+                /**
+                 * The builder tree nodes could be a component as well, in which case we would show the form for components
+                 */
+                return (
+                  <>
+                    {node.__nodeType === ELEMENT_NODE_TYPE ? (
+                      <>
+                        <UpdateElementForm
+                          builderService={builderService}
+                          element={node}
+                          elementService={elementService}
+                          key={node.id + '_update_form'}
+                          providePropCompletion={(value) =>
+                            providePropCompletion(value, node.id)
+                          }
+                          trackPromises={trackPromises}
+                        />
+                        <MoveElementForm
+                          element={node}
+                          elementService={elementService}
+                          elementTree={elementTree}
+                          key={node.id + '_move_form'}
+                          trackPromises={trackPromises}
+                        />
+                        <DeleteElementButton
+                          disabled={isRootElement(node)}
+                          element={node}
+                          elementService={elementService}
+                        />
+                      </>
+                    ) : null}
 
-              {node.__nodeType === COMPONENT_NODE_TYPE ? (
-                <UpdateComponentForm
-                  component={node}
-                  componentService={componentService}
-                />
-              ) : null}
-            </>
-          )
-        })}
-        actionService={actionService}
-        atomService={atomService}
-        builderService={builderService}
-        elementService={elementService}
-        elementTree={elementTree}
-        renderService={renderService}
-        typeService={typeService}
-      />
+                    {node.__nodeType === COMPONENT_NODE_TYPE ? (
+                      <UpdateComponentForm
+                        component={node}
+                        componentService={componentService}
+                      />
+                    ) : null}
+                  </>
+                )
+              })}
+              actionService={actionService}
+              atomService={atomService}
+              builderService={builderService}
+              elementService={elementService}
+              elementTree={elementTree}
+              renderService={renderService}
+              typeService={typeService}
+            />
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            destroyInactiveTabPane
+            key={selectedNode.id + '_tab2'}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
+            tab={
+              <div>
+                <CodeSandboxOutlined />
+                Component{' '}
+              </div>
+            }
+          >
+            <ConfigPaneComponentTabContainer />
+          </Tabs.TabPane>
+        </Tabs>
+      </TabContainer>
     )
   },
 )

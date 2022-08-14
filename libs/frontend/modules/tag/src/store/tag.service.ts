@@ -54,6 +54,10 @@ export class TagService
     return [...this._tags.values()]
   }
 
+  tag(id: string) {
+    return this._tags.get(id)
+  }
+
   @computed
   get tagsSelectOptions() {
     return this.tags.map((tag) => ({

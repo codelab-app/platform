@@ -127,7 +127,7 @@ describe('Component CRUD', () => {
       cy.wrap(componentChildren)
         .each((child: ComponentChildData) => {
           const { name, atom } = child
-          cy.get(`[title="${NEW_COMP_NAME}"]`).eq(1).rightclick()
+          cy.get(`[title="${NEW_COMP_NAME}"]`).eq(2).rightclick()
           cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({
@@ -156,7 +156,7 @@ describe('Component CRUD', () => {
 
   describe('Update component', () => {
     it('should be able to update the component', () => {
-      cy.get(`[title="${NEW_COMP_NAME}"]`).eq(0).click()
+      cy.get(`[title="${NEW_COMP_NAME}"]`).eq(1).click()
       cy.findByLabelText('Name').clear().type(UPDATED_COMP_NAME)
 
       cy.findByText(UPDATED_COMP_NAME).should('exist')

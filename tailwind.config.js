@@ -16,7 +16,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.violet['700']
+        primary: colors.violet['700'],
       },
       // colors: ({ theme }) => ({
       //   primary: theme('colors.violet')
