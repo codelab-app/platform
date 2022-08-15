@@ -41,8 +41,6 @@ export const usePropsInspector = (
       return
     }
 
-    console.log(data)
-
     try {
       setIsLoading(true)
       await elementService.patchElement(element, {

@@ -57,6 +57,8 @@ const PropsInspectorTab = observer(
           extensions={[json()]}
           height="150px"
           onChange={(v) => onChange(v)}
+          // persistedProps is state variable which means
+          // it takes time to be updated by onChange
           onSave={(v) => save(v)}
           shouldDisableNewLines={false}
           title="Element props"
