@@ -34,23 +34,19 @@ export const usePropsInspector = (
     [renderer.extraElementProps, element.id],
   )
 
-  const save = async () => {
-    if (!persistedProps) {
+  const save = async (data: Maybe<string>) => {
+    if (!data) {
       notify({ title: 'Invalid json', type: 'warning' })
 
       return
     }
 
+    console.log(data)
+
     try {
       setIsLoading(true)
       await elementService.patchElement(element, {
-        props: {
-          update: {
-            node: {
-              data: persistedProps,
-            },
-          },
-        },
+        props: { update: { node: { data } } },
       })
     } catch (e) {
       console.error(e)

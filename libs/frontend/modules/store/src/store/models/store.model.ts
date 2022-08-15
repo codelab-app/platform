@@ -86,7 +86,7 @@ export class Store
     )
 
     for (const key of keys(state)) {
-      if (state[key].isAction) {
+      if (state[key]?.isAction) {
         state[key].run = createActionFn(state[key].action, state)
       }
     }

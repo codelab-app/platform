@@ -57,11 +57,12 @@ const PropsInspectorTab = observer(
           extensions={[json()]}
           height="150px"
           onChange={(v) => onChange(v)}
+          onSave={(v) => save(v)}
           shouldDisableNewLines={false}
           title="Element props"
           value={persistedProps || '{}'}
         />
-        <Button loading={isLoading} onClick={() => save()}>
+        <Button loading={isLoading} onClick={() => save(persistedProps)}>
           Save
         </Button>
       </div>

@@ -37,7 +37,7 @@ export const GetStateItem = observer<StateTreeItemProp>(
     }
 
     return (
-      <List.Item style={{ paddingLeft: 0 }}>
+      <List.Item style={{ padding: 8 }}>
         <Space style={{ width: '100%' }}>
           <FileOutlined />
           {field.name}

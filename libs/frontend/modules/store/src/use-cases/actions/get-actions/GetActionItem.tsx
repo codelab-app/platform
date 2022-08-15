@@ -23,10 +23,10 @@ export const GetActionItem = observer<GetActionItemProps>(
       actionService.updateModal.open(actionRef(action.id))
 
     return (
-      <List.Item style={{ paddingLeft: 0 }}>
+      <List.Item style={{ padding: 8 }}>
         <Space style={{ width: '100%' }}>
           <FileOutlined />
-          <p>{action.name}</p>
+          {action.name}
         </Space>
         <Space>
           <ListItemEditButton onClick={onClickEdit} />
