@@ -269,14 +269,18 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
+  moveElement = _async(function* (
+    this: ElementService,
+    elementId: string,
+    newParentId: string,
+    newOrder?: number,
+  ) {
     const element = this.element(elementId)
 
     if (!element) {
       throw new Error(`Element ${elementId} not found`)
     }
 
-    const tree = Element.getElementTree(element)
     const existingParent = element.parentElement
     const newParent = this.element(newParentId)
 
@@ -309,8 +313,8 @@ export class ElementService
       },
     }
 
-    return this.patchElement(element, input)
-  }
+    return yield* _await(this.patchElement(element, input))
+  })
 
   @modelFlow
   @transaction
