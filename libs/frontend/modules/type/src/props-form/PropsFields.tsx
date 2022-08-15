@@ -30,12 +30,7 @@ export const PropsFields = observer<PropsFieldFactoryProps>(
     actionsList,
   }) => (
     <Form.Item label={field.name || toTitleCase(field.key)}>
-      <Field
-        actionsList={actionsList}
-        context={context}
-        field={field}
-        form={form}
-      />
+      <Field context={context} field={field} form={form} />
     </Form.Item>
   ),
 )

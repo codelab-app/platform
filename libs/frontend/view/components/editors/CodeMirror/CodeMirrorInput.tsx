@@ -37,8 +37,8 @@ export const CodeMirrorInput = ({
       override: [
         completionsFactory({
           defaultCompletionSource,
-          templateCompletionOptions: templateCompletionOptions ?? [],
-          defaultCompletionOptions: defaultCompletionOptions ?? [],
+          templateCompletionOptions,
+          defaultCompletionOptions,
         }),
       ],
     }),

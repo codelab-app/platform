@@ -11,7 +11,6 @@ import {
   MobxStateKeyTemplate,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { toCamelCase } from '@codelab/shared/utils'
 import { get, isString, merge } from 'lodash'
 import { NextRouter } from 'next/router'
 
@@ -31,37 +30,39 @@ export const createMobxState = (
   }
 
   // group pages by apps (easier to read in the state tree)
-  const pagesByApps = apps.map((app) => ({
-    name: app.name,
-    id: app.id,
-    ownerId: app.ownerId,
-    rootElement: { id: app.id },
-    store: { id: app.store?.id },
-    pages: pages
-      .filter((page) => page.app.id === app.id)
-      .map((page) => ({
-        id: page.id,
-        name: page.name,
-        appId: page.app.id,
-        rootElementId: page.rootElement.id,
-      })),
-  }))
-
-  const pagesRoutes = pagesByApps
-    .flatMap((app) => app.pages)
-    .map((page) => {
-      const url = `${router?.basePath}/apps/${page.appId}/pages/${page.id}`
-
-      return { [toCamelCase(page.name)]: url }
-    })
+  const appsState = apps
+    .map((app) => ({
+      [app.name]: {
+        name: app.name,
+        id: app.id,
+        slug: app.slug,
+        ownerId: app.ownerId,
+        rootElement: { id: app.id },
+        store: { id: app.store?.id },
+        pages: pages
+          .filter((page) => page.app.id === app.id)
+          .map((page) => ({
+            [page.slug]: {
+              id: page.id,
+              name: page.name,
+              slug: page.slug,
+              appId: page.app.id,
+              rootElementId: page.rootElement.id,
+              url: `${router?.basePath}/apps/${app.id}/pages/${page.id}`,
+            },
+          }))
+          .reduce(merge, {}),
+      },
+    }))
     .reduce(merge, {})
 
   // we inject here state globals
   const stateGlobals = {
     router,
-    apps: pagesByApps,
-    pagesRoutes,
+    apps: appsState,
   }
+
+  console.log(stateGlobals)
 
   return appStore.toMobxObservable(stateGlobals)
 }
