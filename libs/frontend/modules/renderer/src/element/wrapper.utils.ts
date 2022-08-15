@@ -36,7 +36,11 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
   renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
 
 export const makeChildrenPropElement = (props: IPropData) =>
-  React.createElement(Fragment, {}, props['children'])
+  React.createElement('span', {
+    dangerouslySetInnerHTML: {
+      __html: props?.['customText'],
+    },
+  })
 
 export const childrenAreEmpty = (children: any) =>
   !children || (Array.isArray(children) && !children.length)

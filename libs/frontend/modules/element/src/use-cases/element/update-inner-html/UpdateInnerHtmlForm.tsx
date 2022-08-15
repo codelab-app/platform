@@ -10,7 +10,7 @@ import {
 import { html, htmlCompletionSource } from '@codemirror/lang-html'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -24,6 +24,10 @@ export type UpdateInnerHtmlFormProps = {
 export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
+
+    const [customText, setCustomText] = useState(
+      element.props?.values?.['customText'],
+    )
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -44,11 +48,11 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
       return trackPromise?.(promise) ?? promise
     }
 
-    return (
+    return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
         <Col span={4}>
           <p style={{ color: inEditMode() ? '#000000' : '#D1D1D1' }}>
-            InnerHtml
+            Custom Text
           </p>
         </Col>
         <Col span={20}>
@@ -57,20 +61,19 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
             editable={inEditMode()}
             extensions={[html()]}
             height="150px"
-            onChange={(newInnerHTML) => {
+            onChange={(newCustomText) => {
+              setCustomText(newCustomText)
               onSubmit({
                 ...element.props?.values,
-                dangerouslySetInnerHTML: {
-                  __html: newInnerHTML,
-                },
+                customText: newCustomText,
               })
             }}
             shouldDisableNewLines={false}
-            title="InnerHtml"
-            value={element.props?.values?.['dangerouslySetInnerHTML']?.__html}
+            title="customText"
+            value={customText}
           />
         </Col>
       </Row>
-    )
+    ) : null
   },
 )

@@ -48,7 +48,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       const hasNoChildren = childrenAreEmpty(children)
 
       // Allow for a 'children' prop, but only if we have no regular children
-      if (renderOutput?.props?.['children'] && hasNoChildren) {
+      if (
+        hasNoChildren &&
+        renderOutput.props &&
+        element.atom?.current.allowCustomTextInjection
+      ) {
         children = makeChildrenPropElement(renderOutput.props)
       }
 

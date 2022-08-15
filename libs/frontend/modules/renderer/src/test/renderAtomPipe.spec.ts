@@ -9,7 +9,7 @@ describe('RenderAtomPipe', () => {
   it('should render element atom', async () => {
     const text = 'a text to render'
     data.elementToRender.setAtom(atomRef(data.textAtom.id))
-    data.elementToRender.props?.set('text', text)
+    data.elementToRender.props?.set('customText', text)
 
     const output = data.renderer.renderElement(data.elementToRender)
     const { findByText } = render(output)

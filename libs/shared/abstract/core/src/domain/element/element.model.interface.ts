@@ -28,7 +28,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   customCss: Nullable<string>
   guiCss: Nullable<string>
   props?: Nullable<IProp>
-  safePropsData?: IPropData
   atom: Nullable<Ref<IAtom>>
   orderInParent: Nullable<number>
   hooks: Array<IHook>

@@ -186,17 +186,6 @@ export class Element
   // }
 
   @computed
-  get safePropsData(): IPropData {
-    const propsData = { ...this.props?.values }
-
-    if (this.children.size > 0) {
-      delete propsData?.['dangerouslySetInnerHTML']
-    }
-
-    return propsData
-  }
-
-  @computed
   get descendants(): Array<IElement> {
     const descendants: Array<IElement> = []
 

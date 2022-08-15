@@ -247,7 +247,7 @@ export class Renderer
   ): ArrayOrSingle<IRenderOutput> => {
     let props = mergeProps(
       element.__metadataProps,
-      element.safePropsData,
+      element.props?.values,
       extraProps,
       this.extraElementProps.getForElement(element.id),
     )
