@@ -268,7 +268,12 @@ export class ElementService
    * Moves an element to a different parent and/or order
    */
   @transaction
-  moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
+  moveElement = _async(function* (
+    this: ElementService,
+    elementId: string,
+    newParentId: string,
+    newOrder?: number,
+  ) {
     const element = this.element(elementId)
 
     if (!element) {
@@ -307,8 +312,8 @@ export class ElementService
       },
     }
 
-    return this.patchElement(element, input)
-  }
+    return yield* _await(this.patchElement(element, input))
+  })
 
   @modelFlow
   @transaction
