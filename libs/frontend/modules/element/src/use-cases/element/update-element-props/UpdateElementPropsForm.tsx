@@ -1,4 +1,3 @@
-import { PlusOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { PropsForm } from '@codelab/frontend/modules/type'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
@@ -16,7 +15,7 @@ import {
   ITypeService,
   IUserService,
 } from '@codelab/shared/abstract/core'
-import { Button } from 'antd'
+import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -61,7 +60,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       if (apiId) {
         getInterfaceType(apiId)
       }
-    }, [apiId])
+    }, [apiId, getInterfaceType])
 
     const onSubmit = (data: IPropData) => {
       console.log(data)
@@ -82,28 +81,34 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={isLoading}>
         {interfaceType && (
-          <>
-            <PropsForm
-              autosave
-              context={{ autocomplete, builderState, actionList }}
-              initialValue={initialPropsRef.current}
-              interfaceType={interfaceType}
-              key={element.id}
-              onSubmit={onSubmit}
-            />
-            {isAdmin(userService.user) ? (
-              <Link
-                href={{
-                  pathname: PageType.InterfaceDetail,
-                  query: { interfaceId: interfaceType.id },
-                }}
-              >
-                <Button>
-                  <PlusOutlined />
-                </Button>
-              </Link>
-            ) : null}
-          </>
+          <Row gutter={[0, 16]}>
+            <Col span={24}>
+              <PropsForm
+                autosave
+                context={{ autocomplete, builderState, actionList }}
+                initialValue={initialPropsRef.current}
+                interfaceType={interfaceType}
+                key={element.id}
+                onSubmit={onSubmit}
+              />
+            </Col>
+            <Col span={24}>
+              {isAdmin(userService.user) ? (
+                <Row justify="center">
+                  <Col>
+                    <Link
+                      href={{
+                        pathname: PageType.InterfaceDetail,
+                        query: { interfaceId: interfaceType.id },
+                      }}
+                    >
+                      {`Edit ${interfaceType.name}`}
+                    </Link>
+                  </Col>
+                </Row>
+              ) : null}
+            </Col>
+          </Row>
         )}
       </Spinner>
     )
