@@ -1,4 +1,5 @@
 fragment Atom on Atom {
+  icon
   id
   name
   type

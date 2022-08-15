@@ -22,6 +22,7 @@ import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 const hydrate = (atom: IAtomDTO) => {
   return new Atom({
     id: atom.id,
+    icon: atom.icon,
     name: atom.name,
     type: atom.type,
     api: typeRef(atom.api.id) as Ref<InterfaceType>,
@@ -34,6 +35,7 @@ export class Atom
   extends Model({
     id: idProp,
     name: prop<string>(),
+    icon: prop<string | null | undefined>(),
     type: prop<IAtomType>(),
     tags: prop<Array<Ref<ITag>>>(),
     api: prop<Ref<InterfaceType>>(),
@@ -54,6 +56,7 @@ export class Atom
     this.type = atom.type
     this.api = typeRef(atom.api.id) as Ref<InterfaceType>
     this.tags = atom.tags.map((tag) => tagRef(tag.id))
+    this.icon = atom.icon
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

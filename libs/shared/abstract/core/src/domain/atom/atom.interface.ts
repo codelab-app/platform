@@ -7,6 +7,7 @@ import { IAtomType } from './atom-type.enum'
 
 export interface IAtom extends IEntity {
   name: string
+  icon?: string | null
   type: IAtomType
   tags: Array<Ref<ITag>>
   api: Ref<IAnyType>

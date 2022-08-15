@@ -18,6 +18,7 @@ export const upsertAtom = async (atom: IAtomExport, userId: string) => {
     id: atom.id,
     name: atom.name,
     type: atom.type as OGM_TYPES.AtomType,
+    icon: atom.icon,
     // Create an interface if not existing
     api: atom.api?.id
       ? connectId(atom.api?.id)

@@ -2101,6 +2101,7 @@ export type Atom = {
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
   apiConnection: AtomApiConnection
+  icon?: Maybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
   tags: Array<Tag>
@@ -2150,6 +2151,7 @@ export type AtomTagsConnectionArgs = {
 export type AtomAggregateSelection = {
   __typename?: 'AtomAggregateSelection'
   count: Scalars['Int']
+  icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -2283,6 +2285,7 @@ export type AtomConnectWhere = {
 
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
+  icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
   tags?: InputMaybe<AtomTagsFieldInput>
@@ -2318,6 +2321,7 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
 }
 
 export type AtomOnCreateInput = {
+  icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
 }
@@ -2336,6 +2340,7 @@ export type AtomRelationInput = {
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
 export type AtomSort = {
+  icon?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
@@ -2837,6 +2842,7 @@ export type AtomUniqueWhere = {
 
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
+  icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
@@ -2851,6 +2857,16 @@ export type AtomWhere = {
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
+  icon?: InputMaybe<Scalars['String']>
+  icon_CONTAINS?: InputMaybe<Scalars['String']>
+  icon_ENDS_WITH?: InputMaybe<Scalars['String']>
+  icon_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  icon_NOT?: InputMaybe<Scalars['String']>
+  icon_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  icon_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  icon_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  icon_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  icon_STARTS_WITH?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -4849,6 +4865,7 @@ export type ElementAtomAtomAggregationSelection = {
 
 export type ElementAtomAtomNodeAggregateSelection = {
   __typename?: 'ElementAtomAtomNodeAggregateSelection'
+  icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -4908,6 +4925,26 @@ export type ElementAtomFieldInput = {
 export type ElementAtomNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementAtomNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<ElementAtomNodeAggregationWhereInput>>
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  icon_EQUAL?: InputMaybe<Scalars['String']>
+  icon_GT?: InputMaybe<Scalars['Int']>
+  icon_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  icon_LT?: InputMaybe<Scalars['Int']>
+  icon_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -8309,6 +8346,26 @@ export type InterfaceTypeApiOfAtomsFieldInput = {
 export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  icon_EQUAL?: InputMaybe<Scalars['String']>
+  icon_GT?: InputMaybe<Scalars['Int']>
+  icon_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  icon_LT?: InputMaybe<Scalars['Int']>
+  icon_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -8362,6 +8419,7 @@ export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
 
 export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
+  icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }

@@ -2011,6 +2011,7 @@ type Atom {
     sort: [AtomApiConnectionSort!]
     where: AtomApiConnectionWhere
   ): AtomApiConnection!
+  icon: String
   id: ID!
   name: String!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
@@ -2030,6 +2031,7 @@ type Atom {
 
 type AtomAggregateSelection {
   count: Int!
+  icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -2161,6 +2163,7 @@ input AtomConnectWhere {
 
 input AtomCreateInput {
   api: AtomApiFieldInput
+  icon: String
   id: ID!
   name: String!
   tags: AtomTagsFieldInput
@@ -2193,6 +2196,7 @@ type AtomInterfaceTypeApiNodeAggregateSelection {
 }
 
 input AtomOnCreateInput {
+  icon: String
   id: ID!
   name: String!
 }
@@ -2216,6 +2220,7 @@ input AtomRelationInput {
 Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object.
 """
 input AtomSort {
+  icon: SortDirection
   id: SortDirection
   name: SortDirection
   type: SortDirection
@@ -2713,6 +2718,7 @@ input AtomUniqueWhere {
 
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
+  icon: String
   id: ID
   name: String
   tags: [AtomTagsUpdateFieldInput!]
@@ -2727,6 +2733,16 @@ input AtomWhere {
   apiConnection: AtomApiConnectionWhere
   apiConnection_NOT: AtomApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  icon: String
+  icon_CONTAINS: String
+  icon_ENDS_WITH: String
+  icon_IN: [String]
+  icon_NOT: String
+  icon_NOT_CONTAINS: String
+  icon_NOT_ENDS_WITH: String
+  icon_NOT_IN: [String]
+  icon_NOT_STARTS_WITH: String
+  icon_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -4568,6 +4584,7 @@ type ElementAtomAtomAggregationSelection {
 }
 
 type ElementAtomAtomNodeAggregateSelection {
+  icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
@@ -4626,6 +4643,26 @@ input ElementAtomFieldInput {
 input ElementAtomNodeAggregationWhereInput {
   AND: [ElementAtomNodeAggregationWhereInput!]
   OR: [ElementAtomNodeAggregationWhereInput!]
+  icon_AVERAGE_EQUAL: Float
+  icon_AVERAGE_GT: Float
+  icon_AVERAGE_GTE: Float
+  icon_AVERAGE_LT: Float
+  icon_AVERAGE_LTE: Float
+  icon_EQUAL: String
+  icon_GT: Int
+  icon_GTE: Int
+  icon_LONGEST_EQUAL: Int
+  icon_LONGEST_GT: Int
+  icon_LONGEST_GTE: Int
+  icon_LONGEST_LT: Int
+  icon_LONGEST_LTE: Int
+  icon_LT: Int
+  icon_LTE: Int
+  icon_SHORTEST_EQUAL: Int
+  icon_SHORTEST_GT: Int
+  icon_SHORTEST_GTE: Int
+  icon_SHORTEST_LT: Int
+  icon_SHORTEST_LTE: Int
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -7894,6 +7931,26 @@ input InterfaceTypeApiOfAtomsFieldInput {
 input InterfaceTypeApiOfAtomsNodeAggregationWhereInput {
   AND: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
   OR: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
+  icon_AVERAGE_EQUAL: Float
+  icon_AVERAGE_GT: Float
+  icon_AVERAGE_GTE: Float
+  icon_AVERAGE_LT: Float
+  icon_AVERAGE_LTE: Float
+  icon_EQUAL: String
+  icon_GT: Int
+  icon_GTE: Int
+  icon_LONGEST_EQUAL: Int
+  icon_LONGEST_GT: Int
+  icon_LONGEST_GTE: Int
+  icon_LONGEST_LT: Int
+  icon_LONGEST_LTE: Int
+  icon_LT: Int
+  icon_LTE: Int
+  icon_SHORTEST_EQUAL: Int
+  icon_SHORTEST_GT: Int
+  icon_SHORTEST_GTE: Int
+  icon_SHORTEST_LT: Int
+  icon_SHORTEST_LTE: Int
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -7942,6 +7999,7 @@ type InterfaceTypeAtomApiOfAtomsAggregationSelection {
 }
 
 type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
+  icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }

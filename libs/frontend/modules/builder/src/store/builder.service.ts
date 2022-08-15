@@ -13,11 +13,12 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { componentUsecaseTagName } from '@codelab/shared/data'
-import { computed, toJS } from 'mobx'
+import { computed } from 'mobx'
 import {
   findParent,
   Frozen,
   getRefsResolvingTo,
+  getSnapshot,
   Model,
   model,
   modelAction,
@@ -25,11 +26,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { StateModalService } from './state-modal.service'
-
-const randomInt = (max: number, min: number) =>
-  Math.round(Math.random() * (max - min)) + min
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -68,7 +65,7 @@ export class BuilderService
         // filter empty
         .filter((t) => t)
         // cast as truthy
-        .map((tag) => toJS(tag) as Tag)
+        .map((tag) => getSnapshot(tag) as Tag)
     )
   }
 

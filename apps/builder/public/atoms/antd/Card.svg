@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="173px" height="122px" viewBox="0 0 173 122" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Card</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-168.000000, -46.000000)">
+            <g id="Card" transform="translate(169.000000, 47.000000)">
+                <path d="M0,1.41012951 C0,0.631336485 0.635638238,0 1.41277964,0 L169.41075,0 C170.191006,0 170.823529,0.63125412 170.823529,1.41012951 L170.823529,118.58987 C170.823529,119.368664 170.187891,120 169.41075,120 L1.41277964,120 C0.632522989,120 0,119.368746 0,118.58987 L0,1.41012951 Z" id="Rectangle-50-Copy" stroke-opacity="0.09" stroke="#000000" stroke-width="0.705882353" fill="#FFFFFF"></path>
+                <polygon id="Rectangle-10" fill-opacity="0.09" fill="#000000" points="0 38.8235294 170.823529 38.8235294 170.823529 39.5294118 0 39.5294118"></polygon>
+                <rect id="矩形复制-81" fill="#F5F5F5" x="16" y="81" width="76" height="6"></rect>
+                <rect id="矩形复制-143" fill="#F5F5F5" x="16" y="67" width="139" height="6"></rect>
+                <rect id="矩形复制-144" fill="#F5F5F5" x="16" y="53" width="139" height="6"></rect>
+                <rect id="矩形" fill-opacity="0.5" fill="#000000" x="17" y="15" width="69" height="10"></rect>
+                <rect id="矩形备份" fill="#0091FF" x="132" y="15" width="23" height="10"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

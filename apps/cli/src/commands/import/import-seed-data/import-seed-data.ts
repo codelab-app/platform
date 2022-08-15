@@ -10,6 +10,7 @@ import { importType } from '../../../use-cases/import/import-type'
 import { createAntDesignAtomsData } from '../../../use-cases/parser/ant-design'
 import { ParserService } from '../../../use-cases/parser/parser.service'
 import type { ExportedData } from '../../export/export.command'
+import { addAntdAtomIcons } from './add-antd-atoms-icons'
 import { addAntdUsecaseTags } from './add-antd-usecase-tags'
 
 export const seedFilePath = path.resolve('data', 'seed-data.json')
@@ -28,9 +29,10 @@ export const importSeedData = async (selectedUser: string) => {
   // ID's must be in sync
   await importType(types, selectedUser)
 
-  const atomFactory = flow(addAntdUsecaseTags)
+  const atomFactory = flow(addAntdUsecaseTags, addAntdAtomIcons)
+  const factoriedAtoms = atomFactory(atoms)
 
-  await importAtom(atomFactory(atoms), selectedUser)
+  await importAtom(factoriedAtoms, selectedUser)
 }
 
 /**
