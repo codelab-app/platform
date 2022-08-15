@@ -13,6 +13,6 @@ export const actionFactory = (action: IActionDTO) => {
       return ResourceAction.hydrate(action)
 
     default:
-      throw new Error(`Unknown action kind: ${action.name}`)
+      throw new Error(`unknown action kind: ${action.name}`)
   }
 }

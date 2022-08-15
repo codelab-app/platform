@@ -1,4 +1,6 @@
+import { getAtomService } from '@codelab/frontend/modules/atom'
 import { Element, elementRef } from '@codelab/frontend/modules/element'
+import { getTagService, Tag } from '@codelab/frontend/modules/tag'
 import {
   BuilderDragData,
   BuilderTab,
@@ -7,9 +9,11 @@ import {
   isComponent,
   isElement,
   RendererTab,
+  TagWithComponents,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
+import { componentUsecaseTagName } from '@codelab/shared/data'
+import { computed, toJS } from 'mobx'
 import {
   findParent,
   Frozen,
@@ -21,7 +25,11 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { StateModalService } from './state-modal.service'
+
+const randomInt = (max: number, min: number) =>
+  Math.round(Math.random() * (max - min)) + min
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -42,6 +50,59 @@ export class BuilderService
   })
   implements IBuilderService
 {
+  get componentUsecaseTags() {
+    const tagService = getTagService(this)
+    const tags = tagService.tags
+
+    const componentUsecaseTag = tags.find(
+      (tag) => tag.name === componentUsecaseTagName,
+    )
+
+    if (!componentUsecaseTag) {
+      return []
+    }
+
+    return (
+      componentUsecaseTag.children
+        .map((id) => tagService.tag(id))
+        // filter empty
+        .filter((t) => t)
+        // cast as truthy
+        .map((tag) => toJS(tag) as Tag)
+    )
+  }
+
+  get tagsWithComponents() {
+    const atomService = getAtomService(this)
+    // const componentService = getComponentService(this)
+
+    const components = [
+      ...atomService.atoms,
+      // ...[...componentService.components.values()],
+    ]
+
+    const componentUsecaseTags = this.componentUsecaseTags.map((t) => ({
+      ...t,
+      components: [],
+    }))
+
+    components.forEach((component) => {
+      const tagNames = component.tags.map((t) => t.current.name)
+
+      const foundComponentusecaseTag = componentUsecaseTags.find((usecaseTag) =>
+        tagNames.includes(usecaseTag.name),
+      ) as TagWithComponents | undefined
+
+      if (!foundComponentusecaseTag) {
+        return
+      }
+
+      foundComponentusecaseTag.components.push(component)
+    })
+
+    return componentUsecaseTags
+  }
+
   @computed
   get selectedNode() {
     return this._selectedNode?.current ?? null

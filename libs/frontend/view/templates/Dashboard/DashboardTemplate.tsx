@@ -35,7 +35,7 @@ export const DashboardTemplate = observer(
     })
 
     const metaPaneResizable = useResizable({
-      width: { default: 300, max: 460, min: 240 },
+      width: { default: 360, max: 460, min: 360 },
       reverse: true,
     })
 

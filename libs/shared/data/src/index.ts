@@ -1,4 +1,5 @@
 export * from './app'
 export * from './atom/atoms'
 export * from './graphql'
+export * from './tag'
 export * from './types'

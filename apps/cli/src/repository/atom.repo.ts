@@ -14,7 +14,7 @@ export const upsertAtom = async (atom: IAtomExport, userId: string) => {
     },
   })
 
-  const input = {
+  const baseInput = {
     id: atom.id,
     name: atom.name,
     type: atom.type as OGM_TYPES.AtomType,
@@ -32,14 +32,33 @@ export const upsertAtom = async (atom: IAtomExport, userId: string) => {
         },
   }
 
+  const connectOrCreateTags = atom.tags?.map((tag) => ({
+    where: { node: { name: tag.name } },
+    onCreate: { node: { name: tag.name } },
+  }))
+
+  const createInput: OGM_TYPES.AtomCreateInput = {
+    ...baseInput,
+    tags: {
+      connectOrCreate: connectOrCreateTags,
+    },
+  }
+
+  const updateInput: OGM_TYPES.AtomUpdateInput = {
+    ...baseInput,
+    tags: [
+      {
+        connectOrCreate: connectOrCreateTags,
+      },
+    ],
+  }
+
   if (!idExisting.length) {
     console.log(`Creating ${atom.name}...`)
 
-    console.log(input)
-
     try {
       return await Atom.create({
-        input: [input],
+        input: [createInput],
       })
     } catch (e) {
       console.error(e)
@@ -54,6 +73,6 @@ export const upsertAtom = async (atom: IAtomExport, userId: string) => {
     where: {
       id: atom.id,
     },
-    update: input,
+    update: updateInput,
   })
 }

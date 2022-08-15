@@ -1,12 +1,16 @@
 import { fieldRepository } from '@codelab/backend'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
+import { flow } from 'lodash'
 import path from 'path'
-import { importAtom } from '../../use-cases/import/import-atom'
-import { importType } from '../../use-cases/import/import-type'
-import { createAntDesignAtomsData } from '../../use-cases/parser/ant-design'
-import { ParserService } from '../../use-cases/parser/parser.service'
-import type { ExportedData } from '../export/export.command'
+import { builderComponentUsecaseTag } from '../../../data/tag'
+import { importAtom } from '../../../use-cases/import/import-atom'
+import { importTags } from '../../../use-cases/import/import-tags'
+import { importType } from '../../../use-cases/import/import-type'
+import { createAntDesignAtomsData } from '../../../use-cases/parser/ant-design'
+import { ParserService } from '../../../use-cases/parser/parser.service'
+import type { ExportedData } from '../../export/export.command'
+import { addAntdUsecaseTags } from './add-antd-usecase-tags'
 
 export const seedFilePath = path.resolve('data', 'seed-data.json')
 
@@ -18,11 +22,15 @@ export const importSeedData = async (selectedUser: string) => {
   const json = fs.readFileSync(path.resolve('data', seedFilePath), 'utf8')
   const { atoms, types } = JSON.parse(json) as Omit<ExportedData, 'app'>
 
+  await importTags([builderComponentUsecaseTag], selectedUser)
+
   // Type must be seeded first, so atom can reference it
   // ID's must be in sync
   await importType(types, selectedUser)
 
-  await importAtom(atoms, selectedUser)
+  const atomFactory = flow(addAntdUsecaseTags)
+
+  await importAtom(atomFactory(atoms), selectedUser)
 }
 
 /**

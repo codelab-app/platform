@@ -1,6 +1,6 @@
 import { Prop } from '@codelab/frontend/modules/element'
 import { resourceRef } from '@codelab/frontend/modules/resource'
-import { tryParse, tryStringify } from '@codelab/frontend/shared/utils'
+import { tryParse } from '@codelab/frontend/shared/utils'
 import type {
   IAnyAction,
   IGraphQLActionConfig,
@@ -18,8 +18,6 @@ import {
 import type { AxiosInstance, Method } from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import {
-  _async,
-  _await,
   ExtendedModel,
   model,
   modelAction,
@@ -27,7 +25,6 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { createQueue } from '../createQueue'
 import { actionRef } from './action.ref'
 import { createActionBase } from './action-base.model'
 
@@ -83,68 +80,24 @@ export class ResourceAction
     return client.request(config.query, variables, headers)
   }
 
-  @modelFlow
-  runGraphql = _async(function* (this: ResourceAction) {
-    try {
-      const client = this.resource.current.graphqlClient
-      const config = this.config.values as IGraphQLActionConfig
-      const data: any = yield* _await(this.graphqlFetch(client, config))
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      let successQueue: Array<Function> = []
+  @modelAction
+  runGraphql() {
+    const client = this.resource.current.graphqlClient
+    const config = this.config.values as IGraphQLActionConfig
 
-      if (this.successAction.current) {
-        successQueue = yield* _await(this.successAction.current.getQueue())
-      }
-
-      const setResponseCode = `this.${this.name}.response=${tryStringify(data)}`
-
-      return createQueue(setResponseCode).concat(successQueue)
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      let errorQueue: Array<Function> = []
-
-      if (this.errorAction.current) {
-        errorQueue = yield* _await(this.successAction.current.getQueue())
-      }
-
-      const setErrorCode = `this.${this.name}.error=${tryStringify(error)}`
-
-      return createQueue(setErrorCode).concat(errorQueue)
-    }
-  })
+    return this.graphqlFetch(client, config)
+  }
 
   @modelFlow
-  runRest = _async(function* (this: ResourceAction) {
-    try {
-      const client = this.resource.current.restClient
-      const config = this.config.values as IRestActionConfig
-      const data: any = yield _await(this.restFetch(client, config))
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      let successQueue: Array<Function> = []
+  runRest() {
+    const client = this.resource.current.restClient
+    const config = this.config.values as IRestActionConfig
 
-      if (this.successAction.current) {
-        successQueue = yield* _await(this.successAction.current.getQueue())
-      }
-
-      const setResponseCode = `this.${this.name}.response=${tryStringify(data)}`
-
-      return createQueue(setResponseCode).concat(successQueue)
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      let errorQueue: Array<Function> = []
-
-      if (this.errorAction.current) {
-        errorQueue = yield* _await(this.errorAction.current.getQueue())
-      }
-
-      const setErrorCode = `this.${this.name}.error=${tryStringify(error)}`
-
-      return createQueue(setErrorCode).concat(errorQueue)
-    }
-  })
+    return this.restFetch(client, config)
+  }
 
   @modelAction
-  getQueue() {
+  run() {
     return this.resource.current.type === IResourceType.GraphQL
       ? this.runGraphql()
       : this.runRest()

@@ -5,7 +5,6 @@ import {
   IPipelineAction,
   IPipelineActionDTO,
 } from '@codelab/shared/abstract/core'
-import { flatten } from 'lodash'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
@@ -45,14 +44,6 @@ export class PipelineAction
   }
 
   static hydrate = hydrate
-
-  getQueue() {
-    return Promise.resolve(
-      Promise.all(this.actionsSorted.map((a) => a.getQueue())).then((a) =>
-        flatten(a),
-      ),
-    )
-  }
 }
 
 export const compareOrder = (a: ActionWithOrder, b: ActionWithOrder) =>

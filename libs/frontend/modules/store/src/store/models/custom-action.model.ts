@@ -5,7 +5,6 @@ import {
   ICustomActionDTO,
 } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { createQueue } from '../createQueue'
 import { createActionBase } from './action-base.model'
 
 const hydrate = (action: ICustomActionDTO): ICustomAction => {
@@ -29,8 +28,4 @@ export class CustomAction
   implements ICustomAction
 {
   static hydrate = hydrate
-
-  getQueue() {
-    return Promise.resolve(createQueue(this.code))
-  }
 }

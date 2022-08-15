@@ -34,9 +34,9 @@ import { Tabs, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { ReactNode } from 'react'
 import tw from 'twin.macro'
-import { usePropCompletion } from '../../hooks'
-import { TabContainer } from './ConfigPane-TabContainerStyle'
-import { PropsInspectorTab } from './PropsInspectorTab'
+import { usePropCompletion } from '../../../hooks'
+import { PropsInspectorTab } from '../PropsInspectorTab'
+import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -81,7 +81,7 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
   )
 }
 
-export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
+export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
   ({
     UpdateElementContent,
     elementTree,
@@ -245,4 +245,4 @@ export const ConfigPaneTabContainer = observer<MetaPaneBuilderProps>(
   },
 )
 
-ConfigPaneTabContainer.displayName = 'MetaPaneTabContainer'
+ConfigPaneInspectorTabContainer.displayName = 'MetaPaneTabContainer'
