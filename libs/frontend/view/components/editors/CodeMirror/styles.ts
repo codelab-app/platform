@@ -7,9 +7,9 @@ export const editorStyles = css`
 `
 
 export const ExpandButton = styled(Button)`
-  position: absolute;
-  right: 8px;
-  top: 5px;
+  position: absolute !important;
+  bottom: 2px;
+  left: 2px;
   width: 20px;
   height: 20px;
 `
@@ -30,7 +30,7 @@ export const containerStyles = css`
 
   // Styles taken from ant-input - to make it look similar to other fields
   box-sizing: border-box;
-  margin: 0;
+  margin: 4px;
   font-variant: tabular-nums;
   list-style: none;
   font-feature-settings: 'tnum';

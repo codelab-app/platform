@@ -21,6 +21,7 @@ export const CodeMirrorInput = ({
   shouldDisableNewLines = true,
   defaultCompletionOptions,
   height = '30px',
+  readOnly = false,
   title = '',
   expandable = true,
   ...props
@@ -70,6 +71,7 @@ export const CodeMirrorInput = ({
       onUpdate: codeMirrorOnUpdate,
       ...props,
       ...overWriteOpts,
+      readOnly,
     }
   }
 
@@ -94,6 +96,7 @@ export const CodeMirrorInput = ({
             className="CodeMirrorInput--btnExpand"
             icon={<ExpandAltOutlined width="12px" />}
             onClick={toggleExpand}
+            size="small"
             type="primary"
           />
           <CodeMirrorModal

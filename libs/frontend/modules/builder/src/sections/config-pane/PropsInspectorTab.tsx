@@ -1,12 +1,13 @@
+import { CodeMirrorInput } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IRenderer,
 } from '@codelab/shared/abstract/core'
+import { json } from '@codemirror/lang-json'
 import Button from 'antd/lib/button'
-import TextArea from 'antd/lib/input/TextArea'
 import { observer } from 'mobx-react-lite'
-import React, { ChangeEvent } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
@@ -20,19 +21,18 @@ const PropsInspectorTab = observer(
   ({ element, renderer, elementService }: ElementPropsSectionProps) => {
     const {
       save,
-      lastRenderedPropsString,
       persistedProps,
       setPersistedProps,
+      lastRenderedPropsString,
       isLoading,
       setExtraPropsForElement,
     } = usePropsInspector(element, renderer, elementService)
 
-    const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      const props = event.target.value
-      setPersistedProps(props)
+    const onChange = (value: string) => {
+      setPersistedProps(value)
 
       try {
-        setExtraPropsForElement(JSON.parse(props))
+        setExtraPropsForElement(JSON.parse(value))
       } catch (error) {
         //
         console.log(error)
@@ -42,9 +42,25 @@ const PropsInspectorTab = observer(
     return (
       <div>
         <h3 css={tw`text-gray-700`}>Current props</h3>
-        <TextArea readOnly rows={10} value={lastRenderedPropsString} />
+        <CodeMirrorInput
+          extensions={[json()]}
+          height="150px"
+          onChange={() => undefined}
+          readOnly
+          shouldDisableNewLines={false}
+          title="Current props"
+          value={lastRenderedPropsString}
+        />
+
         <h3 css={tw`text-gray-700`}>Element props</h3>
-        <TextArea onChange={onChange} rows={10} value={persistedProps} />
+        <CodeMirrorInput
+          extensions={[json()]}
+          height="150px"
+          onChange={(v) => onChange(v)}
+          shouldDisableNewLines={false}
+          title="Element props"
+          value={persistedProps || '{}'}
+        />
         <Button loading={isLoading} onClick={() => save()}>
           Save
         </Button>
