@@ -1,4 +1,5 @@
 import { client } from '@codelab/frontend/model/infra/graphql'
+import { getSdk as getCustomElementSdk } from '../graphql/element.endpoints.graphql.custom'
 import { getSdk as getElementSdk } from '../graphql/element.endpoints.graphql.gen'
 import { getSdk as getHookSdk } from '../graphql/hook.endpoints.graphql.gen'
 import { getSdk as getPropMapBindingSdk } from '../graphql/prop-map-binding.endpoints.graphql.gen'
@@ -6,3 +7,4 @@ import { getSdk as getPropMapBindingSdk } from '../graphql/prop-map-binding.endp
 export const elementApi = getElementSdk(client)
 export const hookApi = getHookSdk(client)
 export const propMapBindingApi = getPropMapBindingSdk(client)
+export const customElementApi = getCustomElementSdk(client)

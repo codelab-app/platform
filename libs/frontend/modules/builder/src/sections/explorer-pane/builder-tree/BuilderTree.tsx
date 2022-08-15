@@ -42,11 +42,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
   }) => {
     const { elementService, builderService, componentService } = useStore()
     const selectedNode = builderService.selectedNode
-
-    const { isMoving, handleDrop } = useElementTreeDrop(
-      elementTree,
-      elementService,
-    )
+    const { isMoving, handleDrop } = useElementTreeDrop(elementService)
 
     return (
       <AntdTree<IBuilderDataNode>

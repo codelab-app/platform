@@ -1,6 +1,9 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/modules/atom'
-import { componentRef } from '@codelab/frontend/presenter/container'
+import {
+  componentRef,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import type {
   IAtom,
   IComponent,
@@ -15,6 +18,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { connectId, disconnectId } from '@codelab/shared/data'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
@@ -31,6 +35,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { makePatchElementInput } from './api.utils'
 import { elementRef } from './element.ref'
 import { Prop } from './prop.model'
 import { PropMapBinding } from './prop-map-binding.model'
@@ -51,6 +56,9 @@ export const hydrate = ({
   instanceOfComponent,
   parentElement,
 
+  nextSibling,
+  prevSibling,
+  childrenRoot,
   preRenderActionId,
   postRenderActionId,
   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
@@ -69,6 +77,9 @@ export const hydrate = ({
     customCss,
     guiCss,
     parentId: parentElement?.id,
+    nextSiblingId: nextSibling?.id,
+    prevSiblingId: prevSibling?.id,
+    childrenRootId: childrenRoot?.id,
     atom: atom ? atomRef(atom.id) : null,
     preRenderActionId,
     postRenderActionId,
@@ -76,7 +87,6 @@ export const hydrate = ({
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
-    orderInParent: parentElementConnection?.edges?.[0]?.order ?? null,
     component: component ? componentRef(component.id) : null,
     instanceOfComponent: instanceOfComponent
       ? componentRef(instanceOfComponent.id)
@@ -111,8 +121,10 @@ export class Element
 
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullable<string>>(null),
+    nextSiblingId: prop<Nullable<string>>(null),
+    prevSiblingId: prop<Nullable<string>>(null),
+    childrenRootId: prop<Nullable<string>>(null),
     owner: prop<Nullable<string>>(null),
-
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<Nullable<string>>(null).withSetter(),
@@ -137,8 +149,27 @@ export class Element
   implements IElement
 {
   @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
   get childrenSorted(): Array<IElement> {
-    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
+    const childrenRoot = this.childrenRoot
+
+    if (!childrenRoot) {
+      return []
+    }
+
+    const results = []
+    let currentTraveledNode: Maybe<IElement> = childrenRoot
+
+    while (currentTraveledNode) {
+      results.push(currentTraveledNode)
+      currentTraveledNode = currentTraveledNode.nextSibling
+    }
+
+    return results
   }
 
   /**
@@ -258,16 +289,33 @@ export class Element
   }
 
   @computed
-  get parentElement() {
-    // the parent is ObjectMap items
-    return this.parentId ? getParent(this)[this.parentId] : undefined
+  get childrenRoot() {
+    return this.childrenRootId
+      ? this.elementService.element(this.childrenRootId)
+      : undefined
   }
 
   @computed
-  get lastChildOrder() {
-    const childrenSorted = this.childrenSorted
+  get nextSibling() {
+    return this.nextSiblingId
+      ? this.elementService.element(this.nextSiblingId)
+      : undefined
+  }
 
-    return childrenSorted[childrenSorted.length - 1]?.orderInParent ?? 0
+  @computed
+  get prevSibling() {
+    return this.prevSiblingId
+      ? this.elementService.element(this.prevSiblingId)
+      : undefined
+  }
+
+  @computed
+  get parentElement() {
+    // the parent is ObjectMap items
+
+    return this.parentId
+      ? (getParent(this)[this.parentId] as IElement)
+      : undefined
   }
 
   /**
@@ -297,7 +345,7 @@ export class Element
 
   findDescendant(id: string): Maybe<IElement> {
     if (this.id === id) {
-      return this
+      return this as IElement
     }
 
     if (this.children.has(id)) {
@@ -313,11 +361,6 @@ export class Element
     }
 
     return undefined
-  }
-
-  @modelAction
-  detachChild(element: IElement) {
-    this.children.delete(element.id)
   }
 
   @modelAction
@@ -411,6 +454,201 @@ export class Element
   }
 
   @modelAction
+  detachNextSibling() {
+    if (!this.nextSibling) {
+      return
+    }
+
+    this.nextSibling.prevSiblingId = this.prevSiblingId
+    this.nextSiblingId = null
+  }
+
+  @modelAction
+  detachPrevSibling() {
+    if (!this.prevSibling) {
+      return
+    }
+
+    this.prevSibling.nextSiblingId = this.nextSiblingId
+    this.prevSiblingId = null
+  }
+
+  @modelAction
+  detachParent() {
+    if (!this.parentElement) {
+      return
+    }
+
+    if (this.parentElement.childrenRootId === this.id) {
+      this.parentElement.childrenRootId = this.nextSiblingId
+    }
+
+    this.parentElement.removeChild(this)
+    this.parentId = null
+  }
+
+  @modelAction
+  attachToParent(parentElementId: string) {
+    const parentElement = this.elementService.element(parentElementId)
+
+    if (!parentElement) {
+      throw new Error(`parent element id ${parentElementId} not found`)
+    }
+
+    parentElement.children.set(this.id, elementRef(this))
+    this.parentId = parentElementId
+  }
+
+  @modelAction
+  attachToParentAsSubRoot(parentElementId: string) {
+    const parentElement = this.elementService.element(parentElementId)
+    this.attachToParent(parentElementId)
+
+    if (!parentElement) {
+      throw new Error(`parent element id ${parentElementId} not found`)
+    }
+
+    parentElement.childrenRootId = this.id
+  }
+
+  makeAttachToParentInput(parentElementId: string) {
+    const parentElement = this.elementService.element(parentElementId)
+
+    if (!parentElement) {
+      throw new Error(`parent element id ${parentElementId} not found`)
+    }
+
+    return makePatchElementInput(parentElement, {
+      children: [
+        {
+          connect: [
+            {
+              where: { node: { id: this.id } },
+            },
+          ],
+        },
+      ],
+    })
+  }
+
+  makeAttachToParentAsSubRootInput(parentElementId: string) {
+    const parentElement = this.elementService.element(parentElementId)
+    const input = this.makeAttachToParentInput(parentElementId)
+
+    if (!parentElement) {
+      throw new Error(`parent element id ${parentElementId} not found`)
+    }
+
+    input.update.childrenRoot = {
+      ...connectId(this.id),
+      ...disconnectId(parentElement.childrenRoot?.id),
+    }
+
+    return input
+  }
+
+  makeDetachParentInput() {
+    if (!this.parentElement) {
+      return null
+    }
+
+    const parentElementChanges: any = {
+      children: {
+        ...disconnectId(this.id),
+      },
+    }
+
+    if (this.parentElement.childrenRootId === this.id) {
+      parentElementChanges.childrenRoot = {
+        ...disconnectId(this.id),
+        ...connectId(this.nextSibling?.id),
+      }
+    }
+
+    return makePatchElementInput(this.parentElement, parentElementChanges)
+  }
+
+  makeDetachPrevSiblingInput() {
+    if (!this.prevSibling) {
+      return null
+    }
+
+    return makePatchElementInput(this.prevSibling, {
+      nextSibling: {
+        ...disconnectId(this.id),
+        ...connectId(this.nextSibling?.id),
+      },
+    })
+  }
+
+  makeDetachNextSiblingInput() {
+    if (!this.nextSibling) {
+      return null
+    }
+
+    return makePatchElementInput(this.nextSibling, {
+      prevSibling: {
+        ...disconnectId(this.id),
+        ...connectId(this.prevSibling?.id),
+      },
+    })
+  }
+
+  makePrependSiblingInput(siblingId: string) {
+    const sibling = this.elementService.element(siblingId)
+
+    if (!sibling) {
+      throw new Error(`sibling element ${siblingId} not ond`)
+    }
+
+    return makePatchElementInput(sibling, {
+      prevSibling: {
+        ...disconnectId(sibling.prevSibling?.id),
+        ...connectId(this?.id),
+      },
+    })
+  }
+
+  makeAppendSiblingInput(siblingId: string) {
+    const sibling = this.elementService.element(siblingId)
+
+    if (!sibling) {
+      throw new Error(`sibling element ${siblingId} not ond`)
+    }
+
+    return makePatchElementInput(sibling, {
+      nextSibling: {
+        ...disconnectId(sibling.nextSibling?.id),
+        ...connectId(this?.id),
+      },
+    })
+  }
+
+  @modelAction
+  appendSibling(siblingId: string) {
+    const sibling = this.elementService.element(siblingId)
+
+    if (!sibling) {
+      throw new Error(`sibling element ${siblingId} not ond`)
+    }
+
+    sibling.nextSiblingId = this.id
+    this.prevSiblingId = sibling.id
+  }
+
+  @modelAction
+  prependSibling(siblingId: string) {
+    const sibling = this.elementService.element(siblingId)
+
+    if (!sibling) {
+      throw new Error(`sibling element ${siblingId} not ond`)
+    }
+
+    sibling.prevSiblingId = this.id
+    this.nextSiblingId = sibling.id
+  }
+
+  @modelAction
   updateCache({
     id,
     name,
@@ -427,8 +665,10 @@ export class Element
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
-    parentElementConnection,
     parentElement,
+    nextSibling,
+    prevSibling,
+    childrenRoot,
   }: Omit<IElementDTO, '__typename'>) {
     this.id = id
     this.name = name ?? null
@@ -441,9 +681,12 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
     this.parentId = parentElement?.id ?? null
+
+    this.nextSiblingId = nextSibling?.id ?? null
+    this.prevSiblingId = prevSibling?.id ?? null
+    this.childrenRootId = childrenRoot?.id ?? null
 
     if (props) {
       this.props?.updateCache(props)
@@ -472,6 +715,3 @@ export class Element
 
   public static getElementTree = getElementTree
 }
-
-export const compareOrder = (a: IElement, b: IElement) =>
-  (a.orderInParent ?? 0) - (b.orderInParent ?? 0)

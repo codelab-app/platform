@@ -16,6 +16,7 @@ export type SelectElementProps = HTMLFieldProps<string, SelectFieldProps> & {
   kind: ElementTypeKind
   allElementOptions: Array<SelectElementOption>
   targetElementId?: string
+  disableWhenOneOpt?: boolean
 }
 
 export const SelectElement = ({
@@ -23,6 +24,7 @@ export const SelectElement = ({
   allElementOptions,
   name,
   kind,
+  disableWhenOneOpt = false,
   ...props
 }: SelectElementProps) => {
   let elements: Array<SelectElementOption>
@@ -77,7 +79,9 @@ export const SelectElement = ({
       options={elements}
       showSearch
       {...(props as any)}
-      disabled={elements.length === 1 || !elements.length}
+      disabled={
+        disableWhenOneOpt && (elements.length === 1 || !elements.length)
+      }
     />
   )
 }
