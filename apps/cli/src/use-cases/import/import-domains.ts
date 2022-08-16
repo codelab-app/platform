@@ -7,19 +7,22 @@ import {
 export const importDomains = async (domains: Array<IDomainExport> = []) => {
   console.log('Importing domains...')
 
-  const verificationPromises: Array<Promise<any>> = []
   const verifiedDomains: Array<IDomainExport> = []
 
-  domains.forEach((domain) => {
+  const verificationPromises = domains.map((domain) => {
     const verificationPromise = createVercelDomainIfNotExist(domain)
-    verificationPromises.push(verificationPromise)
-    verificationPromise.then((ok) => {
-      if (!ok) {
+
+    verificationPromise.then((domainInfo) => {
+      if (!domainInfo) {
+        console.log(`No domain information was found for domain: ${domain}`)
+
         return
       }
 
       verifiedDomains.push(domain)
     })
+
+    return verificationPromise
   })
 
   await Promise.all(verificationPromises)
