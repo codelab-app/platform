@@ -124,7 +124,7 @@ export const ConfigPane = observer<MetaPaneProps>(
               renderService={renderService}
               typeService={typeService}
               userService={userService}
-      />
+            />
           </Tabs.TabPane>
           <Tabs.TabPane
             destroyInactiveTabPane
