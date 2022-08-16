@@ -37,6 +37,8 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
 
 export const makeChildrenPropElement = (props: IPropData) =>
   React.createElement('div', {
+    // Should have the class custom-text-container for the customized Quill styles to work
+    className: 'custom-text-container',
     dangerouslySetInnerHTML: {
       __html: `${props?.['customText']}`,
     },

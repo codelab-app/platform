@@ -1,4 +1,3 @@
-import 'react-quill/dist/quill.snow.css'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   IElement,
@@ -8,7 +7,7 @@ import {
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
-import QuillNoSSRWrapper from './QuillNoSSRWrapper'
+import ReactQuill from './ReactQuill'
 
 export type UpdateInnerHtmlFormProps = {
   elementService: IElementService
@@ -23,11 +22,10 @@ const modules = {
     ['bold', 'italic', 'underline', 'strike'],
     [{ color: [] }, { background: [] }],
     [{ script: 'sub' }, { script: 'super' }],
-    // ['blockquote', 'code-block'],
+    ['blockquote', 'code-block'],
     [{ list: 'ordered' }, { list: 'bullet' }],
-    // eslint-disable-next-line no-inline-comments
-    [/* { indent: '-1' }, { indent: '+1' } */ { align: [] }],
-    ['link', 'image', 'video'],
+    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+    ['link'],
     ['clean'],
   ],
 }
@@ -67,7 +65,7 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
           </p>
         </Col>
         <Col span={24}>
-          <QuillNoSSRWrapper
+          <ReactQuill
             modules={modules}
             onChange={(newCustomText) => {
               setValue(newCustomText)
