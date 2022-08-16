@@ -118,6 +118,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
           >
             <UpdateElementContent
+              key={selectedNode.id}
               node={selectedNode}
               trackPromises={trackPromises}
             />
@@ -130,31 +131,32 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             // needed to update props if we change them in the prop inspector tab
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
-            {isElement(selectedNode) &&
-            (selectedNode.atom || selectedNode.instanceOfComponent) ? (
-              <>
-                <UpdateCustomTextForm
-                  element={selectedNode}
-                  elementService={elementService}
-                  trackPromises={trackPromises}
-                />
-                <UpdateElementPropsForm
-                  actionList={actionService.actionsList}
-                  autocomplete={renderService.platformState}
-                  builderState={{
-                    componentId: builderService.activeComponent?.id,
-                  }}
-                  element={selectedNode}
-                  elementService={elementService}
-                  key={selectedNode.id}
-                  trackPromises={trackPromises}
-                  typeService={typeService}
-                  userService={userService}
-                />
-              </>
-            ) : (
-              `Add an atom or a component to this element to edit its props`
-            )}
+            <div key={selectedNode.id}>
+              {isElement(selectedNode) &&
+                (selectedNode.atom || selectedNode.instanceOfComponent) ? (
+                <>
+                  <UpdateInnerHtmlForm
+                    element={selectedNode}
+                    elementService={elementService}
+                    trackPromises={trackPromises}
+                  />
+                  <UpdateElementPropsForm
+                    actionList={actionService.actionsList}
+                    autocomplete={renderService.platformState}
+                    builderState={{
+                      componentId: builderService.activeComponent?.id,
+                    }}
+                    element={selectedNode}
+                    elementService={elementService}
+                    trackPromises={trackPromises}
+                    typeService={typeService}
+                    userService={userService}
+                  />
+                </>
+              ) : (
+                `Add an atom or a component to this element to edit its props`
+              )}
+            </div>
           </Tabs.TabPane>
 
           <Tabs.TabPane

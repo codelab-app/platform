@@ -64,7 +64,7 @@ export const ConfigPane = observer<MetaPaneProps>(
         <Tabs defaultActiveKey={selectedNode.id + '_tab1'} size="small">
           <Tabs.TabPane
             destroyInactiveTabPane
-            key={selectedNode.id + '_tab1'}
+            key="tab1"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
@@ -128,7 +128,7 @@ export const ConfigPane = observer<MetaPaneProps>(
           </Tabs.TabPane>
           <Tabs.TabPane
             destroyInactiveTabPane
-            key={selectedNode.id + '_tab2'}
+            key="tab2"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <div>
