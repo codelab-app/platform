@@ -20,7 +20,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { SelectSiblingElement } from '../../../components/SelectSiblingElement'
+import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
@@ -82,6 +82,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       .filter((element) => !element?.instanceOfComponent && !element?.component)
       .map(mapElementOption)
 
+    console.log({ allElementOptions })
+
     return (
       <ModalForm.Modal
         okText="Create"
@@ -120,7 +122,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             ))}
             name="parentElementId"
           />
-          <SelectSiblingElement
+          <SelectLinkElement
             allElementOptions={allElementOptions}
             name="prevSiblingId"
           />

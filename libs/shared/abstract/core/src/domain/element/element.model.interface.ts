@@ -52,6 +52,10 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   atomName: string
   siblings: Array<IElement>
 
+  nextSibling: Maybe<IElement>
+  nextSiblingId: Nullable<string>
+  childrenRoot: Maybe<IElement>
+  childrenRootId: Nullable<string>
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>

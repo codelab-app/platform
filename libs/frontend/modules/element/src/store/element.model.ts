@@ -1,6 +1,9 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/modules/atom'
-import { componentRef } from '@codelab/frontend/presenter/container'
+import {
+  componentRef,
+  getElementService,
+} from '@codelab/frontend/presenter/container'
 import type {
   IAtom,
   IComponent,
@@ -51,6 +54,8 @@ export const hydrate = ({
   instanceOfComponent,
   parentElement,
 
+  nextSibling,
+  childrenRoot,
   preRenderActionId,
   postRenderActionId,
   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
@@ -69,6 +74,8 @@ export const hydrate = ({
     customCss,
     guiCss,
     parentId: parentElement?.id,
+    nextSiblingId: nextSibling?.id,
+    childrenRootId: childrenRoot?.id,
     atom: atom ? atomRef(atom.id) : null,
     preRenderActionId,
     postRenderActionId,
@@ -111,6 +118,8 @@ export class Element
 
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullable<string>>(null),
+    nextSiblingId: prop<Nullable<string>>(null),
+    childrenRootId: prop<Nullable<string>>(null),
     owner: prop<Nullable<string>>(null),
 
     orderInParent: prop<Nullable<number>>(null).withSetter(),
@@ -138,7 +147,26 @@ export class Element
 {
   @computed
   get childrenSorted(): Array<IElement> {
-    return [...this.children.values()].map((x) => x.current).sort(compareOrder)
+    const childrenRoot = this.childrenRoot
+
+    if (!childrenRoot) {
+      return []
+    }
+
+    const results = []
+    let currentTravledNode: Maybe<IElement> = childrenRoot
+    // io loop
+    let i = 0
+
+    while (currentTravledNode && i <= 100) {
+      i++
+
+      results.push(currentTravledNode)
+      currentTravledNode = currentTravledNode.nextSibling
+      console.log({ currentTravledNode })
+    }
+
+    return results
   }
 
   /**
@@ -255,6 +283,24 @@ export class Element
   @computed
   get siblings() {
     return this.parentElement?.children
+  }
+
+  @computed
+  get childrenRoot() {
+    const elementService = getElementService(this)
+
+    return this.childrenRootId
+      ? elementService.element(this.childrenRootId)
+      : undefined
+  }
+
+  @computed
+  get nextSibling() {
+    const elementService = getElementService(this)
+
+    return this.nextSiblingId
+      ? elementService.element(this.nextSiblingId)
+      : undefined
   }
 
   @computed
@@ -429,6 +475,8 @@ export class Element
     renderForEachPropKey,
     parentElementConnection,
     parentElement,
+    nextSibling,
+    childrenRoot,
   }: Omit<IElementDTO, '__typename'>) {
     this.id = id
     this.name = name ?? null
@@ -444,6 +492,9 @@ export class Element
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
     this.parentId = parentElement?.id ?? null
+
+    this.nextSiblingId = nextSibling?.id ?? null
+    this.childrenRootId = childrenRoot?.id ?? null
 
     if (props) {
       this.props?.updateCache(props)

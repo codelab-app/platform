@@ -11,6 +11,11 @@ import { v4 } from 'uuid'
 
 //
 // Utilities for transforming the form inputs to api inputs
+
+/**
+ * create
+ * linked by
+ */
 //
 
 export const makeCreateInput = (
@@ -55,6 +60,14 @@ export const makeCreateInput = (
       }
     : undefined
 
+  const rootOf: ElementCreateInput['childrenRoot'] = prevSiblingId
+    ? undefined
+    : {
+        connect: {
+          where: { node: { id: parentElementId } },
+        },
+      }
+
   // Always create props
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
@@ -70,6 +83,7 @@ export const makeCreateInput = (
     name,
     id,
     prevSibling,
+    rootOf,
   }
 }
 

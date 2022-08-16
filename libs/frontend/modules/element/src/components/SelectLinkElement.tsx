@@ -7,15 +7,12 @@ import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
 
-type SelectSiblingElementProps = Pick<
-  SelectElementProps,
-  'allElementOptions'
-> & {
+type SelectLinkElementProps = Pick<SelectElementProps, 'allElementOptions'> & {
   name: string
 }
 
-export const SelectSiblingElement = observer(
-  ({ allElementOptions, name }: SelectSiblingElementProps) => {
+export const SelectLinkElement = observer(
+  ({ allElementOptions, name }: SelectLinkElementProps) => {
     const form = useForm<ICreateElementDTO>()
     const parentElementId = form.model.parentElementId
 
@@ -28,6 +25,7 @@ export const SelectSiblingElement = observer(
         component={(props: any) => (
           <SelectChildElement
             allElementOptions={allElementOptions}
+            disableWhenOneOpt={false}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...(props as any)}
