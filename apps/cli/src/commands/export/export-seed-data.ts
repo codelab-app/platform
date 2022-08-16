@@ -8,7 +8,10 @@ export const exportSeedData = async () => {
   const atomData = await exportAtom()
   const typeData = await exportSeedTypes()
 
-  const seedData: Omit<ExportedData, 'app' | 'stores' | 'resources'> = {
+  const seedData: Omit<
+    ExportedData,
+    'app' | 'stores' | 'resources' | 'domains'
+  > = {
     ...atomData,
     ...typeData,
   }

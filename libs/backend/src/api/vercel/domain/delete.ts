@@ -1,4 +1,4 @@
-import { baseHeaders, projectApiUrl, teamIdParam } from '../../const'
+import { baseHeaders, projectApiUrl, teamIdParam } from '../const'
 
 export const deleteDomain = (name: string) => {
   return fetch(`${projectApiUrl()}/domains/${name}${teamIdParam}`, {

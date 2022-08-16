@@ -1,6 +1,8 @@
 import {
   IAppExport,
   IAtomExport,
+  ICreateDomainDTO,
+  IDomainExport,
   IResourceExport,
   ITypeExport,
 } from '@codelab/shared/abstract/core'
@@ -14,6 +16,7 @@ config({ path: `${process.cwd()}/.env` })
 
 export type ExportedData = {
   app: IAppExport | null
+  domains: Array<IDomainExport>
   atoms: Array<IAtomExport>
   types: Array<ITypeExport>
   resources: Array<IResourceExport>
