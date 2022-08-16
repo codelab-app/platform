@@ -10,7 +10,7 @@ import {
   childrenAreEmpty,
   extractValidProps,
   getReactComponent,
-  makeChildrenPropElement,
+  makeCustomTextContainer,
   withMaybeGlobalPropsProvider,
 } from './wrapper.utils'
 
@@ -51,9 +51,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       if (
         hasNoChildren &&
         renderOutput.props &&
+        renderOutput.props['customText'] &&
         element.atom?.current.allowCustomTextInjection
       ) {
-        children = makeChildrenPropElement(renderOutput.props)
+        children = makeCustomTextContainer(renderOutput.props['customText'])
       }
 
       const ReactComponent = getReactComponent(renderOutput)

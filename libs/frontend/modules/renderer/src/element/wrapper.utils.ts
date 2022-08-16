@@ -1,5 +1,4 @@
 import {
-  IPropData,
   IPropDataByElementId,
   IRenderOutput,
 } from '@codelab/shared/abstract/core'
@@ -35,12 +34,12 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
   // Render the atom if it exists, otherwise use fragment
   renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
 
-export const makeChildrenPropElement = (props: IPropData) =>
+export const makeCustomTextContainer = (customText: string) =>
   React.createElement('div', {
     // Should have the class custom-text-container for the customized Quill styles to work
     className: 'custom-text-container',
     dangerouslySetInnerHTML: {
-      __html: `${props?.['customText']}`,
+      __html: customText,
     },
   })
 
