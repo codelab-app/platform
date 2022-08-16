@@ -20,6 +20,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { SelectSiblingElement } from '../../../components/SelectSiblingElement'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
@@ -77,6 +78,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const closeModal = () => elementService.createModal.close()
 
+    const allElementOptions = pageTree.elementsList
+      .filter((element) => !element?.instanceOfComponent && !element?.component)
+      .map(mapElementOption)
+
     return (
       <ModalForm.Modal
         okText="Create"
@@ -100,6 +105,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'customCss',
               'guiCss',
               'propsData',
+              'prevSiblingId',
               'preRenderActionId',
               'postRenderActionId',
             ]}
@@ -109,15 +115,14 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={pageTree.elementsList
-                  .filter(
-                    (element) =>
-                      !element?.instanceOfComponent && !element?.component,
-                  )
-                  .map(mapElementOption)}
+                allElementOptions={allElementOptions}
               />
             ))}
             name="parentElementId"
+          />
+          <SelectSiblingElement
+            allElementOptions={allElementOptions}
+            name="prevSiblingId"
           />
           <AutoField name="order" />
           <AutoField component={SelectAtom} name="atomId" />

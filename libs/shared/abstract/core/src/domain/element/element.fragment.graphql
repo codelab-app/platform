@@ -10,6 +10,12 @@ fragment Element on Element {
   instanceOfComponent {
     ...Component
   }
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
   parentElement {
     id
   }

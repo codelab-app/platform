@@ -30,6 +30,8 @@ export type ElementFragment = {
   propTransformationJs?: string | null
   component?: ComponentFragment | null
   instanceOfComponent?: ComponentFragment | null
+  prevSibling?: { id: string } | null
+  nextSibling?: { id: string } | null
   parentElement?: { id: string } | null
   atom?: AtomFragment | null
   props?: PropFragment | null
@@ -57,6 +59,12 @@ export const ElementFragmentDoc = gql`
     }
     instanceOfComponent {
       ...Component
+    }
+    prevSibling {
+      id
+    }
+    nextSibling {
+      id
     }
     parentElement {
       id

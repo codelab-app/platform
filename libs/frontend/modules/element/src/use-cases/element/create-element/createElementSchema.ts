@@ -26,6 +26,11 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       type: 'integer',
       nullable: true,
     },
+    prevSiblingId: {
+      type: 'string',
+      nullable: true,
+      label: 'Linked by',
+    },
     atomId: {
       type: 'string',
       nullable: true,

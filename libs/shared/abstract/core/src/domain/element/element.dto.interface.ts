@@ -18,6 +18,7 @@ export interface ICreateElementDTO {
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
   propsData?: string
+  prevSiblingId?: Nullable<string>
 }
 
 export type IUpdateElementDTO = {

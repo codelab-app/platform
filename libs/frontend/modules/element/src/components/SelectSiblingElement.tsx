@@ -1,0 +1,40 @@
+import {
+  SelectChildElement,
+  SelectElementProps,
+} from '@codelab/frontend/modules/type'
+import { ICreateElementDTO } from '@codelab/shared/abstract/core'
+import { observer } from 'mobx-react-lite'
+import { useForm } from 'uniforms'
+import { AutoField } from 'uniforms-antd'
+
+type SelectSiblingElementProps = Pick<
+  SelectElementProps,
+  'allElementOptions'
+> & {
+  name: string
+}
+
+export const SelectSiblingElement = observer(
+  ({ allElementOptions, name }: SelectSiblingElementProps) => {
+    const form = useForm<ICreateElementDTO>()
+    const parentElementId = form.model.parentElementId
+
+    if (!parentElementId) {
+      return null
+    }
+
+    return (
+      <AutoField
+        component={(props: any) => (
+          <SelectChildElement
+            allElementOptions={allElementOptions}
+            targetElementId={parentElementId}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...(props as any)}
+          />
+        )}
+        name={name}
+      ></AutoField>
+    )
+  },
+)

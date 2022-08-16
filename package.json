@@ -14,7 +14,7 @@
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn graphql-codegen",
-    "ogmgen": "cross-env GENERATE_OGM_TYPES=true nx serve builder",
+    "ogmgen:builder": "cross-env GENERATE_OGM_TYPES=true nx serve builder",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --parallel=3",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",

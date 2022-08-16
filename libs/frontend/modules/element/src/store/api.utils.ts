@@ -26,6 +26,7 @@ export const makeCreateInput = (
     preRenderActionId,
     order,
     propsData,
+    prevSiblingId,
   } = input
 
   const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
@@ -46,6 +47,14 @@ export const makeCreateInput = (
       }
     : undefined
 
+  const prevSibling: ElementCreateInput['prevSibling'] = prevSiblingId
+    ? {
+        connect: {
+          where: { node: { id: prevSiblingId } },
+        },
+      }
+    : undefined
+
   // Always create props
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
@@ -60,6 +69,7 @@ export const makeCreateInput = (
     preRenderActionId,
     name,
     id,
+    prevSibling,
   }
 }
 
