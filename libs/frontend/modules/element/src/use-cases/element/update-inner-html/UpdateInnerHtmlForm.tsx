@@ -9,7 +9,9 @@ import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
 import ReactQuill from './ReactQuill'
 
-export type UpdateInnerHtmlFormProps = {
+export const CUSTOM_TEXT_PROP_KEY = 'customText'
+
+export type UpdateCustomTextFormProps = {
   elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
@@ -33,10 +35,13 @@ const modules = {
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
-export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
+export const UpdateCustomTextForm = observer<UpdateCustomTextFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
-    const [value, setValue] = useState(element.props?.values?.['customText'])
+
+    const [value, setValue] = useState(
+      element.props?.values?.[CUSTOM_TEXT_PROP_KEY],
+    )
 
     const inEditMode = useCallback(
       () => element.children.size === 0,
@@ -71,7 +76,7 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
               setValue(newCustomText)
               onSubmit({
                 ...element.props?.values,
-                customText: newCustomText,
+                [CUSTOM_TEXT_PROP_KEY]: newCustomText,
               })
             }}
             theme="snow"

@@ -7,6 +7,7 @@ import {
   ComponentService,
 } from '@codelab/frontend/modules/component'
 import {
+  CUSTOM_TEXT_PROP_KEY,
   Element,
   ElementService,
   ElementTree,
@@ -124,7 +125,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         id: v4(),
         data: frozen({
           componentProp: 'original',
-          customText: "I'm a component",
+          [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
         }),
       }),
     })

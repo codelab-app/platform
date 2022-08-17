@@ -1,3 +1,4 @@
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/modules/element'
 import { IRenderOutput, TypedValue } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setupTest'
@@ -54,7 +55,9 @@ describe('RenderService', () => {
     const { findByText } = render(someNode())
 
     expect(
-      await findByText(data.componentRootElement.props?.get('customText')),
+      await findByText(
+        data.componentRootElement.props?.get(CUSTOM_TEXT_PROP_KEY),
+      ),
     ).toBeInTheDocument()
   })
 
@@ -72,7 +75,10 @@ describe('RenderService', () => {
     ) as IRenderOutput
 
     const { someNode } = props as any
-    const { findByText } = render(someNode({ customText: 'new text' }))
+
+    const { findByText } = render(
+      someNode({ [CUSTOM_TEXT_PROP_KEY]: 'new text' }),
+    )
 
     expect(await findByText('new text')).toBeInTheDocument()
   })
