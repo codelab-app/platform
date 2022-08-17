@@ -1,5 +1,5 @@
-import * as AntdIcon from '@ant-design/icons'
 import { IconProps } from '@ant-design/icons/lib/components/IconBase'
+import * as MuiIcons from '@mui/icons-material'
 import React from 'react'
 
 type _IconProps = IconProps & {
@@ -9,13 +9,13 @@ type _IconProps = IconProps & {
   name: string
 }
 
-export const Icon = ({ name, ...props }: _IconProps) => {
+export const MuiIcon = ({ name, ...props }: _IconProps) => {
   if (!name) {
     return null
   }
 
   return React.createElement(
-    AntdIcon[name as keyof typeof AntdIcon] as any,
+    MuiIcons[name as keyof typeof MuiIcons] as any,
     props,
   )
 }
