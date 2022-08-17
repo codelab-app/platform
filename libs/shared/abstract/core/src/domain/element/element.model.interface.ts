@@ -54,6 +54,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
 
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
+  prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
 
   linkSibling(): void

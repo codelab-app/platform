@@ -318,6 +318,8 @@ export class Element
   @computed
   get parentElement() {
     // the parent is ObjectMap items
+    console.log('get parent', this)
+
     return this.parentId
       ? (getParent(this)[this.parentId] as IElement)
       : undefined
@@ -470,21 +472,22 @@ export class Element
     this.propMapBindings.delete(propMapBinding.id)
   }
 
-  @modelAction
-  unlinkSibling() {
-    if (this.prevSibling) {
-      // get its prev sibling link to its next sibling
-      this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
-    } else if (this.parentElement) {
-      // this is root, link to its next sibling because we delete it
-      // if no next sibling, then parent children tree is empty
-      this.parentElement.childrenRootId = this.nextSibling?.id ?? null
-    }
+  // experienment, for historical purpose
+  // @modelAction
+  // unlinkSibling() {
+  //   if (this.prevSibling?.nextSibling) {
+  //     // get its prev sibling link to its next sibling
+  //     this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
+  //   } else if (this.parentElement) {
+  //     // this is root, link to its next sibling because we delete it
+  //     // if no next sibling, then parent children tree is empty
+  //     this.parentElement.childrenRootId = this.nextSibling?.id ?? null
+  //   }
 
-    if (this.nextSibling) {
-      this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null
-    }
-  }
+  //   if (this.nextSibling) {
+  //     this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null
+  //   }
+  // }
 
   @modelAction
   linkSibling() {

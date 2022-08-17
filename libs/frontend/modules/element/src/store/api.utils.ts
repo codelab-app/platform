@@ -58,6 +58,7 @@ export const makeCreateInput = (
   let prevSiblingPayload: ElementCreateInput['prevSibling'] = undefined
 
   // not add at the beginning
+  // x-[new] | x-[new]-x
   if (prevSiblingId) {
     prevSiblingPayload = {
       connect: {
@@ -77,7 +78,10 @@ export const makeCreateInput = (
         where: { node: { id: nextSiblingOfPrevSibling.id } },
       },
     }
-  } else if (parentElement?.childrenRoot) {
+  }
+
+  if (!prevSibling && parentElement?.childrenRoot) {
+    // [new]-x-y-z
     // no prev sibling = add as root
     // if root exist, link to root
     nextSiblingPayload = {

@@ -21,6 +21,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { connectId } from '@codelab/shared/data'
 import {
   _async,
   _await,
@@ -275,6 +276,71 @@ export class ElementService
     return element.updateCache(updatedElement)
   })
 
+  @modelFlow
+  @transaction
+  unlinkElement = _async(function* (this: ElementService, element: IElement) {
+    const promises = []
+
+    // delete anywhere but not the end
+    // x - y - [removed]
+    // should be x - [removed] - y
+    if (element.nextSibling) {
+      // element.nextSibling.prevSiblingId = element.prevSibling?.id ?? null
+      promises.push(
+        this.patchElement(element.nextSibling, {
+          prevSibling: {
+            // disconnect [removed]
+            disconnect: {
+              where: { node: { id: element.id } },
+            },
+            // link y -> x
+            ...connectId(element.prevSibling?.id),
+          },
+        }),
+      )
+
+      if (element.prevSibling) {
+        // ^ remote data affected by above
+        // update cache only
+        // link x - y
+        element.prevSibling.nextSiblingId = element.nextSiblingId
+      }
+    } else if (element.prevSibling) {
+      // if next sibling is not available = add at the end
+      // x - [remove] -> disconect [remove]
+      promises.push(
+        this.patchElement(element.prevSibling, {
+          prevSibling: {
+            disconnect: {
+              where: { node: { id: element.id } },
+            },
+          },
+        }),
+      )
+    }
+
+    // tree = [removed] - x - y (no prev),
+    if (!element.prevSibling && element.parentElement) {
+      // this is root, link to its next sibling because we delete it
+      // if no next sibling, then parent children tree is empty
+      // element.parentElement.childrenRootId = element.nextSibling?.id ?? null
+      promises.push(
+        this.patchElement(element.parentElement, {
+          childrenRoot: {
+            // disconnect [removed]
+            disconnect: {
+              where: { node: { id: element.id } },
+            },
+            // set tree children root = x, x is empty is ok
+            ...connectId(element.nextSibling?.id),
+          },
+        }),
+      )
+    }
+
+    return yield* _await(Promise.all(promises))
+  })
+
   /**
    * Moves an element to a different parent and/or order
    */
@@ -340,7 +406,8 @@ export class ElementService
     const rootElement = this.element(root)
 
     if (rootElement) {
-      rootElement.unlinkSibling()
+      yield* _await(this.unlinkElement(rootElement))
+      // rootElement.unlinkSibling()
     }
 
     for (const id of idsToDelete.reverse()) {
