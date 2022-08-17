@@ -202,6 +202,7 @@ PageBuilder.Layout = observer((page) => {
                 key={pageBuilderRenderer?.pageTree?.current.root?.id}
                 renderService={pageBuilderRenderer}
                 typeService={typeService}
+                userService={userService}
               />
             ) : null}
           </>

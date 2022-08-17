@@ -1,3 +1,4 @@
+import { PageType } from '@codelab/frontend/abstract/types'
 import { PropsForm } from '@codelab/frontend/modules/type'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
@@ -10,10 +11,14 @@ import {
   IElement,
   IElementService,
   IPropData,
+  isAdmin,
   ITypeService,
+  IUserService,
 } from '@codelab/shared/abstract/core'
+import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useEffect, useRef } from 'react'
+import Link from 'next/link'
+import React, { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
   typeService: ITypeService
@@ -22,6 +27,7 @@ export interface UpdateElementPropsFormProps {
   trackPromises?: UseTrackLoadingPromises
   autocomplete?: IPropData
   builderState: IBuilderState
+  userService: IUserService
 
   actionList?: Array<IAnyAction>
 }
@@ -35,6 +41,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     typeService,
     autocomplete,
     actionList,
+    userService,
   }) => {
     const { trackPromise } = trackPromises ?? {}
     // cache it to not confuse the user when auto-saving
@@ -53,7 +60,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       if (apiId) {
         getInterfaceType(apiId)
       }
-    }, [apiId])
+    }, [apiId, getInterfaceType])
 
     const onSubmit = (data: IPropData) => {
       console.log(data)
@@ -74,14 +81,34 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={isLoading}>
         {interfaceType && (
-          <PropsForm
-            autosave
-            context={{ autocomplete, builderState, actionList }}
-            initialValue={initialPropsRef.current}
-            interfaceType={interfaceType}
-            key={element.id}
-            onSubmit={onSubmit}
-          />
+          <Row gutter={[0, 16]}>
+            <Col span={24}>
+              <PropsForm
+                autosave
+                context={{ autocomplete, builderState, actionList }}
+                initialValue={initialPropsRef.current}
+                interfaceType={interfaceType}
+                key={element.id}
+                onSubmit={onSubmit}
+              />
+            </Col>
+            <Col span={24}>
+              {isAdmin(userService.user) ? (
+                <Row justify="center">
+                  <Col>
+                    <Link
+                      href={{
+                        pathname: PageType.InterfaceDetail,
+                        query: { interfaceId: interfaceType.id },
+                      }}
+                    >
+                      {`Edit ${interfaceType.name}`}
+                    </Link>
+                  </Col>
+                </Row>
+              ) : null}
+            </Col>
+          </Row>
         )}
       </Spinner>
     )

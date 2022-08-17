@@ -17,6 +17,7 @@ import {
   IElementTree,
   IRenderer,
   ITypeService,
+  IUserService,
 } from '@codelab/shared/abstract/core'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -35,6 +36,7 @@ type MetaPaneProps = {
   elementService: IElementService
   componentService: IComponentService
   actionService: IActionService
+  userService: IUserService
 }
 
 export const ConfigPane = observer<MetaPaneProps>(
@@ -47,6 +49,7 @@ export const ConfigPane = observer<MetaPaneProps>(
     renderService,
     elementTree,
     actionService,
+    userService,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
     const isRootElement = (element: IElement) => !element.parentElement
@@ -120,6 +123,7 @@ export const ConfigPane = observer<MetaPaneProps>(
               elementTree={elementTree}
               renderService={renderService}
               typeService={typeService}
+              userService={userService}
             />
           </Tabs.TabPane>
           <Tabs.TabPane
