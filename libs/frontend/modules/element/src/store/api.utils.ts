@@ -20,6 +20,8 @@ import { v4 } from 'uuid'
 
 export const makeCreateInput = (
   input: ICreateElementDTO,
+  prevSibling?: IElement,
+  parentElement?: IElement,
 ): ElementCreateInput => {
   const {
     id = v4(),
@@ -43,22 +45,47 @@ export const makeCreateInput = (
     ? { connect: { where: { node: { id: atomId } } } }
     : undefined
 
-  const parentElement: ElementCreateInput['parentElement'] = parentElementId
-    ? {
-        connect: {
-          where: { node: { id: parentElementId } },
-          edge: { order },
-        },
-      }
-    : undefined
+  const parentElementPayload: ElementCreateInput['parentElement'] =
+    parentElementId
+      ? {
+          connect: {
+            where: { node: { id: parentElementId } },
+            edge: { order },
+          },
+        }
+      : undefined
 
-  const prevSibling: ElementCreateInput['prevSibling'] = prevSiblingId
-    ? {
-        connect: {
-          where: { node: { id: prevSiblingId } },
-        },
-      }
-    : undefined
+  let prevSiblingPayload: ElementCreateInput['prevSibling'] = undefined
+
+  // not add at the beginning
+  if (prevSiblingId) {
+    prevSiblingPayload = {
+      connect: {
+        where: { node: { id: prevSiblingId } },
+      },
+    }
+  }
+
+  const nextSiblingOfPrevSibling = prevSibling?.nextSibling
+  let nextSiblingPayload = undefined
+
+  if (nextSiblingOfPrevSibling) {
+    // add in the middle. a -> b ----> a -> [c] -> b
+    // connect c to b
+    nextSiblingPayload = {
+      connect: {
+        where: { node: { id: nextSiblingOfPrevSibling.id } },
+      },
+    }
+  } else if (parentElement?.childrenRoot) {
+    // no prev sibling = add as root
+    // if root exist, link to root
+    nextSiblingPayload = {
+      connect: {
+        where: { node: { id: parentElement.childrenRoot.id } },
+      },
+    }
+  }
 
   const rootOf: ElementCreateInput['childrenRoot'] = prevSiblingId
     ? undefined
@@ -76,13 +103,14 @@ export const makeCreateInput = (
   return {
     instanceOfComponent,
     atom,
-    parentElement,
+    parentElement: parentElementPayload,
     props,
     postRenderActionId,
     preRenderActionId,
     name,
     id,
-    prevSibling,
+    prevSibling: prevSiblingPayload,
+    nextSibling: nextSiblingPayload,
     rootOf,
   }
 }

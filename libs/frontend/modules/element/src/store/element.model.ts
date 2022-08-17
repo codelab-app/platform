@@ -318,7 +318,9 @@ export class Element
   @computed
   get parentElement() {
     // the parent is ObjectMap items
-    return this.parentId ? getParent(this)?.[this.parentId] : undefined
+    return this.parentId
+      ? (getParent(this)[this.parentId] as IElement)
+      : undefined
   }
 
   @computed
@@ -471,7 +473,12 @@ export class Element
   @modelAction
   unlinkSibling() {
     if (this.prevSibling) {
+      // get its prev sibling link to its next sibling
       this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
+    } else if (this.parentElement) {
+      // this is root, link to its next sibling because we delete it
+      // if no next sibling, then parent children tree is empty
+      this.parentElement.childrenRootId = this.nextSibling?.id ?? null
     }
 
     if (this.nextSibling) {
@@ -481,10 +488,18 @@ export class Element
 
   @modelAction
   linkSibling() {
+    // linked siblings are computed, update one side will update its other side
+    // a -> [c] -> b
+    // a link c
+    // link to its previous and next sibling
     if (this.prevSibling) {
       this.prevSibling.nextSiblingId = this.id
+    } else if (this.parentElement) {
+      // this is new root, link to it
+      this.parentElement.childrenRootId = this.id
     }
 
+    // c link b
     if (this.nextSibling) {
       this.nextSibling.prevSiblingId = this.id
     }

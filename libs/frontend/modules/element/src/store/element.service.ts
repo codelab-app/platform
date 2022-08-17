@@ -152,7 +152,15 @@ export class ElementService
     this: ElementService,
     data: Array<ICreateElementDTO>,
   ) {
-    const input = data.map((element) => makeCreateInput(element))
+    const input = data.map((element) =>
+      makeCreateInput(
+        element,
+        element.prevSiblingId ? this.element(element.prevSiblingId) : undefined,
+        element.parentElementId
+          ? this.element(element.parentElementId)
+          : undefined,
+      ),
+    )
 
     const {
       createElements: { elements },
