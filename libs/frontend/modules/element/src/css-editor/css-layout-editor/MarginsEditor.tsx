@@ -14,7 +14,7 @@ type MarginsEditorProps = {
 }
 
 const options = ['margin-top', 'margin-right', 'margin-bottom', 'margin-left']
-const units = ['px', '%', 'em', 'rem', 'ch', 'vh', 'vw']
+const units = ['auto', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw']
 
 export const MarginsEditor = observer(
   ({ element, guiCssObj }: MarginsEditorProps) => {
@@ -22,11 +22,17 @@ export const MarginsEditor = observer(
       <>
         {options.map((option, i) => (
           <InputNumberWithUnits
-            currentUnit={matchCssPropUnit(guiCssObj[option] ?? '') ?? 'px'}
+            currentUnit={matchCssPropUnit(guiCssObj[option] ?? '') ?? 'auto'}
             currentValue={matchCssPropNumber(guiCssObj[option] ?? '') ?? 0}
+            disabled={
+              (matchCssPropUnit(guiCssObj[option] ?? '') ?? 'auto') === 'auto'
+            }
             name={option}
             onChange={(value, unit) =>
-              updateGuiCssProperty(element, option)(`${value}${unit}`)
+              updateGuiCssProperty(
+                element,
+                option,
+              )(unit === 'auto' ? unit : `${value}${unit}`)
             }
             units={units}
           />
