@@ -1,9 +1,9 @@
 import { IPropData } from '@codelab/shared/abstract/core'
 import { List as AntList, ListProps } from 'antd'
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export const Text = (props: IPropData) => {
-  return React.createElement(Fragment, {}, props['children'])
+  return React.createElement('div', props)
 }
 
 export const List = ({
