@@ -1,4 +1,3 @@
-import 'react-quill/dist/quill.snow.css'
 import { Spin } from 'antd'
 import dynamic from 'next/dynamic'
 

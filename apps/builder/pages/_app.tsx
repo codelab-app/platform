@@ -1,8 +1,9 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
 import '../src/styles/antd-theme.less'
-// This stylesheet is used to customize some of the default Quill editor's styles.
-import '../src/styles/quill.snow.custom.css'
+import 'react-quill/dist/quill.snow.css'
+// This stylesheet is used to override some of the default Quill editor's styles.
+import '../src/styles/quill.snow.override.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'

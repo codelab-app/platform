@@ -36,10 +36,9 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
 
 export const makeCustomTextContainer = (customText: string) =>
   React.createElement('div', {
-    // Should have the class custom-text-container for the customized Quill styles to work
-    className: 'custom-text-container',
+    className: 'ql-container override-ql-container ql-snow',
     dangerouslySetInnerHTML: {
-      __html: customText,
+      __html: `<div class="ql-editor override-ql-editor">${customText}</div>`,
     },
   })
 
