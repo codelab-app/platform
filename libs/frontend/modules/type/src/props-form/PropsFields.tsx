@@ -27,7 +27,6 @@ export const PropsFields = observer<PropsFieldFactoryProps>(
     form,
     // the state object from where we will get the keys to make autocomplete options
     context,
-    actionsList,
   }) => (
     <Form.Item label={field.name || toTitleCase(field.key)}>
       <Field context={context} field={field} form={form} />

@@ -1,6 +1,7 @@
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
+  AutoCompleteField,
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
@@ -106,16 +107,17 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           name="instanceOfComponentId"
         />
         <AutoField component={SelectAtom} name="atomId" />
-        {/* <AutoCompleteField */}
-        {/*  name="renderIfPropKey" */}
-        {/*  onSearch={handlePropSearch} */}
-        {/*  options={propCompleteOptions} */}
-        {/*/ > */}
-        {/* <AutoCompleteField */}
-        {/*  name="renderForEachPropKey" */}
-        {/*  onSearch={handlePropSearch} */}
-        {/*  options={propCompleteOptions} */}
-        {/*/ > */}
+        <AutoCompleteField
+          name="renderIfPropKey"
+          onSearch={handlePropSearch}
+          options={propCompleteOptions}
+        />
+
+        <AutoCompleteField
+          name="renderForEachPropKey"
+          onSearch={handlePropSearch}
+          options={propCompleteOptions}
+        />
       </Form>
     )
   },
