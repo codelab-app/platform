@@ -162,7 +162,10 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    return this.hydrateOrUpdateCache(elements)
+    const hydratedElements = this.hydrateOrUpdateCache(elements)
+    hydratedElements.forEach((e) => e.linkSibling())
+
+    return hydratedElements
   })
 
   /**
@@ -326,6 +329,11 @@ export class ElementService
     )
 
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
+    const rootElement = this.element(root)
+
+    if (rootElement) {
+      rootElement.unlinkSibling()
+    }
 
     for (const id of idsToDelete.reverse()) {
       this.elements.delete(id)

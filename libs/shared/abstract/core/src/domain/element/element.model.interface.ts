@@ -54,6 +54,11 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
 
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
+  prevSiblingId: Nullable<string>
+
+  linkSibling(): void
+  unlinkSibling(): void
+
   childrenRoot: Maybe<IElement>
   childrenRootId: Nullable<string>
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement

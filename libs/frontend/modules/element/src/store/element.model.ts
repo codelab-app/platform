@@ -55,6 +55,7 @@ export const hydrate = ({
   parentElement,
 
   nextSibling,
+  prevSibling,
   childrenRoot,
   preRenderActionId,
   postRenderActionId,
@@ -75,6 +76,7 @@ export const hydrate = ({
     guiCss,
     parentId: parentElement?.id,
     nextSiblingId: nextSibling?.id,
+    prevSiblingId: prevSibling?.id,
     childrenRootId: childrenRoot?.id,
     atom: atom ? atomRef(atom.id) : null,
     preRenderActionId,
@@ -119,9 +121,9 @@ export class Element
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullable<string>>(null),
     nextSiblingId: prop<Nullable<string>>(null),
+    prevSiblingId: prop<Nullable<string>>(null),
     childrenRootId: prop<Nullable<string>>(null),
     owner: prop<Nullable<string>>(null),
-
     orderInParent: prop<Nullable<number>>(null).withSetter(),
 
     name: prop<Nullable<string>>(null).withSetter(),
@@ -146,7 +148,14 @@ export class Element
   implements IElement
 {
   @computed
+  get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
   get childrenSorted(): Array<IElement> {
+    console.log('childrenSorted', this)
+
     const childrenRoot = this.childrenRoot
 
     if (!childrenRoot) {
@@ -287,26 +296,29 @@ export class Element
 
   @computed
   get childrenRoot() {
-    const elementService = getElementService(this)
-
     return this.childrenRootId
-      ? elementService.element(this.childrenRootId)
+      ? this.elementService.element(this.childrenRootId)
       : undefined
   }
 
   @computed
   get nextSibling() {
-    const elementService = getElementService(this)
-
     return this.nextSiblingId
-      ? elementService.element(this.nextSiblingId)
+      ? this.elementService.element(this.nextSiblingId)
+      : undefined
+  }
+
+  @computed
+  get prevSibling() {
+    return this.prevSiblingId
+      ? this.elementService.element(this.prevSiblingId)
       : undefined
   }
 
   @computed
   get parentElement() {
     // the parent is ObjectMap items
-    return this.parentId ? getParent(this)[this.parentId] : undefined
+    return this.parentId ? getParent(this)?.[this.parentId] : undefined
   }
 
   @computed
@@ -457,6 +469,28 @@ export class Element
   }
 
   @modelAction
+  unlinkSibling() {
+    if (this.prevSibling) {
+      this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
+    }
+
+    if (this.nextSibling) {
+      this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null
+    }
+  }
+
+  @modelAction
+  linkSibling() {
+    if (this.prevSibling) {
+      this.prevSibling.nextSiblingId = this.id
+    }
+
+    if (this.nextSibling) {
+      this.nextSibling.prevSiblingId = this.id
+    }
+  }
+
+  @modelAction
   updateCache({
     id,
     name,
@@ -476,6 +510,7 @@ export class Element
     parentElementConnection,
     parentElement,
     nextSibling,
+    prevSibling,
     childrenRoot,
   }: Omit<IElementDTO, '__typename'>) {
     this.id = id
@@ -494,6 +529,7 @@ export class Element
     this.parentId = parentElement?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
+    this.prevSiblingId = prevSibling?.id ?? null
     this.childrenRootId = childrenRoot?.id ?? null
 
     if (props) {
