@@ -11,7 +11,7 @@ import ReactQuill from './ReactQuill'
 
 export const CUSTOM_TEXT_PROP_KEY = 'customText'
 
-export type UpdateCustomTextFormProps = {
+export type UpdateRichTextFormProps = {
   elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
@@ -35,7 +35,7 @@ const modules = {
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
-export const UpdateCustomTextForm = observer<UpdateCustomTextFormProps>(
+export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
 

@@ -9,9 +9,9 @@ import {
 import {
   ElementCssEditor,
   PropMapBindingSection,
-  UpdateCustomTextForm,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
+  UpdateRichTextForm,
 } from '@codelab/frontend/modules/element'
 import {
   LoadingIndicator,
@@ -133,9 +133,9 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           >
             <div key={selectedNode.id}>
               {isElement(selectedNode) &&
-                (selectedNode.atom || selectedNode.instanceOfComponent) ? (
+              (selectedNode.atom || selectedNode.instanceOfComponent) ? (
                 <>
-                  <UpdateInnerHtmlForm
+                  <UpdateRichTextForm
                     element={selectedNode}
                     elementService={elementService}
                     trackPromises={trackPromises}
