@@ -1,5 +1,4 @@
 import {
-  IPropData,
   IPropDataByElementId,
   IRenderOutput,
 } from '@codelab/shared/abstract/core'
@@ -35,10 +34,11 @@ export const getReactComponent = (renderOutput: IRenderOutput) =>
   // Render the atom if it exists, otherwise use fragment
   renderOutput.atomType ? getAtom(renderOutput.atomType) ?? Fragment : Fragment
 
-export const makeChildrenPropElement = (props: IPropData) =>
-  React.createElement('span', {
+export const makeCustomTextContainer = (customText: string) =>
+  React.createElement('div', {
+    className: 'ql-container override-ql-container ql-snow',
     dangerouslySetInnerHTML: {
-      __html: props?.['customText'],
+      __html: `<div class="ql-editor override-ql-editor">${customText}</div>`,
     },
   })
 

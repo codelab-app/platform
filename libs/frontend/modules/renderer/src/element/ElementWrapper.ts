@@ -1,3 +1,4 @@
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/modules/element'
 import { IElement, IPropData, IRenderer } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
@@ -10,7 +11,7 @@ import {
   childrenAreEmpty,
   extractValidProps,
   getReactComponent,
-  makeChildrenPropElement,
+  makeCustomTextContainer,
   withMaybeGlobalPropsProvider,
 } from './wrapper.utils'
 
@@ -51,9 +52,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       if (
         hasNoChildren &&
         renderOutput.props &&
+        renderOutput.props[CUSTOM_TEXT_PROP_KEY] &&
         element.atom?.current.allowCustomTextInjection
       ) {
-        children = makeChildrenPropElement(renderOutput.props)
+        children = makeCustomTextContainer(
+          renderOutput.props[CUSTOM_TEXT_PROP_KEY],
+        )
       }
 
       const ReactComponent = getReactComponent(renderOutput)

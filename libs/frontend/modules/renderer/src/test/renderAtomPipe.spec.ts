@@ -1,4 +1,5 @@
 import { atomRef } from '@codelab/frontend/modules/atom'
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/modules/element'
 import { render } from '@testing-library/react'
 import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
 import { setupTestForRenderer } from './setup/setupTest'
@@ -9,7 +10,7 @@ describe('RenderAtomPipe', () => {
   it('should render element atom', async () => {
     const text = 'a text to render'
     data.elementToRender.setAtom(atomRef(data.textAtom.id))
-    data.elementToRender.props?.set('customText', text)
+    data.elementToRender.props?.set(CUSTOM_TEXT_PROP_KEY, text)
 
     const output = data.renderer.renderElement(data.elementToRender)
     const { findByText } = render(output)

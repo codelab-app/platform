@@ -1,0 +1,13 @@
+.ql-container.override-ql-container.ql-snow {
+  border: unset;
+}
+
+.ql-editor.override-ql-editor {
+  overflow-y: unset;
+  padding: unset;
+  line-height: unset;
+}
+
+.ql-editor.override-ql-editor > * {
+  cursor: unset;
+}

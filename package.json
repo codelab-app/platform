@@ -151,6 +151,7 @@
     "react-json-view": "1.21.3",
     "react-promise-tracker": "^2.1.0",
     "react-query": "3.39.0",
+    "react-quill": "^2.0.0",
     "react-resizable": "3.0.4",
     "react-responsive": "^9.0.0-beta.10",
     "react-slick": "0.29.0",

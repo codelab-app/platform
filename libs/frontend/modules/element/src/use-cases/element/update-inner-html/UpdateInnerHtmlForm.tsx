@@ -1,32 +1,46 @@
-import {
-  CodeMirrorInput,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IPropData,
 } from '@codelab/shared/abstract/core'
-import { html, htmlCompletionSource } from '@codemirror/lang-html'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
+import ReactQuill from './ReactQuill'
 
-export type UpdateInnerHtmlFormProps = {
+export const CUSTOM_TEXT_PROP_KEY = 'customText'
+
+export type UpdateCustomTextFormProps = {
   elementService: IElementService
   element: IElement
   trackPromises?: UseTrackLoadingPromises
 }
 
+const modules = {
+  toolbar: [
+    [{ font: [] }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ color: [] }, { background: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    ['blockquote', 'code-block'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+    ['link'],
+    ['clean'],
+  ],
+}
+
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}
  */
-export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
+export const UpdateCustomTextForm = observer<UpdateCustomTextFormProps>(
   ({ elementService, element, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
 
-    const [customText, setCustomText] = useState(
-      element.props?.values?.['customText'],
+    const [value, setValue] = useState(
+      element.props?.values?.[CUSTOM_TEXT_PROP_KEY],
     )
 
     const inEditMode = useCallback(
@@ -50,27 +64,23 @@ export const UpdateInnerHtmlForm = observer<UpdateInnerHtmlFormProps>(
 
     return element.atom?.current.allowCustomTextInjection ? (
       <Row align="middle">
-        <Col span={4}>
+        <Col span={24}>
           <p style={{ color: inEditMode() ? '#000000' : '#D1D1D1' }}>
             Custom Text
           </p>
         </Col>
-        <Col span={20}>
-          <CodeMirrorInput
-            defaultCompletionSource={htmlCompletionSource}
-            editable={inEditMode()}
-            extensions={[html()]}
-            height="150px"
+        <Col span={24}>
+          <ReactQuill
+            modules={modules}
             onChange={(newCustomText) => {
-              setCustomText(newCustomText)
+              setValue(newCustomText)
               onSubmit({
                 ...element.props?.values,
-                customText: newCustomText,
+                [CUSTOM_TEXT_PROP_KEY]: newCustomText,
               })
             }}
-            shouldDisableNewLines={false}
-            title="customText"
-            value={customText}
+            theme="snow"
+            value={value}
           />
         </Col>
       </Row>

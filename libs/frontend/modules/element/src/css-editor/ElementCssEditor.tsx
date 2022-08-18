@@ -18,7 +18,6 @@ import { BordersEditor } from './css-borders-editor/BordersEditor'
 import { EffectsEditor } from './css-effects-editor/EffectsEditor'
 import { LayoutEditor } from './css-layout-editor'
 import { ShadowsEditor } from './css-shadows-editor'
-import { TypographyEditor } from './css-typography-editor/TypographyEditor'
 
 const { Panel } = Collapse
 
@@ -167,13 +166,6 @@ export const ElementCssEditor = observer(
               key="1"
             >
               <LayoutEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Typography"
-              key="2"
-            >
-              <TypographyEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
             <Panel
               className="site-collapse-custom-panel"
