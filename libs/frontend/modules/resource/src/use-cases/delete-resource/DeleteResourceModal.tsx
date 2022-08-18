@@ -19,7 +19,7 @@ export const DeleteResourceModal = observer<{
     resourceService.deleteModal.close()
 
     if (resourceId === resource?.id) {
-      router.push({ pathname: PageType.Resource, query: {} })
+      router.push({ pathname: PageType.Resources, query: {} })
     }
   }
 
