@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 interface CodeMirrorModalProps {
   visible: boolean
   onChange: (value: string) => void
+  onSave?: (value: string) => void
   title?: Nullish<string>
   value?: string
   closeModal: () => void
@@ -21,6 +22,7 @@ export const CodeMirrorModal = ({
   value,
   codeMirrorSetupFactory,
   onChange,
+  onSave,
   title,
 }: CodeMirrorModalProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
@@ -48,6 +50,7 @@ export const CodeMirrorModal = ({
 
   const onOk = () => {
     onChange && onChange(internalValue || '')
+    onSave && onSave(internalValue || '')
     closeModal()
   }
 

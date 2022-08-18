@@ -37,8 +37,6 @@ export const SelectComponentField = observer(
   ({ field, form, context }: SelectComponentFieldProps) => {
     const { options, isLoading } = useGetAllComponents()
 
-    console.log(field.key)
-
     /**
      * Need to exclude self so we don't have a recursive loop
      */
@@ -72,23 +70,19 @@ export const SelectComponentField = observer(
            * Sets the reference to a componentId
            */
           name={`${field.key}.value`}
-          render={(control) => {
-            console.log(control.field.value)
-
-            return (
-              <Select
-                allowClear
-                css={tw`w-full`}
-                loading={isLoading}
-                onBlur={control.field.onBlur}
-                onChange={control.field.onChange}
-                optionFilterProp="label"
-                options={filteredOptions}
-                showSearch
-                value={control.field.value}
-              />
-            )
-          }}
+          render={(control) => (
+            <Select
+              allowClear
+              css={tw`w-full`}
+              loading={isLoading}
+              onBlur={control.field.onBlur}
+              onChange={control.field.onChange}
+              optionFilterProp="label"
+              options={filteredOptions}
+              showSearch
+              value={control.field.value}
+            />
+          )}
         />
       </>
     )

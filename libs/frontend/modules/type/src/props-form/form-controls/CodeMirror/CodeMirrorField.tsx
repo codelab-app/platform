@@ -17,7 +17,7 @@ export const CodeMirrorField = ({ field, form, context }: FieldProps) => (
         onBlur={control.field.onBlur}
         onChange={control.field.onChange}
         templateCompletionOptions={contextCompletionOptions(
-          context?.autocomplete || {},
+          context?.autocomplete,
         )}
         title={field.name}
         value={control.field.value}

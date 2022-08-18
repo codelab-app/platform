@@ -7,6 +7,7 @@ export interface CodeMirrorInputProps
   value: string
   onChange: (value: string) => void
   onBlur?: () => void
+  onSave?: (value: string) => void
   defaultCompletionSource?: CompletionSource
   defaultCompletionOptions?: Array<Completion>
   templateCompletionOptions?: Array<Completion>

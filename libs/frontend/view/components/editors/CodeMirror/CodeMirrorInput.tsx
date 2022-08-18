@@ -22,6 +22,7 @@ export const CodeMirrorInput = ({
   defaultCompletionOptions,
   height = '30px',
   readOnly = false,
+  onSave,
   title = '',
   expandable = true,
   ...props
@@ -37,8 +38,8 @@ export const CodeMirrorInput = ({
       override: [
         completionsFactory({
           defaultCompletionSource,
-          templateCompletionOptions: templateCompletionOptions ?? [],
-          defaultCompletionOptions: defaultCompletionOptions ?? [],
+          templateCompletionOptions,
+          defaultCompletionOptions,
         }),
       ],
     }),
@@ -103,6 +104,7 @@ export const CodeMirrorInput = ({
             closeModal={toggleExpand}
             codeMirrorSetupFactory={codeMirrorSetupFactory}
             onChange={onChange}
+            onSave={onSave}
             title={title}
             value={value}
             visible={isExpand}

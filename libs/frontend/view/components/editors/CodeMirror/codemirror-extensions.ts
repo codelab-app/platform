@@ -42,6 +42,7 @@ import {
   rectangularSelection,
 } from '@codemirror/view'
 import { Command, EditorView } from '@uiw/react-codemirror'
+import { capitalize, isArray, isObjectLike } from 'lodash'
 import { CodeMirrorInputProps } from './types'
 
 // Forbids from entering new lines in the field
@@ -96,55 +97,66 @@ export const typeCompletionOptions = (
 }
 
 export const contextCompletionOptions = (
-  autocompleteContext: IPropData,
-): Array<Completion> => {
-  return Object.entries(autocompleteContext || {}).map(([key, value]) => ({
-    label: key,
-    type: typeof value == 'function' ? 'function' : 'variable',
-  }))
-}
+  context: IPropData = {},
+  parentKey = '',
+): Array<Completion> =>
+  Object.entries(context).flatMap(([key, value]) => {
+    const option = {
+      label: parentKey ? `${parentKey}.${key}` : key,
+      type: typeof value == 'function' ? 'function' : 'variable',
+      detail: capitalize(typeof value),
+    }
+
+    if (isArray(value)) {
+      const children = value.flatMap((v, index) =>
+        contextCompletionOptions(v, `${key}.${index}`),
+      )
+
+      return [option, ...children]
+    }
+
+    if (isObjectLike(value)) {
+      return [option, ...contextCompletionOptions(value, key)]
+    }
+
+    return [option]
+  })
+
+// get all keys from contextOptions and add them as options
 
 export const completionsFactory = ({
-  defaultCompletionOptions,
+  defaultCompletionOptions = [],
   defaultCompletionSource,
-  templateCompletionOptions,
+  templateCompletionOptions = [],
 }: {
   defaultCompletionSource: CodeMirrorInputProps['defaultCompletionSource']
   defaultCompletionOptions: CodeMirrorInputProps['defaultCompletionOptions']
   templateCompletionOptions?: Array<Completion>
 }): CompletionSource => {
-  // get all keys from autocompleteContext and add them as options
-  // TODO allow nested object completion using . notation
-
   return (context) => {
-    const word = context.matchBefore(/\w*/)
+    const word = context.matchBefore(/\w*(\.)?/)
     const hasOpenLeftSideBracket = checkForOpenLeftSideBracket(context)
     const from = word?.from ?? context.pos
 
     if (!hasOpenLeftSideBracket) {
       if (defaultCompletionSource) {
-        const results = defaultCompletionSource(context)
-        console.log({ results })
-
-        return results
+        return defaultCompletionSource(context)
       }
 
-      if (defaultCompletionOptions) {
-        return {
-          from,
-          options: defaultCompletionOptions,
-        }
-      }
-
-      return null
+      return defaultCompletionOptions
+        ? { from, options: defaultCompletionOptions }
+        : null
     }
+
+    const currentKey = word?.text.replace(/\.\w+$/, '')
+    const options = defaultCompletionOptions.concat(templateCompletionOptions)
 
     return {
       from,
-      options: [
-        ...(defaultCompletionOptions ?? []),
-        ...(templateCompletionOptions ?? []),
-      ],
+      options:
+        !currentKey || currentKey === word?.text
+          ? options
+          : options.filter((x) => x.label.includes(currentKey)),
       validFor: new RegExp(
         `^([\\w$]*)|(${STATE_PATH_TEMPLATE_START_REGEX.toString()})$`,
       ),
@@ -179,8 +191,6 @@ const insertBracketAndStartCompletion: Command = (view) => {
   }
 
   // if we already have one bracket, start completion
-  console.log('starting manually')
-
   if (textBeforeCursor === '{') {
     startCompletion(view)
   }
