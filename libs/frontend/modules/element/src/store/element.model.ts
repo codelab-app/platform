@@ -550,6 +550,8 @@ export class Element
     this.prevSiblingId = prevSibling?.id ?? null
     this.childrenRootId = childrenRoot?.id ?? null
 
+    this.linkSibling()
+
     if (props) {
       this.props?.updateCache(props)
     } else {

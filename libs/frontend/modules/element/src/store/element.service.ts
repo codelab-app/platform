@@ -21,10 +21,11 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { connectId } from '@codelab/shared/data'
+import { connectId, disconnectId } from '@codelab/shared/data'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelAction,
@@ -33,6 +34,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { disconnect } from 'process'
 import { v4 } from 'uuid'
 import {
   makeCreateInput,
@@ -255,7 +257,7 @@ export class ElementService
   @transaction
   patchElement = _async(function* (
     this: ElementService,
-    element: IElement,
+    element: Pick<IElement, 'id'>,
     input: ElementUpdateInput,
   ) {
     const {
@@ -273,7 +275,56 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
-    return element.updateCache(updatedElement)
+    const elementFromCache = this.element(element.id)
+
+    if (!elementFromCache) {
+      throw new Error('Element not found')
+    }
+
+    return elementFromCache.updateCache(updatedElement)
+  })
+
+  @modelFlow
+  @transaction
+  linkElement = _async(function* (
+    this: ElementService,
+    element: IElement,
+    prevSiblingId?: string,
+    nextSiblingId?: string,
+  ) {
+    const promises = []
+
+    // a -> [b] -> c
+    // a link b, up cache a
+    // b link c, up cache b
+
+    if (nextSiblingId) {
+      promises.push(
+        this.patchElement(
+          { id: nextSiblingId },
+          {
+            prevSibling: connectId(element?.id),
+          },
+        ),
+      )
+
+      // element.nextSiblingId = nextSiblingId
+    }
+
+    if (prevSiblingId) {
+      promises.push(
+        this.patchElement(
+          { id: prevSiblingId },
+          {
+            nextSibling: connectId(element?.id),
+          },
+        ),
+      )
+
+      // element.prevSibling = prevSiblingId
+    }
+
+    return yield* _await(Promise.all(promises))
   })
 
   @modelFlow
@@ -310,7 +361,7 @@ export class ElementService
       // x - [remove] -> disconect [remove]
       promises.push(
         this.patchElement(element.prevSibling, {
-          prevSibling: {
+          nextSibling: {
             disconnect: {
               where: { node: { id: element.id } },
             },
@@ -338,58 +389,106 @@ export class ElementService
       )
     }
 
+    element.nextSiblingId = null
+    element.prevSiblingId = null
+
     return yield* _await(Promise.all(promises))
   })
 
   /**
-   * Moves an element to a different parent and/or order
+   * Moves an element to the next postion of target element
    */
+  @modelFlow
   @transaction
-  moveElement = _async(function* (
+  moveElementNextTo = _async(function* (
     this: ElementService,
     elementId: string,
-    newParentId: string,
-    newOrder?: number,
+    targetElementId: string,
   ) {
     const element = this.element(elementId)
+    const targetElement = this.element(targetElementId)
 
-    if (!element) {
-      throw new Error(`Element ${elementId} not found`)
+    if (!element || !targetElement) {
+      return
     }
 
-    const existingParent = element.parentElement
-    const newParent = this.element(newParentId)
+    // console.log(
+    //   'current el',
+    //   [...this.elements.values()].map((e) => getSnapshot(e)),
+    // )
 
-    if (!newParent) {
-      throw new Error(`Parent element ${newParentId} not found`)
+    yield* _await(this.unlinkElement(element))
+    yield* _await(
+      this.linkElement(
+        element,
+        targetElement.id,
+        targetElement?.nextSibling?.id,
+      ),
+    )
+  })
+
+  /**
+   * Moves an element to the next position of children[0] of parent children element
+   */
+  @modelFlow
+  @transaction
+  moveElementInto = _async(function* (
+    this: ElementService,
+    elementId: string,
+    parentElementId: string,
+  ) {
+    console.log('moveElementInto')
+
+    const element = this.element(elementId)
+    const parentElement = this.element(parentElementId)
+
+    if (!element || !parentElement) {
+      return
     }
 
-    // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
-      throw new Error(`Cannot move element ${elementId} to itself`)
-    }
+    const oldChildrenRootId = parentElement.childrenRoot?.id
 
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
+    console.log(
+      'current el',
+      [...this.elements.values()].map((e) => getSnapshot(e)),
+    )
 
-    if (existingParent) {
-      existingParent.detachChild(element)
-    }
+    yield* _await(this.unlinkElement(element))
 
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
-    element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(element.id, elementRef(element))
+    console.log(
+      'after unlink',
+      [...this.elements.values()].map((e) => getSnapshot(e)),
+    )
 
-    const input: ElementUpdateInput = {
-      parentElement: {
-        disconnect: { where: {} },
-        connect: {
-          edge: { order: newOrder },
-          where: { node: { id: newParentId } },
+    console.log('children root process', {
+      parentElement: getSnapshot(parentElement),
+    })
+
+    yield* _await(
+      this.patchElement(parentElement, {
+        childrenRoot: {
+          // disconnect [removed]
+          ...disconnectId(parentElement.childrenRoot?.id),
+          // set tree children root = x, x is empty is ok
+          ...connectId(elementId),
         },
-      },
+      }),
+    )
+
+    console.log(
+      'after link to the correct place',
+      [...this.elements.values()].map((e) => getSnapshot(e)),
+    )
+
+    // the previous one
+    if (oldChildrenRootId) {
+      yield* _await(this.linkElement(element, undefined, oldChildrenRootId))
     }
 
-    return yield* _await(this.patchElement(element, input))
+    console.log(
+      'after link to the correct place',
+      [...this.elements.values()].map((e) => getSnapshot(e)),
+    )
   })
 
   @modelFlow

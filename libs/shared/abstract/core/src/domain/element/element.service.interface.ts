@@ -70,11 +70,8 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  moveElement(
-    elementId: string,
-    newParentId: string,
-    newOrder?: number,
-  ): Promise<IElement>
+  moveElementInto(elementId: string, targetId: string): void
+  moveElementNextTo(elementId: string, targetId: string): void
   duplicateElement(
     target: IElement,
     auth0Id: IAuth0Id,

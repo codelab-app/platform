@@ -20,34 +20,12 @@ export const useElementTreeDrop = (
     const dropNodeId = info.node.key.toString()
 
     if (info.dropToGap) {
-      // Switch spots with the element next to the drop indicator
-      const dropElement = elementTree?.element(dropNodeId)
-      const dropNodeParentId = dropElement?.parentElement?.id
-      const dropElementOrder = dropElement?.orderInParent ?? 0
-      const dragElement = elementTree?.element(dragNodeId)
-      const originalDragElementOrder = dragElement?.orderInParent ?? 0
+      elementService.moveElementNextTo(dragNodeId, dropNodeId)
 
-      if (dropNodeParentId) {
-        const order =
-          dropElementOrder === originalDragElementOrder
-            ? dropElementOrder + 1
-            : dropElementOrder
-
-        return elementService.moveElement(dragNodeId, dropNodeParentId, order)
-      }
-    } else {
-      // FIXME
-      // Move the dragged element as a child to the dropped element
-      // This is buggy, since e.dropPosition does not match our ordering system
-      // it causes issues when moving elements up
-      return elementService.moveElement(
-        dragNodeId,
-        dropNodeId,
-        info.dropPosition,
-      )
+      return
     }
 
-    return void 0
+    elementService.moveElementInto(dragNodeId, dropNodeId)
   }
 
   return {
