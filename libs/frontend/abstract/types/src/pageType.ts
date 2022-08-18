@@ -17,7 +17,7 @@ export enum PageType {
   ComponentDetailV2 = '/library/[libraryId]/component/[componentId]',
   Storybook = '/storybook',
   Atom = '/atoms',
-  Resource = '/resources/[[...resourceId]]',
+  Resources = '/resources',
   Type = '/types',
   InterfaceDetail = '/types/interfaces/[interfaceId]',
   AtomList = '/apps/[appId]/atoms',

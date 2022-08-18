@@ -31,8 +31,8 @@ export const resourceMenuItem: ItemType = {
   icon: (
     <CloudServerOutlined data-testid="resource-tab-trigger" title="Resources" />
   ),
-  key: PageType.Resource,
-  label: <Link href={PageType.Resource}>Resources</Link>,
+  key: PageType.Resources,
+  label: <Link href={PageType.Resources}>Resources</Link>,
 }
 
 export const allPagesMenuItem = (appId: Nullish<string>): ItemType => ({
