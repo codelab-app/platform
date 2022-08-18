@@ -9,9 +9,9 @@ import {
 import {
   ElementCssEditor,
   PropMapBindingSection,
-  UpdateCustomTextForm,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
+  UpdateRichTextForm,
 } from '@codelab/frontend/modules/element'
 import {
   LoadingIndicator,
@@ -111,13 +111,14 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           />
         </div>
 
-        <Tabs defaultActiveKey={selectedNode.id + '_tab1'} size="small">
+        <Tabs defaultActiveKey="tab1" size="small">
           <Tabs.TabPane
-            key={selectedNode.id + '_tab1'}
+            key="tab1"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={<TooltipIcon icon={<NodeIndexOutlined />} title="Node" />}
           >
             <UpdateElementContent
+              key={selectedNode.id}
               node={selectedNode}
               trackPromises={trackPromises}
             />
@@ -125,40 +126,41 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
 
           <Tabs.TabPane
             destroyInactiveTabPane
-            key={selectedNode.id + '_tab2'}
+            key="tab2"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             // needed to update props if we change them in the prop inspector tab
             tab={<TooltipIcon icon={<SettingOutlined />} title="Props" />}
           >
-            {isElement(selectedNode) &&
-            (selectedNode.atom || selectedNode.instanceOfComponent) ? (
-              <>
-                <UpdateCustomTextForm
-                  element={selectedNode}
-                  elementService={elementService}
-                  trackPromises={trackPromises}
-                />
-                <UpdateElementPropsForm
-                  actionList={actionService.actionsList}
-                  autocomplete={renderService.platformState}
-                  builderState={{
-                    componentId: builderService.activeComponent?.id,
-                  }}
-                  element={selectedNode}
-                  elementService={elementService}
-                  key={selectedNode.id}
-                  trackPromises={trackPromises}
-                  typeService={typeService}
-                  userService={userService}
-                />
-              </>
-            ) : (
-              `Add an atom or a component to this element to edit its props`
-            )}
+            <div key={selectedNode.id}>
+              {isElement(selectedNode) &&
+              (selectedNode.atom || selectedNode.instanceOfComponent) ? (
+                <>
+                  <UpdateRichTextForm
+                    element={selectedNode}
+                    elementService={elementService}
+                    trackPromises={trackPromises}
+                  />
+                  <UpdateElementPropsForm
+                    actionList={actionService.actionsList}
+                    autocomplete={renderService.platformState}
+                    builderState={{
+                      componentId: builderService.activeComponent?.id,
+                    }}
+                    element={selectedNode}
+                    elementService={elementService}
+                    trackPromises={trackPromises}
+                    typeService={typeService}
+                    userService={userService}
+                  />
+                </>
+              ) : (
+                `Add an atom or a component to this element to edit its props`
+              )}
+            </div>
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key={selectedNode.id + '_tab3'}
+            key="tab3"
             style={{ overflow: 'visible' }}
             tab={<TooltipIcon icon={<FormatPainterOutlined />} title="CSS" />}
           >
@@ -188,7 +190,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           {/* </Tabs.TabPane> */}
 
           <Tabs.TabPane
-            key={selectedNode.id + '_tab5'}
+            key="tab5"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <TooltipIcon icon={<CodeOutlined />} title="Props Inspector" />
@@ -205,7 +207,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key={selectedNode.id + '_tab6'}
+            key="tab6"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={<TooltipIcon icon={<SwapOutlined />} title="Props Map" />}
           >
@@ -225,7 +227,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            key={selectedNode.id + '_tab7'}
+            key="tab7"
             style={{ overflow: 'auto', maxHeight: '100%' }}
             tab={
               <TooltipIcon

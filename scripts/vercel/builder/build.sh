@@ -1,5 +1,5 @@
 #!/bin/bash
 # script to compile/build app
 
-# https://www.codegrepper.com/code-examples/whatever/Vercel+Treating+warnings+as+errors+because+process.env.CI+%3D+true
+# https://github.com/vercel/community/discussions/30
 npx cross-env CI=false nx build builder --prod --verbose

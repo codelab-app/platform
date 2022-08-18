@@ -1,5 +1,7 @@
 #!/bin/bash
 
-# script to install dependencies for app
-yarn --version \
-  && npx cross-env CI=false yarn install --immutable
+# Recommended to set CI to false
+# https://github.com/vercel/community/discussions/30
+
+# But this is the only way to opt out of postinstall
+npx cross-env CI=true yarn install --immutable
