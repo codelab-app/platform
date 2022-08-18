@@ -1,5 +1,5 @@
 #!/bin/bash
 # script to compile/build app
-# echo "https://${VERCEL_URL}"
 
-npx nx build builder --prod --verbose
+# https://www.codegrepper.com/code-examples/whatever/Vercel+Treating+warnings+as+errors+because+process.env.CI+%3D+true
+npx cross-env CI=false nx build builder --prod --verbose
