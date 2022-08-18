@@ -44,7 +44,7 @@ module.exports = {
          * V feat(apps-builder): add some new feature
          */
         if (!startWithRegex.test(subject)) {
-          return [false, 'Subject must start with an alphabet']
+          return [false, 'Subject must start with a lower case alphabet']
         }
 
         /**
@@ -53,28 +53,28 @@ module.exports = {
          * V feat(apps-builder): add some new feature (#1230)
          */
         if (!endWithRegex.test(subject)) {
-          return [false, 'Subject must end with an alphabet or a closing parenthesis']
+          return [false, 'Subject must end with a lower case alphabet or a closing parenthesis']
         }
 
         return [true]
       }
     ],
-    'subject-case': [
-      2,
-      'always',
-      //
-      // Remove to allow build(doc): CODE-29 some message
-      //
-      ['lower-case']
-      // 'lower-case', // default
-      // 'upper-case', // UPPERCASE
-      // 'camel-case', // camelCase
-      // 'kebab-case', // kebab-case
-      // 'pascal-case', // PascalCase
-      // 'sentence-case', // Sentence case
-      // 'snake-case', // snake_case
-      // 'start-case' // Start Case
-    ],
+    // 'subject-case': [
+    //   2,
+    //   'always',
+    //   //
+    //   // Remove to allow build(doc): CODE-29 some message
+    //   //
+    //   ['lower-case']
+    //   // 'lower-case', // default
+    //   // 'upper-case', // UPPERCASE
+    //   // 'camel-case', // camelCase
+    //   // 'kebab-case', // kebab-case
+    //   // 'pascal-case', // PascalCase
+    //   // 'sentence-case', // Sentence case
+    //   // 'snake-case', // snake_case
+    //   // 'start-case' // Start Case
+    // ],
   },
 }
 
