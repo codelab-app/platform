@@ -2705,6 +2705,7 @@ enum AtomType {
   MuiZoom
   Query
   ReactFragment
+  Script
   State
   Text
   TextList

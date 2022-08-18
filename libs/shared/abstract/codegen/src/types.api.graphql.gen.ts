@@ -2829,6 +2829,7 @@ export enum AtomType {
   MuiZoom = 'MuiZoom',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
+  Script = 'Script',
   State = 'State',
   Text = 'Text',
   TextList = 'TextList',
