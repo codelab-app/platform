@@ -25,6 +25,7 @@ export const SelectLinkElement = observer(
         component={(props: any) => (
           <SelectChildElement
             allElementOptions={allElementOptions}
+            allowClear
             disableWhenOneOpt={false}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading
