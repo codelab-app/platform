@@ -18,14 +18,20 @@ export const useElementTreeDrop = (
   const handleDrop: TreeProps['onDrop'] = (info) => {
     const dragNodeId = info.dragNode.key.toString()
     const dropNodeId = info.node.key.toString()
+    const isRootNode = info.node.pos === '0-0'
 
-    if (info.dropToGap) {
+    // not outside of body
+    if (info.dropToGap && !isRootNode) {
       elementService.moveElementNextTo(dragNodeId, dropNodeId)
 
       return
     }
 
-    elementService.moveElementInto(dragNodeId, dropNodeId)
+    if (!info.dropToGap) {
+      elementService.moveAsRoot(dragNodeId, dropNodeId)
+    }
+
+    // drop to gap + isRootNode = move element outside of body
   }
 
   return {
