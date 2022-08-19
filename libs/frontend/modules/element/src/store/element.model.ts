@@ -25,6 +25,7 @@ import {
   findParent,
   getParent,
   getRefsResolvingTo,
+  getSnapshot,
   idProp,
   Model,
   model,
@@ -154,8 +155,6 @@ export class Element
 
   @computed
   get childrenSorted(): Array<IElement> {
-    console.log('childrenSorted', this)
-
     const childrenRoot = this.childrenRoot
 
     if (!childrenRoot) {
@@ -172,8 +171,9 @@ export class Element
 
       results.push(currentTravledNode)
       currentTravledNode = currentTravledNode.nextSibling
-      console.log({ currentTravledNode })
     }
+
+    console.log('childrenSorted', { results })
 
     return results
   }
@@ -318,7 +318,6 @@ export class Element
   @computed
   get parentElement() {
     // the parent is ObjectMap items
-    console.log('get parent', this)
 
     return this.parentId
       ? (getParent(this)[this.parentId] as IElement)
@@ -346,6 +345,9 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
+
+      // children: [],
+      // this one bug
       children: !this.instanceOfComponent?.current
         ? this.childrenSorted.map((child) => child.antdNode)
         : [],
@@ -472,37 +474,56 @@ export class Element
     this.propMapBindings.delete(propMapBinding.id)
   }
 
-  // experienment, for historical purpose
-  // @modelAction
-  // unlinkSibling() {
-  //   if (this.prevSibling?.nextSibling) {
-  //     // get its prev sibling link to its next sibling
-  //     this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
-  //   } else if (this.parentElement) {
-  //     // this is root, link to its next sibling because we delete it
-  //     // if no next sibling, then parent children tree is empty
-  //     this.parentElement.childrenRootId = this.nextSibling?.id ?? null
-  //   }
+  // prev-[target]-next
+  @modelAction
+  unlinkSiblings() {
+    // next
+    if (this.prevSibling?.nextSibling) {
+      // get its prev sibling link to its next sibling
+      // prev link to next
+      this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
+    } else if (this.parentElement) {
+      // tree = [target] - next
+      // tree = next (as root)
+      // this is root, link to its next sibling because we delete it
+      // if no next sibling, then parent children tree is empty
+      this.parentElement.childrenRootId = this.nextSibling?.id ?? null
+    }
 
-  //   if (this.nextSibling) {
-  //     this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null
-  //   }
-  // }
+    if (this.nextSibling) {
+      // link next to prev if any
+      this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null
+    }
+  }
 
   @modelAction
-  linkSibling() {
-    // linked siblings are computed, update one side will update its other side
-    // a -> [c] -> b
-    // a link c
-    // link to its previous and next sibling
+  linkSiblings({
+    prevSiblingId,
+    nextSiblingId,
+    parentElementId,
+  }: Parameters<IElement['linkSiblings']>[0]) {
+    this.prevSiblingId = prevSiblingId ?? null
+    this.nextSiblingId = nextSiblingId ?? null
+    this.parentId = parentElementId ?? null
+  }
+
+  @modelAction
+  syncLinkedSiblings() {
+    // prev - [target] - next
+    // if prev exist
     if (this.prevSibling) {
+      // link prev to target
       this.prevSibling.nextSiblingId = this.id
     } else if (this.parentElement) {
+      // tree = next
+      // tree = [target] - next
+      // with target as new root
       // this is new root, link to it
       this.parentElement.childrenRootId = this.id
     }
 
-    // c link b
+    // if next exists
+    // link next to target
     if (this.nextSibling) {
       this.nextSibling.prevSiblingId = this.id
     }
@@ -549,8 +570,6 @@ export class Element
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null
     this.childrenRootId = childrenRoot?.id ?? null
-
-    this.linkSibling()
 
     if (props) {
       this.props?.updateCache(props)

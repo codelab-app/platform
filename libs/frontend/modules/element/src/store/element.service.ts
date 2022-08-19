@@ -155,15 +155,7 @@ export class ElementService
     this: ElementService,
     data: Array<ICreateElementDTO>,
   ) {
-    const input = data.map((element) =>
-      makeCreateInput(
-        element,
-        element.prevSiblingId ? this.element(element.prevSiblingId) : undefined,
-        element.parentElementId
-          ? this.element(element.parentElementId)
-          : undefined,
-      ),
-    )
+    const input = data.map((element) => makeCreateInput(element))
 
     const {
       createElements: { elements },
@@ -174,7 +166,40 @@ export class ElementService
     }
 
     const hydratedElements = this.hydrateOrUpdateCache(elements)
-    hydratedElements.forEach((e) => e.linkSibling())
+
+    const linkPromises = hydratedElements.map((e) => {
+      const prevSiblingId = data?.[0].prevSiblingId ?? undefined
+      const parentElementId = data[0].parentElementId
+
+      const parentElement = parentElementId
+        ? this.element(parentElementId)
+        : undefined
+
+      const prevSibling = prevSiblingId
+        ? this.element(prevSiblingId)
+        : undefined
+
+      const nextSiblingId = prevSibling
+        ? prevSibling.nextSibling?.id
+        : parentElement?.childrenRootId
+
+      return this.linkElement(
+        e,
+        prevSibling?.id,
+        nextSiblingId ?? undefined,
+        parentElementId,
+        false,
+      ).then(() => {
+        e.linkSiblings({
+          prevSiblingId: prevSibling?.id,
+          parentElementId,
+          nextSiblingId: nextSiblingId ?? undefined,
+        })
+        e.syncLinkedSiblings()
+      })
+    })
+
+    yield* _await(Promise.all(linkPromises))
 
     return hydratedElements
   })
@@ -259,7 +284,10 @@ export class ElementService
     this: ElementService,
     element: Pick<IElement, 'id'>,
     input: ElementUpdateInput,
+    shouldUpdateCache = true,
   ) {
+    console.log({ shouldUpdateCache })
+
     const {
       updateElements: {
         elements: [updatedElement],
@@ -276,12 +304,28 @@ export class ElementService
     }
 
     const elementFromCache = this.element(element.id)
+    console.log('patchElement', {
+      el: getSnapshot(elementFromCache),
+      input: JSON.stringify(
+        {
+          where: { id: element.id },
+          update: input,
+        },
+        null,
+        2,
+      ),
+      after: JSON.stringify(updatedElement, null, 2),
+    })
 
     if (!elementFromCache) {
       throw new Error('Element not found')
     }
 
-    return elementFromCache.updateCache(updatedElement)
+    if (shouldUpdateCache) {
+      return elementFromCache.updateCache(updatedElement)
+    }
+
+    return elementFromCache
   })
 
   @modelFlow
@@ -291,108 +335,207 @@ export class ElementService
     element: IElement,
     prevSiblingId?: string,
     nextSiblingId?: string,
+    parentElementId?: string,
+    shouldUpdateCache?: boolean,
   ) {
-    const promises = []
-
     // a -> [b] -> c
     // a link b, up cache a
     // b link c, up cache b
 
-    if (nextSiblingId) {
-      promises.push(
+    if (parentElementId) {
+      // should be unlink?
+      // debugger
+
+      yield* _await(
         this.patchElement(
-          { id: nextSiblingId },
+          element,
           {
-            prevSibling: connectId(element?.id),
+            parentElement: connectId(parentElementId),
           },
+          false,
         ),
       )
 
-      // element.nextSiblingId = nextSiblingId
+      const parentElement = parentElementId
+        ? this.element(parentElementId)
+        : undefined
+
+      if (!parentElement) {
+        throw new Error("An element can only have one tree, and can't be link")
+      }
+
+      // debugger
+
+      if (!prevSiblingId) {
+        yield* _await(
+          this.patchElement(
+            parentElement,
+            {
+              childrenRoot: {
+                ...disconnectId(parentElement.childrenRoot?.id),
+                ...connectId(element?.id),
+              },
+            },
+            false,
+          ),
+        )
+      }
     }
 
-    if (prevSiblingId) {
-      promises.push(
+    const prevSibling = prevSiblingId ? this.element(prevSiblingId) : undefined
+
+    // debugger
+
+    if (prevSibling && prevSiblingId) {
+      yield* _await(
         this.patchElement(
-          { id: prevSiblingId },
+          prevSibling,
           {
-            nextSibling: connectId(element?.id),
+            nextSibling: {
+              ...disconnectId(prevSibling.nextSibling?.id),
+              ...connectId(element?.id),
+            },
           },
+          false,
         ),
       )
-
-      // element.prevSibling = prevSiblingId
     }
 
-    return yield* _await(Promise.all(promises))
+    const nextSibling = nextSiblingId ? this.element(nextSiblingId) : undefined
+
+    // debugger
+
+    if (nextSiblingId && nextSibling) {
+      yield* _await(
+        this.patchElement(
+          nextSibling,
+          {
+            prevSibling: {
+              ...disconnectId(nextSibling.prevSibling?.id),
+              ...connectId(element?.id),
+            },
+          },
+          false,
+        ),
+      )
+    }
   })
 
   @modelFlow
   @transaction
-  unlinkElement = _async(function* (this: ElementService, element: IElement) {
+  unlinkElement = _async(function* (
+    this: ElementService,
+    element: IElement,
+    shouldUpdateCache?: boolean,
+  ) {
+    console.log('unlink element', {
+      shouldUpdateCache,
+      element: getSnapshot(element),
+      next: element.nextSibling ? getSnapshot(element.nextSibling) : undefined,
+      prev: element.prevSibling ? getSnapshot(element.prevSibling) : undefined,
+      parentElement: element.parentElement
+        ? getSnapshot(element.parentElement)
+        : undefined,
+    })
+    // debugger
+
     const promises = []
+
+    // tree = [removed] - x - y (no prev),
+    if (!element.prevSibling && element.parentElement) {
+      // debugger
+      yield* _await(
+        this.patchElement(
+          element.parentElement,
+          {
+            childrenRoot: {
+              // disconnect [removed]
+              disconnect: {
+                where: { node: { id: element.id } },
+              },
+              // set tree children root = x, x is empty is ok
+              ...connectId(element.nextSibling?.id),
+            },
+          },
+          shouldUpdateCache,
+        ),
+      )
+      // this is root, link to its next sibling because we delete it
+      // if no next sibling, then parent children tree is empty
+      // element.parentElement.childrenRootId = element.nextSibling?.id ?? null
+      // promises.push(
+
+      // )
+    }
 
     // delete anywhere but not the end
     // x - y - [removed]
     // should be x - [removed] - y
-    if (element.nextSibling) {
-      // element.nextSibling.prevSiblingId = element.prevSibling?.id ?? null
-      promises.push(
-        this.patchElement(element.nextSibling, {
-          prevSibling: {
-            // disconnect [removed]
-            disconnect: {
-              where: { node: { id: element.id } },
-            },
-            // link y -> x
-            ...connectId(element.prevSibling?.id),
-          },
-        }),
-      )
 
-      if (element.prevSibling) {
-        // ^ remote data affected by above
-        // update cache only
-        // link x - y
-        element.prevSibling.nextSiblingId = element.nextSiblingId
-      }
-    } else if (element.prevSibling) {
+    if (element.nextSibling) {
+      // debugger
+      yield* _await(
+        this.patchElement(
+          element.nextSibling,
+          {
+            prevSibling: {
+              // disconnect [removed]
+              disconnect: {
+                where: { node: { id: element.id } },
+              },
+              // link y -> x
+              ...connectId(element.prevSibling?.id),
+            },
+          },
+          shouldUpdateCache,
+        ),
+      )
+    }
+
+    if (element.prevSibling) {
+      // debugger
+      yield* _await(
+        this.patchElement(
+          element.prevSibling,
+          {
+            nextSibling: {
+              disconnect: {
+                where: { node: { id: element.id } },
+              },
+              ...connectId(element.nextSibling?.id),
+            },
+          },
+          shouldUpdateCache,
+        ),
+      )
       // if next sibling is not available = add at the end
       // x - [remove] -> disconect [remove]
-      promises.push(
-        this.patchElement(element.prevSibling, {
-          nextSibling: {
-            disconnect: {
-              where: { node: { id: element.id } },
-            },
-          },
-        }),
-      )
     }
 
-    // tree = [removed] - x - y (no prev),
-    if (!element.prevSibling && element.parentElement) {
-      // this is root, link to its next sibling because we delete it
-      // if no next sibling, then parent children tree is empty
-      // element.parentElement.childrenRootId = element.nextSibling?.id ?? null
-      promises.push(
-        this.patchElement(element.parentElement, {
-          childrenRoot: {
-            // disconnect [removed]
-            disconnect: {
-              where: { node: { id: element.id } },
+    // debugger
+
+    if (element.parentElement) {
+      // debugger
+      yield* _await(
+        this.patchElement(
+          element,
+          {
+            parentElement: {
+              ...disconnectId(element.parentElement.id),
             },
-            // set tree children root = x, x is empty is ok
-            ...connectId(element.nextSibling?.id),
           },
-        }),
+          shouldUpdateCache,
+        ),
       )
+
+      // promises.push(
+      // )
     }
 
-    element.nextSiblingId = null
-    element.prevSiblingId = null
+    // element.nextSiblingId = null
+    // element.prevSiblingId = null
 
-    return yield* _await(Promise.all(promises))
+    // return yield* _await(Promise.all(promises))
   })
 
   /**
@@ -417,14 +560,25 @@ export class ElementService
     //   [...this.elements.values()].map((e) => getSnapshot(e)),
     // )
 
-    yield* _await(this.unlinkElement(element))
+    yield* _await(this.unlinkElement(element, false))
     yield* _await(
       this.linkElement(
         element,
         targetElement.id,
         targetElement?.nextSibling?.id,
+        targetElement?.parentElement?.id,
       ),
     )
+
+    // update element in cache
+    //  update cache sequentially by api could introduce layout shift, and bug issue
+    element.unlinkSiblings()
+    element.linkSiblings({
+      prevSiblingId: targetElement?.id,
+      nextSiblingId: targetElement?.nextSibling?.id,
+      parentElementId: targetElement?.parentElement?.id,
+    })
+    element.syncLinkedSiblings()
   })
 
   /**
@@ -437,58 +591,48 @@ export class ElementService
     elementId: string,
     parentElementId: string,
   ) {
-    console.log('moveElementInto')
-
-    const element = this.element(elementId)
-    const parentElement = this.element(parentElementId)
-
-    if (!element || !parentElement) {
-      return
-    }
-
-    const oldChildrenRootId = parentElement.childrenRoot?.id
-
-    console.log(
-      'current el',
-      [...this.elements.values()].map((e) => getSnapshot(e)),
-    )
-
-    yield* _await(this.unlinkElement(element))
-
-    console.log(
-      'after unlink',
-      [...this.elements.values()].map((e) => getSnapshot(e)),
-    )
-
-    console.log('children root process', {
-      parentElement: getSnapshot(parentElement),
-    })
-
-    yield* _await(
-      this.patchElement(parentElement, {
-        childrenRoot: {
-          // disconnect [removed]
-          ...disconnectId(parentElement.childrenRoot?.id),
-          // set tree children root = x, x is empty is ok
-          ...connectId(elementId),
-        },
-      }),
-    )
-
-    console.log(
-      'after link to the correct place',
-      [...this.elements.values()].map((e) => getSnapshot(e)),
-    )
-
-    // the previous one
-    if (oldChildrenRootId) {
-      yield* _await(this.linkElement(element, undefined, oldChildrenRootId))
-    }
-
-    console.log(
-      'after link to the correct place',
-      [...this.elements.values()].map((e) => getSnapshot(e)),
-    )
+    // const element = this.element(elementId)
+    // const parentElement = this.element(parentElementId)
+    // if (!element || !parentElement) {
+    //   return
+    // }
+    // console.log('moveInto', {
+    //   parentElement: getSnapshot(parentElement),
+    //   element: getSnapshot(element),
+    //   connect: elementId,
+    //   disconnect: getSnapshot(parentElement.childrenRoot),
+    //   elementId,
+    //   parentElementId,
+    //   crPayload: {
+    //     // disconnect [removed]
+    //     ...disconnectId(parentElement.childrenRoot?.id),
+    //     // set tree children root = x, x is empty is ok
+    //     ...connectId(elementId),
+    //   },
+    // })
+    // const oldChildrenRootId = parentElement.childrenRoot?.id
+    // yield* _await(this.unlinkElement(element))
+    // yield* _await(
+    //   this.patchElement(parentElement, {
+    //     childrenRoot: {
+    //       // disconnect [removed]
+    //       ...disconnectId(parentElement.childrenRoot?.id),
+    //       // set tree children root = x, x is empty is ok
+    //       ...connectId(elementId),
+    //     },
+    //   }),
+    // )
+    // // // the previous one
+    // if (oldChildrenRootId) {
+    //   yield* _await(
+    //     this.linkElement(
+    //       element,
+    //       undefined,
+    //       oldChildrenRootId,
+    //       parentElement.id,
+    //     ),
+    //   )
+    // }
   })
 
   @modelFlow
@@ -505,8 +649,8 @@ export class ElementService
     const rootElement = this.element(root)
 
     if (rootElement) {
-      yield* _await(this.unlinkElement(rootElement))
-      // rootElement.unlinkSibling()
+      yield* _await(this.unlinkElement(rootElement, true))
+      // rootElement.unlinkSiblings()
     }
 
     for (const id of idsToDelete.reverse()) {

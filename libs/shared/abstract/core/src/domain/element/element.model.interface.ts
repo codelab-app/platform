@@ -57,8 +57,13 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   prevSibling: Maybe<IElement>
   prevSiblingId: Nullable<string>
 
-  linkSibling(): void
-  unlinkSibling(): void
+  linkSiblings(params: {
+    prevSiblingId?: string
+    nextSiblingId?: string
+    parentElementId?: string
+  }): void
+  unlinkSiblings(): void
+  syncLinkedSiblings(): void
 
   childrenRoot: Maybe<IElement>
   childrenRootId: Nullable<string>

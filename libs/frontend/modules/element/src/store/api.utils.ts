@@ -7,6 +7,7 @@ import {
   IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
+import { connectId } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 //
@@ -20,8 +21,6 @@ import { v4 } from 'uuid'
 
 export const makeCreateInput = (
   input: ICreateElementDTO,
-  prevSibling?: IElement,
-  parentElement?: IElement,
 ): ElementCreateInput => {
   const {
     id = v4(),
@@ -55,50 +54,6 @@ export const makeCreateInput = (
         }
       : undefined
 
-  let prevSiblingPayload: ElementCreateInput['prevSibling'] = undefined
-
-  // not add at the beginning
-  // x-[new] | x-[new]-x
-  if (prevSiblingId) {
-    prevSiblingPayload = {
-      connect: {
-        where: { node: { id: prevSiblingId } },
-      },
-    }
-  }
-
-  const nextSiblingOfPrevSibling = prevSibling?.nextSibling
-  let nextSiblingPayload = undefined
-
-  if (nextSiblingOfPrevSibling) {
-    // add in the middle. a -> b ----> a -> [c] -> b
-    // connect c to b
-    nextSiblingPayload = {
-      connect: {
-        where: { node: { id: nextSiblingOfPrevSibling.id } },
-      },
-    }
-  }
-
-  if (!prevSibling && parentElement?.childrenRoot) {
-    // [new]-x-y-z
-    // no prev sibling = add as root
-    // if root exist, link to root
-    nextSiblingPayload = {
-      connect: {
-        where: { node: { id: parentElement.childrenRoot.id } },
-      },
-    }
-  }
-
-  const rootOf: ElementCreateInput['childrenRoot'] = prevSiblingId
-    ? undefined
-    : {
-        connect: {
-          where: { node: { id: parentElementId } },
-        },
-      }
-
   // Always create props
   const props: ElementCreateInput['props'] = {
     create: { node: { data: propsData ?? JSON.stringify({}) } },
@@ -113,9 +68,6 @@ export const makeCreateInput = (
     preRenderActionId,
     name,
     id,
-    prevSibling: prevSiblingPayload,
-    nextSibling: nextSiblingPayload,
-    rootOf,
   }
 }
 
