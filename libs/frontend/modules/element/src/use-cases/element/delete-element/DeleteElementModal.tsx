@@ -1,23 +1,21 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
-import { IElementService } from '@codelab/shared/abstract/core'
+import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
+import { elementRef } from '../../../store'
 import { DeleteElementData, deleteElementSchema } from './deleteElementSchema'
 
-export const DeleteElementModal = observer<{ elementService: IElementService }>(
-  ({ elementService }) => {
+type DeleteElementModalProps = {
+  elementService: IElementService
+  builderService: IBuilderService
+}
+
+export const DeleteElementModal = observer<DeleteElementModalProps>(
+  ({ elementService, builderService }) => {
     const closeModal = () => elementService.deleteModal.close()
-
-    const onSubmit = ({ elementId }: DeleteElementData) => {
-      return elementService.deleteElementSubgraph(elementId)
-    }
-
-    const onSubmitError = createNotificationHandler({
-      title: 'Error while deleting element',
-    })
 
     if (!elementService.deleteModal.element) {
       return null
@@ -25,6 +23,21 @@ export const DeleteElementModal = observer<{ elementService: IElementService }>(
 
     const model = { elementId: elementService.deleteModal.element.id }
     const elementToDelete = elementService.deleteModal.element
+    const parentElement = elementToDelete.parentElement
+
+    const onSubmit = ({ elementId }: DeleteElementData) => {
+      return elementService
+        .deleteElementSubgraph(elementId)
+        .then(
+          () =>
+            parentElement &&
+            builderService.set_selectedNode(elementRef(parentElement)),
+        )
+    }
+
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while deleting element',
+    })
 
     return (
       <ModalForm.Modal

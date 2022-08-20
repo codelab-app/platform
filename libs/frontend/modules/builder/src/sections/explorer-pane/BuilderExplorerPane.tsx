@@ -166,7 +166,10 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           userService={userService}
         />
         <DeleteComponentModal componentService={componentService} />
-        <DeleteElementModal elementService={elementService} />
+        <DeleteElementModal
+          builderService={builderService}
+          elementService={elementService}
+        />
       </ExplorerPaneTemplate>
     )
   },
