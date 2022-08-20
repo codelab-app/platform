@@ -12,6 +12,7 @@ import { CheckboxField } from './CheckboxField'
 import { CodeMirrorField } from './CodeMirror'
 import { SelectActionField } from './SelectActionField'
 import { SelectComponentField } from './SelectComponentField'
+import { SelectEnumField } from './SelectEnumField'
 
 export type FieldProps = {
   field: IField
@@ -65,6 +66,10 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
       ) : (
         <CodeMirrorField context={context} field={field} form={form} />
       )
+    }
+
+    case ITypeKind.EnumType: {
+      return <SelectEnumField field={field} form={form} />
     }
 
     default:
