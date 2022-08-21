@@ -57,6 +57,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfPropKey: element.renderIfPropKey,
       instanceOfComponentId: element.instanceOfComponent?.id,
+      postRenderActionId: element.postRenderActionId,
+      preRenderActionId: element.preRenderActionId,
     })
 
     const onSubmit = (input: IUpdateElementDTO) => {

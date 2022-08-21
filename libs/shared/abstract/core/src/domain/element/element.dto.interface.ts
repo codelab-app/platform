@@ -29,6 +29,8 @@ export type IUpdateElementDTO = {
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
   props?: Nullable<IPropData>
+  preRenderActionId?: Nullish<string>
+  postRenderActionId?: Nullish<string>
 }
 
 /**
@@ -41,6 +43,8 @@ export type IUpdateBaseElementDTO = Pick<
   | 'renderIfPropKey'
   | 'renderForEachPropKey'
   | 'instanceOfComponentId'
+  | 'preRenderActionId'
+  | 'postRenderActionId'
 >
 
 /**

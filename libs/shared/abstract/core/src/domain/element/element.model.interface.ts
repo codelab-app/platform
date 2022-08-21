@@ -1,4 +1,4 @@
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
 import { IBuilderDataNode } from '../../ui'
@@ -38,8 +38,8 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   label: string
   propTransformationJs: Nullable<string>
   lastChildOrder: number
-  preRenderActionId: Nullable<string>
-  postRenderActionId: Nullable<string>
+  preRenderActionId: Nullish<string>
+  postRenderActionId: Nullish<string>
   childrenSorted: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>

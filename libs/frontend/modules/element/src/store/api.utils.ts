@@ -22,6 +22,8 @@ export const makeCreateInput = (
     instanceOfComponentId,
     atomId,
     name,
+    postRenderActionId,
+    preRenderActionId,
     order,
     propsData,
   } = input
@@ -54,6 +56,8 @@ export const makeCreateInput = (
     atom,
     parentElement,
     props,
+    postRenderActionId,
+    preRenderActionId,
     name,
     id,
   }
@@ -129,6 +133,8 @@ export const makeUpdateInput = (
       },
     },
     customCss: input.customCss,
+    postRenderActionId: input.postRenderActionId || null,
+    preRenderActionId: input.preRenderActionId || null,
     guiCss: input.guiCss,
     renderForEachPropKey: input.renderForEachPropKey,
     instanceOfComponent,

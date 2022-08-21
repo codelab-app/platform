@@ -50,10 +50,12 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
     },
     preRenderActionId: {
       type: 'string',
+      label: 'Pre Render action',
       nullable: true,
     },
     postRenderActionId: {
       type: 'string',
+      label: 'Post Render action',
       nullable: true,
     },
   },

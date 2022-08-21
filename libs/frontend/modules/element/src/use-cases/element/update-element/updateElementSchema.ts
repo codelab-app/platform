@@ -30,6 +30,16 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementDTO> = {
       nullable: true,
       label: 'Component',
     },
+    preRenderActionId: {
+      type: 'string',
+      label: 'Pre Render action',
+      nullable: true,
+    },
+    postRenderActionId: {
+      type: 'string',
+      label: 'Post Render action',
+      nullable: true,
+    },
   },
   required: [],
 } as const

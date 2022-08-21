@@ -20,6 +20,7 @@ export interface IActionService
     ICRUDModalService<Ref<IAnyAction>, { action: Maybe<IAnyAction> }>,
     CacheService<IAnyAction, IActionDTO> {
   actionsList: Array<IAnyAction>
+  action(id: string): Maybe<IAnyAction>
   setSelectedActions(actions: Array<Ref<IAnyAction>>): void
   hydrateOrUpdateCache(actions: Array<IActionDTO>): Array<IAnyAction>
 }

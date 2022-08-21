@@ -11,6 +11,7 @@ import { DisplayIf } from '@codelab/frontend/view/components'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   BuilderTab,
+  IActionService,
   IAtomService,
   IBuilderService,
   IComponentService,
@@ -39,10 +40,12 @@ type BuilderMainPaneProps = {
   atomService: IAtomService
   componentService: IComponentService
   elementService: IElementService
+  actionService: IActionService
   builderService: IBuilderService
   userService: IUserService
   renderService: IRenderService
   pageId: string
+  storeId: string
 }
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
@@ -51,8 +54,10 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     builderService,
     elementService,
     componentService,
+    actionService,
     userService,
     pageId,
+    storeId,
     renderService,
   }) => {
     const builderTab = builderService.activeBuilderTab
@@ -153,11 +158,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         </DisplayIf>
         {pageTree && (
           <CreateElementModal
+            actionService={actionService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
             pageTree={pageTree}
             renderService={renderService}
+            storeId={storeId}
             userService={userService}
           />
         )}
