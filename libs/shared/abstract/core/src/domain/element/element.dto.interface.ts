@@ -13,6 +13,8 @@ export interface ICreateElementDTO {
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
+  preRenderActionId?: Nullish<string>
+  postRenderActionId?: Nullish<string>
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
   propsData?: string

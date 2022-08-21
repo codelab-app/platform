@@ -60,6 +60,8 @@ export const elementSelectionSet = `{
     }
   }
   propTransformationJs
+  preRenderActionId
+  postRenderActionId
   parentElementConnection {
     edges {
       node {

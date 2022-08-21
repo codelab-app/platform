@@ -48,6 +48,14 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       type: 'string',
       nullable: true,
     },
+    preRenderActionId: {
+      type: 'string',
+      nullable: true,
+    },
+    postRenderActionId: {
+      type: 'string',
+      nullable: true,
+    },
   },
   required: [],
 }

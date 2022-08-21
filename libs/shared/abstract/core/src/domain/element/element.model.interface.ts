@@ -38,6 +38,8 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   label: string
   propTransformationJs: Nullable<string>
   lastChildOrder: number
+  preRenderActionId: Nullable<string>
+  postRenderActionId: Nullable<string>
   childrenSorted: Array<IElement>
   renderForEachPropKey: Nullable<string>
   renderIfPropKey: Nullable<string>

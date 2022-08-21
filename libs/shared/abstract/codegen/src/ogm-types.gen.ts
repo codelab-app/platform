@@ -2369,6 +2369,8 @@ export type AppElementRootElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type AppPagePagesAggregationSelection = {
@@ -2645,6 +2647,7 @@ export type Atom = {
   __typename?: "Atom";
   id: Scalars["ID"];
   name: Scalars["String"];
+  icon?: Maybe<Scalars["String"]>;
   type: AtomType;
   tags: Array<Tag>;
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>;
@@ -2697,6 +2700,7 @@ export type AtomAggregateSelection = {
   count: Scalars["Int"];
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  icon: StringAggregateSelectionNullable;
 };
 
 export type AtomApiConnection = {
@@ -2876,6 +2880,8 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
@@ -3364,6 +3370,8 @@ export type Element = {
   propTransformationJs?: Maybe<Scalars["String"]>;
   renderForEachPropKey?: Maybe<Scalars["String"]>;
   renderIfPropKey?: Maybe<Scalars["String"]>;
+  preRenderActionId?: Maybe<Scalars["String"]>;
+  postRenderActionId?: Maybe<Scalars["String"]>;
   children: Array<Element>;
   childrenAggregate?: Maybe<ElementElementChildrenAggregationSelection>;
   app?: Maybe<App>;
@@ -3596,6 +3604,8 @@ export type ElementAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ElementAppAppAggregationSelection = {
@@ -3634,6 +3644,7 @@ export type ElementAtomAtomNodeAggregateSelection = {
   __typename?: "ElementAtomAtomNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  icon: StringAggregateSelectionNullable;
 };
 
 export type ElementAtomConnection = {
@@ -3727,6 +3738,8 @@ export type ElementElementChildrenNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ElementElementParentElementAggregationSelection = {
@@ -3750,6 +3763,8 @@ export type ElementElementParentElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type ElementGraph = {
@@ -4335,6 +4350,8 @@ export type HookElementElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type HookElementRelationship = {
@@ -4493,6 +4510,7 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   __typename?: "InterfaceTypeAtomApiOfAtomsNodeAggregateSelection";
   id: IdAggregateSelectionNonNullable;
   name: StringAggregateSelectionNonNullable;
+  icon: StringAggregateSelectionNullable;
 };
 
 export type InterfaceTypeEdge = {
@@ -4780,6 +4798,8 @@ export type PageElementRootElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 /** Pagination information (Relay) */
@@ -5145,6 +5165,8 @@ export type PropMapBindingElementElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type PropMapBindingElementRelationship = {
@@ -5168,6 +5190,8 @@ export type PropMapBindingElementTargetElementNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type PropMapBindingsConnection = {
@@ -6719,6 +6743,8 @@ export type UserElementElementsNodeAggregateSelection = {
   propTransformationJs: StringAggregateSelectionNullable;
   renderForEachPropKey: StringAggregateSelectionNullable;
   renderIfPropKey: StringAggregateSelectionNullable;
+  preRenderActionId: StringAggregateSelectionNullable;
+  postRenderActionId: StringAggregateSelectionNullable;
 };
 
 export type UserElementsConnection = {
@@ -7775,6 +7801,46 @@ export type AppRootElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type AppRootElementUpdateConnectionInput = {
@@ -8484,6 +8550,7 @@ export type AtomConnectWhere = {
 export type AtomCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+  icon?: InputMaybe<Scalars["String"]>;
   type: AtomType;
   tags?: InputMaybe<AtomTagsFieldInput>;
   api?: InputMaybe<AtomApiFieldInput>;
@@ -8502,6 +8569,7 @@ export type AtomDisconnectInput = {
 export type AtomOnCreateInput = {
   id: Scalars["ID"];
   name: Scalars["String"];
+  icon?: InputMaybe<Scalars["String"]>;
 };
 
 export type AtomOptions = {
@@ -8520,6 +8588,7 @@ export type AtomRelationInput = {
 export type AtomSort = {
   id?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
+  icon?: InputMaybe<SortDirection>;
   type?: InputMaybe<SortDirection>;
 };
 
@@ -8628,6 +8697,7 @@ export type AtomUniqueWhere = {
 export type AtomUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
+  icon?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<AtomType>;
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>;
   api?: InputMaybe<AtomApiUpdateFieldInput>;
@@ -8656,6 +8726,16 @@ export type AtomWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   name_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   name_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  icon?: InputMaybe<Scalars["String"]>;
+  icon_NOT?: InputMaybe<Scalars["String"]>;
+  icon_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  icon_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  icon_CONTAINS?: InputMaybe<Scalars["String"]>;
+  icon_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  icon_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  icon_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  icon_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  icon_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<AtomType>;
   type_NOT?: InputMaybe<AtomType>;
   type_IN?: InputMaybe<Array<AtomType>>;
@@ -9095,6 +9175,46 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ComponentRootElementUpdateConnectionInput = {
@@ -9848,6 +9968,26 @@ export type ElementAtomNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_EQUAL?: InputMaybe<Scalars["String"]>;
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_GT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_LT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementAtomUpdateConnectionInput = {
@@ -10081,6 +10221,46 @@ export type ElementChildrenNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementChildrenUpdateConnectionInput = {
@@ -10238,6 +10418,8 @@ export type ElementCreateInput = {
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
+  preRenderActionId?: InputMaybe<Scalars["String"]>;
+  postRenderActionId?: InputMaybe<Scalars["String"]>;
   children?: InputMaybe<ElementChildrenFieldInput>;
   app?: InputMaybe<ElementAppFieldInput>;
   page?: InputMaybe<ElementPageFieldInput>;
@@ -10503,6 +10685,8 @@ export type ElementOnCreateInput = {
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
+  preRenderActionId?: InputMaybe<Scalars["String"]>;
+  postRenderActionId?: InputMaybe<Scalars["String"]>;
 };
 
 export type ElementOptions = {
@@ -10845,6 +11029,46 @@ export type ElementParentElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ElementParentElementUpdateConnectionInput = {
@@ -11097,6 +11321,8 @@ export type ElementSort = {
   propTransformationJs?: InputMaybe<SortDirection>;
   renderForEachPropKey?: InputMaybe<SortDirection>;
   renderIfPropKey?: InputMaybe<SortDirection>;
+  preRenderActionId?: InputMaybe<SortDirection>;
+  postRenderActionId?: InputMaybe<SortDirection>;
 };
 
 export type ElementTypeConnectInput = {
@@ -11277,6 +11503,8 @@ export type ElementUpdateInput = {
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderIfPropKey?: InputMaybe<Scalars["String"]>;
+  preRenderActionId?: InputMaybe<Scalars["String"]>;
+  postRenderActionId?: InputMaybe<Scalars["String"]>;
   children?: InputMaybe<Array<ElementChildrenUpdateFieldInput>>;
   app?: InputMaybe<ElementAppUpdateFieldInput>;
   page?: InputMaybe<ElementPageUpdateFieldInput>;
@@ -11366,6 +11594,26 @@ export type ElementWhere = {
   renderIfPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
   renderIfPropKey_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   renderIfPropKey_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  preRenderActionId?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_NOT?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  preRenderActionId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  preRenderActionId_CONTAINS?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  postRenderActionId?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_NOT?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  postRenderActionId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  postRenderActionId_CONTAINS?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_NOT_STARTS_WITH?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_ENDS_WITH?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_NOT_ENDS_WITH?: InputMaybe<Scalars["String"]>;
   children?: InputMaybe<ElementWhere>;
   children_NOT?: InputMaybe<ElementWhere>;
   childrenAggregate?: InputMaybe<ElementChildrenAggregateInput>;
@@ -12319,6 +12567,46 @@ export type HookElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type HookElementUpdateConnectionInput = {
@@ -12479,6 +12767,26 @@ export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
   name_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   name_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   name_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_EQUAL?: InputMaybe<Scalars["String"]>;
+  icon_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  icon_GT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  icon_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  icon_LT?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  icon_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  icon_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  icon_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
@@ -13440,6 +13748,46 @@ export type PageRootElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PageRootElementUpdateConnectionInput = {
@@ -14568,6 +14916,46 @@ export type PropMapBindingElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PropMapBindingElementUpdateConnectionInput = {
@@ -14788,6 +15176,46 @@ export type PropMapBindingTargetElementNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type PropMapBindingTargetElementUpdateConnectionInput = {
@@ -17944,6 +18372,46 @@ export type UserElementsNodeAggregationWhereInput = {
   renderIfPropKey_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
   renderIfPropKey_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  preRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  preRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  preRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_EQUAL?: InputMaybe<Scalars["String"]>;
+  postRenderActionId_AVERAGE_EQUAL?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_EQUAL?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_GTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_GTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LT?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LT?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_AVERAGE_LTE?: InputMaybe<Scalars["Float"]>;
+  postRenderActionId_LONGEST_LTE?: InputMaybe<Scalars["Int"]>;
+  postRenderActionId_SHORTEST_LTE?: InputMaybe<Scalars["Int"]>;
 };
 
 export type UserElementsUpdateConnectionInput = {
@@ -18559,10 +19027,15 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
+export interface StringAggregateInputNullable {
+  shortest?: boolean;
+  longest?: boolean;
+}
 export interface AtomAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
   name?: StringAggregateInputNonNullable;
+  icon?: StringAggregateInputNullable;
 }
 
 export declare class AtomModel {
@@ -20075,6 +20548,8 @@ export interface ElementAggregateSelectionInput {
   propTransformationJs?: StringAggregateInputNullable;
   renderForEachPropKey?: StringAggregateInputNullable;
   renderIfPropKey?: StringAggregateInputNullable;
+  preRenderActionId?: StringAggregateInputNullable;
+  postRenderActionId?: StringAggregateInputNullable;
 }
 
 export declare class ElementModel {

@@ -1,4 +1,8 @@
-import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
+import {
+  SelectAction,
+  SelectAtom,
+  SelectComponent,
+} from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
@@ -6,6 +10,7 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import {
+  IActionService,
   IBuilderService,
   IElement,
   IElementService,
@@ -23,6 +28,8 @@ export type UpdateElementFormProps = {
   trackPromises?: UseTrackLoadingPromises
   builderService: IBuilderService
   elementService: IElementService
+  actionService: IActionService
+  storeId: string
 }
 
 /** Not intended to be used in a modal */
@@ -31,6 +38,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     elementService,
     builderService,
     element,
+    actionService,
+    storeId,
     trackPromises,
     providePropCompletion,
   }) => {
@@ -99,6 +108,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             // We edit it in the css tab
             'customCss',
             'guiCss',
+            'preRenderActionId',
+            'postRenderActionId',
           ]}
         />
         <AutoField
@@ -117,6 +128,16 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           name="renderForEachPropKey"
           onSearch={handlePropSearch}
           options={propCompleteOptions}
+        />
+        <SelectAction
+          actionService={actionService}
+          name="preRenderActionId"
+          storeId={storeId}
+        />
+        <SelectAction
+          actionService={actionService}
+          name="postRenderActionId"
+          storeId={storeId}
         />
       </Form>
     )

@@ -40,6 +40,10 @@ export const elementSchema = gql`
     propTransformationJs: String
     renderForEachPropKey: String
     renderIfPropKey: String
+
+    preRenderActionId: String
+    postRenderActionId: String
+
     # component to render
     instanceOfComponent: Component
       @relationship(type: "INSTANCE_OF_COMPONENT", direction: OUT)
