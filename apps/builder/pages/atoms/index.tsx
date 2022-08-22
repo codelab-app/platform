@@ -1,6 +1,8 @@
 import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
+  AtomLibrary,
+  AtomRecord,
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
@@ -26,18 +28,55 @@ import {
 import { PageHeader } from 'antd'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import tw from 'twin.macro'
+import {
+  antdAtoms,
+  codelabAtoms,
+  htmlAtoms,
+  muiAtoms,
+} from '../../../../libs/frontend/modules/renderer/src/atoms'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   const store = useStore()
+  const htmlAtomsKeys = useMemo(() => Object.keys(htmlAtoms), [htmlAtoms])
+  const muiAtomsKeys = useMemo(() => Object.keys(muiAtoms), [muiAtoms])
+  const antdAtomsKeys = useMemo(() => Object.keys(antdAtoms), [antdAtoms])
+  const clAtomsKeys = useMemo(() => Object.keys(codelabAtoms), [codelabAtoms])
 
-  const [, { isLoading }] = useStatefulExecutor(
-    () => store.tagService.getAll(),
-    {
-      executeOnMount: true,
-    },
+  const getLibrary = useCallback((atomType: string): AtomLibrary => {
+    return htmlAtomsKeys.includes(atomType)
+      ? { name: 'HTML', color: 'orange' }
+      : antdAtomsKeys.includes(atomType)
+      ? { name: 'Ant Design', color: 'geekblue' }
+      : muiAtomsKeys.includes(atomType)
+      ? { name: 'Material UI', color: 'purple' }
+      : clAtomsKeys.includes(atomType)
+      ? { name: 'Codelab', color: 'yellow' }
+      : { name: 'Unknown', color: 'black' }
+  }, [])
+
+  const [getAtoms, { isLoading }] = useStatefulExecutor(() =>
+    store.atomService.getAll(),
   )
+
+  useEffect(() => {
+    getAtoms()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const atomsData: Array<AtomRecord> = store.atomService.atoms.map((a) => ({
+    id: a.id,
+    type: a.type,
+    apiId: a.api.id,
+    name: a.name,
+    tags: a.tags.map((tag) => tag.current),
+    library: getLibrary(a.type),
+  }))
+
+  useStatefulExecutor(() => store.tagService.getAll(), {
+    executeOnMount: true,
+  })
 
   return (
     <>
@@ -56,7 +95,11 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
       />
       <DeleteAtomsModal atomService={store.atomService} />
       <ContentSection>
-        <GetAtomsTable atomService={store.atomService} />
+        <GetAtomsTable
+          atomService={store.atomService}
+          atomsData={atomsData}
+          isLoading={isLoading}
+        />
       </ContentSection>
     </>
   )
