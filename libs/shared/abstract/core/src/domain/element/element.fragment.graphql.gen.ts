@@ -39,10 +39,7 @@ export type ElementFragment = {
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
   parentElementConnection: {
-    edges: Array<{
-      order?: number | null
-      node: { id: string; name?: string | null }
-    }>
+    edges: Array<{ node: { id: string; name?: string | null } }>
   }
 }
 
@@ -96,7 +93,6 @@ export const ElementFragmentDoc = gql`
           id
           name
         }
-        order
       }
     }
   }

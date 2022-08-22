@@ -9,7 +9,6 @@ import {
 export interface ICreateElementDTO {
   id?: string
   name?: Nullable<string>
-  order?: number
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string

@@ -72,7 +72,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const model = {
       parentElementId: parentElement?.id || undefined,
-      order: parentElement ? parentElement?.lastChildOrder + 1 : 1,
       owner: userService.user?.auth0Id,
     }
 
@@ -103,7 +102,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'parentElementId',
               'atomId',
               'instanceOfComponentId',
-              'order',
               'customCss',
               'guiCss',
               'propsData',
@@ -126,7 +124,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             allElementOptions={allElementOptions}
             name="prevSiblingId"
           />
-          <AutoField name="order" />
           <AutoField component={SelectAtom} name="atomId" />
           <AutoField
             activeComponentId={builderService.activeComponent?.id}

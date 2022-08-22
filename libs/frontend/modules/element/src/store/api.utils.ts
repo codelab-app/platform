@@ -49,7 +49,6 @@ export const makeCreateInput = (
       ? {
           connect: {
             where: { node: { id: parentElementId } },
-            edge: { order },
           },
         }
       : undefined
@@ -94,7 +93,6 @@ export const makeDuplicateInput = (
       where: {
         node: { id: parentId },
       },
-      edge: { order: element.orderInParent },
     },
   }
 

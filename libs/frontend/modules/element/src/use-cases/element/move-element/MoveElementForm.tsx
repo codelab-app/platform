@@ -34,7 +34,6 @@ export const MoveElementForm = observer<MoveElementFormProps>(
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
       parentElementId: element.parentElement?.id,
-      order: element.orderInParent ?? element.parentElement?.lastChildOrder,
     })
 
     const onSubmit = (data: MoveData) => {

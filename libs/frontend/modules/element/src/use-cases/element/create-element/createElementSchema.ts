@@ -22,10 +22,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDTO> = {
       nullable: true,
       label: 'Parent element',
     },
-    order: {
-      type: 'integer',
-      nullable: true,
-    },
     prevSiblingId: {
       type: 'string',
       nullable: true,

@@ -45,7 +45,6 @@ fragment Element on Element {
         id
         name
       }
-      order
     }
   }
 }

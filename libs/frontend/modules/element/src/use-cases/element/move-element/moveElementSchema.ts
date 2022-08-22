@@ -5,9 +5,6 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {
-    order: {
-      type: 'integer',
-    },
     parentElementId: {
       type: 'string',
       label: 'Parent Element',
