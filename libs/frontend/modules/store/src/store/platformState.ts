@@ -62,8 +62,6 @@ export const createMobxState = (
     apps: appsState,
   }
 
-  console.log(stateGlobals)
-
   return appStore.toMobxObservable(stateGlobals)
 }
 

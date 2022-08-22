@@ -9,8 +9,8 @@ import { set } from 'lodash'
 export const createActionFn = (action: IAnyAction, context: any) => {
   switch (action.type) {
     case IActionKind.CustomAction:
-      // eslint-disable-next-line no-new-func
-      return new Function(action.code).bind(context)
+      // eslint-disable-next-line no-eval
+      return eval(`(${action.code})`).bind(context)
 
     case IActionKind.ResourceAction:
       return (...args: Array<any>) =>
