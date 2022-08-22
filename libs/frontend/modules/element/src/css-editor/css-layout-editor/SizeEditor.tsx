@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -29,10 +29,10 @@ export const SizeEditor = observer(
     <>
       {options.map((option, i) => (
         <InputNumberWithUnits
-          currentUnit={matchCssPropUnit(guiCssObj[option] ?? '') ?? 'auto'}
-          currentValue={matchCssPropNumber(guiCssObj[option] ?? '') ?? 0}
+          currentUnit={extractCssUnit(guiCssObj[option] ?? '') ?? 'auto'}
+          currentValue={extractCssNumber(guiCssObj[option] ?? '') ?? 0}
           disabled={
-            (matchCssPropUnit(guiCssObj[option] ?? '') ?? 'auto') === 'auto'
+            (extractCssUnit(guiCssObj[option] ?? '') ?? 'auto') === 'auto'
           }
           name={option}
           onChange={(value, unit) =>

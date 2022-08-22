@@ -5,8 +5,8 @@ import { CssPropValueSelector } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -108,10 +108,10 @@ export const BordersEditor = observer(
             />
           ) : type === 'input-number-with-unit' ? (
             <InputNumberWithUnits
-              currentUnit={matchCssPropUnit(guiCssObj[name] ?? '') ?? 'unset'}
-              currentValue={matchCssPropNumber(guiCssObj[name] ?? '') ?? 0}
+              currentUnit={extractCssUnit(guiCssObj[name] ?? '') ?? 'unset'}
+              currentValue={extractCssNumber(guiCssObj[name] ?? '') ?? 0}
               disabled={
-                (matchCssPropUnit(guiCssObj[name] ?? '') ?? 'unset') === 'unset'
+                (extractCssUnit(guiCssObj[name] ?? '') ?? 'unset') === 'unset'
               }
               name={name}
               onChange={(value, unit) =>
