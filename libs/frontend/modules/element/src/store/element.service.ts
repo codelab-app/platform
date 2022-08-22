@@ -338,14 +338,10 @@ export class ElementService
     parentElementId?: string,
     shouldUpdateCache?: boolean,
   ) {
-    // a -> [b] -> c
-    // a link b, up cache a
-    // b link c, up cache b
-
+    // a -> [new] -> c
     if (parentElementId) {
-      // should be unlink?
-      debugger
-
+      // parent = a -> [new] -> c
+      // parent -> [new]
       yield* _await(
         this.patchElement(
           element,
@@ -364,8 +360,10 @@ export class ElementService
         throw new Error("An element can only have one tree, and can't be link")
       }
 
-      debugger
-
+      // parent -> c
+      // parent -> [new] -> c
+      // disconnect c as children root
+      // connect new as children
       if (!prevSiblingId) {
         yield* _await(
           this.patchElement(
@@ -384,8 +382,10 @@ export class ElementService
 
     const prevSibling = prevSiblingId ? this.element(prevSiblingId) : undefined
 
-    debugger
-
+    // a -> c
+    // a -> [new] c
+    // disconnect a,c
+    // connect a to new
     if (prevSibling && prevSiblingId) {
       yield* _await(
         this.patchElement(
@@ -403,8 +403,10 @@ export class ElementService
 
     const nextSibling = nextSiblingId ? this.element(nextSiblingId) : undefined
 
-    debugger
-
+    // a -> c
+    // a  [new] =>  c
+    // disconnect a,c
+    // connect [new] to c
     if (nextSiblingId && nextSibling) {
       yield* _await(
         this.patchElement(
@@ -441,9 +443,8 @@ export class ElementService
 
     const promises = []
 
-    // tree = [removed] - x - y (no prev),
+    // tree -> [removed] - x - y (no prev),
     if (!element.prevSibling && element.parentElement) {
-      debugger
       yield* _await(
         this.patchElement(
           element.parentElement,
@@ -454,6 +455,7 @@ export class ElementService
                 where: { node: { id: element.id } },
               },
               // set tree children root = x
+              // tree -> x - y
               ...connectId(element.nextSibling?.id),
             },
           },
@@ -464,7 +466,6 @@ export class ElementService
 
     //  x - [removed] - y
     if (element.nextSibling) {
-      debugger
       yield* _await(
         this.patchElement(
           element.nextSibling,
@@ -485,7 +486,6 @@ export class ElementService
 
     // x - [removed] - y
     if (element.prevSibling) {
-      debugger
       yield* _await(
         this.patchElement(
           element.prevSibling,
@@ -505,7 +505,6 @@ export class ElementService
 
     // debugger
     if (element.parentElement) {
-      debugger
       yield* _await(
         this.patchElement(
           element,

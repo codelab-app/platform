@@ -3,6 +3,7 @@ import { ICreateElementDTO } from '../element'
 export interface MoveData {
   order: number
   parentElementId: string
+  prevSiblingId: string
 }
 
 export interface BuilderDragData {

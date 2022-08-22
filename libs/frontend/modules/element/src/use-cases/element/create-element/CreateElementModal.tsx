@@ -81,8 +81,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       .filter((element) => !element?.instanceOfComponent && !element?.component)
       .map(mapElementOption)
 
-    console.log({ allElementOptions })
-
     return (
       <ModalForm.Modal
         okText="Create"

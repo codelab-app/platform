@@ -11,9 +11,11 @@ import {
   MoveData,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
+import { MoveElementAutoForm } from './MoveElementAutoForm'
 import { moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = {
@@ -33,28 +35,59 @@ export const MoveElementForm = observer<MoveElementFormProps>(
 
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
-      parentElementId: element.parentElement?.id,
+      parentElementId: element.parentId,
+      prevSiblingId: element.prevSiblingId,
     })
 
-    const onSubmit = (data: MoveData) => {
-      const promise = elementService.moveElement(
-        element.id,
-        data.parentElementId,
-        data.order,
-      )
+    useEffect(() => {
+      model.prevSiblingId = element.prevSiblingId
+      model.parentElementId = element.parentId
+    }, [element.parentId, element.prevSiblingId])
 
-      if (trackPromise) {
-        trackPromise(promise)
+    const onSubmit = (data: MoveData) => {
+      const {
+        prevSiblingId: currentPrevsiblingId,
+        parentElementId: currentParentElementId,
+      } = model
+
+      const { parentElementId, prevSiblingId } = data
+      const changePrevSibling = currentPrevsiblingId !== prevSiblingId
+      const changeParent = currentParentElementId !== parentElementId
+
+      // check this first because change parent could trigger change in prev to undefined
+
+      if (changeParent) {
+        // change parent
+        elementService.moveAsRoot(element.id, parentElementId)
+
+        return
       }
 
-      return promise
+      // clear link element
+      if (changePrevSibling && prevSiblingId) {
+        elementService.moveElementNextTo(element.id, prevSiblingId)
+
+        return
+      }
+
+      // clear linked by, move to the root
+      if (changePrevSibling && !prevSiblingId && element.parentId) {
+        elementService.moveAsRoot(element.id, element.parentId)
+
+        return
+      }
     }
 
     const elementOptions = elementTree.elementsList.map(mapElementOption)
 
     return (
-      <Form<MoveData>
+      <MoveElementAutoForm<MoveData>
         autosave
+        cssString={`
+          & .ant-form-item-explain {
+            display: none !important;
+          }
+        `}
         key={element.id}
         model={model}
         onSubmit={onSubmit}
@@ -63,19 +96,26 @@ export const MoveElementForm = observer<MoveElementFormProps>(
         })}
         schema={moveElementSchema}
       >
-        <AutoFields omitFields={['parentElementId']} />
+        <AutoFields omitFields={['parentElementId', 'prevSiblingId']} />
         <AutoField
-          component={observer((props) => (
-            <SelectExcludeDescendantsElements
-              allElementOptions={elementOptions}
-              targetElementId={element.id}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...(props as any)}
-            />
-          ))}
+          component={observer((props) => {
+            return (
+              <SelectExcludeDescendantsElements
+                allElementOptions={elementOptions}
+                allowClear={false}
+                targetElementId={element.id}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...(props as any)}
+              />
+            )
+          })}
           name="parentElementId"
         />
-      </Form>
+        <SelectLinkElement
+          allElementOptions={elementOptions}
+          name="prevSiblingId"
+        />
+      </MoveElementAutoForm>
     )
   },
 )
