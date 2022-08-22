@@ -91,7 +91,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                           providePropCompletion={(value) =>
                             providePropCompletion(value, node.id)
                           }
-                          storeId={renderService.appStore.id}
+                          storeId={renderService?.appStore?.id as string}
                           trackPromises={trackPromises}
                         />
                         <MoveElementForm
