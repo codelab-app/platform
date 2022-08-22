@@ -9,7 +9,7 @@ type PropValueSelectorProps = {
   disabled?: boolean
   checked?: boolean
   enableCheckbox?: boolean
-  onCheckedChange?: (checked: boolean) => void
+  onCheck?: (checked: boolean) => void
 }
 
 export const ColorPicker = ({
@@ -19,15 +19,15 @@ export const ColorPicker = ({
   disabled,
   checked,
   enableCheckbox,
-  onCheckedChange,
+  onCheck,
 }: PropValueSelectorProps) => {
   const [color, setColor] = useState<string>(currentValue)
 
   return (
     <CssPropEditorItem
-      defaultChecked={checked}
+      checked={checked}
       enableCheckbox={enableCheckbox}
-      onChange={onCheckedChange}
+      onCheck={onCheck}
       title={name}
     >
       <Input

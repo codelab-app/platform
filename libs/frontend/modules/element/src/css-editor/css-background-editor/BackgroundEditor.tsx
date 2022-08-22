@@ -37,7 +37,7 @@ export const BackgroundEditor = observer(
         enableCheckbox={true}
         name="background"
         onChange={(val) => setColor(val)}
-        onCheckedChange={(val) => setChecked(val)}
+        onCheck={(val) => setChecked(val)}
       />
     )
   },

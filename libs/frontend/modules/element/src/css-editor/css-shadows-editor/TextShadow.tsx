@@ -153,14 +153,14 @@ export const TextShadow = observer(
         {Object.values(textShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
-              defaultChecked={property.value}
+              checked={property.value}
               enableCheckbox
-              onChange={(val) =>
+              onCheck={(value) =>
                 setTextShadowState({
                   ...textShadowState,
                   [property.name]: {
                     ...textShadowState[property.name],
-                    value: val,
+                    value,
                   },
                 })
               }

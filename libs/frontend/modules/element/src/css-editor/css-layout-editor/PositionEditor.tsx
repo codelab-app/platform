@@ -72,8 +72,8 @@ export const PositionEditor = observer(
               />
             ))}
             <InputNumberWithUnits
+              checked={guiCssObj['zIndex'] !== 'auto'}
               currentValue={zIndex}
-              defaultChecked={guiCssObj['zIndex'] !== 'auto'}
               disabled={matchCssPropUnit(guiCssObj['zIndex'] ?? '') === 'auto'}
               enableCheckBox
               name="zIndex"
@@ -81,7 +81,7 @@ export const PositionEditor = observer(
                 updateGuiCssProperty(element, 'zIndex')(`${value}`)
                 setZIndex(value)
               }}
-              onCheckedChange={(checked) =>
+              onCheck={(checked) =>
                 updateGuiCssProperty(
                   element,
                   'zIndex',
