@@ -143,9 +143,10 @@ export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiGrid]: dynamic(() => import('@mui/material/Grid')),
   [IAtomType.MuiGrow]: dynamic(() => import('@mui/material/Grow')),
   [IAtomType.MuiHidden]: dynamic(() => import('@mui/material/Hidden')),
-  [IAtomType.MuiIcon]: dynamic(() =>
-    import('@codelab/frontend/platform/atoms').then((mod) => mod.MuiIcon),
-  ),
+  // dynamic causes jest tests to fail
+  [IAtomType.MuiIcon]: import('@codelab/frontend/platform/atoms').then(
+    (mod) => mod.MuiIcon,
+  ) as any,
   [IAtomType.MuiIconButton]: dynamic(() => import('@mui/material/IconButton')),
   [IAtomType.MuiImageList]: dynamic(() => import('@mui/material/ImageList')),
   [IAtomType.MuiImageListItem]: dynamic(
