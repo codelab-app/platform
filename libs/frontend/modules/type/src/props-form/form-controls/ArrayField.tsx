@@ -13,7 +13,7 @@ import { useFieldArray, UseFormReturn } from 'react-hook-form'
 import tw from 'twin.macro'
 
 export interface ArrayFieldProps {
-  field: IField
+  field: IField<IArrayType>
   form: UseFormReturn
   renderItemField: (itemField: IField, index: number) => React.ReactElement
 }
@@ -45,7 +45,7 @@ export const ArrayField = observer(
       name: field.key,
     })
 
-    const itemType = (field.type.current as IArrayType).itemType
+    const itemType = field.type.current.itemType
 
     const createField = (id: string, index: number) => {
       return {

@@ -2,7 +2,7 @@ import { Nullish } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
 import type { IAnyType } from '../types'
 
-export interface IField {
+export interface IField<T extends IAnyType = IAnyType> {
   id: string
   /**
    * Allows default to null
@@ -10,7 +10,7 @@ export interface IField {
   name: Nullish<string>
   description: Nullish<string>
   key: string
-  type: Ref<IAnyType>
+  type: Ref<T>
 }
 
 export type IFieldRef = string

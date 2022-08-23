@@ -6,7 +6,7 @@ import { Controller, UseFormReturn } from 'react-hook-form'
 import tw from 'twin.macro'
 
 export interface SelectEnumFieldProps {
-  field: IField
+  field: IField<IEnumType>
   form: UseFormReturn
 }
 
@@ -25,7 +25,7 @@ export const SelectEnumField = observer(
             onBlur={control.field.onBlur}
             onChange={control.field.onChange}
             optionFilterProp="label"
-            options={(field.type.current as IEnumType).allowedValues}
+            options={field.type.current.allowedValues}
             showSearch
             value={control.field.value}
           />

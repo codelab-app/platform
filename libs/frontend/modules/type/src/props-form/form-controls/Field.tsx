@@ -1,7 +1,14 @@
 import {
+  IAnyActionType,
+  IArrayType,
+  IEnumType,
   IField,
+  IInterfaceType,
+  IPrimitiveType,
   IPrimitiveTypeKind,
   IPropsFieldContext,
+  IReactNodeType,
+  IRenderPropsType,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -20,29 +27,37 @@ export type FieldProps = {
   context?: IPropsFieldContext
 }
 
+const isOfTypeKind = <T extends IField>(
+  field: IField,
+  kind: ITypeKind,
+): field is T => field.type.current.kind === kind
+
 export const Field = observer(({ field, form, context }: FieldProps) => {
-  switch (field.type.current.kind) {
-    case ITypeKind.ArrayType:
-      return (
-        <ArrayField
-          field={field}
-          form={form}
-          renderItemField={(itemField) => (
-            <Field context={context} field={itemField} form={form} />
-          )}
-        />
-      )
-    case ITypeKind.ReactNodeType:
-    case ITypeKind.RenderPropsType:
-      return (
-        <SelectComponentField context={context} field={field} form={form} />
-      )
+  if (isOfTypeKind<IField<IArrayType>>(field, ITypeKind.ArrayType)) {
+    return (
+      <ArrayField
+        field={field}
+        form={form}
+        renderItemField={(itemField) => (
+          <Field context={context} field={itemField} form={form} />
+        )}
+      />
+    )
+  }
 
-    case ITypeKind.ActionType:
-      return <SelectActionField context={context} field={field} form={form} />
+  if (
+    isOfTypeKind<IField<IReactNodeType>>(field, ITypeKind.ReactNodeType) ||
+    isOfTypeKind<IField<IRenderPropsType>>(field, ITypeKind.RenderPropsType)
+  ) {
+    return <SelectComponentField context={context} field={field} form={form} />
+  }
 
-    case ITypeKind.InterfaceType:
-      return (
+  if (isOfTypeKind<IField<IAnyActionType>>(field, ITypeKind.ActionType)) {
+    return <SelectActionField context={context} field={field} form={form} />
+  }
+
+  if (isOfTypeKind<IField<IInterfaceType>>(field, ITypeKind.InterfaceType)) {
+  return (
         <>
           {[...field.type.current.fields.values()].map((f, i) => (
             <Field
@@ -59,20 +74,19 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
           ))}
         </>
       )
-
-    case ITypeKind.PrimitiveType: {
-      return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
-        <CheckboxField field={field} form={form} />
-      ) : (
-        <CodeMirrorField context={context} field={field} form={form} />
-      )
-    }
-
-    case ITypeKind.EnumType: {
-      return <SelectEnumField field={field} form={form} />
-    }
-
-    default:
-      return <CodeMirrorField context={context} field={field} form={form} />
   }
+
+  if (isOfTypeKind<IField<IPrimitiveType>>(field, ITypeKind.PrimitiveType)) {
+    return field.type.current.primitiveKind === IPrimitiveTypeKind.Boolean ? (
+      <CheckboxField field={field} form={form} />
+    ) : (
+      <CodeMirrorField context={context} field={field} form={form} />
+    )
+  }
+
+  if (isOfTypeKind<IField<IEnumType>>(field, ITypeKind.EnumType)) {
+    return <SelectEnumField field={field} form={form} />
+  }
+
+  return <CodeMirrorField context={context} field={field} form={form} />
 })
