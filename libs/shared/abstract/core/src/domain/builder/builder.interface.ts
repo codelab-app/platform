@@ -8,7 +8,14 @@ export interface MoveData {
 export interface BuilderDragData {
   type: BuilderDndType.CreateElement
   createElementInput: ICreateElementDTO
+  name: string
+  icon: string
 }
+
+export type BuilderDropData = Pick<
+  BuilderDragData,
+  'type' | 'createElementInput'
+>
 
 export enum BuilderDndType {
   CreateElement = 'CreateElement',

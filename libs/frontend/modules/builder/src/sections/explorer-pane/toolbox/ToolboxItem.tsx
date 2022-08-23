@@ -22,6 +22,7 @@ export const ToolboxItem = ({
   const { attributes, listeners, setNodeRef } = useCreateElementDraggable(
     toolboxItem.id,
     toolboxItem.createElementInputFactory(),
+    toolboxItem,
   )
 
   return (

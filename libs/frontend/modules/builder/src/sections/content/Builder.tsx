@@ -11,7 +11,6 @@ import {
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { BuilderDropHandler } from '../../dnd/BuilderDropHandler'
 import { ElementDropHandlers } from '../../dnd/ElementDropHandlers'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
@@ -66,7 +65,8 @@ export const Builder = observer<BuilderProps>(
         onMouseLeave={handleMouseLeave}
         onMouseOver={handleMouseOver}
       >
-        {elementId ? <BuilderDropHandler elementId={elementId} /> : null}
+        {/* TBC */}
+        {/* {elementId ? <BuilderDropHandler elementId={elementId} /> : null} */}
         {elementsList ? (
           <ElementDropHandlers elementsList={elementsList} />
         ) : null}

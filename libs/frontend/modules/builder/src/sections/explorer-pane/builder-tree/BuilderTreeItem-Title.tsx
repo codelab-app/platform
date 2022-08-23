@@ -9,6 +9,7 @@ import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
+import { BuilderDropHandler } from '../../../dnd/BuilderDropHandler'
 import {
   ComponentContextMenu,
   ComponentContextMenuProps,
@@ -50,32 +51,34 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       const meta = componentMeta || atomMeta || ''
 
       return (
-        <ItemTitleStyle node={data}>
-          <Dropdown
-            onVisibleChange={(visible) => {
-              setContextMenuNodeId(visible ? element.id : null)
-            }}
-            overlay={
-              <BuilderTreeItemOverlay
-                ContextMenu={ElementContextMenu}
-                contextMenuProps={{
-                  ...elementContextMenuProps,
-                  element,
-                }}
-                setContextMenuNodeId={setContextMenuNodeId}
-                type={ELEMENT_NODE_TYPE}
-              />
-            }
-            trigger={['contextMenu']}
-            visible={contextMenuItemId === element.id}
-          >
-            <div
-              css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}
+        <BuilderDropHandler element={element}>
+          <ItemTitleStyle node={data}>
+            <Dropdown
+              onVisibleChange={(visible) => {
+                setContextMenuNodeId(visible ? element.id : null)
+              }}
+              overlay={
+                <BuilderTreeItemOverlay
+                  ContextMenu={ElementContextMenu}
+                  contextMenuProps={{
+                    ...elementContextMenuProps,
+                    element,
+                  }}
+                  setContextMenuNodeId={setContextMenuNodeId}
+                  type={ELEMENT_NODE_TYPE}
+                />
+              }
+              trigger={['contextMenu']}
+              visible={contextMenuItemId === element.id}
             >
-              {element.label} <span css={tw`text-xs`}>{meta}</span>
-            </div>
-          </Dropdown>
-        </ItemTitleStyle>
+              <div
+                css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}
+              >
+                {element.label} <span css={tw`text-xs`}>{meta}</span>
+              </div>
+            </Dropdown>
+          </ItemTitleStyle>
+        </BuilderDropHandler>
       )
     }
 

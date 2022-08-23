@@ -11,6 +11,7 @@ import { has } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
+import { antdTreeStyle } from './antdTree.styles'
 import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
 import {
   DISABLE_HOVER_CLASSNAME,
@@ -51,7 +52,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
       <AntdTree<IBuilderDataNode>
         blockNode
         className={`${className} draggable-tree`}
-        css={[disableTreeNodeWrapperHoverStyle]}
+        css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
         disabled={isMoving}
         draggable={{
           icon: false,
