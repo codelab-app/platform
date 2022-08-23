@@ -2,19 +2,21 @@ import { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { Checkbox, Col, Row } from 'antd'
 import { useState } from 'react'
 
+type CssPropEditorItemProps = {
+  title: string
+  children: EmotionJSX.Element
+  onCheck?: (checked: boolean) => void
+  checked?: boolean
+  enableCheckbox?: boolean
+}
+
 export const CssPropEditorItem = ({
   title: name,
   children,
-  onChange,
-  defaultChecked,
+  onCheck,
+  checked: defaultChecked,
   enableCheckbox,
-}: {
-  title: string
-  children: EmotionJSX.Element
-  onChange?: (checked: boolean) => void
-  defaultChecked?: boolean
-  enableCheckbox?: boolean
-}) => {
+}: CssPropEditorItemProps) => {
   const [checked, setChecked] = useState<boolean>(
     defaultChecked === undefined ? !enableCheckbox : defaultChecked,
   )
@@ -26,7 +28,7 @@ export const CssPropEditorItem = ({
           defaultChecked={checked}
           disabled={!enableCheckbox}
           onChange={(e) => {
-            onChange?.(e.target.checked)
+            onCheck?.(e.target.checked)
             setChecked(e.target.checked)
           }}
           value={checked}

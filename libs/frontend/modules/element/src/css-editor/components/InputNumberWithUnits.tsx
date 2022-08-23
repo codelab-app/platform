@@ -3,6 +3,23 @@ import { useCallback, useState } from 'react'
 import { makeAddonAfterNumber } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
+type InputNumberWithUnitsProps = {
+  name: string
+  currentValue: number
+  currentUnit?: string
+  onValueChange?: (value: number) => void
+  onUnitChange?: (unit: string) => void
+  onChange?: (value: number, unit: string) => void
+  units?: Array<string>
+  min?: number
+  max?: number
+  step?: number
+  disabled?: boolean
+  enableCheckBox?: boolean
+  checked?: boolean
+  onCheck?: (checked: boolean) => void
+}
+
 export const InputNumberWithUnits = ({
   name,
   currentValue,
@@ -16,24 +33,9 @@ export const InputNumberWithUnits = ({
   step,
   disabled,
   enableCheckBox,
-  defaultChecked,
-  onCheckedChange,
-}: {
-  name: string
-  currentValue: number
-  currentUnit?: string
-  onValueChange?: (value: number) => void
-  onUnitChange?: (unit: string) => void
-  onChange?: (value: number, unit: string) => void
-  units?: Array<string>
-  min?: number
-  max?: number
-  step?: number
-  disabled?: boolean
-  enableCheckBox?: boolean
-  defaultChecked?: boolean
-  onCheckedChange?: (checked: boolean) => void
-}) => {
+  checked,
+  onCheck,
+}: InputNumberWithUnitsProps) => {
   const [value, setValue] = useState<number>(currentValue)
   const [unit, setUnit] = useState<string>(currentUnit ?? '')
 
@@ -56,9 +58,9 @@ export const InputNumberWithUnits = ({
 
   return (
     <CssPropEditorItem
-      defaultChecked={defaultChecked}
+      checked={checked}
       enableCheckbox={enableCheckBox}
-      onChange={onCheckedChange}
+      onCheck={onCheck}
       title={name}
     >
       <InputNumber

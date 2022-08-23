@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -28,8 +28,8 @@ export const PaddingEditor = observer(
       <>
         {options.map((option) => (
           <InputNumberWithUnits
-            currentUnit={matchCssPropUnit(guiCssObj[option] ?? '') ?? 'px'}
-            currentValue={matchCssPropNumber(guiCssObj[option] ?? '') ?? 0}
+            currentUnit={extractCssUnit(guiCssObj[option] ?? '') ?? 'px'}
+            currentValue={extractCssNumber(guiCssObj[option] ?? '') ?? 0}
             name={option}
             onChange={(value, unit) =>
               updateGuiCssProperty(element, option)(`${value}${unit}`)

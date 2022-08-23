@@ -1,5 +1,5 @@
+export * from './extractCssNumber'
+export * from './extractCssUnit'
 export * from './makeAddonAfterNumber'
 export * from './makeMenu'
-export * from './matchCssPropNumber'
-export * from './matchCssPropUnit'
 export * from './updateGuiCssProperty'

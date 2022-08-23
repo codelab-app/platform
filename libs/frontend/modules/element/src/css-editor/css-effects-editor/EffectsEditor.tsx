@@ -2,7 +2,7 @@ import { cssMap, IElement } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
-import { matchCssPropNumber, updateGuiCssProperty } from '../utils'
+import { extractCssNumber, updateGuiCssProperty } from '../utils'
 
 type EffectsEditorProps = {
   element: IElement
@@ -26,7 +26,7 @@ export const EffectsEditor = observer(
         {effects.map((effect) => (
           <InputNumberWithUnits
             currentValue={
-              matchCssPropNumber(guiCssObj[effect.name] ?? '') ??
+              extractCssNumber(guiCssObj[effect.name] ?? '') ??
               effect.defaultValue
             }
             max={effect.max}

@@ -6,8 +6,8 @@ import { CssPropEditorItem } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -95,12 +95,12 @@ const parseTextShadow = (textShadow: Nullish<string>): TextShadowState => {
   // extract the rest of the values (the numbers)
   const [offsetX, offsetY, blurRadius] = textShadow.split(' ')
   // separate the numbers from the units
-  const offsetXNumber = matchCssPropNumber(offsetX)
-  const offsetXUnit = matchCssPropUnit(offsetX)
-  const offsetYNumber = matchCssPropNumber(offsetY)
-  const offsetYUnit = matchCssPropUnit(offsetY)
-  const blurRadiusNumber = matchCssPropNumber(blurRadius)
-  const blurRadiusUnit = matchCssPropUnit(blurRadius)
+  const offsetXNumber = extractCssNumber(offsetX)
+  const offsetXUnit = extractCssUnit(offsetX)
+  const offsetYNumber = extractCssNumber(offsetY)
+  const offsetYUnit = extractCssUnit(offsetY)
+  const blurRadiusNumber = extractCssNumber(blurRadius)
+  const blurRadiusUnit = extractCssUnit(blurRadius)
 
   return {
     textShadow: { ...props.textShadow, value: true },
@@ -153,14 +153,14 @@ export const TextShadow = observer(
         {Object.values(textShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
-              defaultChecked={property.value}
+              checked={property.value}
               enableCheckbox
-              onChange={(val) =>
+              onCheck={(value) =>
                 setTextShadowState({
                   ...textShadowState,
                   [property.name]: {
                     ...textShadowState[property.name],
-                    value: val,
+                    value,
                   },
                 })
               }

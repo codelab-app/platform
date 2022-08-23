@@ -4,8 +4,8 @@ import React from 'react'
 import { CssPropValueSelector } from '../components'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -41,7 +41,7 @@ const options = [
 export const PositionEditor = observer(
   ({ element, guiCssObj }: PositionEditorProps) => {
     const [zIndex, setZIndex] = React.useState(
-      matchCssPropNumber(guiCssObj['zIndex'] ?? '') ?? 0,
+      extractCssNumber(guiCssObj['zIndex'] ?? '') ?? 0,
     )
 
     return (
@@ -56,10 +56,10 @@ export const PositionEditor = observer(
           <>
             {options.map(({ name, units }) => (
               <InputNumberWithUnits
-                currentUnit={matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto'}
-                currentValue={matchCssPropNumber(guiCssObj[name] ?? '') ?? 0}
+                currentUnit={extractCssUnit(guiCssObj[name] ?? '') ?? 'auto'}
+                currentValue={extractCssNumber(guiCssObj[name] ?? '') ?? 0}
                 disabled={
-                  (matchCssPropUnit(guiCssObj[name] ?? '') ?? 'auto') === 'auto'
+                  (extractCssUnit(guiCssObj[name] ?? '') ?? 'auto') === 'auto'
                 }
                 name={name}
                 onChange={(value, unit) =>
@@ -72,16 +72,16 @@ export const PositionEditor = observer(
               />
             ))}
             <InputNumberWithUnits
+              checked={guiCssObj['zIndex'] !== 'auto'}
               currentValue={zIndex}
-              defaultChecked={guiCssObj['zIndex'] !== 'auto'}
-              disabled={matchCssPropUnit(guiCssObj['zIndex'] ?? '') === 'auto'}
+              disabled={extractCssUnit(guiCssObj['zIndex'] ?? '') === 'auto'}
               enableCheckBox
               name="zIndex"
               onChange={(value) => {
                 updateGuiCssProperty(element, 'zIndex')(`${value}`)
                 setZIndex(value)
               }}
-              onCheckedChange={(checked) =>
+              onCheck={(checked) =>
                 updateGuiCssProperty(
                   element,
                   'zIndex',

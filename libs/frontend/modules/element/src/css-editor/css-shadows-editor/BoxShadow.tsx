@@ -6,8 +6,8 @@ import { CssPropEditorItem } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
 import {
-  matchCssPropNumber,
-  matchCssPropUnit,
+  extractCssNumber,
+  extractCssUnit,
   updateGuiCssProperty,
 } from '../utils'
 
@@ -116,14 +116,14 @@ const parseBoxShadow = (boxShadow: Nullish<string>): BoxShadowState => {
   // extract the rest of the values (the numbers)
   const [offsetX, offsetY, blurRadius, spreadRadius] = boxShadow.split(' ')
   // separate the numbers from the units
-  const offsetXNumber = matchCssPropNumber(offsetX)
-  const offsetXUnit = matchCssPropUnit(offsetX)
-  const offsetYNumber = matchCssPropNumber(offsetY)
-  const offsetYUnit = matchCssPropUnit(offsetY)
-  const blurRadiusNumber = matchCssPropNumber(blurRadius)
-  const blurRadiusUnit = matchCssPropUnit(blurRadius)
-  const spreadRadiusNumber = matchCssPropNumber(spreadRadius)
-  const spreadRadiusUnit = matchCssPropUnit(spreadRadius)
+  const offsetXNumber = extractCssNumber(offsetX)
+  const offsetXUnit = extractCssUnit(offsetX)
+  const offsetYNumber = extractCssNumber(offsetY)
+  const offsetYUnit = extractCssUnit(offsetY)
+  const blurRadiusNumber = extractCssNumber(blurRadius)
+  const blurRadiusUnit = extractCssUnit(blurRadius)
+  const spreadRadiusNumber = extractCssNumber(spreadRadius)
+  const spreadRadiusUnit = extractCssUnit(spreadRadius)
 
   return {
     boxShadow: { ...props.boxShadow, value: true },
@@ -189,14 +189,14 @@ export const BoxShadow = observer(
         {Object.values(boxShadowState).map((property) =>
           property.type === 'boolean' ? (
             <CssPropEditorItem
-              defaultChecked={property.value}
+              checked={property.value}
               enableCheckbox
-              onChange={(val) =>
+              onCheck={(value) =>
                 setBoxShadowState({
                   ...boxShadowState,
                   [property.name]: {
                     ...boxShadowState[property.name],
-                    value: val,
+                    value,
                   },
                 })
               }
