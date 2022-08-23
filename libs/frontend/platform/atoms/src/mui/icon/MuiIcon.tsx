@@ -1,15 +1,15 @@
-import { IconProps } from '@ant-design/icons/lib/components/IconBase'
 import * as MuiIcons from '@mui/icons-material'
+import { IconProps } from '@mui/material/Icon'
 import React from 'react'
 
-type _IconProps = IconProps & {
+interface MuiIconProp extends IconProps {
   /**
    * Name of destructured icon to use
    */
   name: string
 }
 
-export const MuiIcon = ({ name, ...props }: _IconProps) => {
+export const MuiIcon = ({ name, ...props }: MuiIconProp) => {
   if (!name) {
     return null
   }
