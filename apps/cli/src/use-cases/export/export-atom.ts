@@ -24,5 +24,5 @@ export const exportAtom = async (): Promise<ExportAtomData> => {
   //   return { atoms }
   // }
 
-  return { atoms } as any
+  return { atoms }
 }
