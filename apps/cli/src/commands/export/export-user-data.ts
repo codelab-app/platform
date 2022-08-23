@@ -36,7 +36,7 @@ export const exportUserData = async () => {
   const typeData = confirmExportType ? await exportUserTypes() : { types: [] }
   const resourceData = await exportResource()
 
-  const exportData: Omit<ExportedData, 'atoms'> = {
+  const exportData: Omit<ExportedData, 'atoms' | 'tags'> = {
     ...appData,
     ...typeData,
     ...resourceData,

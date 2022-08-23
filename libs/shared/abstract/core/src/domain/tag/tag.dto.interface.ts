@@ -1,6 +1,6 @@
 import { IAuth0Id } from '../user'
 import { TagFragment } from './tag.fragment.graphql.gen'
-import { ITagRef } from './tag.model.interface'
+import { ITag, ITagRef } from './tag.model.interface'
 
 export interface ICreateTagDTO {
   name: string
@@ -20,6 +20,6 @@ export type ITagGraphDTO = ITagDTO & {
 
 export type ITagExport = {
   name: string
-  children: Array<Pick<ICreateTagDTO, 'name'>>
-  parent?: Pick<ICreateTagDTO, 'name'>
+  children: Array<Pick<ITag, 'name'>>
+  parent?: Pick<ITag, 'name'>
 }

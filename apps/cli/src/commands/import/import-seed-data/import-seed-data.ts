@@ -25,9 +25,7 @@ export const importSeedData = async (
   // ID's must be in sync
   await importType(types, selectedUser)
 
-  const transformedAtoms = flow(addAntdUseCaseTags, addAntdAtomIcons)(atoms)
-
-  await importAtom(transformedAtoms, selectedUser)
+  await importAtom(atoms, selectedUser)
 }
 
 /**
@@ -36,11 +34,15 @@ export const importSeedData = async (
  * Once data is in JSON format, we use that to import
  */
 export const __seedData = async (selectedUser: string) => {
+  await importTags([builderComponentUsecaseTag], selectedUser)
   // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
   await importType(createSeedTypesData(), selectedUser)
 
+  const atoms = await createAntDesignAtomsData()
+  const transformedAtoms = flow(addAntdUseCaseTags, addAntdAtomIcons)(atoms)
+
   // Seed all atoms here second
-  await importAtom(await createAntDesignAtomsData(), selectedUser)
+  await importAtom(transformedAtoms, selectedUser)
 
   // Then seed all atom api's
   const parser = new ParserService(selectedUser)
