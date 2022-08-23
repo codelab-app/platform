@@ -1,1 +1,1 @@
-export * from './element.repository'
+export * from './element.repo'

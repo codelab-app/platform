@@ -5,7 +5,6 @@ import { TaskEnv } from './env'
 import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
-//
 
 /**
  * spawn vs exec - spawn returns a stream while exec returns the whole buffer
