@@ -6,9 +6,8 @@ import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
-import { Env } from './utils/env'
-import { requireEnvOptions, requireTestEnvOptions } from './utils/options'
-import { runCli } from './utils/run-cli'
+import { resetCommand } from './commands/reset/reset.command'
+import { requireTestEnvOptions } from './utils/options'
 import { runTasks } from './utils/run-tasks'
 import { Tasks } from './utils/tasks'
 
@@ -19,12 +18,13 @@ import { Tasks } from './utils/tasks'
  */
 yargs(hideBin(process.argv))
   .scriptName('cli')
+
   //
-  // Test
+  // Task
   //
   .command(
     'tasks',
-    'Run tests',
+    'Run tasks',
     (_yargs) =>
       _yargs
         .command(Tasks.Unit, 'Run unit tests', requireTestEnvOptions, (argv) =>
@@ -58,59 +58,35 @@ yargs(hideBin(process.argv))
   )
 
   //
-  // Codegen
-  //
-  .command(
-    'codegen',
-    'Generate typescript types from GraphQL files',
-    requireEnvOptions,
-    (argv) => runCli(argv.env, `${argv._[0]} --env ${argv.env}`),
-  )
-  //
-  // Scrape
-  //
-  .command(
-    'scrape',
-    'Scrape Antd Design docs to .csv using Puppeteer',
-    (_yargs) => _yargs,
-    (argv) => runCli(Env.Dev, `${argv._[0]}`),
-  )
-  //
-  // Seed
-  //
-  .command(
-    'seed',
-    'Seed Antd Design props to platform',
-    (_yargs) => _yargs,
-    (argv) => {
-      const env = argv.env || Env.Dev
-
-      return runCli(env as any, `${argv._[0]} --env ${env}`)
-    },
-  )
-  //
-  //
   // Ts Parser
   //
-  .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {
-    return _yargs.command(
-      'mui',
-      "Parses Material UI's component declarations",
-      (__yargs) =>
-        __yargs.option('dir', {
-          type: 'string',
-          alias: 'd',
-          required: true,
-          describe:
-            'The root directory where MUI is downloaded, e.g. ~/material-ui',
-        }),
-      (argv) => runCli(Env.Dev, `parse-ts mui -d ${argv.dir}`),
-    )
-  })
+  // .command('parse-ts', 'Typescript prop types to Interface parse', (_yargs) => {
+  //   return _yargs.command(
+  //     'mui',
+  //     "Parses Material UI's component declarations",
+  //     (__yargs) =>
+  //       __yargs.option('dir', {
+  //         type: 'string',
+  //         alias: 'd',
+  //         required: true,
+  //         describe:
+  //           'The root directory where MUI is downloaded, e.g. ~/material-ui',
+  //       }),
+  //     (argv) => runCli(Env.Dev, `parse-ts mui -d ${argv.dir}`),
+  //   )
+  // })
+
   //
-  // Export/import data
+  // Reset data
   //
-  .command(exportCommand)
+  .command(resetCommand)
+
+  /**
+   * Export/import data
+   *
+   * - import also seeds data
+   */
   .command(importCommand)
+  .command(exportCommand)
   .demandCommand(1, 'Please provide a command').argv
 // .parse()

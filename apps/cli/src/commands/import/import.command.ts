@@ -1,26 +1,42 @@
 import { UserOGM } from '@codelab/backend'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+import { seedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
 /**
- * Will process json file, and import apps/types accordingly based on their existence
+ * Imports user data
+ *
+ * - apps
  *
  * Import without any argument seeds data
  */
 export const importCommand: CommandModule<any, any> = {
   command: 'import',
-  describe: 'Import data',
+  describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
   builder: {
-    file: {
-      describe: 'file',
-      // demandOption: true,
+    userData: {
+      describe: 'userData',
+      demandOption: true,
       type: 'string',
     },
+    /**
+     * For UI framework component props
+     */
+    seedData: {
+      describe: 'seedData',
+      // demandOption: true,
+      type: 'string',
+      default: seedFilePath,
+    },
   },
-  handler: async ({ file }) => {
+  /**
+   *
+   * @param file File for the user data
+   */
+  handler: async ({ userData, seedData }) => {
     const Users = await UserOGM()
     const allUsers = await Users.find()
 
@@ -39,11 +55,12 @@ export const importCommand: CommandModule<any, any> = {
     /**
      * Seed atoms & types for the project
      */
-    await importSeedData(selectedUser)
+
+    await importSeedData(selectedUser, seedFilePath)
 
     // If we specified a file for import
-    if (file) {
-      await importUserData(file, selectedUser)
+    if (userData) {
+      await importUserData(userData, selectedUser)
     }
 
     // Only used by admin

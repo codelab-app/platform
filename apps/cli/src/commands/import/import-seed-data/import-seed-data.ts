@@ -2,7 +2,6 @@ import { fieldRepository } from '@codelab/backend'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import { flow } from 'lodash'
-import path from 'path'
 import { builderComponentUsecaseTag } from '../../../data/tag'
 import { importAtom } from '../../../use-cases/import/import-atom'
 import { importTags } from '../../../use-cases/import/import-tags'
@@ -11,16 +10,13 @@ import { createAntDesignAtomsData } from '../../../use-cases/parser/ant-design'
 import { ParserService } from '../../../use-cases/parser/parser.service'
 import type { ExportedData } from '../../export/export.command'
 import { addAntdAtomIcons } from './add-antd-atoms-icons'
-import { addAntdUsecaseTags } from './add-antd-usecase-tags'
+import { addAntdUseCaseTags } from './add-antd-use-case-tags'
 
-export const seedFilePath = path.resolve('data', 'seed-data.json')
-
-export const importSeedData = async (selectedUser: string) => {
-  if (!seedFilePath) {
-    throw new Error('Seed file must be present')
-  }
-
-  const json = fs.readFileSync(path.resolve('data', seedFilePath), 'utf8')
+export const importSeedData = async (
+  selectedUser: string,
+  seedFilePath: string,
+) => {
+  const json = fs.readFileSync(seedFilePath, 'utf8')
   const { atoms, types } = JSON.parse(json) as Omit<ExportedData, 'app'>
 
   await importTags([builderComponentUsecaseTag], selectedUser)
@@ -29,10 +25,9 @@ export const importSeedData = async (selectedUser: string) => {
   // ID's must be in sync
   await importType(types, selectedUser)
 
-  const atomFactory = flow(addAntdUsecaseTags, addAntdAtomIcons)
-  const factoriedAtoms = atomFactory(atoms)
+  const transformedAtoms = flow(addAntdUseCaseTags, addAntdAtomIcons)(atoms)
 
-  await importAtom(factoriedAtoms, selectedUser)
+  await importAtom(transformedAtoms, selectedUser)
 }
 
 /**
