@@ -7,7 +7,7 @@ export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (
 ) => {
   return {
     uniforms: {
-      component: CodeMirrorField(type.language),
+      component: CodeMirrorField({ language: type.language }),
     },
   }
 }

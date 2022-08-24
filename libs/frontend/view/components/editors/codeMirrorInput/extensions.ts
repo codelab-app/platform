@@ -43,7 +43,7 @@ import {
 } from '@codemirror/view'
 import { Command, EditorView } from '@uiw/react-codemirror'
 import { capitalize, isArray, isObjectLike } from 'lodash'
-import { CodeMirrorInputProps } from './types'
+import { CodeMirrorEditorProps } from '../CodeMirrorEditor'
 
 // Forbids from entering new lines in the field
 export const disallowNewLines = EditorState.transactionFilter.of((tr) =>
@@ -129,8 +129,8 @@ export const completionsFactory = ({
   defaultCompletionSource,
   templateCompletionOptions = [],
 }: {
-  defaultCompletionSource: CodeMirrorInputProps['defaultCompletionSource']
-  defaultCompletionOptions: CodeMirrorInputProps['defaultCompletionOptions']
+  defaultCompletionSource: CodeMirrorEditorProps['defaultCompletionSource']
+  defaultCompletionOptions: CodeMirrorEditorProps['defaultCompletionOptions']
   templateCompletionOptions?: Array<Completion>
 }): CompletionSource => {
   return (context) => {

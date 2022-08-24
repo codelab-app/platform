@@ -6,10 +6,9 @@ import {
 } from '@codemirror/autocomplete'
 import { UseCodeMirror, useCodeMirror, ViewUpdate } from '@uiw/react-codemirror'
 import React, { useEffect, useRef } from 'react'
-import { basicSetup, completionsFactory } from './codemirror-extensions'
 import { CodeMirrorModal } from './CodeMirrorModal'
+import { basicSetup, completionsFactory } from './extensions'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
-import { CodeMirrorInputProps } from './types'
 
 export const CodeMirrorInput = ({
   value,

@@ -28,7 +28,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
         headers: {
           type: 'string',
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Json),
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
           },
         },
       },

@@ -4,7 +4,7 @@ import Form from 'antd/lib/form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { Field } from './form-controls'
+import { Field } from './fields'
 
 type PropsFieldFactoryProps = {
   field: IField

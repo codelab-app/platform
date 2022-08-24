@@ -3870,15 +3870,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:7.15.4":
-  version: 7.15.4
-  resolution: "@babel/runtime@npm:7.15.4"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: c40825430400e47c19b97e4142d5315d2910305b9714d44a711472587ee2fd4521fdba5f02ddd9df3902f5e988d9854fa83f4da1e0c091f70f6983fa52480606
-  languageName: node
-  linkType: hard
-
 "@babel/runtime@npm:7.16.3":
   version: 7.16.3
   resolution: "@babel/runtime@npm:7.16.3"
@@ -12479,18 +12470,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uiw/react-codemirror3@npm:@uiw/react-codemirror@3":
-  version: 3.2.7
-  resolution: "@uiw/react-codemirror@npm:3.2.7"
+"@uiw/react-codemirror3@npm:@uiw/react-codemirror@3.2.8":
+  version: 3.2.8
+  resolution: "@uiw/react-codemirror@npm:3.2.8"
   dependencies:
-    "@babel/runtime": 7.15.4
-    codemirror: 5.63.0
+    "@babel/runtime": ^7.18.9
+    codemirror: ^5.65.7
   peerDependencies:
     "@babel/runtime": ">=7.11.0"
     codemirror: ">=5.49.2"
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: e80396f9d50744c20e5dd700171e1af4d232524e9fe1ac6e0a63c38c4f7c85778cd67c0f63801677cdacd4c8e1c1636f435fb6645581bd9ac0b0e69daf0781e5
+  checksum: 6ab8456decc275166bb31e62dbb83650afc613794e6895f209dacf22a0e8c8de66db1cb2b3266ab308d0d7408a98d1022082bc70fdf27253b5837b0a51e60eb6
   languageName: node
   linkType: hard
 
@@ -16097,6 +16088,7 @@ __metadata:
     "@codemirror/autocomplete": 0.20.0
     "@codemirror/lang-css": ^0.20.0
     "@codemirror/lang-html": ^0.20.0
+    "@codemirror/lang-javascript": ^0.20.0
     "@codemirror/lang-json": ^0.20.0
     "@commitlint/cli": ^17.0.3
     "@commitlint/config-conventional": 17.0.3
@@ -16248,7 +16240,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.24.0
     "@typescript-eslint/parser": 5.24.0
     "@uiw/react-codemirror": 4.7.0
-    "@uiw/react-codemirror3": "npm:@uiw/react-codemirror@3"
+    "@uiw/react-codemirror3": "npm:@uiw/react-codemirror@3.2.8"
     "@welldone-software/why-did-you-render": 7.0.1
     adm-zip: 0.5.9
     ajv: 8.8.2
@@ -16448,10 +16440,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror@npm:5.63.0":
-  version: 5.63.0
-  resolution: "codemirror@npm:5.63.0"
-  checksum: 48dec02dab00faf59749844a2cbd33a3b77548039deab8ae88eefffec596bbe9a08f1d539919db3b20e09de72cfa9b6895f0a16ab33f17d6b0955c041c34609a
+"codemirror@npm:^5.65.7":
+  version: 5.65.8
+  resolution: "codemirror@npm:5.65.8"
+  checksum: e56a59c2251b357b3d95862f77ac8b8d2b1b0c52db58a2dcf5b8b0531fd249ad4458cbd9a469ce1513475ba48ba39ffd16bd3876eb3870a1305bcafcb157239f
   languageName: node
   linkType: hard
 

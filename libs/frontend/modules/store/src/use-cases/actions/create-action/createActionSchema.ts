@@ -75,21 +75,23 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Graphql),
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Graphql,
+            }),
           },
         },
         variables: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Json),
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
           },
         },
         body: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Json),
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
           },
         },
         urlSegment: {
@@ -105,14 +107,14 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Json),
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
           },
         },
         headers: {
           type: 'string',
           nullable: true,
           uniforms: {
-            component: CodeMirrorField(CodeMirrorLanguage.Json),
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
           },
         },
         responseType: {
@@ -127,7 +129,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
       type: 'string',
       nullable: true,
       uniforms: {
-        component: CodeMirrorField(CodeMirrorLanguage.Typescript),
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
       },
     },
     actionsIds: {

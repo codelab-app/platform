@@ -1,3 +1,4 @@
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { Extension, ReactCodeMirrorProps } from '@uiw/react-codemirror'
@@ -15,4 +16,8 @@ export interface CodeMirrorInputProps
   shouldDisableNewLines?: boolean
   expandable?: boolean
   title?: Nullish<string>
+}
+
+export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
+  language?: CodeMirrorLanguage
 }

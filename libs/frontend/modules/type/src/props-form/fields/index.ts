@@ -1,4 +1,4 @@
 export * from './ArrayField'
-export * from './CodeMirror'
+export * from './CodeMirrorField'
 export * from './Field'
 export * from './SelectComponentField'

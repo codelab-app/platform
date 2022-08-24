@@ -1,18 +1,28 @@
 import {
-  CodeMirrorInput,
+  CodeMirrorEditor,
   contextCompletionOptions,
   typeCompletionOptions,
 } from '@codelab/frontend/view/components'
+import { IField, IPropsFieldContext } from '@codelab/shared/abstract/core'
 import React from 'react'
-import { Controller } from 'react-hook-form'
-import { FieldProps } from '../Field'
+import { Controller, UseFormReturn } from 'react-hook-form'
 
-export const CodeMirrorField = ({ field, form, context }: FieldProps) => (
+export interface CodeMirrorFieldProps {
+  field: IField
+  form: UseFormReturn
+  context?: IPropsFieldContext
+}
+
+export const CodeMirrorField = ({
+  field,
+  form,
+  context,
+}: CodeMirrorFieldProps) => (
   <Controller
     control={form.control}
     name={field.key}
     render={(control) => (
-      <CodeMirrorInput
+      <CodeMirrorEditor
         defaultCompletionOptions={typeCompletionOptions(field.type.current)}
         onBlur={control.field.onBlur}
         onChange={control.field.onChange}

@@ -1,10 +1,9 @@
-import { CodeMirrorInput } from '@codelab/frontend/view/components'
+import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
   IRenderer,
 } from '@codelab/shared/abstract/core'
-import { json } from '@codemirror/lang-json'
 import Button from 'antd/lib/button'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -42,8 +41,7 @@ const PropsInspectorTab = observer(
     return (
       <div>
         <h3 css={tw`text-gray-700`}>Current props</h3>
-        <CodeMirrorInput
-          extensions={[json()]}
+        <CodeMirrorEditor
           height="150px"
           onChange={() => undefined}
           readOnly
@@ -53,13 +51,12 @@ const PropsInspectorTab = observer(
         />
 
         <h3 css={tw`text-gray-700`}>Element props</h3>
-        <CodeMirrorInput
-          extensions={[json()]}
+        <CodeMirrorEditor
           height="150px"
-          onChange={(v) => onChange(v)}
+          onChange={(v: string) => onChange(v)}
           // persistedProps is state variable which means
           // it takes time to be updated by onChange
-          onSave={(v) => save(v)}
+          onSave={(v: string) => save(v)}
           shouldDisableNewLines={false}
           title="Element props"
           value={persistedProps || '{}'}
