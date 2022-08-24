@@ -33,25 +33,28 @@ export const upsertAtom = async (atom: IAtomExport, userId: string) => {
         },
   }
 
-  const connectOrCreateTags = atom.tags?.map((tag) => ({
-    where: { node: { name: tag.name } },
-    onCreate: { node: { name: tag.name } },
-  }))
+  const connectTags: OGM_TYPES.AtomTagsFieldInput['connect'] =
+    atom.tags?.map((tag) => {
+      if (tag.id) {
+        return {
+          where: { node: { id: tag.id } },
+        }
+      }
+
+      //  for programatical API __seedData
+      return {
+        where: { node: { name: tag.name } },
+      }
+    }) || []
 
   const createInput: OGM_TYPES.AtomCreateInput = {
     ...baseInput,
-    tags: {
-      connectOrCreate: connectOrCreateTags,
-    },
+    tags: { connect: connectTags },
   }
 
   const updateInput: OGM_TYPES.AtomUpdateInput = {
     ...baseInput,
-    tags: [
-      {
-        connectOrCreate: connectOrCreateTags,
-      },
-    ],
+    tags: [{ connect: connectTags }],
   }
 
   if (!idExisting.length) {

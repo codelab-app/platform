@@ -1,3 +1,4 @@
+import { v4 } from 'uuid'
 import { createData, deleteData, updateData } from '../data/tag'
 
 describe('Tag CRUD', () => {
@@ -13,22 +14,26 @@ describe('Tag CRUD', () => {
         }
 
         cy.createTag({
+          id: v4(),
           name: updateData.tagName1,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         })
 
         cy.createTag({
+          id: v4(),
           name: deleteData.table.tagName2,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         })
 
         cy.createTag({
+          id: v4(),
           name: deleteData.table.parentTagName1,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         }).then((value) => {
           const parentId = value[0].id
 
           cy.createTag({
+            id: v4(),
             name: deleteData.table.tagName1,
             parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
@@ -36,12 +41,14 @@ describe('Tag CRUD', () => {
         })
 
         cy.createTag({
+          id: v4(),
           name: deleteData.tree.parentTagName1,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         }).then((value) => {
           const parentId = value[0].id
 
           cy.createTag({
+            id: v4(),
             name: deleteData.tree.tagName1,
             parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },
@@ -49,12 +56,14 @@ describe('Tag CRUD', () => {
         })
 
         cy.createTag({
+          id: v4(),
           name: deleteData.tree.parentTagName2,
           owner: { connect: { where: { node: { auth0Id: userId } } } },
         }).then((value) => {
           const parentId = value[0].id
 
           cy.createTag({
+            id: v4(),
             name: deleteData.tree.tagName2,
             parent: { connect: { where: { node: { id: parentId } } } },
             owner: { connect: { where: { node: { auth0Id: userId } } } },

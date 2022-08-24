@@ -3,10 +3,10 @@ export const tagSelectionSet = `
     id
     name
     parent {
-      name
+      id
     }
     children {
-      name
+      id
     }
 }
 `

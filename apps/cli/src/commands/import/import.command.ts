@@ -19,7 +19,7 @@ export const importCommand: CommandModule<any, any> = {
   builder: {
     userData: {
       describe: 'userData',
-      demandOption: true,
+      // demandOption: true,
       type: 'string',
     },
     /**

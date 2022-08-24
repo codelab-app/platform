@@ -1,6 +1,6 @@
 import { ITagExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
-import { upsertTag } from '../../repository/tag.repo'
+import { createOrUpdateTag, linkTag } from '../../repository/tag.repo'
 
 export const importTags = async (
   tags: Array<ITagExport> = [],
@@ -8,12 +8,24 @@ export const importTags = async (
 ) => {
   console.log('Importing tag...\n')
 
-  for (const tag of tags) {
+  const promiseCreateTags = tags.map((tag) => {
     console.log('\n---------------------\n')
     console.log(`Upserting ${tag.name}:`)
     cLog(tag)
     console.log('\n')
 
-    await upsertTag(tag, selectedUser)
-  }
+    return createOrUpdateTag(tag, selectedUser)
+  })
+
+  await Promise.all(promiseCreateTags)
+
+  const promiseSyncTags = tags.map((tag) => {
+    console.log(`Link Tag ${tag.name}:`)
+    console.log('\n')
+
+    return linkTag(tag)
+  })
+
+  await Promise.all(promiseSyncTags)
+  console.log('DONE')
 }

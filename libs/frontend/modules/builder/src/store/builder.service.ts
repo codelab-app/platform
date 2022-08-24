@@ -12,7 +12,7 @@ import {
   TagWithComponents,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { componentUsecaseTagName } from '@codelab/shared/data'
+import { componentTagName } from '@codelab/shared/data'
 import { computed } from 'mobx'
 import {
   findParent,
@@ -47,12 +47,12 @@ export class BuilderService
   })
   implements IBuilderService
 {
-  get componentUsecaseTags() {
+  get componentTags() {
     const tagService = getTagService(this)
     const tags = tagService.tags
 
     const componentUsecaseTag = tags.find(
-      (tag) => tag.name === componentUsecaseTagName,
+      (tag) => tag.name === componentTagName,
     )
 
     if (!componentUsecaseTag) {
@@ -78,7 +78,7 @@ export class BuilderService
       // ...[...componentService.components.values()],
     ]
 
-    const componentUsecaseTags = this.componentUsecaseTags.map((t) => ({
+    const componentTags = this.componentTags.map((t) => ({
       ...t,
       components: [],
     }))
@@ -86,7 +86,7 @@ export class BuilderService
     components.forEach((component) => {
       const tagNames = component.tags.map((t) => t.current.name)
 
-      const foundComponentusecaseTag = componentUsecaseTags.find((usecaseTag) =>
+      const foundComponentusecaseTag = componentTags.find((usecaseTag) =>
         tagNames.includes(usecaseTag.name),
       ) as TagWithComponents | undefined
 
@@ -97,7 +97,7 @@ export class BuilderService
       foundComponentusecaseTag.components.push(component)
     })
 
-    return componentUsecaseTags
+    return componentTags
   }
 
   @computed

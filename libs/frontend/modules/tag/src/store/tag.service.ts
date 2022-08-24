@@ -25,6 +25,7 @@ import {
   Ref,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { tagApi } from './tag.api'
 import { Tag } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
@@ -79,6 +80,7 @@ export class TagService
   create = _async(function* (this: TagService, data: Array<ICreateTagDTO>) {
     const input = data.map((tag) => {
       return {
+        id: v4(),
         name: tag.name,
         owner: { connect: { where: { node: { auth0Id: tag.auth0Id } } } },
         parent: {

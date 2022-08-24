@@ -1,1 +1,1 @@
-export const componentUsecaseTagName = 'Component Usecase'
+export const componentTagName = 'Component'
