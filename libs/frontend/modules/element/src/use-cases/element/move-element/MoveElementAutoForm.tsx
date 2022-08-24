@@ -1,6 +1,7 @@
 import { withAutoForm } from '@codelab/frontend/view/components'
 import { AutoForm } from 'uniforms-antd'
 
+// any for delegating generic
 class ExtendedMoveElementAutoForm extends (AutoForm as any) {
   onChange(key: string, value: string) {
     super.onChange(key, value)

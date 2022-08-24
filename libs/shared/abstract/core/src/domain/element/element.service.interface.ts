@@ -55,6 +55,15 @@ export interface IElementService
       ICRUDModalService<Ref<IElement>, { element: Maybe<IElement> }>,
       'createModal'
     > {
+  // link element
+  linkElement(props: {
+    element: IElement
+    prevSiblingId?: string
+    nextSiblingId?: string
+    parentElementId?: string
+    shouldUpdateCache?: boolean
+  }): Promise<void>
+
   // elementTree: IElementTree
   elements: ObjectMap<IElement>
   createModal: IModalService<CreateElementData, { parentElement?: IElement }>

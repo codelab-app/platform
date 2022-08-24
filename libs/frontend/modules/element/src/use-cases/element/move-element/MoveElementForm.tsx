@@ -1,9 +1,6 @@
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  Form,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   IElement,
   IElementService,
@@ -55,7 +52,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       const changeParent = currentParentElementId !== parentElementId
 
       // check this first because change parent could trigger change in prev to undefined
-
+      // because we move the target element to the begining of the tree
       if (changeParent) {
         // change parent
         elementService.moveAsRoot(element.id, parentElementId)

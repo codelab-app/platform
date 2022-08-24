@@ -25,7 +25,6 @@ import {
   findParent,
   getParent,
   getRefsResolvingTo,
-  getSnapshot,
   idProp,
   Model,
   model,
@@ -163,17 +162,11 @@ export class Element
 
     const results = []
     let currentTravledNode: Maybe<IElement> = childrenRoot
-    // io loop
-    let i = 0
 
-    while (currentTravledNode && i <= 100) {
-      i++
-
+    while (currentTravledNode) {
       results.push(currentTravledNode)
       currentTravledNode = currentTravledNode.nextSibling
     }
-
-    console.log('childrenSorted', { results })
 
     return results
   }
@@ -345,9 +338,6 @@ export class Element
       key: this.id,
       title: this.label,
       type: ELEMENT_NODE_TYPE as ELEMENT_NODE_TYPE,
-
-      // children: [],
-      // this one bug
       children: !this.instanceOfComponent?.current
         ? this.childrenSorted.map((child) => child.antdNode)
         : [],
@@ -477,19 +467,22 @@ export class Element
   // prev-[target]-next
   @modelAction
   unlinkSiblings() {
-    // next
+    // prevSibling points to target
+    // prev - [target]
     if (this.prevSibling?.nextSibling) {
       // get its prev sibling link to its next sibling
-      // prev link to next
+      // prev -> next
       this.prevSibling.nextSiblingId = this.nextSibling?.id ?? null
     } else if (this.parentElement) {
+      // prev sibling is not undefined
       // tree = [target] - next
       // tree = next (as root)
-      // this is root, link to its next sibling because we delete it
+      // target is root, link to its next sibling because we delete it
       // if no next sibling, then parent children tree is empty
       this.parentElement.childrenRootId = this.nextSibling?.id ?? null
     }
 
+    // next -> prev
     if (this.nextSibling) {
       // link next to prev if any
       this.nextSibling.prevSiblingId = this.prevSibling?.id ?? null

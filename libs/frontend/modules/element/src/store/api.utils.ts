@@ -7,17 +7,10 @@ import {
   IElement,
   IUpdateElementDTO,
 } from '@codelab/shared/abstract/core'
-import { connectId } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 //
 // Utilities for transforming the form inputs to api inputs
-
-/**
- * create
- * linked by
- */
-//
 
 export const makeCreateInput = (
   input: ICreateElementDTO,
@@ -30,9 +23,7 @@ export const makeCreateInput = (
     name,
     postRenderActionId,
     preRenderActionId,
-    order,
     propsData,
-    prevSiblingId,
   } = input
 
   const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
@@ -44,14 +35,13 @@ export const makeCreateInput = (
     ? { connect: { where: { node: { id: atomId } } } }
     : undefined
 
-  const parentElementPayload: ElementCreateInput['parentElement'] =
-    parentElementId
-      ? {
-          connect: {
-            where: { node: { id: parentElementId } },
-          },
-        }
-      : undefined
+  const parentElement: ElementCreateInput['parentElement'] = parentElementId
+    ? {
+        connect: {
+          where: { node: { id: parentElementId } },
+        },
+      }
+    : undefined
 
   // Always create props
   const props: ElementCreateInput['props'] = {
@@ -61,7 +51,7 @@ export const makeCreateInput = (
   return {
     instanceOfComponent,
     atom,
-    parentElement: parentElementPayload,
+    parentElement,
     props,
     postRenderActionId,
     preRenderActionId,

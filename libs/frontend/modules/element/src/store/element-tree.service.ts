@@ -6,7 +6,6 @@ import {
 import {
   _async,
   _await,
-  getSnapshot,
   Model,
   model,
   modelAction,
@@ -37,17 +36,6 @@ export class ElementTreeService
   ) {
     const elementService = getElementService(this)
     const elements = yield* _await(elementService.getDescendants(rootElementId))
-    console.log('-----------')
-
-    let str = ''
-    elements.forEach((e) => {
-      console.log(e.id, e.name, getSnapshot(e))
-
-      str += `${e.id}, ${e.name}\n`
-    })
-    console.log(str)
-
-    console.log('---------')
 
     /**
      * Here we need to add to elementService

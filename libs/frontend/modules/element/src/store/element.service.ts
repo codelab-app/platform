@@ -175,21 +175,26 @@ export class ElementService
         ? this.element(parentElementId)
         : undefined
 
+      // prev - [target]
       const prevSibling = prevSiblingId
         ? this.element(prevSiblingId)
         : undefined
 
+      // prev - [new] - next
+      // link [new] to - next
       const nextSiblingId = prevSibling
         ? prevSibling.nextSibling?.id
         : parentElement?.childrenRootId
+      // ^ old : tree - prev
+      // ^ new : tree - [next] - prev
 
-      return this.linkElement(
-        e,
-        prevSibling?.id,
-        nextSiblingId ?? undefined,
+      return this.linkElement({
+        element: e,
+        prevSiblingId: prevSibling?.id,
+        nextSiblingId: nextSiblingId ?? undefined,
         parentElementId,
-        false,
-      ).then(() => {
+        shouldUpdateCache: false,
+      }).then(() => {
         e.linkSiblings({
           prevSiblingId: prevSibling?.id,
           parentElementId,
@@ -332,11 +337,13 @@ export class ElementService
   @transaction
   linkElement = _async(function* (
     this: ElementService,
-    element: IElement,
-    prevSiblingId?: string,
-    nextSiblingId?: string,
-    parentElementId?: string,
-    shouldUpdateCache?: boolean,
+    {
+      element,
+      prevSiblingId,
+      nextSiblingId,
+      parentElementId,
+      shouldUpdateCache,
+    }: Parameters<IElementService['linkElement']>[0],
   ) {
     // a -> [new] -> c
     if (parentElementId) {
@@ -439,9 +446,6 @@ export class ElementService
         ? getSnapshot(element.parentElement)
         : undefined,
     })
-    // debugger
-
-    const promises = []
 
     // tree -> [removed] - x - y (no prev),
     if (!element.prevSibling && element.parentElement) {
@@ -516,15 +520,7 @@ export class ElementService
           shouldUpdateCache,
         ),
       )
-
-      // promises.push(
-      // )
     }
-
-    // element.nextSiblingId = null
-    // element.prevSiblingId = null
-
-    // return yield* _await(Promise.all(promises))
   })
 
   /**
@@ -546,12 +542,12 @@ export class ElementService
 
     yield* _await(this.unlinkElement(element, false))
     yield* _await(
-      this.linkElement(
+      this.linkElement({
         element,
-        targetElement.id,
-        targetElement?.nextSibling?.id,
-        targetElement?.parentElement?.id,
-      ),
+        prevSiblingId: targetElement.id,
+        nextSiblingId: targetElement?.nextSibling?.id,
+        parentElementId: targetElement?.parentElement?.id,
+      }),
     )
 
     // update element in cache
@@ -578,8 +574,6 @@ export class ElementService
     const element = this.element(elementId)
     const parentElement = this.element(parentElementId)
 
-    debugger
-
     if (!element || !parentElement) {
       return
     }
@@ -587,15 +581,15 @@ export class ElementService
     yield* _await(this.unlinkElement(element, false))
 
     yield* _await(
-      this.linkElement(
+      this.linkElement({
         element,
         // attach to beginning of the tree
         // [tree]-x
         // [tree]-[inserted]-x
-        undefined,
-        parentElement.childrenRoot?.id,
+        prevSiblingId: undefined,
+        nextSiblingId: parentElement.childrenRoot?.id,
         parentElementId,
-      ),
+      }),
     )
 
     // update element in cache
