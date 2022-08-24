@@ -95,9 +95,9 @@ mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
   }
 }
 
-mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
-  types: createMonacoTypes(input: $input) {
-    types: monacoTypes {
+mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {
+  types: createCodeMirrorTypes(input: $input) {
+    types: codeMirrorTypes {
       ...Type
     }
   }

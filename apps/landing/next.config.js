@@ -5,7 +5,6 @@ const withLess = require('next-with-less')
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
  *
- * Issue with monaco editor https://www.swyx.io/how-to-add-monaco-editor-to-a-next-js-app-ha3
  */
 module.exports = withPlugins(
   [

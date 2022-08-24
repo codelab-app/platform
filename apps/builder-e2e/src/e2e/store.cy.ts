@@ -120,7 +120,7 @@ describe('Store', () => {
         cy.getModal().setFormFieldValue({
           label: 'Action code',
           value: actionBody,
-          type: FIELD_TYPE.MONACO,
+          type: FIELD_TYPE.CODE_MIRROR,
         })
 
         cy.getModal()

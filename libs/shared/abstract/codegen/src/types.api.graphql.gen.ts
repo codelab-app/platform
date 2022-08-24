@@ -2956,6 +2956,248 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']
 }
 
+export enum CodeMirrorLanguage {
+  Css = 'Css',
+  CssInJs = 'CssInJs',
+  Graphql = 'Graphql',
+  Javascript = 'Javascript',
+  Json = 'Json',
+  Typescript = 'Typescript',
+}
+
+/** Allows editing the value using a code mirror editor */
+export type CodeMirrorType = TypeBase & {
+  __typename?: 'CodeMirrorType'
+  id: Scalars['ID']
+  kind: TypeKind
+  language: CodeMirrorLanguage
+  name: Scalars['String']
+  owner: User
+  ownerAggregate?: Maybe<CodeMirrorTypeUserOwnerAggregationSelection>
+  ownerConnection: TypeBaseOwnerConnection
+}
+
+/** Allows editing the value using a code mirror editor */
+export type CodeMirrorTypeOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+/** Allows editing the value using a code mirror editor */
+export type CodeMirrorTypeOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<UserWhere>
+}
+
+/** Allows editing the value using a code mirror editor */
+export type CodeMirrorTypeOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+}
+
+export type CodeMirrorTypeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type CodeMirrorTypeConnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+}
+
+export type CodeMirrorTypeConnectOrCreateInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+}
+
+export type CodeMirrorTypeCreateInput = {
+  id: Scalars['ID']
+  kind?: TypeKind
+  language: CodeMirrorLanguage
+  name: Scalars['String']
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+}
+
+export type CodeMirrorTypeDeleteInput = {
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+}
+
+export type CodeMirrorTypeDisconnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+}
+
+export type CodeMirrorTypeEdge = {
+  __typename?: 'CodeMirrorTypeEdge'
+  cursor: Scalars['String']
+  node: CodeMirrorType
+}
+
+export type CodeMirrorTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more CodeMirrorTypeSort objects to sort CodeMirrorTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<CodeMirrorTypeSort>>
+}
+
+export type CodeMirrorTypeOwnerAggregateInput = {
+  AND?: InputMaybe<Array<CodeMirrorTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<CodeMirrorTypeOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<CodeMirrorTypeOwnerNodeAggregationWhereInput>
+}
+
+export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CodeMirrorTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<CodeMirrorTypeOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  username_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  username_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  username_EQUAL?: InputMaybe<Scalars['String']>
+  username_GT?: InputMaybe<Scalars['Int']>
+  username_GTE?: InputMaybe<Scalars['Int']>
+  username_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  username_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  username_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  username_LT?: InputMaybe<Scalars['Int']>
+  username_LTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  username_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type CodeMirrorTypeRelationInput = {
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+}
+
+/** Fields to sort CodeMirrorTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeMirrorTypeSort object. */
+export type CodeMirrorTypeSort = {
+  id?: InputMaybe<SortDirection>
+  kind?: InputMaybe<SortDirection>
+  language?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type CodeMirrorTypeUpdateInput = {
+  id?: InputMaybe<Scalars['ID']>
+  language?: InputMaybe<CodeMirrorLanguage>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+}
+
+export type CodeMirrorTypeUserOwnerAggregationSelection = {
+  __typename?: 'CodeMirrorTypeUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<CodeMirrorTypeUserOwnerNodeAggregateSelection>
+}
+
+export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
+}
+
+export type CodeMirrorTypeWhere = {
+  AND?: InputMaybe<Array<CodeMirrorTypeWhere>>
+  OR?: InputMaybe<Array<CodeMirrorTypeWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  kind?: InputMaybe<TypeKind>
+  kind_IN?: InputMaybe<Array<TypeKind>>
+  kind_NOT?: InputMaybe<TypeKind>
+  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
+  language?: InputMaybe<CodeMirrorLanguage>
+  language_IN?: InputMaybe<Array<CodeMirrorLanguage>>
+  language_NOT?: InputMaybe<CodeMirrorLanguage>
+  language_NOT_IN?: InputMaybe<Array<CodeMirrorLanguage>>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<CodeMirrorTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+}
+
+export type CodeMirrorTypesConnection = {
+  __typename?: 'CodeMirrorTypesConnection'
+  edges: Array<CodeMirrorTypeEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
 export type Component = WithOwner & {
   __typename?: 'Component'
   api: InterfaceType
@@ -3675,6 +3917,12 @@ export type CreateAtomsMutationResponse = {
   info: CreateInfo
 }
 
+export type CreateCodeMirrorTypesMutationResponse = {
+  __typename?: 'CreateCodeMirrorTypesMutationResponse'
+  codeMirrorTypes: Array<CodeMirrorType>
+  info: CreateInfo
+}
+
 export type CreateComponentsMutationResponse = {
   __typename?: 'CreateComponentsMutationResponse'
   components: Array<Component>
@@ -3835,12 +4083,6 @@ export type CreateLambdaTypesMutationResponse = {
   __typename?: 'CreateLambdaTypesMutationResponse'
   info: CreateInfo
   lambdaTypes: Array<LambdaType>
-}
-
-export type CreateMonacoTypesMutationResponse = {
-  __typename?: 'CreateMonacoTypesMutationResponse'
-  info: CreateInfo
-  monacoTypes: Array<MonacoType>
 }
 
 export type CreatePageTypesMutationResponse = {
@@ -9197,248 +9439,6 @@ export type LambdaTypesConnection = {
   totalCount: Scalars['Int']
 }
 
-export enum MonacoLanguage {
-  css = 'css',
-  cssInJs = 'cssInJs',
-  graphqlDev = 'graphqlDev',
-  javascript = 'javascript',
-  json = 'json',
-  typescript = 'typescript',
-}
-
-/** Allows editing the value using a monaco editor */
-export type MonacoType = TypeBase & {
-  __typename?: 'MonacoType'
-  id: Scalars['ID']
-  kind: TypeKind
-  language: MonacoLanguage
-  name: Scalars['String']
-  owner: User
-  ownerAggregate?: Maybe<MonacoTypeUserOwnerAggregationSelection>
-  ownerConnection: TypeBaseOwnerConnection
-}
-
-/** Allows editing the value using a monaco editor */
-export type MonacoTypeOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-/** Allows editing the value using a monaco editor */
-export type MonacoTypeOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<UserWhere>
-}
-
-/** Allows editing the value using a monaco editor */
-export type MonacoTypeOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
-  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
-}
-
-export type MonacoTypeAggregateSelection = {
-  __typename?: 'MonacoTypeAggregateSelection'
-  count: Scalars['Int']
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
-export type MonacoTypeConnectInput = {
-  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
-}
-
-export type MonacoTypeConnectOrCreateInput = {
-  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
-}
-
-export type MonacoTypeCreateInput = {
-  id: Scalars['ID']
-  kind?: TypeKind
-  language: MonacoLanguage
-  name: Scalars['String']
-  owner?: InputMaybe<TypeBaseOwnerFieldInput>
-}
-
-export type MonacoTypeDeleteInput = {
-  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
-}
-
-export type MonacoTypeDisconnectInput = {
-  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
-}
-
-export type MonacoTypeEdge = {
-  __typename?: 'MonacoTypeEdge'
-  cursor: Scalars['String']
-  node: MonacoType
-}
-
-export type MonacoTypeOptions = {
-  limit?: InputMaybe<Scalars['Int']>
-  offset?: InputMaybe<Scalars['Int']>
-  /** Specify one or more MonacoTypeSort objects to sort MonacoTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<MonacoTypeSort>>
-}
-
-export type MonacoTypeOwnerAggregateInput = {
-  AND?: InputMaybe<Array<MonacoTypeOwnerAggregateInput>>
-  OR?: InputMaybe<Array<MonacoTypeOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<MonacoTypeOwnerNodeAggregationWhereInput>
-}
-
-export type MonacoTypeOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<MonacoTypeOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
-  auth0Id_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_LTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  email_EQUAL?: InputMaybe<Scalars['String']>
-  email_GT?: InputMaybe<Scalars['Int']>
-  email_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  email_LT?: InputMaybe<Scalars['Int']>
-  email_LTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  username_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  username_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  username_EQUAL?: InputMaybe<Scalars['String']>
-  username_GT?: InputMaybe<Scalars['Int']>
-  username_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  username_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  username_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  username_LT?: InputMaybe<Scalars['Int']>
-  username_LTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  username_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type MonacoTypeRelationInput = {
-  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
-}
-
-/** Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object. */
-export type MonacoTypeSort = {
-  id?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  language?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-}
-
-export type MonacoTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']>
-  language?: InputMaybe<MonacoLanguage>
-  name?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
-}
-
-export type MonacoTypeUserOwnerAggregationSelection = {
-  __typename?: 'MonacoTypeUserOwnerAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<MonacoTypeUserOwnerNodeAggregateSelection>
-}
-
-export type MonacoTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'MonacoTypeUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-  username: StringAggregateSelectionNonNullable
-}
-
-export type MonacoTypeWhere = {
-  AND?: InputMaybe<Array<MonacoTypeWhere>>
-  OR?: InputMaybe<Array<MonacoTypeWhere>>
-  id?: InputMaybe<Scalars['ID']>
-  id_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT?: InputMaybe<Scalars['ID']>
-  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
-  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  id_NOT_IN?: InputMaybe<Array<Scalars['ID']>>
-  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
-  kind?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  kind_NOT?: InputMaybe<TypeKind>
-  kind_NOT_IN?: InputMaybe<Array<TypeKind>>
-  language?: InputMaybe<MonacoLanguage>
-  language_IN?: InputMaybe<Array<MonacoLanguage>>
-  language_NOT?: InputMaybe<MonacoLanguage>
-  language_NOT_IN?: InputMaybe<Array<MonacoLanguage>>
-  name?: InputMaybe<Scalars['String']>
-  name_CONTAINS?: InputMaybe<Scalars['String']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT?: InputMaybe<Scalars['String']>
-  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  name_NOT_IN?: InputMaybe<Array<Scalars['String']>>
-  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  owner?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<MonacoTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-}
-
-export type MonacoTypesConnection = {
-  __typename?: 'MonacoTypesConnection'
-  edges: Array<MonacoTypeEdge>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
 export type Mutation = {
   __typename?: 'Mutation'
   createActionTypes: CreateActionTypesMutationResponse
@@ -9446,6 +9446,7 @@ export type Mutation = {
   createApps: CreateAppsMutationResponse
   createArrayTypes: CreateArrayTypesMutationResponse
   createAtoms: CreateAtomsMutationResponse
+  createCodeMirrorTypes: CreateCodeMirrorTypesMutationResponse
   createComponents: CreateComponentsMutationResponse
   createCreateInfos: CreateCreateInfosMutationResponse
   createCustomActions: CreateCustomActionsMutationResponse
@@ -9459,7 +9460,6 @@ export type Mutation = {
   createHooks: CreateHooksMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
-  createMonacoTypes: CreateMonacoTypesMutationResponse
   createPageTypes: CreatePageTypesMutationResponse
   createPages: CreatePagesMutationResponse
   createPipelineActions: CreatePipelineActionsMutationResponse
@@ -9484,6 +9484,7 @@ export type Mutation = {
   deleteApps: DeleteInfo
   deleteArrayTypes: DeleteInfo
   deleteAtoms: DeleteInfo
+  deleteCodeMirrorTypes: DeleteInfo
   deleteComponents: DeleteInfo
   deleteCreateInfos: DeleteInfo
   deleteCustomActions: DeleteInfo
@@ -9497,7 +9498,6 @@ export type Mutation = {
   deleteHooks: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
-  deleteMonacoTypes: DeleteInfo
   deletePageTypes: DeleteInfo
   deletePages: DeleteInfo
   deletePipelineActions: DeleteInfo
@@ -9523,6 +9523,7 @@ export type Mutation = {
   updateApps: UpdateAppsMutationResponse
   updateArrayTypes: UpdateArrayTypesMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
+  updateCodeMirrorTypes: UpdateCodeMirrorTypesMutationResponse
   updateComponents: UpdateComponentsMutationResponse
   updateCreateInfos: UpdateCreateInfosMutationResponse
   updateCustomActions: UpdateCustomActionsMutationResponse
@@ -9536,7 +9537,6 @@ export type Mutation = {
   updateHooks: UpdateHooksMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
-  updateMonacoTypes: UpdateMonacoTypesMutationResponse
   updatePageTypes: UpdatePageTypesMutationResponse
   updatePages: UpdatePagesMutationResponse
   updatePipelineActions: UpdatePipelineActionsMutationResponse
@@ -9576,6 +9576,10 @@ export type MutationCreateArrayTypesArgs = {
 
 export type MutationCreateAtomsArgs = {
   input: Array<AtomCreateInput>
+}
+
+export type MutationCreateCodeMirrorTypesArgs = {
+  input: Array<CodeMirrorTypeCreateInput>
 }
 
 export type MutationCreateComponentsArgs = {
@@ -9628,10 +9632,6 @@ export type MutationCreateInterfaceTypesArgs = {
 
 export type MutationCreateLambdaTypesArgs = {
   input: Array<LambdaTypeCreateInput>
-}
-
-export type MutationCreateMonacoTypesArgs = {
-  input: Array<MonacoTypeCreateInput>
 }
 
 export type MutationCreatePageTypesArgs = {
@@ -9735,6 +9735,11 @@ export type MutationDeleteAtomsArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+export type MutationDeleteCodeMirrorTypesArgs = {
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}
+
 export type MutationDeleteComponentsArgs = {
   delete?: InputMaybe<ComponentDeleteInput>
   where?: InputMaybe<ComponentWhere>
@@ -9795,11 +9800,6 @@ export type MutationDeleteInterfaceTypesArgs = {
 export type MutationDeleteLambdaTypesArgs = {
   delete?: InputMaybe<LambdaTypeDeleteInput>
   where?: InputMaybe<LambdaTypeWhere>
-}
-
-export type MutationDeleteMonacoTypesArgs = {
-  delete?: InputMaybe<MonacoTypeDeleteInput>
-  where?: InputMaybe<MonacoTypeWhere>
 }
 
 export type MutationDeletePageTypesArgs = {
@@ -9941,6 +9941,16 @@ export type MutationUpdateAtomsArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+export type MutationUpdateCodeMirrorTypesArgs = {
+  connect?: InputMaybe<CodeMirrorTypeConnectInput>
+  connectOrCreate?: InputMaybe<CodeMirrorTypeConnectOrCreateInput>
+  create?: InputMaybe<CodeMirrorTypeRelationInput>
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
+  update?: InputMaybe<CodeMirrorTypeUpdateInput>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}
+
 export type MutationUpdateComponentsArgs = {
   connect?: InputMaybe<ComponentConnectInput>
   connectOrCreate?: InputMaybe<ComponentConnectOrCreateInput>
@@ -10053,16 +10063,6 @@ export type MutationUpdateLambdaTypesArgs = {
   disconnect?: InputMaybe<LambdaTypeDisconnectInput>
   update?: InputMaybe<LambdaTypeUpdateInput>
   where?: InputMaybe<LambdaTypeWhere>
-}
-
-export type MutationUpdateMonacoTypesArgs = {
-  connect?: InputMaybe<MonacoTypeConnectInput>
-  connectOrCreate?: InputMaybe<MonacoTypeConnectOrCreateInput>
-  create?: InputMaybe<MonacoTypeRelationInput>
-  delete?: InputMaybe<MonacoTypeDeleteInput>
-  disconnect?: InputMaybe<MonacoTypeDisconnectInput>
-  update?: InputMaybe<MonacoTypeUpdateInput>
-  where?: InputMaybe<MonacoTypeWhere>
 }
 
 export type MutationUpdatePageTypesArgs = {
@@ -12713,6 +12713,9 @@ export type Query = {
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsConnection: AtomsConnection
+  codeMirrorTypes: Array<CodeMirrorType>
+  codeMirrorTypesAggregate: CodeMirrorTypeAggregateSelection
+  codeMirrorTypesConnection: CodeMirrorTypesConnection
   components: Array<Component>
   componentsAggregate: ComponentAggregateSelection
   componentsConnection: ComponentsConnection
@@ -12757,9 +12760,6 @@ export type Query = {
   lambdaTypes: Array<LambdaType>
   lambdaTypesAggregate: LambdaTypeAggregateSelection
   lambdaTypesConnection: LambdaTypesConnection
-  monacoTypes: Array<MonacoType>
-  monacoTypesAggregate: MonacoTypeAggregateSelection
-  monacoTypesConnection: MonacoTypesConnection
   pageTypes: Array<PageType>
   pageTypesAggregate: PageTypeAggregateSelection
   pageTypesConnection: PageTypesConnection
@@ -12898,6 +12898,22 @@ export type QueryAtomsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<AtomSort>>>
   where?: InputMaybe<AtomWhere>
+}
+
+export type QueryCodeMirrorTypesArgs = {
+  options?: InputMaybe<CodeMirrorTypeOptions>
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}
+
+export type QueryCodeMirrorTypesAggregateArgs = {
+  where?: InputMaybe<CodeMirrorTypeWhere>
+}
+
+export type QueryCodeMirrorTypesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<CodeMirrorTypeSort>>>
+  where?: InputMaybe<CodeMirrorTypeWhere>
 }
 
 export type QueryComponentsArgs = {
@@ -13103,22 +13119,6 @@ export type QueryLambdaTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<LambdaTypeSort>>>
   where?: InputMaybe<LambdaTypeWhere>
-}
-
-export type QueryMonacoTypesArgs = {
-  options?: InputMaybe<MonacoTypeOptions>
-  where?: InputMaybe<MonacoTypeWhere>
-}
-
-export type QueryMonacoTypesAggregateArgs = {
-  where?: InputMaybe<MonacoTypeWhere>
-}
-
-export type QueryMonacoTypesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InputMaybe<MonacoTypeSort>>>
-  where?: InputMaybe<MonacoTypeWhere>
 }
 
 export type QueryPageTypesArgs = {
@@ -16342,11 +16342,11 @@ export type TypeBaseCreateInput = {
   ActionType?: InputMaybe<ActionTypeCreateInput>
   AppType?: InputMaybe<AppTypeCreateInput>
   ArrayType?: InputMaybe<ArrayTypeCreateInput>
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeCreateInput>
   ElementType?: InputMaybe<ElementTypeCreateInput>
   EnumType?: InputMaybe<EnumTypeCreateInput>
   InterfaceType?: InputMaybe<InterfaceTypeCreateInput>
   LambdaType?: InputMaybe<LambdaTypeCreateInput>
-  MonacoType?: InputMaybe<MonacoTypeCreateInput>
   PageType?: InputMaybe<PageTypeCreateInput>
   PrimitiveType?: InputMaybe<PrimitiveTypeCreateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeCreateInput>
@@ -16368,11 +16368,11 @@ export type TypeBaseImplementationsConnectInput = {
   ActionType?: InputMaybe<Array<ActionTypeConnectInput>>
   AppType?: InputMaybe<Array<AppTypeConnectInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeConnectInput>>
+  CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeConnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeConnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeConnectInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeConnectInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>
-  MonacoType?: InputMaybe<Array<MonacoTypeConnectInput>>
   PageType?: InputMaybe<Array<PageTypeConnectInput>>
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeConnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeConnectInput>>
@@ -16384,11 +16384,11 @@ export type TypeBaseImplementationsDeleteInput = {
   ActionType?: InputMaybe<Array<ActionTypeDeleteInput>>
   AppType?: InputMaybe<Array<AppTypeDeleteInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeDeleteInput>>
+  CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDeleteInput>>
   ElementType?: InputMaybe<Array<ElementTypeDeleteInput>>
   EnumType?: InputMaybe<Array<EnumTypeDeleteInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeDeleteInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>
-  MonacoType?: InputMaybe<Array<MonacoTypeDeleteInput>>
   PageType?: InputMaybe<Array<PageTypeDeleteInput>>
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDeleteInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDeleteInput>>
@@ -16400,11 +16400,11 @@ export type TypeBaseImplementationsDisconnectInput = {
   ActionType?: InputMaybe<Array<ActionTypeDisconnectInput>>
   AppType?: InputMaybe<Array<AppTypeDisconnectInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeDisconnectInput>>
+  CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDisconnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeDisconnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeDisconnectInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeDisconnectInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>
-  MonacoType?: InputMaybe<Array<MonacoTypeDisconnectInput>>
   PageType?: InputMaybe<Array<PageTypeDisconnectInput>>
   PrimitiveType?: InputMaybe<Array<PrimitiveTypeDisconnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>
@@ -16416,11 +16416,11 @@ export type TypeBaseImplementationsUpdateInput = {
   ActionType?: InputMaybe<ActionTypeUpdateInput>
   AppType?: InputMaybe<AppTypeUpdateInput>
   ArrayType?: InputMaybe<ArrayTypeUpdateInput>
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeUpdateInput>
   ElementType?: InputMaybe<ElementTypeUpdateInput>
   EnumType?: InputMaybe<EnumTypeUpdateInput>
   InterfaceType?: InputMaybe<InterfaceTypeUpdateInput>
   LambdaType?: InputMaybe<LambdaTypeUpdateInput>
-  MonacoType?: InputMaybe<MonacoTypeUpdateInput>
   PageType?: InputMaybe<PageTypeUpdateInput>
   PrimitiveType?: InputMaybe<PrimitiveTypeUpdateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>
@@ -16432,11 +16432,11 @@ export type TypeBaseImplementationsWhere = {
   ActionType?: InputMaybe<ActionTypeWhere>
   AppType?: InputMaybe<AppTypeWhere>
   ArrayType?: InputMaybe<ArrayTypeWhere>
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>
   ElementType?: InputMaybe<ElementTypeWhere>
   EnumType?: InputMaybe<EnumTypeWhere>
   InterfaceType?: InputMaybe<InterfaceTypeWhere>
   LambdaType?: InputMaybe<LambdaTypeWhere>
-  MonacoType?: InputMaybe<MonacoTypeWhere>
   PageType?: InputMaybe<PageTypeWhere>
   PrimitiveType?: InputMaybe<PrimitiveTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
@@ -16651,11 +16651,11 @@ export enum TypeKind {
   ActionType = 'ActionType',
   AppType = 'AppType',
   ArrayType = 'ArrayType',
+  CodeMirrorType = 'CodeMirrorType',
   ElementType = 'ElementType',
   EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
-  MonacoType = 'MonacoType',
   PageType = 'PageType',
   PrimitiveType = 'PrimitiveType',
   ReactNodeType = 'ReactNodeType',
@@ -17095,6 +17095,12 @@ export type UpdateAtomsMutationResponse = {
   info: UpdateInfo
 }
 
+export type UpdateCodeMirrorTypesMutationResponse = {
+  __typename?: 'UpdateCodeMirrorTypesMutationResponse'
+  codeMirrorTypes: Array<CodeMirrorType>
+  info: UpdateInfo
+}
+
 export type UpdateComponentsMutationResponse = {
   __typename?: 'UpdateComponentsMutationResponse'
   components: Array<Component>
@@ -17180,12 +17186,6 @@ export type UpdateLambdaTypesMutationResponse = {
   __typename?: 'UpdateLambdaTypesMutationResponse'
   info: UpdateInfo
   lambdaTypes: Array<LambdaType>
-}
-
-export type UpdateMonacoTypesMutationResponse = {
-  __typename?: 'UpdateMonacoTypesMutationResponse'
-  info: UpdateInfo
-  monacoTypes: Array<MonacoType>
 }
 
 export type UpdatePageTypesMutationResponse = {

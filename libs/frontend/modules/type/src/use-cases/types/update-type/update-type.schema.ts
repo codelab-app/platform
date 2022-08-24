@@ -1,4 +1,4 @@
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
   IPrimitiveTypeKind,
@@ -46,7 +46,7 @@ export const updateTypeSchema: JSONSchemaType<IUpdateTypeDTO> = {
     language: {
       type: 'string',
       nullable: true,
-      enum: Object.values(MonacoLanguage),
+      enum: Object.values(CodeMirrorLanguage),
     },
     allowedValues: {
       type: 'array',

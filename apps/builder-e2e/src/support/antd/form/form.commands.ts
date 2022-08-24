@@ -83,7 +83,7 @@ export const getFormInput = (
     : wrapSubject(subject)
 
   switch (type) {
-    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
+    case FIELD_TYPE.CODE_MIRROR:
       return scope.find('.CodeMirror', opts).then((elem) => {
         return (elem[0] as CodeMirrorHTMLElement).CodeMirror
       })
@@ -99,8 +99,6 @@ export const getFormInput = (
       return scope.find('.ant-radio-group', opts)
     case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
-    case FIELD_TYPE.MONACO:
-      return scope.find('textarea', opts)
     default:
       throw unsupportedFieldType(type)
   }
@@ -176,7 +174,7 @@ export const expectFormFieldValue = ({
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
     case FIELD_TYPE.DATE:
-    case FIELD_TYPE.MONACO:
+    case FIELD_TYPE.CODE_MIRROR:
       getInput().should('have.value', isUndefined(value) ? '' : String(value))
 
       if (shouldExpectPlaceholder) {
@@ -494,7 +492,7 @@ export const setFormFieldValue = (
   // getField().scrollIntoView(opts)
 
   switch (type) {
-    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
+    case FIELD_TYPE.CODE_MIRROR:
       getInput().then((codeMirrorEditor: CodeMirror.Editor) => {
         codeMirrorEditor.setValue(String(value))
       })
@@ -502,11 +500,6 @@ export const setFormFieldValue = (
       return
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
-    case FIELD_TYPE.MONACO:
-      if (isArray(value) || value === undefined) {
-        throw new Error('Input `value` must be a single string or number.')
-      }
-
       getInput().then(
         setInputValue(subject, isNumber(value) ? String(value) : value, opts),
       )

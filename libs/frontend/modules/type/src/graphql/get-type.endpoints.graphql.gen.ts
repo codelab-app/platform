@@ -4,11 +4,11 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
+  Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
   Type_LambdaType_Fragment,
-  Type_MonacoType_Fragment,
   Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
@@ -38,7 +38,7 @@ export type GetTypesQuery = {
   pageTypes: Array<Type_PageType_Fragment>
   appTypes: Array<Type_AppType_Fragment>
   actionTypes: Array<Type_ActionType_Fragment>
-  monacoTypes: Array<Type_MonacoType_Fragment>
+  codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
 }
 
 export type GetDescendantsQueryVariables = Types.Exact<{
@@ -141,12 +141,14 @@ export type GetActionTypesQueryVariables = Types.Exact<{
 
 export type GetActionTypesQuery = { types: Array<Type_ActionType_Fragment> }
 
-export type GetMonacoTypesQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.MonacoTypeOptions>
-  where?: Types.InputMaybe<Types.MonacoTypeWhere>
+export type GetCodeMirrorTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.CodeMirrorTypeOptions>
+  where?: Types.InputMaybe<Types.CodeMirrorTypeWhere>
 }>
 
-export type GetMonacoTypesQuery = { types: Array<Type_MonacoType_Fragment> }
+export type GetCodeMirrorTypesQuery = {
+  types: Array<Type_CodeMirrorType_Fragment>
+}
 
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
@@ -186,7 +188,7 @@ export const GetTypesDocument = gql`
     actionTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    monacoTypes(where: { id_IN: $ids }) {
+    codeMirrorTypes(where: { id_IN: $ids }) {
       ...Type
     }
   }
@@ -316,9 +318,12 @@ export const GetActionTypesDocument = gql`
   }
   ${TypeFragmentDoc}
 `
-export const GetMonacoTypesDocument = gql`
-  query GetMonacoTypes($options: MonacoTypeOptions, $where: MonacoTypeWhere) {
-    types: monacoTypes(where: $where, options: $options) {
+export const GetCodeMirrorTypesDocument = gql`
+  query GetCodeMirrorTypes(
+    $options: CodeMirrorTypeOptions
+    $where: CodeMirrorTypeWhere
+  ) {
+    types: codeMirrorTypes(where: $where, options: $options) {
       ...Type
     }
   }
@@ -546,18 +551,18 @@ export function getSdk(
         'query',
       )
     },
-    GetMonacoTypes(
-      variables?: GetMonacoTypesQueryVariables,
+    GetCodeMirrorTypes(
+      variables?: GetCodeMirrorTypesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetMonacoTypesQuery> {
+    ): Promise<GetCodeMirrorTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetMonacoTypesQuery>(
-            GetMonacoTypesDocument,
+          client.request<GetCodeMirrorTypesQuery>(
+            GetCodeMirrorTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetMonacoTypes',
+        'GetCodeMirrorTypes',
         'query',
       )
     },

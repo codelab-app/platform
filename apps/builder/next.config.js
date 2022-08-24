@@ -7,7 +7,6 @@ const path = require('path')
 const { merge } = require('lodash')
 const withLess = require('next-with-less')
 const withTM = require('next-transpile-modules')([
-  // `monaco-editor` isn't published to npm correctly: it includes both CSS
   // imports and non-Node friendly syntax, so it needs to be compiled.
   '@fancyapps/ui',
 ])
@@ -40,7 +39,6 @@ const withRawCypherFiles = (nextConfig = {}) => {
 /*
  * Next.js doesn't work well with LESS so we use CSS instead.
  *
- * Issue with monaco editor https://www.swyx.io/how-to-add-monaco-editor-to-a-next-js-app-ha3
  */
 module.exports = withPlugins(
   [

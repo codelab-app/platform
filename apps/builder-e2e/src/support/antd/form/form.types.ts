@@ -14,7 +14,7 @@ type FieldType =
   | 'tags'
   | 'radio'
   | 'date'
-  | 'monaco'
+  | 'codeMirror'
 
 export const FIELD_TYPE = {
   INPUT: 'input' as FieldType,
@@ -24,8 +24,7 @@ export const FIELD_TYPE = {
   TAGS: 'tags' as FieldType,
   RADIO: 'radio' as FieldType,
   DATE: 'date' as FieldType,
-  MONACO: 'monaco' as FieldType,
-  CODE_MIRROR_GRAPHQL: 'code_mirror_graphql' as FieldType,
+  CODE_MIRROR: 'codeMirror' as FieldType,
 }
 
 export type FormFieldOptions = { label?: string }

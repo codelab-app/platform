@@ -9,7 +9,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 export type UpdateElementPropTransformationFormProp = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  monacoProps?: null
   elementService: IElementService
 }
 
@@ -22,7 +21,7 @@ function transform(props){
 
 export const UpdateElementPropTransformationForm =
   observer<UpdateElementPropTransformationFormProp>(
-    ({ element, elementService, trackPromises, monacoProps }) => {
+    ({ element, elementService, trackPromises }) => {
       const { trackPromise } = trackPromises ?? {}
 
       const [value, setValue] = useState(

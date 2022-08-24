@@ -2843,6 +2843,236 @@ type AtomsConnection {
   totalCount: Int!
 }
 
+enum CodeMirrorLanguage {
+  Css
+  CssInJs
+  Graphql
+  Javascript
+  Json
+  Typescript
+}
+
+"""
+Allows editing the value using a code mirror editor
+"""
+type CodeMirrorType implements TypeBase {
+  id: ID!
+  kind: TypeKind!
+  language: CodeMirrorLanguage!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): CodeMirrorTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type CodeMirrorTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input CodeMirrorTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input CodeMirrorTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input CodeMirrorTypeCreateInput {
+  id: ID!
+  kind: TypeKind! = CodeMirrorType
+  language: CodeMirrorLanguage!
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input CodeMirrorTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input CodeMirrorTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type CodeMirrorTypeEdge {
+  cursor: String!
+  node: CodeMirrorType!
+}
+
+input CodeMirrorTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more CodeMirrorTypeSort objects to sort CodeMirrorTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [CodeMirrorTypeSort!]
+}
+
+input CodeMirrorTypeOwnerAggregateInput {
+  AND: [CodeMirrorTypeOwnerAggregateInput!]
+  OR: [CodeMirrorTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: CodeMirrorTypeOwnerNodeAggregationWhereInput
+}
+
+input CodeMirrorTypeOwnerNodeAggregationWhereInput {
+  AND: [CodeMirrorTypeOwnerNodeAggregationWhereInput!]
+  OR: [CodeMirrorTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+  username_AVERAGE_EQUAL: Float
+  username_AVERAGE_GT: Float
+  username_AVERAGE_GTE: Float
+  username_AVERAGE_LT: Float
+  username_AVERAGE_LTE: Float
+  username_EQUAL: String
+  username_GT: Int
+  username_GTE: Int
+  username_LONGEST_EQUAL: Int
+  username_LONGEST_GT: Int
+  username_LONGEST_GTE: Int
+  username_LONGEST_LT: Int
+  username_LONGEST_LTE: Int
+  username_LT: Int
+  username_LTE: Int
+  username_SHORTEST_EQUAL: Int
+  username_SHORTEST_GT: Int
+  username_SHORTEST_GTE: Int
+  username_SHORTEST_LT: Int
+  username_SHORTEST_LTE: Int
+}
+
+input CodeMirrorTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort CodeMirrorTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one CodeMirrorTypeSort object.
+"""
+input CodeMirrorTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  language: SortDirection
+  name: SortDirection
+}
+
+input CodeMirrorTypeUpdateInput {
+  id: ID
+  language: CodeMirrorLanguage
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type CodeMirrorTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: CodeMirrorTypeUserOwnerNodeAggregateSelection
+}
+
+type CodeMirrorTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+}
+
+input CodeMirrorTypeWhere {
+  AND: [CodeMirrorTypeWhere!]
+  OR: [CodeMirrorTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID!]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  kind: TypeKind
+  kind_IN: [TypeKind!]
+  kind_NOT: TypeKind
+  kind_NOT_IN: [TypeKind!]
+  language: CodeMirrorLanguage
+  language_IN: [CodeMirrorLanguage!]
+  language_NOT: CodeMirrorLanguage
+  language_NOT_IN: [CodeMirrorLanguage!]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String!]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: CodeMirrorTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+type CodeMirrorTypesConnection {
+  edges: [CodeMirrorTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Component implements WithOwner {
   api(
     directed: Boolean = true
@@ -3526,6 +3756,11 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateCodeMirrorTypesMutationResponse {
+  codeMirrorTypes: [CodeMirrorType!]!
+  info: CreateInfo!
+}
+
 type CreateComponentsMutationResponse {
   components: [Component!]!
   info: CreateInfo!
@@ -3675,11 +3910,6 @@ type CreateInterfaceTypesMutationResponse {
 type CreateLambdaTypesMutationResponse {
   info: CreateInfo!
   lambdaTypes: [LambdaType!]!
-}
-
-type CreateMonacoTypesMutationResponse {
-  info: CreateInfo!
-  monacoTypes: [MonacoType!]!
 }
 
 type CreatePageTypesMutationResponse {
@@ -8774,236 +9004,6 @@ type LambdaTypesConnection {
   totalCount: Int!
 }
 
-enum MonacoLanguage {
-  css
-  cssInJs
-  graphqlDev
-  javascript
-  json
-  typescript
-}
-
-"""
-Allows editing the value using a monaco editor
-"""
-type MonacoType implements TypeBase {
-  id: ID!
-  kind: TypeKind!
-  language: MonacoLanguage!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): MonacoTypeUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [TypeBaseOwnerConnectionSort!]
-    where: TypeBaseOwnerConnectionWhere
-  ): TypeBaseOwnerConnection!
-}
-
-type MonacoTypeAggregateSelection {
-  count: Int!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input MonacoTypeConnectInput {
-  owner: TypeBaseOwnerConnectFieldInput
-}
-
-input MonacoTypeConnectOrCreateInput {
-  owner: TypeBaseOwnerConnectOrCreateFieldInput
-}
-
-input MonacoTypeCreateInput {
-  id: ID!
-  kind: TypeKind! = MonacoType
-  language: MonacoLanguage!
-  name: String!
-  owner: TypeBaseOwnerFieldInput
-}
-
-input MonacoTypeDeleteInput {
-  owner: TypeBaseOwnerDeleteFieldInput
-}
-
-input MonacoTypeDisconnectInput {
-  owner: TypeBaseOwnerDisconnectFieldInput
-}
-
-type MonacoTypeEdge {
-  cursor: String!
-  node: MonacoType!
-}
-
-input MonacoTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more MonacoTypeSort objects to sort MonacoTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [MonacoTypeSort!]
-}
-
-input MonacoTypeOwnerAggregateInput {
-  AND: [MonacoTypeOwnerAggregateInput!]
-  OR: [MonacoTypeOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: MonacoTypeOwnerNodeAggregationWhereInput
-}
-
-input MonacoTypeOwnerNodeAggregationWhereInput {
-  AND: [MonacoTypeOwnerNodeAggregationWhereInput!]
-  OR: [MonacoTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_EQUAL: Float
-  auth0Id_AVERAGE_GT: Float
-  auth0Id_AVERAGE_GTE: Float
-  auth0Id_AVERAGE_LT: Float
-  auth0Id_AVERAGE_LTE: Float
-  auth0Id_EQUAL: String
-  auth0Id_GT: Int
-  auth0Id_GTE: Int
-  auth0Id_LONGEST_EQUAL: Int
-  auth0Id_LONGEST_GT: Int
-  auth0Id_LONGEST_GTE: Int
-  auth0Id_LONGEST_LT: Int
-  auth0Id_LONGEST_LTE: Int
-  auth0Id_LT: Int
-  auth0Id_LTE: Int
-  auth0Id_SHORTEST_EQUAL: Int
-  auth0Id_SHORTEST_GT: Int
-  auth0Id_SHORTEST_GTE: Int
-  auth0Id_SHORTEST_LT: Int
-  auth0Id_SHORTEST_LTE: Int
-  email_AVERAGE_EQUAL: Float
-  email_AVERAGE_GT: Float
-  email_AVERAGE_GTE: Float
-  email_AVERAGE_LT: Float
-  email_AVERAGE_LTE: Float
-  email_EQUAL: String
-  email_GT: Int
-  email_GTE: Int
-  email_LONGEST_EQUAL: Int
-  email_LONGEST_GT: Int
-  email_LONGEST_GTE: Int
-  email_LONGEST_LT: Int
-  email_LONGEST_LTE: Int
-  email_LT: Int
-  email_LTE: Int
-  email_SHORTEST_EQUAL: Int
-  email_SHORTEST_GT: Int
-  email_SHORTEST_GTE: Int
-  email_SHORTEST_LT: Int
-  email_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  username_AVERAGE_EQUAL: Float
-  username_AVERAGE_GT: Float
-  username_AVERAGE_GTE: Float
-  username_AVERAGE_LT: Float
-  username_AVERAGE_LTE: Float
-  username_EQUAL: String
-  username_GT: Int
-  username_GTE: Int
-  username_LONGEST_EQUAL: Int
-  username_LONGEST_GT: Int
-  username_LONGEST_GTE: Int
-  username_LONGEST_LT: Int
-  username_LONGEST_LTE: Int
-  username_LT: Int
-  username_LTE: Int
-  username_SHORTEST_EQUAL: Int
-  username_SHORTEST_GT: Int
-  username_SHORTEST_GTE: Int
-  username_SHORTEST_LT: Int
-  username_SHORTEST_LTE: Int
-}
-
-input MonacoTypeRelationInput {
-  owner: TypeBaseOwnerCreateFieldInput
-}
-
-"""
-Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object.
-"""
-input MonacoTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  language: SortDirection
-  name: SortDirection
-}
-
-input MonacoTypeUpdateInput {
-  id: ID
-  language: MonacoLanguage
-  name: String
-  owner: TypeBaseOwnerUpdateFieldInput
-}
-
-type MonacoTypeUserOwnerAggregationSelection {
-  count: Int!
-  node: MonacoTypeUserOwnerNodeAggregateSelection
-}
-
-type MonacoTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input MonacoTypeWhere {
-  AND: [MonacoTypeWhere!]
-  OR: [MonacoTypeWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_NOT: ID
-  id_NOT_CONTAINS: ID
-  id_NOT_ENDS_WITH: ID
-  id_NOT_IN: [ID!]
-  id_NOT_STARTS_WITH: ID
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  kind_NOT: TypeKind
-  kind_NOT_IN: [TypeKind!]
-  language: MonacoLanguage
-  language_IN: [MonacoLanguage!]
-  language_NOT: MonacoLanguage
-  language_NOT_IN: [MonacoLanguage!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_NOT: String
-  name_NOT_CONTAINS: String
-  name_NOT_ENDS_WITH: String
-  name_NOT_IN: [String!]
-  name_NOT_STARTS_WITH: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: MonacoTypeOwnerAggregateInput
-  ownerConnection: TypeBaseOwnerConnectionWhere
-  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
-type MonacoTypesConnection {
-  edges: [MonacoTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type Mutation {
   createActionTypes(
     input: [ActionTypeCreateInput!]!
@@ -9014,6 +9014,9 @@ type Mutation {
     input: [ArrayTypeCreateInput!]!
   ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createCodeMirrorTypes(
+    input: [CodeMirrorTypeCreateInput!]!
+  ): CreateCodeMirrorTypesMutationResponse!
   createComponents(
     input: [ComponentCreateInput!]!
   ): CreateComponentsMutationResponse!
@@ -9045,9 +9048,6 @@ type Mutation {
   createLambdaTypes(
     input: [LambdaTypeCreateInput!]!
   ): CreateLambdaTypesMutationResponse!
-  createMonacoTypes(
-    input: [MonacoTypeCreateInput!]!
-  ): CreateMonacoTypesMutationResponse!
   createPageTypes(
     input: [PageTypeCreateInput!]!
   ): CreatePageTypesMutationResponse!
@@ -9106,6 +9106,10 @@ type Mutation {
     where: ArrayTypeWhere
   ): DeleteInfo!
   deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
+  deleteCodeMirrorTypes(
+    delete: CodeMirrorTypeDeleteInput
+    where: CodeMirrorTypeWhere
+  ): DeleteInfo!
   deleteComponents(
     delete: ComponentDeleteInput
     where: ComponentWhere
@@ -9139,10 +9143,6 @@ type Mutation {
   deleteLambdaTypes(
     delete: LambdaTypeDeleteInput
     where: LambdaTypeWhere
-  ): DeleteInfo!
-  deleteMonacoTypes(
-    delete: MonacoTypeDeleteInput
-    where: MonacoTypeWhere
   ): DeleteInfo!
   deletePageTypes(
     delete: PageTypeDeleteInput
@@ -9240,6 +9240,15 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
+  updateCodeMirrorTypes(
+    connect: CodeMirrorTypeConnectInput
+    connectOrCreate: CodeMirrorTypeConnectOrCreateInput
+    create: CodeMirrorTypeRelationInput
+    delete: CodeMirrorTypeDeleteInput
+    disconnect: CodeMirrorTypeDisconnectInput
+    update: CodeMirrorTypeUpdateInput
+    where: CodeMirrorTypeWhere
+  ): UpdateCodeMirrorTypesMutationResponse!
   updateComponents(
     connect: ComponentConnectInput
     connectOrCreate: ComponentConnectOrCreateInput
@@ -9339,15 +9348,6 @@ type Mutation {
     update: LambdaTypeUpdateInput
     where: LambdaTypeWhere
   ): UpdateLambdaTypesMutationResponse!
-  updateMonacoTypes(
-    connect: MonacoTypeConnectInput
-    connectOrCreate: MonacoTypeConnectOrCreateInput
-    create: MonacoTypeRelationInput
-    delete: MonacoTypeDeleteInput
-    disconnect: MonacoTypeDisconnectInput
-    update: MonacoTypeUpdateInput
-    where: MonacoTypeWhere
-  ): UpdateMonacoTypesMutationResponse!
   updatePageTypes(
     connect: PageTypeConnectInput
     connectOrCreate: PageTypeConnectOrCreateInput
@@ -11850,6 +11850,19 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
+  codeMirrorTypes(
+    options: CodeMirrorTypeOptions
+    where: CodeMirrorTypeWhere
+  ): [CodeMirrorType!]!
+  codeMirrorTypesAggregate(
+    where: CodeMirrorTypeWhere
+  ): CodeMirrorTypeAggregateSelection!
+  codeMirrorTypesConnection(
+    after: String
+    first: Int
+    sort: [CodeMirrorTypeSort]
+    where: CodeMirrorTypeWhere
+  ): CodeMirrorTypesConnection!
   components(options: ComponentOptions, where: ComponentWhere): [Component!]!
   componentsAggregate(where: ComponentWhere): ComponentAggregateSelection!
   componentsConnection(
@@ -11985,17 +11998,6 @@ type Query {
     sort: [LambdaTypeSort]
     where: LambdaTypeWhere
   ): LambdaTypesConnection!
-  monacoTypes(
-    options: MonacoTypeOptions
-    where: MonacoTypeWhere
-  ): [MonacoType!]!
-  monacoTypesAggregate(where: MonacoTypeWhere): MonacoTypeAggregateSelection!
-  monacoTypesConnection(
-    after: String
-    first: Int
-    sort: [MonacoTypeSort]
-    where: MonacoTypeWhere
-  ): MonacoTypesConnection!
   pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
   pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
   pageTypesConnection(
@@ -14926,11 +14928,11 @@ input TypeBaseCreateInput {
   ActionType: ActionTypeCreateInput
   AppType: AppTypeCreateInput
   ArrayType: ArrayTypeCreateInput
+  CodeMirrorType: CodeMirrorTypeCreateInput
   ElementType: ElementTypeCreateInput
   EnumType: EnumTypeCreateInput
   InterfaceType: InterfaceTypeCreateInput
   LambdaType: LambdaTypeCreateInput
-  MonacoType: MonacoTypeCreateInput
   PageType: PageTypeCreateInput
   PrimitiveType: PrimitiveTypeCreateInput
   ReactNodeType: ReactNodeTypeCreateInput
@@ -14952,11 +14954,11 @@ input TypeBaseImplementationsConnectInput {
   ActionType: [ActionTypeConnectInput!]
   AppType: [AppTypeConnectInput!]
   ArrayType: [ArrayTypeConnectInput!]
+  CodeMirrorType: [CodeMirrorTypeConnectInput!]
   ElementType: [ElementTypeConnectInput!]
   EnumType: [EnumTypeConnectInput!]
   InterfaceType: [InterfaceTypeConnectInput!]
   LambdaType: [LambdaTypeConnectInput!]
-  MonacoType: [MonacoTypeConnectInput!]
   PageType: [PageTypeConnectInput!]
   PrimitiveType: [PrimitiveTypeConnectInput!]
   ReactNodeType: [ReactNodeTypeConnectInput!]
@@ -14968,11 +14970,11 @@ input TypeBaseImplementationsDeleteInput {
   ActionType: [ActionTypeDeleteInput!]
   AppType: [AppTypeDeleteInput!]
   ArrayType: [ArrayTypeDeleteInput!]
+  CodeMirrorType: [CodeMirrorTypeDeleteInput!]
   ElementType: [ElementTypeDeleteInput!]
   EnumType: [EnumTypeDeleteInput!]
   InterfaceType: [InterfaceTypeDeleteInput!]
   LambdaType: [LambdaTypeDeleteInput!]
-  MonacoType: [MonacoTypeDeleteInput!]
   PageType: [PageTypeDeleteInput!]
   PrimitiveType: [PrimitiveTypeDeleteInput!]
   ReactNodeType: [ReactNodeTypeDeleteInput!]
@@ -14984,11 +14986,11 @@ input TypeBaseImplementationsDisconnectInput {
   ActionType: [ActionTypeDisconnectInput!]
   AppType: [AppTypeDisconnectInput!]
   ArrayType: [ArrayTypeDisconnectInput!]
+  CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
   ElementType: [ElementTypeDisconnectInput!]
   EnumType: [EnumTypeDisconnectInput!]
   InterfaceType: [InterfaceTypeDisconnectInput!]
   LambdaType: [LambdaTypeDisconnectInput!]
-  MonacoType: [MonacoTypeDisconnectInput!]
   PageType: [PageTypeDisconnectInput!]
   PrimitiveType: [PrimitiveTypeDisconnectInput!]
   ReactNodeType: [ReactNodeTypeDisconnectInput!]
@@ -15000,11 +15002,11 @@ input TypeBaseImplementationsUpdateInput {
   ActionType: ActionTypeUpdateInput
   AppType: AppTypeUpdateInput
   ArrayType: ArrayTypeUpdateInput
+  CodeMirrorType: CodeMirrorTypeUpdateInput
   ElementType: ElementTypeUpdateInput
   EnumType: EnumTypeUpdateInput
   InterfaceType: InterfaceTypeUpdateInput
   LambdaType: LambdaTypeUpdateInput
-  MonacoType: MonacoTypeUpdateInput
   PageType: PageTypeUpdateInput
   PrimitiveType: PrimitiveTypeUpdateInput
   ReactNodeType: ReactNodeTypeUpdateInput
@@ -15016,11 +15018,11 @@ input TypeBaseImplementationsWhere {
   ActionType: ActionTypeWhere
   AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
+  CodeMirrorType: CodeMirrorTypeWhere
   ElementType: ElementTypeWhere
   EnumType: EnumTypeWhere
   InterfaceType: InterfaceTypeWhere
   LambdaType: LambdaTypeWhere
-  MonacoType: MonacoTypeWhere
   PageType: PageTypeWhere
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
@@ -15238,11 +15240,11 @@ enum TypeKind {
   ActionType
   AppType
   ArrayType
+  CodeMirrorType
   ElementType
   EnumType
   InterfaceType
   LambdaType
-  MonacoType
   PageType
   PrimitiveType
   ReactNodeType
@@ -15652,6 +15654,11 @@ type UpdateAtomsMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateCodeMirrorTypesMutationResponse {
+  codeMirrorTypes: [CodeMirrorType!]!
+  info: UpdateInfo!
+}
+
 type UpdateComponentsMutationResponse {
   components: [Component!]!
   info: UpdateInfo!
@@ -15724,11 +15731,6 @@ type UpdateInterfaceTypesMutationResponse {
 type UpdateLambdaTypesMutationResponse {
   info: UpdateInfo!
   lambdaTypes: [LambdaType!]!
-}
-
-type UpdateMonacoTypesMutationResponse {
-  info: UpdateInfo!
-  monacoTypes: [MonacoType!]!
 }
 
 type UpdatePageTypesMutationResponse {

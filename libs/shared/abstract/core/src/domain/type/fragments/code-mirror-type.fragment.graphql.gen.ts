@@ -4,11 +4,11 @@ import {
   TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
+  TypeBase_CodeMirrorType_Fragment,
   TypeBase_ElementType_Fragment,
   TypeBase_EnumType_Fragment,
   TypeBase_InterfaceType_Fragment,
   TypeBase_LambdaType_Fragment,
-  TypeBase_MonacoType_Fragment,
   TypeBase_PageType_Fragment,
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
@@ -19,12 +19,12 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
-export type MonacoTypeFragment = {
-  language: Types.MonacoLanguage
-} & TypeBase_MonacoType_Fragment
+export type CodeMirrorTypeFragment = {
+  language: Types.CodeMirrorLanguage
+} & TypeBase_CodeMirrorType_Fragment
 
-export const MonacoTypeFragmentDoc = gql`
-  fragment MonacoType on MonacoType {
+export const CodeMirrorTypeFragmentDoc = gql`
+  fragment CodeMirrorType on CodeMirrorType {
     ...TypeBase
     language
   }

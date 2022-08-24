@@ -68,9 +68,9 @@ export const createTypeApi: CreateTypesRecord = {
       .then((r) => r.types.types),
   [ITypeKind.UnionType]: (input) =>
     _createApi.CreateUnionTypes({ input }).then((r) => r.types.types),
-  [ITypeKind.MonacoType]: (input) =>
+  [ITypeKind.CodeMirrorType]: (input) =>
     _createApi
-      .CreateMonacoTypes({ input: input as any })
+      .CreateCodeMirrorTypes({ input: input as any })
       .then((r) => r.types.types),
   [ITypeKind.PageType]: (input) =>
     _createApi.CreatePageTypes({ input }).then((r) => r.types.types),
@@ -125,8 +125,8 @@ export const updateTypeApi: UpdateTypesRecord = {
     _updateApi.UpdateReactNodeTypes(vars).then((r) => r.types.types),
   [ITypeKind.UnionType]: (vars) =>
     _updateApi.UpdateUnionTypes(vars).then((r) => r.types.types),
-  [ITypeKind.MonacoType]: (vars) =>
-    _updateApi.UpdateMonacoTypes(vars).then((r) => r.types.types),
+  [ITypeKind.CodeMirrorType]: (vars) =>
+    _updateApi.UpdateCodeMirrorTypes(vars).then((r) => r.types.types),
   [ITypeKind.PageType]: (vars) =>
     _updateApi.UpdatePageTypes(vars).then((r) => r.types.types),
   [ITypeKind.AppType]: (vars) =>
@@ -170,8 +170,8 @@ export const deleteTypeApi: DeleteTypesRecord = {
     _deleteApi.DeleteReactNodeTypes(vars).then((r) => r.deleteReactNodeTypes),
   [ITypeKind.UnionType]: (vars) =>
     _deleteApi.DeleteUnionTypes(vars).then((r) => r.deleteUnionTypes),
-  [ITypeKind.MonacoType]: (vars) =>
-    _deleteApi.DeleteMonacoTypes(vars).then((r) => r.deleteMonacoTypes),
+  [ITypeKind.CodeMirrorType]: (vars) =>
+    _deleteApi.DeleteCodeMirrorTypes(vars).then((r) => r.deleteCodeMirrorTypes),
   [ITypeKind.PageType]: (vars) =>
     _deleteApi.DeletePageTypes(vars).then((r) => r.deletePageTypes),
 }

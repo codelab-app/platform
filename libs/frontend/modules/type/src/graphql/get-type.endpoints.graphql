@@ -35,7 +35,7 @@ query GetTypes($ids: [ID!]) {
   actionTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  monacoTypes(where: { id_IN: $ids }) {
+  codeMirrorTypes(where: { id_IN: $ids }) {
     ...Type
   }
 }
@@ -136,8 +136,11 @@ query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
   }
 }
 
-query GetMonacoTypes($options: MonacoTypeOptions, $where: MonacoTypeWhere) {
-  types: monacoTypes(where: $where, options: $options) {
+query GetCodeMirrorTypes(
+  $options: CodeMirrorTypeOptions
+  $where: CodeMirrorTypeWhere
+) {
+  types: codeMirrorTypes(where: $where, options: $options) {
     ...Type
   }
 }

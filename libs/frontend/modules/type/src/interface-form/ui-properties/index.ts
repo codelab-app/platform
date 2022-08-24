@@ -2,9 +2,9 @@ import { IAnyType, ITypeKind, ITypeOf } from '@codelab/shared/abstract/core'
 import { UiPropertiesFn } from '../types'
 import { actionTypeUiProperties } from './actionTypeUiProperties'
 import { appTypeUiProperties } from './appTypeUiProperties'
+import { codeMirrorTypeUiProperties } from './codeMirrorTypeUiProperties'
 import { elementTypeUiProperties } from './elementTypeUiProperties'
 import { lambdaTypeUiProperties } from './lambdaTypeUiProperties'
-import { monacoTypeUiProperties } from './monacoTypeUiProperties'
 import { pageTypeUiProperties } from './pageTypeUiProperties'
 import { selectComponentUiProperties } from './selectComponentUiProperties'
 import { unionTypeUiProperties } from './unionTypeUiProperties'
@@ -22,7 +22,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.ReactNodeType]: selectComponentUiProperties,
   [ITypeKind.RenderPropsType]: selectComponentUiProperties,
   [ITypeKind.ElementType]: elementTypeUiProperties,
-  [ITypeKind.MonacoType]: monacoTypeUiProperties,
+  [ITypeKind.CodeMirrorType]: codeMirrorTypeUiProperties,
   [ITypeKind.LambdaType]: lambdaTypeUiProperties,
   [ITypeKind.AppType]: appTypeUiProperties,
   [ITypeKind.ActionType]: actionTypeUiProperties,
