@@ -13,6 +13,8 @@ export interface ICreateElementDTO {
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
+  preRenderActionId?: Nullish<string>
+  postRenderActionId?: Nullish<string>
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
   propsData?: string
@@ -27,6 +29,8 @@ export type IUpdateElementDTO = {
   customCss?: Nullable<string>
   guiCss?: Nullable<string>
   props?: Nullable<IPropData>
+  preRenderActionId?: Nullish<string>
+  postRenderActionId?: Nullish<string>
 }
 
 /**
@@ -39,6 +43,8 @@ export type IUpdateBaseElementDTO = Pick<
   | 'renderIfPropKey'
   | 'renderForEachPropKey'
   | 'instanceOfComponentId'
+  | 'preRenderActionId'
+  | 'postRenderActionId'
 >
 
 /**

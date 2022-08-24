@@ -25,6 +25,8 @@ export type ElementFragment = {
   guiCss?: string | null
   renderForEachPropKey?: string | null
   renderIfPropKey?: string | null
+  preRenderActionId?: string | null
+  postRenderActionId?: string | null
   propTransformationJs?: string | null
   component?: ComponentFragment | null
   instanceOfComponent?: ComponentFragment | null
@@ -70,6 +72,8 @@ export const ElementFragmentDoc = gql`
     }
     renderForEachPropKey
     renderIfPropKey
+    preRenderActionId
+    postRenderActionId
     propMapBindings {
       ...PropMapBinding
     }

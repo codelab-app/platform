@@ -44,7 +44,17 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
       return (
         <>
           {[...field.type.current.fields.values()].map((f, i) => (
-            <Field context={context} field={f} form={form} />
+            <Field
+              context={context}
+              field={{
+                description: f.description,
+                id: f.id,
+                type: f.type,
+                key: `${field.key}.${f.key}`,
+                name: `${field.key}.${f.key}`,
+              }}
+              form={form}
+            />
           ))}
         </>
       )

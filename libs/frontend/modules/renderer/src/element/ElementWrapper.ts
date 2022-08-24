@@ -1,10 +1,11 @@
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/modules/element'
 import { IElement, IPropData, IRenderer } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { merge } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { GlobalPropsContext } from '../props/globalPropsContext'
 import { mapOutput } from '../utils/renderOutputUtils'
 import {
@@ -22,6 +23,8 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   extraProps?: IPropData
+
+  postAction?: Nullish<() => any>
 }
 
 /**
@@ -30,9 +33,14 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ renderService, element, extraProps }) => {
+  ({ renderService, element, extraProps, postAction }) => {
     const globalPropsContext = useContext(GlobalPropsContext)
     const globalProps = globalPropsContext?.[element.id]
+
+    useEffect(() => {
+      postAction?.()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Render the element to an intermediate output
     const renderOutputs = renderService.renderIntermediateElement(

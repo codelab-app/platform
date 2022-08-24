@@ -62,8 +62,6 @@ export const createMobxState = (
     apps: appsState,
   }
 
-  console.log(stateGlobals)
-
   return appStore.toMobxObservable(stateGlobals)
 }
 
@@ -120,6 +118,13 @@ export const getState = (value: string, state: unknown): any => {
    * therefore we replace all expressions
    */
   return value.replace(STATE_PATH_TEMPLATE_REGEX, (expression) => {
-    return get(state, stripExpression(expression), expression)
+    try {
+      // eslint-disable-next-line no-new-func
+      return new Function(`return ${stripExpression(expression)}`).call(state)
+    } catch (error) {
+      console.log(error)
+
+      return expression
+    }
   })
 }

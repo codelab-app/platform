@@ -777,6 +777,8 @@ type AppElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -1147,6 +1149,46 @@ input AppRootElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -3019,6 +3061,8 @@ type ComponentElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -3258,6 +3302,46 @@ input ComponentRootElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -4386,6 +4470,8 @@ type Element {
     sort: [ElementParentElementConnectionSort!]
     where: ElementParentElementConnectionWhere
   ): ElementParentElementConnection!
+  postRenderActionId: String
+  preRenderActionId: String
   propMapBindings(
     directed: Boolean = true
     options: PropMapBindingOptions
@@ -4425,6 +4511,8 @@ type ElementAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -4869,6 +4957,46 @@ input ElementChildrenNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -5126,6 +5254,8 @@ input ElementCreateInput {
   name: String
   page: ElementPageFieldInput
   parentElement: ElementParentElementFieldInput
+  postRenderActionId: String
+  preRenderActionId: String
   propMapBindings: ElementPropMapBindingsFieldInput
   propTransformationJs: String
   props: ElementPropsFieldInput
@@ -5179,6 +5309,8 @@ type ElementElementChildrenNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -5199,6 +5331,8 @@ type ElementElementParentElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -5421,6 +5555,8 @@ input ElementOnCreateInput {
   guiCss: String
   id: ID!
   name: String
+  postRenderActionId: String
+  preRenderActionId: String
   propTransformationJs: String
   renderForEachPropKey: String
   renderIfPropKey: String
@@ -5737,6 +5873,46 @@ input ElementParentElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -6093,6 +6269,8 @@ input ElementSort {
   guiCss: SortDirection
   id: SortDirection
   name: SortDirection
+  postRenderActionId: SortDirection
+  preRenderActionId: SortDirection
   propTransformationJs: SortDirection
   renderForEachPropKey: SortDirection
   renderIfPropKey: SortDirection
@@ -6368,6 +6546,8 @@ input ElementUpdateInput {
   name: String
   page: ElementPageUpdateFieldInput
   parentElement: ElementParentElementUpdateFieldInput
+  postRenderActionId: String
+  preRenderActionId: String
   propMapBindings: [ElementPropMapBindingsUpdateFieldInput!]
   propTransformationJs: String
   props: ElementPropsUpdateFieldInput
@@ -6498,6 +6678,26 @@ input ElementWhere {
   parentElementConnection: ElementParentElementConnectionWhere
   parentElementConnection_NOT: ElementParentElementConnectionWhere
   parentElement_NOT: ElementWhere
+  postRenderActionId: String
+  postRenderActionId_CONTAINS: String
+  postRenderActionId_ENDS_WITH: String
+  postRenderActionId_IN: [String]
+  postRenderActionId_NOT: String
+  postRenderActionId_NOT_CONTAINS: String
+  postRenderActionId_NOT_ENDS_WITH: String
+  postRenderActionId_NOT_IN: [String]
+  postRenderActionId_NOT_STARTS_WITH: String
+  postRenderActionId_STARTS_WITH: String
+  preRenderActionId: String
+  preRenderActionId_CONTAINS: String
+  preRenderActionId_ENDS_WITH: String
+  preRenderActionId_IN: [String]
+  preRenderActionId_NOT: String
+  preRenderActionId_NOT_CONTAINS: String
+  preRenderActionId_NOT_ENDS_WITH: String
+  preRenderActionId_NOT_IN: [String]
+  preRenderActionId_NOT_STARTS_WITH: String
+  preRenderActionId_STARTS_WITH: String
   propMapBindingsAggregate: ElementPropMapBindingsAggregateInput
   propMapBindingsConnection_ALL: ElementPropMapBindingsConnectionWhere
   propMapBindingsConnection_NONE: ElementPropMapBindingsConnectionWhere
@@ -7550,6 +7750,8 @@ type HookElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -7625,6 +7827,46 @@ input HookElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -9475,6 +9717,8 @@ type PageElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -9637,6 +9881,46 @@ input PageRootElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -10908,6 +11192,8 @@ type PropMapBindingElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -10983,6 +11269,46 @@ input PropMapBindingElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -11060,6 +11386,8 @@ type PropMapBindingElementTargetElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -11234,6 +11562,46 @@ input PropMapBindingTargetElementNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float
@@ -15851,6 +16219,8 @@ type UserElementElementsNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNullable!
+  postRenderActionId: StringAggregateSelectionNullable!
+  preRenderActionId: StringAggregateSelectionNullable!
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
@@ -15982,6 +16352,46 @@ input UserElementsNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
+  postRenderActionId_AVERAGE_EQUAL: Float
+  postRenderActionId_AVERAGE_GT: Float
+  postRenderActionId_AVERAGE_GTE: Float
+  postRenderActionId_AVERAGE_LT: Float
+  postRenderActionId_AVERAGE_LTE: Float
+  postRenderActionId_EQUAL: String
+  postRenderActionId_GT: Int
+  postRenderActionId_GTE: Int
+  postRenderActionId_LONGEST_EQUAL: Int
+  postRenderActionId_LONGEST_GT: Int
+  postRenderActionId_LONGEST_GTE: Int
+  postRenderActionId_LONGEST_LT: Int
+  postRenderActionId_LONGEST_LTE: Int
+  postRenderActionId_LT: Int
+  postRenderActionId_LTE: Int
+  postRenderActionId_SHORTEST_EQUAL: Int
+  postRenderActionId_SHORTEST_GT: Int
+  postRenderActionId_SHORTEST_GTE: Int
+  postRenderActionId_SHORTEST_LT: Int
+  postRenderActionId_SHORTEST_LTE: Int
+  preRenderActionId_AVERAGE_EQUAL: Float
+  preRenderActionId_AVERAGE_GT: Float
+  preRenderActionId_AVERAGE_GTE: Float
+  preRenderActionId_AVERAGE_LT: Float
+  preRenderActionId_AVERAGE_LTE: Float
+  preRenderActionId_EQUAL: String
+  preRenderActionId_GT: Int
+  preRenderActionId_GTE: Int
+  preRenderActionId_LONGEST_EQUAL: Int
+  preRenderActionId_LONGEST_GT: Int
+  preRenderActionId_LONGEST_GTE: Int
+  preRenderActionId_LONGEST_LT: Int
+  preRenderActionId_LONGEST_LTE: Int
+  preRenderActionId_LT: Int
+  preRenderActionId_LTE: Int
+  preRenderActionId_SHORTEST_EQUAL: Int
+  preRenderActionId_SHORTEST_GT: Int
+  preRenderActionId_SHORTEST_GTE: Int
+  preRenderActionId_SHORTEST_LT: Int
+  preRenderActionId_SHORTEST_LTE: Int
   propTransformationJs_AVERAGE_EQUAL: Float
   propTransformationJs_AVERAGE_GT: Float
   propTransformationJs_AVERAGE_GTE: Float

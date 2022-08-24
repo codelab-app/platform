@@ -7,11 +7,11 @@ import {
   ConfigPane,
   EditorPaneBuilder,
 } from '@codelab/frontend/modules/builder'
+import { elementRef } from '@codelab/frontend/modules/element'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
-  useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
@@ -19,8 +19,6 @@ import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
-  ContentSection,
-  pageBuilderMenuItem,
   resourceMenuItem,
   storeMenuItem,
 } from '@codelab/frontend/view/sections'
@@ -33,23 +31,23 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
-const PageBuilder: CodelabPage = observer(() => {
+const PageProviderBuilder: CodelabPage = observer(() => {
   const {
     appService,
-    pageService,
     storeService,
-    builderService,
-    elementService,
+    pageService,
     componentService,
-    builderRenderService,
     typeService,
+    builderRenderService,
+    elementService,
+    builderService,
     userService,
   } = useStore()
 
-  const appId = useCurrentAppId()
   const router = useRouter()
+  const appId = useCurrentAppId()
 
-  const [, { data, isLoading, error }] = useStatefulExecutor(
+  const [, { data, error, isLoading }] = useStatefulExecutor(
     async () => {
       /**
        *
@@ -57,7 +55,6 @@ const PageBuilder: CodelabPage = observer(() => {
        */
       const apps = await appService.getAll()
       const app = appService.app(appId)
-      const pages = await pageService.getAll()
       /**
        *
        * load app store
@@ -86,14 +83,25 @@ const PageBuilder: CodelabPage = observer(() => {
       const types = await typeService.getAll()
       /**
        *
-       * construct provider tree
+       * load all pages
        *
        */
-      const providerTree = await app.initTree(app.rootElement.id)
+      const pages = await pageService.getAll()
+      /**
+       *
+       * page Element tree
+       *
+       */
+      const pageElementTree = await app.initTree(app.rootElement.id)
+      const pageRootElement = elementService.element(app.rootElement.id)
+
+      if (pageRootElement) {
+        builderService.set_selectedNode(elementRef(pageRootElement))
+      }
 
       const renderer = await builderRenderService.addRenderer(
         appId,
-        providerTree,
+        pageElementTree,
         null,
         appStore,
         createMobxState(appStore, apps, pages, router),
@@ -101,10 +109,10 @@ const PageBuilder: CodelabPage = observer(() => {
       )
 
       return {
-        providerTree,
+        app,
+        pageElementTree,
         appStore,
         types,
-        app,
         components,
         renderer,
       }
@@ -115,29 +123,27 @@ const PageBuilder: CodelabPage = observer(() => {
   return (
     <>
       <Head>
-        <title>{data?.app?.name} | Provider Builder | Codelab</title>{' '}
+        <title>{data?.app?.name} | Provider Builder | Codelab</title>
       </Head>
 
-      <ContentSection>
-        <BuilderTabs
-          appStore={data?.appStore}
-          builderRenderService={builderRenderService}
-          builderService={builderService}
-          componentService={componentService}
-          elementService={elementService}
-          elementTree={data?.providerTree}
-          error={error}
-          isLoading={isLoading}
-          renderer={data?.renderer}
-        />
-      </ContentSection>
+      <BuilderTabs
+        appStore={data?.appStore}
+        builderRenderService={builderRenderService}
+        builderService={builderService}
+        componentService={componentService}
+        elementService={elementService}
+        elementTree={data?.pageElementTree}
+        error={error}
+        isLoading={isLoading}
+        renderer={data?.renderer}
+      />
     </>
   )
 })
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
-PageBuilder.Layout = observer((page) => {
+PageProviderBuilder.Layout = observer((page) => {
   const {
     elementService,
     pageService,
@@ -151,14 +157,12 @@ PageBuilder.Layout = observer((page) => {
   } = useStore()
 
   const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-  const appBuilderRenderer = builderRenderService.renderers.get(appId)
-  const activeElementTree = appBuilderRenderer?.appTree?.current
+  const pageProviderBuilderRenderer = builderRenderService.renderers.get(appId)
+  const activeElementTree = builderService.activeElementTree
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)
-    userService.user?.setCurPageId(pageId)
-  }, [appId, pageId])
+  }, [appId])
 
   return (
     <BuilderContext
@@ -168,7 +172,7 @@ PageBuilder.Layout = observer((page) => {
       <DashboardTemplate
         ConfigPane={observer(() => (
           <>
-            {activeElementTree && appBuilderRenderer ? (
+            {activeElementTree && pageProviderBuilderRenderer ? (
               <ConfigPane
                 actionService={actionService}
                 atomService={atomService}
@@ -177,8 +181,8 @@ PageBuilder.Layout = observer((page) => {
                 elementService={elementService}
                 // The element tree changes depending on whether a page or a component is selected
                 elementTree={activeElementTree}
-                key={appBuilderRenderer?.pageTree?.current.root?.id}
-                renderService={appBuilderRenderer}
+                key={pageProviderBuilderRenderer?.pageTree?.current.root?.id}
+                renderService={pageProviderBuilderRenderer}
                 typeService={typeService}
                 userService={userService}
               />
@@ -190,12 +194,14 @@ PageBuilder.Layout = observer((page) => {
         ))}
         ExplorerPane={observer(() => (
           <BuilderExplorerPane
+            actionService={actionService}
             atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
             pageId={appId}
             renderService={builderRenderService}
+            storeId={pageProviderBuilderRenderer?.appStore?.id as string}
             userService={userService}
           />
         ))}
@@ -207,7 +213,6 @@ PageBuilder.Layout = observer((page) => {
             primaryItems={[
               appMenuItem,
               allPagesMenuItem(appId),
-              pageBuilderMenuItem(appId, pageId),
               storeMenuItem(appId),
               resourceMenuItem,
             ]}
@@ -216,7 +221,6 @@ PageBuilder.Layout = observer((page) => {
         )}
         contentStyles={{ paddingTop: '0rem' }}
         headerHeight={38}
-        key={activeElementTree?.id}
       >
         {page.children}
       </DashboardTemplate>
@@ -224,6 +228,6 @@ PageBuilder.Layout = observer((page) => {
   )
 })
 
-export default PageBuilder
+export default PageProviderBuilder
 
-PageBuilder.displayName = 'PageBuilder'
+PageProviderBuilder.displayName = 'PageProviderBuilder'

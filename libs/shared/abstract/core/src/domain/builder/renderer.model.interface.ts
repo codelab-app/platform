@@ -22,6 +22,8 @@ export interface IRenderer {
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   extraElementProps: IExtraElementProps
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
+  runPreAction(element: IElement): void
+  getPostAction(element: IElement): Nullish<() => any>
   renderElement(element: IElement, extraProps?: IPropData): ReactElement
   initForce(
     pageTree: IElementTree,

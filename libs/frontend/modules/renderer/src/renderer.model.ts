@@ -1,6 +1,10 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/modules/element'
-import { getState } from '@codelab/frontend/modules/store'
+import {
+  createActionFn,
+  getActionService,
+  getState,
+} from '@codelab/frontend/modules/store'
 import { getTypeService } from '@codelab/frontend/modules/type'
 import {
   getElementService,
@@ -222,15 +226,52 @@ export class Renderer
     return React.createElement(Providers, {}, rootElement)
   }
 
+  runPreAction = (element: IElement) => {
+    if (!element.preRenderActionId) {
+      return
+    }
+
+    const actionService = getActionService(this)
+    const action = actionService.action(element.preRenderActionId)
+
+    if (!action) {
+      throw new Error(
+        `Pre render action not found for element ${element.label}`,
+      )
+    }
+
+    createActionFn(action, this.platformState)()
+  }
+
+  getPostAction = (element: IElement) => {
+    if (!element.postRenderActionId) {
+      return null
+    }
+
+    const actionService = getActionService(this)
+    const action = actionService.action(element.postRenderActionId)
+
+    if (!action) {
+      throw new Error(
+        `Post render action not found for element ${element.label}`,
+      )
+    }
+
+    return createActionFn(action, this.platformState)
+  }
+
   /**
    * Renders a single Element using the provided RenderAdapter
    */
   renderElement = (element: IElement, extraProps?: IPropData): ReactElement => {
+    this.runPreAction(element)
+
     const wrapperProps: ElementWrapperProps & { key: string } = {
       key: `element-wrapper-${element.id}`,
       renderService: this,
       element,
       extraProps,
+      postAction: this.getPostAction(element),
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

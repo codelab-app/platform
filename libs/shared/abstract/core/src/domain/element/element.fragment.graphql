@@ -24,6 +24,8 @@ fragment Element on Element {
   }
   renderForEachPropKey
   renderIfPropKey
+  preRenderActionId
+  postRenderActionId
   propMapBindings {
     ...PropMapBinding
   }

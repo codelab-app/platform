@@ -10,6 +10,8 @@ import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
 import { BaseRenderPipe } from './renderPipe.base'
 
+const falseValues = ['false', 'undefined', 'null', '0']
+
 @model('@codelab/ConditionalRenderPipe')
 export class ConditionalRenderPipe
   extends ExtendedModel(BaseRenderPipe, {
@@ -41,7 +43,7 @@ export class ConditionalRenderPipe
 
     const value = get(props, element.renderIfPropKey)
 
-    if (isString(value) && value.trim().toLowerCase() === 'false') {
+    if (isString(value) && falseValues.includes(value.trim().toLowerCase())) {
       return true
     }
 

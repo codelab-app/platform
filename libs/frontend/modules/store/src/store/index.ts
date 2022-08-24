@@ -1,5 +1,6 @@
 export * from './action.service'
 export * from './apis'
+export * from './createActionFn'
 export * from './models'
 export * from './platformState'
 export * from './store.service'

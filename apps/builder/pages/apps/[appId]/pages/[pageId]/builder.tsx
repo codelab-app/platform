@@ -214,12 +214,14 @@ PageBuilder.Layout = observer((page) => {
         ))}
         ExplorerPane={observer(() => (
           <BuilderExplorerPane
+            actionService={actionService}
             atomService={atomService}
             builderService={builderService}
             componentService={componentService}
             elementService={elementService}
             pageId={pageId}
             renderService={builderRenderService}
+            storeId={pageBuilderRenderer?.appStore?.id as string}
             userService={userService}
           />
         ))}

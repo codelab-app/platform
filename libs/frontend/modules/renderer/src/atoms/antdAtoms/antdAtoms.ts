@@ -5,7 +5,7 @@ import { AtomsRecord } from '../types'
 export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignGridRow]: dynamic(() => import('antd/lib/grid/row')),
   [IAtomType.AntDesignIcon]: dynamic(() =>
-    import('@codelab/frontend/platform/atoms').then((mod) => mod.Icon),
+    import('@codelab/frontend/platform/atoms').then((mod) => mod.AntdIcon),
   ),
   [IAtomType.AntDesignMenu]: dynamic(() => import('antd/lib/menu')),
   [IAtomType.AntDesignMenuItem]: dynamic(

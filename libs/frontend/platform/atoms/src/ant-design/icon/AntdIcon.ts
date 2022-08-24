@@ -1,4 +1,4 @@
-import * as AntdIcon from '@ant-design/icons'
+import * as AntdIcons from '@ant-design/icons'
 import { IconProps } from '@ant-design/icons/lib/components/IconBase'
 import React from 'react'
 
@@ -9,13 +9,13 @@ type _IconProps = IconProps & {
   name: string
 }
 
-export const Icon = ({ name, ...props }: _IconProps) => {
+export const AntdIcon = ({ name, ...props }: _IconProps) => {
   if (!name) {
     return null
   }
 
   return React.createElement(
-    AntdIcon[name as keyof typeof AntdIcon] as any,
+    AntdIcons[name as keyof typeof AntdIcons] as any,
     props,
   )
 }

@@ -26,58 +26,79 @@ const PageRenderer: CodelabPage<any> = observer(() => {
     typeService,
     componentService,
     storeService,
-    appRenderService,
     userService,
+    appRenderService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const router = useRouter()
-  // Load the pages list for the top bar
-  useStatefulExecutor(() => pageService.getAll(), { executeOnMount: true })
 
   const [, { isLoading, error, data, isDone }] = useStatefulExecutor(
     async () => {
-      // load all apps to provide them to mobxState
+      /**
+       *
+       * load all apps to provide them to mobxState
+       */
       const apps = await appService.getAll()
-      // load all pages to provide them to mobxState
-      const pages = await pageService.getAll()
       const app = appService.app(appId)
+      /**
+       *
+       * load app store
+       *
+       */
+      const appStore = await storeService.getOne(app.store.id)
+
+      if (!appStore) {
+        throw new Error('App store not found')
+      }
+
+      /**
+       *
+       * load all pages to provide them to mobxState
+       *
+       * */
+      const pages = await pageService.getAll()
       const page = pageService.page(pageId)
 
       if (!page) {
         throw new Error('Page not found')
       }
 
-      const appStore = await storeService.getOne(app.store.id)
-
-      if (!appStore) {
-        throw new Error('Store not found')
-      }
-
-      // components are needed to build pageElementTree
-      // therefore they must be loaded first
-      await componentService.loadComponentTrees(userService.auth0Id)
+      /**
+       *
+       * components are needed to build pageElementTree
+       *
+       */
+      const components = await componentService.loadComponentTrees(
+        userService.auth0Id,
+      )
 
       /**
-       * Construct the ElementTree's for
        *
-       * - page tree
-       * - provider tree
+       * load all types
+       *
        */
-      const [pageElementTree, providerTree, types] = await Promise.all([
-        page.initTree(page.rootElement.id),
-        app.initTree(app.rootElement.id),
-        typeService.getAll(),
-      ])
+      const types = await typeService.getAll()
+      /**
+       *
+       * construct provider tree
+       *
+       */
+      const providerTree = await app.initTree(app.rootElement.id)
+      /**
+       *
+       * page Element tree
+       *
+       */
+      const pageElementTree = await page.initTree(page.rootElement.id)
 
-      // initialize renderer
       const renderer = await appRenderService.addRenderer(
         pageId,
         pageElementTree,
-        app.elementTree,
+        providerTree,
         appStore,
-        await createMobxState(appStore, apps, pages, router),
+        createMobxState(appStore, apps, pages, router),
         false,
       )
 
@@ -87,6 +108,8 @@ const PageRenderer: CodelabPage<any> = observer(() => {
         providerTree,
         appStore,
         renderer,
+        components,
+        types,
       }
     },
     { executeOnMount: true },
@@ -99,9 +122,9 @@ const PageRenderer: CodelabPage<any> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      {isDone && data?.pageElementTree && data.renderer ? (
+      {isDone && data?.pageElementTree && data.renderer && (
         <Renderer renderRoot={data.renderer.renderRoot.bind(data.renderer)} />
-      ) : null}
+      )}
     </>
   )
 })
@@ -124,3 +147,5 @@ PageRenderer.Layout = observer((page) => {
     </DashboardTemplate>
   )
 })
+
+PageRenderer.displayName = 'PageRenderer'

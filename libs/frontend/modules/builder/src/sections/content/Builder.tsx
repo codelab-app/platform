@@ -96,7 +96,7 @@ const StyledBuilderContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background: white;
+  background: transparent;
   //max-height: 100%;
   overflow: scroll;
   border: 3px dotted rgba(0, 0, 0, 1);

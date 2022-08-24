@@ -1,4 +1,5 @@
 import {
+  IField,
   IInterfaceType,
   IPropData,
   IPropsFieldContext,
@@ -26,7 +27,7 @@ export const PropsForm = observer<PropsFormProps>(
   ({ interfaceType, initialValue, onSubmit, autosave, context }) => {
     const form = useForm({ defaultValues: initialValue })
     const { handleSubmit, watch } = form
-    const fields = [...interfaceType.fields.values()]
+    const fields: Array<IField> = [...interfaceType.fields.values()]
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const debouncedSave = useCallback(

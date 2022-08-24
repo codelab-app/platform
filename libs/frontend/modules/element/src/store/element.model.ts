@@ -14,7 +14,7 @@ import type {
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
 import { cssMap, ELEMENT_NODE_TYPE } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { mergeProps, pascalCaseToWords } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
@@ -51,6 +51,8 @@ export const hydrate = ({
   instanceOfComponent,
   parentElement,
 
+  preRenderActionId,
+  postRenderActionId,
   // TODO Integrate hooks if their usage is not made obsolete by the mobx platform
   hooks,
   propMapBindings,
@@ -68,6 +70,8 @@ export const hydrate = ({
     guiCss,
     parentId: parentElement?.id,
     atom: atom ? atomRef(atom.id) : null,
+    preRenderActionId,
+    postRenderActionId,
     props: props ? Prop.hydrate(props) : null,
     propTransformationJs,
     renderIfPropKey,
@@ -116,6 +120,8 @@ export class Element
     guiCss: prop<Nullable<string>>(null),
     atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     props: prop<Nullable<IProp>>(null),
+    preRenderActionId: prop<Nullish<string>>(null),
+    postRenderActionId: prop<Nullish<string>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderIfPropKey: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
@@ -418,6 +424,8 @@ export class Element
     props,
     propTransformationJs,
     renderIfPropKey,
+    postRenderActionId,
+    preRenderActionId,
     renderForEachPropKey,
     parentElementConnection,
     parentElement,
@@ -430,6 +438,9 @@ export class Element
     this.renderIfPropKey = renderIfPropKey ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.atom = atom ? atomRef(atom.id) : null
+
+    this.preRenderActionId = preRenderActionId
+    this.postRenderActionId = postRenderActionId
     this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
     this.parentId = parentElement?.id ?? null

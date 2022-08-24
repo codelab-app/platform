@@ -1,4 +1,5 @@
 import {
+  SelectAction,
   SelectAnyElement,
   SelectAtom,
   SelectComponent,
@@ -6,6 +7,7 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import {
+  IActionService,
   IBuilderService,
   IComponentService,
   ICreateElementDTO,
@@ -24,10 +26,12 @@ import { createElementSchema } from './createElementSchema'
 type CreateElementModalProps = {
   pageTree: IElementTree
   renderService: IRenderService
+  actionService: IActionService
   builderService: IBuilderService
   elementService: IElementService
   userService: IUserService
   componentService: IComponentService
+  storeId: string
 }
 
 export const CreateElementModal = observer<CreateElementModalProps>(
@@ -37,6 +41,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     userService,
     pageTree,
     renderService,
+    actionService,
+    storeId,
   }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
       const [element] = await elementService.create([data])
@@ -94,6 +100,8 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'customCss',
               'guiCss',
               'propsData',
+              'preRenderActionId',
+              'postRenderActionId',
             ]}
           />
           <AutoField
@@ -117,6 +125,16 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             activeComponentId={builderService.activeComponent?.id}
             component={SelectComponent}
             name="instanceOfComponentId"
+          />
+          <SelectAction
+            actionService={actionService}
+            name="preRenderActionId"
+            storeId={storeId}
+          />
+          <SelectAction
+            actionService={actionService}
+            name="postRenderActionId"
+            storeId={storeId}
           />
         </ModalForm.Form>
       </ModalForm.Modal>
