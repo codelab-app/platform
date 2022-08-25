@@ -57,23 +57,23 @@ export const Field = observer(({ field, form, context }: FieldProps) => {
   }
 
   if (isOfTypeKind<IField<IInterfaceType>>(field, ITypeKind.InterfaceType)) {
-  return (
-        <>
-          {[...field.type.current.fields.values()].map((f, i) => (
-            <Field
-              context={context}
-              field={{
-                description: f.description,
-                id: f.id,
-                type: f.type,
-                key: `${field.key}.${f.key}`,
-                name: `${field.key}.${f.key}`,
-              }}
-              form={form}
-            />
-          ))}
-        </>
-      )
+    return (
+      <>
+        {[...field.type.current.fields.values()].map((f, i) => (
+          <Field
+            context={context}
+            field={{
+              description: f.description,
+              id: f.id,
+              type: f.type,
+              key: `${field.key}.${f.key}`,
+              name: `${field.key}.${f.key}`,
+            }}
+            form={form}
+          />
+        ))}
+      </>
+    )
   }
 
   if (isOfTypeKind<IField<IPrimitiveType>>(field, ITypeKind.PrimitiveType)) {
