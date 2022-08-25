@@ -2,18 +2,17 @@ import { fieldRepository } from '@codelab/backend'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
 import { flow } from 'lodash'
-import { builderComponentUsecaseTag } from '../../../data/tag'
 import { importAtom } from '../../../use-cases/import/import-atom'
 import { importTags } from '../../../use-cases/import/import-tags'
 import { importType } from '../../../use-cases/import/import-type'
 import {
   createAntDesignAtomsData,
-  createAntdesignTagsData,
+  createAntDesignTagsData,
 } from '../../../use-cases/parser/ant-design'
 import { ParserService } from '../../../use-cases/parser/parser.service'
 import type { ExportedData } from '../../export/export.command'
 import { addAntdAtomIcons } from './add-antd-atoms-icons'
-import { addAntdUseCaseTags } from './add-antd-use-case-tags'
+import { addAntdTags } from './add-antd-tags'
 
 export const importSeedData = async (
   selectedUser: string,
@@ -37,13 +36,13 @@ export const importSeedData = async (
  * Once data is in JSON format, we use that to import
  */
 export const __seedData = async (selectedUser: string) => {
-  const tags = await createAntdesignTagsData()
+  const tags = await createAntDesignTagsData()
   await importTags(tags, selectedUser)
   // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
   await importType(createSeedTypesData(), selectedUser)
 
   const atoms = await createAntDesignAtomsData()
-  const transformedAtoms = flow(addAntdUseCaseTags, addAntdAtomIcons)(atoms)
+  const transformedAtoms = flow(addAntdTags, addAntdAtomIcons)(atoms)
 
   // Seed all atoms here second
   await importAtom(transformedAtoms, selectedUser)

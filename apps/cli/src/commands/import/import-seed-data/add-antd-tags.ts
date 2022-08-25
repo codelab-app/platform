@@ -72,7 +72,7 @@ export const antTagNames = Object.keys(atomNamesByTag)
 
 const antdCompNames = antTagNames.flatMap((tag) => atomNamesByTag[tag])
 
-export const addAntdUseCaseTags = (atoms: Array<IAtomExport>) => {
+export const addAntdTags = (atoms: Array<IAtomExport>) => {
   return atoms.map((atom) => {
     const name = atom.name
 

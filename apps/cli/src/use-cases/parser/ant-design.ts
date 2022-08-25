@@ -4,10 +4,14 @@ import {
   TagOGM,
   tagSelectionSet,
 } from '@codelab/backend'
-import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
+import {
+  IAtomExport,
+  IAtomType,
+  ITagExport,
+} from '@codelab/shared/abstract/core'
 import { componentTagName } from '@codelab/shared/data'
 import { v4 } from 'uuid'
-import { antTagNames } from '../../commands/import/import-seed-data/add-antd-use-case-tags'
+import { antTagNames } from '../../commands/import/import-seed-data/add-antd-tags'
 
 export interface AntdDesignApi {
   property: string
@@ -18,7 +22,7 @@ export interface AntdDesignApi {
   isEnum: boolean
 }
 
-export const createAntdesignTagsData = async () => {
+export const createAntDesignTagsData = async (): Promise<Array<ITagExport>> => {
   const Tag = await TagOGM()
 
   const existingTags = (

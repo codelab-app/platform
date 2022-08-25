@@ -33,7 +33,7 @@ export const createOrUpdateTag = async (
 ) => {
   const Tag = await TagOGM()
 
-  const nameExisting = await Tag.find({
+  const existingName = await Tag.find({
     where: {
       name: tag.name,
     },
@@ -43,7 +43,7 @@ export const createOrUpdateTag = async (
     owner: { connect: { where: { node: { id: selectedUser } } } },
   }
 
-  if (!nameExisting.length) {
+  if (!existingName.length) {
     console.log(`Creating ${tag.name}...`)
 
     const createInput = {

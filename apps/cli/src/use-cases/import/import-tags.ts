@@ -8,7 +8,7 @@ export const importTags = async (
 ) => {
   console.log('Importing tag...\n')
 
-  const promiseCreateTags = tags.map((tag) => {
+  const createTagsOperations = tags.map((tag) => {
     console.log('\n---------------------\n')
     console.log(`Upserting ${tag.name}:`)
     cLog(tag)
@@ -17,15 +17,15 @@ export const importTags = async (
     return createOrUpdateTag(tag, selectedUser)
   })
 
-  await Promise.all(promiseCreateTags)
+  await Promise.all(createTagsOperations)
 
-  const promiseSyncTags = tags.map((tag) => {
+  const syncTagsOperations = tags.map((tag) => {
     console.log(`Link Tag ${tag.name}:`)
     console.log('\n')
 
     return linkTag(tag)
   })
 
-  await Promise.all(promiseSyncTags)
+  await Promise.all(syncTagsOperations)
   console.log('DONE')
 }

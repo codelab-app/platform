@@ -19,7 +19,7 @@ export const importCommand: CommandModule<any, any> = {
   builder: {
     userData: {
       describe: 'userData',
-      // demandOption: true,
+      demandOption: true,
       type: 'string',
     },
     /**
@@ -27,7 +27,7 @@ export const importCommand: CommandModule<any, any> = {
      */
     seedData: {
       describe: 'seedData',
-      // demandOption: true,
+      demandOption: true,
       type: 'string',
       default: seedFilePath,
     },

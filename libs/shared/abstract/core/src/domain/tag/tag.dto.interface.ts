@@ -19,8 +19,8 @@ export type ITagGraphDTO = ITagDTO & {
 }
 
 export type ITagExport = {
-  id?: string
-  name?: string
+  id: string
+  name: string
   children: Array<Pick<ITag, 'id'>>
   parent?: Pick<ITag, 'id'>
 }
