@@ -1,7 +1,7 @@
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
-import { esLint, javascript } from '@codemirror/lang-javascript'
+import { javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
 import { StreamLanguage } from '@codemirror/language'
 import { linter, lintGutter } from '@codemirror/lint'
