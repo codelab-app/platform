@@ -167,7 +167,11 @@ export class ElementService
 
     const hydratedElements = this.hydrateOrUpdateCache(elements)
 
-    const linkPromises = hydratedElements.map((e) => {
+    const linkPromises = hydratedElements.map((element) => {
+      if (!element) {
+        return Promise.resolve({})
+      }
+
       const prevSiblingId = data?.[0].prevSiblingId ?? undefined
       const parentElementId = data[0].parentElementId
 
@@ -189,18 +193,17 @@ export class ElementService
       // ^ new : tree - [next] - prev
 
       return this.linkElement({
-        element: e,
+        element,
         prevSiblingId: prevSibling?.id,
-        nextSiblingId: nextSiblingId ?? undefined,
+        nextSiblingId: nextSiblingId,
         parentElementId,
-        shouldUpdateCache: false,
       }).then(() => {
-        e.linkSiblings({
+        element.linkSiblings({
           prevSiblingId: prevSibling?.id,
           parentElementId,
-          nextSiblingId: nextSiblingId ?? undefined,
+          nextSiblingId: nextSiblingId,
         })
-        e.syncLinkedSiblings()
+        element.syncLinkedSiblings()
       })
     })
 
@@ -342,7 +345,6 @@ export class ElementService
       prevSiblingId,
       nextSiblingId,
       parentElementId,
-      shouldUpdateCache,
     }: Parameters<IElementService['linkElement']>[0],
   ) {
     // a -> [new] -> c
@@ -747,9 +749,6 @@ export class ElementService
     // 2. Attach a Component to the Element and detach it from the parent
     const parentId = element.parentElement.id
 
-    const order =
-      element.orderInParent ?? element.parentElement.lastChildOrder + 1
-
     element.parentElement.removeChild(element)
 
     yield* _await(
@@ -796,7 +795,6 @@ export class ElementService
           name: element.label,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
-          order,
         },
       ]),
     )

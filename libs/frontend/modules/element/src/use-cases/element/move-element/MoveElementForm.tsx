@@ -53,26 +53,22 @@ export const MoveElementForm = observer<MoveElementFormProps>(
 
       // check this first because change parent could trigger change in prev to undefined
       // because we move the target element to the begining of the tree
-      if (changeParent) {
+      if (changeParent && parentElementId) {
         // change parent
-        elementService.moveAsRoot(element.id, parentElementId)
-
-        return
+        return elementService.moveAsRoot(element.id, parentElementId)
       }
 
       // clear link element
       if (changePrevSibling && prevSiblingId) {
-        elementService.moveElementNextTo(element.id, prevSiblingId)
-
-        return
+        return elementService.moveElementNextTo(element.id, prevSiblingId)
       }
 
       // clear linked by, move to the root
       if (changePrevSibling && !prevSiblingId && element.parentId) {
-        elementService.moveAsRoot(element.id, element.parentId)
-
-        return
+        return elementService.moveAsRoot(element.id, element.parentId)
       }
+
+      return Promise.resolve()
     }
 
     const elementOptions = elementTree.elementsList.map(mapElementOption)

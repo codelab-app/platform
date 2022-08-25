@@ -2,7 +2,7 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,
@@ -58,9 +58,9 @@ export interface IElementService
   // link element
   linkElement(props: {
     element: IElement
-    prevSiblingId?: string
-    nextSiblingId?: string
-    parentElementId?: string
+    prevSiblingId: Nullish<string>
+    nextSiblingId: Nullish<string>
+    parentElementId: Nullish<string>
     shouldUpdateCache?: boolean
   }): Promise<void>
 
@@ -79,8 +79,8 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  moveAsRoot(elementId: string, targetId: string): void
-  moveElementNextTo(elementId: string, targetId: string): void
+  moveAsRoot(elementId: string, targetId: string): Promise<void>
+  moveElementNextTo(elementId: string, targetId: string): Promise<void>
   duplicateElement(
     target: IElement,
     auth0Id: IAuth0Id,

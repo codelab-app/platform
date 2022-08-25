@@ -85,7 +85,6 @@ export const hydrate = ({
     propTransformationJs,
     renderIfPropKey,
     renderForEachPropKey,
-    orderInParent: parentElementConnection?.edges?.[0]?.order ?? null,
     component: component ? componentRef(component.id) : null,
     instanceOfComponent: instanceOfComponent
       ? componentRef(instanceOfComponent.id)
@@ -317,13 +316,6 @@ export class Element
       : undefined
   }
 
-  @computed
-  get lastChildOrder() {
-    const childrenSorted = this.childrenSorted
-
-    return childrenSorted[childrenSorted.length - 1]?.orderInParent ?? 0
-  }
-
   /**
    * Internal system props for meta data, use double underline for system-defined identifiers.
    */
@@ -539,7 +531,6 @@ export class Element
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
-    parentElementConnection,
     parentElement,
     nextSibling,
     prevSibling,
@@ -556,7 +547,6 @@ export class Element
 
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
-    this.orderInParent = parentElementConnection?.edges?.[0]?.order ?? null
     this.props = props ? new Prop({ id: props.id }) : null
     this.parentId = parentElement?.id ?? null
 
@@ -591,6 +581,3 @@ export class Element
 
   public static getElementTree = getElementTree
 }
-
-export const compareOrder = (a: IElement, b: IElement) =>
-  (a.orderInParent ?? 0) - (b.orderInParent ?? 0)

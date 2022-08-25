@@ -1,9 +1,9 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { ICreateElementDTO } from '../element'
 
 export interface MoveData {
-  order: number
-  parentElementId: string
-  prevSiblingId: string
+  parentElementId: Nullable<string>
+  prevSiblingId: Nullable<string>
 }
 
 export interface BuilderDragData {

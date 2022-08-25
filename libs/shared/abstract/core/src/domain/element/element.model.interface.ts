@@ -29,7 +29,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   guiCss: Nullable<string>
   props?: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
-  orderInParent: Nullable<number>
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
@@ -37,7 +36,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   component: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
-  lastChildOrder: number
   preRenderActionId: Nullish<string>
   postRenderActionId: Nullish<string>
   childrenSorted: Array<IElement>
@@ -50,7 +48,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  siblings: Array<IElement>
+  siblings?: ObjectMap<Ref<IElement>>
 
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
@@ -58,9 +56,9 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   prevSiblingId: Nullable<string>
 
   linkSiblings(params: {
-    prevSiblingId?: string
-    nextSiblingId?: string
-    parentElementId?: string
+    prevSiblingId: Nullish<string>
+    nextSiblingId: Nullish<string>
+    parentElementId: Nullish<string>
   }): void
   unlinkSiblings(): void
   syncLinkedSiblings(): void

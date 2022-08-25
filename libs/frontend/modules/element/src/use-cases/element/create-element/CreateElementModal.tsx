@@ -77,9 +77,12 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const closeModal = () => elementService.createModal.close()
 
-    const allElementOptions = pageTree.elementsList
+    const selectParentElementOptions = pageTree.elementsList
       .filter((element) => !element?.instanceOfComponent && !element?.component)
       .map(mapElementOption)
+
+    const selectChildrenElementOptions =
+      pageTree.elementsList.map(mapElementOption)
 
     return (
       <ModalForm.Modal
@@ -113,13 +116,13 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={allElementOptions}
+                allElementOptions={selectParentElementOptions}
               />
             ))}
             name="parentElementId"
           />
           <SelectLinkElement
-            allElementOptions={allElementOptions}
+            allElementOptions={selectChildrenElementOptions}
             name="prevSiblingId"
           />
           <AutoField component={SelectAtom} name="atomId" />

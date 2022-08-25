@@ -2,8 +2,9 @@ import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeProps } from 'antd/lib/tree'
 
-export type UseElementTreeDropProps = Pick<IElementService, 'moveElement'> & {
+export type UseElementTreeDropProps = {
   elementTree: Nullable<IElementTree>
+  elementService: IElementService
 }
 
 /**

@@ -64,6 +64,11 @@ describe('CSS CRUD', () => {
             edge: { order: 1 },
           },
         },
+        rootOf: {
+          connect: {
+            where: { node: { id: app.pages[0].rootElement.id } },
+          },
+        },
         props: {
           create: { node: { data: JSON.stringify({}) } },
         },

@@ -11,6 +11,7 @@ import { v4 } from 'uuid'
 
 //
 // Utilities for transforming the form inputs to api inputs
+//
 
 export const makeCreateInput = (
   input: ICreateElementDTO,
