@@ -16361,7 +16361,6 @@ __metadata:
     eslint-config-prettier: 8.5.0
     eslint-import-resolver-node: 0.3.6
     eslint-import-resolver-typescript: 2.7.1
-    eslint-linter-browserify: ^8.22.0
     eslint-plugin-cypress: 2.12.1
     eslint-plugin-deprecate-import: 2.0.0
     eslint-plugin-import: 2.26.0
@@ -20234,13 +20233,6 @@ __metadata:
     eslint: "*"
     eslint-plugin-import: "*"
   checksum: 1d81b657b1f73bf95b8f0b745c0305574b91630c1db340318f3ca8918e206fce20a933b95e7c419338cc4452cb80bb2b2d92acaf01b6aa315c78a332d832545c
-  languageName: node
-  linkType: hard
-
-"eslint-linter-browserify@npm:^8.22.0":
-  version: 8.22.0
-  resolution: "eslint-linter-browserify@npm:8.22.0"
-  checksum: 0ec96e74df7115542df96b972cbc825928fbcadb7010511fb1fc53d2ea914b3ba5ecd4356d9b7288210a85fee6da1aa099c69aae6babb307b7a8017b2365c1ca
   languageName: node
   linkType: hard
 
