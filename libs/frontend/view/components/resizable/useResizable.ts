@@ -119,6 +119,7 @@ export const useResizable = ({
     xDragHandleProps: {
       onDrag: handleXDrag,
       style: {
+        translateX: '0px !important',
         cursor: 'col-resize',
       },
       onDragEnd: () => setIsDraggingX(false),
@@ -129,6 +130,8 @@ export const useResizable = ({
     xyDragHandleProps: {
       onDrag: handleXYDrag,
       style: {
+        translateX: '0px !important',
+        translateY: '0px !important',
         cursor: 'nwse-resize',
       },
       onDragEnd: () => {
@@ -145,6 +148,7 @@ export const useResizable = ({
     yDragHandleProps: {
       onDrag: handleYDrag,
       style: {
+        translateY: '0px !important',
         cursor: 'row-resize',
       },
       onDragEnd: () => setIsDraggingY(false),
