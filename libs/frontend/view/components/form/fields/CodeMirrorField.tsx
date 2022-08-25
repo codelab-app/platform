@@ -1,7 +1,7 @@
 import { Form } from 'antd'
 import React, { Ref } from 'react'
 import { connectField, FieldProps } from 'uniforms'
-import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../editors'
+import { CodeMirrorEditor, CodeMirrorEditorProps } from '../../codeMirror'
 
 type CodeMirrorFieldProps = FieldProps<
   string,

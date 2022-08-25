@@ -1,6 +1,6 @@
 export * from './button'
+export * from './codeMirror'
 export * from './conditionalView'
-export * from './editors'
 export * from './errorBoundary'
 export * from './fancybox/Fancybox'
 export * from './form'

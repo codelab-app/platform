@@ -41,9 +41,7 @@ import {
   keymap,
   rectangularSelection,
 } from '@codemirror/view'
-import { Command, EditorView } from '@uiw/react-codemirror'
 import { capitalize, isArray, isObjectLike } from 'lodash'
-import { CodeMirrorEditorProps } from '../CodeMirrorEditor'
 
 // Forbids from entering new lines in the field
 export const disallowNewLines = EditorState.transactionFilter.of((tr) =>
@@ -124,15 +122,21 @@ export const contextCompletionOptions = (
 
 // get all keys from contextOptions and add them as options
 
-export const completionsFactory = ({
-  defaultCompletionOptions = [],
-  defaultCompletionSource,
-  templateCompletionOptions = [],
-}: {
-  defaultCompletionSource: CodeMirrorEditorProps['defaultCompletionSource']
-  defaultCompletionOptions: CodeMirrorEditorProps['defaultCompletionOptions']
+interface CompletionFactoryInput {
+  defaultCompletionSource: CompletionSource
+  defaultCompletionOptions: Array<Completion>
   templateCompletionOptions?: Array<Completion>
-}): CompletionSource => {
+}
+
+type CompletionFactory = (input: CompletionFactoryInput) => CompletionSource
+
+export const completionFactory: CompletionFactory = (input) => {
+  const {
+    defaultCompletionOptions = [],
+    defaultCompletionSource,
+    templateCompletionOptions = [],
+  } = input
+
   return (context) => {
     const word = context.matchBefore(/\w*(\.)?/)
     const hasOpenLeftSideBracket = checkForOpenLeftSideBracket(context)
@@ -164,7 +168,8 @@ export const completionsFactory = ({
   }
 }
 
-const getTextBeforeCursor = (view: EditorView): string => {
+// TODO: assign Type
+const getTextBeforeCursor = (view: any): string => {
   const currentSelectionFrom = view.state.selection.ranges[0].from
 
   return view.state.doc.sliceString(
@@ -181,7 +186,8 @@ if (STATE_PATH_TEMPLATE_START !== '{{') {
   )
 }
 
-const insertBracketAndStartCompletion: Command = (view) => {
+// TODO: assign Type
+const insertBracketAndStartCompletion = (view: any) => {
   const textBeforeCursor = getTextBeforeCursor(view)
   // insert the bracket
   const toInsert = insertBracket(view.state, '{')

@@ -8,15 +8,13 @@ import {
   startCompletion,
 } from '@codemirror/autocomplete'
 import {
-  Extension,
   ReactCodeMirrorProps,
   UseCodeMirror,
   useCodeMirror,
-  ViewUpdate,
 } from '@uiw/react-codemirror'
 import React, { useEffect, useRef } from 'react'
 import { CodeMirrorModal } from './CodeMirrorModal'
-import { basicSetup, completionsFactory } from './extensions'
+import { basicSetup, completionFactory } from './extensions'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps
@@ -28,7 +26,7 @@ export interface CodeMirrorInputProps
   defaultCompletionSource?: CompletionSource
   defaultCompletionOptions?: Array<Completion>
   templateCompletionOptions?: Array<Completion>
-  extensions?: Array<Extension>
+  extensions?: Array<any>
   shouldDisableNewLines?: boolean
   expandable?: boolean
   title?: Nullish<string>
@@ -59,7 +57,7 @@ export const CodeMirrorInput = ({
       defaultKeymap: false,
       activateOnTyping: true,
       override: [
-        completionsFactory({
+        completionFactory({
           defaultCompletionSource,
           templateCompletionOptions,
           defaultCompletionOptions,
@@ -69,7 +67,7 @@ export const CodeMirrorInput = ({
     ...extensions,
   ])
 
-  const codeMirrorOnUpdate = (viewUpdate: ViewUpdate) => {
+  const codeMirrorOnUpdate = (viewUpdate: any) => {
     // open the completion on focus and close on blur
     if (viewUpdate.focusChanged) {
       if (viewUpdate.view.hasFocus) {
