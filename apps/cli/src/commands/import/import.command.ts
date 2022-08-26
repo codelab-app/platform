@@ -1,6 +1,7 @@
 import { UserOGM } from '@codelab/backend'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
+// import { antdAtomsFactory } from '../../data/atom'
 import { seedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
 import { importUserData } from './import-user-data'
@@ -64,7 +65,7 @@ export const importCommand: CommandModule<any, any> = {
     }
 
     // Only used by admin
-    // await __seedData(selectedUser)
+    // await __seedData(selectedUser, antdAtomsFactory)
 
     yargs.exit(0, null!)
   },

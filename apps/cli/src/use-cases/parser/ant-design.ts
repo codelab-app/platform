@@ -11,7 +11,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { componentTagName } from '@codelab/shared/data'
 import { v4 } from 'uuid'
-import { antTagNames } from '../../commands/import/import-seed-data/add-antd-tags'
+import { antTagNames } from '../../data/atom/add-antd-tags'
 
 export interface AntdDesignApi {
   property: string
