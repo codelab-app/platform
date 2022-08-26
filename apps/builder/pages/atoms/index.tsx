@@ -26,6 +26,7 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import { observer } from 'mobx-react-lite'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React, { useCallback, useEffect, useMemo } from 'react'
@@ -37,7 +38,7 @@ import {
   muiAtoms,
 } from '../../../../libs/frontend/modules/renderer/src/atoms'
 
-const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
+const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()
   const htmlAtomsKeys = useMemo(() => Object.keys(htmlAtoms), [htmlAtoms])
   const muiAtomsKeys = useMemo(() => Object.keys(muiAtoms), [muiAtoms])
@@ -103,7 +104,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
       </ContentSection>
     </>
   )
-}
+})
 
 const Header = () => {
   const store = useStore()
