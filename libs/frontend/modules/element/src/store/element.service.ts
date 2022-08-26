@@ -1,5 +1,8 @@
 import { getAtomService } from '@codelab/frontend/modules/atom'
-import { getComponentService } from '@codelab/frontend/presenter/container'
+import {
+  getComponentService,
+  getElementLinkService,
+} from '@codelab/frontend/presenter/container'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -21,7 +24,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { connectId, disconnectId } from '@codelab/shared/data'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
@@ -34,7 +37,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { disconnect } from 'process'
 import { v4 } from 'uuid'
 import {
   makeCreateInput,
@@ -43,7 +45,6 @@ import {
 } from './api.utils'
 import { elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
-import { elementRef } from './element.ref'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -78,6 +79,11 @@ export class ElementService
   })
   implements IElementService
 {
+  @computed
+  get elementLinkService() {
+    return getElementLinkService(this)
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: ElementService, where?: ElementWhere) {
@@ -192,19 +198,21 @@ export class ElementService
       // ^ old : tree - prev
       // ^ new : tree - [next] - prev
 
-      return this.linkElement({
-        element,
-        prevSiblingId: prevSibling?.id,
-        nextSiblingId: nextSiblingId,
-        parentElementId,
-      }).then(() => {
-        element.linkSiblings({
+      return this.elementLinkService
+        .linkElement({
+          element,
           prevSiblingId: prevSibling?.id,
-          parentElementId,
           nextSiblingId: nextSiblingId,
+          parentElementId,
         })
-        element.syncLinkedSiblings()
-      })
+        .then(() => {
+          element.linkSiblings({
+            prevSiblingId: prevSibling?.id,
+            parentElementId,
+            nextSiblingId: nextSiblingId,
+          })
+          element.syncLinkedSiblings()
+        })
     })
 
     yield* _await(Promise.all(linkPromises))
@@ -338,275 +346,6 @@ export class ElementService
 
   @modelFlow
   @transaction
-  linkElement = _async(function* (
-    this: ElementService,
-    {
-      element,
-      prevSiblingId,
-      nextSiblingId,
-      parentElementId,
-    }: Parameters<IElementService['linkElement']>[0],
-  ) {
-    // a -> [new] -> c
-    if (parentElementId) {
-      // parent = a -> [new] -> c
-      // parent -> [new]
-      yield* _await(
-        this.patchElement(
-          element,
-          {
-            parentElement: connectId(parentElementId),
-          },
-          false,
-        ),
-      )
-
-      const parentElement = parentElementId
-        ? this.element(parentElementId)
-        : undefined
-
-      if (!parentElement) {
-        throw new Error("An element can only have one tree, and can't be link")
-      }
-
-      // parent -> c
-      // parent -> [new] -> c
-      // disconnect c as children root
-      // connect new as children
-      if (!prevSiblingId) {
-        yield* _await(
-          this.patchElement(
-            parentElement,
-            {
-              childrenRoot: {
-                ...disconnectId(parentElement.childrenRoot?.id),
-                ...connectId(element?.id),
-              },
-            },
-            false,
-          ),
-        )
-      }
-    }
-
-    const prevSibling = prevSiblingId ? this.element(prevSiblingId) : undefined
-
-    // a -> c
-    // a -> [new] c
-    // disconnect a,c
-    // connect a to new
-    if (prevSibling && prevSiblingId) {
-      yield* _await(
-        this.patchElement(
-          prevSibling,
-          {
-            nextSibling: {
-              ...disconnectId(prevSibling.nextSibling?.id),
-              ...connectId(element?.id),
-            },
-          },
-          false,
-        ),
-      )
-    }
-
-    const nextSibling = nextSiblingId ? this.element(nextSiblingId) : undefined
-
-    // a -> c
-    // a  [new] =>  c
-    // disconnect a,c
-    // connect [new] to c
-    if (nextSiblingId && nextSibling) {
-      yield* _await(
-        this.patchElement(
-          nextSibling,
-          {
-            prevSibling: {
-              ...disconnectId(nextSibling.prevSibling?.id),
-              ...connectId(element?.id),
-            },
-          },
-          false,
-        ),
-      )
-    }
-  })
-
-  @modelFlow
-  @transaction
-  unlinkElement = _async(function* (
-    this: ElementService,
-    element: IElement,
-    shouldUpdateCache?: boolean,
-  ) {
-    console.log('unlink element', {
-      shouldUpdateCache,
-      element: getSnapshot(element),
-      next: element.nextSibling ? getSnapshot(element.nextSibling) : undefined,
-      prev: element.prevSibling ? getSnapshot(element.prevSibling) : undefined,
-      parentElement: element.parentElement
-        ? getSnapshot(element.parentElement)
-        : undefined,
-    })
-
-    // tree -> [removed] - x - y (no prev),
-    if (!element.prevSibling && element.parentElement) {
-      yield* _await(
-        this.patchElement(
-          element.parentElement,
-          {
-            childrenRoot: {
-              // disconnect [removed]
-              disconnect: {
-                where: { node: { id: element.id } },
-              },
-              // set tree children root = x
-              // tree -> x - y
-              ...connectId(element.nextSibling?.id),
-            },
-          },
-          shouldUpdateCache,
-        ),
-      )
-    }
-
-    //  x - [removed] - y
-    if (element.nextSibling) {
-      yield* _await(
-        this.patchElement(
-          element.nextSibling,
-          {
-            prevSibling: {
-              // disconnect [removed]
-              disconnect: {
-                where: { node: { id: element.id } },
-              },
-              // link y -> x
-              ...connectId(element.prevSibling?.id),
-            },
-          },
-          shouldUpdateCache,
-        ),
-      )
-    }
-
-    // x - [removed] - y
-    if (element.prevSibling) {
-      yield* _await(
-        this.patchElement(
-          element.prevSibling,
-          {
-            nextSibling: {
-              disconnect: {
-                where: { node: { id: element.id } },
-              },
-              // link x to y
-              ...connectId(element.nextSibling?.id),
-            },
-          },
-          shouldUpdateCache,
-        ),
-      )
-    }
-
-    // debugger
-    if (element.parentElement) {
-      yield* _await(
-        this.patchElement(
-          element,
-          {
-            parentElement: {
-              ...disconnectId(element.parentElement.id),
-            },
-          },
-          shouldUpdateCache,
-        ),
-      )
-    }
-  })
-
-  /**
-   * Moves an element to the next postion of target element
-   */
-  @modelFlow
-  @transaction
-  moveElementNextTo = _async(function* (
-    this: ElementService,
-    elementId: string,
-    targetElementId: string,
-  ) {
-    const element = this.element(elementId)
-    const targetElement = this.element(targetElementId)
-
-    if (!element || !targetElement) {
-      return
-    }
-
-    yield* _await(this.unlinkElement(element, false))
-    yield* _await(
-      this.linkElement({
-        element,
-        prevSiblingId: targetElement.id,
-        nextSiblingId: targetElement?.nextSibling?.id,
-        parentElementId: targetElement?.parentElement?.id,
-      }),
-    )
-
-    // update element in cache
-    //  update cache sequentially by api could introduce layout shift, and bug issue
-    element.unlinkSiblings()
-    element.linkSiblings({
-      prevSiblingId: targetElement?.id,
-      nextSiblingId: targetElement?.nextSibling?.id,
-      parentElementId: targetElement?.parentElement?.id,
-    })
-    element.syncLinkedSiblings()
-  })
-
-  /**
-   * Moves an element to the next position of children[0] of parent children element
-   */
-  @modelFlow
-  @transaction
-  moveAsRoot = _async(function* (
-    this: ElementService,
-    elementId: string,
-    parentElementId: string,
-  ) {
-    const element = this.element(elementId)
-    const parentElement = this.element(parentElementId)
-
-    if (!element || !parentElement) {
-      return
-    }
-
-    yield* _await(this.unlinkElement(element, false))
-
-    yield* _await(
-      this.linkElement({
-        element,
-        // attach to beginning of the tree
-        // [tree]-x
-        // [tree]-[inserted]-x
-        prevSiblingId: undefined,
-        nextSiblingId: parentElement.childrenRoot?.id,
-        parentElementId,
-      }),
-    )
-
-    // update element in cache
-    //  update cache sequentially by api could introduce layout shift, and bug issue
-    element.unlinkSiblings()
-    element.linkSiblings({
-      prevSiblingId: undefined,
-      nextSiblingId: parentElement.childrenRoot?.id,
-      parentElementId: parentElementId,
-    })
-    element.syncLinkedSiblings()
-  })
-
-  @modelFlow
-  @transaction
   deleteElementSubgraph = _async(function* (
     this: ElementService,
     root: IElementRef,
@@ -619,7 +358,7 @@ export class ElementService
     const rootElement = this.element(root)
 
     if (rootElement) {
-      yield* _await(this.unlinkElement(rootElement, true))
+      yield* _await(this.elementLinkService.unlinkElement(rootElement, true))
       // rootElement.unlinkSiblings()
     }
 

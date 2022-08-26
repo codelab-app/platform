@@ -170,7 +170,7 @@ PageBuilder.Layout = observer((page) => {
     typeService,
     builderRenderService,
     actionService,
-    appRenderService,
+    elementLinkService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -198,8 +198,9 @@ PageBuilder.Layout = observer((page) => {
                 atomService={atomService}
                 builderService={builderService}
                 componentService={componentService}
-                elementService={elementService}
+                elementLinkService={elementLinkService}
                 // The element tree changes depending on whether a page or a component is selected
+                elementService={elementService}
                 elementTree={activeElementTree}
                 key={pageBuilderRenderer?.pageTree?.current.root?.id}
                 renderService={pageBuilderRenderer}

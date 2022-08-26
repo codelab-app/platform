@@ -7,7 +7,10 @@ import {
   DomainService,
   domainServiceContext,
 } from '@codelab/frontend/modules/domain'
-import { ElementService } from '@codelab/frontend/modules/element'
+import {
+  ElementLinkService,
+  ElementService,
+} from '@codelab/frontend/modules/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/modules/page'
 import { RenderService } from '@codelab/frontend/modules/renderer'
 import {
@@ -24,6 +27,7 @@ import { TypeService, typeServiceContext } from '@codelab/frontend/modules/type'
 import { UserService, userServiceContext } from '@codelab/frontend/modules/user'
 import {
   componentServiceContext,
+  elementLinkServiceContext,
   elementServiceContext,
   storeServiceContext,
 } from '@codelab/frontend/presenter/container'
@@ -51,6 +55,7 @@ export const createRootStore = ({
     storeService: prop(() => new StoreService({})),
     resourceService: prop(() => new ResourceService({})),
     elementService: prop(() => new ElementService({})),
+    elementLinkService: prop(() => new ElementLinkService({})),
     builderService: prop(() => new BuilderService({})),
     domainService: prop(() => new DomainService({})),
   }) {
@@ -67,6 +72,7 @@ export const createRootStore = ({
       elementServiceContext.set(this, this.elementService)
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
+      elementLinkServiceContext.set(this, this.elementLinkService)
     }
   }
 

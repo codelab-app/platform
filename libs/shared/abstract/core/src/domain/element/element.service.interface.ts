@@ -56,13 +56,6 @@ export interface IElementService
       'createModal'
     > {
   // link element
-  linkElement(props: {
-    element: IElement
-    prevSiblingId: Nullish<string>
-    nextSiblingId: Nullish<string>
-    parentElementId: Nullish<string>
-    shouldUpdateCache?: boolean
-  }): Promise<void>
 
   // elementTree: IElementTree
   elements: ObjectMap<IElement>
@@ -79,8 +72,6 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  moveAsRoot(elementId: string, targetId: string): Promise<void>
-  moveElementNextTo(elementId: string, targetId: string): Promise<void>
   duplicateElement(
     target: IElement,
     auth0Id: IAuth0Id,
@@ -111,7 +102,11 @@ export interface IElementService
     element: IElement,
     propMapBinding: IPropMapBinding,
   ): Promise<IPropMapBinding>
-  patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
+  patchElement(
+    element: IElement,
+    input: ElementUpdateInput,
+    shouldUpdateCache?: boolean,
+  ): Promise<IElement>
   /**
    * Get all descendant elements
    */

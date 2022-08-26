@@ -1,5 +1,6 @@
 export * from './api.utils'
 export * from './apis'
+export * from './element.link.service'
 export * from './element.model'
 export * from './element.ref'
 export * from './element.service'

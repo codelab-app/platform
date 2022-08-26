@@ -22,6 +22,7 @@ import {
   IActionService,
   IAtomService,
   IBuilderService,
+  IElementLinkService,
   IElementService,
   IElementTree,
   INode,
@@ -61,6 +62,7 @@ export type MetaPaneBuilderProps = {
   elementService: IElementService
   actionService: IActionService
   userService: IUserService
+  elementLinkService: IElementLinkService
 }
 
 type TooltipIconProps = {
@@ -93,6 +95,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     elementService,
     actionService,
     userService,
+    elementLinkService,
   }) => {
     const selectedNode = builderService.selectedNode
     const { providePropCompletion } = usePropCompletion(renderService)

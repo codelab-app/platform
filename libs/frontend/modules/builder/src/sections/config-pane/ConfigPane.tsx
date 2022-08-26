@@ -13,6 +13,7 @@ import {
   IBuilderService,
   IComponentService,
   IElement,
+  IElementLinkService,
   IElementService,
   IElementTree,
   IRenderer,
@@ -29,7 +30,7 @@ import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContai
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
 type MetaPaneProps = {
-  elementTree: IElementTree
+  elementLinkService: IElementLinkService
   renderService: IRenderer
   atomService: IAtomService
   typeService: ITypeService
@@ -38,6 +39,7 @@ type MetaPaneProps = {
   componentService: IComponentService
   actionService: IActionService
   userService: IUserService
+  elementTree: IElementTree
 }
 
 export const ConfigPane = observer<MetaPaneProps>(
@@ -48,9 +50,10 @@ export const ConfigPane = observer<MetaPaneProps>(
     elementService,
     componentService,
     renderService,
-    elementTree,
+    elementLinkService,
     actionService,
     userService,
+    elementTree,
   }) => {
     const { providePropCompletion } = usePropCompletion(renderService)
     const isRootElement = (element: IElement) => !element.parentElement
@@ -97,7 +100,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                         />
                         <MoveElementForm
                           element={node}
-                          elementService={elementService}
+                          elementLinkService={elementLinkService}
                           elementTree={elementTree}
                           key={node.id + '_move_form'}
                           trackPromises={trackPromises}
@@ -123,6 +126,7 @@ export const ConfigPane = observer<MetaPaneProps>(
               actionService={actionService}
               atomService={atomService}
               builderService={builderService}
+              elementLinkService={elementLinkService}
               elementService={elementService}
               elementTree={elementTree}
               renderService={renderService}

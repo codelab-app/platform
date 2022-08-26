@@ -1,4 +1,5 @@
 export * from './element.dto.interface'
+export * from './element.link.service'
 export * from './element.model.interface'
 export * from './element.service.interface'
 export * from './element-graph.interface'

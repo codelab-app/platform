@@ -3,7 +3,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   IElement,
-  IElementService,
+  IElementLinkService,
   IElementTree,
   MoveData,
 } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ import { moveElementSchema } from './moveElementSchema'
 export type MoveElementFormProps = {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  elementService: IElementService
+  elementLinkService: IElementLinkService
   /**
    * The element tree is specific to which view we're looking at (i.e. Page, Component)
    */
@@ -27,9 +27,7 @@ export type MoveElementFormProps = {
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer<MoveElementFormProps>(
-  ({ element, elementService, trackPromises, elementTree }) => {
-    const { trackPromise } = trackPromises ?? {}
-
+  ({ element, elementLinkService, trackPromises, elementTree }) => {
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
       parentElementId: element.parentId,
@@ -55,17 +53,17 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       // because we move the target element to the begining of the tree
       if (changeParent && parentElementId) {
         // change parent
-        return elementService.moveAsRoot(element.id, parentElementId)
+        return elementLinkService.moveAsRoot(element.id, parentElementId)
       }
 
       // clear link element
       if (changePrevSibling && prevSiblingId) {
-        return elementService.moveElementNextTo(element.id, prevSiblingId)
+        return elementLinkService.moveElementNextTo(element.id, prevSiblingId)
       }
 
       // clear linked by, move to the root
       if (changePrevSibling && !prevSiblingId && element.parentId) {
-        return elementService.moveAsRoot(element.id, element.parentId)
+        return elementLinkService.moveAsRoot(element.id, element.parentId)
       }
 
       return Promise.resolve()

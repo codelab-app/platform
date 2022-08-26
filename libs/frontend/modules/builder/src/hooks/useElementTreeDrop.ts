@@ -1,4 +1,8 @@
-import { IElementService, IElementTree } from '@codelab/shared/abstract/core'
+import {
+  IElementLinkService,
+  IElementService,
+  IElementTree,
+} from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeProps } from 'antd/lib/tree'
 
@@ -12,10 +16,7 @@ export type UseElementTreeDropProps = {
  * This can be optimized to be handled in the API
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
-export const useElementTreeDrop = (
-  elementTree: Nullable<IElementTree>,
-  elementService: IElementService,
-) => {
+export const useElementTreeDrop = (elementLinkServie: IElementLinkService) => {
   const handleDrop: TreeProps['onDrop'] = (info) => {
     const dragNodeId = info.dragNode.key.toString()
     const dropNodeId = info.node.key.toString()
@@ -23,13 +24,13 @@ export const useElementTreeDrop = (
 
     // not outside of body
     if (info.dropToGap && !isRootNode) {
-      elementService.moveElementNextTo(dragNodeId, dropNodeId)
+      elementLinkServie.moveElementNextTo(dragNodeId, dropNodeId)
 
       return
     }
 
     if (!info.dropToGap) {
-      elementService.moveAsRoot(dragNodeId, dropNodeId)
+      elementLinkServie.moveAsRoot(dragNodeId, dropNodeId)
     }
 
     // drop to gap + isRootNode = move element outside of body
