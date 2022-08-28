@@ -9,16 +9,6 @@ import * as eslint from 'eslint-linter-browserify'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
 
-const config = {
-  // eslint configuration
-  extends: ['eslint:recommended'],
-  rules: {},
-  env: {
-    browser: true,
-    node: true,
-  },
-}
-
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
 }
