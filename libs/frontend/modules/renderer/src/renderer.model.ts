@@ -1,4 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import { getAtom } from '@codelab/frontend/modules/atom'
 import { elementRef, elementTreeRef } from '@codelab/frontend/modules/element'
 import {
   createActionFn,
@@ -40,7 +41,6 @@ import { createTransformer } from 'mobx-utils'
 import React, { ComponentType, ReactElement, ReactNode } from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
 import { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import { getAtom } from './atoms'
 import { ElementWrapper, ElementWrapperProps } from './element/ElementWrapper'
 import { ExtraElementProps } from './ExtraElementProps'
 import {

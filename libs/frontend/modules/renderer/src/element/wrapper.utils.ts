@@ -1,3 +1,4 @@
+import { getAtom } from '@codelab/frontend/modules/atom'
 import {
   IPropDataByElementId,
   IRenderOutput,
@@ -5,7 +6,6 @@ import {
 import { mergeProps } from '@codelab/shared/utils'
 import { isEmpty } from 'ramda'
 import React, { Fragment, ReactElement } from 'react'
-import { getAtom } from '../atoms'
 import { withGlobalPropsProvider } from '../props/globalPropsContext'
 
 /**

@@ -1,3 +1,4 @@
+import { atomFactory } from '@codelab/frontend/modules/atom'
 import {
   IElement,
   IPropData,
@@ -8,7 +9,6 @@ import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
-import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/evalCss'
 import { BaseRenderPipe } from './renderPipe.base'
 
@@ -33,6 +33,11 @@ export class AtomRenderPipe
       node: element,
       props,
     })
+
+    // Skip rendering the atom if there are errors in the atom
+    if (element.errors.length > 0) {
+      return this.next.render(element, props)
+    }
 
     if (!ReactComponent) {
       console.warn(

@@ -34,3 +34,5 @@ export type AtomCustomizerFn = (
 }
 
 export type AtomCustomizer = Partial<Record<IAtomType, AtomCustomizerFn>>
+
+export type AtomRequiredProps = Partial<Record<IAtomType, Array<string>>>

@@ -1,10 +1,11 @@
+import { ExclamationCircleOutlined, WarningOutlined } from '@ant-design/icons'
 import {
   COMPONENT_NODE_TYPE,
   ELEMENT_NODE_TYPE,
   INode,
 } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { Dropdown } from 'antd'
+import { Col, Dropdown, Row } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -71,11 +72,29 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
               trigger={['contextMenu']}
               visible={contextMenuItemId === element.id}
             >
-              <div
-                css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}
-              >
-                {element.label} <span css={tw`text-xs`}>{meta}</span>
-              </div>
+              <Row>
+                <Col span={18}>
+                  <div
+                    css={
+                      isComponentInstance ? tw`text-blue-400` : `text-gray-400`
+                    }
+                  >
+                    {element.label} <span css={tw`text-xs`}>{meta}</span>
+                  </div>
+                </Col>
+                <Col span={6}>
+                  <Row justify="end">
+                    <Col>
+                      {element.warnings.length > 0 && <WarningOutlined />}
+                    </Col>
+                    <Col>
+                      {element.errors.length > 0 && (
+                        <ExclamationCircleOutlined />
+                      )}
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </Dropdown>
           </ItemTitleStyle>
         </BuilderDropHandler>

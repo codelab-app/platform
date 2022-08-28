@@ -1,5 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/modules/atom'
+import { atomRef, getRequiredProps } from '@codelab/frontend/modules/atom'
 import { componentRef } from '@codelab/frontend/presenter/container'
 import type {
   IAtom,
@@ -293,6 +293,35 @@ export class Element
   @computed
   get atomName() {
     return this.atom?.maybeCurrent?.name || this.atom?.maybeCurrent?.type || ''
+  }
+
+  @computed
+  get warnings(): Array<string> {
+    const warnings: Array<string> = []
+
+    // TODO: Check if there is any issues that can cause suboptimal rendering
+    return warnings
+  }
+
+  @computed
+  get errors(): Array<string> {
+    if (!this.atom?.current) {
+      return []
+    }
+
+    return getRequiredProps(this.atom?.current.type)
+      .map((propName) => {
+        if (propName === 'children' && this.children.size === 0) {
+          return `${this.label} needs at least one child`
+        }
+
+        if (propName !== 'children' && !this.props?.data?.[propName]) {
+          return `Missing required prop: ${propName}`
+        }
+
+        return null
+      })
+      .filter((x) => x !== null) as Array<string>
   }
 
   findDescendant(id: string): Maybe<IElement> {
