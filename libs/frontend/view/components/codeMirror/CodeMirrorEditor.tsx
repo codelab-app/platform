@@ -1,7 +1,7 @@
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
-import { javascript } from '@codemirror/lang-javascript'
+import { esLint, javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
 import { StreamLanguage } from '@codemirror/language'
 import { linter, lintGutter } from '@codemirror/lint'
@@ -10,6 +10,16 @@ import * as eslint from 'eslint-linter-browserify'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
 import { defaultExtensions } from './setup'
+
+const config = {
+  // eslint configuration
+  extends: ['eslint:recommended'],
+  rules: {},
+  env: {
+    browser: true,
+    node: true,
+  },
+}
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
