@@ -1,11 +1,23 @@
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@codemirror/lang-css'
-import { javascript } from '@codemirror/lang-javascript'
+import { esLint, javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
 import { StreamLanguage } from '@codemirror/language'
+import { linter, lintGutter } from '@codemirror/lint'
 import { graphql } from 'codemirror-graphql/cm6-legacy/mode'
+import * as eslint from 'eslint-linter-browserify'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
+
+const config = {
+  // eslint configuration
+  extends: ['eslint:recommended'],
+  rules: {},
+  env: {
+    browser: true,
+    node: true,
+  },
+}
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
@@ -13,8 +25,16 @@ export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
 
 const languageExtension = {
   [CodeMirrorLanguage.Css]: [css()],
-  [CodeMirrorLanguage.Javascript]: [javascript()],
-  [CodeMirrorLanguage.Typescript]: [javascript({ typescript: true })],
+  [CodeMirrorLanguage.Javascript]: [
+    lintGutter(),
+    linter(esLint(new eslint.Linter())),
+    javascript(),
+  ],
+  [CodeMirrorLanguage.Typescript]: [
+    lintGutter(),
+    linter(esLint(new eslint.Linter())),
+    javascript({ typescript: true }),
+  ],
   [CodeMirrorLanguage.Json]: [json()],
   [CodeMirrorLanguage.CssInJs]: [css()],
   [CodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
