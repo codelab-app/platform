@@ -35,6 +35,7 @@ export const allPropsCustomizer: AtomCustomizer = {
 // TODO:
 // - Fix circular dependency between element and renderer when importing getRequiredProps in element
 // - Solve issue with MuiModal failing when adding 2 children
+// - What if the type of the prop doesn't match the required type?
 // - Find a way to present the failure message to the user when hovering over the element tree UI
 // - Think of an alternative approach to getRequiredProps.. maybe catch the error and show a user friendly error message
 // - Think about how to handle this in the future, when dynamically adding UI frameworks

@@ -309,13 +309,15 @@ export class Element
       return []
     }
 
+    const availableProps = Object.keys(this.props?.values || {})
+
     return getRequiredProps(this.atom?.current.type)
       .map((propName) => {
         if (propName === 'children' && this.children.size === 0) {
           return `${this.label} needs at least one child`
         }
 
-        if (propName !== 'children' && !this.props?.data?.[propName]) {
+        if (propName !== 'children' && !availableProps.includes(propName)) {
           return `Missing required prop: ${propName}`
         }
 
