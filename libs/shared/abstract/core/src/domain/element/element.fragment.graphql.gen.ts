@@ -36,6 +36,7 @@ export type ElementFragment = {
   childrenRoot?: { id: string } | null
   atom?: AtomFragment | null
   props?: PropFragment | null
+  rootOf?: { id: string } | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
   parentElementConnection: {
@@ -75,6 +76,9 @@ export const ElementFragmentDoc = gql`
     }
     props {
       ...Prop
+    }
+    rootOf {
+      id
     }
     hooks {
       ...Hook

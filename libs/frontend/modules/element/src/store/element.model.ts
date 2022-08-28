@@ -55,6 +55,7 @@ export const hydrate = ({
   component,
   instanceOfComponent,
   parentElement,
+  rootOf,
 
   nextSibling,
   prevSibling,
@@ -77,6 +78,7 @@ export const hydrate = ({
     customCss,
     guiCss,
     parentId: parentElement?.id,
+    rootOfId: rootOf?.id,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     childrenRootId: childrenRoot?.id,
@@ -121,6 +123,7 @@ export class Element
 
     // Data used for tree initializing, before our Element model is ready
     parentId: prop<Nullable<string>>(null),
+    rootOfId: prop<Nullable<string>>(null),
     nextSiblingId: prop<Nullable<string>>(null),
     prevSiblingId: prop<Nullable<string>>(null),
     childrenRootId: prop<Nullable<string>>(null),
@@ -292,6 +295,13 @@ export class Element
   get childrenRoot() {
     return this.childrenRootId
       ? this.elementService.element(this.childrenRootId)
+      : undefined
+  }
+
+  @computed
+  get rootOf() {
+    return this.rootOfId
+      ? this.elementService.element(this.rootOfId)
       : undefined
   }
 

@@ -28,6 +28,9 @@ fragment Element on Element {
   props {
     ...Prop
   }
+  rootOf {
+    id
+  }
   hooks {
     ...Hook
   }
