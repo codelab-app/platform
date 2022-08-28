@@ -1,4 +1,5 @@
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { Completion, CompletionSource } from '@codemirror/autocomplete'
 import { css } from '@codemirror/lang-css'
 import { esLint, javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
@@ -8,9 +9,13 @@ import { graphql } from 'codemirror-graphql/cm6-legacy/mode'
 import * as eslint from 'eslint-linter-browserify'
 import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
+import { defaultExtensions } from './setup'
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
+  languageSource?: CompletionSource
+  languageOptions?: Array<Completion>
+  customOptions?: Array<Completion>
 }
 
 const languageExtension = {
@@ -31,16 +36,19 @@ const languageExtension = {
 }
 
 export const CodeMirrorEditor = (props: CodeMirrorEditorProps) => {
-  const { language, extensions = [] } = props
+  const { language, extensions = [], expandable = true } = props
+  const basicExtensions = defaultExtensions(props)
+
+  const mergedExtension = language
+    ? [...languageExtension[language], ...basicExtensions, ...extensions]
+    : [...basicExtensions, ...extensions]
 
   return (
     <CodeMirrorInput
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
-      extensions={
-        language ? [...languageExtension[language], ...extensions] : extensions
-      }
-      shouldDisableNewLines={false}
+      expandable={expandable}
+      extensions={mergedExtension}
     />
   )
 }

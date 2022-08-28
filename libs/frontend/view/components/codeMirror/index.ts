@@ -1,3 +1,3 @@
 export * from './CodeMirrorEditor'
 export * from './CodeMirrorInput'
-export * from './extensions'
+export * from './setup'

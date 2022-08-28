@@ -1,4 +1,5 @@
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElement,
   IElementService,
@@ -43,9 +44,9 @@ const PropsInspectorTab = observer(
         <h3 css={tw`text-gray-700`}>Current props</h3>
         <CodeMirrorEditor
           height="150px"
+          language={CodeMirrorLanguage.Json}
           onChange={() => undefined}
           readOnly
-          shouldDisableNewLines={false}
           title="Current props"
           value={lastRenderedPropsString}
         />
@@ -53,11 +54,11 @@ const PropsInspectorTab = observer(
         <h3 css={tw`text-gray-700`}>Element props</h3>
         <CodeMirrorEditor
           height="150px"
-          onChange={(v: string) => onChange(v)}
+          language={CodeMirrorLanguage.Json}
           // persistedProps is state variable which means
           // it takes time to be updated by onChange
+          onChange={(v: string) => onChange(v)}
           onSave={(v: string) => save(v)}
-          shouldDisableNewLines={false}
           title="Element props"
           value={persistedProps || '{}'}
         />

@@ -3,24 +3,26 @@ import { UseCodeMirror, useCodeMirror } from '@uiw/react-codemirror'
 import AntdModal from 'antd/lib/modal'
 import React, { useEffect, useRef, useState } from 'react'
 
-interface CodeMirrorModalProps {
+type ISetupFactory = (
+  editorRef: React.MutableRefObject<HTMLDivElement | null>,
+  overWriteOpts?: UseCodeMirror,
+) => UseCodeMirror
+
+export interface CodeMirrorModalProps {
   visible: boolean
   onChange: (value: string) => void
   onSave?: (value: string) => void
   title?: Nullish<string>
   value?: string
   closeModal: () => void
-  codeMirrorSetupFactory: (
-    editorRef: React.MutableRefObject<HTMLDivElement | null>,
-    overWriteOpts?: UseCodeMirror,
-  ) => UseCodeMirror
+  setupFactory: ISetupFactory
 }
 
 export const CodeMirrorModal = ({
   visible,
   closeModal,
   value,
-  codeMirrorSetupFactory,
+  setupFactory: codeMirrorSetupFactory,
   onChange,
   onSave,
   title,

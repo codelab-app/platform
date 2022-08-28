@@ -1,108 +1,63 @@
 import { ExpandAltOutlined } from '@ant-design/icons'
-import { Nullish } from '@codelab/shared/abstract/types'
-import {
-  autocompletion,
-  closeCompletion,
-  Completion,
-  CompletionSource,
-  startCompletion,
-} from '@codemirror/autocomplete'
-import {
-  ReactCodeMirrorProps,
-  UseCodeMirror,
-  useCodeMirror,
-} from '@uiw/react-codemirror'
-import React, { useEffect, useRef } from 'react'
-import { CodeMirrorModal } from './CodeMirrorModal'
-import { basicSetup, completionFactory } from './extensions'
+import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
+import { EditorView, ViewUpdate } from '@codemirror/view'
+import { ReactCodeMirrorProps, useCodeMirror } from '@uiw/react-codemirror'
+import { merge } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
+import { CodeMirrorModal, CodeMirrorModalProps } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
-export interface CodeMirrorInputProps
-  extends Omit<ReactCodeMirrorProps, 'title'> {
+export interface CodeMirrorInputProps extends ReactCodeMirrorProps {
   value: string
   onChange: (value: string) => void
-  onBlur?: () => void
   onSave?: (value: string) => void
-  defaultCompletionSource?: CompletionSource
-  defaultCompletionOptions?: Array<Completion>
-  templateCompletionOptions?: Array<Completion>
-  extensions?: Array<any>
-  shouldDisableNewLines?: boolean
   expandable?: boolean
-  title?: Nullish<string>
+  singleLine?: boolean
 }
 
 export const CodeMirrorInput = ({
   value,
   onChange,
-  onBlur,
-  defaultCompletionSource,
-  templateCompletionOptions,
-  extensions = [],
-  shouldDisableNewLines = true,
-  defaultCompletionOptions,
-  height = '30px',
-  readOnly = false,
   onSave,
-  title = '',
-  expandable = true,
+  expandable,
+  title,
   ...props
 }: CodeMirrorInputProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
-  const [isExpand, expand] = React.useState(false)
+  const [isExpand, expand] = useState(false)
 
-  const extensionsRef = useRef([
-    basicSetup(shouldDisableNewLines),
-    autocompletion({
-      defaultKeymap: false,
-      activateOnTyping: true,
-      override: [
-        completionFactory({
-          defaultCompletionSource,
-          templateCompletionOptions,
-          defaultCompletionOptions,
-        }),
-      ],
-    }),
-    ...extensions,
-  ])
+  const toggleCompletion = (start: boolean, view: EditorView) =>
+    start ? startCompletion(view) : closeCompletion(view)
 
-  const codeMirrorOnUpdate = (viewUpdate: any) => {
-    // open the completion on focus and close on blur
+  const onUpdate = (viewUpdate: ViewUpdate) => {
     if (viewUpdate.focusChanged) {
-      if (viewUpdate.view.hasFocus) {
-        startCompletion(viewUpdate.view)
-      } else {
-        closeCompletion(viewUpdate.view)
-      }
+      toggleCompletion(viewUpdate.view.hasFocus, viewUpdate.view)
     }
   }
 
-  const codeMirrorSetupFactory = (
-    editorRef: React.MutableRefObject<HTMLDivElement | null>,
-    overWriteOpts?: UseCodeMirror,
-  ) => {
-    return {
-      container: editorRef.current,
-      basicSetup: false,
-      value,
-      onChange,
-      height,
-      onBlur,
-      extensions: extensionsRef.current,
-      onUpdate: codeMirrorOnUpdate,
-      ...props,
-      ...overWriteOpts,
-      readOnly,
-    }
-  }
+  const setupFactory: CodeMirrorModalProps['setupFactory'] = (
+    editorRef,
+    overWriteOpts?,
+  ) =>
+    merge(
+      {
+        container: editorRef.current,
+        basicSetup: false,
+        value,
+        onChange,
+        onUpdate,
+        ...props,
+      },
+      overWriteOpts,
+    )
 
-  const { setContainer } = useCodeMirror(codeMirrorSetupFactory(editor))
+  const { setContainer } = useCodeMirror(setupFactory(editor))
 
   useEffect(() => {
     if (editor.current) {
       setContainer(editor.current)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggleExpand = () => {
@@ -123,9 +78,9 @@ export const CodeMirrorInput = ({
           />
           <CodeMirrorModal
             closeModal={toggleExpand}
-            codeMirrorSetupFactory={codeMirrorSetupFactory}
             onChange={onChange}
             onSave={onSave}
+            setupFactory={setupFactory}
             title={title}
             value={value}
             visible={isExpand}
