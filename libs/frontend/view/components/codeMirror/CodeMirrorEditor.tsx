@@ -11,16 +11,6 @@ import React from 'react'
 import { CodeMirrorInput, CodeMirrorInputProps } from './CodeMirrorInput'
 import { defaultExtensions } from './setup'
 
-const config = {
-  // eslint configuration
-  extends: ['eslint:recommended'],
-  rules: {},
-  env: {
-    browser: true,
-    node: true,
-  },
-}
-
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
   defaultSource?: CompletionSource
