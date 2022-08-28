@@ -54,9 +54,8 @@ export const hydrate = ({
 
   component,
   instanceOfComponent,
-  parentElement,
-  rootOf,
 
+  rootOf,
   nextSibling,
   prevSibling,
   childrenRoot,
@@ -70,14 +69,12 @@ export const hydrate = ({
   propTransformationJs,
   renderIfPropKey,
   renderForEachPropKey,
-  parentElementConnection,
 }: Omit<IElementDTO, '__typename'>) => {
   return new Element({
     id,
     name,
     customCss,
     guiCss,
-    parentId: parentElement?.id,
     rootOfId: rootOf?.id,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
@@ -322,10 +319,21 @@ export class Element
   @computed
   get parentElement() {
     // the parent is ObjectMap items
+    if (this.rootOf) {
+      return this.rootOf
+    }
 
-    return this.parentId
-      ? (getParent(this)[this.parentId] as IElement)
-      : undefined
+    let travledNode = this.prevSibling
+
+    while (travledNode) {
+      if (travledNode.rootOf) {
+        return travledNode.rootOf
+      }
+
+      travledNode = travledNode.prevSibling
+    }
+
+    return undefined
   }
 
   /**
@@ -675,7 +683,6 @@ export class Element
     postRenderActionId,
     preRenderActionId,
     renderForEachPropKey,
-    parentElement,
     nextSibling,
     prevSibling,
     childrenRoot,
@@ -692,7 +699,6 @@ export class Element
     this.preRenderActionId = preRenderActionId
     this.postRenderActionId = postRenderActionId
     this.props = props ? new Prop({ id: props.id }) : null
-    this.parentId = parentElement?.id ?? null
 
     this.nextSiblingId = nextSibling?.id ?? null
     this.prevSiblingId = prevSibling?.id ?? null

@@ -16,9 +16,6 @@ fragment Element on Element {
   nextSibling {
     id
   }
-  parentElement {
-    id
-  }
   childrenRoot {
     id
   }
@@ -42,14 +39,6 @@ fragment Element on Element {
     ...PropMapBinding
   }
   propTransformationJs
-  parentElementConnection {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
 }
 
 fragment ElementGraph on ElementGraph {

@@ -58,6 +58,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   atomName: string
   siblings?: ObjectMap<Ref<IElement>>
 
+  rootOf: Maybe<IElement>
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>

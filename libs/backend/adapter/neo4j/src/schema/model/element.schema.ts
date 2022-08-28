@@ -30,12 +30,6 @@ export const elementSchema = gql`
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
-    parentElement: Element
-      @relationship(
-        type: "PARENT_OF_ELEMENT"
-        properties: "ParentOfElement"
-        direction: IN
-      )
     # fixedId: String!, // This could be no longer needed with neo4j
     name: String
     # Used for the css the user types it manually using the integrated code editor. This is

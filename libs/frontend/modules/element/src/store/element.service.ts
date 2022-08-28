@@ -124,6 +124,8 @@ export class ElementService
       }
 
       const elementModel = Element.hydrate(element)
+      console.log({ elementModel })
+
       this.elements.set(element.id, elementModel)
 
       return elementModel
