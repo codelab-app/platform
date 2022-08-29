@@ -32,6 +32,7 @@ const languageExtension = {
   ],
   [CodeMirrorLanguage.Json]: [json()],
   [CodeMirrorLanguage.CssInJs]: [css()],
+  // once https://github.com/graphql/graphiql/pull/2620 is merged will add full support for graphql
   [CodeMirrorLanguage.Graphql]: [StreamLanguage.define(graphql)],
 }
 
