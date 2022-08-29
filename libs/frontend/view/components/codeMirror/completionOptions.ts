@@ -7,7 +7,7 @@ import {
 import { Completion } from '@codemirror/autocomplete'
 import { capitalize, isArray, isObjectLike } from 'lodash'
 
-export const typeCompletionOptions = (
+export const typeOptions = (
   type: IAnyType,
   reactNodeOptions: Array<{ label: string; detail: string }> = [],
 ): Array<Completion> => {
@@ -42,7 +42,7 @@ export const typeCompletionOptions = (
   return []
 }
 
-export const stateCompletionOptions = (
+export const stateOptions = (
   context: IPropData = {},
   parentKey = '',
 ): Array<Completion> =>
@@ -55,14 +55,14 @@ export const stateCompletionOptions = (
 
     if (isArray(value)) {
       const children = value.flatMap((v, index) =>
-        stateCompletionOptions(v, `${key}.${index}`),
+        stateOptions(v, `${key}.${index}`),
       )
 
       return [option, ...children]
     }
 
     if (isObjectLike(value)) {
-      return [option, ...stateCompletionOptions(value, key)]
+      return [option, ...stateOptions(value, key)]
     }
 
     return [option]

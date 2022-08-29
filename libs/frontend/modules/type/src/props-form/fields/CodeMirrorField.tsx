@@ -1,7 +1,7 @@
 import {
   CodeMirrorEditor,
-  contextCompletionOptions,
-  typeCompletionOptions,
+  stateOptions,
+  typeOptions,
 } from '@codelab/frontend/view/components'
 import { IField, IPropsFieldContext } from '@codelab/shared/abstract/core'
 import React from 'react'
@@ -23,12 +23,10 @@ export const CodeMirrorField = ({
     name={field.key}
     render={(control) => (
       <CodeMirrorEditor
-        defaultCompletionOptions={typeCompletionOptions(field.type.current)}
+        customOptions={stateOptions(context?.autocomplete)}
+        defaultOptions={typeOptions(field.type.current)}
         onBlur={control.field.onBlur}
         onChange={control.field.onChange}
-        templateCompletionOptions={contextCompletionOptions(
-          context?.autocomplete,
-        )}
         title={field.name}
         value={control.field.value}
       />

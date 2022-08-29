@@ -13,8 +13,8 @@ import { defaultExtensions } from './setup'
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   language?: CodeMirrorLanguage
-  languageSource?: CompletionSource
-  languageOptions?: Array<Completion>
+  defaultSource?: CompletionSource
+  defaultOptions?: Array<Completion>
   customOptions?: Array<Completion>
 }
 

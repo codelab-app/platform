@@ -1,4 +1,5 @@
 import { ExpandAltOutlined } from '@ant-design/icons'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 import { ReactCodeMirrorProps, useCodeMirror } from '@uiw/react-codemirror'
@@ -7,12 +8,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { CodeMirrorModal, CodeMirrorModalProps } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
-export interface CodeMirrorInputProps extends ReactCodeMirrorProps {
+export interface CodeMirrorInputProps
+  extends Omit<ReactCodeMirrorProps, 'title'> {
   value: string
   onChange: (value: string) => void
   onSave?: (value: string) => void
   expandable?: boolean
   singleLine?: boolean
+  title?: Nullish<string>
 }
 
 export const CodeMirrorInput = ({

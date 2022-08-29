@@ -10,7 +10,6 @@
     "types": [
       "node",
       "worker-loader",
-      "window",
       "@fancyapps/ui",
       "eslint-linter-browserify"
     ],

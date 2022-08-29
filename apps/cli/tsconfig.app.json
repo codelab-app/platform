@@ -4,7 +4,13 @@
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "strict": true,
-    "types": ["node", "worker-loader", "window", "@fancyapps/ui", "cypher"],
+    "types": [
+      "node",
+      "worker-loader",
+      "@fancyapps/ui",
+      "cypher",
+      "eslint-linter-browserify"
+    ],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "preserve",
