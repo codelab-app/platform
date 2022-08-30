@@ -1,6 +1,9 @@
 import { ITagExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
-import { createOrUpdateTag, linkTag } from '../../repository/tag.repo'
+import {
+  connectChildTagToParent,
+  createOrUpdateTag,
+} from '../../repository/tag.repo'
 
 export const importTags = async (
   tags: Array<ITagExport> = [],
@@ -23,7 +26,7 @@ export const importTags = async (
     console.log(`Link Tag ${tag.name}:`)
     console.log('\n')
 
-    return linkTag(tag)
+    return connectChildTagToParent(tag)
   })
 
   await Promise.all(syncTagsOperations)

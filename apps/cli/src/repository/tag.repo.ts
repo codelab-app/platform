@@ -2,8 +2,8 @@ import { TagOGM } from '@codelab/backend'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
 
-export const linkTag = async (tag: ITagExport) => {
-  const connectChildrens =
+export const connectChildTagToParent = async (tag: ITagExport) => {
+  const connectChildren =
     tag.children?.map((childrenTag) => ({
       where: { node: { id: childrenTag.id } },
     })) || []
@@ -19,7 +19,7 @@ export const linkTag = async (tag: ITagExport) => {
   const updateInput = {
     where: { id: tag.id },
     connect: {
-      children: connectChildrens,
+      children: connectChildren,
       parent: connectParent,
     },
   }
