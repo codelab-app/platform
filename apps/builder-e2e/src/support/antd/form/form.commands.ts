@@ -83,7 +83,9 @@ export const getFormInput = (
   switch (type) {
     case FIELD_TYPE.CODE_MIRROR:
       return scope.find('.cm-editor', opts).then((elem: any) => {
-        return elem[0]
+        console.log(elem)
+
+        return elem[0].CodeMirror
       })
     case FIELD_TYPE.INPUT:
       return scope.find('.ant-input', opts)
