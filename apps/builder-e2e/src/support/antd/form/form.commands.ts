@@ -1,3 +1,4 @@
+import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
 import escapeRegExp from 'lodash/escapeRegExp'
 import forEach from 'lodash/forEach'
@@ -83,22 +84,7 @@ export const getFormInput = (
   switch (type) {
     case FIELD_TYPE.CODE_MIRROR:
       return scope.find('.cm-editor', opts).then((elem: any) => {
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log(elem)
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-        console.log('************************')
-
-        return elem[0].CodeMirror
+        return EditorView.findFromDOM(elem[0])
       })
     case FIELD_TYPE.INPUT:
       return scope.find('.ant-input', opts)
@@ -506,8 +492,14 @@ export const setFormFieldValue = (
 
   switch (type) {
     case FIELD_TYPE.CODE_MIRROR:
-      getInput().then((codeMirrorEditor: CodeMirror.Editor) => {
-        codeMirrorEditor.setValue(String(value))
+      getInput().then((view: EditorView) => {
+        view.dispatch({
+          changes: {
+            from: 0,
+            to: view.state.doc.length,
+            insert: String(value),
+          },
+        })
       })
 
       return
