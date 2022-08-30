@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+!.env.test.example
 nx-cloud.env
 
 *.pem
