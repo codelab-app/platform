@@ -258,7 +258,6 @@
     "@types/bluebird": "3.5.36",
     "@types/cache-manager": "3.4.2",
     "@types/cli-color": "2.0.2",
-    "@types/codemirror": "^5.60.5",
     "@types/concurrently": "6.4.0",
     "@types/cookie": "0.4.1",
     "@types/cors": "2.8.12",
