@@ -34,13 +34,16 @@ export const importSeedData = async (
  * Once data is in JSON format, we use that to import
  */
 
-export const __seedData = async (
+export const __seedTagData = async (selectedUser: string) => {
+  const tags = await createAntDesignTagsData()
+  await importTags(tags, selectedUser)
+}
+
+export const __seedAtomData = async (
   selectedUser: string,
   atomsFactory: (atoms: Array<IAtomExport>) => Array<IAtomExport> = (atoms) =>
     atoms,
 ) => {
-  const tags = await createAntDesignTagsData()
-  await importTags(tags, selectedUser)
   // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
   await importType(createSeedTypesData(), selectedUser)
 
