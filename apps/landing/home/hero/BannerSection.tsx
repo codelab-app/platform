@@ -36,7 +36,7 @@ export const BannerSection = () => {
 
   return (
     <>
-      <section css={[tw`m-auto `]} style={{ maxWidth: '1440px' }}>
+      <section css={[tw`m-auto container`]}>
         <div css={tw`container mt-12 py-10`}>
           <Row css={tw`justify-center`}>
             <Col

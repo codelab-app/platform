@@ -15,7 +15,7 @@ const onChange = (key: string) => {
 
 export const BuilderDemo = () => {
   return (
-    <Row style={{ maxWidth: '1440px' }}>
+    <Row css={tw`container flex flex-col-reverse md:flex-row`}>
       <Col md={16} span={24}>
         <Tabs defaultActiveKey="1" onChange={onChange}>
           <TabPane key="1" tab="Builder View">
@@ -61,6 +61,8 @@ export const BuilderDemo = () => {
                 tw`relative z-20`,
                 css`
                   top: 21%;
+                  width: 90%;
+                  margin: 0 auto;
                 `,
               ]}
             >

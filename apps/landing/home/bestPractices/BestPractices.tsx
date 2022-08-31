@@ -23,7 +23,7 @@ const colProps = {
 
 export const BestPractices = () => {
   return (
-    <section className="container" style={{ maxWidth: '1440px' }}>
+    <section css={tw`container pb-28`}>
       <div css={tw`m-auto py-12`}>
         <Title
           css={tw`text-center mt-28 !font-extrabold !text-violet-600 !text-5xl`}
@@ -36,7 +36,7 @@ export const BestPractices = () => {
           Think like a developer, but work more productively using our
           development platform. It’s like a smart IDE on steroids.
         </div>
-        <Row align="middle" css={tw`px-8`} gutter={[4, 12]}>
+        <Row css={tw``} gutter={[32, 24]}>
           <Col {...colProps}>
             <FeatureCard
               description="We integrate with existing UI Frameworks such as Ant Design & Material UI so you can keep using the technologies you love. All component behavior can be configured via props"
