@@ -8,7 +8,7 @@ module.exports = {
   // plugins: ['commitlint-plugin-jira-rules'],
   plugins: [
     // This allows us custom Regex rules for subject
-    'commitlint-plugin-function-rules'
+    'commitlint-plugin-function-rules',
   ],
   extends: [
     '@commitlint/config-conventional',
@@ -30,11 +30,13 @@ module.exports = {
     'scope-enum': [2, 'always', allowedScopes],
     // 'references-empty': [2, 'never'],
     'function-rules/subject-case': [
-      2, 'always', parsed => {
+      2,
+      'always',
+      (parsed) => {
         const subject = parsed.subject
 
         const startWithRegex = /^[a-z]/
-        const endWithRegex = /([a-z]|\))$/
+        const endWithRegex = /((?<=\#)\w+\)|(\w+))$/
 
         // console.log(startWithRegex.test(subject))
         // console.log(endWithRegex.test(subject))
@@ -53,11 +55,14 @@ module.exports = {
          * V feat(apps-builder): add some new feature (#1230)
          */
         if (!endWithRegex.test(subject)) {
-          return [false, 'Subject must end with a lower case alphabet or a closing parenthesis']
+          return [
+            false,
+            'Subject must end with a lower case alphabet or a closing parenthesis',
+          ]
         }
 
         return [true]
-      }
+      },
     ],
     // 'subject-case': [
     //   2,
@@ -77,5 +82,3 @@ module.exports = {
     // ],
   },
 }
-
-

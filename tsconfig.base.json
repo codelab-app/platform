@@ -132,5 +132,9 @@
       ]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"]
+  "exclude": ["node_modules", "tmp", "dist"],
+  "include": [
+    "apps/builder-e2e/cypress.ci.config.ts",
+    "apps/builder-e2e/cypress.test.config.ts"
+  ]
 }
