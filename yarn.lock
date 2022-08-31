@@ -16280,7 +16280,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: ^10.2.0
+    cypress: ^10.7.0
     cypress-nextjs-auth0: 2.1.0
     cz-customizable: 6.3.0
     d3: 7.3.0
@@ -17812,7 +17812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^10.2.0":
+"cypress@npm:^10.7.0":
   version: 10.7.0
   resolution: "cypress@npm:10.7.0"
   dependencies:

@@ -13,7 +13,10 @@ const encrypt = require('cypress-nextjs-auth0/encrypt')
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-const pluginConfig: Cypress.PluginConfig = async (on, config) => {
+const pluginConfig = async (
+  on: Cypress.PluginEvents,
+  config: Cypress.PluginConfigOptions,
+) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
@@ -22,7 +25,7 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
    */
   on('task', { encrypt })
 
-  config.env.tsConfig = 'tsconfig.e2e.json'
+  config.env.tsConfig = 'tsconfig.json'
 
   // Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
   config.env.auth0Audience = process.env.AUTH0_AUDIENCE
