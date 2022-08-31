@@ -60,3 +60,6 @@ coverage/
 Thumbs.db
 
 .vercel
+
+# Next.js
+.next

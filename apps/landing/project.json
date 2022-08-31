@@ -12,7 +12,9 @@
         "outputPath": "dist/apps/landing"
       },
       "configurations": {
-        "development": {},
+        "development": {
+          "outputPath": "apps/landing"
+        },
         "production": {}
       }
     },
