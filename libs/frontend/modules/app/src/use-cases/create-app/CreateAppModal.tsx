@@ -15,6 +15,8 @@ export const CreateAppModal = observer<{
   userService: IUserService
 }>(({ appService, userService }) => {
   const onSubmit = (data: ICreateAppDTO) => {
+    console.log('submit for fun tatata')
+
     return appService.create([data])
   }
 
@@ -22,7 +24,7 @@ export const CreateAppModal = observer<{
 
   return (
     <ModalForm.Modal
-      okText="Create App"
+      okText="Create Demo"
       onCancel={closeModal}
       visible={appService.createModal.isOpen}
     >

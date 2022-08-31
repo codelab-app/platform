@@ -50,7 +50,7 @@ export class AppService
   }
 
   @modelAction
-  private updatePagesCache(apps: Array<IAppDTO>) {
+  private updatePagesCache(apps: Array<IAppDTO> = []) {
     // Add all non-existing atoms to the AtomStore, so we can safely reference them in Element
     const pageService = getPageService(this)
     const pages = apps.flatMap((app) => app.pages)
@@ -61,7 +61,8 @@ export class AppService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AppService, where?: AppWhere) {
-    const { apps } = yield* _await(appApi.GetApps({ where }))
+    const data = yield* _await(appApi.GetApps({ where }))
+    const { apps } = data
 
     this.updatePagesCache(apps)
 
@@ -168,6 +169,8 @@ export class AppService
     }
 
     return apps.map((app) => {
+      console.log('new app', { app })
+
       const appModel = App.hydrate(app)
 
       this.apps.set(appModel.id, appModel)

@@ -14,15 +14,12 @@ export const createAppSchema: JSONSchemaType<ICreateAppDTO> = {
     name: {
       type: 'string',
       autoFocus: true,
+      nullable: true,
     },
     slug: {
       type: 'string',
-    },
-    auth0Id: {
-      type: 'string',
-      disabled: true,
-      ...showFieldOnDev(),
+      nullable: true,
     },
   },
-  required: ['name', 'auth0Id', 'slug'],
+  required: ['name', 'slug'],
 } as const

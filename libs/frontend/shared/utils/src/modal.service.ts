@@ -14,6 +14,8 @@ export class ModalService<TMetadata = never>
 {
   @modelAction
   open(...args: TMetadata extends never ? [] : [TMetadata]) {
+    console.log('modal is oppppp')
+
     this.isOpen = true
 
     if (args.length > 0) {

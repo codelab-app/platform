@@ -58,7 +58,7 @@ const AppsPageHeader = observer(() => {
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Apps" />
 })
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
+export const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
 
   const [, { isLoading }] = useStatefulExecutor(() => appService.getAll(), {

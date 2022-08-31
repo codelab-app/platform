@@ -12,6 +12,7 @@ export const handleFormSubmit =
     onSubmitError?: (err: any) => any,
   ) =>
   async (formData: T) => {
+    console.log('handleFormSubmit')
     setIsLoading?.(true)
 
     try {
@@ -43,6 +44,8 @@ export const handleSubmitRefModalOk = (
     }
 
     // Submits the form
+    console.log('call submit ref', submitRef.current)
+
     submitRef.current.submit()
 
     // Call the callback from the modalProps prop, if defined

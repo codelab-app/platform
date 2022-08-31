@@ -12,6 +12,10 @@ export const connectUniformSubmitRef =
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {
         submit() {
+          console.log('submit inside', r.submit)
+
+          // console.log('on submit', r)
+
           return r.submit()
         },
       }

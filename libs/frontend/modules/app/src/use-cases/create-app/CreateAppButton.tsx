@@ -7,11 +7,11 @@ import React, { PropsWithChildren } from 'react'
 export const CreateAppButton = observer<
   PropsWithChildren<{ appService: IAppService }>
 >(({ appService, children }) => {
-  const icon = !children && <PlusOutlined />
+  const icon = !children && <PlusOutlined label="" />
   const onClick = () => appService.createModal.open()
 
   return (
-    <Button icon={icon} onClick={onClick} type="primary">
+    <Button onClick={onClick} type="primary">
       {children ?? 'Create App'}
     </Button>
   )
