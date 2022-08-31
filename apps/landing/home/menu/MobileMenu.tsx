@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { faArrowLeft, faBars } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
@@ -74,14 +75,13 @@ export const MenuMobile = () => {
       <SpaceEvenly>
         <Logo />
         <button
-          className="btn hover-text bg-white border-0"
+          css={tw`bg-white border-0 hover:cursor-pointer`}
           onClick={toggleMenu}
         >
           <FontAwesomeIcon css={tw`text-xl`} icon={faBars} />
         </button>
       </SpaceEvenly>
       <menu
-        className="menu menu-vertical"
         css={[
           isMenuOpen ? tw`` : tw`-translate-x-full`,
           tw`transition transform-gpu duration-300 shadow-lg border-r-2`,
@@ -100,7 +100,7 @@ export const MenuMobile = () => {
                   css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
                   href={items.href}
                 >
-                  <img
+                  <Image
                     alt="item-logo"
                     css={tw`mr-4`}
                     height={18}
@@ -144,7 +144,7 @@ const menuItems = [
   {
     title: 'Docs',
     href: '/',
-    icon: 'docs.svg',
+    icon: '/docs.svg',
   },
   {
     title: 'Pricing',
