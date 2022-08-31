@@ -69,7 +69,7 @@ export const MenuMobile = () => {
   }
 
   return (
-    <nav className="nav" ref={ref}>
+    <nav ref={ref}>
       <Backdrop active={isMenuOpen} />
       <SpaceEvenly>
         <Logo />

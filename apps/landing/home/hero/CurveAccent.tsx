@@ -2,7 +2,7 @@ import React from 'react'
 import tw from 'twin.macro'
 
 export const CurveAccent = () => (
-  <div css={tw`relative `}>
+  <div css={tw`relative top-6 `}>
     {/* Generated from https://getwaves.io/ */}
     <svg
       css={tw`h-full w-full`}

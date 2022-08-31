@@ -15,7 +15,7 @@ type FeatureCardProps = {
 export const FeatureCard = (props: FeatureCardProps) => {
   return (
     <Card style={cardStyle}>
-      <div css={tw`p-8 pb-24 w-full h-full`}>
+      <div css={tw` pb-24 w-full h-full`}>
         <div css={tw`flex w-fit bg-violet-100  mb-5 p-4 rounded-2xl`}>
           <FontAwesomeIcon
             css={[

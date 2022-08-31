@@ -36,7 +36,7 @@ export const DemoShoppingCard = () => {
       cover={
         <img src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg" />
       }
-      css={tw` `}
+      css={tw`m-auto `}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Text strong>MacBook Pro 13”</Text>
