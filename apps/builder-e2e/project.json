@@ -15,23 +15,23 @@
       "configurations": {
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
-          "cypressConfig": "apps/builder-e2e/cypress.ci.json",
+          "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
           "devServerTarget": "builder-e2e:serve:ci",
           "record": true
         },
         "test": {
-          "cypressConfig": "apps/builder-e2e/cypress.test.json",
+          "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:test",
           "record": false
         },
         "dev": {
-          "cypressConfig": "apps/builder-e2e/cypress.test.json",
+          "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:dev",
           "watch": true,
           "exit": false
         },
         "start": {
-          "cypressConfig": "apps/builder-e2e/cypress.ci.json",
+          "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
           "baseUrl": "http://127.0.0.1:3000",
           "watch": true,
           "exit": false
