@@ -58,10 +58,9 @@ export const BuilderDemo = () => {
             />
             <div
               css={[
-                tw`absolute z-20`,
+                tw`relative z-20`,
                 css`
-                  inset: 5%;
-                  top: 15%;
+                  top: 21%;
                 `,
               ]}
             >

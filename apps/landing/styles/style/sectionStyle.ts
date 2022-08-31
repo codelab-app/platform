@@ -38,13 +38,18 @@ export const threeGridCol = {
 export const alignFullGridStyle = {
   display: 'inline-flex',
   alignSelf: 'stretch',
+  padding: 0,
 }
 
 export const cardStyle = {
   display: 'flex',
   alignItems: 'start',
-  width: '100%',
-  height: '300px',
+  width: '400px',
+  height: '400px',
+  borderRadius: '10px',
+  border: 'none',
+  marginBottom: '2rem',
+  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
 }
 
 export const padding = {

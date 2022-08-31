@@ -9,7 +9,7 @@ import {
 import { Col, Row, Typography } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
-import { alignFullGridStyle, padding, threeGridCol } from '../../styles/style'
+import { alignFullGridStyle, threeGridCol } from '../../styles/style'
 import { FeatureCard } from './FeatureCard'
 
 const { Title } = Typography
@@ -23,20 +23,20 @@ const colProps = {
 
 export const BestPractices = () => {
   return (
-    <section className="container">
-      <div css={tw`m-auto py-12`} style={{ maxWidth: '1440px' }}>
+    <section className="container" style={{ maxWidth: '1440px' }}>
+      <div css={tw`m-auto py-12`}>
         <Title
           css={tw`text-center mt-28 !font-extrabold !text-violet-600 !text-5xl`}
           level={2}
         >
           Build with best practices: re-use & compose
         </Title>
-        <div css={tw`text-center mb-11 text-base text-slate-500 text-black`}>
+        <div css={tw`text-center mb-11 text-lg text-slate-500 text-black`}>
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
           development platform. It’s like a smart IDE on steroids.
         </div>
-        <Row align="middle" gutter={[padding.sm, padding.sm]}>
+        <Row align="middle" css={tw`px-8`} gutter={[4, 12]}>
           <Col {...colProps}>
             <FeatureCard
               description="We integrate with existing UI Frameworks such as Ant Design & Material UI so you can keep using the technologies you love. All component behavior can be configured via props"

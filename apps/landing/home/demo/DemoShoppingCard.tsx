@@ -6,6 +6,7 @@ import {
 import { Button, Card, Typography } from 'antd'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
+import tw from 'twin.macro'
 import { demoCardPropState } from './ButtonDemoProps'
 
 const { Meta } = Card
@@ -35,6 +36,7 @@ export const DemoShoppingCard = () => {
       cover={
         <img src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg" />
       }
+      css={tw` `}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Text strong>MacBook Pro 13”</Text>
