@@ -1,5 +1,6 @@
+// eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextRequest, NextResponse } from 'next/server'
-import { redirectExternalDomain } from '../src/middleware/redirectExternalDomain'
+import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
