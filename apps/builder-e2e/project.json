@@ -6,10 +6,11 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/builder-e2e/cypress.json",
+        "cypressConfig": "apps/builder-e2e/cypress.ci.config.ts",
         "tsConfig": "./tsconfig.base.json",
         "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron"
+        "browser": "electron",
+        "testingType": "e2e"
       },
       "configurations": {
         "ci": {
