@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 export const LoginUserButton = () => {
   return (
     <Button
-      css={tw`!text-purple-500 hover:!bg-purple-400 hover:!text-white`}
+      css={tw`!text-purple-500 hover:!bg-purple-400 rounded-2xl hover:!text-white`}
       ghost
       href="/api/auth/login"
       type="primary"

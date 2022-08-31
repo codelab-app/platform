@@ -22,8 +22,32 @@ export const CodelabMenuContainer = ({ children }: PropsWithChildren<any>) => {
       top={0}
     >
       <div css={[tw`z-50 m-0 p-0 bg-white`, showStickyHeader && tw`shadow`]}>
-        <div css={tw`2xl:container xl:container mx-auto`}>{children}</div>
+        <div
+          css={tw`2xl:container xl:container mx-auto`}
+          style={{ maxWidth: '1440px' }}
+        >
+          {children}
+        </div>
       </div>
     </Sticky>
   )
 }
+
+export const menuItems = [
+  {
+    title: 'Features',
+    href: '/',
+  },
+  {
+    title: 'Docs',
+    href: '/',
+  },
+  {
+    title: 'Pricing',
+    href: '/',
+  },
+  {
+    title: 'Tutorials',
+    href: '/',
+  },
+]

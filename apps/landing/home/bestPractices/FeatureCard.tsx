@@ -15,30 +15,33 @@ type FeatureCardProps = {
 export const FeatureCard = (props: FeatureCardProps) => {
   return (
     <Card style={cardStyle}>
-      <Card.Meta
-        avatar={
-          <div css={tw`flex bg-violet-100 rounded-lg`}>
-            <FontAwesomeIcon
-              css={[
-                css`
-                  path {
-                    ${tw`fill-violet-700`}
-                  }
-                `,
-              ]}
-              icon={props.icon}
-              size="2x"
-            />
-          </div>
-        }
-        css={css`
-          .ant-card-meta-title {
-            ${tw`font-display font-extrabold`}
-          }
-        `}
-        description={props.description}
-        title={props.title}
-      />
+      <div css={tw`p-4`}>
+        <div css={tw`flex bg-violet-100 mb-4 p-4 rounded-lg`}>
+          <FontAwesomeIcon
+            css={[
+              css`
+                path {
+                  ${tw`fill-violet-700`}
+                }
+              `,
+            ]}
+            icon={props.icon}
+            size="3x"
+          />
+        </div>
+        <Card.Meta
+          css={css`
+            .ant-card-meta-title {
+              ${tw`text-2xl font-display font-extrabold`}
+            }
+            .ant-card-meta-description {
+              ${tw`text-base text-black`}
+            }
+          `}
+          description={props.description}
+          title={props.title}
+        />
+      </div>
     </Card>
   )
 }

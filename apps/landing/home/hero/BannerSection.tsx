@@ -1,5 +1,6 @@
-import { ArrowRightOutlined } from '@ant-design/icons'
 import { Fancybox } from '@codelab/frontend/view/components'
+import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row, Space, Typography } from 'antd'
 import $ from 'jquery'
 import React, { useEffect, useRef } from 'react'
@@ -35,17 +36,17 @@ export const BannerSection = () => {
 
   return (
     <>
-      <section css={[tw`my-20`]}>
-        <div css={tw`container py-10`}>
+      <section css={[tw`m-auto `]} style={{ maxWidth: '1440px' }}>
+        <div css={tw`container mt-12 py-10`}>
           <Row css={tw`justify-center`}>
             <Col
               css={tw`flex-col flex items-center`}
               style={{ width: '62rem' }}
             >
-              <h1 css={tw`text-center !text-6xl leading-snug font-bold`}>
+              <h1 css={tw`text-center mb-0 !text-6xl leading-snug font-bold`}>
                 Build Using&nbsp;
                 <span
-                  css={tw`bg-red-100 inline-block`}
+                  css={tw`text-yellow-400 inline-block`}
                   style={{ minWidth: '20rem' }}
                 >
                   <span
@@ -60,10 +61,16 @@ export const BannerSection = () => {
                 Without Template Limitations
               </h1>
               <p
-                css={tw`text-center text-lg px-16 py-4 leading-7 font-light w-3/4`}
+                css={tw`text-center text-2xl mt-4 mb-3 py-4 leading-7 font-light w-3/4`}
               >
-                Create custom components using HTML or UI framework components.
-                Configure behavior using props provided by those libraries.
+                <p css={tw`mb-3`}>
+                  Nest components to construct the DOM tree as you would in
+                  code.
+                </p>
+                <p css={tw`mt-0`}>
+                  Configure props provided by UI frameworks so you can save
+                  time.
+                </p>
               </p>
               <Space
                 align="center"
@@ -77,9 +84,15 @@ export const BannerSection = () => {
                   }}
                 >
                   <Button
+                    css={tw`h-14 w-48 rounded-lg text-lg`}
                     data-fancybox="gallery"
                     data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
-                    icon={<ArrowRightOutlined />}
+                    icon={
+                      <FontAwesomeIcon
+                        css={tw`text-xl mr-2`}
+                        icon={faArrowRight}
+                      />
+                    }
                     size="large"
                     type="primary"
                   >
@@ -87,8 +100,14 @@ export const BannerSection = () => {
                   </Button>
                 </Fancybox>
                 <Button
+                  css={tw`h-14 w-48 rounded-lg text-lg`}
                   ghost
-                  icon={<ArrowRightOutlined />}
+                  icon={
+                    <FontAwesomeIcon
+                      css={tw`text-xl mr-2`}
+                      icon={faArrowRight}
+                    />
+                  }
                   size="large"
                   type="primary"
                 >
@@ -102,8 +121,8 @@ export const BannerSection = () => {
         <div css={tw`container`}>
           <BuilderDemo />
         </div>
-        <CurveAccent />
       </section>
+      <CurveAccent />
     </>
   )
 }

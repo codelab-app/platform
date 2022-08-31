@@ -2,10 +2,10 @@ import React from 'react'
 import tw from 'twin.macro'
 
 export const CurveAccent = () => (
-  <div css={tw`relative`}>
+  <div css={tw`relative `}>
     {/* Generated from https://getwaves.io/ */}
     <svg
-      // css={tw`fill-yellow-500`}
+      css={tw`h-full w-full`}
       viewBox="0 0 1440 320"
       xmlns="http://www.w3.org/2000/svg"
     >

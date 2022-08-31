@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { BannerSection, Clients, HomeTemplate } from '../home'
-import { Architecture } from '../home/architecture/Architecture'
+// import { Architecture } from '../home/architecture/Architecture'
 import { BestPractices } from '../home/bestPractices/BestPractices'
 import { JoinCommunity } from '../home/community/JoinCommunity'
 
@@ -13,7 +13,7 @@ const HomePage = () => {
       </Head>
       <BannerSection />
       <Clients />
-      <Architecture />
+      {/* <Architecture /> */}
       <BestPractices />
       <JoinCommunity />
     </>

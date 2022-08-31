@@ -42,8 +42,9 @@ export const alignFullGridStyle = {
 
 export const cardStyle = {
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'start',
   width: '100%',
+  height: '300px',
 }
 
 export const padding = {

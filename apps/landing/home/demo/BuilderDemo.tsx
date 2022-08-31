@@ -15,16 +15,26 @@ const onChange = (key: string) => {
 
 export const BuilderDemo = () => {
   return (
-    <Row>
+    <Row style={{ maxWidth: '1440px' }}>
       <Col md={16} span={24}>
         <Tabs defaultActiveKey="1" onChange={onChange}>
           <TabPane key="1" tab="Builder View">
             {/* <BuilderView /> */}
             <Row>
-              <Col span={8}>
+              <Col css={tw`border-2 border-solid border-black mr-10`} span={6}>
+                <p
+                  css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black `}
+                >
+                  DOM Tree
+                </p>
                 <DOMTree />
               </Col>
-              <Col span={8}>
+              <Col css={tw`border-2 border-solid border-black`} span={11}>
+                <p
+                  css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black`}
+                >
+                  Props (Button)
+                </p>
                 <ButtonPropsForm />
               </Col>
               {/* <Col span={8}> */}
@@ -50,8 +60,8 @@ export const BuilderDemo = () => {
               css={[
                 tw`absolute z-20`,
                 css`
-                  top: 75px;
-                  left: 40px;
+                  inset: 5%;
+                  top: 15%;
                 `,
               ]}
             >

@@ -6,6 +6,7 @@ import {
 import { ButtonProps, Descriptions, Radio, Select, Space, Switch } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
+import tw from 'twin.macro'
 
 type DemoCardProps = {
   block: boolean
@@ -39,7 +40,7 @@ export const ButtonPropsForm = () => {
   }
 
   return (
-    <>
+    <div css={tw`p-3 `}>
       <Descriptions column={1}>
         <Descriptions.Item label="block">
           <Switch defaultChecked onChange={onBlockToggle} />
@@ -109,6 +110,6 @@ export const ButtonPropsForm = () => {
           </Select>
         </Descriptions.Item>
       </Descriptions>
-    </>
+    </div>
   )
 }

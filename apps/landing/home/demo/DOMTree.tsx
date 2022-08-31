@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Tree, TreeProps } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import React from 'react'
+import tw from 'twin.macro'
 
 const treeData: Array<DataNode> = [
   {
@@ -68,11 +69,12 @@ export const DOMTree = () => {
 
   return (
     <Tree
+      css={tw`py-3 px-2`}
       defaultExpandAll
-      defaultSelectedKeys={['button']}
       // defaultExpandedKeys={['card', 'div', 'text-0', 'text-1', 'button']}
       // onSelect={onSelect}
       // showLine
+      defaultSelectedKeys={['button']}
       showIcon
       switcherIcon={<DownOutlined />}
       treeData={treeData}
