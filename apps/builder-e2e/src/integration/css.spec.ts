@@ -88,6 +88,7 @@ describe('CSS CRUD', () => {
 
   describe('Add css', () => {
     it('should be able to add some css styling', () => {
+      cy.getSpinner().should('not.exist')
       cy.findByText(ELEMENT_BUTTON).click()
       cy.get('[aria-label="format-painter"]').click()
       cy.getSpinner().should('not.exist')
