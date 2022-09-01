@@ -153,8 +153,6 @@ export const useResizable = ({
       },
       onDragEnd: () => setIsDraggingY(false),
       onDragStart: () => {
-        console.log('etstadasdas')
-
         setIsDraggingY(true)
       },
       drag: 'y',

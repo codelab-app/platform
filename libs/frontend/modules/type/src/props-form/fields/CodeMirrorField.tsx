@@ -3,7 +3,12 @@ import {
   stateOptions,
   typeOptions,
 } from '@codelab/frontend/view/components'
-import { IFieldDTO, IPropsFieldContext } from '@codelab/shared/abstract/core'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import {
+  IField,
+  IFieldDTO,
+  IPropsFieldContext,
+} from '@codelab/shared/abstract/core'
 import React from 'react'
 import { Controller, UseFormReturn } from 'react-hook-form'
 
@@ -11,12 +16,14 @@ export interface CodeMirrorFieldProps {
   field: IFieldDTO
   form: UseFormReturn
   context?: IPropsFieldContext
+  language?: CodeMirrorLanguage
 }
 
 export const CodeMirrorField = ({
   field,
   form,
   context,
+  language,
 }: CodeMirrorFieldProps) => (
   <Controller
     control={form.control}
@@ -25,6 +32,7 @@ export const CodeMirrorField = ({
       <CodeMirrorEditor
         customOptions={stateOptions(context?.autocomplete)}
         defaultOptions={typeOptions(field.type.current)}
+        language={language}
         onBlur={control.field.onBlur}
         onChange={control.field.onChange}
         title={field.name}

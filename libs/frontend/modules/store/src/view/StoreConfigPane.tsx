@@ -12,26 +12,20 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-interface StoreConfigPaneProps {
+interface StateFormProps {
   typeService: ITypeService
   storeService: IStoreService
-  store?: IStore
+  appStore: IStore
 }
 
-export const StoreConfigPane = observer<StoreConfigPaneProps>(
-  ({ typeService, storeService, store }) => {
-    if (!store) {
-      return null
-    }
-
-    const api = typeService.type(store.stateApiId)
-
-    console.log(api)
+export const StateForm = observer<StateFormProps>(
+  ({ storeService, typeService, appStore }) => {
+    const api = typeService.type(appStore.stateApiId) as IInterfaceType
 
     const onSubmit = (values: IPropData) => {
-      const promise = storeService.update(store, {
+      const promise = storeService.update(appStore, {
         state: JSON.stringify(values),
-        name: store.name,
+        name: appStore.name,
       })
 
       return promise
@@ -45,8 +39,8 @@ export const StoreConfigPane = observer<StoreConfigPaneProps>(
             context={{
               builderState: { componentId: undefined },
             }}
-            interfaceType={api as Maybe<IInterfaceType>}
-            model={store.state.values}
+            interfaceType={api}
+            model={api.defaults}
             onSubmit={onSubmit}
           />
         </div>

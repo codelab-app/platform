@@ -30,6 +30,7 @@ export const TabContainer = styled.div`
   .ant-tabs-content-holder,
   .ant-tabs-tabpane,
   .tab-panel {
+    width: 100%;
     ${tw`flex flex-col flex-grow min-h-0 overflow-visible`}
   }
 

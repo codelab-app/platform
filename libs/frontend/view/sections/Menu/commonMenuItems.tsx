@@ -2,7 +2,6 @@ import {
   AppstoreOutlined,
   BuildOutlined,
   CloudServerOutlined,
-  DatabaseOutlined,
   FileOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -17,15 +16,6 @@ export const appMenuItem: ItemType = {
   key: PageType.AppList,
   label: <Link href={PageType.AppList}>Apps</Link>,
 }
-
-export const storeMenuItem = (appId: Nullish<string>): ItemType => ({
-  icon: <DatabaseOutlined data-testid="store-tab-trigger" title="Store" />,
-  key: PageType.Store,
-  disabled: !appId,
-  label: (
-    <Link href={{ pathname: PageType.Store, query: { appId } }}>Store</Link>
-  ),
-})
 
 export const resourceMenuItem: ItemType = {
   icon: (
