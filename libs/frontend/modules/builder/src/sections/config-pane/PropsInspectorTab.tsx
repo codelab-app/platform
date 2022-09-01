@@ -40,7 +40,7 @@ const PropsInspectorTab = observer(
     }
 
     return (
-      <div>
+      <div css={tw`w-full`}>
         <h3 css={tw`text-gray-700`}>Current props</h3>
         <CodeMirrorEditor
           height="150px"

@@ -51,7 +51,7 @@ export const DashboardTemplateEditorPane = ({
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...resizable.yDragHandleProps}
       />
-      <div css={tw`flex-1 min-w-full px-4`}>
+      <div css={tw`flex-1 min-w-full h-full px-4`}>
         <EditorPane resizable={resizable} />
       </div>
     </motion.div>

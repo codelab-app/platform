@@ -1,2 +1,2 @@
 export * from './StoreConfigPane'
-export * from './StoreExplorerPane'
+export * from './StoreEditorPane'

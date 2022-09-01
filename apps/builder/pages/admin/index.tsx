@@ -7,7 +7,6 @@ import {
   ContentSection,
   pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -56,7 +55,6 @@ AdminPage.Layout = (page) => {
               userService.user?.curAppId,
               userService.user?.curPageId,
             ),
-            storeMenuItem(userService.user?.curAppId),
             resourceMenuItem,
           ]}
           secondaryItems={adminMenuItems}

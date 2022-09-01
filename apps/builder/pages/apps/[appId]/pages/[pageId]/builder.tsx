@@ -8,7 +8,17 @@ import {
 } from '@codelab/frontend/modules/builder'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import { createMobxState } from '@codelab/frontend/modules/store'
+import {
+  CreateActionModal,
+  createMobxState,
+  DeleteActionsModal,
+  UpdateActionModal,
+} from '@codelab/frontend/modules/store'
+import {
+  CreateFieldModal,
+  DeleteFieldModal,
+  UpdateFieldModal,
+} from '@codelab/frontend/modules/type'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -20,7 +30,6 @@ import {
   appMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
-  storeMenuItem,
 } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -143,6 +152,24 @@ const PageBuilder: CodelabPage = observer(() => {
         isLoading={loading}
         renderer={value?.renderer}
       />
+
+      <CreateFieldModal typeService={typeService} />
+      <UpdateFieldModal typeService={typeService} />
+      <DeleteFieldModal typeService={typeService} />
+      {data?.appStore && (
+        <>
+          <CreateActionModal
+            actionService={actionService}
+            resourceService={resourceService}
+            store={data.appStore}
+          />
+          <UpdateActionModal
+            actionService={actionService}
+            resourceService={resourceService}
+          />
+          <DeleteActionsModal actionService={actionService} />
+        </>
+      )}
     </>
   )
 })
@@ -160,14 +187,13 @@ PageBuilder.Layout = observer((page) => {
     typeService,
     builderRenderService,
     actionService,
-    appRenderService,
+    storeService,
   } = useStore()
 
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
   const activeElementTree = builderService.activeElementTree
-  const pageTree = pageBuilderRenderer?.pageTree?.current
 
   useEffect(() => {
     userService.user?.setCurAppId(appId)
@@ -200,7 +226,18 @@ PageBuilder.Layout = observer((page) => {
           </>
         ))}
         EditorPane={observer(({ resizable }) => (
-          <EditorPaneBuilder resizable={resizable} />
+          <>
+            {pageBuilderRenderer?.appStore?.current && (
+              <EditorPaneBuilder
+                actionService={actionService}
+                appStore={pageBuilderRenderer.appStore.current}
+                resizable={resizable}
+                state={pageBuilderRenderer?.platformState}
+                storeService={storeService}
+                typeService={typeService}
+              />
+            )}
+          </>
         ))}
         ExplorerPane={observer(() => (
           <BuilderExplorerPane
@@ -224,7 +261,6 @@ PageBuilder.Layout = observer((page) => {
               appMenuItem,
               allPagesMenuItem(appId),
               pageBuilderMenuItem(appId, pageId),
-              storeMenuItem(appId),
               resourceMenuItem,
             ]}
             secondaryItems={adminMenuItems}
