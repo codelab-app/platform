@@ -1,4 +1,4 @@
-import { Config } from '@codelab/shared/utils'
+import { Config } from '@codelab/shared/config'
 import neo4j, { Driver } from 'neo4j-driver'
 
 const defaultOptions = () => ({

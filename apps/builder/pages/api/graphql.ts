@@ -8,7 +8,7 @@ import {
 } from '@codelab/backend'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { Config } from '@codelab/shared/utils'
+import { Config } from '@codelab/shared/config'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'

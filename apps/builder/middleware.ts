@@ -1,4 +1,4 @@
-import { Config } from '@codelab/shared/utils'
+import { Config } from '@codelab/shared/config'
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextRequest, NextResponse } from 'next/server'
 import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
