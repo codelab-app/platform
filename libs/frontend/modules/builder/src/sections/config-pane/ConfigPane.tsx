@@ -22,6 +22,7 @@ import {
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import tw from 'twin.macro'
 import { usePropCompletion } from '../../hooks'
 import { ConfigPaneComponentTabContainer } from './ConfigPane-ComponentTabContainer'
 import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContainer'
@@ -102,6 +103,7 @@ export const ConfigPane = observer<MetaPaneProps>(
                           trackPromises={trackPromises}
                         />
                         <DeleteElementButton
+                          css={tw`mt-3`}
                           disabled={isRootElement(node)}
                           element={node}
                           elementService={elementService}

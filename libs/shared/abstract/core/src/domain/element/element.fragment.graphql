@@ -10,7 +10,16 @@ fragment Element on Element {
   instanceOfComponent {
     ...Component
   }
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
   parentElement {
+    id
+  }
+  childrenRoot {
     id
   }
   atom {
@@ -36,7 +45,6 @@ fragment Element on Element {
         id
         name
       }
-      order
     }
   }
 }

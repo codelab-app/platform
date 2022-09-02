@@ -15,7 +15,6 @@ const BuilderDropHandler = observer<BuilderDropHandlerProps>(
   ({ element, target, order }) => {
     const { setNodeRef, isOver, rect, node, over, active } =
       useCreateElementDroppable(element.id, {
-        order,
         parentElementId: element.id,
       })
 

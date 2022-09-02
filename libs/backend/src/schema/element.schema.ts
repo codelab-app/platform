@@ -12,12 +12,19 @@ export const elementSchema = gql`
 
   type Element {
     id: ID! @id(autogenerate: false)
+    nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
+    prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
+
+    childrenRoot: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
+    rootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
+
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"
         properties: "ParentOfElement"
         direction: OUT
       )
+
     # Used for reverse lookup to see whether element is detached
     app: App @relationship(type: "ROOT_APP_ELEMENT", direction: OUT)
     # Used for reverse lookup to see whether element is detached
