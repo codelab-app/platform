@@ -1,26 +1,29 @@
-import { Config } from '@codelab/shared/utils'
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextRequest, NextResponse } from 'next/server'
 import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
 export default async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
   const hostname = req.headers.get('host')
-  const publicRootDomains = Config().vercel.root_domains
+
+  if (!hostname) {
+    return NextResponse.next()
+  }
+
+  /**
+   * Cannot use `env-var` lib due to Edge Runtime limitations
+   */
+  const publicRootDomains =
+    process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
 
   const matchedPublicDomains = publicRootDomains.find((domain) =>
     hostname?.includes(domain),
   )
 
   // vercel domain is for previewing, dev only
-  const vercelURL = Config().vercel.preview_url
+  const vercelURL = String(process.env.VERCEL_URL)
   const matchedVercelDomain = hostname?.includes(vercelURL)
   const isRootHostName = Boolean(matchedPublicDomains)
-
-  if (!hostname) {
-    return NextResponse.next()
-  }
-
+  const { pathname } = req.nextUrl
   const isApi = pathname.includes('api')
   const isSites = pathname.includes('_sites')
   const isInternal = pathname.includes('_next')
