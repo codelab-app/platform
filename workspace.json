@@ -35,6 +35,7 @@
     "shared-abstract-codegen": "libs/shared/abstract/codegen",
     "shared-abstract-core": "libs/shared/abstract/core",
     "shared-abstract-types": "libs/shared/abstract/types",
+    "shared-config": "libs/shared/config",
     "shared-data": "libs/shared/data",
     "shared-utils": "libs/shared/utils",
     "tools-plugins-codelab": "libs/tools/plugins/codelab"
