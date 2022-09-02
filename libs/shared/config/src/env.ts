@@ -27,10 +27,6 @@ interface Config {
     audience: string
     baseUrl: string
   }
-  vercel: {
-    root_domains: Array<string>
-    preview_url: string
-  }
 }
 
 export const Config = (): Config => ({
@@ -67,9 +63,5 @@ export const Config = (): Config => ({
       env.get('AUTH0_BASE_URL').asString() ||
         `https://${env.get('VERCEL_URL').asString()}`,
     ),
-  },
-  vercel: {
-    root_domains: env.get('ROOT_DOMAINS').default('').asArray(','),
-    preview_url: env.get('VERCEL_URL').default('').asString(),
   },
 })
