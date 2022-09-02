@@ -43,17 +43,6 @@ const withRawCypherFiles = (nextConfig = {}) => {
 module.exports = withPlugins(
   [
     // withTM,
-    // [
-    //   withAntdLess,
-    //   {
-    //     // modifyVars: { '@primary-color': '#04f' },
-    //     lessVarsFilePath: './src/styles/antd-theme.less',
-    //     // lessVarsFilePathAppendToEndOfContent: false,
-    //     // lessLoaderOptions: {
-    //     //   javascriptEnabled: true,
-    //     // },
-    //   },
-    // ],
     [
       withLess,
       {
@@ -61,18 +50,6 @@ module.exports = withPlugins(
       },
     ],
     // withBundleAnalyzer,
-    // Keep withNx last
-    // [
-    //   withAntdLess,
-    //   {
-    //     // modifyVars: { '@layout-header-padding': '0px' },
-    //     lessVarsFilePath: './src/styles/antd-theme.less',
-    //     lessVarsFilePathAppendToEndOfContent: false,
-    //     lessLoaderOptions: {
-    //       javascriptEnabled: true,
-    //     },
-    //   },
-    // ],
     withRawCypherFiles,
     [
       withNx,
