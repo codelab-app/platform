@@ -2,6 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
+/**
+ * Edge Runtime limitations prevent us from using many libraries such as `env-var`
+ */
 export default async function middleware(req: NextRequest) {
   const hostname = req.headers.get('host')
 
@@ -9,9 +12,6 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  /**
-   * Cannot use `env-var` lib due to Edge Runtime limitations
-   */
   const publicRootDomains =
     process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
 
