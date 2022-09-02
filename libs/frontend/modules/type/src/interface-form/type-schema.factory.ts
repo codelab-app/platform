@@ -4,12 +4,12 @@ import {
   IAnyType,
   IAppType,
   IArrayType,
+  ICodeMirrorType,
   IElementType,
   IEnumType,
   IField,
   IInterfaceType,
   ILambdaType,
-  IMonacoType,
   IPageType,
   IPrimitiveType,
   IReactNodeType,
@@ -58,8 +58,8 @@ export class TypeSchemaFactory {
         return this.fromPrimitiveType(type)
       case ITypeKind.ReactNodeType:
         return this.fromReactNodeType(type)
-      case ITypeKind.MonacoType:
-        return this.fromMonacoType(type)
+      case ITypeKind.CodeMirrorType:
+        return this.fromCodeMirrorType(type)
       case ITypeKind.ElementType:
         return this.fromElementType(type)
       case ITypeKind.EnumType:
@@ -155,7 +155,7 @@ export class TypeSchemaFactory {
     return this.transformReactElementType(type)
   }
 
-  fromMonacoType(type: IMonacoType): JsonSchema {
+  fromCodeMirrorType(type: ICodeMirrorType): JsonSchema {
     return this.simpleReferenceType(type)
   }
 

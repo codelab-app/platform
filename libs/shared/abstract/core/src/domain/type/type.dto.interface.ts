@@ -1,6 +1,6 @@
 import {
+  CodeMirrorLanguage,
   ElementTypeKind,
-  MonacoLanguage,
 } from '@codelab/shared/abstract/codegen'
 import { TypeFragment } from './fragments'
 import {
@@ -20,7 +20,7 @@ export interface IBaseTypeDTO {
   kind: ITypeKind
   primitiveKind?: IPrimitiveTypeKind
   elementKind?: ElementTypeKind
-  language?: MonacoLanguage
+  language?: CodeMirrorLanguage
   allowedValues?: Array<IEnumTypeValue>
   unionTypeIds?: Array<string>
   arrayTypeId?: string

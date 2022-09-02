@@ -14,12 +14,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "types": [
-      "node",
-      "worker-loader",
-      "window",
-      "@emotion/react/types/css-prop"
-    ],
+    "types": ["node", "worker-loader", "@emotion/react/types/css-prop"],
     "typeRoots": ["node_modules/@types", "types", "types/*"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,

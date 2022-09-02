@@ -4,11 +4,11 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
+  Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
   Type_LambdaType_Fragment,
-  Type_MonacoType_Fragment,
   Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
@@ -117,12 +117,14 @@ export type CreateActionTypesMutation = {
   types: { types: Array<Type_ActionType_Fragment> }
 }
 
-export type CreateMonacoTypesMutationVariables = Types.Exact<{
-  input: Array<Types.MonacoTypeCreateInput> | Types.MonacoTypeCreateInput
+export type CreateCodeMirrorTypesMutationVariables = Types.Exact<{
+  input:
+    | Array<Types.CodeMirrorTypeCreateInput>
+    | Types.CodeMirrorTypeCreateInput
 }>
 
-export type CreateMonacoTypesMutation = {
-  types: { types: Array<Type_MonacoType_Fragment> }
+export type CreateCodeMirrorTypesMutation = {
+  types: { types: Array<Type_CodeMirrorType_Fragment> }
 }
 
 export const CreatePrimitiveTypesDocument = gql`
@@ -245,10 +247,10 @@ export const CreateActionTypesDocument = gql`
   }
   ${TypeFragmentDoc}
 `
-export const CreateMonacoTypesDocument = gql`
-  mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
-    types: createMonacoTypes(input: $input) {
-      types: monacoTypes {
+export const CreateCodeMirrorTypesDocument = gql`
+  mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {
+    types: createCodeMirrorTypes(input: $input) {
+      types: codeMirrorTypes {
         ...Type
       }
     }
@@ -453,18 +455,18 @@ export function getSdk(
         'mutation',
       )
     },
-    CreateMonacoTypes(
-      variables: CreateMonacoTypesMutationVariables,
+    CreateCodeMirrorTypes(
+      variables: CreateCodeMirrorTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<CreateMonacoTypesMutation> {
+    ): Promise<CreateCodeMirrorTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateMonacoTypesMutation>(
-            CreateMonacoTypesDocument,
+          client.request<CreateCodeMirrorTypesMutation>(
+            CreateCodeMirrorTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'CreateMonacoTypes',
+        'CreateCodeMirrorTypes',
         'mutation',
       )
     },

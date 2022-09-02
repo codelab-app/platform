@@ -7,7 +7,12 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "jsxImportSource": "@emotion/react",
-    "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
+    "types": [
+      "node",
+      "worker-loader",
+      "@fancyapps/ui",
+      "eslint-linter-browserify"
+    ],
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

@@ -86,7 +86,7 @@ export const CreateTypeModal = observer<{
           <SelectField label="Element kind" name="elementKind" showSearch />
         </DisplayIfKind>
 
-        <DisplayIfKind kind={ITypeKind.MonacoType}>
+        <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
           <AutoField label="Language" name="language" />
         </DisplayIfKind>
       </ModalForm.Form>

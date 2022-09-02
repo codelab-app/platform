@@ -1,5 +1,5 @@
+import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import CodeMirror from 'codemirror'
 import escapeRegExp from 'lodash/escapeRegExp'
 import forEach from 'lodash/forEach'
 import isArray from 'lodash/isArray'
@@ -7,7 +7,6 @@ import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
-import type { CodeMirrorHTMLElement } from '../../../types/code-mirror'
 import { wrapSubject } from '../../deprecated/utils'
 import { CommonOptions, Label } from '../types'
 import { ifOnClock, logAndMute, tickIfOnClock, TickOptions } from '../utils'
@@ -78,14 +77,14 @@ export const getFormInput = (
     options,
   )
 
-  const scope = label
+  const scope: any = label
     ? getFormField(subject, { label, ...opts })
     : wrapSubject(subject)
 
   switch (type) {
-    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
-      return scope.find('.CodeMirror', opts).then((elem) => {
-        return (elem[0] as CodeMirrorHTMLElement).CodeMirror
+    case FIELD_TYPE.CODE_MIRROR:
+      return scope.find('.cm-editor', opts).then((elem: any) => {
+        return EditorView.findFromDOM(elem[0])
       })
     case FIELD_TYPE.INPUT:
       return scope.find('.ant-input', opts)
@@ -99,8 +98,6 @@ export const getFormInput = (
       return scope.find('.ant-radio-group', opts)
     case FIELD_TYPE.DATE:
       return scope.find('.ant-picker-input > input', opts)
-    case FIELD_TYPE.MONACO:
-      return scope.find('textarea', opts)
     default:
       throw unsupportedFieldType(type)
   }
@@ -176,7 +173,7 @@ export const expectFormFieldValue = ({
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
     case FIELD_TYPE.DATE:
-    case FIELD_TYPE.MONACO:
+    case FIELD_TYPE.CODE_MIRROR:
       getInput().should('have.value', isUndefined(value) ? '' : String(value))
 
       if (shouldExpectPlaceholder) {
@@ -494,19 +491,20 @@ export const setFormFieldValue = (
   // getField().scrollIntoView(opts)
 
   switch (type) {
-    case FIELD_TYPE.CODE_MIRROR_GRAPHQL:
-      getInput().then((codeMirrorEditor: CodeMirror.Editor) => {
-        codeMirrorEditor.setValue(String(value))
+    case FIELD_TYPE.CODE_MIRROR:
+      getInput().then((view: EditorView) => {
+        view.dispatch({
+          changes: {
+            from: 0,
+            to: view.state.doc.length,
+            insert: String(value),
+          },
+        })
       })
 
       return
     case FIELD_TYPE.INPUT:
     case FIELD_TYPE.NUMBER_INPUT:
-    case FIELD_TYPE.MONACO:
-      if (isArray(value) || value === undefined) {
-        throw new Error('Input `value` must be a single string or number.')
-      }
-
       getInput().then(
         setInputValue(subject, isNumber(value) ? String(value) : value, opts),
       )

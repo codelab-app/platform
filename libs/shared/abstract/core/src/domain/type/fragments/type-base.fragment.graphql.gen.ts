@@ -27,6 +27,14 @@ export type TypeBase_ArrayType_Fragment = {
   owner: { id: string; auth0Id: string }
 }
 
+export type TypeBase_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  kind: Types.TypeKind
+  id: string
+  name: string
+  owner: { id: string; auth0Id: string }
+}
+
 export type TypeBase_ElementType_Fragment = {
   __typename: 'ElementType'
   kind: Types.TypeKind
@@ -53,14 +61,6 @@ export type TypeBase_InterfaceType_Fragment = {
 
 export type TypeBase_LambdaType_Fragment = {
   __typename: 'LambdaType'
-  kind: Types.TypeKind
-  id: string
-  name: string
-  owner: { id: string; auth0Id: string }
-}
-
-export type TypeBase_MonacoType_Fragment = {
-  __typename: 'MonacoType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -111,11 +111,11 @@ export type TypeBaseFragment =
   | TypeBase_ActionType_Fragment
   | TypeBase_AppType_Fragment
   | TypeBase_ArrayType_Fragment
+  | TypeBase_CodeMirrorType_Fragment
   | TypeBase_ElementType_Fragment
   | TypeBase_EnumType_Fragment
   | TypeBase_InterfaceType_Fragment
   | TypeBase_LambdaType_Fragment
-  | TypeBase_MonacoType_Fragment
   | TypeBase_PageType_Fragment
   | TypeBase_PrimitiveType_Fragment
   | TypeBase_ReactNodeType_Fragment

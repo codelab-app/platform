@@ -4,11 +4,11 @@ import {
   ActionType,
   AppType,
   ArrayType,
+  CodeMirrorType,
   ElementType,
   EnumType,
   InterfaceType,
   LambdaType,
-  MonacoType,
   PageType,
   PrimitiveType,
   ReactNodeType,
@@ -33,8 +33,8 @@ export const typeFactory = (type: ITypeDTO) => {
     case ITypeKind.LambdaType:
       return LambdaType.hydrate(type)
 
-    case ITypeKind.MonacoType:
-      return MonacoType.hydrate(type)
+    case ITypeKind.CodeMirrorType:
+      return CodeMirrorType.hydrate(type)
 
     case ITypeKind.PageType:
       return PageType.hydrate(type)

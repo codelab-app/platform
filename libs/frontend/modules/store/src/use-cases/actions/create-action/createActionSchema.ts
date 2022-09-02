@@ -1,6 +1,6 @@
 import { SelectAction } from '@codelab/frontend/modules/type'
-import { monacoFieldFactory } from '@codelab/frontend/view/components'
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   HttpMethod,
   HttpResponseType,
@@ -11,18 +11,18 @@ import { hideField, showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
 
-export const monacoTypescriptOptions = {
-  editorOptions: { language: MonacoLanguage.graphqlDev },
+export const codeMirrorTypescriptOptions = {
+  editorOptions: { language: CodeMirrorLanguage.Typescript },
   containerProps: { style: { height: '100px' } },
 }
 
-export const monacoGraphQLOptions = {
-  editorOptions: { language: MonacoLanguage.graphqlDev },
+export const codemirrorGraphQLOptions = {
+  editorOptions: { language: CodeMirrorLanguage.Graphql },
   containerProps: { style: { height: '100px' } },
 }
 
-export const monacoJSONOptions = {
-  editorOptions: { language: MonacoLanguage.json },
+export const codemirrorJSONOptions = {
+  editorOptions: { language: CodeMirrorLanguage.Json },
   containerProps: { style: { height: '100px' } },
 }
 
@@ -74,17 +74,25 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
         query: {
           type: 'string',
           nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoGraphQLOptions) },
+          uniforms: {
+            component: CodeMirrorField({
+              language: CodeMirrorLanguage.Graphql,
+            }),
+          },
         },
         variables: {
           type: 'string',
           nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+          uniforms: {
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+          },
         },
         body: {
           type: 'string',
           nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+          uniforms: {
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+          },
         },
         urlSegment: {
           type: 'string',
@@ -98,12 +106,16 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
         queryParams: {
           type: 'string',
           nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+          uniforms: {
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+          },
         },
         headers: {
           type: 'string',
           nullable: true,
-          uniforms: { component: monacoFieldFactory(monacoJSONOptions) },
+          uniforms: {
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+          },
         },
         responseType: {
           type: 'string',
@@ -116,7 +128,9 @@ export const createActionSchema: JSONSchemaType<ICreateActionDTO> = {
     code: {
       type: 'string',
       nullable: true,
-      uniforms: { component: monacoFieldFactory(monacoTypescriptOptions) },
+      uniforms: {
+        component: CodeMirrorField({ language: CodeMirrorLanguage.Typescript }),
+      },
     },
     actionsIds: {
       type: 'array',

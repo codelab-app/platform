@@ -1,4 +1,0 @@
-fragment MonacoType on MonacoType {
-  ...TypeBase
-  language
-}

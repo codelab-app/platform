@@ -2,7 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["jest", "node", "@testing-library/jest-dom", "@fancyapps/ui"],
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom",
+      "@fancyapps/ui",
+      "eslint-linter-browserify"
+    ],
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "../../../../dist/out-tsc",
     "jsx": "react-jsx",

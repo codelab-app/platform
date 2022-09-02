@@ -260,15 +260,15 @@ mutation UpdateActionTypes(
   }
 }
 
-mutation UpdateMonacoTypes(
-  $connect: MonacoTypeConnectInput
-  $create: MonacoTypeRelationInput
-  $delete: MonacoTypeDeleteInput
-  $disconnect: MonacoTypeDisconnectInput
-  $update: MonacoTypeUpdateInput
-  $where: MonacoTypeWhere
+mutation UpdateCodeMirrorTypes(
+  $connect: CodeMirrorTypeConnectInput
+  $create: CodeMirrorTypeRelationInput
+  $delete: CodeMirrorTypeDeleteInput
+  $disconnect: CodeMirrorTypeDisconnectInput
+  $update: CodeMirrorTypeUpdateInput
+  $where: CodeMirrorTypeWhere
 ) {
-  types: updateMonacoTypes(
+  types: updateCodeMirrorTypes(
     connect: $connect
     create: $create
     delete: $delete
@@ -276,7 +276,7 @@ mutation UpdateMonacoTypes(
     update: $update
     where: $where
   ) {
-    types: monacoTypes {
+    types: codeMirrorTypes {
       ...Type
     }
   }

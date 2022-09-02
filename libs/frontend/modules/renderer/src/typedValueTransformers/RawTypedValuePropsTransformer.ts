@@ -33,7 +33,7 @@ export class RawTypedValuePropsTransformer
     ITypeKind.ElementType,
     ITypeKind.InterfaceType,
     ITypeKind.LambdaType,
-    ITypeKind.MonacoType,
+    ITypeKind.CodeMirrorType,
     ITypeKind.PageType,
     ITypeKind.PrimitiveType,
   ])

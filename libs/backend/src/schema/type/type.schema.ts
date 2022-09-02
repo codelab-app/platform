@@ -14,7 +14,7 @@ export const typeSchema = gql`
     RenderPropsType
     ReactNodeType
     UnionType
-    MonacoType
+    CodeMirrorType
     PageType
     AppType
     ActionType
@@ -320,24 +320,24 @@ export const typeSchema = gql`
   }
 
   """
-  Allows editing the value using a monaco editor
+  Allows editing the value using a code mirror editor
   """
-  type MonacoType implements TypeBase {
+  type CodeMirrorType implements TypeBase {
     id: ID!
-    kind: TypeKind! @default(value: MonacoType)
+    kind: TypeKind! @default(value: CodeMirrorType)
     name: String!
     owner: User!
 #    fieldFor: [TypeBase!]!
-    language: MonacoLanguage!
+    language: CodeMirrorLanguage!
   }
 
-  enum MonacoLanguage {
-    typescript
-    javascript
-    css
-    json
-    graphqlDev
-    cssInJs
+  enum CodeMirrorLanguage {
+    Typescript 
+    Javascript
+    Css
+    Json
+    Graphql
+    CssInJs
   }
 
 

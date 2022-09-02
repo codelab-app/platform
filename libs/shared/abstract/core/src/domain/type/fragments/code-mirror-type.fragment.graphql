@@ -1,0 +1,4 @@
+fragment CodeMirrorType on CodeMirrorType {
+  ...TypeBase
+  language
+}

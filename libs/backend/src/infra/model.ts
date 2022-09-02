@@ -160,10 +160,10 @@ let pageTypeInst: OGM_TYPES.PageTypeModel
 export const PageTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
   await getOgmInstance<'PageType'>(pageTypeInst, 'PageType', ogm)
 
-let monacoInst: OGM_TYPES.MonacoTypeModel
+let codeMirrorInst: OGM_TYPES.CodeMirrorTypeModel
 
-export const MonacoTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
-  await getOgmInstance<'MonacoType'>(monacoInst, 'MonacoType', ogm)
+export const CodeMirrorTypeOGM = async (ogm?: OGM<OGM_TYPES.ModelMap>) =>
+  await getOgmInstance<'CodeMirrorType'>(codeMirrorInst, 'CodeMirrorType', ogm)
 
 let elementTypeInst: OGM_TYPES.ElementTypeModel
 
