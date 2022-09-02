@@ -1,6 +1,6 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
 import { client } from '@codelab/frontend/model/infra/graphql'
-import { Config } from '@codelab/shared/utils'
+import { Config } from '@codelab/shared/config'
 import { GetServerSidePropsContext } from 'next'
 
 export const auth0Instance = initAuth0({

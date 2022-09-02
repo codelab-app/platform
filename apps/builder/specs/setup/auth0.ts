@@ -3,7 +3,7 @@ import {
   IUserDTO,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
-import { Config } from '@codelab/shared/utils'
+import { Config } from '@codelab/shared/config'
 import axios, { AxiosRequestConfig } from 'axios'
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
