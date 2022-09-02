@@ -17027,6 +17027,7 @@ export type TagConnectWhere = {
 
 export type TagCreateInput = {
   children?: InputMaybe<TagChildrenFieldInput>
+  id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<TagOwnerFieldInput>
   parent?: InputMaybe<TagParentFieldInput>
@@ -17129,6 +17130,7 @@ export type TagGraphOptionsWhere = {
 }
 
 export type TagOnCreateInput = {
+  id: Scalars['ID']
   name: Scalars['String']
 }
 
@@ -17441,6 +17443,7 @@ export type TagUniqueWhere = {
 
 export type TagUpdateInput = {
   children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
+  id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TagOwnerUpdateFieldInput>
   parent?: InputMaybe<TagParentUpdateFieldInput>

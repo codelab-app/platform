@@ -4,7 +4,7 @@ import tagIsRoot from '../repositories/tag/tagIsRoot.cypher'
 
 export const tagSchema = gql`
   type Tag {
-    id: ID! @id
+    id: ID! @id(autogenerate: false)
     name: String! @unique
     isRoot: Boolean
       @cypher(statement: """${tagIsRoot}""")

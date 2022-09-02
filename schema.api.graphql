@@ -15576,6 +15576,7 @@ input TagConnectWhere {
 
 input TagCreateInput {
   children: TagChildrenFieldInput
+  id: ID!
   name: String!
   owner: TagOwnerFieldInput
   parent: TagParentFieldInput
@@ -15677,6 +15678,7 @@ input TagGraphOptionsWhere {
 }
 
 input TagOnCreateInput {
+  id: ID!
   name: String!
 }
 
@@ -15986,6 +15988,7 @@ input TagUniqueWhere {
 
 input TagUpdateInput {
   children: [TagChildrenUpdateFieldInput!]
+  id: ID
   name: String
   owner: TagOwnerUpdateFieldInput
   parent: TagParentUpdateFieldInput

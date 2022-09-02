@@ -3,6 +3,7 @@ import {
   IAtomExport,
   IDomainExport,
   IResourceExport,
+  ITagExport,
   ITypeExport,
 } from '@codelab/shared/abstract/core'
 import { config } from 'dotenv'
@@ -19,6 +20,7 @@ export type ExportedData = {
   atoms: Array<IAtomExport>
   types: Array<ITypeExport>
   resources: Array<IResourceExport>
+  tags: Array<ITagExport>
 }
 
 /**

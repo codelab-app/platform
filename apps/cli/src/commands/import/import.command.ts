@@ -3,6 +3,8 @@ import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { seedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
+// import { antdAtomsFactory } from '../../data/atom'
+// import { __seedAtomData, __seedTagData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
 /**
@@ -27,7 +29,7 @@ export const importCommand: CommandModule<any, any> = {
      */
     seedData: {
       describe: 'seedData',
-      // demandOption: true,
+      demandOption: true,
       type: 'string',
       default: seedFilePath,
     },
@@ -64,7 +66,8 @@ export const importCommand: CommandModule<any, any> = {
     }
 
     // Only used by admin
-    // await __seedData(selectedUser)
+    // await __seedTagData(selectedUser)
+    // await __seedAtomData(selectedUser, antdAtomsFactory)
 
     yargs.exit(0, null!)
   },

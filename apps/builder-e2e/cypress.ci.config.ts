@@ -5,7 +5,7 @@ import setupNodeEvents from './src/plugins/index'
 const cypressJsonConfig: Cypress.ConfigOptions = {
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  video: true,
+  video: false,
   videosFolder: './src/videos',
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
@@ -18,7 +18,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   projectId: '86p5h3',
   env: {},
   // testFiles: '**/*.spec.*',
-  numTestsKeptInMemory: 1,
+  // numTestsKeptInMemory: 1,
   retries: {
     runMode: 1,
     openMode: 0,

@@ -1,6 +1,17 @@
-import { AtomOGM, atomSelectionSet } from '@codelab/backend'
-import { IAtomExport, IAtomType } from '@codelab/shared/abstract/core'
+import {
+  AtomOGM,
+  atomSelectionSet,
+  TagOGM,
+  tagSelectionSet,
+} from '@codelab/backend'
+import {
+  IAtomExport,
+  IAtomType,
+  ITagExport,
+} from '@codelab/shared/abstract/core'
+import { componentTagName } from '@codelab/shared/data'
 import { v4 } from 'uuid'
+import { antTagNames } from '../../data/atom/add-antd-tags'
 
 export interface AntdDesignApi {
   property: string
@@ -9,6 +20,35 @@ export interface AntdDesignApi {
   default: string
   version: string
   isEnum: boolean
+}
+
+export const createAntDesignTagsData = async (): Promise<Array<ITagExport>> => {
+  const Tag = await TagOGM()
+
+  const existingTags = (
+    await Tag.find({
+      selectionSet: tagSelectionSet,
+    })
+  ).map((tag) => [tag.name, tag.name] as const)
+
+  const tagNameToIdMap = new Map(existingTags)
+
+  const componentTag = {
+    id: tagNameToIdMap.get(componentTagName) || v4(),
+    name: componentTagName,
+    children: [],
+  }
+
+  const antTags = antTagNames.map((tagName) => ({
+    parent: {
+      id: componentTag.id,
+    },
+    id: tagNameToIdMap.get(tagName) || v4(),
+    name: tagName,
+    children: [],
+  }))
+
+  return [componentTag, ...antTags]
 }
 
 /**

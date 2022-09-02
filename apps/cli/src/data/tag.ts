@@ -1,8 +1,10 @@
-import { componentUsecaseTagName } from '@codelab/shared/data'
-import { antUseCaseTags } from '../commands/import/import-seed-data/add-antd-use-case-tags'
+import { componentTagName } from '@codelab/shared/data'
+import { v4 } from 'uuid'
 
 export const builderComponentUsecaseTag = {
-  name: componentUsecaseTagName,
-  children: antUseCaseTags.map((tag) => ({ name: tag })),
+  id: v4(),
+  name: componentTagName,
+  // children are connected in importAtom statement
+  children: [],
   parent: undefined,
 }
