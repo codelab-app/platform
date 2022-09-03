@@ -1,5 +1,9 @@
 import { elementRef } from '@codelab/frontend/modules/element'
-import { IBuilderService, IElementService } from '@codelab/shared/abstract/core'
+import {
+  IBuilderService,
+  IElementService,
+  isElement,
+} from '@codelab/shared/abstract/core'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
@@ -22,7 +26,12 @@ export const useBuilderHotkeys = ({
     'del,backspace',
     () => {
       if (selectedNode) {
-        deleteModal.open(elementRef(selectedNode.id))
+        const isRootElement =
+          isElement(selectedNode) && !selectedNode.parentElement
+
+        if (!isRootElement) {
+          deleteModal.open(elementRef(selectedNode.id))
+        }
       }
     },
     { enabled: !!selectedNode },
