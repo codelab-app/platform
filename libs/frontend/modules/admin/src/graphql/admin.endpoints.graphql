@@ -6,6 +6,7 @@ mutation ResetDatabase {
 
 mutation ExecuteCommand($input: ExecuteCommandInput!) {
   executeCommand(input: $input) {
+    success
     data
   }
 }
