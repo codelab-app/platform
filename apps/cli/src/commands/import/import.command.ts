@@ -1,4 +1,5 @@
 import { UserOGM } from '@codelab/backend'
+import { ImportExportData } from '@codelab/shared/abstract/core'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { seedFilePath } from './config'
@@ -14,7 +15,7 @@ import { importUserData } from './import-user-data'
  *
  * Import without any argument seeds data
  */
-export const importCommand: CommandModule<any, any> = {
+export const importCommand: CommandModule<unknown, ImportExportData> = {
   command: 'import',
   describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm

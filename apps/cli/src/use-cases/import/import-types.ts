@@ -2,7 +2,7 @@ import { ITypeExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
 import { upsertType } from '../../repository/type.repo'
 
-export const importType = async (
+export const importTypes = async (
   types: Array<ITypeExport> = [],
   selectedUser: string,
 ) => {

@@ -2,9 +2,9 @@ import { fieldRepository } from '@codelab/backend'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'
-import { importAtom } from '../../../use-cases/import/import-atom'
+import { importAtoms } from '../../../use-cases/import/import-atoms'
 import { importTags } from '../../../use-cases/import/import-tags'
-import { importType } from '../../../use-cases/import/import-type'
+import { importTypes } from '../../../use-cases/import/import-types'
 import {
   createAntDesignAtomsData,
   createAntDesignTagsData,
@@ -23,9 +23,9 @@ export const importSeedData = async (
 
   // Type must be seeded first, so atom can reference it
   // ID's must be in sync
-  await importType(types, selectedUser)
+  await importTypes(types, selectedUser)
 
-  await importAtom(atoms, selectedUser)
+  await importAtoms(atoms, selectedUser)
 }
 
 /**
@@ -45,13 +45,13 @@ export const __seedAtomData = async (
     atoms,
 ) => {
   // Seed all primitive types second, in case they already exist, so our ID's don't get mixed up
-  await importType(createSeedTypesData(), selectedUser)
+  await importTypes(createSeedTypesData(), selectedUser)
 
   const atoms = await createAntDesignAtomsData()
   const transformedAtoms = atomsFactory(atoms)
 
   // Seed all atoms here second
-  await importAtom(transformedAtoms, selectedUser)
+  await importAtoms(transformedAtoms, selectedUser)
 
   // Then seed all atom api's
   const parser = new ParserService(selectedUser)

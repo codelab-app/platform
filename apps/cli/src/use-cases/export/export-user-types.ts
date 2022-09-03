@@ -12,11 +12,7 @@ type Descendant = {
   kind: ITypeKind
 }
 
-export type ExportTypeData = {
-  types: Array<ITypeExport>
-}
-
-export const exportUserTypes = async (): Promise<ExportTypeData> => {
+export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Export types
    */
@@ -70,7 +66,5 @@ export const exportUserTypes = async (): Promise<ExportTypeData> => {
     })
     .filter((x): x is OGM_TYPES.InterfaceType => !!x)
 
-  const allTypes = [...orderedInterfaceTypes] as Array<ITypeExport>
-
-  return { types: allTypes }
+  return [...orderedInterfaceTypes] as Array<ITypeExport>
 }

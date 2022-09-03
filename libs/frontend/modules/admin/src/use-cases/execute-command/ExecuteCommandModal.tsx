@@ -1,3 +1,4 @@
+import { notify } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import {
   IAdminService,
@@ -14,6 +15,11 @@ export const ExecuteCommandModal = observer(
   ({ adminService }: { adminService: IAdminService }) => {
     const closeModal = () => {
       adminService.executeCommandModal.close()
+
+      notify({
+        type: 'success',
+        title: 'Command Success',
+      })
 
       setError({
         done: false,
@@ -54,9 +60,6 @@ export const ExecuteCommandModal = observer(
               message: e.data,
             })
           }}
-          // onSubmitError={createNotificationHandler({
-          //   title: 'Error while executing command',
-          // })}
           onSubmitSuccess={closeModal}
           schema={executeCommandSchema}
         >

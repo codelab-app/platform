@@ -1,6 +1,5 @@
 import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ResetDataButton } from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -34,7 +33,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </Head>
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
-          <ResetDataButton adminService={adminService} />
+          {/* <ResetDataButton adminService={adminService} /> */}
           <ExecuteCommandButton adminService={adminService} />
         </Space>
       </ContentSection>
