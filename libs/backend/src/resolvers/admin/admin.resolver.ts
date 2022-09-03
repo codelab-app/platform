@@ -1,6 +1,7 @@
 import { MutationExecuteCommandArgs } from '@codelab/shared/abstract/codegen'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import * as execa from 'execa'
+import { ExecaSyncError } from 'execa'
 
 export const executeCommand: IFieldResolver<
   any,
@@ -9,7 +10,7 @@ export const executeCommand: IFieldResolver<
 > = async (parent, args) => {
   try {
     const results = execa.commandSync(args.input.command, {
-      stdio: 'inherit',
+      stdio: 'pipe',
     })
 
     return {
@@ -17,11 +18,13 @@ export const executeCommand: IFieldResolver<
       data: results.stdout,
     }
   } catch (e) {
-    console.error((e as Error).message)
+    const results = e as ExecaSyncError
+
+    console.error(results)
 
     return {
       success: false,
-      data: (e as Error).message,
+      data: results.stderr,
     }
   }
 }

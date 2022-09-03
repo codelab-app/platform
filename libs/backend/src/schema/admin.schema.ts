@@ -18,7 +18,7 @@ export const adminSchema = gql`
     resetDatabase: ResetDatabaseMutationResponse
       @cypher(
         statement: """
-        MATCH (n) DETACH DELETE n RETURN { success:true }
+        MATCH (n) DETACH DELETE n { success:true }
         """
       )
     executeCommand(input: ExecuteCommandInput!): ExecuteCommandResponse!
