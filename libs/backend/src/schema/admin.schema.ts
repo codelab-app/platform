@@ -5,6 +5,15 @@ export const adminSchema = gql`
     success: Boolean
   }
 
+  input ExecuteCommandInput {
+    command: String!
+  }
+
+  type ExecuteCommandResponse {
+    success: Boolean!
+    data: String!
+  }
+
   type Mutation {
     resetDatabase: ResetDatabaseMutationResponse
       @cypher(
@@ -12,5 +21,6 @@ export const adminSchema = gql`
         MATCH (n) DETACH DELETE n RETURN { success:true }
         """
       )
+    executeCommand(input: ExecuteCommandInput!): ExecuteCommandResponse!
   }
 `

@@ -16410,6 +16410,7 @@ __metadata:
     webpack-merge: 5.8.0
     why-is-node-running: 2.2.0
     worker-loader: 3.0.8
+    xterm: ^4.19.0
     yargs: 17.3.1
     zod: 3.11.6
   languageName: unknown
@@ -38883,6 +38884,13 @@ __metadata:
   dependencies:
     object-keys: ~0.4.0
   checksum: a8b79f31502c163205984eaa2b196051cd2fab0882b49758e30f2f9018255bc6c462e32a090bf3385d1bda04755ad8cc0052a09e049b0038f49eb9b950d9c447
+  languageName: node
+  linkType: hard
+
+"xterm@npm:^4.19.0":
+  version: 4.19.0
+  resolution: "xterm@npm:4.19.0"
+  checksum: 4385e08d6f1e26d0db295ba55f0ed9c304686a72c2cfdd32502cf59de23ae9c93434d469fc3735f44375602f209f767a1ba643a86be6f8e0f1cf7e5bfdccde87
   languageName: node
   linkType: hard
 

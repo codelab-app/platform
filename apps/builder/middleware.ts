@@ -31,20 +31,20 @@ export default async function middleware(req: NextRequest) {
   const isLocal = hostname.includes('127.0.0.1')
   const redirectedDomainUrl = `http://${hostname}`
 
-  console.debug('Redirect middleware', {
-    url: JSON.stringify(req.nextUrl),
-    hostname,
-    pathname,
-    redirectedDomainUrl,
-    publicRootDomains,
-    isApi,
-    isSites,
-    matchedPublicDomains,
-    matchedVercelDomain,
-    vercelURL,
-    isInternal,
-    isLocal,
-  })
+  // console.log('Redirect middleware', {
+  //   url: JSON.stringify(req.nextUrl),
+  //   hostname,
+  //   pathname,
+  //   redirectedDomainUrl,
+  //   publicRootDomains,
+  //   isApi,
+  //   isSites,
+  //   matchedPublicDomains,
+  //   matchedVercelDomain,
+  //   vercelURL,
+  //   isInternal,
+  //   isLocal,
+  // })
 
   if (
     isApi ||

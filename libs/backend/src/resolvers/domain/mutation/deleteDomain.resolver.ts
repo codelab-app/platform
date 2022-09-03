@@ -14,7 +14,7 @@ export const deleteDomain: IFieldResolver<
 
     const domains = await domainOgm.find({
       where: { id },
-      selectionSet: `{ 
+      selectionSet: `{
       app {
         id
       }
@@ -33,7 +33,7 @@ export const deleteDomain: IFieldResolver<
     const res = await vercelApis.domain.delete(String(domain.name))
     const body = await res.json()
 
-    handleRestError(res, body, 'delete - vercel')
+    handleRestError(res, body, 'delete - Vercel')
 
     return await domainOgm.delete({
       where: { name: domain.name },

@@ -25,7 +25,7 @@ export const createDomain: IFieldResolver<
       throw domainExist
     }
 
-    handleRestError(res, body, 'addDomain - vercel')
+    handleRestError(res, body, 'addDomain - Vercel')
 
     const domainOgm = await DomainOGM()
 
