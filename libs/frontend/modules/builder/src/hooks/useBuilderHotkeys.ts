@@ -35,7 +35,7 @@ export const useBuilderHotkeys = ({
       }
     },
     { enabled: !!selectedNode },
-    [],
+    [selectedNode],
   )
   useHotkeys(
     'esc',
