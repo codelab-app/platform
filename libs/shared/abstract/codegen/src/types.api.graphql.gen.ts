@@ -3982,6 +3982,12 @@ export type CreateEnumTypesMutationResponse = {
   info: CreateInfo
 }
 
+export type CreateExecuteCommandResponsesMutationResponse = {
+  __typename?: 'CreateExecuteCommandResponsesMutationResponse'
+  executeCommandResponses: Array<ExecuteCommandResponse>
+  info: CreateInfo
+}
+
 export type CreateHooksMutationResponse = {
   __typename?: 'CreateHooksMutationResponse'
   hooks: Array<Hook>
@@ -9239,6 +9245,75 @@ export type EnumTypesConnection = {
   totalCount: Scalars['Int']
 }
 
+export type ExecuteCommandInput = {
+  command: Scalars['String']
+}
+
+export type ExecuteCommandResponse = {
+  __typename?: 'ExecuteCommandResponse'
+  data: Scalars['String']
+  success: Scalars['Boolean']
+}
+
+export type ExecuteCommandResponseAggregateSelection = {
+  __typename?: 'ExecuteCommandResponseAggregateSelection'
+  count: Scalars['Int']
+  data: StringAggregateSelectionNonNullable
+}
+
+export type ExecuteCommandResponseCreateInput = {
+  data: Scalars['String']
+  success: Scalars['Boolean']
+}
+
+export type ExecuteCommandResponseEdge = {
+  __typename?: 'ExecuteCommandResponseEdge'
+  cursor: Scalars['String']
+  node: ExecuteCommandResponse
+}
+
+export type ExecuteCommandResponseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ExecuteCommandResponseSort objects to sort ExecuteCommandResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ExecuteCommandResponseSort>>
+}
+
+/** Fields to sort ExecuteCommandResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExecuteCommandResponseSort object. */
+export type ExecuteCommandResponseSort = {
+  data?: InputMaybe<SortDirection>
+  success?: InputMaybe<SortDirection>
+}
+
+export type ExecuteCommandResponseUpdateInput = {
+  data?: InputMaybe<Scalars['String']>
+  success?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ExecuteCommandResponseWhere = {
+  AND?: InputMaybe<Array<ExecuteCommandResponseWhere>>
+  OR?: InputMaybe<Array<ExecuteCommandResponseWhere>>
+  data?: InputMaybe<Scalars['String']>
+  data_CONTAINS?: InputMaybe<Scalars['String']>
+  data_ENDS_WITH?: InputMaybe<Scalars['String']>
+  data_IN?: InputMaybe<Array<Scalars['String']>>
+  data_NOT?: InputMaybe<Scalars['String']>
+  data_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  data_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  data_NOT_IN?: InputMaybe<Array<Scalars['String']>>
+  data_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  data_STARTS_WITH?: InputMaybe<Scalars['String']>
+  success?: InputMaybe<Scalars['Boolean']>
+  success_NOT?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ExecuteCommandResponsesConnection = {
+  __typename?: 'ExecuteCommandResponsesConnection'
+  edges: Array<ExecuteCommandResponseEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
 export type Field = {
   description?: Maybe<Scalars['String']>
   id: Scalars['ID']
@@ -10665,6 +10740,7 @@ export type Mutation = {
   createElements: CreateElementsMutationResponse
   createEnumTypeValues: CreateEnumTypeValuesMutationResponse
   createEnumTypes: CreateEnumTypesMutationResponse
+  createExecuteCommandResponses: CreateExecuteCommandResponsesMutationResponse
   createHooks: CreateHooksMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
@@ -10703,6 +10779,7 @@ export type Mutation = {
   deleteElements: DeleteInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
+  deleteExecuteCommandResponses: DeleteInfo
   deleteHooks: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
@@ -10725,6 +10802,7 @@ export type Mutation = {
   deleteUsers: DeleteInfo
   deleteVercelDomainConfigData: DeleteInfo
   deleteVercelProjectDomainData: DeleteInfo
+  executeCommand: ExecuteCommandResponse
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateActionTypes: UpdateActionTypesMutationResponse
   updateAppTypes: UpdateAppTypesMutationResponse
@@ -10742,6 +10820,7 @@ export type Mutation = {
   updateElements: UpdateElementsMutationResponse
   updateEnumTypeValues: UpdateEnumTypeValuesMutationResponse
   updateEnumTypes: UpdateEnumTypesMutationResponse
+  updateExecuteCommandResponses: UpdateExecuteCommandResponsesMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
@@ -10828,6 +10907,10 @@ export type MutationCreateEnumTypeValuesArgs = {
 
 export type MutationCreateEnumTypesArgs = {
   input: Array<EnumTypeCreateInput>
+}
+
+export type MutationCreateExecuteCommandResponsesArgs = {
+  input: Array<ExecuteCommandResponseCreateInput>
 }
 
 export type MutationCreateHooksArgs = {
@@ -10995,6 +11078,10 @@ export type MutationDeleteEnumTypesArgs = {
   where?: InputMaybe<EnumTypeWhere>
 }
 
+export type MutationDeleteExecuteCommandResponsesArgs = {
+  where?: InputMaybe<ExecuteCommandResponseWhere>
+}
+
 export type MutationDeleteHooksArgs = {
   delete?: InputMaybe<HookDeleteInput>
   where?: InputMaybe<HookWhere>
@@ -11097,6 +11184,10 @@ export type MutationDeleteVercelDomainConfigDataArgs = {
 
 export type MutationDeleteVercelProjectDomainDataArgs = {
   where?: InputMaybe<VercelProjectDomainDataWhere>
+}
+
+export type MutationExecuteCommandArgs = {
+  input: ExecuteCommandInput
 }
 
 export type MutationUpdateActionTypesArgs = {
@@ -11241,6 +11332,11 @@ export type MutationUpdateEnumTypesArgs = {
   disconnect?: InputMaybe<EnumTypeDisconnectInput>
   update?: InputMaybe<EnumTypeUpdateInput>
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type MutationUpdateExecuteCommandResponsesArgs = {
+  update?: InputMaybe<ExecuteCommandResponseUpdateInput>
+  where?: InputMaybe<ExecuteCommandResponseWhere>
 }
 
 export type MutationUpdateHooksArgs = {
@@ -13952,6 +14048,9 @@ export type Query = {
   enumTypes: Array<EnumType>
   enumTypesAggregate: EnumTypeAggregateSelection
   enumTypesConnection: EnumTypesConnection
+  executeCommandResponses: Array<ExecuteCommandResponse>
+  executeCommandResponsesAggregate: ExecuteCommandResponseAggregateSelection
+  executeCommandResponsesConnection: ExecuteCommandResponsesConnection
   /**
    * Returns a list of all Type and Atom entities that reference the type with the given id
    * This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
@@ -14270,6 +14369,22 @@ export type QueryEnumTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<EnumTypeSort>>>
   where?: InputMaybe<EnumTypeWhere>
+}
+
+export type QueryExecuteCommandResponsesArgs = {
+  options?: InputMaybe<ExecuteCommandResponseOptions>
+  where?: InputMaybe<ExecuteCommandResponseWhere>
+}
+
+export type QueryExecuteCommandResponsesAggregateArgs = {
+  where?: InputMaybe<ExecuteCommandResponseWhere>
+}
+
+export type QueryExecuteCommandResponsesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<ExecuteCommandResponseSort>>>
+  where?: InputMaybe<ExecuteCommandResponseWhere>
 }
 
 export type QueryGetTypeReferencesArgs = {
@@ -18369,6 +18484,12 @@ export type UpdateEnumTypeValuesMutationResponse = {
 export type UpdateEnumTypesMutationResponse = {
   __typename?: 'UpdateEnumTypesMutationResponse'
   enumTypes: Array<EnumType>
+  info: UpdateInfo
+}
+
+export type UpdateExecuteCommandResponsesMutationResponse = {
+  __typename?: 'UpdateExecuteCommandResponsesMutationResponse'
+  executeCommandResponses: Array<ExecuteCommandResponse>
   info: UpdateInfo
 }
 

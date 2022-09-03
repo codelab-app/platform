@@ -21,6 +21,8 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
+import { ExecuteCommandButton } from '../../../../libs/frontend/modules/admin/src/use-cases/execute-command/ExecuteCommandButton'
+import { ExecuteCommandModal } from '../../../../libs/frontend/modules/admin/src/use-cases/execute-command/ExecuteCommandModal'
 
 const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { adminService } = useStore()
@@ -33,8 +35,10 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
           <ResetDataButton adminService={adminService} />
+          <ExecuteCommandButton adminService={adminService} />
         </Space>
       </ContentSection>
+      <ExecuteCommandModal adminService={adminService} />
     </>
   )
 })

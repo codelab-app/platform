@@ -4,11 +4,9 @@
 import './utils/loadEnv'
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
-import { demoCommand } from './commands/demo'
 import { exportCommand } from './commands/export/export.command'
 import { importCommand } from './commands/import/import.command'
 import { resetCommand } from './commands/reset/reset.command'
-import { Stage } from './utils/env'
 import { requireTestEnvOptions } from './utils/options'
 import { runTasks } from './utils/run-tasks'
 import { Tasks } from './utils/tasks'
@@ -22,18 +20,18 @@ yargs(hideBin(process.argv))
   .scriptName('cli')
 
   // All scripts here could act on a different stage
-  .options({
-    s: {
-      alias: 'stage',
-      describe: 'The deployment environment',
-      demandOption: true,
-      default: Stage.Development,
-      type: 'string',
-      choices: Object.values(Stage),
-    },
-  })
+  // .options({
+  //   s: {
+  //     alias: 'stage',
+  //     describe: 'The deployment environment',
+  //     demandOption: true,
+  //     default: Stage.Development,
+  //     type: 'string',
+  //     choices: Object.values(Stage),
+  //   },
+  // })
 
-  .command(demoCommand)
+  // .command(demoCommand)
 
   //
   // Reset data
