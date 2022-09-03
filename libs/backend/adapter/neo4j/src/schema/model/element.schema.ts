@@ -18,13 +18,6 @@ export const elementSchema = gql`
     childrenRoot: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
     rootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
 
-    children: [Element!]!
-      @relationship(
-        type: "PARENT_OF_ELEMENT"
-        properties: "ParentOfElement"
-        direction: OUT
-      )
-
     # Used for reverse lookup to see whether element is detached
     app: App @relationship(type: "ROOT_APP_ELEMENT", direction: OUT)
     # Used for reverse lookup to see whether element is detached

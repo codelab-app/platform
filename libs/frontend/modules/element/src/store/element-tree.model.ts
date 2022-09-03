@@ -104,21 +104,6 @@ export class ElementTree
           throw new Error('Missing component')
         }
       }
-
-      const parentId = element.parentElement?.id
-
-      if (!parentId) {
-        continue
-      }
-
-      // don't use this.element() since not all elements are registered yet
-      const parent = this.elementService.element(parentId)
-
-      if (!parent || parent.hasChild(element)) {
-        continue
-      }
-
-      parent?.addChild(element.id, elementRef(element))
     }
 
     return this

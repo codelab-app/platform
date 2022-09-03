@@ -51,12 +51,10 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   renderIfPropKey: Nullable<string>
   instanceOfComponent: Nullable<Ref<IComponent>>
   antdNode: IBuilderDataNode
-  children: ObjectMap<Ref<IElement>>
   leftHandDescendants: Array<IElement>
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  siblings?: ObjectMap<Ref<IElement>>
 
   rootOf: Maybe<IElement>
   nextSibling: Maybe<IElement>
@@ -78,9 +76,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   makeAttachToParentAsSubRootInput(
     parentElementId: string,
   ): BatchUpdateElementsMutationVariable
-  makeAttachToParentInput(
-    parentElementId: string,
-  ): BatchUpdateElementsMutationVariable
   makeAppendSiblingInput(siblingId: string): BatchUpdateElementsMutationVariable
   makePrependSiblingInput(
     siblingId: string,
@@ -92,12 +87,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>
   setOrderInParent(order: number | null): void
-  addChild(id: string, child: Ref<IElement>): void
-  hasChild(child: IElement): boolean
-  /**
-   * Removes the ref
-   */
-  removeChild(element: IElement): void
   /**
    * Keeps the ref in place
    */

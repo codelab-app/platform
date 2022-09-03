@@ -111,14 +111,6 @@ export class ComponentService
             () => componentTree,
             getElementService(this),
           )
-
-          // Append this to rootComponentNode
-          if (componentTree?.root) {
-            rootElement.addChild(
-              componentTree.root.id,
-              elementRef(componentTree.root),
-            )
-          }
         }),
       ),
     )

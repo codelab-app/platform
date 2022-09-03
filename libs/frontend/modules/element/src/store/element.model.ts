@@ -24,7 +24,6 @@ import { attempt, isError } from 'lodash'
 import { computed } from 'mobx'
 import {
   findParent,
-  getParent,
   getRefsResolvingTo,
   idProp,
   Model,
@@ -114,7 +113,6 @@ export const getElementTree = (element: IElement): Maybe<IElementTree> => {
 export class Element
   extends Model({
     id: idProp.withSetter(),
-    children: prop(() => objectMap<Ref<IElement>>()),
     __nodeType: prop<ELEMENT_NODE_TYPE>(ELEMENT_NODE_TYPE),
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
@@ -170,19 +168,6 @@ export class Element
     }
 
     return results
-  }
-
-  /**
-   * Using Ref<IElement> doesn't resolve because the ref isn't attached to anything yet, so we must provide an id
-   */
-  @modelAction
-  addChild(id: string, child: Ref<IElement>) {
-    this.children.set(id, child)
-  }
-
-  @modelAction
-  hasChild(child: IElement) {
-    return this.children.has(child.id)
   }
 
   @modelAction
@@ -252,7 +237,7 @@ export class Element
     let deepestDepth = 0
 
     const visitChildren = (child: IElement, depth: number): void => {
-      if (child.children.size) {
+      if (child.childrenSorted.length) {
         for (const subChild of child.childrenSorted) {
           visitChildren(subChild, depth + 1)
         }
@@ -281,11 +266,6 @@ export class Element
       this.instanceOfComponent?.current?.name ||
       ''
     )
-  }
-
-  @computed
-  get siblings() {
-    return this.parentElement?.children
   }
 
   @computed
@@ -366,11 +346,11 @@ export class Element
       return this as IElement
     }
 
-    if (this.children.has(id)) {
-      return this.children.get(id)?.current
-    }
-
     for (const child of this.childrenSorted) {
+      if (child.id === id) {
+        return child
+      }
+
       const descendant = child.findDescendant(id)
 
       if (descendant) {
@@ -379,11 +359,6 @@ export class Element
     }
 
     return undefined
-  }
-
-  @modelAction
-  removeChild(element: IElement) {
-    this.children.delete(element.id)
   }
 
   /**
@@ -501,7 +476,6 @@ export class Element
       this.parentElement.childrenRootId = this.nextSiblingId
     }
 
-    this.parentElement.removeChild(this)
     this.parentId = null
   }
 
@@ -513,7 +487,6 @@ export class Element
       throw new Error(`parent element id ${parentElementId} not found`)
     }
 
-    parentElement.children.set(this.id, elementRef(this))
     this.parentId = parentElementId
   }
 
@@ -527,40 +500,22 @@ export class Element
     }
 
     parentElement.childrenRootId = this.id
-  }
-
-  makeAttachToParentInput(parentElementId: string) {
-    const parentElement = this.elementService.element(parentElementId)
-
-    if (!parentElement) {
-      throw new Error(`parent element id ${parentElementId} not found`)
-    }
-
-    return makePatchElementInput(parentElement, {
-      children: [
-        {
-          connect: [
-            {
-              where: { node: { id: this.id } },
-            },
-          ],
-        },
-      ],
-    })
+    this.rootOfId = parentElement.id
   }
 
   makeAttachToParentAsSubRootInput(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
-    const input = this.makeAttachToParentInput(parentElementId)
 
     if (!parentElement) {
       throw new Error(`parent element id ${parentElementId} not found`)
     }
 
-    input.update.childrenRoot = {
-      ...connectId(this.id),
-      ...disconnectId(parentElement.childrenRoot?.id),
-    }
+    const input = makePatchElementInput(parentElement, {
+      childrenRoot: {
+        ...connectId(this.id),
+        ...disconnectId(parentElement.childrenRoot?.id),
+      },
+    })
 
     return input
   }

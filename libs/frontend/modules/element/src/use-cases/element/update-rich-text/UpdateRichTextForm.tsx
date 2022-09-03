@@ -44,8 +44,8 @@ export const UpdateRichTextForm = observer<UpdateRichTextFormProps>(
     )
 
     const inEditMode = useCallback(
-      () => element.children.size === 0,
-      [element.children.size],
+      () => element.childrenSorted.length === 0,
+      [element.childrenSorted.length],
     )
 
     const onSubmit = (data: IPropData) => {

@@ -124,8 +124,6 @@ export class ElementService
       }
 
       const elementModel = Element.hydrate(element)
-      console.log({ elementModel })
-
       this.elements.set(element.id, elementModel)
 
       return elementModel
@@ -628,11 +626,8 @@ export class ElementService
     // 2. Attach a Component to the Element and detach it from the parent
     const parentId = element.parentElement.id
 
-    element.parentElement.removeChild(element)
-
     yield* _await(
       this.patchElement(element, {
-        parentElement: { disconnect: { where: {} } },
         component: {
           create: {
             node: {
@@ -665,8 +660,6 @@ export class ElementService
     }
 
     // 3. Load component so we can use reference
-    const componentService = getComponentService(this)
-
     // 3. Make an intermediate element with instance of the Component
     const [newElement] = yield* _await(
       this.create([
