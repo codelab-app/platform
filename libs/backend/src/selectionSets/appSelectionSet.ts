@@ -1,14 +1,21 @@
 import { storeSelectionSet } from './storeSelectionSet'
 
 export const appSelectionSet = `{
-    __typename
+  __typename
+  id
+  name
+  slug
+  rootElement {
+    id
+  }
+  store {
+    ${storeSelectionSet}
+  }
+  domains {
     id
     name
-    slug
-    rootElement {
-        id
+    app {
+      id
     }
-    store {
-        ${storeSelectionSet}
-    }
+  }
 }`

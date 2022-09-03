@@ -13,6 +13,8 @@ export const executeCommand: IFieldResolver<
       stdio: 'pipe',
     })
 
+    console.log(results)
+
     return {
       success: true,
       data: results.stdout,

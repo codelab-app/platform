@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-micro'
-import getDescendantComponentIds from '../repositories/component/getDescendantComponentIds.cypher'
+import getDescendantComponentIds from '../../repositories/component/getDescendantComponentIds.cypher'
 
 export const componentSchema = gql`
   type Component implements WithOwner {

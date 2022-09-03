@@ -7,7 +7,7 @@ export const executeCommandSchema: JSONSchemaType<IExecuteCommandDTO> = {
   properties: {
     command: {
       type: 'string',
-      autocomplete: 'off',
+      // autocomplete: 'off',
       autoFocus: true,
     },
   },

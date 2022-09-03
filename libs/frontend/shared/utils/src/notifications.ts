@@ -45,7 +45,7 @@ export const notify = <TEvent>(
   notification[type || 'info']({
     message: titleString,
     description: contentString,
-    placement: 'bottomRight',
+    placement: 'topRight',
   })
 
   if (type === 'warning') {

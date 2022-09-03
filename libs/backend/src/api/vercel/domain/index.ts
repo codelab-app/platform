@@ -1,7 +1,7 @@
 import { add } from './add'
 import { deleteDomain } from './delete'
 import { getConfig } from './getConfig'
-import { getProjectData } from './getProjectData'
+import { getProjectData, PROJECT_NOT_FOUND } from './getProjectData'
 import { update } from './update'
 
 export const domainApis = {
@@ -11,3 +11,5 @@ export const domainApis = {
   update,
   getProjectData,
 }
+
+export { PROJECT_NOT_FOUND }

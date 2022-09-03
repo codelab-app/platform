@@ -1,7 +1,7 @@
 import { IResourceExport } from '@codelab/shared/abstract/core'
 import { createResource } from '../../repository/resource.repo'
 
-export const importResource = async (
+export const importResources = async (
   resources: Array<IResourceExport> = [],
   userId: string,
 ) => {

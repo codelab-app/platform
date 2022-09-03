@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-micro'
-import getTagGraphs from '../repositories/tag/getTagGraphs.cypher'
-import tagIsRoot from '../repositories/tag/tagIsRoot.cypher'
+import getTagGraphs from '../../repositories/tag/getTagGraphs.cypher'
+import tagIsRoot from '../../repositories/tag/tagIsRoot.cypher'
 
 export const tagSchema = gql`
   type Tag {
