@@ -2,20 +2,16 @@
 export default {
   displayName: 'frontend-modules-renderer',
   preset: '../../../../jest.preset.ts',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      babelConfig: '<rootDir>/.babelrc',
-      // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-      useESM: true,
-    },
-  },
-  // Used with ts-jest
-  transformIgnorePatterns: [
-    'node_modules/(?!(stringify-object|is-regexp|is-obj|cheerio)/)',
-  ],
+  // globals: {
+  //   'ts-jest': {
+  //     tsconfig: '<rootDir>/tsconfig.spec.json',
+  //     babelConfig: '<rootDir>/.babelrc',
+  //     // https://github.com/kentcdodds/babel-plugin-macros/issues/160
+  //     useESM: true,
+  //   },
+  // },
   transform: {
-    '^.+\\.[tj]sx?$': ['babel-jest'],
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
     '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
   },
