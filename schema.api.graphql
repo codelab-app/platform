@@ -4173,9 +4173,7 @@ type Element {
     where: ElementComponentConnectionWhere
   ): ElementComponentConnection!
   customCss: String
-<<<<<<< HEAD
   descendantElements: [Element!]!
-=======
   firstChild(
     directed: Boolean = true
     options: ElementOptions
@@ -4192,7 +4190,6 @@ type Element {
     sort: [ElementFirstChildConnectionSort!]
     where: ElementFirstChildConnectionWhere
   ): ElementFirstChildConnection!
->>>>>>> refactor: element svc
   guiCss: String
   hooks(
     directed: Boolean = true

@@ -75,9 +75,10 @@ export class BuilderService
     )
   })
 
-  get componentTags() {
+  get componentTagNames() {
     const tagService = getTagService(this)
 
+    // all component tags are marked under the component tag
     const componentTag = tagService.tags.find(
       (tag) => tag.name === componentTagName,
     )
@@ -86,14 +87,10 @@ export class BuilderService
       return []
     }
 
-    return (
-      componentTag.children
-        .map((id) => tagService.tag(id))
-        // filter empty
-        .filter((t) => t)
-        // cast as truthy
-        .map((tag) => getSnapshot(tag) as Tag)
-    )
+    return componentTag.children
+      .map((id) => tagService.tag(id))
+      .map((tag) => tag?.name)
+      .filter(isNonNullable)
   }
 
   get componentsGroupedByTag() {
@@ -106,26 +103,27 @@ export class BuilderService
       // ...[...componentService.components.values()],
     ]
 
-    const componentTags = this.componentTags.map((t) => ({
-      ...t,
-      components: [],
-    }))
+    const componentsWithTag = components
+      .map((component) => {
+        // components can be atom -> filter only the component tag from atom tags
+        const tag = component.tags.find((tagRef) =>
+          this.componentTagNames.includes(String(tagRef.maybeCurrent?.name)),
+        )
 
-    components.forEach((component) => {
-      const tagNames = component.tags.map((t) => t.current.name)
+        return {
+          ...getSnapshot(component),
+          tag,
+        }
+      })
+      // if no tag = atoms used for some other purposes
+      .filter((component): component is IBuilderComponent =>
+        Boolean(component.tag),
+      )
 
-      const foundComponentUseCaseTag = componentTags.find((usecaseTag) =>
-        tagNames.includes(usecaseTag.name),
-      ) as TagWithComponents | undefined
-
-      if (!foundComponentUseCaseTag) {
-        return
-      }
-
-      foundComponentUseCaseTag.components.push(component)
-    })
-
-    return componentTags
+    return groupBy<IBuilderComponent>(
+      componentsWithTag,
+      (component) => component.tag?.maybeCurrent?.name,
+    )
   }
 
   @computed

@@ -13,8 +13,7 @@ export interface UseElementTreeDropProps {
 
 /**
  * Provides a handler for Antd tree onDrop for moving elements
- * This can be optimized to be handled in the API
- * It is also buggy, because it doesn't handle the case where the two nodes have the same order
+ * This can be optimized by batching data changes in the API
  */
 export const useElementTreeDrop = (elementService: IElementService) => {
   const handleDrop: TreeProps['onDrop'] = (info) => {

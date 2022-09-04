@@ -4,6 +4,7 @@ import {
   componentRef,
   getElementService,
 } from '@codelab/frontend/presenter/container'
+import { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type {
   IAtom,
   IComponent,
@@ -544,7 +545,7 @@ export class Element
     })
   }
 
-  makeattachToParentAsFirstChildInput(parentElementId: string) {
+  makeAttachToParentAsFirstChildInput(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
     const input = this.makeAttachToParentInput(parentElementId)
 
@@ -565,10 +566,8 @@ export class Element
       return null
     }
 
-    const parentElementChanges: any = {
-      children: {
-        ...disconnectId(this.id),
-      },
+    const parentElementChanges: ElementUpdateInput = {
+      children: [{ disconnect: [{ where: { node: { id: this.id } } }] }],
     }
 
     if (this.parentElement.firstChildId === this.id) {
@@ -586,9 +585,12 @@ export class Element
       return null
     }
 
+    // prev Sibling - [element] - next sbiling
     return makeUpdateElementInput(this.prevSibling, {
       nextSibling: {
+        // disconnect element
         ...disconnectId(this.id),
+        // connect next sibling
         ...connectId(this.nextSibling?.id),
       },
     })
@@ -599,9 +601,12 @@ export class Element
       return null
     }
 
+    // prev Sibling - [element] - next sbiling
     return makeUpdateElementInput(this.nextSibling, {
       prevSibling: {
+        // detach element
         ...disconnectId(this.id),
+        // attach prev sibling
         ...connectId(this.prevSibling?.id),
       },
     })

@@ -13981,6 +13981,7 @@ __metadata:
     csv-parser: 3.0.0
     cypress: ^10.7.0
     cypress-nextjs-auth0: 2.1.0
+    cypress-wait-until: ^1.7.2
     cz-customizable: 6.3.0
     dotenv: 15.0.0
     env-cmd: 10.1.0
@@ -15254,6 +15255,13 @@ __metadata:
     futoin-hkdf: ^1.4.3
     jose: ^2.0.5
   checksum: 8b79ef233d2bf5fbb70ecaedf0728c29955a68a8ef95de77819a7a836414a11ef655a94c97d540f8bb5fac2a827a380f5e481ef17f027439fe4d3edc4add2108
+  languageName: node
+  linkType: hard
+
+"cypress-wait-until@npm:^1.7.2":
+  version: 1.7.2
+  resolution: "cypress-wait-until@npm:1.7.2"
+  checksum: e3fe3c35ef8cfda39fb8919ae63a238bd580a98f5c02120306b32d6502ddfa9bfc3afde733cd9b282035b9f67e8386bd6c58bd59ca5fd2ea65291e6d9bac1ed7
   languageName: node
   linkType: hard
 

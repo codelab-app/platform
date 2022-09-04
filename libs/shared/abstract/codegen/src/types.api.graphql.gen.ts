@@ -4340,13 +4340,10 @@ export type Element = {
   componentAggregate?: Maybe<ElementComponentComponentAggregationSelection>
   componentConnection: ElementComponentConnection
   customCss?: Maybe<Scalars['String']>
-<<<<<<< HEAD
   descendantElements: Array<Element>
-=======
   firstChild?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
   firstChildConnection: ElementFirstChildConnection
->>>>>>> refactor: element svc
   guiCss?: Maybe<Scalars['String']>
   hooks: Array<Hook>
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
@@ -20092,7 +20089,6 @@ export type GetPageBuilderQueryVariables = Exact<{
 export type GetPageBuilderQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  stores: Array<{ __typename?: 'Store' } & StoreFragment>
   components: Array<{ __typename?: 'Component' } & ComponentFragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
@@ -21747,7 +21743,7 @@ export type ElementFragment = {
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentElement?: { __typename?: 'Element'; id: string } | null
-  childrenRoot?: { __typename?: 'Element'; id: string } | null
+  firstChild?: { __typename?: 'Element'; id: string } | null
   atom?: ({ __typename?: 'Atom' } & AtomFragment) | null
   props?: ({ __typename?: 'Prop' } & PropFragment) | null
   hooks: Array<{ __typename?: 'Hook' } & HookFragment>

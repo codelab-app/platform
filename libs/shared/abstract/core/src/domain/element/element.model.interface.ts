@@ -76,7 +76,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   makeDetachNextSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachPrevSiblingInput(): UpdateElementsMutationVariables | null
   makeDetachParentInput(): UpdateElementsMutationVariables | null
-  makeattachToParentAsFirstChildInput(
+  makeAttachToParentAsFirstChildInput(
     parentElementId: string,
   ): UpdateElementsMutationVariables
   makeAttachToParentInput(

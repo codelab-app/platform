@@ -4,20 +4,19 @@ import React from 'react'
 import tw from 'twin.macro'
 import { GetComponentsList } from './GetComponentsList'
 
-export const ComponentsGroupedByTag = (
-  props: Pick<IBuilderService, 'componentsGroupedByTag'>,
-) => {
-  const componentsGroupedByTag = props.componentsGroupedByTag
+export const ComponentsGroupedByTag = ({
+  componentsGroupedByTag,
+}: Pick<IBuilderService, 'componentsGroupedByTag'>) => {
   // [tag, component[]]
   const tags = Object.keys(componentsGroupedByTag)
 
   return (
     <div css={tw`mb-5`}>
       {tags.map((tag) => (
-        <div key={tag}>
+        <React.Fragment key={tag}>
           <Typography.Title level={4}>{tag}</Typography.Title>
           <GetComponentsList components={componentsGroupedByTag[tag]} />
-        </div>
+        </React.Fragment>
       ))}
     </div>
   )

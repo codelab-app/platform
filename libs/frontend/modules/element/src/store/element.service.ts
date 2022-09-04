@@ -22,6 +22,7 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { isNonNullable } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import {
   _async,
@@ -339,9 +340,7 @@ parent
 
     yield* _await(
       customElementApi.BatchUpdateElements(
-        updateElementInputs.filter(
-          (input) => input,
-        ) as Array<UpdateElementsMutationVariables>,
+        updateElementInputs.filter(isNonNullable),
       ),
     )
 
@@ -530,7 +529,7 @@ element is new parentElement's first child
       element.attachToParentAsFirstChild(parentElement.id),
     )
     updateElementInputs.push(
-      element.makeattachToParentAsFirstChildInput(parentElementId),
+      element.makeAttachToParentAsFirstChildInput(parentElementId),
     )
 
     // element prepends first child
