@@ -11,7 +11,7 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

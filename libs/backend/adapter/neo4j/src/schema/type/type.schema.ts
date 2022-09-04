@@ -122,7 +122,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ArrayType)
     name: String!
     owner: User!
-#    fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
     itemType: TypeBase!
       @relationship(
@@ -139,7 +138,6 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
     owner: User!
-#    fieldFor: [TypeBase!]!
     descendantTypesIds: [ID!]!
     typesOfUnionType: [TypeBase!]!
       @relationship(
