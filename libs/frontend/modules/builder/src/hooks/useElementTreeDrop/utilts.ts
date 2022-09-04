@@ -2,8 +2,8 @@ import { EventDataNode } from 'antd/lib/tree'
 import { Key } from 'rc-tree/lib/interface'
 
 interface DropInfo {
-  node: EventDataNode
-  dragNode: EventDataNode
+  node: EventDataNode<unknown>
+  dragNode: EventDataNode<unknown>
   dragNodesKeys: Array<Key>
   dropPosition: number
   dropToGap: boolean
