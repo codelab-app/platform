@@ -5,7 +5,7 @@ import setupNodeEvents from './src/plugins/index'
 const cypressJsonConfig: Cypress.ConfigOptions = {
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  video: false,
+  video: true,
   videosFolder: './src/videos',
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
