@@ -527,78 +527,63 @@ export class ElementService
     auth0Id: IAuth0Id,
     elementTree: IElementTree | null,
   ) {
-    if (!targetElement.parentElement) {
-      throw new Error("Can't duplicate root element")
-    }
-
-    const oldToNewIdMap = new Map<string, string>()
-
-    const recursiveDuplicate = async (element: IElement, parentId: string) => {
-      const createInput: ElementCreateInput = makeDuplicateInput(
-        element,
-        parentId,
-        auth0Id,
-      )
-
-      const {
-        createElements: {
-          elements: [createdElement],
-        },
-      } = await elementApi.CreateElements({ input: createInput })
-
-      if (!createdElement) {
-        throw new Error('No elements created')
-      }
-
-      const createdElementModel = this.hydrateOrUpdateCache([createdElement])
-      const elementModel = createdElementModel[0]
-
-      if (elementTree) {
-        elementTree.buildTree(createdElementModel)
-      }
-
-      oldToNewIdMap.set(element.id, elementModel.id)
-
-      for (const child of element.childrenSorted) {
-        await recursiveDuplicate(child, elementModel.id)
-      }
-
-      return elementModel
-    }
-
-    yield* _await(
-      recursiveDuplicate(targetElement, targetElement.parentElement.id),
-    )
-
-    // re-attach the prop map bindings now that we have the new ids
-    const allInputs = [targetElement, ...targetElement.descendants]
-
-    for (const inputElement of allInputs) {
-      const newId = oldToNewIdMap.get(inputElement.id)
-
-      if (!newId) {
-        throw new Error(`Could not find new id for ${inputElement.id}`)
-      }
-
-      const duplicated = elementTree?.element(newId)
-
-      if (!duplicated) {
-        throw new Error(`Could not find duplicated element ${newId}`)
-      }
-
-      for (const propMapBinding of inputElement.propMapBindings.values()) {
-        yield* _await(
-          this.createPropMapBinding(duplicated, {
-            elementId: newId,
-            targetElementId: propMapBinding.targetElement
-              ? oldToNewIdMap.get(propMapBinding.targetElement.id)
-              : undefined,
-            targetKey: propMapBinding.targetKey,
-            sourceKey: propMapBinding.sourceKey,
-          }),
-        )
-      }
-    }
+    // TODO: To be updated later with the latest changes on the way that we link eleemnt
+    // if (!targetElement.parentElement) {
+    //   throw new Error("Can't duplicate root element")
+    // }
+    // const oldToNewIdMap = new Map<string, string>()
+    // const recursiveDuplicate = async (element: IElement, parentId: string) => {
+    //   const createInput: ElementCreateInput = makeDuplicateInput(
+    //     element,
+    //     parentId,
+    //     auth0Id,
+    //   )
+    //   const {
+    //     createElements: {
+    //       elements: [createdElement],
+    //     },
+    //   } = await elementApi.CreateElements({ input: createInput })
+    //   if (!createdElement) {
+    //     throw new Error('No elements created')
+    //   }
+    //   const createdElementModel = this.hydrateOrUpdateCache([createdElement])
+    //   const elementModel = createdElementModel[0]
+    //   if (elementTree) {
+    //     elementTree.buildTree(createdElementModel)
+    //   }
+    //   oldToNewIdMap.set(element.id, elementModel.id)
+    //   for (const child of element.childrenSorted) {
+    //     await recursiveDuplicate(child, elementModel.id)
+    //   }
+    //   return elementModel
+    // }
+    // yield* _await(
+    //   recursiveDuplicate(targetElement, targetElement.parentElement.id),
+    // )
+    // // re-attach the prop map bindings now that we have the new ids
+    // const allInputs = [targetElement, ...targetElement.descendants]
+    // for (const inputElement of allInputs) {
+    //   const newId = oldToNewIdMap.get(inputElement.id)
+    //   if (!newId) {
+    //     throw new Error(`Could not find new id for ${inputElement.id}`)
+    //   }
+    //   const duplicated = elementTree?.element(newId)
+    //   if (!duplicated) {
+    //     throw new Error(`Could not find duplicated element ${newId}`)
+    //   }
+    //   for (const propMapBinding of inputElement.propMapBindings.values()) {
+    //     yield* _await(
+    //       this.createPropMapBinding(duplicated, {
+    //         elementId: newId,
+    //         targetElementId: propMapBinding.targetElement
+    //           ? oldToNewIdMap.get(propMapBinding.targetElement.id)
+    //           : undefined,
+    //         targetKey: propMapBinding.targetKey,
+    //         sourceKey: propMapBinding.sourceKey,
+    //       }),
+    //     )
+    //   }
+    // }
   })
 
   @modelFlow
