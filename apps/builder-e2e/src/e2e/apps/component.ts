@@ -7,7 +7,10 @@ const CHILD_BUTTON = 'Button'
 const CHILD_TEXT = 'Text'
 const waitTimeout = 500
 
-type ComponentChildData = { name: string; atom: string }
+interface ComponentChildData {
+  name: string
+  atom: string
+}
 
 const componentChildren: Array<ComponentChildData> = [
   { name: CHILD_BUTTON, atom: IAtomType.AntDesignButton },

@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeleteTagsData = {
+export interface DeleteTagsData {
   ids: Array<string>
 }
 

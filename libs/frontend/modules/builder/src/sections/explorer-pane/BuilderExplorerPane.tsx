@@ -36,7 +36,7 @@ const paneTitles: Record<BuilderTab, string> = {
   [BuilderTab.Tree]: 'Page',
 }
 
-type BuilderMainPaneProps = {
+interface BuilderMainPaneProps {
   atomService: IAtomService
   componentService: IComponentService
   elementService: IElementService

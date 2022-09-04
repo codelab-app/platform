@@ -48,7 +48,7 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   </div>
 )
 
-export type MetaPaneBuilderProps = {
+export interface MetaPaneBuilderProps {
   elementTree: IElementTree
   renderService: IRenderer
   UpdateElementContent: (props: {
@@ -63,7 +63,7 @@ export type MetaPaneBuilderProps = {
   userService: IUserService
 }
 
-type TooltipIconProps = {
+interface TooltipIconProps {
   title: string
   icon: ReactNode
 }

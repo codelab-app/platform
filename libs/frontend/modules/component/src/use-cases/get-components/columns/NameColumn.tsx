@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { ComponentColumnData } from './types'
 
-export type NameColumnProps = {
+export interface NameColumnProps {
   component: ComponentColumnData
 }
 

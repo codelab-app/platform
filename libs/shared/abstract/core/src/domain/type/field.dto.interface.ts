@@ -15,7 +15,7 @@ export interface ICreateFieldDTO {
 
 export type IUpdateFieldDTO = ICreateFieldDTO
 
-export type IDeleteFieldDTO = {
+export interface IDeleteFieldDTO {
   id: IFieldRef
 }
 

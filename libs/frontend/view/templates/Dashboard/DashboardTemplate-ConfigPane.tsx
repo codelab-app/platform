@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { UseResizable } from '../../components'
 import { defaultHeaderHeight } from './constants'
 
-export type ConfigPaneProps = {
+export interface ConfigPaneProps {
   // hasSidebarNavigation: boolean
   ConfigPane: ComponentType
   resizable: UseResizable

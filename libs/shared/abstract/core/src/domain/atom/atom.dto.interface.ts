@@ -24,7 +24,7 @@ export type IUpdateAtomDTO = Omit<ICreateAtomDTO, 'owner'>
 
 export type IAtomDTO = AtomFragment
 
-export type IAtomExport = {
+export interface IAtomExport {
   icon?: string
   id: string
   name: string

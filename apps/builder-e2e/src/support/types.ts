@@ -4,7 +4,7 @@ import { CypressDatabaseCommands } from './database'
 import { CypressUICommands } from './entities'
 import { CypressHelpersCommands } from './helpers'
 
-export type CypressCommand = {
+export interface CypressCommand {
   name: keyof Cypress.Chainable<any>
   options?: Cypress.CommandOptions & { prevSubject: false }
   fn: any

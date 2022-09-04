@@ -1,5 +1,5 @@
 import { LambdaFragment } from '../../../graphql/lambda.fragment.graphql.gen'
 
-export type ActionColumnProps = {
+export interface ActionColumnProps {
   lambda: LambdaFragment
 }

@@ -8,7 +8,7 @@ export interface IUpdateDomainDTO extends ICreateDomainDTO {
   id: string
 }
 
-export type IDomainExport = {
+export interface IDomainExport {
   id: string
   name: string
   app: {

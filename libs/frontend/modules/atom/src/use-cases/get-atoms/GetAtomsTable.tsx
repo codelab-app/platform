@@ -5,7 +5,7 @@ import React from 'react'
 import { AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
 
-type GetAtomsTableProps = {
+interface GetAtomsTableProps {
   atomService: IAtomService
   atomsData: Array<AtomRecord>
   isLoading: boolean

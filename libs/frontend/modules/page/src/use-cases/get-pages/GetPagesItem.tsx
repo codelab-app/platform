@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { pageRef } from '../../store'
 
-export type GetPagesItemProps = {
+export interface GetPagesItemProps {
   page: IPage
   pageService: IPageService
 }

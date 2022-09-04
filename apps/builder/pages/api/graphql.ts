@@ -1,14 +1,20 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
+/**
+ * This file is under `api` code so can import backend code
+ */
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
   generateOgmTypes,
   getDriver,
   getSchema,
   UserOGM,
 } from '@codelab/backend/adapter/neo4j'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NextApiRequest } from '@codelab/backend/application'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { resolvers } from '@codelab/backend/graphql'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Config } from '@codelab/shared/config'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'

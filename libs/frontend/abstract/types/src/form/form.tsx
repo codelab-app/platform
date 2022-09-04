@@ -48,7 +48,7 @@ export type FormProps<TData, TResponse = unknown> = {
  *
  * Currently making it require since most forms use it, this way we don't have to create a separate type. Optional works too but we get less typing
  */
-export type SubmitRef = {
+export interface SubmitRef {
   submitRef?: React.MutableRefObject<Maybe<SubmitController>> | undefined
 }
 

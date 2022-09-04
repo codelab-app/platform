@@ -1,5 +1,8 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
+import {
+  ExecuteCommandButton,
+  ExecuteCommandModal,
+} from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -15,13 +18,12 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
-import { ExecuteCommandButton } from '../../../../libs/frontend/modules/admin/src/use-cases/execute-command/ExecuteCommandButton'
-import { ExecuteCommandModal } from '../../../../libs/frontend/modules/admin/src/use-cases/execute-command/ExecuteCommandModal'
 
 const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { adminService } = useStore()

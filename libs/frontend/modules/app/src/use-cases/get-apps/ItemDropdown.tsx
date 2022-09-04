@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import React, { CSSProperties } from 'react'
 import { appRef } from '../../store'
 
-export type ItemMenuProps = {
+export interface ItemMenuProps {
   app: IApp
   appService: IAppService
 }

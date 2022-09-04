@@ -213,14 +213,14 @@ export class Renderer
 
     const providerOutputs = flatMap(providerOutputsMaybeArray, (o) =>
       mapOutput(o, (io) => io),
-    ).filter((o): o is IRenderOutput => !!o)
+    ).filter((o): o is IRenderOutput => Boolean(o))
 
     const Providers = reduceComponentTree(
       providerOutputs
         .map((output) =>
           output.atomType ? [getAtom(output.atomType), output.props] : null,
         )
-        .filter((x): x is [ComponentType, IPropData] => !!x),
+        .filter((x): x is [ComponentType, IPropData] => Boolean(x)),
     )
 
     return React.createElement(Providers, {}, rootElement)
@@ -346,7 +346,7 @@ export class Renderer
 
       const hasChildren = Array.isArray(children)
         ? children.length > 0
-        : !!children
+        : Boolean(children)
 
       if (!hasChildren) {
         /*

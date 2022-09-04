@@ -2,7 +2,7 @@ import { CypressElement } from '../../deprecated/types'
 import { wrapSubject } from '../../deprecated/utils'
 import { Label } from '../types'
 
-type ButtonSelector = {
+interface ButtonSelector {
   label?: Label
   icon?: string
 }

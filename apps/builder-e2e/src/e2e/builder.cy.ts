@@ -18,7 +18,11 @@ const ELEMENT_COL_B = 'Col B'
 const ELEMENT_TEXT = 'Text'
 const ELEMENT_BUTTON = 'Button'
 
-type ElementData = { name: string; atom?: string; parentElement: string }
+interface ElementData {
+  name: string
+  atom?: string
+  parentElement: string
+}
 
 const elements: Array<ElementData> = [
   { name: ELEMENT_CONTAINER, parentElement: ROOT_ELEMENT_NAME },

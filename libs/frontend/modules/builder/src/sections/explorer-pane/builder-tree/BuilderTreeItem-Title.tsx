@@ -21,7 +21,7 @@ import {
 import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
-type BuilderTreeItemTitleProps = {
+interface BuilderTreeItemTitleProps {
   node: INode | undefined
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
@@ -41,7 +41,7 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
       const componentInstanceName =
         element.instanceOfComponent?.maybeCurrent?.name
 
-      const isComponentInstance = !!element.instanceOfComponent
+      const isComponentInstance = Boolean(element.instanceOfComponent)
 
       const componentMeta = componentInstanceName
         ? `(instance of ${componentInstanceName || 'a Component'})`

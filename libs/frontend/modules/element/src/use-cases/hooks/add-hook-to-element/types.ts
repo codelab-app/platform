@@ -4,6 +4,6 @@ export interface InterfaceProps {
   interfaceType: InterfaceType | null
 }
 
-export type AddHookToElementMutationInput = {
+export interface AddHookToElementMutationInput {
   typeId: string
 }

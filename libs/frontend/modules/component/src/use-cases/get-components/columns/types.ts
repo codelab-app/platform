@@ -4,6 +4,6 @@ export interface ComponentColumnData {
   apiId: string
 }
 
-export type PropsColumnProps = {
+export interface PropsColumnProps {
   component: ComponentColumnData
 }

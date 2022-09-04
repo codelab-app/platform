@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { actionRef } from '../../../store'
 
-export type GetActionItemProps = {
+export interface GetActionItemProps {
   action: IAnyAction
   actionService: IActionService
 }

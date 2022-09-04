@@ -1,7 +1,7 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateLambdaData = {
+export interface CreateLambdaData {
   name: string
   body: string
 }

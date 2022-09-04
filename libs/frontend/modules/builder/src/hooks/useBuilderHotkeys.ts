@@ -25,7 +25,7 @@ export const useBuilderHotkeys = ({
         deleteModal.open(elementRef(selectedNode.id))
       }
     },
-    { enabled: !!selectedNode },
+    { enabled: Boolean(selectedNode) },
     [],
   )
   useHotkeys(
@@ -35,7 +35,7 @@ export const useBuilderHotkeys = ({
         set_selectedNode(null)
       }
     },
-    { enabled: !!selectedNode },
+    { enabled: Boolean(selectedNode) },
     [],
   )
 }

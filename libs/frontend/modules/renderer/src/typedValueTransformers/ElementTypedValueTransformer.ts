@@ -29,7 +29,7 @@ export class ElementTypedValueTransformer
   canHandleValue(value: TypedValue<any>): boolean {
     return (
       typeof value.value === 'string' &&
-      !!this.renderer.pageTree?.current.element(value.value)
+      Boolean(this.renderer.pageTree?.current.element(value.value))
     )
   }
 

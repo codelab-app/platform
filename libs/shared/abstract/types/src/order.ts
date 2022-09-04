@@ -1,3 +1,5 @@
 import { Nullish } from './nullish'
 
-export type WithOrder = { order?: Nullish<number> }
+export interface WithOrder {
+  order?: Nullish<number>
+}

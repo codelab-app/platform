@@ -1,5 +1,4 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateAppButton,
@@ -25,6 +24,7 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Button, Dropdown, Menu, MenuProps, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

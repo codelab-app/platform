@@ -5,7 +5,7 @@ import React from 'react'
 import { MobxStateModal } from './MobxStateModal'
 import { MobxStateTree } from './MobxStateTree'
 
-type MobxStateContainerProps = {
+interface MobxStateContainerProps {
   renderer: IRenderer
   builderService: IBuilderService
 }

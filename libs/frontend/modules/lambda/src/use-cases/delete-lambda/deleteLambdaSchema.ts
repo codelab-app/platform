@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeleteLambdaData = {
+export interface DeleteLambdaData {
   lambdaId: string
 }
 

@@ -41,7 +41,7 @@ const componentToolboxItemFactory = (
   }
 }
 
-export type ToolboxProps = {
+export interface ToolboxProps {
   searchQuery?: string
   atomService: IAtomService
   componentService: IComponentService

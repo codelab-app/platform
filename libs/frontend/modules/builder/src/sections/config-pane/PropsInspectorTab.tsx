@@ -11,7 +11,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
-export type ElementPropsSectionProps = {
+export interface ElementPropsSectionProps {
   element: IElement
   renderer: IRenderer
   elementService: IElementService

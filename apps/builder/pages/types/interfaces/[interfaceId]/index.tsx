@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldButton,
@@ -25,6 +24,7 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

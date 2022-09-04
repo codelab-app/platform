@@ -1,7 +1,7 @@
 import { Spin } from 'antd'
 import React from 'react'
 
-export type SpinnerProps = {
+export interface SpinnerProps {
   isLoading: boolean
   children?: React.ReactNode
 }
