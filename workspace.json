@@ -41,8 +41,7 @@
     "shared-adapter-auth0": "libs/shared/adapter/auth0",
     "shared-config": "libs/shared/config",
     "shared-data": "libs/shared/data",
-    "shared-utils": "libs/shared/utils",
-    "tools-plugins-codelab": "libs/tools/plugins/codelab"
+    "shared-utils": "libs/shared/utils"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
