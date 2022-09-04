@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   AtomLibrary,
@@ -9,6 +8,12 @@ import {
   GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
+import {
+  antdAtoms,
+  codelabAtoms,
+  htmlAtoms,
+  muiAtoms,
+} from '@codelab/frontend/modules/renderer'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useStatefulExecutor } from '@codelab/frontend/shared/utils'
 import {
@@ -25,18 +30,19 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import tw from 'twin.macro'
-import {
-  antdAtoms,
-  codelabAtoms,
-  htmlAtoms,
-  muiAtoms,
-} from '../../../../libs/frontend/modules/renderer/src/atoms'
+// import {
+//   antdAtoms,
+//   codelabAtoms,
+//   htmlAtoms,
+//   muiAtoms,
+// } from '../../../../libs/frontend/modules/renderer/src/atoms'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const store = useStore()

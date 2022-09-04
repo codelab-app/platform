@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-export type ContextMenuProps = {
+export interface ContextMenuProps {
   onClick?: () => any
   onBlur?: () => any
 }

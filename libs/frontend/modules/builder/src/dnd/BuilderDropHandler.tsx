@@ -7,7 +7,7 @@ import tw from 'twin.macro'
 import { BuilderDropId } from './BuilderDropId'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
-type BuilderDropHandlerProps = {
+interface BuilderDropHandlerProps {
   element: IElement
 }
 

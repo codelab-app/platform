@@ -15,7 +15,7 @@ import {
   passwordRealmGrantType,
 } from './auth0'
 
-export type SetupData = {
+export interface SetupData {
   rootStore: IRootStore
   auth0Service: Promise<Auth0FileData>
 }

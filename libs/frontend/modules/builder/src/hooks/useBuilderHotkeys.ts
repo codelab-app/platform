@@ -34,7 +34,7 @@ export const useBuilderHotkeys = ({
         }
       }
     },
-    { enabled: !!selectedNode },
+    { enabled: Boolean(selectedNode) },
     [selectedNode],
   )
   useHotkeys(
@@ -44,7 +44,7 @@ export const useBuilderHotkeys = ({
         set_selectedNode(null)
       }
     },
-    { enabled: !!selectedNode },
+    { enabled: Boolean(selectedNode) },
     [],
   )
 }

@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateLambdaButton,
@@ -12,6 +11,7 @@ import {
   DashboardTemplate,
   DashboardTemplateProps,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'

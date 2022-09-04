@@ -6,8 +6,8 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": "off",
-        "jest/valid-expect": "off"
+        "jest/valid-expect": "off",
+        "@nrwl/nx/enforce-module-boundaries": "off"
       }
     },
     {

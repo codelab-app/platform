@@ -10,7 +10,7 @@ import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
 
-export type BatchUpdateElementsMutationVariable = {
+export interface BatchUpdateElementsMutationVariable {
   where?: Types.InputMaybe<Types.ElementWhere>
   update?: Types.InputMaybe<Types.ElementUpdateInput>
 }
@@ -25,7 +25,9 @@ export interface IElementContainer {
   rootElementId: string
 }
 
-export type cssMap = { [prop: string]: string }
+export interface cssMap {
+  [prop: string]: string
+}
 
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string

@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { Subscription } from 'react-hook-form/dist/utils/createSubject'
 import { PropsFields } from './PropsFields'
 
-export type PropsFormProps = {
+export interface PropsFormProps {
   interfaceType: IInterfaceType
   initialValue?: IPropData
   onSubmit: (values: IPropData) => IPropData

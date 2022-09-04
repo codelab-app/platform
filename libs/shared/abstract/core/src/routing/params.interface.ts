@@ -4,7 +4,7 @@ export const PAGE_ID = 'pageId'
 export type APP_ID = typeof APP_ID
 export type PAGE_ID = typeof PAGE_ID
 
-export type UrlParams = {
+export interface UrlParams {
   [APP_ID]: string
   [PAGE_ID]: string
 }

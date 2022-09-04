@@ -2,7 +2,7 @@ import { AppOGM, appSelectionSet } from '@codelab/backend/adapter/neo4j'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { getApp } from '../../repository/app.repo'
 
-export type ExportAppData = {
+export interface ExportAppData {
   app: IAppExport
 }
 

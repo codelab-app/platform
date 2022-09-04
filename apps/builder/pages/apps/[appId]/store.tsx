@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateActionModal,
@@ -33,6 +32,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

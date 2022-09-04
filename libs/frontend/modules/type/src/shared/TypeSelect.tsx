@@ -3,7 +3,10 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
-type Option = { label: string; value: string }
+interface Option {
+  label: string
+  value: string
+}
 export type CreateTypeOptions = (types?: Array<IAnyType>) => Array<Option>
 
 export interface TypeSelectProps {

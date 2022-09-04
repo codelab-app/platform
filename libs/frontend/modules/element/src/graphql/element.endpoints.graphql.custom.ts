@@ -1,10 +1,9 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-// eslint-disable @nrwl/nx/enforce-module-boundaries
 import { UpdateElementsDocument } from './element.endpoints.graphql.gen'
 
-export type BatchUpdateElementsMutationVariable = {
+export interface BatchUpdateElementsMutationVariable {
   where?: Types.InputMaybe<Types.ElementWhere>
   update?: Types.InputMaybe<Types.ElementUpdateInput>
 }

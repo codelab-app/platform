@@ -6,7 +6,7 @@ import {
   shouldMoveElementAsSubRoot,
 } from './utilts'
 
-export type UseElementTreeDropProps = {
+export interface UseElementTreeDropProps {
   elementTree: Nullable<IElementTree>
   elementService: IElementService
 }

@@ -2,7 +2,9 @@
 //   return tree.getDir(path).subfiles.length > 0
 // }
 
-export const dryRunMode = !!(process.env.NODE_ENV === 'test' || process.env.CI)
+export const dryRunMode = Boolean(
+  process.env.NODE_ENV === 'test' || process.env.CI,
+)
 
 // export const removeFiles = (filesToRemove: Array<string>): Rule => {
 //   return (tree: Tree) => {
@@ -14,7 +16,7 @@ export const dryRunMode = !!(process.env.NODE_ENV === 'test' || process.env.CI)
 //   }
 // }
 
-export type BaseNormalizedSchema = {
+export interface BaseNormalizedSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string

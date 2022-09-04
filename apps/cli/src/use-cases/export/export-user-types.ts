@@ -7,7 +7,7 @@ import {
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 
-type Descendant = {
+interface Descendant {
   id: string
   kind: ITypeKind
 }
@@ -64,7 +64,7 @@ export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
     .map((type) => {
       return interfaceTypes.find((t) => t.id === type.id)
     })
-    .filter((x): x is OGM_TYPES.InterfaceType => !!x)
+    .filter((x): x is OGM_TYPES.InterfaceType => Boolean(x))
 
   return [...orderedInterfaceTypes] as Array<ITypeExport>
 }

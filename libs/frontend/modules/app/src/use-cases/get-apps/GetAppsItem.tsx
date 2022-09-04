@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React from 'react'
 import { ItemDropdown } from './ItemDropdown'
 
-export type GetAppsItemProps = {
+export interface GetAppsItemProps {
   app: IApp
   appService: IAppService
 }

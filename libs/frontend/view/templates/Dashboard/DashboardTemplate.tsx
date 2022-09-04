@@ -156,8 +156,8 @@ export const DashboardTemplate = observer(
             {ExplorerPane && (
               <DashboardTemplateExplorerPane
                 ExplorerPane={ExplorerPane}
-                hasHeader={!!Header}
-                hasSidebarNavigation={!!SidebarNavigation}
+                hasHeader={Boolean(Header)}
+                hasSidebarNavigation={Boolean(SidebarNavigation)}
                 headerHeight={headerHeight ?? defaultHeaderHeight}
                 paddingBottom={explorerPanePaddingBottom}
                 resizable={mainPaneResizable}

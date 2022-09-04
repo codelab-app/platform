@@ -6,22 +6,22 @@ import {
   IRouterHookConfig,
 } from '@codelab/shared/abstract/core'
 
-export type LambdaDescriptionProps = {
+export interface LambdaDescriptionProps {
   config: IQueryLambdaHookConfig
 }
 
-export type QueryConfigDescriptionProps = {
+export interface QueryConfigDescriptionProps {
   config: IQueryConfigHookConfig
 }
 
-export type GraphqlDescriptionProps = {
+export interface GraphqlDescriptionProps {
   config: IGraphqlHookConfig
 }
 
-export type RecoilStateDescriptionProps = {
+export interface RecoilStateDescriptionProps {
   config: IRecoilStateHookConfig
 }
 
-export type RouterDescriptionProps = {
+export interface RouterDescriptionProps {
   config: IRouterHookConfig
 }

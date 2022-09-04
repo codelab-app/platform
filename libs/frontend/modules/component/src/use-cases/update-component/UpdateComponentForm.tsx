@@ -10,7 +10,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './createComponentSchema'
 
-type UpdateComponentFormProps = {
+interface UpdateComponentFormProps {
   component: IComponent
   componentService: IComponentService
 }

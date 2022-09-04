@@ -11,7 +11,7 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
+    '^.+\\.[tj]sx?$': ['babel-jest'],
     '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
   },

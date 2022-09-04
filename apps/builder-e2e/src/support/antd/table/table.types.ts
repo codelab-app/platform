@@ -7,9 +7,11 @@ export const SORT_ORDER = {
   DESCENDING: 'desc' as SortOrder,
 }
 
-export type SortOptions = { sortOrder?: SortOrder }
+export interface SortOptions {
+  sortOrder?: SortOrder
+}
 
-export type SearchCellOptions = {
+export interface SearchCellOptions {
   // The header to search under
   header: Label
 

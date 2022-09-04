@@ -7,7 +7,7 @@
 import { isServer } from '@codelab/shared/utils'
 import { useEffect, useState } from 'react'
 
-type SSRRect = {
+interface SSRRect {
   bottom: number
   height: number
   left: number

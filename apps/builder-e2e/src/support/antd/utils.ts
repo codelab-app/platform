@@ -38,7 +38,9 @@ export const getClock = (callback: (clock: Cypress.Clock) => void) =>
 export const ifOnClock = (callback: (clock: Cypress.Clock) => void) =>
   getClock((clock) => clock && callback(clock))
 
-export type TickOptions = { tickInterval?: number }
+export interface TickOptions {
+  tickInterval?: number
+}
 export const tickIfOnClock = ({ tickInterval = 100 }: TickOptions = {}) =>
   getClock((clock) => {
     if (clock) {

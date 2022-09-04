@@ -15,7 +15,7 @@ import React from 'react'
 import { useCurrentStore } from '../hooks'
 import { GetActionsList, GetStateList } from '../use-cases'
 
-type StoreExplorerPaneProps = {
+interface StoreExplorerPaneProps {
   typeService: ITypeService
   actionService: IActionService
   appService: IAppService

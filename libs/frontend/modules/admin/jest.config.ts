@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
+    '^.+\\.[tj]sx?$': ['babel-jest'],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/modules/admin',

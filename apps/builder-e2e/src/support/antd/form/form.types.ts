@@ -27,7 +27,9 @@ export const FIELD_TYPE = {
   CODE_MIRROR: 'codeMirror' as FieldType,
 }
 
-export type FormFieldOptions = { label?: string }
+export interface FormFieldOptions {
+  label?: string
+}
 
 export type FormInputOptions = FormFieldOptions & { type?: FieldType }
 

@@ -1,8 +1,8 @@
 // import '@testing-library/jest-dom/extend-expect'
 require('reflect-metadata')
 
-const { configure } = require('enzyme')
-const Adapter = require('enzyme-adapter-react-16')
+// const { configure } = require('enzyme')
+// const Adapter = require('enzyme-adapter-react-16')
 const { config } = require('dotenv')
 const fs = require('fs')
 const path = require('path')
@@ -15,4 +15,4 @@ if (process.env.NODE_ENV === 'test' && fs.existsSync(envPath)) {
   config({ path: envPath })
 }
 
-configure({ adapter: new Adapter() })
+// configure({ adapter: new Adapter() })

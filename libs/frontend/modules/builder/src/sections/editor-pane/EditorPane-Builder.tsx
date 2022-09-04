@@ -3,7 +3,7 @@ import {
   UseResizable,
 } from '@codelab/frontend/view/components'
 import { Tabs } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 
 const { TabPane } = Tabs
 
@@ -11,7 +11,7 @@ const onChange = (key: string) => {
   console.log(key)
 }
 
-type EditorPaneBuilderProps = {
+interface EditorPaneBuilderProps {
   resizable: UseResizable
 }
 
