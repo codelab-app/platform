@@ -25,6 +25,9 @@ const componentChildren: Array<ComponentChildData> = [
   { name: CHILD_TEXT, atom: IAtomType.AntDesignTypographyText },
 ]
 
+const waitForElementVisible = (selectorChain: Cypress.Chainable) =>
+  cy.waitUntil(() => selectorChain.then(($el) => $el.length))
+
 describe('Component CRUD', () => {
   before(() => {
     cy.resetDatabase()
@@ -76,7 +79,6 @@ describe('Component CRUD', () => {
         cy.getSpinner().should('not.exist')
       })
   })
-
   describe('Add component', () => {
     it('should be able to add a new component', () => {
       cy.getSider().getButton({ icon: 'plus' }).eq(1).click()
@@ -88,14 +90,15 @@ describe('Component CRUD', () => {
         .click()
       cy.getModal().should('not.exist', { timeout: 10000 })
 
-      cy.get('[title="Components"]')
-        .parent()
-        .find('.ant-tree-switcher_close')
-        .click()
+      const getAntTreeToggleButton = () =>
+        cy.get(`[title="Components"]`).parent().find('.ant-tree-switcher_close')
+
+      waitForElementVisible(getAntTreeToggleButton())
+
+      getAntTreeToggleButton().click()
 
       cy.findByText(NEW_COMP_NAME).should('exist')
     })
-
     it('should be available to add when adding page element', () => {
       cy.getSider()
         .find('.ant-page-header-heading')
@@ -119,11 +122,16 @@ describe('Component CRUD', () => {
   describe('Add elements to component', () => {
     it('should be able to add elements to the component', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(waitTimeout)
-      cy.get(`[title="${NEW_COMP_NAME}"]`)
-        .closest('div')
-        .find('.ant-tree-switcher_close')
-        .click()
+
+      const getAntTreeToggleButton = () =>
+        cy
+          .get(`[title="${NEW_COMP_NAME}"]`)
+          .closest('div')
+          .find('.ant-tree-switcher_close')
+
+      waitForElementVisible(getAntTreeToggleButton())
+
+      getAntTreeToggleButton().click()
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(waitTimeout)

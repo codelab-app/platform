@@ -58,12 +58,6 @@ describe('CSS CRUD', () => {
       cy.createElement({
         id: v4(),
         name: ELEMENT_BUTTON,
-        parentElement: {
-          connect: {
-            where: { node: { id: app.pages[0].rootElement.id } },
-            edge: { order: 1 },
-          },
-        },
         rootOf: {
           connect: {
             where: { node: { id: app.pages[0].rootElement.id } },
@@ -100,9 +94,14 @@ describe('CSS CRUD', () => {
       cy.get('[role="textbox"]')
         .click({ force: true })
         .type(createBackgroundColorStyle(backgroundColor1))
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('have.css', 'background-color', backgroundColor1)
+
+      cy.waitUntil(() =>
+        cy
+          .get('#render-root')
+          .find('.ant-btn')
+          .invoke('css', 'background-color')
+          .then((bgColor) => String(bgColor) === backgroundColor1),
+      )
     })
   })
 
@@ -113,9 +112,13 @@ describe('CSS CRUD', () => {
         .clear()
         .type(createBackgroundColorStyle(backgroundColor2))
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('have.css', 'background-color', backgroundColor2)
+      cy.waitUntil(() =>
+        cy
+          .get('#render-root')
+          .find('.ant-btn')
+          .invoke('css', 'background-color')
+          .then((bgColor) => String(bgColor) === backgroundColor2),
+      )
     })
   })
 
@@ -123,13 +126,21 @@ describe('CSS CRUD', () => {
     it('should be able to remove the css styling', () => {
       cy.get('[role="textbox"]').click({ force: true }).clear().type(' ')
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('not.have.css', 'background-color', backgroundColor1)
+      cy.waitUntil(() =>
+        cy
+          .get('#render-root')
+          .find('.ant-btn')
+          .invoke('css', 'background-color')
+          .then((bgColor) => String(bgColor) !== backgroundColor1),
+      )
 
-      cy.get('#render-root')
-        .find('.ant-btn')
-        .should('not.have.css', 'background-color', backgroundColor2)
+      cy.waitUntil(() =>
+        cy
+          .get('#render-root')
+          .find('.ant-btn')
+          .invoke('css', 'background-color')
+          .then((bgColor) => String(bgColor) !== backgroundColor2),
+      )
     })
   })
 })

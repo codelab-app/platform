@@ -25,6 +25,7 @@ import { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelAction,
