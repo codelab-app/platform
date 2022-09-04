@@ -15,6 +15,8 @@ import {
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 const { TabPane } = Tabs
@@ -32,57 +34,59 @@ interface EditorPaneBuilderProps {
   state: any
 }
 
-export const EditorPaneBuilder = ({
-  resizable,
-  actionService,
-  appStore,
-  storeService,
-  typeService,
-  state,
-}: EditorPaneBuilderProps) => {
-  return (
-    <Container>
-      <Tabs
-        defaultActiveKey="1"
-        tabBarExtraContent={<EditorPaneToggler resizable={resizable} />}
-      >
-        <TabPane
-          key="store"
-          tab={
-            <div>
-              <DatabaseOutlined title="Store" />
-              Store
-            </div>
-          }
+export const EditorPaneBuilder = observer(
+  ({
+    resizable,
+    actionService,
+    appStore,
+    storeService,
+    typeService,
+    state,
+  }: EditorPaneBuilderProps) => {
+    return (
+      <Container>
+        <Tabs
+          defaultActiveKey="1"
+          tabBarExtraContent={<EditorPaneToggler resizable={resizable} />}
         >
-          <StoreEditorPane
-            actionService={actionService}
-            appStore={appStore}
-            storeService={storeService}
-            typeService={typeService}
-          />
-        </TabPane>
-        <TabPane
-          key="store-inspector"
-          tab={
-            <div>
-              <CodeOutlined title="Store inspector" />
-              Store Inspector
-            </div>
-          }
-        >
-          <CodeMirrorEditor
-            language={CodeMirrorLanguage.Json}
-            onChange={() => undefined}
-            overrideStyles={css`
-              height: 95%;
-            `}
-            singleLine={false}
-            title="Current props"
-            value={JSON.stringify(toJS(state), null, '\t') ?? '{'}
-          />
-        </TabPane>
-      </Tabs>
-    </Container>
-  )
-}
+          <TabPane
+            key="store"
+            tab={
+              <div>
+                <DatabaseOutlined title="Store" />
+                Store
+              </div>
+            }
+          >
+            <StoreEditorPane
+              actionService={actionService}
+              appStore={appStore}
+              storeService={storeService}
+              typeService={typeService}
+            />
+          </TabPane>
+          <TabPane
+            key="store-inspector"
+            tab={
+              <div>
+                <CodeOutlined title="Store inspector" />
+                Store Inspector
+              </div>
+            }
+          >
+            <CodeMirrorEditor
+              language={CodeMirrorLanguage.Json}
+              onChange={() => undefined}
+              overrideStyles={css`
+                height: 95%;
+              `}
+              singleLine={false}
+              title="Current props"
+              value={JSON.stringify(toJS(state), null, '\t') ?? '{'}
+            />
+          </TabPane>
+        </Tabs>
+      </Container>
+    )
+  },
+)
