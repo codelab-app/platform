@@ -12,7 +12,7 @@ import React from 'react'
 import { typeRef } from '../../../../store'
 import { TypeRecord } from './types'
 
-type ActionColumnProps = {
+interface ActionColumnProps {
   type: TypeRecord
   typeService: ITypeService
 }

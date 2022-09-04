@@ -3,20 +3,16 @@ import {
   getDriver,
   getTypeDescendantsOGM,
   InterfaceTypeOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 
-type Descendant = {
+interface Descendant {
   id: string
   kind: ITypeKind
 }
 
-export type ExportTypeData = {
-  types: Array<ITypeExport>
-}
-
-export const exportUserTypes = async (): Promise<ExportTypeData> => {
+export const exportUserTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Export types
    */
@@ -68,9 +64,7 @@ export const exportUserTypes = async (): Promise<ExportTypeData> => {
     .map((type) => {
       return interfaceTypes.find((t) => t.id === type.id)
     })
-    .filter((x): x is OGM_TYPES.InterfaceType => !!x)
+    .filter((x): x is OGM_TYPES.InterfaceType => Boolean(x))
 
-  const allTypes = [...orderedInterfaceTypes] as Array<ITypeExport>
-
-  return { types: allTypes }
+  return [...orderedInterfaceTypes] as Array<ITypeExport>
 }

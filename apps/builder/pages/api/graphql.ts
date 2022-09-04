@@ -1,20 +1,27 @@
+/**
+ * This file is under `api` code so can import backend code
+ */
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
-  auth0Instance,
   generateOgmTypes,
   getDriver,
   getSchema,
-  NextApiRequest,
   UserOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { NextApiRequest } from '@codelab/backend/application'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { resolvers } from '@codelab/backend/graphql'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
-import { Config } from '@codelab/shared/utils'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { Config } from '@codelab/shared/config'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 
 const driver = getDriver()
-const neoSchema = getSchema(driver)
+const neoSchema = getSchema(driver, resolvers)
 const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer

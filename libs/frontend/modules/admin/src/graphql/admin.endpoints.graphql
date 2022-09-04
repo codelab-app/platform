@@ -1,5 +1,14 @@
+# Require a standalone function to reset
 mutation ResetDatabase {
   resetDatabase {
     success
+  }
+}
+
+mutation ExecuteCommand($input: ExecuteCommandInput!) {
+  executeCommand(input: $input) {
+    success
+    data
+    handler
   }
 }

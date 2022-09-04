@@ -28,7 +28,7 @@ import { ConfigPaneComponentTabContainer } from './ConfigPane-ComponentTabContai
 import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContainer'
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
-type MetaPaneProps = {
+interface MetaPaneProps {
   elementTree: IElementTree
   renderService: IRenderer
   atomService: IAtomService

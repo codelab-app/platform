@@ -21,7 +21,7 @@ export interface IRenderOutput {
   globalProps?: IPropDataByElementId
 }
 
-export type IBaseRenderPipe = {
+export interface IBaseRenderPipe {
   id: string
   renderer: IRenderer
 }

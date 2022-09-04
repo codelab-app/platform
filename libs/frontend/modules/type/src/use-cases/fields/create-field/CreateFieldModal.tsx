@@ -9,7 +9,9 @@ import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './createFieldSchema'
 
-export type CreateFieldModalProps = { typeService: ITypeService }
+export interface CreateFieldModalProps {
+  typeService: ITypeService
+}
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(
   ({ typeService }) => {

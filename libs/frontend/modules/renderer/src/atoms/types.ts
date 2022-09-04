@@ -16,7 +16,7 @@ export type IComponentType = React.ComponentType<any> | Nullable<string>
 
 export type AtomsRecord = Partial<Record<IAtomType, IComponentType>>
 
-export type AtomFactoryInput = {
+export interface AtomFactoryInput {
   atomType: IAtomType
   node: IEntity
   props: IPropData

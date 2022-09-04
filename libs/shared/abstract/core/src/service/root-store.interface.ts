@@ -22,7 +22,7 @@ export interface RootStoreData {
   init?: boolean
 }
 
-export type IRootStore = {
+export interface IRootStore {
   setUserService(userService: IUserService): void
   userService: IUserService
   appService: IAppService

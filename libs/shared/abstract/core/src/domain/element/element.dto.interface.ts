@@ -20,7 +20,7 @@ export interface ICreateElementDTO {
   prevSiblingId?: Nullable<string>
 }
 
-export type IUpdateElementDTO = {
+export interface IUpdateElementDTO {
   name?: Nullable<string>
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>

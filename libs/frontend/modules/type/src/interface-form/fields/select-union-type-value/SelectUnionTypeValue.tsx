@@ -7,7 +7,10 @@ import tw from 'twin.macro'
 import { useField } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
 
-export type SelectUnionTypeValueProps = { name: string; value: any }
+export interface SelectUnionTypeValueProps {
+  name: string
+  value: any
+}
 
 const makeSelectOptions = (oneOf: Array<any>) => {
   if (!oneOf?.length) {

@@ -10,7 +10,9 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
-type DeleteFieldModalProps = { typeService: ITypeService }
+interface DeleteFieldModalProps {
+  typeService: ITypeService
+}
 
 export const DeleteFieldModal = observer<DeleteFieldModalProps>(
   ({ typeService }) => {

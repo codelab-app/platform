@@ -6,7 +6,7 @@ export type CodelabPage<P = any, IP = P> = NextPage<P, IP> & PageProps
 /**
  * These are the props a page requires. We don't pass any props into these components
  */
-export type PageProps = {
+export interface PageProps {
   // getLayout?: (
   //   page: NextComponentType<NextPageContext, any, P>,
   // ) => JSX.Element | JSXElementConstructor<any>

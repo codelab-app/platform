@@ -1,35 +1,22 @@
 import { IDomainExport } from '@codelab/shared/abstract/core'
 import {
+  addVercelDomain,
   createDomainIfNotExist,
-  createVercelDomainIfNotExist,
 } from '../../repository/domain.repo'
 
-export const importDomains = async (domains: Array<IDomainExport> = []) => {
+export const importDomains = async (domain: IDomainExport) => {
   console.log('Importing domains...')
 
-  const verifiedDomains: Array<IDomainExport> = []
+  const newDomainAdded = await addVercelDomain(domain)
 
-  const verificationPromises = domains.map((domain) => {
-    const verificationPromise = createVercelDomainIfNotExist(domain)
+  if (!newDomainAdded) {
+    console.log(`No domain information was found for domain: ${domain}`)
 
-    verificationPromise.then((domainInfo) => {
-      if (!domainInfo) {
-        console.log(`No domain information was found for domain: ${domain}`)
+    return
+  }
 
-        return
-      }
-
-      verifiedDomains.push(domain)
-    })
-
-    return verificationPromise
-  })
-
-  await Promise.all(verificationPromises)
-
-  const domainCreationPromises: Array<Promise<any>> = verifiedDomains.map(
-    (domain) => createDomainIfNotExist(domain),
-  )
-
-  await Promise.all(domainCreationPromises)
+  /**
+   * Create inside our own database
+   */
+  return await createDomainIfNotExist(domain)
 }

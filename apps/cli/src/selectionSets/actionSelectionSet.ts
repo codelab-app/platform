@@ -1,4 +1,4 @@
-import { actionSelectionProperties } from '@codelab/backend'
+import { actionSelectionProperties } from '@codelab/backend/adapter/neo4j'
 
 export const exportResourceActionSelectionSet = `
  {

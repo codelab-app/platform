@@ -2,9 +2,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { redirectExternalDomain } from './src/middleware/redirectExternalDomain'
 
+/**
+ * Edge Runtime limitations prevent us from using many libraries such as `env-var`
+ */
 export default async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
   const hostname = req.headers.get('host')
+
+  if (!hostname) {
+    return NextResponse.next()
+  }
 
   const publicRootDomains =
     process.env.NEXT_PUBLIC_ROOT_DOMAINS?.split(',') || []
@@ -17,11 +23,7 @@ export default async function middleware(req: NextRequest) {
   const vercelURL = String(process.env.VERCEL_URL)
   const matchedVercelDomain = hostname?.includes(vercelURL)
   const isRootHostName = Boolean(matchedPublicDomains)
-
-  if (!hostname) {
-    return NextResponse.next()
-  }
-
+  const { pathname } = req.nextUrl
   const isApi = pathname.includes('api')
   const isSites = pathname.includes('_sites')
   const isInternal = pathname.includes('_next')
@@ -29,7 +31,7 @@ export default async function middleware(req: NextRequest) {
   const isLocal = hostname.includes('127.0.0.1')
   const redirectedDomainUrl = `http://${hostname}`
 
-  // console.debug('Redirect middleware', {
+  // console.log('Redirect middleware', {
   //   url: JSON.stringify(req.nextUrl),
   //   hostname,
   //   pathname,

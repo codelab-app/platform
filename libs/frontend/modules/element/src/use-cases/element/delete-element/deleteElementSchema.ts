@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeleteElementData = {
+export interface DeleteElementData {
   elementId: string
 }
 

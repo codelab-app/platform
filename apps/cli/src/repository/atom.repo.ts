@@ -1,4 +1,4 @@
-import { AtomOGM } from '@codelab/backend'
+import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'

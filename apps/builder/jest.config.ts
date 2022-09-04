@@ -1,7 +1,4 @@
 /* eslint-disable */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path')
-
 module.exports = {
   globals: {
     'ts-jest': {
@@ -12,10 +9,6 @@ module.exports = {
     },
   },
   // testEnvironment: 'node',
-  // Used with ts-jest
-  transformIgnorePatterns: [
-    'node_modules/(?!(stringify-object|is-regexp|is-obj)/)',
-  ],
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': [

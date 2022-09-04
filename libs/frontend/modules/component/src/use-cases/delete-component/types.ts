@@ -1,3 +1,3 @@
-export type DeleteComponentInput = {
+export interface DeleteComponentInput {
   componentId: string
 }

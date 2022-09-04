@@ -1,7 +1,14 @@
-import { DomainOGM, vercelApis } from '@codelab/backend'
+import { DomainOGM } from '@codelab/backend/adapter/neo4j'
+import { PROJECT_NOT_FOUND, vercelApis } from '@codelab/backend/adapter/vercel'
 import { IDomainExport } from '@codelab/shared/abstract/core'
 
-export const handleRestError = async (res: Response, requestName: string) => {
+/**
+ * If response is 200, we log error & return false
+ */
+export const logAPIError = async (
+  res: Response,
+  requestName: string,
+): Promise<boolean> => {
   if (res.status !== 200) {
     let parsedBody = {}
 
@@ -24,16 +31,28 @@ export const handleRestError = async (res: Response, requestName: string) => {
   return true
 }
 
-export const createVercelDomainIfNotExist = async (domain: IDomainExport) => {
-  const resGetDomain = await vercelApis.domain.getProjectData(domain.name)
+/**
+ * Add Vercel domain if doesn't already exist.
+ *
+ * @return throws if due to error
+ */
+export const addVercelDomain = async (
+  domain: IDomainExport,
+): Promise<boolean> => {
+  const getProjectDomainResponse = await vercelApis.domain.getProjectDomain(
+    domain.name,
+  )
 
-  if (resGetDomain.status === 404) {
-    const resAddDomain = await vercelApis.domain.add(domain.name)
+  /**
+   * Add domain if project not found
+   */
+  if (getProjectDomainResponse.status === PROJECT_NOT_FOUND) {
+    const addDomainResponse = await vercelApis.domain.addDomain(domain.name)
 
-    return await handleRestError(resAddDomain, 'addDomain')
+    return await logAPIError(addDomainResponse, 'addDomain')
   }
 
-  return await handleRestError(resGetDomain, 'getProjectDomainData')
+  return await logAPIError(getProjectDomainResponse, 'getProjectDomain')
 }
 
 export const createDomainIfNotExist = async (domain: IDomainExport) => {

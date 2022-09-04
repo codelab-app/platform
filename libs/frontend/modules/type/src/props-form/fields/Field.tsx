@@ -21,7 +21,7 @@ import { SelectActionField } from './SelectActionField'
 import { SelectComponentField } from './SelectComponentField'
 import { SelectEnumField } from './SelectEnumField'
 
-export type FieldProps = {
+export interface FieldProps {
   field: IField
   form: UseFormReturn
   context?: IPropsFieldContext

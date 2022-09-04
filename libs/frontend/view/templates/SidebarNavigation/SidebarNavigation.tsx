@@ -5,7 +5,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { sidebarWidth } from '../Dashboard'
 
-type SidebarNavigationProps = {
+interface SidebarNavigationProps {
   // Default menu items
   primaryItems?: MenuProps['items']
   // Menu items at the bottom

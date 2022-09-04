@@ -5,7 +5,7 @@ import setupNodeEvents from './src/plugins/index'
 const cypressJsonConfig: Cypress.ConfigOptions = {
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  video: false,
+  video: true,
   videosFolder: './src/videos',
   screenshotsFolder: './src/screenshots',
   chromeWebSecurity: false,
@@ -30,7 +30,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
 
 export default defineConfig({
   e2e: {
-    ...nxE2EPreset(__dirname),
+    ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
   },

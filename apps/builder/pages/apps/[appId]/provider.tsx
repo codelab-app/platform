@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
@@ -26,6 +25,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

@@ -104,7 +104,7 @@ describe('Store', () => {
 
   describe('Action CRUD', () => {
     describe('create', () => {
-      it('should be able to create  action', () => {
+      it('should be able to create action', () => {
         cy.findByTitle('Create Action').click({ force: true })
 
         cy.getModal().setFormFieldValue({ label: 'Name', value: actionName })
@@ -134,7 +134,7 @@ describe('Store', () => {
     })
 
     describe('update', () => {
-      it('should be able to update  action name', () => {
+      it('should be able to update action name', () => {
         cy.getListItem(actionName)
           .getButton({
             icon: 'edit',
@@ -158,7 +158,7 @@ describe('Store', () => {
     })
 
     describe('delete', () => {
-      it('should be able to delete  action', () => {
+      it('should be able to delete action', () => {
         cy.getListItem(actionName)
           .getButton({
             icon: 'delete',

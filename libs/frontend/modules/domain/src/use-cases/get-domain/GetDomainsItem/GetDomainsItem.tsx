@@ -9,7 +9,7 @@ import { ConfigGuide } from './ConfigGuideTab'
 import { ConfigStatus } from './ConfigStatus'
 import { hideAntBody } from './GetDomainsItem.styles'
 
-export type GetAppsItemProps = {
+export interface GetAppsItemProps {
   domain: IDomain
   domainService: IDomainService
 }

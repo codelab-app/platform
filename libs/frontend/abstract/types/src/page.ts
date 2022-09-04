@@ -2,7 +2,7 @@ import { NextRouter } from 'next/router'
 import * as R from 'ramda'
 import { PageType } from './pageType'
 
-type PropsWithRouter = {
+interface PropsWithRouter {
   router: NextRouter
 }
 

@@ -29,7 +29,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
 
 export default defineConfig({
   e2e: {
-    ...nxE2EPreset(__dirname),
+    ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
     setupNodeEvents,
   },

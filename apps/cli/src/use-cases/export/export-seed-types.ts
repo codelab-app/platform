@@ -9,13 +9,12 @@ import {
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
   RenderPropsTypeOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport } from '@codelab/shared/abstract/core'
-import { ExportTypeData } from './export-user-types'
 import { sortInterfaceTypesFields } from './get-type'
 
-export const exportSeedTypes = async (): Promise<ExportTypeData> => {
+export const exportSeedTypes = async (): Promise<Array<ITypeExport>> => {
   /**
    * Export all primitive types
    */
@@ -90,7 +89,7 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
    *
    * Further to the front are closer to the leaf.
    */
-  const allTypes = [
+  return [
     ...primitiveTypes,
     ...renderPropsTypes,
     ...reactNodeTypes,
@@ -98,6 +97,4 @@ export const exportSeedTypes = async (): Promise<ExportTypeData> => {
     // Put interfaces last since they depend on primitive types when seeding
     ...sortInterfaceTypesFields(interfaceTypes),
   ] as Array<ITypeExport>
-
-  return { types: allTypes }
 }

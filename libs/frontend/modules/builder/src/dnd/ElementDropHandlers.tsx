@@ -38,7 +38,7 @@ const BuilderDropHandler = observer<BuilderDropHandlerProps>(
   },
 )
 
-type ElementDropHandlersProps = {
+interface ElementDropHandlersProps {
   elementsList: Array<IElement>
 }
 

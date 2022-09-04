@@ -486,6 +486,8 @@ input ActionsPipeLineSort {
 
 input ActionsPipeLineUpdateInput {
   orders: [String!]
+  orders_POP: Int
+  orders_PUSH: [String!]
 }
 
 input ActionsPipeLineWhere {
@@ -3811,6 +3813,11 @@ type CreateEnumTypesMutationResponse {
   info: CreateInfo!
 }
 
+type CreateExecuteCommandResponsesMutationResponse {
+  executeCommandResponses: [ExecuteCommandResponse!]!
+  info: CreateInfo!
+}
+
 type CreateHooksMutationResponse {
   hooks: [Hook!]!
   info: CreateInfo!
@@ -3862,7 +3869,11 @@ input CreateInfoSort {
 input CreateInfoUpdateInput {
   bookmark: String
   nodesCreated: Int
+  nodesCreated_DECREMENT: Int
+  nodesCreated_INCREMENT: Int
   relationshipsCreated: Int
+  relationshipsCreated_DECREMENT: Int
+  relationshipsCreated_INCREMENT: Int
 }
 
 input CreateInfoWhere {
@@ -4268,7 +4279,11 @@ input DeleteInfoSort {
 input DeleteInfoUpdateInput {
   bookmark: String
   nodesDeleted: Int
+  nodesDeleted_DECREMENT: Int
+  nodesDeleted_INCREMENT: Int
   relationshipsDeleted: Int
+  relationshipsDeleted_DECREMENT: Int
+  relationshipsDeleted_INCREMENT: Int
 }
 
 input DeleteInfoWhere {
@@ -4324,7 +4339,7 @@ type Domain {
   domainConfig: VercelDomainConfigData!
   id: ID!
   name: String!
-  projectDomainData: VercelProjectDomainData!
+  projectDomain: VercelProjectDomainData!
 }
 
 type DomainAggregateSelection {
@@ -8824,6 +8839,89 @@ type EnumTypesConnection {
   totalCount: Int!
 }
 
+enum ExecuteCommandHandler {
+  Download
+  Void
+}
+
+input ExecuteCommandInput {
+  command: String!
+}
+
+type ExecuteCommandResponse {
+  data: String!
+  handler: ExecuteCommandHandler!
+  success: Boolean!
+}
+
+type ExecuteCommandResponseAggregateSelection {
+  count: Int!
+  data: StringAggregateSelectionNonNullable!
+}
+
+input ExecuteCommandResponseCreateInput {
+  data: String!
+  handler: ExecuteCommandHandler!
+  success: Boolean!
+}
+
+type ExecuteCommandResponseEdge {
+  cursor: String!
+  node: ExecuteCommandResponse!
+}
+
+input ExecuteCommandResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ExecuteCommandResponseSort objects to sort ExecuteCommandResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ExecuteCommandResponseSort!]
+}
+
+"""
+Fields to sort ExecuteCommandResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExecuteCommandResponseSort object.
+"""
+input ExecuteCommandResponseSort {
+  data: SortDirection
+  handler: SortDirection
+  success: SortDirection
+}
+
+input ExecuteCommandResponseUpdateInput {
+  data: String
+  handler: ExecuteCommandHandler
+  success: Boolean
+}
+
+input ExecuteCommandResponseWhere {
+  AND: [ExecuteCommandResponseWhere!]
+  OR: [ExecuteCommandResponseWhere!]
+  data: String
+  data_CONTAINS: String
+  data_ENDS_WITH: String
+  data_IN: [String!]
+  data_NOT: String
+  data_NOT_CONTAINS: String
+  data_NOT_ENDS_WITH: String
+  data_NOT_IN: [String!]
+  data_NOT_STARTS_WITH: String
+  data_STARTS_WITH: String
+  handler: ExecuteCommandHandler
+  handler_IN: [ExecuteCommandHandler!]
+  handler_NOT: ExecuteCommandHandler
+  handler_NOT_IN: [ExecuteCommandHandler!]
+  success: Boolean
+  success_NOT: Boolean
+}
+
+type ExecuteCommandResponsesConnection {
+  edges: [ExecuteCommandResponseEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 interface Field {
   description: String
   id: ID!
@@ -10209,6 +10307,9 @@ type Mutation {
   createEnumTypes(
     input: [EnumTypeCreateInput!]!
   ): CreateEnumTypesMutationResponse!
+  createExecuteCommandResponses(
+    input: [ExecuteCommandResponseCreateInput!]!
+  ): CreateExecuteCommandResponsesMutationResponse!
   createHooks(input: [HookCreateInput!]!): CreateHooksMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
@@ -10303,6 +10404,7 @@ type Mutation {
     delete: EnumTypeDeleteInput
     where: EnumTypeWhere
   ): DeleteInfo!
+  deleteExecuteCommandResponses(where: ExecuteCommandResponseWhere): DeleteInfo!
   deleteHooks(delete: HookDeleteInput, where: HookWhere): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
@@ -10362,6 +10464,7 @@ type Mutation {
   deleteVercelProjectDomainData(
     where: VercelProjectDomainDataWhere
   ): DeleteInfo!
+  executeCommand(input: ExecuteCommandInput!): ExecuteCommandResponse!
   resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
@@ -10489,6 +10592,10 @@ type Mutation {
     update: EnumTypeUpdateInput
     where: EnumTypeWhere
   ): UpdateEnumTypesMutationResponse!
+  updateExecuteCommandResponses(
+    update: ExecuteCommandResponseUpdateInput
+    where: ExecuteCommandResponseWhere
+  ): UpdateExecuteCommandResponsesMutationResponse!
   updateHooks(
     connect: HookConnectInput
     connectOrCreate: HookConnectOrCreateInput
@@ -11469,6 +11576,8 @@ input ParentOfElementSort {
 
 input ParentOfElementUpdateInput {
   order: Int
+  order_DECREMENT: Int
+  order_INCREMENT: Int
 }
 
 input ParentOfElementWhere {
@@ -13123,6 +13232,19 @@ type Query {
     sort: [EnumTypeSort]
     where: EnumTypeWhere
   ): EnumTypesConnection!
+  executeCommandResponses(
+    options: ExecuteCommandResponseOptions
+    where: ExecuteCommandResponseWhere
+  ): [ExecuteCommandResponse!]!
+  executeCommandResponsesAggregate(
+    where: ExecuteCommandResponseWhere
+  ): ExecuteCommandResponseAggregateSelection!
+  executeCommandResponsesConnection(
+    after: String
+    first: Int
+    sort: [ExecuteCommandResponseSort]
+    where: ExecuteCommandResponseWhere
+  ): ExecuteCommandResponsesConnection!
 
   """
   Returns a list of all Type and Atom entities that reference the type with the given id
@@ -15653,7 +15775,11 @@ input TagGraphOptionsSort {
 
 input TagGraphOptionsUpdateInput {
   limit: Int
+  limit_DECREMENT: Int
+  limit_INCREMENT: Int
   sort: Int
+  sort_DECREMENT: Int
+  sort_INCREMENT: Int
 }
 
 input TagGraphOptionsWhere {
@@ -16878,6 +17004,11 @@ type UpdateEnumTypeValuesMutationResponse {
 
 type UpdateEnumTypesMutationResponse {
   enumTypes: [EnumType!]!
+  info: UpdateInfo!
+}
+
+type UpdateExecuteCommandResponsesMutationResponse {
+  executeCommandResponses: [ExecuteCommandResponse!]!
   info: UpdateInfo!
 }
 

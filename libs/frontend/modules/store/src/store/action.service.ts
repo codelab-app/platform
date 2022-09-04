@@ -101,7 +101,7 @@ export class ActionService
         actionModel.actions = action.actionsConnection.edges.flatMap(
           (x) =>
             x.orders?.map((y) => ({
-              order: +y || 0,
+              order: Number(y) || 0,
               action: actionRef(x.node.id),
             })) || [],
         )

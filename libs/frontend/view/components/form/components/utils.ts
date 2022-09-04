@@ -1,21 +1,23 @@
 import { SubmitRef } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { MouseEvent } from 'react'
+import { ArrayOrSingle } from 'ts-essentials'
+import { DeepPartial } from 'uniforms'
 
 export type SetIsLoading = (isLoading: boolean) => void
 
 export const handleFormSubmit =
-  <T>(
-    onSubmit: (values: T) => any | Promise<any>,
+  <TData, TResponse>(
+    onSubmit: (values: TData) => any | Promise<any>,
     setIsLoading?: SetIsLoading,
-    onSubmitSuccess?: (values: Awaited<T>) => any,
-    onSubmitError?: (err: any) => any,
+    onSubmitSuccess?: ArrayOrSingle<(values: Awaited<TData>) => void>,
+    onSubmitError?: ArrayOrSingle<(err: any) => void>,
   ) =>
-  async (formData: T) => {
+  async (formData: DeepPartial<TData>) => {
     setIsLoading?.(true)
 
     try {
-      const results = await onSubmit(formData as T)
+      const results = await onSubmit(formData as TData)
 
       setIsLoading?.(false)
 

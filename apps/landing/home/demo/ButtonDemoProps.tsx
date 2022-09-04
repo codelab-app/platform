@@ -7,7 +7,7 @@ import { ButtonProps, Descriptions, Radio, Select, Space, Switch } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-type DemoCardProps = {
+interface DemoCardProps {
   block: boolean
   type: ButtonProps['type']
   icon: string

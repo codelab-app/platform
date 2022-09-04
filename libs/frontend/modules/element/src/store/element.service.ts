@@ -21,11 +21,9 @@ import {
   IUpdatePropMapBindingDTO,
 } from '@codelab/shared/abstract/core'
 import { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { connectId, disconnectId } from '@codelab/shared/data'
 import {
   _async,
   _await,
-  getSnapshot,
   Model,
   model,
   modelAction,
@@ -39,7 +37,6 @@ import { BatchUpdateElementsMutationVariable } from '../graphql/element.endpoint
 import {
   makeCreateInput,
   makeDuplicateInput,
-  makePatchElementInput,
   makeUpdateInput,
 } from './api.utils'
 import { customElementApi, elementApi, propMapBindingApi } from './apis'

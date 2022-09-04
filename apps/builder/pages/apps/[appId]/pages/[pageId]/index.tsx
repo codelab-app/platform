@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import { Renderer } from '@codelab/frontend/modules/renderer'
@@ -13,6 +12,7 @@ import {
   useStatefulExecutor,
 } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

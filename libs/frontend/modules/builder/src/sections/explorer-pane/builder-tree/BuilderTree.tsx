@@ -19,7 +19,7 @@ import {
   TREE_NODE_WRAPPER_SELECTOR,
 } from './disableNodeHoverEffects'
 
-type BuilderTreeProps = {
+interface BuilderTreeProps {
   treeData: IBuilderDataNode | undefined
   className?: string
   elementTree: IElementTree | null

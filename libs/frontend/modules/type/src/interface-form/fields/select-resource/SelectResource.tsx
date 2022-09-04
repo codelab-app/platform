@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectResourcesProps = {
+export interface SelectResourcesProps {
   name: string
   resourceService: IResourceService
 }

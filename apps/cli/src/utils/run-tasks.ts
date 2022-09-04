@@ -29,10 +29,8 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
       if (env === TaskEnv.Test) {
         // Added since many times can't find production build of next during push
         // Maybe related? https://github.com/nrwl/nx/issues/2839
-        execCommand(`${NX_TEST} build builder -c test`)
-        execCommand(
-          `${NX_TEST} affected:build -c test --exclude=tools-plugins-codelab`,
-        )
+        // execCommand(`${NX_TEST} build builder -c test`)
+        execCommand(`${NX_TEST} affected:build -c test`)
       }
 
       if (env === TaskEnv.Ci) {

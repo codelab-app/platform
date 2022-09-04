@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { GetStateItem } from './GetStateItem'
 
-export type GetStateTreeProps = {
+export interface GetStateTreeProps {
   store: IStore
   typeService: ITypeService
 }

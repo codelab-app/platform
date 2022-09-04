@@ -50,7 +50,7 @@ export class LoopingRenderPipe
 
         return this.next.render(element, itemProps)
       })
-      .filter((output): output is IRenderOutput => !!output)
+      .filter((output): output is IRenderOutput => Boolean(output))
   }
 
   private static evaluateRenderForEach(element: IElement, props: IPropData) {

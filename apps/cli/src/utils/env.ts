@@ -2,10 +2,32 @@ import { Options } from 'yargs'
 
 export const ENV_FLAG = 'env'
 
+/**
+ * This is the script environment for running processes like CI/CD
+ */
 export enum Env {
+  // Local dev flow
   Dev = 'dev',
+
+  // Local flow
   Test = 'test',
-  Ci = 'ci',
+
+  // Remote
+  CI = 'ci',
+}
+
+/**
+ * This is the deployment environment.
+ */
+export enum Stage {
+  // Vercel remote
+  Production = 'production',
+
+  // Vercel remote
+  Staging = 'staging',
+
+  // Local
+  Development = 'development',
 }
 
 /**

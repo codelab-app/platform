@@ -3,7 +3,7 @@ import { IActionService } from '@codelab/shared/abstract/core'
 import React, { useEffect } from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectActionProps = {
+export interface SelectActionProps {
   name: string
   storeId: string
   actionService: IActionService

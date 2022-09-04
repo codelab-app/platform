@@ -11,13 +11,16 @@ export type FormProps<TData, TResponse = unknown> = {
   /**
    * Called after a successful submit
    */
-  onSubmitSuccess?: ArrayOrSingle<Callback<Awaited<TResponse>, void>>
+  onSubmitSuccess?: ArrayOrSingle<Callback<Awaited<TData>, void>>
 
   /**
    * Called after a failed submit
    */
   onSubmitError?: ArrayOrSingle<Callback<TResponse, void>>
 
+  /**
+   * Don't use `DeepPartial` even Uniform uses it
+   */
   onSubmit: (model: TData) => Promise<TResponse | void>
 
   /**
@@ -45,7 +48,7 @@ export type FormProps<TData, TResponse = unknown> = {
  *
  * Currently making it require since most forms use it, this way we don't have to create a separate type. Optional works too but we get less typing
  */
-export type SubmitRef = {
+export interface SubmitRef {
   submitRef?: React.MutableRefObject<Maybe<SubmitController>> | undefined
 }
 

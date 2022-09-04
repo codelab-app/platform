@@ -1,4 +1,4 @@
-import { AtomOGM } from '@codelab/backend'
+import { AtomOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IPageExport } from '@codelab/shared/abstract/core'
 import { flatMap } from 'lodash'

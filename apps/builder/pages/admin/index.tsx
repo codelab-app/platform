@@ -1,6 +1,8 @@
-import { auth0Instance } from '@codelab/backend'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ResetDataButton } from '@codelab/frontend/modules/admin'
+import {
+  ExecuteCommandButton,
+  ExecuteCommandModal,
+} from '@codelab/frontend/modules/admin'
 import { useStore } from '@codelab/frontend/presenter/container'
 import {
   adminMenuItems,
@@ -16,6 +18,7 @@ import {
   DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { PageHeader, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -32,9 +35,11 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </Head>
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
-          <ResetDataButton adminService={adminService} />
+          {/* <ResetDataButton adminService={adminService} /> */}
+          <ExecuteCommandButton adminService={adminService} />
         </Space>
       </ContentSection>
+      <ExecuteCommandModal adminService={adminService} />
     </>
   )
 })

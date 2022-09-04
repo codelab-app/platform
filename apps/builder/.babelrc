@@ -11,47 +11,8 @@
     ],
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
-    // Removed to solve https://github.com/vercel/next.js/issues/37080
-    //    [
-    //      "@babel/preset-typescript",
-    //      {
-    //        // For mobx-keystone
-    //        "allowDeclareFields": true
-    //      }
-    //    ]
   ],
-  "plugins": [
-    "@emotion",
-    "macros",
-    // For mobx-keystone
-    [
-      "@babel/plugin-proposal-decorators",
-      {
-        "version": "legacy"
-      }
-    ],
-    // For mobx-keystone
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
-    ],
-    [
-      "@babel/plugin-proposal-private-property-in-object",
-      {
-        "loose": true
-      }
-    ]
-    // This imports antd into our app
-    //    [
-    //      "import",
-    //      {
-    //        "libraryName": "antd",
-    //        "style": true
-    //      }
-    //    ]
-  ],
+  "plugins": ["@emotion", "macros"],
   "env": {
     "development": {
       "presets": [
