@@ -1,5 +1,4 @@
 export * from './assert'
-export * from './buffer'
 export * from './collections'
 export * from './comparison'
 export * from './entity'

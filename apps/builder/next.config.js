@@ -1,15 +1,7 @@
 const util = require('util')
 const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
-const { patchWebpackConfig } = require('next-global-css')
-const withAntdLess = require('next-plugin-antd-less')
-const path = require('path')
-const { merge } = require('lodash')
 const withLess = require('next-with-less')
-const withTM = require('next-transpile-modules')([
-  // imports and non-Node friendly syntax, so it needs to be compiled.
-  '@fancyapps/ui',
-])
 
 const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
 
