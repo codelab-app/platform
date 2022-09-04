@@ -4,7 +4,7 @@ import {
   DgraphEntityType,
   Dgraph<%= modelPascalCase %>
 } from '@codelab/backend/infra'
-import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphUseCase } from '@codelab/server/application'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { <%= useCasePascalCase %>Input } from './<%= useCaseKebabCase %>.input'

@@ -1,11 +1,18 @@
 import { FormProps } from '@codelab/frontend/abstract/types'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Bridge, DeepPartial } from 'uniforms'
+import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
 import { ModalFormContext } from './ModalForm.Context'
 
+/**
+ * @param onSubmit The fact Uniform types this as `DeepPartial` causes a lot of issue.
+ *
+ * We don't actually want to use `DeepPartial` because we want to specific the correct shape.
+ *
+ * But using without `DeepPartial` causes some casting down the line
+ */
 export const Form = <TData, TResponse = unknown>({
   onSubmitSuccess = [],
   onSubmitError = [],
@@ -36,11 +43,11 @@ export const Form = <TData, TResponse = unknown>({
       model={model}
       onChange={onChange}
       onChangeModel={onChangeModel}
-      onSubmit={handleFormSubmit<DeepPartial<TData>>(
-        onSubmit as any,
+      onSubmit={handleFormSubmit<TData, TResponse>(
+        onSubmit,
         setIsLoading,
-        onSubmitSuccess as any,
-        onSubmitError as any,
+        onSubmitSuccess,
+        onSubmitError,
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}

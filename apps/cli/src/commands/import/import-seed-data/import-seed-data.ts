@@ -1,4 +1,4 @@
-import { fieldRepository } from '@codelab/backend'
+import { fieldRepository } from '@codelab/backend/application'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 import { createSeedTypesData } from '@codelab/shared/data'
 import fs from 'fs'

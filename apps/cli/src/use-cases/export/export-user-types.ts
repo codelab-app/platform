@@ -3,7 +3,7 @@ import {
   getDriver,
   getTypeDescendantsOGM,
   InterfaceTypeOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 

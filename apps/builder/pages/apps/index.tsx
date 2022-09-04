@@ -1,5 +1,5 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { auth0Instance } from '@codelab/backend'
+import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateAppButton,

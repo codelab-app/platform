@@ -9,5 +9,6 @@ mutation ExecuteCommand($input: ExecuteCommandInput!) {
   executeCommand(input: $input) {
     success
     data
+    handler
   }
 }

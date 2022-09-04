@@ -1,7 +1,7 @@
-import { setupTestModule, teardownTestModule } from '@codelab/backend/shared/testing'
+import { setupTestModule, teardownTestModule } from '@codelab/server/shared/testing'
 import { INestApplication } from '@nestjs/common'
 import { <%= modelPascalCase %>Module } from '../../../<%= model %>.module'
-import { domainRequest } from '@codelab/backend/shared/testing'
+import { domainRequest } from '@codelab/server/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
 import { <%= modelPascalCase %> } from '../../../<%= model %>.module'
 

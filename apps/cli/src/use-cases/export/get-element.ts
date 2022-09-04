@@ -1,7 +1,12 @@
-import { elementGraph, ElementOGM, elementSelectionSet } from '@codelab/backend'
+import {
+  ElementOGM,
+  elementSelectionSet,
+  withRxWriteTransaction,
+} from '@codelab/backend/adapter/neo4j'
+import { elementGraph } from '@codelab/backend/graphql'
 
 export const getElementAndDescendants = async (rootId: string) => {
-  const { id, descendants } = await elementGraph(
+  const { id, descendants } = await withRxWriteTransaction(elementGraph)(
     null,
     { input: { rootId } },
     null,

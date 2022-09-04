@@ -1,4 +1,4 @@
-import { TagOGM, tagSelectionSet } from '@codelab/backend'
+import { TagOGM, tagSelectionSet } from '@codelab/backend/adapter/neo4j'
 import { ITagExport } from '@codelab/shared/abstract/core'
 
 export const exportTags = async () => {

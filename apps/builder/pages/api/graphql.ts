@@ -1,11 +1,12 @@
+import { auth0Instance } from '@codelab/backend/adapter/auth0'
 import {
-  auth0Instance,
   generateOgmTypes,
   getDriver,
   getSchema,
-  NextApiRequest,
   UserOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
+import { NextApiRequest } from '@codelab/backend/application'
+import { resolvers } from '@codelab/backend/graphql'
 import { upsertUser } from '@codelab/frontend/modules/user'
 import { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { Config } from '@codelab/shared/config'
@@ -14,7 +15,7 @@ import { NextApiHandler } from 'next'
 import * as util from 'util'
 
 const driver = getDriver()
-const neoSchema = getSchema(driver)
+const neoSchema = getSchema(driver, resolvers)
 const path = '/api/graphql'
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 let apolloServer: ApolloServer

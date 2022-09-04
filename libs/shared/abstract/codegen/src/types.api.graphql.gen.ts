@@ -4518,7 +4518,7 @@ export type Domain = {
   domainConfig: VercelDomainConfigData
   id: Scalars['ID']
   name: Scalars['String']
-  projectDomainData: VercelProjectDomainData
+  projectDomain: VercelProjectDomainData
 }
 
 export type DomainAppArgs = {
@@ -9245,6 +9245,11 @@ export type EnumTypesConnection = {
   totalCount: Scalars['Int']
 }
 
+export enum ExecuteCommandHandler {
+  Download = 'Download',
+  Void = 'Void',
+}
+
 export type ExecuteCommandInput = {
   command: Scalars['String']
 }
@@ -9252,6 +9257,7 @@ export type ExecuteCommandInput = {
 export type ExecuteCommandResponse = {
   __typename?: 'ExecuteCommandResponse'
   data: Scalars['String']
+  handler: ExecuteCommandHandler
   success: Scalars['Boolean']
 }
 
@@ -9263,6 +9269,7 @@ export type ExecuteCommandResponseAggregateSelection = {
 
 export type ExecuteCommandResponseCreateInput = {
   data: Scalars['String']
+  handler: ExecuteCommandHandler
   success: Scalars['Boolean']
 }
 
@@ -9282,11 +9289,13 @@ export type ExecuteCommandResponseOptions = {
 /** Fields to sort ExecuteCommandResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ExecuteCommandResponseSort object. */
 export type ExecuteCommandResponseSort = {
   data?: InputMaybe<SortDirection>
+  handler?: InputMaybe<SortDirection>
   success?: InputMaybe<SortDirection>
 }
 
 export type ExecuteCommandResponseUpdateInput = {
   data?: InputMaybe<Scalars['String']>
+  handler?: InputMaybe<ExecuteCommandHandler>
   success?: InputMaybe<Scalars['Boolean']>
 }
 
@@ -9303,6 +9312,10 @@ export type ExecuteCommandResponseWhere = {
   data_NOT_IN?: InputMaybe<Array<Scalars['String']>>
   data_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   data_STARTS_WITH?: InputMaybe<Scalars['String']>
+  handler?: InputMaybe<ExecuteCommandHandler>
+  handler_IN?: InputMaybe<Array<ExecuteCommandHandler>>
+  handler_NOT?: InputMaybe<ExecuteCommandHandler>
+  handler_NOT_IN?: InputMaybe<Array<ExecuteCommandHandler>>
   success?: InputMaybe<Scalars['Boolean']>
   success_NOT?: InputMaybe<Scalars['Boolean']>
 }

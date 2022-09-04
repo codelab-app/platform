@@ -1,4 +1,4 @@
-import { getDriver } from '@codelab/backend'
+import { getDriver } from '@codelab/backend/adapter/neo4j'
 
 export const resetDatabase = async () => {
   const driver = getDriver()
