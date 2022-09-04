@@ -9,7 +9,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
-type PageProps = {
+interface PageProps {
   user: string
   json: string
 
