@@ -1,35 +1,4 @@
 {
-  "presets": [
-    [
-      "@nrwl/react/babel",
-      {
-        "runtime": "automatic",
-        "useBuiltIns": "usage"
-      }
-    ],
-    [
-      "@babel/preset-typescript",
-      {
-        // For mobx-keystone
-        "allowDeclareFields": true
-      }
-    ]
-  ],
-  "plugins": [
-    "macros",
-    // For mobx-keystone
-    [
-      "@babel/plugin-proposal-decorators",
-      {
-        "version": "legacy"
-      }
-    ],
-    // For mobx-keystone
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
-    ]
-  ]
+  "presets": ["@nrwl/react/babel"],
+  "plugins": ["macros"]
 }
