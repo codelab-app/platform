@@ -133,7 +133,6 @@
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data": ["libs/shared/data/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/test": ["libs/test/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ]
