@@ -10,11 +10,12 @@ export interface ICreateComponentDTO {
 
   // Allow for connection to existing interface
   api?: IInterfaceTypeRef | undefined
+  rootElementId?: string
 }
 
 export type IUpdateComponentDTO = Omit<
   ICreateComponentDTO,
-  'id' | 'auth0Id' | 'api'
+  'id' | 'auth0Id' | 'api' | 'rootElementId'
 >
 
 export type IComponentDTO = ComponentFragment

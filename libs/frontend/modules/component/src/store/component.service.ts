@@ -67,6 +67,7 @@ export class ComponentService
       children: [...this.components.values()].map((component) => {
         const elementTree = component.elementTree
         const dataNode = elementTree?.root?.antdNode
+        console.log({ dataNode, elementTree })
 
         return {
           key: component.id,
@@ -88,12 +89,6 @@ export class ComponentService
     auth0Id: IAuth0Id,
   ) {
     const components = yield* _await(this.getAll({ owner: { auth0Id } }))
-
-    const rootElement = new Element({
-      id: 'components',
-      name: 'Components',
-      owner: '',
-    })
 
     return yield* _await(
       Promise.all(

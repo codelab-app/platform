@@ -474,26 +474,13 @@ export class Element
 
     if (this.parentElement.childrenRootId === this.id) {
       this.parentElement.childrenRootId = this.nextSiblingId
+      this.rootOfId = null
     }
-
-    this.parentId = null
-  }
-
-  @modelAction
-  attachToParent(parentElementId: string) {
-    const parentElement = this.elementService.element(parentElementId)
-
-    if (!parentElement) {
-      throw new Error(`parent element id ${parentElementId} not found`)
-    }
-
-    this.parentId = parentElementId
   }
 
   @modelAction
   attachToParentAsSubRoot(parentElementId: string) {
     const parentElement = this.elementService.element(parentElementId)
-    this.attachToParent(parentElementId)
 
     if (!parentElement) {
       throw new Error(`parent element id ${parentElementId} not found`)
@@ -521,24 +508,16 @@ export class Element
   }
 
   makeDetachParentInput() {
-    if (!this.parentElement) {
-      return null
+    if (this.parentElement && this.parentElement.childrenRootId === this.id) {
+      return makePatchElementInput(this.parentElement, {
+        childrenRoot: {
+          ...disconnectId(this.id),
+          ...connectId(this.nextSibling?.id),
+        },
+      })
     }
 
-    const parentElementChanges: any = {
-      children: {
-        ...disconnectId(this.id),
-      },
-    }
-
-    if (this.parentElement.childrenRootId === this.id) {
-      parentElementChanges.childrenRoot = {
-        ...disconnectId(this.id),
-        ...connectId(this.nextSibling?.id),
-      }
-    }
-
-    return makePatchElementInput(this.parentElement, parentElementChanges)
+    return null
   }
 
   makeDetachPrevSiblingInput() {

@@ -52,6 +52,14 @@ export const connectId = (id?: string) => {
   return { connect: id ? { where: { node: { id } } } : undefined }
 }
 
+export const createNode = (data: any) => {
+  return {
+    create: {
+      node: data,
+    },
+  }
+}
+
 export const disconnectId = (id?: string) => {
   return { disconnect: id ? { where: { node: { id } } } : undefined }
 }

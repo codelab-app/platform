@@ -1,19 +1,17 @@
 import { makeCreateInput } from '@codelab/frontend/modules/element'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import { ICreateComponentDTO } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/data'
+import { connectId, connectOwner, createNode } from '@codelab/shared/data'
 import { v4 } from 'uuid'
 
 export const mapCreateInput = (
   input: ICreateComponentDTO,
 ): ComponentCreateInput => {
-  const { id = v4(), name, auth0Id } = input
+  const { id = v4(), name, auth0Id, rootElementId } = input
 
-  const rootElement: ComponentCreateInput['rootElement'] = {
-    create: {
-      node: makeCreateInput({ name }),
-    },
-  }
+  const rootElement: ComponentCreateInput['rootElement'] = rootElementId
+    ? connectId(rootElementId)
+    : createNode(makeCreateInput({ name }))
 
   const api: ComponentCreateInput['api'] = {
     create: {

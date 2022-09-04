@@ -8,6 +8,7 @@ import {
 import {
   IAuth0Id,
   IComponentDTO,
+  ICreateComponentDTO,
   ICreateElementDTO,
   ICreatePropMapBindingDTO,
   IElement,
@@ -297,7 +298,6 @@ export class ElementService
     }
 
     updateElementCacheFns.push(
-      element.detachParent.bind(element),
       element.detachNextSibling.bind(element),
       element.detachPrevSibling.bind(element),
     )
@@ -416,12 +416,6 @@ export class ElementService
 
     const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
     const updateElementCacheFns: Array<() => void> = []
-
-    if (targetElement.parentElement) {
-      updateElementCacheFns.push(
-        element.attachToParent.bind(element, targetElement.parentElement.id),
-      )
-    }
 
     if (targetElement.nextSibling) {
       updateElementCacheFns.push(
@@ -624,51 +618,41 @@ export class ElementService
     }
 
     // 2. Attach a Component to the Element and detach it from the parent
-    const parentId = element.parentElement.id
+    const beforeDetachElement = getSnapshot(element)
 
-    yield* _await(
-      this.patchElement(element, {
-        component: {
-          create: {
-            node: {
-              id: v4(),
-              name: element.label,
-              owner: { connect: { where: { node: { auth0Id } } } },
-              rootElement: {
-                connect: { where: { node: { id: element.id } } },
-              },
-              api: {
-                create: {
-                  node: {
-                    id: v4(),
-                    name: `${element.label} API`,
-                    fields: {},
-                    kind: ITypeKind.InterfaceType,
-                    apiOfAtoms: {},
-                    owner: { connect: { where: { node: { auth0Id } } } },
-                  },
-                },
-              },
-            },
-          },
-        },
-      }),
-    )
+    yield* _await(this.detachElementFromTreeSiblings(element.id))
+
+    const createComponentInput: ICreateComponentDTO = {
+      id: v4(),
+      name: element.label,
+      auth0Id,
+      rootElementId: element.id,
+    }
+
+    const componentService = getComponentService(this)
+    yield* _await(componentService.create([createComponentInput]))
 
     if (!element.component) {
       throw new Error('Could not find component')
     }
 
-    // 3. Load component so we can use reference
     // 3. Make an intermediate element with instance of the Component
-    const [newElement] = yield* _await(
-      this.create([
-        {
-          name: element.label,
-          instanceOfComponentId: element.component.id,
-          parentElementId: parentId,
-        },
-      ]),
+
+    const baseCreateElementInput = {
+      name: element.label,
+      instanceOfComponentId: element.component.id,
+    }
+
+    const newElement = yield* _await(
+      beforeDetachElement.rootOfId
+        ? this.createElementAsSubRoot({
+            ...baseCreateElementInput,
+            parentElementId: beforeDetachElement.rootOfId,
+          })
+        : this.createElementAsNextSibling({
+            ...baseCreateElementInput,
+            prevSiblingId: beforeDetachElement.prevSiblingId,
+          }),
     )
 
     if (elementTree) {

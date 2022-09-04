@@ -64,9 +64,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
 
   detachNextSibling(): void
   detachPrevSibling(): void
-  detachParent(): void
   attachToParentAsSubRoot(parentElementId: string): void
-  attachToParent(parentElementId: string): void
   appendSibling(siblingId: string): void
   prependSibling(siblingId: string): void
 

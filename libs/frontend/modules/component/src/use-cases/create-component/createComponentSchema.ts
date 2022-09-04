@@ -13,6 +13,13 @@ export const createComponentSchema: JSONSchemaType<ICreateComponentDTO> = {
         component: () => null,
       },
     },
+    rootElementId: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: () => null,
+      },
+    },
     api: {
       type: 'string',
       nullable: true,
