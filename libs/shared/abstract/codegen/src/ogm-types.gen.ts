@@ -1,5 +1,4 @@
 import type { SelectionSetNode, DocumentNode } from "graphql";
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -2577,17 +2576,17 @@ export type AppUserOwnerNodeAggregateSelection = {
  */
 export type ArrayType = TypeBase &
   WithDescendants & {
-  __typename?: "ArrayType";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  descendantTypesIds: Array<Scalars["ID"]>;
-  kind: TypeKind;
-  owner: User;
-  ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>;
-  itemType: TypeBase;
-  ownerConnection: TypeBaseOwnerConnection;
-  itemTypeConnection: ArrayTypeItemTypeConnection;
-};
+    __typename?: "ArrayType";
+    id: Scalars["ID"];
+    name: Scalars["String"];
+    descendantTypesIds: Array<Scalars["ID"]>;
+    kind: TypeKind;
+    owner: User;
+    ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>;
+    itemType: TypeBase;
+    ownerConnection: TypeBaseOwnerConnection;
+    itemTypeConnection: ArrayTypeItemTypeConnection;
+  };
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -4766,21 +4765,21 @@ export type IntAggregateSelectionNullable = {
 /** Represents an object type with multiple fields */
 export type InterfaceType = TypeBase &
   WithDescendants & {
-  __typename?: "InterfaceType";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  descendantTypesIds: Array<Scalars["ID"]>;
-  kind: TypeKind;
-  fieldFor: Array<TypeBase>;
-  owner: User;
-  ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>;
-  apiOfAtoms: Array<Atom>;
-  apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>;
-  fields: Array<TypeBase>;
-  ownerConnection: TypeBaseOwnerConnection;
-  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection;
-  fieldsConnection: InterfaceTypeFieldsConnection;
-};
+    __typename?: "InterfaceType";
+    id: Scalars["ID"];
+    name: Scalars["String"];
+    descendantTypesIds: Array<Scalars["ID"]>;
+    kind: TypeKind;
+    fieldFor: Array<TypeBase>;
+    owner: User;
+    ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>;
+    apiOfAtoms: Array<Atom>;
+    apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>;
+    fields: Array<TypeBase>;
+    ownerConnection: TypeBaseOwnerConnection;
+    apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection;
+    fieldsConnection: InterfaceTypeFieldsConnection;
+  };
 
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerArgs = {
@@ -6503,17 +6502,17 @@ export type TypeReferencesConnection = {
 /** Allows picking one of a set of types */
 export type UnionType = TypeBase &
   WithDescendants & {
-  __typename?: "UnionType";
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  descendantTypesIds: Array<Scalars["ID"]>;
-  kind: TypeKind;
-  owner: User;
-  ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>;
-  typesOfUnionType: Array<TypeBase>;
-  ownerConnection: TypeBaseOwnerConnection;
-  typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection;
-};
+    __typename?: "UnionType";
+    id: Scalars["ID"];
+    name: Scalars["String"];
+    descendantTypesIds: Array<Scalars["ID"]>;
+    kind: TypeKind;
+    owner: User;
+    ownerAggregate?: Maybe<UnionTypeUserOwnerAggregationSelection>;
+    typesOfUnionType: Array<TypeBase>;
+    ownerConnection: TypeBaseOwnerConnection;
+    typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection;
+  };
 
 /** Allows picking one of a set of types */
 export type UnionTypeOwnerArgs = {
@@ -7384,6 +7383,8 @@ export type ActionsPipeLineSort = {
 
 export type ActionsPipeLineUpdateInput = {
   orders?: InputMaybe<Array<Scalars["String"]>>;
+  orders_POP?: InputMaybe<Scalars["Int"]>;
+  orders_PUSH?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type ActionsPipeLineWhere = {
@@ -8470,7 +8471,9 @@ export type AppWhere = {
   owner?: InputMaybe<UserWhere>;
   owner_NOT?: InputMaybe<UserWhere>;
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>;
+  /** @deprecated Use `pages_SOME` instead. */
   pages?: InputMaybe<PageWhere>;
+  /** @deprecated Use `pages_NONE` instead. */
   pages_NOT?: InputMaybe<PageWhere>;
   pagesAggregate?: InputMaybe<AppPagesAggregateInput>;
   /** Return Apps where all of the related Pages match this filter */
@@ -8487,7 +8490,9 @@ export type AppWhere = {
   store?: InputMaybe<StoreWhere>;
   store_NOT?: InputMaybe<StoreWhere>;
   storeAggregate?: InputMaybe<AppStoreAggregateInput>;
+  /** @deprecated Use `domains_SOME` instead. */
   domains?: InputMaybe<DomainWhere>;
+  /** @deprecated Use `domains_NONE` instead. */
   domains_NOT?: InputMaybe<DomainWhere>;
   domainsAggregate?: InputMaybe<AppDomainsAggregateInput>;
   /** Return Apps where all of the related Domains match this filter */
@@ -8500,7 +8505,9 @@ export type AppWhere = {
   domains_SOME?: InputMaybe<DomainWhere>;
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>;
+  /** @deprecated Use `pagesConnection_SOME` instead. */
   pagesConnection?: InputMaybe<AppPagesConnectionWhere>;
+  /** @deprecated Use `pagesConnection_NONE` instead. */
   pagesConnection_NOT?: InputMaybe<AppPagesConnectionWhere>;
   pagesConnection_ALL?: InputMaybe<AppPagesConnectionWhere>;
   pagesConnection_NONE?: InputMaybe<AppPagesConnectionWhere>;
@@ -8510,7 +8517,9 @@ export type AppWhere = {
   rootElementConnection_NOT?: InputMaybe<AppRootElementConnectionWhere>;
   storeConnection?: InputMaybe<AppStoreConnectionWhere>;
   storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>;
+  /** @deprecated Use `domainsConnection_SOME` instead. */
   domainsConnection?: InputMaybe<AppDomainsConnectionWhere>;
+  /** @deprecated Use `domainsConnection_NONE` instead. */
   domainsConnection_NOT?: InputMaybe<AppDomainsConnectionWhere>;
   domainsConnection_ALL?: InputMaybe<AppDomainsConnectionWhere>;
   domainsConnection_NONE?: InputMaybe<AppDomainsConnectionWhere>;
@@ -9040,7 +9049,9 @@ export type AtomWhere = {
   type_NOT?: InputMaybe<AtomType>;
   type_IN?: InputMaybe<Array<AtomType>>;
   type_NOT_IN?: InputMaybe<Array<AtomType>>;
+  /** @deprecated Use `tags_SOME` instead. */
   tags?: InputMaybe<TagWhere>;
+  /** @deprecated Use `tags_NONE` instead. */
   tags_NOT?: InputMaybe<TagWhere>;
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>;
   /** Return Atoms where all of the related Tags match this filter */
@@ -9054,7 +9065,9 @@ export type AtomWhere = {
   api?: InputMaybe<InterfaceTypeWhere>;
   api_NOT?: InputMaybe<InterfaceTypeWhere>;
   apiAggregate?: InputMaybe<AtomApiAggregateInput>;
+  /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<AtomTagsConnectionWhere>;
+  /** @deprecated Use `tagsConnection_NONE` instead. */
   tagsConnection_NOT?: InputMaybe<AtomTagsConnectionWhere>;
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>;
   tagsConnection_NONE?: InputMaybe<AtomTagsConnectionWhere>;
@@ -9784,6 +9797,10 @@ export type CreateInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars["String"]>;
   nodesCreated?: InputMaybe<Scalars["Int"]>;
   relationshipsCreated?: InputMaybe<Scalars["Int"]>;
+  nodesCreated_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  nodesCreated_DECREMENT?: InputMaybe<Scalars["Int"]>;
+  relationshipsCreated_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  relationshipsCreated_DECREMENT?: InputMaybe<Scalars["Int"]>;
 };
 
 export type CreateInfoWhere = {
@@ -9997,6 +10014,10 @@ export type DeleteInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars["String"]>;
   nodesDeleted?: InputMaybe<Scalars["Int"]>;
   relationshipsDeleted?: InputMaybe<Scalars["Int"]>;
+  nodesDeleted_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  nodesDeleted_DECREMENT?: InputMaybe<Scalars["Int"]>;
+  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars["Int"]>;
 };
 
 export type DeleteInfoWhere = {
@@ -11107,7 +11128,9 @@ export type ElementConnectOrCreateInput = {
   component?: InputMaybe<ElementComponentConnectOrCreateFieldInput>;
   atom?: InputMaybe<ElementAtomConnectOrCreateFieldInput>;
   hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>;
-  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsConnectOrCreateFieldInput>>;
+  propMapBindings?: InputMaybe<
+    Array<ElementPropMapBindingsConnectOrCreateFieldInput>
+  >;
 };
 
 export type ElementConnectOrCreateWhere = {
@@ -11175,7 +11198,9 @@ export type ElementDisconnectInput = {
   component?: InputMaybe<ElementComponentDisconnectFieldInput>;
   atom?: InputMaybe<ElementAtomDisconnectFieldInput>;
   hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>;
-  propMapBindings?: InputMaybe<Array<ElementPropMapBindingsDisconnectFieldInput>>;
+  propMapBindings?: InputMaybe<
+    Array<ElementPropMapBindingsDisconnectFieldInput>
+  >;
 };
 
 export type ElementGraphCreateInput = {
@@ -11202,6 +11227,8 @@ export type ElementGraphSort = {
 export type ElementGraphUpdateInput = {
   id?: InputMaybe<Scalars["ID"]>;
   descendants?: InputMaybe<Array<Scalars["ID"]>>;
+  descendants_POP?: InputMaybe<Scalars["Int"]>;
+  descendants_PUSH?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type ElementGraphWhere = {
@@ -12329,7 +12356,9 @@ export type ElementPropMapBindingsDisconnectFieldInput = {
 export type ElementPropMapBindingsFieldInput = {
   create?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>;
   connect?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<ElementPropMapBindingsConnectOrCreateFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<ElementPropMapBindingsConnectOrCreateFieldInput>
+  >;
 };
 
 export type ElementPropMapBindingsNodeAggregationWhereInput = {
@@ -12389,7 +12418,9 @@ export type ElementPropMapBindingsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<ElementPropMapBindingsDisconnectFieldInput>>;
   create?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>;
   delete?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<ElementPropMapBindingsConnectOrCreateFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<ElementPropMapBindingsConnectOrCreateFieldInput>
+  >;
 };
 
 export type ElementPropsAggregateInput = {
@@ -12993,7 +13024,9 @@ export type ElementWhere = {
   propTransformationJs?: InputMaybe<Scalars["String"]>;
   propTransformationJs_NOT?: InputMaybe<Scalars["String"]>;
   propTransformationJs_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  propTransformationJs_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  propTransformationJs_NOT_IN?: InputMaybe<
+    Array<InputMaybe<Scalars["String"]>>
+  >;
   propTransformationJs_CONTAINS?: InputMaybe<Scalars["String"]>;
   propTransformationJs_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
   propTransformationJs_STARTS_WITH?: InputMaybe<Scalars["String"]>;
@@ -13003,7 +13036,9 @@ export type ElementWhere = {
   renderForEachPropKey?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey_NOT?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  renderForEachPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  renderForEachPropKey_NOT_IN?: InputMaybe<
+    Array<InputMaybe<Scalars["String"]>>
+  >;
   renderForEachPropKey_CONTAINS?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey_NOT_CONTAINS?: InputMaybe<Scalars["String"]>;
   renderForEachPropKey_STARTS_WITH?: InputMaybe<Scalars["String"]>;
@@ -13052,7 +13087,9 @@ export type ElementWhere = {
   rootOf?: InputMaybe<ElementWhere>;
   rootOf_NOT?: InputMaybe<ElementWhere>;
   rootOfAggregate?: InputMaybe<ElementRootOfAggregateInput>;
+  /** @deprecated Use `children_SOME` instead. */
   children?: InputMaybe<ElementWhere>;
+  /** @deprecated Use `children_NONE` instead. */
   children_NOT?: InputMaybe<ElementWhere>;
   childrenAggregate?: InputMaybe<ElementChildrenAggregateInput>;
   /** Return Elements where all of the related Elements match this filter */
@@ -13084,7 +13121,9 @@ export type ElementWhere = {
   atom?: InputMaybe<AtomWhere>;
   atom_NOT?: InputMaybe<AtomWhere>;
   atomAggregate?: InputMaybe<ElementAtomAggregateInput>;
+  /** @deprecated Use `hooks_SOME` instead. */
   hooks?: InputMaybe<HookWhere>;
+  /** @deprecated Use `hooks_NONE` instead. */
   hooks_NOT?: InputMaybe<HookWhere>;
   hooksAggregate?: InputMaybe<ElementHooksAggregateInput>;
   /** Return Elements where all of the related Hooks match this filter */
@@ -13095,7 +13134,9 @@ export type ElementWhere = {
   hooks_SINGLE?: InputMaybe<HookWhere>;
   /** Return Elements where some of the related Hooks match this filter */
   hooks_SOME?: InputMaybe<HookWhere>;
+  /** @deprecated Use `propMapBindings_SOME` instead. */
   propMapBindings?: InputMaybe<PropMapBindingWhere>;
+  /** @deprecated Use `propMapBindings_NONE` instead. */
   propMapBindings_NOT?: InputMaybe<PropMapBindingWhere>;
   propMapBindingsAggregate?: InputMaybe<ElementPropMapBindingsAggregateInput>;
   /** Return Elements where all of the related PropMapBindings match this filter */
@@ -13114,7 +13155,9 @@ export type ElementWhere = {
   childrenRootConnection_NOT?: InputMaybe<ElementChildrenRootConnectionWhere>;
   rootOfConnection?: InputMaybe<ElementRootOfConnectionWhere>;
   rootOfConnection_NOT?: InputMaybe<ElementRootOfConnectionWhere>;
+  /** @deprecated Use `childrenConnection_SOME` instead. */
   childrenConnection?: InputMaybe<ElementChildrenConnectionWhere>;
+  /** @deprecated Use `childrenConnection_NONE` instead. */
   childrenConnection_NOT?: InputMaybe<ElementChildrenConnectionWhere>;
   childrenConnection_ALL?: InputMaybe<ElementChildrenConnectionWhere>;
   childrenConnection_NONE?: InputMaybe<ElementChildrenConnectionWhere>;
@@ -13134,13 +13177,17 @@ export type ElementWhere = {
   componentConnection_NOT?: InputMaybe<ElementComponentConnectionWhere>;
   atomConnection?: InputMaybe<ElementAtomConnectionWhere>;
   atomConnection_NOT?: InputMaybe<ElementAtomConnectionWhere>;
+  /** @deprecated Use `hooksConnection_SOME` instead. */
   hooksConnection?: InputMaybe<ElementHooksConnectionWhere>;
+  /** @deprecated Use `hooksConnection_NONE` instead. */
   hooksConnection_NOT?: InputMaybe<ElementHooksConnectionWhere>;
   hooksConnection_ALL?: InputMaybe<ElementHooksConnectionWhere>;
   hooksConnection_NONE?: InputMaybe<ElementHooksConnectionWhere>;
   hooksConnection_SINGLE?: InputMaybe<ElementHooksConnectionWhere>;
   hooksConnection_SOME?: InputMaybe<ElementHooksConnectionWhere>;
+  /** @deprecated Use `propMapBindingsConnection_SOME` instead. */
   propMapBindingsConnection?: InputMaybe<ElementPropMapBindingsConnectionWhere>;
+  /** @deprecated Use `propMapBindingsConnection_NONE` instead. */
   propMapBindingsConnection_NOT?: InputMaybe<ElementPropMapBindingsConnectionWhere>;
   propMapBindingsConnection_ALL?: InputMaybe<ElementPropMapBindingsConnectionWhere>;
   propMapBindingsConnection_NONE?: InputMaybe<ElementPropMapBindingsConnectionWhere>;
@@ -13619,7 +13666,9 @@ export type EnumTypeWhere = {
   owner?: InputMaybe<UserWhere>;
   owner_NOT?: InputMaybe<UserWhere>;
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>;
+  /** @deprecated Use `allowedValues_SOME` instead. */
   allowedValues?: InputMaybe<EnumTypeValueWhere>;
+  /** @deprecated Use `allowedValues_NONE` instead. */
   allowedValues_NOT?: InputMaybe<EnumTypeValueWhere>;
   allowedValuesAggregate?: InputMaybe<EnumTypeAllowedValuesAggregateInput>;
   /** Return EnumTypes where all of the related EnumTypeValues match this filter */
@@ -13632,7 +13681,9 @@ export type EnumTypeWhere = {
   allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>;
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  /** @deprecated Use `allowedValuesConnection_SOME` instead. */
   allowedValuesConnection?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>;
+  /** @deprecated Use `allowedValuesConnection_NONE` instead. */
   allowedValuesConnection_NOT?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>;
   allowedValuesConnection_ALL?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>;
   allowedValuesConnection_NONE?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>;
@@ -14235,7 +14286,9 @@ export type InterfaceTypeApiOfAtomsDisconnectFieldInput = {
 export type InterfaceTypeApiOfAtomsFieldInput = {
   create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>;
   connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
+  >;
 };
 
 export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
@@ -14295,7 +14348,9 @@ export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>;
   create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>;
   delete?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
+  >;
 };
 
 export type InterfaceTypeConnectInput = {
@@ -14306,7 +14361,9 @@ export type InterfaceTypeConnectInput = {
 
 export type InterfaceTypeConnectOrCreateInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>;
-  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>>;
+  apiOfAtoms?: InputMaybe<
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
+  >;
 };
 
 export type InterfaceTypeConnectOrCreateWhere = {
@@ -14537,7 +14594,9 @@ export type InterfaceTypeWhere = {
   owner?: InputMaybe<UserWhere>;
   owner_NOT?: InputMaybe<UserWhere>;
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>;
+  /** @deprecated Use `apiOfAtoms_SOME` instead. */
   apiOfAtoms?: InputMaybe<AtomWhere>;
+  /** @deprecated Use `apiOfAtoms_NONE` instead. */
   apiOfAtoms_NOT?: InputMaybe<AtomWhere>;
   apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>;
   /** Return InterfaceTypes where all of the related Atoms match this filter */
@@ -14550,13 +14609,17 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>;
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  /** @deprecated Use `apiOfAtomsConnection_SOME` instead. */
   apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
+  /** @deprecated Use `apiOfAtomsConnection_NONE` instead. */
   apiOfAtomsConnection_NOT?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
   apiOfAtomsConnection_ALL?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
   apiOfAtomsConnection_NONE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
   apiOfAtomsConnection_SINGLE?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
   apiOfAtomsConnection_SOME?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>;
+  /** @deprecated Use `fieldsConnection_SOME` instead. */
   fieldsConnection?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
+  /** @deprecated Use `fieldsConnection_NONE` instead. */
   fieldsConnection_NOT?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
   fieldsConnection_NONE?: InputMaybe<InterfaceTypeFieldsConnectionWhere>;
@@ -15362,6 +15425,8 @@ export type ParentOfElementSort = {
 
 export type ParentOfElementUpdateInput = {
   order?: InputMaybe<Scalars["Int"]>;
+  order_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  order_DECREMENT?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ParentOfElementWhere = {
@@ -15378,9 +15443,15 @@ export type ParentOfElementWhere = {
 };
 
 export type PipelineActionActionsConnectInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionConnectFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionConnectFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectFieldInput>
+  >;
 };
 
 export type PipelineActionActionsConnectionSort = {
@@ -15394,15 +15465,27 @@ export type PipelineActionActionsConnectionWhere = {
 };
 
 export type PipelineActionActionsConnectOrCreateInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsCreateFieldInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionCreateFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionCreateFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionCreateFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionCreateFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionCreateFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsCreateInput = {
@@ -15454,8 +15537,12 @@ export type PipelineActionActionsCustomActionDisconnectFieldInput = {
 
 export type PipelineActionActionsCustomActionFieldInput = {
   create?: InputMaybe<Array<PipelineActionActionsCustomActionCreateFieldInput>>;
-  connect?: InputMaybe<Array<PipelineActionActionsCustomActionConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>>;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectFieldInput>
+  >;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsCustomActionUpdateConnectionInput = {
@@ -15466,23 +15553,41 @@ export type PipelineActionActionsCustomActionUpdateConnectionInput = {
 export type PipelineActionActionsCustomActionUpdateFieldInput = {
   where?: InputMaybe<PipelineActionActionsCustomActionConnectionWhere>;
   update?: InputMaybe<PipelineActionActionsCustomActionUpdateConnectionInput>;
-  connect?: InputMaybe<Array<PipelineActionActionsCustomActionConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<PipelineActionActionsCustomActionDisconnectFieldInput>>;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectFieldInput>
+  >;
+  disconnect?: InputMaybe<
+    Array<PipelineActionActionsCustomActionDisconnectFieldInput>
+  >;
   create?: InputMaybe<Array<PipelineActionActionsCustomActionCreateFieldInput>>;
   delete?: InputMaybe<Array<PipelineActionActionsCustomActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsCustomActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsDeleteInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionDeleteFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionDeleteFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionDeleteFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionDeleteFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionDeleteFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionDeleteFieldInput>
+  >;
 };
 
 export type PipelineActionActionsDisconnectInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionDisconnectFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionDisconnectFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionDisconnectFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionDisconnectFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionDisconnectFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionDisconnectFieldInput>
+  >;
 };
 
 export type PipelineActionActionsPipelineActionConnectFieldInput = {
@@ -15527,9 +15632,15 @@ export type PipelineActionActionsPipelineActionDisconnectFieldInput = {
 };
 
 export type PipelineActionActionsPipelineActionFieldInput = {
-  create?: InputMaybe<Array<PipelineActionActionsPipelineActionCreateFieldInput>>;
-  connect?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>>;
+  create?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionCreateFieldInput>
+  >;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectFieldInput>
+  >;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsPipelineActionUpdateConnectionInput = {
@@ -15540,11 +15651,21 @@ export type PipelineActionActionsPipelineActionUpdateConnectionInput = {
 export type PipelineActionActionsPipelineActionUpdateFieldInput = {
   where?: InputMaybe<PipelineActionActionsPipelineActionConnectionWhere>;
   update?: InputMaybe<PipelineActionActionsPipelineActionUpdateConnectionInput>;
-  connect?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<PipelineActionActionsPipelineActionDisconnectFieldInput>>;
-  create?: InputMaybe<Array<PipelineActionActionsPipelineActionCreateFieldInput>>;
-  delete?: InputMaybe<Array<PipelineActionActionsPipelineActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>>;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectFieldInput>
+  >;
+  disconnect?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionDisconnectFieldInput>
+  >;
+  create?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionCreateFieldInput>
+  >;
+  delete?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionDeleteFieldInput>
+  >;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsResourceActionConnectFieldInput = {
@@ -15589,9 +15710,15 @@ export type PipelineActionActionsResourceActionDisconnectFieldInput = {
 };
 
 export type PipelineActionActionsResourceActionFieldInput = {
-  create?: InputMaybe<Array<PipelineActionActionsResourceActionCreateFieldInput>>;
-  connect?: InputMaybe<Array<PipelineActionActionsResourceActionConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>>;
+  create?: InputMaybe<
+    Array<PipelineActionActionsResourceActionCreateFieldInput>
+  >;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectFieldInput>
+  >;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsResourceActionUpdateConnectionInput = {
@@ -15602,17 +15729,33 @@ export type PipelineActionActionsResourceActionUpdateConnectionInput = {
 export type PipelineActionActionsResourceActionUpdateFieldInput = {
   where?: InputMaybe<PipelineActionActionsResourceActionConnectionWhere>;
   update?: InputMaybe<PipelineActionActionsResourceActionUpdateConnectionInput>;
-  connect?: InputMaybe<Array<PipelineActionActionsResourceActionConnectFieldInput>>;
-  disconnect?: InputMaybe<Array<PipelineActionActionsResourceActionDisconnectFieldInput>>;
-  create?: InputMaybe<Array<PipelineActionActionsResourceActionCreateFieldInput>>;
-  delete?: InputMaybe<Array<PipelineActionActionsResourceActionDeleteFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>>;
+  connect?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectFieldInput>
+  >;
+  disconnect?: InputMaybe<
+    Array<PipelineActionActionsResourceActionDisconnectFieldInput>
+  >;
+  create?: InputMaybe<
+    Array<PipelineActionActionsResourceActionCreateFieldInput>
+  >;
+  delete?: InputMaybe<
+    Array<PipelineActionActionsResourceActionDeleteFieldInput>
+  >;
+  connectOrCreate?: InputMaybe<
+    Array<PipelineActionActionsResourceActionConnectOrCreateFieldInput>
+  >;
 };
 
 export type PipelineActionActionsUpdateInput = {
-  CustomAction?: InputMaybe<Array<PipelineActionActionsCustomActionUpdateFieldInput>>;
-  ResourceAction?: InputMaybe<Array<PipelineActionActionsResourceActionUpdateFieldInput>>;
-  PipelineAction?: InputMaybe<Array<PipelineActionActionsPipelineActionUpdateFieldInput>>;
+  CustomAction?: InputMaybe<
+    Array<PipelineActionActionsCustomActionUpdateFieldInput>
+  >;
+  ResourceAction?: InputMaybe<
+    Array<PipelineActionActionsResourceActionUpdateFieldInput>
+  >;
+  PipelineAction?: InputMaybe<
+    Array<PipelineActionActionsPipelineActionUpdateFieldInput>
+  >;
 };
 
 export type PipelineActionConnectInput = {
@@ -15762,7 +15905,9 @@ export type PipelineActionWhere = {
   storeAggregate?: InputMaybe<PipelineActionStoreAggregateInput>;
   storeConnection?: InputMaybe<ActionBaseStoreConnectionWhere>;
   storeConnection_NOT?: InputMaybe<ActionBaseStoreConnectionWhere>;
+  /** @deprecated Use `actionsConnection_SOME` instead. */
   actionsConnection?: InputMaybe<PipelineActionActionsConnectionWhere>;
+  /** @deprecated Use `actionsConnection_NONE` instead. */
   actionsConnection_NOT?: InputMaybe<PipelineActionActionsConnectionWhere>;
   actionsConnection_ALL?: InputMaybe<PipelineActionActionsConnectionWhere>;
   actionsConnection_NONE?: InputMaybe<PipelineActionActionsConnectionWhere>;
@@ -18028,7 +18173,9 @@ export type StoreWhere = {
   stateConnection_NOT?: InputMaybe<StoreStateConnectionWhere>;
   stateApiConnection?: InputMaybe<StoreStateApiConnectionWhere>;
   stateApiConnection_NOT?: InputMaybe<StoreStateApiConnectionWhere>;
+  /** @deprecated Use `actionsConnection_SOME` instead. */
   actionsConnection?: InputMaybe<StoreActionsConnectionWhere>;
+  /** @deprecated Use `actionsConnection_NONE` instead. */
   actionsConnection_NOT?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_ALL?: InputMaybe<StoreActionsConnectionWhere>;
   actionsConnection_NONE?: InputMaybe<StoreActionsConnectionWhere>;
@@ -18200,6 +18347,10 @@ export type TagGraphOptionsSort = {
 export type TagGraphOptionsUpdateInput = {
   sort?: InputMaybe<Scalars["Int"]>;
   limit?: InputMaybe<Scalars["Int"]>;
+  sort_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  sort_DECREMENT?: InputMaybe<Scalars["Int"]>;
+  limit_INCREMENT?: InputMaybe<Scalars["Int"]>;
+  limit_DECREMENT?: InputMaybe<Scalars["Int"]>;
 };
 
 export type TagGraphOptionsWhere = {
@@ -18235,6 +18386,8 @@ export type TagGraphUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
   descendants?: InputMaybe<Array<Scalars["ID"]>>;
   isRoot?: InputMaybe<Scalars["Boolean"]>;
+  descendants_POP?: InputMaybe<Scalars["Int"]>;
+  descendants_PUSH?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type TagGraphWhere = {
@@ -18564,7 +18717,9 @@ export type TagWhere = {
   parent?: InputMaybe<TagWhere>;
   parent_NOT?: InputMaybe<TagWhere>;
   parentAggregate?: InputMaybe<TagParentAggregateInput>;
+  /** @deprecated Use `children_SOME` instead. */
   children?: InputMaybe<TagWhere>;
+  /** @deprecated Use `children_NONE` instead. */
   children_NOT?: InputMaybe<TagWhere>;
   childrenAggregate?: InputMaybe<TagChildrenAggregateInput>;
   /** Return Tags where all of the related Tags match this filter */
@@ -18580,7 +18735,9 @@ export type TagWhere = {
   ownerAggregate?: InputMaybe<TagOwnerAggregateInput>;
   parentConnection?: InputMaybe<TagParentConnectionWhere>;
   parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>;
+  /** @deprecated Use `childrenConnection_SOME` instead. */
   childrenConnection?: InputMaybe<TagChildrenConnectionWhere>;
+  /** @deprecated Use `childrenConnection_NONE` instead. */
   childrenConnection_NOT?: InputMaybe<TagChildrenConnectionWhere>;
   childrenConnection_ALL?: InputMaybe<TagChildrenConnectionWhere>;
   childrenConnection_NONE?: InputMaybe<TagChildrenConnectionWhere>;
@@ -18946,7 +19103,9 @@ export type TypeReferenceWhere = {
 
 export type UnionTypeConnectInput = {
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeConnectFieldInput>>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeConnectFieldInput>
+  >;
 };
 
 export type UnionTypeConnectOrCreateInput = {
@@ -18963,12 +19122,16 @@ export type UnionTypeCreateInput = {
 
 export type UnionTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDeleteFieldInput>
+  >;
 };
 
 export type UnionTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeDisconnectFieldInput>
+  >;
 };
 
 export type UnionTypeOptions = {
@@ -19057,7 +19220,9 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
 
 export type UnionTypeRelationInput = {
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCreateFieldInput>>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCreateFieldInput>
+  >;
 };
 
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
@@ -19120,7 +19285,9 @@ export type UnionTypeUpdateInput = {
   name?: InputMaybe<Scalars["String"]>;
   kind?: InputMaybe<TypeKind>;
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>;
-  typesOfUnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>>;
+  typesOfUnionType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeUpdateFieldInput>
+  >;
 };
 
 export type UnionTypeWhere = {
@@ -19155,7 +19322,9 @@ export type UnionTypeWhere = {
   ownerAggregate?: InputMaybe<UnionTypeOwnerAggregateInput>;
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>;
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>;
+  /** @deprecated Use `typesOfUnionTypeConnection_SOME` instead. */
   typesOfUnionTypeConnection?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
+  /** @deprecated Use `typesOfUnionTypeConnection_NONE` instead. */
   typesOfUnionTypeConnection_NOT?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
   typesOfUnionTypeConnection_ALL?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
   typesOfUnionTypeConnection_NONE?: InputMaybe<UnionTypeTypesOfUnionTypeConnectionWhere>;
@@ -19906,7 +20075,9 @@ export type UserWhere = {
   roles_NOT?: InputMaybe<Array<Role>>;
   roles_INCLUDES?: InputMaybe<Role>;
   roles_NOT_INCLUDES?: InputMaybe<Role>;
+  /** @deprecated Use `apps_SOME` instead. */
   apps?: InputMaybe<AppWhere>;
+  /** @deprecated Use `apps_NONE` instead. */
   apps_NOT?: InputMaybe<AppWhere>;
   appsAggregate?: InputMaybe<UserAppsAggregateInput>;
   /** Return Users where all of the related Apps match this filter */
@@ -19917,7 +20088,9 @@ export type UserWhere = {
   apps_SINGLE?: InputMaybe<AppWhere>;
   /** Return Users where some of the related Apps match this filter */
   apps_SOME?: InputMaybe<AppWhere>;
+  /** @deprecated Use `elements_SOME` instead. */
   elements?: InputMaybe<ElementWhere>;
+  /** @deprecated Use `elements_NONE` instead. */
   elements_NOT?: InputMaybe<ElementWhere>;
   elementsAggregate?: InputMaybe<UserElementsAggregateInput>;
   /** Return Users where all of the related Elements match this filter */
@@ -19928,7 +20101,9 @@ export type UserWhere = {
   elements_SINGLE?: InputMaybe<ElementWhere>;
   /** Return Users where some of the related Elements match this filter */
   elements_SOME?: InputMaybe<ElementWhere>;
+  /** @deprecated Use `components_SOME` instead. */
   components?: InputMaybe<ComponentWhere>;
+  /** @deprecated Use `components_NONE` instead. */
   components_NOT?: InputMaybe<ComponentWhere>;
   componentsAggregate?: InputMaybe<UserComponentsAggregateInput>;
   /** Return Users where all of the related Components match this filter */
@@ -19939,7 +20114,9 @@ export type UserWhere = {
   components_SINGLE?: InputMaybe<ComponentWhere>;
   /** Return Users where some of the related Components match this filter */
   components_SOME?: InputMaybe<ComponentWhere>;
+  /** @deprecated Use `tags_SOME` instead. */
   tags?: InputMaybe<TagWhere>;
+  /** @deprecated Use `tags_NONE` instead. */
   tags_NOT?: InputMaybe<TagWhere>;
   tagsAggregate?: InputMaybe<UserTagsAggregateInput>;
   /** Return Users where all of the related Tags match this filter */
@@ -19950,31 +20127,41 @@ export type UserWhere = {
   tags_SINGLE?: InputMaybe<TagWhere>;
   /** Return Users where some of the related Tags match this filter */
   tags_SOME?: InputMaybe<TagWhere>;
+  /** @deprecated Use `typesConnection_SOME` instead. */
   typesConnection?: InputMaybe<UserTypesConnectionWhere>;
+  /** @deprecated Use `typesConnection_NONE` instead. */
   typesConnection_NOT?: InputMaybe<UserTypesConnectionWhere>;
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>;
   typesConnection_NONE?: InputMaybe<UserTypesConnectionWhere>;
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>;
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>;
+  /** @deprecated Use `appsConnection_SOME` instead. */
   appsConnection?: InputMaybe<UserAppsConnectionWhere>;
+  /** @deprecated Use `appsConnection_NONE` instead. */
   appsConnection_NOT?: InputMaybe<UserAppsConnectionWhere>;
   appsConnection_ALL?: InputMaybe<UserAppsConnectionWhere>;
   appsConnection_NONE?: InputMaybe<UserAppsConnectionWhere>;
   appsConnection_SINGLE?: InputMaybe<UserAppsConnectionWhere>;
   appsConnection_SOME?: InputMaybe<UserAppsConnectionWhere>;
+  /** @deprecated Use `elementsConnection_SOME` instead. */
   elementsConnection?: InputMaybe<UserElementsConnectionWhere>;
+  /** @deprecated Use `elementsConnection_NONE` instead. */
   elementsConnection_NOT?: InputMaybe<UserElementsConnectionWhere>;
   elementsConnection_ALL?: InputMaybe<UserElementsConnectionWhere>;
   elementsConnection_NONE?: InputMaybe<UserElementsConnectionWhere>;
   elementsConnection_SINGLE?: InputMaybe<UserElementsConnectionWhere>;
   elementsConnection_SOME?: InputMaybe<UserElementsConnectionWhere>;
+  /** @deprecated Use `componentsConnection_SOME` instead. */
   componentsConnection?: InputMaybe<UserComponentsConnectionWhere>;
+  /** @deprecated Use `componentsConnection_NONE` instead. */
   componentsConnection_NOT?: InputMaybe<UserComponentsConnectionWhere>;
   componentsConnection_ALL?: InputMaybe<UserComponentsConnectionWhere>;
   componentsConnection_NONE?: InputMaybe<UserComponentsConnectionWhere>;
   componentsConnection_SINGLE?: InputMaybe<UserComponentsConnectionWhere>;
   componentsConnection_SOME?: InputMaybe<UserComponentsConnectionWhere>;
+  /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<UserTagsConnectionWhere>;
+  /** @deprecated Use `tagsConnection_NONE` instead. */
   tagsConnection_NOT?: InputMaybe<UserTagsConnectionWhere>;
   tagsConnection_ALL?: InputMaybe<UserTagsConnectionWhere>;
   tagsConnection_NONE?: InputMaybe<UserTagsConnectionWhere>;
@@ -20109,7 +20296,6 @@ export declare class ResetDatabaseMutationResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<ResetDatabaseMutationResponse[]>;
-
   public create(args: {
     input: ResetDatabaseMutationResponseCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20117,7 +20303,6 @@ export declare class ResetDatabaseMutationResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateResetDatabaseMutationResponsesMutationResponse>;
-
   public update(args: {
     where?: ResetDatabaseMutationResponseWhere;
     update?: ResetDatabaseMutationResponseUpdateInput;
@@ -20127,14 +20312,12 @@ export declare class ResetDatabaseMutationResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateResetDatabaseMutationResponsesMutationResponse>;
-
   public delete(args: {
     where?: ResetDatabaseMutationResponseWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ResetDatabaseMutationResponseWhere;
 
@@ -20148,7 +20331,6 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface ExecuteCommandResponseAggregateSelectionInput {
   count?: boolean;
   data?: StringAggregateInputNonNullable;
@@ -20164,7 +20346,6 @@ export declare class ExecuteCommandResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<ExecuteCommandResponse[]>;
-
   public create(args: {
     input: ExecuteCommandResponseCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20172,7 +20353,6 @@ export declare class ExecuteCommandResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateExecuteCommandResponsesMutationResponse>;
-
   public update(args: {
     where?: ExecuteCommandResponseWhere;
     update?: ExecuteCommandResponseUpdateInput;
@@ -20182,14 +20362,12 @@ export declare class ExecuteCommandResponseModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateExecuteCommandResponsesMutationResponse>;
-
   public delete(args: {
     where?: ExecuteCommandResponseWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ExecuteCommandResponseWhere;
 
@@ -20203,12 +20381,10 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface UserAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20227,7 +20403,6 @@ export declare class UserModel {
     context?: any;
     rootValue?: any;
   }): Promise<User[]>;
-
   public create(args: {
     input: UserCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20235,7 +20410,6 @@ export declare class UserModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateUsersMutationResponse>;
-
   public update(args: {
     where?: UserWhere;
     update?: UserUpdateInput;
@@ -20248,14 +20422,12 @@ export declare class UserModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateUsersMutationResponse>;
-
   public delete(args: {
     where?: UserWhere;
     delete?: UserDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: UserWhere;
 
@@ -20269,12 +20441,10 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface AppAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20292,7 +20462,6 @@ export declare class AppModel {
     context?: any;
     rootValue?: any;
   }): Promise<App[]>;
-
   public create(args: {
     input: AppCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20300,7 +20469,6 @@ export declare class AppModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateAppsMutationResponse>;
-
   public update(args: {
     where?: AppWhere;
     update?: AppUpdateInput;
@@ -20313,14 +20481,12 @@ export declare class AppModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateAppsMutationResponse>;
-
   public delete(args: {
     where?: AppWhere;
     delete?: AppDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: AppWhere;
 
@@ -20334,17 +20500,14 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface AtomAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20362,7 +20525,6 @@ export declare class AtomModel {
     context?: any;
     rootValue?: any;
   }): Promise<Atom[]>;
-
   public create(args: {
     input: AtomCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20370,7 +20532,6 @@ export declare class AtomModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateAtomsMutationResponse>;
-
   public update(args: {
     where?: AtomWhere;
     update?: AtomUpdateInput;
@@ -20383,14 +20544,12 @@ export declare class AtomModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateAtomsMutationResponse>;
-
   public delete(args: {
     where?: AtomWhere;
     delete?: AtomDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: AtomWhere;
 
@@ -20404,24 +20563,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface CreateInfoAggregateSelectionInput {
   count?: boolean;
   bookmark?: StringAggregateInputNullable;
@@ -20439,7 +20594,6 @@ export declare class CreateInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateInfo[]>;
-
   public create(args: {
     input: CreateInfoCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20447,7 +20601,6 @@ export declare class CreateInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateCreateInfosMutationResponse>;
-
   public update(args: {
     where?: CreateInfoWhere;
     update?: CreateInfoUpdateInput;
@@ -20457,14 +20610,12 @@ export declare class CreateInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateCreateInfosMutationResponse>;
-
   public delete(args: {
     where?: CreateInfoWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: CreateInfoWhere;
 
@@ -20478,24 +20629,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PageAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20513,7 +20660,6 @@ export declare class PageModel {
     context?: any;
     rootValue?: any;
   }): Promise<Page[]>;
-
   public create(args: {
     input: PageCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20521,7 +20667,6 @@ export declare class PageModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePagesMutationResponse>;
-
   public update(args: {
     where?: PageWhere;
     update?: PageUpdateInput;
@@ -20534,14 +20679,12 @@ export declare class PageModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePagesMutationResponse>;
-
   public delete(args: {
     where?: PageWhere;
     delete?: PageDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PageWhere;
 
@@ -20555,24 +20698,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface TypeReferenceAggregateSelectionInput {
   count?: boolean;
   name?: StringAggregateInputNonNullable;
@@ -20589,7 +20728,6 @@ export declare class TypeReferenceModel {
     context?: any;
     rootValue?: any;
   }): Promise<TypeReference[]>;
-
   public create(args: {
     input: TypeReferenceCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20597,7 +20735,6 @@ export declare class TypeReferenceModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTypeReferencesMutationResponse>;
-
   public update(args: {
     where?: TypeReferenceWhere;
     update?: TypeReferenceUpdateInput;
@@ -20607,14 +20744,12 @@ export declare class TypeReferenceModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTypeReferencesMutationResponse>;
-
   public delete(args: {
     where?: TypeReferenceWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: TypeReferenceWhere;
 
@@ -20628,24 +20763,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PrimitiveTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20662,7 +20793,6 @@ export declare class PrimitiveTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<PrimitiveType[]>;
-
   public create(args: {
     input: PrimitiveTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20670,7 +20800,6 @@ export declare class PrimitiveTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePrimitiveTypesMutationResponse>;
-
   public update(args: {
     where?: PrimitiveTypeWhere;
     update?: PrimitiveTypeUpdateInput;
@@ -20683,14 +20812,12 @@ export declare class PrimitiveTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePrimitiveTypesMutationResponse>;
-
   public delete(args: {
     where?: PrimitiveTypeWhere;
     delete?: PrimitiveTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PrimitiveTypeWhere;
 
@@ -20704,24 +20831,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ArrayTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20738,7 +20861,6 @@ export declare class ArrayTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<ArrayType[]>;
-
   public create(args: {
     input: ArrayTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20746,7 +20868,6 @@ export declare class ArrayTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateArrayTypesMutationResponse>;
-
   public update(args: {
     where?: ArrayTypeWhere;
     update?: ArrayTypeUpdateInput;
@@ -20759,14 +20880,12 @@ export declare class ArrayTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateArrayTypesMutationResponse>;
-
   public delete(args: {
     where?: ArrayTypeWhere;
     delete?: ArrayTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ArrayTypeWhere;
 
@@ -20780,24 +20899,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface UnionTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20814,7 +20929,6 @@ export declare class UnionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UnionType[]>;
-
   public create(args: {
     input: UnionTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20822,7 +20936,6 @@ export declare class UnionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateUnionTypesMutationResponse>;
-
   public update(args: {
     where?: UnionTypeWhere;
     update?: UnionTypeUpdateInput;
@@ -20835,14 +20948,12 @@ export declare class UnionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateUnionTypesMutationResponse>;
-
   public delete(args: {
     where?: UnionTypeWhere;
     delete?: UnionTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: UnionTypeWhere;
 
@@ -20856,24 +20967,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface InterfaceTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20890,7 +20997,6 @@ export declare class InterfaceTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<InterfaceType[]>;
-
   public create(args: {
     input: InterfaceTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20898,7 +21004,6 @@ export declare class InterfaceTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateInterfaceTypesMutationResponse>;
-
   public update(args: {
     where?: InterfaceTypeWhere;
     update?: InterfaceTypeUpdateInput;
@@ -20911,14 +21016,12 @@ export declare class InterfaceTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateInterfaceTypesMutationResponse>;
-
   public delete(args: {
     where?: InterfaceTypeWhere;
     delete?: InterfaceTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: InterfaceTypeWhere;
 
@@ -20932,24 +21035,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ElementTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -20966,7 +21065,6 @@ export declare class ElementTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<ElementType[]>;
-
   public create(args: {
     input: ElementTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -20974,7 +21072,6 @@ export declare class ElementTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateElementTypesMutationResponse>;
-
   public update(args: {
     where?: ElementTypeWhere;
     update?: ElementTypeUpdateInput;
@@ -20987,14 +21084,12 @@ export declare class ElementTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateElementTypesMutationResponse>;
-
   public delete(args: {
     where?: ElementTypeWhere;
     delete?: ElementTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ElementTypeWhere;
 
@@ -21008,24 +21103,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface RenderPropsTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21042,7 +21133,6 @@ export declare class RenderPropsTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<RenderPropsType[]>;
-
   public create(args: {
     input: RenderPropsTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21050,7 +21140,6 @@ export declare class RenderPropsTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateRenderPropsTypesMutationResponse>;
-
   public update(args: {
     where?: RenderPropsTypeWhere;
     update?: RenderPropsTypeUpdateInput;
@@ -21063,14 +21152,12 @@ export declare class RenderPropsTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateRenderPropsTypesMutationResponse>;
-
   public delete(args: {
     where?: RenderPropsTypeWhere;
     delete?: RenderPropsTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: RenderPropsTypeWhere;
 
@@ -21084,24 +21171,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ReactNodeTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21118,7 +21201,6 @@ export declare class ReactNodeTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<ReactNodeType[]>;
-
   public create(args: {
     input: ReactNodeTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21126,7 +21208,6 @@ export declare class ReactNodeTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateReactNodeTypesMutationResponse>;
-
   public update(args: {
     where?: ReactNodeTypeWhere;
     update?: ReactNodeTypeUpdateInput;
@@ -21139,14 +21220,12 @@ export declare class ReactNodeTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateReactNodeTypesMutationResponse>;
-
   public delete(args: {
     where?: ReactNodeTypeWhere;
     delete?: ReactNodeTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ReactNodeTypeWhere;
 
@@ -21160,24 +21239,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface EnumTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21194,7 +21269,6 @@ export declare class EnumTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<EnumType[]>;
-
   public create(args: {
     input: EnumTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21202,7 +21276,6 @@ export declare class EnumTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateEnumTypesMutationResponse>;
-
   public update(args: {
     where?: EnumTypeWhere;
     update?: EnumTypeUpdateInput;
@@ -21215,14 +21288,12 @@ export declare class EnumTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateEnumTypesMutationResponse>;
-
   public delete(args: {
     where?: EnumTypeWhere;
     delete?: EnumTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: EnumTypeWhere;
 
@@ -21236,24 +21307,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface EnumTypeValueAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21271,7 +21338,6 @@ export declare class EnumTypeValueModel {
     context?: any;
     rootValue?: any;
   }): Promise<EnumTypeValue[]>;
-
   public create(args: {
     input: EnumTypeValueCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21279,7 +21345,6 @@ export declare class EnumTypeValueModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateEnumTypeValuesMutationResponse>;
-
   public update(args: {
     where?: EnumTypeValueWhere;
     update?: EnumTypeValueUpdateInput;
@@ -21292,14 +21357,12 @@ export declare class EnumTypeValueModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateEnumTypeValuesMutationResponse>;
-
   public delete(args: {
     where?: EnumTypeValueWhere;
     delete?: EnumTypeValueDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: EnumTypeValueWhere;
 
@@ -21313,24 +21376,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface LambdaTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21347,7 +21406,6 @@ export declare class LambdaTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<LambdaType[]>;
-
   public create(args: {
     input: LambdaTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21355,7 +21413,6 @@ export declare class LambdaTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateLambdaTypesMutationResponse>;
-
   public update(args: {
     where?: LambdaTypeWhere;
     update?: LambdaTypeUpdateInput;
@@ -21368,14 +21425,12 @@ export declare class LambdaTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateLambdaTypesMutationResponse>;
-
   public delete(args: {
     where?: LambdaTypeWhere;
     delete?: LambdaTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: LambdaTypeWhere;
 
@@ -21389,24 +21444,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PageTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21423,7 +21474,6 @@ export declare class PageTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<PageType[]>;
-
   public create(args: {
     input: PageTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21431,7 +21481,6 @@ export declare class PageTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePageTypesMutationResponse>;
-
   public update(args: {
     where?: PageTypeWhere;
     update?: PageTypeUpdateInput;
@@ -21444,14 +21493,12 @@ export declare class PageTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePageTypesMutationResponse>;
-
   public delete(args: {
     where?: PageTypeWhere;
     delete?: PageTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PageTypeWhere;
 
@@ -21465,24 +21512,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface AppTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21499,7 +21542,6 @@ export declare class AppTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<AppType[]>;
-
   public create(args: {
     input: AppTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21507,7 +21549,6 @@ export declare class AppTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateAppTypesMutationResponse>;
-
   public update(args: {
     where?: AppTypeWhere;
     update?: AppTypeUpdateInput;
@@ -21520,14 +21561,12 @@ export declare class AppTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateAppTypesMutationResponse>;
-
   public delete(args: {
     where?: AppTypeWhere;
     delete?: AppTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: AppTypeWhere;
 
@@ -21541,24 +21580,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ActionTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21575,7 +21610,6 @@ export declare class ActionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<ActionType[]>;
-
   public create(args: {
     input: ActionTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21583,7 +21617,6 @@ export declare class ActionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateActionTypesMutationResponse>;
-
   public update(args: {
     where?: ActionTypeWhere;
     update?: ActionTypeUpdateInput;
@@ -21596,14 +21629,12 @@ export declare class ActionTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateActionTypesMutationResponse>;
-
   public delete(args: {
     where?: ActionTypeWhere;
     delete?: ActionTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ActionTypeWhere;
 
@@ -21617,24 +21648,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface CodeMirrorTypeAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21651,7 +21678,6 @@ export declare class CodeMirrorTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CodeMirrorType[]>;
-
   public create(args: {
     input: CodeMirrorTypeCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21659,7 +21685,6 @@ export declare class CodeMirrorTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateCodeMirrorTypesMutationResponse>;
-
   public update(args: {
     where?: CodeMirrorTypeWhere;
     update?: CodeMirrorTypeUpdateInput;
@@ -21672,14 +21697,12 @@ export declare class CodeMirrorTypeModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateCodeMirrorTypesMutationResponse>;
-
   public delete(args: {
     where?: CodeMirrorTypeWhere;
     delete?: CodeMirrorTypeDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: CodeMirrorTypeWhere;
 
@@ -21693,24 +21716,20 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface TagAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21727,7 +21746,6 @@ export declare class TagModel {
     context?: any;
     rootValue?: any;
   }): Promise<Tag[]>;
-
   public create(args: {
     input: TagCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21735,7 +21753,6 @@ export declare class TagModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTagsMutationResponse>;
-
   public update(args: {
     where?: TagWhere;
     update?: TagUpdateInput;
@@ -21748,14 +21765,12 @@ export declare class TagModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTagsMutationResponse>;
-
   public delete(args: {
     where?: TagWhere;
     delete?: TagDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: TagWhere;
 
@@ -21769,31 +21784,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface TagGraphOptionsAggregateSelectionInput {
   count?: boolean;
   sort?: IntAggregateInputNullable;
@@ -21810,7 +21820,6 @@ export declare class TagGraphOptionsModel {
     context?: any;
     rootValue?: any;
   }): Promise<TagGraphOptions[]>;
-
   public create(args: {
     input: TagGraphOptionsCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21818,7 +21827,6 @@ export declare class TagGraphOptionsModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTagGraphOptionsMutationResponse>;
-
   public update(args: {
     where?: TagGraphOptionsWhere;
     update?: TagGraphOptionsUpdateInput;
@@ -21828,14 +21836,12 @@ export declare class TagGraphOptionsModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTagGraphOptionsMutationResponse>;
-
   public delete(args: {
     where?: TagGraphOptionsWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: TagGraphOptionsWhere;
 
@@ -21849,31 +21855,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface TagGraphAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21890,7 +21891,6 @@ export declare class TagGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<TagGraph[]>;
-
   public create(args: {
     input: TagGraphCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21898,7 +21898,6 @@ export declare class TagGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateTagGraphsMutationResponse>;
-
   public update(args: {
     where?: TagGraphWhere;
     update?: TagGraphUpdateInput;
@@ -21908,14 +21907,12 @@ export declare class TagGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateTagGraphsMutationResponse>;
-
   public delete(args: {
     where?: TagGraphWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: TagGraphWhere;
 
@@ -21929,31 +21926,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ElementGraphAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -21969,7 +21961,6 @@ export declare class ElementGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<ElementGraph[]>;
-
   public create(args: {
     input: ElementGraphCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -21977,7 +21968,6 @@ export declare class ElementGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateElementGraphsMutationResponse>;
-
   public update(args: {
     where?: ElementGraphWhere;
     update?: ElementGraphUpdateInput;
@@ -21987,14 +21977,12 @@ export declare class ElementGraphModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateElementGraphsMutationResponse>;
-
   public delete(args: {
     where?: ElementGraphWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ElementGraphWhere;
 
@@ -22008,31 +21996,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ElementAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22056,7 +22039,6 @@ export declare class ElementModel {
     context?: any;
     rootValue?: any;
   }): Promise<Element[]>;
-
   public create(args: {
     input: ElementCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22064,7 +22046,6 @@ export declare class ElementModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateElementsMutationResponse>;
-
   public update(args: {
     where?: ElementWhere;
     update?: ElementUpdateInput;
@@ -22077,14 +22058,12 @@ export declare class ElementModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateElementsMutationResponse>;
-
   public delete(args: {
     where?: ElementWhere;
     delete?: ElementDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ElementWhere;
 
@@ -22098,31 +22077,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PropAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22139,7 +22113,6 @@ export declare class PropModel {
     context?: any;
     rootValue?: any;
   }): Promise<Prop[]>;
-
   public create(args: {
     input: PropCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22147,7 +22120,6 @@ export declare class PropModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePropsMutationResponse>;
-
   public update(args: {
     where?: PropWhere;
     update?: PropUpdateInput;
@@ -22157,14 +22129,12 @@ export declare class PropModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePropsMutationResponse>;
-
   public delete(args: {
     where?: PropWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PropWhere;
 
@@ -22178,31 +22148,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PropMapBindingAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22220,7 +22185,6 @@ export declare class PropMapBindingModel {
     context?: any;
     rootValue?: any;
   }): Promise<PropMapBinding[]>;
-
   public create(args: {
     input: PropMapBindingCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22228,7 +22192,6 @@ export declare class PropMapBindingModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePropMapBindingsMutationResponse>;
-
   public update(args: {
     where?: PropMapBindingWhere;
     update?: PropMapBindingUpdateInput;
@@ -22241,14 +22204,12 @@ export declare class PropMapBindingModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePropMapBindingsMutationResponse>;
-
   public delete(args: {
     where?: PropMapBindingWhere;
     delete?: PropMapBindingDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PropMapBindingWhere;
 
@@ -22262,31 +22223,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface HookAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22302,7 +22258,6 @@ export declare class HookModel {
     context?: any;
     rootValue?: any;
   }): Promise<Hook[]>;
-
   public create(args: {
     input: HookCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22310,7 +22265,6 @@ export declare class HookModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateHooksMutationResponse>;
-
   public update(args: {
     where?: HookWhere;
     update?: HookUpdateInput;
@@ -22323,14 +22277,12 @@ export declare class HookModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateHooksMutationResponse>;
-
   public delete(args: {
     where?: HookWhere;
     delete?: HookDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: HookWhere;
 
@@ -22344,31 +22296,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ComponentAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22385,7 +22332,6 @@ export declare class ComponentModel {
     context?: any;
     rootValue?: any;
   }): Promise<Component[]>;
-
   public create(args: {
     input: ComponentCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22393,7 +22339,6 @@ export declare class ComponentModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateComponentsMutationResponse>;
-
   public update(args: {
     where?: ComponentWhere;
     update?: ComponentUpdateInput;
@@ -22406,14 +22351,12 @@ export declare class ComponentModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateComponentsMutationResponse>;
-
   public delete(args: {
     where?: ComponentWhere;
     delete?: ComponentDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ComponentWhere;
 
@@ -22427,31 +22370,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface StoreAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22468,7 +22406,6 @@ export declare class StoreModel {
     context?: any;
     rootValue?: any;
   }): Promise<Store[]>;
-
   public create(args: {
     input: StoreCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22476,7 +22413,6 @@ export declare class StoreModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateStoresMutationResponse>;
-
   public update(args: {
     where?: StoreWhere;
     update?: StoreUpdateInput;
@@ -22489,14 +22425,12 @@ export declare class StoreModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateStoresMutationResponse>;
-
   public delete(args: {
     where?: StoreWhere;
     delete?: StoreDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: StoreWhere;
 
@@ -22510,31 +22444,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface CustomActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22552,7 +22481,6 @@ export declare class CustomActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<CustomAction[]>;
-
   public create(args: {
     input: CustomActionCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22560,7 +22488,6 @@ export declare class CustomActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateCustomActionsMutationResponse>;
-
   public update(args: {
     where?: CustomActionWhere;
     update?: CustomActionUpdateInput;
@@ -22573,14 +22500,12 @@ export declare class CustomActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateCustomActionsMutationResponse>;
-
   public delete(args: {
     where?: CustomActionWhere;
     delete?: CustomActionDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: CustomActionWhere;
 
@@ -22594,31 +22519,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ResourceActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22635,7 +22555,6 @@ export declare class ResourceActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<ResourceAction[]>;
-
   public create(args: {
     input: ResourceActionCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22643,7 +22562,6 @@ export declare class ResourceActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateResourceActionsMutationResponse>;
-
   public update(args: {
     where?: ResourceActionWhere;
     update?: ResourceActionUpdateInput;
@@ -22656,14 +22574,12 @@ export declare class ResourceActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateResourceActionsMutationResponse>;
-
   public delete(args: {
     where?: ResourceActionWhere;
     delete?: ResourceActionDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ResourceActionWhere;
 
@@ -22677,31 +22593,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface PipelineActionAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22718,7 +22629,6 @@ export declare class PipelineActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<PipelineAction[]>;
-
   public create(args: {
     input: PipelineActionCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22726,7 +22636,6 @@ export declare class PipelineActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreatePipelineActionsMutationResponse>;
-
   public update(args: {
     where?: PipelineActionWhere;
     update?: PipelineActionUpdateInput;
@@ -22739,14 +22648,12 @@ export declare class PipelineActionModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdatePipelineActionsMutationResponse>;
-
   public delete(args: {
     where?: PipelineActionWhere;
     delete?: PipelineActionDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: PipelineActionWhere;
 
@@ -22760,31 +22667,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface ResourceAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -22801,7 +22703,6 @@ export declare class ResourceModel {
     context?: any;
     rootValue?: any;
   }): Promise<Resource[]>;
-
   public create(args: {
     input: ResourceCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22809,7 +22710,6 @@ export declare class ResourceModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateResourcesMutationResponse>;
-
   public update(args: {
     where?: ResourceWhere;
     update?: ResourceUpdateInput;
@@ -22822,14 +22722,12 @@ export declare class ResourceModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateResourcesMutationResponse>;
-
   public delete(args: {
     where?: ResourceWhere;
     delete?: ResourceDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: ResourceWhere;
 
@@ -22843,31 +22741,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface VercelDomainConfigDataAggregateSelectionInput {
   count?: boolean;
 }
@@ -22882,7 +22775,6 @@ export declare class VercelDomainConfigDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<VercelDomainConfigData[]>;
-
   public create(args: {
     input: VercelDomainConfigDataCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22890,7 +22782,6 @@ export declare class VercelDomainConfigDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateVercelDomainConfigDataMutationResponse>;
-
   public update(args: {
     where?: VercelDomainConfigDataWhere;
     update?: VercelDomainConfigDataUpdateInput;
@@ -22900,14 +22791,12 @@ export declare class VercelDomainConfigDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateVercelDomainConfigDataMutationResponse>;
-
   public delete(args: {
     where?: VercelDomainConfigDataWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: VercelDomainConfigDataWhere;
 
@@ -22921,31 +22810,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface VercelProjectDomainDataAggregateSelectionInput {
   count?: boolean;
 }
@@ -22960,7 +22844,6 @@ export declare class VercelProjectDomainDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<VercelProjectDomainData[]>;
-
   public create(args: {
     input: VercelProjectDomainDataCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -22968,7 +22851,6 @@ export declare class VercelProjectDomainDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateVercelProjectDomainDataMutationResponse>;
-
   public update(args: {
     where?: VercelProjectDomainDataWhere;
     update?: VercelProjectDomainDataUpdateInput;
@@ -22978,14 +22860,12 @@ export declare class VercelProjectDomainDataModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateVercelProjectDomainDataMutationResponse>;
-
   public delete(args: {
     where?: VercelProjectDomainDataWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: VercelProjectDomainDataWhere;
 
@@ -22999,31 +22879,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface DomainAggregateSelectionInput {
   count?: boolean;
   id?: IdAggregateInputNonNullable;
@@ -23040,7 +22915,6 @@ export declare class DomainModel {
     context?: any;
     rootValue?: any;
   }): Promise<Domain[]>;
-
   public create(args: {
     input: DomainCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -23048,7 +22922,6 @@ export declare class DomainModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateDomainsMutationResponse>;
-
   public update(args: {
     where?: DomainWhere;
     update?: DomainUpdateInput;
@@ -23061,14 +22934,12 @@ export declare class DomainModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateDomainsMutationResponse>;
-
   public delete(args: {
     where?: DomainWhere;
     delete?: DomainDeleteInput;
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: DomainWhere;
 
@@ -23082,31 +22953,26 @@ export interface StringAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IdAggregateInputNonNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface StringAggregateInputNullable {
   shortest?: boolean;
   longest?: boolean;
 }
-
 export interface IntAggregateInputNonNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface IntAggregateInputNullable {
   max?: boolean;
   min?: boolean;
   average?: boolean;
   sum?: boolean;
 }
-
 export interface DeleteInfoAggregateSelectionInput {
   count?: boolean;
   bookmark?: StringAggregateInputNullable;
@@ -23124,7 +22990,6 @@ export declare class DeleteInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<DeleteInfo[]>;
-
   public create(args: {
     input: DeleteInfoCreateInput[];
     selectionSet?: string | DocumentNode | SelectionSetNode;
@@ -23132,7 +22997,6 @@ export declare class DeleteInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<CreateDeleteInfosMutationResponse>;
-
   public update(args: {
     where?: DeleteInfoWhere;
     update?: DeleteInfoUpdateInput;
@@ -23142,14 +23006,12 @@ export declare class DeleteInfoModel {
     context?: any;
     rootValue?: any;
   }): Promise<UpdateDeleteInfosMutationResponse>;
-
   public delete(args: {
     where?: DeleteInfoWhere;
 
     context?: any;
     rootValue?: any;
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>;
-
   public aggregate(args: {
     where?: DeleteInfoWhere;
 
