@@ -357,6 +357,7 @@
     "http-debug": "^0.1.2",
     "inquirer": "8.2.2",
     "jest": "27.5.1",
+    "jest-environment-jsdom": "27.5.1",
     "jest-transform-stub": "2.0.0",
     "json-schema": "0.4.0",
     "jwt-decode": "^3.1.2",
