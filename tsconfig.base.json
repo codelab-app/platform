@@ -21,7 +21,17 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/backend": ["libs/backend/src/index.ts"],
+      "@codelab/backend/adapter/auth0": [
+        "libs/backend/adapter/auth0/src/index.ts"
+      ],
+      "@codelab/backend/adapter/neo4j": [
+        "libs/backend/adapter/neo4j/src/index.ts"
+      ],
+      "@codelab/backend/adapter/vercel": [
+        "libs/backend/adapter/vercel/src/index.ts"
+      ],
+      "@codelab/backend/application": ["libs/backend/application/src/index.ts"],
+      "@codelab/backend/graphql": ["libs/backend/graphql/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],

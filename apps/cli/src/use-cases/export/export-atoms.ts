@@ -1,4 +1,4 @@
-import { AtomOGM, atomSelectionSet } from '@codelab/backend'
+import { AtomOGM, atomSelectionSet } from '@codelab/backend/adapter/neo4j'
 import { IAtomExport } from '@codelab/shared/abstract/core'
 
 export const exportAtoms = async (): Promise<Array<IAtomExport>> => {

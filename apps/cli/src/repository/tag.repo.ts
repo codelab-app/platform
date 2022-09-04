@@ -1,4 +1,4 @@
-import { TagOGM } from '@codelab/backend'
+import { TagOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITagExport } from '@codelab/shared/abstract/core'
 

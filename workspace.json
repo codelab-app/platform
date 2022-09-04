@@ -1,7 +1,11 @@
 {
   "version": 2,
   "projects": {
-    "backend": "libs/backend",
+    "backend-adapter-auth0": "libs/backend/adapter/auth0",
+    "backend-adapter-neo4j": "libs/backend/adapter/neo4j",
+    "backend-adapter-vercel": "libs/backend/adapter/vercel",
+    "backend-application": "libs/backend/application",
+    "backend-graphql": "libs/backend/graphql",
     "builder": "apps/builder",
     "builder-e2e": "apps/builder-e2e",
     "cli": "apps/cli",

@@ -37,6 +37,7 @@
         //            "enforceForRenamedProperties": false
         //          }
         //        ],
+        "no-implicit-coercion": "error",
         "react/react-in-jsx-scope": "error",
         "react/jsx-sort-props": "error",
         "jest/expect-expect": "off",
@@ -264,7 +265,7 @@
               // This is a map of key & their possible values
               //
               // "scope": ["frontend", "backend", "shared", "codegen"]
-              // "layer": ["ui-hooks", "api-hooks", "app", "infra"]
+              // "layer": ["app", "infra", "adapter"]
               // "type": ["concrete", "abstract"]
               {
                 "sourceTag": "type:abstract",
@@ -412,6 +413,8 @@
       ],
       "rules": {
         "curly": "error",
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/ban-types": [
           "error",

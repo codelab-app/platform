@@ -1,4 +1,5 @@
-import { DomainOGM, PROJECT_NOT_FOUND, vercelApis } from '@codelab/backend'
+import { DomainOGM } from '@codelab/backend/adapter/neo4j'
+import { PROJECT_NOT_FOUND, vercelApis } from '@codelab/backend/adapter/vercel'
 import { IDomainExport } from '@codelab/shared/abstract/core'
 
 /**
@@ -38,7 +39,7 @@ export const logAPIError = async (
 export const addVercelDomain = async (
   domain: IDomainExport,
 ): Promise<boolean> => {
-  const getProjectDomainResponse = await vercelApis.domain.getProjectData(
+  const getProjectDomainResponse = await vercelApis.domain.getProjectDomain(
     domain.name,
   )
 
@@ -46,7 +47,7 @@ export const addVercelDomain = async (
    * Add domain if project not found
    */
   if (getProjectDomainResponse.status === PROJECT_NOT_FOUND) {
-    const addDomainResponse = await vercelApis.domain.add(domain.name)
+    const addDomainResponse = await vercelApis.domain.addDomain(domain.name)
 
     return await logAPIError(addDomainResponse, 'addDomain')
   }

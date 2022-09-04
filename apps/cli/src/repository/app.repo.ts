@@ -1,4 +1,9 @@
-import { AppOGM, PageOGM, pageSelectionSet, StoreOGM } from '@codelab/backend'
+import {
+  AppOGM,
+  PageOGM,
+  pageSelectionSet,
+  StoreOGM,
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'

@@ -4329,7 +4329,7 @@ type Domain {
   domainConfig: VercelDomainConfigData!
   id: ID!
   name: String!
-  projectDomainData: VercelProjectDomainData!
+  projectDomain: VercelProjectDomainData!
 }
 
 type DomainAggregateSelection {
@@ -8829,12 +8829,18 @@ type EnumTypesConnection {
   totalCount: Int!
 }
 
+enum ExecuteCommandHandler {
+  Download
+  Void
+}
+
 input ExecuteCommandInput {
   command: String!
 }
 
 type ExecuteCommandResponse {
   data: String!
+  handler: ExecuteCommandHandler!
   success: Boolean!
 }
 
@@ -8845,6 +8851,7 @@ type ExecuteCommandResponseAggregateSelection {
 
 input ExecuteCommandResponseCreateInput {
   data: String!
+  handler: ExecuteCommandHandler!
   success: Boolean!
 }
 
@@ -8868,11 +8875,13 @@ Fields to sort ExecuteCommandResponses by. The order in which sorts are applied 
 """
 input ExecuteCommandResponseSort {
   data: SortDirection
+  handler: SortDirection
   success: SortDirection
 }
 
 input ExecuteCommandResponseUpdateInput {
   data: String
+  handler: ExecuteCommandHandler
   success: Boolean
 }
 
@@ -8889,6 +8898,10 @@ input ExecuteCommandResponseWhere {
   data_NOT_IN: [String!]
   data_NOT_STARTS_WITH: String
   data_STARTS_WITH: String
+  handler: ExecuteCommandHandler
+  handler_IN: [ExecuteCommandHandler!]
+  handler_NOT: ExecuteCommandHandler
+  handler_NOT_IN: [ExecuteCommandHandler!]
   success: Boolean
   success_NOT: Boolean
 }

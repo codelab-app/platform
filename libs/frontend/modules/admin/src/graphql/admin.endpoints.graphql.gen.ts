@@ -16,7 +16,11 @@ export type ExecuteCommandMutationVariables = Types.Exact<{
 }>
 
 export type ExecuteCommandMutation = {
-  executeCommand: { success: boolean; data: string }
+  executeCommand: {
+    success: boolean
+    data: string
+    handler: Types.ExecuteCommandHandler
+  }
 }
 
 export const ResetDatabaseDocument = gql`
@@ -31,6 +35,7 @@ export const ExecuteCommandDocument = gql`
     executeCommand(input: $input) {
       success
       data
+      handler
     }
   }
 `

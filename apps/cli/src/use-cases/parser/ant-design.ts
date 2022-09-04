@@ -3,7 +3,7 @@ import {
   atomSelectionSet,
   TagOGM,
   tagSelectionSet,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
 import {
   IAtomExport,
   IAtomType,

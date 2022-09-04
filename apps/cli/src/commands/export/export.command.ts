@@ -1,4 +1,8 @@
 import {
+  ExecuteCommandHandler,
+  ExecuteCommandResponse,
+} from '@codelab/shared/abstract/codegen'
+import {
   IAppExport,
   IAtomExport,
   IResourceExport,
@@ -12,9 +16,10 @@ import { exportUserData } from '../../use-cases/export/export-user-data'
 
 config({ path: `${process.cwd()}/.env` })
 
-export type ExportedData = {
+export interface ExportedData {
   apps: Array<IAppExport>
   atoms: Array<IAtomExport>
+  // atoms: Array<OGM_TYPES.Atom>
   types: Array<ITypeExport>
   resources: Array<IResourceExport>
   tags: Array<ITagExport>
@@ -55,8 +60,6 @@ export const exportCommand: CommandModule<
     },
   },
   handler: async ({ userData, seedData }) => {
-    console.log(userData, seedData)
-
     const exportData = {}
 
     if (seedData) {
@@ -67,10 +70,16 @@ export const exportCommand: CommandModule<
       Object.assign(exportData, await exportUserData())
     }
 
+    const response: ExecuteCommandResponse = {
+      success: true,
+      data: exportData.toString(),
+      handler: ExecuteCommandHandler.Download,
+    }
+
     /**
      * We log the data back to stdout so we can return to the API call
      */
-    console.log(exportData)
+    console.log(response)
 
     yargs.exit(0, null!)
   },

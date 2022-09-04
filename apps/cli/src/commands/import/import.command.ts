@@ -1,4 +1,4 @@
-import { UserOGM } from '@codelab/backend'
+import { UserOGM } from '@codelab/backend/adapter/neo4j'
 import { ImportExportData } from '@codelab/shared/abstract/core'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'

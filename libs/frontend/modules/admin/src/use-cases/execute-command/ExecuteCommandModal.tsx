@@ -13,7 +13,9 @@ import { executeCommandSchema } from './executeCommandSchema'
 
 export const ExecuteCommandModal = observer(
   ({ adminService }: { adminService: IAdminService }) => {
-    const closeModal = () => {
+    const onSuccess = (data: any) => {
+      console.log(data)
+
       adminService.executeCommandModal.close()
 
       notify({
@@ -48,7 +50,7 @@ export const ExecuteCommandModal = observer(
     return (
       <ModalForm.Modal
         okText="Execute Command"
-        onCancel={closeModal}
+        onCancel={onSuccess}
         visible={adminService.executeCommandModal.isOpen}
       >
         <ModalForm.Form
@@ -60,7 +62,7 @@ export const ExecuteCommandModal = observer(
               message: e.data,
             })
           }}
-          onSubmitSuccess={closeModal}
+          onSubmitSuccess={onSuccess}
           schema={executeCommandSchema}
         >
           <AutoFields />

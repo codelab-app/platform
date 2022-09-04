@@ -4,7 +4,7 @@ fragment Domain on Domain {
   domainConfig {
     misconfigured
   }
-  projectDomainData {
+  projectDomain {
     verified
   }
 }
