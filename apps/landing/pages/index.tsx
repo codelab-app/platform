@@ -4,6 +4,7 @@ import { BannerSection, Clients, HomeTemplate } from '../home'
 // import { Architecture } from '../home/architecture/Architecture'
 import { BestPractices } from '../home/bestPractices/BestPractices'
 import { JoinCommunity } from '../home/community/JoinCommunity'
+import { DataPipeline } from '../home/dataPipeline/DataPipeline'
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
       <Clients />
       {/* <Architecture /> */}
       <BestPractices />
+      <DataPipeline />
       <JoinCommunity />
     </>
   )

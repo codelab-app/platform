@@ -17,9 +17,6 @@ import { useOutsideClick } from 'rooks'
 import tw from 'twin.macro'
 import { Logo } from '../logo/Logo'
 import { menuState } from './menuState'
-import style from './mobileNavigation.module.css'
-
-console.log(style)
 
 const SpaceEvenly = styled.div(
   tw`
@@ -84,9 +81,8 @@ export const MenuMobile = () => {
       <menu
         css={[
           isMenuOpen ? tw`` : tw`-translate-x-full`,
-          tw`transition transform-gpu duration-300 shadow-lg border-r-2`,
+          tw`transition fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-300 shadow-lg border-r-2`,
         ]}
-        id={style.mobileMenu}
       >
         <div css={tw`p-10 h-full`}>
           <div css={tw`flex items-center justify-between`}>
@@ -102,12 +98,11 @@ export const MenuMobile = () => {
                 >
                   <Image
                     alt="item-logo"
-                    css={tw`mr-4`}
                     height={18}
                     src={items.icon}
                     width={20}
                   />
-                  {items.title}
+                  <p css={tw`p-0 ml-4 mb-0 mt-0 mr-0`}>{items.title}</p>
                 </a>
               </li>
             ))}

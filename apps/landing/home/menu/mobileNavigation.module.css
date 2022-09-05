@@ -1,4 +1,0 @@
-#mobileMenu {
-  background-color: pink;
-  @apply fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white;
-}
