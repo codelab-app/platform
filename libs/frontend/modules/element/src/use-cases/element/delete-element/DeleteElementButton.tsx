@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'
 
-type DeleteElementProps = {
+interface DeleteElementProps {
   elementService: IElementService
   element: IElement
   disabled: boolean

@@ -34,7 +34,7 @@ export const TestimonialItem = ({
           css`
             max-width: 600px;
           `,
-          tw`mx-2 bg-transparent rounded-lg`,
+          tw`mx-2 bg-transparent p-4 rounded-lg`,
         ]}
       >
         <div css={tw`flex justify-center`}>
@@ -111,14 +111,14 @@ export const TestimonialSection = () => {
   }
 
   return (
-    <div css={tw`px-8 pt-12 pb-20 bg-slate-700`}>
+    <div css={tw`px-8 pt-12 pb-20 `}>
       <Title
-        css={tw`text-center !font-extrabold !text-slate-300 !text-4xl`}
+        css={tw`text-center mt-28 !font-extrabold !text-white !text-5xl`}
         level={2}
       >
         Loved by startups
       </Title>
-      <Slider {...settings} css={tw`my-8`}>
+      <Slider {...settings} css={tw`my-8 mt-8`}>
         <TestimonialItem
           review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
           role="Co-Founder @ Mrhost"
@@ -140,6 +140,7 @@ export const TestimonialSection = () => {
           stakeholder="Shelby Lewis"
         />
       </Slider>
+      <div css={tw`mt-12`}></div>
     </div>
   )
 }

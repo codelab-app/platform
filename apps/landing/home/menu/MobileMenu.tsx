@@ -1,6 +1,13 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { faBars } from '@fortawesome/pro-regular-svg-icons'
+import {
+  faDiscord,
+  faFacebook,
+  faGithub,
+  faTwitter,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons'
+import { faArrowLeft, faBars } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useRef } from 'react'
@@ -8,14 +15,12 @@ import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import tw from 'twin.macro'
+import { Logo } from '../logo/Logo'
 import { menuState } from './menuState'
-import style from './mobileNavigation.module.css'
-
-console.log(style)
 
 const SpaceEvenly = styled.div(
   tw`
-  flex flex-row justify-between flex-grow
+  flex flex-row  justify-between items-center flex-grow p-6
 `,
   css`
     & > * {
@@ -62,46 +67,88 @@ export const MenuMobile = () => {
   }
 
   return (
-    <nav className="nav" css={tw`pr-2`} ref={ref}>
+    <nav ref={ref}>
       <Backdrop active={isMenuOpen} />
       <SpaceEvenly>
-        <button className="btn hover-text" onClick={toggleMenu}>
-          <FontAwesomeIcon icon={faBars} />
+        <Logo />
+        <button
+          css={tw`bg-white border-0 hover:cursor-pointer`}
+          onClick={toggleMenu}
+        >
+          <FontAwesomeIcon css={tw`text-xl`} icon={faBars} />
         </button>
-        <a css={tw`flex items-center`}>
-          <Image
-            alt="Codelab Logo"
-            height={26}
-            layout="fixed"
-            src="/codelab-logo-default.svg"
-            width={90}
-          />
-        </a>
-        <a className="btn btn-primary">Sign Up</a>
       </SpaceEvenly>
       <menu
-        className="menu menu-vertical"
         css={[
           isMenuOpen ? tw`` : tw`-translate-x-full`,
-          tw`transition transform-gpu duration-300`,
+          tw`transition fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-300 shadow-lg border-r-2`,
         ]}
-        id={style.mobileMenu}
       >
-        <ul>
-          <li>
-            <a>Features</a>
-          </li>
-          <li>
-            <a>Docs</a>
-          </li>
-          <li>
-            <a>Pricing</a>
-          </li>
-          <li>
-            <a>Tutorials</a>
-          </li>
-        </ul>
+        <div css={tw`p-10 h-full`}>
+          <div css={tw`flex items-center justify-between`}>
+            <Logo />
+            <FontAwesomeIcon css={tw`text-xl`} icon={faArrowLeft} />
+          </div>
+          <ul css={[tw` p-0 flex-col pt-4 flex`]}>
+            {menuItems.map((items) => (
+              <li css={tw`hidden laptop:flex pt-8 text-base flex`}>
+                <a
+                  css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
+                  href={items.href}
+                >
+                  <Image
+                    alt="item-logo"
+                    height={18}
+                    src={items.icon}
+                    width={20}
+                  />
+                  <p css={tw`p-0 ml-4 mb-0 mt-0 mr-0`}>{items.title}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ul css={tw`flex items-center p-0 mt-10 justify-between`}>
+            <li css={tw` text-3xl list-none`}>
+              <FontAwesomeIcon icon={faTwitter} />
+            </li>
+            <li css={tw` text-3xl list-none`}>
+              <FontAwesomeIcon icon={faFacebook} />
+            </li>
+            <li css={tw` text-3xl list-none`}>
+              <FontAwesomeIcon icon={faGithub} />
+            </li>
+            <li css={tw` text-3xl list-none`}>
+              <FontAwesomeIcon icon={faYoutube} />
+            </li>
+            <li css={tw` text-3xl list-none`}>
+              <FontAwesomeIcon icon={faDiscord} />
+            </li>
+          </ul>
+        </div>
       </menu>
     </nav>
   )
 }
+
+const menuItems = [
+  {
+    title: 'Features',
+    href: '/',
+    icon: '/features.svg',
+  },
+  {
+    title: 'Docs',
+    href: '/',
+    icon: '/docs.svg',
+  },
+  {
+    title: 'Pricing',
+    href: '/',
+    icon: '/pricing.svg',
+  },
+  {
+    title: 'Tutorials',
+    href: '/',
+    icon: '/tutorials.svg',
+  },
+]

@@ -11,7 +11,6 @@ import {
   IBuilderService,
   IComponentService,
   ICreateElementDTO,
-  IElement,
   IElementService,
   IElementTree,
   IRenderService,
@@ -25,7 +24,7 @@ import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
-type CreateElementModalProps = {
+interface CreateElementModalProps {
   pageTree: IElementTree
   renderService: IRenderService
   actionService: IActionService

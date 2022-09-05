@@ -2,7 +2,7 @@ import {
   ElementUpdateInput,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import {
   ICRUDModalService,

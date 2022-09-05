@@ -6,7 +6,7 @@ import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-export type UpdateElementPropTransformationFormProp = {
+export interface UpdateElementPropTransformationFormProp {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
