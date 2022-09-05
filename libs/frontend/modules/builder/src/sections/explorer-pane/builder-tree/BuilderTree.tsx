@@ -19,7 +19,7 @@ import {
   TREE_NODE_WRAPPER_SELECTOR,
 } from './disableNodeHoverEffects'
 
-type BuilderTreeProps = {
+interface BuilderTreeProps {
   treeData: IBuilderDataNode | undefined
   className?: string
   elementTree: IElementTree | null
@@ -42,11 +42,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
   }) => {
     const { elementService, builderService, componentService } = useStore()
     const selectedNode = builderService.selectedNode
-
-    const { isMoving, handleDrop } = useElementTreeDrop(
-      elementTree,
-      elementService,
-    )
+    const { isMoving, handleDrop } = useElementTreeDrop(elementService)
 
     return (
       <AntdTree<IBuilderDataNode>

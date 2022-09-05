@@ -20,10 +20,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { mapElementOption } from '../../../utils/elementOptions'
 import { createElementSchema } from './createElementSchema'
 
-type CreateElementModalProps = {
+interface CreateElementModalProps {
   pageTree: IElementTree
   renderService: IRenderService
   actionService: IActionService
@@ -45,7 +46,11 @@ export const CreateElementModal = observer<CreateElementModalProps>(
     storeId,
   }) => {
     const onSubmit = async (data: ICreateElementDTO) => {
-      const [element] = await elementService.create([data])
+      const { prevSiblingId } = data
+
+      const element = await (prevSiblingId
+        ? elementService.createElementAsNextSibling(data)
+        : elementService.createElementAsSubRoot(data))
 
       // Build tree for page
       pageTree.buildTree([element])
@@ -71,11 +76,17 @@ export const CreateElementModal = observer<CreateElementModalProps>(
 
     const model = {
       parentElementId: parentElement?.id || undefined,
-      order: parentElement ? parentElement?.lastChildOrder + 1 : 1,
       owner: userService.user?.auth0Id,
     }
 
     const closeModal = () => elementService.createModal.close()
+
+    const selectParentElementOptions = pageTree.elementsList
+      .filter((element) => !element?.instanceOfComponent && !element?.component)
+      .map(mapElementOption)
+
+    const selectChildrenElementOptions =
+      pageTree.elementsList.map(mapElementOption)
 
     return (
       <ModalForm.Modal
@@ -96,10 +107,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               'parentElementId',
               'atomId',
               'instanceOfComponentId',
-              'order',
               'customCss',
               'guiCss',
               'propsData',
+              'prevSiblingId',
               'preRenderActionId',
               'postRenderActionId',
             ]}
@@ -109,17 +120,15 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...(props as any)}
-                allElementOptions={pageTree.elementsList
-                  .filter(
-                    (element) =>
-                      !element?.instanceOfComponent && !element?.component,
-                  )
-                  .map(mapElementOption)}
+                allElementOptions={selectParentElementOptions}
               />
             ))}
             name="parentElementId"
           />
-          <AutoField name="order" />
+          <SelectLinkElement
+            allElementOptions={selectChildrenElementOptions}
+            name="prevSiblingId"
+          />
           <AutoField component={SelectAtom} name="atomId" />
           <AutoField
             activeComponentId={builderService.activeComponent?.id}

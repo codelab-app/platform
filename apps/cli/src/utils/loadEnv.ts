@@ -8,7 +8,7 @@ const env = (argv as any).env || Env.Dev
 
 const envFileName: Record<string, string> = {
   [Env.Dev]: '.env',
-  [Env.Ci]: '.env.ci',
+  [Env.CI]: '',
   [Env.Test]: '.env.test',
 }
 

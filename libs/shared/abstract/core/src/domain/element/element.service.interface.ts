@@ -70,11 +70,24 @@ export interface IElementService
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  moveElement(
-    elementId: string,
-    newParentId: string,
-    newOrder?: number,
-  ): Promise<IElement>
+  createElementAsSubRoot(data: ICreateElementDTO): Promise<IElement>
+  createElementAsNextSibling(data: ICreateElementDTO): Promise<IElement>
+  attachElementAsSubRoot(props: {
+    elementId: string
+    parentElementId: string
+  }): Promise<void>
+  attachElementAsNextSibling(props: {
+    elementId: string
+    targetElementId: string
+  }): Promise<void>
+  moveElementAsSubRoot(props: {
+    elementId: string
+    parentElementId: string
+  }): Promise<void>
+  moveElementAsNextSibling(props: {
+    elementId: string
+    targetElementId: string
+  }): Promise<void>
   duplicateElement(
     target: IElement,
     auth0Id: IAuth0Id,

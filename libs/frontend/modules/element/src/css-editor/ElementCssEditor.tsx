@@ -1,9 +1,10 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
-  EmotionCssEditor,
+  CodeMirrorEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   cssMap,
   IElement,
@@ -21,14 +22,13 @@ import { ShadowsEditor } from './css-shadows-editor'
 
 const { Panel } = Collapse
 
-export type ElementCssEditorInternalProps = {
+export interface ElementCssEditorInternalProps {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
 }
 
 /*
-
   TODO: later
   - define the interfaces for what Css changes are possible? basically what potential values
     can guiCss be set to?
@@ -145,9 +145,11 @@ export const ElementCssEditor = observer(
     return (
       <Row style={{ marginBottom: '10%' }}>
         <Col span={24}>
-          <EmotionCssEditor
+          <CodeMirrorEditor
             height="100%"
+            language={CodeMirrorLanguage.Css}
             onChange={(value) => setCustomCssString(value)}
+            title="CSS Editor"
             value={customCssString}
           />
         </Col>

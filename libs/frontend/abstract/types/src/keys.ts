@@ -1,6 +1,6 @@
 import { Key } from 'react'
 
-export type CheckedKeys = {
+export interface CheckedKeys {
   checked: Array<Key>
   halfChecked: Array<Key>
 }

@@ -1,4 +1,7 @@
-import { ComponentOGM, componentSelectionSet } from '@codelab/backend'
+import {
+  ComponentOGM,
+  componentSelectionSet,
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { uuidRegex } from '@codelab/shared/utils'
 import { flatMap, flatten } from 'lodash'

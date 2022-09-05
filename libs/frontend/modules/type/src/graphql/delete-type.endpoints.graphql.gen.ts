@@ -112,13 +112,13 @@ export type DeleteActionTypesMutation = {
   deleteActionTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
-export type DeleteMonacoTypesMutationVariables = Types.Exact<{
-  delete?: Types.InputMaybe<Types.MonacoTypeDeleteInput>
-  where?: Types.InputMaybe<Types.MonacoTypeWhere>
+export type DeleteCodeMirrorTypesMutationVariables = Types.Exact<{
+  delete?: Types.InputMaybe<Types.CodeMirrorTypeDeleteInput>
+  where?: Types.InputMaybe<Types.CodeMirrorTypeWhere>
 }>
 
-export type DeleteMonacoTypesMutation = {
-  deleteMonacoTypes: { relationshipsDeleted: number; nodesDeleted: number }
+export type DeleteCodeMirrorTypesMutation = {
+  deleteCodeMirrorTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
 export const DeletePrimitiveTypesDocument = gql`
@@ -253,12 +253,12 @@ export const DeleteActionTypesDocument = gql`
     }
   }
 `
-export const DeleteMonacoTypesDocument = gql`
-  mutation DeleteMonacoTypes(
-    $delete: MonacoTypeDeleteInput
-    $where: MonacoTypeWhere
+export const DeleteCodeMirrorTypesDocument = gql`
+  mutation DeleteCodeMirrorTypes(
+    $delete: CodeMirrorTypeDeleteInput
+    $where: CodeMirrorTypeWhere
   ) {
-    deleteMonacoTypes(delete: $delete, where: $where) {
+    deleteCodeMirrorTypes(delete: $delete, where: $where) {
       relationshipsDeleted
       nodesDeleted
     }
@@ -462,18 +462,18 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteMonacoTypes(
-      variables?: DeleteMonacoTypesMutationVariables,
+    DeleteCodeMirrorTypes(
+      variables?: DeleteCodeMirrorTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteMonacoTypesMutation> {
+    ): Promise<DeleteCodeMirrorTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteMonacoTypesMutation>(
-            DeleteMonacoTypesDocument,
+          client.request<DeleteCodeMirrorTypesMutation>(
+            DeleteCodeMirrorTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteMonacoTypes',
+        'DeleteCodeMirrorTypes',
         'mutation',
       )
     },

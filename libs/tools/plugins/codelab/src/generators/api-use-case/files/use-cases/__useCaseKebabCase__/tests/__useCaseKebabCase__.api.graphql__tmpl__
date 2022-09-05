@@ -1,5 +1,0 @@
-<%= graphqlType %> <%= useCasePascalCase %>($input: <%= useCasePascalCase %>Input!) {
-  <%= useCase %>(input: $input) {
-    id
-  }
-}

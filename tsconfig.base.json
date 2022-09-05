@@ -14,19 +14,21 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "types": [
-      "node",
-      "worker-loader",
-      "window",
-      "@emotion/react/types/css-prop"
-    ],
+    "types": ["node", "worker-loader", "@emotion/react/types/css-prop"],
     "typeRoots": ["node_modules/@types", "types", "types/*"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/backend": ["libs/backend/src/index.ts"],
+      "@codelab/backend/adapter/neo4j": [
+        "libs/backend/adapter/neo4j/src/index.ts"
+      ],
+      "@codelab/backend/adapter/vercel": [
+        "libs/backend/adapter/vercel/src/index.ts"
+      ],
+      "@codelab/backend/application": ["libs/backend/application/src/index.ts"],
+      "@codelab/backend/graphql": ["libs/backend/graphql/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
@@ -125,12 +127,17 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
+      "@codelab/shared/adapter/auth0": [
+        "libs/shared/adapter/auth0/src/index.ts"
+      ],
+      "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data": ["libs/shared/data/src/index.ts"],
-      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/tools/plugins/codelab": [
-        "libs/tools/plugins/codelab/src/index.ts"
-      ]
+      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"]
+  "exclude": ["node_modules", "tmp", "dist"],
+  "include": [
+    "apps/builder-e2e/cypress.ci.config.ts",
+    "apps/builder-e2e/cypress.test.config.ts"
+  ]
 }

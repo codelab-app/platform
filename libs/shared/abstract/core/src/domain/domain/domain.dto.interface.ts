@@ -8,9 +8,9 @@ export interface IUpdateDomainDTO extends ICreateDomainDTO {
   id: string
 }
 
-export type IDeleteDomain = Pick<IUpdateDomainDTO, 'id'>
-
-export type IDomainExport = Pick<IUpdateDomainDTO, 'id' | 'name'> & {
+export interface IDomainExport {
+  id: string
+  name: string
   app: {
     id: string
   }

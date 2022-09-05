@@ -39,7 +39,7 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<IComponent>
-  componentUsecaseTags: Array<ITag>
+  componentTags: Array<ITag>
   tagsWithComponents: Array<TagWithComponents>
 
   // setSelectedTreeNode(node: IBuilderDataNode | null): void

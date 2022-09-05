@@ -21,7 +21,9 @@ import {
 import { capitalize, keys } from 'lodash'
 import { v4 } from 'uuid'
 
-type ActionsOrders = { [key: string]: Array<string> }
+interface ActionsOrders {
+  [key: string]: Array<string>
+}
 
 const makePipelineActionsUpdateInput = (actionsOrders: ActionsOrders) => [
   {

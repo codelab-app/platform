@@ -4,7 +4,7 @@ import { ResourceFragment } from './resource.fragment.graphql.gen'
 import { IResourceType } from './resource-type.enum'
 import { IRestResourceConfig } from './rest-resource-config.interface'
 
-export type ICreateResourceDTO = {
+export interface ICreateResourceDTO {
   name: string
   type: IResourceType
   config: IGraphQLResourceConfig | IRestResourceConfig

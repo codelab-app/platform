@@ -1,3 +1,4 @@
+import * as Types from '@codelab/shared/abstract/codegen'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { ObjectMap, Ref } from 'mobx-keystone'
 import { ELEMENT_NODE_TYPE, INodeType } from '../../base/node.interface'
@@ -9,6 +10,11 @@ import { IProp, IPropData, IPropMapBinding } from '../prop'
 import { IAuth0Id } from '../user'
 import { IElementDTO } from './element.dto.interface'
 
+export interface BatchUpdateElementsMutationVariable {
+  where?: Types.InputMaybe<Types.ElementWhere>
+  update?: Types.InputMaybe<Types.ElementUpdateInput>
+}
+
 /**
  * This is a non-element type node that contains the root element.
  *
@@ -19,7 +25,9 @@ export interface IElementContainer {
   rootElementId: string
 }
 
-export type cssMap = { [prop: string]: string }
+export interface cssMap {
+  [prop: string]: string
+}
 
 export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   id: string
@@ -29,7 +37,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   guiCss: Nullable<string>
   props?: Nullable<IProp>
   atom: Nullable<Ref<IAtom>>
-  orderInParent: Nullable<number>
   hooks: Array<IHook>
   parentId: Nullable<string>
   parentElement: Maybe<IElement>
@@ -37,7 +44,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   component: Nullable<Ref<IComponent>>
   label: string
   propTransformationJs: Nullable<string>
-  lastChildOrder: number
   preRenderActionId: Nullish<string>
   postRenderActionId: Nullish<string>
   childrenSorted: Array<IElement>
@@ -50,8 +56,37 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   descendants: Array<IElement>
   __metadataProps: object
   atomName: string
-  siblings: Array<IElement>
+  siblings?: ObjectMap<Ref<IElement>>
 
+  nextSibling: Maybe<IElement>
+  nextSiblingId: Nullable<string>
+  prevSibling: Maybe<IElement>
+  prevSiblingId: Nullable<string>
+
+  detachNextSibling(): void
+  detachPrevSibling(): void
+  detachParent(): void
+  attachToParentAsSubRoot(parentElementId: string): void
+  attachToParent(parentElementId: string): void
+  appendSibling(siblingId: string): void
+  prependSibling(siblingId: string): void
+
+  makeDetachNextSiblingInput(): BatchUpdateElementsMutationVariable | null
+  makeDetachPrevSiblingInput(): BatchUpdateElementsMutationVariable | null
+  makeDetachParentInput(): BatchUpdateElementsMutationVariable | null
+  makeAttachToParentAsSubRootInput(
+    parentElementId: string,
+  ): BatchUpdateElementsMutationVariable
+  makeAttachToParentInput(
+    parentElementId: string,
+  ): BatchUpdateElementsMutationVariable
+  makeAppendSiblingInput(siblingId: string): BatchUpdateElementsMutationVariable
+  makePrependSiblingInput(
+    siblingId: string,
+  ): BatchUpdateElementsMutationVariable
+
+  childrenRoot: Maybe<IElement>
+  childrenRootId: Nullable<string>
   updateCache(data: Omit<IElementDTO, '__typename'>): IElement
   addPropMapBinding(propMapBinding: IPropMapBinding): void
   findDescendant(id: string): Maybe<IElement>
@@ -65,7 +100,6 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   /**
    * Keeps the ref in place
    */
-  detachChild(element: IElement): void
   applyPropMapBindings(sourceProps: IPropData): {
     localProps: IPropData
     globalProps: IPropData

@@ -6,7 +6,7 @@ import React from 'react'
 import { domainRef } from '../../../store/domain.model'
 import { RefreshDomainButton } from './RefreshDomainButton'
 
-export type ItemToolsProps = {
+export interface ItemToolsProps {
   domain: IDomain
   domainService: IDomainService
 }

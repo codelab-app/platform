@@ -263,8 +263,8 @@
     {
       "vertices": [
         {
-          "kind": "MonacoType",
-          "__resolveType": "MonacoType",
+          "kind": "CodeMirrorType",
+          "__resolveType": "CodeMirrorType",
           "name": "type-9",
           "language": "cssInJs",
           "id": "251d77ac-d5c2-4bb4-896f-9bc050adcd6c"

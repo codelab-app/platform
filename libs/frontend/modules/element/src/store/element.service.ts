@@ -33,14 +33,14 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { BatchUpdateElementsMutationVariable } from '../graphql/element.endpoints.graphql.custom'
 import {
   makeCreateInput,
   makeDuplicateInput,
   makeUpdateInput,
 } from './api.utils'
-import { elementApi, propMapBindingApi } from './apis'
+import { customElementApi, elementApi, propMapBindingApi } from './apis'
 import { Element } from './element.model'
-import { elementRef } from './element.ref'
 import {
   CreateElementModalService,
   ElementModalService,
@@ -55,6 +55,7 @@ import { PropMapBindingModalService } from './prop-map-binding-modal.service'
  * - ComponentElementTree
  *
  */
+
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
@@ -162,7 +163,9 @@ export class ElementService
       throw new Error('No elements created')
     }
 
-    return this.hydrateOrUpdateCache(elements)
+    const hydratedElements = this.hydrateOrUpdateCache(elements)
+
+    return hydratedElements
   })
 
   /**
@@ -243,9 +246,12 @@ export class ElementService
   @transaction
   patchElement = _async(function* (
     this: ElementService,
-    element: IElement,
+    element: Pick<IElement, 'id'>,
     input: ElementUpdateInput,
+    shouldUpdateCache = true,
   ) {
+    console.log({ shouldUpdateCache })
+
     const {
       updateElements: {
         elements: [updatedElement],
@@ -261,54 +267,221 @@ export class ElementService
       throw new Error('No elements updated')
     }
 
-    return element.updateCache(updatedElement)
+    const elementFromCache = this.element(element.id)
+
+    if (!elementFromCache) {
+      throw new Error('Element not found')
+    }
+
+    if (shouldUpdateCache) {
+      return elementFromCache.updateCache(updatedElement)
+    }
+
+    return elementFromCache
+  })
+
+  @modelFlow
+  @transaction
+  detachElementFromTreeSiblings = _async(function* (
+    this: ElementService,
+    elemenId: string,
+  ) {
+    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    const updateElementCacheFns: Array<() => void> = []
+    const element = this.element(elemenId)
+
+    if (!element) {
+      console.warn(`Can't find element id ${elemenId}`)
+
+      return
+    }
+
+    updateElementCacheFns.push(
+      element.detachParent.bind(element),
+      element.detachNextSibling.bind(element),
+      element.detachPrevSibling.bind(element),
+    )
+
+    const detachElementInputs = [
+      element.makeDetachParentInput(),
+      element.makeDetachNextSiblingInput(),
+      element.makeDetachPrevSiblingInput(),
+    ].filter((input) => input) as Array<BatchUpdateElementsMutationVariable>
+
+    updateElementInputs.push(...detachElementInputs)
+
+    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+    updateElementCacheFns.forEach((fn) => fn())
   })
 
   /**
-   * Moves an element to a different parent and/or order
+   * Moves an element to the next postion of target element
    */
+  @modelFlow
   @transaction
-  moveElement = (elementId: string, newParentId: string, newOrder?: number) => {
+  moveElementAsNextSibling = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      targetElementId,
+    }: Parameters<IElementService['moveElementAsNextSibling']>[0],
+  ) {
     const element = this.element(elementId)
+    const targetElement = this.element(targetElementId)
 
-    if (!element) {
-      throw new Error(`Element ${elementId} not found`)
+    if (!element || !targetElement) {
+      return
     }
 
-    const existingParent = element.parentElement
-    const newParent = this.element(newParentId)
+    yield* _await(this.detachElementFromTreeSiblings(elementId))
 
-    if (!newParent) {
-      throw new Error(`Parent element ${newParentId} not found`)
+    yield* _await(
+      this.attachElementAsNextSibling({ elementId, targetElementId }),
+    )
+  })
+
+  @modelFlow
+  @transaction
+  moveElementAsSubRoot = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      parentElementId,
+    }: Parameters<IElementService['moveElementAsSubRoot']>[0],
+  ) {
+    const element = this.element(elementId)
+    const parentElement = this.element(parentElementId)
+
+    if (!element || !parentElement) {
+      return
     }
 
-    // make sure it won't be a child of itself or a descendant
-    if (newParent.id === element.id || element.findDescendant(newParent.id)) {
-      throw new Error(`Cannot move element ${elementId} to itself`)
+    yield* _await(this.detachElementFromTreeSiblings(elementId))
+    yield* _await(this.attachElementAsSubRoot({ elementId, parentElementId }))
+  })
+
+  @modelFlow
+  @transaction
+  createElementAsSubRoot = _async(function* (
+    this: ElementService,
+    data: ICreateElementDTO,
+  ) {
+    if (!data.parentElementId) {
+      throw new Error('Parent element id doesnt exist')
     }
 
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
+    const [element] = yield* _await(this.create([data]))
+    yield* _await(
+      this.attachElementAsSubRoot({
+        elementId: element.id,
+        parentElementId: data.parentElementId,
+      }),
+    )
 
-    if (existingParent) {
-      existingParent.detachChild(element)
+    return element
+  })
+
+  @modelFlow
+  @transaction
+  createElementAsNextSibling = _async(function* (
+    this: ElementService,
+    data: ICreateElementDTO,
+  ) {
+    const [element] = yield* _await(this.create([data]))
+    yield* _await(
+      this.attachElementAsNextSibling({
+        elementId: element.id,
+        targetElementId: String(data.prevSiblingId),
+      }),
+    )
+
+    return element
+  })
+
+  @modelFlow
+  @transaction
+  attachElementAsNextSibling = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      targetElementId,
+    }: Parameters<IElementService['attachElementAsNextSibling']>[0],
+  ) {
+    const element = this.element(elementId)
+    const targetElement = this.element(targetElementId)
+
+    if (!element || !targetElement) {
+      return
     }
 
-    newOrder = newOrder ?? element.parentElement?.lastChildOrder ?? 0
-    element.setOrderInParent(newOrder ?? null)
-    newParent.addChild(element.id, elementRef(element))
+    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    const updateElementCacheFns: Array<() => void> = []
 
-    const input: ElementUpdateInput = {
-      parentElement: {
-        disconnect: { where: {} },
-        connect: {
-          edge: { order: newOrder },
-          where: { node: { id: newParentId } },
-        },
-      },
+    if (targetElement.parentElement) {
+      updateElementCacheFns.push(
+        element.attachToParent.bind(element, targetElement.parentElement.id),
+      )
     }
 
-    return this.patchElement(element, input)
-  }
+    if (targetElement.nextSibling) {
+      updateElementCacheFns.push(
+        element.prependSibling.bind(element, targetElement.nextSibling.id),
+      )
+      updateElementInputs.push(
+        element.makePrependSiblingInput(targetElement.nextSibling.id),
+      )
+    }
+
+    updateElementCacheFns.push(
+      element.appendSibling.bind(element, targetElement.id),
+    )
+    updateElementInputs.push(element.makeAppendSiblingInput(targetElement.id))
+    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+    updateElementCacheFns.forEach((fn) => fn())
+  })
+
+  /**
+   * Moves an element to the next position of children[0] of parent children element
+   */
+  @modelFlow
+  @transaction
+  attachElementAsSubRoot = _async(function* (
+    this: ElementService,
+    {
+      elementId,
+      parentElementId,
+    }: Parameters<IElementService['attachElementAsSubRoot']>[0],
+  ) {
+    const element = this.element(elementId)
+    const parentElement = this.element(parentElementId)
+
+    if (!element || !parentElement) {
+      return
+    }
+
+    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    const updateElementCacheFns: Array<() => void> = []
+
+    if (parentElement.childrenRoot) {
+      updateElementCacheFns.push(
+        element.prependSibling.bind(element, parentElement.childrenRoot.id),
+      )
+      updateElementInputs.push(
+        element.makePrependSiblingInput(parentElement.childrenRoot.id),
+      )
+    }
+
+    updateElementCacheFns.push(
+      element.attachToParentAsSubRoot.bind(element, parentElement.id),
+    )
+    updateElementInputs.push(
+      element.makeAttachToParentAsSubRootInput(parentElementId),
+    )
+
+    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+
+    updateElementCacheFns.forEach((fn) => fn())
+  })
 
   @modelFlow
   @transaction
@@ -321,6 +494,11 @@ export class ElementService
     )
 
     const idsToDelete = [elementGraph.id, ...elementGraph.descendants]
+    const rootElement = this.element(root)
+
+    if (rootElement) {
+      yield* _await(this.detachElementFromTreeSiblings(rootElement.id))
+    }
 
     for (const id of idsToDelete.reverse()) {
       this.elements.delete(id)
@@ -448,9 +626,6 @@ export class ElementService
     // 2. Attach a Component to the Element and detach it from the parent
     const parentId = element.parentElement.id
 
-    const order =
-      element.orderInParent ?? element.parentElement.lastChildOrder + 1
-
     element.parentElement.removeChild(element)
 
     yield* _await(
@@ -497,7 +672,6 @@ export class ElementService
           name: element.label,
           instanceOfComponentId: element.component.id,
           parentElementId: parentId,
-          order,
         },
       ]),
     )

@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "sourceMap": false,
-    "esModuleInterop": true,
     "strict": true,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,
@@ -14,5 +13,10 @@
       "cypress-nextjs-auth0"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.js"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "cypress.test.config.ts",
+    "cypress.ci.config.ts"
+  ]
 }

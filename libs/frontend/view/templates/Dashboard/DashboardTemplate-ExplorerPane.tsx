@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 import { UseResizable } from '../../components'
 import { sidebarWidth } from './constants'
 
-export type ExplorerPaneProps = {
+export interface ExplorerPaneProps {
   hasHeader: boolean
   headerHeight: number
   hasSidebarNavigation: boolean

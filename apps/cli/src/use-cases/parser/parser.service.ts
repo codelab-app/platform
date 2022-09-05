@@ -71,7 +71,7 @@ export class ParserService {
     )
 
     const filteredFields = fields.filter((field): field is ICreateFieldDTO => {
-      return !!field.fieldType
+      return Boolean(field.fieldType)
     })
 
     this.apis.push({

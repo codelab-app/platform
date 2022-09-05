@@ -7,7 +7,7 @@ export type ITypeWhere = cg.AppTypeWhere &
   cg.EnumTypeWhere &
   cg.InterfaceTypeWhere &
   cg.LambdaTypeWhere &
-  cg.MonacoTypeWhere &
+  cg.CodeMirrorTypeWhere &
   cg.PageTypeWhere &
   cg.PrimitiveTypeWhere &
   cg.ReactNodeTypeWhere &
@@ -23,7 +23,7 @@ export type IAllTypesOptions = cg.AppTypeOptions &
   cg.EnumTypeOptions &
   cg.InterfaceTypeOptions &
   cg.LambdaTypeOptions &
-  cg.MonacoTypeOptions &
+  cg.CodeMirrorTypeOptions &
   cg.PageTypeOptions &
   cg.PrimitiveTypeOptions &
   cg.ReactNodeTypeOptions &

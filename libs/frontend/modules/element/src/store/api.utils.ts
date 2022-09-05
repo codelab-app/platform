@@ -13,6 +13,14 @@ import { v4 } from 'uuid'
 // Utilities for transforming the form inputs to api inputs
 //
 
+export const makePatchElementInput = (
+  element: Pick<IElement, 'id'>,
+  input: ElementUpdateInput,
+) => ({
+  where: { id: element.id },
+  update: input,
+})
+
 export const makeCreateInput = (
   input: ICreateElementDTO,
 ): ElementCreateInput => {
@@ -24,7 +32,6 @@ export const makeCreateInput = (
     name,
     postRenderActionId,
     preRenderActionId,
-    order,
     propsData,
   } = input
 
@@ -41,7 +48,6 @@ export const makeCreateInput = (
     ? {
         connect: {
           where: { node: { id: parentElementId } },
-          edge: { order },
         },
       }
     : undefined
@@ -86,7 +92,6 @@ export const makeDuplicateInput = (
       where: {
         node: { id: parentId },
       },
-      edge: { order: element.orderInParent },
     },
   }
 

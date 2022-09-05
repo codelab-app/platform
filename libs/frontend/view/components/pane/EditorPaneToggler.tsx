@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { editorPaneHeight } from '../../templates/Dashboard/constants'
 import { UseResizable } from '../resizable'
 
-type EditorPaneTogglerProps = {
+interface EditorPaneTogglerProps {
   resizable: UseResizable
   className?: string
 }

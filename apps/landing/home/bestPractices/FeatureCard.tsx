@@ -6,7 +6,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { cardStyle } from '../../styles/style'
 
-type FeatureCardProps = {
+interface FeatureCardProps {
   icon: IconDefinition
   description: string
   title: string

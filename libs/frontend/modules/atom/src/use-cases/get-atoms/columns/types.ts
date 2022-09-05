@@ -20,19 +20,19 @@ export interface AtomRecord {
   library: AtomLibrary
 }
 
-export type LibraryColumnProps = {
+export interface LibraryColumnProps {
   library: AtomLibrary
 }
 
-export type PropsColumnProps = {
+export interface PropsColumnProps {
   atom: AtomRecord
 }
 
-export type ActionColumnProps = {
+export interface ActionColumnProps {
   atom: AtomRecord
   atomService: IAtomService
 }
 
-export type TagsColumnProps = {
+export interface TagsColumnProps {
   tags: Array<Ref<ITag>>
 }

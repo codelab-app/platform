@@ -1,11 +1,16 @@
-import { AppOGM, PageOGM, pageSelectionSet, StoreOGM } from '@codelab/backend'
+import {
+  AppOGM,
+  PageOGM,
+  pageSelectionSet,
+  StoreOGM,
+} from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IAppExport } from '@codelab/shared/abstract/core'
 import { cLog } from '@codelab/shared/utils'
 import { omit } from 'lodash'
 import { v4 } from 'uuid'
 import { validate } from '../commands/import/validate'
-import type { ExportAppData } from '../use-cases/export/export-app'
+import type { ExportAppData } from '../use-cases/export/export-apps'
 import { getElementAndDescendants } from '../use-cases/export/get-element'
 import { getPageData } from '../use-cases/export/get-page'
 import { exportActions, importActions } from './action.repo'

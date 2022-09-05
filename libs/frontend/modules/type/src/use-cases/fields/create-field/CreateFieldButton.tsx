@@ -7,7 +7,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { InterfaceType, typeRef } from '../../../store'
 
-export type CreateFieldButtonProps = {
+export interface CreateFieldButtonProps {
   interfaceId: string
   typeService: ITypeService
 }

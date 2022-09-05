@@ -32,3 +32,6 @@ export const STATE_PATH_TEMPLATE_START_OPEN_REGEX = /\{\{(?!(.+)?}})/g
 export const STATE_PATH_TEMPLATE_END = '}}'
 export const STATE_PATH_TEMPLATE_END_REGEX = /}}/g
 export const STATE_PATH_TEMPLATE_REGEX = /\{\{[^}]+}}/g
+
+export const LAST_WORD_AFTER_DOT_REGEX = /\.\w+$/
+export const WORD_BEFORE_DOT_REGEX = /\w*(\.)?/

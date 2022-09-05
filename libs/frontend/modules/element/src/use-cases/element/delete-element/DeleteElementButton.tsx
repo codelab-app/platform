@@ -4,19 +4,25 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementRef } from '../../../store'
 
-type DeleteElementProps = {
+interface DeleteElementProps {
   elementService: IElementService
   element: IElement
   disabled: boolean
+  className?: string
 }
 
 export const DeleteElementButton = observer<DeleteElementProps>(
-  ({ elementService, element, disabled }) => {
+  ({ elementService, element, disabled, className }) => {
     const onClick = () =>
       elementService.deleteModal.open(elementRef(element.id))
 
     return (
-      <Button danger disabled={disabled} onClick={onClick}>
+      <Button
+        className={className}
+        danger
+        disabled={disabled}
+        onClick={onClick}
+      >
         Delete
       </Button>
     )

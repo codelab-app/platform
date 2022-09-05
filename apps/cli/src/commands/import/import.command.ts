@@ -1,8 +1,11 @@
-import { UserOGM } from '@codelab/backend'
+import { UserOGM } from '@codelab/backend/adapter/neo4j'
+import { ImportExportData } from '@codelab/shared/abstract/core'
 import * as inquirer from 'inquirer'
 import yargs, { CommandModule } from 'yargs'
 import { seedFilePath } from './config'
 import { importSeedData } from './import-seed-data'
+// import { antdAtomsFactory } from '../../data/atom'
+// import { __seedAtomData, __seedTagData } from './import-seed-data'
 import { importUserData } from './import-user-data'
 
 /**
@@ -12,7 +15,7 @@ import { importUserData } from './import-user-data'
  *
  * Import without any argument seeds data
  */
-export const importCommand: CommandModule<any, any> = {
+export const importCommand: CommandModule<unknown, ImportExportData> = {
   command: 'import',
   describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
@@ -27,7 +30,7 @@ export const importCommand: CommandModule<any, any> = {
      */
     seedData: {
       describe: 'seedData',
-      // demandOption: true,
+      demandOption: true,
       type: 'string',
       default: seedFilePath,
     },
@@ -64,7 +67,8 @@ export const importCommand: CommandModule<any, any> = {
     }
 
     // Only used by admin
-    // await __seedData(selectedUser)
+    // await __seedTagData(selectedUser)
+    // await __seedAtomData(selectedUser, antdAtomsFactory)
 
     yargs.exit(0, null!)
   },

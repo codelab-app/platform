@@ -6,10 +6,9 @@ import { isString } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-export type UpdateElementPropTransformationFormProp = {
+export interface UpdateElementPropTransformationFormProp {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
-  monacoProps?: null
   elementService: IElementService
 }
 
@@ -22,7 +21,7 @@ function transform(props){
 
 export const UpdateElementPropTransformationForm =
   observer<UpdateElementPropTransformationFormProp>(
-    ({ element, elementService, trackPromises, monacoProps }) => {
+    ({ element, elementService, trackPromises }) => {
       const { trackPromise } = trackPromises ?? {}
 
       const [value, setValue] = useState(

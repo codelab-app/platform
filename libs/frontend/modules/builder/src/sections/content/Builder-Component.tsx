@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React, { JSXElementConstructor, useEffect } from 'react'
 import { BaseBuilderProps } from './BaseBuilder'
 
-type BuilderComponentProps = {
+interface BuilderComponentProps {
   componentId: string
   componentService: IComponentService
   appStore: IStore

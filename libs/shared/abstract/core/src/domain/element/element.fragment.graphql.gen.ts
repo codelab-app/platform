@@ -30,16 +30,16 @@ export type ElementFragment = {
   propTransformationJs?: string | null
   component?: ComponentFragment | null
   instanceOfComponent?: ComponentFragment | null
+  prevSibling?: { id: string } | null
+  nextSibling?: { id: string } | null
   parentElement?: { id: string } | null
+  childrenRoot?: { id: string } | null
   atom?: AtomFragment | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
   parentElementConnection: {
-    edges: Array<{
-      order?: number | null
-      node: { id: string; name?: string | null }
-    }>
+    edges: Array<{ node: { id: string; name?: string | null } }>
   }
 }
 
@@ -58,7 +58,16 @@ export const ElementFragmentDoc = gql`
     instanceOfComponent {
       ...Component
     }
+    prevSibling {
+      id
+    }
+    nextSibling {
+      id
+    }
     parentElement {
+      id
+    }
+    childrenRoot {
       id
     }
     atom {
@@ -84,7 +93,6 @@ export const ElementFragmentDoc = gql`
           id
           name
         }
-        order
       }
     }
   }

@@ -8,7 +8,7 @@ import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import tw from 'twin.macro'
 
-type DemoCardProps = {
+interface DemoCardProps {
   block: boolean
   type: ButtonProps['type']
   icon: string

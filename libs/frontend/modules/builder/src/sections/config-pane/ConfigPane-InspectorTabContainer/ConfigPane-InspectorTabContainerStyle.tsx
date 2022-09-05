@@ -34,9 +34,7 @@ export const TabContainer = styled.div`
   }
 
   .suggest-details-container,
-  .editor-widget,
-  .monaco-sash,
-  .monaco-list {
+  .editor-widget {
     z-index: 50;
   }
 `

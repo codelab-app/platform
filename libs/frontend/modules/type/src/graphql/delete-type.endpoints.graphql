@@ -113,11 +113,11 @@ mutation DeleteActionTypes(
   }
 }
 
-mutation DeleteMonacoTypes(
-  $delete: MonacoTypeDeleteInput
-  $where: MonacoTypeWhere
+mutation DeleteCodeMirrorTypes(
+  $delete: CodeMirrorTypeDeleteInput
+  $where: CodeMirrorTypeWhere
 ) {
-  deleteMonacoTypes(delete: $delete, where: $where) {
+  deleteCodeMirrorTypes(delete: $delete, where: $where) {
     relationshipsDeleted
     nodesDeleted
   }

@@ -4,11 +4,11 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
+  Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
   Type_LambdaType_Fragment,
-  Type_MonacoType_Fragment,
   Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
@@ -175,17 +175,17 @@ export type UpdateActionTypesMutation = {
   types: { types: Array<Type_ActionType_Fragment> }
 }
 
-export type UpdateMonacoTypesMutationVariables = Types.Exact<{
-  connect?: Types.InputMaybe<Types.MonacoTypeConnectInput>
-  create?: Types.InputMaybe<Types.MonacoTypeRelationInput>
-  delete?: Types.InputMaybe<Types.MonacoTypeDeleteInput>
-  disconnect?: Types.InputMaybe<Types.MonacoTypeDisconnectInput>
-  update?: Types.InputMaybe<Types.MonacoTypeUpdateInput>
-  where?: Types.InputMaybe<Types.MonacoTypeWhere>
+export type UpdateCodeMirrorTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.CodeMirrorTypeConnectInput>
+  create?: Types.InputMaybe<Types.CodeMirrorTypeRelationInput>
+  delete?: Types.InputMaybe<Types.CodeMirrorTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.CodeMirrorTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.CodeMirrorTypeUpdateInput>
+  where?: Types.InputMaybe<Types.CodeMirrorTypeWhere>
 }>
 
-export type UpdateMonacoTypesMutation = {
-  types: { types: Array<Type_MonacoType_Fragment> }
+export type UpdateCodeMirrorTypesMutation = {
+  types: { types: Array<Type_CodeMirrorType_Fragment> }
 }
 
 export const UpdatePrimitiveTypesDocument = gql`
@@ -476,16 +476,16 @@ export const UpdateActionTypesDocument = gql`
   }
   ${TypeFragmentDoc}
 `
-export const UpdateMonacoTypesDocument = gql`
-  mutation UpdateMonacoTypes(
-    $connect: MonacoTypeConnectInput
-    $create: MonacoTypeRelationInput
-    $delete: MonacoTypeDeleteInput
-    $disconnect: MonacoTypeDisconnectInput
-    $update: MonacoTypeUpdateInput
-    $where: MonacoTypeWhere
+export const UpdateCodeMirrorTypesDocument = gql`
+  mutation UpdateCodeMirrorTypes(
+    $connect: CodeMirrorTypeConnectInput
+    $create: CodeMirrorTypeRelationInput
+    $delete: CodeMirrorTypeDeleteInput
+    $disconnect: CodeMirrorTypeDisconnectInput
+    $update: CodeMirrorTypeUpdateInput
+    $where: CodeMirrorTypeWhere
   ) {
-    types: updateMonacoTypes(
+    types: updateCodeMirrorTypes(
       connect: $connect
       create: $create
       delete: $delete
@@ -493,7 +493,7 @@ export const UpdateMonacoTypesDocument = gql`
       update: $update
       where: $where
     ) {
-      types: monacoTypes {
+      types: codeMirrorTypes {
         ...Type
       }
     }
@@ -698,18 +698,18 @@ export function getSdk(
         'mutation',
       )
     },
-    UpdateMonacoTypes(
-      variables?: UpdateMonacoTypesMutationVariables,
+    UpdateCodeMirrorTypes(
+      variables?: UpdateCodeMirrorTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<UpdateMonacoTypesMutation> {
+    ): Promise<UpdateCodeMirrorTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateMonacoTypesMutation>(
-            UpdateMonacoTypesDocument,
+          client.request<UpdateCodeMirrorTypesMutation>(
+            UpdateCodeMirrorTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'UpdateMonacoTypes',
+        'UpdateCodeMirrorTypes',
         'mutation',
       )
     },

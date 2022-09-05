@@ -1,4 +1,4 @@
-import { ResourceOGM } from '@codelab/backend'
+import { ResourceOGM } from '@codelab/backend/adapter/neo4j'
 import { IResourceExport } from '@codelab/shared/abstract/core'
 
 export const createResource = async (

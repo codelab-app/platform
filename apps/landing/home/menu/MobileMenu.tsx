@@ -29,7 +29,7 @@ const SpaceEvenly = styled.div(
   `,
 )
 
-type BackdropProps = {
+interface BackdropProps {
   active: boolean
 }
 

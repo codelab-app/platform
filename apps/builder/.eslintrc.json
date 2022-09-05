@@ -12,7 +12,6 @@
         "@next/next/no-html-link-for-pages": ["error", "apps/builder/pages"],
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off",
-        "@nrwl/nx/enforce-module-boundaries": "off",
         "react/no-unescaped-entities": "off",
         "react/display-name": "off"
       }

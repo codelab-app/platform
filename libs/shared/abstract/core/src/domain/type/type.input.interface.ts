@@ -15,7 +15,7 @@ export type ICreateTypeInput =
   | cg.EnumTypeCreateInput
   | cg.InterfaceTypeCreateInput
   | cg.LambdaTypeCreateInput
-  | cg.MonacoTypeCreateInput
+  | cg.CodeMirrorTypeCreateInput
   | cg.PageTypeCreateInput
   | cg.PrimitiveTypeCreateInput
   | cg.ReactNodeTypeCreateInput
@@ -29,7 +29,7 @@ export type IUpdateTypeInput =
   | cg.EnumTypeUpdateInput
   | cg.InterfaceTypeUpdateInput
   | cg.LambdaTypeUpdateInput
-  | cg.MonacoTypeUpdateInput
+  | cg.CodeMirrorTypeUpdateInput
   | cg.PageTypeUpdateInput
   | cg.PrimitiveTypeUpdateInput
   | cg.ReactNodeTypeUpdateInput
@@ -47,7 +47,7 @@ export type IConnectTypeInput =
   | cg.EnumTypeConnectInput
   | cg.InterfaceTypeConnectInput
   | cg.LambdaTypeConnectInput
-  | cg.MonacoTypeConnectInput
+  | cg.CodeMirrorTypeConnectInput
   | cg.PageTypeConnectInput
   | cg.PrimitiveTypeConnectInput
   | cg.ReactNodeTypeConnectInput
@@ -64,7 +64,7 @@ export type IDisconnectTypeInput =
   | cg.EnumTypeDisconnectInput
   | cg.InterfaceTypeDisconnectInput
   | cg.LambdaTypeDisconnectInput
-  | cg.MonacoTypeDisconnectInput
+  | cg.CodeMirrorTypeDisconnectInput
   | cg.PageTypeDisconnectInput
   | cg.PrimitiveTypeDisconnectInput
   | cg.ReactNodeTypeDisconnectInput
@@ -82,7 +82,7 @@ export type IDeleteTypeInput =
   | cg.EnumTypeDeleteInput
   | cg.InterfaceTypeDeleteInput
   | cg.LambdaTypeDeleteInput
-  | cg.MonacoTypeDeleteInput
+  | cg.CodeMirrorTypeDeleteInput
   | cg.PageTypeDeleteInput
   | cg.PrimitiveTypeDeleteInput
   | cg.ReactNodeTypeDeleteInput

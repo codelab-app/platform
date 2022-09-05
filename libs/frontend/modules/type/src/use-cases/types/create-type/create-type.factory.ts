@@ -20,7 +20,8 @@ export const createTypeFactory = (
     },
     primitiveKind:
       type.kind === ITypeKind.PrimitiveType ? type.primitiveKind : undefined,
-    language: type.kind === ITypeKind.MonacoType ? type.language : undefined,
+    language:
+      type.kind === ITypeKind.CodeMirrorType ? type.language : undefined,
     elementKind:
       type.kind === ITypeKind.ElementType ? type.elementKind : undefined,
     allowedValues:

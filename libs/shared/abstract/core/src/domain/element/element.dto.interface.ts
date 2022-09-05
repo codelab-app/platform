@@ -9,7 +9,6 @@ import {
 export interface ICreateElementDTO {
   id?: string
   name?: Nullable<string>
-  order?: number
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>
   parentElementId?: string
@@ -18,9 +17,10 @@ export interface ICreateElementDTO {
   customCss?: Nullish<string>
   guiCss?: Nullish<string>
   propsData?: string
+  prevSiblingId?: Nullable<string>
 }
 
-export type IUpdateElementDTO = {
+export interface IUpdateElementDTO {
   name?: Nullable<string>
   instanceOfComponentId?: Nullable<string>
   atomId?: Nullable<string>

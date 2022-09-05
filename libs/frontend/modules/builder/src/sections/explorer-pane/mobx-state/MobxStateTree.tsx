@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { MobxStateTreeItem } from './MobxStateTreeItem'
 
-type StateTreeProps = {
+interface StateTreeProps {
   state: Array<IStateTreeNode>
   parentPath: string
   builderService: IBuilderService

@@ -12,7 +12,7 @@ export const getCardActions = () => {
   return cy.get('.ant-card-extra')
 }
 
-type CardSearch = {
+interface CardSearch {
   title: Label
 }
 

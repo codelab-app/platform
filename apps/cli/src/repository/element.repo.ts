@@ -1,4 +1,4 @@
-import { ElementOGM } from '@codelab/backend'
+import { ElementOGM } from '@codelab/backend/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -36,7 +36,7 @@ export const importElementInitial = async (
         {
           id: element.id ?? v4(),
           name: element.name,
-          /*          
+          /*
           owner: {
             connect: {
               where: {

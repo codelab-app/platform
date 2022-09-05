@@ -19,6 +19,33 @@ import { Tasks } from './utils/tasks'
 yargs(hideBin(process.argv))
   .scriptName('cli')
 
+  // All scripts here could act on a different stage
+  // .options({
+  //   s: {
+  //     alias: 'stage',
+  //     describe: 'The deployment environment',
+  //     demandOption: true,
+  //     default: Stage.Development,
+  //     type: 'string',
+  //     choices: Object.values(Stage),
+  //   },
+  // })
+
+  // .command(demoCommand)
+
+  //
+  // Reset data
+  //
+  .command(resetCommand)
+
+  /**
+   * Export/import data
+   *
+   * - import also seeds data
+   */
+  .command(importCommand)
+  .command(exportCommand)
+
   //
   // Task
   //
@@ -76,17 +103,5 @@ yargs(hideBin(process.argv))
   //   )
   // })
 
-  //
-  // Reset data
-  //
-  .command(resetCommand)
-
-  /**
-   * Export/import data
-   *
-   * - import also seeds data
-   */
-  .command(importCommand)
-  .command(exportCommand)
   .demandCommand(1, 'Please provide a command').argv
 // .parse()

@@ -1,11 +1,11 @@
 import {
   EnumTypeOGM,
-  fieldRepository,
   InterfaceTypeOGM,
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
   RenderPropsTypeOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
+import { fieldRepository } from '@codelab/backend/application'
 import { ITypeExport, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectId } from '@codelab/shared/data'
 

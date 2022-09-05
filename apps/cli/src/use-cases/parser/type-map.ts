@@ -3,7 +3,7 @@ import {
   PrimitiveTypeOGM,
   ReactNodeTypeOGM,
   RenderPropsTypeOGM,
-} from '@codelab/backend'
+} from '@codelab/backend/adapter/neo4j'
 import {
   IAtomExport,
   IPrimitiveTypeKind,

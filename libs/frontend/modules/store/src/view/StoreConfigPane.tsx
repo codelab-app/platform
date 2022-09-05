@@ -10,7 +10,7 @@ import React from 'react'
 import tw from 'twin.macro'
 import { useCurrentStore } from '../hooks'
 
-type StoreConfigPaneProps = {
+interface StoreConfigPaneProps {
   storeService: IStoreService
   typeService: ITypeService
   appService: IAppService

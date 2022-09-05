@@ -4,11 +4,11 @@ import {
   TypeBase_ActionType_Fragment,
   TypeBase_AppType_Fragment,
   TypeBase_ArrayType_Fragment,
+  TypeBase_CodeMirrorType_Fragment,
   TypeBase_ElementType_Fragment,
   TypeBase_EnumType_Fragment,
   TypeBase_InterfaceType_Fragment,
   TypeBase_LambdaType_Fragment,
-  TypeBase_MonacoType_Fragment,
   TypeBase_PageType_Fragment,
   TypeBase_PrimitiveType_Fragment,
   TypeBase_ReactNodeType_Fragment,
@@ -23,7 +23,7 @@ import { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragment } from './render-props.fragment.graphql.gen'
 import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
-import { MonacoTypeFragment } from './monaco-type.fragment.graphql.gen'
+import { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
 import { ActionTypeFragment } from './action-type.fragment.graphql.gen'
@@ -39,7 +39,7 @@ import { ElementTypeFragmentDoc } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragmentDoc } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragmentDoc } from './render-props.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
-import { MonacoTypeFragmentDoc } from './monaco-type.fragment.graphql.gen'
+import { CodeMirrorTypeFragmentDoc } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
 import { ActionTypeFragmentDoc } from './action-type.fragment.graphql.gen'
@@ -50,6 +50,9 @@ export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 
 export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
   ArrayTypeFragment
+
+export type Type_CodeMirrorType_Fragment = TypeBase_CodeMirrorType_Fragment &
+  CodeMirrorTypeFragment
 
 export type Type_ElementType_Fragment = TypeBase_ElementType_Fragment &
   ElementTypeFragment
@@ -62,9 +65,6 @@ export type Type_InterfaceType_Fragment = TypeBase_InterfaceType_Fragment &
 
 export type Type_LambdaType_Fragment = TypeBase_LambdaType_Fragment &
   LambdaTypeFragment
-
-export type Type_MonacoType_Fragment = TypeBase_MonacoType_Fragment &
-  MonacoTypeFragment
 
 export type Type_PageType_Fragment = TypeBase_PageType_Fragment &
   PageTypeFragment
@@ -84,11 +84,11 @@ export type TypeFragment =
   | Type_ActionType_Fragment
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
+  | Type_CodeMirrorType_Fragment
   | Type_ElementType_Fragment
   | Type_EnumType_Fragment
   | Type_InterfaceType_Fragment
   | Type_LambdaType_Fragment
-  | Type_MonacoType_Fragment
   | Type_PageType_Fragment
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
@@ -106,7 +106,7 @@ export const TypeFragmentDoc = gql`
     ...LambdaType
     ...RenderPropsType
     ...UnionType
-    ...MonacoType
+    ...CodeMirrorType
     ...PageType
     ...AppType
     ...ActionType
@@ -120,7 +120,7 @@ export const TypeFragmentDoc = gql`
   ${LambdaTypeFragmentDoc}
   ${RenderPropsTypeFragmentDoc}
   ${UnionTypeFragmentDoc}
-  ${MonacoTypeFragmentDoc}
+  ${CodeMirrorTypeFragmentDoc}
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
   ${ActionTypeFragmentDoc}

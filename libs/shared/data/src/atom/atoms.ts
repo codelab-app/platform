@@ -51,3 +51,7 @@ export const connectOwner = (auth0Id: string) => {
 export const connectId = (id?: string) => {
   return { connect: id ? { where: { node: { id } } } : undefined }
 }
+
+export const disconnectId = (id?: string) => {
+  return { disconnect: id ? { where: { node: { id } } } : undefined }
+}

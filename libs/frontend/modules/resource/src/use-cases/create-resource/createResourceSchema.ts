@@ -1,5 +1,5 @@
-import { monacoFieldFactory } from '@codelab/frontend/view/components'
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
+import { CodeMirrorField } from '@codelab/frontend/view/components'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ICreateResourceDTO,
   IResourceType,
@@ -7,11 +7,6 @@ import {
 import { showFieldOnDev } from '@codelab/shared/utils'
 import { JSONSchemaType } from 'ajv'
 import { keys } from 'lodash'
-
-const monacoFieldJson = monacoFieldFactory({
-  editorOptions: { language: MonacoLanguage.json },
-  containerProps: { style: { height: '240px' } },
-})
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
   title: 'Create Resource',
@@ -30,7 +25,12 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceDTO> = {
       type: 'object',
       properties: {
         url: { type: 'string' },
-        headers: { type: 'string', uniforms: { component: monacoFieldJson } },
+        headers: {
+          type: 'string',
+          uniforms: {
+            component: CodeMirrorField({ language: CodeMirrorLanguage.Json }),
+          },
+        },
       },
       label: '',
       required: ['url'],

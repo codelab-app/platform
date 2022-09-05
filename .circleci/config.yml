@@ -31,6 +31,10 @@ executor-config: &executor-config
     SLACK_NGHIA: <@U02DX6U7YGP>
     GITHUB_YASEEN: mohasarc
     SLACK_YASEEN: <@U03B5N7J2N9>
+    GITHUB_HAU: hauleIT
+    SLACK_HAU: <U040GU0PQ81>
+    GITHUB_ELHAM: melhamin
+    SLACK_ELHAM: <U0406P3J9T6>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -150,7 +154,7 @@ jobs:
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            - ~/project/dist/apps/builder/.next/cache
+            #            - ~/project/dist/apps/builder/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/

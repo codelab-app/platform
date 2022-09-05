@@ -37,7 +37,7 @@ export class ReactNodeTypedValueTransformer
 
     return (
       typeof value.value === 'string' &&
-      !!getRootElement(value, componentService, elementService)
+      Boolean(getRootElement(value, componentService, elementService))
     )
   }
 

@@ -1,3 +1,0 @@
-export * from './<%= useCasePC %>Form'
-export * from './<%= useCasePC %>Modal'
-export * from './<%= useCasePC %>Button'

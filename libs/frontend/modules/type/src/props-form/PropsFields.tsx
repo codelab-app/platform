@@ -4,9 +4,9 @@ import Form from 'antd/lib/form'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { Field } from './form-controls'
+import { Field } from './fields'
 
-type PropsFieldFactoryProps = {
+interface PropsFieldFactoryProps {
   field: IField
   form: UseFormReturn
   // the state object from where we will get the keys to make autocomplete options
