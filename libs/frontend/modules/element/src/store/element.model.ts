@@ -54,7 +54,7 @@ export const hydrate = ({
   component,
   instanceOfComponent,
 
-  rootOf,
+  subRootOf,
   nextSibling,
   prevSibling,
   childrenRoot,
@@ -74,7 +74,7 @@ export const hydrate = ({
     name,
     customCss,
     guiCss,
-    rootOfId: rootOf?.id,
+    subRootOfId: subRootOf?.id,
     nextSiblingId: nextSibling?.id,
     prevSiblingId: prevSibling?.id,
     childrenRootId: childrenRoot?.id,
@@ -117,7 +117,7 @@ export class Element
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
-    rootOfId: prop<Nullable<string>>(null),
+    subRootOfId: prop<Nullable<string>>(null),
     nextSiblingId: prop<Nullable<string>>(null),
     prevSiblingId: prop<Nullable<string>>(null),
     childrenRootId: prop<Nullable<string>>(null),
@@ -275,9 +275,9 @@ export class Element
   }
 
   @computed
-  get rootOf() {
-    return this.rootOfId
-      ? this.elementService.element(this.rootOfId)
+  get subRootOf() {
+    return this.subRootOfId
+      ? this.elementService.element(this.subRootOfId)
       : undefined
   }
 
@@ -303,15 +303,15 @@ export class Element
   @computed
   get parentElement() {
     // the parent is ObjectMap items
-    if (this.rootOf) {
-      return this.rootOf
+    if (this.subRootOf) {
+      return this.subRootOf
     }
 
     let travledNode = this.prevSibling
 
     while (travledNode) {
-      if (travledNode.rootOf) {
-        return travledNode.rootOf
+      if (travledNode.subRootOf) {
+        return travledNode.subRootOf
       }
 
       travledNode = travledNode.prevSibling
@@ -478,7 +478,7 @@ export class Element
 
     if (this.parentElement.childrenRootId === this.id) {
       this.parentElement.childrenRootId = this.nextSiblingId
-      this.rootOfId = null
+      this.subRootOfId = null
     }
   }
 
@@ -491,7 +491,7 @@ export class Element
     }
 
     parentElement.childrenRootId = this.id
-    this.rootOfId = parentElement.id
+    this.subRootOfId = parentElement.id
   }
 
   makeAttachToParentAsSubRootInput(parentElementId: string) {

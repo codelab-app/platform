@@ -16,7 +16,7 @@ export const elementSchema = gql`
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
 
     childrenRoot: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
-    rootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
+    subRootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
 
     # Used for reverse lookup to see whether element is detached
     app: App @relationship(type: "ROOT_APP_ELEMENT", direction: OUT)

@@ -25,7 +25,7 @@ fragment Element on Element {
   props {
     ...Prop
   }
-  rootOf {
+  subRootOf {
     id
   }
   hooks {

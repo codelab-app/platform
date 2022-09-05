@@ -486,8 +486,6 @@ input ActionsPipeLineSort {
 
 input ActionsPipeLineUpdateInput {
   orders: [String!]
-  orders_POP: Int
-  orders_PUSH: [String!]
 }
 
 input ActionsPipeLineWhere {
@@ -3869,11 +3867,7 @@ input CreateInfoSort {
 input CreateInfoUpdateInput {
   bookmark: String
   nodesCreated: Int
-  nodesCreated_DECREMENT: Int
-  nodesCreated_INCREMENT: Int
   relationshipsCreated: Int
-  relationshipsCreated_DECREMENT: Int
-  relationshipsCreated_INCREMENT: Int
 }
 
 input CreateInfoWhere {
@@ -4279,11 +4273,7 @@ input DeleteInfoSort {
 input DeleteInfoUpdateInput {
   bookmark: String
   nodesDeleted: Int
-  nodesDeleted_DECREMENT: Int
-  nodesDeleted_INCREMENT: Int
   relationshipsDeleted: Int
-  relationshipsDeleted_DECREMENT: Int
-  relationshipsDeleted_INCREMENT: Int
 }
 
 input DeleteInfoWhere {
@@ -4764,22 +4754,22 @@ type Element {
   ): ElementPropsConnection!
   renderForEachPropKey: String
   renderIfPropKey: String
-  rootOf(
+  subRootOf(
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
   ): Element
-  rootOfAggregate(
+  subRootOfAggregate(
     directed: Boolean = true
     where: ElementWhere
-  ): ElementElementRootOfAggregationSelection
-  rootOfConnection(
+  ): ElementElementSubRootOfAggregationSelection
+  subRootOfConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementRootOfConnectionSort!]
-    where: ElementRootOfConnectionWhere
-  ): ElementRootOfConnection!
+    sort: [ElementSubRootOfConnectionSort!]
+    where: ElementSubRootOfConnectionWhere
+  ): ElementSubRootOfConnection!
 }
 
 type ElementAggregateSelection {
@@ -5457,7 +5447,7 @@ input ElementConnectInput {
   prevSibling: ElementPrevSiblingConnectFieldInput
   propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
   props: ElementPropsConnectFieldInput
-  rootOf: ElementRootOfConnectFieldInput
+  subRootOf: ElementSubRootOfConnectFieldInput
 }
 
 input ElementConnectOrCreateInput {
@@ -5472,7 +5462,7 @@ input ElementConnectOrCreateInput {
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
   props: ElementPropsConnectOrCreateFieldInput
-  rootOf: ElementRootOfConnectOrCreateFieldInput
+  subRootOf: ElementSubRootOfConnectOrCreateFieldInput
 }
 
 input ElementConnectOrCreateWhere {
@@ -5504,7 +5494,7 @@ input ElementCreateInput {
   props: ElementPropsFieldInput
   renderForEachPropKey: String
   renderIfPropKey: String
-  rootOf: ElementRootOfFieldInput
+  subRootOf: ElementSubRootOfFieldInput
 }
 
 input ElementDeleteInput {
@@ -5519,7 +5509,7 @@ input ElementDeleteInput {
   prevSibling: ElementPrevSiblingDeleteFieldInput
   propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
   props: ElementPropsDeleteFieldInput
-  rootOf: ElementRootOfDeleteFieldInput
+  subRootOf: ElementSubRootOfDeleteFieldInput
 }
 
 input ElementDisconnectInput {
@@ -5534,7 +5524,7 @@ input ElementDisconnectInput {
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
   props: ElementPropsDisconnectFieldInput
-  rootOf: ElementRootOfDisconnectFieldInput
+  subRootOf: ElementSubRootOfDisconnectFieldInput
 }
 
 type ElementEdge {
@@ -5593,12 +5583,12 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   renderIfPropKey: StringAggregateSelectionNullable!
 }
 
-type ElementElementRootOfAggregationSelection {
+type ElementElementSubRootOfAggregationSelection {
   count: Int!
-  node: ElementElementRootOfNodeAggregateSelection
+  node: ElementElementSubRootOfNodeAggregateSelection
 }
 
-type ElementElementRootOfNodeAggregateSelection {
+type ElementElementSubRootOfNodeAggregateSelection {
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -6740,74 +6730,89 @@ input ElementRelationInput {
   prevSibling: ElementPrevSiblingCreateFieldInput
   propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
   props: ElementPropsCreateFieldInput
-  rootOf: ElementRootOfCreateFieldInput
+  subRootOf: ElementSubRootOfCreateFieldInput
 }
 
-input ElementRootOfAggregateInput {
-  AND: [ElementRootOfAggregateInput!]
-  OR: [ElementRootOfAggregateInput!]
+"""
+Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
+"""
+input ElementSort {
+  customCss: SortDirection
+  guiCss: SortDirection
+  id: SortDirection
+  name: SortDirection
+  postRenderActionId: SortDirection
+  preRenderActionId: SortDirection
+  propTransformationJs: SortDirection
+  renderForEachPropKey: SortDirection
+  renderIfPropKey: SortDirection
+}
+
+input ElementSubRootOfAggregateInput {
+  AND: [ElementSubRootOfAggregateInput!]
+  OR: [ElementSubRootOfAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: ElementRootOfNodeAggregationWhereInput
+  node: ElementSubRootOfNodeAggregationWhereInput
 }
 
-input ElementRootOfConnectFieldInput {
+input ElementSubRootOfConnectFieldInput {
   connect: ElementConnectInput
   where: ElementConnectWhere
 }
 
-input ElementRootOfConnectOrCreateFieldInput {
-  onCreate: ElementRootOfConnectOrCreateFieldInputOnCreate!
+input ElementSubRootOfConnectOrCreateFieldInput {
+  onCreate: ElementSubRootOfConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input ElementRootOfConnectOrCreateFieldInputOnCreate {
+input ElementSubRootOfConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type ElementRootOfConnection {
-  edges: [ElementRootOfRelationship!]!
+type ElementSubRootOfConnection {
+  edges: [ElementSubRootOfRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementRootOfConnectionSort {
+input ElementSubRootOfConnectionSort {
   node: ElementSort
 }
 
-input ElementRootOfConnectionWhere {
-  AND: [ElementRootOfConnectionWhere!]
-  OR: [ElementRootOfConnectionWhere!]
+input ElementSubRootOfConnectionWhere {
+  AND: [ElementSubRootOfConnectionWhere!]
+  OR: [ElementSubRootOfConnectionWhere!]
   node: ElementWhere
   node_NOT: ElementWhere
 }
 
-input ElementRootOfCreateFieldInput {
+input ElementSubRootOfCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input ElementRootOfDeleteFieldInput {
+input ElementSubRootOfDeleteFieldInput {
   delete: ElementDeleteInput
-  where: ElementRootOfConnectionWhere
+  where: ElementSubRootOfConnectionWhere
 }
 
-input ElementRootOfDisconnectFieldInput {
+input ElementSubRootOfDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: ElementRootOfConnectionWhere
+  where: ElementSubRootOfConnectionWhere
 }
 
-input ElementRootOfFieldInput {
-  connect: ElementRootOfConnectFieldInput
-  connectOrCreate: ElementRootOfConnectOrCreateFieldInput
-  create: ElementRootOfCreateFieldInput
+input ElementSubRootOfFieldInput {
+  connect: ElementSubRootOfConnectFieldInput
+  connectOrCreate: ElementSubRootOfConnectOrCreateFieldInput
+  create: ElementSubRootOfCreateFieldInput
 }
 
-input ElementRootOfNodeAggregationWhereInput {
-  AND: [ElementRootOfNodeAggregationWhereInput!]
-  OR: [ElementRootOfNodeAggregationWhereInput!]
+input ElementSubRootOfNodeAggregationWhereInput {
+  AND: [ElementSubRootOfNodeAggregationWhereInput!]
+  OR: [ElementSubRootOfNodeAggregationWhereInput!]
   customCss_AVERAGE_EQUAL: Float
   customCss_AVERAGE_GT: Float
   customCss_AVERAGE_GTE: Float
@@ -6971,38 +6976,23 @@ input ElementRootOfNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_LTE: Int
 }
 
-type ElementRootOfRelationship {
+type ElementSubRootOfRelationship {
   cursor: String!
   node: Element!
 }
 
-input ElementRootOfUpdateConnectionInput {
+input ElementSubRootOfUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input ElementRootOfUpdateFieldInput {
-  connect: ElementRootOfConnectFieldInput
-  connectOrCreate: ElementRootOfConnectOrCreateFieldInput
-  create: ElementRootOfCreateFieldInput
-  delete: ElementRootOfDeleteFieldInput
-  disconnect: ElementRootOfDisconnectFieldInput
-  update: ElementRootOfUpdateConnectionInput
-  where: ElementRootOfConnectionWhere
-}
-
-"""
-Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
-"""
-input ElementSort {
-  customCss: SortDirection
-  guiCss: SortDirection
-  id: SortDirection
-  name: SortDirection
-  postRenderActionId: SortDirection
-  preRenderActionId: SortDirection
-  propTransformationJs: SortDirection
-  renderForEachPropKey: SortDirection
-  renderIfPropKey: SortDirection
+input ElementSubRootOfUpdateFieldInput {
+  connect: ElementSubRootOfConnectFieldInput
+  connectOrCreate: ElementSubRootOfConnectOrCreateFieldInput
+  create: ElementSubRootOfCreateFieldInput
+  delete: ElementSubRootOfDeleteFieldInput
+  disconnect: ElementSubRootOfDisconnectFieldInput
+  update: ElementSubRootOfUpdateConnectionInput
+  where: ElementSubRootOfConnectionWhere
 }
 
 """
@@ -7283,7 +7273,7 @@ input ElementUpdateInput {
   props: ElementPropsUpdateFieldInput
   renderForEachPropKey: String
   renderIfPropKey: String
-  rootOf: ElementRootOfUpdateFieldInput
+  subRootOf: ElementSubRootOfUpdateFieldInput
 }
 
 input ElementWhere {
@@ -7474,11 +7464,11 @@ input ElementWhere {
   renderIfPropKey_NOT_IN: [String]
   renderIfPropKey_NOT_STARTS_WITH: String
   renderIfPropKey_STARTS_WITH: String
-  rootOf: ElementWhere
-  rootOfAggregate: ElementRootOfAggregateInput
-  rootOfConnection: ElementRootOfConnectionWhere
-  rootOfConnection_NOT: ElementRootOfConnectionWhere
-  rootOf_NOT: ElementWhere
+  subRootOf: ElementWhere
+  subRootOfAggregate: ElementSubRootOfAggregateInput
+  subRootOfConnection: ElementSubRootOfConnectionWhere
+  subRootOfConnection_NOT: ElementSubRootOfConnectionWhere
+  subRootOf_NOT: ElementWhere
 }
 
 type ElementsConnection {
@@ -10868,37 +10858,6 @@ type PagesConnection {
   edges: [PageEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-interface ParentOfElement {
-  order: Int
-}
-
-input ParentOfElementCreateInput {
-  order: Int
-}
-
-input ParentOfElementSort {
-  order: SortDirection
-}
-
-input ParentOfElementUpdateInput {
-  order: Int
-  order_DECREMENT: Int
-  order_INCREMENT: Int
-}
-
-input ParentOfElementWhere {
-  AND: [ParentOfElementWhere!]
-  OR: [ParentOfElementWhere!]
-  order: Int
-  order_GT: Int
-  order_GTE: Int
-  order_IN: [Int]
-  order_LT: Int
-  order_LTE: Int
-  order_NOT: Int
-  order_NOT_IN: [Int]
 }
 
 type PipelineAction implements ActionBase {
@@ -15083,11 +15042,7 @@ input TagGraphOptionsSort {
 
 input TagGraphOptionsUpdateInput {
   limit: Int
-  limit_DECREMENT: Int
-  limit_INCREMENT: Int
   sort: Int
-  sort_DECREMENT: Int
-  sort_INCREMENT: Int
 }
 
 input TagGraphOptionsWhere {

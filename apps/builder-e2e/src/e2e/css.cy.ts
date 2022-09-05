@@ -58,7 +58,7 @@ describe('CSS CRUD', () => {
       cy.createElement({
         id: v4(),
         name: ELEMENT_BUTTON,
-        rootOf: {
+        subRootOf: {
           connect: {
             where: { node: { id: app.pages[0].rootElement.id } },
           },

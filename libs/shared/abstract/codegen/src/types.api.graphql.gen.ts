@@ -511,8 +511,6 @@ export type ActionsPipeLineSort = {
 
 export type ActionsPipeLineUpdateInput = {
   orders?: InputMaybe<Array<Scalars['String']>>
-  orders_POP?: InputMaybe<Scalars['Int']>
-  orders_PUSH?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type ActionsPipeLineWhere = {
@@ -4040,11 +4038,7 @@ export type CreateInfoSort = {
 export type CreateInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>
   nodesCreated?: InputMaybe<Scalars['Int']>
-  nodesCreated_DECREMENT?: InputMaybe<Scalars['Int']>
-  nodesCreated_INCREMENT?: InputMaybe<Scalars['Int']>
   relationshipsCreated?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_DECREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsCreated_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type CreateInfoWhere = {
@@ -4475,11 +4469,7 @@ export type DeleteInfoSort = {
 export type DeleteInfoUpdateInput = {
   bookmark?: InputMaybe<Scalars['String']>
   nodesDeleted?: InputMaybe<Scalars['Int']>
-  nodesDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
-  nodesDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
   relationshipsDeleted?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_DECREMENT?: InputMaybe<Scalars['Int']>
-  relationshipsDeleted_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type DeleteInfoWhere = {
@@ -4848,9 +4838,9 @@ export type Element = {
   propsConnection: ElementPropsConnection
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfPropKey?: Maybe<Scalars['String']>
-  rootOf?: Maybe<Element>
-  rootOfAggregate?: Maybe<ElementElementRootOfAggregationSelection>
-  rootOfConnection: ElementRootOfConnection
+  subRootOf?: Maybe<Element>
+  subRootOfAggregate?: Maybe<ElementElementSubRootOfAggregationSelection>
+  subRootOfConnection: ElementSubRootOfConnection
 }
 
 export type ElementAppArgs = {
@@ -5062,23 +5052,23 @@ export type ElementPropsConnectionArgs = {
   where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
-export type ElementRootOfArgs = {
+export type ElementSubRootOfArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<ElementOptions>
   where?: InputMaybe<ElementWhere>
 }
 
-export type ElementRootOfAggregateArgs = {
+export type ElementSubRootOfAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<ElementWhere>
 }
 
-export type ElementRootOfConnectionArgs = {
+export type ElementSubRootOfConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ElementRootOfConnectionSort>>
-  where?: InputMaybe<ElementRootOfConnectionWhere>
+  sort?: InputMaybe<Array<ElementSubRootOfConnectionSort>>
+  where?: InputMaybe<ElementSubRootOfConnectionWhere>
 }
 
 export type ElementAggregateSelection = {
@@ -5773,7 +5763,7 @@ export type ElementConnectInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
   props?: InputMaybe<ElementPropsConnectFieldInput>
-  rootOf?: InputMaybe<ElementRootOfConnectFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfConnectFieldInput>
 }
 
 export type ElementConnectOrCreateInput = {
@@ -5790,7 +5780,7 @@ export type ElementConnectOrCreateInput = {
     Array<ElementPropMapBindingsConnectOrCreateFieldInput>
   >
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
-  rootOf?: InputMaybe<ElementRootOfConnectOrCreateFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfConnectOrCreateFieldInput>
 }
 
 export type ElementConnectOrCreateWhere = {
@@ -5822,7 +5812,7 @@ export type ElementCreateInput = {
   props?: InputMaybe<ElementPropsFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfPropKey?: InputMaybe<Scalars['String']>
-  rootOf?: InputMaybe<ElementRootOfFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfFieldInput>
 }
 
 export type ElementDeleteInput = {
@@ -5837,7 +5827,7 @@ export type ElementDeleteInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
-  rootOf?: InputMaybe<ElementRootOfDeleteFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfDeleteFieldInput>
 }
 
 export type ElementDisconnectInput = {
@@ -5854,7 +5844,7 @@ export type ElementDisconnectInput = {
     Array<ElementPropMapBindingsDisconnectFieldInput>
   >
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
-  rootOf?: InputMaybe<ElementRootOfDisconnectFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfDisconnectFieldInput>
 }
 
 export type ElementEdge = {
@@ -5920,14 +5910,14 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   renderIfPropKey: StringAggregateSelectionNullable
 }
 
-export type ElementElementRootOfAggregationSelection = {
-  __typename?: 'ElementElementRootOfAggregationSelection'
+export type ElementElementSubRootOfAggregationSelection = {
+  __typename?: 'ElementElementSubRootOfAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<ElementElementRootOfNodeAggregateSelection>
+  node?: Maybe<ElementElementSubRootOfNodeAggregateSelection>
 }
 
-export type ElementElementRootOfNodeAggregateSelection = {
-  __typename?: 'ElementElementRootOfNodeAggregateSelection'
+export type ElementElementSubRootOfNodeAggregateSelection = {
+  __typename?: 'ElementElementSubRootOfNodeAggregateSelection'
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
@@ -7093,75 +7083,88 @@ export type ElementRelationInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
   props?: InputMaybe<ElementPropsCreateFieldInput>
-  rootOf?: InputMaybe<ElementRootOfCreateFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfCreateFieldInput>
 }
 
-export type ElementRootOfAggregateInput = {
-  AND?: InputMaybe<Array<ElementRootOfAggregateInput>>
-  OR?: InputMaybe<Array<ElementRootOfAggregateInput>>
+/** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
+export type ElementSort = {
+  customCss?: InputMaybe<SortDirection>
+  guiCss?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  postRenderActionId?: InputMaybe<SortDirection>
+  preRenderActionId?: InputMaybe<SortDirection>
+  propTransformationJs?: InputMaybe<SortDirection>
+  renderForEachPropKey?: InputMaybe<SortDirection>
+  renderIfPropKey?: InputMaybe<SortDirection>
+}
+
+export type ElementSubRootOfAggregateInput = {
+  AND?: InputMaybe<Array<ElementSubRootOfAggregateInput>>
+  OR?: InputMaybe<Array<ElementSubRootOfAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ElementRootOfNodeAggregationWhereInput>
+  node?: InputMaybe<ElementSubRootOfNodeAggregationWhereInput>
 }
 
-export type ElementRootOfConnectFieldInput = {
+export type ElementSubRootOfConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ElementRootOfConnectOrCreateFieldInput = {
-  onCreate: ElementRootOfConnectOrCreateFieldInputOnCreate
+export type ElementSubRootOfConnectOrCreateFieldInput = {
+  onCreate: ElementSubRootOfConnectOrCreateFieldInputOnCreate
   where: ElementConnectOrCreateWhere
 }
 
-export type ElementRootOfConnectOrCreateFieldInputOnCreate = {
+export type ElementSubRootOfConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
 }
 
-export type ElementRootOfConnection = {
-  __typename?: 'ElementRootOfConnection'
-  edges: Array<ElementRootOfRelationship>
+export type ElementSubRootOfConnection = {
+  __typename?: 'ElementSubRootOfConnection'
+  edges: Array<ElementSubRootOfRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type ElementRootOfConnectionSort = {
+export type ElementSubRootOfConnectionSort = {
   node?: InputMaybe<ElementSort>
 }
 
-export type ElementRootOfConnectionWhere = {
-  AND?: InputMaybe<Array<ElementRootOfConnectionWhere>>
-  OR?: InputMaybe<Array<ElementRootOfConnectionWhere>>
+export type ElementSubRootOfConnectionWhere = {
+  AND?: InputMaybe<Array<ElementSubRootOfConnectionWhere>>
+  OR?: InputMaybe<Array<ElementSubRootOfConnectionWhere>>
   node?: InputMaybe<ElementWhere>
   node_NOT?: InputMaybe<ElementWhere>
 }
 
-export type ElementRootOfCreateFieldInput = {
+export type ElementSubRootOfCreateFieldInput = {
   node: ElementCreateInput
 }
 
-export type ElementRootOfDeleteFieldInput = {
+export type ElementSubRootOfDeleteFieldInput = {
   delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<ElementRootOfConnectionWhere>
+  where?: InputMaybe<ElementSubRootOfConnectionWhere>
 }
 
-export type ElementRootOfDisconnectFieldInput = {
+export type ElementSubRootOfDisconnectFieldInput = {
   disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<ElementRootOfConnectionWhere>
+  where?: InputMaybe<ElementSubRootOfConnectionWhere>
 }
 
-export type ElementRootOfFieldInput = {
-  connect?: InputMaybe<ElementRootOfConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRootOfConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRootOfCreateFieldInput>
+export type ElementSubRootOfFieldInput = {
+  connect?: InputMaybe<ElementSubRootOfConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementSubRootOfConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementSubRootOfCreateFieldInput>
 }
 
-export type ElementRootOfNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementRootOfNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementRootOfNodeAggregationWhereInput>>
+export type ElementSubRootOfNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementSubRootOfNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementSubRootOfNodeAggregationWhereInput>>
   customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
@@ -7325,37 +7328,24 @@ export type ElementRootOfNodeAggregationWhereInput = {
   renderIfPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type ElementRootOfRelationship = {
-  __typename?: 'ElementRootOfRelationship'
+export type ElementSubRootOfRelationship = {
+  __typename?: 'ElementSubRootOfRelationship'
   cursor: Scalars['String']
   node: Element
 }
 
-export type ElementRootOfUpdateConnectionInput = {
+export type ElementSubRootOfUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
 
-export type ElementRootOfUpdateFieldInput = {
-  connect?: InputMaybe<ElementRootOfConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRootOfConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRootOfCreateFieldInput>
-  delete?: InputMaybe<ElementRootOfDeleteFieldInput>
-  disconnect?: InputMaybe<ElementRootOfDisconnectFieldInput>
-  update?: InputMaybe<ElementRootOfUpdateConnectionInput>
-  where?: InputMaybe<ElementRootOfConnectionWhere>
-}
-
-/** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
-export type ElementSort = {
-  customCss?: InputMaybe<SortDirection>
-  guiCss?: InputMaybe<SortDirection>
-  id?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-  postRenderActionId?: InputMaybe<SortDirection>
-  preRenderActionId?: InputMaybe<SortDirection>
-  propTransformationJs?: InputMaybe<SortDirection>
-  renderForEachPropKey?: InputMaybe<SortDirection>
-  renderIfPropKey?: InputMaybe<SortDirection>
+export type ElementSubRootOfUpdateFieldInput = {
+  connect?: InputMaybe<ElementSubRootOfConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementSubRootOfConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementSubRootOfCreateFieldInput>
+  delete?: InputMaybe<ElementSubRootOfDeleteFieldInput>
+  disconnect?: InputMaybe<ElementSubRootOfDisconnectFieldInput>
+  update?: InputMaybe<ElementSubRootOfUpdateConnectionInput>
+  where?: InputMaybe<ElementSubRootOfConnectionWhere>
 }
 
 /**
@@ -7664,7 +7654,7 @@ export type ElementUpdateInput = {
   props?: InputMaybe<ElementPropsUpdateFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfPropKey?: InputMaybe<Scalars['String']>
-  rootOf?: InputMaybe<ElementRootOfUpdateFieldInput>
+  subRootOf?: InputMaybe<ElementSubRootOfUpdateFieldInput>
 }
 
 export type ElementWhere = {
@@ -7831,11 +7821,11 @@ export type ElementWhere = {
   renderIfPropKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   renderIfPropKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   renderIfPropKey_STARTS_WITH?: InputMaybe<Scalars['String']>
-  rootOf?: InputMaybe<ElementWhere>
-  rootOfAggregate?: InputMaybe<ElementRootOfAggregateInput>
-  rootOfConnection?: InputMaybe<ElementRootOfConnectionWhere>
-  rootOfConnection_NOT?: InputMaybe<ElementRootOfConnectionWhere>
-  rootOf_NOT?: InputMaybe<ElementWhere>
+  subRootOf?: InputMaybe<ElementWhere>
+  subRootOfAggregate?: InputMaybe<ElementSubRootOfAggregateInput>
+  subRootOfConnection?: InputMaybe<ElementSubRootOfConnectionWhere>
+  subRootOfConnection_NOT?: InputMaybe<ElementSubRootOfConnectionWhere>
+  subRootOf_NOT?: InputMaybe<ElementWhere>
 }
 
 export type ElementsConnection = {
@@ -11678,37 +11668,6 @@ export type PagesConnection = {
   edges: Array<PageEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
-}
-
-export type ParentOfElement = {
-  order?: Maybe<Scalars['Int']>
-}
-
-export type ParentOfElementCreateInput = {
-  order?: InputMaybe<Scalars['Int']>
-}
-
-export type ParentOfElementSort = {
-  order?: InputMaybe<SortDirection>
-}
-
-export type ParentOfElementUpdateInput = {
-  order?: InputMaybe<Scalars['Int']>
-  order_DECREMENT?: InputMaybe<Scalars['Int']>
-  order_INCREMENT?: InputMaybe<Scalars['Int']>
-}
-
-export type ParentOfElementWhere = {
-  AND?: InputMaybe<Array<ParentOfElementWhere>>
-  OR?: InputMaybe<Array<ParentOfElementWhere>>
-  order?: InputMaybe<Scalars['Int']>
-  order_GT?: InputMaybe<Scalars['Int']>
-  order_GTE?: InputMaybe<Scalars['Int']>
-  order_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
-  order_LT?: InputMaybe<Scalars['Int']>
-  order_LTE?: InputMaybe<Scalars['Int']>
-  order_NOT?: InputMaybe<Scalars['Int']>
-  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
 }
 
 export type PipelineAction = ActionBase & {
@@ -16543,11 +16502,7 @@ export type TagGraphOptionsSort = {
 
 export type TagGraphOptionsUpdateInput = {
   limit?: InputMaybe<Scalars['Int']>
-  limit_DECREMENT?: InputMaybe<Scalars['Int']>
-  limit_INCREMENT?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Scalars['Int']>
-  sort_DECREMENT?: InputMaybe<Scalars['Int']>
-  sort_INCREMENT?: InputMaybe<Scalars['Int']>
 }
 
 export type TagGraphOptionsWhere = {

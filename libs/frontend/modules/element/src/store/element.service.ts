@@ -631,10 +631,10 @@ export class ElementService
     }
 
     const newElement = yield* _await(
-      beforeDetachElement.rootOfId
+      beforeDetachElement.subRootOfId
         ? this.createElementAsSubRoot({
             ...baseCreateElementInput,
-            parentElementId: beforeDetachElement.rootOfId,
+            parentElementId: beforeDetachElement.subRootOfId,
           })
         : this.createElementAsNextSibling({
             ...baseCreateElementInput,

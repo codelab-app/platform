@@ -56,7 +56,7 @@ export interface IElement extends INodeType<ELEMENT_NODE_TYPE> {
   __metadataProps: object
   atomName: string
 
-  rootOf: Maybe<IElement>
+  subRootOf: Maybe<IElement>
   nextSibling: Maybe<IElement>
   nextSiblingId: Nullable<string>
   prevSibling: Maybe<IElement>
