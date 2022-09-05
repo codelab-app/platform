@@ -67,7 +67,6 @@ export class ComponentService
       children: [...this.components.values()].map((component) => {
         const elementTree = component.elementTree
         const dataNode = elementTree?.root?.antdNode
-        console.log({ dataNode, elementTree })
 
         return {
           key: component.id,

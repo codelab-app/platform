@@ -1,8 +1,8 @@
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 
 export const shouldMoveElementAsNextSibling = (
-  currentPrevSibling: Nullable<string>,
-  newPrevSiblingId: Nullable<string>,
+  currentPrevSibling: Nullish<string>,
+  newPrevSiblingId: Nullish<string>,
 ) => {
   const changePrevSibling = currentPrevSibling !== newPrevSiblingId
 
@@ -10,10 +10,10 @@ export const shouldMoveElementAsNextSibling = (
 }
 
 export const shouldMoveElementAsSubRoot = (
-  currentParentEmentId: Nullable<string>,
-  newParentElementId: Nullable<string>,
-  currentPrevSibling: Nullable<string>,
-  newPrevSiblingId: Nullable<string>,
+  currentParentEmentId: Nullish<string>,
+  newParentElementId: Nullish<string>,
+  currentPrevSibling: Nullish<string>,
+  newPrevSiblingId: Nullish<string>,
 ) => {
   const changeParent = currentParentEmentId !== newParentElementId
   const changePrevSibling = currentPrevSibling !== newPrevSiblingId

@@ -19,7 +19,7 @@ import {
   shouldMoveElementAsSubRoot,
 } from './utils'
 
-export type MoveElementFormProps = {
+export interface MoveElementFormProps {
   element: IElement
   trackPromises?: UseTrackLoadingPromises
   elementService: IElementService

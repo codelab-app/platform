@@ -109,33 +109,6 @@ export class ElementTree
     return this
   }
 
-  // @modelFlow
-  // @transaction
-  // moveElement = _async(function* (
-  //   this: ElementService,
-  //   targetElementId: IElementRef,
-  //   { parentElementId, order }: MoveData,
-  // ) {
-  //   /*
-  //    * It's important that we do this locally first, because we can do some validations
-  //    * that would otherwise require a custom resolver to do
-  //    */
-  //   const targetElement = this.elementTree.moveElement(
-  //     targetElementId,
-  //     parentElementId,
-  //     order,
-  //   )
-  //
-  //   const input: ElementUpdateInput = {
-  //     parentElement: {
-  //       disconnect: { where: {} },
-  //       connect: { edge: { order }, where: { node: { id: parentElementId } } },
-  //     },
-  //   }
-  //
-  //   return yield* _await(this.elementService(targetElement, input))
-  // })
-
   getPathFromRoot(selectedElement: IElement): Array<IElement> {
     const path = []
     let current: IElement | undefined = selectedElement

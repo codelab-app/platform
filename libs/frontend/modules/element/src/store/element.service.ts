@@ -299,6 +299,7 @@ export class ElementService
     }
 
     updateElementCacheFns.push(
+      element.detachParent.bind(element),
       element.detachNextSibling.bind(element),
       element.detachPrevSibling.bind(element),
     )

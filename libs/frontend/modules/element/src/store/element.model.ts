@@ -117,7 +117,6 @@ export class Element
     // parent: prop<Nullish<Element>>(null).withSetter(),
 
     // Data used for tree initializing, before our Element model is ready
-    parentId: prop<Nullable<string>>(null),
     rootOfId: prop<Nullable<string>>(null),
     nextSiblingId: prop<Nullable<string>>(null),
     prevSiblingId: prop<Nullable<string>>(null),
@@ -294,6 +293,11 @@ export class Element
     return this.prevSiblingId
       ? this.elementService.element(this.prevSiblingId)
       : undefined
+  }
+
+  @computed
+  get parentId() {
+    return this.parentElement?.id
   }
 
   @computed

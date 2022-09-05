@@ -63,7 +63,7 @@ export const createListAtomInput = (ownerId: string): AtomCreateInput => ({
  * create ListItem Atom
  */
 
-export const createListItemAtomInput = (userId: string): AtomCreateInput => ({
+export const createListItemAtomInput = (ownerId: string): AtomCreateInput => ({
   name: 'ListItem',
   type: AtomType.AntDesignListItem,
   api: {
@@ -125,10 +125,12 @@ export const createComponentInput = (
   listItemId: string,
 ): ComponentCreateInput => ({
   name: listItemComponentName,
+  id: v4(),
   owner: { connect: { where: { node: { auth0Id: userId } } } },
   rootElement: {
     create: {
       node: {
+        id: v4(),
         name: ROOT_ELEMENT_NAME,
         propMapBindings: {
           create: [
@@ -146,29 +148,25 @@ export const createComponentInput = (
             },
           ],
         },
-        children: {
-          create: [
-            {
-              node: {
-                name: 'List Item',
-                atom: { connect: { where: { node: { id: listItemId } } } },
-                children: {
-                  create: [
-                    {
-                      node: {
-                        name: 'List Item Text',
-                        atom: {
-                          connect: { where: { node: { id: textAtomId } } },
-                        },
-                      },
-                      edge: { order: 1 },
+        childrenRoot: {
+          create: {
+            node: {
+              id: v4(),
+              name: 'List Item',
+              atom: { connect: { where: { node: { id: listItemId } } } },
+              childrenRoot: {
+                create: {
+                  node: {
+                    id: v4(),
+                    name: 'List Item Text',
+                    atom: {
+                      connect: { where: { node: { id: textAtomId } } },
                     },
-                  ],
+                  },
                 },
               },
-              edge: { order: 1 },
             },
-          ],
+          },
         },
       },
     },
@@ -198,23 +196,24 @@ export const createTextReactNodeComponentInput = (
   textAtomId: string,
 ): ComponentCreateInput => ({
   name: reactNodeTextComponentName,
+  id: v4(),
   owner: { connect: { where: { node: { auth0Id: userId } } } },
   rootElement: {
     create: {
       node: {
         name: ROOT_ELEMENT_NAME,
-        children: {
-          create: [
-            {
-              node: {
-                name: `React Node Text`,
-                atom: { connect: { where: { node: { id: textAtomId } } } },
-                props: {
-                  create: { node: { data: JSON.stringify(reactNodeTextProp) } },
-                },
+        id: v4(),
+        childrenRoot: {
+          create: {
+            node: {
+              id: v4(),
+              name: `React Node Text`,
+              atom: { connect: { where: { node: { id: textAtomId } } } },
+              props: {
+                create: { node: { data: JSON.stringify(reactNodeTextProp) } },
               },
             },
-          ],
+          },
         },
       },
     },
