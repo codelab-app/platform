@@ -19,11 +19,7 @@ export const GetStateList = observer<GetStateTreeProps>(
       <List
         dataSource={api?.fieldList}
         renderItem={(field) => (
-          <GetStateItem
-            field={field}
-            storeApiId={store.stateApiId}
-            typeService={typeService}
-          />
+          <GetStateItem field={field} store={store} typeService={typeService} />
         )}
         size="small"
       />
