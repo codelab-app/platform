@@ -15,7 +15,6 @@ import { observer } from 'mobx-react-lite'
 import React, { PropsWithChildren, ReactNode } from 'react'
 import tw from 'twin.macro'
 import { GetActionsList, GetStateList } from '../use-cases'
-import { StateForm } from './StoreConfigPane'
 
 export interface StoreEditorPaneProps {
   typeService: ITypeService
@@ -92,15 +91,6 @@ export const StoreEditorPane = observer<StoreEditorPaneProps>(
         <ResizableColumn>
           <Header extra={stateCreateButton}>State</Header>
           <GetStateList store={appStore} typeService={typeService} />
-        </ResizableColumn>
-
-        <ResizableColumn>
-          <Header>Initial State</Header>
-          <StateForm
-            appStore={appStore}
-            storeService={storeService}
-            typeService={typeService}
-          />
         </ResizableColumn>
 
         <motion.div css={tw`flex-1  h-full`}>
