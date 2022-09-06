@@ -22,6 +22,7 @@ export const shouldMoveElementAsSubRoot = (
     return true
   }
 
+  // clear prevSibling, move to begin of the tree branch
   if (changePrevSibling && !newPrevSiblingId) {
     return true
   }

@@ -1,12 +1,10 @@
-import * as Types from '@codelab/shared/abstract/codegen'
+import { IElement } from '@codelab/shared/abstract/core'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
-import { UpdateElementsDocument } from './element.endpoints.graphql.gen'
-
-export interface BatchUpdateElementsMutationVariable {
-  where?: Types.InputMaybe<Types.ElementWhere>
-  update?: Types.InputMaybe<Types.ElementUpdateInput>
-}
+import {
+  UpdateElementsDocument,
+  UpdateElementsMutationVariables,
+} from './element.endpoints.graphql.gen'
 
 export type UpdateElementsMutation = any
 
@@ -19,7 +17,7 @@ export type SdkFunctionWrapper = <T>(
 export const getSdk = (client: GraphQLClient) => {
   return {
     BatchUpdateElements(
-      inputs: Array<BatchUpdateElementsMutationVariable> = [],
+      inputs: Array<UpdateElementsMutationVariables> = [],
       requestHeaders?: Dom.RequestInit['headers'],
     ) {
       const requests = inputs.map((input) => ({
@@ -27,7 +25,7 @@ export const getSdk = (client: GraphQLClient) => {
         variables: input,
       }))
 
-      return client.batchRequests<any>(requests, {
+      return client.batchRequests<Array<IElement>>(requests, {
         ...requestHeaders,
       })
     },

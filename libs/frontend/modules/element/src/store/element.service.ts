@@ -26,6 +26,7 @@ import { omit } from 'lodash'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelAction,
@@ -35,7 +36,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { BatchUpdateElementsMutationVariable } from '../graphql/element.endpoints.graphql.custom'
+import { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
 import {
   makeCreateInput,
   makeDuplicateInput,
@@ -282,11 +283,18 @@ export class ElementService
 
   @modelFlow
   @transaction
-  detachElementFromTreeSiblings = _async(function* (
+  detachElementFromElementTree = _async(function* (
     this: ElementService,
     elemenId: string,
   ) {
-    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    /**
+Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
+
+- Detach from parent
+- Detach from next sibling
+- Detach from prev sibling
+- Connect prev to next
+     */
     const updateElementCacheFns: Array<() => void> = []
     const element = this.element(elemenId)
 
@@ -296,22 +304,61 @@ export class ElementService
       return
     }
 
-    updateElementCacheFns.push(
-      element.detachParent.bind(element),
-      element.detachNextSibling.bind(element),
-      element.detachPrevSibling.bind(element),
-    )
+    /**
 
-    const detachElementInputs = [
+parent
+  prev
+  element
+  next
+     */
+    const updateElementInputs = [
       element.makeDetachParentInput(),
       element.makeDetachNextSiblingInput(),
       element.makeDetachPrevSiblingInput(),
-    ].filter((input) => input) as Array<BatchUpdateElementsMutationVariable>
+    ]
 
-    updateElementInputs.push(...detachElementInputs)
+    updateElementCacheFns.push(
+      element.detachParent(),
+      element.detachNextSibling(),
+      element.detachPrevSibling(),
+    )
 
-    yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
+    // detach element from prev
+    if (element.prevSibling) {
+      updateElementInputs.push(element.prevSibling.makeDetachNextSiblingInput())
+      updateElementCacheFns.push(element.prevSibling.detachNextSibling())
+    }
+
+    // detach element from next
+    if (element.nextSibling) {
+      updateElementInputs.push(element.nextSibling.makeDetachPrevSiblingInput())
+      updateElementCacheFns.push(element.nextSibling.detachPrevSibling())
+    }
+
+    const beforeUpdateElement = getSnapshot(element)
+
+    yield* _await(
+      customElementApi.BatchUpdateElements(
+        updateElementInputs.filter(
+          (input) => input,
+        ) as Array<UpdateElementsMutationVariables>,
+      ),
+    )
+
     updateElementCacheFns.forEach((fn) => fn())
+
+    // link prev to next
+    if (
+      beforeUpdateElement.prevSiblingId &&
+      beforeUpdateElement.nextSiblingId
+    ) {
+      yield _await(
+        this.attachElementAsNextSibling({
+          elementId: beforeUpdateElement.nextSiblingId,
+          targetElementId: beforeUpdateElement.prevSiblingId,
+        }),
+      )
+    }
   })
 
   /**
@@ -333,7 +380,7 @@ export class ElementService
       return
     }
 
-    yield* _await(this.detachElementFromTreeSiblings(elementId))
+    yield* _await(this.detachElementFromElementTree(elementId))
 
     yield* _await(
       this.attachElementAsNextSibling({ elementId, targetElementId }),
@@ -356,7 +403,7 @@ export class ElementService
       return
     }
 
-    yield* _await(this.detachElementFromTreeSiblings(elementId))
+    yield* _await(this.detachElementFromElementTree(elementId))
     yield* _await(this.attachElementAsSubRoot({ elementId, parentElementId }))
   })
 
@@ -414,28 +461,32 @@ export class ElementService
       return
     }
 
-    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    const updateElementInputs: Array<UpdateElementsMutationVariables> = []
     const updateElementCacheFns: Array<() => void> = []
 
     if (targetElement.parentElement) {
       updateElementCacheFns.push(
-        element.attachToParent.bind(element, targetElement.parentElement.id),
+        element.attachToParent(targetElement.parentElement.id),
       )
     }
 
+    /**
+     * [target]-nextSbiling
+     * target-[element]-nextSibling
+     * element appends to nextSibling
+     */
     if (targetElement.nextSibling) {
       updateElementCacheFns.push(
-        element.prependSibling.bind(element, targetElement.nextSibling.id),
+        element.appendSibling(targetElement.nextSibling.id),
       )
       updateElementInputs.push(
-        element.makePrependSiblingInput(targetElement.nextSibling.id),
+        element.makeAppendSiblingInput(targetElement.nextSibling.id),
       )
     }
 
-    updateElementCacheFns.push(
-      element.appendSibling.bind(element, targetElement.id),
-    )
-    updateElementInputs.push(element.makeAppendSiblingInput(targetElement.id))
+    // element prepends target
+    updateElementCacheFns.push(element.prependSibling(targetElement.id))
+    updateElementInputs.push(element.makePrependSiblingInput(targetElement.id))
     yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
     updateElementCacheFns.forEach((fn) => fn())
   })
@@ -459,24 +510,36 @@ export class ElementService
       return
     }
 
-    const updateElementInputs: Array<BatchUpdateElementsMutationVariable> = []
+    const updateElementInputs: Array<UpdateElementsMutationVariables> = []
     const updateElementCacheFns: Array<() => void> = []
 
-    if (parentElement.childrenRoot) {
-      updateElementCacheFns.push(
-        element.prependSibling.bind(element, parentElement.childrenRoot.id),
-      )
-      updateElementInputs.push(
-        element.makePrependSiblingInput(parentElement.childrenRoot.id),
-      )
-    }
+    /**
+parentElement
+  firstChild
+
+parentElement
+  [element]
+  firstChild
+
+element is new parentElement's first child
+     */
 
     updateElementCacheFns.push(
-      element.attachToParentAsSubRoot.bind(element, parentElement.id),
+      element.attachToParentAsSubRoot(parentElement.id),
     )
     updateElementInputs.push(
       element.makeAttachToParentAsSubRootInput(parentElementId),
     )
+
+    // element prepends first child
+    if (parentElement.firstChild) {
+      updateElementCacheFns.push(
+        element.appendSibling(parentElement.firstChild.id),
+      )
+      updateElementInputs.push(
+        element.makeAppendSiblingInput(parentElement.firstChild.id),
+      )
+    }
 
     yield* _await(customElementApi.BatchUpdateElements(updateElementInputs))
 
@@ -497,7 +560,7 @@ export class ElementService
     const rootElement = this.element(root)
 
     if (rootElement) {
-      yield* _await(this.detachElementFromTreeSiblings(rootElement.id))
+      yield* _await(this.detachElementFromElementTree(rootElement.id))
     }
 
     for (const id of idsToDelete.reverse()) {

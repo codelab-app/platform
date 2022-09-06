@@ -12,6 +12,8 @@ import { createPageInput } from '../support/database/page'
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
 const backgroundColor2 = 'rgb(182, 99, 48)'
+const atomName = `Atom${ELEMENT_BUTTON}`
+const elementName = `Element${ELEMENT_BUTTON}`
 
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
   `background-color: ${backgroundColorValue} !important; visibility: visible !important;`
@@ -36,7 +38,7 @@ describe('CSS CRUD', () => {
 
         cy.createAtom([
           {
-            name: ELEMENT_BUTTON,
+            name: atomName,
             type: IAtomType.AntDesignButton,
             id: v4(),
             api: {
@@ -59,14 +61,14 @@ describe('CSS CRUD', () => {
 
       cy.createElement({
         id: v4(),
-        name: ELEMENT_BUTTON,
+        name: elementName,
         parentElement: {
           connect: {
             where: { node: { id: app.pages[0].rootElement.id } },
             edge: { order: 1 },
           },
         },
-        rootOf: {
+        parent: {
           connect: {
             where: { node: { id: app.pages[0].rootElement.id } },
           },
@@ -89,14 +91,14 @@ describe('CSS CRUD', () => {
       cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
       cy.getSpinner().should('not.exist')
 
-      cy.findByText(ROOT_ELEMENT_NAME).click({ force: true })
+      cy.findByText(elementName).click({ force: true })
     })
   })
 
   describe('Add css', () => {
     it('should be able to add some css styling', () => {
       cy.getSpinner().should('not.exist')
-      cy.findByText(ELEMENT_BUTTON).click()
+      cy.findByText(elementName).click()
       cy.get('[aria-label="format-painter"]').click()
       cy.getSpinner().should('not.exist')
       cy.get('[role="textbox"]')

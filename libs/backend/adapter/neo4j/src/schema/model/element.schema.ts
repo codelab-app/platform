@@ -14,8 +14,10 @@ export const elementSchema = gql`
     id: ID! @id(autogenerate: false)
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
-    childrenRoot: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
-    rootOf: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
+
+    firstChild: Element @relationship(type: "TREE_SUB_ROOT", direction: IN)
+    parent: Element @relationship(type: "TREE_SUB_ROOT", direction: OUT)
+
     children: [Element!]!
       @relationship(
         type: "PARENT_OF_ELEMENT"

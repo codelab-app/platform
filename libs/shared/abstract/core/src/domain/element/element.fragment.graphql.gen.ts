@@ -33,7 +33,7 @@ export type ElementFragment = {
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentElement?: { id: string } | null
-  childrenRoot?: { id: string } | null
+  firstChild?: { id: string } | null
   atom?: AtomFragment | null
   props?: PropFragment | null
   hooks: Array<HookFragment>
@@ -67,7 +67,7 @@ export const ElementFragmentDoc = gql`
     parentElement {
       id
     }
-    childrenRoot {
+    firstChild {
       id
     }
     atom {
