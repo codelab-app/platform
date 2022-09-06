@@ -1,7 +1,7 @@
 import { DomainOGM } from '@codelab/backend/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { GraphQLRequestContext } from '@codelab/backend/application'
-import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
+import { IFieldResolver } from '@graphql-tools/utils'
 import { ApolloError } from 'apollo-server-micro'
 import { handleAPIError } from '../../utils/handleAPIError'
 import { validateDomainAuth } from '../domain.validation'

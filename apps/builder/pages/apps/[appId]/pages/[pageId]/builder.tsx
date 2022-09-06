@@ -98,12 +98,6 @@ const PageBuilder: CodelabPage = observer(() => {
       const types = await typeService.getAll()
       /**
        *
-       * construct provider tree
-       *
-       */
-      const providerTree = await app.initTree(app.rootElement.id)
-      /**
-       *
        * page Element tree
        *
        */
@@ -117,7 +111,7 @@ const PageBuilder: CodelabPage = observer(() => {
       const renderer = await builderRenderService.addRenderer(
         pageId,
         pageElementTree,
-        providerTree,
+        null,
         appStore,
         createMobxState(appStore, apps, pages, router),
         true,
@@ -126,7 +120,7 @@ const PageBuilder: CodelabPage = observer(() => {
       return {
         page,
         pageElementTree,
-        providerTree,
+        providerTree: null,
         appStore,
         types,
         components,

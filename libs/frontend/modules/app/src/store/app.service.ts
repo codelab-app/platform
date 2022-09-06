@@ -181,16 +181,10 @@ export class AppService
   delete = _async(function* (this: AppService, id: string) {
     const elementService = getElementService(this)
     const app = throwIfUndefined(this.apps.get(id))
-    const appRootElement = app.rootElement.id
 
     const pageRootElements = app.pages.map(
       (page) => page.current.rootElement.id,
     )
-
-    /**
-     * Delete all elements from app
-     */
-    yield* _await(elementService.deleteElementSubgraph(appRootElement))
 
     /**
      * Delete all elements from all pages

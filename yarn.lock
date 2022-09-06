@@ -5830,6 +5830,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-tools/utils@npm:^8.11.0":
+  version: 8.11.0
+  resolution: "@graphql-tools/utils@npm:8.11.0"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 2a223ba056c3c3851defa87a4e3a83fe523e5946f63ccdc8a181c7b290abcc9c3712cb0fb6a33edc8ae072c6530e4b667dc822a8debd9f80fea937a5b253eb26
+  languageName: node
+  linkType: hard
+
 "@graphql-tools/wrap@npm:8.4.19":
   version: 8.4.19
   resolution: "@graphql-tools/wrap@npm:8.4.19"
@@ -13807,6 +13818,7 @@ __metadata:
     "@graphql-codegen/typescript-operations": 2.4.0
     "@graphql-eslint/eslint-plugin": 3.10.3
     "@graphql-tools/merge": 8.2.11
+    "@graphql-tools/utils": ^8.11.0
     "@hon2a/cypress-without": ^1.1.8
     "@ls-lint/ls-lint": 1.11.0
     "@mui/base": 5.0.0-alpha.93

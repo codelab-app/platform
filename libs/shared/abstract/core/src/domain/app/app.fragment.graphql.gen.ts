@@ -1,10 +1,14 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFragment } from '../page/page.fragment.graphql.gen'
+import { ElementFragment } from '../element/element.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
+import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type RedirectedAppFragment = {
   id: string
   name: string
@@ -18,7 +22,6 @@ export type AppPreviewFragment = {
   slug: string
   owner: { id: string }
   pages: Array<PageFragment>
-  rootElement: { id: string }
   store: { id: string }
 }
 
@@ -28,8 +31,24 @@ export type AppFragment = {
   slug: string
   owner: { id: string }
   pages: Array<PageFragment>
-  rootElement: { id: string }
   store: { id: string }
+}
+
+export type PageBuilderAppFragment = {
+  id: string
+  name: string
+  slug: string
+  owner: { id: string }
+  pages: Array<{
+    id: string
+    name: string
+    slug: string
+    rootElement: {
+      descendantElements?: Array<ElementFragment> | null
+    } & ElementFragment
+    app: { id: string }
+  }>
+  store: StoreFragment
 }
 
 export const RedirectedAppFragmentDoc = gql`
@@ -53,9 +72,6 @@ export const AppPreviewFragmentDoc = gql`
     pages {
       ...Page
     }
-    rootElement {
-      id
-    }
     store {
       id
     }
@@ -73,14 +89,40 @@ export const AppFragmentDoc = gql`
     pages {
       ...Page
     }
-    rootElement {
-      id
-    }
     store {
       id
     }
   }
   ${PageFragmentDoc}
+`
+export const PageBuilderAppFragmentDoc = gql`
+  fragment PageBuilderApp on App {
+    id
+    name
+    slug
+    owner {
+      id
+    }
+    pages(where: { id: $pageId }) {
+      id
+      name
+      slug
+      rootElement {
+        ...Element
+        descendantElements {
+          ...Element
+        }
+      }
+      app {
+        id
+      }
+    }
+    store {
+      ...Store
+    }
+  }
+  ${ElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

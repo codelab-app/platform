@@ -7,7 +7,7 @@ export type PageFragment = {
   id: string
   name: string
   slug: string
-  app: { id: string; rootElement: { id: string } }
+  app: { id: string }
   rootElement: { id: string; name?: string | null }
 }
 
@@ -18,9 +18,6 @@ export const PageFragmentDoc = gql`
     slug
     app {
       id
-      rootElement {
-        id
-      }
     }
     rootElement {
       id

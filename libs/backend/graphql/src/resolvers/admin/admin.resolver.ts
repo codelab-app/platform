@@ -3,7 +3,7 @@ import {
   ExecuteCommandResponse,
   MutationExecuteCommandArgs,
 } from '@codelab/shared/abstract/codegen'
-import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
+import { IFieldResolver } from '@graphql-tools/utils'
 import * as execa from 'execa'
 import { ExecaSyncError } from 'execa'
 

@@ -1,16 +1,14 @@
 import { IEntity } from '@codelab/shared/abstract/types'
 import { Ref } from 'mobx-keystone'
-import { IElementTreeService } from '../element'
 import { IPage } from '../page'
 
-export interface IApp extends IElementTreeService {
+export interface IApp {
   id: IAppRef
   ownerId: string
   name: string
   slug: string
   store: IEntity
   pages: Array<Ref<IPage>>
-  rootElement: IEntity
 }
 
 export type IAppRef = string

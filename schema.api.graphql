@@ -552,22 +552,6 @@ type App implements WithOwner {
     sort: [AppPagesConnectionSort!]
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
-  rootElement(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element!
-  rootElementAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): AppElementRootElementAggregationSelection
-  rootElementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [AppRootElementConnectionSort!]
-    where: AppRootElementConnectionWhere
-  ): AppRootElementConnection!
   slug: String!
   store(
     directed: Boolean = true
@@ -598,7 +582,6 @@ input AppConnectInput {
   domains: [AppDomainsConnectFieldInput!]
   owner: WithOwnerOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
-  rootElement: AppRootElementConnectFieldInput
   store: AppStoreConnectFieldInput
 }
 
@@ -606,7 +589,6 @@ input AppConnectOrCreateInput {
   domains: [AppDomainsConnectOrCreateFieldInput!]
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
-  rootElement: AppRootElementConnectOrCreateFieldInput
   store: AppStoreConnectOrCreateFieldInput
 }
 
@@ -624,7 +606,6 @@ input AppCreateInput {
   name: String!
   owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
-  rootElement: AppRootElementFieldInput
   slug: String!
   store: AppStoreFieldInput
 }
@@ -633,7 +614,6 @@ input AppDeleteInput {
   domains: [AppDomainsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
-  rootElement: AppRootElementDeleteFieldInput
   store: AppStoreDeleteFieldInput
 }
 
@@ -641,7 +621,6 @@ input AppDisconnectInput {
   domains: [AppDomainsDisconnectFieldInput!]
   owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
-  rootElement: AppRootElementDisconnectFieldInput
   store: AppStoreDisconnectFieldInput
 }
 
@@ -765,23 +744,6 @@ input AppDomainsUpdateFieldInput {
 type AppEdge {
   cursor: String!
   node: App!
-}
-
-type AppElementRootElementAggregationSelection {
-  count: Int!
-  node: AppElementRootElementNodeAggregateSelection
-}
-
-type AppElementRootElementNodeAggregateSelection {
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNullable!
-  postRenderActionId: StringAggregateSelectionNullable!
-  preRenderActionId: StringAggregateSelectionNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfPropKey: StringAggregateSelectionNullable!
 }
 
 input AppOnCreateInput {
@@ -1019,255 +981,7 @@ input AppRelationInput {
   domains: [AppDomainsCreateFieldInput!]
   owner: WithOwnerOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
-  rootElement: AppRootElementCreateFieldInput
   store: AppStoreCreateFieldInput
-}
-
-input AppRootElementAggregateInput {
-  AND: [AppRootElementAggregateInput!]
-  OR: [AppRootElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: AppRootElementNodeAggregationWhereInput
-}
-
-input AppRootElementConnectFieldInput {
-  connect: ElementConnectInput
-  where: ElementConnectWhere
-}
-
-input AppRootElementConnectOrCreateFieldInput {
-  onCreate: AppRootElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input AppRootElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type AppRootElementConnection {
-  edges: [AppRootElementRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AppRootElementConnectionSort {
-  node: ElementSort
-}
-
-input AppRootElementConnectionWhere {
-  AND: [AppRootElementConnectionWhere!]
-  OR: [AppRootElementConnectionWhere!]
-  node: ElementWhere
-  node_NOT: ElementWhere
-}
-
-input AppRootElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input AppRootElementDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: AppRootElementConnectionWhere
-}
-
-input AppRootElementDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: AppRootElementConnectionWhere
-}
-
-input AppRootElementFieldInput {
-  connect: AppRootElementConnectFieldInput
-  connectOrCreate: AppRootElementConnectOrCreateFieldInput
-  create: AppRootElementCreateFieldInput
-}
-
-input AppRootElementNodeAggregationWhereInput {
-  AND: [AppRootElementNodeAggregationWhereInput!]
-  OR: [AppRootElementNodeAggregationWhereInput!]
-  customCss_AVERAGE_EQUAL: Float
-  customCss_AVERAGE_GT: Float
-  customCss_AVERAGE_GTE: Float
-  customCss_AVERAGE_LT: Float
-  customCss_AVERAGE_LTE: Float
-  customCss_EQUAL: String
-  customCss_GT: Int
-  customCss_GTE: Int
-  customCss_LONGEST_EQUAL: Int
-  customCss_LONGEST_GT: Int
-  customCss_LONGEST_GTE: Int
-  customCss_LONGEST_LT: Int
-  customCss_LONGEST_LTE: Int
-  customCss_LT: Int
-  customCss_LTE: Int
-  customCss_SHORTEST_EQUAL: Int
-  customCss_SHORTEST_GT: Int
-  customCss_SHORTEST_GTE: Int
-  customCss_SHORTEST_LT: Int
-  customCss_SHORTEST_LTE: Int
-  guiCss_AVERAGE_EQUAL: Float
-  guiCss_AVERAGE_GT: Float
-  guiCss_AVERAGE_GTE: Float
-  guiCss_AVERAGE_LT: Float
-  guiCss_AVERAGE_LTE: Float
-  guiCss_EQUAL: String
-  guiCss_GT: Int
-  guiCss_GTE: Int
-  guiCss_LONGEST_EQUAL: Int
-  guiCss_LONGEST_GT: Int
-  guiCss_LONGEST_GTE: Int
-  guiCss_LONGEST_LT: Int
-  guiCss_LONGEST_LTE: Int
-  guiCss_LT: Int
-  guiCss_LTE: Int
-  guiCss_SHORTEST_EQUAL: Int
-  guiCss_SHORTEST_GT: Int
-  guiCss_SHORTEST_GTE: Int
-  guiCss_SHORTEST_LT: Int
-  guiCss_SHORTEST_LTE: Int
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  postRenderActionId_AVERAGE_EQUAL: Float
-  postRenderActionId_AVERAGE_GT: Float
-  postRenderActionId_AVERAGE_GTE: Float
-  postRenderActionId_AVERAGE_LT: Float
-  postRenderActionId_AVERAGE_LTE: Float
-  postRenderActionId_EQUAL: String
-  postRenderActionId_GT: Int
-  postRenderActionId_GTE: Int
-  postRenderActionId_LONGEST_EQUAL: Int
-  postRenderActionId_LONGEST_GT: Int
-  postRenderActionId_LONGEST_GTE: Int
-  postRenderActionId_LONGEST_LT: Int
-  postRenderActionId_LONGEST_LTE: Int
-  postRenderActionId_LT: Int
-  postRenderActionId_LTE: Int
-  postRenderActionId_SHORTEST_EQUAL: Int
-  postRenderActionId_SHORTEST_GT: Int
-  postRenderActionId_SHORTEST_GTE: Int
-  postRenderActionId_SHORTEST_LT: Int
-  postRenderActionId_SHORTEST_LTE: Int
-  preRenderActionId_AVERAGE_EQUAL: Float
-  preRenderActionId_AVERAGE_GT: Float
-  preRenderActionId_AVERAGE_GTE: Float
-  preRenderActionId_AVERAGE_LT: Float
-  preRenderActionId_AVERAGE_LTE: Float
-  preRenderActionId_EQUAL: String
-  preRenderActionId_GT: Int
-  preRenderActionId_GTE: Int
-  preRenderActionId_LONGEST_EQUAL: Int
-  preRenderActionId_LONGEST_GT: Int
-  preRenderActionId_LONGEST_GTE: Int
-  preRenderActionId_LONGEST_LT: Int
-  preRenderActionId_LONGEST_LTE: Int
-  preRenderActionId_LT: Int
-  preRenderActionId_LTE: Int
-  preRenderActionId_SHORTEST_EQUAL: Int
-  preRenderActionId_SHORTEST_GT: Int
-  preRenderActionId_SHORTEST_GTE: Int
-  preRenderActionId_SHORTEST_LT: Int
-  preRenderActionId_SHORTEST_LTE: Int
-  propTransformationJs_AVERAGE_EQUAL: Float
-  propTransformationJs_AVERAGE_GT: Float
-  propTransformationJs_AVERAGE_GTE: Float
-  propTransformationJs_AVERAGE_LT: Float
-  propTransformationJs_AVERAGE_LTE: Float
-  propTransformationJs_EQUAL: String
-  propTransformationJs_GT: Int
-  propTransformationJs_GTE: Int
-  propTransformationJs_LONGEST_EQUAL: Int
-  propTransformationJs_LONGEST_GT: Int
-  propTransformationJs_LONGEST_GTE: Int
-  propTransformationJs_LONGEST_LT: Int
-  propTransformationJs_LONGEST_LTE: Int
-  propTransformationJs_LT: Int
-  propTransformationJs_LTE: Int
-  propTransformationJs_SHORTEST_EQUAL: Int
-  propTransformationJs_SHORTEST_GT: Int
-  propTransformationJs_SHORTEST_GTE: Int
-  propTransformationJs_SHORTEST_LT: Int
-  propTransformationJs_SHORTEST_LTE: Int
-  renderForEachPropKey_AVERAGE_EQUAL: Float
-  renderForEachPropKey_AVERAGE_GT: Float
-  renderForEachPropKey_AVERAGE_GTE: Float
-  renderForEachPropKey_AVERAGE_LT: Float
-  renderForEachPropKey_AVERAGE_LTE: Float
-  renderForEachPropKey_EQUAL: String
-  renderForEachPropKey_GT: Int
-  renderForEachPropKey_GTE: Int
-  renderForEachPropKey_LONGEST_EQUAL: Int
-  renderForEachPropKey_LONGEST_GT: Int
-  renderForEachPropKey_LONGEST_GTE: Int
-  renderForEachPropKey_LONGEST_LT: Int
-  renderForEachPropKey_LONGEST_LTE: Int
-  renderForEachPropKey_LT: Int
-  renderForEachPropKey_LTE: Int
-  renderForEachPropKey_SHORTEST_EQUAL: Int
-  renderForEachPropKey_SHORTEST_GT: Int
-  renderForEachPropKey_SHORTEST_GTE: Int
-  renderForEachPropKey_SHORTEST_LT: Int
-  renderForEachPropKey_SHORTEST_LTE: Int
-  renderIfPropKey_AVERAGE_EQUAL: Float
-  renderIfPropKey_AVERAGE_GT: Float
-  renderIfPropKey_AVERAGE_GTE: Float
-  renderIfPropKey_AVERAGE_LT: Float
-  renderIfPropKey_AVERAGE_LTE: Float
-  renderIfPropKey_EQUAL: String
-  renderIfPropKey_GT: Int
-  renderIfPropKey_GTE: Int
-  renderIfPropKey_LONGEST_EQUAL: Int
-  renderIfPropKey_LONGEST_GT: Int
-  renderIfPropKey_LONGEST_GTE: Int
-  renderIfPropKey_LONGEST_LT: Int
-  renderIfPropKey_LONGEST_LTE: Int
-  renderIfPropKey_LT: Int
-  renderIfPropKey_LTE: Int
-  renderIfPropKey_SHORTEST_EQUAL: Int
-  renderIfPropKey_SHORTEST_GT: Int
-  renderIfPropKey_SHORTEST_GTE: Int
-  renderIfPropKey_SHORTEST_LT: Int
-  renderIfPropKey_SHORTEST_LTE: Int
-}
-
-type AppRootElementRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input AppRootElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input AppRootElementUpdateFieldInput {
-  connect: AppRootElementConnectFieldInput
-  connectOrCreate: AppRootElementConnectOrCreateFieldInput
-  create: AppRootElementCreateFieldInput
-  delete: AppRootElementDeleteFieldInput
-  disconnect: AppRootElementDisconnectFieldInput
-  update: AppRootElementUpdateConnectionInput
-  where: AppRootElementConnectionWhere
 }
 
 """
@@ -1619,7 +1333,6 @@ input AppUpdateInput {
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
-  rootElement: AppRootElementUpdateFieldInput
   slug: String
   store: AppStoreUpdateFieldInput
 }
@@ -1714,11 +1427,6 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
-  rootElement: ElementWhere
-  rootElementAggregate: AppRootElementAggregateInput
-  rootElementConnection: AppRootElementConnectionWhere
-  rootElementConnection_NOT: AppRootElementConnectionWhere
-  rootElement_NOT: ElementWhere
   slug: String
   slug_CONTAINS: String
   slug_ENDS_WITH: String
@@ -4585,18 +4293,6 @@ type DomainsConnection {
 }
 
 type Element {
-  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App
-  appAggregate(
-    directed: Boolean = true
-    where: AppWhere
-  ): ElementAppAppAggregationSelection
-  appConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementAppConnectionSort!]
-    where: ElementAppConnectionWhere
-  ): ElementAppConnection!
   atom(directed: Boolean = true, options: AtomOptions, where: AtomWhere): Atom
   atomAggregate(
     directed: Boolean = true
@@ -4658,6 +4354,7 @@ type Element {
     where: ElementComponentConnectionWhere
   ): ElementComponentConnection!
   customCss: String
+  descendantElements: [Element!]
   guiCss: String
   hooks(
     directed: Boolean = true
@@ -4815,144 +4512,6 @@ type ElementAggregateSelection {
   propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfPropKey: StringAggregateSelectionNullable!
-}
-
-input ElementAppAggregateInput {
-  AND: [ElementAppAggregateInput!]
-  OR: [ElementAppAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementAppNodeAggregationWhereInput
-}
-
-type ElementAppAppAggregationSelection {
-  count: Int!
-  node: ElementAppAppNodeAggregateSelection
-}
-
-type ElementAppAppNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-  slug: StringAggregateSelectionNonNullable!
-}
-
-input ElementAppConnectFieldInput {
-  connect: AppConnectInput
-  where: AppConnectWhere
-}
-
-input ElementAppConnectOrCreateFieldInput {
-  onCreate: ElementAppConnectOrCreateFieldInputOnCreate!
-  where: AppConnectOrCreateWhere!
-}
-
-input ElementAppConnectOrCreateFieldInputOnCreate {
-  node: AppOnCreateInput!
-}
-
-type ElementAppConnection {
-  edges: [ElementAppRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementAppConnectionSort {
-  node: AppSort
-}
-
-input ElementAppConnectionWhere {
-  AND: [ElementAppConnectionWhere!]
-  OR: [ElementAppConnectionWhere!]
-  node: AppWhere
-  node_NOT: AppWhere
-}
-
-input ElementAppCreateFieldInput {
-  node: AppCreateInput!
-}
-
-input ElementAppDeleteFieldInput {
-  delete: AppDeleteInput
-  where: ElementAppConnectionWhere
-}
-
-input ElementAppDisconnectFieldInput {
-  disconnect: AppDisconnectInput
-  where: ElementAppConnectionWhere
-}
-
-input ElementAppFieldInput {
-  connect: ElementAppConnectFieldInput
-  connectOrCreate: ElementAppConnectOrCreateFieldInput
-  create: ElementAppCreateFieldInput
-}
-
-input ElementAppNodeAggregationWhereInput {
-  AND: [ElementAppNodeAggregationWhereInput!]
-  OR: [ElementAppNodeAggregationWhereInput!]
-  id_EQUAL: ID
-  name_AVERAGE_EQUAL: Float
-  name_AVERAGE_GT: Float
-  name_AVERAGE_GTE: Float
-  name_AVERAGE_LT: Float
-  name_AVERAGE_LTE: Float
-  name_EQUAL: String
-  name_GT: Int
-  name_GTE: Int
-  name_LONGEST_EQUAL: Int
-  name_LONGEST_GT: Int
-  name_LONGEST_GTE: Int
-  name_LONGEST_LT: Int
-  name_LONGEST_LTE: Int
-  name_LT: Int
-  name_LTE: Int
-  name_SHORTEST_EQUAL: Int
-  name_SHORTEST_GT: Int
-  name_SHORTEST_GTE: Int
-  name_SHORTEST_LT: Int
-  name_SHORTEST_LTE: Int
-  slug_AVERAGE_EQUAL: Float
-  slug_AVERAGE_GT: Float
-  slug_AVERAGE_GTE: Float
-  slug_AVERAGE_LT: Float
-  slug_AVERAGE_LTE: Float
-  slug_EQUAL: String
-  slug_GT: Int
-  slug_GTE: Int
-  slug_LONGEST_EQUAL: Int
-  slug_LONGEST_GT: Int
-  slug_LONGEST_GTE: Int
-  slug_LONGEST_LT: Int
-  slug_LONGEST_LTE: Int
-  slug_LT: Int
-  slug_LTE: Int
-  slug_SHORTEST_EQUAL: Int
-  slug_SHORTEST_GT: Int
-  slug_SHORTEST_GTE: Int
-  slug_SHORTEST_LT: Int
-  slug_SHORTEST_LTE: Int
-}
-
-type ElementAppRelationship {
-  cursor: String!
-  node: App!
-}
-
-input ElementAppUpdateConnectionInput {
-  node: AppUpdateInput
-}
-
-input ElementAppUpdateFieldInput {
-  connect: ElementAppConnectFieldInput
-  connectOrCreate: ElementAppConnectOrCreateFieldInput
-  create: ElementAppCreateFieldInput
-  delete: ElementAppDeleteFieldInput
-  disconnect: ElementAppDisconnectFieldInput
-  update: ElementAppUpdateConnectionInput
-  where: ElementAppConnectionWhere
 }
 
 input ElementAtomAggregateInput {
@@ -5754,7 +5313,6 @@ input ElementComponentUpdateFieldInput {
 }
 
 input ElementConnectInput {
-  app: ElementAppConnectFieldInput
   atom: ElementAtomConnectFieldInput
   children: [ElementChildrenConnectFieldInput!]
   childrenRoot: ElementChildrenRootConnectFieldInput
@@ -5771,7 +5329,6 @@ input ElementConnectInput {
 }
 
 input ElementConnectOrCreateInput {
-  app: ElementAppConnectOrCreateFieldInput
   atom: ElementAtomConnectOrCreateFieldInput
   children: [ElementChildrenConnectOrCreateFieldInput!]
   childrenRoot: ElementChildrenRootConnectOrCreateFieldInput
@@ -5796,7 +5353,6 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
-  app: ElementAppFieldInput
   atom: ElementAtomFieldInput
   children: ElementChildrenFieldInput
   childrenRoot: ElementChildrenRootFieldInput
@@ -5822,7 +5378,6 @@ input ElementCreateInput {
 }
 
 input ElementDeleteInput {
-  app: ElementAppDeleteFieldInput
   atom: ElementAtomDeleteFieldInput
   children: [ElementChildrenDeleteFieldInput!]
   childrenRoot: ElementChildrenRootDeleteFieldInput
@@ -5839,7 +5394,6 @@ input ElementDeleteInput {
 }
 
 input ElementDisconnectInput {
-  app: ElementAppDisconnectFieldInput
   atom: ElementAtomDisconnectFieldInput
   children: [ElementChildrenDisconnectFieldInput!]
   childrenRoot: ElementChildrenRootDisconnectFieldInput
@@ -7377,7 +6931,6 @@ input ElementPropsUpdateFieldInput {
 }
 
 input ElementRelationInput {
-  app: ElementAppCreateFieldInput
   atom: ElementAtomCreateFieldInput
   children: [ElementChildrenCreateFieldInput!]
   childrenRoot: ElementChildrenRootCreateFieldInput
@@ -7913,7 +7466,6 @@ input ElementUniqueWhere {
 }
 
 input ElementUpdateInput {
-  app: ElementAppUpdateFieldInput
   atom: ElementAtomUpdateFieldInput
   children: [ElementChildrenUpdateFieldInput!]
   childrenRoot: ElementChildrenRootUpdateFieldInput
@@ -7941,11 +7493,6 @@ input ElementUpdateInput {
 input ElementWhere {
   AND: [ElementWhere!]
   OR: [ElementWhere!]
-  app: AppWhere
-  appAggregate: ElementAppAggregateInput
-  appConnection: ElementAppConnectionWhere
-  appConnection_NOT: ElementAppConnectionWhere
-  app_NOT: AppWhere
   atom: AtomWhere
   atomAggregate: ElementAtomAggregateInput
   atomConnection: ElementAtomConnectionWhere

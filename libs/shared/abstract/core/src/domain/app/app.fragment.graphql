@@ -2,7 +2,6 @@ fragment RedirectedApp on App {
   id
   name
   slug
-
   owner {
     username
   }
@@ -17,9 +16,6 @@ fragment AppPreview on App {
   }
   pages {
     ...Page
-  }
-  rootElement {
-    id
   }
   store {
     id
@@ -36,10 +32,33 @@ fragment App on App {
   pages {
     ...Page
   }
-  rootElement {
-    id
-  }
   store {
     id
+  }
+}
+
+fragment PageBuilderApp on App {
+  id
+  name
+  slug
+  owner {
+    id
+  }
+  pages(where: { id: $pageId }) {
+    id
+    name
+    slug
+    rootElement {
+      ...Element
+      descendantElements {
+        ...Element
+      }
+    }
+    app {
+      id
+    }
+  }
+  store {
+    ...Store
   }
 }

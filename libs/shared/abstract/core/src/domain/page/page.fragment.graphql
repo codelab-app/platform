@@ -4,9 +4,6 @@ fragment Page on Page {
   slug
   app {
     id
-    rootElement {
-      id
-    }
   }
   rootElement {
     id

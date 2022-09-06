@@ -18,7 +18,6 @@ const hydrate = (app: IAppDTO) => {
     name: app.name,
     slug: app.slug,
     ownerId: app.owner?.id,
-    rootElement: { id: app.rootElement.id },
     store: { id: app.store.id },
     pages: app.pages.map((page) => pageRef(page.id)),
   })
@@ -31,7 +30,6 @@ export class App
     ownerId: prop<string>(),
     name: prop<string>(),
     slug: prop<string>(),
-    rootElement: prop<IEntity>(),
     store: prop<IEntity>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })

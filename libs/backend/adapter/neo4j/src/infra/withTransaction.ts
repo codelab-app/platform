@@ -1,8 +1,8 @@
-import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
+import { IFieldResolver } from '@graphql-tools/utils'
 import { Transaction } from 'neo4j-driver'
 import { getDriver } from './driver'
 
-export type IAsyncTxnResolver<
+export type ITxnResolver<
   TParent = any,
   TContext = any,
   TArgs = Record<string, any>,
@@ -14,15 +14,15 @@ export type IAsyncTxnResolver<
   (txn: Transaction) => Promise<TReturn>
 >
 
-export const withAsyncReadTransaction = <
+export const withReadTransaction = <
   TParent = any,
   TArgs = Record<string, any>,
   TContext = Record<string, any>,
   TReturn = any,
 >(
-  asyncTxnResolver: IAsyncTxnResolver<TParent, TContext, TArgs, TReturn>,
+  txnResolver: ITxnResolver<TParent, TContext, TArgs, TReturn>,
 ) => {
-  const name = asyncTxnResolver.name || ''
+  const name = txnResolver.name || ''
 
   const resolver: IFieldResolver<TParent, TContext, TArgs, Promise<TReturn>> = (
     parent,
@@ -34,7 +34,7 @@ export const withAsyncReadTransaction = <
     const session = driver.session()
 
     return session
-      .writeTransaction(asyncTxnResolver(parent, args, context, info))
+      .writeTransaction(txnResolver(parent, args, context, info))
       .catch((error) => {
         console.error(`${name ? name + ':' : ''}`, error)
         throw error

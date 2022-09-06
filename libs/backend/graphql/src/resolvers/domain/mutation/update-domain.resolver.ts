@@ -1,7 +1,7 @@
 import { DomainOGM } from '@codelab/backend/adapter/neo4j'
 import { vercelApis } from '@codelab/backend/adapter/vercel'
 import { UpdateDomainMutationInput } from '@codelab/shared/abstract/codegen'
-import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
+import { IFieldResolver } from '@graphql-tools/utils'
 import { handleAPIError } from '../../utils/handleAPIError'
 import { domainExists } from '../domain.error'
 import { validateDomainAuth } from '../domain.validation'

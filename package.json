@@ -70,6 +70,7 @@
     "@fortawesome/pro-thin-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "latest",
     "@graphql-tools/merge": "8.2.11",
+    "@graphql-tools/utils": "^8.11.0",
     "@mui/base": "5.0.0-alpha.93",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "5.0.0-alpha.91",
