@@ -1,5 +1,15 @@
 import { CodeOutlined, DatabaseOutlined } from '@ant-design/icons'
-import { StoreEditorPane } from '@codelab/frontend/modules/store'
+import {
+  CreateActionModal,
+  DeleteActionsModal,
+  StoreEditorPane,
+  UpdateActionModal,
+} from '@codelab/frontend/modules/store'
+import {
+  CreateFieldModal,
+  DeleteFieldModal,
+  UpdateFieldModal,
+} from '@codelab/frontend/modules/type'
 import {
   CodeMirrorEditor,
   EditorPaneToggler,
@@ -8,6 +18,7 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IActionService,
+  IResourceService,
   IStore,
   IStoreService,
   ITypeService,
@@ -21,18 +32,25 @@ import React from 'react'
 
 const { TabPane } = Tabs
 
-const onChange = (key: string) => {
-  console.log(key)
-}
-
 interface EditorPaneBuilderProps {
   resizable: UseResizable
   actionService: IActionService
   storeService: IStoreService
   typeService: ITypeService
+  resourceService: IResourceService
   appStore: IStore
   state: any
 }
+
+const Container = styled.div`
+  height: 100%;
+
+  .ant-tabs,
+  .ant-tabs-content-holder,
+  .ant-tabs-content {
+    height: 100%;
+  }
+`
 
 export const EditorPaneBuilder = observer(
   ({
@@ -41,52 +59,68 @@ export const EditorPaneBuilder = observer(
     appStore,
     storeService,
     typeService,
+    resourceService,
     state,
   }: EditorPaneBuilderProps) => {
     return (
-      <Container>
-        <Tabs
-          defaultActiveKey="1"
-          tabBarExtraContent={<EditorPaneToggler resizable={resizable} />}
-        >
-          <TabPane
-            key="store"
-            tab={
-              <div>
-                <DatabaseOutlined title="Store" />
-                Store
-              </div>
-            }
+      <>
+        <Container>
+          <Tabs
+            defaultActiveKey="1"
+            tabBarExtraContent={<EditorPaneToggler resizable={resizable} />}
           >
-            <StoreEditorPane
-              actionService={actionService}
-              appStore={appStore}
-              storeService={storeService}
-              typeService={typeService}
-            />
-          </TabPane>
-          <TabPane
-            key="store-inspector"
-            tab={
-              <div>
-                <CodeOutlined title="Store inspector" />
-                Store Inspector
-              </div>
-            }
-          >
-            <CodeMirrorEditor
-              language={CodeMirrorLanguage.Json}
-              onChange={() => undefined}
-              overrideStyles={css`
-                height: 95%;
-              `}
-              singleLine={false}
-              title="Current props"
-              value={JSON.stringify(toJS(state), null, '\t') ?? '{'}
-            />
-          </TabPane>
-        </Tabs>
-      </Container>
+            <TabPane
+              key="store"
+              tab={
+                <div>
+                  <DatabaseOutlined title="Store" />
+                  Store
+                </div>
+              }
+            >
+              <StoreEditorPane
+                actionService={actionService}
+                appStore={appStore}
+                storeService={storeService}
+                typeService={typeService}
+              />
+            </TabPane>
+            <TabPane
+              key="store-inspector"
+              tab={
+                <div>
+                  <CodeOutlined title="Store inspector" />
+                  Store Inspector
+                </div>
+              }
+            >
+              <CodeMirrorEditor
+                language={CodeMirrorLanguage.Json}
+                onChange={() => undefined}
+                overrideStyles={css`
+                  height: 95%;
+                `}
+                singleLine={false}
+                title="Current props"
+                value={JSON.stringify(toJS(state), null, '\t') ?? '{'}
+              />
+            </TabPane>
+          </Tabs>
+        </Container>
+        <CreateFieldModal typeService={typeService} />
+        <UpdateFieldModal typeService={typeService} />
+        <DeleteFieldModal typeService={typeService} />
+        <CreateActionModal
+          actionService={actionService}
+          resourceService={resourceService}
+          store={appStore}
+        />
+        <UpdateActionModal
+          actionService={actionService}
+          resourceService={resourceService}
+        />
+        <DeleteActionsModal actionService={actionService} />
+      </>
     )
   },
 )
