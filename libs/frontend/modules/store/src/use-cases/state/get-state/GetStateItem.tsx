@@ -8,7 +8,6 @@ import {
   IField,
   IInterfaceType,
   IStore,
-  IStoreService,
   ITypeService,
 } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
@@ -19,12 +18,11 @@ import React from 'react'
 export interface StateTreeItemProp {
   field: IField
   typeService: ITypeService
-  storeService: IStoreService
   store: IStore
 }
 
 export const GetStateItem = observer<StateTreeItemProp>(
-  ({ field, typeService, store, storeService }) => {
+  ({ field, typeService, store }) => {
     const onEdit = () => {
       typeService.fieldUpdateModal.open({
         field: fieldRef(field.id),
