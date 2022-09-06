@@ -1,5 +1,4 @@
 import { Prop } from '@codelab/frontend/modules/element'
-import { getTypeService, InterfaceType } from '@codelab/frontend/modules/type'
 import {
   IAnyAction,
   IProp,
@@ -55,12 +54,7 @@ export class Store
 
   @modelAction
   toMobxObservable(globals: IPropData = {}) {
-    const typeService = getTypeService(this)
-    const stateApi = typeService.type(this.stateApiId) as InterfaceType
-
-    const storeState = [...stateApi.fields.values()].map((field) => ({
-      [field.key]: this.state.values[field.key],
-    }))
+    const storeState = this.state.values
 
     const storeActions = this.actions.map((action) => ({
       [action.current.name]: {
@@ -70,7 +64,7 @@ export class Store
     }))
 
     const state = makeAutoObservable(
-      merge({}, ...storeState, ...storeActions, globals),
+      merge({}, storeState, ...storeActions, globals),
     )
 
     for (const key of keys(state)) {

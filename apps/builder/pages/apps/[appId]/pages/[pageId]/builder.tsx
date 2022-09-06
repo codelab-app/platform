@@ -8,17 +8,7 @@ import {
 } from '@codelab/frontend/modules/builder'
 import { elementRef } from '@codelab/frontend/modules/element'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
-import {
-  CreateActionModal,
-  createMobxState,
-  DeleteActionsModal,
-  UpdateActionModal,
-} from '@codelab/frontend/modules/store'
-import {
-  CreateFieldModal,
-  DeleteFieldModal,
-  UpdateFieldModal,
-} from '@codelab/frontend/modules/type'
+import { createMobxState } from '@codelab/frontend/modules/store'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -152,24 +142,6 @@ const PageBuilder: CodelabPage = observer(() => {
         isLoading={loading}
         renderer={value?.renderer}
       />
-
-      <CreateFieldModal typeService={typeService} />
-      <UpdateFieldModal typeService={typeService} />
-      <DeleteFieldModal typeService={typeService} />
-      {data?.appStore && (
-        <>
-          <CreateActionModal
-            actionService={actionService}
-            resourceService={resourceService}
-            store={data.appStore}
-          />
-          <UpdateActionModal
-            actionService={actionService}
-            resourceService={resourceService}
-          />
-          <DeleteActionsModal actionService={actionService} />
-        </>
-      )}
     </>
   )
 })
@@ -188,6 +160,7 @@ PageBuilder.Layout = observer((page) => {
     builderRenderService,
     actionService,
     storeService,
+    resourceService,
   } = useStore()
 
   const appId = useCurrentAppId()
@@ -232,6 +205,7 @@ PageBuilder.Layout = observer((page) => {
                 actionService={actionService}
                 appStore={pageBuilderRenderer.appStore.current}
                 resizable={resizable}
+                resourceService={resourceService}
                 state={pageBuilderRenderer?.platformState}
                 storeService={storeService}
                 typeService={typeService}
