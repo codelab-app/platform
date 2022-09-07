@@ -55,6 +55,10 @@ export class AppService
     const pageService = getPageService(this)
     const storeService = getStoreService(this)
     const appModel = this.writeCache([app])[0]
+
+    console.log(appModel)
+    console.log(this.app(app.id))
+
     /**
      * Build the pageElementTree for page
      */
@@ -88,7 +92,7 @@ export class AppService
   }
 
   app(id: string) {
-    return throwIfUndefined(this.apps.get(id))
+    return this.apps.get(id)
   }
 
   @modelAction

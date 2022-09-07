@@ -58,7 +58,8 @@ fragment PageBuilderApp on App {
       id
     }
   }
-  store {
-    ...Store
-  }
+  # Issue with action neo4j bug
+#  store {
+#    ...Store
+#  }
 }

@@ -27,6 +27,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { PageBuilderAppFragment } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

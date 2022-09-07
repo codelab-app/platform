@@ -8,7 +8,7 @@ fragment Store on Store {
   state {
     ...Prop
   }
-#  actions {
-#    ...Action
-#  }
+  actions {
+    ...Action
+  }
 }

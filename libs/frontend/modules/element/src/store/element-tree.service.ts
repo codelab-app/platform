@@ -25,11 +25,6 @@ export class ElementTreeService
   })
   implements IElementTreeService
 {
-  @modelAction
-  test(t: any) {
-    this.elementTree = t
-  }
-
   @modelFlow
   initTree = _async(function* (
     this: ElementTreeService,

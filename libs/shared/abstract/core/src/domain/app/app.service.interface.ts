@@ -18,7 +18,7 @@ export interface IAppService
    * Properties
    */
   apps: ObjectMap<IApp>
-  app(id: string): IApp
+  app(id: string): Maybe<IApp>
   appsList: Array<IApp>
   load(data: IPageBuilderAppProps): IBuilderApp
 }

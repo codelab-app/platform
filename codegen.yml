@@ -36,6 +36,7 @@ generates:
       - typescript-operations
     config:
       #      constEnums: true
+      inlineFragmentTypes: combine
       namingConvention:
         enumValues: keep
   #        dedupeFragments: true

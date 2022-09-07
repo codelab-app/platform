@@ -2,6 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageBuilderAppFragment } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ComponentFragment } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
+import { StoreFragment } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -22,6 +23,7 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageBuilderAppFragmentDoc } from '../../../../../shared/abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ComponentFragmentDoc } from '../../../../../shared/abstract/core/src/domain/component/component.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../../../../../shared/abstract/core/src/domain/store/store.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../../shared/abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type GetPageBuilderQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
@@ -31,6 +33,7 @@ export type GetPageBuilderQueryVariables = Types.Exact<{
 
 export type GetPageBuilderQuery = {
   apps: Array<PageBuilderAppFragment>
+  stores: Array<StoreFragment>
   components: Array<ComponentFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
@@ -51,6 +54,9 @@ export const GetPageBuilderDocument = gql`
   query GetPageBuilder($appId: ID!, $pageId: ID!, $typeIds: [ID!]) {
     apps(where: { id: $appId }) {
       ...PageBuilderApp
+    }
+    stores {
+      ...Store
     }
     components {
       ...Component
@@ -96,6 +102,7 @@ export const GetPageBuilderDocument = gql`
     }
   }
   ${PageBuilderAppFragmentDoc}
+  ${StoreFragmentDoc}
   ${ComponentFragmentDoc}
   ${TypeFragmentDoc}
 `

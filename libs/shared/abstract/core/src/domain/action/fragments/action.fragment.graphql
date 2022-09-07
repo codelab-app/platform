@@ -1,6 +1,12 @@
-fragment Action on ActionBase {
+fragment Action on AnyAction {
   ...ActionBase
-  ...CustomAction
-  ...ResourceAction
-  ...PipelineAction
+  ... on CustomAction {
+    ...CustomAction
+  }
+  ... on ResourceAction {
+    ...ResourceAction
+  }
+  ... on PipelineAction {
+    ...PipelineAction
+  }
 }

@@ -1,6 +1,6 @@
-import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
 import {
+  IApp,
   IAppService,
   IPropData,
   IStoreService,
@@ -14,12 +14,11 @@ interface StoreConfigPaneProps {
   storeService: IStoreService
   typeService: ITypeService
   appService: IAppService
+  app: IApp
 }
 
 export const StoreConfigPane = observer<StoreConfigPaneProps>(
-  ({ storeService, typeService, appService }) => {
-    const { app } = useCurrentApp(appService)
-
+  ({ storeService, typeService, appService, app }) => {
     if (!app) {
       return null
     }
