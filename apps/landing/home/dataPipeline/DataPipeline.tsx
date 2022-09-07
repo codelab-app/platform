@@ -47,52 +47,60 @@ const isEvenNumber = (num: number) => {
 
 export const DataPipeline = () => {
   return (
-    <section>
-      <div css={tw`bg-white m-auto container py-12`}>
-        <h2 css={tw`text-5xl text-violet-600 font-semibold pt-28  text-center`}>
+    <section css={tw`px-0 lg:px-8 xl:px-12 2xl:w-11/12 m-auto 2xl:px-0`}>
+      <div
+        css={tw`bg-white m-auto w-11/12 md:w-4/5 px-0 2xl:px-20 lg:container mb-12 md:mb-0 py-0 `}
+      >
+        <h2
+          css={tw`text-lg sm:text-2xl lg:text-4xl xl:text-5xl text-violet-600 font-semibold mt-10 px-0 lg:px-8 xl:px-0  md:mt-14 text-center`}
+        >
           Control Your Data Pipeline
         </h2>
         {data.map((items) => (
           <div
             css={[
               isEvenNumber(items.id) === false
-                ? tw`flex-row`
-                : tw`flex-row-reverse `,
-              tw`flex mt-28 justify-between`,
+                ? tw`lg:flex-row`
+                : tw`lg:flex-row-reverse `,
+              tw`flex flex-col mt-7 sm:mt-14 lg:mt-28 justify-between`,
             ]}
           >
             <div
               css={[
                 isEvenNumber(items.id) === false
-                  ? tw`items-start`
-                  : tw`items-end`,
-                tw`w-2/5 flex flex-col`,
+                  ? tw`lg:items-start`
+                  : tw`lg:items-end`,
+                tw`w-full items-center lg:w-2/5 flex flex-col`,
               ]}
             >
               <h1
-                css={tw`text-white bg-yellow-500 p-6 w-fit rounded-[20px] font-semibold text-5xl`}
+                css={tw`text-white bg-yellow-500 p-2 sm:p-4 lg:p-5 xl:p-6 w-fit rounded-[20px] font-semibold text-lg sm:text-3xl lg:text-4xl xl:text-5xl`}
               >
                 {items.id}
               </h1>
-              <div css={tw`flex items-center mb-5`}>
+              <div css={tw`flex items-center mb-2 md:mb-5`}>
                 <Image
                   alt="item-logo"
                   height={24}
                   src={items.icon}
                   width={24}
                 />
-                <h4 css={tw`p-0 m-0 ml-2 text-xl`}>{items.title}</h4>
+                <h4 css={tw`p-0 m-0 ml-2 text-base sm:text-lg xl:text-xl`}>
+                  {items.title}
+                </h4>
               </div>
               <p
                 css={[
-                  isEvenNumber(items.id) === false ? tw`` : tw`text-right`,
-                  tw`p-0 m-0 text-lg mb-5`,
+                  isEvenNumber(items.id) === false
+                    ? tw`lg:text-left`
+                    : tw`lg:text-right`,
+                  tw`px-4 sm:p-0 m-0 text-sm sm:text-base text-center xl:text-lg mb-2 md:mb-5`,
                 ]}
               >
                 {items.description}
               </p>
               <Button
-                css={tw`text-violet-500 text-lg px-0 flex items-center`}
+                css={tw`text-violet-500 text-base md:text-lg px-0 lg:mb-0 mb-2 flex items-center`}
                 type="link"
               >
                 <FontAwesomeIcon css={tw`mr-2`} icon={faArrowTurnDownRight} />
@@ -100,7 +108,11 @@ export const DataPipeline = () => {
               </Button>
             </div>
 
-            <Image alt="image" height={306} src={items.image} width={564} />
+            <div
+              css={tw`w-80 sm:w-auto lg:w-1/2  md:m-auto xl:w-auto lg:m-0 xl:m-0 m-auto sm:m-auto`}
+            >
+              <Image alt="image" height={306} src={items.image} width={564} />
+            </div>
           </div>
         ))}
         <Integrations />

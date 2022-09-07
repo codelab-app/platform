@@ -34,7 +34,10 @@ export const DemoShoppingCard = () => {
   return (
     <Card
       cover={
-        <img src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg" />
+        <img
+          css={tw`w-44 m-auto sm:w-11/12 lg:w-full xl:w-64 xl:m-auto 2xl:w-full`}
+          src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg"
+        />
       }
       css={tw`m-auto `}
     >
@@ -42,13 +45,7 @@ export const DemoShoppingCard = () => {
         <Text strong>MacBook Pro 13”</Text>
         <Text strong>$150.00</Text>
       </div>
-      <p
-        style={{
-          marginTop: '20px',
-          fontSize: '12px',
-          color: '#737373',
-        }}
-      >
+      <p css={tw`text-xs sm:text-sm mt-3 text-current`}>
         The new M2 chip makes the 13‑inch MacBook Pro more capable than ever.
       </p>
       <Button

@@ -15,13 +15,23 @@ const onChange = (key: string) => {
 
 export const BuilderDemo = () => {
   return (
-    <Row css={tw`container flex flex-col-reverse md:flex-row`}>
-      <Col md={16} span={24}>
+    <Row css={tw`w-full md:container flex flex-col-reverse xl:flex-row`}>
+      <Col
+        css={tw`z-20 mt-20 px-0 md:px-12 lg:px-0 sm:mt-40 lg:mt-60 xl:mt-0 md:z-0 `}
+        md={24}
+        span={24}
+        xl={16}
+      >
         <Tabs defaultActiveKey="1" onChange={onChange}>
           <TabPane key="1" tab="Builder View">
             {/* <BuilderView /> */}
             <Row>
-              <Col css={tw`border-2 border-solid border-black mr-10`} span={6}>
+              <Col
+                css={tw`border-2 border-solid border-black mr-0 md:mr-10 mb-6 lg:mb-0`}
+                lg={8}
+                span={24}
+                xl={6}
+              >
                 <p
                   css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black `}
                 >
@@ -29,7 +39,12 @@ export const BuilderDemo = () => {
                 </p>
                 <DOMTree />
               </Col>
-              <Col css={tw`border-2 border-solid border-black`} span={11}>
+              <Col
+                css={tw`border-2 border-solid border-black`}
+                lg={14}
+                span={24}
+                xl={11}
+              >
                 <p
                   css={tw`border-0 border-b-2 mb-0 py-2 px-4 border-solid border-black`}
                 >
@@ -49,11 +64,15 @@ export const BuilderDemo = () => {
           </TabPane>
         </Tabs>
       </Col>
-      <Col md={8} span={24}>
-        <div css={tw`flex justify-end`}>
-          <div css={tw`relative w-full`}>
+      <Col md={24} span={24} xl={8}>
+        <div
+          css={tw`flex justify-center md:justify-center xl:justify-end md:h-full`}
+        >
+          <div
+            css={tw`relative w-full sm:w-full m-0 lg:m-auto lg:m-0 xl:m-0 md:w-3/5 xl:w-full`}
+          >
             <img
-              css={tw`absolute w-full z-10 border border-gray-200 border-solid rounded-xl`}
+              css={tw`absolute w-full max-h-80 object-contain sm:max-h-[520px] md:max-h-fit z-10 border border-gray-200 border-solid rounded-xl`}
               src="/Browser/Safari (Big Sur) - Light.png"
             />
             <div

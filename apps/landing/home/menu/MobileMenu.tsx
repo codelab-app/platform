@@ -20,7 +20,7 @@ import { menuState } from './menuState'
 
 const SpaceEvenly = styled.div(
   tw`
-  flex flex-row  justify-between items-center flex-grow p-6
+  flex flex-row  justify-between items-center flex-grow py-6 px-12
 `,
   css`
     & > * {
@@ -108,19 +108,19 @@ export const MenuMobile = () => {
             ))}
           </ul>
           <ul css={tw`flex items-center p-0 mt-10 justify-between`}>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faTwitter} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faFacebook} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faGithub} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faYoutube} />
             </li>
-            <li css={tw` text-3xl list-none`}>
+            <li css={tw` text-2xl list-none`}>
               <FontAwesomeIcon icon={faDiscord} />
             </li>
           </ul>

@@ -11,15 +11,10 @@ export const MenuDesktop = () => {
 
   return (
     <nav>
-      <menu
-        css={[tw`m-0 p-0 bg-white w-full`]}
-        style={{
-          height: '68px',
-        }}
-      >
+      <menu css={[tw`m-0 p-0 bg-white h-[67px] w-full`]}>
         <ul
           css={[
-            tw`tablet:justify-between p-0 flex-row items-center flex h-full`,
+            tw`tablet:justify-between p-0 px-0 md:px-6 2xl:px-8 flex-row items-center flex h-full`,
           ]}
         >
           <li css={tw`justify-start flex p-2`}>

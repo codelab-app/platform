@@ -8,7 +8,7 @@ import tw from 'twin.macro'
 import v from 'voca'
 
 const { Meta } = Card
-const { Text, Link, Title } = Typography
+const { Text } = Typography
 
 interface TestimonialItemProps {
   review: string
@@ -34,7 +34,7 @@ export const TestimonialItem = ({
           css`
             max-width: 600px;
           `,
-          tw`mx-2 bg-transparent p-4 rounded-lg`,
+          tw`mx-2 bg-transparent p-2 sm:p-4 rounded-lg`,
         ]}
       >
         <div css={tw`flex justify-center`}>
@@ -66,14 +66,12 @@ export const TestimonialItem = ({
           />,
         )}
         <div
-          css={[
-            css`
-              min-height: 150px;
-            `,
-            tw`mt-3`,
-          ]}
+          css={tw`mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]`}
         >
-          <Text css={tw`text-base text-slate-300`} italic>{`"${review}"`}</Text>
+          <Text
+            css={tw` text-sm sm:text-base text-slate-300`}
+            italic
+          >{`"${review}"`}</Text>
         </div>
         <Divider css={tw`bg-slate-600`} />
         <Meta
@@ -108,17 +106,55 @@ export const TestimonialSection = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    appendDots: (dots) => (
+      <div
+        style={{
+          backgroundColor: '#fff',
+
+          padding: '2px',
+        }}
+      >
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    ),
+    customPaging: (i) => (
+      <div
+        style={{
+          width: '30px',
+          color: 'blue',
+          border: '1px blue solid',
+        }}
+      >
+        {i + 1}
+      </div>
+    ),
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   }
 
   return (
-    <div css={tw`px-8 pt-12 pb-20 `}>
-      <Title
-        css={tw`text-center mt-28 !font-extrabold !text-white !text-5xl`}
-        level={2}
+    <div css={tw`px-8 pt-12 pb-12 sm:pb-20 `}>
+      <h1
+        css={tw`text-center mt-4 sm:mt-14 md:mt-28 !font-extrabold !text-white text-xl sm:text-3xl lg:text-4xl xl:!text-5xl`}
+        // level={2}
       >
         Loved by startups
-      </Title>
-      <Slider {...settings} css={tw`my-8 mt-8`}>
+      </h1>
+      <Slider {...settings} css={tw`my-2 sm:my-8 z-10 mt-8`}>
         <TestimonialItem
           review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
           role="Co-Founder @ Mrhost"
