@@ -21574,6 +21574,7 @@ type ActionBase_CustomAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 type ActionBase_PipelineAction_Fragment = {
@@ -21582,6 +21583,7 @@ type ActionBase_PipelineAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 type ActionBase_ResourceAction_Fragment = {
@@ -21590,6 +21592,7 @@ type ActionBase_ResourceAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
+  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type ActionBaseFragment =
@@ -21629,17 +21632,6 @@ export type PipelineActionFragment = {
     | { __typename?: 'PipelineAction'; id: string }
     | { __typename?: 'ResourceAction'; id: string }
   >
-  actionsConnection: {
-    __typename?: 'PipelineActionActionsConnection'
-    edges: Array<{
-      __typename?: 'PipelineActionActionsRelationship'
-      orders?: Array<string> | null
-      node:
-        | { __typename?: 'CustomAction'; id: string }
-        | { __typename?: 'PipelineAction'; id: string }
-        | { __typename?: 'ResourceAction'; id: string }
-    }>
-  }
 } & ActionBase_PipelineAction_Fragment
 
 export type ResourceActionFragment = {
@@ -21703,6 +21695,7 @@ export type PageBuilderAppFragment = {
     } & ElementFragment
     app: { __typename?: 'App'; id: string }
   }>
+  store: { __typename?: 'Store' } & StoreFragment
 }
 
 export type AtomFragment = {
@@ -22071,7 +22064,8 @@ type Type_AppType_Fragment = {
 
 type Type_ArrayType_Fragment = {
   __typename?: 'ArrayType'
-} & TypeBase_ArrayType_Fragment
+} & TypeBase_ArrayType_Fragment &
+  ArrayTypeFragment
 
 type Type_CodeMirrorType_Fragment = {
   __typename?: 'CodeMirrorType'
@@ -22119,7 +22113,8 @@ type Type_RenderPropsType_Fragment = {
 
 type Type_UnionType_Fragment = {
   __typename?: 'UnionType'
-} & TypeBase_UnionType_Fragment
+} & TypeBase_UnionType_Fragment &
+  UnionTypeFragment
 
 export type TypeFragment =
   | Type_ActionType_Fragment

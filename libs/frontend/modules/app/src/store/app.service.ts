@@ -54,11 +54,11 @@ export class AppService
     const elementService = getElementService(this)
     const pageService = getPageService(this)
     const storeService = getStoreService(this)
+    const storeModel = storeService.writeCache([app.store])[0]
+    /**
+     * Need to create nested model
+     */
     const appModel = this.writeCache([app])[0]
-
-    console.log(appModel)
-    console.log(this.app(app.id))
-
     /**
      * Build the pageElementTree for page
      */
@@ -76,7 +76,6 @@ export class AppService
     ])
 
     const pageElementTree = pageModel.initTreeV2(pageElements)
-    const storeModel = storeService.writeCache([app.store])[0]
 
     return {
       pageElementTree,

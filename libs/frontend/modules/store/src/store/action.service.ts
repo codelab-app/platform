@@ -3,7 +3,6 @@ import {
   resourceRef,
 } from '@codelab/frontend/modules/resource'
 import { ModalService, throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { ActionBaseWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ActionFragment,
   IActionDTO,
@@ -98,13 +97,14 @@ export class ActionService
         action.__typename === IActionKind.PipelineAction &&
         actionModel.type === IActionKind.PipelineAction
       ) {
-        actionModel.actions = action.actionsConnection.edges.flatMap(
-          (x) =>
-            x.orders?.map((y) => ({
-              order: Number(y) || 0,
-              action: actionRef(x.node.id),
-            })) || [],
-        )
+        actionModel.actions = []
+        // actionModel.actions = action.actionsConnection.edges.flatMap(
+        //   (x) =>
+        //     x.orders?.map((y) => ({
+        //       order: Number(y) || 0,
+        //       action: actionRef(x.node.id),
+        //     })) || [],
+        // )
       }
 
       return actionModel
@@ -167,8 +167,7 @@ export class ActionService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ActionService, where?: ActionBaseWhere) {
-    const storeId = where?.store?.id
+  getAll = _async(function* (this: ActionService, storeId?: string) {
     const actions = yield* _await(getActionsByStore(storeId))
 
     return this.hydrateOrUpdateCache(actions)
@@ -179,7 +178,7 @@ export class ActionService
   getOne = _async(function* (this: ActionService, id: string) {
     return this.actions.has(id)
       ? this.actions.get(id)
-      : (yield* _await(this.getAll({ id })))[0]
+      : (yield* _await(this.getAll(id)))[0]
   })
 
   @modelFlow

@@ -1,4 +1,4 @@
-fragment Action on AnyAction {
+fragment Action on ActionBase {
   ...ActionBase
   ... on CustomAction {
     ...CustomAction

@@ -9,8 +9,8 @@ export const GetActionsList = observer<{
   store: IStore
   actionService: IActionService
 }>(({ actionService, store }) => {
-  const [getActions] = useStatefulExecutor((id: string) =>
-    actionService.getAll({ store: { id } }),
+  const [getActions] = useStatefulExecutor((storeId: string) =>
+    actionService.getAll(storeId),
   )
 
   useEffect(() => {

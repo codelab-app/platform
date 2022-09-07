@@ -1,5 +1,4 @@
-import { Tag } from '@codelab/shared/abstract/codegen'
-import { ITagRef } from '../tag'
+import { ITagExport, ITagRef } from '../tag'
 import { IInterfaceTypeRef } from '../type'
 import { IAuth0Id } from '../user'
 import { AtomFragment } from './atom.fragment.graphql.gen'
@@ -32,7 +31,7 @@ export interface IAtomExport {
   api?: {
     id: string | undefined
   }
-  tags?: Array<Tag>
+  tags?: Array<ITagExport>
 }
 
 // export type IAtomExport = Pick<OGM_TYPES.Atom, 'id' | 'name' | 'type' | 'api'>

@@ -1,4 +1,5 @@
 import { CodelabPage } from '@codelab/frontend/abstract/types'
+import { useCurrentApp } from '@codelab/frontend/modules/app'
 import {
   CreateActionModal,
   DeleteActionsModal,
@@ -118,11 +119,18 @@ StorePage.Layout = observer((page) => {
   const { actionService, appService, typeService, storeService, userService } =
     useStore()
 
+  const { app } = useCurrentApp(appService)
+  const store = app?.store.current
+
+  if (!store) {
+    throw new Error('Store not found')
+  }
+
   return (
     <DashboardTemplate
       ConfigPane={() => (
         <StoreConfigPane
-          appService={appService}
+          store={store}
           storeService={storeService}
           typeService={typeService}
         />
@@ -130,8 +138,7 @@ StorePage.Layout = observer((page) => {
       ExplorerPane={() => (
         <StoreExplorerPane
           actionService={actionService}
-          appService={appService}
-          storeService={storeService}
+          store={store}
           typeService={typeService}
         />
       )}

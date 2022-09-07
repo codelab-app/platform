@@ -30,7 +30,7 @@ export type ActionFragment =
   | Action_ResourceAction_Fragment
 
 export const ActionFragmentDoc = gql`
-  fragment Action on AnyAction {
+  fragment Action on ActionBase {
     ...ActionBase
     ... on CustomAction {
       ...CustomAction

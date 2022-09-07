@@ -50,8 +50,8 @@ export const actionSchema = gql`
     Response handlers
     """
     successAction: AnyAction!
-      @relationship(type: "SUCCESS_ACTION", direction: IN)
-    errorAction: AnyAction! @relationship(type: "ERROR_ACTION", direction: IN)
+      @relationship(type: "SUCCESS_ACTION", direction: OUT)
+    errorAction: AnyAction! @relationship(type: "ERROR_ACTION", direction: OUT)
 
     """
     Resource to fetch data from

@@ -15,6 +15,8 @@ import {
   TypeBase_RenderPropsType_Fragment,
   TypeBase_UnionType_Fragment,
 } from './type-base.fragment.graphql.gen'
+import { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
+import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
 import { EnumTypeFragment } from './enum-type.fragment.graphql.gen'
 import { InterfaceTypeFragment } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
@@ -29,6 +31,8 @@ import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { TypeBaseFragmentDoc } from './type-base.fragment.graphql.gen'
+import { ArrayTypeFragmentDoc } from './array-type.fragment.graphql.gen'
+import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
 import { EnumTypeFragmentDoc } from './enum-type.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
@@ -44,7 +48,8 @@ export type Type_ActionType_Fragment = TypeBase_ActionType_Fragment &
 
 export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
 
-export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment
+export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
+  ArrayTypeFragment
 
 export type Type_CodeMirrorType_Fragment = TypeBase_CodeMirrorType_Fragment &
   CodeMirrorTypeFragment
@@ -72,7 +77,8 @@ export type Type_ReactNodeType_Fragment = TypeBase_ReactNodeType_Fragment
 export type Type_RenderPropsType_Fragment = TypeBase_RenderPropsType_Fragment &
   RenderPropsTypeFragment
 
-export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment
+export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment &
+  UnionTypeFragment
 
 export type TypeFragment =
   | Type_ActionType_Fragment
@@ -92,6 +98,8 @@ export type TypeFragment =
 export const TypeFragmentDoc = gql`
   fragment Type on TypeBase {
     ...TypeBase
+    ...ArrayType
+    ...UnionType
     ...EnumType
     ...InterfaceType
     ...PrimitiveType
@@ -104,6 +112,8 @@ export const TypeFragmentDoc = gql`
     ...ActionType
   }
   ${TypeBaseFragmentDoc}
+  ${ArrayTypeFragmentDoc}
+  ${UnionTypeFragmentDoc}
   ${EnumTypeFragmentDoc}
   ${InterfaceTypeFragmentDoc}
   ${PrimitiveTypeFragmentDoc}

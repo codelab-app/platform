@@ -9,6 +9,7 @@ export type ActionBase_CustomAction_Fragment = {
   name: string
   type: Types.ActionKind
   runOnInit: boolean
+  store: { id: string; name: string }
 }
 
 export type ActionBase_PipelineAction_Fragment = {
@@ -17,6 +18,7 @@ export type ActionBase_PipelineAction_Fragment = {
   name: string
   type: Types.ActionKind
   runOnInit: boolean
+  store: { id: string; name: string }
 }
 
 export type ActionBase_ResourceAction_Fragment = {
@@ -25,6 +27,7 @@ export type ActionBase_ResourceAction_Fragment = {
   name: string
   type: Types.ActionKind
   runOnInit: boolean
+  store: { id: string; name: string }
 }
 
 export type ActionBaseFragment =
@@ -37,6 +40,10 @@ export const ActionBaseFragmentDoc = gql`
     __typename
     id
     name
+    store {
+      id
+      name
+    }
     type
     runOnInit
   }

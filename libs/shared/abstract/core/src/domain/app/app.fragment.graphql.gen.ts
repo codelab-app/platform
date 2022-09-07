@@ -2,11 +2,13 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFragment } from '../page/page.fragment.graphql.gen'
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { PageFragmentDoc } from '../page/page.fragment.graphql.gen'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type RedirectedAppFragment = {
   id: string
   name: string
@@ -46,6 +48,7 @@ export type PageBuilderAppFragment = {
     } & ElementFragment
     app: { id: string }
   }>
+  store: StoreFragment
 }
 
 export const RedirectedAppFragmentDoc = gql`
@@ -114,8 +117,12 @@ export const PageBuilderAppFragmentDoc = gql`
         id
       }
     }
+    store {
+      ...Store
+    }
   }
   ${ElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

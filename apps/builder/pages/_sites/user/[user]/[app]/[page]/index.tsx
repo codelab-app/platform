@@ -43,7 +43,7 @@ const Index = (props: PageProps) => {
   // }, [pageId])
 
   const renderer = useMemo(() => {
-    if (!page || !appStore) {
+    if (!page || !appStore || !app) {
       return
     }
 

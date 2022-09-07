@@ -1,8 +1,7 @@
 import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
 import {
-  IApp,
-  IAppService,
   IPropData,
+  IStore,
   IStoreService,
   ITypeService,
 } from '@codelab/shared/abstract/core'
@@ -11,19 +10,13 @@ import React from 'react'
 import tw from 'twin.macro'
 
 interface StoreConfigPaneProps {
-  storeService: IStoreService
   typeService: ITypeService
-  appService: IAppService
-  app: IApp
+  storeService: IStoreService
+  store: IStore
 }
 
 export const StoreConfigPane = observer<StoreConfigPaneProps>(
-  ({ storeService, typeService, appService, app }) => {
-    if (!app) {
-      return null
-    }
-
-    const store = app.store.current
+  ({ typeService, storeService, store }) => {
     const api = typeService.type(store.stateApiId) as InterfaceType
 
     const onSubmit = (values: IPropData) => {

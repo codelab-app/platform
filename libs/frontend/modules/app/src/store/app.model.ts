@@ -2,7 +2,6 @@ import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { pageRef } from '@codelab/frontend/modules/page'
 import { storeRef } from '@codelab/frontend/presenter/container'
 import { IApp, IAppDTO, IPage, IStore } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
 import {
   detach,
   ExtendedModel,
@@ -15,12 +14,14 @@ import {
 } from 'mobx-keystone'
 
 const hydrate = (app: IAppDTO) => {
+  const store = storeRef(app.store.id)
+
   return new App({
     id: app.id,
     name: app.name,
     slug: app.slug,
     ownerId: app.owner?.id,
-    store: storeRef(app.store.id),
+    store,
     pages: app.pages.map((page) => pageRef(page.id)),
   })
 }

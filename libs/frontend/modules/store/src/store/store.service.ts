@@ -51,7 +51,7 @@ export class StoreService
     const actionService = getActionService(this)
     const actions = stores.flatMap((s) => s.actions)
 
-    return actionService.hydrateOrUpdateCache(actions)
+    return actionService.writeCache(actions)
   }
 
   @modelAction

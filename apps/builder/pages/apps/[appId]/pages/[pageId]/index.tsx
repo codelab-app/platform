@@ -41,6 +41,11 @@ const PageRenderer: CodelabPage<any> = observer(() => {
        */
       const apps = await appService.getAll()
       const app = appService.app(appId)
+
+      if (!app) {
+        throw new Error('Missing app')
+      }
+
       /**
        * load app store
        */

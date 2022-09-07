@@ -15,7 +15,7 @@ export const SelectAction = ({
   storeId,
 }: SelectActionProps) => {
   const [getActions, { isLoading, error }] = useStatefulExecutor(() =>
-    actionService.getAll({ store: { id: storeId } }),
+    actionService.getAll(storeId),
   )
 
   useEffect(() => {

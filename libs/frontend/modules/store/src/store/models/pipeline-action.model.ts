@@ -7,7 +7,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { actionRef } from './action.ref'
 import { createActionBase } from './action-base.model'
 
 const hydrate = (action: IPipelineActionDTO): IPipelineAction => {
@@ -19,13 +18,14 @@ const hydrate = (action: IPipelineActionDTO): IPipelineAction => {
     runOnInit: action.runOnInit,
     storeId: action.store.id,
     type: action.type,
-    actions: action.actionsConnection.edges.flatMap(
-      (x) =>
-        x.orders?.map((y) => ({
-          order: Number(y) || 0,
-          action: actionRef(x.node.id),
-        })) || [],
-    ),
+    actions: [],
+    // actions: action.actionsConnection.edges.flatMap(
+    //   (x) =>
+    //     x.orders?.map((y) => ({
+    //       order: Number(y) || 0,
+    //       action: actionRef(x.node.id),
+    //     })) || [],
+    // ),
   })
 }
 
