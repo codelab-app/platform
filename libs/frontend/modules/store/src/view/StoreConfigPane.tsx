@@ -1,3 +1,4 @@
+import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { InterfaceType, PropsForm } from '@codelab/frontend/modules/type'
 import {
   IAppService,
@@ -8,7 +9,6 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { useCurrentStore } from '../hooks'
 
 interface StoreConfigPaneProps {
   storeService: IStoreService
@@ -18,12 +18,13 @@ interface StoreConfigPaneProps {
 
 export const StoreConfigPane = observer<StoreConfigPaneProps>(
   ({ storeService, typeService, appService }) => {
-    const { store } = useCurrentStore(appService, storeService)
+    const { app } = useCurrentApp(appService)
 
-    if (!store) {
+    if (!app) {
       return null
     }
 
+    const store = app.store.current
     const api = typeService.type(store.stateApiId) as InterfaceType
 
     const onSubmit = (values: IPropData) => {

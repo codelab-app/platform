@@ -1,5 +1,4 @@
 fragment Store on Store {
-  __typename
   id
   name
   stateApi {
@@ -9,7 +8,7 @@ fragment Store on Store {
   state {
     ...Prop
   }
-  actions {
-    ...Action
-  }
+#  actions {
+#    ...Action
+#  }
 }

@@ -1,20 +1,16 @@
 fragment PipelineAction on PipelineAction {
   ...ActionBase
-
   actions {
     ... on CustomAction {
       id
     }
-
     ... on ResourceAction {
       id
     }
-
     ... on PipelineAction {
       id
     }
   }
-
   actionsConnection {
     edges {
       orders
@@ -22,11 +18,9 @@ fragment PipelineAction on PipelineAction {
         ... on CustomAction {
           id
         }
-
         ... on ResourceAction {
           id
         }
-
         ... on PipelineAction {
           id
         }

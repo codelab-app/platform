@@ -1,5 +1,5 @@
-import { PROVIDER_ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { getPageService } from '@codelab/frontend/modules/page'
+import { deleteStoreInput } from '@codelab/frontend/modules/store'
 import {
   getElementService,
   getStoreService,
@@ -264,11 +264,7 @@ export class AppService
           ],
           store: {
             where: {},
-            delete: {
-              state: { where: {} },
-              stateApi: { where: {} },
-              actions: [{ where: {} }],
-            },
+            delete: deleteStoreInput,
           },
         },
       }),

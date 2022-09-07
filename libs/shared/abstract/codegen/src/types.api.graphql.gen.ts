@@ -15957,7 +15957,7 @@ export enum SortDirection {
 
 export type Store = {
   __typename?: 'Store'
-  actions: Array<ActionBase>
+  actions: Array<AnyAction>
   actionsConnection: StoreActionsConnection
   id: Scalars['ID']
   name: Scalars['String']
@@ -15971,15 +15971,14 @@ export type Store = {
 
 export type StoreActionsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<ActionBaseOptions>
-  where?: InputMaybe<ActionBaseWhere>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<AnyActionWhere>
 }
 
 export type StoreActionsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<StoreActionsConnectionSort>>
   where?: InputMaybe<StoreActionsConnectionWhere>
 }
 
@@ -16021,9 +16020,26 @@ export type StoreStateConnectionArgs = {
   where?: InputMaybe<StoreStateConnectionWhere>
 }
 
-export type StoreActionsConnectFieldInput = {
-  connect?: InputMaybe<ActionBaseConnectInput>
-  where?: InputMaybe<ActionBaseConnectWhere>
+export type StoreActionsConnectInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionConnectFieldInput>
+  >
+}
+
+export type StoreActionsConnectOrCreateInput = {
+  CustomAction?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
 }
 
 export type StoreActionsConnection = {
@@ -16033,53 +16049,227 @@ export type StoreActionsConnection = {
   totalCount: Scalars['Int']
 }
 
-export type StoreActionsConnectionSort = {
-  node?: InputMaybe<ActionBaseSort>
-}
-
 export type StoreActionsConnectionWhere = {
-  AND?: InputMaybe<Array<StoreActionsConnectionWhere>>
-  OR?: InputMaybe<Array<StoreActionsConnectionWhere>>
-  node?: InputMaybe<ActionBaseWhere>
-  node_NOT?: InputMaybe<ActionBaseWhere>
+  CustomAction?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+  PipelineAction?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+  ResourceAction?: InputMaybe<StoreActionsResourceActionConnectionWhere>
 }
 
 export type StoreActionsCreateFieldInput = {
-  node: ActionBaseCreateInput
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
 }
 
-export type StoreActionsDeleteFieldInput = {
-  delete?: InputMaybe<ActionBaseDeleteInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsCreateInput = {
+  CustomAction?: InputMaybe<StoreActionsCustomActionFieldInput>
+  PipelineAction?: InputMaybe<StoreActionsPipelineActionFieldInput>
+  ResourceAction?: InputMaybe<StoreActionsResourceActionFieldInput>
 }
 
-export type StoreActionsDisconnectFieldInput = {
-  disconnect?: InputMaybe<ActionBaseDisconnectInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsCustomActionConnectFieldInput = {
+  connect?: InputMaybe<Array<CustomActionConnectInput>>
+  where?: InputMaybe<CustomActionConnectWhere>
 }
 
-export type StoreActionsFieldInput = {
-  connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  create?: InputMaybe<Array<StoreActionsCreateFieldInput>>
+export type StoreActionsCustomActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsCustomActionConnectOrCreateFieldInputOnCreate
+  where: CustomActionConnectOrCreateWhere
+}
+
+export type StoreActionsCustomActionConnectOrCreateFieldInputOnCreate = {
+  node: CustomActionOnCreateInput
+}
+
+export type StoreActionsCustomActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsCustomActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsCustomActionConnectionWhere>>
+  node?: InputMaybe<CustomActionWhere>
+  node_NOT?: InputMaybe<CustomActionWhere>
+}
+
+export type StoreActionsCustomActionCreateFieldInput = {
+  node: CustomActionCreateInput
+}
+
+export type StoreActionsCustomActionDeleteFieldInput = {
+  delete?: InputMaybe<CustomActionDeleteInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsCustomActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<CustomActionDisconnectInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsCustomActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+}
+
+export type StoreActionsCustomActionUpdateConnectionInput = {
+  node?: InputMaybe<CustomActionUpdateInput>
+}
+
+export type StoreActionsCustomActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsCustomActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsCustomActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsCustomActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsCustomActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsCustomActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsCustomActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsCustomActionConnectionWhere>
+}
+
+export type StoreActionsDeleteInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionDeleteFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionDeleteFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionDeleteFieldInput>>
+}
+
+export type StoreActionsDisconnectInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionDisconnectFieldInput>>
+  PipelineAction?: InputMaybe<
+    Array<StoreActionsPipelineActionDisconnectFieldInput>
+  >
+  ResourceAction?: InputMaybe<
+    Array<StoreActionsResourceActionDisconnectFieldInput>
+  >
+}
+
+export type StoreActionsPipelineActionConnectFieldInput = {
+  connect?: InputMaybe<Array<PipelineActionConnectInput>>
+  where?: InputMaybe<PipelineActionConnectWhere>
+}
+
+export type StoreActionsPipelineActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate
+  where: PipelineActionConnectOrCreateWhere
+}
+
+export type StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate = {
+  node: PipelineActionOnCreateInput
+}
+
+export type StoreActionsPipelineActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsPipelineActionConnectionWhere>>
+  node?: InputMaybe<PipelineActionWhere>
+  node_NOT?: InputMaybe<PipelineActionWhere>
+}
+
+export type StoreActionsPipelineActionCreateFieldInput = {
+  node: PipelineActionCreateInput
+}
+
+export type StoreActionsPipelineActionDeleteFieldInput = {
+  delete?: InputMaybe<PipelineActionDeleteInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+}
+
+export type StoreActionsPipelineActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<PipelineActionDisconnectInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
+}
+
+export type StoreActionsPipelineActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+}
+
+export type StoreActionsPipelineActionUpdateConnectionInput = {
+  node?: InputMaybe<PipelineActionUpdateInput>
+}
+
+export type StoreActionsPipelineActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsPipelineActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsPipelineActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsPipelineActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsPipelineActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsPipelineActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsPipelineActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsPipelineActionConnectionWhere>
 }
 
 export type StoreActionsRelationship = {
   __typename?: 'StoreActionsRelationship'
   cursor: Scalars['String']
-  node: ActionBase
+  node: AnyAction
 }
 
-export type StoreActionsUpdateConnectionInput = {
-  node?: InputMaybe<ActionBaseUpdateInput>
+export type StoreActionsResourceActionConnectFieldInput = {
+  connect?: InputMaybe<Array<ResourceActionConnectInput>>
+  where?: InputMaybe<ResourceActionConnectWhere>
 }
 
-export type StoreActionsUpdateFieldInput = {
-  connect?: InputMaybe<Array<StoreActionsConnectFieldInput>>
-  create?: InputMaybe<Array<StoreActionsCreateFieldInput>>
-  delete?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
-  update?: InputMaybe<StoreActionsUpdateConnectionInput>
-  where?: InputMaybe<StoreActionsConnectionWhere>
+export type StoreActionsResourceActionConnectOrCreateFieldInput = {
+  onCreate: StoreActionsResourceActionConnectOrCreateFieldInputOnCreate
+  where: ResourceActionConnectOrCreateWhere
+}
+
+export type StoreActionsResourceActionConnectOrCreateFieldInputOnCreate = {
+  node: ResourceActionOnCreateInput
+}
+
+export type StoreActionsResourceActionConnectionWhere = {
+  AND?: InputMaybe<Array<StoreActionsResourceActionConnectionWhere>>
+  OR?: InputMaybe<Array<StoreActionsResourceActionConnectionWhere>>
+  node?: InputMaybe<ResourceActionWhere>
+  node_NOT?: InputMaybe<ResourceActionWhere>
+}
+
+export type StoreActionsResourceActionCreateFieldInput = {
+  node: ResourceActionCreateInput
+}
+
+export type StoreActionsResourceActionDeleteFieldInput = {
+  delete?: InputMaybe<ResourceActionDeleteInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsResourceActionDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceActionDisconnectInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsResourceActionFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsResourceActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
+}
+
+export type StoreActionsResourceActionUpdateConnectionInput = {
+  node?: InputMaybe<ResourceActionUpdateInput>
+}
+
+export type StoreActionsResourceActionUpdateFieldInput = {
+  connect?: InputMaybe<Array<StoreActionsResourceActionConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<StoreActionsResourceActionConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<StoreActionsResourceActionCreateFieldInput>>
+  delete?: InputMaybe<Array<StoreActionsResourceActionDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<StoreActionsResourceActionDisconnectFieldInput>>
+  update?: InputMaybe<StoreActionsResourceActionUpdateConnectionInput>
+  where?: InputMaybe<StoreActionsResourceActionConnectionWhere>
+}
+
+export type StoreActionsUpdateInput = {
+  CustomAction?: InputMaybe<Array<StoreActionsCustomActionUpdateFieldInput>>
+  PipelineAction?: InputMaybe<Array<StoreActionsPipelineActionUpdateFieldInput>>
+  ResourceAction?: InputMaybe<Array<StoreActionsResourceActionUpdateFieldInput>>
 }
 
 export type StoreAggregateSelection = {
@@ -16090,12 +16280,13 @@ export type StoreAggregateSelection = {
 }
 
 export type StoreConnectInput = {
-  actions?: InputMaybe<Array<StoreActionsConnectFieldInput>>
+  actions?: InputMaybe<StoreActionsConnectInput>
   state?: InputMaybe<StoreStateConnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
+  actions?: InputMaybe<StoreActionsConnectOrCreateInput>
   state?: InputMaybe<StoreStateConnectOrCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiConnectOrCreateFieldInput>
 }
@@ -16109,7 +16300,7 @@ export type StoreConnectWhere = {
 }
 
 export type StoreCreateInput = {
-  actions?: InputMaybe<StoreActionsFieldInput>
+  actions?: InputMaybe<StoreActionsCreateInput>
   id: Scalars['ID']
   name: Scalars['String']
   state?: InputMaybe<StoreStateFieldInput>
@@ -16117,13 +16308,13 @@ export type StoreCreateInput = {
 }
 
 export type StoreDeleteInput = {
-  actions?: InputMaybe<Array<StoreActionsDeleteFieldInput>>
+  actions?: InputMaybe<StoreActionsDeleteInput>
   state?: InputMaybe<StoreStateDeleteFieldInput>
   stateApi?: InputMaybe<StoreStateApiDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
-  actions?: InputMaybe<Array<StoreActionsDisconnectFieldInput>>
+  actions?: InputMaybe<StoreActionsDisconnectInput>
   state?: InputMaybe<StoreStateDisconnectFieldInput>
   stateApi?: InputMaybe<StoreStateApiDisconnectFieldInput>
 }
@@ -16171,7 +16362,7 @@ export type StorePropStateNodeAggregateSelection = {
 }
 
 export type StoreRelationInput = {
-  actions?: InputMaybe<Array<StoreActionsCreateFieldInput>>
+  actions?: InputMaybe<StoreActionsCreateFieldInput>
   state?: InputMaybe<StoreStateCreateFieldInput>
   stateApi?: InputMaybe<StoreStateApiCreateFieldInput>
 }
@@ -16402,7 +16593,7 @@ export type StoreUniqueWhere = {
 }
 
 export type StoreUpdateInput = {
-  actions?: InputMaybe<Array<StoreActionsUpdateFieldInput>>
+  actions?: InputMaybe<StoreActionsUpdateInput>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   state?: InputMaybe<StoreStateUpdateFieldInput>
@@ -19775,9 +19966,10 @@ export type GetPageBuilderQuery = {
           }>
         }
       }
+      app: { __typename?: 'App'; id: string }
     }>
     store: {
-      __typename: 'Store'
+      __typename?: 'Store'
       id: string
       name: string
       stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -19790,7 +19982,6 @@ export type GetPageBuilderQuery = {
             type: ActionKind
             runOnInit: boolean
             code: string
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -19798,7 +19989,6 @@ export type GetPageBuilderQuery = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             actions: Array<
               | { __typename?: 'CustomAction'; id: string }
               | { __typename?: 'PipelineAction'; id: string }
@@ -19822,7 +20012,6 @@ export type GetPageBuilderQuery = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             successAction:
               | {
                   __typename: 'CustomAction'
@@ -19830,7 +20019,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -19838,7 +20026,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -19846,7 +20033,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             errorAction:
               | {
@@ -19855,7 +20041,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -19863,7 +20048,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -19871,7 +20055,6 @@ export type GetPageBuilderQuery = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             resource: {
               __typename: 'Resource'
@@ -20788,7 +20971,6 @@ export type CreateCustomActionsMutation = {
       type: ActionKind
       runOnInit: boolean
       code: string
-      store: { __typename?: 'Store'; id: string; name: string }
     }>
   }
 }
@@ -20807,7 +20989,6 @@ export type CreateResourceActionsMutation = {
       name: string
       type: ActionKind
       runOnInit: boolean
-      store: { __typename?: 'Store'; id: string; name: string }
       successAction:
         | {
             __typename: 'CustomAction'
@@ -20815,7 +20996,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -20823,7 +21003,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'ResourceAction'
@@ -20831,7 +21010,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
       errorAction:
         | {
@@ -20840,7 +21018,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -20848,7 +21025,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'ResourceAction'
@@ -20856,7 +21032,6 @@ export type CreateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
       resource: {
         __typename: 'Resource'
@@ -20884,7 +21059,6 @@ export type CreatePipelineActionsMutation = {
       name: string
       type: ActionKind
       runOnInit: boolean
-      store: { __typename?: 'Store'; id: string; name: string }
       actions: Array<
         | { __typename?: 'CustomAction'; id: string }
         | { __typename?: 'PipelineAction'; id: string }
@@ -20957,7 +21131,6 @@ export type GetActionsQuery = {
     type: ActionKind
     runOnInit: boolean
     code: string
-    store: { __typename?: 'Store'; id: string; name: string }
   }>
   resourceActions: Array<{
     __typename: 'ResourceAction'
@@ -20965,7 +21138,6 @@ export type GetActionsQuery = {
     name: string
     type: ActionKind
     runOnInit: boolean
-    store: { __typename?: 'Store'; id: string; name: string }
     successAction:
       | {
           __typename: 'CustomAction'
@@ -20973,7 +21145,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'PipelineAction'
@@ -20981,7 +21152,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'ResourceAction'
@@ -20989,7 +21159,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
     errorAction:
       | {
@@ -20998,7 +21167,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'PipelineAction'
@@ -21006,7 +21174,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'ResourceAction'
@@ -21014,7 +21181,6 @@ export type GetActionsQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
         }
     resource: {
       __typename: 'Resource'
@@ -21031,7 +21197,6 @@ export type GetActionsQuery = {
     name: string
     type: ActionKind
     runOnInit: boolean
-    store: { __typename?: 'Store'; id: string; name: string }
     actions: Array<
       | { __typename?: 'CustomAction'; id: string }
       | { __typename?: 'PipelineAction'; id: string }
@@ -21065,7 +21230,7 @@ export type CreateStoresMutation = {
       relationshipsCreated: number
     }
     stores: Array<{
-      __typename: 'Store'
+      __typename?: 'Store'
       id: string
       name: string
       stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -21078,7 +21243,6 @@ export type CreateStoresMutation = {
             type: ActionKind
             runOnInit: boolean
             code: string
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -21086,7 +21250,6 @@ export type CreateStoresMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             actions: Array<
               | { __typename?: 'CustomAction'; id: string }
               | { __typename?: 'PipelineAction'; id: string }
@@ -21110,7 +21273,6 @@ export type CreateStoresMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             successAction:
               | {
                   __typename: 'CustomAction'
@@ -21118,7 +21280,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -21126,7 +21287,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -21134,7 +21294,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             errorAction:
               | {
@@ -21143,7 +21302,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -21151,7 +21309,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -21159,7 +21316,6 @@ export type CreateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             resource: {
               __typename: 'Resource'
@@ -21193,7 +21349,7 @@ export type GetStoresQueryVariables = Exact<{
 export type GetStoresQuery = {
   __typename?: 'Query'
   stores: Array<{
-    __typename: 'Store'
+    __typename?: 'Store'
     id: string
     name: string
     stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -21206,7 +21362,6 @@ export type GetStoresQuery = {
           type: ActionKind
           runOnInit: boolean
           code: string
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'PipelineAction'
@@ -21214,7 +21369,6 @@ export type GetStoresQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
           actions: Array<
             | { __typename?: 'CustomAction'; id: string }
             | { __typename?: 'PipelineAction'; id: string }
@@ -21238,7 +21392,6 @@ export type GetStoresQuery = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
           successAction:
             | {
                 __typename: 'CustomAction'
@@ -21246,7 +21399,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'PipelineAction'
@@ -21254,7 +21406,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'ResourceAction'
@@ -21262,7 +21413,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
           errorAction:
             | {
@@ -21271,7 +21421,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'PipelineAction'
@@ -21279,7 +21428,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'ResourceAction'
@@ -21287,7 +21435,6 @@ export type GetStoresQuery = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
           resource: {
             __typename: 'Resource'
@@ -21312,7 +21459,7 @@ export type UpdateStoresMutation = {
   updateStores: {
     __typename?: 'UpdateStoresMutationResponse'
     stores: Array<{
-      __typename: 'Store'
+      __typename?: 'Store'
       id: string
       name: string
       stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -21325,7 +21472,6 @@ export type UpdateStoresMutation = {
             type: ActionKind
             runOnInit: boolean
             code: string
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -21333,7 +21479,6 @@ export type UpdateStoresMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             actions: Array<
               | { __typename?: 'CustomAction'; id: string }
               | { __typename?: 'PipelineAction'; id: string }
@@ -21357,7 +21502,6 @@ export type UpdateStoresMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
             successAction:
               | {
                   __typename: 'CustomAction'
@@ -21365,7 +21509,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -21373,7 +21516,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -21381,7 +21523,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             errorAction:
               | {
@@ -21390,7 +21531,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'PipelineAction'
@@ -21398,7 +21538,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
               | {
                   __typename: 'ResourceAction'
@@ -21406,7 +21545,6 @@ export type UpdateStoresMutation = {
                   name: string
                   type: ActionKind
                   runOnInit: boolean
-                  store: { __typename?: 'Store'; id: string; name: string }
                 }
             resource: {
               __typename: 'Resource'
@@ -21442,7 +21580,6 @@ export type UpdateCustomActionsMutation = {
       type: ActionKind
       runOnInit: boolean
       code: string
-      store: { __typename?: 'Store'; id: string; name: string }
     }>
   }
 }
@@ -21466,7 +21603,6 @@ export type UpdateResourceActionsMutation = {
       name: string
       type: ActionKind
       runOnInit: boolean
-      store: { __typename?: 'Store'; id: string; name: string }
       successAction:
         | {
             __typename: 'CustomAction'
@@ -21474,7 +21610,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -21482,7 +21617,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'ResourceAction'
@@ -21490,7 +21624,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
       errorAction:
         | {
@@ -21499,7 +21632,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'PipelineAction'
@@ -21507,7 +21639,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
         | {
             __typename: 'ResourceAction'
@@ -21515,7 +21646,6 @@ export type UpdateResourceActionsMutation = {
             name: string
             type: ActionKind
             runOnInit: boolean
-            store: { __typename?: 'Store'; id: string; name: string }
           }
       resource: {
         __typename: 'Resource'
@@ -21548,7 +21678,6 @@ export type UpdatePipelineActionsMutation = {
       name: string
       type: ActionKind
       runOnInit: boolean
-      store: { __typename?: 'Store'; id: string; name: string }
       actions: Array<
         | { __typename?: 'CustomAction'; id: string }
         | { __typename?: 'PipelineAction'; id: string }
@@ -23155,7 +23284,6 @@ type ActionBase_CustomAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 type ActionBase_PipelineAction_Fragment = {
@@ -23164,7 +23292,6 @@ type ActionBase_PipelineAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 type ActionBase_ResourceAction_Fragment = {
@@ -23173,7 +23300,6 @@ type ActionBase_ResourceAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type ActionBaseFragment =
@@ -23188,7 +23314,6 @@ type Action_CustomAction_Fragment = {
   type: ActionKind
   runOnInit: boolean
   code: string
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 type Action_PipelineAction_Fragment = {
@@ -23197,7 +23322,6 @@ type Action_PipelineAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
   actions: Array<
     | { __typename?: 'CustomAction'; id: string }
     | { __typename?: 'PipelineAction'; id: string }
@@ -23222,7 +23346,6 @@ type Action_ResourceAction_Fragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
   successAction:
     | {
         __typename: 'CustomAction'
@@ -23230,7 +23353,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'PipelineAction'
@@ -23238,7 +23360,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'ResourceAction'
@@ -23246,7 +23367,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
   errorAction:
     | {
@@ -23255,7 +23375,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'PipelineAction'
@@ -23263,7 +23382,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'ResourceAction'
@@ -23271,7 +23389,6 @@ type Action_ResourceAction_Fragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
   resource: {
     __typename: 'Resource'
@@ -23295,7 +23412,6 @@ export type CustomActionFragment = {
   name: string
   type: ActionKind
   runOnInit: boolean
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type PipelineActionFragment = {
@@ -23320,7 +23436,6 @@ export type PipelineActionFragment = {
         | { __typename?: 'ResourceAction'; id: string }
     }>
   }
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type ResourceActionFragment = {
@@ -23336,7 +23451,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'PipelineAction'
@@ -23344,7 +23458,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'ResourceAction'
@@ -23352,7 +23465,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
   errorAction:
     | {
@@ -23361,7 +23473,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'PipelineAction'
@@ -23369,7 +23480,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'ResourceAction'
@@ -23377,7 +23487,6 @@ export type ResourceActionFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
       }
   resource: {
     __typename: 'Resource'
@@ -23387,7 +23496,6 @@ export type ResourceActionFragment = {
     config: { __typename?: 'Prop'; id: string; data: string }
   }
   config: { __typename?: 'Prop'; id: string; data: string }
-  store: { __typename?: 'Store'; id: string; name: string }
 }
 
 export type RedirectedAppFragment = {
@@ -23595,9 +23703,10 @@ export type PageBuilderAppFragment = {
         }>
       }
     }
+    app: { __typename?: 'App'; id: string }
   }>
   store: {
-    __typename: 'Store'
+    __typename?: 'Store'
     id: string
     name: string
     stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -23610,7 +23719,6 @@ export type PageBuilderAppFragment = {
           type: ActionKind
           runOnInit: boolean
           code: string
-          store: { __typename?: 'Store'; id: string; name: string }
         }
       | {
           __typename: 'PipelineAction'
@@ -23618,7 +23726,6 @@ export type PageBuilderAppFragment = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
           actions: Array<
             | { __typename?: 'CustomAction'; id: string }
             | { __typename?: 'PipelineAction'; id: string }
@@ -23642,7 +23749,6 @@ export type PageBuilderAppFragment = {
           name: string
           type: ActionKind
           runOnInit: boolean
-          store: { __typename?: 'Store'; id: string; name: string }
           successAction:
             | {
                 __typename: 'CustomAction'
@@ -23650,7 +23756,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'PipelineAction'
@@ -23658,7 +23763,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'ResourceAction'
@@ -23666,7 +23770,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
           errorAction:
             | {
@@ -23675,7 +23778,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'PipelineAction'
@@ -23683,7 +23785,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
             | {
                 __typename: 'ResourceAction'
@@ -23691,7 +23792,6 @@ export type PageBuilderAppFragment = {
                 name: string
                 type: ActionKind
                 runOnInit: boolean
-                store: { __typename?: 'Store'; id: string; name: string }
               }
           resource: {
             __typename: 'Resource'
@@ -23854,7 +23954,7 @@ export type ResourceFragment = {
 }
 
 export type StoreFragment = {
-  __typename: 'Store'
+  __typename?: 'Store'
   id: string
   name: string
   stateApi: { __typename?: 'InterfaceType'; id: string; name: string }
@@ -23867,7 +23967,6 @@ export type StoreFragment = {
         type: ActionKind
         runOnInit: boolean
         code: string
-        store: { __typename?: 'Store'; id: string; name: string }
       }
     | {
         __typename: 'PipelineAction'
@@ -23875,7 +23974,6 @@ export type StoreFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
         actions: Array<
           | { __typename?: 'CustomAction'; id: string }
           | { __typename?: 'PipelineAction'; id: string }
@@ -23899,7 +23997,6 @@ export type StoreFragment = {
         name: string
         type: ActionKind
         runOnInit: boolean
-        store: { __typename?: 'Store'; id: string; name: string }
         successAction:
           | {
               __typename: 'CustomAction'
@@ -23907,7 +24004,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
           | {
               __typename: 'PipelineAction'
@@ -23915,7 +24011,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
           | {
               __typename: 'ResourceAction'
@@ -23923,7 +24018,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
         errorAction:
           | {
@@ -23932,7 +24026,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
           | {
               __typename: 'PipelineAction'
@@ -23940,7 +24033,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
           | {
               __typename: 'ResourceAction'
@@ -23948,7 +24040,6 @@ export type StoreFragment = {
               name: string
               type: ActionKind
               runOnInit: boolean
-              store: { __typename?: 'Store'; id: string; name: string }
             }
         resource: {
           __typename: 'Resource'

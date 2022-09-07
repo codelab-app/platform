@@ -1,6 +1,7 @@
 import { ElementTreeService } from '@codelab/frontend/modules/element'
 import { pageRef } from '@codelab/frontend/modules/page'
-import { IApp, IAppDTO, IPage } from '@codelab/shared/abstract/core'
+import { storeRef } from '@codelab/frontend/presenter/container'
+import { IApp, IAppDTO, IPage, IStore } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import {
   detach,
@@ -19,7 +20,7 @@ const hydrate = (app: IAppDTO) => {
     name: app.name,
     slug: app.slug,
     ownerId: app.owner?.id,
-    store: { id: app.store.id },
+    store: storeRef(app.store.id),
     pages: app.pages.map((page) => pageRef(page.id)),
   })
 }
@@ -31,7 +32,7 @@ export class App
     ownerId: prop<string>(),
     name: prop<string>().withSetter(),
     slug: prop<string>(),
-    store: prop<IEntity>(),
+    store: prop<Ref<IStore>>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
   implements IApp
@@ -44,7 +45,7 @@ export class App
     this.ownerId = data.owner?.id
     this.setName(data.name)
     this.slug = data.slug
-    this.store.id = data.store.id
+    this.store = storeRef(data.store.id)
     this.pages = data.pages.map((page) => pageRef(page.id))
 
     return this

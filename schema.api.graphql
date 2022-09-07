@@ -14574,14 +14574,13 @@ enum SortDirection {
 type Store {
   actions(
     directed: Boolean = true
-    options: ActionBaseOptions
-    where: ActionBaseWhere
-  ): [ActionBase!]!
+    options: QueryOptions
+    where: AnyActionWhere
+  ): [AnyAction!]!
   actionsConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [StoreActionsConnectionSort!]
     where: StoreActionsConnectionWhere
   ): StoreActionsConnection!
   id: ID!
@@ -14616,9 +14615,16 @@ type Store {
   ): StoreStateConnection!
 }
 
-input StoreActionsConnectFieldInput {
-  connect: ActionBaseConnectInput
-  where: ActionBaseConnectWhere
+input StoreActionsConnectInput {
+  CustomAction: [StoreActionsCustomActionConnectFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionConnectFieldInput!]
+  ResourceAction: [StoreActionsResourceActionConnectFieldInput!]
+}
+
+input StoreActionsConnectOrCreateInput {
+  CustomAction: [StoreActionsCustomActionConnectOrCreateFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
+  ResourceAction: [StoreActionsResourceActionConnectOrCreateFieldInput!]
 }
 
 type StoreActionsConnection {
@@ -14627,52 +14633,210 @@ type StoreActionsConnection {
   totalCount: Int!
 }
 
-input StoreActionsConnectionSort {
-  node: ActionBaseSort
-}
-
 input StoreActionsConnectionWhere {
-  AND: [StoreActionsConnectionWhere!]
-  OR: [StoreActionsConnectionWhere!]
-  node: ActionBaseWhere
-  node_NOT: ActionBaseWhere
+  CustomAction: StoreActionsCustomActionConnectionWhere
+  PipelineAction: StoreActionsPipelineActionConnectionWhere
+  ResourceAction: StoreActionsResourceActionConnectionWhere
 }
 
 input StoreActionsCreateFieldInput {
-  node: ActionBaseCreateInput!
+  CustomAction: [StoreActionsCustomActionCreateFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionCreateFieldInput!]
+  ResourceAction: [StoreActionsResourceActionCreateFieldInput!]
 }
 
-input StoreActionsDeleteFieldInput {
-  delete: ActionBaseDeleteInput
-  where: StoreActionsConnectionWhere
+input StoreActionsCreateInput {
+  CustomAction: StoreActionsCustomActionFieldInput
+  PipelineAction: StoreActionsPipelineActionFieldInput
+  ResourceAction: StoreActionsResourceActionFieldInput
 }
 
-input StoreActionsDisconnectFieldInput {
-  disconnect: ActionBaseDisconnectInput
-  where: StoreActionsConnectionWhere
+input StoreActionsCustomActionConnectFieldInput {
+  connect: [CustomActionConnectInput!]
+  where: CustomActionConnectWhere
 }
 
-input StoreActionsFieldInput {
-  connect: [StoreActionsConnectFieldInput!]
-  create: [StoreActionsCreateFieldInput!]
+input StoreActionsCustomActionConnectOrCreateFieldInput {
+  onCreate: StoreActionsCustomActionConnectOrCreateFieldInputOnCreate!
+  where: CustomActionConnectOrCreateWhere!
+}
+
+input StoreActionsCustomActionConnectOrCreateFieldInputOnCreate {
+  node: CustomActionOnCreateInput!
+}
+
+input StoreActionsCustomActionConnectionWhere {
+  AND: [StoreActionsCustomActionConnectionWhere!]
+  OR: [StoreActionsCustomActionConnectionWhere!]
+  node: CustomActionWhere
+  node_NOT: CustomActionWhere
+}
+
+input StoreActionsCustomActionCreateFieldInput {
+  node: CustomActionCreateInput!
+}
+
+input StoreActionsCustomActionDeleteFieldInput {
+  delete: CustomActionDeleteInput
+  where: StoreActionsCustomActionConnectionWhere
+}
+
+input StoreActionsCustomActionDisconnectFieldInput {
+  disconnect: CustomActionDisconnectInput
+  where: StoreActionsCustomActionConnectionWhere
+}
+
+input StoreActionsCustomActionFieldInput {
+  connect: [StoreActionsCustomActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsCustomActionConnectOrCreateFieldInput!]
+  create: [StoreActionsCustomActionCreateFieldInput!]
+}
+
+input StoreActionsCustomActionUpdateConnectionInput {
+  node: CustomActionUpdateInput
+}
+
+input StoreActionsCustomActionUpdateFieldInput {
+  connect: [StoreActionsCustomActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsCustomActionConnectOrCreateFieldInput!]
+  create: [StoreActionsCustomActionCreateFieldInput!]
+  delete: [StoreActionsCustomActionDeleteFieldInput!]
+  disconnect: [StoreActionsCustomActionDisconnectFieldInput!]
+  update: StoreActionsCustomActionUpdateConnectionInput
+  where: StoreActionsCustomActionConnectionWhere
+}
+
+input StoreActionsDeleteInput {
+  CustomAction: [StoreActionsCustomActionDeleteFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionDeleteFieldInput!]
+  ResourceAction: [StoreActionsResourceActionDeleteFieldInput!]
+}
+
+input StoreActionsDisconnectInput {
+  CustomAction: [StoreActionsCustomActionDisconnectFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionDisconnectFieldInput!]
+  ResourceAction: [StoreActionsResourceActionDisconnectFieldInput!]
+}
+
+input StoreActionsPipelineActionConnectFieldInput {
+  connect: [PipelineActionConnectInput!]
+  where: PipelineActionConnectWhere
+}
+
+input StoreActionsPipelineActionConnectOrCreateFieldInput {
+  onCreate: StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate!
+  where: PipelineActionConnectOrCreateWhere!
+}
+
+input StoreActionsPipelineActionConnectOrCreateFieldInputOnCreate {
+  node: PipelineActionOnCreateInput!
+}
+
+input StoreActionsPipelineActionConnectionWhere {
+  AND: [StoreActionsPipelineActionConnectionWhere!]
+  OR: [StoreActionsPipelineActionConnectionWhere!]
+  node: PipelineActionWhere
+  node_NOT: PipelineActionWhere
+}
+
+input StoreActionsPipelineActionCreateFieldInput {
+  node: PipelineActionCreateInput!
+}
+
+input StoreActionsPipelineActionDeleteFieldInput {
+  delete: PipelineActionDeleteInput
+  where: StoreActionsPipelineActionConnectionWhere
+}
+
+input StoreActionsPipelineActionDisconnectFieldInput {
+  disconnect: PipelineActionDisconnectInput
+  where: StoreActionsPipelineActionConnectionWhere
+}
+
+input StoreActionsPipelineActionFieldInput {
+  connect: [StoreActionsPipelineActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
+  create: [StoreActionsPipelineActionCreateFieldInput!]
+}
+
+input StoreActionsPipelineActionUpdateConnectionInput {
+  node: PipelineActionUpdateInput
+}
+
+input StoreActionsPipelineActionUpdateFieldInput {
+  connect: [StoreActionsPipelineActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsPipelineActionConnectOrCreateFieldInput!]
+  create: [StoreActionsPipelineActionCreateFieldInput!]
+  delete: [StoreActionsPipelineActionDeleteFieldInput!]
+  disconnect: [StoreActionsPipelineActionDisconnectFieldInput!]
+  update: StoreActionsPipelineActionUpdateConnectionInput
+  where: StoreActionsPipelineActionConnectionWhere
 }
 
 type StoreActionsRelationship {
   cursor: String!
-  node: ActionBase!
+  node: AnyAction!
 }
 
-input StoreActionsUpdateConnectionInput {
-  node: ActionBaseUpdateInput
+input StoreActionsResourceActionConnectFieldInput {
+  connect: [ResourceActionConnectInput!]
+  where: ResourceActionConnectWhere
 }
 
-input StoreActionsUpdateFieldInput {
-  connect: [StoreActionsConnectFieldInput!]
-  create: [StoreActionsCreateFieldInput!]
-  delete: [StoreActionsDeleteFieldInput!]
-  disconnect: [StoreActionsDisconnectFieldInput!]
-  update: StoreActionsUpdateConnectionInput
-  where: StoreActionsConnectionWhere
+input StoreActionsResourceActionConnectOrCreateFieldInput {
+  onCreate: StoreActionsResourceActionConnectOrCreateFieldInputOnCreate!
+  where: ResourceActionConnectOrCreateWhere!
+}
+
+input StoreActionsResourceActionConnectOrCreateFieldInputOnCreate {
+  node: ResourceActionOnCreateInput!
+}
+
+input StoreActionsResourceActionConnectionWhere {
+  AND: [StoreActionsResourceActionConnectionWhere!]
+  OR: [StoreActionsResourceActionConnectionWhere!]
+  node: ResourceActionWhere
+  node_NOT: ResourceActionWhere
+}
+
+input StoreActionsResourceActionCreateFieldInput {
+  node: ResourceActionCreateInput!
+}
+
+input StoreActionsResourceActionDeleteFieldInput {
+  delete: ResourceActionDeleteInput
+  where: StoreActionsResourceActionConnectionWhere
+}
+
+input StoreActionsResourceActionDisconnectFieldInput {
+  disconnect: ResourceActionDisconnectInput
+  where: StoreActionsResourceActionConnectionWhere
+}
+
+input StoreActionsResourceActionFieldInput {
+  connect: [StoreActionsResourceActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsResourceActionConnectOrCreateFieldInput!]
+  create: [StoreActionsResourceActionCreateFieldInput!]
+}
+
+input StoreActionsResourceActionUpdateConnectionInput {
+  node: ResourceActionUpdateInput
+}
+
+input StoreActionsResourceActionUpdateFieldInput {
+  connect: [StoreActionsResourceActionConnectFieldInput!]
+  connectOrCreate: [StoreActionsResourceActionConnectOrCreateFieldInput!]
+  create: [StoreActionsResourceActionCreateFieldInput!]
+  delete: [StoreActionsResourceActionDeleteFieldInput!]
+  disconnect: [StoreActionsResourceActionDisconnectFieldInput!]
+  update: StoreActionsResourceActionUpdateConnectionInput
+  where: StoreActionsResourceActionConnectionWhere
+}
+
+input StoreActionsUpdateInput {
+  CustomAction: [StoreActionsCustomActionUpdateFieldInput!]
+  PipelineAction: [StoreActionsPipelineActionUpdateFieldInput!]
+  ResourceAction: [StoreActionsResourceActionUpdateFieldInput!]
 }
 
 type StoreAggregateSelection {
@@ -14682,12 +14846,13 @@ type StoreAggregateSelection {
 }
 
 input StoreConnectInput {
-  actions: [StoreActionsConnectFieldInput!]
+  actions: StoreActionsConnectInput
   state: StoreStateConnectFieldInput
   stateApi: StoreStateApiConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
+  actions: StoreActionsConnectOrCreateInput
   state: StoreStateConnectOrCreateFieldInput
   stateApi: StoreStateApiConnectOrCreateFieldInput
 }
@@ -14701,7 +14866,7 @@ input StoreConnectWhere {
 }
 
 input StoreCreateInput {
-  actions: StoreActionsFieldInput
+  actions: StoreActionsCreateInput
   id: ID!
   name: String!
   state: StoreStateFieldInput
@@ -14709,13 +14874,13 @@ input StoreCreateInput {
 }
 
 input StoreDeleteInput {
-  actions: [StoreActionsDeleteFieldInput!]
+  actions: StoreActionsDeleteInput
   state: StoreStateDeleteFieldInput
   stateApi: StoreStateApiDeleteFieldInput
 }
 
 input StoreDisconnectInput {
-  actions: [StoreActionsDisconnectFieldInput!]
+  actions: StoreActionsDisconnectInput
   state: StoreStateDisconnectFieldInput
   stateApi: StoreStateApiDisconnectFieldInput
 }
@@ -14761,7 +14926,7 @@ type StorePropStateNodeAggregateSelection {
 }
 
 input StoreRelationInput {
-  actions: [StoreActionsCreateFieldInput!]
+  actions: StoreActionsCreateFieldInput
   state: StoreStateCreateFieldInput
   stateApi: StoreStateApiCreateFieldInput
 }
@@ -14990,7 +15155,7 @@ input StoreUniqueWhere {
 }
 
 input StoreUpdateInput {
-  actions: [StoreActionsUpdateFieldInput!]
+  actions: StoreActionsUpdateInput
   id: ID
   name: String
   state: StoreStateUpdateFieldInput

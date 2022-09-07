@@ -3,6 +3,7 @@ import { typeRef } from '@codelab/frontend/modules/type'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import {
   IActionService,
+  IApp,
   IAppService,
   IInterfaceType,
   IStoreService,
@@ -12,7 +13,6 @@ import { Button, Divider, Row } from 'antd'
 import { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useCurrentStore } from '../hooks'
 import { GetActionsList, GetStateList } from '../use-cases'
 
 interface StoreExplorerPaneProps {
@@ -20,13 +20,12 @@ interface StoreExplorerPaneProps {
   actionService: IActionService
   appService: IAppService
   storeService: IStoreService
+  app: IApp
 }
 
 export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
-  ({ typeService, actionService, appService, storeService }) => {
-    const { store } = useCurrentStore(appService, storeService)
-
-    if (!store) {
+  ({ typeService, actionService, appService, storeService, app }) => {
+    if (!app) {
       return null
     }
 
@@ -39,7 +38,7 @@ export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
             onClick={(event) => {
               event.stopPropagation()
               typeService.fieldCreateModal.open(
-                typeRef(store.stateApiId) as Ref<IInterfaceType>,
+                typeRef(app.store.current.stateApiId) as Ref<IInterfaceType>,
               )
             }}
             size="small"
@@ -48,7 +47,7 @@ export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
           />
         </Row>
         <div style={{ margin: '12px 0px 48px 12px' }}>
-          <GetStateList store={store} typeService={typeService} />
+          <GetStateList store={app.store.current} typeService={typeService} />
         </div>
         <Divider />
         <Row justify="space-between">
@@ -65,7 +64,10 @@ export const StoreExplorerPane = observer<StoreExplorerPaneProps>(
           />
         </Row>
         <div style={{ margin: '12px 0px 48px 12px' }}>
-          <GetActionsList actionService={actionService} store={store} />
+          <GetActionsList
+            actionService={actionService}
+            store={app.store.current}
+          />
         </div>
       </ExplorerPaneTemplate>
     )

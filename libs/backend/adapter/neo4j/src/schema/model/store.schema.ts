@@ -7,6 +7,6 @@ export const storeSchema = gql`
     state: Prop! @relationship(type: "STORE_STATE", direction: OUT)
     stateApi: InterfaceType!
       @relationship(type: "STORE_STATE_API", direction: OUT)
-    actions: [ActionBase!]! @relationship(type: "STORE_ACTION", direction: OUT)
+    actions: [AnyAction!]! @relationship(type: "STORE_ACTION", direction: OUT)
   }
 `

@@ -9,7 +9,7 @@ export interface IStore {
   stateApiId: string
   state: IProp
   actions: Array<Ref<IAnyAction>>
-  updateCache(data: Omit<IStoreDTO, '__typename'>): IStore
+  writeCache(data: Omit<IStoreDTO, '__typename'>): IStore
   toMobxObservable(globals?: any): any
 }
 
