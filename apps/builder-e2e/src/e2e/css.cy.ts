@@ -1,8 +1,3 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import {
-  AppCreateInput,
-  AppPagesFieldInput,
-} from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/data'
 import { v4 } from 'uuid'
@@ -29,7 +24,7 @@ describe('CSS CRUD', () => {
     cy.getCurrentUserId()
       .as(uidCache)
       .then((userId) => {
-        const appInput: AppCreateInput = {
+        const appInput = {
           ...createAppInput(userId),
           pages: {
             create: [{ node: createPageInput() }],

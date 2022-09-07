@@ -4,15 +4,17 @@ import { getTagService, Tag } from '@codelab/frontend/modules/tag'
 import {
   BuilderDragData,
   BuilderTab,
+  IBuilderComponent,
   IBuilderService,
   INode,
   isComponent,
   isElement,
   RendererTab,
-  TagWithComponents,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { componentTagName } from '@codelab/shared/data'
+import { isNonNullable } from '@codelab/shared/utils'
+import { groupBy } from 'lodash'
 import { computed } from 'mobx'
 import {
   _async,
@@ -94,10 +96,11 @@ export class BuilderService
     )
   }
 
-  get tagsWithComponents() {
+  get componentsGroupedByTag() {
     const atomService = getAtomService(this)
     // const componentService = getComponentService(this)
 
+    // atoms are internal components while components are created by users
     const components = [
       ...atomService.atoms,
       // ...[...componentService.components.values()],
